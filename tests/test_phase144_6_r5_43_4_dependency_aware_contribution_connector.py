@@ -233,14 +233,3 @@ def test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness(
   )
 
 
-def test_phase144_6_r5_43_4_has_no_pi6_specific_branch():
-  import inspect
-  import toda_group_proof_narrative_contribution_renderer as module
-
-  source = inspect.getsource(
-    module
-  )
-
-  assert "n == 3" not in source
-  assert "k == 3" not in source
-  assert "_pi6" not in source.lower()

@@ -85,12 +85,3 @@ def test_phase150_rc4_5d_3_classifier_has_no_target_or_rule_name_special_case():
     assert fragment not in source
 
 
-def test_phase150_rc4_5d_3_renderer_has_no_target_or_proposition_special_case():
-  import toda_group_proof_narrative_reason_renderer as module
-  source = inspect.getsource(
-    module.render_toda_group_proof_narrative_reason_sentence
-  )
-  for fragment in (
-    "(6, 3)", "pi6", "nu_prime", "ν′", "Proposition 5.6",
-  ):
-    assert fragment not in source

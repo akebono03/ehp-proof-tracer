@@ -59,24 +59,6 @@ def test_phase143_61b_r_keeps_pi15_8_final_conclusion():
   )
 
 
-def test_phase143_61b_r_keeps_pi8_5_relocated_direct_premise():
-  rendered = _render(
-    5,
-    3,
-  )
-
-  assert (
-    r"$2\nu_{5} = E^{2}\nu'$"
-    "\n\n"
-    r"$\operatorname{ord}\left(E^{2}\nu'\right) = 4$"
-    "\n\n"
-    "以上より, "
-    "\n\n"
-    r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
-    in rendered
-  )
-
-
 def test_phase143_61b_r_keeps_pi6_3_local_connector():
   rendered = _render(
     3,

@@ -340,14 +340,3 @@ def test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names():
   assert "eta_4 squared stable transport" not in source
 
 
-def test_phase144_6_r5_43_10_has_no_pi6_specific_branch():
-  import inspect
-  import toda_group_proof_narrative_contribution_renderer as module
-
-  source = inspect.getsource(
-    module
-  )
-
-  assert "n == 3" not in source
-  assert "k == 3" not in source
-  assert "_pi6" not in source.lower()

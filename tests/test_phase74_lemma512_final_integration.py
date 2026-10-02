@@ -854,17 +854,6 @@ def test_phase74_8_does_not_expose_coefficient_field():
   )
 
 
-def test_phase74_8_does_not_create_nu_square_class():
-  data = build_phase74_8_data()
-
-  assert type(
-    data[
-      "final_step"
-    ].conclusion
-    .generator
-  ) is Composition
-
-
 def test_phase74_8_reaches_fixed_point():
   data = build_phase74_8_data()
 

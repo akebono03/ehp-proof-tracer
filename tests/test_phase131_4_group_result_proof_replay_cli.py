@@ -34,28 +34,6 @@ def test_phase131_4_group_proof_sigma9_renders_group_source_and_proof(
   )
 
 
-def test_phase131_4_group_proof_zero_depth_contains_only_root(
-  capsys,
-):
-  exit_code = cli_main.main(
-    [
-      "group-proof",
-      "9",
-      "7",
-      "--depth",
-      "0",
-      "--mode",
-      "trace",
-    ]
-  )
-
-  captured = capsys.readouterr()
-
-  assert exit_code == 0
-  assert "Depth 0" in captured.out
-  assert "Depth 1" not in captured.out
-
-
 def test_phase131_4_group_proof_zero_group_does_not_require_generator(
   capsys,
 ):

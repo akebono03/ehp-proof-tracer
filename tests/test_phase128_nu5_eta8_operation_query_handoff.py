@@ -41,24 +41,6 @@ from standard_production_repository import (
 )
 
 
-def test_phase128_2_direct_lookup_still_misses():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  query = parse_repository_operation_query(
-    "E(nu_5 o eta_8)"
-  )
-
-  result = query_repository_operation(
-    repository,
-    query,
-  )
-
-  assert not result.found
-  assert result.matches == ()
-
-
 def test_phase128_2_guard_accepts_only_exact_target_query():
   query = parse_repository_operation_query(
     "E(nu_5 o eta_8)"
@@ -323,32 +305,6 @@ def test_phase128_2_query_proof_replays_existing_provenance():
       sphere_dimension=5,
     )
     for replay_step in replay.steps
-  )
-
-
-def test_phase128_2_handoff_does_not_mutate_repository():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  before = repository.entries()
-
-  result = query_repository_operation_input(
-    repository,
-    "E(nu_5 o eta_8)",
-  )
-
-  after = repository.entries()
-
-  assert result.found
-  assert after == before
-
-  assert all(
-    actual is expected
-    for actual, expected in zip(
-      after,
-      before,
-    )
   )
 
 

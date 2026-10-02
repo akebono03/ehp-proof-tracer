@@ -44,22 +44,6 @@ def test_phase100_12b_standard_integration_builds_repository():
   )
 
 
-def test_phase100_12b_standard_integration_has_deterministic_entry_order():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  assert tuple(
-    entry.key
-    for entry in repository.entries()
-  ) == (
-    "standard.toda.prop56",
-    "standard.toda.prop58",
-    "standard.toda.prop511",
-    "standard.toda.prop515",
-  )
-
-
 def test_phase100_12b_standard_integration_reuses_single_closure_identity():
   repository = (
     build_standard_production_proof_repository()

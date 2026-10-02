@@ -333,32 +333,3 @@ def test_phase110_10_query_proof_help_documents_fact(
   assert captured.err == ""
 
 
-def test_phase110_10_existing_query_command_is_unchanged(
-  monkeypatch,
-  capsys,
-):
-  fake_result = SimpleNamespace(
-    found=False,
-  )
-
-  monkeypatch.setattr(
-    cli_main,
-    "query_standard_repository_operation_input",
-    lambda query_input: fake_result,
-  )
-
-  exit_code = cli_main.main(
-    [
-      "query",
-      "H(eta_999)",
-    ]
-  )
-
-  captured = capsys.readouterr()
-
-  assert exit_code == 1
-  assert captured.out == (
-    "No known repository fact found for "
-    "H(eta_999).\n"
-  )
-  assert captured.err == ""

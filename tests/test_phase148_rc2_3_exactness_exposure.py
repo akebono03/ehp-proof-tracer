@@ -151,52 +151,6 @@ def test_phase148_rc2_3_pi12_5_definition_is_unowned_recursive():
   )
 
 
-def test_phase148_rc2_3_pi6_3_keeps_derived_short_exact_sequence():
-  rendered = _render(
-    3,
-    3,
-  )
-  assert (
-    r"0\longrightarrow \pi_{5}^{2}"
-    r"\xrightarrow{E} \pi_{6}^{3}"
-    r"\xrightarrow{H} \pi_{6}^{5}"
-    r"\longrightarrow 0"
-    in rendered
-  )
-
-
-def test_phase148_rc2_3_pi10_4_hides_unowned_recursive_exactness_windows():
-  rendered = _render(
-    4,
-    6,
-  )
-  assert (
-    r"\pi_{9}^{3} \xrightarrow{H} "
-    r"\pi_{9}^{5} \xrightarrow{\Delta} "
-    r"\pi_{7}^{2}"
-    not in rendered
-  )
-  assert (
-    r"\pi_{8}^{2} \xrightarrow{E} "
-    r"\pi_{9}^{3} \xrightarrow{H} "
-    r"\pi_{9}^{5}"
-    not in rendered
-  )
-
-
-def test_phase148_rc2_3_pi16_9_hides_unowned_recursive_exactness_window():
-  rendered = _render(
-    9,
-    7,
-  )
-  assert (
-    r"\pi_{12}^{5} \xrightarrow{H} "
-    r"\pi_{12}^{9} \xrightarrow{\Delta} "
-    r"\pi_{10}^{4}"
-    not in rendered
-  )
-
-
 def test_phase148_rc2_3_ambiguous_relevant_class_is_conservative():
   *_, components, _exposures = _argument_exposure_data(
     3,

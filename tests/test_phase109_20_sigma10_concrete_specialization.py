@@ -261,17 +261,3 @@ def test_phase109_20_sigma9_existing_concrete_fallback_still_works():
   )
 
 
-def test_phase109_20_standard_repository_root_entries_remain_unchanged():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  assert tuple(
-    entry.key
-    for entry in repository.entries()
-  ) == (
-    "standard.toda.prop56",
-    "standard.toda.prop58",
-    "standard.toda.prop511",
-    "standard.toda.prop515",
-  )

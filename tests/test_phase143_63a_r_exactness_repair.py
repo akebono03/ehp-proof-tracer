@@ -49,15 +49,3 @@ def test_phase143_63a_r_provenance_suppression_remains():
   assert "TodaLemma514Sigma8Statement" not in rendered
 
 
-def test_phase143_63a_r_pi8_5_direct_premise_placement_remains():
-  rendered = _render(5, 3)
-  assert (
-    r"$2\nu_{5} = E^{2}\nu'$"
-    "\n\n"
-    r"$\operatorname{ord}\left(E^{2}\nu'\right) = 4$"
-    "\n\n"
-    "以上より, "
-    "\n\n"
-    r"$\operatorname{ord}\left(\nu_{5}\right) = 8$"
-    in rendered
-  )

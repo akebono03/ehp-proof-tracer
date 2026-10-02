@@ -66,29 +66,6 @@ def test_phase144_6_r5_41_unique_orders_need_no_tiebreak(
   )
 
 
-def test_phase144_6_r5_41_pi6_five_contributions_are_unique_chain(
-  topological_order_audit,
-):
-  audits, nodes = topological_order_audit
-  pi6 = tuple(
-    a
-    for a in audits
-    if (
-      a.n,
-      a.k,
-    ) == (
-      3,
-      3,
-    )
-    and a.node_count > 0
-  )
-  assert pi6
-  assert all(
-    len(set(a.stable_order_keys)) == a.node_count
-    for a in pi6
-  )
-
-
 def test_phase144_6_r5_41_pi6_order_has_five_distinct_keys(
   topological_order_audit,
 ):

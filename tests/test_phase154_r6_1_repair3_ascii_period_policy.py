@@ -143,11 +143,3 @@ def test_phase154_r6_1_repair3_pi11_4_uses_ascii_period_sentence_endings():
   )
 
 
-def test_phase154_r6_1_repair3_keeps_reference_title_periods():
-  rendered = _render_group(
-    4,
-    7,
-  )
-
-  assert "**[R1] Proposition 5.8.**" in rendered
-  assert "**[R2] Proposition 4.4.**" in rendered

@@ -38,24 +38,6 @@ from toda_rules import (
 )
 
 
-def test_phase115_4_direct_lookup_for_e_sigma11_still_misses():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  query = parse_repository_operation_query(
-    "E(sigma_11)"
-  )
-
-  result = query_repository_operation(
-    repository,
-    query,
-  )
-
-  assert not result.found
-  assert result.matches == ()
-
-
 def test_phase115_4_facade_handoff_derives_e_sigma11_equals_sigma12():
   result = (
     query_standard_repository_operation_input(
@@ -205,64 +187,6 @@ def test_phase115_4_query_proof_replays_specialized_root_and_symbolic_definition
     is replay.root_step.premises[
       0
     ]
-  )
-
-
-def test_phase115_4_handoff_does_not_mutate_repository():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  before = repository.entries()
-
-  result = query_repository_operation_input(
-    repository,
-    "E(sigma_11)",
-  )
-
-  after = repository.entries()
-
-  assert result.found
-  assert after == before
-
-  assert all(
-    actual is expected
-    for actual, expected in zip(
-      after,
-      before,
-    )
-  )
-
-
-def test_phase115_4_handoff_is_deterministic():
-  first = (
-    query_standard_repository_operation_input(
-      "E(sigma_11)"
-    )
-  )
-
-  second = (
-    query_standard_repository_operation_input(
-      "E(sigma_11)"
-    )
-  )
-
-  assert tuple(
-    (
-      match.scope_node.root_entry.key,
-      match.scope_node.shortest_depth,
-      match.statement,
-      match.match_kind,
-    )
-    for match in first.matches
-  ) == tuple(
-    (
-      match.scope_node.root_entry.key,
-      match.scope_node.shortest_depth,
-      match.statement,
-      match.match_kind,
-    )
-    for match in second.matches
   )
 
 

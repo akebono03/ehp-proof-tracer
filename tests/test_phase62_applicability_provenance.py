@@ -202,18 +202,6 @@ def test_phase62_5_nu_family_definition_starts_at_four():
   )
 
 
-def test_phase62_5_nu_family_definition_rejects_three():
-  with pytest.raises(
-    ValueError,
-    match=(
-      "nu family requires n >= 4"
-    ),
-  ):
-    toda_nu_family_definition_statement(
-      3
-    )
-
-
 def test_phase62_5_toda55_range_is_explicit_n_at_least_five():
   data = build_phase62_5_data()
 

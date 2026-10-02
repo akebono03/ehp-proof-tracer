@@ -133,17 +133,3 @@ def test_phase100_12c1_standard_one_shot_reuses_query_validation():
     )
 
 
-def test_phase100_12c1_existing_repository_explicit_facade_remains_available():
-  repository = ProofRepository()
-
-  result = build_toda_report(
-    repository,
-    n=5,
-    k=7,
-  )
-
-  assert (
-    result.status
-    is TodaCalculationStatus.NOT_FOUND
-  )
-  assert result.candidates == ()

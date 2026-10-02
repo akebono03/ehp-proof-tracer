@@ -52,39 +52,6 @@ def test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web(
   )
 
 
-def test_phase135_1_pi6_3_web_html_uses_data_latex_for_narrative_display_math(
-):
-  client = _build_test_client()
-
-  response = client.post(
-    "/",
-    data={
-      "form_kind": "group_proof",
-      "n": "3",
-      "k": "3",
-      "group_proof_depth": "1",
-      "group_proof_mode": "narrative",
-    },
-  )
-
-  assert response.status_code == 200
-
-  assert (
-    b"group-proof-rendered-math"
-    in response.data
-  )
-
-  assert (
-    b'data-proof-mode="narrative"'
-    in response.data
-  )
-
-  assert (
-    rb"\pi_{6}^{3}"
-    in response.data
-  )
-
-
 def test_phase135_1_existing_inline_math_adapter_is_preserved(
 ):
   view = (

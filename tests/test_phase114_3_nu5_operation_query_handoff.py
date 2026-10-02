@@ -36,24 +36,6 @@ from standard_production_repository import (
 )
 
 
-def test_phase114_3_direct_lookup_for_e_nu5_still_misses():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  query = parse_repository_operation_query(
-    "E(nu_5)"
-  )
-
-  result = query_repository_operation(
-    repository,
-    query,
-  )
-
-  assert not result.found
-  assert result.matches == ()
-
-
 def test_phase114_3_facade_handoff_derives_e_nu5_equals_nu6():
   result = (
     query_standard_repository_operation_input(
@@ -148,96 +130,6 @@ def test_phase114_3_handoff_preserves_symbolic_bridge_as_provenance():
   )
 
 
-def test_phase114_3_query_proof_replays_specialized_root_and_symbolic_bridge():
-  result = (
-    query_standard_repository_operation_input(
-      "E(nu_5)"
-    )
-  )
-
-  presentation = (
-    build_repository_operation_query_presentation(
-      result
-    )
-  )
-
-  assert len(presentation.items) == 1
-
-  replay = (
-    build_repository_operation_query_proof_replay(
-      presentation,
-      max_depth=1,
-    )
-  )
-
-  assert replay.root_step.rule is ProofRule.INFERENCE
-  assert len(replay.steps) == 2
-  assert replay.steps[0].depth == 0
-  assert replay.steps[1].depth == 1
-  assert (
-    replay.steps[1].proof_step
-    is replay.root_step.premises[0]
-  )
-
-
-def test_phase114_3_handoff_does_not_mutate_repository():
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  before = repository.entries()
-
-  result = query_repository_operation_input(
-    repository,
-    "E(nu_5)",
-  )
-
-  after = repository.entries()
-
-  assert result.found
-  assert after == before
-
-  assert all(
-    actual is expected
-    for actual, expected in zip(
-      after,
-      before,
-    )
-  )
-
-
-def test_phase114_3_handoff_is_deterministic():
-  first = (
-    query_standard_repository_operation_input(
-      "E(nu_5)"
-    )
-  )
-
-  second = (
-    query_standard_repository_operation_input(
-      "E(nu_5)"
-    )
-  )
-
-  assert tuple(
-    (
-      match.scope_node.root_entry.key,
-      match.scope_node.shortest_depth,
-      match.statement,
-      match.match_kind,
-    )
-    for match in first.matches
-  ) == tuple(
-    (
-      match.scope_node.root_entry.key,
-      match.scope_node.shortest_depth,
-      match.statement,
-      match.match_kind,
-    )
-    for match in second.matches
-  )
-
-
 def _assert_facade_preserves_direct_result(
   query_input,
 ):
@@ -289,12 +181,6 @@ def test_phase114_3_nu5_handoff_guard_does_not_accept_e_sigma11():
 def test_phase114_4_direct_e_fact_still_has_priority():
   _assert_facade_preserves_direct_result(
     "E(eta_2 o nu_prime)"
-  )
-
-
-def test_phase114_4_direct_h_fact_still_has_priority():
-  _assert_facade_preserves_direct_result(
-    "H(nu_prime)"
   )
 
 

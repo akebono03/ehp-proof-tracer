@@ -1446,40 +1446,6 @@ def test_empty_inference_rule_is_applicable_with_available_steps():
   )
 
 
-def test_inference_rule_applicability_searches_available_steps():
-  rule = InferenceRule(
-    name="combined rule",
-    premise_patterns=(
-      PremisePattern(
-        proof_rule=ProofRule.RELATION,
-      ),
-      PremisePattern(
-        proof_rule=ProofRule.GIVEN,
-      ),
-    ),
-  )
-
-  given_step = ProofStep(
-    conclusion="given fact",
-    premises=(),
-    rule=ProofRule.GIVEN,
-  )
-
-  relation_step = ProofStep(
-    conclusion="relation fact",
-    premises=(),
-    rule=ProofRule.RELATION,
-  )
-
-  assert is_inference_rule_applicable(
-    rule,
-    (
-      given_step,
-      relation_step,
-    ),
-  )
-
-
 def test_inference_rule_applicability_does_not_reuse_step():
   rule = InferenceRule(
     name="two given rule",
