@@ -91,18 +91,61 @@ def test_phase97_3_aggregate_found_runs_calculation_to_report_end_to_end():
   )
 
 
-def test_phase97_3_aggregate_found_preserves_goal_source_provenance():
-  data = build_phase95_20_data()
+def test_phase97_3_aggregate_found_preserves_goal_source_provenance(
+  monkeypatch,
+):
+  import toda_calculation_report as report_module
+  from test_phase95_minimal_calculation_result import (
+    build_phase95_2_candidate,
+  )
+  from toda_calculation_goal import (
+    TodaCalculationGoalSource,
+  )
+  from toda_calculation_result import (
+    TodaCalculationCandidate,
+    TodaCalculationResult,
+  )
+
+  query = TodaGroupQuery(
+    n=4,
+    k=6,
+  )
+  base = build_phase95_2_candidate(
+    "phase155.report.provenance",
+    query,
+  )
+  source_entry = (
+    base
+    .group_result
+    .source_entry
+  )
+  goal_source = TodaCalculationGoalSource(
+    source_entry=source_entry,
+    branch_name="synthetic_branch",
+  )
+  candidate = TodaCalculationCandidate(
+    group_result=base.group_result,
+    explanation=base.explanation,
+    goal_source=goal_source,
+  )
+  calculation_result = TodaCalculationResult(
+    query=query,
+    candidates=(
+      candidate,
+    ),
+  )
+
+  monkeypatch.setattr(
+    report_module,
+    "build_toda_calculation_result",
+    lambda repository, actual_query: calculation_result,
+  )
 
   result = (
-    build_toda_found_calculation_report_result(
-      data[
-        "repository"
-      ],
-      TodaGroupQuery(
-        n=5,
-        k=4,
-      ),
+    report_module
+    .build_toda_found_calculation_report_result(
+      ProofRepository(),
+      query,
     )
   )
 
@@ -113,22 +156,24 @@ def test_phase97_3_aggregate_found_preserves_goal_source_provenance():
   )
 
   assert (
+    source_candidate
+    is candidate
+  )
+  assert (
     source_candidate.goal_source
-    is not None
+    is goal_source
   )
   assert (
     source_candidate
     .goal_source
     .source_entry
-    is data[
-      "phase68_entry"
-    ]
+    is source_entry
   )
   assert (
     source_candidate
     .goal_source
     .branch_name
-    == "pi9_5_group_relation"
+    == "synthetic_branch"
   )
 
   source_presentation = (
@@ -140,17 +185,21 @@ def test_phase97_3_aggregate_found_preserves_goal_source_provenance():
   assert (
     source_presentation
     .goal_source
+    .source_goal_source
+    is goal_source
+  )
+  assert (
+    source_presentation
+    .goal_source
     .repository_source
     .source_entry
-    is data[
-      "phase68_entry"
-    ]
+    is source_entry
   )
   assert (
     source_presentation
     .goal_source
     .branch_name
-    == "pi9_5_group_relation"
+    == "synthetic_branch"
   )
 
 
