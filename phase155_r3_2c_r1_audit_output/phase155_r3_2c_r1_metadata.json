@@ -1,0 +1,16 @@
+{
+  "phase": "155-R3-2C-r1",
+  "git_head": "1aa897425cd6aa005ac6d4c241b04c9888d3f27b",
+  "remaining_review_pairs": 6,
+  "input_review_class_counts": {
+    "source_evidence_issue": 6
+  },
+  "root_cause_counts": {
+    "missing_execution_record": 6
+  },
+  "blocking_pair_count": 6,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}
