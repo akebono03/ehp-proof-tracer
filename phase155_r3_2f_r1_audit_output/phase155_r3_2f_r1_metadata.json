@@ -1,0 +1,21 @@
+{
+  "phase": "155-R3-2F-r1",
+  "git_head": "f90d582242286a3067b5b8c52425770c0b4f2bed",
+  "unique_candidate_base_tests": 440,
+  "candidate_pairs": 332,
+  "focused_pytest_exit_code": 0,
+  "runtime_status_counts": {
+    "passed": 440
+  },
+  "decision_counts": {
+    "removable_duplicate": 164,
+    "retain_independent": 125,
+    "historical_keep": 43
+  },
+  "closure_condition_satisfied": true,
+  "production_code_modified": false,
+  "existing_test_files_modified": 2,
+  "existing_test_functions_modified": 2,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}
