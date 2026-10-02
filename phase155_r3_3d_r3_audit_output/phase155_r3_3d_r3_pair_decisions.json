@@ -1,0 +1,42 @@
+[
+  {
+    "candidate_id": "R3-00138",
+    "verified_decision": "removable_duplicate",
+    "older_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "newer_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+    "relation": {
+      "assertions_equal": true,
+      "older_assertions_subset_newer": true,
+      "newer_assertions_subset_older": true,
+      "older_only_assertions": [],
+      "newer_only_assertions": [],
+      "calls_equal": true,
+      "older_calls_subset_newer": true
+    },
+    "older_external_references": [],
+    "newer_external_references": [],
+    "safe_semantic_containment": true,
+    "no_external_older_references": true,
+    "repaired_decision": "delete_older_keep_newer_candidate"
+  },
+  {
+    "candidate_id": "R3-00139",
+    "verified_decision": "removable_duplicate",
+    "older_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target",
+    "newer_test_id": "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component",
+    "relation": {
+      "assertions_equal": true,
+      "older_assertions_subset_newer": true,
+      "newer_assertions_subset_older": true,
+      "older_only_assertions": [],
+      "newer_only_assertions": [],
+      "calls_equal": true,
+      "older_calls_subset_newer": true
+    },
+    "older_external_references": [],
+    "newer_external_references": [],
+    "safe_semantic_containment": true,
+    "no_external_older_references": true,
+    "repaired_decision": "delete_older_keep_newer_candidate"
+  }
+]

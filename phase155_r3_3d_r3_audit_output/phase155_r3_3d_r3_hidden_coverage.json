@@ -1,0 +1,238 @@
+[
+  {
+    "test_id": "tests/test_set_rules.py::test_image_membership_statement",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 1,
+    "all_hidden_assertions_covered_elsewhere": false,
+    "recommendation": "preserve_hidden_coverage_before_cleanup",
+    "assertions": [
+      {
+        "assertion": "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='beta', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load()), args=[], keywords=[]))])])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_image_membership_statement",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_image_membership_statement",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1095
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      }
+    ]
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_image_membership_statement_distinguishes_image",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 0,
+    "all_hidden_assertions_covered_elsewhere": true,
+    "recommendation": "shadowed_definition_cleanup_ready",
+    "assertions": []
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 3,
+    "all_hidden_assertions_covered_elsewhere": false,
+    "recommendation": "preserve_hidden_coverage_before_cleanup",
+    "assertions": [
+      {
+        "assertion": "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='target', ctx=Load())])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_image_membership_statement_uses_existing_image_subgroup",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1128
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      },
+      {
+        "assertion": "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_image', ctx=Load())])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_image_membership_statement_uses_existing_image_subgroup",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1128
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      },
+      {
+        "assertion": "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=2)], ctx=Load()), Tuple(elts=[Constant(value=4)], ctx=Load())])])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_image_membership_statement_uses_existing_image_subgroup",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1128
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      }
+    ]
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_kernel_membership_statement",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 1,
+    "all_hidden_assertions_covered_elsewhere": false,
+    "recommendation": "preserve_hidden_coverage_before_cleanup",
+    "assertions": [
+      {
+        "assertion": "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_kernel_membership_statement",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_kernel_membership_statement",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 974
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      }
+    ]
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_kernel_membership_statement_distinguishes_kernel",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 0,
+    "all_hidden_assertions_covered_elsewhere": true,
+    "recommendation": "shadowed_definition_cleanup_ready",
+    "assertions": []
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 3,
+    "all_hidden_assertions_covered_elsewhere": false,
+    "recommendation": "preserve_hidden_coverage_before_cleanup",
+    "assertions": [
+      {
+        "assertion": "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='source', ctx=Load())])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1007
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      },
+      {
+        "assertion": "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_kernel', ctx=Load())])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1007
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      },
+      {
+        "assertion": "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=3)], ctx=Load())])])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1007
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      }
+    ]
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 1,
+    "all_hidden_assertions_covered_elsewhere": false,
+    "recommendation": "preserve_hidden_coverage_before_cleanup",
+    "assertions": [
+      {
+        "assertion": "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_mapped_zero_implies_kernel_membership",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1469
+          },
+          {
+            "test_id": "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1590
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      }
+    ]
+  },
+  {
+    "test_id": "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+    "runtime_definition_ordinal": 2,
+    "hidden_assertion_count": 1,
+    "all_hidden_assertions_covered_elsewhere": false,
+    "recommendation": "preserve_hidden_coverage_before_cleanup",
+    "assertions": [
+      {
+        "assertion": "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])",
+        "all_locations": [
+          {
+            "test_id": "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_mapped_zero_implies_kernel_membership",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1469
+          },
+          {
+            "test_id": "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+            "file_path": "tests/test_set_rules.py",
+            "function_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+            "definition_ordinal": 1,
+            "is_runtime_definition": false,
+            "line": 1590
+          }
+        ],
+        "runtime_other_locations": [],
+        "covered_by_other_runtime_test": false
+      }
+    ]
+  }
+]

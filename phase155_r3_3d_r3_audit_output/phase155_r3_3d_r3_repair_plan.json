@@ -1,0 +1,12 @@
+{
+  "shadowed_duplicate_groups": 8,
+  "shadowed_cleanup_ready": 2,
+  "hidden_coverage_preservation_required": 6,
+  "unresolved_pairs": 2,
+  "pair_delete_older_keep_newer_candidates": 2,
+  "pair_manual_semantic_review_required": 0,
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}
