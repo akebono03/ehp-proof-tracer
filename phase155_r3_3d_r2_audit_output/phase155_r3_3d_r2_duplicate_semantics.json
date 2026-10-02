@@ -1,0 +1,528 @@
+[
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_image_membership_statement",
+    "definition_count": 2,
+    "runtime_definition_line": 2611,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 1,
+    "earlier_only_assertions": [
+      "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='beta', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+    ],
+    "shadowed_definition_has_unique_assertions": true,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1095,
+        "end_line": 1125,
+        "source": "def test_image_membership_statement():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    4,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=source,\n    target=target,\n    matrix=[\n      [2],\n    ],\n  )\n\n  beta = nu(4)\n\n  statement = image_membership_statement(\n    element=beta,\n    group_map=f,\n  )\n\n  assert statement == MembershipStatement(\n    element=beta,\n    subgroup=f.image_subgroup(),\n  )",
+        "assertions": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='beta', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='MembershipStatement', ctx=Load())",
+          "Name(id='image_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='nu', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 1,
+        "assertions_only_here_vs_runtime": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='beta', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "runtime_assertions_missing_here": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='beta', ctx=Load())), keyword(arg='subgroup', value=Call(func=Name(id='ImageSubgroupReference', ctx=Load()), args=[], keywords=[keyword(arg='group_map', value=Name(id='f', ctx=Load()))]))])])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2611,
+        "end_line": 2643,
+        "source": "def test_image_membership_statement():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    4,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=source,\n    target=target,\n    matrix=[\n      [2],\n    ],\n  )\n\n  beta = nu(4)\n\n  statement = image_membership_statement(\n    element=beta,\n    group_map=f,\n  )\n\n  assert statement == MembershipStatement(\n    element=beta,\n    subgroup=ImageSubgroupReference(\n      group_map=f,\n    ),\n  )",
+        "assertions": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='beta', ctx=Load())), keyword(arg='subgroup', value=Call(func=Name(id='ImageSubgroupReference', ctx=Load()), args=[], keywords=[keyword(arg='group_map', value=Name(id='f', ctx=Load()))]))])])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='ImageSubgroupReference', ctx=Load())",
+          "Name(id='MembershipStatement', ctx=Load())",
+          "Name(id='image_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='nu', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 1,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_image_membership_statement_distinguishes_image",
+    "definition_count": 2,
+    "runtime_definition_line": 2703,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 0,
+    "earlier_only_assertions": [],
+    "shadowed_definition_has_unique_assertions": false,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1170,
+        "end_line": 1214,
+        "source": "def test_image_membership_statement_distinguishes_image():\n  group = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=group,\n    target=group,\n    matrix=[\n      [2],\n    ],\n  )\n\n  g = GroupMap(\n    name=\"identity\",\n    source=group,\n    target=group,\n    matrix=[\n      [1],\n    ],\n  )\n\n  beta = nu(4)\n\n  f_statement = image_membership_statement(\n    element=beta,\n    group_map=f,\n  )\n\n  g_statement = image_membership_statement(\n    element=beta,\n    group_map=g,\n  )\n\n  assert (\n    f_statement\n    != g_statement\n  )\n\n  assert (\n    f_statement.subgroup\n    != g_statement.subgroup\n  )",
+        "assertions": [
+          "Compare(left=Name(id='f_statement', ctx=Load()), ops=[NotEq()], comparators=[Name(id='g_statement', ctx=Load())])",
+          "Compare(left=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load())])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='image_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='nu', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 2,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": [
+          "Compare(left=Attribute(value=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load())])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2703,
+        "end_line": 2752,
+        "source": "def test_image_membership_statement_distinguishes_image():\n  group = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=group,\n    target=group,\n    matrix=[\n      [2],\n    ],\n  )\n\n  g = GroupMap(\n    name=\"identity\",\n    source=group,\n    target=group,\n    matrix=[\n      [1],\n    ],\n  )\n\n  beta = nu(4)\n\n  f_statement = image_membership_statement(\n    element=beta,\n    group_map=f,\n  )\n\n  g_statement = image_membership_statement(\n    element=beta,\n    group_map=g,\n  )\n\n  assert (\n    f_statement\n    != g_statement\n  )\n\n  assert (\n    f_statement.subgroup\n    != g_statement.subgroup\n  )\n\n  assert (\n    f_statement.subgroup.subgroup\n    != g_statement.subgroup.subgroup\n  )",
+        "assertions": [
+          "Compare(left=Name(id='f_statement', ctx=Load()), ops=[NotEq()], comparators=[Name(id='g_statement', ctx=Load())])",
+          "Compare(left=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load())])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='image_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='nu', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 3,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_image_membership_statement_uses_existing_image_subgroup",
+    "definition_count": 2,
+    "runtime_definition_line": 2646,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 3,
+    "earlier_only_assertions": [
+      "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='target', ctx=Load())])",
+      "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_image', ctx=Load())])",
+      "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=2)], ctx=Load()), Tuple(elts=[Constant(value=4)], ctx=Load())])])"
+    ],
+    "shadowed_definition_has_unique_assertions": true,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1128,
+        "end_line": 1167,
+        "source": "def test_image_membership_statement_uses_existing_image_subgroup():\n  source = make_cyclic_group(\n    6,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    6,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=source,\n    target=target,\n    matrix=[\n      [2],\n    ],\n  )\n\n  beta = nu(4)\n\n  statement = image_membership_statement(\n    element=beta,\n    group_map=f,\n  )\n\n  expected_image = f.image_subgroup()\n\n  assert statement.subgroup == expected_image\n  assert statement.subgroup.ambient_group == target\n\n  assert {\n    element.coefficients\n    for element in statement.subgroup.elements\n  } == {\n    (0,),\n    (2,),\n    (4,),\n  }",
+        "assertions": [
+          "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_image', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='target', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=2)], ctx=Load()), Tuple(elts=[Constant(value=4)], ctx=Load())])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='image_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='nu', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 3,
+        "assertions_only_here_vs_runtime": [
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='target', ctx=Load())])",
+          "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_image', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=2)], ctx=Load()), Tuple(elts=[Constant(value=4)], ctx=Load())])])"
+        ],
+        "runtime_assertions_missing_here": [
+          "Call(func=Name(id='isinstance', ctx=Load()), args=[Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), Name(id='ImageSubgroupReference', ctx=Load())], keywords=[])",
+          "Compare(left=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='target', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='group_map', ctx=Load()), ops=[Eq()], comparators=[Name(id='f', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_image', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=2)], ctx=Load()), Tuple(elts=[Constant(value=4)], ctx=Load())])])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2646,
+        "end_line": 2700,
+        "source": "def test_image_membership_statement_uses_existing_image_subgroup():\n  source = make_cyclic_group(\n    6,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    6,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=source,\n    target=target,\n    matrix=[\n      [2],\n    ],\n  )\n\n  beta = nu(4)\n\n  statement = image_membership_statement(\n    element=beta,\n    group_map=f,\n  )\n\n  expected_image = f.image_subgroup()\n\n  assert isinstance(\n    statement.subgroup,\n    ImageSubgroupReference,\n  )\n\n  assert statement.subgroup.group_map == f\n\n  assert (\n    statement.subgroup.subgroup\n    == expected_image\n  )\n\n  assert (\n    statement.subgroup.subgroup.ambient_group\n    == target\n  )\n\n  assert {\n    element.coefficients\n    for element\n    in statement.subgroup.subgroup.elements\n  } == {\n    (0,),\n    (2,),\n    (4,),\n  }",
+        "assertions": [
+          "Call(func=Name(id='isinstance', ctx=Load()), args=[Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), Name(id='ImageSubgroupReference', ctx=Load())], keywords=[])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='group_map', ctx=Load()), ops=[Eq()], comparators=[Name(id='f', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_image', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='target', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=2)], ctx=Load()), Tuple(elts=[Constant(value=4)], ctx=Load())])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='f', ctx=Load()), attr='image_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='image_membership_statement', ctx=Load())",
+          "Name(id='isinstance', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='nu', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 5,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_kernel_membership_statement",
+    "definition_count": 2,
+    "runtime_definition_line": 2468,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 1,
+    "earlier_only_assertions": [
+      "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+    ],
+    "shadowed_definition_has_unique_assertions": true,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 974,
+        "end_line": 1004,
+        "source": "def test_kernel_membership_statement():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    2,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"f\",\n    source=source,\n    target=target,\n    matrix=[\n      [1],\n    ],\n  )\n\n  alpha = eta(3)\n\n  statement = kernel_membership_statement(\n    element=alpha,\n    group_map=f,\n  )\n\n  assert statement == MembershipStatement(\n    element=alpha,\n    subgroup=f.kernel_subgroup(),\n  )",
+        "assertions": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='MembershipStatement', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 1,
+        "assertions_only_here_vs_runtime": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "runtime_assertions_missing_here": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Name(id='KernelSubgroupReference', ctx=Load()), args=[], keywords=[keyword(arg='group_map', value=Name(id='f', ctx=Load()))]))])])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2468,
+        "end_line": 2500,
+        "source": "def test_kernel_membership_statement():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    2,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"f\",\n    source=source,\n    target=target,\n    matrix=[\n      [1],\n    ],\n  )\n\n  alpha = eta(3)\n\n  statement = kernel_membership_statement(\n    element=alpha,\n    group_map=f,\n  )\n\n  assert statement == MembershipStatement(\n    element=alpha,\n    subgroup=KernelSubgroupReference(\n      group_map=f,\n    ),\n  )",
+        "assertions": [
+          "Compare(left=Name(id='statement', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Name(id='KernelSubgroupReference', ctx=Load()), args=[], keywords=[keyword(arg='group_map', value=Name(id='f', ctx=Load()))]))])])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='KernelSubgroupReference', ctx=Load())",
+          "Name(id='MembershipStatement', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 1,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_kernel_membership_statement_distinguishes_kernel",
+    "definition_count": 2,
+    "runtime_definition_line": 2559,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 0,
+    "earlier_only_assertions": [],
+    "shadowed_definition_has_unique_assertions": false,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1048,
+        "end_line": 1092,
+        "source": "def test_kernel_membership_statement_distinguishes_kernel():\n  group = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=group,\n    target=group,\n    matrix=[\n      [2],\n    ],\n  )\n\n  g = GroupMap(\n    name=\"zero\",\n    source=group,\n    target=group,\n    matrix=[\n      [0],\n    ],\n  )\n\n  alpha = eta(3)\n\n  f_statement = kernel_membership_statement(\n    element=alpha,\n    group_map=f,\n  )\n\n  g_statement = kernel_membership_statement(\n    element=alpha,\n    group_map=g,\n  )\n\n  assert (\n    f_statement\n    != g_statement\n  )\n\n  assert (\n    f_statement.subgroup\n    != g_statement.subgroup\n  )",
+        "assertions": [
+          "Compare(left=Name(id='f_statement', ctx=Load()), ops=[NotEq()], comparators=[Name(id='g_statement', ctx=Load())])",
+          "Compare(left=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load())])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 2,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": [
+          "Compare(left=Attribute(value=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load())])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2559,
+        "end_line": 2608,
+        "source": "def test_kernel_membership_statement_distinguishes_kernel():\n  group = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=group,\n    target=group,\n    matrix=[\n      [2],\n    ],\n  )\n\n  g = GroupMap(\n    name=\"zero\",\n    source=group,\n    target=group,\n    matrix=[\n      [0],\n    ],\n  )\n\n  alpha = eta(3)\n\n  f_statement = kernel_membership_statement(\n    element=alpha,\n    group_map=f,\n  )\n\n  g_statement = kernel_membership_statement(\n    element=alpha,\n    group_map=g,\n  )\n\n  assert (\n    f_statement\n    != g_statement\n  )\n\n  assert (\n    f_statement.subgroup\n    != g_statement.subgroup\n  )\n\n  assert (\n    f_statement.subgroup.subgroup\n    != g_statement.subgroup.subgroup\n  )",
+        "assertions": [
+          "Compare(left=Name(id='f_statement', ctx=Load()), ops=[NotEq()], comparators=[Name(id='g_statement', ctx=Load())])",
+          "Compare(left=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='f_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[NotEq()], comparators=[Attribute(value=Attribute(value=Name(id='g_statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load())])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 3,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_kernel_membership_statement_uses_existing_kernel_subgroup",
+    "definition_count": 2,
+    "runtime_definition_line": 2503,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 3,
+    "earlier_only_assertions": [
+      "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='source', ctx=Load())])",
+      "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_kernel', ctx=Load())])",
+      "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=3)], ctx=Load())])])"
+    ],
+    "shadowed_definition_has_unique_assertions": true,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1007,
+        "end_line": 1045,
+        "source": "def test_kernel_membership_statement_uses_existing_kernel_subgroup():\n  source = make_cyclic_group(\n    6,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    6,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=source,\n    target=target,\n    matrix=[\n      [2],\n    ],\n  )\n\n  alpha = eta(3)\n\n  statement = kernel_membership_statement(\n    element=alpha,\n    group_map=f,\n  )\n\n  expected_kernel = f.kernel_subgroup()\n\n  assert statement.subgroup == expected_kernel\n  assert statement.subgroup.ambient_group == source\n\n  assert {\n    element.coefficients\n    for element in statement.subgroup.elements\n  } == {\n    (0,),\n    (3,),\n  }",
+        "assertions": [
+          "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_kernel', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='source', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=3)], ctx=Load())])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 3,
+        "assertions_only_here_vs_runtime": [
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='source', ctx=Load())])",
+          "Compare(left=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_kernel', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=3)], ctx=Load())])])"
+        ],
+        "runtime_assertions_missing_here": [
+          "Call(func=Name(id='isinstance', ctx=Load()), args=[Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), Name(id='KernelSubgroupReference', ctx=Load())], keywords=[])",
+          "Compare(left=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='source', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='group_map', ctx=Load()), ops=[Eq()], comparators=[Name(id='f', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_kernel', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=3)], ctx=Load())])])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2503,
+        "end_line": 2556,
+        "source": "def test_kernel_membership_statement_uses_existing_kernel_subgroup():\n  source = make_cyclic_group(\n    6,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    6,\n    \"b\",\n  )\n\n  f = GroupMap(\n    name=\"times2\",\n    source=source,\n    target=target,\n    matrix=[\n      [2],\n    ],\n  )\n\n  alpha = eta(3)\n\n  statement = kernel_membership_statement(\n    element=alpha,\n    group_map=f,\n  )\n\n  expected_kernel = f.kernel_subgroup()\n\n  assert isinstance(\n    statement.subgroup,\n    KernelSubgroupReference,\n  )\n\n  assert statement.subgroup.group_map == f\n\n  assert (\n    statement.subgroup.subgroup\n    == expected_kernel\n  )\n\n  assert (\n    statement.subgroup.subgroup.ambient_group\n    == source\n  )\n\n  assert {\n    element.coefficients\n    for element\n    in statement.subgroup.subgroup.elements\n  } == {\n    (0,),\n    (3,),\n  }",
+        "assertions": [
+          "Call(func=Name(id='isinstance', ctx=Load()), args=[Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), Name(id='KernelSubgroupReference', ctx=Load())], keywords=[])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='group_map', ctx=Load()), ops=[Eq()], comparators=[Name(id='f', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), ops=[Eq()], comparators=[Name(id='expected_kernel', ctx=Load())])",
+          "Compare(left=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='ambient_group', ctx=Load()), ops=[Eq()], comparators=[Name(id='source', ctx=Load())])",
+          "Compare(left=SetComp(elt=Attribute(value=Name(id='element', ctx=Load()), attr='coefficients', ctx=Load()), generators=[comprehension(target=Name(id='element', ctx=Store()), iter=Attribute(value=Attribute(value=Attribute(value=Name(id='statement', ctx=Load()), attr='subgroup', ctx=Load()), attr='subgroup', ctx=Load()), attr='elements', ctx=Load()), ifs=[], is_async=0)]), ops=[Eq()], comparators=[Set(elts=[Tuple(elts=[Constant(value=0)], ctx=Load()), Tuple(elts=[Constant(value=3)], ctx=Load())])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='f', ctx=Load()), attr='kernel_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='isinstance', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 5,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_mapped_zero_implies_kernel_membership",
+    "definition_count": 2,
+    "runtime_definition_line": 2755,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 1,
+    "earlier_only_assertions": [
+      "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+    ],
+    "shadowed_definition_has_unique_assertions": true,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1469,
+        "end_line": 1529,
+        "source": "def test_mapped_zero_implies_kernel_membership():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    2,\n    \"b\",\n  )\n\n  group_map = GroupMap(\n    name=\"f\",\n    source=source,\n    target=target,\n    matrix=[\n      [1],\n    ],\n  )\n\n  map_symbol = MapSymbol(\n    name=\"f\",\n  )\n\n  alpha = eta(3)\n\n  zero_step = relation_proof_step(\n    Relation(\n      lhs=MapApplication(\n        map=map_symbol,\n        expression=alpha,\n      ),\n      rhs=Zero(),\n      relation_type=RelationType.ZERO,\n    )\n  )\n\n  rule = (\n    mapped_zero_implies_kernel_membership_inference_rule(\n      group_map=group_map,\n      map_symbol=map_symbol,\n    )\n  )\n\n  match = find_inference_match(\n    rule,\n    (\n      zero_step,\n    ),\n  )\n\n  assert match is not None\n\n  derived_step = apply_inference_match(\n    match\n  )\n\n  assert derived_step.conclusion == MembershipStatement(\n    element=alpha,\n    subgroup=group_map.kernel_subgroup(),\n  )",
+        "assertions": [
+          "Compare(left=Name(id='match', ctx=Load()), ops=[IsNot()], comparators=[Constant(value=None)])",
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='MapApplication', ctx=Load())",
+          "Name(id='MapSymbol', ctx=Load())",
+          "Name(id='MembershipStatement', ctx=Load())",
+          "Name(id='Relation', ctx=Load())",
+          "Name(id='Zero', ctx=Load())",
+          "Name(id='apply_inference_match', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='find_inference_match', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='mapped_zero_implies_kernel_membership_inference_rule', ctx=Load())",
+          "Name(id='relation_proof_step', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 2,
+        "assertions_only_here_vs_runtime": [
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "runtime_assertions_missing_here": [
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='kernel_membership_statement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='group_map', value=Name(id='group_map', ctx=Load()))])])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2755,
+        "end_line": 2817,
+        "source": "def test_mapped_zero_implies_kernel_membership():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    2,\n    \"b\",\n  )\n\n  group_map = GroupMap(\n    name=\"f\",\n    source=source,\n    target=target,\n    matrix=[\n      [1],\n    ],\n  )\n\n  map_symbol = MapSymbol(\n    name=\"f\",\n  )\n\n  alpha = eta(3)\n\n  zero_step = relation_proof_step(\n    Relation(\n      lhs=MapApplication(\n        map=map_symbol,\n        expression=alpha,\n      ),\n      rhs=Zero(),\n      relation_type=RelationType.ZERO,\n    )\n  )\n\n  rule = (\n    mapped_zero_implies_kernel_membership_inference_rule(\n      group_map=group_map,\n      map_symbol=map_symbol,\n    )\n  )\n\n  match = find_inference_match(\n    rule,\n    (\n      zero_step,\n    ),\n  )\n\n  assert match is not None\n\n  derived_step = apply_inference_match(\n    match\n  )\n\n  assert derived_step.conclusion == (\n    kernel_membership_statement(\n      element=alpha,\n      group_map=group_map,\n    )\n  )",
+        "assertions": [
+          "Compare(left=Name(id='match', ctx=Load()), ops=[IsNot()], comparators=[Constant(value=None)])",
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='kernel_membership_statement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='group_map', value=Name(id='group_map', ctx=Load()))])])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='MapApplication', ctx=Load())",
+          "Name(id='MapSymbol', ctx=Load())",
+          "Name(id='Relation', ctx=Load())",
+          "Name(id='Zero', ctx=Load())",
+          "Name(id='apply_inference_match', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='find_inference_match', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='mapped_zero_implies_kernel_membership_inference_rule', ctx=Load())",
+          "Name(id='relation_proof_step', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 2,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  },
+  {
+    "file_path": "tests/test_set_rules.py",
+    "function_name": "test_mapped_zero_implies_kernel_membership_uses_explicit_group_map",
+    "definition_count": 2,
+    "runtime_definition_line": 2820,
+    "runtime_definition_ordinal": 2,
+    "earlier_only_assertion_count": 1,
+    "earlier_only_assertions": [
+      "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+    ],
+    "shadowed_definition_has_unique_assertions": true,
+    "definitions": [
+      {
+        "ordinal": 1,
+        "start_line": 1590,
+        "end_line": 1650,
+        "source": "def test_mapped_zero_implies_kernel_membership_uses_explicit_group_map():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    2,\n    \"b\",\n  )\n\n  group_map = GroupMap(\n    name=\"algebra-map-name\",\n    source=source,\n    target=target,\n    matrix=[\n      [1],\n    ],\n  )\n\n  map_symbol = MapSymbol(\n    name=\"proof-map-symbol\",\n  )\n\n  alpha = eta(3)\n\n  zero_step = relation_proof_step(\n    Relation(\n      lhs=MapApplication(\n        map=map_symbol,\n        expression=alpha,\n      ),\n      rhs=Zero(),\n      relation_type=RelationType.ZERO,\n    )\n  )\n\n  rule = (\n    mapped_zero_implies_kernel_membership_inference_rule(\n      group_map=group_map,\n      map_symbol=map_symbol,\n    )\n  )\n\n  match = find_inference_match(\n    rule,\n    (\n      zero_step,\n    ),\n  )\n\n  assert match is not None\n\n  derived_step = apply_inference_match(\n    match\n  )\n\n  assert derived_step.conclusion == MembershipStatement(\n    element=alpha,\n    subgroup=group_map.kernel_subgroup(),\n  )",
+        "assertions": [
+          "Compare(left=Name(id='match', ctx=Load()), ops=[IsNot()], comparators=[Constant(value=None)])",
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "call_targets": [
+          "Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load())",
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='MapApplication', ctx=Load())",
+          "Name(id='MapSymbol', ctx=Load())",
+          "Name(id='MembershipStatement', ctx=Load())",
+          "Name(id='Relation', ctx=Load())",
+          "Name(id='Zero', ctx=Load())",
+          "Name(id='apply_inference_match', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='find_inference_match', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='mapped_zero_implies_kernel_membership_inference_rule', ctx=Load())",
+          "Name(id='relation_proof_step', ctx=Load())"
+        ],
+        "is_runtime_definition": false,
+        "assertion_count": 2,
+        "assertions_only_here_vs_runtime": [
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='MembershipStatement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='subgroup', value=Call(func=Attribute(value=Name(id='group_map', ctx=Load()), attr='kernel_subgroup', ctx=Load()), args=[], keywords=[]))])])"
+        ],
+        "runtime_assertions_missing_here": [
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='kernel_membership_statement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='group_map', value=Name(id='group_map', ctx=Load()))])])"
+        ]
+      },
+      {
+        "ordinal": 2,
+        "start_line": 2820,
+        "end_line": 2882,
+        "source": "def test_mapped_zero_implies_kernel_membership_uses_explicit_group_map():\n  source = make_cyclic_group(\n    4,\n    \"a\",\n  )\n\n  target = make_cyclic_group(\n    2,\n    \"b\",\n  )\n\n  group_map = GroupMap(\n    name=\"algebra-map-name\",\n    source=source,\n    target=target,\n    matrix=[\n      [1],\n    ],\n  )\n\n  map_symbol = MapSymbol(\n    name=\"proof-map-symbol\",\n  )\n\n  alpha = eta(3)\n\n  zero_step = relation_proof_step(\n    Relation(\n      lhs=MapApplication(\n        map=map_symbol,\n        expression=alpha,\n      ),\n      rhs=Zero(),\n      relation_type=RelationType.ZERO,\n    )\n  )\n\n  rule = (\n    mapped_zero_implies_kernel_membership_inference_rule(\n      group_map=group_map,\n      map_symbol=map_symbol,\n    )\n  )\n\n  match = find_inference_match(\n    rule,\n    (\n      zero_step,\n    ),\n  )\n\n  assert match is not None\n\n  derived_step = apply_inference_match(\n    match\n  )\n\n  assert derived_step.conclusion == (\n    kernel_membership_statement(\n      element=alpha,\n      group_map=group_map,\n    )\n  )",
+        "assertions": [
+          "Compare(left=Name(id='match', ctx=Load()), ops=[IsNot()], comparators=[Constant(value=None)])",
+          "Compare(left=Attribute(value=Name(id='derived_step', ctx=Load()), attr='conclusion', ctx=Load()), ops=[Eq()], comparators=[Call(func=Name(id='kernel_membership_statement', ctx=Load()), args=[], keywords=[keyword(arg='element', value=Name(id='alpha', ctx=Load())), keyword(arg='group_map', value=Name(id='group_map', ctx=Load()))])])"
+        ],
+        "call_targets": [
+          "Name(id='GroupMap', ctx=Load())",
+          "Name(id='MapApplication', ctx=Load())",
+          "Name(id='MapSymbol', ctx=Load())",
+          "Name(id='Relation', ctx=Load())",
+          "Name(id='Zero', ctx=Load())",
+          "Name(id='apply_inference_match', ctx=Load())",
+          "Name(id='eta', ctx=Load())",
+          "Name(id='find_inference_match', ctx=Load())",
+          "Name(id='kernel_membership_statement', ctx=Load())",
+          "Name(id='make_cyclic_group', ctx=Load())",
+          "Name(id='mapped_zero_implies_kernel_membership_inference_rule', ctx=Load())",
+          "Name(id='relation_proof_step', ctx=Load())"
+        ],
+        "is_runtime_definition": true,
+        "assertion_count": 2,
+        "assertions_only_here_vs_runtime": [],
+        "runtime_assertions_missing_here": []
+      }
+    ]
+  }
+]
