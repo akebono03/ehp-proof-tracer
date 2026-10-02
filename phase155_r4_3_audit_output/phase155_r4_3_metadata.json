@@ -1,0 +1,45 @@
+{
+  "source_test_functions": 10122,
+  "root_production_modules": 200,
+  "production_modules_with_test_ownership": 191,
+  "production_modules_without_test_ownership": 9,
+  "unowned_production_modules": [
+    "algebra_phase2",
+    "find_mixed_groups",
+    "fix_phase94_2_line_endings",
+    "repair_phase115_4_encoding",
+    "repair_phase115_4_tests_ascii",
+    "repository_foundational_group_specialization",
+    "repository_sigma11_suspension_specialization",
+    "toda_group_proof_aggregate_statement_renderer",
+    "toda_group_result_proof_replay_renderer"
+  ],
+  "original_review_required": 7992,
+  "internal_contract_promotions": 7241,
+  "lineage_support_candidates": 1,
+  "remaining_review_required": 750,
+  "validated_canonical_tests": 9068,
+  "validated_canonical_files": 768,
+  "category_counts": {
+    "canonical_candidate": 1620,
+    "review_required": 750,
+    "canonical_internal_contract_candidate": 7241,
+    "canonical_public_surface_candidate": 207,
+    "historical_compatibility": 52,
+    "audit_only_candidate": 222,
+    "lineage_support_candidate": 1,
+    "performance_heavy_integration_candidate": 29
+  },
+  "collect_only_exit_code": 0,
+  "completion": {
+    "canonical_collect_only_exit_zero": true,
+    "review_population_reduced": true,
+    "historical_lane_preserved": true,
+    "audit_lane_preserved": true,
+    "heavy_lane_preserved": true
+  },
+  "consolidation_validated": true,
+  "production_changes": false,
+  "existing_test_changes": false,
+  "repository_wide_pytest_executed": false
+}
