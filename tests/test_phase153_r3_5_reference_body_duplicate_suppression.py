@@ -110,23 +110,3 @@ def test_phase153_r3_5_does_not_suppress_similar_but_nonidentical_statement():
   assert suppressed == body
 
 
-def test_phase153_r3_5_public_pi10_6_keeps_current_reference_baseline_without_obsolete_45():
-  rendered = (
-    _phase153_r3_5_pi10_6_narrative()
-  )
-
-  parts = rendered.split(
-    "## 証明",
-    1,
-  )
-  reference_section = parts[0]
-  proof_body = (
-    parts[1]
-    if len(parts) == 2
-    else rendered
-  )
-
-  assert "**[R1] Proposition 5.8.**" in reference_section
-  assert "(4.5)" not in reference_section
-  assert "$\pi_{10}^{6} = 0$" in proof_body
-

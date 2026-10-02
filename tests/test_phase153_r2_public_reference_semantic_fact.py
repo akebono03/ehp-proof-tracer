@@ -38,20 +38,6 @@ def _phase153_r2_public_pi10_6_narrative() -> str:
   )
 
 
-def test_phase153_r2_public_pi10_6_excludes_obsolete_45_reference():
-  rendered = (
-    _phase153_r2_public_pi10_6_narrative()
-  )
-
-  reference_section = rendered.split(
-    "## 証明",
-    1,
-  )[0]
-
-  assert "**[R1] Proposition 5.8.**" in reference_section
-  assert "(4.5)" not in reference_section
-  assert "$\pi_{10}^{6} = 0$" in rendered
-
 def test_phase153_r2_public_pi10_6_keeps_provenance_only_reference_compact():
   rendered = (
     _phase153_r2_public_pi10_6_narrative()

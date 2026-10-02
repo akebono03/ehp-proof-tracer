@@ -255,7 +255,7 @@ def test_phase97_5_representative_group_semantics_survive_top_level_api():
   )
 
 
-def test_phase97_5_representative_goal_source_provenance_survives_top_level_api():
+def test_phase97_5_representative_goal_source_provenance_survives_cross_layer_api():
   actual = build_phase97_5_data()
 
   expected = {
@@ -302,7 +302,7 @@ def test_phase97_5_representative_goal_source_provenance_survives_top_level_api(
       expected_branch,
     ),
   ) in expected.items():
-    source = (
+    report_candidate = (
       get_phase97_5_single_report_candidate(
         actual[
           "results"
@@ -310,26 +310,47 @@ def test_phase97_5_representative_goal_source_provenance_survives_top_level_api(
           key
         ]
       )
+    )
+    source_candidate = (
+      report_candidate.source_candidate
+    )
+    goal_source = (
+      source_candidate.goal_source
+    )
+    presented_source = (
+      report_candidate
       .presentation
       .source
       .goal_source
     )
 
-    assert source is not None
+    assert goal_source is not None
+    assert presented_source is not None
     assert (
-      source
+      presented_source
+      .source_goal_source
+      is goal_source
+    )
+    assert (
+      presented_source
+      .repository_source
+      .source_entry
+      is goal_source.source_entry
+    )
+    assert (
+      presented_source
       .repository_source
       .phase
       == expected_phase
     )
     assert (
-      source
+      presented_source
       .repository_source
       .theorem
       == expected_theorem
     )
     assert (
-      source.branch_name
+      presented_source.branch_name
       == expected_branch
     )
 

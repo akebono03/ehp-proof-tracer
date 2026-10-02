@@ -92,8 +92,10 @@ def _phase153_r3_10_public_reference_section(
   return ""
 
 
-def test_phase153_r3_10_all_selected_statements_are_publicly_visible():
-  missing = []
+def test_phase153_r3_10_all_group_reference_population_invariants():
+  missing_statements = []
+  missing_markers = []
+  entries_without_selected_statement = []
 
   for (
     n,
@@ -141,14 +143,48 @@ def test_phase153_r3_10_all_selected_statements_are_publicly_visible():
     )
 
     for entry in entries:
-      for statement_line in selected_by_number.get(
-        entry.number,
-        (),
-      ):
+      statement_lines = (
+        selected_by_number.get(
+          entry.number,
+          (),
+        )
+      )
+
+      if not statement_lines:
+        entries_without_selected_statement.append(
+          (
+            n,
+            k,
+            entry.number,
+            entry.reference.locator
+            or entry.reference.label,
+          )
+        )
+
+      marker = (
+        "[R"
+        + str(
+          entry.number
+        )
+        + "]"
+      )
+
+      if marker not in public_reference_section:
+        missing_markers.append(
+          (
+            n,
+            k,
+            entry.number,
+            entry.reference.locator
+            or entry.reference.label,
+          )
+        )
+
+      for statement_line in statement_lines:
         if statement_line in public_reference_section:
           continue
 
-        missing.append(
+        missing_statements.append(
           (
             n,
             k,
@@ -159,77 +195,8 @@ def test_phase153_r3_10_all_selected_statements_are_publicly_visible():
           )
         )
 
-  assert missing == []
-
-
-def test_phase153_r3_10_public_reference_markers_cover_structured_entries():
-  missing_markers = []
-
-  for (
-    n,
-    k,
-    raw_presentation,
-    presentation,
-  ) in _phase153_r3_10_presentations():
-    entries = (
-      build_toda_group_proof_narrative_reference_entries(
-        presentation
-      )
-    )
-
-    if not entries:
-      continue
-
-    selected_by_number = (
-      _toda_group_proof_narrative_reference_statement_lines_by_number(
-        presentation,
-        entries,
-      )
-    )
-    canonical_reference_section = (
-      render_toda_group_proof_narrative_reference_entries_markdown(
-        entries,
-        selected_by_number,
-      )
-    )
-    rendered = (
-      render_toda_group_proof_narrative_markdown(
-        raw_presentation
-      )
-    )
-    public_reference_section = (
-      _phase153_r3_10_public_reference_section(
-        rendered,
-        canonical_reference_section,
-      )
-    )
-
-    assert public_reference_section, (
-      n,
-      k,
-      rendered,
-    )
-
-    for entry in entries:
-      marker = (
-        "[R"
-        + str(
-          entry.number
-        )
-        + "]"
-      )
-
-      if marker in public_reference_section:
-        continue
-
-      missing_markers.append(
-        (
-          n,
-          k,
-          entry.number,
-          entry.reference.locator
-          or entry.reference.label,
-        )
-      )
-
+  assert entries_without_selected_statement == []
   assert missing_markers == []
+  assert missing_statements == []
+
+

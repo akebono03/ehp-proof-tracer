@@ -175,39 +175,3 @@ def test_phase153_r3_9_all_remaining_unresolved_reference_types_render_semantica
   }
 
 
-def test_phase153_r3_9_all_reference_entries_have_selected_statement():
-  entries_without_selected_statement = []
-
-  for n, k, presentation in (
-    _phase153_r3_9_presentations()
-  ):
-    entries = (
-      build_toda_group_proof_narrative_reference_entries(
-        presentation
-      )
-    )
-    selected_by_number = (
-      _toda_group_proof_narrative_reference_statement_lines_by_number(
-        presentation,
-        entries,
-      )
-    )
-
-    for entry in entries:
-      if selected_by_number.get(
-        entry.number,
-        (),
-      ):
-        continue
-
-      entries_without_selected_statement.append(
-        (
-          n,
-          k,
-          entry.number,
-          entry.reference.locator
-          or entry.reference.label,
-        )
-      )
-
-  assert entries_without_selected_statement == []
