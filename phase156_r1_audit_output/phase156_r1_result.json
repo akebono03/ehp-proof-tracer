@@ -1,0 +1,26 @@
+{
+  "phase": "Phase156-R1",
+  "scope": {
+    "n": "2..15",
+    "k": "0..7",
+    "depth": 2,
+    "expected_groups": 112
+  },
+  "production_changes": false,
+  "groups_seen": 112,
+  "exceptions": 0,
+  "duplicate_population": 117,
+  "expected_duplicate_population": 117,
+  "classification_counts": {
+    "body_restatement_required": 3,
+    "reference_side_overfull": 103,
+    "unnecessary_duplicate": 11
+  },
+  "classification_affected_groups": {
+    "unnecessary_duplicate": 4,
+    "body_restatement_required": 3,
+    "reference_side_overfull": 22
+  },
+  "classification_partition_complete": true,
+  "phase156_r2_boundary": "R2 must inspect consumer usage and turn the R1 evidence classes into a minimal Reference statement selection rule."
+}
