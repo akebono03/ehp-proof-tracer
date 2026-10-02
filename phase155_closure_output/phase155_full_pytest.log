@@ -1,0 +1,875 @@
+[Phase155 Closure] collected 10421 tests
+[Phase155 Closure] progress will be reported every 100 tests
+.[Phase155 Closure] 1/10421 completed, failures=0
+....................................................................... [  0%]
+............................[Phase155 Closure] 100/10421 completed, failures=0
+............................................ [  1%]
+........................................................[Phase155 Closure] 200/10421 completed, failures=0
+................ [  2%]
+........................................................................ [  2%]
+............[Phase155 Closure] 300/10421 completed, failures=0
+............................................................ [  3%]
+........................................[Phase155 Closure] 400/10421 completed, failures=0
+................................ [  4%]
+....................................................................[Phase155 Closure] 500/10421 completed, failures=0
+.... [  4%]
+........................................................................ [  5%]
+........................[Phase155 Closure] 600/10421 completed, failures=0
+................................................ [  6%]
+....................................................[Phase155 Closure] 700/10421 completed, failures=0
+.................... [  6%]
+........................................................................ [  7%]
+........[Phase155 Closure] 800/10421 completed, failures=0
+................................................................ [  8%]
+....................................[Phase155 Closure] 900/10421 completed, failures=0
+.................................... [  8%]
+................................................................[Phase155 Closure] 1000/10421 completed, failures=0
+........ [  9%]
+........................................................................ [ 10%]
+....................[Phase155 Closure] 1100/10421 completed, failures=0
+.................................................... [ 11%]
+................................................[Phase155 Closure] 1200/10421 completed, failures=0
+........................ [ 11%]
+........................................................................ [ 12%]
+....[Phase155 Closure] 1300/10421 completed, failures=0
+.................................................................... [ 13%]
+................................[Phase155 Closure] 1400/10421 completed, failures=0
+........................................ [ 13%]
+............................................................[Phase155 Closure] 1500/10421 completed, failures=0
+............ [ 14%]
+........................................................................ [ 15%]
+................[Phase155 Closure] 1600/10421 completed, failures=0
+........................................................ [ 15%]
+............................................[Phase155 Closure] 1700/10421 completed, failures=0
+............................ [ 16%]
+........................................................................ [ 17%]
+[Phase155 Closure] 1800/10421 completed, failures=0
+........................................................................ [ 17%]
+............................[Phase155 Closure] 1900/10421 completed, failures=0
+............................................ [ 18%]
+........................................................[Phase155 Closure] 2000/10421 completed, failures=0
+................ [ 19%]
+........................................................................ [ 20%]
+............[Phase155 Closure] 2100/10421 completed, failures=0
+............................................................ [ 20%]
+........................................[Phase155 Closure] 2200/10421 completed, failures=0
+................................ [ 21%]
+....................................................................[Phase155 Closure] 2300/10421 completed, failures=0
+.... [ 22%]
+........................................................................ [ 22%]
+........................[Phase155 Closure] 2400/10421 completed, failures=0
+................................................ [ 23%]
+....................................................[Phase155 Closure] 2500/10421 completed, failures=0
+..........F[Phase155 Closure] 2511/10421 completed, failures=1
+......... [ 24%]
+....F[Phase155 Closure] 2525/10421 completed, failures=2
+F[Phase155 Closure] 2526/10421 completed, failures=3
+.F[Phase155 Closure] 2528/10421 completed, failures=4
+.F[Phase155 Closure] 2530/10421 completed, failures=5
+...........F[Phase155 Closure] 2542/10421 completed, failures=6
+.F[Phase155 Closure] 2544/10421 completed, failures=7
+F[Phase155 Closure] 2545/10421 completed, failures=8
+F[Phase155 Closure] 2546/10421 completed, failures=9
+.F[Phase155 Closure] 2548/10421 completed, failures=10
+F[Phase155 Closure] 2549/10421 completed, failures=11
+F[Phase155 Closure] 2550/10421 completed, failures=12
+.......................................... [ 24%]
+........[Phase155 Closure] 2600/10421 completed, failures=12
+................................................................ [ 25%]
+....................................[Phase155 Closure] 2700/10421 completed, failures=12
+.................................... [ 26%]
+................................................................[Phase155 Closure] 2800/10421 completed, failures=12
+........ [ 26%]
+..............................................................F[Phase155 Closure] 2871/10421 completed, failures=13
+.F[Phase155 Closure] 2873/10421 completed, failures=14
+F[Phase155 Closure] 2874/10421 completed, failures=15
+.....F [ 27%]
+[Phase155 Closure] 2880/10421 completed, failures=16
+..F[Phase155 Closure] 2883/10421 completed, failures=17
+.................[Phase155 Closure] 2900/10421 completed, failures=17
+.................................................... [ 28%]
+.................................F[Phase155 Closure] 2986/10421 completed, failures=18
+.F[Phase155 Closure] 2988/10421 completed, failures=19
+............[Phase155 Closure] 3000/10421 completed, failures=19
+......................F[Phase155 Closure] 3023/10421 completed, failures=20
+F [ 29%]
+[Phase155 Closure] 3024/10421 completed, failures=21
+............F[Phase155 Closure] 3037/10421 completed, failures=22
+F[Phase155 Closure] 3038/10421 completed, failures=23
+F[Phase155 Closure] 3039/10421 completed, failures=24
+F[Phase155 Closure] 3040/10421 completed, failures=25
+..F[Phase155 Closure] 3043/10421 completed, failures=26
+.F[Phase155 Closure] 3045/10421 completed, failures=27
+F[Phase155 Closure] 3046/10421 completed, failures=28
+F[Phase155 Closure] 3047/10421 completed, failures=29
+.....F[Phase155 Closure] 3053/10421 completed, failures=30
+F[Phase155 Closure] 3054/10421 completed, failures=31
+F[Phase155 Closure] 3055/10421 completed, failures=32
+F[Phase155 Closure] 3056/10421 completed, failures=33
+..................................F[Phase155 Closure] 3091/10421 completed, failures=34
+..... [ 29%]
+....[Phase155 Closure] 3100/10421 completed, failures=34
+....F[Phase155 Closure] 3105/10421 completed, failures=35
+F[Phase155 Closure] 3106/10421 completed, failures=36
+.............................................................. [ 30%]
+................................[Phase155 Closure] 3200/10421 completed, failures=36
+........................................ [ 31%]
+............................................................[Phase155 Closure] 3300/10421 completed, failures=36
+............ [ 31%]
+.........F[Phase155 Closure] 3322/10421 completed, failures=37
+..........F[Phase155 Closure] 3333/10421 completed, failures=38
+F[Phase155 Closure] 3334/10421 completed, failures=39
+.F[Phase155 Closure] 3336/10421 completed, failures=40
+...F[Phase155 Closure] 3340/10421 completed, failures=41
+...F[Phase155 Closure] 3344/10421 completed, failures=42
+F[Phase155 Closure] 3345/10421 completed, failures=43
+F[Phase155 Closure] 3346/10421 completed, failures=44
+F[Phase155 Closure] 3347/10421 completed, failures=45
+..F[Phase155 Closure] 3350/10421 completed, failures=46
+F[Phase155 Closure] 3351/10421 completed, failures=47
+.F[Phase155 Closure] 3353/10421 completed, failures=48
+.........F[Phase155 Closure] 3363/10421 completed, failures=49
+.F[Phase155 Closure] 3365/10421 completed, failures=50
+.F[Phase155 Closure] 3367/10421 completed, failures=51
+F[Phase155 Closure] 3368/10421 completed, failures=52
+F[Phase155 Closure] 3369/10421 completed, failures=53
+F[Phase155 Closure] 3370/10421 completed, failures=54
+F[Phase155 Closure] 3371/10421 completed, failures=55
+....F[Phase155 Closure] 3376/10421 completed, failures=56
+F[Phase155 Closure] 3377/10421 completed, failures=57
+..F[Phase155 Closure] 3380/10421 completed, failures=58
+F[Phase155 Closure] 3381/10421 completed, failures=59
+... [ 32%]
+..F[Phase155 Closure] 3387/10421 completed, failures=60
+.F[Phase155 Closure] 3389/10421 completed, failures=61
+F[Phase155 Closure] 3390/10421 completed, failures=62
+..F[Phase155 Closure] 3393/10421 completed, failures=63
+F[Phase155 Closure] 3394/10421 completed, failures=64
+.F[Phase155 Closure] 3396/10421 completed, failures=65
+F[Phase155 Closure] 3397/10421 completed, failures=66
+...[Phase155 Closure] 3400/10421 completed, failures=66
+F[Phase155 Closure] 3401/10421 completed, failures=67
+F[Phase155 Closure] 3402/10421 completed, failures=68
+..F[Phase155 Closure] 3405/10421 completed, failures=69
+................................................... [ 33%]
+............................................[Phase155 Closure] 3500/10421 completed, failures=69
+............................ [ 33%]
+.................F[Phase155 Closure] 3546/10421 completed, failures=70
+...................F[Phase155 Closure] 3566/10421 completed, failures=71
+F[Phase155 Closure] 3567/10421 completed, failures=72
+.....F[Phase155 Closure] 3573/10421 completed, failures=73
+F[Phase155 Closure] 3574/10421 completed, failures=74
+.......................... [ 34%]
+[Phase155 Closure] 3600/10421 completed, failures=74
+...........F[Phase155 Closure] 3612/10421 completed, failures=75
+...F[Phase155 Closure] 3616/10421 completed, failures=76
+F[Phase155 Closure] 3617/10421 completed, failures=77
+...F[Phase155 Closure] 3621/10421 completed, failures=78
+......F[Phase155 Closure] 3628/10421 completed, failures=79
+....F[Phase155 Closure] 3633/10421 completed, failures=80
+..F[Phase155 Closure] 3636/10421 completed, failures=81
+.................................... [ 35%]
+............................[Phase155 Closure] 3700/10421 completed, failures=81
+............................................ [ 35%]
+........................................................[Phase155 Closure] 3800/10421 completed, failures=81
+................ [ 36%]
+........................................................................ [ 37%]
+............[Phase155 Closure] 3900/10421 completed, failures=81
+............................................................ [ 38%]
+........................................[Phase155 Closure] 4000/10421 completed, failures=81
+................................ [ 38%]
+....................................................................[Phase155 Closure] 4100/10421 completed, failures=81
+.... [ 39%]
+........................................................................ [ 40%]
+........................[Phase155 Closure] 4200/10421 completed, failures=81
+................................................ [ 40%]
+....................................................[Phase155 Closure] 4300/10421 completed, failures=81
+.................... [ 41%]
+........................................................................ [ 42%]
+........[Phase155 Closure] 4400/10421 completed, failures=81
+................................................................ [ 42%]
+....................................[Phase155 Closure] 4500/10421 completed, failures=81
+.................................... [ 43%]
+................................................................[Phase155 Closure] 4600/10421 completed, failures=81
+........ [ 44%]
+........................................................................ [ 44%]
+....................[Phase155 Closure] 4700/10421 completed, failures=81
+.................................................... [ 45%]
+................................................[Phase155 Closure] 4800/10421 completed, failures=81
+........................ [ 46%]
+........................................................................ [ 46%]
+....[Phase155 Closure] 4900/10421 completed, failures=81
+.................................................................... [ 47%]
+................................[Phase155 Closure] 5000/10421 completed, failures=81
+........................................ [ 48%]
+............................................................[Phase155 Closure] 5100/10421 completed, failures=81
+............ [ 49%]
+........................................................................ [ 49%]
+................[Phase155 Closure] 5200/10421 completed, failures=81
+........................................................ [ 50%]
+............................................[Phase155 Closure] 5300/10421 completed, failures=81
+............................ [ 51%]
+........................................................................ [ 51%]
+[Phase155 Closure] 5400/10421 completed, failures=81
+........................................................................ [ 52%]
+............................[Phase155 Closure] 5500/10421 completed, failures=81
+............................................ [ 53%]
+........................................................[Phase155 Closure] 5600/10421 completed, failures=81
+................ [ 53%]
+........................................................................ [ 54%]
+............[Phase155 Closure] 5700/10421 completed, failures=81
+............................................................ [ 55%]
+........................................[Phase155 Closure] 5800/10421 completed, failures=81
+................................ [ 55%]
+....................................................................[Phase155 Closure] 5900/10421 completed, failures=81
+.... [ 56%]
+........................................................................ [ 57%]
+........................[Phase155 Closure] 6000/10421 completed, failures=81
+................................................ [ 58%]
+....................................................[Phase155 Closure] 6100/10421 completed, failures=81
+.................... [ 58%]
+........................................................................ [ 59%]
+........[Phase155 Closure] 6200/10421 completed, failures=81
+................................................................ [ 60%]
+....................................[Phase155 Closure] 6300/10421 completed, failures=81
+.................................... [ 60%]
+................................................................[Phase155 Closure] 6400/10421 completed, failures=81
+........ [ 61%]
+........................................................................ [ 62%]
+....................[Phase155 Closure] 6500/10421 completed, failures=81
+.................................................... [ 62%]
+................................................[Phase155 Closure] 6600/10421 completed, failures=81
+........................ [ 63%]
+........................................................................ [ 64%]
+....[Phase155 Closure] 6700/10421 completed, failures=81
+.................................................................... [ 64%]
+................................[Phase155 Closure] 6800/10421 completed, failures=81
+........................................ [ 65%]
+............................................................[Phase155 Closure] 6900/10421 completed, failures=81
+............ [ 66%]
+........................................................................ [ 67%]
+................[Phase155 Closure] 7000/10421 completed, failures=81
+........................................................ [ 67%]
+............................................[Phase155 Closure] 7100/10421 completed, failures=81
+............................ [ 68%]
+........................................................................ [ 69%]
+[Phase155 Closure] 7200/10421 completed, failures=81
+........................................................................ [ 69%]
+............................[Phase155 Closure] 7300/10421 completed, failures=81
+............................................ [ 70%]
+........................................................[Phase155 Closure] 7400/10421 completed, failures=81
+................ [ 71%]
+........................................................................ [ 71%]
+............[Phase155 Closure] 7500/10421 completed, failures=81
+............................................................ [ 72%]
+........................................[Phase155 Closure] 7600/10421 completed, failures=81
+................................ [ 73%]
+....................................................................[Phase155 Closure] 7700/10421 completed, failures=81
+.... [ 73%]
+........................................................................ [ 74%]
+........................[Phase155 Closure] 7800/10421 completed, failures=81
+................................................ [ 75%]
+....................................................[Phase155 Closure] 7900/10421 completed, failures=81
+.................... [ 76%]
+........................................................................ [ 76%]
+........[Phase155 Closure] 8000/10421 completed, failures=81
+................................................................ [ 77%]
+....................................[Phase155 Closure] 8100/10421 completed, failures=81
+.................................... [ 78%]
+................................................................[Phase155 Closure] 8200/10421 completed, failures=81
+........ [ 78%]
+........................................................................ [ 79%]
+....................[Phase155 Closure] 8300/10421 completed, failures=81
+.................................................... [ 80%]
+................................................[Phase155 Closure] 8400/10421 completed, failures=81
+........................ [ 80%]
+........................................................................ [ 81%]
+....[Phase155 Closure] 8500/10421 completed, failures=81
+.................................................................... [ 82%]
+................................[Phase155 Closure] 8600/10421 completed, failures=81
+........................................ [ 82%]
+............................................................[Phase155 Closure] 8700/10421 completed, failures=81
+............ [ 83%]
+........................................................................ [ 84%]
+................[Phase155 Closure] 8800/10421 completed, failures=81
+........................................................ [ 84%]
+............................................[Phase155 Closure] 8900/10421 completed, failures=81
+............................ [ 85%]
+........................................................................ [ 86%]
+[Phase155 Closure] 9000/10421 completed, failures=81
+........................................................................ [ 87%]
+............................[Phase155 Closure] 9100/10421 completed, failures=81
+............................................ [ 87%]
+........................................................[Phase155 Closure] 9200/10421 completed, failures=81
+................ [ 88%]
+........................................................................ [ 89%]
+............[Phase155 Closure] 9300/10421 completed, failures=81
+............................................................ [ 89%]
+........................................[Phase155 Closure] 9400/10421 completed, failures=81
+................................ [ 90%]
+....................................................................[Phase155 Closure] 9500/10421 completed, failures=81
+.... [ 91%]
+.......................F[Phase155 Closure] 9528/10421 completed, failures=82
+F[Phase155 Closure] 9529/10421 completed, failures=83
+............................................... [ 91%]
+........................[Phase155 Closure] 9600/10421 completed, failures=83
+.............................F[Phase155 Closure] 9630/10421 completed, failures=84
+.........F[Phase155 Closure] 9640/10421 completed, failures=85
+F[Phase155 Closure] 9641/10421 completed, failures=86
+....... [ 92%]
+..............................................F[Phase155 Closure] 9695/10421 completed, failures=87
+.....[Phase155 Closure] 9700/10421 completed, failures=87
+...........F[Phase155 Closure] 9712/10421 completed, failures=88
+........ [ 93%]
+.................................F[Phase155 Closure] 9754/10421 completed, failures=89
+F[Phase155 Closure] 9755/10421 completed, failures=90
+F[Phase155 Closure] 9756/10421 completed, failures=91
+...........................F[Phase155 Closure] 9784/10421 completed, failures=92
+F[Phase155 Closure] 9785/10421 completed, failures=93
+....... [ 93%]
+.F[Phase155 Closure] 9794/10421 completed, failures=94
+......[Phase155 Closure] 9800/10421 completed, failures=94
+.............F[Phase155 Closure] 9814/10421 completed, failures=95
+..F[Phase155 Closure] 9817/10421 completed, failures=96
+.........F[Phase155 Closure] 9827/10421 completed, failures=97
+....................F[Phase155 Closure] 9848/10421 completed, failures=98
+................ [ 94%]
+....................................[Phase155 Closure] 9900/10421 completed, failures=98
+.................................... [ 95%]
+................................................................[Phase155 Closure] 10000/10421 completed, failures=98
+........ [ 96%]
+........................................................................ [ 96%]
+....................[Phase155 Closure] 10100/10421 completed, failures=98
+.................................................... [ 97%]
+................................................[Phase155 Closure] 10200/10421 completed, failures=98
+........................ [ 98%]
+........................................................................ [ 98%]
+....[Phase155 Closure] 10300/10421 completed, failures=98
+.................................................................... [ 99%]
+................................[Phase155 Closure] 10400/10421 completed, failures=98
+.....................[Phase155 Closure] 10421/10421 completed, failures=98
+                    [100%][Phase155 Closure] session finished: exit=1, completed=10421/10421, failures=98, elapsed=2379.73s
+
+================================== FAILURES ===================================
+E   assert '\u03c0\u2081\u2086\u2079 \u306e\u4f4d\u6570 16 \u3068 E\u2074 \u306e\u5358\u5c04\u6027' in "# Group proof narrative\\n\\n$\\\\sigma_{9}$ \u306e\u4f4d\u6570\u3092\u78ba\u8a8d\u3057, \u3053\u308c\u304c $\\\\pi_{16}^{9}$ \u3092\u751f\u6210\u3059\u308b\u3053\u3068\u3092\u793a\u3059\u3002\\n\\n\u307e\u305a, $\\\\pi_{12}^{5} = \\\\mathbb{Z}...$\\\\pi_{12}^{5} = \\\\mathbb{Z}/2\\\\{\\\\sigma'''\\\\}$\u3092\u7528\u3044\u308b.\\n\\n\u3057\u305f\u304c\u3063\u3066, $\\\\pi_{16}^{9} = \\\\mathbb{Z}/16\\\\{\\\\sigma_{9}\\\\}$\u3092\u5f97\u308b.\\n"
+C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\tests\\test_phase132_6_group_proof_narrative_renderer.py:335: assert '\u03c0\u2081\u2086\u2079 \u306e\u4f4d\u6570 16 \u3068 E\u2074 \u306e\u5358\u5c04\u6027' in "# Group proof narrative\\n\\n$\\\\sigma_{9}$ \u306e\u4f4d\u6570\u3092\u78ba\u8a8d\u3057, \u3053\u308c\u304c $\\\\pi_{16}^{9}$ \u3092\u751f\u6210\u3059\u308b\u3053\u3068\u3092\u793a\u3059\u3002\\n\\n\u307e\u305a, $\\\\pi_{12}^{5} = \\\\mathbb{Z}...$\\\\pi_{12}^{5} = \\\\mathbb{Z}/2\\\\{\\\\sigma'''\\\\}$\u3092\u7528\u3044\u308b.\\n\\n\u3057\u305f\u304c\u3063\u3066, $\\\\pi_{16}^{9} = \\\\mathbb{Z}/16\\\\{\\\\sigma_{9}\\\\}$\u3092\u5f97\u308b.\\n"
+E   assert 0 == 1
+     +  where 0 = <built-in method count of str object at 0x00000253AA628CA0>('**[R2] Lemma 5.14.**')
+     +    where <built-in method count of str object at 0x00000253AA628CA0> = "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = x��* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sig...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$".count
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase132_8_group_proof_narrative_dedup.py:178: assert 0 == 1
+E   assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = x��* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sig...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase132_8_group_proof_narrative_dedup.py:212: assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = x��* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sig...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert '**[R1] Proposition 5.15.**' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = x��* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sig...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase132_8_group_proof_narrative_dedup.py:296: assert '**[R1] Proposition 5.15.**' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = x��* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sig...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert '# Group proof narrative' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase132_8_group_proof_narrative_dedup.py:342: assert '# Group proof narrative' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_10_sigma_label_wording.py:24: assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert '# Group proof narrative' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.'
+     +  where '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.' = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\et...n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_6_group_proof_narrative_labels.py:54: assert '# Group proof narrative' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.'
+E   assert '# Group proof narrative' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_...�S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_6_group_proof_narrative_labels.py:69: assert '# Group proof narrative' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+E   assert 'Proposition 5.15' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_6_group_proof_narrative_labels.py:84: assert 'Proposition 5.15' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert '## �g�p���錋��' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.'
+     +  where '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.' = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\et...n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_9_group_proof_narrative_labels.py:24: assert '## �g�p���錋��' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.'
+E   assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_9_group_proof_narrative_labels.py:59: assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_...�S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$", err='').out
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_9_group_proof_narrative_labels.py:93: assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+E   assert False
+     +  where False = <built-in method startswith of str object at 0x00000253AA968420>("���ɁA$\\nu'$ �̈ʐ������肷�邽�߂ɁA���̊��S����l����.")
+     +    where <built-in method startswith of str object at 0x00000253AA968420> = "����, $\\nu'$ �̈ʐ������肷�邽�߂�, ���̊��S����l����.\n\n$\\pi_{7}^{3} \\xrightarrow{H} \\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2...{5}$ �͑S�˂ł���.\n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$\n\n$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$".startswith
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_44_single_argument_narrative_renderer.py:122: assert False
+E   assert False
+     +  where False = <built-in method startswith of str object at 0x00000253AD1A7DE0>("�܂��A$\\nu'$ ���߂�.")
+     +    where <built-in method startswith of str object at 0x00000253AD1A7DE0> = "�܂�, $\\nu'$ ���߂�.\n\n$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$".startswith
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_44_single_argument_narrative_renderer.py:189: assert False
+E   assert False
+     +  where False = <built-in method startswith of str object at 0x00000253AA969E60>("$\\nu'$ �̈ʐ������肷�邽�߂ɁA���̊��S����l����.")
+     +    where <built-in method startswith of str object at 0x00000253AA969E60> = "$\\nu'$ �̈ʐ������肷�邽�߂�, ���̊��S����l����.\n\n$\\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3} \\...\eta_{4}\\}$\n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$\n\n$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$".startswith
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_44_single_argument_narrative_renderer.py:211: assert False
+E   assert "�܂��A$\\nu'$ ���߂�." in "�܂�, $\\nu'$ ���߂�.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) �� (5) ���, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_46_multi_argument_narrative_assembler.py:51: assert "�܂��A$\\nu'$ ���߂�." in "�܂�, $\\nu'$ ���߂�.\n\n$2\\eta_{3} = 0$\n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n$\\pi_{4}^{3} = ..._{3}\\tag{4}$\n\n$E^{2}\\eta_{3} = \\eta_{5}\\tag{5}$\n\n(4) �� (5) ���, \n\n$H\\left(\\nu'\\right) = \\eta_{5}\\tag{6}$"
+E   assert '���ɁA$\\sigma_{9}$ ���߂�.' in "�܂�, $\\sigma'''$ ���߂�.\n\n���̒Z���S��𓾂�.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...�ł���.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n�ȏ���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_46_multi_argument_narrative_assembler.py:132: assert '���ɁA$\\sigma_{9}$ ���߂�.' in "�܂�, $\\sigma'''$ ���߂�.\n\n���̒Z���S��𓾂�.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H...�ł���.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n�ȏ���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   ValueError: substring not found
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_61b_direct_premise_narrative.py:62: ValueError: substring not found
+E   ValueError: substring not found
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_61b_direct_premise_narrative.py:115: ValueError: substring not found
+E   AssertionError: assert '\\text{�͓��^�ʑ�}' in '$(beta, gamma) \\mapsto Ebeta + gamma:  \\to \\pi_{7}^{4}$ �͓��^�ʑ��ł���.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_74b_remaining_internal_narrative.py:157: AssertionError: assert '\\text{�͓��^�ʑ�}' in '$(beta, gamma) \\mapsto Ebeta + gamma:  \\to \\pi_{7}^{4}$ �͓��^�ʑ��ł���.'
+E   AssertionError: assert '$E: \\pi_{6}...5}$ �͓��^�ʑ��ł���.' == '$E: \\pi_{6}...\\pi_{7}^{5}$'
+      
+      - $E: \pi_{6}^{4} \xrightarrow{\cong} \pi_{7}^{5}$
+      + $E: \pi_{6}^{4} \to \pi_{7}^{5}$ �͓��^�ʑ��ł���.
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_74b_remaining_internal_narrative.py:172: AssertionError: assert '$E: \\pi_{6}...5}$ �͓��^�ʑ��ł���.' == '$E: \\pi_{6}...\\pi_{7}^{5}$'
+E   AssertionError: assert '\\xrightarrow{\\cong}' in '$E^{n - 3}: \\pi_{3 + 1}^{3} \\to \\pi_{n + 1}^{n}$ �͓��^�ʑ��ł���.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75c_generic_semantic_rendering.py:67: AssertionError: assert '\\xrightarrow{\\cong}' in '$E^{n - 3}: \\pi_{3 + 1}^{3} \\to \\pi_{n + 1}^{n}$ �͓��^�ʑ��ł���.'
+E   AssertionError: assert '\\xrightarrow{\\cong}' in '$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ �͓��^�ʑ��ł���.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75c_generic_semantic_rendering.py:90: AssertionError: assert '\\xrightarrow{\\cong}' in '$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ �͓��^�ʑ��ł���.'
+E   AssertionError: assert '\\mapsto' in '�����ʑ��̑�񐬕��� $\\eta_{2}��$ �ŗ^������.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75c_generic_semantic_rendering.py:110: AssertionError: assert '\\mapsto' in '�����ʑ��̑�񐬕��� $\\eta_{2}��$ �ŗ^������.'
+E   AssertionError: assert '\\twoheadrightarrow' in '$\\Delta: \\pi_{8}^{5} \\to \\pi_{6}^{2}$ �͑S�˂ł���.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75f_ehp_semantic_rendering.py:66: AssertionError: assert '\\twoheadrightarrow' in '$\\Delta: \\pi_{8}^{5} \\to \\pi_{6}^{2}$ �͑S�˂ł���.'
+E   AssertionError: assert '\\ker\\left(\\Delta:' in '$\\ker\\Delta = \\mathbb{Z}\\{2\\iota_{11}\\}$ �����藧��.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75f_ehp_semantic_rendering.py:133: AssertionError: assert '\\ker\\left(\\Delta:' in '$\\ker\\Delta = \\mathbb{Z}\\{2\\iota_{11}\\}$ �����藧��.'
+E   AssertionError: assert '$H([\\iota_{...a_{3}$ �����藧��.' == '$H([\\iota_{... 2\\iota_{3}$'
+      
+      Skipping 33 identical leading characters in diff, use -v to show
+      - 2\iota_{3}$
+      + 2\iota_{3}$ �����藧��.
+      ?            +++++++
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75i_whitehead_hopf_semantic_rendering.py:100: AssertionError: assert '$H([\\iota_{...a_{3}$ �����藧��.' == '$H([\\iota_{... 2\\iota_{3}$'
+E   AssertionError: assert False
+     +  where False = <built-in method endswith of str object at 0x00000253AD467870>('$')
+     +    where <built-in method endswith of str object at 0x00000253AD467870> = '$H(\\Delta\\left(\\iota_{13}\\right)) = \\pm 2\\iota_{11}$ �����藧��.'.endswith
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75i_whitehead_hopf_semantic_rendering.py:136: AssertionError: assert False
+E   assert "$[\\iota_{4}...\nu'\\right)$" == "$[\\iota_{4}...{4} - E\\nu'$"
+      
+      - $[\iota_{4}, \iota_{4}] = \pm 2\nu_{4} - E\nu'$
+      + $[\iota_{4}, \iota_{4}] = \pm \left(2\nu_{4} - E\nu'\right)$
+      ?                               ++++++                +++++++
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75i_whitehead_hopf_semantic_rendering.py:156: assert "$[\\iota_{4}...\nu'\\right)$" == "$[\\iota_{4}...{4} - E\\nu'$"
+E   assert 56 == 55
+     +  where 56 = len((ProofStep(conclusion=TodaProp44SuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group...3_n4_phase48_injectivity_bridge_inference_rule.<locals>.guard at 0x00000253ADAFE9E0>, literature_reference=None)), ...))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75p_prop44_suspension_injective_semantic_rendering.py:58: assert 56 == 55
+E   AssertionError: assert Counter({'Tod...ctivity': 23}) == Counter({'Tod...ctivity': 23})
+      
+      Omitting 1 identical items, use -vv to show
+      Differing items:
+      {'Toda Proposition 5.3 n=4 Phase 48 injectivity bridge': 33} != {'Toda Proposition 5.3 n=4 Phase 48 injectivity bridge': 32}
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75p_prop44_suspension_injective_semantic_rendering.py:78: AssertionError: assert Counter({'Tod...ctivity': 23}) == Counter({'Tod...ctivity': 23})
+E   AssertionError: assert '$E: \\pi_{5}...^{4}$ �͒P�˂ł���.' == '$E: \\pi_{5}...\\pi_{6}^{4}$'
+      
+      - $E: \pi_{5}^{3} \hookrightarrow \pi_{6}^{4}$
+      + $E: \pi_{5}^{3} \to \pi_{6}^{4}$ �͒P�˂ł���.
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75p_prop44_suspension_injective_semantic_rendering.py:125: AssertionError: assert '$E: \\pi_{5}...^{4}$ �͒P�˂ł���.' == '$E: \\pi_{5}...\\pi_{6}^{4}$'
+E   AssertionError: assert 46 == 45
+     +  where 46 = len((Toda58WhiteheadSquareUpToSignStatement(whitehead_square=WhiteheadProduct(left=HomotopyElement(name='��_4', dimension=4...ame='�ˁ�', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='��', index=None, decoration='��')))))), ...))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_75s_toda58_whitehead_square_semantic_rendering.py:71: AssertionError: assert 46 == 45
+E   AssertionError: assert 'render_toda_group_proof_narrative_multi_argument_markdown' in '_is_phase134_3_pi6_3_presentation(\n      presentation\n    )\n    or _is_phase150_rc4_generic_route_target(\n      p...se150_rc4_generic_public_narrative(\n        presentation,\n        rendered,\n      )\n\n    return rendered\n\n  if '
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_pi6_generic_production_route.py:138: AssertionError: assert 'render_toda_group_proof_narrative_multi_argument_markdown' in '_is_phase134_3_pi6_3_presentation(\n      presentation\n    )\n    or _is_phase150_rc4_generic_route_target(\n      p...se150_rc4_generic_public_narrative(\n        presentation,\n        rendered,\n      )\n\n    return rendered\n\n  if '
+E   assert '\\pi_{5}^{3...\\eta_{4}\\}' not in "�g�p���錋�ʂ��ɂ܂�...\\{\\nu'\\}$"
+      
+      '\\pi_{5}^{3} = \\m...eta_{3}\\eta_{4}\\}' is contained here:
+         �͑S�˂ł���.
+        $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+        **[R3] Lemma 5.4.**
+        $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+        **[R4] (5.3) / Lemma 5.2.**...
+      
+      ...Full output truncated (60 lines hidden), use '-vv' to show
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r25_9b_nu_prime_definition_depth2.py:186: assert '\\pi_{5}^{3...\\eta_{4}\\}' not in "�g�p���錋�ʂ��ɂ܂�...\\{\\nu'\\}$"
+E   assert '\\pi_{5}^{3...\\eta_{4}\\}' not in "�g�p���錋�ʂ��ɂ܂�...\\{\\nu'\\}$"
+      
+      '\\pi_{5}^{3} = \\m...eta_{3}\\eta_{4}\\}' is contained here:
+         �͑S�˂ł���.
+        $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+        $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ �����藧��.
+        **[R2] (5.2).**
+        $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$...
+      
+      ...Full output truncated (160 lines hidden), use '-vv' to show
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r25_9b_nu_prime_definition_depth2.py:208: assert '\\pi_{5}^{3...\\eta_{4}\\}' not in "�g�p���錋�ʂ��ɂ܂�...\\{\\nu'\\}$"
+E   assert False
+     +  where False = all(<generator object test_phase144_6_r5_40_pi6_has_five_selected_contributions.<locals>.<genexpr> at 0x00000253AE5D7530>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py:79: assert False
+E   assert False
+     +  where False = all(<generator object test_phase144_6_r5_42_pi6_has_five_ordered_contributions.<locals>.<genexpr> at 0x00000253E39FAE30>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py:174: assert False
+E   StopIteration
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py:188: StopIteration
+E   AssertionError: assert {(8, 7, 1, 'e..._definition')} == {(8, 7, 1, 'e..._definition')}
+      
+      Extra items in the left set:
+      (9, 7, 0, 'establish_group_structure')
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py:328: AssertionError: assert {(8, 7, 1, 'e..._definition')} == {(8, 7, 1, 'e..._definition')}
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+      
+      At index 0 diff: 621 != 132
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_1.py:70: assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E   assert -1 > 132
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:254: assert -1 > 132
+E   assert 0 == 16
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:280: assert 0 == 16
+E   assert -1 > 132
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:326: assert -1 > 132
+E   AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+      
+      'inference_rule' is contained here:
+         False
+        
+          inference_rule = proof_step.inference_rule
+      ?   ++++++++++++++
+        ...
+      
+      ...Full output truncated (1378 lines hidden), use '-vv' to show
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_10_transport_chain_compression_production.py:338: AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+E   assert 0 == 16
+     +  where 0 = sum(<generator object test_phase144_6_r5_43_11_all_sixteen_transport_chains_are_connected.<locals>.<genexpr> at 0x00000253AEB4D930>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py:33: assert 0 == 16
+E   assert 2 == 0
+     +  where 2 = sum(<generator object test_phase144_6_r5_43_11_has_no_contribution_duplicates_or_order_violations.<locals>.<genexpr> at 0x00000253E3A71620>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py:41: assert 2 == 0
+E   AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+      
+      'inference_rule' is contained here:
+         False
+        
+          inference_rule = proof_step.inference_rule
+      ?   ++++++++++++++
+        ...
+      
+      ...Full output truncated (1378 lines hidden), use '-vv' to show
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py:57: AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+E   assert False
+     +  where False = completion_invariants_pass((CompletionRow(n=3, k=3, selected=7, participating_selected=7, participating_insertable=7, detached_selected=0, detach..., detached_insertable=0, transport_connectors=0, direct_connectors=0, missing_inserted_lines=6, connected_chars=28602)))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11d_final_completion_audit.py:13: assert False
+E   assert 11 == 0
+     +  where 11 = sum(<generator object test_phase144_6_r5_43_11d_connects_all_33_narrative_participating_contributions.<locals>.<genexpr> at 0x00000253E39FBD10>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11d_final_completion_audit.py:24: assert 11 == 0
+E   assert 0 == 16
+     +  where 0 = sum(<generator object test_phase144_6_r5_43_11d_preserves_all_sixteen_transport_connectors.<locals>.<genexpr> at 0x00000253E39F8970>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11d_final_completion_audit.py:34: assert 0 == 16
+E   AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+      
+      'inference_rule' is contained here:
+         False
+        
+          inference_rule = proof_step.inference_rule
+      ?   ++++++++++++++
+        ...
+      
+      ...Full output truncated (1378 lines hidden), use '-vv' to show
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_11d_final_completion_audit.py:45: AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+E   AssertionError: assert 6 == 5
+     +  where 6 = len((TodaGroupProofNarrativeOrderedContribution(proof_step=ProofStep(conclusion=Relation(lhs=TodaPrimaryGroup(group_dimens...>, provider_anchor=True, distance_to_conclusion=2, provider_keys=(('block', 2559289585824), ('block', 2559289587696)))))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py:71: AssertionError: assert 6 == 5
+E   assert -1 >= 0
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py:103: assert -1 >= 0
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+      
+      At index 0 diff: 621 != 132
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py:122: assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E   assert set() == {2558419386432}
+      
+      Extra items in the right set:
+      2558419386432
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py:96: assert set() == {2558419386432}
+E   assert '$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$, $\\pi... \\mathbb{Z}/2\\{\\eta_{n}\\eta_{n + 1}\\}$, $n \\ge 5$ �����藧��.\n\n������A\n\n$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ �͑S�˂ł���.' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ �͑S�˂ł���.\n$\\pi_{5}^{3} = \\mathbb{Z}...�ł��邩��, $\\nu'$ �͒����̌Q�𐶐�����.\n����������, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py:125: assert '$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$, $\\pi... \\mathbb{Z}/2\\{\\eta_{n}\\eta_{n + 1}\\}$, $n \\ge 5$ �����藧��.\n\n������A\n\n$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ �͑S�˂ł���.' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ �͑S�˂ł���.\n$\\pi_{5}^{3} = \\mathbb{Z}...�ł��邩��, $\\nu'$ �͒����̌Q�𐶐�����.\n����������, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+      
+      At index 0 diff: 621 != 132
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py:219: assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E   AssertionError: assert 6 == 5
+     +  where 6 = len((TodaGroupProofNarrativeOrderedContribution(proof_step=ProofStep(conclusion=Relation(lhs=TodaPrimaryGroup(group_dimens...>, provider_anchor=True, distance_to_conclusion=2, provider_keys=(('block', 2559293639552), ('block', 2559293641856)))))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_5.py:14: AssertionError: assert 6 == 5
+E   assert 1 >= 3
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_6.py:89: assert 1 >= 3
+E   AssertionError: assert 40 == 64
+     +  where 40 = len(({'n': 3, 'k': 3, 'argument_index': 0, 'source_index': 1, ...}, {'n': 5, 'k': 3, 'argument_index': 0, 'source_index': ...': 7, 'argument_index': 3, 'source_index': 2, ...}, {'n': 5, 'k': 7, 'argument_index': 3, 'source_index': 2, ...}, ...))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py:98: AssertionError: assert 40 == 64
+E   KeyError: ('HomotopyGroupMembershipStatement', 'Toda Lemma 5.4 nu_4 membership')
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py:129: KeyError: ('HomotopyGroupMembershipStatement', 'Toda Lemma 5.4 nu_4 membership')
+E   AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+      
+      'inference_rule' is contained here:
+         False
+        
+          inference_rule = proof_step.inference_rule
+      ?   ++++++++++++++
+        ...
+      
+      ...Full output truncated (1378 lines hidden), use '-vv' to show
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py:233: AssertionError: assert 'inference_rule' not in 'from collec...dered\n  )\n'
+E   assert False
+     +  where False = all(<generator object test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains.<locals>.<genexpr> at 0x000002538E340510>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_8.py:17: assert False
+E   AssertionError: assert 2 == 1
+     +  where 2 = len(Counter({(('Relation', 'Toda Proposition 5.3 eta_4 squared stable transport'),): 12, (('Relation', 'Toda Proposition 5...ion 5.3 n=4 pi_6^4 finite-cyclic transport'), ('Relation', 'Toda Proposition 5.3 eta_4 squared stable transport')): 4}))
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_8.py:49: AssertionError: assert 2 == 1
+E   assert 24 == 48
+     +  where 24 = sum(<generator object test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences.<locals>.<genexpr> at 0x00000253E3456030>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_8.py:62: assert 24 == 48
+E   AssertionError: assert {'suspension_...zation', None} == {'suspension_stabilization'}
+      
+      Extra items in the left set:
+      None
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_9.py:30: AssertionError: assert {'suspension_...zation', None} == {'suspension_stabilization'}
+E   assert False
+     +  where False = all(<generator object test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data.<locals>.<genexpr> at 0x00000253E34574C0>)
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_9.py:43: assert False
+E   assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+      
+      At index 0 diff: 621 != 132
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_43_generic_renderer_contribution_connection.py:70: assert (621, 132, 28...32, 987, 1037) == (132, 132, 28...21, 987, 1037)
+E   AssertionError: assert '\\beta' == '\\\\beta'
+      
+      - \\beta
+      ? -
+      + \beta
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase150_rc4_5b_3_r1_beta_latex.py:15: AssertionError: assert '\\beta' == '\\\\beta'
+E   AssertionError: assert '## �g�p���錋��' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase150_rc4_7a_cross_group_reference_normalization.py:35: AssertionError: assert '## �g�p���錋��' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{... �͊��S�ł���.\n\n���̊��S����l����.\n\n$$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ �͊��S�ł���.$ �͊��S�ł���.'
+E   assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase150_rc4_7a_cross_group_reference_normalization.py:46: assert '## �g�p���錋��' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+E   AssertionError: assert '�ȏ�œ����Q�\���A�������A����юʑ��Ɋւ��錋�ʂ����킹���' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{...\n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$\n\n$\\nu_{4}$ �̕�����p����.'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase150_rc4_7d_3_public_narrative_generic_route.py:75: AssertionError: assert '�ȏ�œ����Q�\���A�������A����юʑ��Ɋւ��錋�ʂ����킹���' in '�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{...\n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$\n\n$\\nu_{4}$ �̕�����p����.'
+E   assert '���̊��S���A���m�̌Q�\���A����юʑ��̑��Ɋւ��錋�ʂ����킹���' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') =..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase150_rc4_7d_3_public_narrative_generic_route.py:88: assert '���̊��S���A���m�̌Q�\���A����юʑ��̑��Ɋւ��錋�ʂ����킹���' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') =..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+E   AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## �g�p���錋��\n\n�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ �����藧��.\n\n'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r2_public_reference_semantic_fact.py:51: AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## �g�p���錋��\n\n�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ �����藧��.\n\n'
+E   AssertionError: (3, 3, "�g�p���錋�ʂ��ɂ܂Ƃ߂�.
+      
+      **[R1] (5.3).**
+      $\
+      u' \\in \\pi_{6}^{3}$
+      $2\
+      u' = \\eta_{3}E\\eta_{3}\\eta_{5}$
+      **[R2] ...����, $\\operatorname{ord}(\
+      u')=4=4$ �ł��邩��, $\
+      u'$ �͒����̌Q�𐶐�����.
+      ����������, 
+      
+      $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\
+      u'\\}$")
+    assert ''
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r3_10_public_reference_connection_repair.py:137: AssertionError: (3, 3, "�g�p���錋�ʂ��ɂ܂Ƃ߂�.
+E   AssertionError: (3, 3, "�g�p���錋�ʂ��ɂ܂Ƃ߂�.
+      
+      **[R1] (5.3).**
+      $\
+      u' \\in \\pi_{6}^{3}$
+      $2\
+      u' = \\eta_{3}E\\eta_{3}\\eta_{5}$
+      **[R2] ...����, $\\operatorname{ord}(\
+      u')=4=4$ �ł��邩��, $\
+      u'$ �͒����̌Q�𐶐�����.
+      ����������, 
+      
+      $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\
+      u'\\}$")
+    assert ''
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r3_10_public_reference_connection_repair.py:207: AssertionError: (3, 3, "�g�p���錋�ʂ��ɂ܂Ƃ߂�.
+E   assert [(2, 2, 2, '$...) = 4$"), ...] == []
+      
+      Left contains 117 more items, first extra item: (2, 2, 2, '$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ �͓��^�ʑ��ł���.')
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r3_11_reference_body_ownership_repair.py:228: assert [(2, 2, 2, '$...) = 4$"), ...] == []
+E   AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## �g�p���錋��\n\n�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ �����藧��.\n\n'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r3_4_reference_statement_rendering_connection.py:156: AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## �g�p���錋��\n\n�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ �����藧��.\n\n'
+E   AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## �g�p���錋��\n\n�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ �����藧��.\n\n'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r3_5_reference_body_duplicate_suppression.py:129: AssertionError: assert '**[R1] Proposition 5.8.**' in '# Group proof narrative\n\n## �g�p���錋��\n\n�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 3.1.**\n$\\nu_{6}\\eta_{9} = 0$\n**[R2] ...}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ �����藧��.\n\n'
+E   AssertionError: assert [(2, 2, 1, '(...n 5.15'), ...] == []
+      
+      Left contains 11 more items, first extra item: (2, 2, 1, '(5.2)')
+      Use -v to get more diff
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase153_r3_9_remaining_reference_renderer_coverage.py:213: AssertionError: assert [(2, 2, 1, '(...n 5.15'), ...] == []
+E   AttributeError: 'NoneType' object has no attribute 'source_entry'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase95_actual_representative_top_level_capability.py:271: AttributeError: 'NoneType' object has no attribute 'source_entry'
+E   AttributeError: 'NoneType' object has no attribute 'source_entry'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase95_actual_representative_top_level_capability.py:365: AttributeError: 'NoneType' object has no attribute 'source_entry'
+E   AssertionError: assert <TodaCalculationStatus.FOUND: 'found'> is <TodaCalculationStatus.MULTIPLE_RESULTS: 'multiple_results'>
+     +  where <TodaCalculationStatus.FOUND: 'found'> = <[MemoryError() raised in repr()] TodaCalculationResult object at 0x253e63ff9d0>.status
+     +  and   <TodaCalculationStatus.MULTIPLE_RESULTS: 'multiple_results'> = TodaCalculationStatus.MULTIPLE_RESULTS
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase95_top_level_calculation_orchestration.py:408: AssertionError: assert <TodaCalculationStatus.FOUND: 'found'> is <TodaCalculationStatus.MULTIPLE_RESULTS: 'multiple_results'>
+E   AttributeError: 'NoneType' object has no attribute 'repository_source'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_actual_pi9_5_end_to_end_presentation.py:402: AttributeError: 'NoneType' object has no attribute 'repository_source'
+E   AttributeError: 'NoneType' object has no attribute 'repository_source'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_actual_pi9_5_end_to_end_presentation.py:464: AttributeError: 'NoneType' object has no attribute 'repository_source'
+E   AssertionError: assert '- Phase: 68' in '# $\\pi_{9}^{5}$\n\n## Result\n\n\\[\n\\pi_{9}^{5} \\cong \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}\n\\]\n\n## Source\n\n-...= \\nu_{5}\\eta_{8}$.\n990. Therefore the group structure is: $\\pi_{9}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}$.\n'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_full_proof_report_renderer.py:160: AssertionError: assert '- Phase: 68' in '# $\\pi_{9}^{5}$\n\n## Result\n\n\\[\n\\pi_{9}^{5} \\cong \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}\n\\]\n\n## Source\n\n-...= \\nu_{5}\\eta_{8}$.\n990. Therefore the group structure is: $\\pi_{9}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}$.\n'
+E   AssertionError: assert '- Phase: 68' in '# $\\\\pi_{9}^{5}$\\n\\n## Result\\n\\n\\\\[\\n\\\\pi_{9}^{5} \\\\cong \\\\mathbb{Z}/2\\\\{\\\\nu_{5}\\\\eta_{8}\\\\}\\n\\\\]\\n\\n## Source\\n\\n-...inition** \u2014 `TodaNuFamilyDefinitionStatement`\\n989. **relation** \u2014 `Relation`\\n990. **group structure** \u2014 `Relation`\\n'
+C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\tests\\test_phase96_human_readable_renderer.py:256: AssertionError: assert '- Phase: 68' in '# $\\\\pi_{9}^{5}$\\n\\n## Result\\n\\n\\\\[\\n\\\\pi_{9}^{5} \\\\cong \\\\mathbb{Z}/2\\\\{\\\\nu_{5}\\\\eta_{8}\\\\}\\n\\\\]\\n\\n## Source\\n\\n-...inition** \u2014 `TodaNuFamilyDefinitionStatement`\\n989. **relation** \u2014 `Relation`\\n990. **group structure** \u2014 `Relation`\\n'
+E   AttributeError: 'NoneType' object has no attribute 'source_goal_source'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_proof_step_source_presentation.py:448: AttributeError: 'NoneType' object has no attribute 'source_goal_source'
+E   AttributeError: 'NoneType' object has no attribute 'repository_source'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_proof_step_source_presentation.py:501: AttributeError: 'NoneType' object has no attribute 'repository_source'
+E   AttributeError: 'NoneType' object has no attribute 'source_entry'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_proof_step_source_presentation.py:531: AttributeError: 'NoneType' object has no attribute 'source_entry'
+E   AttributeError: 'NoneType' object has no attribute 'repository_source'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_representative_targets_end_to_end_presentation.py:473: AttributeError: 'NoneType' object has no attribute 'repository_source'
+E   AttributeError: 'NoneType' object has no attribute 'repository_source'
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase96_representative_targets_end_to_end_presentation.py:511: AttributeError: 'NoneType' object has no attribute 'repository_source'
+E   assert None is not None
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase97_actual_representative_targets_top_level_api.py:318: assert None is not None
+E   AssertionError: assert <TodaCalculationStatus.FOUND: 'found'> is <TodaCalculationStatus.MULTIPLE_RESULTS: 'multiple_results'>
+     +  where <TodaCalculationStatus.FOUND: 'found'> = <[MemoryError() raised in repr()] TodaCalculationReportResult object at 0x253e75a7df0>.status
+     +  and   <TodaCalculationStatus.MULTIPLE_RESULTS: 'multiple_results'> = TodaCalculationStatus.MULTIPLE_RESULTS
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase97_not_found_multiple_results_top_level_handling.py:252: AssertionError: assert <TodaCalculationStatus.FOUND: 'found'> is <TodaCalculationStatus.MULTIPLE_RESULTS: 'multiple_results'>
+E   assert None is not None
+     +  where None = <[MemoryError() raised in repr()] TodaCalculationCandidate object at 0x253e75b8fd0>.goal_source
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase97_single_found_calculation_to_report_api.py:115: assert None is not None
+E   assert None is not None
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase98_actual_use_facade_validation.py:369: assert None is not None
+E   assert None is not None
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase98_representative_convenience_validation.py:255: assert None is not None
+============================ slowest 50 durations =============================
+508.30s call     tests/test_phase97_single_found_calculation_to_report_api.py::test_phase97_3_aggregate_found_preserves_goal_source_provenance
+281.49s call     tests/test_phase95_top_level_calculation_orchestration.py::test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_order
+276.88s call     tests/test_phase97_not_found_multiple_results_top_level_handling.py::test_phase97_4_multiple_aggregate_results_preserve_goal_source_order
+27.64s setup    tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures
+26.89s setup    tests/test_phase144_6_r5_41_contribution_topological_order_determinism_audit.py::test_phase144_6_r5_41_selected_population_matches_phase40
+26.74s setup    tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_reproduces_phase40_selected_population
+26.72s call     tests/test_phase144_6_r5_43_r2_recursive_repr_repair.py::test_phase144_6_r5_43_r2_six_group_population_remains_190
+25.97s call     tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_covers_six_representative_groups_and_190_contributions
+25.96s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_hidden_bridge_rows_have_classification_inputs
+25.70s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_covers_all_sixteen_transport_chains
+25.59s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_operation_kind
+25.53s call     tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains
+25.41s call     tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_has_one_hidden_signature_sequence
+25.21s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_inventory_covers_only_representative_groups
+24.87s setup    tests/test_phase144_6_r5_39_explanatory_contribution_narrative_necessity_audit.py::test_phase144_6_r5_39_inventory_matches_phase38_contribution_count
+24.74s call     tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_final_completion_invariants_pass
+24.57s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data
+24.52s call     tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences
+24.26s call     tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_every_hidden_step_uses_production_transport_role
+24.18s call     tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_reference_identity
+24.10s call     tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates
+20.47s setup    tests/test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py::test_phase144_6_r5_38_visibility_population_matches_phase37
+14.52s call     tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py::test_phase144_6_r5_19_proof_chain_integration_preserves_generic_output
+13.32s call     tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_classifies_every_non_insertable_populated_argument_by_discourse_role
+13.21s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_reproduces_13_insertable_and_177_non_insertable
+13.07s setup    tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_pi6_order_matches_phase41_topological_order
+12.65s setup    tests/test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py::test_phase144_6_r5_40_selected_population_matches_phase39
+12.36s setup    tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3
+12.07s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_classifies_all_190_selected_contributions
+11.77s call     tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py::test_phase144_6_r5_43_11b_reproduces_190_selected_and_13_insertable
+11.77s call     tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py::test_phase144_6_r5_43_11a_every_populated_argument_has_a_classification
+11.55s setup    tests/test_phase144_6_r5_43_11c_r2_argument_participation_guard.py::test_phase144_6_r5_43_11c_r2_all_non_detached_contributions_are_insertable
+10.89s call     tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py::test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative
+10.88s setup    tests/test_phase144_6_r5_38_visibility_gap_explanatory_contribution_dedup_ownership_audit.py::test_phase144_6_r5_38_groups_do_not_exceed_occurrences
+10.57s call     tests/test_phase144_6_r5_43_11c_non_detached_fallback_placement_repair.py::test_phase144_6_r5_43_11c_definition_groups_gain_connected_output_without_public_route_change
+9.84s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_exact_presence_implies_normalized_presence
+9.81s setup    tests/test_phase144_6_r5_37_genuinely_missing_semantic_equivalence_and_rendering_audit.py::test_phase144_6_r5_37_inventory_covers_six_groups
+8.42s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_inventory_covers_six_groups
+8.25s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_coverage_flags_are_boolean
+8.11s call     tests/test_phase144_6_r5_36_necessary_contribution_current_display_coverage_audit.py::test_phase144_6_r5_36_inventory_contains_only_necessary_hidden_rows
+7.67s call     tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates
+7.08s call     tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_all_target_occurrences_render_semantically
+7.06s call     tests/test_phase153_r3_6_unresolved_reference_statement_rendering.py::test_phase153_r3_6_all_previously_unresolved_reference_types_render_semantically
+6.96s call     tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_reference_entries_have_selected_statement
+6.94s call     tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_remaining_unresolved_reference_types_render_semantically
+6.82s call     tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+6.79s call     tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_both_rule_families_use_same_semantic_renderer
+6.71s call     tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_concrete_map_uses_source_and_target_groups
+6.68s call     tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py::test_phase143_75s_all_aggregate_components_render_semantically
+5.63s call     tests/test_algebra.py::test_finite_presentation_crosscheck
+=========================== short test summary info ===========================
+FAILED tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma_family_statements_use_readable_labels
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_shared_dependency_subtree_is_expanded_once
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_repeated_shared_dependency_uses_existing_reference
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_root_conclusion_and_source_remain_unchanged
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer
+FAILED tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi10_4_depth_two_uses_final_readable_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+FAILED tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi6_3_order_combines_header_method_and_body
+FAILED tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi6_3_definition_without_primary_has_no_method_transition
+FAILED tests/test_phase143_44_single_argument_narrative_renderer.py::test_phase143_44_pi8_5_detached_order_has_no_discourse_marker
+FAILED tests/test_phase143_46_multi_argument_narrative_assembler.py::test_phase143_46_pi6_3_assembles_three_main_arguments
+FAILED tests/test_phase143_46_multi_argument_narrative_assembler.py::test_phase143_46_pi16_9_assembles_definition_then_group_structure
+FAILED tests/test_phase143_61b_direct_premise_narrative.py::test_phase143_61b_pi8_5_places_direct_derivation_premises_together
+FAILED tests/test_phase143_61b_direct_premise_narrative.py::test_phase143_61b_pi6_3_keeps_local_calculation_derivation
+FAILED tests/test_phase143_74b_remaining_internal_narrative.py::test_phase143_74b_prop44_isomorphism_renders_decomposition_semantics
+FAILED tests/test_phase143_74b_remaining_internal_narrative.py::test_phase143_74b_suspension_isomorphism_renders_semantic_map
+FAILED tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_toda45_isomorphism_semantically
+FAILED tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_hopf_isomorphism_semantically
+FAILED tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_prop44_second_summand_semantically
+FAILED tests/test_phase143_75f_ehp_semantic_rendering.py::test_phase143_75f_renders_delta_surjective_semantically
+FAILED tests/test_phase143_75f_ehp_semantic_rendering.py::test_phase143_75f_renders_delta_kernel_semantically
+FAILED tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_prop27_whitehead_argument_semantically
+FAILED tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_prop27_map_application_semantically
+FAILED tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_58_whitehead_square_semantically
+FAILED tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_all_target_occurrences_render_semantically
+FAILED tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_both_rule_families_use_same_semantic_renderer
+FAILED tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_concrete_map_uses_source_and_target_groups
+FAILED tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py::test_phase143_75s_all_aggregate_components_render_semantically
+FAILED tests/test_phase144_6_pi6_generic_production_route.py::test_phase144_6_pi6_production_branch_contains_no_legacy_renderer_call
+FAILED tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_depth2_narrative_has_definition_without_pi5_3
+FAILED tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py::test_phase144_6_r25_9b_cli_depth2_narrative_has_definition
+FAILED tests/test_phase144_6_r5_40_narrative_contribution_placement_order_audit.py::test_phase144_6_r5_40_pi6_has_five_selected_contributions
+FAILED tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_pi6_has_five_ordered_contributions
+FAILED tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_pi6_order_matches_phase41_topological_order
+FAILED tests/test_phase144_6_r5_42_generic_narrative_contribution_production_foundation.py::test_phase144_6_r5_42_nonunique_phase41_arguments_are_deterministic
+FAILED tests/test_phase144_6_r5_43_1.py::test_phase144_6_r5_43_1_pi6_connected_contributions_are_unique_and_ordered
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_pi6_transport_connector_is_rendered_between_c2_and_c3
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_all_sixteen_uniform_chains_receive_compression_connector
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_preserves_direct_connector
+FAILED tests/test_phase144_6_r5_43_10_transport_chain_compression_production.py::test_phase144_6_r5_43_10_renderer_does_not_read_inference_rule_names
+FAILED tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_all_sixteen_transport_chains_are_connected
+FAILED tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_has_no_contribution_duplicates_or_order_violations
+FAILED tests/test_phase144_6_r5_43_11_completion_cross_group_narrative_audit.py::test_phase144_6_r5_43_11_renderer_has_no_rule_name_or_pi6_specific_branch
+FAILED tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_final_completion_invariants_pass
+FAILED tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_connects_all_33_narrative_participating_contributions
+FAILED tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_preserves_all_sixteen_transport_connectors
+FAILED tests/test_phase144_6_r5_43_11d_final_completion_audit.py::test_phase144_6_r5_43_11d_renderer_remains_generic
+FAILED tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_uses_provider_anchor_indices
+FAILED tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_contributions_are_not_dumped_after_final_connector
+FAILED tests/test_phase144_6_r5_43_2_placement_aware_contribution_insertion.py::test_phase144_6_r5_43_2_pi6_contributions_remain_unique_and_topologically_ordered
+FAILED tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_only_direct_contribution_dependency_gets_direct_connector
+FAILED tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_c4_to_c5_has_connector
+FAILED tests/test_phase144_6_r5_43_4_dependency_aware_contribution_connector.py::test_phase144_6_r5_43_4_preserves_r5_43_2_placement_and_uniqueness
+FAILED tests/test_phase144_6_r5_43_5.py::test_phase144_6_r5_43_5_audits_three_transitive_segments
+FAILED tests/test_phase144_6_r5_43_6.py::test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates
+FAILED tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_reproduces_all_r5_43_6_hidden_bridge_signatures
+FAILED tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_r5_43_6_population_has_two_semantic_roles
+FAILED tests/test_phase144_6_r5_43_7_hidden_bridge_semantic_classification_foundation.py::test_phase144_6_r5_43_7_public_route_remains_unchanged_after_r5_43_10
+FAILED tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_finds_sixteen_three_step_transport_chains
+FAILED tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_has_one_hidden_signature_sequence
+FAILED tests/test_phase144_6_r5_43_8.py::test_phase144_6_r5_43_8_reports_all_forty_eight_transport_occurrences
+FAILED tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_chains_observe_same_operation_kind
+FAILED tests/test_phase144_6_r5_43_9.py::test_phase144_6_r5_43_9_all_three_candidate_prose_levels_are_supported_by_observed_data
+FAILED tests/test_phase144_6_r5_43_generic_renderer_contribution_connection.py::test_phase144_6_r5_43_pi6_contributions_enter_generic_narrative_in_order
+FAILED tests/test_phase150_rc4_5b_3_r1_beta_latex.py::test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table
+FAILED tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi10_4_numbers_normalized_references
+FAILED tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi12_5_numbers_normalized_references
+FAILED tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi10_public_and_web_use_generic_reason_route
+FAILED tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py::test_phase150_rc4_7d_3_pi12_public_and_web_use_generic_reason_route
+FAILED tests/test_phase153_r2_public_reference_semantic_fact.py::test_phase153_r2_public_pi10_6_excludes_obsolete_45_reference
+FAILED tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_all_selected_statements_are_publicly_visible
+FAILED tests/test_phase153_r3_10_public_reference_connection_repair.py::test_phase153_r3_10_public_reference_markers_cover_structured_entries
+FAILED tests/test_phase153_r3_11_reference_body_ownership_repair.py::test_phase153_r3_11_all_112_groups_have_no_exact_selected_statement_body_duplicates
+FAILED tests/test_phase153_r3_4_reference_statement_rendering_connection.py::test_phase153_r3_4_public_pi10_6_reference_section_excludes_obsolete_45
+FAILED tests/test_phase153_r3_5_reference_body_duplicate_suppression.py::test_phase153_r3_5_public_pi10_6_keeps_current_reference_baseline_without_obsolete_45
+FAILED tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py::test_phase153_r3_9_all_reference_entries_have_selected_statement
+FAILED tests/test_phase95_actual_representative_top_level_capability.py::test_phase95_20_pi9_5_preserves_order_two_generator_and_actual_ehp_provenance
+FAILED tests/test_phase95_actual_representative_top_level_capability.py::test_phase95_20_pi10_4_preserves_order_eight_outer_phase73_branch
+FAILED tests/test_phase95_top_level_calculation_orchestration.py::test_phase95_18_preserves_multiple_aggregate_candidates_in_registration_order
+FAILED tests/test_phase96_actual_pi9_5_end_to_end_presentation.py::test_phase96_7_actual_pi9_5_integrates_calculation_source_metadata
+FAILED tests/test_phase96_actual_pi9_5_end_to_end_presentation.py::test_phase96_7_actual_pi9_5_result_source_and_goal_source_remain_distinct
+FAILED tests/test_phase96_full_proof_report_renderer.py::test_phase96_11_actual_pi9_5_full_report_contains_source_metadata
+FAILED tests/test_phase96_human_readable_renderer.py::test_phase96_9_actual_pi9_5_markdown_contains_result_source_and_ehp
+FAILED tests/test_phase96_proof_step_source_presentation.py::test_phase96_5_actual_pi9_5_aggregate_goal_source_preserves_theorem_phase_and_branch
+FAILED tests/test_phase96_proof_step_source_presentation.py::test_phase96_5_actual_aggregate_result_source_and_goal_source_remain_distinct
+FAILED tests/test_phase96_proof_step_source_presentation.py::test_phase96_5_actual_internal_dependency_does_not_inherit_aggregate_theorem_metadata
+FAILED tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_representative_goal_sources_preserve_theorem_phase_and_branch
+FAILED tests/test_phase96_representative_targets_end_to_end_presentation.py::test_phase96_8_all_representative_results_keep_result_and_goal_sources_distinct
+FAILED tests/test_phase97_actual_representative_targets_top_level_api.py::test_phase97_5_representative_goal_source_provenance_survives_top_level_api
+FAILED tests/test_phase97_not_found_multiple_results_top_level_handling.py::test_phase97_4_multiple_aggregate_results_preserve_goal_source_order
+FAILED tests/test_phase97_single_found_calculation_to_report_api.py::test_phase97_3_aggregate_found_preserves_goal_source_provenance
+FAILED tests/test_phase98_actual_use_facade_validation.py::test_phase98_3_facade_preserves_goal_source_provenance
+FAILED tests/test_phase98_representative_convenience_validation.py::test_phase98_6_shortest_path_preserves_goal_source_provenance
+98 failed, 10323 passed in 2380.08s (0:39:40)
