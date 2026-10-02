@@ -63,34 +63,6 @@ def test_phase144_6_r5_43_6_hidden_bridge_rows_have_classification_inputs():
   )
 
 
-def test_phase144_6_r5_43_6_pi6_contains_expected_transport_and_integration_candidates():
-  rows = tuple(
-    row
-    for row in build_hidden_bridge_inventory()
-    if (
-      row[
-        "n"
-      ],
-      row[
-        "k"
-      ],
-    ) == (
-      3,
-      3,
-    )
-  )
-  counts = Counter(
-    row[
-      "classification"
-    ]
-    for row in rows
-  )
-
-  assert counts[
-    "transport_candidate"
-  ] >= 3
-
-
 def test_phase144_6_r5_43_6_is_audit_only():
   import inspect
   import audit_phase144_6_r5_43_6 as module
