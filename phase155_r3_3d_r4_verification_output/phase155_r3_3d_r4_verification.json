@@ -1,0 +1,37 @@
+{
+  "completion": {
+    "effective_deletion_ids_absent": true,
+    "newer_pair_tests_present": true,
+    "renamed_hidden_tests_present": true,
+    "source_level_duplicate_test_names_zero": true,
+    "repaired_graph_survivors_present": true,
+    "historical_keep_ids_present": false,
+    "unresolved_removable_pairs_zero": true,
+    "focused_pytest_exit_zero": false
+  },
+  "closure_satisfied": false,
+  "effective_deletion_ids": 163,
+  "effective_deletion_ids_still_present": [],
+  "missing_newer_ids": [],
+  "missing_renamed_ids": [],
+  "source_level_duplicate_groups": [],
+  "repaired_survivor_count": 64,
+  "missing_repaired_survivors": [],
+  "missing_historical_ids": [
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_map_symbol",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_2_preimage_subgroup_uses_primary_component_target"
+  ],
+  "unresolved_removable_pairs": [],
+  "focused_test_ids": [
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_map_type_remains_map_symbol",
+    "tests/test_phase41_preimage_subgroup.py::test_phase41_4_preimage_subgroup_target_type_remains_primary_component",
+    "tests/test_set_rules.py::test_image_membership_statement_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_image_membership_statement_uses_existing_image_subgroup_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_kernel_membership_statement_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_kernel_membership_statement_uses_existing_kernel_subgroup_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_phase155_hidden_coverage_1",
+    "tests/test_set_rules.py::test_mapped_zero_implies_kernel_membership_uses_explicit_group_map_phase155_hidden_coverage_1"
+  ],
+  "focused_pytest_exit_code": 1,
+  "repository_wide_pytest_executed": false
+}
