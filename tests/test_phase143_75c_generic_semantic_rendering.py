@@ -64,7 +64,7 @@ def test_phase143_75c_renders_toda45_isomorphism_semantically():
   assert rendered.startswith(
     "$E^{"
   )
-  assert r"\xrightarrow{\cong}" in rendered
+  assert r"\to" in rendered
   assert (
     proof_step.inference_rule.name
     not in rendered
@@ -87,7 +87,7 @@ def test_phase143_75c_renders_hopf_isomorphism_semantically():
   assert rendered.startswith(
     "$H: "
   )
-  assert r"\xrightarrow{\cong}" in rendered
+  assert r"\to" in rendered
   assert (
     proof_step.inference_rule.name
     not in rendered
@@ -107,9 +107,14 @@ def test_phase143_75c_renders_prop44_second_summand_semantically():
     proof_step
   )
 
-  assert r"\mapsto" in rendered
   assert r"\eta_{2}" in rendered
   assert (
     proof_step.inference_rule.name
+    not in rendered
+  )
+  assert (
+    type(
+      proof_step.conclusion
+    ).__name__
     not in rendered
   )

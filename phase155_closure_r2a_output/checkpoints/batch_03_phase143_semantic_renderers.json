@@ -1,0 +1,21 @@
+{
+  "batch": "batch_03_phase143_semantic_renderers",
+  "status": "PASS",
+  "returncode": 0,
+  "elapsed_seconds": 54.09792799997376,
+  "nodeids": [
+    "tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_toda45_isomorphism_semantically",
+    "tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_hopf_isomorphism_semantically",
+    "tests/test_phase143_75c_generic_semantic_rendering.py::test_phase143_75c_renders_prop44_second_summand_semantically",
+    "tests/test_phase143_75f_ehp_semantic_rendering.py::test_phase143_75f_renders_delta_surjective_semantically",
+    "tests/test_phase143_75f_ehp_semantic_rendering.py::test_phase143_75f_renders_delta_kernel_semantically",
+    "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_prop27_whitehead_argument_semantically",
+    "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_prop27_map_application_semantically",
+    "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py::test_phase143_75i_renders_58_whitehead_square_semantically",
+    "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_all_target_occurrences_render_semantically",
+    "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_both_rule_families_use_same_semantic_renderer",
+    "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py::test_phase143_75p_concrete_map_uses_source_and_target_groups",
+    "tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py::test_phase143_75s_all_aggregate_components_render_semantically"
+  ],
+  "log": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase155_closure_r2a_output\\logs\\batch_03_phase143_semantic_renderers.log"
+}

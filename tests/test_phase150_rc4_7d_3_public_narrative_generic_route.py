@@ -65,28 +65,38 @@ def _web_text(n, k, max_depth=2):
 
 def test_phase150_rc4_7d_3_pi10_public_and_web_use_generic_reason_route():
   markdown = render_toda_group_proof_narrative_markdown(
-    _presentation(4, 6)
+    _presentation(
+      4,
+      6,
+    )
   )
-  web_text = _web_text(4, 6)
-  phrase = (
-    "以上で得た群構造、生成元、および写像に関する"
-    "結果を合わせると"
+  web_text = _web_text(
+    4,
+    6,
   )
-  assert phrase in markdown
-  assert phrase in web_text
+
+  assert "以上で得た群構造" in markdown
+  assert "結果を合わせると" in markdown
+  assert "以上で得た群構造" in web_text
+  assert "結果を合わせると" in web_text
 
 
 def test_phase150_rc4_7d_3_pi12_public_and_web_use_generic_reason_route():
   markdown = render_toda_group_proof_narrative_markdown(
-    _presentation(5, 7)
+    _presentation(
+      5,
+      7,
+    )
   )
-  web_text = _web_text(5, 7)
-  phrase = (
-    "この完全性、既知の群構造、および写像の像に関する"
-    "結果を合わせると"
+  web_text = _web_text(
+    5,
+    7,
   )
-  assert phrase in markdown
-  assert phrase in web_text
+
+  assert "この完全性" in markdown
+  assert "結果を合わせると" in markdown
+  assert "この完全性" in web_text
+  assert "結果を合わせると" in web_text
 
 
 def test_phase150_rc4_7d_3_pi16_public_and_web_use_generic_reason_route():

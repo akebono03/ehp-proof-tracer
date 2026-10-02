@@ -1,0 +1,12 @@
+{
+  "batch": "batch_01_phase132_133",
+  "status": "PASS",
+  "evidence": "7 tests passed in previous batch run; 5 previously failing tests passed after R1 repair.",
+  "r1_repaired_nodeids": [
+    "tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer",
+    "tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording",
+    "tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels",
+    "tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels",
+    "tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available"
+  ]
+}

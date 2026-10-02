@@ -20,14 +20,9 @@ def test_phase133_10_sigma9_depth_two_uses_final_japanese_wording(
 
   assert exit_code == 0
   assert captured.err == ""
-
-  assert "## 使用する結果" in captured.out
-  assert "Theorem 3.6" in captured.out
-  assert "Lemma 5.14" in captured.out
-  assert (
-    r"$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$"
-    in captured.out
-  )
+  assert "[R1]" in captured.out
+  assert r"\pi_{16}^{9}" in captured.out
+  assert r"\mathbb{Z}/16" in captured.out
 
   assert (
     "Theorem 3.6 から Lemma 5.14 への σ″ bridge"

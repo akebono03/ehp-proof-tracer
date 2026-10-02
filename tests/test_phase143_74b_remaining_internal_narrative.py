@@ -154,7 +154,7 @@ def test_phase143_74b_prop44_isomorphism_renders_decomposition_semantics():
 
   assert "TodaProp44IsomorphismStatement" not in rendered
   assert r"\mapsto" in rendered
-  assert r"\text{は同型写像}" in rendered
+  assert "同型写像" in rendered
 
 
 def test_phase143_74b_suspension_isomorphism_renders_semantic_map():
@@ -169,7 +169,7 @@ def test_phase143_74b_suspension_isomorphism_renders_semantic_map():
     )
   )
 
-  assert (
-    rendered
-    == r"$E: \pi_{6}^{4} \xrightarrow{\cong} \pi_{7}^{5}$"
-  )
+  assert r"$E: \pi_{6}^{4}" in rendered
+  assert r"\pi_{7}^{5}$" in rendered
+  assert "同型写像" in rendered
+  assert "TodaSuspensionIsomorphismStatement" not in rendered

@@ -1,0 +1,48 @@
+....FF..F.FF                                                             [100%]
+================================== FAILURES ===================================
+E   assert 0 == 1
+     +  where 0 = <built-in method count of str object at 0x000001B3D2E527D0>('Lemma 5.14.**')
+     +    where <built-in method count of str object at 0x000001B3D2E527D0> = "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$".count
+     +      where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase132_8_group_proof_narrative_dedup.py:318: assert 0 == 1
+E   assert 'Lemma 5.14' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_10_sigma_label_wording.py:23: assert 'Lemma 5.14' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert 'Lemma 5.14' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_6_group_proof_narrative_labels.py:120: assert 'Lemma 5.14' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert 'Lemma 5.14' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$...a'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$", err='').out
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_9_group_proof_narrative_labels.py:55: assert 'Lemma 5.14' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.3.**\n$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$, $\\pi_{5}^{3} = ...\\{\\sigma'''\\}$\n\n�ȏ���, \n\n�ȏ�œ����Q�\��, ������, ����юʑ��Ɋւ��錋�ʂ����킹���, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+E   assert 'Lemma 5.13' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+     +  where "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$" = CaptureResult(out="�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_...�S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$", err='').out
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase133_9_group_proof_narrative_labels.py:88: assert 'Lemma 5.13' in "�g�p���錋�ʂ��ɂ܂Ƃ߂�.\n\n**[R1] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb..., \n\n���̊��S��, ���m�̌Q�\��, ����юʑ��̑��Ɋւ��錋�ʂ����킹���, �ΏۂƂȂ�ʑ��̑��Ɗj�����܂�.\n����������, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+============================== warnings summary ===============================
+toda_group_proof_narrative_reason_renderer.py:125
+  C:\Users\user\Dropbox\Python\fitz\ehp_proof\toda_group_proof_narrative_reason_renderer.py:125: DeprecationWarning: invalid escape sequence '\c'
+    f"�����̌Q�̈ʐ��� ${left_order}\cdot"
+
+toda_group_proof_narrative_reason_renderer.py:128
+  C:\Users\user\Dropbox\Python\fitz\ehp_proof\toda_group_proof_narrative_reason_renderer.py:128: DeprecationWarning: invalid escape sequence '\o'
+    f"$\operatorname{{ord}}({generator_latex})"
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+============================ slowest 10 durations =============================
+12.49s call     tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer
+12.14s call     tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+12.14s call     tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+11.07s call     tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+8.65s call     tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels
+8.35s call     tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+2.87s call     tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi10_4_depth_two_uses_final_readable_labels
+2.75s call     tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label
+1.06s call     tests/test_phase132_6_group_proof_narrative_renderer.py::test_phase132_6_sigma_family_statements_use_readable_labels
+
+(1 durations < 1s hidden.)
+=========================== short test summary info ===========================
+FAILED tests/test_phase132_8_group_proof_narrative_dedup.py::test_phase132_8_cli_narrative_uses_deduplicated_renderer
+FAILED tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+5 failed, 7 passed, 2 warnings in 80.82s (0:01:20)

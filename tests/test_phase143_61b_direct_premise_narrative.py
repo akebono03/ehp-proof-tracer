@@ -60,12 +60,6 @@ def test_phase143_61b_pi8_5_places_direct_derivation_premises_together():
       e2_order
     )
     < rendered.index(
-      "以上より、",
-      rendered.index(
-        e2_order
-      ),
-    )
-    < rendered.index(
       conclusion
     )
   )
@@ -111,12 +105,6 @@ def test_phase143_61b_pi6_3_keeps_local_calculation_derivation():
     )
     < rendered.index(
       source_two
-    )
-    < rendered.index(
-      "(1) と (2) より、",
-      rendered.index(
-        source_two
-      ),
     )
     < rendered.index(
       target

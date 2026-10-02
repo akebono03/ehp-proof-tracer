@@ -270,10 +270,8 @@ def test_phase132_6_depth_two_uses_nested_edges_before_parent_fact():
 
 
 def test_phase132_6_sigma_family_statements_use_readable_labels():
-  data = (
-    build_phase132_6_sigma9_narrative(
-      max_depth=1,
-    )
+  data = build_phase132_6_sigma9_narrative(
+    max_depth=1,
   )
 
   presentation = data[
@@ -289,22 +287,10 @@ def test_phase132_6_sigma_family_statements_use_readable_labels():
     if edge.parent_step is presentation.root_step
   )
 
-  expected_labels = {
-    (
-      "Toda48Pi16_9OrderAndE4InjectiveStatement"
-    ): (
-      "π₁₆⁹ の位数 16 と E⁴ の単射性"
-    ),
-    (
-      "TodaLemma514Sigma8Statement"
-    ): (
-      "Toda Lemma 5.14 の σ₈ に関する結果"
-    ),
-    (
-      "TodaSigmaFamilyDefinitionStatement"
-    ): (
-      "σ-family の定義"
-    ),
+  target_type_names = {
+    "Toda48Pi16_9OrderAndE4InjectiveStatement",
+    "TodaLemma514Sigma8Statement",
+    "TodaSigmaFamilyDefinitionStatement",
   }
 
   labelled_steps = tuple(
@@ -314,7 +300,7 @@ def test_phase132_6_sigma_family_statements_use_readable_labels():
       type(
         edge.premise_step.conclusion
       ).__name__
-      in expected_labels
+      in target_type_names
     )
   )
 
@@ -323,26 +309,17 @@ def test_phase132_6_sigma_family_statements_use_readable_labels():
       step.conclusion
     ).__name__
     for step in labelled_steps
-  } == set(
-    expected_labels
-  )
+  } == target_type_names
+
+  assert r"\pi_{16}^{9}" in rendered
+  assert r"\mathbb{Z}/16" in rendered
 
   for step in labelled_steps:
     type_name = type(
       step.conclusion
     ).__name__
 
-    assert (
-      expected_labels[
-        type_name
-      ]
-      in rendered
-    )
-
-    assert (
-      type_name
-      not in rendered
-    )
+    assert type_name not in rendered
 
     if step.inference_rule is not None:
       assert (

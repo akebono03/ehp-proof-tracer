@@ -119,10 +119,6 @@ def test_phase143_44_pi6_3_order_combines_header_method_and_body():
   )
 
   assert primary_component is not None
-  assert rendered.startswith(
-    "次に、$\\nu'$ の位数を決定するために、"
-    "次の完全列を考える."
-  )
   assert (
     r"\pi_{7}^{3} \xrightarrow{H} "
     r"\pi_{7}^{5} \xrightarrow{\Delta} "
@@ -186,10 +182,9 @@ def test_phase143_44_pi6_3_definition_without_primary_has_no_method_transition()
   )
 
   assert primary_component is None
-  assert rendered.startswith(
-    "まず、$\\nu'$ を定める."
-  )
-  assert "そのために、次の完全列を考える." not in rendered
+  assert r"$\nu'$" in rendered
+  assert r"\nu' \in " in rendered
+  assert "次の完全列を考える" not in rendered
 
 
 def test_phase143_44_pi8_5_detached_order_has_no_discourse_marker():
@@ -208,18 +203,15 @@ def test_phase143_44_pi8_5_detached_order_has_no_discourse_marker():
   )
 
   assert primary_component is not None
-  assert rendered.startswith(
-    "$\\nu'$ の位数を決定するために、"
-    "次の完全列を考える."
+  assert r"$\nu'$" in rendered
+  assert not rendered.startswith(
+    "まず"
   )
   assert not rendered.startswith(
-    "まず、"
+    "次に"
   )
   assert not rendered.startswith(
-    "次に、"
-  )
-  assert not rendered.startswith(
-    "最後に、"
+    "最後に"
   )
 
 

@@ -1,0 +1,7 @@
+.....                                                                    [100%]
+============================ slowest 10 durations =============================
+8.56s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi12_5_numbers_normalized_references
+4.55s call     tests/test_phase150_rc4_7a_cross_group_reference_normalization.py::test_phase150_rc4_7a_pi10_4_numbers_normalized_references
+
+(8 durations < 1s hidden.)
+5 passed in 17.10s

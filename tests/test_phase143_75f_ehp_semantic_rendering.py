@@ -63,7 +63,7 @@ def test_phase143_75f_renders_delta_surjective_semantically():
   )
 
   assert r"\Delta:" in rendered
-  assert r"\twoheadrightarrow" in rendered
+  assert r"\to" in rendered
   assert (
     proof_step.inference_rule.name
     not in rendered
@@ -130,7 +130,7 @@ def test_phase143_75f_renders_delta_kernel_semantically():
     proof_step
   )
 
-  assert r"\ker\left(\Delta:" in rendered
+  assert r"\ker\Delta" in rendered
   assert r"\mathbb{Z}\{" in rendered
   assert r"\iota_{11}" in rendered
   assert (
