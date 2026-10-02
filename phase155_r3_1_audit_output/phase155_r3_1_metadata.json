@@ -1,0 +1,14 @@
+{
+  "phase": "155-R3-1",
+  "git_head": "9f88c9fa72dc50820d487acfef2e9f28af0f72df",
+  "source_level_test_functions": 10292,
+  "candidate_pairs": 332,
+  "pair_category_counts": {
+    "exact_duplicate_candidate": 175,
+    "superseded_candidate": 157
+  },
+  "production_code_modified": false,
+  "existing_tests_modified": false,
+  "tests_deleted": 0,
+  "repository_wide_pytest_executed": false
+}
