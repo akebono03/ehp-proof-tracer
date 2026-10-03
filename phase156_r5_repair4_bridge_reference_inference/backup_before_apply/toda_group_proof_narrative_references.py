@@ -43,11 +43,6 @@ def _infer_toda_group_proof_literature_reference_from_rule_name(
   if not isinstance(rule_name, str):
     raise TypeError("rule_name must be a str")
 
-  normalized_rule_name = rule_name.lower()
-
-  if "bridge" in normalized_rule_name:
-    return None
-
   named_match = re.match(
     r"^Toda (Proposition|Lemma|Theorem|Equation) ([0-9]+(?:\.[0-9]+)*)\b",
     rule_name,

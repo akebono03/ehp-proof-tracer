@@ -1,0 +1,31 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "pi6_depth2_headers": [
+    "Lemma 5.2",
+    "Proposition 5.3",
+    "Lemma 5.4",
+    "(5.3)",
+    "Proposition 5.1",
+    "(5.2)"
+  ],
+  "pi6_depth3_headers": [
+    "Lemma 5.2",
+    "Proposition 5.3",
+    "Lemma 5.4",
+    "(5.3)",
+    "Proposition 5.1",
+    "(5.2)",
+    "(5.2)",
+    "Proposition 4.4"
+  ],
+  "pi6_depth2_53_count": 1,
+  "pi6_depth3_53_count": 1,
+  "pi6_depth2_lemma52_count": 1,
+  "pi6_depth3_lemma52_count": 1,
+  "pass": true
+}

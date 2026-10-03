@@ -62970,13 +62970,6 @@ def toda_53_eta3_twice_zero_inference_rule():
     ),
     conclusion_builder=build_conclusion,
     match_guard=guard,
-    literature_reference=LiteratureReference(
-      label="Toda Proposition 5.1",
-      author="H. Toda",
-      title="Composition Methods in Homotopy Groups of Spheres",
-      year=1962,
-      locator="Proposition 5.1",
-    ),
   )
 
 

@@ -1,0 +1,19 @@
+{
+  "groups": 112,
+  "exceptions": 0,
+  "eta3_twice_zero_proposition51_attribution": true,
+  "lemma52_rules_correct": 3,
+  "composite_53_lemma52_headers": 0,
+  "pi6_3_headers": [
+    "Lemma 5.2",
+    "Proposition 5.3",
+    "Lemma 5.4",
+    "(5.3)",
+    "Proposition 5.1",
+    "(5.2)"
+  ],
+  "pi6_3_53_header_count": 1,
+  "pi6_3_lemma52_header_count": 1,
+  "pi6_3_proposition51_header_count": 1,
+  "pass": true
+}

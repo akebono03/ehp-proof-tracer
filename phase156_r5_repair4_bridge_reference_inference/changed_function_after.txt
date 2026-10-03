@@ -1,0 +1,48 @@
+def _infer_toda_group_proof_literature_reference_from_rule_name(
+  rule_name: str,
+) -> LiteratureReference | None:
+  if not isinstance(rule_name, str):
+    raise TypeError("rule_name must be a str")
+
+  normalized_rule_name = rule_name.lower()
+
+  if "bridge" in normalized_rule_name:
+    return None
+
+  named_match = re.match(
+    r"^Toda (Proposition|Lemma|Theorem|Equation) ([0-9]+(?:\.[0-9]+)*)\b",
+    rule_name,
+  )
+  if named_match is not None:
+    kind, number = named_match.groups()
+    locator = f"{kind} {number}"
+    return LiteratureReference(
+      label=f"Toda {locator}",
+      locator=locator,
+    )
+
+  parenthesized_match = re.match(
+    r"^Toda \(([0-9]+(?:\.[0-9]+)*)\)\b",
+    rule_name,
+  )
+  if parenthesized_match is not None:
+    number = parenthesized_match.group(1)
+    locator = f"({number})"
+    return LiteratureReference(
+      label=f"Toda {locator}",
+      locator=locator,
+    )
+
+  bare_equation_match = re.match(
+    r"^Toda ([0-9]+\.[0-9]+)\b",
+    rule_name,
+  )
+  if bare_equation_match is not None:
+    number = bare_equation_match.group(1)
+    locator = f"({number})"
+    return LiteratureReference(
+      label=f"Toda {locator}",
+      locator=locator,
+    )
+
+  return None

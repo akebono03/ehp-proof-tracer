@@ -1,0 +1,105 @@
+def toda_53_eta3_twice_zero_inference_rule():
+  def guard(
+    premises,
+    bindings,
+  ):
+    group_relation = (
+      premises[
+        0
+      ].conclusion
+    )
+
+    expected_group = TodaPrimaryGroup(
+      group_dimension=4,
+      sphere_dimension=3,
+    )
+
+    if (
+      group_relation.lhs
+      != expected_group
+    ):
+      return False
+
+    if not isinstance(
+      group_relation.rhs,
+      FiniteCyclicGroup,
+    ):
+      return False
+
+    if (
+      group_relation.rhs.order
+      != 2
+    ):
+      return False
+
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    return (
+      group_relation.rhs.generator
+      == eta_3
+    )
+
+  def build_conclusion(
+    premises,
+  ):
+    eta_3 = HomotopyElement(
+      name="η₃",
+      dimension=3,
+      source=4,
+      target=3,
+      generator=GeneratorSymbol(
+        family="η",
+        index=3,
+      ),
+    )
+
+    return Relation(
+      lhs=Multiple(
+        coefficient=2,
+        expression=eta_3,
+      ),
+      rhs=Zero(),
+      relation_type=RelationType.ZERO,
+    )
+
+  return InferenceRule(
+    name=(
+      "Toda 5.3 eta_3 "
+      "twice zero"
+    ),
+    description=(
+      "From the independently derived "
+      "relation pi_4^3=Z/2{eta_3}, "
+      "derive the concrete order-two "
+      "consequence 2 eta_3=0 required "
+      "for the alpha=eta_3 "
+      "specialization of Lemma 5.2."
+    ),
+    premise_patterns=(
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
+        ),
+      ),
+    ),
+    conclusion_builder=build_conclusion,
+    match_guard=guard,
+    literature_reference=LiteratureReference(
+      label="Toda Proposition 5.1",
+      author="H. Toda",
+      title="Composition Methods in Homotopy Groups of Spheres",
+      year=1962,
+      locator="Proposition 5.1",
+    ),
+  )

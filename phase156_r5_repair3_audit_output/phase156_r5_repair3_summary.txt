@@ -1,0 +1,15 @@
+==============================================================================
+Phase156-R5 repair3 — eta_3 twice-zero attribution
+==============================================================================
+groups: 112
+exceptions: 0
+eta_3 twice-zero attributed to Proposition 5.1: True
+Lemma 5.2 rules correct: 3/3
+composite (5.3) / Lemma 5.2 headers: 0
+pi_6^3 (5.3) header count: 1
+pi_6^3 Lemma 5.2 header count: 1
+pi_6^3 Proposition 5.1 header count: 1
+pi_6^3 headers: Lemma 5.2, Proposition 5.3, Lemma 5.4, (5.3), Proposition 5.1, (5.2)
+
+PASS
+==============================================================================
