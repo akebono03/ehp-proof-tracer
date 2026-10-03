@@ -1,0 +1,126 @@
+==============================================================================
+Phase157 R11-R16 — Residual Finding Classification Audit
+==============================================================================
+Production code changes: none
+Test code changes: none
+Target groups: 6 groups from R11-R15 findings
+
+------------------------------------------------------------------------------
+pi_6^3
+------------------------------------------------------------------------------
+Standalone connector at paragraph[10]: '以上より,'
+     [8] $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+     [9] $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$.
+  >> [10] 以上より, 
+     [11] $\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=0$ かつ $2\nu'\neq0$ である. | したがって, 
+     [12] $\operatorname{ord}\left(\nu'\right) = 4$.
+Standalone connector at paragraph[24]: '以上より,'
+     [22] $0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$.
+     [23] [R2]より, $\nu' \in \pi_{6}^{3}$.
+  >> [24] 以上より, 
+     [25] この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である. | また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する. | したがって, 
+     [26] $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$.
+Repeated numeric equality: この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である. | また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する. | したがって,
+Hidden zero-map statement used via shorthand:
+  $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+    consumer: $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+Four-term EHP after visible E-injectivity:
+     [12] $\operatorname{ord}\left(\nu'\right) = 4$.
+     [13] 最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+  >> [14] $\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$.
+     [15] [R2]より, $H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$.
+     [16] $E^{2}\eta_{3} = \eta_{5}\tag{5}$.
+
+------------------------------------------------------------------------------
+pi_10^4
+------------------------------------------------------------------------------
+Standalone connector at paragraph[3]: '以上より,'
+     [1] $\pi_{9}^{3} = 0$.
+     [2] $\pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}$.
+  >> [3] 以上より, 
+     [4] $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$.
+     [5] $\nu_{4}$ の分解を用いる.
+Public References without body marker:
+  [R1] Lemma 5.4
+    statement: $\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.
+      consumer: $\nu_{4}$ の分解を用いる. | reference=None | root=False
+
+------------------------------------------------------------------------------
+pi_8^5
+------------------------------------------------------------------------------
+Standalone connector at paragraph[13]: 'したがって,'
+     [11] (3), (4), (7) より, $E^{2}\pi_{6}^{3}$ は位数 $4$ の部分群であり, その商が位数 $2$ なので, $\pi_{8}^{5}$ の位数は $8$ である.
+     [12] (6) より $\nu_{5}$ も位数 $8$ であるから, $\nu_{5}$ は $\pi_{8}^{5}$ を生成する.
+  >> [13] したがって,
+     [14] \[ | \pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}\tag{8} | \]
+     [15] を得る.
+
+------------------------------------------------------------------------------
+pi_12^5
+------------------------------------------------------------------------------
+Standalone connector at paragraph[6]: '以上より,'
+     [4] 最後に, $\pi_{12}^{5}$ の群構造を決定するために, 次の完全列を考える.
+     [5] $\pi_{12}^{5} \xrightarrow{H} \pi_{12}^{9} \xrightarrow{\Delta} \pi_{10}^{4}$.
+  >> [6] 以上より, 
+     [7] この完全性, 既知の群構造, および写像の像に関する結果を合わせると, 対象となる写像の像と核が決まる. | したがって, 
+     [8] $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$.
+Public References without body marker:
+  [R1] Lemma 5.13
+    statement: $\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+      consumer: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$ | reference='Proposition 5.15' | root=True
+  [R3] (5.5)
+    statement: $\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.
+      consumer: $H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ. | reference='Proposition 5.15' | root=False
+      consumer: $\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ. | reference='Lemma 5.13' | root=False
+
+------------------------------------------------------------------------------
+pi_15^8
+------------------------------------------------------------------------------
+Standalone connector at paragraph[9]: 'したがって,'
+     [7] \[ | \sigma' \longmapsto E\sigma', | \qquad | \iota_{15} \longmapsto \sigma_{8} | \]
+     [8] と写る.
+  >> [9] したがって,
+     [10] \[ | \pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\} | \]
+     [11] を得る.
+
+------------------------------------------------------------------------------
+pi_16^9
+------------------------------------------------------------------------------
+Standalone connector at paragraph[8]: '以上より,'
+     [6] $|\pi_{16}^{9}| = 16$ であり, $E^{4}: \pi_{12}^{5} \to \pi_{16}^{9}$ は単射である.
+     [7] $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$.
+  >> [8] 以上より, 
+     [9] $\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$.
+     [10] $\square$ | 
+Public References without body marker:
+  [R1] Lemma 5.14
+    statement: $\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ.
+      consumer: $\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$ | reference='Proposition 5.15' | root=True
+      consumer: $\sigma_{9}$ を \(\sigma\)-family の元として定める. | reference=None | root=False
+    statement: $2\sigma' = E\sigma''$, $H\left(\sigma'\right) = \eta_{13}$ が成り立つ.
+      consumer: $\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ. | reference='Lemma 5.14' | root=False
+      consumer: $\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$ | reference='Proposition 5.15' | root=False
+  [R2] Lemma 5.13
+    statement: $\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+      consumer: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$ | reference='Proposition 5.15' | root=False
+      consumer: $8\,xEα* = E^{4}\sigma'''$ が成り立つ. | reference=None | root=False
+
+==============================================================================
+Classification summary
+==============================================================================
+possible_redundant_left_ehp_term / confirmed_presentation_redundancy_candidate: 1
+public_reference_without_body_marker / ancestry_only_candidate: 2
+public_reference_without_body_marker / needed_but_marker_missing: 2
+public_reference_without_body_marker / needed_for_root_but_marker_missing: 1
+repeated_numeric_equality / confirmed_display_defect: 1
+standalone_connector / review_required: 7
+zero_map_used_without_visible_statement / confirmed_visibility_gap: 1
+
+Output:
+audit_output/classification.txt
+audit_output/classification.csv
+
+Production code changes: none
+Test code changes: none
+pytest: not run
+==============================================================================

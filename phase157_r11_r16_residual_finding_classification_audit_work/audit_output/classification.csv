@@ -1,0 +1,18 @@
+﻿group,category,item,classification,evidence
+pi_6^3,standalone_connector,"以上より,",review_required,paragraph_index=10
+pi_6^3,standalone_connector,"以上より,",review_required,paragraph_index=24
+pi_6^3,repeated_numeric_equality,"この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する.
+したがって,",confirmed_display_defect,same numeric literal repeated around '='
+pi_6^3,zero_map_used_without_visible_statement,$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.,confirmed_visibility_gap,body contains Delta=0 shorthand while full zero-map statement is hidden
+pi_6^3,possible_redundant_left_ehp_term,$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$.,confirmed_presentation_redundancy_candidate,"E injective at paragraph[8], four-term sequence at paragraph[14]"
+pi_10^4,standalone_connector,"以上より,",review_required,paragraph_index=3
+pi_10^4,public_reference_without_body_marker,[R1] Lemma 5.4,needed_but_marker_missing,direct_public_consumers=1; root_consumers=0; reference_only_consumers=0
+pi_8^5,standalone_connector,"したがって,",review_required,paragraph_index=13
+pi_12^5,standalone_connector,"以上より,",review_required,paragraph_index=6
+pi_12^5,public_reference_without_body_marker,[R1] Lemma 5.13,needed_for_root_but_marker_missing,direct_public_consumers=0; root_consumers=1; reference_only_consumers=0
+pi_12^5,public_reference_without_body_marker,[R3] (5.5),ancestry_only_candidate,direct_public_consumers=0; root_consumers=0; reference_only_consumers=2
+pi_15^8,standalone_connector,"したがって,",review_required,paragraph_index=9
+pi_16^9,standalone_connector,"以上より,",review_required,paragraph_index=8
+pi_16^9,public_reference_without_body_marker,[R1] Lemma 5.14,needed_but_marker_missing,direct_public_consumers=1; root_consumers=1; reference_only_consumers=2
+pi_16^9,public_reference_without_body_marker,[R2] Lemma 5.13,ancestry_only_candidate,direct_public_consumers=0; root_consumers=0; reference_only_consumers=1
