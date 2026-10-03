@@ -210,6 +210,14 @@ _PROPOSITION_56_COMPONENTS = (
 _EQUATION_53_COMPONENTS = (
   TodaFixedStatementComponent(
     reference_locator="(5.3)",
+    component_key="nu_prime_bracket_definition",
+    statement_role=TodaLiteratureStatementRole.MEMBERSHIP,
+    order=None,
+    range_text=None,
+    range_is_explicit_in_current_aggregate=True,
+  ),
+  TodaFixedStatementComponent(
+    reference_locator="(5.3)",
     component_key="nu_prime_membership",
     statement_role=TodaLiteratureStatementRole.MEMBERSHIP,
     order=None,
@@ -505,6 +513,9 @@ _FIXED_RULE_COMPONENT_KEYS = {
   "Toda Proposition 5.6 higher nu finite-cyclic generator bridge": (
     "higher_nu_group_relation"
   ),
+  "Toda (5.3) nu-prime bracket definition": (
+    "nu_prime_bracket_definition"
+  ),
   "Toda 5.3 nu-prime Lemma 5.2 membership specialization": (
     "nu_prime_membership"
   ),
@@ -577,6 +588,7 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
   "Toda Proposition 5.6 higher nu finite-cyclic generator bridge": (
     "Proposition 5.6"
   ),
+  "Toda (5.3) nu-prime bracket definition": "(5.3)",
   "Toda 5.3 nu-prime Lemma 5.2 membership specialization": "(5.3)",
   "Toda 5.3 nu-prime Lemma 5.2 Hopf specialization": "(5.3)",
   "Toda 5.3 nu-prime Lemma 5.2 double specialization": "(5.3)",

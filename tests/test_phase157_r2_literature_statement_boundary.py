@@ -132,6 +132,7 @@ def test_phase157_r2_equation53_inventory_has_no_group_order_policy():
     component.component_key
     for component in components
   ) == (
+    "nu_prime_bracket_definition",
     "nu_prime_membership",
     "nu_prime_hopf_relation",
     "nu_prime_double_relation",
@@ -145,11 +146,10 @@ def test_phase157_r2_equation53_inventory_has_no_group_order_policy():
     for component in components
   ) == (
     TodaLiteratureStatementRole.MEMBERSHIP,
+    TodaLiteratureStatementRole.MEMBERSHIP,
     TodaLiteratureStatementRole.MAP_VALUE,
     TodaLiteratureStatementRole.RELATION,
   )
-
-
 def test_phase157_r2_same_prop56_group_result_allows_only_earlier_component():
   pi5_2 = get_toda_fixed_statement_component(
     "Proposition 5.6",

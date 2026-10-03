@@ -41,6 +41,8 @@ from map_facts import (
   EHP_H_MAP,
 )
 from proof import (
+  InferenceRule,
+  LiteratureReference,
   ProofRule,
   ProofStep,
   Relation,
@@ -698,7 +700,27 @@ def build_toda_53_nu_prime_steps() -> tuple[
       ),
     ),
     premises=(),
-    rule=ProofRule.GIVEN,
+    rule=ProofRule.INFERENCE,
+    inference_rule=InferenceRule(
+      name=(
+        "Toda (5.3) nu-prime bracket definition"
+      ),
+      description=(
+        "Record the fixed Toda (5.3) definition "
+        "nu-prime in "
+        "{eta_3, 2 iota_4, eta_4}_1."
+      ),
+      literature_reference=LiteratureReference(
+        label="Toda (5.3)",
+        author="H. Toda",
+        title=(
+          "Composition Methods in "
+          "Homotopy Groups of Spheres"
+        ),
+        year=1962,
+        locator="(5.3)",
+      ),
+    ),
   )
 
   specialization_result = (

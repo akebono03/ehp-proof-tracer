@@ -182,28 +182,62 @@ def test_phase144_6_r25_9b_depth2_narrative_has_definition():
     )
   )
 
-  assert r"$\nu'$ を定める." in rendered
-  assert r"2\nu' = \eta_{3}^{3}" in rendered
+  reference_part = (
+    rendered.split(
+      "まず",
+      1,
+    )[
+      0
+    ]
+  )
+
+  assert (
+    r"\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+    in reference_part
+    or
+    r"\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}"
+    in reference_part
+  )
+  assert (
+    r"$\nu'$ を定める."
+    in rendered
+  )
+  assert (
+    r"2\nu' = \eta_{3}^{3}"
+    in rendered
+  )
   assert (
     r"\pi_{6}^{3} = "
     r"\mathbb{Z}/4\{\nu'\}"
     in rendered
   )
-
-
 def test_phase144_6_r25_9b_cli_depth2_narrative_has_definition(
   capsys,
 ):
-  exit_code = _run_group_proof_command(
-    3,
-    3,
-    max_depth=2,
-    mode="narrative",
+  exit_code = (
+    _run_group_proof_command(
+      3,
+      3,
+      max_depth=2,
+      mode="narrative",
+    )
   )
-  output = capsys.readouterr().out
+  output = (
+    capsys.readouterr().out
+  )
 
   assert exit_code == 0
-  assert r"$\nu'$ を定める." in output
+  assert (
+    r"\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+    in output
+    or
+    r"\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}"
+    in output
+  )
+  assert (
+    r"$\nu'$ を定める."
+    in output
+  )
   assert (
     r"\pi_{6}^{3} = "
     r"\mathbb{Z}/4\{\nu'\}"

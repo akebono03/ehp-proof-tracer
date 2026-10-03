@@ -476,38 +476,84 @@ def select_toda_group_proof_narrative_reference_statement_steps(
       "TodaGroupProofNarrativeReferenceEntry"
     )
 
-  if not isinstance(candidate_steps, tuple):
-    raise TypeError("candidate_steps must be a tuple")
-
-  if not all(isinstance(step, ProofStep) for step in candidate_steps):
+  if not isinstance(
+    candidate_steps,
+    tuple,
+  ):
     raise TypeError(
-      "candidate_steps must contain only ProofStep objects"
+      "candidate_steps must be a tuple"
     )
 
-  if root_step is not None and not isinstance(root_step, ProofStep):
-    raise TypeError("root_step must be a ProofStep or None")
+  if not all(
+    isinstance(
+      step,
+      ProofStep,
+    )
+    for step in candidate_steps
+  ):
+    raise TypeError(
+      "candidate_steps must contain only "
+      "ProofStep objects"
+    )
 
-  entry_step_ids = {id(step) for step in entry.proof_steps}
+  if (
+    root_step is not None
+    and not isinstance(
+      root_step,
+      ProofStep,
+    )
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep or None"
+    )
+
+  entry_step_ids = {
+    id(
+      step
+    )
+    for step in entry.proof_steps
+  }
   seen_candidate_step_ids = set()
 
   for step in candidate_steps:
-    step_id = id(step)
+    step_id = id(
+      step
+    )
+
     if step_id not in entry_step_ids:
       raise ValueError(
-        "candidate_steps must contain only steps from entry.proof_steps"
+        "candidate_steps must contain only "
+        "steps from entry.proof_steps"
       )
+
     if step_id in seen_candidate_step_ids:
       raise ValueError(
-        "candidate_steps must not contain the same ProofStep more than once"
+        "candidate_steps must not contain "
+        "the same ProofStep more than once"
       )
-    seen_candidate_step_ids.add(step_id)
 
-  if not isinstance(proof_edges, tuple):
-    raise TypeError("proof_edges must be a tuple")
+    seen_candidate_step_ids.add(
+      step_id
+    )
 
-  if not all(isinstance(edge, TodaProofEdge) for edge in proof_edges):
+  if not isinstance(
+    proof_edges,
+    tuple,
+  ):
     raise TypeError(
-      "proof_edges must contain only TodaProofEdge objects"
+      "proof_edges must be a tuple"
+    )
+
+  if not all(
+    isinstance(
+      edge,
+      TodaProofEdge,
+    )
+    for edge in proof_edges
+  ):
+    raise TypeError(
+      "proof_edges must contain only "
+      "TodaProofEdge objects"
     )
 
   eligible_candidates = tuple(
@@ -516,38 +562,17 @@ def select_toda_group_proof_narrative_reference_statement_steps(
     if step is not root_step
   )
 
-  if _phase157_r3_is_pi6_3_root(root_step):
-    fixed_candidates = []
-    for step in eligible_candidates:
-      boundary = classify_toda_literature_statement_step(step)
-
-      if (
-        entry.reference.locator == "Proposition 5.1"
-        and step.inference_rule is not None
-        and step.inference_rule.name
-        == "Toda Lemma 5.4 pi_6^5 finite-cyclic specialization"
-      ):
-        fixed_candidates.append(step)
-        continue
-
-      if (
-        boundary is not None
-        and boundary.classification
-        is TodaLiteratureStatementClassification.FIXED_STATEMENT
-        and boundary.reference_locator == entry.reference.locator
-      ):
-        fixed_candidates.append(step)
-
-    eligible_candidates = tuple(fixed_candidates)
-
   if not eligible_candidates:
     return ()
 
   boundary_used_step_ids = {
-    id(edge.premise_step)
+    id(
+      edge.premise_step
+    )
     for edge in proof_edges
     if (
-      edge.premise_step is not root_step
+      edge.premise_step
+      is not root_step
       and extract_toda_group_proof_step_literature_reference(
         edge.premise_step
       )
@@ -559,31 +584,37 @@ def select_toda_group_proof_narrative_reference_statement_steps(
     )
   }
 
-  boundary_used_candidates = tuple(
-    step
-    for step in eligible_candidates
-    if id(step) in boundary_used_step_ids
-  )
-  if boundary_used_candidates:
-    return boundary_used_candidates
-
   entry_external_used_step_ids = {
-    id(edge.premise_step)
+    id(
+      edge.premise_step
+    )
     for edge in proof_edges
-    if id(edge.parent_step) not in entry_step_ids
+    if id(
+      edge.parent_step
+    ) not in entry_step_ids
   }
 
-  entry_external_used_candidates = tuple(
+  used_candidate_step_ids = (
+    boundary_used_step_ids
+    | entry_external_used_step_ids
+  )
+
+  used_candidates = tuple(
     step
     for step in eligible_candidates
-    if id(step) in entry_external_used_step_ids
+    if id(
+      step
+    ) in used_candidate_step_ids
   )
-  if entry_external_used_candidates:
-    return entry_external_used_candidates
 
-  return (eligible_candidates[0],)
+  if used_candidates:
+    return used_candidates
 
-
+  return (
+    eligible_candidates[
+      0
+    ],
+  )
 def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(
   entries: tuple[
     TodaGroupProofNarrativeReferenceEntry,

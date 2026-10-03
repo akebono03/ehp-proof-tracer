@@ -1,0 +1,388 @@
+def build_toda_53_nu_prime_steps() -> tuple[
+  ProofStep,
+  ProofStep,
+  ProofStep,
+]:
+  phase50 = _build_phase50_result()
+
+  eta_3 = HomotopyElement(
+    name="η₃",
+    dimension=3,
+    source=4,
+    target=3,
+    generator=GeneratorSymbol(
+      family="η",
+      index=3,
+    ),
+  )
+  eta_4 = HomotopyElement(
+    name="η₄",
+    dimension=4,
+    source=5,
+    target=4,
+    generator=GeneratorSymbol(
+      family="η",
+      index=4,
+    ),
+  )
+  eta_5 = HomotopyElement(
+    name="η₅",
+    dimension=5,
+    source=6,
+    target=5,
+    generator=GeneratorSymbol(
+      family="η",
+      index=5,
+    ),
+  )
+  iota_4 = HomotopyElement(
+    name="ι_4",
+    dimension=4,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=4,
+    ),
+  )
+  nu_prime = HomotopyElement(
+    name="ν′",
+    dimension=3,
+    source=6,
+    target=3,
+    generator=GeneratorSymbol(
+      family="ν",
+      decoration="′",
+    ),
+  )
+
+  bracket_membership_step = ProofStep(
+    conclusion=TodaBracketMembershipStatement(
+      element=nu_prime,
+      bracket=TodaBracket(
+        first=eta_3,
+        second=Multiple(
+          coefficient=2,
+          expression=iota_4,
+        ),
+        third=eta_4,
+        index=1,
+      ),
+    ),
+    premises=(),
+    rule=ProofRule.INFERENCE,
+    inference_rule=InferenceRule(
+      name=(
+        "Toda (5.3) nu-prime bracket definition"
+      ),
+      description=(
+        "Record the fixed Toda (5.3) definition "
+        "nu-prime in "
+        "{eta_3, 2 iota_4, eta_4}_1."
+      ),
+      literature_reference=LiteratureReference(
+        label="Toda (5.3)",
+        author="H. Toda",
+        title=(
+          "Composition Methods in "
+          "Homotopy Groups of Spheres"
+        ),
+        year=1962,
+        locator="(5.3)",
+      ),
+    ),
+  )
+
+  specialization_result = (
+    run_inference_until_stable_with_history(
+      toda_53_nu_prime_bracket_specialization_inference_rule(),
+      (
+        bracket_membership_step,
+      ),
+    )
+  )
+
+  specialization_step = _find_unique_step(
+    specialization_result.steps,
+    lambda step: isinstance(
+      step.conclusion,
+      Toda53NuPrimeBracketSpecializationStatement,
+    ),
+    "nu-prime bracket specialization",
+  )
+
+  eta3_zero_result = (
+    run_inference_until_stable_with_history(
+      toda_53_eta3_twice_zero_inference_rule(),
+      (
+        phase50[
+          "final_group_step"
+        ],
+      ),
+    )
+  )
+
+  two_eta3_zero_step = _find_unique_step(
+    eta3_zero_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=Multiple(
+          coefficient=2,
+          expression=eta_3,
+        ),
+        rhs=Zero(),
+        relation_type=RelationType.ZERO,
+      )
+    ),
+    "2 eta_3 zero",
+  )
+
+  raw_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_53_nu_prime_lemma52_hopf_inference_rule(),
+        toda_53_nu_prime_lemma52_double_inference_rule(),
+        toda_53_nu_prime_lemma52_membership_inference_rule(),
+      ),
+      (
+        specialization_step,
+        two_eta3_zero_step,
+      ),
+    )
+  )
+
+  raw_hopf_step = _find_unique_step(
+    raw_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=MapApplication(
+          map=EHP_H_MAP,
+          expression=nu_prime,
+        ),
+        rhs=IteratedSuspension(
+          expression=eta_3,
+          exponent=2,
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    ),
+    "raw H(nu-prime)",
+  )
+
+  raw_double_step = _find_unique_step(
+    raw_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=Multiple(
+          coefficient=2,
+          expression=nu_prime,
+        ),
+        rhs=Composition(
+          left=eta_3,
+          right=Composition(
+            left=Suspension(
+              expression=eta_3,
+            ),
+            right=eta_5,
+          ),
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    ),
+    "raw 2 nu-prime",
+  )
+
+  membership_step = _find_unique_step(
+    raw_result.steps,
+    lambda step: (
+      step.conclusion
+      == HomotopyGroupMembershipStatement(
+        element=nu_prime,
+        group_dimension=6,
+        sphere_dimension=3,
+      )
+    ),
+    "nu-prime membership",
+  )
+
+  eta3_definition_step = ProofStep(
+    conclusion=toda_eta_family_definition_statement(
+      3
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+  eta4_definition_step = ProofStep(
+    conclusion=toda_eta_family_definition_statement(
+      4
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+  eta5_definition_step = ProofStep(
+    conclusion=toda_eta_family_definition_statement(
+      5
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  eta5_bridge_result = (
+    run_inference_until_stable_with_history(
+      toda_53_eta5_iterated_suspension_bridge_inference_rule(),
+      (
+        eta3_definition_step,
+        eta5_definition_step,
+      ),
+    )
+  )
+
+  eta5_bridge_step = _find_unique_step(
+    eta5_bridge_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=IteratedSuspension(
+          expression=eta_3,
+          exponent=2,
+        ),
+        rhs=eta_5,
+        relation_type=RelationType.EQUALITY,
+      )
+    ),
+    "eta_5 suspension bridge",
+  )
+
+  hopf_result = (
+    run_inference_until_stable_with_history(
+      equality_transitivity_inference_rule(),
+      (
+        raw_hopf_step,
+        eta5_bridge_step,
+      ),
+    )
+  )
+
+  final_hopf_step = _find_unique_step(
+    hopf_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=MapApplication(
+          map=EHP_H_MAP,
+          expression=nu_prime,
+        ),
+        rhs=eta_5,
+        relation_type=RelationType.EQUALITY,
+      )
+    ),
+    "H(nu-prime)=eta_5",
+  )
+
+  eta4_bridge_result = (
+    run_inference_until_stable_with_history(
+      toda_53_eta4_suspension_bridge_inference_rule(),
+      (
+        eta3_definition_step,
+        eta4_definition_step,
+      ),
+    )
+  )
+
+  eta4_bridge_step = _find_unique_step(
+    eta4_bridge_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=Suspension(
+          expression=eta_3,
+        ),
+        rhs=eta_4,
+        relation_type=RelationType.EQUALITY,
+      )
+    ),
+    "eta_4 suspension bridge",
+  )
+
+  right_rule = (
+    equality_preserved_under_right_composition_inference_rule(
+      eta_5,
+    )
+  )
+  right_match = find_inference_match(
+    right_rule,
+    (
+      eta4_bridge_step,
+    ),
+  )
+
+  if right_match is None:
+    raise ValueError(
+      "eta_4 bridge right-composition did not match"
+    )
+
+  right_step = apply_inference_match(
+    right_match
+  )
+
+  left_rule = (
+    equality_preserved_under_left_composition_inference_rule(
+      eta_3,
+    )
+  )
+  left_match = find_inference_match(
+    left_rule,
+    (
+      right_step,
+    ),
+  )
+
+  if left_match is None:
+    raise ValueError(
+      "eta_4 bridge left-composition did not match"
+    )
+
+  composition_step = apply_inference_match(
+    left_match
+  )
+
+  double_result = (
+    run_inference_until_stable_with_history(
+      equality_transitivity_inference_rule(),
+      (
+        raw_double_step,
+        composition_step,
+      ),
+    )
+  )
+
+  final_double_step = _find_unique_step(
+    double_result.steps,
+    lambda step: (
+      step.conclusion
+      == Relation(
+        lhs=Multiple(
+          coefficient=2,
+          expression=nu_prime,
+        ),
+        rhs=Composition(
+          left=eta_3,
+          right=Composition(
+            left=eta_4,
+            right=eta_5,
+          ),
+        ),
+        relation_type=RelationType.EQUALITY,
+      )
+    ),
+    "2 nu-prime",
+  )
+
+  return (
+    membership_step,
+    final_hopf_step,
+    final_double_step,
+  )
+
+
