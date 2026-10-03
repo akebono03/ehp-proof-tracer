@@ -36,6 +36,15 @@ def render_toda_group_proof_narrative_reason_sentence(
         "次の定義を用いる."
       )
 
+    if len(reason.premise_steps) != 1:
+      return None
+
+    premise_line = _render_generic_narrative_step(
+      reason.premise_steps[0]
+    )
+    if not premise_line:
+      return None
+
     binding = application.bindings[0]
     reference_label = application.reference.label
     formal_latex = render_toda_expression_latex(
@@ -46,11 +55,11 @@ def render_toda_group_proof_narrative_reason_sentence(
     )
 
     return (
-      "この前提条件を満たすので, "
-      f"{reference_label} を適用できる.\n"
+      f"{premise_line}\n"
+      "この前提条件のもとで, "
       f"{reference_label} の "
       f"${formal_latex}$ を "
-      f"${instantiated_latex}$ と定めると, "
+      f"${instantiated_latex}$ として適用する."
     )
 
   if (
@@ -160,6 +169,30 @@ def _toda_group_proof_narrative_reason_insertion_index(
   if conclusion_line:
     conclusion_index = markdown.find(conclusion_line)
     if conclusion_index >= 0:
+      if (
+        reason.kind
+        is TodaGroupProofNarrativeReasonKind
+        .DEFINITION_APPLICABILITY
+      ):
+        insertion_index = (
+          conclusion_index
+          + len(
+            conclusion_line
+          )
+        )
+        while (
+          insertion_index
+          < len(
+            markdown
+          )
+          and markdown[
+            insertion_index
+          ] == "\n"
+        ):
+          insertion_index += 1
+
+        return insertion_index
+
       return conclusion_index
 
   children_by_step_id = {}

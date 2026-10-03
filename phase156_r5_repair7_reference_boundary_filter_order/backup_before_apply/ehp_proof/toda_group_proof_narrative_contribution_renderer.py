@@ -2119,117 +2119,11 @@ def _toda_group_proof_narrative_reference_boundary_step_ids(
   )
 
 
-def _toda_group_proof_narrative_reference_owned_step_ids(
-  presentation: TodaGroupProofPresentation,
-  reference_entries,
-) -> frozenset[int]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  consumers_by_step_id = {}
-
-  for edge in presentation.edges:
-    consumers_by_step_id.setdefault(
-      id(
-        edge.premise_step
-      ),
-      [],
-    ).append(
-      edge.parent_step
-    )
-
-  all_owned_step_ids = set()
-
-  for entry in reference_entries:
-    entry_step_ids = {
-      id(
-        proof_step
-      )
-      for proof_step in entry.proof_steps
-    }
-    owned_step_ids = set(
-      entry_step_ids
-    )
-
-    changed = True
-
-    while changed:
-      changed = False
-
-      for edge in presentation.edges:
-        if (
-          id(
-            edge.parent_step
-          )
-          not in owned_step_ids
-        ):
-          continue
-
-        premise_step = edge.premise_step
-        premise_step_id = id(
-          premise_step
-        )
-
-        if (
-          premise_step
-          is presentation.root_step
-          or premise_step_id
-          in owned_step_ids
-        ):
-          continue
-
-        premise_reference = (
-          extract_toda_group_proof_step_literature_reference(
-            premise_step
-          )
-        )
-
-        if premise_reference is not None:
-          continue
-
-        consumers = tuple(
-          consumers_by_step_id.get(
-            premise_step_id,
-            (),
-          )
-        )
-
-        if not consumers:
-          continue
-
-        if not all(
-          id(
-            consumer
-          )
-          in owned_step_ids
-          for consumer in consumers
-        ):
-          continue
-
-        owned_step_ids.add(
-          premise_step_id
-        )
-        changed = True
-
-    all_owned_step_ids.update(
-      owned_step_ids
-    )
-
-  return frozenset(
-    all_owned_step_ids
-  )
-
-
 def _toda_group_proof_narrative_reference_internal_step_ids(
   presentation: TodaGroupProofPresentation,
   reference_entries,
 ) -> frozenset[int]:
-  selected_step_ids = set()
+  internal_step_ids = set()
 
   for entry in reference_entries:
     candidate_steps = []
@@ -2270,25 +2164,26 @@ def _toda_group_proof_narrative_reference_internal_step_ids(
         root_step=presentation.root_step,
       )
     )
-
-    selected_step_ids.update(
+    selected_step_ids = {
       id(
         proof_step
       )
       for proof_step in selected_steps
-    )
+    }
 
-  owned_step_ids = (
-    _toda_group_proof_narrative_reference_owned_step_ids(
-      presentation,
-      reference_entries,
+    internal_step_ids.update(
+      id(
+        proof_step
+      )
+      for proof_step in entry.proof_steps
+      if id(
+        proof_step
+      )
+      not in selected_step_ids
     )
-  )
 
   return frozenset(
-    step_id
-    for step_id in owned_step_ids
-    if step_id not in selected_step_ids
+    internal_step_ids
   )
 
 
@@ -2329,10 +2224,8 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
 
   internal_statement_lines = {
     rendered
-    for node in presentation.nodes
-    for proof_step in (
-      node.proof_step,
-    )
+    for entry in reference_entries
+    for proof_step in entry.proof_steps
     if id(
       proof_step
     )
@@ -2481,10 +2374,30 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
-  reference_owned_step_ids = (
-    _toda_group_proof_narrative_reference_owned_step_ids(
+  generic_used_step_ids = (
+    build_toda_group_proof_narrative_generic_used_step_ids(
       presentation,
+      blocks,
+      semantic_sidecar,
+      arguments,
+      ordered_contributions,
+    )
+  )
+  (
+    boundary_reference_entries,
+    boundary_statement_lines,
+  ) = (
+    filter_toda_group_proof_narrative_reference_entries_by_step_usage(
       reference_entries,
+      statement_lines_by_reference_number,
+      generic_used_step_ids,
+      presentation.root_step,
+    )
+  )
+
+  boundary_step_ids = (
+    _toda_group_proof_narrative_reference_boundary_step_ids(
+      boundary_reference_entries
     )
   )
   reason_sidecar = (
@@ -2503,7 +2416,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       if id(
         reason.conclusion_step
       )
-      not in reference_owned_step_ids
+      not in boundary_step_ids
     ),
   )
 
@@ -2517,7 +2430,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     suppress_toda_group_proof_narrative_reference_internal_body(
       presentation,
       rendered,
-      reference_entries,
+      boundary_reference_entries,
       arguments,
     )
   )
@@ -2539,16 +2452,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation,
       rendered,
       reference_entries,
-    )
-  )
-
-  generic_used_step_ids = (
-    build_toda_group_proof_narrative_generic_used_step_ids(
-      presentation,
-      blocks,
-      semantic_sidecar,
-      arguments,
-      ordered_contributions,
     )
   )
 

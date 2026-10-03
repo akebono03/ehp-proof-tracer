@@ -1,0 +1,212 @@
+==============================================================================
+DEPTH 2
+==============================================================================
+REFERENCE ENTRIES
+ENTRY number=1 label=Toda (5.3) locator=(5.3)
+  STEP 1
+    id=1645663518976
+    selected=True
+    rule=Toda 5.3 nu-prime Lemma 5.2 membership specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$\nu' \in \pi_{6}^{3}$
+  STEP 2
+    id=1645663499456
+    selected=False
+    rule=Toda 5.3 nu-prime Lemma 5.2 bracket specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+  STEP 3
+    id=1645663502240
+    selected=True
+    rule=Toda 5.3 nu-prime Lemma 5.2 double specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+
+REASONS
+REASON 1
+  kind=definition_applicability
+  conclusion_id=1645663495568
+  conclusion_in_any_reference_entry=False
+  conclusion_rule=None
+  conclusion_ref=None
+  conclusion_rendered=$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+  sentence="この前提条件を満たすので, Lemma 5.2 を適用できる.\nLemma 5.2 の $\\beta$ を $\\nu'$ と定めると, "
+  premise[0] id=1645663494704 rule=Toda 5.3 eta_3 twice zero ref=('Toda Proposition 5.1', 'Proposition 5.1')
+
+ARGUMENTS
+ARGUMENT 3
+  purpose=$\nu'$ を定める.
+  conclusion_id=1645663495568
+  conclusion_in_any_reference_entry=False
+  conclusion_rule=None
+  conclusion_ref=None
+  conclusion_rendered=$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+PUBLIC BODY
+まず, $\nu'$ を定める.
+
+この前提条件を満たすので, Lemma 5.2 を適用できる.
+Lemma 5.2 の $\beta$ を $\nu'$ と定めると, 
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+次に, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$
+
+$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より, 
+
+以上で得た群構造, 生成元, および写像に関する結果を合わせると, 
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+この完全性と $Δ=0$ より, $\ker E=\operatorname{Im}Δ=0$ である.
+したがって, 
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\operatorname{ord}(\eta_{3}\eta_{4}\eta_{5})=2$ かつ $2\nu'=\eta_{3}\eta_{4}\eta_{5}$ より, $4\nu'=0$ かつ $2\nu'\neq0$ である.
+したがって, 
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+(1) と (2) より, 
+
+$2\nu' = \eta_{3}^{3}\tag{3}$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+以上より, 
+
+この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する.
+したがって, 
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+==============================================================================
+DEPTH 3
+==============================================================================
+REFERENCE ENTRIES
+ENTRY number=1 label=Toda (5.3) locator=(5.3)
+  STEP 1
+    id=1645663518976
+    selected=True
+    rule=Toda 5.3 nu-prime Lemma 5.2 membership specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$\nu' \in \pi_{6}^{3}$
+  STEP 2
+    id=1645663499456
+    selected=False
+    rule=Toda 5.3 nu-prime Lemma 5.2 bracket specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+  STEP 3
+    id=1645663502240
+    selected=True
+    rule=Toda 5.3 nu-prime Lemma 5.2 double specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+  STEP 4
+    id=1645663501184
+    selected=True
+    rule=Toda 5.3 nu-prime Lemma 5.2 Hopf specialization
+    ref=('Toda (5.3)', '(5.3)')
+    rendered=$H\left(\nu'\right) = E^{2}\eta_{3}$
+
+REASONS
+REASON 1
+  kind=definition_applicability
+  conclusion_id=1645663495568
+  conclusion_in_any_reference_entry=False
+  conclusion_rule=None
+  conclusion_ref=None
+  conclusion_rendered=$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+  sentence="この前提条件を満たすので, Lemma 5.2 を適用できる.\nLemma 5.2 の $\\beta$ を $\\nu'$ と定めると, "
+  premise[0] id=1645663494704 rule=Toda 5.3 eta_3 twice zero ref=('Toda Proposition 5.1', 'Proposition 5.1')
+
+ARGUMENTS
+ARGUMENT 3
+  purpose=$\nu'$ を定める.
+  conclusion_id=1645663495568
+  conclusion_in_any_reference_entry=False
+  conclusion_rule=None
+  conclusion_ref=None
+  conclusion_rendered=$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+PUBLIC BODY
+まず, $\nu'$ を定める.
+
+この前提条件を満たすので, Lemma 5.2 を適用できる.
+Lemma 5.2 の $\beta$ を $\nu'$ と定めると, 
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+次に, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$
+
+$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より, 
+
+以上で得た群構造, 生成元, および写像に関する結果を合わせると, 
+
+$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+
+この完全性と $Δ=0$ より, $\ker E=\operatorname{Im}Δ=0$ である.
+したがって, 
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\operatorname{ord}(\eta_{3}\eta_{4}\eta_{5})=2$ かつ $2\nu'=\eta_{3}\eta_{4}\eta_{5}$ より, $4\nu'=0$ かつ $2\nu'\neq0$ である.
+したがって, 
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+(1) と (2) より, 
+
+$2\nu' = \eta_{3}^{3}\tag{3}$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+以上より, 
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する.
+したがって, 
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$
+
+$E^{2}\eta_{3} = \eta_{5}\tag{5}$
+
+(4) と (5) より, 
+
+$H\left(\nu'\right) = \eta_{5}\tag{6}$

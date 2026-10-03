@@ -1,0 +1,27 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "pi6_3": {
+    "depth2": {
+      "reference_53": true,
+      "reference_lemma52": false,
+      "body_lemma52": true,
+      "body_bracket": true,
+      "body_eta3_zero": false,
+      "body_nu_definition": true
+    },
+    "depth3": {
+      "reference_53": true,
+      "reference_lemma52": false,
+      "body_lemma52": true,
+      "body_bracket": true,
+      "body_eta3_zero": false,
+      "body_nu_definition": true
+    }
+  },
+  "pass": false
+}

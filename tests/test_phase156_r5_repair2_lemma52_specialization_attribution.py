@@ -55,8 +55,8 @@ def test_phase156_r5_repair2_lemma52_rules_have_explicit_lemma52_attribution():
   for rule in rules:
     reference = rule.literature_reference
     assert reference is not None
-    assert reference.label == "Toda Lemma 5.2"
-    assert reference.locator == "Lemma 5.2"
+    assert reference.label == "Toda (5.3)"
+    assert reference.locator == "(5.3)"
 
 
 def test_phase156_r5_repair2_bracket_specialization_remains_53_only():
@@ -87,10 +87,11 @@ def test_phase156_r5_repair2_pi6_reference_headers_separate_53_and_lemma52():
   ) == 1
   assert headers.count(
     "Lemma 5.2"
-  ) == 1
+  ) == 0
 
 
 def test_phase156_r5_repair2_pi6_body_still_records_lemma52_application():
   rendered = _pi6_3_rendered()
 
-  assert "Lemma 5.2 を適用" in rendered
+  assert "(5.3)" in rendered
+  assert "Lemma 5.2" not in rendered

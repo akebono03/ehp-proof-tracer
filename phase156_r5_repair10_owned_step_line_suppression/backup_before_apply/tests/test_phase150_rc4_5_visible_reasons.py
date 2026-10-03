@@ -115,6 +115,7 @@ def test_phase150_rc4_5_pi6_reason_is_visible_before_definition():
 
 
 @pytest.mark.parametrize("_label,n,k", CASES)
+@pytest.mark.parametrize("_label,n,k", CASES)
 def test_phase150_rc4_5_visible_reason_count_matches_current_deduplication_contract(
   _label,
   n,

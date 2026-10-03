@@ -1,0 +1,23 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "depth2": {
+    "reference_53": true,
+    "lemma52_absent": true,
+    "nu_definition_absent": true,
+    "bracket_absent": true,
+    "order_argument_present": true
+  },
+  "depth3": {
+    "reference_53": true,
+    "lemma52_absent": true,
+    "nu_definition_absent": true,
+    "bracket_absent": true,
+    "order_argument_present": true
+  },
+  "pass": true
+}

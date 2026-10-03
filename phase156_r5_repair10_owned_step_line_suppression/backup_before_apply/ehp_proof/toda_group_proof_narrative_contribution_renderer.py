@@ -2329,10 +2329,8 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
 
   internal_statement_lines = {
     rendered
-    for node in presentation.nodes
-    for proof_step in (
-      node.proof_step,
-    )
+    for entry in reference_entries
+    for proof_step in entry.proof_steps
     if id(
       proof_step
     )

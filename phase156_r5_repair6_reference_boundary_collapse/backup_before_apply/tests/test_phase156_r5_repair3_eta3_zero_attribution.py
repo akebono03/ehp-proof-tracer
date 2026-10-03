@@ -69,7 +69,7 @@ def test_phase156_r5_repair3_pi6_has_single_53_and_single_proposition51_header()
   ) == 1
   assert headers.count(
     "Lemma 5.2"
-  ) == 0
+  ) == 1
   assert headers.count(
     "Proposition 5.1"
   ) == 1

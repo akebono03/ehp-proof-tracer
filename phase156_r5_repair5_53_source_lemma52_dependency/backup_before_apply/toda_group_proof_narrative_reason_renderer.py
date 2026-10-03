@@ -122,10 +122,10 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     return (
       "この短完全列と両端の群の位数より, "
-      f"中央の群の位数は ${left_order}\\cdot"
+      f"中央の群の位数は ${left_order}\cdot"
       f"{right_order}={middle_order}$ である.\n"
       f"また, ${generator_latex}$ は中央の群に属し, "
-      f"$\\operatorname{{ord}}({generator_latex})"
+      f"$\operatorname{{ord}}({generator_latex})"
       f"={order_statement.rhs}={middle_order}$ であるから, "
       f"${generator_latex}$ は中央の群を生成する.\n"
       "したがって, "

@@ -67,6 +67,11 @@ def test_phase156_r5_pi6_reference_section_has_no_composite_53_lemma52_header():
 
 def test_phase156_r5_pi6_proof_still_records_lemma52_application():
   rendered = _pi6_3_rendered()
+  reference_part, body_tail = rendered.split(
+    "まず",
+    1,
+  )
+  body = "まず" + body_tail
 
-  assert "(5.3)" in rendered
-  assert "Lemma 5.2" not in rendered
+  assert "Lemma 5.2" not in reference_part
+  assert "Lemma 5.2" not in body

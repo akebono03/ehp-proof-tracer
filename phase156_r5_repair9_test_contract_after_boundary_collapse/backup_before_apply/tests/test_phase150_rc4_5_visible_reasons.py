@@ -6,7 +6,6 @@ from tests.test_phase143_19_method_evidence import (
   _method_evidence_data,
 )
 from toda_group_proof_narrative_contribution_renderer import (
-  _toda_group_proof_narrative_reference_owned_step_ids,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
 )
 from toda_group_proof_narrative_reason_renderer import (
@@ -15,10 +14,6 @@ from toda_group_proof_narrative_reason_renderer import (
 from toda_group_proof_narrative_reasons import (
   TodaGroupProofNarrativeReasonKind,
   build_toda_group_proof_narrative_reason_sidecar,
-)
-from toda_group_proof_narrative_references import (
-  build_toda_group_proof_narrative_reference_entries,
-  exclude_toda_group_proof_narrative_root_reference,
 )
 
 
@@ -67,10 +62,7 @@ def test_phase150_rc4_5_pi6_reason_is_visible_before_definition():
     semantic_sidecar,
     reason_sidecar,
     rendered,
-  ) = _render_case(
-    3,
-    3,
-  )
+  ) = _render_case(3, 3)
 
   reason = next(
     reason
@@ -85,33 +77,9 @@ def test_phase150_rc4_5_pi6_reason_is_visible_before_definition():
     reason
   )
 
-  reference_entries = build_toda_group_proof_narrative_reference_entries(
-    presentation
-  )
-  empty_statement_lines = {
-    entry.number: ()
-    for entry in reference_entries
-  }
-  (
-    reference_entries,
-    _,
-  ) = exclude_toda_group_proof_narrative_root_reference(
-    reference_entries,
-    empty_statement_lines,
-    presentation.root_step,
-  )
-  owned_step_ids = (
-    _toda_group_proof_narrative_reference_owned_step_ids(
-      presentation,
-      reference_entries,
-    )
-  )
-
   assert sentence is not None
-  assert id(
-    reason.conclusion_step
-  ) in owned_step_ids
-  assert sentence not in rendered
+  assert sentence in rendered
+  assert rendered.count(sentence) == 1
 
 
 @pytest.mark.parametrize("_label,n,k", CASES)
@@ -125,32 +93,7 @@ def test_phase150_rc4_5_visible_reason_count_matches_current_deduplication_contr
     semantic_sidecar,
     reason_sidecar,
     rendered,
-  ) = _render_case(
-    n,
-    k,
-  )
-
-  reference_entries = build_toda_group_proof_narrative_reference_entries(
-    presentation
-  )
-  empty_statement_lines = {
-    entry.number: ()
-    for entry in reference_entries
-  }
-  (
-    reference_entries,
-    _,
-  ) = exclude_toda_group_proof_narrative_root_reference(
-    reference_entries,
-    empty_statement_lines,
-    presentation.root_step,
-  )
-  owned_step_ids = (
-    _toda_group_proof_narrative_reference_owned_step_ids(
-      presentation,
-      reference_entries,
-    )
-  )
+  ) = _render_case(n, k)
 
   sentence_reasons = {}
 
@@ -172,20 +115,11 @@ def test_phase150_rc4_5_visible_reason_count_matches_current_deduplication_contr
     )
 
   for sentence, reasons in sentence_reasons.items():
-    visible_reasons = tuple(
-      reason
-      for reason in reasons
-      if id(
-        reason.conclusion_step
-      )
-      not in owned_step_ids
-    )
-
     if any(
       reason.kind
       is TodaGroupProofNarrativeReasonKind
       .FINAL_RESULT_DERIVATION
-      for reason in visible_reasons
+      for reason in reasons
     ):
       assert rendered.count(
         sentence
@@ -195,7 +129,7 @@ def test_phase150_rc4_5_visible_reason_count_matches_current_deduplication_contr
     assert rendered.count(
       sentence
     ) == len(
-      visible_reasons
+      reasons
     )
 
 

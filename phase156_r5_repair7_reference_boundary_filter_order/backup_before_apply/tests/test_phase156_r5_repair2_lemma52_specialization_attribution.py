@@ -13,7 +13,10 @@ from toda_group_result_proof_replay import (
   build_toda_group_result_proof_replay,
 )
 from toda_rules import (
-  toda_53_eta3_twice_zero_inference_rule,
+  toda_53_nu_prime_bracket_specialization_inference_rule,
+  toda_53_nu_prime_lemma52_double_inference_rule,
+  toda_53_nu_prime_lemma52_hopf_inference_rule,
+  toda_53_nu_prime_lemma52_membership_inference_rule,
 )
 
 
@@ -42,18 +45,32 @@ def _pi6_3_rendered() -> str:
   )
 
 
-def test_phase156_r5_repair3_eta3_twice_zero_is_attributed_to_proposition51():
+def test_phase156_r5_repair2_lemma52_rules_have_explicit_lemma52_attribution():
+  rules = (
+    toda_53_nu_prime_lemma52_hopf_inference_rule(),
+    toda_53_nu_prime_lemma52_double_inference_rule(),
+    toda_53_nu_prime_lemma52_membership_inference_rule(),
+  )
+
+  for rule in rules:
+    reference = rule.literature_reference
+    assert reference is not None
+    assert reference.label == "Toda (5.3)"
+    assert reference.locator == "(5.3)"
+
+
+def test_phase156_r5_repair2_bracket_specialization_remains_53_only():
   rule = (
-    toda_53_eta3_twice_zero_inference_rule()
+    toda_53_nu_prime_bracket_specialization_inference_rule()
   )
   reference = rule.literature_reference
 
   assert reference is not None
-  assert reference.label == "Toda Proposition 5.1"
-  assert reference.locator == "Proposition 5.1"
+  assert reference.label == "Toda (5.3)"
+  assert reference.locator == "(5.3)"
 
 
-def test_phase156_r5_repair3_pi6_has_single_53_and_single_proposition51_header():
+def test_phase156_r5_repair2_pi6_reference_headers_separate_53_and_lemma52():
   rendered = _pi6_3_rendered()
   reference_part = rendered.split(
     "まず",
@@ -64,45 +81,16 @@ def test_phase156_r5_repair3_pi6_has_single_53_and_single_proposition51_header()
     reference_part,
   )
 
+  assert "(5.3) / Lemma 5.2" not in reference_part
   assert headers.count(
     "(5.3)"
   ) == 1
   assert headers.count(
     "Lemma 5.2"
-  ) == 0
-  assert headers.count(
-    "Proposition 5.1"
   ) == 1
-  assert "(5.3) / Lemma 5.2" not in reference_part
 
 
-def test_phase156_r5_repair3_two_eta3_zero_is_not_under_53_header():
+def test_phase156_r5_repair2_pi6_body_still_records_lemma52_application():
   rendered = _pi6_3_rendered()
-  reference_part = rendered.split(
-    "まず",
-    1,
-  )[0]
 
-  sections = re.split(
-    r"(?=\*\*\[R\d+\] )",
-    reference_part,
-  )
-  source_53 = next(
-    section
-    for section in sections
-    if re.search(
-      r"\*\*\[R\d+\] \(5\.3\)\.\*\*",
-      section,
-    )
-  )
-  proposition51 = next(
-    section
-    for section in sections
-    if re.search(
-      r"\*\*\[R\d+\] Proposition 5\.1\.\*\*",
-      section,
-    )
-  )
-
-  assert "2\\eta_{3} = 0" not in source_53
-  assert "2\\eta_{3} = 0" in proposition51
+  assert "Lemma 5.2" not in rendered.split("まず", 1)[1]
