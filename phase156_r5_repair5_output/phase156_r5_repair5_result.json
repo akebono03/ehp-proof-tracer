@@ -1,0 +1,298 @@
+{
+  "phase": "Phase156-R5-repair5",
+  "production_changes": false,
+  "target_groups": 4,
+  "exceptions": 0,
+  "unmatched_public_headers": 0,
+  "cases": [
+    {
+      "n": 3,
+      "k": 3,
+      "group": "pi_6^3",
+      "public_headers": [
+        {
+          "public_number": 1,
+          "title": "(5.3)",
+          "original_entry_number": 2,
+          "statement_rows": [
+            {
+              "statement": "$\\nu' \\in \\pi_{6}^{3}$",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.MEMBERSHIP",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            },
+            {
+              "statement": "$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.CALCULATION",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 2,
+          "title": "Proposition 5.3",
+          "original_entry_number": 3,
+          "statement_rows": [
+            {
+              "statement": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.MAP_PROPERTY",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            },
+            {
+              "statement": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 3,
+          "title": "Lemma 5.4",
+          "original_entry_number": 4,
+          "statement_rows": [
+            {
+              "statement": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 4,
+          "title": "(5.3) / Lemma 5.2",
+          "original_entry_number": 5,
+          "statement_rows": [
+            {
+              "statement": "$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 5,
+          "title": "(5.2)",
+          "original_entry_number": 6,
+          "statement_rows": [
+            {
+              "statement": "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 6,
+          "title": "Proposition 5.1",
+          "original_entry_number": 7,
+          "statement_rows": [
+            {
+              "statement": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": []
+            }
+          ]
+        }
+      ],
+      "body_text": "まず, $\\nu'$ を定める.\n\n$2\\eta_{3} = 0$\n\nこの前提条件を満たすので, Lemma 5.2 を適用できる.\nLemma 5.2 の $\\beta$ を $\\nu'$ と定めると, \n\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n\n次に, $\\nu'$ の位数を決定するために, 次の完全列を考える.\n\n$\\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3}$\n\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}\\tag{1}$\n\n$\\eta_{3}E\\eta_{3}\\eta_{5} = \\eta_{3}^{3}\\tag{2}$\n\n$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$\n\n以上より, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$\n\nこの完全性と $Δ=0$ より, $\\ker E=\\operatorname{Im}Δ=0$ である.\nしたがって, \n\n$E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射である.\n\n$\\operatorname{ord}(\\eta_{3}\\eta_{4}\\eta_{5})=2$ かつ $2\\nu'=\\eta_{3}\\eta_{4}\\eta_{5}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$ である.\nしたがって, \n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$\n\n(1) と (2) より, \n\n$2\\nu' = \\eta_{3}^{3}\\tag{3}$\n\n最後に, $\\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5}$\n\nこの完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{5}^{2}\\xrightarrow{E} \\pi_{6}^{3}\\xrightarrow{H} \\pi_{6}^{5}\\longrightarrow 0$\n\n以上より, \n\nこの短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$ である.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4=4$ であるから, $\\nu'$ は中央の群を生成する.\nしたがって, \n\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"
+    },
+    {
+      "n": 4,
+      "k": 6,
+      "group": "pi_10^4",
+      "public_headers": [
+        {
+          "public_number": 1,
+          "title": "Proposition 5.6",
+          "original_entry_number": 2,
+          "statement_rows": [
+            {
+              "statement": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$, $\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}$, $\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$, $\\pi_{n + 3}^{n} = \\mathbb{Z}/8\\{\\nu_{n}\\}$, $n \\ge 6$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 2,
+          "title": "Lemma 5.4",
+          "original_entry_number": 3,
+          "statement_rows": [
+            {
+              "statement": "$\\nu_{4} \\in \\pi_{7}^{4}$, $H\\left(\\nu_{4}\\right) = \\iota_{7}$, $2E\\nu_{4} = E^{2}\\nu'$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        }
+      ],
+      "body_text": "$\\pi_{10}^{4}$ の群構造を決定する.\n\n$\\pi_{9}^{3} = 0$\n\n$\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$\n\n以上より, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$\n\n$\\nu_{4}$ の分解を用いる."
+    },
+    {
+      "n": 5,
+      "k": 7,
+      "group": "pi_12^5",
+      "public_headers": [
+        {
+          "public_number": 1,
+          "title": "Lemma 5.13",
+          "original_entry_number": 2,
+          "statement_rows": [
+            {
+              "statement": "$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION",
+              "is_argument_conclusion": true,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 2,
+          "title": "Proposition 5.11",
+          "original_entry_number": 3,
+          "statement_rows": [
+            {
+              "statement": "$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            },
+            {
+              "statement": "$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 3,
+          "title": "Equation 5.13",
+          "original_entry_number": 4,
+          "statement_rows": [
+            {
+              "statement": "$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.MAP_PROPERTY",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 4,
+          "title": "(5.5)",
+          "original_entry_number": 5,
+          "statement_rows": [
+            {
+              "statement": "$\\nu_{n} = E^{n - 4}\\nu_{4}$, $n \\ge 5$, $2\\nu_{n} = E^{n - 3}\\nu'$, $4\\nu_{n} = \\eta_{n}\\eta_{n + 1}\\eta_{n + 2}$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": []
+            }
+          ]
+        }
+      ],
+      "body_text": "まず, $\\sigma'''$ を定める.\n\n$H: \\pi_{12}^{5} \\to \\pi_{12}^{9}$ は単射である.\n\n最後に, $\\pi_{12}^{5}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{12}^{5} \\xrightarrow{H} \\pi_{12}^{9} \\xrightarrow{\\Delta} \\pi_{10}^{4}$\n\n以上より, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\nこの完全性, 既知の群構造, および写像の像に関する結果を合わせると, 対象となる写像の像と核が決まる.\nしたがって, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$"
+    },
+    {
+      "n": 9,
+      "k": 7,
+      "group": "pi_16^9",
+      "public_headers": [
+        {
+          "public_number": 1,
+          "title": "Lemma 5.14",
+          "original_entry_number": 2,
+          "statement_rows": [
+            {
+              "statement": "$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": []
+            },
+            {
+              "statement": "$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 2,
+          "title": "Theorem 3.6",
+          "original_entry_number": 3,
+          "statement_rows": [
+            {
+              "statement": "$8\\,xEα* = E^{4}\\sigma'''$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "public_number": 3,
+          "title": "Lemma 5.13",
+          "original_entry_number": 4,
+          "statement_rows": [
+            {
+              "statement": "$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION",
+              "is_argument_conclusion": true,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": []
+            }
+          ]
+        }
+      ],
+      "body_text": "まず, $\\sigma'''$ を定める.\n\n次に, $\\sigma_{9}$ を定める.\n\n$\\sigma_{9}$ を \\(\\sigma\\)-family の元として定める.\n\n$\\pi_{14}^{7} = \\mathbb{Z}/8\\{\\sigma'\\}$\n\n最後に, $\\pi_{16}^{9}$ の群構造を決定する.\n\nこの群構造と写像による移送の結果を合わせると, 対象の群の位数と写像の単射性が決まる.\nしたがって, \n\n$|\\pi_{16}^{9}| = 16$ であり, $E^{4}: \\pi_{12}^{5} \\to \\pi_{16}^{9}$ は単射である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, \n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$"
+    }
+  ]
+}

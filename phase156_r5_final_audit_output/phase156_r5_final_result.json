@@ -1,0 +1,30 @@
+{
+  "phase": "Phase156-R5-final",
+  "production_changes": false,
+  "scope": {
+    "n": "2..15",
+    "k": "0..7",
+    "depth": 2
+  },
+  "groups": 112,
+  "exceptions": 0,
+  "public_reference_groups": 93,
+  "public_reference_headers": 147,
+  "body_reference_markers": 143,
+  "header_without_marker_occurrences_informational": 15,
+  "header_without_marker_groups_informational": 4,
+  "canonical_selected_statements": 238,
+  "displayed_canonical_statements": 158,
+  "multi_statement_entries": 20,
+  "max_selected_statements_in_one_entry": 3,
+  "required_violations": 0,
+  "violation_counts": {
+    "non_contiguous_reference_headers": 0,
+    "body_marker_without_header": 0,
+    "boundary_selection_mismatch": 0,
+    "entry_external_selection_mismatch": 0,
+    "same_entry_internal_public_expansion": 0,
+    "exact_reference_body_restatement": 0
+  },
+  "pass": true
+}

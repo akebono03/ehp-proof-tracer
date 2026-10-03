@@ -1,0 +1,8 @@
+﻿kind,occurrences,affected_groups
+non_contiguous_reference_headers,0,0
+body_marker_without_header,0,0
+public_header_without_body_use,4,4
+boundary_selection_mismatch,0,0
+entry_external_selection_mismatch,0,0
+same_entry_internal_public_expansion,0,0
+suppressible_exact_body_restatement,0,0

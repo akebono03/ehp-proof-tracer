@@ -1,0 +1,582 @@
+{
+  "phase": "Phase156-R5-repair4",
+  "production_changes": false,
+  "target_groups": 4,
+  "exceptions": 0,
+  "cases": [
+    {
+      "n": 3,
+      "k": 3,
+      "group": "pi_6^3",
+      "entries": [
+        {
+          "number": 1,
+          "reference_label": "Toda Proposition 5.6",
+          "reference_locator": "Proposition 5.6",
+          "selected": [
+            {
+              "statement": "$\\operatorname{ord}\\left(\\nu'\\right) = 4$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.ORDER",
+              "is_argument_conclusion": true,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 1,
+              "entry_external_consumer_count": 0,
+              "different_reference_consumer_count": 0,
+              "body_contexts": [
+                {
+                  "line_number": 51,
+                  "line": "$\\operatorname{ord}\\left(\\nu'\\right) = 4$",
+                  "context": "\n$\\operatorname{ord}(\\eta_{3}\\eta_{4}\\eta_{5})=2$ かつ $2\\nu'=\\eta_{3}\\eta_{4}\\eta_{5}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$ である.\nしたがって, \n\n$\\operatorname{ord}\\left(\\nu'\\right) = 4$\n\n(1) と (2) より, "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "reference_label": "Toda (5.3)",
+          "reference_locator": "(5.3)",
+          "selected": [
+            {
+              "statement": "$\\nu' \\in \\pi_{6}^{3}$",
+              "statement_type": "HomotopyGroupMembershipStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.MEMBERSHIP",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 4,
+                  "line": "$\\nu' \\in \\pi_{6}^{3}$",
+                  "context": "使用する結果を先にまとめる.\n\n**[R1] (5.3).**\n$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n**[R2] Proposition 5.3.**"
+                }
+              ]
+            },
+            {
+              "statement": "$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.CALCULATION",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 5,
+                  "line": "$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$",
+                  "context": "使用する結果を先にまとめる.\n\n**[R1] (5.3).**\n$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n**[R2] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "reference_label": "Toda Proposition 5.3",
+          "reference_locator": "Proposition 5.3",
+          "selected": [
+            {
+              "statement": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+              "statement_type": "TodaHopfInvariantSurjectiveStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.MAP_PROPERTY",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 7,
+                  "line": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+                  "context": "**[R1] (5.3).**\n$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n**[R2] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$\n**[R3] Lemma 5.4.**"
+                }
+              ]
+            },
+            {
+              "statement": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 8,
+                  "line": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+                  "context": "$\\nu' \\in \\pi_{6}^{3}$\n$2\\nu' = \\eta_{3}E\\eta_{3}\\eta_{5}$\n**[R2] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$\n**[R3] Lemma 5.4.**\n$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "reference_label": "Toda Lemma 5.4",
+          "reference_locator": "Lemma 5.4",
+          "selected": [
+            {
+              "statement": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 10,
+                  "line": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$",
+                  "context": "**[R2] Proposition 5.3.**\n$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$\n**[R3] Lemma 5.4.**\n$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$\n**[R4] (5.3) / Lemma 5.2.**\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "reference_label": "Toda (5.3) / Lemma 5.2",
+          "reference_locator": "(5.3) / Lemma 5.2",
+          "selected": [
+            {
+              "statement": "$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.",
+              "statement_type": "Toda53NuPrimeBracketSpecializationStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": [
+                {
+                  "line_number": 12,
+                  "line": "$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.",
+                  "context": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$\n**[R3] Lemma 5.4.**\n$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$\n**[R4] (5.3) / Lemma 5.2.**\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.\n**[R5] (5.2).**\n$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 6,
+          "reference_label": "Toda (5.2)",
+          "reference_locator": "(5.2)",
+          "selected": [
+            {
+              "statement": "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+              "statement_type": "Toda52CompositionIsomorphismStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 14,
+                  "line": "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+                  "context": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$\n**[R4] (5.3) / Lemma 5.2.**\n$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.\n**[R5] (5.2).**\n$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.\n**[R6] Proposition 5.1.**\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 7,
+          "reference_label": "Toda Proposition 5.1",
+          "reference_locator": "Proposition 5.1",
+          "selected": [
+            {
+              "statement": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+              "statement_type": "TodaProp51FiniteDimensionalStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": [
+                {
+                  "line_number": 16,
+                  "line": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+                  "context": "$\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.\n**[R5] (5.2).**\n$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.\n**[R6] Proposition 5.1.**\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.\n\nまず, $\\nu'$ を定める."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "k": 6,
+      "group": "pi_10^4",
+      "entries": [
+        {
+          "number": 1,
+          "reference_label": "Toda Proposition 5.11",
+          "reference_locator": "Proposition 5.11",
+          "selected": [
+            {
+              "statement": "$\\pi_{9}^{3} = 0$",
+              "statement_type": "TodaPrimaryGroupZeroStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 1,
+              "entry_external_consumer_count": 0,
+              "different_reference_consumer_count": 0,
+              "body_contexts": [
+                {
+                  "line_number": 10,
+                  "line": "$\\pi_{9}^{3} = 0$",
+                  "context": "$\\nu_{4} \\in \\pi_{7}^{4}$, $H\\left(\\nu_{4}\\right) = \\iota_{7}$, $2E\\nu_{4} = E^{2}\\nu'$ が成り立つ.\n\n$\\pi_{10}^{4}$ の群構造を決定する.\n\n$\\pi_{9}^{3} = 0$\n\n$\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "reference_label": "Toda Proposition 5.6",
+          "reference_locator": "Proposition 5.6",
+          "selected": [
+            {
+              "statement": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$, $\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}$, $\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$, $\\pi_{n + 3}^{n} = \\mathbb{Z}/8\\{\\nu_{n}\\}$, $n \\ge 6$ が成り立つ.",
+              "statement_type": "TodaProp56FiniteDimensionalStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 4,
+                  "line": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$, $\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}$, $\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$, $\\pi_{n + 3}^{n} = \\mathbb{Z}/8\\{\\nu_{n}\\}$, $n \\ge 6$ が成り立つ.",
+                  "context": "使用する結果を先にまとめる.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$, $\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}$, $\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$, $\\pi_{n + 3}^{n} = \\mathbb{Z}/8\\{\\nu_{n}\\}$, $n \\ge 6$ が成り立つ.\n**[R2] Lemma 5.4.**\n$\\nu_{4} \\in \\pi_{7}^{4}$, $H\\left(\\nu_{4}\\right) = \\iota_{7}$, $2E\\nu_{4} = E^{2}\\nu'$ が成り立つ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "reference_label": "Toda Lemma 5.4",
+          "reference_locator": "Lemma 5.4",
+          "selected": [
+            {
+              "statement": "$\\nu_{4} \\in \\pi_{7}^{4}$, $H\\left(\\nu_{4}\\right) = \\iota_{7}$, $2E\\nu_{4} = E^{2}\\nu'$ が成り立つ.",
+              "statement_type": "TodaLemma54Statement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 6,
+                  "line": "$\\nu_{4} \\in \\pi_{7}^{4}$, $H\\left(\\nu_{4}\\right) = \\iota_{7}$, $2E\\nu_{4} = E^{2}\\nu'$ が成り立つ.",
+                  "context": "\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$, $\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}$, $\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$, $\\pi_{n + 3}^{n} = \\mathbb{Z}/8\\{\\nu_{n}\\}$, $n \\ge 6$ が成り立つ.\n**[R2] Lemma 5.4.**\n$\\nu_{4} \\in \\pi_{7}^{4}$, $H\\left(\\nu_{4}\\right) = \\iota_{7}$, $2E\\nu_{4} = E^{2}\\nu'$ が成り立つ.\n\n$\\pi_{10}^{4}$ の群構造を決定する."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "k": 7,
+      "group": "pi_12^5",
+      "entries": [
+        {
+          "number": 1,
+          "reference_label": "Toda Proposition 5.15",
+          "reference_locator": "Proposition 5.15",
+          "selected": [
+            {
+              "statement": "$H: \\pi_{12}^{5} \\xrightarrow{\\cong} \\mathbb{Z}/2\\{4\\nu_{9}\\}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+              "statement_type": "TodaProp515Pi12_5HopfIsomorphismStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 1,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "reference_label": "Toda Lemma 5.13",
+          "reference_locator": "Lemma 5.13",
+          "selected": [
+            {
+              "statement": "$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+              "statement_type": "TodaLemma513Statement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION",
+              "is_argument_conclusion": true,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 4,
+                  "line": "$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+                  "context": "使用する結果を先にまとめる.\n\n**[R1] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.\n**[R2] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "reference_label": "Toda Proposition 5.11",
+          "reference_locator": "Proposition 5.11",
+          "selected": [
+            {
+              "statement": "$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 6,
+                  "line": "$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$",
+                  "context": "\n**[R1] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.\n**[R2] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.\n**[R3] Equation 5.13.**"
+                }
+              ]
+            },
+            {
+              "statement": "$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.",
+              "statement_type": "TodaProp511FiniteDimensionalStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 7,
+                  "line": "$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.",
+                  "context": "**[R1] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.\n**[R2] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.\n**[R3] Equation 5.13.**\n$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "reference_label": "Toda Equation 5.13",
+          "reference_locator": "Equation 5.13",
+          "selected": [
+            {
+              "statement": "$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$",
+              "statement_type": "TodaDeltaImageUpToSignStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.MAP_PROPERTY",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 9,
+                  "line": "$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$",
+                  "context": "**[R2] Proposition 5.11.**\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.\n**[R3] Equation 5.13.**\n$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$\n**[R4] (5.5).**\n$\\nu_{n} = E^{n - 4}\\nu_{4}$, $n \\ge 5$, $2\\nu_{n} = E^{n - 3}\\nu'$, $4\\nu_{n} = \\eta_{n}\\eta_{n + 1}\\eta_{n + 2}$ が成り立つ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "reference_label": "Toda (5.5)",
+          "reference_locator": "(5.5)",
+          "selected": [
+            {
+              "statement": "$\\nu_{n} = E^{n - 4}\\nu_{4}$, $n \\ge 5$, $2\\nu_{n} = E^{n - 3}\\nu'$, $4\\nu_{n} = \\eta_{n}\\eta_{n + 1}\\eta_{n + 2}$ が成り立つ.",
+              "statement_type": "Toda55NuFamilyFiniteDimensionalStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.REFERENCE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": [
+                {
+                  "line_number": 11,
+                  "line": "$\\nu_{n} = E^{n - 4}\\nu_{4}$, $n \\ge 5$, $2\\nu_{n} = E^{n - 3}\\nu'$, $4\\nu_{n} = \\eta_{n}\\eta_{n + 1}\\eta_{n + 2}$ が成り立つ.",
+                  "context": "$\\pi_{8}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\eta_{7}\\}$, $\\pi_{9}^{3} = 0$, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$, $\\pi_{11}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\nu_{8}\\}$, $\\pi_{12}^{6} = \\mathbb{Z}/2\\{\\nu_{6}\\nu_{9}\\}$, $\\pi_{13}^{7} = \\mathbb{Z}/2\\{\\nu_{7}\\nu_{10}\\}$, $\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$, $\\pi_{n + 6}^{n} = \\mathbb{Z}/2\\{\\nu_{n}\\nu_{n + 3}\\}$, $n \\ge 9$ が成り立つ.\n**[R3] Equation 5.13.**\n$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$\n**[R4] (5.5).**\n$\\nu_{n} = E^{n - 4}\\nu_{4}$, $n \\ge 5$, $2\\nu_{n} = E^{n - 3}\\nu'$, $4\\nu_{n} = \\eta_{n}\\eta_{n + 1}\\eta_{n + 2}$ が成り立つ.\n\nまず, $\\sigma'''$ を定める."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "k": 7,
+      "group": "pi_16^9",
+      "entries": [
+        {
+          "number": 1,
+          "reference_label": "Toda Proposition 5.15",
+          "reference_locator": "Proposition 5.15",
+          "selected": [
+            {
+              "statement": "$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 1,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": [
+                {
+                  "line_number": 26,
+                  "line": "$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$",
+                  "context": "したがって, \n\n$|\\pi_{16}^{9}| = 16$ であり, $E^{4}: \\pi_{12}^{5} \\to \\pi_{16}^{9}$ は単射である.\n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上より, "
+                }
+              ]
+            },
+            {
+              "statement": "$\\pi_{14}^{7} = \\mathbb{Z}/8\\{\\sigma'\\}$",
+              "statement_type": "Relation",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 17,
+                  "line": "$\\pi_{14}^{7} = \\mathbb{Z}/8\\{\\sigma'\\}$",
+                  "context": "次に, $\\sigma_{9}$ を定める.\n\n$\\sigma_{9}$ を \\(\\sigma\\)-family の元として定める.\n\n$\\pi_{14}^{7} = \\mathbb{Z}/8\\{\\sigma'\\}$\n\n最後に, $\\pi_{16}^{9}$ の群構造を決定する."
+                }
+              ]
+            },
+            {
+              "statement": "$H: \\pi_{12}^{5} \\xrightarrow{\\cong} \\mathbb{Z}/2\\{4\\nu_{9}\\}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+              "statement_type": "TodaProp515Pi12_5HopfIsomorphismStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 1,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": []
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "reference_label": "Toda Lemma 5.14",
+          "reference_locator": "Lemma 5.14",
+          "selected": [
+            {
+              "statement": "$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.",
+              "statement_type": "TodaLemma514Sigma8Statement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": [
+                {
+                  "line_number": 4,
+                  "line": "$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.",
+                  "context": "使用する結果を先にまとめる.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.\n$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.\n**[R2] Theorem 3.6.**"
+                }
+              ]
+            },
+            {
+              "statement": "$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.",
+              "statement_type": "TodaLemma514SigmaPrimeStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 1,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 5,
+                  "line": "$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.",
+                  "context": "使用する結果を先にまとめる.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.\n$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.\n**[R2] Theorem 3.6.**\n$8\\,xEα* = E^{4}\\sigma'''$ が成り立つ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "reference_label": "Toda Theorem 3.6",
+          "reference_locator": "Theorem 3.6",
+          "selected": [
+            {
+              "statement": "$8\\,xEα* = E^{4}\\sigma'''$ が成り立つ.",
+              "statement_type": "Toda36Lemma514SigmaDoublePrimeBridgeStatement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+              "is_argument_conclusion": false,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 1,
+              "different_reference_consumer_count": 1,
+              "body_contexts": [
+                {
+                  "line_number": 7,
+                  "line": "$8\\,xEα* = E^{4}\\sigma'''$ が成り立つ.",
+                  "context": "**[R1] Lemma 5.14.**\n$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.\n$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.\n**[R2] Theorem 3.6.**\n$8\\,xEα* = E^{4}\\sigma'''$ が成り立つ.\n**[R3] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "reference_label": "Toda Lemma 5.13",
+          "reference_locator": "Lemma 5.13",
+          "selected": [
+            {
+              "statement": "$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+              "statement_type": "TodaLemma513Statement",
+              "mathematical_block_role": "TodaGroupProofNarrativeMathematicalBlockRole.DEFINITION",
+              "is_argument_conclusion": true,
+              "is_in_narrative_blocks": true,
+              "same_entry_consumer_count": 0,
+              "entry_external_consumer_count": 2,
+              "different_reference_consumer_count": 2,
+              "body_contexts": [
+                {
+                  "line_number": 9,
+                  "line": "$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.",
+                  "context": "$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.\n**[R2] Theorem 3.6.**\n$8\\,xEα* = E^{4}\\sigma'''$ が成り立つ.\n**[R3] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.\n\nまず, $\\sigma'''$ を定める."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+==============================================================================
+Phase156-R5 — 112-group cross-group Reference minimal-display audit
+==============================================================================
+production changes: none
+scope: n=2..15, k=0..7, depth=2
+
+groups: 112
+exceptions: 0
+public Reference groups: 93
+public Reference headers: 147
+body Reference markers: 143
+canonical selected statements: 238
+displayed canonical statements: 70
+multi-statement entries: 20
+max selected statements in one entry: 3
+
+Cross-group violations:
+  non_contiguous_reference_headers: occurrences=0, affected_groups=0
+  body_marker_without_header: occurrences=0, affected_groups=0
+  public_header_without_body_use: occurrences=4, affected_groups=4
+  boundary_selection_mismatch: occurrences=0, affected_groups=0
+  entry_external_selection_mismatch: occurrences=0, affected_groups=0
+  same_entry_internal_public_expansion: occurrences=0, affected_groups=0
+  suppressible_exact_body_restatement: occurrences=0, affected_groups=0
+
+Total violations: 4
+
+R5 boundary:
+  This step is audit-only. It does not change Reference selection, Reference rendering, proof-body suppression, or proof data.
+  If violations are zero, R6 may proceed to focused/sharded regression without new production behavior.
+==============================================================================
