@@ -1,0 +1,15 @@
+{
+  "phase": "Phase156-R6",
+  "shards": 4,
+  "expected_shards": 4,
+  "groups": 112,
+  "unique_groups": 112,
+  "duplicate_groups": 0,
+  "missing_groups": [],
+  "unexpected_groups": [],
+  "exceptions": 0,
+  "violations": 0,
+  "missing_shard_files": [],
+  "shard_failures": [],
+  "pass": true
+}
