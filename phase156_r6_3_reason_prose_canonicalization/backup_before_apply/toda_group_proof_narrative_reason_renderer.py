@@ -2,7 +2,6 @@ from toda_human_readable_renderer import (
   render_toda_expression_latex,
 )
 from toda_group_proof_generic_narrative_renderer import (
-  _render_generic_narrative_expression_latex,
   _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_reasons import (
@@ -88,15 +87,9 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     order_statement = reason.premise_steps[0].conclusion
     equality_statement = reason.premise_steps[1].conclusion
-    ordered_latex = (
-      _render_generic_narrative_expression_latex(
-        order_statement.lhs
-      )
-    )
-    target_latex = (
-      _render_generic_narrative_expression_latex(
-        equality_statement.lhs.expression
-      )
+    ordered_latex = render_toda_expression_latex(order_statement.lhs)
+    target_latex = render_toda_expression_latex(
+      equality_statement.lhs.expression
     )
 
     return (
