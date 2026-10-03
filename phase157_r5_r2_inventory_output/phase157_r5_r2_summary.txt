@@ -1,0 +1,58 @@
+==============================================================================
+Phase157-R5-R2 — Literature boundary inventory
+==============================================================================
+source: Phase157-R5-R1 selected-step CSV
+production changes: none
+existing test changes: none
+pytest: not run
+proof replay: not rerun
+Narrative rendering: not run
+
+R5-R1 rows loaded: 234
+
+UNTRACKED:
+  occurrences: 128
+  distinct locators: 13
+  distinct locator/rule pairs: 32
+
+FIXED_STATEMENT_WITHOUT_COMPONENT:
+  occurrences: 24
+  distinct locators: 4
+  distinct locator/rule pairs: 4
+
+UNTRACKED locators:
+  (4.5)
+  (5.2)
+  (5.5)
+  Equation 5.7
+  Equation 5.8
+  Lemma 5.14
+  Lemma 5.4
+  Lemma 5.7
+  Proposition 2.5
+  Proposition 3.1
+  Proposition 4.4
+  Proposition 5.8
+  Proposition 5.9
+
+FIXED_STATEMENT_WITHOUT_COMPONENT locators:
+  Proposition 5.1
+  Proposition 5.11
+  Proposition 5.3
+  Proposition 5.6
+
+R5-R3 preparation:
+  Review catalog_candidates.csv from top to bottom. Each row is one locator/rule unit that can be assigned a fixed-statement component or classified as proof-internal.
+  FIXED_STATEMENT_WITHOUT_COMPONENT rows come first because their fixed/proof-internal classification is already known; only component granularity is missing.
+  UNTRACKED rows still require literature/source review before production catalog changes.
+
+Output files:
+  phase157_r5_r2_summary.txt
+  phase157_r5_r2_result.json
+  phase157_r5_r2_locator_inventory.csv
+  phase157_r5_r2_rule_inventory.csv
+  phase157_r5_r2_statement_type_inventory.csv
+  phase157_r5_r2_catalog_candidates.csv
+  phase157_r5_r2_untracked_rows.csv
+  phase157_r5_r2_fixed_without_component_rows.csv
+==============================================================================

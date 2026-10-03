@@ -1,0 +1,20 @@
+﻿boundary_status,statement_type,occurrences,affected_groups,distinct_locators,distinct_rules,locators,groups
+FIXED_STATEMENT_WITHOUT_COMPONENT,TodaProp511FiniteDimensionalStatement,3,3,1,1,Proposition 5.11,pi_9^2 pi_10^3 pi_12^5
+FIXED_STATEMENT_WITHOUT_COMPONENT,TodaProp51FiniteDimensionalStatement,7,7,1,1,Proposition 5.1,pi_6^3 pi_8^4 pi_6^5 pi_9^5 pi_10^6 pi_14^7 pi_14^13
+FIXED_STATEMENT_WITHOUT_COMPONENT,TodaProp53FiniteDimensionalStatement,8,8,1,1,Proposition 5.3,pi_7^2 pi_7^3 pi_8^4 pi_9^4 pi_10^5 pi_13^6 pi_14^7 pi_13^11
+FIXED_STATEMENT_WITHOUT_COMPONENT,TodaProp56FiniteDimensionalStatement,6,6,1,1,Proposition 5.6,pi_6^2 pi_10^4 pi_11^5 pi_13^6 pi_10^7 pi_12^9
+UNTRACKED,Relation,37,26,8,13,(5.2) | Proposition 5.8 | Equation 5.7 | Lemma 5.7 | (4.5) | Lemma 5.4 | Proposition 5.9 | Proposition 3.1,pi_5^2 pi_7^2 pi_5^3 pi_7^3 pi_8^3 pi_5^4 pi_6^4 pi_7^4 pi_8^4 pi_9^4 pi_11^4 pi_8^5 pi_9^5 pi_10^5 pi_7^6 pi_10^6 pi_11^6 pi_8^7 pi_9^8 pi_10^9 pi_11^10 pi_12^11 pi_13^11 pi_13^12 pi_15^14 pi_16^15
+UNTRACKED,Toda45IsomorphismStatement,30,30,1,1,(4.5),pi_11^7 pi_12^8 pi_13^8 pi_13^9 pi_14^9 pi_15^9 pi_14^10 pi_15^10 pi_16^10 pi_17^10 pi_15^11 pi_16^11 pi_17^11 pi_18^11 pi_16^12 pi_17^12 pi_18^12 pi_19^12 pi_17^13 pi_18^13 pi_19^13 pi_20^13 pi_18^14 pi_19^14 pi_20^14 pi_21^14 pi_19^15 pi_20^15 pi_21^15 pi_22^15
+UNTRACKED,Toda52CompositionIsomorphismStatement,7,7,1,1,(5.2),pi_4^2 pi_5^2 pi_6^2 pi_7^2 pi_8^2 pi_9^2 pi_5^3
+UNTRACKED,Toda55NuFamilyFiniteDimensionalStatement,2,2,1,1,(5.5),pi_8^3 pi_12^5
+UNTRACKED,Toda58EquationStatement,1,1,1,1,Equation 5.8,pi_11^5
+UNTRACKED,TodaDeltaImageUpToSignStatement,2,2,2,2,Lemma 5.7 | Proposition 2.5,pi_8^3 pi_9^5
+UNTRACKED,TodaDeltaSurjectiveStatement,1,1,1,1,Proposition 5.9,pi_12^7
+UNTRACKED,TodaHopfInvariantInjectiveStatement,3,3,2,3,Proposition 5.8 | Proposition 5.9,pi_7^3 pi_8^3 pi_11^6
+UNTRACKED,TodaLemma54Statement,4,4,1,1,Lemma 5.4,pi_7^4 pi_8^4 pi_9^4 pi_10^4
+UNTRACKED,TodaPrimaryGroupZeroStatement,17,17,2,2,Proposition 5.8 | Proposition 5.9,pi_11^7 pi_12^8 pi_13^8 pi_13^9 pi_14^9 pi_14^10 pi_15^10 pi_15^11 pi_16^11 pi_16^12 pi_17^12 pi_17^13 pi_18^13 pi_18^14 pi_19^14 pi_19^15 pi_20^15
+UNTRACKED,TodaProp44IsomorphismStatement,7,7,1,2,Proposition 4.4,pi_4^2 pi_5^2 pi_6^2 pi_7^2 pi_8^2 pi_9^2 pi_11^4
+UNTRACKED,TodaProp44SecondSummandRestrictionStatement,6,6,1,1,Proposition 4.4,pi_4^2 pi_5^2 pi_6^2 pi_7^2 pi_8^2 pi_9^2
+UNTRACKED,TodaProp58FiniteDimensionalStatement,2,2,1,1,Proposition 5.8,pi_9^3 pi_11^4
+UNTRACKED,TodaProp59FiniteDimensionalStatement,3,3,1,1,Proposition 5.9,pi_8^2 pi_9^3 pi_10^3
+UNTRACKED,TodaSigmaFamilyDefinitionStatement,6,6,1,1,Lemma 5.14,pi_17^10 pi_18^11 pi_19^12 pi_20^13 pi_21^14 pi_22^15
