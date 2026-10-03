@@ -4219,7 +4219,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         rendered,
         presentation.root_step,
         generic_used_step_ids,
-        presentation=presentation,
       )
     )
   else:

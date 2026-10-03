@@ -3086,186 +3086,6 @@ def _toda_group_proof_narrative_two_equation_reference_numbers(
   )
 
 
-def order_toda_group_proof_narrative_order_support(
-  presentation: TodaGroupProofPresentation,
-  markdown: str,
-) -> str:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  paragraphs = markdown.split(
-    "\n\n"
-  )
-
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    return (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
-  def paragraph_index_for_step(
-    proof_step: ProofStep,
-  ) -> int | None:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
-      )
-    )
-
-    if not rendered:
-      return None
-
-    target_key = (
-      _phase157_r11_reference_statement_match_key(
-        rendered
-      )
-    )
-
-    matching = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if paragraph_match_key(
-        paragraph
-      ) == target_key
-    )
-
-    if len(
-      matching
-    ) != 1:
-      return None
-
-    return matching[
-      0
-    ]
-
-  for node in presentation.nodes:
-    order_step = node.proof_step
-
-    if (
-      classify_toda_proof_step_role(
-        order_step
-      )
-      is not TodaProofDependencyRole.ORDER
-    ):
-      continue
-
-    conclusion_index = paragraph_index_for_step(
-      order_step
-    )
-
-    if conclusion_index is None:
-      continue
-
-    premise_indices = tuple(
-      index
-      for premise in order_step.premises
-      for index in (
-        paragraph_index_for_step(
-          premise
-        ),
-      )
-      if index is not None
-    )
-
-    if not premise_indices:
-      continue
-
-    latest_premise_index = max(
-      premise_indices
-    )
-
-    if latest_premise_index < conclusion_index:
-      continue
-
-    block_end = conclusion_index + 1
-
-    if (
-      block_end < len(
-        paragraphs
-      )
-      and paragraphs[
-        block_end
-      ].strip()
-      == "以上より,"
-    ):
-      block_end += 1
-
-    conclusion_block = paragraphs[
-      conclusion_index:
-      block_end
-    ]
-
-    del paragraphs[
-      conclusion_index:
-      block_end
-    ]
-
-    premise_indices_after_removal = tuple(
-      index
-      for premise in order_step.premises
-      for index in (
-        paragraph_index_for_step(
-          premise
-        ),
-      )
-      if index is not None
-    )
-
-    if not premise_indices_after_removal:
-      continue
-
-    insertion_index = (
-      max(
-        premise_indices_after_removal
-      )
-      + 1
-    )
-
-    paragraphs[
-      insertion_index:
-      insertion_index
-    ] = conclusion_block
-
-  return "\n\n".join(
-    paragraphs
-  )
-
-
 def order_toda_group_proof_narrative_surjectivity_support(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -3384,6 +3204,9 @@ def order_toda_group_proof_narrative_surjectivity_support(
       )
     )
 
+    if not equality_premises:
+      continue
+
     support_steps = []
 
     for equality_premise in equality_premises:
@@ -3414,112 +3237,52 @@ def order_toda_group_proof_narrative_surjectivity_support(
       if index is not None
     )
 
-    if (
+    if len(
+      support_indices
+    ) != len(
       support_steps
-      and len(
-        support_indices
-      ) == len(
-        support_steps
-      )
     ):
-      first_support_index = min(
-        support_indices
-      )
-      last_support_index = max(
-        support_indices
-      )
-
-      if not (
-        first_support_index < map_index
-        and last_support_index < map_index
-      ):
-        support_block = paragraphs[
-          first_support_index:
-          last_support_index + 1
-        ]
-
-        del paragraphs[
-          first_support_index:
-          last_support_index + 1
-        ]
-
-        map_index = paragraph_index_for_step(
-          map_step
-        )
-
-        if map_index is not None:
-          paragraphs[
-            map_index:
-            map_index
-          ] = support_block
-
-    map_index = paragraph_index_for_step(
-      map_step
-    )
-
-    if map_index is None:
       continue
 
-    short_exact_reason_index = next(
-      (
-        index
-        for index in range(
-          map_index
-        )
-        if (
-          "右の写像が全射"
-          in paragraphs[
-            index
-          ]
-          and "短完全列"
-          in paragraphs[
-            index
-          ]
-        )
-      ),
-      None,
+    first_support_index = min(
+      support_indices
+    )
+    last_support_index = max(
+      support_indices
     )
 
-    if short_exact_reason_index is None:
+    if (
+      first_support_index < map_index
+      and last_support_index < map_index
+    ):
       continue
 
-    support_indices = tuple(
-      index
-      for proof_step in support_steps
-      for index in (
-        paragraph_index_for_step(
-          proof_step
-        ),
-      )
-      if index is not None
-    )
-
-    block_start = (
-      min(
-        support_indices
-      )
-      if support_indices
-      else map_index
-    )
-    block_end = map_index + 1
-
-    if block_start <= short_exact_reason_index:
+    if (
+      first_support_index
+      <= map_index
+      <= last_support_index
+    ):
       continue
 
-    dependency_block = paragraphs[
-      block_start:
-      block_end
+    support_block = paragraphs[
+      first_support_index:
+      last_support_index + 1
     ]
 
     del paragraphs[
-      block_start:
-      block_end
+      first_support_index:
+      last_support_index + 1
     ]
 
+    if first_support_index < map_index:
+      map_index -= len(
+        support_block
+      )
+
     paragraphs[
-      short_exact_reason_index:
-      short_exact_reason_index
-    ] = dependency_block
+      map_index:
+      map_index
+    ] = support_block
 
   for map_index, paragraph in enumerate(
     tuple(
@@ -4170,12 +3933,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
-  rendered = (
-    order_toda_group_proof_narrative_order_support(
-      presentation,
-      rendered,
-    )
-  )
 
   rendered = (
     order_toda_group_proof_narrative_surjectivity_support(
@@ -4219,7 +3976,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         rendered,
         presentation.root_step,
         generic_used_step_ids,
-        presentation=presentation,
       )
     )
   else:

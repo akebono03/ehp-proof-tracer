@@ -1456,7 +1456,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
   used_step_ids: frozenset[
     int
   ],
-  presentation: TodaGroupProofPresentation | None = None,
 ) -> tuple[
   tuple[
     TodaGroupProofNarrativeReferenceEntry,
@@ -1527,18 +1526,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       "used_step_ids must be a frozenset"
     )
 
-  if (
-    presentation is not None
-    and not isinstance(
-      presentation,
-      TodaGroupProofPresentation,
-    )
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "TodaGroupProofPresentation or None"
-    )
-
   retained_reference_keys = {
     (
       entry.reference.locator,
@@ -1552,27 +1539,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
     )
     for entry in filtered_entries
   }
-
-  reference_internal_step_ids = {
-    id(
-      proof_step
-    )
-    for entry in original_entries
-    for proof_step in entry.proof_steps
-    if proof_step is not root_step
-  }
-  consumers_by_step_id = {}
-
-  if presentation is not None:
-    for edge in presentation.edges:
-      consumers_by_step_id.setdefault(
-        id(
-          edge.premise_step
-        ),
-        [],
-      ).append(
-        edge.parent_step
-      )
 
   desired_entries = []
 
@@ -1593,22 +1559,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
           proof_step
         )
         in used_step_ids
-        and (
-          presentation is None
-          or any(
-            consumer is root_step
-            or id(
-              consumer
-            )
-            not in reference_internal_step_ids
-            for consumer in consumers_by_step_id.get(
-              id(
-                proof_step
-              ),
-              (),
-            )
-          )
-        )
         for proof_step in entry.proof_steps
       )
     )
