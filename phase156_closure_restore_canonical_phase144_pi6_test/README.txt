@@ -1,0 +1,56 @@
+Phase156 closure — canonical Phase144 pi6 test restore
+
+対象
+====
+tests/test_phase144_6_pi6_generic_production_route.py
+
+Production changes
+==================
+なし。
+
+原因
+====
+ローカル対象 test file が現行 HEAD より古かった。
+
+全体 pytest のログでは4 tests が収集され、そのうち
+
+- actual == expected の旧完全一致 test
+- Japanese punctuation `、` を固定する旧 CLI expectation
+- stale static route source-inspection test
+
+が失敗した。
+
+GitHub develop HEAD
+===================
+baab9402c9ca8c5051268d5d334591ea44b5b273
+
+現行 HEAD の対象 file は3 tests。
+
+Phase155 では stale static route test は削除済みであり、
+残る古い表示期待値も stale expectation repair の対象として整理済み。
+
+変更
+====
+対象 test file を
+
+git show HEAD:tests/test_phase144_6_pi6_generic_production_route.py
+
+の全文で置き換える。
+
+置換前 file は
+
+phase156_closure_test_restore_backup/
+test_phase144_6_pi6_generic_production_route.py
+
+へバックアップする。
+
+完了条件
+========
+- restore 後の git status が clean
+- restore 後の git diff が空
+- 対象 focused pytest が PASS
+
+次
+==
+Phase156 closure fixed4 を再実行し、
+canonical `python -m pytest tests` を Phase-final gate とする。
