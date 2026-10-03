@@ -3675,19 +3675,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
-
-  rendered = (
-    order_toda_group_proof_narrative_surjectivity_support(
-      rendered
-    )
-  )
-  rendered = (
-    insert_toda_group_proof_narrative_reference_map_values_before_surjectivity(
-      rendered,
-      statement_lines_by_reference_number,
-    )
-  )
-
   generic_used_step_ids = (
     build_toda_group_proof_narrative_generic_used_step_ids(
       presentation,
@@ -3802,15 +3789,11 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     ]
 
   return (
-    normalize_toda_group_proof_narrative_display_math_periods(
-      (
-        "# Group proof narrative\n\n"
-        "## 使用する結果\n\n"
-        + public_reference_section
-        + "\n\n"
-        "---\n\n"
-        "## 証明\n\n"
-        + rendered
-      )
-    )
+    "# Group proof narrative\n\n"
+    "## 使用する結果\n\n"
+    + public_reference_section
+    + "\n\n"
+    "---\n\n"
+    "## 証明\n\n"
+    + rendered
   )

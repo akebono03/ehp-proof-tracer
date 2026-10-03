@@ -51,21 +51,21 @@ def _reference_and_body() -> tuple[
   rendered = _pi6_3_rendered()
   reference_part, body_tail = (
     rendered.split(
-      "次に",
+      "まず",
       1,
     )
   )
 
   return (
     reference_part,
-    "次に" + body_tail,
+    "まず" + body_tail,
   )
 
 
 def test_phase157_r5_r9_fixed_definition_remains_in_reference():
   rendered = _pi6_3_rendered()
   reference_part = rendered.split(
-    "次に",
+    "まず",
     1,
   )[
     0
@@ -135,7 +135,7 @@ def test_phase157_r5_r9_body_starts_with_next_argument_after_reference_boundary(
   ]
 
   assert (
-    "次に, "
+    "まず, "
     r"$\nu'$ の位数を決定するために"
     in body
   )

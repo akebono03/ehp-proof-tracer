@@ -151,7 +151,7 @@ def render_toda_group_proof_narrative_reason_sentence(
     )
 
   if reason.kind is TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION:
-    return None
+    return "以上で得た群構造, 生成元, および写像に関する結果を合わせると, "
 
   return None
 

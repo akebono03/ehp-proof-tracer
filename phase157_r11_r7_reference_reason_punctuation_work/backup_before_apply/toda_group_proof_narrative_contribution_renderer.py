@@ -2102,11 +2102,6 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
           continue
 
         if line.strip() == statement_line:
-          updated_lines.append(
-            marker
-            + "より, "
-            + statement_line
-          )
           continue
 
         if marker in line:
@@ -2869,37 +2864,8 @@ def normalize_toda_group_proof_narrative_connectors(
       paragraph
     )
 
-  normalized = "\n\n".join(
-    retained
-  )
-
-  normalized_paragraphs = normalized.split(
-    "\n\n"
-  )
-
-  for index, paragraph in enumerate(
-    normalized_paragraphs
-  ):
-    stripped = paragraph.strip()
-
-    if not stripped:
-      continue
-
-    if stripped.startswith(
-      "次に, "
-    ):
-      normalized_paragraphs[
-        index
-      ] = paragraph.replace(
-        "次に, ",
-        "まず, ",
-        1,
-      )
-
-    break
-
   return "\n\n".join(
-    normalized_paragraphs
+    retained
   )
 
 
@@ -3014,185 +2980,6 @@ def _toda_group_proof_narrative_two_equation_reference_numbers(
     int(
       second_text
     ),
-  )
-
-
-def order_toda_group_proof_narrative_surjectivity_support(
-  markdown: str,
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  paragraphs = markdown.split(
-    "\n\n"
-  )
-
-  for map_index, paragraph in enumerate(
-    tuple(
-      paragraphs
-    )
-  ):
-    stripped = paragraph.strip()
-
-    if (
-      not stripped.startswith(
-        "$H:"
-      )
-      or " は全射である." not in stripped
-      or r"\to " not in stripped
-    ):
-      continue
-
-    target_fragment = stripped.split(
-      r"\to ",
-      1,
-    )[1].split(
-      "$",
-      1,
-    )[0].strip()
-
-    group_index = next(
-      (
-        index
-        for index in range(
-          map_index + 1,
-          len(paragraphs),
-        )
-        if paragraphs[index].strip().startswith(
-          "$" + target_fragment + " = "
-        )
-      ),
-      None,
-    )
-
-    if group_index is None:
-      continue
-
-    group_paragraph = paragraphs.pop(
-      group_index
-    )
-    paragraphs.insert(
-      map_index,
-      group_paragraph,
-    )
-
-  return "\n\n".join(
-    paragraphs
-  )
-
-
-def insert_toda_group_proof_narrative_reference_map_values_before_surjectivity(
-  markdown: str,
-  statement_lines_by_reference_number: dict[
-    int,
-    tuple[
-      str,
-      ...,
-    ],
-  ],
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  paragraphs = markdown.split(
-    "\n\n"
-  )
-
-  for reference_number, statement_lines in (
-    statement_lines_by_reference_number.items()
-  ):
-    for statement_line in statement_lines:
-      if not (
-        statement_line.startswith(
-          "$H\\left("
-        )
-        and " = " in statement_line
-      ):
-        continue
-
-      if any(
-        statement_line in paragraph
-        for paragraph in paragraphs
-      ):
-        continue
-
-      map_index = next(
-        (
-          index
-          for index, paragraph in enumerate(
-            paragraphs
-          )
-          if (
-            paragraph.strip().startswith(
-              "$H:"
-            )
-            and " は全射である." in paragraph
-          )
-        ),
-        None,
-      )
-
-      if map_index is None:
-        continue
-
-      paragraphs.insert(
-        map_index,
-        (
-          "[R"
-          + str(reference_number)
-          + "]より, "
-          + statement_line
-        ),
-      )
-
-  return "\n\n".join(
-    paragraphs
-  )
-
-
-def normalize_toda_group_proof_narrative_display_math_periods(
-  markdown: str,
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  normalized_lines = []
-
-  for line in markdown.splitlines():
-    stripped = line.strip()
-
-    if (
-      stripped.startswith(
-        "$"
-      )
-      and stripped.endswith(
-        "$"
-      )
-      and stripped != r"$\square$"
-    ):
-      line = line.rstrip() + "."
-
-    normalized_lines.append(
-      line
-    )
-
-  return "\n".join(
-    normalized_lines
   )
 
 
@@ -3675,19 +3462,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
-
-  rendered = (
-    order_toda_group_proof_narrative_surjectivity_support(
-      rendered
-    )
-  )
-  rendered = (
-    insert_toda_group_proof_narrative_reference_map_values_before_surjectivity(
-      rendered,
-      statement_lines_by_reference_number,
-    )
-  )
-
   generic_used_step_ids = (
     build_toda_group_proof_narrative_generic_used_step_ids(
       presentation,
@@ -3802,15 +3576,11 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     ]
 
   return (
-    normalize_toda_group_proof_narrative_display_math_periods(
-      (
-        "# Group proof narrative\n\n"
-        "## 使用する結果\n\n"
-        + public_reference_section
-        + "\n\n"
-        "---\n\n"
-        "## 証明\n\n"
-        + rendered
-      )
-    )
+    "# Group proof narrative\n\n"
+    "## 使用する結果\n\n"
+    + public_reference_section
+    + "\n\n"
+    "---\n\n"
+    "## 証明\n\n"
+    + rendered
   )
