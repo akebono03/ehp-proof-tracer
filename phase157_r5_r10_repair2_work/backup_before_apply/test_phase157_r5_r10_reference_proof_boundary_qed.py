@@ -1,0 +1,141 @@
+import pytest
+
+from toda_calculation_facade import (
+  build_standard_toda_report,
+)
+from toda_group_proof_narrative_renderer import (
+  render_toda_group_proof_narrative_markdown,
+)
+from toda_group_proof_presentation import (
+  build_toda_group_proof_presentation,
+)
+from toda_group_result_proof_replay import (
+  build_toda_group_result_proof_replay,
+)
+from web_group_proof import (
+  build_standard_web_group_proof_view,
+)
+
+
+def _rendered_group_proof(
+  n: int,
+  k: int,
+) -> str:
+  report = build_standard_toda_report(
+    n=n,
+    k=k,
+  )
+  group_result = (
+    report
+    .candidates[0]
+    .source_candidate
+    .group_result
+  )
+  replay = (
+    build_toda_group_result_proof_replay(
+      group_result,
+      max_depth=2,
+    )
+  )
+  presentation = (
+    build_toda_group_proof_presentation(
+      replay
+    )
+  )
+
+  return (
+    render_toda_group_proof_narrative_markdown(
+      presentation
+    )
+  )
+
+
+@pytest.mark.parametrize(
+  ("n", "k"),
+  (
+    (3, 3),
+    (5, 3),
+    (4, 6),
+    (5, 7),
+    (8, 7),
+    (9, 7),
+  ),
+)
+def test_phase157_r5_r10_reference_and_proof_have_visible_boundary(
+  n,
+  k,
+):
+  rendered = _rendered_group_proof(
+    n,
+    k,
+  )
+
+  if "## 使用する結果" not in rendered:
+    pytest.skip(
+      "this proof has no reference section"
+    )
+
+  reference_index = rendered.index(
+    "## 使用する結果"
+  )
+  separator_index = rendered.index(
+    "\n---\n",
+  )
+  proof_index = rendered.index(
+    "## 証明"
+  )
+
+  assert (
+    reference_index
+    < separator_index
+    < proof_index
+  )
+
+
+@pytest.mark.parametrize(
+  ("n", "k"),
+  (
+    (3, 3),
+    (5, 3),
+    (4, 6),
+    (5, 7),
+    (8, 7),
+    (9, 7),
+  ),
+)
+def test_phase157_r5_r10_narrative_ends_with_qed(
+  n,
+  k,
+):
+  rendered = _rendered_group_proof(
+    n,
+    k,
+  )
+
+  assert rendered.rstrip().endswith(
+    r"$\square$"
+  )
+
+
+def test_phase157_r5_r10_web_adapter_exposes_separator_and_qed():
+  view = build_standard_web_group_proof_view(
+    3,
+    3,
+    max_depth=2,
+    mode="narrative",
+  )
+
+  kinds = tuple(
+    line.kind
+    for line in view.rendered_lines
+  )
+
+  assert "separator" in kinds
+  assert any(
+    any(
+      segment.kind == "inline_math"
+      and segment.value == r"\square"
+      for segment in line.segments
+    )
+    for line in view.rendered_lines
+  )

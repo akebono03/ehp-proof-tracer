@@ -3554,38 +3554,10 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
   if not reference_section:
     return rendered
 
-  legacy_intro = (
-    "使用する結果を先にまとめる.\n\n"
-  )
-
-  public_reference_section = (
-    reference_section
-  )
-
-  if public_reference_section.startswith(
-    legacy_intro
-  ):
-    public_reference_section = (
-      public_reference_section[
-        len(
-          legacy_intro
-        ):
-      ]
-    )
-
-  if rendered.startswith(
-    legacy_intro
-  ):
-    rendered = rendered[
-      len(
-        legacy_intro
-      ):
-    ]
-
   return (
     "# Group proof narrative\n\n"
     "## 使用する結果\n\n"
-    + public_reference_section
+    + reference_section
     + "\n\n"
     "---\n\n"
     "## 証明\n\n"

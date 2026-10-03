@@ -36,7 +36,7 @@ def test_phase150_rc4_7a_pi10_4_numbers_normalized_references(
     6,
   )
 
-  assert "## 使用する結果" in rendered
+  assert "使用する結果を先にまとめる." in rendered
   assert "[R1]" in rendered
   assert r"\pi_{10}^{4}" in rendered
   assert r"\mathbb{Z}/8" in rendered
@@ -49,7 +49,7 @@ def test_phase150_rc4_7a_pi12_5_numbers_normalized_references(
     7,
   )
 
-  assert "## 使用する結果" in rendered
+  assert "使用する結果を先にまとめる." in rendered
   assert "[R1]" in rendered
   assert r"\pi_{12}^{5}" in rendered
   assert r"\mathbb{Z}/2" in rendered
@@ -59,7 +59,7 @@ def test_phase150_rc4_7a_pi16_9_numbers_normalized_references(
 ):
   rendered = _render_group(9, 7)
 
-  assert "## 使用する結果" in rendered
+  assert "使用する結果を先にまとめる." in rendered
   assert "**[R1] " in rendered
   assert "[R1]" in rendered
 

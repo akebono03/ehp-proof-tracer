@@ -91,7 +91,7 @@ def _data(
   )
 
 
-def test_phase156_r5_repair13_proposition51_is_not_on_root_reference_frontier():
+def test_phase156_r5_repair12_proposition51_is_not_on_reference_frontier():
   (
     raw,
     presentation,
@@ -123,7 +123,7 @@ def test_phase156_r5_repair13_proposition51_is_not_on_root_reference_frontier():
   )
 
 
-def test_phase156_r5_repair13_toda52_is_on_root_reference_frontier():
+def test_phase156_r5_repair12_53_and_direct_parent_references_are_on_frontier():
   (
     raw,
     presentation,
@@ -140,22 +140,27 @@ def test_phase156_r5_repair13_toda52_is_on_root_reference_frontier():
       entries,
     )
   )
-  toda52 = next(
-    entry
+
+  frontier_locators = {
+    entry.reference.locator
     for entry in entries
-    if entry.reference.locator == "(5.2)"
-  )
-
-  assert any(
-    id(
-      proof_step
+    if any(
+      id(
+        proof_step
+      )
+      in frontier_step_ids
+      for proof_step in entry.proof_steps
     )
-    in frontier_step_ids
-    for proof_step in toda52.proof_steps
-  )
+  }
+
+  assert "(5.3)" in frontier_locators
+  assert "Proposition 5.3" in frontier_locators
+  assert "Lemma 5.4" in frontier_locators
+  assert "(5.2)" in frontier_locators
+  assert "Proposition 5.1" not in frontier_locators
 
 
-def test_phase156_r5_repair13_depth2_public_reference_headers():
+def test_phase156_r5_repair12_public_depth2_reference_headers_are_frontier_only():
   (
     raw,
     presentation,
@@ -182,11 +187,12 @@ def test_phase156_r5_repair13_depth2_public_reference_headers():
   assert headers == [
     "(5.3)",
     "Proposition 5.3",
-    "Proposition 5.6",
+    "Lemma 5.4",
+    "(5.2)",
   ]
 
 
-def test_phase156_r5_repair13_depth3_keeps_52_and_prunes_51():
+def test_phase156_r5_repair12_public_depth3_prunes_proposition51():
   raw = _data(
     3
   )[
@@ -203,6 +209,5 @@ def test_phase156_r5_repair13_depth3_keeps_52_and_prunes_51():
   assert "Proposition 5.1" not in headers
   assert "(5.3)" in headers
   assert "Proposition 5.3" in headers
-  assert "Proposition 5.6" in headers
-  assert "Lemma 5.4" not in headers
-  assert "(5.2)" not in headers
+  assert "Lemma 5.4" in headers
+  assert "(5.2)" in headers

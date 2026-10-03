@@ -59,14 +59,6 @@ def test_phase156_r5_repair9_depth2_public_body_starts_after_53_boundary():
   body = _body(
     rendered
   )
-  reference_part = rendered.split(
-    "\n## 証明\n",
-    1,
-  )[0]
-  bracket_definition = (
-    "\\nu' \\in "
-    "\\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}"
-  )
 
   assert rendered.startswith(
     "# Group proof narrative"
@@ -77,11 +69,14 @@ def test_phase156_r5_repair9_depth2_public_body_starts_after_53_boundary():
     "使用する結果を先にまとめる."
     not in rendered
   )
-  assert "(5.3)" in reference_part
+  assert "(5.3)" in rendered
   assert "Lemma 5.2" not in rendered
-  assert "$\\nu'$ を定める." not in body
-  assert bracket_definition in reference_part
-  assert bracket_definition not in body
+  assert "$\\nu'$ を定める." not in rendered
+  assert (
+    "\\nu' \\in "
+    "\\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}"
+    not in rendered
+  )
   assert body.startswith(
     "次に, $\\nu'$ の位数を決定するために"
   )
@@ -94,20 +89,15 @@ def test_phase156_r5_repair9_depth3_public_body_starts_after_53_boundary():
   body = _body(
     rendered
   )
-  reference_part = rendered.split(
-    "\n## 証明\n",
-    1,
-  )[0]
-  bracket_definition = (
+
+  assert "(5.3)" in rendered
+  assert "Lemma 5.2" not in rendered
+  assert "$\\nu'$ を定める." not in rendered
+  assert (
     "\\nu' \\in "
     "\\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}"
+    not in rendered
   )
-
-  assert "(5.3)" in reference_part
-  assert "Lemma 5.2" not in rendered
-  assert "$\\nu'$ を定める." not in body
-  assert bracket_definition in reference_part
-  assert bracket_definition not in body
   assert body.startswith(
     "次に, $\\nu'$ の位数を決定するために"
   )

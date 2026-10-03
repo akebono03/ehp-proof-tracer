@@ -91,22 +91,14 @@ def test_phase153_r11_pi6_3_generic_section_excludes_root_self_reference():
     )
   )
   reference_part = rendered.split(
-    "\n## 証明\n",
+    "まず",
     1,
   )[0]
 
   assert root_reference is not None
   assert root_reference.locator == "Proposition 5.6"
   assert "## 使用する結果" in reference_part
-  assert (
-    r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
-    not in reference_part
-  )
-  assert (
-    r"$\pi_{5}^{2} = "
-    r"\mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$"
-    in reference_part
-  )
+  assert "Proposition 5.6" not in reference_part
 
 
 def test_phase153_r11_pi6_3_depth2_keeps_used_external_references():

@@ -4082,8 +4082,6 @@ def _phase153_r3_10_connect_public_reference_section(
         "",
         reference_section,
         "",
-        "---",
-        "",
         proof_header,
         "",
         filtered_proof_body,
@@ -4141,29 +4139,14 @@ def _wrap_phase150_rc4_generic_public_narrative(
   if not reference_section:
     return rendered
 
-  reference_prefixes = (
-    (
-      reference_section
-      + "\n\n"
-    ),
-    (
-      "使用する結果を先にまとめる.\n\n"
-      + reference_section
-      + "\n\n"
-    ),
-  )
-  reference_prefix = next(
-    (
-      prefix
-      for prefix in reference_prefixes
-      if rendered.startswith(
-        prefix
-      )
-    ),
-    None,
+  reference_prefix = (
+    reference_section
+    + "\n\n"
   )
 
-  if reference_prefix is None:
+  if not rendered.startswith(
+    reference_prefix
+  ):
     return rendered
 
   proof = rendered[
@@ -4183,7 +4166,6 @@ def _wrap_phase150_rc4_generic_public_narrative(
     "## 使用する結果\n\n"
     + reference_section
     + "\n\n"
-    "---\n\n"
     "## 証明\n\n"
     + proof.rstrip()
     + "\n"
@@ -4218,39 +4200,29 @@ def _finalize_toda_group_proof_narrative_markdown(
     )
 
     if reference_index < proof_index:
-      before_proof = lines[
-        :proof_index
-      ]
-      proof_and_after = lines[
-        proof_index:
-      ]
+      separator_index = proof_index
 
       while (
-        before_proof
-        and not before_proof[-1].strip()
+        separator_index > 0
+        and not lines[
+          separator_index - 1
+        ].strip()
       ):
-        before_proof.pop()
+        separator_index -= 1
 
       if (
-        before_proof
-        and before_proof[-1].strip()
-        == "---"
+        separator_index == 0
+        or lines[
+          separator_index - 1
+        ].strip() != "---"
       ):
-        before_proof.pop()
-
-        while (
-          before_proof
-          and not before_proof[-1].strip()
-        ):
-          before_proof.pop()
-
-      lines = [
-        *before_proof,
-        "",
-        "---",
-        "",
-        *proof_and_after,
-      ]
+        lines[
+          separator_index:separator_index
+        ] = [
+          "",
+          "---",
+          "",
+        ]
 
   while (
     lines
@@ -4377,16 +4349,21 @@ def render_toda_group_proof_narrative_markdown(
       )
     )
 
-    public_rendered = (
-      _wrap_phase150_rc4_generic_public_narrative(
-        presentation,
-        rendered,
+    if _is_phase150_rc4_generic_route_target(
+      presentation
+    ):
+      return (
+        _finalize_toda_group_proof_narrative_markdown(
+          _wrap_phase150_rc4_generic_public_narrative(
+            presentation,
+            rendered,
+          )
+        )
       )
-    )
 
     return (
       _finalize_toda_group_proof_narrative_markdown(
-        public_rendered
+        rendered
       )
     )
 
@@ -4616,8 +4593,4 @@ def render_toda_group_proof_narrative_markdown(
         + "\n"
       )
 
-  return (
-    _finalize_toda_group_proof_narrative_markdown(
-      rendered
-    )
-  )
+  return rendered

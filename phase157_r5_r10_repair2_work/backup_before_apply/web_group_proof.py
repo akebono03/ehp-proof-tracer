@@ -716,18 +716,6 @@ def _build_group_proof_rendered_lines(
       leading_spaces // 2
     )
 
-    if stripped == "---":
-      lines.append(
-        WebGroupProofRenderedLineView(
-          kind="separator",
-          indent_level=0,
-          prefix="",
-          statement_latex=None,
-          suffix="",
-        )
-      )
-      continue
-
     if display_math_lines is not None:
       if stripped == r"\]":
         statement_latex = "\n".join(
@@ -768,6 +756,18 @@ def _build_group_proof_rendered_lines(
     if raw_line.startswith(
       "# "
     ):
+      continue
+
+    if stripped == "---":
+      lines.append(
+        WebGroupProofRenderedLineView(
+          kind="separator",
+          indent_level=0,
+          prefix="",
+          statement_latex=None,
+          suffix="",
+        )
+      )
       continue
 
     if stripped.startswith(

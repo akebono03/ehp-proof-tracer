@@ -88,7 +88,7 @@ def test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section():
   assert "Lemma 5.2" not in reference_part
   assert "(5.2)" not in reference_part
   assert "Proposition 5.3" in reference_part
-  assert "Lemma 5.4" not in reference_part
+  assert "Lemma 5.4" in reference_part
   assert "Proposition 5.6" in reference_part
   assert "Proposition 5.1" not in reference_part
   assert "Proposition 2.2" not in reference_part

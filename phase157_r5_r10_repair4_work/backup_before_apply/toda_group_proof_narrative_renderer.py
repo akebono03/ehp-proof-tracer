@@ -4082,8 +4082,6 @@ def _phase153_r3_10_connect_public_reference_section(
         "",
         reference_section,
         "",
-        "---",
-        "",
         proof_header,
         "",
         filtered_proof_body,
@@ -4141,29 +4139,14 @@ def _wrap_phase150_rc4_generic_public_narrative(
   if not reference_section:
     return rendered
 
-  reference_prefixes = (
-    (
-      reference_section
-      + "\n\n"
-    ),
-    (
-      "使用する結果を先にまとめる.\n\n"
-      + reference_section
-      + "\n\n"
-    ),
-  )
-  reference_prefix = next(
-    (
-      prefix
-      for prefix in reference_prefixes
-      if rendered.startswith(
-        prefix
-      )
-    ),
-    None,
+  reference_prefix = (
+    reference_section
+    + "\n\n"
   )
 
-  if reference_prefix is None:
+  if not rendered.startswith(
+    reference_prefix
+  ):
     return rendered
 
   proof = rendered[
@@ -4183,7 +4166,6 @@ def _wrap_phase150_rc4_generic_public_narrative(
     "## 使用する結果\n\n"
     + reference_section
     + "\n\n"
-    "---\n\n"
     "## 証明\n\n"
     + proof.rstrip()
     + "\n"
