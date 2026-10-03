@@ -91,13 +91,13 @@ def test_phase157_r11_r11_hopf_derivation_precedes_surjectivity():
 
   fixed_hopf = (
     "[R2]より, "
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$."
+    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
   )
   bridge = (
-    r"$E^{2}\eta_{3} = \eta_{5}\tag{5}$."
+    r"$E^{2}\eta_{3} = \eta_{5}$."
   )
   derived_hopf = (
-    r"$H\left(\nu'\right) = \eta_{5}\tag{6}$."
+    r"$H\left(\nu'\right) = \eta_{5}$."
   )
   target_group = (
     r"$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$."
@@ -236,35 +236,4 @@ def test_phase157_r11_r11_hopf_surjectivity_is_dependency_map_property():
       )
       is TodaProofDependencyRole.MAP_PROPERTY
     )
-
-
-def test_phase157_r11_r11_reference_keeps_all_used_equation_53_components():
-  reference, _ = _reference_and_body()
-
-  assert "**[R2] (5.3).**" in reference
-  assert (
-    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
-    in reference
-  )
-  assert (
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
-    in reference
-  )
-
-
-def test_phase157_r11_r11_reference_non_definition_lines_end_with_period():
-  reference, _ = _reference_and_body()
-
-  assert (
-    r"$\nu' \in \pi_{6}^{3}$."
-    in reference
-  )
-  assert (
-    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
-    in reference
-  )
-  assert (
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
-    in reference
-  )
 

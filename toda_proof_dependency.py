@@ -19,6 +19,7 @@ from toda_group_result import TodaGroupResult
 from toda_rules import (
   TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
+  TodaHopfInvariantSurjectiveStatement,
   TodaHopfInvariantZeroStatement,
   TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
@@ -124,6 +125,7 @@ def classify_toda_proof_step_role(
     (
       TodaDeltaImageUpToSignStatement,
       TodaDeltaInjectiveStatement,
+      TodaHopfInvariantSurjectiveStatement,
       TodaHopfInvariantZeroStatement,
       TodaSuspensionSurjectiveStatement,
     ),

@@ -18,9 +18,7 @@ from toda_group_result_proof_replay import (
   TodaGroupResultProofReplayStep,
 )
 from toda_proof_dependency import (
-  TodaProofDependencyRole,
   TodaProofEdge,
-  classify_toda_proof_step_role,
   extract_toda_recursive_proof_provenance,
 )
 from toda_rules import (
@@ -591,68 +589,6 @@ def build_toda_group_proof_narrative_semantic_closure_presentation(
   ):
     for edge in edges_by_parent_step_id.get(
       calculation_step_id,
-      (),
-    ):
-      premise_statement = (
-        edge.premise_step.conclusion
-      )
-
-      if (
-        not isinstance(
-          premise_statement,
-          Relation,
-        )
-        or premise_statement.relation_type
-        is not RelationType.EQUALITY
-      ):
-        continue
-
-      selected_step_ids.add(
-        id(
-          edge.premise_step
-        )
-      )
-
-  map_property_equality_step_ids = set()
-
-  for node in presentation.nodes:
-    if (
-      classify_toda_proof_step_role(
-        node.proof_step
-      )
-      is not TodaProofDependencyRole.MAP_PROPERTY
-    ):
-      continue
-
-    for edge in edges_by_parent_step_id.get(
-      id(
-        node.proof_step
-      ),
-      (),
-    ):
-      premise_statement = (
-        edge.premise_step.conclusion
-      )
-
-      if (
-        isinstance(
-          premise_statement,
-          Relation,
-        )
-        and premise_statement.relation_type
-        is RelationType.EQUALITY
-      ):
-        map_property_equality_step_ids.add(
-          id(
-            edge.premise_step
-          )
-        )
-
-  for equality_step_id in (
-    map_property_equality_step_ids
-  ):
-    for edge in edges_by_parent_step_id.get(
-      equality_step_id,
       (),
     ):
       premise_statement = (

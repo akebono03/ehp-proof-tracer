@@ -80,7 +80,7 @@ def test_phase157_r5_r9_fixed_definition_remains_in_reference():
     in reference_part
   )
   assert (
-    r"$\nu' \in \pi_{6}^{3}$."
+    r"$\nu' \in \pi_{6}^{3}$,"
     in reference_part
   )
   assert (
@@ -90,6 +90,8 @@ def test_phase157_r5_r9_fixed_definition_remains_in_reference():
     )
     in reference_part
   )
+
+
 def test_phase157_r5_r9_fixed_definition_introduction_is_removed_from_body():
   rendered = _pi6_3_rendered()
 
@@ -126,7 +128,9 @@ def test_phase157_r5_r9_fixed_definition_statement_is_not_repeated_in_body():
 def test_phase157_r5_r9_body_starts_with_next_argument_after_reference_boundary():
   rendered = _pi6_3_rendered()
   body = rendered.split(
-    "\n## 証明\n",
+    "
+## 証明
+",
     1,
   )[
     1

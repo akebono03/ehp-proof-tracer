@@ -80,7 +80,7 @@ def test_phase157_r5_r9_fixed_definition_remains_in_reference():
     in reference_part
   )
   assert (
-    r"$\nu' \in \pi_{6}^{3}$."
+    r"$\nu' \in \pi_{6}^{3}$,"
     in reference_part
   )
   assert (
@@ -90,6 +90,8 @@ def test_phase157_r5_r9_fixed_definition_remains_in_reference():
     )
     in reference_part
   )
+
+
 def test_phase157_r5_r9_fixed_definition_introduction_is_removed_from_body():
   rendered = _pi6_3_rendered()
 

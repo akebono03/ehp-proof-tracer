@@ -79,10 +79,6 @@ from toda_group_proof_narrative_semantics import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
-from toda_proof_dependency import (
-  TodaProofDependencyRole,
-  classify_toda_proof_step_role,
-)
 from toda_literature_statement_boundary import (
   TodaLiteratureStatementClassification,
   classify_toda_literature_statement_step,
@@ -1186,9 +1182,18 @@ def _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
       )
       continue
 
+    if index == len(
+      ordered_steps
+    ) - 1:
+      lines.append(
+        line
+        + "."
+      )
+      continue
+
     lines.append(
       line
-      + "."
+      + ","
     )
 
   return tuple(
@@ -2011,64 +2016,6 @@ def suppress_toda_group_proof_narrative_reference_body_restatements(
     compacted_lines
   ).strip()
 
-def _phase157_r11_reference_statement_match_key(
-  line: str,
-) -> str:
-  if not isinstance(
-    line,
-    str,
-  ):
-    raise TypeError(
-      "line must be a str"
-    )
-
-  normalized = line.strip().rstrip(
-    ".,"
-  )
-  marker = r"\tag{"
-
-  while True:
-    marker_index = normalized.find(
-      marker
-    )
-
-    if marker_index < 0:
-      break
-
-    number_start = (
-      marker_index
-      + len(
-        marker
-      )
-    )
-    number_end = normalized.find(
-      "}",
-      number_start,
-    )
-
-    if number_end < 0:
-      break
-
-    number_text = normalized[
-      number_start:
-      number_end
-    ]
-
-    if not number_text.isdigit():
-      break
-
-    normalized = (
-      normalized[
-        :marker_index
-      ]
-      + normalized[
-        number_end + 1:
-      ]
-    )
-
-  return normalized
-
-
 def suppress_toda_group_proof_narrative_reference_body_duplicates(
   body_markdown: str,
   statement_lines_by_reference_number: dict[
@@ -2148,33 +2095,17 @@ def suppress_toda_group_proof_narrative_reference_body_duplicates(
       updated_lines = []
 
       for line in lines:
-        stripped_line = line.strip()
-        statement_match_key = (
-          _phase157_r11_reference_statement_match_key(
-            statement_line
-          )
-        )
-        line_match_key = (
-          _phase157_r11_reference_statement_match_key(
-            stripped_line
-          )
-        )
-
-        if line_match_key == statement_match_key:
-          display_line = stripped_line.rstrip(
-            ".,"
-          )
-          updated_lines.append(
-            marker
-            + "より, "
-            + display_line
-            + "."
-          )
-          continue
-
         if statement_line not in line:
           updated_lines.append(
             line
+          )
+          continue
+
+        if line.strip() == statement_line:
+          updated_lines.append(
+            marker
+            + "より, "
+            + statement_line
           )
           continue
 
@@ -3087,17 +3018,8 @@ def _toda_group_proof_narrative_two_equation_reference_numbers(
 
 
 def order_toda_group_proof_narrative_surjectivity_support(
-  presentation: TodaGroupProofPresentation,
   markdown: str,
 ) -> str:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
   if not isinstance(
     markdown,
     str,
@@ -3109,180 +3031,6 @@ def order_toda_group_proof_narrative_surjectivity_support(
   paragraphs = markdown.split(
     "\n\n"
   )
-
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    return (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
-  def paragraph_index_for_step(
-    proof_step: ProofStep,
-  ) -> int | None:
-    rendered_statement = (
-      _render_generic_narrative_step(
-        proof_step
-      )
-    )
-
-    if not rendered_statement:
-      return None
-
-    target_key = (
-      _phase157_r11_reference_statement_match_key(
-        rendered_statement
-      )
-    )
-
-    matching_indices = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if paragraph_match_key(
-        paragraph
-      ) == target_key
-    )
-
-    if len(
-      matching_indices
-    ) != 1:
-      return None
-
-    return matching_indices[
-      0
-    ]
-
-  for node in presentation.nodes:
-    map_step = node.proof_step
-
-    if (
-      classify_toda_proof_step_role(
-        map_step
-      )
-      is not TodaProofDependencyRole.MAP_PROPERTY
-    ):
-      continue
-
-    map_index = paragraph_index_for_step(
-      map_step
-    )
-
-    if map_index is None:
-      continue
-
-    equality_premises = tuple(
-      premise
-      for premise in map_step.premises
-      if (
-        isinstance(
-          premise.conclusion,
-          Relation,
-        )
-        and premise.conclusion.relation_type
-        is RelationType.EQUALITY
-      )
-    )
-
-    if not equality_premises:
-      continue
-
-    support_steps = []
-
-    for equality_premise in equality_premises:
-      support_steps.extend(
-        premise
-        for premise in equality_premise.premises
-        if (
-          isinstance(
-            premise.conclusion,
-            Relation,
-          )
-          and premise.conclusion.relation_type
-          is RelationType.EQUALITY
-        )
-      )
-      support_steps.append(
-        equality_premise
-      )
-
-    support_indices = tuple(
-      index
-      for proof_step in support_steps
-      for index in (
-        paragraph_index_for_step(
-          proof_step
-        ),
-      )
-      if index is not None
-    )
-
-    if len(
-      support_indices
-    ) != len(
-      support_steps
-    ):
-      continue
-
-    first_support_index = min(
-      support_indices
-    )
-    last_support_index = max(
-      support_indices
-    )
-
-    if (
-      first_support_index < map_index
-      and last_support_index < map_index
-    ):
-      continue
-
-    if (
-      first_support_index
-      <= map_index
-      <= last_support_index
-    ):
-      continue
-
-    support_block = paragraphs[
-      first_support_index:
-      last_support_index + 1
-    ]
-
-    del paragraphs[
-      first_support_index:
-      last_support_index + 1
-    ]
-
-    if first_support_index < map_index:
-      map_index -= len(
-        support_block
-      )
-
-    paragraphs[
-      map_index:
-      map_index
-    ] = support_block
 
   for map_index, paragraph in enumerate(
     tuple(
@@ -3313,16 +3061,10 @@ def order_toda_group_proof_narrative_surjectivity_support(
         index
         for index in range(
           map_index + 1,
-          len(
-            paragraphs
-          ),
+          len(paragraphs),
         )
-        if paragraphs[
-          index
-        ].strip().startswith(
-          "$"
-          + target_fragment
-          + " = "
+        if paragraphs[index].strip().startswith(
+          "$" + target_fragment + " = "
         )
       ),
       None,
@@ -3936,8 +3678,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
 
   rendered = (
     order_toda_group_proof_narrative_surjectivity_support(
-      presentation,
-      rendered,
+      rendered
     )
   )
 

@@ -251,20 +251,3 @@ def test_phase157_r11_r11_reference_keeps_all_used_equation_53_components():
     in reference
   )
 
-
-def test_phase157_r11_r11_reference_non_definition_lines_end_with_period():
-  reference, _ = _reference_and_body()
-
-  assert (
-    r"$\nu' \in \pi_{6}^{3}$."
-    in reference
-  )
-  assert (
-    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
-    in reference
-  )
-  assert (
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
-    in reference
-  )
-

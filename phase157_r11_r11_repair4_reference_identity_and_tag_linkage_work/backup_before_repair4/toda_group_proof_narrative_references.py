@@ -655,26 +655,12 @@ def select_toda_group_proof_narrative_reference_statement_steps(
     | entry_external_used_step_ids
   )
 
-  used_candidate_conclusions = tuple(
-    edge.premise_step.conclusion
-    for edge in proof_edges
-    if id(
-      edge.premise_step
-    ) in used_candidate_step_ids
-  )
-
   used_candidates = tuple(
     step
     for step in eligible_candidates
-    if (
-      id(
-        step
-      ) in used_candidate_step_ids
-      or any(
-        step.conclusion == used_conclusion
-        for used_conclusion in used_candidate_conclusions
-      )
-    )
+    if id(
+      step
+    ) in used_candidate_step_ids
   )
 
   if used_candidates:

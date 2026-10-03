@@ -10,10 +10,6 @@ from toda_group_proof_presentation import (
 from toda_group_result_proof_replay import (
   build_toda_group_result_proof_replay,
 )
-from toda_proof_dependency import (
-  TodaProofDependencyRole,
-  classify_toda_proof_step_role,
-)
 
 
 def _render_pi6_3() -> str:
@@ -91,13 +87,13 @@ def test_phase157_r11_r11_hopf_derivation_precedes_surjectivity():
 
   fixed_hopf = (
     "[R2]より, "
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$."
+    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
   )
   bridge = (
-    r"$E^{2}\eta_{3} = \eta_{5}\tag{5}$."
+    r"$E^{2}\eta_{3} = \eta_{5}$."
   )
   derived_hopf = (
-    r"$H\left(\nu'\right) = \eta_{5}\tag{6}$."
+    r"$H\left(\nu'\right) = \eta_{5}$."
   )
   target_group = (
     r"$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$."
@@ -175,96 +171,3 @@ def test_phase157_r11_r11_exact_sequence_ends_with_period():
     r"\longrightarrow 0$."
     in body
   )
-
-
-def test_phase157_r11_r11_hopf_surjectivity_is_dependency_map_property():
-  report = build_standard_toda_report(
-    n=3,
-    k=3,
-  )
-  group_result = (
-    report
-    .candidates[0]
-    .source_candidate
-    .group_result
-  )
-
-  stack = [
-    group_result.proof_step,
-  ]
-  visited = set()
-  hopf_surjective_steps = []
-
-  while stack:
-    proof_step = stack.pop()
-    proof_step_id = id(
-      proof_step
-    )
-
-    if proof_step_id in visited:
-      continue
-
-    visited.add(
-      proof_step_id
-    )
-
-    inference_rule = (
-      proof_step.inference_rule
-    )
-
-    if (
-      inference_rule is not None
-      and inference_rule.name
-      == "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity"
-    ):
-      hopf_surjective_steps.append(
-        proof_step
-      )
-
-    stack.extend(
-      reversed(
-        proof_step.premises
-      )
-    )
-
-  assert hopf_surjective_steps
-
-  for proof_step in hopf_surjective_steps:
-    assert (
-      classify_toda_proof_step_role(
-        proof_step
-      )
-      is TodaProofDependencyRole.MAP_PROPERTY
-    )
-
-
-def test_phase157_r11_r11_reference_keeps_all_used_equation_53_components():
-  reference, _ = _reference_and_body()
-
-  assert "**[R2] (5.3).**" in reference
-  assert (
-    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
-    in reference
-  )
-  assert (
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
-    in reference
-  )
-
-
-def test_phase157_r11_r11_reference_non_definition_lines_end_with_period():
-  reference, _ = _reference_and_body()
-
-  assert (
-    r"$\nu' \in \pi_{6}^{3}$."
-    in reference
-  )
-  assert (
-    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
-    in reference
-  )
-  assert (
-    r"$H\left(\nu'\right) = E^{2}\eta_{3}$."
-    in reference
-  )
-

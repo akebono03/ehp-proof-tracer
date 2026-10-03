@@ -3110,32 +3110,6 @@ def order_toda_group_proof_narrative_surjectivity_support(
     "\n\n"
   )
 
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    return (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
   def paragraph_index_for_step(
     proof_step: ProofStep,
   ) -> int | None:
@@ -3159,9 +3133,12 @@ def order_toda_group_proof_narrative_surjectivity_support(
       for index, paragraph in enumerate(
         paragraphs
       )
-      if paragraph_match_key(
-        paragraph
-      ) == target_key
+      if (
+        _phase157_r11_reference_statement_match_key(
+          paragraph
+        )
+        == target_key
+      )
     )
 
     if len(
@@ -3237,11 +3214,7 @@ def order_toda_group_proof_narrative_surjectivity_support(
       if index is not None
     )
 
-    if len(
-      support_indices
-    ) != len(
-      support_steps
-    ):
+    if not support_indices:
       continue
 
     first_support_index = min(
