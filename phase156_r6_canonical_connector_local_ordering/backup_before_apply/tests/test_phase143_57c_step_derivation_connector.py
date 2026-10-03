@@ -36,10 +36,10 @@ def test_phase143_57c_pi6_3_first_local_derivation_is_grouped():
     3,
   )
   source_one = (
-    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$"
+    r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$"
   )
   source_two = (
-    r"$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$"
+    r"$\eta_{3}E\eta_{3}\eta_{5} = \eta_{3}^{3}\tag{2}$"
   )
   target = (
     r"$2\nu' = \eta_{3}^{3}\tag{3}$"

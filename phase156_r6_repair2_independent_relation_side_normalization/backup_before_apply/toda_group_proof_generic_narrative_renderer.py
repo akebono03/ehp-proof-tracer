@@ -257,78 +257,76 @@ def _normalize_generic_narrative_step_latex(
   ):
     return latex
 
-  replacements = []
-  search_start = 0
+  lhs_rendered = (
+    _try_render_generic_narrative_expression_latex(
+      statement.lhs
+    )
+  )
+  rhs_rendered = (
+    _try_render_generic_narrative_expression_latex(
+      statement.rhs
+    )
+  )
 
-  for expression in (
-    statement.lhs,
-    statement.rhs,
+  if (
+    lhs_rendered is None
+    or rhs_rendered is None
   ):
-    rendered_expression = (
-      _try_render_generic_narrative_expression_latex(
-        expression
-      )
+    return latex
+
+  lhs_normalized = (
+    _render_generic_narrative_expression_latex(
+      statement.lhs
     )
-
-    if rendered_expression is None:
-      continue
-
-    normalized_expression = (
-      _render_generic_narrative_expression_latex(
-        expression
-      )
+  )
+  rhs_normalized = (
+    _render_generic_narrative_expression_latex(
+      statement.rhs
     )
+  )
 
-    expression_start = latex.find(
-      rendered_expression,
-      search_start,
+  lhs_start = latex.find(
+    lhs_rendered
+  )
+
+  if lhs_start < 0:
+    return latex
+
+  lhs_end = (
+    lhs_start
+    + len(
+      lhs_rendered
     )
+  )
+  rhs_start = latex.find(
+    rhs_rendered,
+    lhs_end,
+  )
 
-    if expression_start < 0:
-      continue
+  if rhs_start < 0:
+    return latex
 
-    expression_end = (
-      expression_start
-      + len(
-        rendered_expression
-      )
+  rhs_end = (
+    rhs_start
+    + len(
+      rhs_rendered
     )
-    search_start = expression_end
+  )
 
-    if (
-      normalized_expression
-      == rendered_expression
-    ):
-      continue
-
-    replacements.append(
-      (
-        expression_start,
-        expression_end,
-        normalized_expression,
-      )
-    )
-
-  normalized = latex
-
-  for (
-    expression_start,
-    expression_end,
-    normalized_expression,
-  ) in reversed(
-    replacements
-  ):
-    normalized = (
-      normalized[
-        :expression_start
-      ]
-      + normalized_expression
-      + normalized[
-        expression_end:
-      ]
-    )
-
-  return normalized
+  return (
+    latex[
+      :lhs_start
+    ]
+    + lhs_normalized
+    + latex[
+      lhs_end:
+      rhs_start
+    ]
+    + rhs_normalized
+    + latex[
+      rhs_end:
+    ]
+  )
 
 
 def _render_generic_narrative_group_map_latex(

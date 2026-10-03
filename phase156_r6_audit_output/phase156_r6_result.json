@@ -1,0 +1,14 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "duplicate_connector_occurrences": 0,
+  "local_ordering_violations": 0,
+  "pi6_depth2_canonical_reference": true,
+  "pi6_depth2_legacy_reference_absent": true,
+  "pi6_depth2_equation3_before_order": true,
+  "pass": true
+}

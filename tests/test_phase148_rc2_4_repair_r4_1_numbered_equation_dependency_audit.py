@@ -17,9 +17,9 @@ from toda_group_result_proof_replay import (
 
 
 EQUATION_FRAGMENTS = (
-  r"2\nu' = \eta_{3}E\eta_{3}\eta_{5}",
+  r"2\nu' = \eta_{3}\eta_{4}\eta_{5}",
   (
-    r"\eta_{3}E\eta_{3}\eta_{5} = "
+    r"\eta_{3}\eta_{4}\eta_{5} = "
     r"\eta_{3}^{3}"
   ),
   r"2\nu' = \eta_{3}^{3}",

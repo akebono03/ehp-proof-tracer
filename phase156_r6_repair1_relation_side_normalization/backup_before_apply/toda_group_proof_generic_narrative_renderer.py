@@ -257,8 +257,7 @@ def _normalize_generic_narrative_step_latex(
   ):
     return latex
 
-  replacements = []
-  search_start = 0
+  normalized = latex
 
   for expression in (
     statement.lhs,
@@ -279,53 +278,15 @@ def _normalize_generic_narrative_step_latex(
       )
     )
 
-    expression_start = latex.find(
-      rendered_expression,
-      search_start,
-    )
-
-    if expression_start < 0:
-      continue
-
-    expression_end = (
-      expression_start
-      + len(
-        rendered_expression
-      )
-    )
-    search_start = expression_end
-
     if (
       normalized_expression
       == rendered_expression
     ):
       continue
 
-    replacements.append(
-      (
-        expression_start,
-        expression_end,
-        normalized_expression,
-      )
-    )
-
-  normalized = latex
-
-  for (
-    expression_start,
-    expression_end,
-    normalized_expression,
-  ) in reversed(
-    replacements
-  ):
-    normalized = (
-      normalized[
-        :expression_start
-      ]
-      + normalized_expression
-      + normalized[
-        expression_end:
-      ]
+    normalized = normalized.replace(
+      rendered_expression,
+      normalized_expression,
     )
 
   return normalized

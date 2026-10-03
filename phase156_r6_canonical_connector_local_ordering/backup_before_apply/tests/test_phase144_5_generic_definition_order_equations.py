@@ -43,9 +43,9 @@ def test_phase144_5_r2_numbers_only_calculation_chain_equations():
     3,
   )
 
-  assert r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$" in rendered
+  assert r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$" in rendered
   assert (
-    r"$\eta_{3}\eta_{4}\eta_{5} = "
+    r"$\eta_{3}E\eta_{3}\eta_{5} = "
     r"\eta_{3}^{3}\tag{2}$"
     in rendered
   )
