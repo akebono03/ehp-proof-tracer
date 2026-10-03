@@ -1,0 +1,51 @@
+{
+  "phase": "157-R5-R1",
+  "scope": {
+    "n": "2..15",
+    "k": "0..7",
+    "depth": 2,
+    "expected_groups": 112
+  },
+  "production_changes": false,
+  "existing_test_changes": false,
+  "pytest_run": false,
+  "full_narrative_rendering": false,
+  "groups": 112,
+  "exceptions": 0,
+  "reference_entries": 225,
+  "selected_steps": 234,
+  "status_summary": [
+    {
+      "status": "FIXED_STATEMENT",
+      "occurrences": 34,
+      "affected_groups": 15
+    },
+    {
+      "status": "PROOF_INTERNAL",
+      "occurrences": 46,
+      "affected_groups": 42
+    },
+    {
+      "status": "UNTRACKED",
+      "occurrences": 128,
+      "affected_groups": 66
+    },
+    {
+      "status": "FIXED_STATEMENT_INELIGIBLE",
+      "occurrences": 2,
+      "affected_groups": 2
+    },
+    {
+      "status": "FIXED_STATEMENT_WITHOUT_COMPONENT",
+      "occurrences": 24,
+      "affected_groups": 21
+    },
+    {
+      "status": "FIXED_STATEMENT_MISSING_COMPONENT",
+      "occurrences": 0,
+      "affected_groups": 0
+    }
+  ],
+  "confirmed_defects": 72,
+  "untracked_selected_steps": 128
+}
