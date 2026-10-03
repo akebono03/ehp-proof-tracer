@@ -312,7 +312,7 @@ def test_phase157_r2_equation53_bracket_specialization_is_proof_internal():
   )
 
 
-def test_phase157_r2_untracked_reference_is_not_classified():
+def test_phase157_r2_untracked_rule_in_tracked_reference_is_proof_internal():
   boundary = classify_toda_literature_statement_step(
     _step(
       "Toda Proposition 5.15 test",
@@ -320,4 +320,9 @@ def test_phase157_r2_untracked_reference_is_not_classified():
     )
   )
 
-  assert boundary is None
+  assert boundary is not None
+  assert boundary.classification == (
+    TodaLiteratureStatementClassification.PROOF_INTERNAL
+  )
+  assert boundary.reference_locator == "Proposition 5.15"
+  assert boundary.component_key is None
