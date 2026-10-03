@@ -1,0 +1,32 @@
+==============================================================================
+Phase156-R5 — final 112-group cross-group Reference minimal-display audit
+==============================================================================
+production changes: none
+scope: n=2..15, k=0..7, depth=2
+
+groups: 112
+exceptions: 0
+public Reference groups: 93
+public Reference headers: 147
+body Reference markers: 143
+header without marker (informational): occurrences=15, affected_groups=4
+canonical selected statements: 238
+displayed canonical statements: 158
+multi-statement entries: 20
+max selected statements in one entry: 3
+
+Required cross-group violations:
+  non_contiguous_reference_headers: occurrences=0, affected_groups=0
+  body_marker_without_header: occurrences=0, affected_groups=0
+  boundary_selection_mismatch: occurrences=0, affected_groups=0
+  entry_external_selection_mismatch: occurrences=0, affected_groups=0
+  same_entry_internal_public_expansion: occurrences=0, affected_groups=0
+  exact_reference_body_restatement: occurrences=0, affected_groups=0
+
+Total required violations: 0
+
+Contract:
+  body marker -> matching Reference header is required.
+  Reference header -> explicit body marker is not required; generic rendering may retain a Reference by proof-graph usage.
+  Phase156-R3 statement-selection invariants and exact Reference/body non-duplication remain required.
+==============================================================================

@@ -1,0 +1,239 @@
+﻿n,k,group,reference_number,reference_title,classification,statement
+2,2,pi_4^2,2,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+2,2,pi_4^2,3,Proposition 4.4,single_source,"$(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である."
+2,2,pi_4^2,3,Proposition 4.4,single_source,分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+2,3,pi_5^2,2,Proposition 5.3,single_source,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+2,3,pi_5^2,3,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+2,3,pi_5^2,4,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+2,3,pi_5^2,5,Proposition 4.4,single_source,"$(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である."
+2,3,pi_5^2,5,Proposition 4.4,single_source,分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+2,4,pi_6^2,2,Proposition 5.6,single_source,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ."
+2,4,pi_6^2,3,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+2,4,pi_6^2,4,Proposition 4.4,single_source,"$(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である."
+2,4,pi_6^2,4,Proposition 4.4,single_source,分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+2,5,pi_7^2,2,Proposition 5.8,single_source,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$
+2,5,pi_7^2,3,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+2,5,pi_7^2,4,Equation 5.7,single_source,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$
+2,5,pi_7^2,5,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+2,5,pi_7^2,6,Proposition 4.4,single_source,"$(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である."
+2,5,pi_7^2,6,Proposition 4.4,single_source,分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+2,6,pi_8^2,2,Proposition 5.9,single_source,"$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$, $\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$, $\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$, $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$, $\pi_{n + 5}^{n} = 0$, $n \ge 7$ が成り立つ."
+2,6,pi_8^2,3,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+2,6,pi_8^2,4,Proposition 4.4,single_source,"$(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である."
+2,6,pi_8^2,4,Proposition 4.4,single_source,分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+2,7,pi_9^2,2,Proposition 5.11,single_source,"$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ."
+2,7,pi_9^2,3,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+2,7,pi_9^2,4,Proposition 4.4,single_source,"$(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である."
+2,7,pi_9^2,4,Proposition 4.4,single_source,分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+3,2,pi_5^3,1,Proposition 5.3,single_source,$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+3,2,pi_5^3,2,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+3,2,pi_5^3,3,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+3,3,pi_6^3,1,Proposition 5.6,single_source,$\operatorname{ord}\left(\nu'\right) = 4$
+3,3,pi_6^3,2,(5.3),single_source,$\nu' \in \pi_{6}^{3}$
+3,3,pi_6^3,2,(5.3),single_source,$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+3,3,pi_6^3,3,Proposition 5.3,single_source,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+3,3,pi_6^3,3,Proposition 5.3,single_source,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+3,3,pi_6^3,4,Lemma 5.4,single_source,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+3,3,pi_6^3,5,(5.3),single_source,"$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ."
+3,3,pi_6^3,6,(5.2),single_source,$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+3,3,pi_6^3,7,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+3,4,pi_7^3,1,Proposition 5.8,single_source,$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は単射である.
+3,4,pi_7^3,2,Equation 5.7,single_source,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$
+3,4,pi_7^3,3,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+3,4,pi_7^3,4,Proposition 5.6,single_source,$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+3,4,pi_7^3,5,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+3,5,pi_8^3,1,Proposition 5.9,single_source,$H: \pi_{8}^{3} \to \pi_{8}^{5}$ は単射である.
+3,5,pi_8^3,2,Lemma 5.7,single_source,$\Delta\left(\nu_{5}\right) = \pm \eta_{2}\nu'$
+3,5,pi_8^3,2,Lemma 5.7,single_source,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+3,5,pi_8^3,3,Proposition 5.6,single_source,$\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$
+3,5,pi_8^3,4,Equation 5.7,single_source,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$
+3,5,pi_8^3,5,(5.5),single_source,"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ."
+3,6,pi_9^3,1,Proposition 5.11,single_source,$H: \pi_{9}^{3} \to \pi_{9}^{5}$ は単射である.
+3,6,pi_9^3,2,Proposition 5.8,single_source,"$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$, $\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$, $\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$, $\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$, $\pi_{n + 4}^{n} = 0$, $n \ge 6$ が成り立つ."
+3,6,pi_9^3,3,Proposition 5.9,single_source,"$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$, $\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$, $\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$, $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$, $\pi_{n + 5}^{n} = 0$, $n \ge 7$ が成り立つ."
+3,7,pi_10^3,1,Proposition 5.15,single_source,$\pi_{9}^{2} = 0$
+3,7,pi_10^3,1,Proposition 5.15,single_source,$\pi_{9}^{2} \xrightarrow{E} \pi_{10}^{3} \xrightarrow{H} \pi_{10}^{5}$ は完全である.
+3,7,pi_10^3,2,Proposition 5.9,single_source,"$\pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}$, $\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$, $\pi_{10}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\eta_{9}\}$, $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$, $\pi_{n + 5}^{n} = 0$, $n \ge 7$ が成り立つ."
+3,7,pi_10^3,3,Proposition 5.11,single_source,"$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ."
+4,1,pi_5^4,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+4,2,pi_6^4,1,Proposition 5.3,single_source,$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+4,2,pi_6^4,2,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+4,3,pi_7^4,1,Proposition 5.6,single_source,$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+4,3,pi_7^4,2,Lemma 5.4,single_source,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ."
+4,3,pi_7^4,2,Lemma 5.4,single_source,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+4,3,pi_7^4,3,(5.3),single_source,$\nu' \in \pi_{6}^{3}$
+4,3,pi_7^4,4,Proposition 5.3,single_source,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+4,4,pi_8^4,1,Proposition 5.8,single_source,$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$
+4,4,pi_8^4,2,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+4,4,pi_8^4,3,Lemma 5.4,single_source,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ."
+4,4,pi_8^4,4,Equation 5.7,single_source,$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$
+4,4,pi_8^4,5,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+4,5,pi_9^4,1,Proposition 5.9,single_source,$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\eta_{7}\}$
+4,5,pi_9^4,2,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+4,5,pi_9^4,3,Lemma 5.4,single_source,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ."
+4,5,pi_9^4,4,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+4,6,pi_10^4,1,Proposition 5.11,single_source,$\pi_{9}^{3} = 0$
+4,6,pi_10^4,2,Proposition 5.6,single_source,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ."
+4,6,pi_10^4,3,Lemma 5.4,single_source,"$\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ."
+4,7,pi_11^4,1,Proposition 5.15,single_source,$\pi_{10}^{3} = 0$
+4,7,pi_11^4,2,Proposition 5.8,single_source,"$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$, $\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$, $\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$, $\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$, $\pi_{n + 4}^{n} = 0$, $n \ge 6$ が成り立つ."
+4,7,pi_11^4,3,Lemma 5.7,single_source,$\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}$
+4,7,pi_11^4,4,Proposition 4.4,single_source,"$(α, \beta) \mapsto Eα + \nu_{4}\beta: \pi_{i - 1}^{3} \oplus \pi_{i}^{7} \to \pi_{i}^{4}$ は同型写像である."
+5,1,pi_6^5,2,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+5,2,pi_7^5,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+5,3,pi_8^5,1,Proposition 5.6,single_source,$\operatorname{ord}\left(\nu_{5}\right) = 8$
+5,3,pi_8^5,2,(5.3),single_source,$\nu' \in \pi_{6}^{3}$
+5,3,pi_8^5,3,Proposition 5.3,single_source,$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+5,3,pi_8^5,4,Lemma 5.4,single_source,$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+5,4,pi_9^5,1,Proposition 5.8,single_source,$\pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}$
+5,4,pi_9^5,2,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+5,4,pi_9^5,3,Proposition 2.5,single_source,$\Delta\left(\eta_{9}\right) = \pm 2\nu_{4} - E\nu'\eta_{7}$
+5,5,pi_10^5,1,Proposition 5.9,single_source,$\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}$
+5,5,pi_10^5,2,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+5,5,pi_10^5,3,Proposition 5.8,single_source,$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}$
+5,5,pi_10^5,3,Proposition 5.8,single_source,$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}$
+5,5,pi_10^5,4,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+5,6,pi_11^5,1,Proposition 5.11,single_source,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+5,6,pi_11^5,1,Proposition 5.11,single_source,$\pi_{9}^{3} = 0$
+5,6,pi_11^5,2,Equation 5.13,single_source,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+5,6,pi_11^5,3,Proposition 5.6,single_source,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ."
+5,6,pi_11^5,4,Equation 5.8,single_source,"$\Delta\left(\iota_{9}\right) = \pm \left(2\nu_{4} - E\nu'\right) = \pm [\iota_{4}, \iota_{4}]$"
+5,7,pi_12^5,1,Proposition 5.15,single_source,"$H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+5,7,pi_12^5,2,Lemma 5.13,single_source,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+5,7,pi_12^5,3,Proposition 5.11,single_source,$\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$
+5,7,pi_12^5,3,Proposition 5.11,single_source,"$\pi_{8}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\eta_{7}\}$, $\pi_{9}^{3} = 0$, $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$, $\pi_{11}^{5} = \mathbb{Z}/2\{\nu_{5}\nu_{8}\}$, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$, $\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$, $n \ge 9$ が成り立つ."
+5,7,pi_12^5,4,Equation 5.13,single_source,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+5,7,pi_12^5,5,(5.5),single_source,"$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ."
+6,1,pi_7^6,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+6,2,pi_8^6,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+6,3,pi_9^6,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+6,4,pi_10^6,1,Proposition 5.8,single_source,$\eta_{6}\nu_{7} = 0$
+6,4,pi_10^6,2,Proposition 3.1,single_source,$\nu_{6}\eta_{9} = 0$
+6,4,pi_10^6,3,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+6,5,pi_11^6,1,Proposition 5.9,single_source,$H: \pi_{11}^{6} \to \pi_{11}^{11}$ は単射である.
+6,5,pi_11^6,2,Proposition 5.8,single_source,$\pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}$
+6,6,pi_12^6,1,Proposition 5.11,single_source,$\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+6,6,pi_12^6,2,Equation 5.13,single_source,$\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+6,7,pi_13^6,1,Proposition 5.15,single_source,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+6,7,pi_13^6,1,Proposition 5.15,single_source,"$H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+6,7,pi_13^6,2,Lemma 5.14,single_source,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$"
+6,7,pi_13^6,3,Proposition 5.11,single_source,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$
+6,7,pi_13^6,4,Theorem 3.6,single_source,"$8\,xEα* = E^{4}\sigma'''$ が成り立つ."
+6,7,pi_13^6,5,Equation 5.13,single_source,$\Delta\left(\eta_{11}\eta_{12}\right) = 0$
+6,7,pi_13^6,6,Proposition 5.6,single_source,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ."
+6,7,pi_13^6,7,Lemma 5.13,single_source,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+6,7,pi_13^6,8,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+7,1,pi_8^7,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+7,2,pi_9^7,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+7,3,pi_10^7,2,Proposition 5.6,single_source,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ."
+7,4,pi_11^7,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+7,4,pi_11^7,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+7,5,pi_12^7,1,Proposition 5.9,single_source,$\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.
+7,6,pi_13^7,1,Proposition 5.11,single_source,$\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$
+7,7,pi_14^7,1,Proposition 5.15,single_source,$\pi_{13}^{6} = \mathbb{Z}/4\{\sigma''\}$
+7,7,pi_14^7,1,Proposition 5.15,single_source,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+7,7,pi_14^7,2,Lemma 5.14,single_source,"$2\sigma' = E\sigma''$, $H\left(\sigma'\right) = \eta_{13}$ が成り立つ."
+7,7,pi_14^7,2,Lemma 5.14,single_source,"$E^{3}\sigma'' = 4\,xEα*, \qquad 2\sigma'' = E\sigma''', \qquad H\left(\sigma''\right) = \eta_{11}\eta_{12}$"
+7,7,pi_14^7,3,Proposition 5.11,single_source,$\pi_{14}^{13} = \mathbb{Z}/2\{\eta_{13}\}$
+7,7,pi_14^7,3,Proposition 5.11,single_source,$\pi_{13}^{11} = \mathbb{Z}/2\{\eta_{11}\eta_{12}\}$
+7,7,pi_14^7,4,Equation 5.13,single_source,$\Delta\left(\eta_{13}\right) = 0$
+7,7,pi_14^7,5,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+7,7,pi_14^7,6,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+8,1,pi_9^8,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+8,2,pi_10^8,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+8,3,pi_11^8,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+8,4,pi_12^8,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+8,4,pi_12^8,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+8,5,pi_13^8,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+8,5,pi_13^8,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+8,6,pi_14^8,1,Proposition 5.11,single_source,$\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$
+8,7,pi_15^8,1,Proposition 5.15,single_source,$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$
+9,1,pi_10^9,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+9,2,pi_11^9,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+9,3,pi_12^9,2,Proposition 5.6,single_source,"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$, $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$, $\pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}$, $\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$, $n \ge 6$ が成り立つ."
+9,4,pi_13^9,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+9,4,pi_13^9,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+9,5,pi_14^9,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+9,5,pi_14^9,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+9,6,pi_15^9,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+9,6,pi_15^9,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+9,7,pi_16^9,1,Proposition 5.15,single_source,$\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+9,7,pi_16^9,1,Proposition 5.15,single_source,$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+9,7,pi_16^9,1,Proposition 5.15,single_source,"$H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+9,7,pi_16^9,2,Lemma 5.14,single_source,"$\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ."
+9,7,pi_16^9,2,Lemma 5.14,single_source,"$2\sigma' = E\sigma''$, $H\left(\sigma'\right) = \eta_{13}$ が成り立つ."
+9,7,pi_16^9,3,Theorem 3.6,single_source,"$8\,xEα* = E^{4}\sigma'''$ が成り立つ."
+9,7,pi_16^9,4,Lemma 5.13,single_source,"$\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ."
+10,1,pi_11^10,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+10,2,pi_12^10,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+10,3,pi_13^10,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+10,4,pi_14^10,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+10,4,pi_14^10,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+10,5,pi_15^10,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+10,5,pi_15^10,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+10,6,pi_16^10,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+10,6,pi_16^10,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+10,7,pi_17^10,1,Proposition 5.15,single_source,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+10,7,pi_17^10,2,(4.5),single_source,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.
+10,7,pi_17^10,3,Lemma 5.14,single_source,$\sigma_{n}$ を \(\sigma\)-family の元として定める.
+11,1,pi_12^11,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+11,2,pi_13^11,2,Proposition 5.3,single_source,"$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}\eta_{5}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ."
+11,2,pi_13^11,3,(5.2),single_source,$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+11,3,pi_14^11,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+11,4,pi_15^11,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+11,4,pi_15^11,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+11,5,pi_16^11,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+11,5,pi_16^11,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+11,6,pi_17^11,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+11,6,pi_17^11,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+11,7,pi_18^11,1,Proposition 5.15,single_source,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+11,7,pi_18^11,2,(4.5),single_source,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.
+11,7,pi_18^11,3,Lemma 5.14,single_source,$\sigma_{n}$ を \(\sigma\)-family の元として定める.
+12,1,pi_13^12,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+12,2,pi_14^12,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+12,3,pi_15^12,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+12,4,pi_16^12,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+12,4,pi_16^12,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+12,5,pi_17^12,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+12,5,pi_17^12,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+12,6,pi_18^12,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+12,6,pi_18^12,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+12,7,pi_19^12,1,Proposition 5.15,single_source,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+12,7,pi_19^12,2,(4.5),single_source,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.
+12,7,pi_19^12,3,Lemma 5.14,single_source,$\sigma_{n}$ を \(\sigma\)-family の元として定める.
+13,1,pi_14^13,2,Proposition 5.1,single_source,"$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ."
+13,2,pi_15^13,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+13,3,pi_16^13,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+13,4,pi_17^13,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+13,4,pi_17^13,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+13,5,pi_18^13,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+13,5,pi_18^13,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+13,6,pi_19^13,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+13,6,pi_19^13,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+13,7,pi_20^13,1,Proposition 5.15,single_source,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+13,7,pi_20^13,2,(4.5),single_source,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.
+13,7,pi_20^13,3,Lemma 5.14,single_source,$\sigma_{n}$ を \(\sigma\)-family の元として定める.
+14,1,pi_15^14,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+14,2,pi_16^14,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+14,3,pi_17^14,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+14,4,pi_18^14,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+14,4,pi_18^14,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+14,5,pi_19^14,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+14,5,pi_19^14,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+14,6,pi_20^14,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+14,6,pi_20^14,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+14,7,pi_21^14,1,Proposition 5.15,single_source,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+14,7,pi_21^14,2,(4.5),single_source,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.
+14,7,pi_21^14,3,Lemma 5.14,single_source,$\sigma_{n}$ を \(\sigma\)-family の元として定める.
+15,1,pi_16^15,1,(4.5),single_source,$\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$
+15,2,pi_17^15,1,Proposition 5.3,single_source,$\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$
+15,3,pi_18^15,1,Proposition 5.6,single_source,$\pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}$
+15,4,pi_19^15,1,Proposition 5.8,single_source,$\pi_{n + 4}^{n} = 0$
+15,4,pi_19^15,2,(4.5),single_source,$E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n}$ は同型写像である.
+15,5,pi_20^15,1,Proposition 5.9,single_source,$\pi_{n + 5}^{n} = 0$
+15,5,pi_20^15,2,(4.5),single_source,$E^{n - 7}: \pi_{7 + 5}^{7} \to \pi_{n + 5}^{n}$ は同型写像である.
+15,6,pi_21^15,1,Proposition 5.11,single_source,$\pi_{n + 6}^{n} = \mathbb{Z}/2\{\nu_{n}\nu_{n + 3}\}$
+15,6,pi_21^15,2,(4.5),single_source,$E^{n - 8}: \pi_{8 + 6}^{8} \to \pi_{n + 6}^{n}$ は同型写像である.
+15,7,pi_22^15,1,Proposition 5.15,single_source,$\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+15,7,pi_22^15,2,(4.5),single_source,$E^{n - 9}: \pi_{9 + 7}^{9} \to \pi_{n + 7}^{n}$ は同型写像である.
+15,7,pi_22^15,3,Lemma 5.14,single_source,$\sigma_{n}$ を \(\sigma\)-family の元として定める.

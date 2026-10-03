@@ -1,0 +1,91 @@
+{
+  "phase": "Phase156-R5-repair1",
+  "production_changes": false,
+  "groups": 112,
+  "exceptions": 0,
+  "body_marker_without_header_occurrences": 4,
+  "violations": [
+    {
+      "n": 3,
+      "k": 3,
+      "group": "pi_6^3",
+      "route": "pi6_3_generic_multi_argument",
+      "header_numbers": [],
+      "body_marker_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "missing_header_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "reference_section": "",
+      "missing_marker_body_lines": "**[R1] (5.3).**\n**[R2] Proposition 5.3.**\n**[R3] Lemma 5.4.**\n**[R4] (5.3) / Lemma 5.2.**\n**[R5] (5.2).**\n**[R6] Proposition 5.1.**"
+    },
+    {
+      "n": 4,
+      "k": 6,
+      "group": "pi_10^4",
+      "route": "phase150_generic_public_wrapper",
+      "header_numbers": [],
+      "body_marker_numbers": [
+        1,
+        2
+      ],
+      "missing_header_numbers": [
+        1,
+        2
+      ],
+      "reference_section": "",
+      "missing_marker_body_lines": "**[R1] Proposition 5.6.**\n**[R2] Lemma 5.4.**"
+    },
+    {
+      "n": 5,
+      "k": 7,
+      "group": "pi_12^5",
+      "route": "phase150_generic_public_wrapper",
+      "header_numbers": [],
+      "body_marker_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "missing_header_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "reference_section": "",
+      "missing_marker_body_lines": "**[R1] Lemma 5.13.**\n**[R2] Proposition 5.11.**\n**[R3] Equation 5.13.**\n**[R4] (5.5).**"
+    },
+    {
+      "n": 9,
+      "k": 7,
+      "group": "pi_16^9",
+      "route": "phase150_generic_public_wrapper",
+      "header_numbers": [],
+      "body_marker_numbers": [
+        1,
+        2,
+        3
+      ],
+      "missing_header_numbers": [
+        1,
+        2,
+        3
+      ],
+      "reference_section": "",
+      "missing_marker_body_lines": "**[R1] Lemma 5.14.**\n**[R2] Theorem 3.6.**\n**[R3] Lemma 5.13.**"
+    }
+  ]
+}

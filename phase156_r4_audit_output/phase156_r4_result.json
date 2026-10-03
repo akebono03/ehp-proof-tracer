@@ -1,0 +1,11 @@
+{
+  "phase": "Phase156-R4",
+  "groups": 112,
+  "exceptions": 0,
+  "groups_with_public_canonical_statements": 87,
+  "displayed_canonical_statement_count": 135,
+  "suppressible_exact_restatements": 0,
+  "preserved_derivational_occurrences": 0,
+  "production_changes": true,
+  "full_pytest_run": false
+}

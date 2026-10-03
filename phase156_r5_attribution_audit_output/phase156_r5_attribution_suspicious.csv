@@ -1,0 +1,2 @@
+﻿n,k,group,reference_number,reference_title,reference_components,classification,statement,external_consumer_count,consumer_reference_titles,consumer_rule_names
+3,3,pi_6^3,5,(5.3) / Lemma 5.2,(5.3) || Lemma 5.2,composite_reference_contains_consumer_reference,"$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.",2,(5.3),Toda 5.3 nu-prime Lemma 5.2 membership specialization || Toda 5.3 nu-prime Lemma 5.2 double specialization

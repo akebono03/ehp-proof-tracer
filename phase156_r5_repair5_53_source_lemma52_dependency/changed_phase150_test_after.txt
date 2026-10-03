@@ -1,0 +1,10 @@
+def test_phase150_rc4_5b_3_renderer_uses_typed_reference_and_binding():
+  presentation, semantic_sidecar, reason_sidecar = _pi6_data()
+  sentence = render_toda_group_proof_narrative_reason_sentence(
+    reason_sidecar.reasons[0]
+  )
+  assert sentence == (
+    "$2\\eta_{3} = 0$\n"
+    "この前提条件のもとで, "
+    "Lemma 5.2 の $\\beta$ を $\\nu'$ として適用する."
+  )

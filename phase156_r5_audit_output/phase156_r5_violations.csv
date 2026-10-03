@@ -1,0 +1,5 @@
+﻿n,k,group,kind,detail
+3,3,pi_6^3,public_header_without_body_use,"(1, 2, 3, 4, 5, 6)"
+4,6,pi_10^4,public_header_without_body_use,"(1, 2)"
+5,7,pi_12^5,public_header_without_body_use,"(1, 2, 3, 4)"
+9,7,pi_16^9,public_header_without_body_use,"(1, 2, 3)"

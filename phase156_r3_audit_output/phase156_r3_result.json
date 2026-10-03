@@ -1,0 +1,12 @@
+{
+  "phase": "Phase156-R3",
+  "groups": 112,
+  "exceptions": 0,
+  "violations": 0,
+  "reference_entries": 228,
+  "selected_statement_count": 238,
+  "multi_statement_references": 20,
+  "max_statement_count": 3,
+  "production_changes": true,
+  "full_pytest_run": false
+}

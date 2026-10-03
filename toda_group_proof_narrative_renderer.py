@@ -42,6 +42,7 @@ from toda_group_proof_narrative_contribution_renderer import (
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
   suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
   suppress_toda_group_proof_narrative_reference_body_duplicates,
+  suppress_toda_group_proof_narrative_reference_body_restatements,
 )
 from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
@@ -4036,6 +4037,13 @@ def _phase153_r3_10_connect_public_reference_section(
   ):
     return rendered
 
+  filtered_proof_body = (
+    suppress_toda_group_proof_narrative_reference_body_restatements(
+      filtered_proof_body,
+      filtered_statement_lines,
+    )
+  )
+
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
       filtered_reference_entries,
@@ -4133,6 +4141,12 @@ def _wrap_phase150_rc4_generic_public_narrative(
       reference_prefix
     ):
   ].lstrip()
+  proof = (
+    suppress_toda_group_proof_narrative_reference_body_restatements(
+      proof,
+      statement_lines_by_reference_number,
+    )
+  )
 
   return (
     "# Group proof narrative\n\n"

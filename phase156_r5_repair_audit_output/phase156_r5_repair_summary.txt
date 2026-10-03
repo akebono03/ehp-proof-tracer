@@ -1,0 +1,14 @@
+==============================================================================
+Phase156-R5 repair — Reference attribution separation reaudit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2
+
+groups: 112
+exceptions: 0
+selected Reference statements: 238
+suspicious composite Reference statements: 0
+pi_6^3 (5.3) Reference found: True
+bad (5.3) / Lemma 5.2 composite found: False
+
+PASS
+==============================================================================

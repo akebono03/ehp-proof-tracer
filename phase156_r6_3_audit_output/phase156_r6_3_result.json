@@ -1,0 +1,23 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "pi6": {
+    "depth2": {
+      "canonical_reason_present": true,
+      "expanded_reason_order_absent": true,
+      "equation3_present": true,
+      "reference_53_canonical_present": true
+    },
+    "depth3": {
+      "canonical_reason_present": true,
+      "expanded_reason_order_absent": true,
+      "equation3_present": true,
+      "reference_53_canonical_present": true
+    }
+  },
+  "pass": true
+}

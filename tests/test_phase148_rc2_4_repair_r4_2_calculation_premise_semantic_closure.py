@@ -27,9 +27,9 @@ from web_group_proof import (
 )
 
 
-EQ1 = r"2\nu' = \eta_{3}E\eta_{3}\eta_{5}"
+EQ1 = r"2\nu' = \eta_{3}\eta_{4}\eta_{5}"
 EQ2 = (
-  r"\eta_{3}E\eta_{3}\eta_{5} = "
+  r"\eta_{3}\eta_{4}\eta_{5} = "
   r"\eta_{3}^{3}"
 )
 EQ3 = r"2\nu' = \eta_{3}^{3}"
@@ -248,11 +248,11 @@ def test_phase148_rc2_4_repair_r4_2_depth2_public_renderer_restores_numbered_cha
   )
 
   assert (
-    r"$2\nu' = \eta_{3}E\eta_{3}\eta_{5}\tag{1}$"
+    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$"
     in rendered
   )
   assert (
-    r"$\eta_{3}E\eta_{3}\eta_{5} = "
+    r"$\eta_{3}\eta_{4}\eta_{5} = "
     r"\eta_{3}^{3}\tag{2}$"
     in rendered
   )

@@ -1,0 +1,32 @@
+==============================================================================
+Phase156-R1 — Reference statement relevance / minimal display audit
+==============================================================================
+production changes: none
+scope: n=2..15, k=0..7, depth=2
+
+groups: 112
+exceptions: 0
+exact selected-statement/body duplicates: 117
+
+Classification:
+  unnecessary_duplicate: occurrences=11, affected_groups=4
+  body_restatement_required: occurrences=3, affected_groups=3
+  reference_side_overfull: occurrences=103, affected_groups=22
+
+Interpretation:
+  unnecessary_duplicate: Reference attribution is sufficient under the R1 structural evidence.
+  body_restatement_required: the duplicate carries surrounding calculation/derivation prose, so R1 preserves it.
+  reference_side_overfull: the Reference exposes multiple selected statements; R2 must inspect actual consumer usage.
+
+R1 boundary:
+  This audit classifies all 117 observations but does not change Reference selection, rendering, suppression, or proof data.
+  R2 is responsible for consumer-usage semantics and may refine the conservative R1 class for a statement.
+
+Output files:
+  phase156_r1_duplicate_classification.csv
+  phase156_r1_group_summary.csv
+  phase156_r1_classification_summary.csv
+  phase156_r1_exceptions.csv
+  phase156_r1_result.json
+  phase156_r1_summary.txt
+==============================================================================

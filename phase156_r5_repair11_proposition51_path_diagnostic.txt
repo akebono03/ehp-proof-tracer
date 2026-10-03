@@ -1,0 +1,85 @@
+==========================================================================================
+DEPTH 2
+==========================================================================================
+Proposition 5.1 steps: 2
+
+PROP51 STEP 1
+id=2690901518048
+rule=Toda 5.3 eta_3 twice zero
+reference=('Toda Proposition 5.1', 'Proposition 5.1')
+rendered=$2\eta_{3} = 0$
+internal=False
+owned=True
+direct_consumers=2
+  consumer 1: id=2690901542320 ref=('Toda (5.3)', '(5.3)') internal=False rendered=$\nu' \in \pi_{6}^{3}$
+  consumer 2: id=2690901542032 ref=('Toda (5.3)', '(5.3)') internal=False rendered=$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+path_without_internal_steps=True
+  path[1] id=2690901518048 ref=('Toda Proposition 5.1', 'Proposition 5.1') internal=False rule=Toda 5.3 eta_3 twice zero rendered=$2\eta_{3} = 0$
+  path[2] id=2690901542320 ref=('Toda (5.3)', '(5.3)') internal=False rule=Toda 5.3 nu-prime Lemma 5.2 membership specialization rendered=$\nu' \in \pi_{6}^{3}$
+  path[3] id=2690902010048 ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+PROP51 STEP 2
+id=2690901748000
+rule=Toda Proposition 5.1 finite-dimensional integration
+reference=('Toda Proposition 5.1', 'Proposition 5.1')
+rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+internal=False
+owned=True
+direct_consumers=2
+  consumer 1: id=2690901740176 ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rendered=$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+  consumer 2: id=2690901672240 ref=('Toda Lemma 5.4', 'Lemma 5.4') internal=False rendered=$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+path_without_internal_steps=True
+  path[1] id=2690901748000 ref=('Toda Proposition 5.1', 'Proposition 5.1') internal=False rule=Toda Proposition 5.1 finite-dimensional integration rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+  path[2] id=2690901740176 ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rule=Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity rendered=$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+  path[3] id=2690902010048 ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+PUBLIC REFERENCE HEADERS
+**[R1] (5.3).**
+**[R2] Proposition 5.3.**
+**[R3] Lemma 5.4.**
+**[R4] Proposition 5.1.**
+**[R5] (5.2).**
+==========================================================================================
+DEPTH 3
+==========================================================================================
+Proposition 5.1 steps: 2
+
+PROP51 STEP 1
+id=2690901518048
+rule=Toda 5.3 eta_3 twice zero
+reference=('Toda Proposition 5.1', 'Proposition 5.1')
+rendered=$2\eta_{3} = 0$
+internal=False
+owned=True
+direct_consumers=3
+  consumer 1: id=2690901542320 ref=('Toda (5.3)', '(5.3)') internal=False rendered=$\nu' \in \pi_{6}^{3}$
+  consumer 2: id=2690901542032 ref=('Toda (5.3)', '(5.3)') internal=False rendered=$2\nu' = \eta_{3}E\eta_{3}\eta_{5}$
+  consumer 3: id=2690901541024 ref=('Toda (5.3)', '(5.3)') internal=False rendered=$H\left(\nu'\right) = E^{2}\eta_{3}$
+path_without_internal_steps=True
+  path[1] id=2690901518048 ref=('Toda Proposition 5.1', 'Proposition 5.1') internal=False rule=Toda 5.3 eta_3 twice zero rendered=$2\eta_{3} = 0$
+  path[2] id=2690901542320 ref=('Toda (5.3)', '(5.3)') internal=False rule=Toda 5.3 nu-prime Lemma 5.2 membership specialization rendered=$\nu' \in \pi_{6}^{3}$
+  path[3] id=2690902010048 ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+PROP51 STEP 2
+id=2690901748000
+rule=Toda Proposition 5.1 finite-dimensional integration
+reference=('Toda Proposition 5.1', 'Proposition 5.1')
+rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+internal=False
+owned=True
+direct_consumers=2
+  consumer 1: id=2690901740176 ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rendered=$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+  consumer 2: id=2690901672240 ref=('Toda Lemma 5.4', 'Lemma 5.4') internal=False rendered=$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+path_without_internal_steps=True
+  path[1] id=2690901748000 ref=('Toda Proposition 5.1', 'Proposition 5.1') internal=False rule=Toda Proposition 5.1 finite-dimensional integration rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+  path[2] id=2690901740176 ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rule=Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity rendered=$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+  path[3] id=2690902010048 ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+PUBLIC REFERENCE HEADERS
+**[R1] (5.3).**
+**[R2] Proposition 5.3.**
+**[R3] Lemma 5.4.**
+**[R4] Proposition 5.1.**
+**[R5] (5.2).**
+**[R6] (5.2).**
+**[R7] Proposition 4.4.**

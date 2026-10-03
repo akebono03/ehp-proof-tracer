@@ -1,6 +1,7 @@
 from expression import (
   Composition,
   HomotopyElement,
+  Suspension,
 )
 from homotopy_groups import (
   DirectSumGroup,
@@ -170,17 +171,61 @@ def _render_generic_eta_composition_latex(
 def _render_generic_narrative_expression_latex(
   expression,
 ) -> str:
-  compact = _render_generic_eta_composition_latex(expression)
+  compact = _render_generic_eta_composition_latex(
+    expression
+  )
   if compact is not None:
     return compact
 
-  if isinstance(expression, Composition):
+  if isinstance(
+    expression,
+    Suspension,
+  ):
+    suspended = expression.expression
+
+    if isinstance(
+      suspended,
+      HomotopyElement,
+    ):
+      generator = suspended.generator
+
+      if (
+        generator is not None
+        and generator.family == "η"
+        and isinstance(
+          generator.index,
+          int,
+        )
+        and not isinstance(
+          generator.index,
+          bool,
+        )
+        and generator.decoration is None
+      ):
+        return (
+          r"\eta_{"
+          + str(
+            generator.index + 1
+          )
+          + "}"
+        )
+
+  if isinstance(
+    expression,
+    Composition,
+  ):
     return (
-      _render_generic_narrative_expression_latex(expression.left)
-      + _render_generic_narrative_expression_latex(expression.right)
+      _render_generic_narrative_expression_latex(
+        expression.left
+      )
+      + _render_generic_narrative_expression_latex(
+        expression.right
+      )
     )
 
-  return render_toda_expression_latex(expression)
+  return render_toda_expression_latex(
+    expression
+  )
 
 
 def _try_render_generic_narrative_expression_latex(
@@ -212,7 +257,8 @@ def _normalize_generic_narrative_step_latex(
   ):
     return latex
 
-  normalized = latex
+  replacements = []
+  search_start = 0
 
   for expression in (
     statement.lhs,
@@ -233,15 +279,53 @@ def _normalize_generic_narrative_step_latex(
       )
     )
 
+    expression_start = latex.find(
+      rendered_expression,
+      search_start,
+    )
+
+    if expression_start < 0:
+      continue
+
+    expression_end = (
+      expression_start
+      + len(
+        rendered_expression
+      )
+    )
+    search_start = expression_end
+
     if (
       normalized_expression
       == rendered_expression
     ):
       continue
 
-    normalized = normalized.replace(
-      rendered_expression,
-      normalized_expression,
+    replacements.append(
+      (
+        expression_start,
+        expression_end,
+        normalized_expression,
+      )
+    )
+
+  normalized = latex
+
+  for (
+    expression_start,
+    expression_end,
+    normalized_expression,
+  ) in reversed(
+    replacements
+  ):
+    normalized = (
+      normalized[
+        :expression_start
+      ]
+      + normalized_expression
+      + normalized[
+        expression_end:
+      ]
     )
 
   return normalized

@@ -1,0 +1,491 @@
+{
+  "depths": {
+    "2": {
+      "root": {
+        "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+        "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+        "reference": "Proposition 5.6"
+      },
+      "references": {
+        "before_root_exclusion": [
+          {
+            "number": 1,
+            "reference": "Proposition 5.6",
+            "statements": [
+              "$\\operatorname{ord}\\left(\\nu'\\right) = 4$"
+            ]
+          },
+          {
+            "number": 2,
+            "reference": "(5.3)",
+            "statements": [
+              "$\\nu' \\in \\pi_{6}^{3}$"
+            ]
+          },
+          {
+            "number": 3,
+            "reference": "Proposition 5.3",
+            "statements": [
+              "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+              "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$"
+            ]
+          },
+          {
+            "number": 4,
+            "reference": "Lemma 5.4",
+            "statements": [
+              "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$"
+            ]
+          },
+          {
+            "number": 5,
+            "reference": "Proposition 5.1",
+            "statements": [
+              "$2\\eta_{3} = 0$",
+              "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ."
+            ]
+          },
+          {
+            "number": 6,
+            "reference": "(5.2)",
+            "statements": [
+              "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である."
+            ]
+          }
+        ],
+        "after_root_exclusion": [
+          {
+            "number": 1,
+            "reference": "(5.3)",
+            "statements": [
+              "$\\nu' \\in \\pi_{6}^{3}$"
+            ]
+          },
+          {
+            "number": 2,
+            "reference": "Proposition 5.3",
+            "statements": [
+              "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+              "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$"
+            ]
+          },
+          {
+            "number": 3,
+            "reference": "Lemma 5.4",
+            "statements": [
+              "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$"
+            ]
+          },
+          {
+            "number": 4,
+            "reference": "Proposition 5.1",
+            "statements": [
+              "$2\\eta_{3} = 0$",
+              "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ."
+            ]
+          },
+          {
+            "number": 5,
+            "reference": "(5.2)",
+            "statements": [
+              "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である."
+            ]
+          }
+        ]
+      },
+      "steps": {
+        "pi5_2": {
+          "depth": 1,
+          "rendered": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$",
+          "statement_type": "Relation",
+          "rule": "Toda Proposition 5.6 pi_5^2 eta_2 cube",
+          "reference": "Proposition 5.6",
+          "premises": [
+            {
+              "rendered": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+              "rule": "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+              "reference": "Proposition 5.3"
+            },
+            {
+              "rendered": "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+              "rule": "Toda 5.2 eta_2 composition isomorphism",
+              "reference": "(5.2)"
+            }
+          ],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+              "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+              "reference": "Proposition 5.6"
+            },
+            {
+              "rendered": "$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$",
+              "rule": "Toda Proposition 5.6 eta_3 cube order two",
+              "reference": "Proposition 5.6"
+            }
+          ]
+        },
+        "pi5_3": {
+          "depth": 2,
+          "rendered": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+          "statement_type": "Relation",
+          "rule": "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+          "reference": "Proposition 5.3",
+          "premises": [],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$",
+              "rule": "Toda Proposition 5.6 pi_5^2 eta_2 cube",
+              "reference": "Proposition 5.6"
+            }
+          ]
+        },
+        "pi6_5": {
+          "depth": 1,
+          "rendered": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$",
+          "statement_type": "Relation",
+          "rule": "Toda Lemma 5.4 pi_6^5 finite-cyclic specialization",
+          "reference": "Lemma 5.4",
+          "premises": [
+            {
+              "rendered": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+              "rule": "Toda Proposition 5.1 finite-dimensional integration",
+              "reference": "Proposition 5.1"
+            }
+          ],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+              "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+              "reference": "Proposition 5.6"
+            }
+          ]
+        },
+        "e_iso_pi4_2_to_pi5_3": null,
+        "h_surjective_candidates": [
+          {
+            "depth": 1,
+            "rendered": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+            "statement_type": "TodaHopfInvariantSurjectiveStatement",
+            "rule": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+            "reference": "Proposition 5.3",
+            "premises": [
+              {
+                "rendered": "$H\\left(\\nu'\\right) = \\eta_{5}$",
+                "rule": "equality transitivity",
+                "reference": null
+              },
+              {
+                "rendered": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+                "rule": "Toda Proposition 5.1 finite-dimensional integration",
+                "reference": "Proposition 5.1"
+              }
+            ],
+            "consumers": [
+              {
+                "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+                "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+                "reference": "Proposition 5.6"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "3": {
+      "root": {
+        "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+        "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+        "reference": "Proposition 5.6"
+      },
+      "references": {
+        "before_root_exclusion": [
+          {
+            "number": 1,
+            "reference": "Proposition 5.6",
+            "statements": [
+              "$\\operatorname{ord}\\left(\\nu'\\right) = 4$"
+            ]
+          },
+          {
+            "number": 2,
+            "reference": "(5.3)",
+            "statements": [
+              "$\\nu' \\in \\pi_{6}^{3}$",
+              "$2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}$",
+              "$H\\left(\\nu'\\right) = E^{2}\\eta_{3}$"
+            ]
+          },
+          {
+            "number": 3,
+            "reference": "Proposition 5.3",
+            "statements": [
+              "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+              "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$"
+            ]
+          },
+          {
+            "number": 4,
+            "reference": "Lemma 5.4",
+            "statements": [
+              "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$"
+            ]
+          },
+          {
+            "number": 5,
+            "reference": "Proposition 5.1",
+            "statements": [
+              "$2\\eta_{3} = 0$",
+              "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ."
+            ]
+          },
+          {
+            "number": 6,
+            "reference": "(5.2)",
+            "statements": [
+              "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である."
+            ]
+          },
+          {
+            "number": 7,
+            "reference": "(5.2)",
+            "statements": [
+              "$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$"
+            ]
+          },
+          {
+            "number": 8,
+            "reference": "Proposition 4.4",
+            "statements": [
+              "$(\\beta, γ) \\mapsto E\\beta + \\eta_{2}γ: \\pi_{i - 1}^{1} \\oplus \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+              "分解写像の第二成分は $\\eta_{2}γ$ で与えられる."
+            ]
+          }
+        ],
+        "after_root_exclusion": [
+          {
+            "number": 1,
+            "reference": "(5.3)",
+            "statements": [
+              "$\\nu' \\in \\pi_{6}^{3}$",
+              "$2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}$",
+              "$H\\left(\\nu'\\right) = E^{2}\\eta_{3}$"
+            ]
+          },
+          {
+            "number": 2,
+            "reference": "Proposition 5.3",
+            "statements": [
+              "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+              "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$"
+            ]
+          },
+          {
+            "number": 3,
+            "reference": "Lemma 5.4",
+            "statements": [
+              "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$"
+            ]
+          },
+          {
+            "number": 4,
+            "reference": "Proposition 5.1",
+            "statements": [
+              "$2\\eta_{3} = 0$",
+              "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ."
+            ]
+          },
+          {
+            "number": 5,
+            "reference": "(5.2)",
+            "statements": [
+              "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である."
+            ]
+          },
+          {
+            "number": 6,
+            "reference": "(5.2)",
+            "statements": [
+              "$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$"
+            ]
+          },
+          {
+            "number": 7,
+            "reference": "Proposition 4.4",
+            "statements": [
+              "$(\\beta, γ) \\mapsto E\\beta + \\eta_{2}γ: \\pi_{i - 1}^{1} \\oplus \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+              "分解写像の第二成分は $\\eta_{2}γ$ で与えられる."
+            ]
+          }
+        ]
+      },
+      "steps": {
+        "pi5_2": {
+          "depth": 1,
+          "rendered": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$",
+          "statement_type": "Relation",
+          "rule": "Toda Proposition 5.6 pi_5^2 eta_2 cube",
+          "reference": "Proposition 5.6",
+          "premises": [
+            {
+              "rendered": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+              "rule": "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+              "reference": "Proposition 5.3"
+            },
+            {
+              "rendered": "$\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.",
+              "rule": "Toda 5.2 eta_2 composition isomorphism",
+              "reference": "(5.2)"
+            }
+          ],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+              "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+              "reference": "Proposition 5.6"
+            },
+            {
+              "rendered": "$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$",
+              "rule": "Toda Proposition 5.6 eta_3 cube order two",
+              "reference": "Proposition 5.6"
+            }
+          ]
+        },
+        "pi5_3": {
+          "depth": 2,
+          "rendered": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+          "statement_type": "Relation",
+          "rule": "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+          "reference": "Proposition 5.3",
+          "premises": [
+            {
+              "rendered": "$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\}$",
+              "rule": "Toda 5.2 pi_4^2 finite-cyclic transport",
+              "reference": "(5.2)"
+            },
+            {
+              "rendered": "$E: \\pi_{4}^{2} \\to \\pi_{5}^{3}$ は同型写像である.",
+              "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+              "reference": "Proposition 5.3"
+            },
+            {
+              "rendered": "$E\\eta_{2}\\eta_{3} = \\eta_{3}^{2}$",
+              "rule": "Toda Proposition 5.3 n=3 eta-square suspension bridge",
+              "reference": null
+            }
+          ],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$",
+              "rule": "Toda Proposition 5.6 pi_5^2 eta_2 cube",
+              "reference": "Proposition 5.6"
+            }
+          ]
+        },
+        "pi6_5": {
+          "depth": 1,
+          "rendered": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$",
+          "statement_type": "Relation",
+          "rule": "Toda Lemma 5.4 pi_6^5 finite-cyclic specialization",
+          "reference": "Lemma 5.4",
+          "premises": [
+            {
+              "rendered": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+              "rule": "Toda Proposition 5.1 finite-dimensional integration",
+              "reference": "Proposition 5.1"
+            }
+          ],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+              "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+              "reference": "Proposition 5.6"
+            }
+          ]
+        },
+        "e_iso_pi4_2_to_pi5_3": {
+          "depth": 3,
+          "rendered": "$E: \\pi_{4}^{2} \\to \\pi_{5}^{3}$ は同型写像である.",
+          "statement_type": "TodaSuspensionIsomorphismStatement",
+          "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "reference": "Proposition 5.3",
+          "premises": [],
+          "consumers": [
+            {
+              "rendered": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\eta_{4}\\}$",
+              "rule": "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+              "reference": "Proposition 5.3"
+            }
+          ]
+        },
+        "h_surjective_candidates": [
+          {
+            "depth": 1,
+            "rendered": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.",
+            "statement_type": "TodaHopfInvariantSurjectiveStatement",
+            "rule": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+            "reference": "Proposition 5.3",
+            "premises": [
+              {
+                "rendered": "$H\\left(\\nu'\\right) = \\eta_{5}$",
+                "rule": "equality transitivity",
+                "reference": null
+              },
+              {
+                "rendered": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.",
+                "rule": "Toda Proposition 5.1 finite-dimensional integration",
+                "reference": "Proposition 5.1"
+              }
+            ],
+            "consumers": [
+              {
+                "rendered": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$",
+                "rule": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+                "reference": "Proposition 5.6"
+              }
+            ]
+          },
+          {
+            "depth": 3,
+            "rendered": "$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射である.",
+            "statement_type": "TodaHopfInvariantSurjectiveStatement",
+            "rule": "Toda Proposition 5.6 pi_7^3 Hopf surjective",
+            "reference": "Proposition 5.6",
+            "premises": [],
+            "consumers": [
+              {
+                "rendered": "$\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像である.",
+                "rule": "Toda Proposition 5.6 pi_7^5 Delta zero",
+                "reference": "Proposition 5.6"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "prop51": {
+    "prop51_rule": "Toda Proposition 5.1 finite-dimensional integration",
+    "prop51_reference": "Proposition 5.1",
+    "higher_eta_statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "higher_eta_group_dimension": "TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n'))",
+    "higher_eta_rendered_via_container": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ."
+  },
+  "findings": {
+    "pi5_2_present_depth2": true,
+    "pi5_2_reference_is_prop56_if_present": true,
+    "pi5_2_removed_by_root_reference_exclusion": false,
+    "pi6_5_current_reference_is_lemma54": true,
+    "pi5_3_current_reference_is_prop53": true,
+    "h_surjective_candidate_count_depth2": 1,
+    "h_surjective_candidate_count_depth3": 2,
+    "h_surjective_candidate_references_depth2": [
+      "Proposition 5.3"
+    ],
+    "h_surjective_candidate_rules_depth2": [
+      "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity"
+    ],
+    "e_iso_visible_by_depth3": true,
+    "e_iso_current_reference_is_prop53_if_visible": true
+  }
+}

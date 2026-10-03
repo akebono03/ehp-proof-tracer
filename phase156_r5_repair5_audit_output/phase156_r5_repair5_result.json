@@ -1,0 +1,12 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "pi6_3_reference_53_present": true,
+  "pi6_3_reference_lemma52_header_present": false,
+  "pi6_3_body_order_correct": false,
+  "pass": false
+}

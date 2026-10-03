@@ -19,9 +19,9 @@ from toda_group_result_proof_replay import (
 )
 
 
-EQ1 = r"2\nu' = \eta_{3}E\eta_{3}\eta_{5}"
+EQ1 = r"2\nu' = \eta_{3}\eta_{4}\eta_{5}"
 EQ2 = (
-  r"\eta_{3}E\eta_{3}\eta_{5} = "
+  r"\eta_{3}\eta_{4}\eta_{5} = "
   r"\eta_{3}^{3}"
 )
 UNRELATED_GROUP = (

@@ -55,7 +55,10 @@ def test_phase144_6_r3_pi6_3_references_are_structured_and_deduplicated():
   )
   locators = tuple(entry.reference.locator for entry in entries)
 
-  assert "(5.3) / Lemma 5.2" in locators
+  assert "(5.3)" in locators
+  assert "Lemma 5.2" not in locators
+  assert "(5.3) / Lemma 5.2" not in locators
+  assert locators.count("(5.3)") == 1
   assert "(5.2)" in locators
   assert "Proposition 4.4" in locators
   assert "Proposition 5.1" in locators
@@ -75,10 +78,13 @@ def test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section():
   )
 
   assert "使用する結果を先にまとめる." in rendered
-  assert "(5.3) / Lemma 5.2" in rendered
+  assert "(5.3) / Lemma 5.2" not in rendered
+  assert "(5.3)" in rendered
+  assert "Lemma 5.2" not in rendered
   assert "(5.2)" in rendered
-  assert "Proposition 4.4" in rendered
-  assert "Proposition 5.1" in rendered
+  assert "Proposition 5.3" in rendered
+  assert "Lemma 5.4" in rendered
+  assert "Proposition 5.1" not in rendered
   assert "Proposition 2.2" not in rendered
 
 

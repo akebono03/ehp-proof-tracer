@@ -2,6 +2,7 @@ from toda_human_readable_renderer import (
   render_toda_expression_latex,
 )
 from toda_group_proof_generic_narrative_renderer import (
+  _render_generic_narrative_expression_latex,
   _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_reasons import (
@@ -87,9 +88,15 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     order_statement = reason.premise_steps[0].conclusion
     equality_statement = reason.premise_steps[1].conclusion
-    ordered_latex = render_toda_expression_latex(order_statement.lhs)
-    target_latex = render_toda_expression_latex(
-      equality_statement.lhs.expression
+    ordered_latex = (
+      _render_generic_narrative_expression_latex(
+        order_statement.lhs
+      )
+    )
+    target_latex = (
+      _render_generic_narrative_expression_latex(
+        equality_statement.lhs.expression
+      )
     )
 
     return (
@@ -122,10 +129,10 @@ def render_toda_group_proof_narrative_reason_sentence(
 
     return (
       "この短完全列と両端の群の位数より, "
-      f"中央の群の位数は ${left_order}\cdot"
+      f"中央の群の位数は ${left_order}\\cdot"
       f"{right_order}={middle_order}$ である.\n"
       f"また, ${generator_latex}$ は中央の群に属し, "
-      f"$\operatorname{{ord}}({generator_latex})"
+      f"$\\operatorname{{ord}}({generator_latex})"
       f"={order_statement.rhs}={middle_order}$ であるから, "
       f"${generator_latex}$ は中央の群を生成する.\n"
       "したがって, "

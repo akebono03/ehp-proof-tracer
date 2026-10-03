@@ -1,0 +1,14 @@
+==============================================================================
+Phase156-R4 — proof-body duplicate suppression audit
+==============================================================================
+groups: 112
+exceptions: 0
+groups with public canonical statements: 87
+displayed canonical statements: 135
+suppressible exact restatements: 0
+preserved derivational occurrences: 0
+
+Completion rule:
+  only canonical Reference statements that are actually displayed in the public Reference section are compared with the proof body.
+  exact displayed Reference statements may remain in the body only when the surrounding sentence carries derivation/calculation context.
+==============================================================================

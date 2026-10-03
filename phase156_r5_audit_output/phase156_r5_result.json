@@ -1,0 +1,24 @@
+{
+  "phase": "Phase156-R5",
+  "scope": {
+    "n": "2..15",
+    "k": "0..7",
+    "depth": 2
+  },
+  "production_changes": false,
+  "groups_seen": 112,
+  "exceptions": 0,
+  "public_reference_groups": 93,
+  "public_reference_headers": 147,
+  "body_reference_markers": 143,
+  "canonical_selected_statements": 238,
+  "displayed_canonical_statements": 70,
+  "multi_statement_entries": 20,
+  "max_selected_per_entry": 3,
+  "violations": 4,
+  "violation_counts": {
+    "public_header_without_body_use": 4
+  },
+  "all_cross_group_invariants_pass": false,
+  "phase156_r6_boundary": "R6 is focused/sharded regression. No Reference selection, rendering, or proof-body rule changes are allowed unless R5 identifies a concrete invariant violation."
+}

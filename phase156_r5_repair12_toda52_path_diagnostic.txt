@@ -1,0 +1,98 @@
+==============================================================================================
+DEPTH 2
+==============================================================================================
+(5.2) entries: 1
+
+ENTRY 1 number=5
+  STEP 1
+    id=2370076178368
+    rule=Toda 5.2 eta_2 composition isomorphism
+    rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    frontier=False
+    internal=False
+    direct_consumers=1
+      consumer 1: ref=('Toda Proposition 5.6', 'Proposition 5.6') rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+    root_paths=2
+      PATH 1
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 eta_2 composition isomorphism rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+        [2] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [3] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 eta_3 cube order two rendered=$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+        [4] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 nu-prime order four rendered=$\operatorname{ord}\left(\nu'\right) = 4$
+        [5] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+      PATH 2
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 eta_2 composition isomorphism rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+        [2] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [3] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+PUBLIC REFERENCE HEADERS
+**[R1] (5.3).**
+**[R2] Proposition 5.3.**
+**[R3] Lemma 5.4.**
+==============================================================================================
+DEPTH 3
+==============================================================================================
+(5.2) entries: 2
+
+ENTRY 1 number=5
+  STEP 1
+    id=2370076178368
+    rule=Toda 5.2 eta_2 composition isomorphism
+    rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    frontier=False
+    internal=False
+    direct_consumers=2
+      consumer 1: ref=('Toda Proposition 5.6', 'Proposition 5.6') rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+      consumer 2: ref=('Toda (5.2)', '(5.2)') rule=Toda 5.2 pi_4^2 finite-cyclic transport rendered=$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+    root_paths=4
+      PATH 1
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 eta_2 composition isomorphism rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+        [2] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 pi_4^2 finite-cyclic transport rendered=$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+        [3] ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rule=Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport rendered=$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+        [4] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [5] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 eta_3 cube order two rendered=$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+        [6] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 nu-prime order four rendered=$\operatorname{ord}\left(\nu'\right) = 4$
+        [7] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+      PATH 2
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 eta_2 composition isomorphism rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+        [2] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 pi_4^2 finite-cyclic transport rendered=$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+        [3] ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rule=Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport rendered=$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+        [4] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [5] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+      PATH 3
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 eta_2 composition isomorphism rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+        [2] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [3] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 eta_3 cube order two rendered=$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+        [4] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 nu-prime order four rendered=$\operatorname{ord}\left(\nu'\right) = 4$
+        [5] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+      PATH 4
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 eta_2 composition isomorphism rendered=$\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+        [2] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [3] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+ENTRY 2 number=6
+  STEP 1
+    id=2370076168864
+    rule=Toda 5.2 pi_4^2 finite-cyclic transport
+    rendered=$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+    frontier=False
+    internal=False
+    direct_consumers=1
+      consumer 1: ref=('Toda Proposition 5.3', 'Proposition 5.3') rule=Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport rendered=$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+    root_paths=2
+      PATH 1
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 pi_4^2 finite-cyclic transport rendered=$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+        [2] ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rule=Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport rendered=$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+        [3] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [4] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 eta_3 cube order two rendered=$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+        [5] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 nu-prime order four rendered=$\operatorname{ord}\left(\nu'\right) = 4$
+        [6] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+      PATH 2
+        [1] ref=('Toda (5.2)', '(5.2)') internal=False rule=Toda 5.2 pi_4^2 finite-cyclic transport rendered=$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+        [2] ref=('Toda Proposition 5.3', 'Proposition 5.3') internal=False rule=Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport rendered=$\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+        [3] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_5^2 eta_2 cube rendered=$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        [4] ref=('Toda Proposition 5.6', 'Proposition 5.6') internal=False rule=Toda Proposition 5.6 pi_6^3 finite cyclic rendered=$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+PUBLIC REFERENCE HEADERS
+**[R1] (5.3).**
+**[R2] Proposition 5.3.**
+**[R3] Lemma 5.4.**

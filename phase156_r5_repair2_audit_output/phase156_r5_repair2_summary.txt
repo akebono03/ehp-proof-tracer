@@ -1,0 +1,13 @@
+==============================================================================
+Phase156-R5 repair2 — Lemma 5.2 specialization attribution
+==============================================================================
+groups: 112
+exceptions: 0
+Lemma 5.2 rules with correct explicit attribution: 3/3
+composite (5.3) / Lemma 5.2 headers: 0
+pi_6^3 (5.3) header count: 2
+pi_6^3 Lemma 5.2 header count: 1
+pi_6^3 headers: Lemma 5.2, Proposition 5.3, Lemma 5.4, (5.3), (5.3), (5.2), Proposition 5.1
+
+FAIL
+==============================================================================

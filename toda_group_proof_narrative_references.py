@@ -43,6 +43,11 @@ def _infer_toda_group_proof_literature_reference_from_rule_name(
   if not isinstance(rule_name, str):
     raise TypeError("rule_name must be a str")
 
+  normalized_rule_name = rule_name.lower()
+
+  if "bridge" in normalized_rule_name:
+    return None
+
   named_match = re.match(
     r"^Toda (Proposition|Lemma|Theorem|Equation) ([0-9]+(?:\.[0-9]+)*)\b",
     rule_name,
@@ -406,28 +411,30 @@ def select_toda_group_proof_narrative_reference_statement_steps(
   if boundary_used_candidates:
     return boundary_used_candidates
 
-  proof_used_step_ids = {
+  entry_external_used_step_ids = {
     id(
       edge.premise_step
     )
     for edge in proof_edges
+    if id(
+      edge.parent_step
+    ) not in entry_step_ids
   }
 
-  proof_used_candidates = tuple(
+  entry_external_used_candidates = tuple(
     step
     for step in eligible_candidates
     if id(
       step
-    ) in proof_used_step_ids
+    ) in entry_external_used_step_ids
   )
 
-  if proof_used_candidates:
-    return proof_used_candidates
+  if entry_external_used_candidates:
+    return entry_external_used_candidates
 
   return (
     eligible_candidates[0],
   )
-
 
 def filter_toda_group_proof_narrative_reference_entries_by_step_usage(
   entries: tuple[
