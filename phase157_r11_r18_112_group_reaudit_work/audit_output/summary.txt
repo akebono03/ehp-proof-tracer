@@ -1,0 +1,35 @@
+==============================================================================
+Phase157 R11-R18 — 112-group Narrative Re-audit
+==============================================================================
+Production code changes: none
+Test code changes: none
+Population: n=2..15, k=0..7 (112 groups)
+Replay depth: 2
+
+Summary
+------------------------------------------------------------------------------
+scanned groups: 112
+exceptions: 0
+findings: 0
+affected groups: 0
+
+Categories
+------------------------------------------------------------------------------
+visible_dependency_order: 0
+zero_map_used_without_visible_statement: 0
+possible_redundant_left_ehp_term: 0
+standalone_connector: 0
+repeated_numeric_equality: 0
+public_reference_without_body_marker: 0
+
+Closure candidate
+------------------------------------------------------------------------------
+YES
+
+Output files
+------------------------------------------------------------------------------
+audit_output/summary.txt
+audit_output/findings.csv
+audit_output/exceptions.csv
+audit_output/narratives/<affected-group>.md
+==============================================================================
