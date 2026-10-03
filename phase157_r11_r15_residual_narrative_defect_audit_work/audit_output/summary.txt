@@ -1,0 +1,67 @@
+==============================================================================
+Phase157 R11-R15 — Residual Narrative Defect Audit
+==============================================================================
+Production code changes: none
+Test code changes: none
+Population: n=2..15, k=0..7 (112 groups)
+Replay depth: 2
+Route: public Narrative renderer
+
+Summary
+------------------------------------------------------------------------------
+scanned groups: 112
+exceptions: 0
+findings: 15
+affected groups: 6
+
+Categories
+------------------------------------------------------------------------------
+visible_dependency_order: 0
+zero_map_used_without_visible_statement: 1
+possible_redundant_left_ehp_term: 1
+standalone_connector: 7
+repeated_numeric_equality: 1
+public_reference_without_body_marker: 5
+
+Affected groups
+------------------------------------------------------------------------------
+pi_10^4
+pi_12^5
+pi_15^8
+pi_16^9
+pi_6^3
+pi_8^5
+
+Finding preview
+------------------------------------------------------------------------------
+pi_6^3 zero_map_used_without_visible_statement: body uses zero-map shorthand while full statement is hidden: $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+pi_6^3 possible_redundant_left_ehp_term: four-term Delta-E-H sequence appears after E injectivity is already visible: $\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$.
+pi_6^3 standalone_connector: paragraph[10]: 以上より,
+pi_6^3 standalone_connector: paragraph[24]: 以上より,
+pi_6^3 repeated_numeric_equality: この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する.
+したがって,
+pi_10^4 standalone_connector: paragraph[3]: 以上より,
+pi_10^4 public_reference_without_body_marker: [R1] Lemma 5.4
+pi_8^5 standalone_connector: paragraph[13]: したがって,
+pi_12^5 standalone_connector: paragraph[6]: 以上より,
+pi_12^5 public_reference_without_body_marker: [R1] Lemma 5.13
+pi_12^5 public_reference_without_body_marker: [R3] (5.5)
+pi_15^8 standalone_connector: paragraph[9]: したがって,
+pi_16^9 standalone_connector: paragraph[8]: 以上より,
+pi_16^9 public_reference_without_body_marker: [R1] Lemma 5.14
+pi_16^9 public_reference_without_body_marker: [R2] Lemma 5.13
+
+Interpretation
+------------------------------------------------------------------------------
+This is a candidate-defect audit, not a closure gate. Findings must be reviewed before any production change.
+visible_dependency_order is conservative: it only reports pairs whose premise and conclusion are both uniquely visible in the public body.
+possible_redundant_left_ehp_term is intentionally a presentation candidate, not a mathematical error.
+
+Output files
+------------------------------------------------------------------------------
+audit_output/summary.txt
+audit_output/findings.csv
+audit_output/exceptions.csv
+audit_output/narratives/<affected-group>.md
+==============================================================================
