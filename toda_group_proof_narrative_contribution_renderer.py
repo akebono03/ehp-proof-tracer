@@ -2,6 +2,7 @@ from collections import deque
 from dataclasses import (
   fields,
   is_dataclass,
+  replace,
 )
 
 from proof import (
@@ -62,6 +63,7 @@ from toda_group_proof_narrative_reasons import (
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   exclude_toda_group_proof_narrative_root_reference,
+  filter_phase157_r3_pi6_3_reference_entries,
   extract_toda_group_proof_step_literature_reference,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   filter_toda_group_proof_narrative_reference_entries_by_step_usage,
@@ -2806,6 +2808,218 @@ def order_toda_group_proof_narrative_local_equation_derivations(
   )
 
 
+def _phase157_r3_find_recursive_proof_step_by_rule_name(
+  root_step: ProofStep,
+  rule_name: str,
+) -> ProofStep | None:
+  if not isinstance(root_step, ProofStep):
+    raise TypeError("root_step must be a ProofStep")
+  if not isinstance(rule_name, str):
+    raise TypeError("rule_name must be a str")
+
+  stack = [
+    root_step,
+  ]
+  visited_step_ids = set()
+
+  while stack:
+    current_step = stack.pop()
+    current_step_id = id(
+      current_step
+    )
+
+    if current_step_id in visited_step_ids:
+      continue
+
+    visited_step_ids.add(
+      current_step_id
+    )
+
+    inference_rule = current_step.inference_rule
+
+    if (
+      inference_rule is not None
+      and inference_rule.name == rule_name
+    ):
+      return current_step
+
+    stack.extend(
+      reversed(
+        current_step.premises
+      )
+    )
+
+  return None
+
+
+def _phase157_r3_restore_pi6_3_proof_internal_suspension_isomorphism(
+  presentation: TodaGroupProofPresentation,
+  markdown: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+  if not isinstance(markdown, str):
+    raise TypeError("markdown must be a str")
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  if not (
+    target.group_dimension == 6
+    and target.sphere_dimension == 3
+    and presentation.max_depth >= 3
+  ):
+    return markdown
+
+  suspension_step = (
+    _phase157_r3_find_recursive_proof_step_by_rule_name(
+      presentation.root_step,
+      "Toda Proposition 5.3 n=3 suspension isomorphism",
+    )
+  )
+  hopf_step = (
+    _phase157_r3_find_recursive_proof_step_by_rule_name(
+      presentation.root_step,
+      "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+    )
+  )
+
+  if suspension_step is None:
+    return markdown
+
+  suspension_line = _render_generic_narrative_step(
+    suspension_step
+  )
+
+  if not suspension_line:
+    return markdown
+
+  if suspension_line in markdown:
+    return markdown
+
+  if hopf_step is not None:
+    hopf_line = _render_generic_narrative_step(
+      hopf_step
+    )
+
+    if hopf_line:
+      hopf_index = markdown.find(
+        hopf_line
+      )
+
+      if hopf_index >= 0:
+        return (
+          markdown[:hopf_index]
+          + suspension_line
+          + "\n\n"
+          + markdown[hopf_index:]
+        )
+
+  final_group_marker = (
+    "最後に, $\\pi_{6}^{3}$ の群構造を決定するために"
+  )
+  final_group_index = markdown.find(
+    final_group_marker
+  )
+
+  if final_group_index >= 0:
+    return (
+      markdown[:final_group_index]
+      + suspension_line
+      + "\n\n"
+      + markdown[final_group_index:]
+    )
+
+  return (
+    markdown.rstrip()
+    + "\n\n"
+    + suspension_line
+  )
+
+
+def _phase157_r3_restore_pi6_3_earlier_prop56_reference(
+  presentation: TodaGroupProofPresentation,
+  original_entries,
+  original_statement_lines_by_reference_number,
+  filtered_entries,
+  filtered_statement_lines_by_reference_number,
+):
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  if not (
+    target.group_dimension == 6
+    and target.sphere_dimension == 3
+  ):
+    return (
+      filtered_entries,
+      filtered_statement_lines_by_reference_number,
+    )
+
+  if any(
+    entry.reference.locator == "Proposition 5.6"
+    for entry in filtered_entries
+  ):
+    return (
+      filtered_entries,
+      filtered_statement_lines_by_reference_number,
+    )
+
+  source_entries = tuple(
+    entry
+    for entry in original_entries
+    if entry.reference.locator == "Proposition 5.6"
+  )
+
+  if len(source_entries) != 1:
+    return (
+      filtered_entries,
+      filtered_statement_lines_by_reference_number,
+    )
+
+  source_entry = source_entries[0]
+
+  if source_entry.number not in (
+    original_statement_lines_by_reference_number
+  ):
+    return (
+      filtered_entries,
+      filtered_statement_lines_by_reference_number,
+    )
+
+  new_number = len(filtered_entries) + 1
+  restored_entry = replace(
+    source_entry,
+    number=new_number,
+  )
+  restored_lines = dict(
+    filtered_statement_lines_by_reference_number
+  )
+  restored_lines[new_number] = (
+    original_statement_lines_by_reference_number[
+      source_entry.number
+    ]
+  )
+
+  return (
+    filtered_entries + (restored_entry,),
+    restored_lines,
+  )
+
+
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -2857,6 +3071,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation
     )
   )
+  reference_entries = (
+    filter_phase157_r3_pi6_3_reference_entries(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
   statement_lines_by_reference_number = (
     _toda_group_proof_narrative_reference_statement_lines_by_number(
       presentation,
@@ -2872,6 +3092,10 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       statement_lines_by_reference_number,
       presentation.root_step,
     )
+  )
+  phase157_r3_entries_before_usage_filter = reference_entries
+  phase157_r3_lines_before_usage_filter = (
+    statement_lines_by_reference_number
   )
 
   reference_owned_step_ids = (
@@ -2944,6 +3168,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
+  rendered = (
+    _phase157_r3_restore_pi6_3_proof_internal_suspension_isomorphism(
+      presentation,
+      rendered,
+    )
+  )
 
   generic_used_step_ids = (
     build_toda_group_proof_narrative_generic_used_step_ids(
@@ -2991,6 +3221,19 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         presentation.root_step,
       )
     )
+
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    _phase157_r3_restore_pi6_3_earlier_prop56_reference(
+      presentation,
+      phase157_r3_entries_before_usage_filter,
+      phase157_r3_lines_before_usage_filter,
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
 
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(

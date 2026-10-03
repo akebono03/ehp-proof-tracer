@@ -8,12 +8,6 @@ from proof import (
   LiteratureReference,
   ProofStep,
 )
-from toda_literature_statement_boundary import (
-  TodaLiteratureStatementClassification,
-  classify_toda_literature_statement_step,
-  get_toda_fixed_statement_component,
-  is_toda_fixed_statement_component_reference_eligible,
-)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
@@ -127,145 +121,6 @@ def _same_toda_group_proof_literature_reference(
   return left == right
 
 
-def _phase157_r3_is_pi6_3_root(
-  root_step: ProofStep | None,
-) -> bool:
-  if root_step is None:
-    return False
-
-  boundary = classify_toda_literature_statement_step(
-    root_step
-  )
-
-  return (
-    boundary is not None
-    and boundary.classification
-    is TodaLiteratureStatementClassification.FIXED_STATEMENT
-    and boundary.reference_locator == "Proposition 5.6"
-    and boundary.component_key == "pi6_3_group_relation"
-  )
-
-
-def filter_phase157_r3_pi6_3_reference_entries(
-  entries: tuple[
-    TodaGroupProofNarrativeReferenceEntry,
-    ...,
-  ],
-  root_step: ProofStep,
-) -> tuple[
-  TodaGroupProofNarrativeReferenceEntry,
-  ...,
-]:
-  if not isinstance(entries, tuple):
-    raise TypeError("entries must be a tuple")
-
-  if not all(
-    isinstance(entry, TodaGroupProofNarrativeReferenceEntry)
-    for entry in entries
-  ):
-    raise TypeError(
-      "entries must contain only "
-      "TodaGroupProofNarrativeReferenceEntry objects"
-    )
-
-  if not isinstance(root_step, ProofStep):
-    raise TypeError("root_step must be a ProofStep")
-
-  if not _phase157_r3_is_pi6_3_root(root_step):
-    return entries
-
-  allowed_locators = {
-    "(5.3)",
-    "Proposition 5.1",
-    "Proposition 5.3",
-    "Proposition 5.6",
-  }
-
-  pi6_5_step = next(
-    (
-      proof_step
-      for entry in entries
-      for proof_step in entry.proof_steps
-      if (
-        proof_step.inference_rule is not None
-        and proof_step.inference_rule.name
-        == "Toda Lemma 5.4 pi_6^5 finite-cyclic specialization"
-      )
-    ),
-    None,
-  )
-
-  filtered_entries = []
-
-  for entry in entries:
-    locator = entry.reference.locator
-
-    if locator not in allowed_locators:
-      continue
-
-    if locator == "Proposition 5.1" and pi6_5_step is not None:
-      filtered_entries.append(
-        replace(
-          entry,
-          proof_steps=(pi6_5_step,),
-        )
-      )
-      continue
-
-    if locator == "(5.3)":
-      retained_steps = entry.proof_steps
-    else:
-      retained_steps_list = []
-
-      for proof_step in entry.proof_steps:
-        boundary = classify_toda_literature_statement_step(
-          proof_step
-        )
-
-        if (
-          boundary is None
-          or boundary.classification
-          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
-          or boundary.reference_locator != locator
-        ):
-          continue
-
-        if locator == "Proposition 5.6":
-          if boundary.component_key is None:
-            continue
-
-          component = get_toda_fixed_statement_component(
-            locator,
-            boundary.component_key,
-          )
-
-          if not is_toda_fixed_statement_component_reference_eligible(
-            component,
-            "Proposition 5.6",
-            "pi6_3_group_relation",
-          ):
-            continue
-
-        retained_steps_list.append(proof_step)
-
-      retained_steps = tuple(retained_steps_list)
-
-    if not retained_steps:
-      continue
-
-    filtered_entries.append(
-      replace(
-        entry,
-        proof_steps=retained_steps,
-      )
-    )
-
-  return tuple(
-    replace(entry, number=number)
-    for number, entry in enumerate(filtered_entries, start=1)
-  )
-
-
 def build_toda_group_proof_narrative_reference_entries(
   presentation: TodaGroupProofPresentation,
 ) -> tuple[TodaGroupProofNarrativeReferenceEntry, ...]:
@@ -373,55 +228,12 @@ def exclude_toda_group_proof_narrative_root_reference(
       statement_lines_by_reference_number,
     )
 
-  def retain_same_root_reference_entry(
-    entry: TodaGroupProofNarrativeReferenceEntry,
-  ) -> bool:
-    if not _phase157_r3_is_pi6_3_root(root_step):
-      return False
-
-    if entry.reference.locator != "Proposition 5.6":
-      return False
-
-    if not entry.proof_steps:
-      return False
-
-    for proof_step in entry.proof_steps:
-      boundary = classify_toda_literature_statement_step(
-        proof_step
-      )
-
-      if (
-        boundary is None
-        or boundary.classification
-        is not TodaLiteratureStatementClassification.FIXED_STATEMENT
-        or boundary.reference_locator != "Proposition 5.6"
-        or boundary.component_key is None
-      ):
-        return False
-
-      component = get_toda_fixed_statement_component(
-        "Proposition 5.6",
-        boundary.component_key,
-      )
-
-      if not is_toda_fixed_statement_component_reference_eligible(
-        component,
-        "Proposition 5.6",
-        "pi6_3_group_relation",
-      ):
-        return False
-
-    return True
-
   retained_entries = tuple(
     entry
     for entry in entries
-    if (
-      not _same_toda_group_proof_literature_reference(
-        entry.reference,
-        root_reference,
-      )
-      or retain_same_root_reference_entry(entry)
+    if not _same_toda_group_proof_literature_reference(
+      entry.reference,
+      root_reference,
     )
   )
 
@@ -442,13 +254,17 @@ def exclude_toda_group_proof_narrative_root_reference(
   filtered_entries = tuple(
     replace(
       entry,
-      number=number_map[entry.number],
+      number=number_map[
+        entry.number
+      ],
     )
     for entry in retained_entries
   )
 
   filtered_statement_lines = {
-    number_map[entry.number]: statement_lines_by_reference_number[
+    number_map[
+      entry.number
+    ]: statement_lines_by_reference_number[
       entry.number
     ]
     for entry in retained_entries
@@ -476,38 +292,84 @@ def select_toda_group_proof_narrative_reference_statement_steps(
       "TodaGroupProofNarrativeReferenceEntry"
     )
 
-  if not isinstance(candidate_steps, tuple):
-    raise TypeError("candidate_steps must be a tuple")
-
-  if not all(isinstance(step, ProofStep) for step in candidate_steps):
+  if not isinstance(
+    candidate_steps,
+    tuple,
+  ):
     raise TypeError(
-      "candidate_steps must contain only ProofStep objects"
+      "candidate_steps must be a tuple"
     )
 
-  if root_step is not None and not isinstance(root_step, ProofStep):
-    raise TypeError("root_step must be a ProofStep or None")
+  if not all(
+    isinstance(
+      step,
+      ProofStep,
+    )
+    for step in candidate_steps
+  ):
+    raise TypeError(
+      "candidate_steps must contain only "
+      "ProofStep objects"
+    )
 
-  entry_step_ids = {id(step) for step in entry.proof_steps}
+  if (
+    root_step is not None
+    and not isinstance(
+      root_step,
+      ProofStep,
+    )
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep or None"
+    )
+
+  entry_step_ids = {
+    id(
+      step
+    )
+    for step in entry.proof_steps
+  }
   seen_candidate_step_ids = set()
 
   for step in candidate_steps:
-    step_id = id(step)
+    step_id = id(
+      step
+    )
+
     if step_id not in entry_step_ids:
       raise ValueError(
-        "candidate_steps must contain only steps from entry.proof_steps"
+        "candidate_steps must contain only "
+        "steps from entry.proof_steps"
       )
+
     if step_id in seen_candidate_step_ids:
       raise ValueError(
-        "candidate_steps must not contain the same ProofStep more than once"
+        "candidate_steps must not contain "
+        "the same ProofStep more than once"
       )
-    seen_candidate_step_ids.add(step_id)
 
-  if not isinstance(proof_edges, tuple):
-    raise TypeError("proof_edges must be a tuple")
+    seen_candidate_step_ids.add(
+      step_id
+    )
 
-  if not all(isinstance(edge, TodaProofEdge) for edge in proof_edges):
+  if not isinstance(
+    proof_edges,
+    tuple,
+  ):
     raise TypeError(
-      "proof_edges must contain only TodaProofEdge objects"
+      "proof_edges must be a tuple"
+    )
+
+  if not all(
+    isinstance(
+      edge,
+      TodaProofEdge,
+    )
+    for edge in proof_edges
+  ):
+    raise TypeError(
+      "proof_edges must contain only "
+      "TodaProofEdge objects"
     )
 
   eligible_candidates = tuple(
@@ -516,38 +378,17 @@ def select_toda_group_proof_narrative_reference_statement_steps(
     if step is not root_step
   )
 
-  if _phase157_r3_is_pi6_3_root(root_step):
-    fixed_candidates = []
-    for step in eligible_candidates:
-      boundary = classify_toda_literature_statement_step(step)
-
-      if (
-        entry.reference.locator == "Proposition 5.1"
-        and step.inference_rule is not None
-        and step.inference_rule.name
-        == "Toda Lemma 5.4 pi_6^5 finite-cyclic specialization"
-      ):
-        fixed_candidates.append(step)
-        continue
-
-      if (
-        boundary is not None
-        and boundary.classification
-        is TodaLiteratureStatementClassification.FIXED_STATEMENT
-        and boundary.reference_locator == entry.reference.locator
-      ):
-        fixed_candidates.append(step)
-
-    eligible_candidates = tuple(fixed_candidates)
-
   if not eligible_candidates:
     return ()
 
   boundary_used_step_ids = {
-    id(edge.premise_step)
+    id(
+      edge.premise_step
+    )
     for edge in proof_edges
     if (
-      edge.premise_step is not root_step
+      edge.premise_step
+      is not root_step
       and extract_toda_group_proof_step_literature_reference(
         edge.premise_step
       )
@@ -562,26 +403,38 @@ def select_toda_group_proof_narrative_reference_statement_steps(
   boundary_used_candidates = tuple(
     step
     for step in eligible_candidates
-    if id(step) in boundary_used_step_ids
+    if id(
+      step
+    ) in boundary_used_step_ids
   )
+
   if boundary_used_candidates:
     return boundary_used_candidates
 
   entry_external_used_step_ids = {
-    id(edge.premise_step)
+    id(
+      edge.premise_step
+    )
     for edge in proof_edges
-    if id(edge.parent_step) not in entry_step_ids
+    if id(
+      edge.parent_step
+    ) not in entry_step_ids
   }
 
   entry_external_used_candidates = tuple(
     step
     for step in eligible_candidates
-    if id(step) in entry_external_used_step_ids
+    if id(
+      step
+    ) in entry_external_used_step_ids
   )
+
   if entry_external_used_candidates:
     return entry_external_used_candidates
 
-  return (eligible_candidates[0],)
+  return (
+    eligible_candidates[0],
+  )
 
 def filter_toda_group_proof_narrative_reference_entries_by_step_usage(
   entries: tuple[
@@ -726,176 +579,6 @@ def filter_toda_group_proof_narrative_reference_entries_by_step_usage(
   return (
     filtered_entries,
     filtered_statement_lines,
-  )
-
-
-def restore_phase157_r3_pi6_3_required_reference_entries_after_body_usage(
-  original_entries: tuple[
-    TodaGroupProofNarrativeReferenceEntry,
-    ...,
-  ],
-  original_statement_lines_by_reference_number: dict[
-    int,
-    tuple[
-      str,
-      ...,
-    ],
-  ],
-  filtered_entries: tuple[
-    TodaGroupProofNarrativeReferenceEntry,
-    ...,
-  ],
-  filtered_statement_lines_by_reference_number: dict[
-    int,
-    tuple[
-      str,
-      ...,
-    ],
-  ],
-  body_markdown: str,
-  root_step: ProofStep,
-) -> tuple[
-  tuple[
-    TodaGroupProofNarrativeReferenceEntry,
-    ...,
-  ],
-  dict[
-    int,
-    tuple[
-      str,
-      ...,
-    ],
-  ],
-  str,
-]:
-  if not isinstance(original_entries, tuple):
-    raise TypeError("original_entries must be a tuple")
-  if not isinstance(filtered_entries, tuple):
-    raise TypeError("filtered_entries must be a tuple")
-  if not isinstance(
-    original_statement_lines_by_reference_number,
-    dict,
-  ):
-    raise TypeError(
-      "original_statement_lines_by_reference_number must be a dict"
-    )
-  if not isinstance(
-    filtered_statement_lines_by_reference_number,
-    dict,
-  ):
-    raise TypeError(
-      "filtered_statement_lines_by_reference_number must be a dict"
-    )
-  if not isinstance(body_markdown, str):
-    raise TypeError("body_markdown must be a str")
-  if not isinstance(root_step, ProofStep):
-    raise TypeError("root_step must be a ProofStep")
-
-  if not _phase157_r3_is_pi6_3_root(root_step):
-    return (
-      filtered_entries,
-      filtered_statement_lines_by_reference_number,
-      body_markdown,
-    )
-
-  required_locator = "Proposition 5.6"
-  filtered_by_locator = {
-    entry.reference.locator: entry
-    for entry in filtered_entries
-  }
-
-  if required_locator in filtered_by_locator:
-    return (
-      filtered_entries,
-      filtered_statement_lines_by_reference_number,
-      body_markdown,
-    )
-
-  required_original_entries = tuple(
-    entry
-    for entry in original_entries
-    if entry.reference.locator == required_locator
-  )
-
-  if len(required_original_entries) != 1:
-    return (
-      filtered_entries,
-      filtered_statement_lines_by_reference_number,
-      body_markdown,
-    )
-
-  retained_locators = {
-    entry.reference.locator
-    for entry in filtered_entries
-  }
-  retained_locators.add(required_locator)
-
-  desired_original_entries = tuple(
-    entry
-    for entry in original_entries
-    if entry.reference.locator in retained_locators
-  )
-
-  if not desired_original_entries:
-    return (
-      filtered_entries,
-      filtered_statement_lines_by_reference_number,
-      body_markdown,
-    )
-
-  new_number_by_locator = {
-    entry.reference.locator: number
-    for number, entry in enumerate(
-      desired_original_entries,
-      start=1,
-    )
-  }
-
-  old_filtered_number_to_new_number = {
-    entry.number: new_number_by_locator[entry.reference.locator]
-    for entry in filtered_entries
-    if entry.reference.locator in new_number_by_locator
-  }
-
-  placeholder_by_old_number = {
-    old_number: f"__PHASE157_R3_REFERENCE_{old_number}__"
-    for old_number in old_filtered_number_to_new_number
-  }
-
-  remapped_body = body_markdown
-
-  for old_number, placeholder in placeholder_by_old_number.items():
-    remapped_body = remapped_body.replace(
-      f"[R{old_number}]",
-      placeholder,
-    )
-
-  for old_number, new_number in old_filtered_number_to_new_number.items():
-    remapped_body = remapped_body.replace(
-      placeholder_by_old_number[old_number],
-      f"[R{new_number}]",
-    )
-
-  desired_entries = tuple(
-    replace(
-      entry,
-      number=new_number_by_locator[entry.reference.locator],
-    )
-    for entry in desired_original_entries
-  )
-
-  desired_statement_lines = {
-    new_number_by_locator[entry.reference.locator]: (
-      original_statement_lines_by_reference_number[entry.number]
-    )
-    for entry in desired_original_entries
-    if entry.number in original_statement_lines_by_reference_number
-  }
-
-  return (
-    desired_entries,
-    desired_statement_lines,
-    remapped_body,
   )
 
 
