@@ -2471,11 +2471,6 @@ def _toda_group_proof_narrative_reference_frontier_step_ids(
     )
 
   root_step = presentation.root_step
-  root_reference = (
-    extract_toda_group_proof_step_literature_reference(
-      root_step
-    )
-  )
   frontier_step_ids = set()
 
   for entry in reference_entries:
@@ -2530,7 +2525,6 @@ def _toda_group_proof_narrative_reference_frontier_step_ids(
           if (
             child_reference is not None
             and child_reference != entry.reference
-            and child_reference != root_reference
           ):
             continue
 

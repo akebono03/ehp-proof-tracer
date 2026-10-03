@@ -2413,136 +2413,6 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
   ).strip()
 
 
-def _toda_group_proof_narrative_reference_externally_used_step_ids(
-  presentation: TodaGroupProofPresentation,
-  reference_entries,
-) -> frozenset[int]:
-  internal_step_ids = (
-    _toda_group_proof_narrative_reference_internal_step_ids(
-      presentation,
-      reference_entries,
-    )
-  )
-  internal_steps = tuple(
-    node.proof_step
-    for node in presentation.nodes
-    if id(
-      node.proof_step
-    )
-    in internal_step_ids
-  )
-
-  externally_used_step_ids = set()
-
-  for entry in reference_entries:
-    for proof_step in entry.proof_steps:
-      if (
-        _phase153_r7_reaches_root_without_steps(
-          presentation,
-          proof_step,
-          internal_steps,
-        )
-      ):
-        externally_used_step_ids.add(
-          id(
-            proof_step
-          )
-        )
-
-  return frozenset(
-    externally_used_step_ids
-  )
-
-
-def _toda_group_proof_narrative_reference_frontier_step_ids(
-  presentation: TodaGroupProofPresentation,
-  reference_entries,
-) -> frozenset[int]:
-  children_by_step_id = {}
-
-  for edge in presentation.edges:
-    children_by_step_id.setdefault(
-      id(
-        edge.premise_step
-      ),
-      [],
-    ).append(
-      edge.parent_step
-    )
-
-  root_step = presentation.root_step
-  root_reference = (
-    extract_toda_group_proof_step_literature_reference(
-      root_step
-    )
-  )
-  frontier_step_ids = set()
-
-  for entry in reference_entries:
-    for source_step in entry.proof_steps:
-      queue = deque(
-        [
-          source_step,
-        ]
-      )
-      visited = set()
-
-      while queue:
-        current_step = queue.popleft()
-        current_step_id = id(
-          current_step
-        )
-
-        if current_step_id in visited:
-          continue
-
-        visited.add(
-          current_step_id
-        )
-
-        if current_step is root_step:
-          frontier_step_ids.add(
-            id(
-              source_step
-            )
-          )
-          break
-
-        for child_step in children_by_step_id.get(
-          current_step_id,
-          (),
-        ):
-          if child_step is root_step:
-            frontier_step_ids.add(
-              id(
-                source_step
-              )
-            )
-            queue.clear()
-            break
-
-          child_reference = (
-            extract_toda_group_proof_step_literature_reference(
-              child_step
-            )
-          )
-
-          if (
-            child_reference is not None
-            and child_reference != entry.reference
-            and child_reference != root_reference
-          ):
-            continue
-
-          queue.append(
-            child_step
-          )
-
-  return frozenset(
-    frontier_step_ids
-  )
-
-
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -2695,18 +2565,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       )
     )
   else:
-    frontier_step_ids = (
-      _toda_group_proof_narrative_reference_frontier_step_ids(
-        presentation,
-        reference_entries,
-      )
-    )
-    boundary_visible_used_step_ids = frozenset(
-      step_id
-      for step_id in generic_used_step_ids
-      if step_id in frontier_step_ids
-    )
-
     (
       reference_entries,
       statement_lines_by_reference_number,
@@ -2714,7 +2572,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       filter_toda_group_proof_narrative_reference_entries_by_step_usage(
         reference_entries,
         statement_lines_by_reference_number,
-        boundary_visible_used_step_ids,
+        generic_used_step_ids,
         presentation.root_step,
       )
     )

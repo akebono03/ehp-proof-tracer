@@ -55,9 +55,13 @@ def test_phase156_r5_repair3_eta3_twice_zero_is_attributed_to_proposition51():
 
 def test_phase156_r5_repair3_pi6_has_single_53_and_single_proposition51_header():
   rendered = _pi6_3_rendered()
+  reference_part = rendered.split(
+    "まず",
+    1,
+  )[0]
   headers = re.findall(
     r"\*\*\[R\d+\] ([^\n]+?)\.\*\*",
-    rendered,
+    reference_part,
   )
 
   assert headers.count(
@@ -68,15 +72,20 @@ def test_phase156_r5_repair3_pi6_has_single_53_and_single_proposition51_header()
   ) == 0
   assert headers.count(
     "Proposition 5.1"
-  ) == 0
-  assert "(5.3) / Lemma 5.2" not in rendered
+  ) == 1
+  assert "(5.3) / Lemma 5.2" not in reference_part
 
 
 def test_phase156_r5_repair3_two_eta3_zero_is_not_under_53_header():
   rendered = _pi6_3_rendered()
+  reference_part = rendered.split(
+    "まず",
+    1,
+  )[0]
+
   sections = re.split(
     r"(?=\*\*\[R\d+\] )",
-    rendered,
+    reference_part,
   )
   source_53 = next(
     section
@@ -86,6 +95,14 @@ def test_phase156_r5_repair3_two_eta3_zero_is_not_under_53_header():
       section,
     )
   )
+  proposition51 = next(
+    section
+    for section in sections
+    if re.search(
+      r"\*\*\[R\d+\] Proposition 5\.1\.\*\*",
+      section,
+    )
+  )
 
-  assert "$2\\eta_{3} = 0$" not in source_53
-  assert "Proposition 5.1" not in rendered
+  assert "2\\eta_{3} = 0" not in source_53
+  assert "2\\eta_{3} = 0" in proposition51

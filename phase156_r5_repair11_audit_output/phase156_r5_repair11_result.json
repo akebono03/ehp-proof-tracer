@@ -1,0 +1,25 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "pi6_3": {
+    "depth2": {
+      "raw_has_proposition_51": true,
+      "public_has_proposition_51": true,
+      "public_has_53": true,
+      "public_has_52": true,
+      "compact_numbers": true
+    },
+    "depth3": {
+      "raw_has_proposition_51": true,
+      "public_has_proposition_51": true,
+      "public_has_53": true,
+      "public_has_52": true,
+      "compact_numbers": true
+    }
+  },
+  "pass": false
+}

@@ -76,16 +76,19 @@ def test_phase144_6_r3_pi6_3_generic_multi_argument_renders_reference_section():
       arguments,
     )
   )
+  reference_section = rendered.split(
+    "まず",
+    1,
+  )[0]
 
-  assert "使用する結果を先にまとめる." in rendered
-  assert "(5.3) / Lemma 5.2" not in rendered
-  assert "(5.3)" in rendered
-  assert "Lemma 5.2" not in rendered
-  assert "(5.2)" in rendered
-  assert "Proposition 5.3" in rendered
-  assert "Lemma 5.4" in rendered
-  assert "Proposition 5.1" not in rendered
-  assert "Proposition 2.2" not in rendered
+  assert "使用する結果を先にまとめる." in reference_section
+  assert "(5.3) / Lemma 5.2" not in reference_section
+  assert "(5.3)" in reference_section
+  assert "Lemma 5.2" not in reference_section
+  assert "(5.2)" in reference_section
+  assert "Proposition 4.4" in reference_section
+  assert "Proposition 5.1" in reference_section
+  assert "Proposition 2.2" not in reference_section
 
 
 def test_phase144_6_r3_reference_section_does_not_parse_internal_rule_names():

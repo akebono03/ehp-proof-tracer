@@ -2454,95 +2454,6 @@ def _toda_group_proof_narrative_reference_externally_used_step_ids(
   )
 
 
-def _toda_group_proof_narrative_reference_frontier_step_ids(
-  presentation: TodaGroupProofPresentation,
-  reference_entries,
-) -> frozenset[int]:
-  children_by_step_id = {}
-
-  for edge in presentation.edges:
-    children_by_step_id.setdefault(
-      id(
-        edge.premise_step
-      ),
-      [],
-    ).append(
-      edge.parent_step
-    )
-
-  root_step = presentation.root_step
-  root_reference = (
-    extract_toda_group_proof_step_literature_reference(
-      root_step
-    )
-  )
-  frontier_step_ids = set()
-
-  for entry in reference_entries:
-    for source_step in entry.proof_steps:
-      queue = deque(
-        [
-          source_step,
-        ]
-      )
-      visited = set()
-
-      while queue:
-        current_step = queue.popleft()
-        current_step_id = id(
-          current_step
-        )
-
-        if current_step_id in visited:
-          continue
-
-        visited.add(
-          current_step_id
-        )
-
-        if current_step is root_step:
-          frontier_step_ids.add(
-            id(
-              source_step
-            )
-          )
-          break
-
-        for child_step in children_by_step_id.get(
-          current_step_id,
-          (),
-        ):
-          if child_step is root_step:
-            frontier_step_ids.add(
-              id(
-                source_step
-              )
-            )
-            queue.clear()
-            break
-
-          child_reference = (
-            extract_toda_group_proof_step_literature_reference(
-              child_step
-            )
-          )
-
-          if (
-            child_reference is not None
-            and child_reference != entry.reference
-            and child_reference != root_reference
-          ):
-            continue
-
-          queue.append(
-            child_step
-          )
-
-  return frozenset(
-    frontier_step_ids
-  )
-
-
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -2695,8 +2606,8 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       )
     )
   else:
-    frontier_step_ids = (
-      _toda_group_proof_narrative_reference_frontier_step_ids(
+    externally_used_reference_step_ids = (
+      _toda_group_proof_narrative_reference_externally_used_step_ids(
         presentation,
         reference_entries,
       )
@@ -2704,7 +2615,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     boundary_visible_used_step_ids = frozenset(
       step_id
       for step_id in generic_used_step_ids
-      if step_id in frontier_step_ids
+      if step_id in externally_used_reference_step_ids
     )
 
     (

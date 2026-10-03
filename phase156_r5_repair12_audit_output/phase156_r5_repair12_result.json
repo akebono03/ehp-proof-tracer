@@ -1,0 +1,27 @@
+{
+  "groups": 112,
+  "depths": [
+    2,
+    3
+  ],
+  "exceptions": 0,
+  "pi6_3": {
+    "depth2": {
+      "proposition_51_absent": true,
+      "reference_53_present": true,
+      "proposition_53_present": true,
+      "lemma_54_present": true,
+      "reference_52_present": false,
+      "compact_numbers": true
+    },
+    "depth3": {
+      "proposition_51_absent": true,
+      "reference_53_present": true,
+      "proposition_53_present": true,
+      "lemma_54_present": true,
+      "reference_52_present": false,
+      "compact_numbers": true
+    }
+  },
+  "pass": false
+}
