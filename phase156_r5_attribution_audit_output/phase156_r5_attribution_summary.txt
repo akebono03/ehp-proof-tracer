@@ -1,0 +1,28 @@
+==============================================================================
+Phase156-R5 — Reference attribution audit
+==============================================================================
+production changes: none
+scope: n=2..15, k=0..7, depth=2
+
+groups: 112
+exceptions: 0
+selected Reference statements: 238
+suspicious composite Reference statements: 1
+known pi_6^3 attribution defect detected: True
+
+Classification:
+  single_source: occurrences=237, affected_groups=96
+  composite_reference: occurrences=0, affected_groups=0
+  composite_reference_contains_consumer_reference: occurrences=1, affected_groups=1
+  composite_reference_contains_consumer_rule_reference: occurrences=0, affected_groups=0
+
+Interpretation:
+  single_source: the displayed Reference has one literature locator.
+  composite_reference: the displayed Reference combines two or more literature locators and requires ownership review.
+  composite_reference_contains_consumer_reference: one component of the composite Reference also appears as an external consumer Reference.
+  composite_reference_contains_consumer_rule_reference: one component also appears in an external consumer rule name; this is the strongest signal that an application theorem/lemma has been mixed into the premise source attribution.
+
+R5 boundary:
+  No production code or proof data is changed by this audit.
+  The next repair step must use the suspicious CSV to separate premise source attribution from theorem/lemma application attribution by a general rule.
+==============================================================================

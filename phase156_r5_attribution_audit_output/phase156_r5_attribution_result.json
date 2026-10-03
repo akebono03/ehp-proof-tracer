@@ -1,0 +1,29 @@
+{
+  "phase": "Phase156-R5 Reference attribution audit",
+  "production_changes": false,
+  "scope": {
+    "n": "2..15",
+    "k": "0..7",
+    "depth": 2,
+    "expected_groups": 112
+  },
+  "groups_seen": 112,
+  "exceptions": 0,
+  "selected_reference_statements": 238,
+  "suspicious_reference_statements": 1,
+  "classification_counts": {
+    "single_source": 237,
+    "composite_reference": 0,
+    "composite_reference_contains_consumer_reference": 1,
+    "composite_reference_contains_consumer_rule_reference": 0
+  },
+  "classification_affected_groups": {
+    "single_source": 96,
+    "composite_reference": 0,
+    "composite_reference_contains_consumer_reference": 1,
+    "composite_reference_contains_consumer_rule_reference": 0
+  },
+  "known_pi6_defect_detected": true,
+  "pass": true,
+  "repair_boundary": "This audit only identifies attribution candidates. Production literature_reference metadata must be repaired only after the cross-group population is reviewed."
+}
