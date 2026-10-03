@@ -584,6 +584,125 @@ def select_toda_group_proof_narrative_reference_statement_steps(
   return (eligible_candidates[0],)
 
 
+def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(
+  entries: tuple[
+    TodaGroupProofNarrativeReferenceEntry,
+    ...,
+  ],
+  root_step: ProofStep,
+) -> tuple[
+  TodaGroupProofNarrativeReferenceEntry,
+  ...,
+]:
+  if not isinstance(
+    entries,
+    tuple,
+  ):
+    raise TypeError(
+      "entries must be a tuple"
+    )
+
+  if not all(
+    isinstance(
+      entry,
+      TodaGroupProofNarrativeReferenceEntry,
+    )
+    for entry in entries
+  ):
+    raise TypeError(
+      "entries must contain only "
+      "TodaGroupProofNarrativeReferenceEntry objects"
+    )
+
+  if not isinstance(
+    root_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep"
+    )
+
+  root_boundary = (
+    classify_toda_literature_statement_step(
+      root_step
+    )
+  )
+
+  target_reference_locator = (
+    None
+    if root_boundary is None
+    else root_boundary.reference_locator
+  )
+  target_component_key = (
+    None
+    if root_boundary is None
+    else root_boundary.component_key
+  )
+
+  retained_entries = []
+
+  for entry in entries:
+    retained_steps = []
+
+    for proof_step in entry.proof_steps:
+      boundary = (
+        classify_toda_literature_statement_step(
+          proof_step
+        )
+      )
+
+      if (
+        boundary is None
+        or boundary.classification
+        != TodaLiteratureStatementClassification.FIXED_STATEMENT
+        or boundary.component_key is None
+      ):
+        continue
+
+      component = (
+        get_toda_fixed_statement_component(
+          boundary.reference_locator,
+          boundary.component_key,
+        )
+      )
+
+      if component is None:
+        continue
+
+      if (
+        target_reference_locator is not None
+        and target_component_key is not None
+        and not is_toda_fixed_statement_component_reference_eligible(
+          component,
+          target_reference_locator,
+          target_component_key,
+        )
+      ):
+        continue
+
+      retained_steps.append(
+        proof_step
+      )
+
+    if not retained_steps:
+      continue
+
+    retained_entries.append(
+      replace(
+        entry,
+        number=len(
+          retained_entries
+        ) + 1,
+        proof_steps=tuple(
+          retained_steps
+        ),
+      )
+    )
+
+  return tuple(
+    retained_entries
+  )
+
 def filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary(
   entries: tuple[
     TodaGroupProofNarrativeReferenceEntry,
@@ -1207,6 +1326,312 @@ def filter_toda_group_proof_narrative_reference_entries_by_body_usage(
   )
 
 
+
+def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
+  original_entries: tuple[
+    TodaGroupProofNarrativeReferenceEntry,
+    ...,
+  ],
+  original_statement_lines_by_reference_number: dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+  filtered_entries: tuple[
+    TodaGroupProofNarrativeReferenceEntry,
+    ...,
+  ],
+  filtered_statement_lines_by_reference_number: dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+  body_markdown: str,
+  root_step: ProofStep,
+  used_step_ids: frozenset[
+    int
+  ],
+) -> tuple[
+  tuple[
+    TodaGroupProofNarrativeReferenceEntry,
+    ...,
+  ],
+  dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+  str,
+]:
+  if not isinstance(
+    original_entries,
+    tuple,
+  ):
+    raise TypeError(
+      "original_entries must be a tuple"
+    )
+
+  if not isinstance(
+    original_statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "original_statement_lines_by_reference_number must be a dict"
+    )
+
+  if not isinstance(
+    filtered_entries,
+    tuple,
+  ):
+    raise TypeError(
+      "filtered_entries must be a tuple"
+    )
+
+  if not isinstance(
+    filtered_statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "filtered_statement_lines_by_reference_number must be a dict"
+    )
+
+  if not isinstance(
+    body_markdown,
+    str,
+  ):
+    raise TypeError(
+      "body_markdown must be a str"
+    )
+
+  if not isinstance(
+    root_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep"
+    )
+
+  if not isinstance(
+    used_step_ids,
+    frozenset,
+  ):
+    raise TypeError(
+      "used_step_ids must be a frozenset"
+    )
+
+  retained_reference_keys = {
+    (
+      entry.reference.locator,
+      entry.reference.label,
+      tuple(
+        id(
+          proof_step
+        )
+        for proof_step in entry.proof_steps
+      ),
+    )
+    for entry in filtered_entries
+  }
+
+  desired_entries = []
+
+  for entry in original_entries:
+    has_selected_statement = (
+      entry.number
+      in original_statement_lines_by_reference_number
+      and bool(
+        original_statement_lines_by_reference_number[
+          entry.number
+        ]
+      )
+    )
+    is_used_fixed_reference = (
+      has_selected_statement
+      and any(
+        id(
+          proof_step
+        )
+        in used_step_ids
+        for proof_step in entry.proof_steps
+      )
+    )
+
+    entry_key = (
+      entry.reference.locator,
+      entry.reference.label,
+      tuple(
+        id(
+          proof_step
+        )
+        for proof_step in entry.proof_steps
+      ),
+    )
+
+    if (
+      entry_key
+      in retained_reference_keys
+      or is_used_fixed_reference
+    ):
+      desired_entries.append(
+        entry
+      )
+
+  if len(
+    desired_entries
+  ) == len(
+    filtered_entries
+  ):
+    return (
+      filtered_entries,
+      filtered_statement_lines_by_reference_number,
+      body_markdown,
+    )
+
+  number_map = {
+    entry.number: new_number
+    for new_number, entry in enumerate(
+      desired_entries,
+      start=1,
+    )
+  }
+
+  restored_entries = tuple(
+    replace(
+      entry,
+      number=number_map[
+        entry.number
+      ],
+    )
+    for entry in desired_entries
+  )
+
+  restored_statement_lines = {
+    number_map[
+      entry.number
+    ]: original_statement_lines_by_reference_number[
+      entry.number
+    ]
+    for entry in desired_entries
+    if (
+      entry.number
+      in original_statement_lines_by_reference_number
+    )
+  }
+
+  filtered_original_number_by_new_number = {}
+
+  for filtered_entry in filtered_entries:
+    filtered_key = (
+      filtered_entry.reference.locator,
+      filtered_entry.reference.label,
+      tuple(
+        id(
+          proof_step
+        )
+        for proof_step in filtered_entry.proof_steps
+      ),
+    )
+
+    matching_original_entry = next(
+      (
+        original_entry
+        for original_entry in original_entries
+        if (
+          (
+            original_entry.reference.locator,
+            original_entry.reference.label,
+            tuple(
+              id(
+                proof_step
+              )
+              for proof_step
+              in original_entry.proof_steps
+            ),
+          )
+          == filtered_key
+        )
+      ),
+      None,
+    )
+
+    if matching_original_entry is not None:
+      filtered_original_number_by_new_number[
+        filtered_entry.number
+      ] = matching_original_entry.number
+
+  marker_placeholders = {}
+
+  def placeholder_marker(
+    match,
+  ):
+    old_number = int(
+      match.group(
+        1
+      )
+    )
+    original_number = (
+      filtered_original_number_by_new_number.get(
+        old_number
+      )
+    )
+
+    if original_number is None:
+      return match.group(
+        0
+      )
+
+    new_number = number_map.get(
+      original_number
+    )
+
+    if new_number is None:
+      return match.group(
+        0
+      )
+
+    placeholder = (
+      "__PHASE157_R5_R4_REFERENCE_"
+      + str(
+        len(
+          marker_placeholders
+        )
+      )
+      + "__"
+    )
+    marker_placeholders[
+      placeholder
+    ] = (
+      "[R"
+      + str(
+        new_number
+      )
+      + "]"
+    )
+    return placeholder
+
+  remapped_body = re.sub(
+    r"\[R([0-9]+)\]",
+    placeholder_marker,
+    body_markdown,
+  )
+
+  for placeholder, marker in marker_placeholders.items():
+    remapped_body = remapped_body.replace(
+      placeholder,
+      marker,
+    )
+
+  return (
+    restored_entries,
+    restored_statement_lines,
+    remapped_body,
+  )
 
 def restore_phase157_r4_representative_fixed_reference_entries_after_body_usage(
   original_entries: tuple[

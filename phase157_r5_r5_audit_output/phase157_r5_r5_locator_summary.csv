@@ -1,0 +1,20 @@
+﻿reference,occurrences,affected_groups,fixed_statement,proof_internal,untracked,fixed_statement_ineligible,fixed_statement_without_component,fixed_statement_missing_component
+(4.5),30,30,30,0,0,0,0,0
+(5.2),8,8,8,0,0,0,0,0
+(5.3),4,3,4,0,0,0,0,0
+(5.5),2,2,2,0,0,0,0,0
+Equation 5.13,5,5,5,0,0,0,0,0
+Equation 5.7,4,4,4,0,0,0,0,0
+Equation 5.8,1,1,1,0,0,0,0,0
+Lemma 5.13,3,3,3,0,0,0,0,0
+Lemma 5.14,5,3,5,0,0,0,0,0
+Lemma 5.4,4,4,4,0,0,0,0,0
+Lemma 5.7,1,1,1,0,0,0,0,0
+Proposition 2.5,1,1,1,0,0,0,0,0
+Proposition 4.4,7,7,7,0,0,0,0,0
+Proposition 5.11,15,11,15,0,0,0,0,0
+Proposition 5.15,8,6,8,0,0,0,0,0
+Proposition 5.3,11,7,11,0,0,0,0,0
+Proposition 5.6,16,7,16,0,0,0,0,0
+Proposition 5.8,17,16,17,0,0,0,0,0
+Proposition 5.9,16,15,16,0,0,0,0,0
