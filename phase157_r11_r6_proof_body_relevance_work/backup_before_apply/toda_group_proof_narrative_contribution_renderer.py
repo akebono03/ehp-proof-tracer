@@ -3462,6 +3462,13 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
+  rendered = (
+    _phase157_r3_restore_pi6_3_proof_internal_suspension_isomorphism(
+      presentation,
+      rendered,
+    )
+  )
+
   generic_used_step_ids = (
     build_toda_group_proof_narrative_generic_used_step_ids(
       presentation,
