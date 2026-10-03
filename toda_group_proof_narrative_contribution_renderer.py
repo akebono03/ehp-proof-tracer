@@ -78,6 +78,10 @@ from toda_group_proof_narrative_semantics import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
+from toda_literature_statement_boundary import (
+  TodaLiteratureStatementClassification,
+  classify_toda_literature_statement_step,
+)
 
 
 def _provider_anchor_index(
@@ -1066,6 +1070,136 @@ def build_toda_group_proof_narrative_reference_reuse_marker_by_step_id(
   return marker_by_step_id
 
 
+def _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
+  selected_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+  rendered_by_step_id: dict[
+    int,
+    str,
+  ],
+) -> tuple[
+  str,
+  ...,
+]:
+  boundaries = tuple(
+    classify_toda_literature_statement_step(
+      proof_step
+    )
+    for proof_step in selected_steps
+  )
+
+  fixed_component_keys = tuple(
+    (
+      boundary.component_key
+      if (
+        boundary is not None
+        and boundary.classification
+        is TodaLiteratureStatementClassification
+        .FIXED_STATEMENT
+      )
+      else None
+    )
+    for boundary in boundaries
+  )
+
+  definition_indices = tuple(
+    index
+    for index, component_key in enumerate(
+      fixed_component_keys
+    )
+    if (
+      component_key is not None
+      and component_key.endswith(
+        "_definition"
+      )
+    )
+  )
+
+  if (
+    len(
+      definition_indices
+    ) != 1
+    or len(
+      selected_steps
+    ) < 2
+  ):
+    return tuple(
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ]
+      for proof_step in selected_steps
+    )
+
+  definition_index = (
+    definition_indices[
+      0
+    ]
+  )
+  definition_step = selected_steps[
+    definition_index
+  ]
+  consequence_steps = tuple(
+    proof_step
+    for index, proof_step in enumerate(
+      selected_steps
+    )
+    if index != definition_index
+  )
+  ordered_steps = (
+    definition_step,
+    *consequence_steps,
+  )
+
+  lines = []
+
+  for index, proof_step in enumerate(
+    ordered_steps
+  ):
+    line = rendered_by_step_id[
+      id(
+        proof_step
+      )
+    ].rstrip()
+
+    if line.endswith(
+      "."
+    ) or line.endswith(
+      ","
+    ):
+      line = line[
+        :-1
+      ]
+
+    if index == 0:
+      lines.append(
+        line
+        + " とすると,"
+      )
+      continue
+
+    if index == len(
+      ordered_steps
+    ) - 1:
+      lines.append(
+        line
+        + "."
+      )
+      continue
+
+    lines.append(
+      line
+      + ","
+    )
+
+  return tuple(
+    lines
+  )
+
+
 def _toda_group_proof_narrative_reference_statement_lines_by_number(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -1098,7 +1232,10 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       ):
         continue
 
-      if rendered_statement in seen_rendered_statements:
+      if (
+        rendered_statement
+        in seen_rendered_statements
+      ):
         continue
 
       seen_rendered_statements.add(
@@ -1124,18 +1261,29 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       )
     )
 
-    statement_lines = tuple(
-      _phase153_r6_render_reference_statement(
-        presentation,
-        entry,
-        proof_step,
-        rendered_by_step_id[
-          id(
-            proof_step
-          )
-        ],
+    rendered_selected_by_step_id = {
+      id(
+        proof_step
+      ): (
+        _phase153_r6_render_reference_statement(
+          presentation,
+          entry,
+          proof_step,
+          rendered_by_step_id[
+            id(
+              proof_step
+            )
+          ],
+        )
       )
       for proof_step in selected_steps
+    }
+
+    statement_lines = (
+      _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
+        selected_steps,
+        rendered_selected_by_step_id,
+      )
     )
 
     if statement_lines:
@@ -1144,8 +1292,6 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       ] = statement_lines
 
   return statement_lines_by_reference_number
-
-
 def _phase153_r7_reaches_root_without_steps(
   presentation: TodaGroupProofPresentation,
   source_step: ProofStep,

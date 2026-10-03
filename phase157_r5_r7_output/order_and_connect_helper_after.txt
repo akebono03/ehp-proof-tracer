@@ -1,0 +1,130 @@
+def _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
+  selected_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+  rendered_by_step_id: dict[
+    int,
+    str,
+  ],
+) -> tuple[
+  str,
+  ...,
+]:
+  boundaries = tuple(
+    classify_toda_literature_statement_step(
+      proof_step
+    )
+    for proof_step in selected_steps
+  )
+
+  fixed_component_keys = tuple(
+    (
+      boundary.component_key
+      if (
+        boundary is not None
+        and boundary.classification
+        is TodaLiteratureStatementClassification
+        .FIXED_STATEMENT
+      )
+      else None
+    )
+    for boundary in boundaries
+  )
+
+  definition_indices = tuple(
+    index
+    for index, component_key in enumerate(
+      fixed_component_keys
+    )
+    if (
+      component_key is not None
+      and component_key.endswith(
+        "_definition"
+      )
+    )
+  )
+
+  if (
+    len(
+      definition_indices
+    ) != 1
+    or len(
+      selected_steps
+    ) < 2
+  ):
+    return tuple(
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ]
+      for proof_step in selected_steps
+    )
+
+  definition_index = (
+    definition_indices[
+      0
+    ]
+  )
+  definition_step = selected_steps[
+    definition_index
+  ]
+  consequence_steps = tuple(
+    proof_step
+    for index, proof_step in enumerate(
+      selected_steps
+    )
+    if index != definition_index
+  )
+  ordered_steps = (
+    definition_step,
+    *consequence_steps,
+  )
+
+  lines = []
+
+  for index, proof_step in enumerate(
+    ordered_steps
+  ):
+    line = rendered_by_step_id[
+      id(
+        proof_step
+      )
+    ].rstrip()
+
+    if line.endswith(
+      "."
+    ) or line.endswith(
+      ","
+    ):
+      line = line[
+        :-1
+      ]
+
+    if index == 0:
+      lines.append(
+        line
+        + " とすると,"
+      )
+      continue
+
+    if index == len(
+      ordered_steps
+    ) - 1:
+      lines.append(
+        line
+        + "."
+      )
+      continue
+
+    lines.append(
+      line
+      + ","
+    )
+
+  return tuple(
+    lines
+  )
+
+

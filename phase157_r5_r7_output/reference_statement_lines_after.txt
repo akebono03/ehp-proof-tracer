@@ -1,0 +1,92 @@
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
+  statement_lines_by_reference_number = {}
+
+  for entry in reference_entries:
+    candidate_steps = []
+    rendered_by_step_id = {}
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if (
+        rendered_statement
+        in seen_rendered_statements
+      ):
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ] = rendered_statement
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+        root_step=presentation.root_step,
+      )
+    )
+
+    rendered_selected_by_step_id = {
+      id(
+        proof_step
+      ): (
+        _phase153_r6_render_reference_statement(
+          presentation,
+          entry,
+          proof_step,
+          rendered_by_step_id[
+            id(
+              proof_step
+            )
+          ],
+        )
+      )
+      for proof_step in selected_steps
+    }
+
+    statement_lines = (
+      _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
+        selected_steps,
+        rendered_selected_by_step_id,
+      )
+    )
+
+    if statement_lines:
+      statement_lines_by_reference_number[
+        entry.number
+      ] = statement_lines
+
+  return statement_lines_by_reference_number
