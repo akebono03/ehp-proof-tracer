@@ -65,8 +65,10 @@ from toda_group_proof_narrative_references import (
   exclude_toda_group_proof_narrative_root_reference,
   filter_phase157_r3_pi6_3_reference_entries,
   extract_toda_group_proof_step_literature_reference,
+  filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
   filter_toda_group_proof_narrative_reference_entries_by_step_usage,
+  restore_phase157_r4_representative_fixed_reference_entries_after_body_usage,
   render_toda_group_proof_narrative_reference_entries_markdown,
   select_toda_group_proof_narrative_reference_statement_steps,
 )
@@ -3072,6 +3074,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
   reference_entries = (
+    filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
+  reference_entries = (
     filter_phase157_r3_pi6_3_reference_entries(
       reference_entries,
       presentation.root_step,
@@ -3082,6 +3090,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation,
       reference_entries,
     )
+  )
+  phase157_r4_reference_entries_before_usage_filter = (
+    reference_entries
+  )
+  phase157_r4_statement_lines_before_usage_filter = dict(
+    statement_lines_by_reference_number
   )
   (
     reference_entries,
@@ -3195,6 +3209,21 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         reference_entries,
         statement_lines_by_reference_number,
         rendered,
+      )
+    )
+    (
+      reference_entries,
+      statement_lines_by_reference_number,
+      rendered,
+    ) = (
+      restore_phase157_r4_representative_fixed_reference_entries_after_body_usage(
+        phase157_r4_reference_entries_before_usage_filter,
+        phase157_r4_statement_lines_before_usage_filter,
+        reference_entries,
+        statement_lines_by_reference_number,
+        rendered,
+        presentation.root_step,
+        generic_used_step_ids,
       )
     )
   else:

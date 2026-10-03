@@ -55,6 +55,7 @@ from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   exclude_toda_group_proof_narrative_root_reference,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
+  filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary,
   render_toda_group_proof_narrative_reference_entries_markdown,
 )
 from toda_group_proof_narrative_provenance_catalog import (
@@ -3986,6 +3987,12 @@ def _phase153_r3_10_connect_public_reference_section(
       presentation
     )
   )
+  reference_entries = (
+    filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
 
   if not reference_entries:
     return rendered
@@ -4108,6 +4115,12 @@ def _wrap_phase150_rc4_generic_public_narrative(
   reference_entries = (
     build_toda_group_proof_narrative_reference_entries(
       presentation
+    )
+  )
+  reference_entries = (
+    filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
     )
   )
   statement_lines_by_reference_number = (
