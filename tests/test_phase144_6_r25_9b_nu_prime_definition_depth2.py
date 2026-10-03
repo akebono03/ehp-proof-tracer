@@ -184,7 +184,7 @@ def test_phase144_6_r25_9b_depth2_narrative_has_definition():
 
   reference_part = (
     rendered.split(
-      "まず",
+      "次に",
       1,
     )[
       0
@@ -200,7 +200,11 @@ def test_phase144_6_r25_9b_depth2_narrative_has_definition():
   )
   assert (
     r"$\nu'$ を定める."
-    in rendered
+    not in rendered
+  )
+  assert (
+    r"$2\eta_{3} = 0$"
+    not in rendered
   )
   assert (
     r"2\nu' = \eta_{3}^{3}"
@@ -236,7 +240,11 @@ def test_phase144_6_r25_9b_cli_depth2_narrative_has_definition(
   )
   assert (
     r"$\nu'$ を定める."
-    in output
+    not in output
+  )
+  assert (
+    r"$2\eta_{3} = 0$"
+    not in output
   )
   assert (
     r"\pi_{6}^{3} = "

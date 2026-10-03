@@ -73,6 +73,7 @@ from toda_group_proof_narrative_references import (
   select_toda_group_proof_narrative_reference_statement_steps,
 )
 from toda_group_proof_narrative_semantics import (
+  TodaGroupProofNarrativeDependencySemanticRole,
   TodaGroupProofNarrativeSemanticSidecar,
 )
 from toda_group_proof_presentation import (
@@ -2442,6 +2443,87 @@ def _toda_group_proof_narrative_reference_internal_step_ids(
   )
 
 
+def _phase157_r5_r9_selected_fixed_definition_step_ids(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> frozenset[
+  int
+]:
+  selected_definition_step_ids = set()
+
+  for entry in reference_entries:
+    candidate_steps = []
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if (
+        rendered_statement
+        in seen_rendered_statements
+      ):
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+        root_step=presentation.root_step,
+      )
+    )
+
+    for proof_step in selected_steps:
+      boundary = (
+        classify_toda_literature_statement_step(
+          proof_step
+        )
+      )
+
+      if (
+        boundary is None
+        or boundary.classification
+        is not TodaLiteratureStatementClassification
+        .FIXED_STATEMENT
+        or boundary.component_key is None
+        or not boundary.component_key.endswith(
+          "_definition"
+        )
+      ):
+        continue
+
+      selected_definition_step_ids.add(
+        id(
+          proof_step
+        )
+      )
+
+  return frozenset(
+    selected_definition_step_ids
+  )
+
+
 def suppress_toda_group_proof_narrative_reference_internal_body(
   presentation: TodaGroupProofPresentation,
   body_markdown: str,
@@ -2450,6 +2532,7 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
     TodaGroupProofNarrativeArgument,
     ...,
   ],
+  semantic_sidecar: TodaGroupProofNarrativeSemanticSidecar,
 ) -> str:
   if not isinstance(
     presentation,
@@ -2467,17 +2550,66 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
       "body_markdown must be a str"
     )
 
+  if not isinstance(
+    semantic_sidecar,
+    TodaGroupProofNarrativeSemanticSidecar,
+  ):
+    raise TypeError(
+      "semantic_sidecar must be a "
+      "TodaGroupProofNarrativeSemanticSidecar"
+    )
+
+  if (
+    semantic_sidecar.presentation
+    is not presentation
+  ):
+    raise ValueError(
+      "semantic_sidecar must belong to presentation"
+    )
+
   internal_step_ids = (
     _toda_group_proof_narrative_reference_internal_step_ids(
       presentation,
       reference_entries,
     )
   )
+  fixed_definition_step_ids = (
+    _phase157_r5_r9_selected_fixed_definition_step_ids(
+      presentation,
+      reference_entries,
+    )
+  )
+  fixed_definition_precondition_step_ids = {
+    id(
+      dependency.prerequisite_step
+    )
+    for dependency
+    in semantic_sidecar.dependency_semantics
+    if (
+      dependency.role
+      is TodaGroupProofNarrativeDependencySemanticRole
+      .PRECONDITION_FOR_DEFINITION
+      and id(
+        dependency.dependent_step
+      )
+      in fixed_definition_step_ids
+    )
+  }
 
-  if not internal_step_ids:
+  suppressed_step_ids = (
+    set(
+      internal_step_ids
+    )
+    | set(
+      fixed_definition_step_ids
+    )
+    | fixed_definition_precondition_step_ids
+  )
+
+  if not suppressed_step_ids:
     return body_markdown
 
-  internal_statement_lines = {
+  suppressed_statement_lines = {
     rendered
     for node in presentation.nodes
     for proof_step in (
@@ -2486,7 +2618,7 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
     if id(
       proof_step
     )
-    in internal_step_ids
+    in suppressed_step_ids
     for rendered in (
       _render_generic_narrative_step(
         proof_step
@@ -2495,7 +2627,7 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
     if rendered
   }
 
-  internal_purpose_sentences = set()
+  suppressed_purpose_sentences = set()
 
   for argument in arguments:
     conclusion_step = (
@@ -2509,7 +2641,7 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
       or id(
         conclusion_step
       )
-      not in internal_step_ids
+      not in suppressed_step_ids
     ):
       continue
 
@@ -2520,7 +2652,7 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
     )
 
     if purpose is not None:
-      internal_purpose_sentences.add(
+      suppressed_purpose_sentences.add(
         purpose
       )
 
@@ -2529,14 +2661,14 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
   for line in body_markdown.splitlines():
     stripped = line.strip()
 
-    if stripped in internal_statement_lines:
+    if stripped in suppressed_statement_lines:
       continue
 
     if any(
       stripped.endswith(
         purpose
       )
-      for purpose in internal_purpose_sentences
+      for purpose in suppressed_purpose_sentences
     ):
       continue
 
@@ -2550,7 +2682,10 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
   for line in retained_lines:
     is_blank = not line.strip()
 
-    if is_blank and previous_blank:
+    if (
+      is_blank
+      and previous_blank
+    ):
       continue
 
     compacted_lines.append(
@@ -2561,8 +2696,6 @@ def suppress_toda_group_proof_narrative_reference_internal_body(
   return "\n".join(
     compacted_lines
   ).strip()
-
-
 def _toda_group_proof_narrative_reference_externally_used_step_ids(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -3296,6 +3429,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered,
       reference_entries,
       arguments,
+      semantic_sidecar,
     )
   )
   rendered = (

@@ -165,7 +165,7 @@ def test_phase157_r5_r6_pi6_reference_53_displays_bracket_definition():
   )
 
 
-def test_phase157_r5_r6_pi6_keeps_definition_intro_but_hides_lemma52_internal_derivation():
+def test_phase157_r5_r6_pi6_hides_fixed_definition_internal_body():
   rendered = (
     render_toda_group_proof_narrative_markdown(
       _pi6_3_presentation()
@@ -178,5 +178,9 @@ def test_phase157_r5_r6_pi6_keeps_definition_intro_but_hides_lemma52_internal_de
   )
   assert (
     r"$\nu'$ を定める."
-    in rendered
+    not in rendered
+  )
+  assert (
+    r"$2\eta_{3} = 0$"
+    not in rendered
   )
