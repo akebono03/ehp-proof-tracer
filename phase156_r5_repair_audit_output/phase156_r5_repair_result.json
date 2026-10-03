@@ -1,0 +1,17 @@
+{
+  "phase": "Phase156-R5 repair attribution separation",
+  "production_changes": true,
+  "groups": 112,
+  "exceptions": 0,
+  "selected_reference_statements": 238,
+  "suspicious_composite_reference_statements": 0,
+  "pi6_53_reference_found": true,
+  "bad_composite_found": false,
+  "classification_counts": {
+    "single_source": 238
+  },
+  "classification_affected_groups": {
+    "single_source": 96
+  },
+  "pass": true
+}

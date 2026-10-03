@@ -62864,11 +62864,11 @@ def toda_53_nu_prime_bracket_specialization_inference_rule():
     conclusion_builder=build_conclusion,
     match_guard=guard,
     literature_reference=LiteratureReference(
-      label="Toda (5.3)",
+      label="Toda (5.3) / Lemma 5.2",
       author="H. Toda",
       title="Composition Methods in Homotopy Groups of Spheres",
       year=1962,
-      locator="(5.3)",
+      locator="(5.3) / Lemma 5.2",
     ),
   )
 
