@@ -583,6 +583,301 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
 }
 
 
+
+# Phase157-R5-R3 boundary catalog expansion
+
+_PHASE157_R5_R3_ADDITIONAL_COMPONENTS = {
+  "(4.5)": (
+    TodaFixedStatementComponent(
+      reference_locator="(4.5)",
+      component_key="stable_range_suspension_isomorphism",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "(5.2)": (
+    TodaFixedStatementComponent(
+      reference_locator="(5.2)",
+      component_key="eta2_composition_isomorphism",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Equation 5.7": (
+    TodaFixedStatementComponent(
+      reference_locator="Equation 5.7",
+      component_key="nu_prime_eta6_hopf_relation",
+      statement_role=TodaLiteratureStatementRole.MAP_VALUE,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Equation 5.8": (
+    TodaFixedStatementComponent(
+      reference_locator="Equation 5.8",
+      component_key="delta_iota9_relation",
+      statement_role=TodaLiteratureStatementRole.MAP_VALUE,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Lemma 5.4": (
+    TodaFixedStatementComponent(
+      reference_locator="Lemma 5.4",
+      component_key="nu4_statement",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Lemma 5.7": (
+    TodaFixedStatementComponent(
+      reference_locator="Lemma 5.7",
+      component_key="eta2_suspension_zero_statement",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Lemma 5.7",
+      component_key="delta_nu5_relation",
+      statement_role=TodaLiteratureStatementRole.MAP_VALUE,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Proposition 2.5": (
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 2.5",
+      component_key="delta_composition_formula",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Proposition 3.1": (
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 3.1",
+      component_key="barratt_hilton_formula",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Proposition 4.4": (
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 4.4",
+      component_key="nu4_decomposition_isomorphism",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Proposition 5.8": (
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.8",
+      component_key="pi6_2_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=1,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.8",
+      component_key="pi7_3_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=2,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.8",
+      component_key="pi8_4_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=3,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.8",
+      component_key="pi9_5_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=4,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.8",
+      component_key="higher_four_stem_zero",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=5,
+      range_text="n >= 6",
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.8",
+      component_key="finite_dimensional_aggregate",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+  "Proposition 5.9": (
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="pi7_2_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=1,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="pi8_3_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=2,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="pi9_4_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=3,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="pi10_5_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=4,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="pi11_6_group_relation",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=5,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="higher_five_stem_zero",
+      statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+      order=6,
+      range_text="n >= 7",
+      range_is_explicit_in_current_aggregate=True,
+    ),
+    TodaFixedStatementComponent(
+      reference_locator="Proposition 5.9",
+      component_key="finite_dimensional_aggregate",
+      statement_role=TodaLiteratureStatementRole.OTHER,
+      order=None,
+      range_text=None,
+      range_is_explicit_in_current_aggregate=True,
+    ),
+  ),
+}
+
+for (
+  _phase157_r5_r3_locator,
+  _phase157_r5_r3_components,
+) in _PHASE157_R5_R3_ADDITIONAL_COMPONENTS.items():
+  if (
+    _phase157_r5_r3_locator
+    not in _FIXED_COMPONENTS_BY_REFERENCE
+  ):
+    _FIXED_COMPONENTS_BY_REFERENCE[
+      _phase157_r5_r3_locator
+    ] = _phase157_r5_r3_components
+
+
+_PHASE157_R5_R3_INTERNAL_RULE_LOCATORS = {
+    'Toda 4.5 pi_4^3 finite-cyclic transport': '(4.5)',
+    'Toda 5.2 pi_4^2 finite-cyclic transport': '(5.2)',
+    'Toda Lemma 5.14 sigma-family definition': 'Lemma 5.14',
+    'Toda Lemma 5.4 pi_6^5 finite-cyclic specialization': 'Lemma 5.4',
+    'Toda Lemma 5.7 pi_6^2 eta_2 nu-prime': 'Lemma 5.7',
+    'Toda Proposition 3.1 nu_6 eta_9 zero consequence': 'Proposition 3.1',
+    'Toda Proposition 4.4 eta_2 second-summand restriction': 'Proposition 4.4',
+    'Toda Proposition 5.8 Delta eta_9 value': 'Proposition 5.8',
+    'Toda Proposition 5.8 eta_6 nu_7 zero specialization': 'Proposition 5.8',
+}
+
+
+_FIXED_RULE_COMPONENT_KEYS.update(
+  {
+    'Toda 4.5 stable-range iterated suspension isomorphism': 'stable_range_suspension_isomorphism',
+    'Toda 5.2 eta_2 composition isomorphism': 'eta2_composition_isomorphism',
+    'Toda 5.5 nu-family finite-dimensional integration': 'nu_family_relations',
+    'Toda Equation 5.7 nu-prime eta_6 Hopf value': 'nu_prime_eta6_hopf_relation',
+    'Toda Equation 5.8 integration': 'delta_iota9_relation',
+    'Toda Lemma 5.4 integration': 'nu4_statement',
+    'Toda Lemma 5.7 Delta nu_5 generator': 'delta_nu5_relation',
+    'Toda Proposition 2.5 Delta eta_9 composition': 'delta_composition_formula',
+    'Toda Proposition 4.4 eta_2 n=2 specialization': 'nu4_decomposition_isomorphism',
+    'Toda Proposition 4.4 nu_4 n=4 decomposition specialization': 'nu4_decomposition_isomorphism',
+    'Toda Proposition 5.8 finite-dimensional integration': 'finite_dimensional_aggregate',
+    'Toda Proposition 5.8 higher four-stem zero transport': 'higher_four_stem_zero',
+    'Toda Proposition 5.8 pi_7^3 Hopf injective': 'pi7_3_group_relation',
+    'Toda Proposition 5.8 pi_7^3 finite cyclic': 'pi7_3_group_relation',
+    'Toda Proposition 5.8 pi_8^4 decomposition': 'pi8_4_group_relation',
+    'Toda Proposition 5.8 pi_9^5 finite cyclic': 'pi9_5_group_relation',
+    'Toda Proposition 5.9 finite-dimensional integration': 'finite_dimensional_aggregate',
+    'Toda Proposition 5.9 higher five-stem zero transport': 'higher_five_stem_zero',
+    'Toda Proposition 5.9 pi_11^6 Hopf injective': 'pi11_6_group_relation',
+    'Toda Proposition 5.9 pi_13^13 Delta surjective': 'pi11_6_group_relation',
+    'Toda Proposition 5.9 pi_8^3 Hopf injective': 'pi8_3_group_relation',
+    'Toda Proposition 5.9 pi_8^3 finite cyclic': 'pi8_3_group_relation',
+    'Toda Proposition 5.9 pi_9^4 decomposition': 'pi9_4_group_relation',
+  }
+)
+
+
+_REFERENCE_LOCATOR_BY_FIXED_RULE_NAME.update(
+  {
+    'Toda 4.5 stable-range iterated suspension isomorphism': '(4.5)',
+    'Toda 5.2 eta_2 composition isomorphism': '(5.2)',
+    'Toda 5.5 nu-family finite-dimensional integration': '(5.5)',
+    'Toda Equation 5.7 nu-prime eta_6 Hopf value': 'Equation 5.7',
+    'Toda Equation 5.8 integration': 'Equation 5.8',
+    'Toda Lemma 5.4 integration': 'Lemma 5.4',
+    'Toda Lemma 5.7 Delta nu_5 generator': 'Lemma 5.7',
+    'Toda Proposition 2.5 Delta eta_9 composition': 'Proposition 2.5',
+    'Toda Proposition 4.4 eta_2 n=2 specialization': 'Proposition 4.4',
+    'Toda Proposition 4.4 nu_4 n=4 decomposition specialization': 'Proposition 4.4',
+    'Toda Proposition 5.8 finite-dimensional integration': 'Proposition 5.8',
+    'Toda Proposition 5.8 higher four-stem zero transport': 'Proposition 5.8',
+    'Toda Proposition 5.8 pi_7^3 Hopf injective': 'Proposition 5.8',
+    'Toda Proposition 5.8 pi_7^3 finite cyclic': 'Proposition 5.8',
+    'Toda Proposition 5.8 pi_8^4 decomposition': 'Proposition 5.8',
+    'Toda Proposition 5.8 pi_9^5 finite cyclic': 'Proposition 5.8',
+    'Toda Proposition 5.9 finite-dimensional integration': 'Proposition 5.9',
+    'Toda Proposition 5.9 higher five-stem zero transport': 'Proposition 5.9',
+    'Toda Proposition 5.9 pi_11^6 Hopf injective': 'Proposition 5.9',
+    'Toda Proposition 5.9 pi_13^13 Delta surjective': 'Proposition 5.9',
+    'Toda Proposition 5.9 pi_8^3 Hopf injective': 'Proposition 5.9',
+    'Toda Proposition 5.9 pi_8^3 finite cyclic': 'Proposition 5.9',
+    'Toda Proposition 5.9 pi_9^4 decomposition': 'Proposition 5.9',
+  }
+)
+
 _TRACKED_REFERENCE_LOCATORS = frozenset(
   _FIXED_COMPONENTS_BY_REFERENCE
 )
@@ -639,16 +934,53 @@ def _proof_step_reference_locator(
 
   rule_name = inference_rule.name
 
+  internal_locator = (
+    _PHASE157_R5_R3_INTERNAL_RULE_LOCATORS.get(
+      rule_name
+    )
+  )
+  if internal_locator is not None:
+    return internal_locator
+
   for locator in _TRACKED_REFERENCE_LOCATORS:
-    if locator.startswith("Proposition "):
-      if rule_name.startswith("Toda " + locator):
+    if locator.startswith(
+      (
+        "Proposition ",
+        "Lemma ",
+        "Equation ",
+      )
+    ):
+      if rule_name.startswith(
+        "Toda " + locator
+      ):
         return locator
 
-  if rule_name.startswith("Toda 5.3 "):
-    return "(5.3)"
+  parenthesized_locators = tuple(
+    locator
+    for locator in _TRACKED_REFERENCE_LOCATORS
+    if (
+      locator.startswith("(")
+      and locator.endswith(")")
+    )
+  )
+
+  for locator in parenthesized_locators:
+    number = locator[
+      1:
+      -1
+    ]
+
+    if (
+      rule_name.startswith(
+        "Toda " + locator
+      )
+      or rule_name.startswith(
+        "Toda " + number + " "
+      )
+    ):
+      return locator
 
   return None
-
 
 def classify_toda_literature_statement_step(
   proof_step: ProofStep,
