@@ -3711,39 +3711,11 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
     "\n\n"
   )
 
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    return (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
   def visible_paragraph_index(
     proof_step: ProofStep,
   ) -> int | None:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
-      )
+    rendered = _render_generic_narrative_step(
+      proof_step
     )
 
     if not rendered:
@@ -3754,15 +3726,17 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
         rendered
       )
     )
-
     matches = tuple(
       index
       for index, paragraph in enumerate(
         paragraphs
       )
-      if paragraph_match_key(
-        paragraph
-      ) == target_key
+      if (
+        _phase157_r11_reference_statement_match_key(
+          paragraph.strip()
+        )
+        == target_key
+      )
     )
 
     if len(
@@ -3777,15 +3751,24 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
   insertions = []
 
   for node in presentation.nodes:
-    consumer_step = node.proof_step
+    map_step = node.proof_step
+
+    if (
+      classify_toda_proof_step_role(
+        map_step
+      )
+      is not TodaProofDependencyRole.MAP_PROPERTY
+    ):
+      continue
+
     consumer_index = visible_paragraph_index(
-      consumer_step
+      map_step
     )
 
     if consumer_index is None:
       continue
 
-    for premise in consumer_step.premises:
+    for premise in map_step.premises:
       rendered_premise = (
         _render_generic_narrative_step(
           premise
@@ -3807,20 +3790,10 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
 
       if (
         insertion_index > 0
-        and (
-          "零写像"
-          in paragraphs[
-            insertion_index - 1
-          ]
-          or "Δ=0"
-          in paragraphs[
-            insertion_index - 1
-          ]
-          or r"\Delta=0"
-          in paragraphs[
-            insertion_index - 1
-          ]
-        )
+        and "より"
+        in paragraphs[
+          insertion_index - 1
+        ]
       ):
         insertion_index -= 1
 
@@ -3831,32 +3804,16 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
         )
       )
 
-  seen_lines = set()
-
   for insertion_index, rendered_premise in sorted(
     insertions,
     reverse=True,
   ):
-    if rendered_premise in seen_lines:
-      continue
-
-    if any(
-      paragraph_match_key(
-        paragraph
-      )
-      == _phase157_r11_reference_statement_match_key(
-        rendered_premise
-      )
-      for paragraph in paragraphs
-    ):
+    if rendered_premise in paragraphs:
       continue
 
     paragraphs.insert(
       insertion_index,
       rendered_premise,
-    )
-    seen_lines.add(
-      rendered_premise
     )
 
   return "\n\n".join(
@@ -4188,8 +4145,7 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
     ):
       continue
 
-    visible_non_root_consumers = []
-    visible_root_consumers = []
+    candidate_consumers = []
 
     for proof_step in entry.proof_steps:
       for consumer in consumers_by_step_id.get(
@@ -4212,7 +4168,10 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
           for index, paragraph in enumerate(
             paragraphs
           )
-          if rendered_consumer in paragraph
+          if (
+            rendered_consumer
+            in paragraph
+          )
         )
 
         if len(
@@ -4220,68 +4179,31 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
         ) != 1:
           continue
 
-        consumer_index = matching_indices[
-          0
-        ]
-
-        if consumer is presentation.root_step:
-          visible_root_consumers.append(
-            (
-              id(
-                consumer
-              ),
-              consumer_index,
-            )
-          )
-          continue
-
-        consumer_reference = (
-          extract_toda_group_proof_step_literature_reference(
-            consumer
-          )
-        )
-
-        if consumer_reference is not None:
-          continue
-
-        visible_non_root_consumers.append(
+        candidate_consumers.append(
           (
             id(
               consumer
             ),
-            consumer_index,
+            matching_indices[
+              0
+            ],
           )
         )
 
-    non_root_candidates = tuple(
+    unique_candidates = tuple(
       dict.fromkeys(
-        visible_non_root_consumers
-      )
-    )
-    root_candidates = tuple(
-      dict.fromkeys(
-        visible_root_consumers
+        candidate_consumers
       )
     )
 
     if len(
-      non_root_candidates
-    ) == 1:
-      _, consumer_index = non_root_candidates[
-        0
-      ]
-    elif (
-      not non_root_candidates
-      and len(
-        root_candidates
-      ) == 1
-    ):
-      _, consumer_index = root_candidates[
-        0
-      ]
-    else:
+      unique_candidates
+    ) != 1:
       continue
 
+    _, consumer_index = unique_candidates[
+      0
+    ]
     paragraph = paragraphs[
       consumer_index
     ]
@@ -4300,8 +4222,6 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
   return "\n\n".join(
     paragraphs
   )
-
-
 
 
 def normalize_toda_group_proof_narrative_display_math_periods(
@@ -4853,13 +4773,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
-  rendered = (
-    link_toda_group_proof_narrative_unmarked_reference_consumers(
-      presentation,
-      rendered,
-      reference_entries,
-    )
-  )
 
   generic_used_step_ids = (
     build_toda_group_proof_narrative_generic_used_step_ids(
@@ -4937,6 +4850,13 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
+  rendered = (
+    link_toda_group_proof_narrative_unmarked_reference_consumers(
+      presentation,
+      rendered,
+      reference_entries,
+    )
+  )
   if "[R" in rendered:
     (
       reference_entries,

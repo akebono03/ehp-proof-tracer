@@ -1,0 +1,114 @@
+==============================================================================
+Phase157 R11-R17 repair2 pre-audit — Reference attribution
+==============================================================================
+Production code changes: none
+Test code changes: none
+
+------------------------------------------------------------------------------
+pi_6^3
+------------------------------------------------------------------------------
+PUBLIC HEADERS:
+  [R1] Proposition 5.6
+    SOURCE: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+      CONSUMER: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+        visible=True root=True owner='Proposition 5.6'
+      CONSUMER: $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+        visible=True root=False owner='Proposition 5.6'
+  [R2] (5.3)
+    SOURCE: $\nu' \in \pi_{6}^{3}$
+      CONSUMER: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+        visible=True root=True owner='Proposition 5.6'
+    SOURCE: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+      CONSUMER: $2\nu' = \eta_{3}^{3}$
+        visible=False root=False owner=None
+    SOURCE: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+      CONSUMER: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+        visible=False root=False owner='(5.3)'
+    SOURCE: $H\left(\nu'\right) = E^{2}\eta_{3}$
+      CONSUMER: $H\left(\nu'\right) = \eta_{5}$
+        visible=False root=False owner=None
+  [R3] Proposition 5.3
+    SOURCE: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+      CONSUMER: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+        visible=True root=False owner='Proposition 5.6'
+BODY MARKERS:
+  [R1] count=1
+  [R2] count=3
+  [R3] count=1
+
+------------------------------------------------------------------------------
+pi_10^4
+------------------------------------------------------------------------------
+PUBLIC HEADERS:
+  [R1] Proposition 5.11
+    SOURCE: $\pi_{9}^{3} = 0$
+      CONSUMER: $\pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}$
+        visible=True root=True owner='Proposition 5.11'
+  [R2] Lemma 5.4
+    SOURCE: $\nu_{4} \in \pi_{7}^{4}$, $H\left(\nu_{4}\right) = \iota_{7}$, $2E\nu_{4} = E^{2}\nu'$ が成り立つ.
+      CONSUMER: $\nu_{4}$ の分解を用いる.
+        visible=True root=False owner=None
+BODY MARKERS:
+  [R1] count=0
+  [R2] count=1
+
+------------------------------------------------------------------------------
+pi_12^5
+------------------------------------------------------------------------------
+PUBLIC HEADERS:
+  [R1] Lemma 5.13
+    SOURCE: $\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+      CONSUMER: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+        visible=True root=True owner='Proposition 5.15'
+  [R2] Equation 5.13
+    SOURCE: $\Delta\left(\nu_{9}\right) = \pm 2\nu_{4}\nu_{7}$
+      CONSUMER: $H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+        visible=False root=False owner='Proposition 5.15'
+  [R3] (5.5)
+    SOURCE: $\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.
+      CONSUMER: $H: \pi_{12}^{5} \xrightarrow{\cong} \mathbb{Z}/2\{4\nu_{9}\}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+        visible=False root=False owner='Proposition 5.15'
+      CONSUMER: $\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+        visible=False root=False owner='Lemma 5.13'
+BODY MARKERS:
+  [R1] count=1
+  [R2] count=1
+  [R3] count=0
+
+------------------------------------------------------------------------------
+pi_16^9
+------------------------------------------------------------------------------
+PUBLIC HEADERS:
+  [R1] Proposition 5.15
+    SOURCE: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+      CONSUMER: $\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+        visible=True root=True owner='Proposition 5.15'
+      CONSUMER: $|\pi_{16}^{9}| = 16$ であり, $E^{4}: \pi_{12}^{5} \to \pi_{16}^{9}$ は単射である.
+        visible=True root=False owner=None
+      CONSUMER: $8\,xEα* = E^{4}\sigma'''$ が成り立つ.
+        visible=False root=False owner=None
+    SOURCE: $\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+      CONSUMER: $\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ.
+        visible=False root=False owner='Lemma 5.14'
+  [R2] Lemma 5.14
+    SOURCE: $\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ.
+      CONSUMER: $\pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}$
+        visible=True root=True owner='Proposition 5.15'
+      CONSUMER: $\sigma_{9}$ を \(\sigma\)-family の元として定める.
+        visible=True root=False owner=None
+    SOURCE: $2\sigma' = E\sigma''$, $H\left(\sigma'\right) = \eta_{13}$ が成り立つ.
+      CONSUMER: $\sigma_{8} = xα* + -1\,y\Delta\left(\iota_{17}\right)$, $H\left(\sigma_{8}\right) = \iota_{15}$, $E\sigma_{8} = xEα*$, $2E\sigma_{8} = E^{2}\sigma'$ が成り立つ.
+        visible=False root=False owner='Lemma 5.14'
+      CONSUMER: $\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+        visible=True root=False owner='Proposition 5.15'
+  [R3] Lemma 5.13
+    SOURCE: $\sigma''' \in \{\nu_{5}, 8\iota_{8}, \nu_{8}\}_{3}$, $H(\sigma''') = 4\nu_{9}$ が成り立つ.
+      CONSUMER: $\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}$
+        visible=True root=False owner='Proposition 5.15'
+      CONSUMER: $8\,xEα* = E^{4}\sigma'''$ が成り立つ.
+        visible=False root=False owner=None
+BODY MARKERS:
+  [R1] count=0
+  [R2] count=0
+  [R3] count=1
+

@@ -4188,8 +4188,7 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
     ):
       continue
 
-    visible_non_root_consumers = []
-    visible_root_consumers = []
+    candidate_consumers = []
 
     for proof_step in entry.proof_steps:
       for consumer in consumers_by_step_id.get(
@@ -4212,7 +4211,10 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
           for index, paragraph in enumerate(
             paragraphs
           )
-          if rendered_consumer in paragraph
+          if (
+            rendered_consumer
+            in paragraph
+          )
         )
 
         if len(
@@ -4220,68 +4222,31 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
         ) != 1:
           continue
 
-        consumer_index = matching_indices[
-          0
-        ]
-
-        if consumer is presentation.root_step:
-          visible_root_consumers.append(
-            (
-              id(
-                consumer
-              ),
-              consumer_index,
-            )
-          )
-          continue
-
-        consumer_reference = (
-          extract_toda_group_proof_step_literature_reference(
-            consumer
-          )
-        )
-
-        if consumer_reference is not None:
-          continue
-
-        visible_non_root_consumers.append(
+        candidate_consumers.append(
           (
             id(
               consumer
             ),
-            consumer_index,
+            matching_indices[
+              0
+            ],
           )
         )
 
-    non_root_candidates = tuple(
+    unique_candidates = tuple(
       dict.fromkeys(
-        visible_non_root_consumers
-      )
-    )
-    root_candidates = tuple(
-      dict.fromkeys(
-        visible_root_consumers
+        candidate_consumers
       )
     )
 
     if len(
-      non_root_candidates
-    ) == 1:
-      _, consumer_index = non_root_candidates[
-        0
-      ]
-    elif (
-      not non_root_candidates
-      and len(
-        root_candidates
-      ) == 1
-    ):
-      _, consumer_index = root_candidates[
-        0
-      ]
-    else:
+      unique_candidates
+    ) != 1:
       continue
 
+    _, consumer_index = unique_candidates[
+      0
+    ]
     paragraph = paragraphs[
       consumer_index
     ]
@@ -4300,8 +4265,6 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
   return "\n\n".join(
     paragraphs
   )
-
-
 
 
 def normalize_toda_group_proof_narrative_display_math_periods(
@@ -4936,19 +4899,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       statement_lines_by_reference_number,
     )
   )
-
-  if "[R" in rendered:
-    (
-      reference_entries,
-      statement_lines_by_reference_number,
-      rendered,
-    ) = (
-      filter_toda_group_proof_narrative_reference_entries_by_body_usage(
-        reference_entries,
-        statement_lines_by_reference_number,
-        rendered,
-      )
-    )
 
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
