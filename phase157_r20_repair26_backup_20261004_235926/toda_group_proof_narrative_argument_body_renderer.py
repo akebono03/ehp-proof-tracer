@@ -5,6 +5,7 @@ from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_expression_latex,
   _render_generic_narrative_proof_block,
   _render_generic_narrative_step,
+  _try_render_generic_narrative_expression_latex,
 )
 from proof import (
   ProofStep,
@@ -659,6 +660,23 @@ def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
   ):
     return False
 
+  lhs_raw = (
+    _try_render_generic_narrative_expression_latex(
+      statement.lhs
+    )
+  )
+  rhs_raw = (
+    _try_render_generic_narrative_expression_latex(
+      statement.rhs
+    )
+  )
+
+  if (
+    lhs_raw is None
+    or rhs_raw is None
+  ):
+    return False
+
   try:
     lhs_normalized = (
       _render_generic_narrative_expression_latex(
@@ -680,8 +698,6 @@ def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
     lhs_normalized
     == rhs_normalized
   )
-
-
 
 
 def render_toda_group_proof_narrative_argument_body_markdown(
@@ -1159,11 +1175,6 @@ def render_toda_group_proof_narrative_argument_body_markdown(
             or id(
               premise_step
             ) not in context_hidden_step_ids
-          )
-          and not (
-            _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
-              premise_step
-            )
           )
         )
       )
