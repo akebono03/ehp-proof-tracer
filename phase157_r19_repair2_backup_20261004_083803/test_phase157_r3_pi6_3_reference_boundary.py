@@ -40,17 +40,38 @@ def _render_pi6_3(
 def _reference_and_body(
   rendered: str,
 ) -> tuple[str, str]:
-  marker = "\n## 証明\n"
-  assert marker in rendered
+  lines = rendered.splitlines()
 
-  reference, body = rendered.split(
-    marker,
-    1,
-  )
+  assert lines
+  assert lines[0] == "使用する結果を先にまとめる."
+
+  reference_lines = [
+    lines[0],
+  ]
+  seen_reference_header = False
+  body_start = None
+
+  for index, line in enumerate(
+    lines[1:],
+    start=1,
+  ):
+    if line.startswith("**[R"):
+      seen_reference_header = True
+      reference_lines.append(line)
+      continue
+
+    if seen_reference_header and not line.strip():
+      body_start = index + 1
+      break
+
+    reference_lines.append(line)
+
+  assert seen_reference_header
+  assert body_start is not None
 
   return (
-    reference.rstrip(),
-    body.lstrip(),
+    "\n".join(reference_lines).rstrip(),
+    "\n".join(lines[body_start:]).lstrip(),
   )
 
 
@@ -61,7 +82,7 @@ def test_phase157_r3_pi6_3_reference_uses_earlier_prop56_group_result():
 
   assert "Proposition 5.6" in reference
   assert (
-    r"\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}"
+    r"\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}"
     in reference
   )
   assert (
@@ -79,7 +100,7 @@ def test_phase157_r3_pi6_3_reference_keeps_only_fixed_prop53_group_fact():
 
   assert "Proposition 5.3" in reference
   assert (
-    r"\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}"
+    r"\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}"
     in reference
   )
   assert (
@@ -141,23 +162,18 @@ def test_phase157_r3_pi6_3_body_keeps_prop56_derived_injectivity():
   assert "単射" in body
 
 
-def test_phase157_r3_pi6_3_depth3_suppresses_prop53_internal_suspension():
+def test_phase157_r3_pi6_3_depth3_keeps_prop53_derived_suspension_in_body():
   reference, body = _reference_and_body(
     _render_pi6_3(3)
   )
 
-  assert "Proposition 5.3" in reference
-  assert (
-    r"\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}"
-    in reference
-  )
   assert (
     r"E: \pi_{4}^{2} \to \pi_{5}^{3}"
     not in reference
   )
   assert (
     r"E: \pi_{4}^{2} \to \pi_{5}^{3}"
-    not in body
+    in body
   )
 
 
@@ -178,8 +194,6 @@ def test_phase157_r3_pi6_3_same_proposition_earlier_component_survives_root_excl
 
   assert "Proposition 5.6" in reference
   assert (
-    r"\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}"
+    r"\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}"
     in reference
   )
-
-

@@ -91,10 +91,15 @@ def test_phase157_r11_r11_hopf_derivation_precedes_surjectivity():
 
   fixed_hopf = (
     "[R2]より, "
-    r"$H\left(\nu'\right)=\eta_{5}$."
+    r"$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$."
+  )
+  bridge = (
+    r"$E^{2}\eta_{3} = \eta_{5}\tag{5}$."
+  )
+  derived_hopf = (
+    r"$H\left(\nu'\right) = \eta_{5}\tag{6}$."
   )
   target_group = (
-    "[R4]より, "
     r"$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$."
   )
   surjectivity = (
@@ -102,13 +107,25 @@ def test_phase157_r11_r11_hopf_derivation_precedes_surjectivity():
   )
 
   assert fixed_hopf in body
+  assert bridge in body
+  assert derived_hopf in body
   assert target_group in body
   assert surjectivity in body
 
   assert body.index(
     fixed_hopf
   ) < body.index(
-    target_group
+    derived_hopf
+  )
+  assert body.index(
+    bridge
+  ) < body.index(
+    derived_hopf
+  )
+  assert body.index(
+    derived_hopf
+  ) < body.index(
+    surjectivity
   )
   assert body.index(
     target_group
@@ -226,7 +243,7 @@ def test_phase157_r11_r11_reference_keeps_all_used_equation_53_components():
 
   assert "**[R2] (5.3).**" in reference
   assert (
-    r"$2\nu' = \eta_{3}^{3}$."
+    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
     in reference
   )
   assert (
@@ -243,7 +260,7 @@ def test_phase157_r11_r11_reference_non_definition_lines_end_with_period():
     in reference
   )
   assert (
-    r"$2\nu' = \eta_{3}^{3}$."
+    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}$."
     in reference
   )
   assert (

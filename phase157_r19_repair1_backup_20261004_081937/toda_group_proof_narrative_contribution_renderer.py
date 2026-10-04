@@ -1196,149 +1196,6 @@ def _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
   )
 
 
-def _phase157_r19_restore_prop22_reference_for_pi6_3(
-  presentation: TodaGroupProofPresentation,
-  source_entries,
-  filtered_entries,
-):
-  target = (
-    presentation
-    .source_replay
-    .group_result
-    .target
-  )
-
-  if not (
-    target.group_dimension == 6
-    and target.sphere_dimension == 3
-  ):
-    return filtered_entries
-
-  if any(
-    entry.reference.locator == "Proposition 2.2"
-    for entry in filtered_entries
-  ):
-    return filtered_entries
-
-  equation57_entries = tuple(
-    entry
-    for entry in source_entries
-    if entry.reference.locator == "Equation 5.7"
-  )
-
-  if len(
-    equation57_entries
-  ) != 1:
-    return filtered_entries
-
-  equation57_entry = equation57_entries[0]
-
-  proposition22_entry = replace(
-    equation57_entry,
-    number=len(filtered_entries) + 1,
-    reference=replace(
-      equation57_entry.reference,
-      label="Toda Proposition 2.2",
-      locator="Proposition 2.2",
-    ),
-  )
-
-  return tuple(
-    replace(
-      entry,
-      number=number,
-    )
-    for number, entry in enumerate(
-      filtered_entries + (proposition22_entry,),
-      start=1,
-    )
-  )
-
-
-def _phase157_r19_public_reference_statement_lines(
-  presentation: TodaGroupProofPresentation,
-  reference_entries,
-  statement_lines_by_reference_number: dict[
-    int,
-    tuple[
-      str,
-      ...,
-    ],
-  ],
-) -> dict[
-  int,
-  tuple[
-    str,
-    ...,
-  ],
-]:
-  public_lines = dict(
-    statement_lines_by_reference_number
-  )
-
-  target = (
-    presentation
-    .source_replay
-    .group_result
-    .target
-  )
-
-  if not (
-    target.group_dimension == 6
-    and target.sphere_dimension == 3
-  ):
-    return public_lines
-
-  for entry in reference_entries:
-    locator = entry.reference.locator
-
-    if locator == "Proposition 5.6":
-      public_lines[
-        entry.number
-      ] = (
-        r"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$.",
-      )
-      continue
-
-    if locator == "(5.3)":
-      public_lines[
-        entry.number
-      ] = (
-        r"$\nu' \in \pi_{6}^{3}$.",
-        r"$2\nu' = \eta_{3}^{3}$.",
-        r"$H\left(\nu'\right) = \eta_{5}$.",
-      )
-      continue
-
-    if locator == "Proposition 5.3":
-      public_lines[
-        entry.number
-      ] = (
-        r"$\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}$.",
-      )
-      continue
-
-    if locator == "Proposition 5.1":
-      public_lines[
-        entry.number
-      ] = (
-        r"$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.",
-      )
-      continue
-
-    if locator == "Proposition 2.2":
-      public_lines[
-        entry.number
-      ] = (
-        (
-          r"$H(\alpha\circ E\beta) = "
-          r"H(\alpha)\circ E\beta$."
-        ),
-      )
-
-  return public_lines
-
-
 def _toda_group_proof_narrative_reference_statement_lines_by_number(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -3926,229 +3783,140 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       0
     ]
 
-  def reference_number(
-    locator: str,
-  ) -> int | None:
-    matching = tuple(
-      entry.number
+  def reference_entry_for_step(
+    proof_step: ProofStep,
+  ):
+    matching_entries = tuple(
+      entry
       for entry in reference_entries
-      if entry.reference.locator == locator
+      if any(
+        candidate is proof_step
+        for candidate in entry.proof_steps
+      )
     )
 
     if len(
-      matching
+      matching_entries
     ) != 1:
       return None
 
-    return matching[
+    return matching_entries[
       0
     ]
 
-  target = (
-    presentation
-    .source_replay
-    .group_result
-    .target
-  )
-
-  is_pi6_3 = (
-    target.group_dimension == 6
-    and target.sphere_dimension == 3
-  )
-
-  if is_pi6_3:
-    r2 = reference_number(
-      "(5.3)"
-    )
-    r3 = reference_number(
-      "Proposition 5.3"
-    )
-    r4 = reference_number(
-      "Proposition 5.1"
-    )
-    r5 = reference_number(
-      "Proposition 2.2"
+  def render_dependency_step(
+    proof_step: ProofStep,
+  ) -> str | None:
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
+      )
     )
 
-    if None not in (
-      r2,
-      r3,
-      r4,
-      r5,
+    if not rendered:
+      return None
+
+    entry = reference_entry_for_step(
+      proof_step
+    )
+
+    if entry is None:
+      return rendered
+
+    rendered = (
+      _phase153_r6_render_reference_statement(
+        presentation,
+        entry,
+        proof_step,
+        rendered,
+      )
+    )
+
+    return (
+      "[R"
+      + str(
+        entry.number
+      )
+      + "]より, "
+      + rendered
+    )
+
+  def ordered_premises(
+    proof_step: ProofStep,
+  ) -> tuple[
+    ProofStep,
+    ...,
+  ]:
+    return tuple(
+      sorted(
+        proof_step.premises,
+        key=lambda premise: (
+          0
+          if classify_toda_proof_step_role(
+            premise
+          )
+          in (
+            TodaProofDependencyRole.EHP_EXACTNESS,
+            TodaProofDependencyRole.EHP_WINDOW,
+          )
+          else 1
+        ),
+      )
+    )
+
+  def dependency_support_block(
+    proof_step: ProofStep,
+    visited_step_ids: set[int],
+  ) -> list[str]:
+    proof_step_id = id(
+      proof_step
+    )
+
+    if proof_step_id in visited_step_ids:
+      return []
+
+    visited_step_ids.add(
+      proof_step_id
+    )
+
+    entry = reference_entry_for_step(
+      proof_step
+    )
+
+    if entry is not None:
+      rendered = render_dependency_step(
+        proof_step
+      )
+      return (
+        []
+        if rendered is None
+        else [
+          rendered,
+        ]
+      )
+
+    lines = []
+
+    for premise in ordered_premises(
+      proof_step
     ):
-      insertions = []
-
-      for node in presentation.nodes:
-        consumer_step = node.proof_step
-        consumer_index = visible_paragraph_index(
-          consumer_step
+      lines.extend(
+        dependency_support_block(
+          premise,
+          visited_step_ids,
         )
-
-        if consumer_index is None:
-          continue
-
-        for zero_step in consumer_step.premises:
-          rendered_zero = (
-            _render_generic_narrative_step(
-              zero_step
-            )
-          )
-
-          if (
-            not rendered_zero
-            or "零写像である."
-            not in rendered_zero
-            or visible_paragraph_index(
-              zero_step
-            )
-            is not None
-          ):
-            continue
-
-          hopf_surjective_step = next(
-            (
-              premise
-              for premise in zero_step.premises
-              if (
-                "全射である."
-                in (
-                  _render_generic_narrative_step(
-                    premise
-                  )
-                  or ""
-                )
-                and "H:"
-                in (
-                  _render_generic_narrative_step(
-                    premise
-                  )
-                  or ""
-                )
-              )
-            ),
-            None,
-          )
-          exactness_step = next(
-            (
-              premise
-              for premise in zero_step.premises
-              if classify_toda_proof_step_role(
-                premise
-              )
-              in (
-                TodaProofDependencyRole.EHP_EXACTNESS,
-                TodaProofDependencyRole.EHP_WINDOW,
-              )
-            ),
-            None,
-          )
-
-          if hopf_surjective_step is None:
-            continue
-
-          rendered_surjectivity = (
-            _render_generic_narrative_step(
-              hopf_surjective_step
-            )
-          )
-
-          if rendered_surjectivity is None:
-            continue
-
-          block = []
-
-          if exactness_step is not None:
-            rendered_exactness = (
-              _render_generic_narrative_step(
-                exactness_step
-              )
-            )
-
-            if rendered_exactness:
-              block.append(
-                rendered_exactness
-              )
-
-          block.extend(
-            (
-              (
-                f"[R{r5}] と [R{r2}] より, "
-                r"$H\left(\nu'\eta_{6}\right)"
-                r"=H\left(\nu'\right)\eta_{6}"
-                r"=\eta_{5}\eta_{6}"
-                r"=\eta_{5}^{2}$."
-              ),
-              (
-                f"[R{r3}]より, "
-                r"$\pi_{7}^{5}"
-                r"=\mathbb{Z}/2\{\eta_{5}^{2}\}$."
-              ),
-              rendered_surjectivity,
-              rendered_zero,
-            )
-          )
-
-          insertions.append(
-            (
-              consumer_index,
-              block,
-            )
-          )
-
-      seen_keys = {
-        paragraph_match_key(
-          paragraph
-        )
-        for paragraph in paragraphs
-      }
-
-      for insertion_index, block in sorted(
-        insertions,
-        reverse=True,
-      ):
-        visible_block = []
-
-        for paragraph in block:
-          key = paragraph_match_key(
-            paragraph
-          )
-
-          if key in seen_keys:
-            continue
-
-          visible_block.append(
-            paragraph
-          )
-          seen_keys.add(
-            key
-          )
-
-        if visible_block:
-          paragraphs[
-            insertion_index:
-            insertion_index
-          ] = visible_block
-
-      pi6_5_plain = (
-        r"$\pi_{6}^{5} = "
-        r"\mathbb{Z}/2\{\eta_{5}\}$."
-      )
-      pi6_5_marked = (
-        f"[R{r4}]より, "
-        + pi6_5_plain
       )
 
-      for index, paragraph in enumerate(
-        paragraphs
-      ):
-        if paragraph.strip() == pi6_5_plain:
-          paragraphs[
-            index
-          ] = pi6_5_marked
+    rendered = render_dependency_step(
+      proof_step
+    )
 
-      return "\n\n".join(
-        paragraphs
+    if rendered is not None:
+      lines.append(
+        rendered
       )
+
+    return lines
 
   insertions = []
 
@@ -4200,40 +3968,57 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       ):
         insertion_index -= 1
 
-      insertions.append(
-        (
-          insertion_index,
-          rendered_premise,
+      dependency_block = (
+        dependency_support_block(
+          premise,
+          set(),
         )
       )
 
-  seen_lines = set()
+      insertions.append(
+        (
+          insertion_index,
+          dependency_block,
+        )
+      )
 
-  for insertion_index, rendered_premise in sorted(
+  seen_keys = {
+    paragraph_match_key(
+      paragraph
+    )
+    for paragraph in paragraphs
+  }
+
+  for insertion_index, dependency_block in sorted(
     insertions,
     reverse=True,
   ):
-    if rendered_premise in seen_lines:
+    visible_block = []
+
+    for rendered_dependency in dependency_block:
+      dependency_key = (
+        paragraph_match_key(
+          rendered_dependency
+        )
+      )
+
+      if dependency_key in seen_keys:
+        continue
+
+      visible_block.append(
+        rendered_dependency
+      )
+      seen_keys.add(
+        dependency_key
+      )
+
+    if not visible_block:
       continue
 
-    if any(
-      paragraph_match_key(
-        paragraph
-      )
-      == _phase157_r11_reference_statement_match_key(
-        rendered_premise
-      )
-      for paragraph in paragraphs
-    ):
-      continue
-
-    paragraphs.insert(
-      insertion_index,
-      rendered_premise,
-    )
-    seen_lines.add(
-      rendered_premise
-    )
+    paragraphs[
+      insertion_index:
+      insertion_index
+    ] = visible_block
 
   return "\n\n".join(
     paragraphs
@@ -5034,420 +4819,6 @@ def _phase157_r3_restore_pi6_3_earlier_prop56_reference(
   )
 
 
-def _phase157_r19_finalize_pi6_3_public_narrative(
-  presentation: TodaGroupProofPresentation,
-  source_reference_entries,
-  reference_entries,
-  statement_lines_by_reference_number,
-  rendered: str,
-):
-  target = (
-    presentation
-    .source_replay
-    .group_result
-    .target
-  )
-
-  if not (
-    target.group_dimension == 6
-    and target.sphere_dimension == 3
-  ):
-    return (
-      reference_entries,
-      statement_lines_by_reference_number,
-      rendered,
-    )
-
-  rebuilt_entries = (
-    build_toda_group_proof_narrative_reference_entries(
-      presentation
-    )
-  )
-
-  entry_candidates = (
-    tuple(
-      source_reference_entries
-    )
-    + tuple(
-      reference_entries
-    )
-    + tuple(
-      rebuilt_entries
-    )
-  )
-
-  template_entry = next(
-    iter(
-      entry_candidates
-    ),
-    None,
-  )
-
-  if template_entry is None:
-    return (
-      reference_entries,
-      statement_lines_by_reference_number,
-      rendered,
-    )
-
-  def proof_step_for_locator(
-    locator: str,
-  ) -> ProofStep | None:
-    for node in presentation.nodes:
-      proof_step = node.proof_step
-      reference = (
-        extract_toda_group_proof_step_literature_reference(
-          proof_step
-        )
-      )
-
-      if (
-        reference is not None
-        and reference.locator == locator
-      ):
-        return proof_step
-
-    return None
-
-  def existing_entry_for_locator(
-    locator: str,
-  ):
-    return next(
-      (
-        entry
-        for entry in entry_candidates
-        if entry.reference.locator == locator
-      ),
-      None,
-    )
-
-  def build_entry(
-    number: int,
-    locator: str,
-    label: str,
-    fallback_step: ProofStep | None = None,
-  ):
-    existing = existing_entry_for_locator(
-      locator
-    )
-
-    if existing is not None:
-      return replace(
-        existing,
-        number=number,
-      )
-
-    proof_step = proof_step_for_locator(
-      locator
-    )
-
-    if proof_step is None:
-      proof_step = fallback_step
-
-    if proof_step is None:
-      proof_step = template_entry.proof_steps[
-        0
-      ]
-
-    return replace(
-      template_entry,
-      number=number,
-      reference=replace(
-        template_entry.reference,
-        label=label,
-        locator=locator,
-      ),
-      proof_steps=(
-        proof_step,
-      ),
-    )
-
-  prop56_step = proof_step_for_locator(
-    "Proposition 5.6"
-  )
-  equation53_step = proof_step_for_locator(
-    "(5.3)"
-  )
-  prop53_step = proof_step_for_locator(
-    "Proposition 5.3"
-  )
-  prop51_step = proof_step_for_locator(
-    "Proposition 5.1"
-  )
-  equation57_step = proof_step_for_locator(
-    "Equation 5.7"
-  )
-
-  if equation57_step is None:
-    equation57_step = next(
-      (
-        node.proof_step
-        for node in presentation.nodes
-        if (
-          node.proof_step.inference_rule
-          is not None
-          and "Equation 5.7"
-          in node.proof_step.inference_rule.name
-        )
-      ),
-      None,
-    )
-
-  finalized_entries = (
-    build_entry(
-      1,
-      "Proposition 5.6",
-      "Toda Proposition 5.6",
-      prop56_step,
-    ),
-    build_entry(
-      2,
-      "(5.3)",
-      "Toda (5.3)",
-      equation53_step,
-    ),
-    build_entry(
-      3,
-      "Proposition 5.3",
-      "Toda Proposition 5.3",
-      prop53_step,
-    ),
-    build_entry(
-      4,
-      "Proposition 5.1",
-      "Toda Proposition 5.1",
-      prop51_step,
-    ),
-    build_entry(
-      5,
-      "Proposition 2.2",
-      "Toda Proposition 2.2",
-      equation57_step,
-    ),
-  )
-
-  finalized_lines = {
-    1: (
-      r"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$.",
-    ),
-    2: (
-      r"$\nu' \in \pi_{6}^{3}$.",
-      r"$2\nu' = \eta_{3}^{3}$.",
-      r"$H\left(\nu'\right) = \eta_{5}$.",
-    ),
-    3: (
-      r"$\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}$.",
-    ),
-    4: (
-      r"$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.",
-    ),
-    5: (
-      (
-        r"$H(\alpha\circ E\beta) = "
-        r"H(\alpha)\circ E\beta$."
-      ),
-    ),
-  }
-
-  paragraphs = rendered.split(
-    "\n\n"
-  )
-  canonical_paragraphs = []
-
-  for paragraph in paragraphs:
-    stripped = paragraph.strip()
-
-    if (
-      r"\tag{2}" in stripped
-      or r"\tag{3}" in stripped
-      or stripped.startswith(
-        "(1) と (2) より"
-      )
-    ):
-      continue
-
-    if (
-      r"\tag{5}" in stripped
-      or r"\tag{6}" in stripped
-      or stripped.startswith(
-        "(4) と (5) より"
-      )
-    ):
-      continue
-
-    if (
-      r"\tag{1}" in stripped
-      and r"2\nu'" in stripped
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R2]より, "
-          r"$2\nu' = \eta_{3}^{3}$."
-        )
-      )
-      continue
-
-    if (
-      r"\tag{4}" in stripped
-      and r"H\left(\nu'\right)" in stripped
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R2]より, "
-          r"$H\left(\nu'\right)=\eta_{5}$."
-        )
-      )
-      continue
-
-    if (
-      r"\pi_{5}^{2}"
-      in stripped
-      and r"\mathbb{Z}/2"
-      in stripped
-      and "[R1]より"
-      in stripped
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R1]より, "
-          r"$\pi_{5}^{2} = "
-          r"\mathbb{Z}/2\{\eta_{2}^{3}\}$."
-        )
-      )
-      continue
-
-    if (
-      stripped
-      == (
-        r"$\pi_{6}^{5} = "
-        r"\mathbb{Z}/2\{\eta_{5}\}$."
-      )
-      or stripped
-      == (
-        r"$\pi_{6}^{5} = "
-        r"\mathbb{Z}/2\{\eta_{5}\}$"
-      )
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R4]より, "
-          r"$\pi_{6}^{5} = "
-          r"\mathbb{Z}/2\{\eta_{5}\}$."
-        )
-      )
-      continue
-
-    canonical_paragraphs.append(
-      paragraph
-    )
-
-  paragraphs = canonical_paragraphs
-
-  delta_zero = (
-    r"$\Delta: \pi_{7}^{5} "
-    r"\to \pi_{5}^{2}$ は零写像である."
-  )
-
-  if not any(
-    "[R5] と [R2] より"
-    in paragraph
-    for paragraph in paragraphs
-  ):
-    delta_index = next(
-      (
-        index
-        for index, paragraph in enumerate(
-          paragraphs
-        )
-        if paragraph.strip() == delta_zero
-      ),
-      None,
-    )
-
-    if delta_index is not None:
-      support = (
-        (
-          r"$\pi_{7}^{3} \xrightarrow{H} "
-          r"\pi_{7}^{5} \xrightarrow{\Delta} "
-          r"\pi_{5}^{2}$ は完全である."
-        ),
-        (
-          "[R5] と [R2] より, "
-          r"$H\left(\nu'\eta_{6}\right)"
-          r"=H\left(\nu'\right)\eta_{6}"
-          r"=\eta_{5}\eta_{6}"
-          r"=\eta_{5}^{2}$."
-        ),
-        (
-          "[R3]より, "
-          r"$\pi_{7}^{5} = "
-          r"\mathbb{Z}/2\{\eta_{5}^{2}\}$."
-        ),
-        (
-          r"$H: \pi_{7}^{3} "
-          r"\to \pi_{7}^{5}$ は全射である."
-        ),
-      )
-
-      paragraphs[
-        delta_index:
-        delta_index
-      ] = support
-
-  injective = (
-    r"$E: \pi_{5}^{2} "
-    r"\to \pi_{6}^{3}$ は単射である."
-  )
-  eta_reason = (
-    "[R1] と $E$ の単射性より, "
-    r"$E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$."
-  )
-
-  if not any(
-    eta_reason
-    in paragraph
-    for paragraph in paragraphs
-  ):
-    injective_index = next(
-      (
-        index
-        for index, paragraph in enumerate(
-          paragraphs
-        )
-        if paragraph.strip() == injective
-      ),
-      None,
-    )
-
-    if injective_index is not None:
-      paragraphs.insert(
-        injective_index + 1,
-        eta_reason,
-      )
-
-  rendered = "\n\n".join(
-    paragraphs
-  )
-
-  rendered = rendered.replace(
-    (
-      "以上より, この短完全列と両端の群の位数より, "
-      "中央の群の位数は $2\\cdot2=4$ である."
-    ),
-    (
-      "この短完全列と両端の群の位数より, "
-      "中央の群の位数は $2\\cdot2=4$ である."
-    ),
-    1,
-  )
-
-  return (
-    finalized_entries,
-    finalized_lines,
-    rendered,
-  )
-
-
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -5751,23 +5122,8 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       )
     )
 
-  (
-    reference_entries,
-    statement_lines_by_reference_number,
-    rendered,
-  ) = (
-    _phase157_r19_finalize_pi6_3_public_narrative(
-      presentation,
-      phase157_r4_reference_entries_before_usage_filter,
-      reference_entries,
-      statement_lines_by_reference_number,
-      rendered,
-    )
-  )
-
   public_statement_lines_by_reference_number = (
     _phase157_r19_public_reference_statement_lines(
-      presentation,
       reference_entries,
       statement_lines_by_reference_number,
     )

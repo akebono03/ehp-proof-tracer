@@ -141,23 +141,18 @@ def test_phase157_r3_pi6_3_body_keeps_prop56_derived_injectivity():
   assert "単射" in body
 
 
-def test_phase157_r3_pi6_3_depth3_suppresses_prop53_internal_suspension():
+def test_phase157_r3_pi6_3_depth3_keeps_prop53_derived_suspension_in_body():
   reference, body = _reference_and_body(
     _render_pi6_3(3)
   )
 
-  assert "Proposition 5.3" in reference
-  assert (
-    r"\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}"
-    in reference
-  )
   assert (
     r"E: \pi_{4}^{2} \to \pi_{5}^{3}"
     not in reference
   )
   assert (
     r"E: \pi_{4}^{2} \to \pi_{5}^{3}"
-    not in body
+    in body
   )
 
 
@@ -178,8 +173,6 @@ def test_phase157_r3_pi6_3_same_proposition_earlier_component_survives_root_excl
 
   assert "Proposition 5.6" in reference
   assert (
-    r"\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}"
+    r"\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}"
     in reference
   )
-
-

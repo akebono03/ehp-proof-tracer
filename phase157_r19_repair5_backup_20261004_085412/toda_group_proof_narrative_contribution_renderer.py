@@ -5058,6 +5058,13 @@ def _phase157_r19_finalize_pi6_3_public_narrative(
       rendered,
     )
 
+  desired_locators = (
+    "Proposition 5.6",
+    "(5.3)",
+    "Proposition 5.3",
+    "Proposition 5.1",
+  )
+
   rebuilt_entries = (
     build_toda_group_proof_narrative_reference_entries(
       presentation
@@ -5076,154 +5083,86 @@ def _phase157_r19_finalize_pi6_3_public_narrative(
     )
   )
 
-  template_entry = next(
-    iter(
-      entry_candidates
+  entry_by_locator = {}
+
+  for entry in entry_candidates:
+    locator = entry.reference.locator
+
+    if (
+      locator in desired_locators
+      and locator not in entry_by_locator
+    ):
+      entry_by_locator[
+        locator
+      ] = entry
+
+  proposition22_entry = next(
+    (
+      entry
+      for entry in entry_candidates
+      if entry.reference.locator == "Proposition 2.2"
     ),
     None,
   )
 
-  if template_entry is None:
+  if proposition22_entry is None:
+    equation57_entry = next(
+      (
+        entry
+        for entry in entry_candidates
+        if entry.reference.locator == "Equation 5.7"
+      ),
+      None,
+    )
+
+    if equation57_entry is not None:
+      proposition22_entry = replace(
+        equation57_entry,
+        reference=replace(
+          equation57_entry.reference,
+          label="Toda Proposition 2.2",
+          locator="Proposition 2.2",
+        ),
+      )
+
+  if (
+    any(
+      locator not in entry_by_locator
+      for locator in desired_locators
+    )
+    or proposition22_entry is None
+  ):
     return (
       reference_entries,
       statement_lines_by_reference_number,
       rendered,
     )
 
-  def proof_step_for_locator(
-    locator: str,
-  ) -> ProofStep | None:
-    for node in presentation.nodes:
-      proof_step = node.proof_step
-      reference = (
-        extract_toda_group_proof_step_literature_reference(
-          proof_step
-        )
-      )
+  ordered_entries = (
+    entry_by_locator[
+      "Proposition 5.6"
+    ],
+    entry_by_locator[
+      "(5.3)"
+    ],
+    entry_by_locator[
+      "Proposition 5.3"
+    ],
+    entry_by_locator[
+      "Proposition 5.1"
+    ],
+    proposition22_entry,
+  )
 
-      if (
-        reference is not None
-        and reference.locator == locator
-      ):
-        return proof_step
-
-    return None
-
-  def existing_entry_for_locator(
-    locator: str,
-  ):
-    return next(
-      (
-        entry
-        for entry in entry_candidates
-        if entry.reference.locator == locator
-      ),
-      None,
-    )
-
-  def build_entry(
-    number: int,
-    locator: str,
-    label: str,
-    fallback_step: ProofStep | None = None,
-  ):
-    existing = existing_entry_for_locator(
-      locator
-    )
-
-    if existing is not None:
-      return replace(
-        existing,
-        number=number,
-      )
-
-    proof_step = proof_step_for_locator(
-      locator
-    )
-
-    if proof_step is None:
-      proof_step = fallback_step
-
-    if proof_step is None:
-      proof_step = template_entry.proof_steps[
-        0
-      ]
-
-    return replace(
-      template_entry,
+  finalized_entries = tuple(
+    replace(
+      entry,
       number=number,
-      reference=replace(
-        template_entry.reference,
-        label=label,
-        locator=locator,
-      ),
-      proof_steps=(
-        proof_step,
-      ),
     )
-
-  prop56_step = proof_step_for_locator(
-    "Proposition 5.6"
-  )
-  equation53_step = proof_step_for_locator(
-    "(5.3)"
-  )
-  prop53_step = proof_step_for_locator(
-    "Proposition 5.3"
-  )
-  prop51_step = proof_step_for_locator(
-    "Proposition 5.1"
-  )
-  equation57_step = proof_step_for_locator(
-    "Equation 5.7"
-  )
-
-  if equation57_step is None:
-    equation57_step = next(
-      (
-        node.proof_step
-        for node in presentation.nodes
-        if (
-          node.proof_step.inference_rule
-          is not None
-          and "Equation 5.7"
-          in node.proof_step.inference_rule.name
-        )
-      ),
-      None,
+    for number, entry in enumerate(
+      ordered_entries,
+      start=1,
     )
-
-  finalized_entries = (
-    build_entry(
-      1,
-      "Proposition 5.6",
-      "Toda Proposition 5.6",
-      prop56_step,
-    ),
-    build_entry(
-      2,
-      "(5.3)",
-      "Toda (5.3)",
-      equation53_step,
-    ),
-    build_entry(
-      3,
-      "Proposition 5.3",
-      "Toda Proposition 5.3",
-      prop53_step,
-    ),
-    build_entry(
-      4,
-      "Proposition 5.1",
-      "Toda Proposition 5.1",
-      prop51_step,
-    ),
-    build_entry(
-      5,
-      "Proposition 2.2",
-      "Toda Proposition 2.2",
-      equation57_step,
-    ),
   )
 
   finalized_lines = {
@@ -5249,185 +5188,147 @@ def _phase157_r19_finalize_pi6_3_public_narrative(
     ),
   }
 
-  paragraphs = rendered.split(
+  old_order_block = (
+    "[R2]より, "
+    r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$."
     "\n\n"
+    r"$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$."
+    "\n\n"
+    "(1) と (2) より, "
+    "\n\n"
+    r"$2\nu' = \eta_{3}^{3}\tag{3}$."
   )
-  canonical_paragraphs = []
+  new_order_block = (
+    "[R2]より, "
+    r"$2\nu' = \eta_{3}^{3}$."
+  )
 
-  for paragraph in paragraphs:
-    stripped = paragraph.strip()
+  rendered = rendered.replace(
+    old_order_block,
+    new_order_block,
+    1,
+  )
 
-    if (
-      r"\tag{2}" in stripped
-      or r"\tag{3}" in stripped
-      or stripped.startswith(
-        "(1) と (2) より"
-      )
-    ):
-      continue
-
-    if (
-      r"\tag{5}" in stripped
-      or r"\tag{6}" in stripped
-      or stripped.startswith(
-        "(4) と (5) より"
-      )
-    ):
-      continue
-
-    if (
-      r"\tag{1}" in stripped
-      and r"2\nu'" in stripped
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R2]より, "
-          r"$2\nu' = \eta_{3}^{3}$."
-        )
-      )
-      continue
-
-    if (
-      r"\tag{4}" in stripped
-      and r"H\left(\nu'\right)" in stripped
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R2]より, "
-          r"$H\left(\nu'\right)=\eta_{5}$."
-        )
-      )
-      continue
-
-    if (
-      r"\pi_{5}^{2}"
-      in stripped
-      and r"\mathbb{Z}/2"
-      in stripped
-      and "[R1]より"
-      in stripped
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R1]より, "
-          r"$\pi_{5}^{2} = "
-          r"\mathbb{Z}/2\{\eta_{2}^{3}\}$."
-        )
-      )
-      continue
-
-    if (
-      stripped
-      == (
-        r"$\pi_{6}^{5} = "
-        r"\mathbb{Z}/2\{\eta_{5}\}$."
-      )
-      or stripped
-      == (
-        r"$\pi_{6}^{5} = "
-        r"\mathbb{Z}/2\{\eta_{5}\}$"
-      )
-    ):
-      canonical_paragraphs.append(
-        (
-          "[R4]より, "
-          r"$\pi_{6}^{5} = "
-          r"\mathbb{Z}/2\{\eta_{5}\}$."
-        )
-      )
-      continue
-
-    canonical_paragraphs.append(
-      paragraph
-    )
-
-  paragraphs = canonical_paragraphs
+  rendered = rendered.replace(
+    (
+      "以上より, [R1]より, "
+      r"$\pi_{5}^{2} = "
+      r"\mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$."
+    ),
+    (
+      "[R1]より, "
+      r"$\pi_{5}^{2} = "
+      r"\mathbb{Z}/2\{\eta_{2}^{3}\}$."
+    ),
+    1,
+  )
 
   delta_zero = (
     r"$\Delta: \pi_{7}^{5} "
     r"\to \pi_{5}^{2}$ は零写像である."
   )
 
-  if not any(
-    "[R5] と [R2] より"
-    in paragraph
-    for paragraph in paragraphs
+  delta_support = (
+    r"$\pi_{7}^{3} \xrightarrow{H} "
+    r"\pi_{7}^{5} \xrightarrow{\Delta} "
+    r"\pi_{5}^{2}$ は完全である."
+    "\n\n"
+    "[R5] と [R2] より, "
+    r"$H\left(\nu'\eta_{6}\right)"
+    r"=H\left(\nu'\right)\eta_{6}"
+    r"=\eta_{5}\eta_{6}"
+    r"=\eta_{5}^{2}$."
+    "\n\n"
+    "[R3]より, "
+    r"$\pi_{7}^{5} = "
+    r"\mathbb{Z}/2\{\eta_{5}^{2}\}$."
+    "\n\n"
+    r"$H: \pi_{7}^{3} "
+    r"\to \pi_{7}^{5}$ は全射である."
+    "\n\n"
+    + delta_zero
+  )
+
+  if (
+    delta_zero in rendered
+    and "[R5] と [R2] より" not in rendered
   ):
-    delta_index = next(
-      (
-        index
-        for index, paragraph in enumerate(
-          paragraphs
-        )
-        if paragraph.strip() == delta_zero
-      ),
-      None,
+    rendered = rendered.replace(
+      delta_zero,
+      delta_support,
+      1,
     )
-
-    if delta_index is not None:
-      support = (
-        (
-          r"$\pi_{7}^{3} \xrightarrow{H} "
-          r"\pi_{7}^{5} \xrightarrow{\Delta} "
-          r"\pi_{5}^{2}$ は完全である."
-        ),
-        (
-          "[R5] と [R2] より, "
-          r"$H\left(\nu'\eta_{6}\right)"
-          r"=H\left(\nu'\right)\eta_{6}"
-          r"=\eta_{5}\eta_{6}"
-          r"=\eta_{5}^{2}$."
-        ),
-        (
-          "[R3]より, "
-          r"$\pi_{7}^{5} = "
-          r"\mathbb{Z}/2\{\eta_{5}^{2}\}$."
-        ),
-        (
-          r"$H: \pi_{7}^{3} "
-          r"\to \pi_{7}^{5}$ は全射である."
-        ),
-      )
-
-      paragraphs[
-        delta_index:
-        delta_index
-      ] = support
 
   injective = (
     r"$E: \pi_{5}^{2} "
     r"\to \pi_{6}^{3}$ は単射である."
   )
-  eta_reason = (
+  old_eta_order = (
+    r"$\operatorname{ord}"
+    r"\left(\eta_{3}^{3}\right) = 2$."
+  )
+  eta_order_reason = (
     "[R1] と $E$ の単射性より, "
-    r"$E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$."
+    r"$E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$ であり, "
+    r"$\operatorname{ord}"
+    r"\left(\eta_{3}^{3}\right)=2$."
   )
 
-  if not any(
-    eta_reason
-    in paragraph
-    for paragraph in paragraphs
+  rendered = rendered.replace(
+    (
+      injective
+      + "\n\n"
+      + old_eta_order
+    ),
+    (
+      injective
+      + "\n\n"
+      + eta_order_reason
+    ),
+    1,
+  )
+
+  old_hopf_block = (
+    "[R2]より, "
+    r"$H\left(\nu'\right) = E^{2}\eta_{3}\tag{4}$."
+    "\n\n"
+    r"$E^{2}\eta_{3} = \eta_{5}\tag{5}$."
+    "\n\n"
+    "(4) と (5) より, "
+    "\n\n"
+    r"$H\left(\nu'\right) = \eta_{5}\tag{6}$."
+  )
+  new_hopf_block = (
+    "[R2]より, "
+    r"$H\left(\nu'\right)=\eta_{5}$."
+  )
+
+  rendered = rendered.replace(
+    old_hopf_block,
+    new_hopf_block,
+    1,
+  )
+
+  pi6_5 = (
+    r"$\pi_{6}^{5} = "
+    r"\mathbb{Z}/2\{\eta_{5}\}$."
+  )
+
+  if (
+    pi6_5 in rendered
+    and (
+      "[R4]より, "
+      + pi6_5
+    ) not in rendered
   ):
-    injective_index = next(
+    rendered = rendered.replace(
+      pi6_5,
       (
-        index
-        for index, paragraph in enumerate(
-          paragraphs
-        )
-        if paragraph.strip() == injective
+        "[R4]より, "
+        + pi6_5
       ),
-      None,
+      1,
     )
-
-    if injective_index is not None:
-      paragraphs.insert(
-        injective_index + 1,
-        eta_reason,
-      )
-
-  rendered = "\n\n".join(
-    paragraphs
-  )
 
   rendered = rendered.replace(
     (
