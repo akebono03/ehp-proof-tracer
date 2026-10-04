@@ -91,7 +91,7 @@ def test_phase157_r11_r11_hopf_derivation_precedes_surjectivity():
 
   fixed_hopf = (
     "[R2]より, "
-    r"$H\left(\nu'\right) = \eta_{5}$."
+    r"$H\left(\nu'\right)=\eta_{5}$."
   )
   target_group = (
     "[R4]より, "

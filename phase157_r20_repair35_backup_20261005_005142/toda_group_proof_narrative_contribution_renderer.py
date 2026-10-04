@@ -4835,7 +4835,6 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
 def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
   presentation: TodaGroupProofPresentation,
   markdown: str,
-  reference_entries=(),
 ) -> str:
   if not isinstance(
     presentation,
@@ -4851,14 +4850,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
   ):
     raise TypeError(
       "markdown must be a str"
-    )
-
-  if not isinstance(
-    reference_entries,
-    tuple,
-  ):
-    raise TypeError(
-      "reference_entries must be a tuple"
     )
 
   paragraphs = markdown.split(
@@ -4891,106 +4882,16 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       )
     )
 
-  def reference_entry_for_step(
-    proof_step: ProofStep,
-  ):
-    direct = tuple(
-      entry
-      for entry in reference_entries
-      if any(
-        candidate is proof_step
-        for candidate in entry.proof_steps
-      )
-    )
-
-    if len(
-      direct
-    ) == 1:
-      return direct[
-        0
-      ]
-
-    reference = (
-      extract_toda_group_proof_step_literature_reference(
-        proof_step
-      )
-    )
-
-    if (
-      reference is None
-      or reference.locator is None
-    ):
-      return None
-
-    by_locator = tuple(
-      entry
-      for entry in reference_entries
-      if (
-        entry.reference.locator
-        == reference.locator
-      )
-    )
-
-    if len(
-      by_locator
-    ) != 1:
-      return None
-
-    return by_locator[
-      0
-    ]
-
-  def display_line(
-    proof_step: ProofStep,
-  ) -> str | None:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
-      )
-    )
-
-    if not rendered:
-      return None
-
-    entry = reference_entry_for_step(
-      proof_step
-    )
-
-    if entry is not None:
-      rendered = (
-        _phase153_r6_render_reference_statement(
-          presentation,
-          entry,
-          proof_step,
-          rendered,
-        )
-      )
-      rendered = (
-        _phase157_r20_canonical_fixed_reference_line(
-          proof_step,
-          rendered,
-        )
-      )
-
-      return (
-        "[R"
-        + str(
-          entry.number
-        )
-        + "]より, "
-        + rendered
-      )
-
-    return rendered
-
   def visible_indices(
     proof_step: ProofStep,
   ) -> tuple[
     int,
     ...,
   ]:
-    rendered = display_line(
-      proof_step
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
+      )
     )
 
     if not rendered:
@@ -5138,8 +5039,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
   return "\n\n".join(
     paragraphs
   )
-
-
 
 
 
@@ -6639,7 +6538,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       presentation,
       rendered,
-      reference_entries,
     )
   )
   rendered = (
