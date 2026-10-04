@@ -4808,11 +4808,9 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
     )
 
   for node in presentation.nodes:
-    consumer_step = node.proof_step
-
     definition_steps = tuple(
       premise
-      for premise in consumer_step.premises
+      for premise in node.proof_step.premises
       if type(
         premise.conclusion
       ).__name__
@@ -4832,39 +4830,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
         ),
       )
     )
-
-    consumer_rendered = (
-      _render_generic_narrative_step(
-        consumer_step
-      )
-    )
-
-    if not consumer_rendered:
-      continue
-
-    consumer_key = match_key(
-      consumer_rendered
-    )
-
-    consumer_indices = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if match_key(
-        paragraph
-      )
-      == consumer_key
-    )
-
-    if len(
-      consumer_indices
-    ) != 1:
-      continue
-
-    insertion_index = consumer_indices[
-      0
-    ]
 
     for lower_step, upper_step in zip(
       ordered,
@@ -4922,11 +4887,40 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       ):
         continue
 
+      upper_rendered = (
+        _render_generic_narrative_step(
+          upper_step
+        )
+      )
+
+      if not upper_rendered:
+        continue
+
+      upper_key = match_key(
+        upper_rendered
+      )
+      upper_indices = tuple(
+        index
+        for index, paragraph in enumerate(
+          paragraphs
+        )
+        if match_key(
+          paragraph
+        )
+        == upper_key
+      )
+
+      if len(
+        upper_indices
+      ) != 1:
+        continue
+
       paragraphs.insert(
-        insertion_index,
+        upper_indices[
+          0
+        ],
         bridge,
       )
-      insertion_index += 1
 
   return "\n\n".join(
     paragraphs

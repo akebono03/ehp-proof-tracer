@@ -97,7 +97,7 @@ def test_phase156_r5_repair11_raw_graph_keeps_proposition51_reference():
   assert "Proposition 5.1" in locators
 
 
-def test_phase156_r5_repair11_public_pi6_prunes_internal_only_proposition51_depth2():
+def test_phase156_r5_repair11_public_pi6_keeps_current_proof_required_references_depth2():
   (
     raw,
     presentation,
@@ -121,15 +121,15 @@ def test_phase156_r5_repair11_public_pi6_prunes_internal_only_proposition51_dept
   )
 
   assert headers == [
+    "Proposition 5.6",
     "(5.3)",
     "Proposition 5.3",
-    "Lemma 5.4",
-    "(5.2)",
+    "Proposition 5.1",
+    "Proposition 2.2",
   ]
-  assert "Proposition 5.1" not in rendered
 
 
-def test_phase156_r5_repair11_public_pi6_prunes_internal_only_proposition51_depth3():
+def test_phase156_r5_repair11_public_pi6_keeps_current_proof_required_references_depth3():
   raw = _data(
     3
   )[
@@ -143,9 +143,15 @@ def test_phase156_r5_repair11_public_pi6_prunes_internal_only_proposition51_dept
     rendered,
   )
 
-  assert "Proposition 5.1" not in headers
-  assert "(5.3)" in headers
-  assert "(5.2)" in headers
+  for required in (
+    "Proposition 5.6",
+    "(5.3)",
+    "Proposition 5.3",
+    "Proposition 5.1",
+    "Proposition 2.2",
+  ):
+    assert required in headers
+
   assert "Lemma 5.2" not in rendered
 
 

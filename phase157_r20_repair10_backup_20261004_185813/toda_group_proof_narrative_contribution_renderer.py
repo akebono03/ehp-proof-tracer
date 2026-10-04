@@ -5,14 +5,6 @@ from dataclasses import (
   replace,
 )
 
-from expression import (
-  ScalarSum,
-  ScalarSymbol,
-)
-from homotopy_groups import (
-  TodaPrimaryGroup,
-)
-
 from proof import (
   ProofStep,
   Relation,
@@ -897,510 +889,6 @@ def _phase153_r6_group_relation_generators(
   )
 
 
-def _phase157_r20_reference_scalar_value(
-  value,
-  symbol,
-  binding: int,
-):
-  if isinstance(
-    value,
-    int,
-  ):
-    return value
-
-  if isinstance(
-    value,
-    ScalarSymbol,
-  ):
-    if value == symbol:
-      return binding
-
-    return None
-
-  if isinstance(
-    value,
-    ScalarSum,
-  ):
-    left = (
-      _phase157_r20_reference_scalar_value(
-        value.left,
-        symbol,
-        binding,
-      )
-    )
-    right = (
-      _phase157_r20_reference_scalar_value(
-        value.right,
-        symbol,
-        binding,
-      )
-    )
-
-    if (
-      left is None
-      or right is None
-    ):
-      return None
-
-    return left + right
-
-  return None
-
-
-def _phase157_r20_specialize_reference_value(
-  value,
-  symbol,
-  binding: int,
-):
-  if isinstance(
-    value,
-    ScalarSymbol,
-  ):
-    if value == symbol:
-      return binding
-
-    return value
-
-  if isinstance(
-    value,
-    ScalarSum,
-  ):
-    left = (
-      _phase157_r20_specialize_reference_value(
-        value.left,
-        symbol,
-        binding,
-      )
-    )
-    right = (
-      _phase157_r20_specialize_reference_value(
-        value.right,
-        symbol,
-        binding,
-      )
-    )
-
-    if (
-      isinstance(
-        left,
-        int,
-      )
-      and isinstance(
-        right,
-        int,
-      )
-    ):
-      return left + right
-
-    return replace(
-      value,
-      left=left,
-      right=right,
-    )
-
-  if isinstance(
-    value,
-    tuple,
-  ):
-    return tuple(
-      _phase157_r20_specialize_reference_value(
-        item,
-        symbol,
-        binding,
-      )
-      for item in value
-    )
-
-  if isinstance(
-    value,
-    list,
-  ):
-    return [
-      _phase157_r20_specialize_reference_value(
-        item,
-        symbol,
-        binding,
-      )
-      for item in value
-    ]
-
-  if isinstance(
-    value,
-    dict,
-  ):
-    return {
-      key: (
-        _phase157_r20_specialize_reference_value(
-          item,
-          symbol,
-          binding,
-        )
-      )
-      for key, item in value.items()
-    }
-
-  if not is_dataclass(
-    value
-  ):
-    return value
-
-  changes = {}
-
-  for field in fields(
-    value
-  ):
-    if not field.init:
-      continue
-
-    original = getattr(
-      value,
-      field.name,
-    )
-    specialized = (
-      _phase157_r20_specialize_reference_value(
-        original,
-        symbol,
-        binding,
-      )
-    )
-
-    if specialized != original:
-      changes[
-        field.name
-      ] = specialized
-
-  if not changes:
-    return value
-
-  return replace(
-    value,
-    **changes,
-  )
-
-
-def _phase157_r20_nested_primary_groups(
-  value,
-) -> tuple[
-  TodaPrimaryGroup,
-  ...,
-]:
-  groups = []
-
-  def walk(
-    current,
-  ):
-    if isinstance(
-      current,
-      TodaPrimaryGroup,
-    ):
-      groups.append(
-        current
-      )
-      return
-
-    if isinstance(
-      current,
-      tuple,
-    ):
-      for item in current:
-        walk(
-          item
-        )
-      return
-
-    if isinstance(
-      current,
-      list,
-    ):
-      for item in current:
-        walk(
-          item
-        )
-      return
-
-    if isinstance(
-      current,
-      dict,
-    ):
-      for item in current.values():
-        walk(
-          item
-        )
-      return
-
-    if not is_dataclass(
-      current
-    ):
-      return
-
-    for field in fields(
-      current
-    ):
-      walk(
-        getattr(
-          current,
-          field.name,
-        )
-      )
-
-  walk(
-    value
-  )
-
-  unique = []
-
-  for group in groups:
-    if group not in unique:
-      unique.append(
-        group
-      )
-
-  return tuple(
-    unique
-  )
-
-
-def _phase157_r20_reference_descendants(
-  presentation: TodaGroupProofPresentation,
-  proof_step: ProofStep,
-) -> tuple[
-  ProofStep,
-  ...,
-]:
-  consumers_by_step_id = {}
-
-  for edge in presentation.edges:
-    consumers_by_step_id.setdefault(
-      id(
-        edge.premise_step
-      ),
-      [],
-    ).append(
-      edge.parent_step
-    )
-
-  frontier = list(
-    consumers_by_step_id.get(
-      id(
-        proof_step
-      ),
-      (),
-    )
-  )
-  seen = {
-    id(
-      proof_step
-    )
-  }
-  descendants = []
-
-  while frontier:
-    current = frontier.pop(
-      0
-    )
-    current_id = id(
-      current
-    )
-
-    if current_id in seen:
-      continue
-
-    seen.add(
-      current_id
-    )
-    descendants.append(
-      current
-    )
-    frontier.extend(
-      consumers_by_step_id.get(
-        current_id,
-        (),
-      )
-    )
-
-  return tuple(
-    descendants
-  )
-
-
-def _phase157_r20_reference_range_allows(
-  aggregate_statement,
-  symbol,
-  binding: int,
-) -> bool:
-  if not is_dataclass(
-    aggregate_statement
-  ):
-    return True
-
-  matching_ranges = tuple(
-    value
-    for field in fields(
-      aggregate_statement
-    )
-    for value in (
-      getattr(
-        aggregate_statement,
-        field.name,
-      ),
-    )
-    if (
-      isinstance(
-        value,
-        ScalarGreaterEqualStatement,
-      )
-      and value.left == symbol
-      and isinstance(
-        value.right,
-        int,
-      )
-    )
-  )
-
-  return all(
-    binding
-    >= range_statement.right
-    for range_statement
-    in matching_ranges
-  )
-
-
-def _phase157_r20_specialize_reference_relation(
-  presentation: TodaGroupProofPresentation,
-  proof_step: ProofStep,
-  relation: Relation,
-):
-  group = relation.lhs
-
-  if not isinstance(
-    group,
-    TodaPrimaryGroup,
-  ):
-    return None
-
-  symbol = (
-    group.sphere_dimension
-  )
-
-  if not isinstance(
-    symbol,
-    ScalarSymbol,
-  ):
-    return None
-
-  descendants = (
-    _phase157_r20_reference_descendants(
-      presentation,
-      proof_step,
-    )
-  )
-
-  concrete_groups = []
-
-  for descendant in descendants:
-    concrete_groups.extend(
-      _phase157_r20_nested_primary_groups(
-        descendant.conclusion
-      )
-    )
-
-  specializations = []
-
-  for concrete_group in concrete_groups:
-    if (
-      not isinstance(
-        concrete_group.group_dimension,
-        int,
-      )
-      or not isinstance(
-        concrete_group.sphere_dimension,
-        int,
-      )
-    ):
-      continue
-
-    binding = (
-      concrete_group.sphere_dimension
-    )
-
-    expected_sphere = (
-      _phase157_r20_reference_scalar_value(
-        group.sphere_dimension,
-        symbol,
-        binding,
-      )
-    )
-    expected_dimension = (
-      _phase157_r20_reference_scalar_value(
-        group.group_dimension,
-        symbol,
-        binding,
-      )
-    )
-
-    if (
-      expected_sphere
-      != concrete_group.sphere_dimension
-      or expected_dimension
-      != concrete_group.group_dimension
-    ):
-      continue
-
-    if not (
-      _phase157_r20_reference_range_allows(
-        proof_step.conclusion,
-        symbol,
-        binding,
-      )
-    ):
-      continue
-
-    specialized = (
-      _phase157_r20_specialize_reference_value(
-        relation,
-        symbol,
-        binding,
-      )
-    )
-
-    if specialized not in specializations:
-      specializations.append(
-        specialized
-      )
-
-  if len(
-    specializations
-  ) != 1:
-    return None
-
-  return specializations[
-    0
-  ]
-
-
-def _phase157_r20_canonical_fixed_reference_line(
-  proof_step: ProofStep,
-  rendered_statement: str,
-) -> str:
-  boundary = (
-    classify_toda_literature_statement_step(
-      proof_step
-    )
-  )
-
-  if (
-    boundary is not None
-    and boundary.component_key
-    == "hopf_right_composition_formula"
-  ):
-    return (
-      r"$H(\alpha\circ E\beta)"
-      r" = H(\alpha)\circ E\beta$."
-    )
-
-  return rendered_statement
-
-
 def _phase153_r6_reference_aggregate_component(
   presentation: TodaGroupProofPresentation,
   entry,
@@ -1435,7 +923,9 @@ def _phase153_r6_reference_aggregate_component(
     )
   )
 
-  if not relation_components:
+  if len(
+    relation_components
+  ) <= 1:
     return None
 
   external_consumers = tuple(
@@ -1451,7 +941,10 @@ def _phase153_r6_reference_aggregate_component(
     )
   )
 
-  direct_matches = []
+  if not external_consumers:
+    return None
+
+  matching_components = []
 
   for component in relation_components:
     generators = (
@@ -1468,43 +961,16 @@ def _phase153_r6_reference_aggregate_component(
       for consumer in external_consumers
       for generator in generators
     ):
-      direct_matches.append(
+      matching_components.append(
         component
       )
 
   if len(
-    direct_matches
-  ) == 1:
-    return direct_matches[
-      0
-    ]
-
-  specialized_matches = []
-
-  for component in relation_components:
-    specialized = (
-      _phase157_r20_specialize_reference_relation(
-        presentation,
-        proof_step,
-        component,
-      )
-    )
-
-    if (
-      specialized is not None
-      and specialized
-      not in specialized_matches
-    ):
-      specialized_matches.append(
-        specialized
-      )
-
-  if len(
-    specialized_matches
+    matching_components
   ) != 1:
     return None
 
-  return specialized_matches[
+  return matching_components[
     0
   ]
 
@@ -1783,12 +1249,6 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
           proof_step
         )
       )
-      rendered_statement = (
-        _phase157_r20_canonical_fixed_reference_line(
-          proof_step,
-          rendered_statement,
-        )
-      )
 
       if not (
         _is_toda_group_proof_narrative_reference_statement_candidate(
@@ -1827,55 +1287,19 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       )
     )
 
-    aggregate_specializations = tuple(
-      (
-        proof_step,
-        _phase153_r6_reference_aggregate_component(
-          presentation,
-          entry,
-          proof_step,
-        ),
-      )
-      for proof_step in selected_steps
-      if is_dataclass(
-        proof_step.conclusion
-      )
-    )
-    aggregate_specializations = tuple(
-      pair
-      for pair in aggregate_specializations
-      if pair[
-        1
-      ] is not None
-    )
-
-    if len(
-      aggregate_specializations
-    ) == 1:
-      selected_steps = (
-        aggregate_specializations[
-          0
-        ][
-          0
-        ],
-      )
-
     rendered_selected_by_step_id = {
       id(
         proof_step
       ): (
-        _phase157_r20_canonical_fixed_reference_line(
+        _phase153_r6_render_reference_statement(
+          presentation,
+          entry,
           proof_step,
-          _phase153_r6_render_reference_statement(
-            presentation,
-            entry,
-            proof_step,
-            rendered_by_step_id[
-              id(
-                proof_step
-              )
-            ],
-          ),
+          rendered_by_step_id[
+            id(
+              proof_step
+            )
+          ],
         )
       )
       for proof_step in selected_steps
@@ -1894,8 +1318,6 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       ] = statement_lines
 
   return statement_lines_by_reference_number
-
-
 def _phase153_r7_reaches_root_without_steps(
   presentation: TodaGroupProofPresentation,
   source_step: ProofStep,
@@ -3906,7 +3328,7 @@ def order_toda_group_proof_narrative_order_support(
   )
 
 
-def suppress_toda_group_proof_narrative_reflexive_equalities(
+def order_toda_group_proof_narrative_surjectivity_support(
   presentation: TodaGroupProofPresentation,
   markdown: str,
 ) -> str:
@@ -3926,45 +3348,13 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
       "markdown must be a str"
     )
 
-  reflexive_keys = set()
-
-  for node in presentation.nodes:
-    statement = node.proof_step.conclusion
-
-    if (
-      not isinstance(
-        statement,
-        Relation,
-      )
-      or statement.relation_type
-      is not RelationType.EQUALITY
-      or statement.lhs != statement.rhs
-    ):
-      continue
-
-    rendered = (
-      _render_generic_narrative_step(
-        node.proof_step
-      )
-    )
-
-    if not rendered:
-      continue
-
-    reflexive_keys.add(
-      _phase157_r11_reference_statement_match_key(
-        rendered
-      )
-    )
-
-  if not reflexive_keys:
-    return markdown
-
-  retained = []
-
-  for paragraph in markdown.split(
+  paragraphs = markdown.split(
     "\n\n"
-  ):
+  )
+
+  def paragraph_match_key(
+    paragraph: str,
+  ) -> str:
     stripped = paragraph.strip()
 
     if stripped.startswith(
@@ -3982,113 +3372,9 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
           ):
         ]
 
-    key = (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
-    if key in reflexive_keys:
-      continue
-
-    retained.append(
-      paragraph
-    )
-
-  return "\n\n".join(
-    retained
-  )
-
-
-def order_toda_group_proof_narrative_surjectivity_support(
-  presentation: TodaGroupProofPresentation,
-  markdown: str,
-  reference_entries=(),
-  statement_lines_by_reference_number=None,
-) -> str:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  if not isinstance(
-    reference_entries,
-    tuple,
-  ):
-    raise TypeError(
-      "reference_entries must be a tuple"
-    )
-
-  if statement_lines_by_reference_number is None:
-    statement_lines_by_reference_number = {}
-
-  if not isinstance(
-    statement_lines_by_reference_number,
-    dict,
-  ):
-    raise TypeError(
-      "statement_lines_by_reference_number must be a dict"
-    )
-
-  paragraphs = markdown.split(
-    "\n\n"
-  )
-
-  def strip_reference_prefix(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if not stripped.startswith(
-      "[R"
-    ):
-      return stripped
-
-    marker_end = stripped.find(
-      "]"
-    )
-
-    if marker_end < 0:
-      return stripped
-
-    suffix = stripped[
-      marker_end + 1:
-    ]
-
-    for prefix in (
-      "より, ",
-      "を用いて, ",
-    ):
-      if suffix.startswith(
-        prefix
-      ):
-        return suffix[
-          len(
-            prefix
-          ):
-        ]
-
-    return stripped
-
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
     return (
       _phase157_r11_reference_statement_match_key(
-        strip_reference_prefix(
-          paragraph
-        )
+        stripped
       )
     )
 
@@ -4117,8 +3403,7 @@ def order_toda_group_proof_narrative_surjectivity_support(
       )
       if paragraph_match_key(
         paragraph
-      )
-      == target_key
+      ) == target_key
     )
 
     if len(
@@ -4230,30 +3515,91 @@ def order_toda_group_proof_narrative_surjectivity_support(
             map_index
           ] = support_block
 
+    map_index = paragraph_index_for_step(
+      map_step
+    )
+
+    if map_index is None:
+      continue
+
+    short_exact_reason_index = next(
+      (
+        index
+        for index in range(
+          map_index
+        )
+        if (
+          "右の写像が全射"
+          in paragraphs[
+            index
+          ]
+          and "短完全列"
+          in paragraphs[
+            index
+          ]
+        )
+      ),
+      None,
+    )
+
+    if short_exact_reason_index is None:
+      continue
+
+    support_indices = tuple(
+      index
+      for proof_step in support_steps
+      for index in (
+        paragraph_index_for_step(
+          proof_step
+        ),
+      )
+      if index is not None
+    )
+
+    block_start = (
+      min(
+        support_indices
+      )
+      if support_indices
+      else map_index
+    )
+    block_end = map_index + 1
+
+    if block_start <= short_exact_reason_index:
+      continue
+
+    dependency_block = paragraphs[
+      block_start:
+      block_end
+    ]
+
+    del paragraphs[
+      block_start:
+      block_end
+    ]
+
+    paragraphs[
+      short_exact_reason_index:
+      short_exact_reason_index
+    ] = dependency_block
+
   for map_index, paragraph in enumerate(
     tuple(
       paragraphs
     )
   ):
-    map_paragraph = strip_reference_prefix(
-      paragraph
-    )
+    stripped = paragraph.strip()
 
     if (
-      not map_paragraph.startswith(
+      not stripped.startswith(
         "$H:"
       )
-      or " は全射である." not in map_paragraph
-      or r"\to " not in map_paragraph
+      or " は全射である." not in stripped
+      or r"\to " not in stripped
     ):
       continue
 
-    if paragraph.strip() != map_paragraph:
-      paragraphs[
-        map_index
-      ] = map_paragraph
-
-    target_fragment = map_paragraph.split(
+    target_fragment = stripped.split(
       r"\to ",
       1,
     )[1].split(
@@ -4261,133 +3607,7 @@ def order_toda_group_proof_narrative_surjectivity_support(
       1,
     )[0].strip()
 
-    group_prefix = (
-      "$"
-      + target_fragment
-      + " = "
-    )
-
-    existing_group_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if (
-          index != map_index
-          and strip_reference_prefix(
-            candidate
-          ).startswith(
-            group_prefix
-          )
-        )
-      ),
-      None,
-    )
-
-    if existing_group_index is not None:
-      if existing_group_index > map_index:
-        group_paragraph = paragraphs.pop(
-          existing_group_index
-        )
-        paragraphs.insert(
-          map_index,
-          group_paragraph,
-        )
-    else:
-      reference_matches = []
-
-      for entry in reference_entries:
-        lines = (
-          statement_lines_by_reference_number.get(
-            entry.number,
-            (),
-          )
-        )
-
-        for line in lines:
-          normalized_line = line.strip()
-
-          if not normalized_line.startswith(
-            group_prefix
-          ):
-            continue
-
-          reference_matches.append(
-            (
-              entry.number,
-              normalized_line,
-            )
-          )
-
-      unique_matches = tuple(
-        dict.fromkeys(
-          reference_matches
-        )
-      )
-
-      if len(
-        unique_matches
-      ) == 1:
-        reference_number, statement_line = (
-          unique_matches[
-            0
-          ]
-        )
-        support_paragraph = (
-          "[R"
-          + str(
-            reference_number
-          )
-          + "]より, "
-          + statement_line
-        )
-
-        if support_paragraph not in paragraphs:
-          paragraphs.insert(
-            map_index,
-            support_paragraph,
-          )
-
-    map_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if strip_reference_prefix(
-          candidate
-        )
-        == map_paragraph
-      ),
-      None,
-    )
-
-    if map_index is None:
-      continue
-
-    kernel_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if (
-          r"\ker \Delta"
-          in candidate
-          and r"\operatorname{Im}H"
-          in candidate
-          and target_fragment
-          in candidate
-        )
-      ),
-      None,
-    )
-
-    if kernel_index is None:
-      continue
-
-    exactness_index = next(
+    group_index = next(
       (
         index
         for index in range(
@@ -4396,77 +3616,26 @@ def order_toda_group_proof_narrative_surjectivity_support(
             paragraphs
           ),
         )
-        if (
-          target_fragment
-          in paragraphs[
-            index
-          ]
-          and "は完全である."
-          in paragraphs[
-            index
-          ]
+        if paragraphs[
+          index
+        ].strip().startswith(
+          "$"
+          + target_fragment
+          + " = "
         )
       ),
       None,
     )
 
-    kernel_paragraph = paragraphs.pop(
-      kernel_index
-    )
-
-    map_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if strip_reference_prefix(
-          candidate
-        )
-        == map_paragraph
-      ),
-      None,
-    )
-
-    if map_index is None:
-      paragraphs.append(
-        kernel_paragraph
-      )
+    if group_index is None:
       continue
 
-    if exactness_index is not None:
-      exactness_index = next(
-        (
-          index
-          for index in range(
-            map_index + 1,
-            len(
-              paragraphs
-            ),
-          )
-          if (
-            target_fragment
-            in paragraphs[
-              index
-            ]
-            and "は完全である."
-            in paragraphs[
-              index
-            ]
-          )
-        ),
-        None,
-      )
-
-    insertion_index = (
-      map_index + 1
-      if exactness_index is None
-      else exactness_index + 1
+    group_paragraph = paragraphs.pop(
+      group_index
     )
-
     paragraphs.insert(
-      insertion_index,
-      kernel_paragraph,
+      map_index,
+      group_paragraph,
     )
 
   return "\n\n".join(
@@ -4808,11 +3977,9 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
     )
 
   for node in presentation.nodes:
-    consumer_step = node.proof_step
-
     definition_steps = tuple(
       premise
-      for premise in consumer_step.premises
+      for premise in node.proof_step.premises
       if type(
         premise.conclusion
       ).__name__
@@ -4832,39 +3999,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
         ),
       )
     )
-
-    consumer_rendered = (
-      _render_generic_narrative_step(
-        consumer_step
-      )
-    )
-
-    if not consumer_rendered:
-      continue
-
-    consumer_key = match_key(
-      consumer_rendered
-    )
-
-    consumer_indices = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if match_key(
-        paragraph
-      )
-      == consumer_key
-    )
-
-    if len(
-      consumer_indices
-    ) != 1:
-      continue
-
-    insertion_index = consumer_indices[
-      0
-    ]
 
     for lower_step, upper_step in zip(
       ordered,
@@ -4909,24 +4043,56 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
         + "$ である."
       )
 
-      bridge_key = match_key(
-        bridge
+      bridge = (
+        _normalize_generic_eta_family_latex(
+          bridge
+        )
       )
 
       if any(
         match_key(
           paragraph
         )
-        == bridge_key
+        == match_key(
+          bridge
+        )
         for paragraph in paragraphs
       ):
         continue
 
+      dependent_line = (
+        _render_generic_narrative_step(
+          node.proof_step
+        )
+      )
+
+      if not dependent_line:
+        continue
+
+      dependent_key = match_key(
+        dependent_line
+      )
+      dependent_index = next(
+        (
+          index
+          for index, paragraph in enumerate(
+            paragraphs
+          )
+          if match_key(
+            paragraph
+          )
+          == dependent_key
+        ),
+        None,
+      )
+
+      if dependent_index is None:
+        continue
+
       paragraphs.insert(
-        insertion_index,
+        dependent_index,
         bridge,
       )
-      insertion_index += 1
 
   return "\n\n".join(
     paragraphs
@@ -4992,11 +4158,11 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
       )
     )
 
-  def reference_entry_for_step(
+  def reference_number_for_step(
     proof_step: ProofStep,
-  ):
+  ) -> int | None:
     direct = tuple(
-      entry
+      entry.number
       for entry in reference_entries
       if any(
         candidate is proof_step
@@ -5024,7 +4190,7 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
       return None
 
     by_locator = tuple(
-      entry
+      entry.number
       for entry in reference_entries
       if (
         entry.reference.locator
@@ -5041,18 +4207,6 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
       0
     ]
 
-  def reference_number_for_step(
-    proof_step: ProofStep,
-  ) -> int | None:
-    entry = reference_entry_for_step(
-      proof_step
-    )
-
-    if entry is None:
-      return None
-
-    return entry.number
-
   def display_line(
     proof_step: ProofStep,
   ) -> str | None:
@@ -5064,26 +4218,6 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
 
     if not rendered:
       return None
-
-    entry = reference_entry_for_step(
-      proof_step
-    )
-
-    if entry is not None:
-      rendered = (
-        _phase153_r6_render_reference_statement(
-          presentation,
-          entry,
-          proof_step,
-          rendered,
-        )
-      )
-      rendered = (
-        _phase157_r20_canonical_fixed_reference_line(
-          proof_step,
-          rendered,
-        )
-      )
 
     reference_number = (
       reference_number_for_step(
@@ -5106,8 +4240,10 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
   def paragraph_index_for_step(
     proof_step: ProofStep,
   ) -> int | None:
-    rendered = display_line(
-      proof_step
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
+      )
     )
 
     if not rendered:
@@ -5205,6 +4341,24 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
     )
 
     if current_index is not None:
+      reference_number = (
+        reference_number_for_step(
+          proof_step
+        )
+      )
+
+      if (
+        reference_number is not None
+        and not paragraphs[
+          current_index
+        ].strip().startswith(
+          "[R"
+        )
+      ):
+        paragraphs[
+          current_index
+        ] = line
+
       if current_index < anchor_index:
         visiting.remove(
           proof_step_id
@@ -5214,6 +4368,10 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
       paragraph = paragraphs.pop(
         current_index
       )
+
+      if current_index < anchor_index:
+        anchor_index -= 1
+
       paragraphs.insert(
         anchor_index,
         paragraph,
@@ -5952,14 +5110,6 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
         ),
         (),
       ):
-        if (
-          classify_toda_proof_step_role(
-            consumer
-          )
-          is TodaProofDependencyRole.MAP_PROPERTY
-        ):
-          continue
-
         rendered_consumer = (
           _render_generic_narrative_step(
             consumer
@@ -6062,6 +5212,8 @@ def link_toda_group_proof_narrative_unmarked_reference_consumers(
   return "\n\n".join(
     paragraphs
   )
+
+
 
 
 def normalize_toda_group_proof_narrative_display_math_periods(
@@ -6411,6 +5563,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
   )
 
   rendered = (
+    order_toda_group_proof_narrative_surjectivity_support(
+      presentation,
+      rendered,
+    )
+  )
+  rendered = (
     insert_toda_group_proof_narrative_hidden_zero_map_premises(
       presentation,
       rendered,
@@ -6456,20 +5614,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation,
       rendered,
       reference_entries,
-    )
-  )
-  rendered = (
-    suppress_toda_group_proof_narrative_reflexive_equalities(
-      presentation,
-      rendered,
-    )
-  )
-  rendered = (
-    order_toda_group_proof_narrative_surjectivity_support(
-      presentation,
-      rendered,
-      reference_entries,
-      statement_lines_by_reference_number,
     )
   )
 

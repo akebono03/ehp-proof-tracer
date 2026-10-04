@@ -3906,100 +3906,6 @@ def order_toda_group_proof_narrative_order_support(
   )
 
 
-def suppress_toda_group_proof_narrative_reflexive_equalities(
-  presentation: TodaGroupProofPresentation,
-  markdown: str,
-) -> str:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  reflexive_keys = set()
-
-  for node in presentation.nodes:
-    statement = node.proof_step.conclusion
-
-    if (
-      not isinstance(
-        statement,
-        Relation,
-      )
-      or statement.relation_type
-      is not RelationType.EQUALITY
-      or statement.lhs != statement.rhs
-    ):
-      continue
-
-    rendered = (
-      _render_generic_narrative_step(
-        node.proof_step
-      )
-    )
-
-    if not rendered:
-      continue
-
-    reflexive_keys.add(
-      _phase157_r11_reference_statement_match_key(
-        rendered
-      )
-    )
-
-  if not reflexive_keys:
-    return markdown
-
-  retained = []
-
-  for paragraph in markdown.split(
-    "\n\n"
-  ):
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    key = (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
-    if key in reflexive_keys:
-      continue
-
-    retained.append(
-      paragraph
-    )
-
-  return "\n\n".join(
-    retained
-  )
-
-
 def order_toda_group_proof_narrative_surjectivity_support(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -4045,50 +3951,29 @@ def order_toda_group_proof_narrative_surjectivity_support(
     "\n\n"
   )
 
-  def strip_reference_prefix(
+  def paragraph_match_key(
     paragraph: str,
   ) -> str:
     stripped = paragraph.strip()
 
-    if not stripped.startswith(
+    if stripped.startswith(
       "[R"
     ):
-      return stripped
+      marker_end = stripped.find(
+        "]より, "
+      )
 
-    marker_end = stripped.find(
-      "]"
-    )
-
-    if marker_end < 0:
-      return stripped
-
-    suffix = stripped[
-      marker_end + 1:
-    ]
-
-    for prefix in (
-      "より, ",
-      "を用いて, ",
-    ):
-      if suffix.startswith(
-        prefix
-      ):
-        return suffix[
-          len(
-            prefix
+      if marker_end >= 0:
+        stripped = stripped[
+          marker_end
+          + len(
+            "]より, "
           ):
         ]
 
-    return stripped
-
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
     return (
       _phase157_r11_reference_statement_match_key(
-        strip_reference_prefix(
-          paragraph
-        )
+        stripped
       )
     )
 
@@ -4117,8 +4002,7 @@ def order_toda_group_proof_narrative_surjectivity_support(
       )
       if paragraph_match_key(
         paragraph
-      )
-      == target_key
+      ) == target_key
     )
 
     if len(
@@ -4230,30 +4114,91 @@ def order_toda_group_proof_narrative_surjectivity_support(
             map_index
           ] = support_block
 
+    map_index = paragraph_index_for_step(
+      map_step
+    )
+
+    if map_index is None:
+      continue
+
+    short_exact_reason_index = next(
+      (
+        index
+        for index in range(
+          map_index
+        )
+        if (
+          "右の写像が全射"
+          in paragraphs[
+            index
+          ]
+          and "短完全列"
+          in paragraphs[
+            index
+          ]
+        )
+      ),
+      None,
+    )
+
+    if short_exact_reason_index is None:
+      continue
+
+    support_indices = tuple(
+      index
+      for proof_step in support_steps
+      for index in (
+        paragraph_index_for_step(
+          proof_step
+        ),
+      )
+      if index is not None
+    )
+
+    block_start = (
+      min(
+        support_indices
+      )
+      if support_indices
+      else map_index
+    )
+    block_end = map_index + 1
+
+    if block_start <= short_exact_reason_index:
+      continue
+
+    dependency_block = paragraphs[
+      block_start:
+      block_end
+    ]
+
+    del paragraphs[
+      block_start:
+      block_end
+    ]
+
+    paragraphs[
+      short_exact_reason_index:
+      short_exact_reason_index
+    ] = dependency_block
+
   for map_index, paragraph in enumerate(
     tuple(
       paragraphs
     )
   ):
-    map_paragraph = strip_reference_prefix(
-      paragraph
-    )
+    stripped = paragraph.strip()
 
     if (
-      not map_paragraph.startswith(
+      not stripped.startswith(
         "$H:"
       )
-      or " は全射である." not in map_paragraph
-      or r"\to " not in map_paragraph
+      or " は全射である." not in stripped
+      or r"\to " not in stripped
     ):
       continue
 
-    if paragraph.strip() != map_paragraph:
-      paragraphs[
-        map_index
-      ] = map_paragraph
-
-    target_fragment = map_paragraph.split(
+    target_fragment = stripped.split(
       r"\to ",
       1,
     )[1].split(
@@ -4270,16 +4215,15 @@ def order_toda_group_proof_narrative_surjectivity_support(
     existing_group_index = next(
       (
         index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if (
-          index != map_index
-          and strip_reference_prefix(
-            candidate
-          ).startswith(
-            group_prefix
+        for index in range(
+          len(
+            paragraphs
           )
+        )
+        if paragraphs[
+          index
+        ].strip().startswith(
+          group_prefix
         )
       ),
       None,
@@ -4294,179 +4238,64 @@ def order_toda_group_proof_narrative_surjectivity_support(
           map_index,
           group_paragraph,
         )
-    else:
-      reference_matches = []
+      continue
 
-      for entry in reference_entries:
-        lines = (
-          statement_lines_by_reference_number.get(
+    reference_matches = []
+
+    for entry in reference_entries:
+      lines = (
+        statement_lines_by_reference_number.get(
+          entry.number,
+          (),
+        )
+      )
+
+      for line in lines:
+        normalized_line = line.strip()
+
+        if not normalized_line.startswith(
+          group_prefix
+        ):
+          continue
+
+        reference_matches.append(
+          (
             entry.number,
-            (),
+            normalized_line,
           )
         )
 
-        for line in lines:
-          normalized_line = line.strip()
-
-          if not normalized_line.startswith(
-            group_prefix
-          ):
-            continue
-
-          reference_matches.append(
-            (
-              entry.number,
-              normalized_line,
-            )
-          )
-
-      unique_matches = tuple(
-        dict.fromkeys(
-          reference_matches
-        )
+    unique_matches = tuple(
+      dict.fromkeys(
+        reference_matches
       )
-
-      if len(
-        unique_matches
-      ) == 1:
-        reference_number, statement_line = (
-          unique_matches[
-            0
-          ]
-        )
-        support_paragraph = (
-          "[R"
-          + str(
-            reference_number
-          )
-          + "]より, "
-          + statement_line
-        )
-
-        if support_paragraph not in paragraphs:
-          paragraphs.insert(
-            map_index,
-            support_paragraph,
-          )
-
-    map_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if strip_reference_prefix(
-          candidate
-        )
-        == map_paragraph
-      ),
-      None,
     )
 
-    if map_index is None:
+    if len(
+      unique_matches
+    ) != 1:
       continue
 
-    kernel_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if (
-          r"\ker \Delta"
-          in candidate
-          and r"\operatorname{Im}H"
-          in candidate
-          and target_fragment
-          in candidate
-        )
-      ),
-      None,
+    reference_number, statement_line = (
+      unique_matches[
+        0
+      ]
     )
-
-    if kernel_index is None:
-      continue
-
-    exactness_index = next(
-      (
-        index
-        for index in range(
-          map_index + 1,
-          len(
-            paragraphs
-          ),
-        )
-        if (
-          target_fragment
-          in paragraphs[
-            index
-          ]
-          and "は完全である."
-          in paragraphs[
-            index
-          ]
-        )
-      ),
-      None,
-    )
-
-    kernel_paragraph = paragraphs.pop(
-      kernel_index
-    )
-
-    map_index = next(
-      (
-        index
-        for index, candidate in enumerate(
-          paragraphs
-        )
-        if strip_reference_prefix(
-          candidate
-        )
-        == map_paragraph
-      ),
-      None,
-    )
-
-    if map_index is None:
-      paragraphs.append(
-        kernel_paragraph
+    support_paragraph = (
+      "[R"
+      + str(
+        reference_number
       )
-      continue
-
-    if exactness_index is not None:
-      exactness_index = next(
-        (
-          index
-          for index in range(
-            map_index + 1,
-            len(
-              paragraphs
-            ),
-          )
-          if (
-            target_fragment
-            in paragraphs[
-              index
-            ]
-            and "は完全である."
-            in paragraphs[
-              index
-            ]
-          )
-        ),
-        None,
-      )
-
-    insertion_index = (
-      map_index + 1
-      if exactness_index is None
-      else exactness_index + 1
+      + "]より, "
+      + statement_line
     )
+
+    if support_paragraph in paragraphs:
+      continue
 
     paragraphs.insert(
-      insertion_index,
-      kernel_paragraph,
+      map_index,
+      support_paragraph,
     )
 
   return "\n\n".join(
@@ -4808,11 +4637,9 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
     )
 
   for node in presentation.nodes:
-    consumer_step = node.proof_step
-
     definition_steps = tuple(
       premise
-      for premise in consumer_step.premises
+      for premise in node.proof_step.premises
       if type(
         premise.conclusion
       ).__name__
@@ -4832,39 +4659,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
         ),
       )
     )
-
-    consumer_rendered = (
-      _render_generic_narrative_step(
-        consumer_step
-      )
-    )
-
-    if not consumer_rendered:
-      continue
-
-    consumer_key = match_key(
-      consumer_rendered
-    )
-
-    consumer_indices = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if match_key(
-        paragraph
-      )
-      == consumer_key
-    )
-
-    if len(
-      consumer_indices
-    ) != 1:
-      continue
-
-    insertion_index = consumer_indices[
-      0
-    ]
 
     for lower_step, upper_step in zip(
       ordered,
@@ -4909,24 +4703,56 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
         + "$ である."
       )
 
-      bridge_key = match_key(
-        bridge
+      bridge = (
+        _normalize_generic_eta_family_latex(
+          bridge
+        )
       )
 
       if any(
         match_key(
           paragraph
         )
-        == bridge_key
+        == match_key(
+          bridge
+        )
         for paragraph in paragraphs
       ):
         continue
 
+      dependent_line = (
+        _render_generic_narrative_step(
+          node.proof_step
+        )
+      )
+
+      if not dependent_line:
+        continue
+
+      dependent_key = match_key(
+        dependent_line
+      )
+      dependent_index = next(
+        (
+          index
+          for index, paragraph in enumerate(
+            paragraphs
+          )
+          if match_key(
+            paragraph
+          )
+          == dependent_key
+        ),
+        None,
+      )
+
+      if dependent_index is None:
+        continue
+
       paragraphs.insert(
-        insertion_index,
+        dependent_index,
         bridge,
       )
-      insertion_index += 1
 
   return "\n\n".join(
     paragraphs
@@ -6411,6 +6237,14 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
   )
 
   rendered = (
+    order_toda_group_proof_narrative_surjectivity_support(
+      presentation,
+      rendered,
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+  rendered = (
     insert_toda_group_proof_narrative_hidden_zero_map_premises(
       presentation,
       rendered,
@@ -6456,20 +6290,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation,
       rendered,
       reference_entries,
-    )
-  )
-  rendered = (
-    suppress_toda_group_proof_narrative_reflexive_equalities(
-      presentation,
-      rendered,
-    )
-  )
-  rendered = (
-    order_toda_group_proof_narrative_surjectivity_support(
-      presentation,
-      rendered,
-      reference_entries,
-      statement_lines_by_reference_number,
     )
   )
 

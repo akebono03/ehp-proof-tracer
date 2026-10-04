@@ -66,7 +66,7 @@ def test_phase157_r19_pi6_3_has_five_named_public_references():
     in reference
   )
   assert (
-    r"$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ とすると,"
+    r"$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ とする."
     in reference
   )
   assert (
