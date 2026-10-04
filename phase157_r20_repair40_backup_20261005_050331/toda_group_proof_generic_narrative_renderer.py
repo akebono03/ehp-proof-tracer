@@ -654,17 +654,12 @@ def _render_phase153_r3_6_component_latex(
   ):
     return None
 
-  if latex is None:
-    return None
-
   return (
     _normalize_generic_narrative_statement_latex(
       component,
       latex,
     )
   )
-
-
 
 
 def _render_phase153_r3_6_component_list_prose(

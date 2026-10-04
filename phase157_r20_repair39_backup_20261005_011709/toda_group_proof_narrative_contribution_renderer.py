@@ -4906,42 +4906,18 @@ def _toda_group_proof_narrative_map_name_latex(
     None,
   )
 
-  if name is not None:
-    if name in (
-      "Δ",
-      "Delta",
-    ):
-      return r"\Delta"
+  if name is None:
+    return None
 
-    return str(
-      name
-    )
-
-  map_type_name = type(
-    group_map
-  ).__name__
-
-  if map_type_name in (
-    "TodaSuspensionMap",
-    "TodaIteratedSuspensionMap",
-  ):
-    return "E"
-
-  if (
-    map_type_name
-    == "TodaHopfInvariantMap"
-  ):
-    return "H"
-
-  if (
-    map_type_name
-    == "TodaDeltaMap"
+  if name in (
+    "Δ",
+    "Delta",
   ):
     return r"\Delta"
 
-  return None
-
-
+  return str(
+    name
+  )
 
 
 def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
