@@ -23,7 +23,6 @@ from scalar_rules import (
 )
 from toda_group_proof_generic_narrative_renderer import (
   _normalize_generic_eta_family_latex,
-  _render_generic_narrative_expression_latex,
   _render_generic_narrative_step,
 )
 from toda_human_readable_renderer import (
@@ -3939,33 +3938,7 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
       )
       or statement.relation_type
       is not RelationType.EQUALITY
-    ):
-      continue
-
-    try:
-      lhs_normalized = (
-        _normalize_generic_eta_family_latex(
-          _render_generic_narrative_expression_latex(
-            statement.lhs
-          )
-        )
-      )
-      rhs_normalized = (
-        _normalize_generic_eta_family_latex(
-          _render_generic_narrative_expression_latex(
-            statement.rhs
-          )
-        )
-      )
-    except (
-      TypeError,
-      ValueError,
-    ):
-      continue
-
-    if (
-      lhs_normalized
-      != rhs_normalized
+      or statement.lhs != statement.rhs
     ):
       continue
 
@@ -4025,8 +3998,6 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
   return "\n\n".join(
     retained
   )
-
-
 
 
 def order_toda_group_proof_narrative_surjectivity_support(
