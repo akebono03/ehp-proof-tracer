@@ -115,7 +115,7 @@ def test_phase157_r3_pi6_3_reference_excludes_untracked_proof_machinery():
   assert "Lemma 5.2" not in reference
   assert (
     r"\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
-    in reference
+    not in reference
   )
 
 
@@ -161,19 +161,14 @@ def test_phase157_r3_pi6_3_depth3_suppresses_prop53_internal_suspension():
   )
 
 
-def test_phase157_r3_pi6_3_preserves_bracket_definition_but_hides_internal_machinery():
-  reference, body = _reference_and_body(
-    _render_pi6_3(3)
-  )
+def test_phase157_r3_pi6_3_preserves_phase156_bracket_boundary_collapse():
+  rendered = _render_pi6_3(3)
 
-  bracket_definition = (
+  assert "Lemma 5.2" not in rendered
+  assert (
     r"\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
+    not in rendered
   )
-
-  assert bracket_definition in reference
-  assert bracket_definition not in body
-  assert "Lemma 5.2" not in reference
-  assert "Lemma 5.2" not in body
 
 
 def test_phase157_r3_pi6_3_same_proposition_earlier_component_survives_root_exclusion():

@@ -1304,10 +1304,6 @@ def _phase157_r19_public_reference_statement_lines(
       public_lines[
         entry.number
       ] = (
-        (
-          r"$\nu' \in "
-          r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ とする."
-        ),
         r"$\nu' \in \pi_{6}^{3}$.",
         r"$2\nu' = \eta_{3}^{3}$.",
         r"$H\left(\nu'\right) = \eta_{5}$.",
@@ -5235,10 +5231,6 @@ def _phase157_r19_finalize_pi6_3_public_narrative(
       r"$\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$.",
     ),
     2: (
-      (
-        r"$\nu' \in "
-        r"\{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ とする."
-      ),
       r"$\nu' \in \pi_{6}^{3}$.",
       r"$2\nu' = \eta_{3}^{3}$.",
       r"$H\left(\nu'\right) = \eta_{5}$.",
