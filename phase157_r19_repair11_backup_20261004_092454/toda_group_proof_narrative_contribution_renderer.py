@@ -5038,125 +5038,6 @@ def _phase157_r3_restore_pi6_3_earlier_prop56_reference(
   )
 
 
-def _phase157_r19_finalize_pi6_3_exactness_dependency_prose(
-  rendered: str,
-) -> str:
-  paragraphs = rendered.split(
-    "\n\n"
-  )
-  finalized = []
-  saw_full_initial_sequence = False
-  inserted_eta6_definition = False
-  inserted_delta_kernel_reason = False
-
-  short_initial_sequence_core = (
-    r"\pi_{7}^{5} \xrightarrow{\Delta} "
-    r"\pi_{5}^{2} \xrightarrow{E} "
-    r"\pi_{6}^{3}"
-  )
-  left_exact_sequence_core = (
-    r"\pi_{7}^{3} \xrightarrow{H} "
-    r"\pi_{7}^{5} \xrightarrow{\Delta} "
-    r"\pi_{5}^{2}"
-  )
-  full_exact_sequence = (
-    r"$\pi_{7}^{3} \xrightarrow{H} "
-    r"\pi_{7}^{5} \xrightarrow{\Delta} "
-    r"\pi_{5}^{2} \xrightarrow{E} "
-    r"\pi_{6}^{3}$ は完全である."
-  )
-  old_hopf_calculation = (
-    "[R5] と [R2] より, "
-    r"$H\left(\nu'\eta_{6}\right)"
-    r"=H\left(\nu'\right)\eta_{6}"
-    r"=\eta_{5}\eta_{6}"
-    r"=\eta_{5}^{2}$."
-  )
-  new_hopf_calculation = (
-    "[R5] と [R2] より, "
-    r"$H\left(\nu'\eta_{6}\right)"
-    r"=H\left(\nu'\circ E\eta_{5}\right)"
-    r"=H\left(\nu'\right)\circ E\eta_{5}"
-    r"=\eta_{5}\eta_{6}"
-    r"=\eta_{5}^{2}$."
-  )
-  eta6_definition = (
-    r"$\eta_{6}=E\eta_{5}$ である."
-  )
-  hopf_surjective = (
-    r"$H: \pi_{7}^{3} "
-    r"\to \pi_{7}^{5}$ は全射である."
-  )
-  delta_zero = (
-    r"$\Delta: \pi_{7}^{5} "
-    r"\to \pi_{5}^{2}$ は零写像である."
-  )
-  delta_kernel_reason = (
-    "完全性より, "
-    r"$\ker\Delta=\operatorname{Im}H="
-    r"\pi_{7}^{5}$ である."
-  )
-
-  for paragraph in paragraphs:
-    stripped = paragraph.strip()
-
-    if (
-      short_initial_sequence_core in stripped
-      and left_exact_sequence_core not in stripped
-      and "は完全である" not in stripped
-    ):
-      continue
-
-    if (
-      left_exact_sequence_core in stripped
-      and "は完全である" in stripped
-    ):
-      if not saw_full_initial_sequence:
-        finalized.append(
-          full_exact_sequence
-        )
-        saw_full_initial_sequence = True
-      continue
-
-    if stripped == old_hopf_calculation:
-      if not inserted_eta6_definition:
-        finalized.append(
-          eta6_definition
-        )
-        inserted_eta6_definition = True
-
-      finalized.append(
-        new_hopf_calculation
-      )
-      continue
-
-    if stripped == hopf_surjective:
-      finalized.append(
-        paragraph
-      )
-
-      if not inserted_delta_kernel_reason:
-        finalized.append(
-          delta_kernel_reason
-        )
-        inserted_delta_kernel_reason = True
-      continue
-
-    if stripped == delta_zero:
-      finalized.append(
-        paragraph
-      )
-      continue
-
-    finalized.append(
-      paragraph
-    )
-
-  return "\n\n".join(
-    finalized
-  )
-
-
 def _phase157_r19_finalize_pi6_3_public_narrative(
   presentation: TodaGroupProofPresentation,
   source_reference_entries,
@@ -5554,12 +5435,6 @@ def _phase157_r19_finalize_pi6_3_public_narrative(
 
   rendered = "\n\n".join(
     paragraphs
-  )
-
-  rendered = (
-    _phase157_r19_finalize_pi6_3_exactness_dependency_prose(
-      rendered
-    )
   )
 
   rendered = rendered.replace(

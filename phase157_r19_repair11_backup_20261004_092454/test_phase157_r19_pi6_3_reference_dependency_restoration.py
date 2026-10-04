@@ -98,19 +98,14 @@ def test_phase157_r19_pi6_3_has_five_named_public_references():
 def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   _, body = _reference_and_body()
 
-  full_exactness = (
-    r"$\pi_{7}^{3} \xrightarrow{H} "
+  exactness = (
+    r"\pi_{7}^{3} \xrightarrow{H} "
     r"\pi_{7}^{5} \xrightarrow{\Delta} "
-    r"\pi_{5}^{2} \xrightarrow{E} "
-    r"\pi_{6}^{3}$ は完全である."
-  )
-  eta6_definition = (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"\pi_{5}^{2}"
   )
   hopf_value = (
     r"$H\left(\nu'\eta_{6}\right)"
-    r"=H\left(\nu'\circ E\eta_{5}\right)"
-    r"=H\left(\nu'\right)\circ E\eta_{5}"
+    r"=H\left(\nu'\right)\eta_{6}"
     r"=\eta_{5}\eta_{6}"
     r"=\eta_{5}^{2}$."
   )
@@ -121,11 +116,6 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   surjective = (
     r"$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である."
   )
-  kernel_reason = (
-    "完全性より, "
-    r"$\ker\Delta=\operatorname{Im}H="
-    r"\pi_{7}^{5}$ である."
-  )
   delta_zero = (
     r"$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である."
   )
@@ -133,28 +123,16 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
     r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である."
   )
 
-  assert full_exactness in body
-  assert eta6_definition in body
+  assert exactness in body
   assert "[R5] と [R2] より" in body
   assert hopf_value in body
   assert "[R3]より" in body
   assert pi7_5 in body
   assert surjective in body
-  assert kernel_reason in body
   assert delta_zero in body
   assert injective in body
 
   assert body.index(
-    full_exactness
-  ) < body.index(
-    eta6_definition
-  )
-  assert body.index(
-    eta6_definition
-  ) < body.index(
-    hopf_value
-  )
-  assert body.index(
     hopf_value
   ) < body.index(
     pi7_5
@@ -166,11 +144,6 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   )
   assert body.index(
     surjective
-  ) < body.index(
-    kernel_reason
-  )
-  assert body.index(
-    kernel_reason
   ) < body.index(
     delta_zero
   )
@@ -178,12 +151,6 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
     delta_zero
   ) < body.index(
     injective
-  )
-
-  assert (
-    r"$\pi_{7}^{5} \xrightarrow{\Delta} "
-    r"\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$."
-    not in body
   )
 
 

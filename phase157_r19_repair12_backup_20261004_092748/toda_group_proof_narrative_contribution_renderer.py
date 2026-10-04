@@ -5049,15 +5049,15 @@ def _phase157_r19_finalize_pi6_3_exactness_dependency_prose(
   inserted_eta6_definition = False
   inserted_delta_kernel_reason = False
 
-  short_initial_sequence_core = (
-    r"\pi_{7}^{5} \xrightarrow{\Delta} "
+  short_initial_sequence = (
+    r"$\pi_{7}^{5} \xrightarrow{\Delta} "
     r"\pi_{5}^{2} \xrightarrow{E} "
-    r"\pi_{6}^{3}"
+    r"\pi_{6}^{3}$."
   )
-  left_exact_sequence_core = (
-    r"\pi_{7}^{3} \xrightarrow{H} "
+  left_exact_sequence = (
+    r"$\pi_{7}^{3} \xrightarrow{H} "
     r"\pi_{7}^{5} \xrightarrow{\Delta} "
-    r"\pi_{5}^{2}"
+    r"\pi_{5}^{2}$ は完全である."
   )
   full_exact_sequence = (
     r"$\pi_{7}^{3} \xrightarrow{H} "
@@ -5100,17 +5100,14 @@ def _phase157_r19_finalize_pi6_3_exactness_dependency_prose(
   for paragraph in paragraphs:
     stripped = paragraph.strip()
 
-    if (
-      short_initial_sequence_core in stripped
-      and left_exact_sequence_core not in stripped
-      and "は完全である" not in stripped
-    ):
+    if stripped == short_initial_sequence:
+      finalized.append(
+        full_exact_sequence
+      )
+      saw_full_initial_sequence = True
       continue
 
-    if (
-      left_exact_sequence_core in stripped
-      and "は完全である" in stripped
-    ):
+    if stripped == left_exact_sequence:
       if not saw_full_initial_sequence:
         finalized.append(
           full_exact_sequence

@@ -102,16 +102,22 @@ def test_phase157_r11_r17_pi6_3_zero_map_statement_precedes_its_use():
   )
 
 
-def test_phase157_r11_r17_pi6_3_keeps_first_delta_sequence_but_trims_second():
+def test_phase157_r11_r17_pi6_3_uses_one_full_initial_exact_sequence_and_trims_later_sequence():
   _, body = _reference_and_body(
     3,
     3,
   )
 
-  first_sequence = (
+  old_short_sequence = (
     r"$\pi_{7}^{5} \xrightarrow{\Delta} "
     r"\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3}$."
+  )
+  full_initial_sequence = (
+    r"$\pi_{7}^{3} \xrightarrow{H} "
+    r"\pi_{7}^{5} \xrightarrow{\Delta} "
+    r"\pi_{5}^{2} \xrightarrow{E} "
+    r"\pi_{6}^{3}$ は完全である."
   )
   redundant_four_term = (
     r"$\pi_{7}^{5} \xrightarrow{\Delta} "
@@ -125,7 +131,8 @@ def test_phase157_r11_r17_pi6_3_keeps_first_delta_sequence_but_trims_second():
     r"\pi_{6}^{5}$."
   )
 
-  assert first_sequence in body
+  assert old_short_sequence not in body
+  assert full_initial_sequence in body
   assert redundant_four_term not in body
   assert trimmed_sequence in body
 
