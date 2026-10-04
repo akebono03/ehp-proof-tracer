@@ -4732,7 +4732,7 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
       ):
         continue
 
-      bare_sequence = (
+      merged = (
         "$"
         + render_toda_primary_group_latex(
           left_window.source_term
@@ -4755,68 +4755,24 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
         + render_toda_primary_group_latex(
           right_window.target_term
         )
-        + "$"
-      )
-      merged = (
-        bare_sequence
-        + " は完全である."
+        + "$ は完全である."
       )
 
-      bare_indices = tuple(
-        index
-        for index, paragraph in enumerate(
-          paragraphs
-        )
-        if paragraph.strip().rstrip(
-          "."
-        )
-        == bare_sequence
-      )
-
-      introduction_index = (
-        bare_indices[
-          0
-        ]
-        if len(
-          bare_indices
-        ) == 1
-        else None
-      )
-
-      removal_indices = {
+      insertion_index = min(
         left_index,
         right_index,
-      }
-
-      if introduction_index is not None:
-        removal_indices.add(
-          introduction_index
-        )
-        insertion_index = (
-          introduction_index
-        )
-      else:
-        insertion_index = min(
-          left_index,
-          right_index,
-        )
+      )
 
       for index in sorted(
-        removal_indices,
+        (
+          left_index,
+          right_index,
+        ),
         reverse=True,
       ):
         paragraphs.pop(
           index
         )
-
-      removed_before_insertion = sum(
-        1
-        for index in removal_indices
-        if index < insertion_index
-      )
-      insertion_index -= (
-        removed_before_insertion
-      )
 
       paragraphs.insert(
         insertion_index,
@@ -4828,8 +4784,6 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
       )
 
   return markdown
-
-
 
 
 def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
@@ -4882,36 +4836,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       )
     )
 
-  def visible_indices(
-    proof_step: ProofStep,
-  ) -> tuple[
-    int,
-    ...,
-  ]:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
-      )
-    )
-
-    if not rendered:
-      return ()
-
-    target_key = match_key(
-      rendered
-    )
-
-    return tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if match_key(
-        paragraph
-      )
-      == target_key
-    )
-
   for node in presentation.nodes:
     consumer_step = node.proof_step
 
@@ -4938,8 +4862,28 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       )
     )
 
-    consumer_indices = visible_indices(
-      consumer_step
+    consumer_rendered = (
+      _render_generic_narrative_step(
+        consumer_step
+      )
+    )
+
+    if not consumer_rendered:
+      continue
+
+    consumer_key = match_key(
+      consumer_rendered
+    )
+
+    consumer_indices = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if match_key(
+        paragraph
+      )
+      == consumer_key
     )
 
     if len(
@@ -4947,32 +4891,9 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
     ) != 1:
       continue
 
-    consumer_index = consumer_indices[
+    insertion_index = consumer_indices[
       0
     ]
-
-    visible_direct_premise_indices = tuple(
-      index
-      for premise in consumer_step.premises
-      if premise not in definition_steps
-      for premise_indices in (
-        visible_indices(
-          premise
-        ),
-      )
-      if len(
-        premise_indices
-      ) == 1
-      for index in premise_indices
-      if index < consumer_index
-    )
-
-    insertion_index = min(
-      (
-        consumer_index,
-        *visible_direct_premise_indices,
-      )
-    )
 
     for lower_step, upper_step in zip(
       ordered,
@@ -5039,8 +4960,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
   return "\n\n".join(
     paragraphs
   )
-
-
 
 
 def insert_toda_group_proof_narrative_map_property_dependencies(
