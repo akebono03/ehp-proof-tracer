@@ -30,7 +30,6 @@ from proof import (
   RelationType,
   find_inference_match,
   run_inference_until_stable_with_history,
-  apply_inference_match,
 )
 from probes.probe_phase58_capabilities import (
   build_phase58_representative_result,
@@ -254,25 +253,11 @@ def build_phase65_3_data():
   )
 
   rules = (
+    prop22_rule,
     equation57_rule,
     hopf_surjective_rule,
     delta_zero_rule,
     suspension_injective_rule,
-  )
-
-  prop22_match = (
-    find_inference_match(
-      prop22_rule,
-      (),
-    )
-  )
-
-  assert prop22_match is not None
-
-  prop22_step = (
-    apply_inference_match(
-      prop22_match
-    )
   )
 
   premise_steps = (
@@ -280,7 +265,6 @@ def build_phase65_3_data():
     prop53_step,
     eta5_definition_step,
     eta6_definition_step,
-    prop22_step,
     h_delta_exactness_step,
     delta_e_exactness_step,
   )
@@ -290,6 +274,12 @@ def build_phase65_3_data():
       rules,
       premise_steps,
     )
+  )
+
+  prop22_step = next(
+    step
+    for step in result.steps
+    if step.inference_rule == prop22_rule
   )
 
   equation57_step = next(
@@ -802,7 +792,7 @@ def test_phase65_3_final_result_is_not_given():
   )
 
 
-def test_phase65_3_reaches_fixed_point_in_four_rounds():
+def test_phase65_3_reaches_fixed_point_in_five_rounds():
   data = build_phase65_3_data()
 
   result = data[
@@ -814,14 +804,23 @@ def test_phase65_3_reaches_fixed_point_in_four_rounds():
     == InferenceTerminationReason.FIXED_POINT
   )
 
-  assert result.round_count == 4
+  assert result.round_count == 5
+
+  assert (
+    data[
+      "prop22_step"
+    ]
+    in result.round_results[
+      0
+    ].new_steps
+  )
 
   assert (
     data[
       "equation57_step"
     ]
     in result.round_results[
-      0
+      4
     ].new_steps
   )
 
@@ -851,3 +850,5 @@ def test_phase65_3_reaches_fixed_point_in_four_rounds():
       3
     ].new_steps
   )
+
+

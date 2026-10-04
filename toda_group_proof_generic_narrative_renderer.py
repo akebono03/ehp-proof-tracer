@@ -1,7 +1,9 @@
+import re
 from expression import (
   Composition,
   HomotopyElement,
   Suspension,
+  IteratedSuspension,
 )
 from homotopy_groups import (
   DirectSumGroup,
@@ -168,6 +170,163 @@ def _render_generic_eta_composition_latex(
   )
 
 
+def _normalize_generic_eta_family_latex(
+  latex: str,
+) -> str:
+  if not isinstance(
+    latex,
+    str,
+  ):
+    raise TypeError(
+      "latex must be a str"
+    )
+
+  suspension_pattern = re.compile(
+    r"E(?:\^\{(?P<exponent>[0-9]+)\})?"
+    r"\\eta_\{(?P<index>[0-9]+)\}"
+  )
+
+  def replace_suspension(
+    match,
+  ):
+    exponent_text = match.group(
+      "exponent"
+    )
+    exponent = (
+      1
+      if exponent_text is None
+      else int(
+        exponent_text
+      )
+    )
+    index = int(
+      match.group(
+        "index"
+      )
+    )
+
+    return (
+      r"\eta_{"
+      + str(
+        index + exponent
+      )
+      + "}"
+    )
+
+  normalized = suspension_pattern.sub(
+    replace_suspension,
+    latex,
+  )
+
+  factor_pattern = re.compile(
+    r"\\eta_\{([0-9]+)\}"
+  )
+  matches = tuple(
+    factor_pattern.finditer(
+      normalized
+    )
+  )
+
+  if not matches:
+    return normalized
+
+  replacements = []
+  run_start = 0
+
+  while run_start < len(
+    matches
+  ):
+    run_end = run_start + 1
+    first_index = int(
+      matches[
+        run_start
+      ].group(
+        1
+      )
+    )
+
+    while run_end < len(
+      matches
+    ):
+      previous = matches[
+        run_end - 1
+      ]
+      current = matches[
+        run_end
+      ]
+
+      between = normalized[
+        previous.end():
+        current.start()
+      ]
+
+      if between:
+        break
+
+      current_index = int(
+        current.group(
+          1
+        )
+      )
+
+      if (
+        current_index
+        != first_index
+        + (
+          run_end
+          - run_start
+        )
+      ):
+        break
+
+      run_end += 1
+
+    run_length = (
+      run_end
+      - run_start
+    )
+
+    if run_length >= 2:
+      replacements.append(
+        (
+          matches[
+            run_start
+          ].start(),
+          matches[
+            run_end - 1
+          ].end(),
+          (
+            r"\eta_{"
+            + str(
+              first_index
+            )
+            + r"}^{"
+            + str(
+              run_length
+            )
+            + "}"
+          ),
+        )
+      )
+
+    run_start = run_end
+
+  for start, end, replacement in reversed(
+    replacements
+  ):
+    normalized = (
+      normalized[
+        :start
+      ]
+      + replacement
+      + normalized[
+        end:
+      ]
+    )
+
+  return normalized
+
+
 def _render_generic_narrative_expression_latex(
   expression,
 ) -> str:
@@ -212,6 +371,51 @@ def _render_generic_narrative_expression_latex(
 
   if isinstance(
     expression,
+    IteratedSuspension,
+  ):
+    suspended = expression.expression
+    exponent = expression.exponent
+
+    if (
+      isinstance(
+        suspended,
+        HomotopyElement,
+      )
+      and isinstance(
+        exponent,
+        int,
+      )
+      and not isinstance(
+        exponent,
+        bool,
+      )
+    ):
+      generator = suspended.generator
+
+      if (
+        generator is not None
+        and generator.family == "η"
+        and isinstance(
+          generator.index,
+          int,
+        )
+        and not isinstance(
+          generator.index,
+          bool,
+        )
+        and generator.decoration is None
+      ):
+        return (
+          r"\eta_{"
+          + str(
+            generator.index
+            + exponent
+          )
+          + "}"
+        )
+
+  if isinstance(
+    expression,
     Composition,
   ):
     return (
@@ -223,8 +427,12 @@ def _render_generic_narrative_expression_latex(
       )
     )
 
-  return render_toda_expression_latex(
-    expression
+  return (
+    _normalize_generic_eta_family_latex(
+      render_toda_expression_latex(
+        expression
+      )
+    )
   )
 
 
@@ -239,23 +447,35 @@ def _try_render_generic_narrative_expression_latex(
     return None
 
 
-def _normalize_generic_narrative_step_latex(
-  proof_step: ProofStep,
+def _normalize_generic_narrative_statement_latex(
+  statement,
   latex: str,
 ) -> str:
-  statement = proof_step.conclusion
+  if not isinstance(
+    latex,
+    str,
+  ):
+    raise TypeError(
+      "latex must be a str"
+    )
+
+  normalized = (
+    _normalize_generic_eta_family_latex(
+      latex
+    )
+  )
 
   if not hasattr(
     statement,
     "lhs",
   ):
-    return latex
+    return normalized
 
   if not hasattr(
     statement,
     "rhs",
   ):
-    return latex
+    return normalized
 
   replacements = []
   search_start = 0
@@ -279,7 +499,7 @@ def _normalize_generic_narrative_step_latex(
       )
     )
 
-    expression_start = latex.find(
+    expression_start = normalized.find(
       rendered_expression,
       search_start,
     )
@@ -309,8 +529,6 @@ def _normalize_generic_narrative_step_latex(
       )
     )
 
-  normalized = latex
-
   for (
     expression_start,
     expression_end,
@@ -328,7 +546,23 @@ def _normalize_generic_narrative_step_latex(
       ]
     )
 
-  return normalized
+  return (
+    _normalize_generic_eta_family_latex(
+      normalized
+    )
+  )
+
+
+def _normalize_generic_narrative_step_latex(
+  proof_step: ProofStep,
+  latex: str,
+) -> str:
+  return (
+    _normalize_generic_narrative_statement_latex(
+      proof_step.conclusion,
+      latex,
+    )
+  )
 
 
 def _render_generic_narrative_group_map_latex(
@@ -401,10 +635,15 @@ def _render_phase153_r3_6_component_latex(
     latex = None
 
   if latex is not None:
-    return latex
+    return (
+      _normalize_generic_narrative_statement_latex(
+        component,
+        latex,
+      )
+    )
 
   try:
-    return (
+    latex = (
       render_toda_proof_statement_latex(
         component
       )
@@ -414,6 +653,13 @@ def _render_phase153_r3_6_component_latex(
     ValueError,
   ):
     return None
+
+  return (
+    _normalize_generic_narrative_statement_latex(
+      component,
+      latex,
+    )
+  )
 
 
 def _render_phase153_r3_6_component_list_prose(

@@ -14,7 +14,6 @@ from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
 from toda_group_proof_generic_narrative_renderer import (
-  _normalize_generic_eta_family_latex,
   _render_generic_narrative_step,
 )
 from toda_human_readable_renderer import (

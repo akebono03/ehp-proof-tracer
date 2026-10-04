@@ -14,7 +14,6 @@ from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
 from toda_group_proof_generic_narrative_renderer import (
-  _normalize_generic_eta_family_latex,
   _render_generic_narrative_step,
 )
 from toda_human_readable_renderer import (
@@ -3950,32 +3949,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
     "\n\n"
   )
 
-  def match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    return (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
   for node in presentation.nodes:
     definition_steps = tuple(
       premise
@@ -4043,19 +4016,8 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
         + "$ である."
       )
 
-      bridge = (
-        _normalize_generic_eta_family_latex(
-          bridge
-        )
-      )
-
       if any(
-        match_key(
-          paragraph
-        )
-        == match_key(
-          bridge
-        )
+        paragraph.strip() == bridge
         for paragraph in paragraphs
       ):
         continue
@@ -4065,23 +4027,14 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
           node.proof_step
         )
       )
-
-      if not dependent_line:
-        continue
-
-      dependent_key = match_key(
-        dependent_line
-      )
       dependent_index = next(
         (
           index
           for index, paragraph in enumerate(
             paragraphs
           )
-          if match_key(
-            paragraph
-          )
-          == dependent_key
+          if paragraph.strip()
+          == dependent_line.strip()
         ),
         None,
       )
@@ -4092,350 +4045,6 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       paragraphs.insert(
         dependent_index,
         bridge,
-      )
-
-  return "\n\n".join(
-    paragraphs
-  )
-
-
-def insert_toda_group_proof_narrative_map_property_dependencies(
-  presentation: TodaGroupProofPresentation,
-  markdown: str,
-  reference_entries=(),
-) -> str:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  if not isinstance(
-    reference_entries,
-    tuple,
-  ):
-    raise TypeError(
-      "reference_entries must be a tuple"
-    )
-
-  paragraphs = markdown.split(
-    "\n\n"
-  )
-
-  def match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]より, "
-      )
-
-      if marker_end >= 0:
-        stripped = stripped[
-          marker_end
-          + len(
-            "]より, "
-          ):
-        ]
-
-    return (
-      _phase157_r11_reference_statement_match_key(
-        stripped
-      )
-    )
-
-  def reference_number_for_step(
-    proof_step: ProofStep,
-  ) -> int | None:
-    direct = tuple(
-      entry.number
-      for entry in reference_entries
-      if any(
-        candidate is proof_step
-        for candidate in entry.proof_steps
-      )
-    )
-
-    if len(
-      direct
-    ) == 1:
-      return direct[
-        0
-      ]
-
-    reference = (
-      extract_toda_group_proof_step_literature_reference(
-        proof_step
-      )
-    )
-
-    if (
-      reference is None
-      or reference.locator is None
-    ):
-      return None
-
-    by_locator = tuple(
-      entry.number
-      for entry in reference_entries
-      if (
-        entry.reference.locator
-        == reference.locator
-      )
-    )
-
-    if len(
-      by_locator
-    ) != 1:
-      return None
-
-    return by_locator[
-      0
-    ]
-
-  def display_line(
-    proof_step: ProofStep,
-  ) -> str | None:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
-      )
-    )
-
-    if not rendered:
-      return None
-
-    reference_number = (
-      reference_number_for_step(
-        proof_step
-      )
-    )
-
-    if reference_number is None:
-      return rendered
-
-    return (
-      "[R"
-      + str(
-        reference_number
-      )
-      + "]より, "
-      + rendered
-    )
-
-  def paragraph_index_for_step(
-    proof_step: ProofStep,
-  ) -> int | None:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
-      )
-    )
-
-    if not rendered:
-      return None
-
-    target_key = match_key(
-      rendered
-    )
-    matches = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if match_key(
-        paragraph
-      )
-      == target_key
-    )
-
-    if len(
-      matches
-    ) != 1:
-      return None
-
-    return matches[
-      0
-    ]
-
-  relevant_roles = {
-    TodaProofDependencyRole.EHP_EXACTNESS,
-    TodaProofDependencyRole.EHP_WINDOW,
-    TodaProofDependencyRole.GROUP_STRUCTURE,
-    TodaProofDependencyRole.MAP_PROPERTY,
-    TodaProofDependencyRole.RELATION,
-  }
-
-  visiting = set()
-
-  def ensure_before(
-    proof_step: ProofStep,
-    anchor_index: int,
-  ) -> int:
-    proof_step_id = id(
-      proof_step
-    )
-
-    if proof_step_id in visiting:
-      return anchor_index
-
-    visiting.add(
-      proof_step_id
-    )
-
-    boundary = (
-      classify_toda_literature_statement_step(
-        proof_step
-      )
-    )
-    is_fixed_boundary = (
-      boundary is not None
-      and boundary.classification
-      is TodaLiteratureStatementClassification.FIXED_STATEMENT
-    )
-
-    if not is_fixed_boundary:
-      for premise in proof_step.premises:
-        premise_role = (
-          classify_toda_proof_step_role(
-            premise
-          )
-        )
-
-        if premise_role not in relevant_roles:
-          continue
-
-        anchor_index = ensure_before(
-          premise,
-          anchor_index,
-        )
-
-    line = display_line(
-      proof_step
-    )
-
-    if line is None:
-      visiting.remove(
-        proof_step_id
-      )
-      return anchor_index
-
-    current_index = (
-      paragraph_index_for_step(
-        proof_step
-      )
-    )
-
-    if current_index is not None:
-      reference_number = (
-        reference_number_for_step(
-          proof_step
-        )
-      )
-
-      if (
-        reference_number is not None
-        and not paragraphs[
-          current_index
-        ].strip().startswith(
-          "[R"
-        )
-      ):
-        paragraphs[
-          current_index
-        ] = line
-
-      if current_index < anchor_index:
-        visiting.remove(
-          proof_step_id
-        )
-        return anchor_index
-
-      paragraph = paragraphs.pop(
-        current_index
-      )
-
-      if current_index < anchor_index:
-        anchor_index -= 1
-
-      paragraphs.insert(
-        anchor_index,
-        paragraph,
-      )
-
-      visiting.remove(
-        proof_step_id
-      )
-      return anchor_index + 1
-
-    paragraphs.insert(
-      anchor_index,
-      line,
-    )
-
-    visiting.remove(
-      proof_step_id
-    )
-    return anchor_index + 1
-
-  visible_map_steps = []
-
-  for node in presentation.nodes:
-    proof_step = node.proof_step
-
-    if (
-      classify_toda_proof_step_role(
-        proof_step
-      )
-      is not TodaProofDependencyRole.MAP_PROPERTY
-    ):
-      continue
-
-    if (
-      paragraph_index_for_step(
-        proof_step
-      )
-      is None
-    ):
-      continue
-
-    visible_map_steps.append(
-      proof_step
-    )
-
-  for map_step in visible_map_steps:
-    map_index = paragraph_index_for_step(
-      map_step
-    )
-
-    if map_index is None:
-      continue
-
-    for premise in map_step.premises:
-      role = classify_toda_proof_step_role(
-        premise
-      )
-
-      if role not in relevant_roles:
-        continue
-
-      map_index = ensure_before(
-        premise,
-        map_index,
       )
 
   return "\n\n".join(
@@ -4514,9 +4123,12 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
     if not rendered:
       return None
 
-    target_key = match_key(
-      rendered
+    target_key = (
+      _phase157_r11_reference_statement_match_key(
+        rendered
+      )
     )
+
     matches = tuple(
       index
       for index, paragraph in enumerate(
@@ -4524,18 +4136,13 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       )
       if match_key(
         paragraph
-      )
-      == target_key
+      ) == target_key
     )
 
-    if len(
-      matches
-    ) != 1:
+    if len(matches) != 1:
       return None
 
-    return matches[
-      0
-    ]
+    return matches[0]
 
   def map_latex(
     group_map,
@@ -4567,11 +4174,7 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
         premise
         for premise in zero_step.premises
         if (
-          classify_toda_proof_step_role(
-            premise
-          )
-          is TodaProofDependencyRole.MAP_PROPERTY
-          and "全射である."
+          "全射である."
           in (
             _render_generic_narrative_step(
               premise
@@ -4604,13 +4207,61 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
     ):
       return None
 
+    exactness = (
+      exactness_step.conclusion
+    )
     window = getattr(
-      exactness_step.conclusion,
+      exactness,
       "window",
       None,
     )
 
     if window is None:
+      return None
+
+    surjective_map = getattr(
+      surjective_step.conclusion,
+      "map",
+      None,
+    )
+    zero_map = getattr(
+      zero_step.conclusion,
+      "map",
+      None,
+    )
+
+    if (
+      surjective_map is None
+      or zero_map is None
+    ):
+      return None
+
+    if (
+      getattr(
+        surjective_map,
+        "source_group",
+        None,
+      )
+      != window.source_term
+      or getattr(
+        surjective_map,
+        "target_group",
+        None,
+      )
+      != window.middle_term
+      or getattr(
+        zero_map,
+        "source_group",
+        None,
+      )
+      != window.middle_term
+      or getattr(
+        zero_map,
+        "target_group",
+        None,
+      )
+      != window.target_term
+    ):
       return None
 
     first_map = map_latex(
@@ -4707,34 +4358,11 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       if consumer_index is None:
         continue
 
-      insertion_index = consumer_index
-
-      if insertion_index > 0:
-        previous = paragraphs[
-          insertion_index - 1
-        ]
-
-        if (
-          "零写像"
-          in previous
-          or "Δ=0"
-          in previous
-          or r"\Delta=0"
-          in previous
-          or (
-            r"\ker E"
-            in previous
-            and r"\operatorname{Im}"
-            in previous
-          )
-        ):
-          insertion_index -= 1
-
       paragraphs.insert(
-        insertion_index,
+        consumer_index,
         zero_line,
       )
-      zero_index = insertion_index
+      zero_index = consumer_index
 
     reason = exactness_reason(
       zero_step
@@ -4744,8 +4372,7 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       continue
 
     if any(
-      paragraph.strip()
-      == reason
+      paragraph.strip() == reason
       for paragraph in paragraphs
     ):
       continue
@@ -5576,13 +5203,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
   rendered = (
-    insert_toda_group_proof_narrative_map_property_dependencies(
-      presentation,
-      rendered,
-      reference_entries,
-    )
-  )
-  rendered = (
     insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       presentation,
       rendered,
@@ -5680,6 +5300,19 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       )
     )
 
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    _phase157_r3_restore_pi6_3_earlier_prop56_reference(
+      presentation,
+      phase157_r3_entries_before_usage_filter,
+      phase157_r3_lines_before_usage_filter,
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+
   if "[R" in rendered:
     (
       reference_entries,
@@ -5693,6 +5326,27 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       )
     )
 
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+    rendered,
+  ) = (
+    _phase157_r19_finalize_pi6_3_public_narrative(
+      presentation,
+      phase157_r4_reference_entries_before_usage_filter,
+      reference_entries,
+      statement_lines_by_reference_number,
+      rendered,
+    )
+  )
+
+  public_statement_lines_by_reference_number = (
+    _phase157_r19_public_reference_statement_lines(
+      presentation,
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
       reference_entries,

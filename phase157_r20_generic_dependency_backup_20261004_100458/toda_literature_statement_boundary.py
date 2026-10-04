@@ -91,19 +91,6 @@ class TodaLiteratureStatementBoundary:
       raise TypeError("component_key must be a str or None")
 
 
-
-_PROPOSITION_22_COMPONENTS = (
-  TodaFixedStatementComponent(
-    reference_locator="Proposition 2.2",
-    component_key="hopf_right_composition_formula",
-    statement_role=TodaLiteratureStatementRole.RELATION,
-    order=None,
-    range_text=None,
-    range_is_explicit_in_current_aggregate=True,
-  ),
-)
-
-
 _PROPOSITION_51_COMPONENTS = (
   TodaFixedStatementComponent(
     reference_locator="Proposition 5.1",
@@ -441,7 +428,6 @@ _EQUATION_55_COMPONENTS = (
 )
 
 _FIXED_COMPONENTS_BY_REFERENCE = {
-  "Proposition 2.2": _PROPOSITION_22_COMPONENTS,
   "Proposition 5.1": _PROPOSITION_51_COMPONENTS,
   "Proposition 5.3": _PROPOSITION_53_COMPONENTS,
   "Proposition 5.6": _PROPOSITION_56_COMPONENTS,
@@ -456,7 +442,6 @@ _FIXED_COMPONENTS_BY_REFERENCE = {
 
 
 _FIXED_RULE_COMPONENT_KEYS = {
-  "Toda Prop.2.2 right formula": "hopf_right_composition_formula",
   "Toda Proposition 5.11 finite-dimensional integration": None,
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
     "pi8_2_group_relation"
@@ -544,7 +529,6 @@ _FIXED_RULE_COMPONENT_KEYS = {
 
 
 _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
-  "Toda Prop.2.2 right formula": "Proposition 2.2",
   "Toda Proposition 5.11 finite-dimensional integration": "Proposition 5.11",
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
     "Proposition 5.11"
@@ -854,6 +838,7 @@ _FIXED_RULE_COMPONENT_KEYS.update(
     'Toda 4.5 stable-range iterated suspension isomorphism': 'stable_range_suspension_isomorphism',
     'Toda 5.2 eta_2 composition isomorphism': 'eta2_composition_isomorphism',
     'Toda 5.5 nu-family finite-dimensional integration': 'nu_family_relations',
+    'Toda Equation 5.7 nu-prime eta_6 Hopf value': 'nu_prime_eta6_hopf_relation',
     'Toda Equation 5.8 integration': 'delta_iota9_relation',
     'Toda Lemma 5.4 integration': 'nu4_statement',
     'Toda Lemma 5.7 Delta nu_5 generator': 'delta_nu5_relation',
@@ -882,6 +867,7 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME.update(
     'Toda 4.5 stable-range iterated suspension isomorphism': '(4.5)',
     'Toda 5.2 eta_2 composition isomorphism': '(5.2)',
     'Toda 5.5 nu-family finite-dimensional integration': '(5.5)',
+    'Toda Equation 5.7 nu-prime eta_6 Hopf value': 'Equation 5.7',
     'Toda Equation 5.8 integration': 'Equation 5.8',
     'Toda Lemma 5.4 integration': 'Lemma 5.4',
     'Toda Lemma 5.7 Delta nu_5 generator': 'Lemma 5.7',

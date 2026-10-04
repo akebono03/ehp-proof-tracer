@@ -107,6 +107,13 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   eta6_definition = (
     r"$\eta_{6}=E\eta_{5}$ である."
   )
+  hopf_value = (
+    r"$H\left(\nu'\eta_{6}\right)"
+    r"=H\left(\nu'\circ E\eta_{5}\right)"
+    r"=H\left(\nu'\right)\circ E\eta_{5}"
+    r"=\eta_{5}\eta_{6}"
+    r"=\eta_{5}^{2}$."
+  )
   pi7_5 = (
     r"$\pi_{7}^{5} = "
     r"\mathbb{Z}/2\{\eta_{5}^{2}\}$."
@@ -116,7 +123,7 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   )
   kernel_reason = (
     "完全性より, "
-    r"$\ker \Delta=\operatorname{Im}H="
+    r"$\ker\Delta=\operatorname{Im}H="
     r"\pi_{7}^{5}$ である."
   )
   delta_zero = (
@@ -128,21 +135,14 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
 
   assert full_exactness in body
   assert eta6_definition in body
-  assert "[R5]より" in body
+  assert "[R5] と [R2] より" in body
+  assert hopf_value in body
   assert "[R3]より" in body
   assert pi7_5 in body
   assert surjective in body
   assert kernel_reason in body
   assert delta_zero in body
   assert injective in body
-  assert (
-    r"H\left(\nu'\eta_{6}\right)"
-    in body
-  )
-  assert (
-    r"\eta_{5}^{2}"
-    in body
-  )
 
   assert body.index(
     full_exactness
@@ -152,15 +152,15 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   assert body.index(
     eta6_definition
   ) < body.index(
-    "[R5]より"
+    hopf_value
   )
   assert body.index(
-    "[R5]より"
+    hopf_value
   ) < body.index(
-    "[R3]より"
+    pi7_5
   )
   assert body.index(
-    "[R3]より"
+    pi7_5
   ) < body.index(
     surjective
   )
@@ -180,24 +180,33 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
     injective
   )
 
+  assert (
+    r"$\pi_{7}^{5} \xrightarrow{\Delta} "
+    r"\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$."
+    not in body
+  )
+
 
 def test_phase157_r19_pi6_3_uses_canonical_reference_consequences():
   _, body = _reference_and_body()
 
   assert (
-    r"$2\nu' = \eta_{3}^{3}"
+    "[R2]より, "
+    r"$2\nu' = \eta_{3}^{3}$."
     in body
   )
   assert (
-    r"$H\left(\nu'\right) = \eta_{5}"
-    in body
-    or r"$H\left(\nu'\right)=\eta_{5}"
+    "[R1] と $E$ の単射性より, "
+    r"$E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$"
     in body
   )
   assert (
-    "[R4]より" in body
+    "[R2]より, "
+    r"$H\left(\nu'\right)=\eta_{5}$."
+    in body
   )
   assert (
+    "[R4]より, "
     r"$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$."
     in body
   )
@@ -208,11 +217,7 @@ def test_phase157_r19_pi6_3_uses_canonical_reference_consequences():
     "`ScalarGreaterEqualStatement`",
     "`TodaPrimaryGroupMembershipStatement`",
     r"$E^{2}\eta_{3} = \eta_{5}\tag{5}$.",
-    r"\eta_{2}\eta_{3}\eta_{4}",
-    r"\eta_{3}\eta_{4}\eta_{5}",
   )
 
   for text in forbidden:
     assert text not in body
-
-

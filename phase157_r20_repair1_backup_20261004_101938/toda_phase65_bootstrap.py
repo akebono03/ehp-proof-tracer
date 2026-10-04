@@ -26,8 +26,6 @@ from proof import (
   Relation,
   RelationType,
   run_inference_until_stable_with_history,
-  apply_inference_match,
-  find_inference_match,
 )
 from scalar_rules import (
   ScalarGreaterEqualStatement,
@@ -213,27 +211,10 @@ def build_toda_prop56_bootstrap_step(
     )
   )
 
-  prop22_match = (
-    find_inference_match(
-      prop22_rule,
-      (),
-    )
-  )
-
-  if prop22_match is None:
-    raise ValueError(
-      "Toda Proposition 2.2 must be directly applicable"
-    )
-
-  prop22_step = (
-    apply_inference_match(
-      prop22_match
-    )
-  )
-
   equation57_result = (
     run_inference_until_stable_with_history(
       (
+        prop22_rule,
         toda_57_nu_prime_eta6_hopf_inference_rule(),
         toda_prop56_pi7_3_hopf_surjective_inference_rule(),
         toda_prop56_pi7_5_delta_zero_inference_rule(),
@@ -244,7 +225,6 @@ def build_toda_prop56_bootstrap_step(
         prop53_step,
         eta5_definition_step,
         eta6_definition_step,
-        prop22_step,
         h_delta_exactness_step,
         delta_e_exactness_step,
       ),

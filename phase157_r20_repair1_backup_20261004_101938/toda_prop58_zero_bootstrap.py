@@ -43,8 +43,6 @@ from proof import (
   Relation,
   RelationType,
   run_inference_until_stable_with_history,
-  apply_inference_match,
-  find_inference_match,
 )
 from scalar_rules import (
   ScalarGreaterEqualStatement,
@@ -425,26 +423,9 @@ def _build_equation57_steps(
     )
   )
 
-  prop22_match = (
-    find_inference_match(
-      prop22_rule,
-      (),
-    )
-  )
-
-  if prop22_match is None:
-    raise ValueError(
-      "Toda Proposition 2.2 must be directly applicable"
-    )
-
-  prop22_step = (
-    apply_inference_match(
-      prop22_match
-    )
-  )
-
   result = run_inference_until_stable_with_history(
     (
+      prop22_rule,
       toda_57_nu_prime_eta6_hopf_inference_rule(),
       toda_prop56_pi7_3_hopf_surjective_inference_rule(),
       toda_prop56_pi7_5_delta_zero_inference_rule(),
@@ -459,7 +440,6 @@ def _build_equation57_steps(
       ],
       eta5_definition_step,
       eta6_definition_step,
-      prop22_step,
       ProofStep(
         conclusion=TodaProp42ExactnessStatement(
           window=TodaEHPExactnessWindow(
@@ -492,11 +472,19 @@ def _build_equation57_steps(
   equation57_step = _find_unique_step(
     result.steps,
     lambda step: (
-      step.inference_rule is not None
-      and step.inference_rule.name
-      == (
-        "Toda Equation 5.7 "
-        "nu-prime eta_6 Hopf value"
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      == EHP_H_MAP
+      and isinstance(
+        step.conclusion.lhs.expression,
+        Composition,
       )
     ),
     "Equation (5.7)",

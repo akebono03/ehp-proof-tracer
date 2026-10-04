@@ -492,11 +492,19 @@ def _build_equation57_steps(
   equation57_step = _find_unique_step(
     result.steps,
     lambda step: (
-      step.inference_rule is not None
-      and step.inference_rule.name
-      == (
-        "Toda Equation 5.7 "
-        "nu-prime eta_6 Hopf value"
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      == EHP_H_MAP
+      and isinstance(
+        step.conclusion.lhs.expression,
+        Composition,
       )
     ),
     "Equation (5.7)",

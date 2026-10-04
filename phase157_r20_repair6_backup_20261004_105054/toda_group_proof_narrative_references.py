@@ -12,7 +12,6 @@ from toda_literature_statement_boundary import (
   TodaLiteratureStatementClassification,
   classify_toda_literature_statement_step,
   get_toda_fixed_statement_component,
-  get_toda_fixed_statement_components,
   is_toda_fixed_statement_component_reference_eligible,
 )
 from toda_group_proof_presentation import (
@@ -592,21 +591,8 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
         boundary is None
         or boundary.classification
         != TodaLiteratureStatementClassification.FIXED_STATEMENT
+        or boundary.component_key is None
       ):
-        continue
-
-      if boundary.component_key is None:
-        fixed_components = (
-          get_toda_fixed_statement_components(
-            boundary.reference_locator
-          )
-        )
-
-        if fixed_components:
-          retained_steps.append(
-            proof_step
-          )
-
         continue
 
       component = (
@@ -652,7 +638,6 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
   return tuple(
     retained_entries
   )
-
 
 def filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary(
   entries: tuple[
@@ -1241,16 +1226,9 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
     for proof_step in entry.proof_steps
     if proof_step is not root_step
   }
-
   consumers_by_step_id = {}
-  presentation_steps = ()
 
   if presentation is not None:
-    presentation_steps = tuple(
-      node.proof_step
-      for node in presentation.nodes
-    )
-
     for edge in presentation.edges:
       consumers_by_step_id.setdefault(
         id(
@@ -1260,113 +1238,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       ).append(
         edge.parent_step
       )
-
-  def equivalent_step_ids(
-    proof_step: ProofStep,
-  ) -> frozenset[
-    int
-  ]:
-    if presentation is None:
-      return frozenset(
-        {
-          id(
-            proof_step
-          )
-        }
-      )
-
-    return frozenset(
-      id(
-        candidate
-      )
-      for candidate in presentation_steps
-      if (
-        candidate is proof_step
-        or candidate.conclusion
-        == proof_step.conclusion
-      )
-    )
-
-  def has_used_external_descendant(
-    proof_step: ProofStep,
-  ) -> bool:
-    starting_ids = equivalent_step_ids(
-      proof_step
-    )
-
-    if any(
-      step_id in used_step_ids
-      and step_id
-      not in reference_internal_step_ids
-      for step_id in starting_ids
-    ):
-      return True
-
-    if presentation is None:
-      return any(
-        step_id in used_step_ids
-        for step_id in starting_ids
-      )
-
-    frontier = []
-
-    for step_id in starting_ids:
-      frontier.extend(
-        consumers_by_step_id.get(
-          step_id,
-          (),
-        )
-      )
-
-    seen_step_ids = set(
-      starting_ids
-    )
-
-    while frontier:
-      consumer = frontier.pop(
-        0
-      )
-      consumer_id = id(
-        consumer
-      )
-
-      if consumer_id in seen_step_ids:
-        continue
-
-      equivalent_consumer_ids = (
-        equivalent_step_ids(
-          consumer
-        )
-      )
-
-      seen_step_ids.update(
-        equivalent_consumer_ids
-      )
-
-      if (
-        consumer is root_step
-        or id(
-          root_step
-        )
-        in equivalent_consumer_ids
-        or any(
-          step_id in used_step_ids
-          and step_id
-          not in reference_internal_step_ids
-          for step_id in equivalent_consumer_ids
-        )
-      ):
-        return True
-
-      for step_id in equivalent_consumer_ids:
-        frontier.extend(
-          consumers_by_step_id.get(
-            step_id,
-            (),
-          )
-        )
-
-    return False
 
   desired_entries = []
 
@@ -1380,12 +1251,28 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
         ]
       )
     )
-
     is_used_fixed_reference = (
       has_selected_statement
       and any(
-        has_used_external_descendant(
+        id(
           proof_step
+        )
+        in used_step_ids
+        and (
+          presentation is None
+          or any(
+            consumer is root_step
+            or id(
+              consumer
+            )
+            not in reference_internal_step_ids
+            for consumer in consumers_by_step_id.get(
+              id(
+                proof_step
+              ),
+              (),
+            )
+          )
         )
         for proof_step in entry.proof_steps
       )
@@ -1525,7 +1412,7 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       )
 
     placeholder = (
-      "__PHASE157_R20_REFERENCE_ALIAS_"
+      "__PHASE157_R5_R4_REFERENCE_"
       + str(
         len(
           marker_placeholders
@@ -1533,7 +1420,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       )
       + "__"
     )
-
     marker_placeholders[
       placeholder
     ] = (
@@ -1543,7 +1429,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       )
       + "]"
     )
-
     return placeholder
 
   remapped_body = re.sub(
@@ -1563,7 +1448,6 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
     restored_statement_lines,
     remapped_body,
   )
-
 
 def restore_phase157_r4_representative_fixed_reference_entries_after_body_usage(
   original_entries: tuple[

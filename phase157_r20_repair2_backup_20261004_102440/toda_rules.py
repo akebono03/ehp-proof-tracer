@@ -34118,7 +34118,7 @@ def toda_57_nu_prime_eta6_hopf_inference_rule():
         expression=Composition(
           left=nu_prime,
           right=Suspension(
-            expression=canonical_eta_5,
+            expression=eta5_definition_element,
           ),
         ),
       ),
@@ -34128,7 +34128,7 @@ def toda_57_nu_prime_eta6_hopf_inference_rule():
           expression=nu_prime,
         ),
         right=Suspension(
-          expression=canonical_eta_5,
+          expression=eta5_definition_element,
         ),
       ),
       relation_type=RelationType.EQUALITY,

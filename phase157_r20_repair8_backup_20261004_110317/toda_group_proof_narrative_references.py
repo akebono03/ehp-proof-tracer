@@ -1243,14 +1243,8 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
   }
 
   consumers_by_step_id = {}
-  presentation_steps = ()
 
   if presentation is not None:
-    presentation_steps = tuple(
-      node.proof_step
-      for node in presentation.nodes
-    )
-
     for edge in presentation.edges:
       consumers_by_step_id.setdefault(
         id(
@@ -1261,66 +1255,36 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
         edge.parent_step
       )
 
-  def equivalent_step_ids(
-    proof_step: ProofStep,
-  ) -> frozenset[
-    int
-  ]:
-    if presentation is None:
-      return frozenset(
-        {
-          id(
-            proof_step
-          )
-        }
-      )
-
-    return frozenset(
-      id(
-        candidate
-      )
-      for candidate in presentation_steps
-      if (
-        candidate is proof_step
-        or candidate.conclusion
-        == proof_step.conclusion
-      )
-    )
-
   def has_used_external_descendant(
     proof_step: ProofStep,
   ) -> bool:
-    starting_ids = equivalent_step_ids(
+    proof_step_id = id(
       proof_step
     )
 
-    if any(
-      step_id in used_step_ids
-      and step_id
+    if (
+      proof_step_id
+      in used_step_ids
+      and proof_step_id
       not in reference_internal_step_ids
-      for step_id in starting_ids
     ):
       return True
 
     if presentation is None:
-      return any(
-        step_id in used_step_ids
-        for step_id in starting_ids
+      return (
+        proof_step_id
+        in used_step_ids
       )
 
-    frontier = []
-
-    for step_id in starting_ids:
-      frontier.extend(
-        consumers_by_step_id.get(
-          step_id,
-          (),
-        )
+    frontier = list(
+      consumers_by_step_id.get(
+        proof_step_id,
+        (),
       )
-
-    seen_step_ids = set(
-      starting_ids
     )
+    seen_step_ids = {
+      proof_step_id
+    }
 
     while frontier:
       consumer = frontier.pop(
@@ -1333,38 +1297,27 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       if consumer_id in seen_step_ids:
         continue
 
-      equivalent_consumer_ids = (
-        equivalent_step_ids(
-          consumer
-        )
-      )
-
-      seen_step_ids.update(
-        equivalent_consumer_ids
+      seen_step_ids.add(
+        consumer_id
       )
 
       if (
         consumer is root_step
-        or id(
-          root_step
-        )
-        in equivalent_consumer_ids
-        or any(
-          step_id in used_step_ids
-          and step_id
+        or (
+          consumer_id
+          in used_step_ids
+          and consumer_id
           not in reference_internal_step_ids
-          for step_id in equivalent_consumer_ids
         )
       ):
         return True
 
-      for step_id in equivalent_consumer_ids:
-        frontier.extend(
-          consumers_by_step_id.get(
-            step_id,
-            (),
-          )
+      frontier.extend(
+        consumers_by_step_id.get(
+          consumer_id,
+          (),
         )
+      )
 
     return False
 
@@ -1525,7 +1478,7 @@ def restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage(
       )
 
     placeholder = (
-      "__PHASE157_R20_REFERENCE_ALIAS_"
+      "__PHASE157_R20_REFERENCE_"
       + str(
         len(
           marker_placeholders
