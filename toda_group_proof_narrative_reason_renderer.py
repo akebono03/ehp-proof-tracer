@@ -81,6 +81,68 @@ def render_toda_group_proof_narrative_reason_sentence(
   if (
     reason.kind
     is TodaGroupProofNarrativeReasonKind
+    .INJECTIVE_IMAGE_ORDER
+  ):
+    if len(
+      reason.premise_steps
+    ) != 2:
+      return None
+
+    group_statement = (
+      reason.premise_steps[
+        0
+      ].conclusion
+    )
+    injective_statement = (
+      reason.premise_steps[
+        1
+      ].conclusion
+    )
+    order_statement = (
+      reason.conclusion_step.conclusion
+    )
+
+    finite_group = group_statement.rhs
+    source_generator_latex = (
+      _render_generic_narrative_expression_latex(
+        finite_group.generator
+      )
+    )
+    target_latex = (
+      _render_generic_narrative_expression_latex(
+        order_statement.lhs
+      )
+    )
+    order = finite_group.order
+
+    if (
+      not source_generator_latex
+      or not target_latex
+    ):
+      return None
+
+    if (
+      type(
+        injective_statement.map
+      ).__name__
+      not in (
+        "TodaSuspensionMap",
+        "TodaIteratedSuspensionMap",
+      )
+    ):
+      return None
+
+    return (
+      "この群構造と $E$ の単射性より, "
+      f"$E({source_generator_latex})"
+      f"={target_latex}\\neq0$ であり, "
+      "単射写像は元の位数を保つ.\n"
+      "したがって, "
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
     .MULTIPLE_RELATION_TO_ORDER
   ):
     if len(reason.premise_steps) != 2:
