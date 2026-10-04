@@ -69,7 +69,6 @@ from toda_group_proof_narrative_proof_chains import (
 )
 from toda_group_proof_narrative_reason_renderer import (
   insert_toda_group_proof_narrative_reason_prose,
-  order_toda_group_proof_narrative_injective_image_order_reason,
 )
 from toda_group_proof_narrative_reasons import (
   build_toda_group_proof_narrative_reason_sidecar,
@@ -7577,12 +7576,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     suppress_toda_group_proof_narrative_repeated_unique_step_statements(
       presentation,
       rendered,
-    )
-  )
-  rendered = (
-    order_toda_group_proof_narrative_injective_image_order_reason(
-      rendered,
-      reason_sidecar,
     )
   )
 
