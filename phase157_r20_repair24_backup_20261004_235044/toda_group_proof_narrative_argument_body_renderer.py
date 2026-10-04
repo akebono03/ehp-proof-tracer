@@ -1298,7 +1298,6 @@ def render_toda_group_proof_narrative_argument_body_markdown(
               proof_step
             )
           )
-
           and (
             (
               id(
