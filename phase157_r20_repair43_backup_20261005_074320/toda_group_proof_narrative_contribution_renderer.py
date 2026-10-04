@@ -3754,111 +3754,6 @@ def normalize_toda_group_proof_narrative_connectors(
   )
 
 
-
-def suppress_toda_group_proof_narrative_dangling_connectors(
-  markdown: str,
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  standalone_connectors = {
-    "以上より,",
-    "したがって,",
-    "これより,",
-    "これらより,",
-  }
-
-  def is_dangling_connector_line(
-    line: str,
-  ) -> bool:
-    stripped = line.strip()
-
-    if stripped in standalone_connectors:
-      return True
-
-    if (
-      stripped.startswith(
-        "("
-      )
-      and stripped.endswith(
-        "より,"
-      )
-      and ") と (" in stripped
-      and "$" not in stripped
-      and "[R" not in stripped
-    ):
-      return True
-
-    return False
-
-  retained_paragraphs = []
-
-  for paragraph in markdown.split(
-    "\n\n"
-  ):
-    lines = paragraph.splitlines()
-
-    while (
-      lines
-      and is_dangling_connector_line(
-        lines[
-          -1
-        ]
-      )
-    ):
-      lines.pop()
-
-    if not lines:
-      continue
-
-    normalized = "\n".join(
-      lines
-    )
-    stripped = normalized.lstrip()
-
-    for connector in standalone_connectors:
-      prefix = (
-        connector
-        + " "
-      )
-
-      if (
-        stripped.startswith(
-          prefix
-          + "[R"
-        )
-      ):
-        leading = len(
-          normalized
-        ) - len(
-          stripped
-        )
-        normalized = (
-          normalized[
-            :leading
-          ]
-          + stripped[
-            len(
-              prefix
-            ):
-          ]
-        )
-        break
-
-    if normalized.strip():
-      retained_paragraphs.append(
-        normalized
-      )
-
-  return "\n\n".join(
-    retained_paragraphs
-  )
-
 def _toda_group_proof_narrative_equation_tag_number(
   paragraph: str,
 ) -> int | None:
@@ -7282,11 +7177,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     suppress_toda_group_proof_narrative_repeated_reference_restatements(
       rendered,
       statement_lines_by_reference_number,
-    )
-  )
-  rendered = (
-    suppress_toda_group_proof_narrative_dangling_connectors(
-      rendered
     )
   )
 
