@@ -1,0 +1,20 @@
+================================================================================================
+Phase157-R20 repair49 - 112-group post-repair cross-audit
+================================================================================================
+Production code changes: none
+Range: n=2..15, k=0..7, depth=2
+Expected groups: 112
+
+scanned groups: 112
+exceptions: 0
+review groups: 19
+total findings: 20
+
+Finding counts:
+  exact_duplicate_paragraph: 2
+  missing_proof_section: 18
+
+Output:
+  audit_output/group_summary.csv
+  audit_output/findings.csv
+  audit_output/exceptions.csv
