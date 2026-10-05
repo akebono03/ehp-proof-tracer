@@ -12,7 +12,7 @@ def test_phase150_rc4_7d_pi12_map_and_final_reasons():
  r,m=_data(5,7); k={x.kind for x in r.reasons}; assert TodaGroupProofNarrativeReasonKind.MAP_STRUCTURE_DERIVATION in k; assert TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION in k; assert 'この完全性, 既知の群構造, および写像の像に関する結果を合わせると' in m
 
 def test_phase150_rc4_7d_pi16_order_and_final_reasons():
- r,m=_data(9,7); k={x.kind for x in r.reasons}; assert TodaGroupProofNarrativeReasonKind.GROUP_ORDER_DERIVATION in k; assert TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION in k; assert '群構造に関する結果と写像による移送の結果を合わせると' in m
+ r,m=_data(9,7); k={x.kind for x in r.reasons}; assert TodaGroupProofNarrativeReasonKind.GROUP_ORDER_DERIVATION in k; assert TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION in k; assert 'この群構造と写像による移送の結果を合わせると' in m
 
 def test_phase150_rc4_7d_reason_kinds_are_generic():
  for kind in TodaGroupProofNarrativeReasonKind:

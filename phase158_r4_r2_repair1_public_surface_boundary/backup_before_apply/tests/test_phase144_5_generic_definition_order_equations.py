@@ -1,4 +1,5 @@
 import inspect
+import re
 
 from toda_group_proof_narrative_argument_multi_renderer import (
   render_toda_group_proof_narrative_multi_argument_markdown,
@@ -36,6 +37,22 @@ def _render_multi_argument(
   )
 
 
+def test_phase144_5_r2_render_equivalent_transitions_are_not_numbered():
+  rendered = _render_multi_argument(
+    3,
+    3,
+  )
+
+  assert (
+    r"$2\nu' = \eta_{3}^{3}\tag{"
+    not in rendered
+  )
+  assert (
+    r"$H\left(\nu'\right) = \eta_{5}\tag{"
+    not in rendered
+  )
+
+
 def test_phase144_5_r2_equation_reference_uses_parenthesized_number():
   assert (
     toda_group_proof_narrative_equation_reference(
@@ -56,6 +73,47 @@ def test_phase144_5_r2_pi6_3_keeps_definition_and_order_purposes():
     r"$\nu'$ の位数を決定するために, "
     r"次の完全列を考える."
     in rendered
+  )
+
+
+def test_phase144_5_r2_reflexive_support_equations_are_not_numbered():
+  rendered = _render_multi_argument(
+    3,
+    3,
+  )
+
+  assert (
+    r"$\eta_{3}^{3} = \eta_{3}^{3}\tag{"
+    not in rendered
+  )
+  assert (
+    r"$\eta_{5} = \eta_{5}\tag{"
+    not in rendered
+  )
+
+
+def test_phase144_5_r2_pi6_3_has_no_duplicate_equation_tags():
+  rendered = _render_multi_argument(
+    3,
+    3,
+  )
+
+  tags = tuple(
+    int(
+      value
+    )
+    for value in re.findall(
+      r"\\tag\{(\d+)\}",
+      rendered,
+    )
+  )
+
+  assert len(
+    tags
+  ) == len(
+    set(
+      tags
+    )
   )
 
 

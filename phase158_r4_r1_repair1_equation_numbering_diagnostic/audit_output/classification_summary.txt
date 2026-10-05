@@ -1,0 +1,77 @@
+==============================================================================
+Phase 158-R4-R1 - 11 finding classification
+==============================================================================
+Production code changes: none
+Existing test changes: none
+
+Input findings: 11
+
+Classification counts
+------------------------------------------------------------------------------
+audit_false_positive: 5
+confirmed_prose_review: 2
+confirmed_unused_number_candidate: 4
+
+Per group
+------------------------------------------------------------------------------
+pi_16^9: {'confirmed_prose_review': 1}
+pi_6^3: {'confirmed_prose_review': 1, 'confirmed_unused_number_candidate': 3}
+pi_8^5: {'confirmed_unused_number_candidate': 1, 'audit_false_positive': 5}
+
+Detailed findings
+------------------------------------------------------------------------------
+
+1. pi_6^3 / ambiguous_anaphora => confirmed_prose_review
+detail: Potentially ambiguous anaphoric prose: この群構造と
+rationale: Generated prose contains an ambiguous anaphoric phrase.
+excerpt: この群構造と $E$ の単射性より, $E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$ であり, 単射写像は元の位数を保つ.
+
+2. pi_6^3 / unreferenced_equation_tag => confirmed_unused_number_candidate
+detail: Equation tag (1) is emitted but is never cited elsewhere in the public Narrative.
+rationale: \tag{1} is visible but unused by canonical equation connectors.
+excerpt: [R2]より, $2\nu' = \eta_{3}^{3}\tag{1}$.
+
+3. pi_6^3 / unreferenced_equation_tag => confirmed_unused_number_candidate
+detail: Equation tag (7) is emitted but is never cited elsewhere in the public Narrative.
+rationale: \tag{7} is visible but unused by canonical equation connectors.
+excerpt: $H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}\tag{7}$.
+
+4. pi_6^3 / unreferenced_equation_tag => confirmed_unused_number_candidate
+detail: Equation tag (8) is emitted but is never cited elsewhere in the public Narrative.
+rationale: \tag{8} is visible but unused by canonical equation connectors.
+excerpt: $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}\tag{8}$.
+
+5. pi_8^5 / unreferenced_equation_tag => confirmed_unused_number_candidate
+detail: Equation tag (8) is emitted but is never cited elsewhere in the public Narrative.
+rationale: \tag{8} is visible but unused by canonical equation connectors.
+excerpt: \pi_{8}^{5} = \mathbb{Z}/8\{\nu_{5}\}\tag{8}
+
+6. pi_8^5 / missing_equation_tag => audit_false_positive
+detail: Equation reference (1) appears 3 time(s), but no matching \tag is present.
+rationale: (1) is not an equation reference in the canonical connector form.
+excerpt: (1)
+
+7. pi_8^5 / missing_equation_tag => audit_false_positive
+detail: Equation reference (4) appears 3 time(s), but no matching \tag is present.
+rationale: (4) is not an equation reference in the canonical connector form.
+excerpt: (4)
+
+8. pi_8^5 / missing_equation_tag => audit_false_positive
+detail: Equation reference (5) appears 2 time(s), but no matching \tag is present.
+rationale: (5) is not an equation reference in the canonical connector form.
+excerpt: (5)
+
+9. pi_8^5 / missing_equation_tag => audit_false_positive
+detail: Equation reference (6) appears 2 time(s), but no matching \tag is present.
+rationale: (6) is not an equation reference in the canonical connector form.
+excerpt: (6)
+
+10. pi_8^5 / missing_equation_tag => audit_false_positive
+detail: Equation reference (7) appears 2 time(s), but no matching \tag is present.
+rationale: (7) is not an equation reference in the canonical connector form.
+excerpt: (7)
+
+11. pi_16^9 / ambiguous_anaphora => confirmed_prose_review
+detail: Potentially ambiguous anaphoric prose: この群構造と
+rationale: Generated prose contains an ambiguous anaphoric phrase.
+excerpt: この群構造と写像による移送の結果を合わせると, 対象の群の位数と写像の単射性が決まる.

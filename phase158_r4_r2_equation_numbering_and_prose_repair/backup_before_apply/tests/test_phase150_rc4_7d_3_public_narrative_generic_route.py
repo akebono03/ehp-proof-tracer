@@ -105,7 +105,7 @@ def test_phase150_rc4_7d_3_pi16_public_and_web_use_generic_reason_route():
   )
   web_text = _web_text(9, 7)
   phrase = (
-    "群構造に関する結果と写像による移送の結果を合わせると"
+    "この群構造と写像による移送の結果を合わせると"
   )
   assert phrase in markdown
   assert phrase in web_text
