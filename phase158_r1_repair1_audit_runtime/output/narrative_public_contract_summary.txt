@@ -1,0 +1,74 @@
+﻿==============================================================================
+Phase 158-R1 repair1 - Narrative Public Contract Inventory
+==============================================================================
+scope: n=2..15, k=0..7, depth=2
+production changes: none
+
+groups: 112
+rendered without exception: 112
+exceptions: 0
+has # Group proof narrative: 112
+has ## 証明対象: 2
+has ## 使用する結果: 94
+has ## 証明: 94
+ends with □: 0
+full public contract: 0
+non-monotone section order: 0
+
+Route hints:
+  default_public_renderer:
+    groups: 106
+    has target: 0
+    has reference: 88
+    has proof: 88
+    ends with QED: 0
+    full contract: 0
+  phase134_24_pi15_8_dedicated:
+    groups: 1
+    has target: 1
+    has reference: 1
+    has proof: 1
+    ends with QED: 0
+    full contract: 0
+  phase134_9_pi8_5_dedicated:
+    groups: 1
+    has target: 1
+    has reference: 1
+    has proof: 1
+    ends with QED: 0
+    full contract: 0
+  phase150_rc4_generic_public_wrapper:
+    groups: 3
+    has target: 0
+    has reference: 3
+    has proof: 3
+    ends with QED: 0
+    full contract: 0
+  pi6_3_generic_semantic:
+    groups: 1
+    has target: 0
+    has reference: 1
+    has proof: 1
+    ends with QED: 0
+    full contract: 0
+
+Expected Phase 158 public contract:
+  # Group proof narrative
+  ## 証明対象
+  ## 使用する結果
+  ---
+  ## 証明
+  ...
+  □
+
+R1 interpretation:
+  This inventory records the current public structure only. It does not modify renderer behavior.
+  Missing ## 証明対象 is a Phase 158 defect even when the mathematical proof body itself is correct.
+  Reference attribution, proof-internal/fixed-statement classification, and mathematical derivations are out of scope.
+
+Output files:
+  narrative_public_contract_inventory.csv
+  narrative_public_contract_defects.csv
+  exception_inventory.csv
+  narrative_public_contract_summary.txt
+==============================================================================
