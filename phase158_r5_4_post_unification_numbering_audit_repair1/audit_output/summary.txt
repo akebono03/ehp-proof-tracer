@@ -1,0 +1,24 @@
+========================================================================================
+Phase 158-R5-4 — post-unification public Narrative numbering audit
+========================================================================================
+targets: 7
+rendered: 7
+exceptions: 0
+left proof-item numbering findings: 49
+equation tags: 46
+equation tags without later reference: 27
+duplicate equation tags: 0
+parenthesized number uses without matching tag: 0
+old dedicated-route marker findings: 0
+
+Interpretation boundary:
+  This audit records post-unification display facts only.
+  It does not modify numbering, prose, proof data, semantic structure, or route selection.
+
+Output:
+  audit_output/summary.txt
+  audit_output/details.txt
+  audit_output/summary.csv
+  audit_output/exceptions.csv
+  audit_output/rendered/*.md
+========================================================================================

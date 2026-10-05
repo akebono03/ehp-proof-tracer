@@ -1,0 +1,8 @@
+﻿label,n,k,group,left_proof_items,equation_tags,tags_without_later_use,duplicate_tags,paren_uses_without_tag,old_route_markers,has_title,has_target_section,has_reference_section,has_proof_section,has_separator,has_qed
+pi6_3_reference,3,3,pi_6^3,0,0,0,0,0,0,True,True,True,True,True,True
+pi8_5_former_dedicated,5,3,pi_8^5,2,2,2,0,0,0,True,True,True,True,True,True
+pi15_8_former_dedicated,8,7,pi_15^8,13,12,6,0,0,0,True,True,True,True,True,True
+pi7_4_former_legacy,4,3,pi_7^4,0,0,0,0,0,0,True,True,True,True,True,True
+pi10_4_existing_generic,4,6,pi_10^4,9,9,6,0,0,0,True,True,True,True,True,True
+pi12_5_existing_generic,5,7,pi_12^5,12,11,7,0,0,0,True,True,True,True,True,True
+pi16_9_existing_generic,9,7,pi_16^9,13,12,6,0,0,0,True,True,True,True,True,True
