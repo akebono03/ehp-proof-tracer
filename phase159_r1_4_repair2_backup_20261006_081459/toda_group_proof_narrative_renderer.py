@@ -5879,7 +5879,7 @@ def _phase159_public_exactness_latex(
 
   if (
     not stripped.startswith("$")
-    or r"\xrightarrow{" not in stripped
+    or r"\\xrightarrow{" not in stripped
   ):
     return None
 
@@ -5896,7 +5896,7 @@ def _phase159_public_exactness_latex(
 
   return latex.replace(
     "Δ",
-    r"\Delta",
+    r"\\Delta",
   )
 
 

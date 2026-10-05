@@ -28,11 +28,6 @@ from toda_group_proof_presentation import (
 )
 from toda_group_proof_generic_narrative_renderer import (
   _render_generic_narrative_step,
-  _GENERIC_INJECTIVE_STATEMENT_TYPES,
-  _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
-  _GENERIC_SURJECTIVE_STATEMENT_TYPES,
-  _render_generic_narrative_group_map_latex,
-  _generic_group_map_name,
 )
 from toda_group_proof_narrative_arguments import (
   build_toda_group_proof_narrative_arguments,
@@ -51,18 +46,10 @@ from toda_group_proof_narrative_contribution_renderer import (
 )
 from toda_group_proof_narrative_blocks import (
   build_toda_group_proof_narrative_blocks,
-  TodaGroupProofNarrativeMathematicalBlockRole,
-)
-from toda_group_proof_narrative_exactness_components import (
-  build_toda_group_proof_narrative_exactness_method_components,
-)
-from toda_group_proof_narrative_exactness_method_renderer import (
-  render_toda_group_proof_narrative_exactness_method_component_latex,
 )
 from toda_group_proof_narrative_semantics import (
   build_toda_group_proof_narrative_semantic_closure_presentation,
   build_toda_group_proof_narrative_semantic_sidecar,
-  TodaGroupProofNarrativeDependencySemanticRole,
 )
 from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
@@ -5042,15 +5029,21 @@ def _phase158_public_narrative_target_lines(
   if root_latex is not None:
     return [
       r"\[",
-      root_latex + ".",
+      root_latex,
       r"\]",
+      "",
+      "を示す.",
     ]
 
   return [
-    _render_group_proof_narrative_fact(
-      presentation.root_step
-    )
+    (
+      _render_group_proof_narrative_fact(
+        presentation.root_step
+      )
+      + "を示す."
+    ),
   ]
+
 
 def _phase158_strip_terminal_qed_lines(
   lines: list[str],
@@ -5585,686 +5578,6 @@ def _phase159_restore_isomorphism_to_injective_dependency_visibility(
 
   return rendered.splitlines()
 
-def _phase159_public_semantic_projection_context(
-  presentation: TodaGroupProofPresentation,
-):
-  semantic_presentation = (
-    build_toda_group_proof_narrative_semantic_closure_presentation(
-      presentation
-    )
-  )
-  semantic_sidecar = (
-    build_toda_group_proof_narrative_semantic_sidecar(
-      semantic_presentation
-    )
-  )
-  blocks = (
-    build_toda_group_proof_narrative_blocks(
-      semantic_presentation,
-      semantic_sidecar=semantic_sidecar,
-    )
-  )
-  exactness_blocks = tuple(
-    block
-    for block in blocks
-    if (
-      block.role
-      is TodaGroupProofNarrativeMathematicalBlockRole
-      .EXACTNESS
-    )
-  )
-  components = (
-    build_toda_group_proof_narrative_exactness_method_components(
-      exactness_blocks
-    )
-  )
-  target = (
-    semantic_presentation
-    .source_replay
-    .group_result
-    .target
-  )
-  matching_components = tuple(
-    component
-    for component in components
-    if any(
-      target
-      in (
-        window.source_term,
-        window.middle_term,
-        window.target_term,
-      )
-      for window in component.windows
-    )
-  )
-  primary_component = (
-    matching_components[0]
-    if len(matching_components) == 1
-    else None
-  )
-
-  return (
-    semantic_presentation,
-    semantic_sidecar,
-    primary_component,
-  )
-
-
-def _phase159_matching_map_property_step(
-  presentation: TodaGroupProofPresentation,
-  statement_types: tuple,
-  group_map,
-) -> ProofStep | None:
-  return next(
-    (
-      node.proof_step
-      for node in presentation.nodes
-      if (
-        isinstance(
-          node.proof_step.conclusion,
-          statement_types,
-        )
-        and getattr(
-          node.proof_step.conclusion,
-          "map",
-          None,
-        )
-        == group_map
-      )
-    ),
-    None,
-  )
-
-
-def _phase159_public_map_property_triples(
-  presentation: TodaGroupProofPresentation,
-) -> tuple[
-  tuple[
-    ProofStep,
-    ProofStep,
-    ProofStep,
-  ],
-  ...,
-]:
-  triples = []
-
-  for node in presentation.nodes:
-    isomorphism_step = node.proof_step
-    statement = isomorphism_step.conclusion
-
-    if not isinstance(
-      statement,
-      _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
-    ):
-      continue
-
-    group_map = getattr(
-      statement,
-      "map",
-      None,
-    )
-
-    if group_map is None:
-      continue
-
-    injective_step = _phase159_matching_map_property_step(
-      presentation,
-      _GENERIC_INJECTIVE_STATEMENT_TYPES,
-      group_map,
-    )
-    surjective_step = _phase159_matching_map_property_step(
-      presentation,
-      _GENERIC_SURJECTIVE_STATEMENT_TYPES,
-      group_map,
-    )
-
-    if injective_step is None or surjective_step is None:
-      continue
-
-    triples.append(
-      (
-        injective_step,
-        surjective_step,
-        isomorphism_step,
-      )
-    )
-
-  return tuple(triples)
-
-
-def _phase159_numbered_map_property_line(
-  proof_step: ProofStep,
-  number: int,
-  predicate: str,
-) -> str | None:
-  group_map = getattr(
-    proof_step.conclusion,
-    "map",
-    None,
-  )
-  if group_map is None:
-    return None
-
-  map_latex = _render_generic_narrative_group_map_latex(
-    group_map
-  )
-  if map_latex is None:
-    return None
-
-  return (
-    "$"
-    + map_latex
-    + r"\tag{"
-    + str(number)
-    + "}$ は"
-    + predicate
-    + "."
-  )
-
-
-def _phase159_plain_map_property_line(
-  proof_step: ProofStep,
-  predicate: str,
-) -> str | None:
-  group_map = getattr(
-    proof_step.conclusion,
-    "map",
-    None,
-  )
-  if group_map is None:
-    return None
-
-  map_latex = _render_generic_narrative_group_map_latex(
-    group_map
-  )
-  if map_latex is None:
-    return None
-
-  return (
-    "$"
-    + map_latex
-    + "$ は"
-    + predicate
-    + "."
-  )
-
-
-def _phase159_unique_preimage_definition_line(
-  proof_step: ProofStep,
-) -> str | None:
-  statement = proof_step.conclusion
-  group_map = getattr(
-    statement,
-    "map",
-    None,
-  )
-  element = getattr(
-    statement,
-    "element",
-    None,
-  )
-  image = getattr(
-    statement,
-    "image",
-    None,
-  )
-
-  if (
-    group_map is None
-    or element is None
-    or image is None
-  ):
-    return None
-
-  isomorphism_premise = next(
-    (
-      premise_step
-      for premise_step in proof_step.premises
-      if (
-        isinstance(
-          premise_step,
-          ProofStep,
-        )
-        and isinstance(
-          premise_step.conclusion,
-          _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
-        )
-        and getattr(
-          premise_step.conclusion,
-          "map",
-          None,
-        )
-        == group_map
-      )
-    ),
-    None,
-  )
-
-  if isomorphism_premise is None:
-    return None
-
-  map_name = _generic_group_map_name(
-    group_map
-  )
-
-  if map_name is None:
-    return None
-
-  return (
-    "この同型写像により, $"
-    + map_name
-    + "("
-    + render_toda_expression_latex(
-      element
-    )
-    + ") = "
-    + render_toda_expression_latex(
-      image
-    )
-    + "$ となる $"
-    + render_toda_expression_latex(
-      element
-    )
-    + r" \in "
-    + render_toda_primary_group_latex(
-      group_map.source_group
-    )
-    + "$ が一意に存在する."
-  )
-
-def _phase159_public_exactness_latex(
-  line: str,
-) -> str | None:
-  stripped = line.strip()
-
-  if (
-    not stripped.startswith("$")
-    or r"\xrightarrow{" not in stripped
-  ):
-    return None
-
-  closing_math = stripped.rfind(
-    "$"
-  )
-
-  if closing_math <= 0:
-    return None
-
-  latex = stripped[
-    1:closing_math
-  ]
-
-  return latex.replace(
-    "Δ",
-    r"\Delta",
-  )
-
-
-def _phase159_consolidate_public_exactness_lines(
-  lines: list[str],
-) -> list[str]:
-  exactness_by_index = {
-    index: latex
-    for index, line in enumerate(
-      lines
-    )
-    if (
-      latex := _phase159_public_exactness_latex(
-        line
-      )
-    )
-    is not None
-  }
-
-  if not exactness_by_index:
-    return lines
-
-  maximal_indices = []
-
-  for index, latex in exactness_by_index.items():
-    is_strict_subsequence = any(
-      (
-        latex != other_latex
-        and latex in other_latex
-      )
-      for (
-        other_index,
-        other_latex,
-      ) in exactness_by_index.items()
-      if other_index != index
-    )
-
-    if not is_strict_subsequence:
-      maximal_indices.append(
-        index
-      )
-
-  canonical_index_by_latex = {}
-
-  for index in maximal_indices:
-    latex = exactness_by_index[
-      index
-    ]
-    canonical_index_by_latex.setdefault(
-      latex,
-      index,
-    )
-
-  canonical_latex_by_index = {
-    index: latex
-    for (
-      latex,
-      index,
-    ) in canonical_index_by_latex.items()
-  }
-
-  result = []
-
-  for index, line in enumerate(
-    lines
-  ):
-    latex = exactness_by_index.get(
-      index
-    )
-
-    if latex is None:
-      result.append(
-        line
-      )
-      continue
-
-    owner_index = next(
-      (
-        canonical_index
-        for (
-          canonical_index,
-          canonical_latex,
-        ) in canonical_latex_by_index.items()
-        if latex in canonical_latex
-      ),
-      None,
-    )
-
-    if owner_index is None:
-      result.append(
-        line
-      )
-      continue
-
-    if index != owner_index:
-      continue
-
-    result.append(
-      "$"
-      + canonical_latex_by_index[
-        owner_index
-      ]
-      + "$ は完全である."
-    )
-
-  return result
-
-
-def _phase159_project_generic_semantics_to_public_proof(
-  presentation: TodaGroupProofPresentation,
-  proof_body: list[str],
-) -> list[str]:
-  (
-    semantic_presentation,
-    semantic_sidecar,
-    primary_component,
-  ) = _phase159_public_semantic_projection_context(
-    presentation
-  )
-
-  lines = list(proof_body)
-
-  if primary_component is not None:
-    component_latex = (
-      render_toda_group_proof_narrative_exactness_method_component_latex(
-        primary_component
-      )
-    )
-    long_exact_sequence = (
-      "$"
-      + component_latex
-      + "$ は完全である."
-    )
-    projected_lines = []
-    inserted = False
-
-    for line in lines:
-      stripped = line.strip()
-      exactness_latex = None
-
-      if (
-        stripped.startswith("$")
-        and r"\\xrightarrow{" in stripped
-      ):
-        closing_math = stripped.rfind(
-          "$"
-        )
-
-        if closing_math > 0:
-          exactness_latex = stripped[
-            1:closing_math
-          ]
-
-      if (
-        exactness_latex is not None
-        and exactness_latex in component_latex
-      ):
-        if not inserted:
-          projected_lines.append(
-            long_exact_sequence
-          )
-          inserted = True
-        continue
-
-      projected_lines.append(
-        line
-      )
-
-    lines = projected_lines
-
-  next_equation_number = 1
-  for line in lines:
-    number = _phase158_public_equation_tag_number(line)
-    if (
-      number is not None
-      and number >= next_equation_number
-    ):
-      next_equation_number = number + 1
-
-  for (
-    injective_step,
-    surjective_step,
-    isomorphism_step,
-  ) in _phase159_public_map_property_triples(
-    semantic_presentation
-  ):
-    injective_rendered = _render_generic_narrative_step(
-      injective_step
-    )
-    surjective_rendered = _render_generic_narrative_step(
-      surjective_step
-    )
-    isomorphism_rendered = _render_generic_narrative_step(
-      isomorphism_step
-    )
-
-    injective_index = next(
-      (
-        index
-        for index, line in enumerate(lines)
-        if injective_rendered in line
-      ),
-      None,
-    )
-    surjective_index = next(
-      (
-        index
-        for index, line in enumerate(lines)
-        if surjective_rendered in line
-      ),
-      None,
-    )
-    isomorphism_index = next(
-      (
-        index
-        for index, line in enumerate(lines)
-        if isomorphism_rendered in line
-      ),
-      None,
-    )
-
-    if (
-      injective_index is None
-      or surjective_index is None
-      or isomorphism_index is None
-    ):
-      continue
-
-    injective_number = next_equation_number
-    surjective_number = next_equation_number + 1
-    next_equation_number += 2
-
-    injective_line = _phase159_numbered_map_property_line(
-      injective_step,
-      injective_number,
-      "単射",
-    )
-    surjective_line = _phase159_numbered_map_property_line(
-      surjective_step,
-      surjective_number,
-      "全射",
-    )
-    isomorphism_line = _phase159_plain_map_property_line(
-      isomorphism_step,
-      "同型",
-    )
-
-    if (
-      injective_line is None
-      or surjective_line is None
-      or isomorphism_line is None
-    ):
-      continue
-
-    lines[injective_index] = lines[injective_index].replace(
-      injective_rendered,
-      injective_line,
-      1,
-    )
-    lines[surjective_index] = lines[surjective_index].replace(
-      surjective_rendered,
-      surjective_line,
-      1,
-    )
-
-    source_line = lines[isomorphism_index]
-    marker_index = source_line.find(isomorphism_rendered)
-    prefix = (
-      source_line[:marker_index]
-      if marker_index >= 0
-      else ""
-    )
-    derivation_prefixes = (
-      "これらから, ",
-      "これらより, ",
-      "このことから, ",
-      "したがって, ",
-    )
-    if prefix in derivation_prefixes:
-      prefix = ""
-
-    lines[isomorphism_index] = (
-      prefix
-      + "("
-      + str(injective_number)
-      + "), ("
-      + str(surjective_number)
-      + ") より, "
-      + isomorphism_line
-    )
-
-  for node in semantic_presentation.nodes:
-    proof_step = node.proof_step
-    original = _render_generic_narrative_step(
-      proof_step
-    )
-    replacement = (
-      _phase159_unique_preimage_definition_line(
-        proof_step,
-      )
-    )
-
-    if replacement is None:
-      continue
-
-    for index, line in enumerate(
-      lines
-    ):
-      if original not in line:
-        continue
-
-      prefix = line[
-        :line.find(
-          original
-        )
-      ]
-
-      if prefix in (
-        "これらから, ",
-        "これらより, ",
-        "このことから, ",
-        "したがって, ",
-      ):
-        prefix = ""
-
-      lines[
-        index
-      ] = (
-        prefix
-        + replacement
-      )
-      break
-
-  lines = (
-    _phase159_consolidate_public_exactness_lines(
-      lines
-    )
-  )
-
-  punctuated_lines = []
-
-  for line in lines:
-    stripped = line.rstrip()
-
-    if (
-      stripped
-      and stripped.endswith("$")
-    ):
-      line = stripped + "."
-
-    punctuated_lines.append(
-      line
-    )
-
-  lines = punctuated_lines
-
-  compacted = []
-  previous_blank = False
-
-  for line in lines:
-    is_blank = not line.strip()
-    if is_blank and previous_blank:
-      continue
-    compacted.append(line)
-    previous_blank = is_blank
-
-  return compacted
-
 def _phase158_normalize_public_narrative_contract(
   presentation: TodaGroupProofPresentation,
   rendered: str,
@@ -6296,31 +5609,84 @@ def _phase158_normalize_public_narrative_contract(
   proof_header = "## 証明"
   qed = "□"
 
-  source_lines = rendered.rstrip().splitlines()
+  source_lines = (
+    rendered.rstrip().splitlines()
+  )
 
-  if source_lines and source_lines[0] == title:
+  if (
+    source_lines
+    and source_lines[0] == title
+  ):
     content_lines = source_lines[1:]
   else:
     content_lines = source_lines[:]
 
-  while content_lines and not content_lines[0].strip():
+  while (
+    content_lines
+    and not content_lines[0].strip()
+  ):
     content_lines.pop(0)
 
   def exact_index(
     marker: str,
   ) -> int | None:
     try:
-      return content_lines.index(marker)
+      return content_lines.index(
+        marker
+      )
     except ValueError:
       return None
 
-  target_index = exact_index(target_header)
-  reference_index = exact_index(reference_header)
-  proof_index = exact_index(proof_header)
-
-  target_body = _phase158_public_narrative_target_lines(
-    presentation
+  target_index = exact_index(
+    target_header
   )
+  reference_index = exact_index(
+    reference_header
+  )
+  proof_index = exact_index(
+    proof_header
+  )
+
+  if target_index is not None:
+    target_end_candidates = [
+      index
+      for index in (
+        reference_index,
+        proof_index,
+        len(
+          content_lines
+        ),
+      )
+      if (
+        index is not None
+        and index > target_index
+      )
+    ]
+    target_end = min(
+      target_end_candidates
+    )
+    target_body = content_lines[
+      target_index + 1:
+      target_end
+    ]
+  else:
+    target_body = (
+      _phase158_public_narrative_target_lines(
+        presentation
+      )
+    )
+
+  while (
+    target_body
+    and not target_body[0].strip()
+  ):
+    target_body.pop(0)
+
+  while (
+    target_body
+    and not target_body[-1].strip()
+  ):
+    target_body.pop()
 
   reference_body: list[str] = []
 
@@ -6334,39 +5700,64 @@ def _phase158_normalize_public_narrative_contract(
       proof_index
     ]
 
-  while reference_body and not reference_body[0].strip():
+  while (
+    reference_body
+    and not reference_body[0].strip()
+  ):
     reference_body.pop(0)
 
-  while reference_body and not reference_body[-1].strip():
+  while (
+    reference_body
+    and not reference_body[-1].strip()
+  ):
     reference_body.pop()
 
   if (
     reference_body
-    and reference_body[-1].strip() == separator
+    and reference_body[-1].strip()
+    == separator
   ):
     reference_body.pop()
-    while reference_body and not reference_body[-1].strip():
+
+    while (
+      reference_body
+      and not reference_body[-1].strip()
+    ):
       reference_body.pop()
 
   if proof_index is not None:
-    proof_body = content_lines[proof_index + 1:]
-  elif target_index is None and reference_index is None:
+    proof_body = content_lines[
+      proof_index + 1:
+    ]
+  elif (
+    target_index is None
+    and reference_index is None
+  ):
     proof_body = content_lines[:]
   else:
     proof_body = []
 
-  while proof_body and not proof_body[0].strip():
+  while (
+    proof_body
+    and not proof_body[0].strip()
+  ):
     proof_body.pop(0)
 
-  proof_body = _phase158_strip_terminal_qed_lines(
-    proof_body
+  proof_body = (
+    _phase158_strip_terminal_qed_lines(
+      proof_body
+    )
   )
-  proof_body = _phase158_normalize_public_equation_numbers(
-    proof_body
+  proof_body = (
+    _phase158_normalize_public_equation_numbers(
+      proof_body
+    )
   )
-  proof_body = _phase159_project_generic_semantics_to_public_proof(
-    presentation,
-    proof_body,
+  proof_body = (
+    _phase159_restore_isomorphism_to_injective_dependency_visibility(
+      presentation,
+      proof_body,
+    )
   )
 
   lines = [
@@ -6376,22 +5767,22 @@ def _phase158_normalize_public_narrative_contract(
     "",
     *target_body,
     "",
-    reference_header,
-    "",
   ]
 
   if reference_body:
     lines.extend(
       (
+        reference_header,
+        "",
         *reference_body,
+        "",
+        separator,
         "",
       )
     )
 
   lines.extend(
     (
-      separator,
-      "",
       proof_header,
       "",
       *proof_body,
@@ -6400,7 +5791,18 @@ def _phase158_normalize_public_narrative_contract(
     )
   )
 
-  return "\n".join(lines).rstrip() + "\n"
+  normalized = (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+  return (
+    _phase136_compact_eta_powers(
+      normalized
+    )
+  )
 
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,

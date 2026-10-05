@@ -75,7 +75,7 @@ def test_phase159_r1_3_pi3_2_public_target_has_no_show_sentence():
   assert "を示す。" not in rendered
 
 
-def test_phase159_r1_4_pi3_2_public_uses_exactly_one_exact_sequence():
+def test_phase159_r1_3_pi3_2_public_uses_one_semantic_exactness_component():
   presentation = _phase159_r1_2_pi3_2_presentation()
   rendered = render_toda_group_proof_narrative_markdown(
     presentation
@@ -89,22 +89,23 @@ def test_phase159_r1_4_pi3_2_public_uses_exactly_one_exact_sequence():
     r"\pi_{2}^{2}$ は完全である."
   )
 
-  proof_body = rendered.split(
-    "## 証明\n\n",
-    1,
-  )[1]
-
-  exactness_lines = tuple(
-    line
-    for line in proof_body.splitlines()
-    if r"\xrightarrow{" in line
+  assert long_exact in rendered
+  assert rendered.count(long_exact) == 1
+  assert (
+    r"$\pi_{3}^{3} \xrightarrow{\Delta} "
+    r"\pi_{1}^{1} \xrightarrow{E} "
+    r"\pi_{2}^{2}$ は完全である."
+    not in rendered
+  )
+  assert (
+    r"$\pi_{3}^{2} \xrightarrow{H} "
+    r"\pi_{3}^{3} \xrightarrow{\Delta} "
+    r"\pi_{1}^{1}$ は完全である."
+    not in rendered
   )
 
-  assert exactness_lines == (
-    long_exact,
-  )
 
-def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
+def test_phase159_r1_3_pi3_2_public_numbers_map_properties_semantically():
   presentation = _phase159_r1_2_pi3_2_presentation()
   rendered = render_toda_group_proof_narrative_markdown(
     presentation
@@ -120,14 +121,15 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   )
   isomorphism = (
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は同型."
+    "は同型写像."
   )
 
   assert injective in rendered
   assert surjective in rendered
-  assert "(1), (2) より, " + isomorphism in rendered
+  assert "(1) と (2) より, " + isomorphism in rendered
   assert rendered.index(injective) < rendered.index(surjective)
   assert rendered.index(surjective) < rendered.index(isomorphism)
+
 
 def test_phase159_r1_3_pi3_2_public_definition_uses_isomorphism_semantics():
   presentation = _phase159_r1_2_pi3_2_presentation()
@@ -143,18 +145,3 @@ def test_phase159_r1_3_pi3_2_public_definition_uses_isomorphism_semantics():
   )
   assert "Toda pi_3^2 define eta_2 as unique Hopf preimage" not in rendered
   assert rendered.rstrip().endswith("□")
-
-
-def test_phase159_r1_4_pi3_2_public_math_sentences_end_with_period():
-  presentation = _phase159_r1_2_pi3_2_presentation()
-  rendered = render_toda_group_proof_narrative_markdown(
-    presentation
-  )
-
-  assert r"$\pi_{2}^{1} = 0$." in rendered
-  assert r"$\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$." in rendered
-  assert (
-    r"以上より, $\pi_{3}^{2} = "
-    r"\mathbb{Z}\{\eta_{2}\}$."
-    in rendered
-  )

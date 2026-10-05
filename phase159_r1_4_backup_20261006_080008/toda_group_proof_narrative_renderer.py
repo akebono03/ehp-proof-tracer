@@ -5872,139 +5872,6 @@ def _phase159_unique_preimage_definition_line(
     + "$ が一意に存在する."
   )
 
-def _phase159_public_exactness_latex(
-  line: str,
-) -> str | None:
-  stripped = line.strip()
-
-  if (
-    not stripped.startswith("$")
-    or r"\xrightarrow{" not in stripped
-  ):
-    return None
-
-  closing_math = stripped.rfind(
-    "$"
-  )
-
-  if closing_math <= 0:
-    return None
-
-  latex = stripped[
-    1:closing_math
-  ]
-
-  return latex.replace(
-    "Δ",
-    r"\Delta",
-  )
-
-
-def _phase159_consolidate_public_exactness_lines(
-  lines: list[str],
-) -> list[str]:
-  exactness_by_index = {
-    index: latex
-    for index, line in enumerate(
-      lines
-    )
-    if (
-      latex := _phase159_public_exactness_latex(
-        line
-      )
-    )
-    is not None
-  }
-
-  if not exactness_by_index:
-    return lines
-
-  maximal_indices = []
-
-  for index, latex in exactness_by_index.items():
-    is_strict_subsequence = any(
-      (
-        latex != other_latex
-        and latex in other_latex
-      )
-      for (
-        other_index,
-        other_latex,
-      ) in exactness_by_index.items()
-      if other_index != index
-    )
-
-    if not is_strict_subsequence:
-      maximal_indices.append(
-        index
-      )
-
-  canonical_index_by_latex = {}
-
-  for index in maximal_indices:
-    latex = exactness_by_index[
-      index
-    ]
-    canonical_index_by_latex.setdefault(
-      latex,
-      index,
-    )
-
-  canonical_latex_by_index = {
-    index: latex
-    for (
-      latex,
-      index,
-    ) in canonical_index_by_latex.items()
-  }
-
-  result = []
-
-  for index, line in enumerate(
-    lines
-  ):
-    latex = exactness_by_index.get(
-      index
-    )
-
-    if latex is None:
-      result.append(
-        line
-      )
-      continue
-
-    owner_index = next(
-      (
-        canonical_index
-        for (
-          canonical_index,
-          canonical_latex,
-        ) in canonical_latex_by_index.items()
-        if latex in canonical_latex
-      ),
-      None,
-    )
-
-    if owner_index is None:
-      result.append(
-        line
-      )
-      continue
-
-    if index != owner_index:
-      continue
-
-    result.append(
-      "$"
-      + canonical_latex_by_index[
-        owner_index
-      ]
-      + "$ は完全である."
-    )
-
-  return result
-
-
 def _phase159_project_generic_semantics_to_public_proof(
   presentation: TodaGroupProofPresentation,
   proof_body: list[str],
@@ -6020,50 +5887,31 @@ def _phase159_project_generic_semantics_to_public_proof(
   lines = list(proof_body)
 
   if primary_component is not None:
-    component_latex = (
-      render_toda_group_proof_narrative_exactness_method_component_latex(
-        primary_component
-      )
-    )
+    exactness_step_lines = {
+      _render_generic_narrative_step(proof_step)
+      for block in primary_component.evidence_blocks
+      for proof_step in block.steps
+    }
     long_exact_sequence = (
       "$"
-      + component_latex
+      + render_toda_group_proof_narrative_exactness_method_component_latex(
+        primary_component
+      )
       + "$ は完全である."
     )
     projected_lines = []
     inserted = False
 
     for line in lines:
-      stripped = line.strip()
-      exactness_latex = None
-
-      if (
-        stripped.startswith("$")
-        and r"\\xrightarrow{" in stripped
-      ):
-        closing_math = stripped.rfind(
-          "$"
-        )
-
-        if closing_math > 0:
-          exactness_latex = stripped[
-            1:closing_math
-          ]
-
-      if (
-        exactness_latex is not None
-        and exactness_latex in component_latex
+      if any(
+        exactness_line in line
+        for exactness_line in exactness_step_lines
       ):
         if not inserted:
-          projected_lines.append(
-            long_exact_sequence
-          )
+          projected_lines.append(long_exact_sequence)
           inserted = True
         continue
-
-      projected_lines.append(
-        line
-      )
+      projected_lines.append(line)
 
     lines = projected_lines
 
@@ -6141,7 +5989,7 @@ def _phase159_project_generic_semantics_to_public_proof(
     )
     isomorphism_line = _phase159_plain_map_property_line(
       isomorphism_step,
-      "同型",
+      "同型写像",
     )
 
     if (
@@ -6182,7 +6030,7 @@ def _phase159_project_generic_semantics_to_public_proof(
       prefix
       + "("
       + str(injective_number)
-      + "), ("
+      + ") と ("
       + str(surjective_number)
       + ") より, "
       + isomorphism_line
@@ -6229,29 +6077,6 @@ def _phase159_project_generic_semantics_to_public_proof(
         + replacement
       )
       break
-
-  lines = (
-    _phase159_consolidate_public_exactness_lines(
-      lines
-    )
-  )
-
-  punctuated_lines = []
-
-  for line in lines:
-    stripped = line.rstrip()
-
-    if (
-      stripped
-      and stripped.endswith("$")
-    ):
-      line = stripped + "."
-
-    punctuated_lines.append(
-      line
-    )
-
-  lines = punctuated_lines
 
   compacted = []
   previous_blank = False

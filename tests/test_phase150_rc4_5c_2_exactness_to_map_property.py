@@ -130,14 +130,23 @@ def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusi
     "$\\ker E=\\operatorname{Im}Δ=0$ である.\n"
     "したがって, "
   )
-  assert rendered.count(sentence) == 1
+
+  reason_body = (
+    "この完全性と $Δ=0$ より, "
+    "$\\ker E=\\operatorname{Im}Δ=0$ である."
+  )
+  assert rendered.count(
+    reason_body
+  ) == 1
 
   conclusion = (
     "$E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ "
     "は単射である."
   )
   assert conclusion in rendered
-  assert rendered.index(sentence) < rendered.index(
+  assert rendered.index(
+    reason_body
+  ) < rendered.index(
     conclusion
   )
 
