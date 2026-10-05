@@ -5012,9 +5012,9 @@ def _phase158_public_narrative_target_lines(
 
   if root_latex is not None:
     return [
-      r"\[",
+      r"\\[",
       root_latex,
-      r"\]",
+      r"\\]",
       "",
       "を示す.",
     ]
@@ -5027,40 +5027,6 @@ def _phase158_public_narrative_target_lines(
       + "を示す."
     ),
   ]
-
-
-def _phase158_strip_terminal_qed_lines(
-  lines: list[str],
-) -> list[str]:
-  result = lines[:]
-
-  while (
-    result
-    and not result[-1].strip()
-  ):
-    result.pop()
-
-  qed_markers = {
-    "□",
-    r"$\square$",
-    r"\(\square\)",
-    r"\square",
-  }
-
-  if (
-    result
-    and result[-1].strip()
-    in qed_markers
-  ):
-    result.pop()
-
-  while (
-    result
-    and not result[-1].strip()
-  ):
-    result.pop()
-
-  return result
 
 
 def _phase158_normalize_public_narrative_contract(
@@ -5094,9 +5060,7 @@ def _phase158_normalize_public_narrative_contract(
   proof_header = "## 証明"
   qed = "□"
 
-  source_lines = (
-    rendered.rstrip().splitlines()
-  )
+  source_lines = rendered.rstrip().splitlines()
 
   if (
     source_lines
@@ -5197,7 +5161,7 @@ def _phase158_normalize_public_narrative_contract(
   ):
     reference_body.pop()
 
-  if (
+  while (
     reference_body
     and reference_body[-1].strip()
     == separator
@@ -5228,11 +5192,24 @@ def _phase158_normalize_public_narrative_contract(
   ):
     proof_body.pop(0)
 
-  proof_body = (
-    _phase158_strip_terminal_qed_lines(
+  while (
+    proof_body
+    and not proof_body[-1].strip()
+  ):
+    proof_body.pop()
+
+  if (
+    proof_body
+    and proof_body[-1].strip()
+    == qed
+  ):
+    proof_body.pop()
+
+    while (
       proof_body
-    )
-  )
+      and not proof_body[-1].strip()
+    ):
+      proof_body.pop()
 
   lines = [
     title,
@@ -5288,4 +5265,4 @@ def render_toda_group_proof_narrative_markdown(
       rendered,
     )
   )
-
+\n

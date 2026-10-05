@@ -5029,40 +5029,6 @@ def _phase158_public_narrative_target_lines(
   ]
 
 
-def _phase158_strip_terminal_qed_lines(
-  lines: list[str],
-) -> list[str]:
-  result = lines[:]
-
-  while (
-    result
-    and not result[-1].strip()
-  ):
-    result.pop()
-
-  qed_markers = {
-    "□",
-    r"$\square$",
-    r"\(\square\)",
-    r"\square",
-  }
-
-  if (
-    result
-    and result[-1].strip()
-    in qed_markers
-  ):
-    result.pop()
-
-  while (
-    result
-    and not result[-1].strip()
-  ):
-    result.pop()
-
-  return result
-
-
 def _phase158_normalize_public_narrative_contract(
   presentation: TodaGroupProofPresentation,
   rendered: str,
@@ -5102,15 +5068,23 @@ def _phase158_normalize_public_narrative_contract(
     source_lines
     and source_lines[0] == title
   ):
-    content_lines = source_lines[1:]
+    content_lines = source_lines[
+      1:
+    ]
   else:
-    content_lines = source_lines[:]
+    content_lines = source_lines[
+      :
+    ]
 
   while (
     content_lines
-    and not content_lines[0].strip()
+    and not content_lines[
+      0
+    ].strip()
   ):
-    content_lines.pop(0)
+    content_lines.pop(
+      0
+    )
 
   def exact_index(
     marker: str,
@@ -5163,13 +5137,19 @@ def _phase158_normalize_public_narrative_contract(
 
   while (
     target_body
-    and not target_body[0].strip()
+    and not target_body[
+      0
+    ].strip()
   ):
-    target_body.pop(0)
+    target_body.pop(
+      0
+    )
 
   while (
     target_body
-    and not target_body[-1].strip()
+    and not target_body[
+      -1
+    ].strip()
   ):
     target_body.pop()
 
@@ -5187,26 +5167,36 @@ def _phase158_normalize_public_narrative_contract(
 
   while (
     reference_body
-    and not reference_body[0].strip()
+    and not reference_body[
+      0
+    ].strip()
   ):
-    reference_body.pop(0)
+    reference_body.pop(
+      0
+    )
 
   while (
     reference_body
-    and not reference_body[-1].strip()
+    and not reference_body[
+      -1
+    ].strip()
   ):
     reference_body.pop()
 
   if (
     reference_body
-    and reference_body[-1].strip()
+    and reference_body[
+      -1
+    ].strip()
     == separator
   ):
     reference_body.pop()
 
     while (
       reference_body
-      and not reference_body[-1].strip()
+      and not reference_body[
+        -1
+      ].strip()
     ):
       reference_body.pop()
 
@@ -5218,21 +5208,46 @@ def _phase158_normalize_public_narrative_contract(
     target_index is None
     and reference_index is None
   ):
-    proof_body = content_lines[:]
+    proof_body = content_lines[
+      :
+    ]
   else:
     proof_body = []
 
   while (
     proof_body
-    and not proof_body[0].strip()
+    and not proof_body[
+      0
+    ].strip()
   ):
-    proof_body.pop(0)
-
-  proof_body = (
-    _phase158_strip_terminal_qed_lines(
-      proof_body
+    proof_body.pop(
+      0
     )
-  )
+
+  while (
+    proof_body
+    and not proof_body[
+      -1
+    ].strip()
+  ):
+    proof_body.pop()
+
+  if (
+    proof_body
+    and proof_body[
+      -1
+    ].strip()
+    == qed
+  ):
+    proof_body.pop()
+
+    while (
+      proof_body
+      and not proof_body[
+        -1
+      ].strip()
+    ):
+      proof_body.pop()
 
   lines = [
     title,
