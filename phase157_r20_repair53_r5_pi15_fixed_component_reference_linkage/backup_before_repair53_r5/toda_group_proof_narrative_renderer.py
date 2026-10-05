@@ -4021,16 +4021,9 @@ def _phase153_r3_10_connect_public_reference_section(
   if (
     target.group_dimension == 15
     and target.sphere_dimension == 8
+    and "[R1] より, これらの生成元はそれぞれ"
+    in proof_body
   ):
-    prop515_entry = next(
-      (
-        entry
-        for entry in reference_entries
-        if entry.reference.locator
-        == "Proposition 5.15"
-      ),
-      None,
-    )
     prop44_reference_number = next(
       (
         entry.number
@@ -4041,54 +4034,7 @@ def _phase153_r3_10_connect_public_reference_section(
       None,
     )
 
-    if prop515_entry is not None:
-      pi14_7_step = next(
-        (
-          proof_step
-          for proof_step in prop515_entry.proof_steps
-          if (
-            proof_step.inference_rule is not None
-            and "pi_14^7 finite cyclic"
-            in proof_step.inference_rule.name
-          )
-        ),
-        None,
-      )
-
-      if pi14_7_step is not None:
-        pi14_7_latex = (
-          render_repository_conclusion_latex(
-            pi14_7_step.conclusion
-          )
-        )
-        legacy_pi14_7_block = (
-          "既に,\n\n"
-          "\\[\n"
-          + pi14_7_latex
-          + "\n\\]"
-        )
-
-        if legacy_pi14_7_block in proof_body:
-          proof_body = proof_body.replace(
-            legacy_pi14_7_block,
-            (
-              "[R"
-              + str(
-                prop515_entry.number
-              )
-              + "] より,\n\n"
-              "\\[\n"
-              + pi14_7_latex
-              + "\n\\]"
-            ),
-            1,
-          )
-
-    if (
-      prop44_reference_number is not None
-      and "[R1] より, これらの生成元はそれぞれ"
-      in proof_body
-    ):
+    if prop44_reference_number is not None:
       proof_body = proof_body.replace(
         "[R1] より, これらの生成元はそれぞれ",
         (
@@ -4133,13 +4079,6 @@ def _phase153_r3_10_connect_public_reference_section(
     )
   ):
     return rendered
-
-  filtered_statement_lines = (
-    _toda_group_proof_narrative_reference_statement_lines_by_number(
-      presentation,
-      filtered_reference_entries,
-    )
-  )
 
   filtered_proof_body = (
     suppress_toda_group_proof_narrative_reference_body_restatements(
