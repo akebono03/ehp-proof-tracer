@@ -158,25 +158,3 @@ def test_phase159_r1_4_pi3_2_public_math_sentences_end_with_period():
     r"\mathbb{Z}\{\eta_{2}\}$."
     in rendered
   )
-
-
-def test_phase159_r1_5_pi3_2_public_map_property_wording_is_terse():
-  presentation = _phase159_r1_2_pi3_2_presentation()
-  rendered = render_toda_group_proof_narrative_markdown(
-    presentation
-  )
-
-  assert (
-    r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ は単射."
-    in rendered
-  )
-  assert (
-    r"$\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ "
-    "は零写像."
-    in rendered
-  )
-
-  assert "は単射である." not in rendered
-  assert "は全射である." not in rendered
-  assert "は同型写像である." not in rendered
-  assert "は零写像である." not in rendered
