@@ -465,22 +465,11 @@ def _relocatable_toda_group_proof_narrative_direct_derivation_premises(
   ProofStep,
   ...,
 ]:
-  transition_source_step_ids = frozenset(
-    id(
-      source_step
-    )
-    for source_steps in sources_by_target_id.values()
-    for source_step in source_steps
-  )
-
   return tuple(
     premise_step
     for premise_step in direct_derivation_premises
     if (
       premise_step not in conclusion_block.steps
-      and id(
-        premise_step
-      ) not in transition_source_step_ids
       and not sources_by_target_id.get(
         id(
           premise_step
