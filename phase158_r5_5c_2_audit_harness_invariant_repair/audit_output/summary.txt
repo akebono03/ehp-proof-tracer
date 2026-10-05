@@ -1,0 +1,26 @@
+Phase 158-R5-5c-2 — audit-harness invariant repair
+
+Scope:
+  current historical audit corpus: n=2..15, k=0..7, Web Narrative depth=2
+  NOTE: this coordinate window is an audit corpus only; it is NOT an architectural group-count contract.
+
+Revised equation-chain invariant:
+  1. every numbered source referenced by a connector must already be visible
+  2. the connector must be immediately followed by a visible mathematical target
+  3. the target does NOT need a tag unless later prose needs to reference it
+
+Totals:
+  audited coordinates: 112
+  rendered: 112
+  exceptions: 0
+  numbered connectors: 10
+  connector targets with tag: 5
+  connector targets without tag: 5
+  revised equation-chain defects: 0
+
+Production changes: none
+Existing test changes: none
+Repository-wide pytest: not run
+
+R5-5c-2 RESULT: PASS
+The 5 R5-5c findings are eliminated by the corrected generic invariant without production changes.
