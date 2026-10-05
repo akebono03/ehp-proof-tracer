@@ -24,6 +24,8 @@ from scalar_rules import (
 from toda_group_proof_generic_narrative_renderer import (
   _generic_short_exact_sequence_latex,
   _generic_short_exact_sequence_reason_prose,
+  _normalize_generic_eta_family_latex,
+  _render_generic_narrative_expression_latex,
   _render_generic_narrative_step,
 )
 from toda_human_readable_renderer import (
@@ -4465,9 +4467,18 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
       continue
 
     try:
-      rendered = (
-        _render_generic_narrative_step(
-          node.proof_step
+      lhs_normalized = (
+        _normalize_generic_eta_family_latex(
+          _render_generic_narrative_expression_latex(
+            statement.lhs
+          )
+        )
+      )
+      rhs_normalized = (
+        _normalize_generic_eta_family_latex(
+          _render_generic_narrative_expression_latex(
+            statement.rhs
+          )
         )
       )
     except (
@@ -4477,32 +4488,18 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
       continue
 
     if (
-      not rendered.startswith(
-        "$"
-      )
-      or not rendered.endswith(
-        "$"
-      )
+      lhs_normalized
+      != rhs_normalized
     ):
       continue
 
-    equation = rendered[
-      1:-1
-    ]
-    separator = " = "
-
-    if separator not in equation:
-      continue
-
-    lhs_rendered, rhs_rendered = equation.split(
-      separator,
-      1,
+    rendered = (
+      _render_generic_narrative_step(
+        node.proof_step
+      )
     )
 
-    if (
-      lhs_rendered
-      != rhs_rendered
-    ):
+    if not rendered:
       continue
 
     reflexive_keys.add(
@@ -4552,6 +4549,8 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
   return "\n\n".join(
     retained
   )
+
+
 
 
 def order_toda_group_proof_narrative_surjectivity_support(
