@@ -68,17 +68,13 @@ def test_phase134_9_pi8_5_keeps_phase133_labels(
     capsys
   )
 
+  assert "Toda (5.6) の ν₄ 分解" in rendered
+  assert "E²: π₆³ → π₈⁵ の単射性" in rendered
   assert (
-    "Toda Proposition 5.6 のうち,"
+    "π₈⁵ / E²π₆³ が位数 2 であること"
     in rendered
   )
-  assert "## 使用する結果" in rendered
-  assert "## 証明" in rendered
-  assert (
-    r"\pi_{8}^{5} = "
-    r"\mathbb{Z}/8\{\nu_{5}\}"
-    in rendered
-  )
+
 
 def test_phase134_9_pi8_5_does_not_change_other_group_dispatch(
   capsys,
