@@ -67,9 +67,14 @@ def test_phase150_rc4_7a_pi16_9_numbers_normalized_references(
 def test_phase150_rc4_7a_pi15_8_special_renderer_is_unchanged(
 ):
   rendered = _render_group(8, 7)
-  assert "Toda Proposition 4.4 の分解同型" in rendered
-  assert "直和因子の順序を入れ替えると," in rendered
 
+  assert "Proposition 4.4.**" in rendered
+  assert (
+    r"\left(α, \beta\right) \mapsto "
+    r"Eα + \sigma_{8}\beta"
+    in rendered
+  )
+  assert "直和因子の順序を入れ替えると," in rendered
 
 def test_phase150_rc4_7a_depth1_keeps_legacy_reference_free_fallback(
 ):

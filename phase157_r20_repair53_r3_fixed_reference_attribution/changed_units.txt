@@ -1,0 +1,26 @@
+Changed units
+
+toda_literature_statement_boundary.py
+-------------------------------------
+Dictionary additions only:
+- _FIXED_RULE_COMPONENT_KEYS
+- _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME
+
+Added rule:
+Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization
+
+Mapped to:
+- component: nu4_decomposition_isomorphism
+- locator: Proposition 4.4
+
+toda_group_proof_narrative_references.py
+----------------------------------------
+Complete replacement:
+extract_toda_group_proof_step_literature_reference()
+
+Import changes:
+none
+
+tests/test_phase157_r20_repair53_r3_fixed_reference_attribution.py
+------------------------------------------------------------------
+New focused test file.
