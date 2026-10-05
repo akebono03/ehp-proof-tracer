@@ -1,0 +1,99 @@
+====================================================================================================
+Phase 158-R5-5b repair1f - equation line identity diagnosis
+====================================================================================================
+
+A. DIRECT NUMBERING CONSISTENCY
+----------------------------------------------------------------------------------------------------
+direct_equals_final=True
+raw_equals_direct=True
+
+B. NUMBERING STEP / LINE MATCHES
+----------------------------------------------------------------------------------------------------
+N1 id=2151123364416 plain_occurrences=(12, 22) tag_changes_line=True
+  plain=$2\nu' = \eta_{3}^{3}$
+  tagged=$2\nu' = \eta_{3}^{3}\tag{1}$
+N2 id=2151123403536 plain_occurrences=() tag_changes_line=True
+  plain=$\eta_{3}^{3} = \eta_{3}^{3}$
+  tagged=$\eta_{3}^{3} = \eta_{3}^{3}\tag{2}$
+N3 id=2151123405600 plain_occurrences=(12, 22) tag_changes_line=True
+  plain=$2\nu' = \eta_{3}^{3}$
+  tagged=$2\nu' = \eta_{3}^{3}\tag{3}$
+N4 id=2151123363360 plain_occurrences=(30, 34) tag_changes_line=True
+  plain=$H\left(\nu'\right) = \eta_{5}$
+  tagged=$H\left(\nu'\right) = \eta_{5}\tag{4}$
+N5 id=2151123363168 plain_occurrences=() tag_changes_line=True
+  plain=$\eta_{5} = \eta_{5}$
+  tagged=$\eta_{5} = \eta_{5}\tag{5}$
+N6 id=2151123355536 plain_occurrences=(30, 34) tag_changes_line=True
+  plain=$H\left(\nu'\right) = \eta_{5}$
+  tagged=$H\left(\nu'\right) = \eta_{5}\tag{6}$
+
+C. RAW LINES THAT MATCH MULTIPLE NUMBERING STEPS
+----------------------------------------------------------------------------------------------------
+numbers=(1, 3) occurrences=(12, 22)
+  $2\nu' = \eta_{3}^{3}$
+numbers=(4, 6) occurrences=(30, 34)
+  $H\left(\nu'\right) = \eta_{5}$
+
+D. TAG INVENTORY AFTER DIRECT NUMBERING
+----------------------------------------------------------------------------------------------------
+N1: False
+N2: False
+N3: False
+N4: False
+N5: False
+N6: False
+
+E. DIRECT NUMBERED MARKDOWN
+----------------------------------------------------------------------------------------------------
+まず, $\nu'$ を定める.
+
+$2\eta_{3} = 0$
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+次に, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+$2\nu' = \eta_{3}^{3}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より, 
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+これらより, 
+
+$2\nu' = \eta_{3}^{3}$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+これらより, 
+
+$H\left(\nu'\right) = \eta_{5}$
+
+これらより, 
+
+$H\left(\nu'\right) = \eta_{5}$
+
+この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$\nu' \in \pi_{6}^{3}$
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+以上より, 
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+====================================================================================================
