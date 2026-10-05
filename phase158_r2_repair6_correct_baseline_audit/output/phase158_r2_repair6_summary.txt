@@ -1,0 +1,11 @@
+﻿==============================================================================
+Phase 158-R2 repair6 - Correct Baseline Preservation Audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2
+rendered: 112
+public contract valid: 112
+Reference payload preserved: 112
+Proof payload preserved: 112
+fully valid: 112
+exceptions: 0
+==============================================================================
