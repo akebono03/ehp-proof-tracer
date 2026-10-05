@@ -3705,6 +3705,11 @@ def _phase134_24_render_pi15_8_narrative(
   if presentation.max_depth < 2:
     return None
 
+  if _phase158_r5_5b_has_ordered_root_argument(
+    presentation
+  ):
+    return None
+
   target = (
     presentation
     .source_replay
@@ -4657,11 +4662,64 @@ def _finalize_toda_group_proof_narrative_markdown(
   )
 
 
+def _phase158_r5_5b_has_ordered_root_argument(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if presentation.max_depth < 2:
+    return False
+
+  semantic_sidecar = (
+    build_toda_group_proof_narrative_semantic_sidecar(
+      presentation
+    )
+  )
+  blocks = (
+    build_toda_group_proof_narrative_blocks(
+      presentation,
+      semantic_sidecar=semantic_sidecar,
+    )
+  )
+  arguments = (
+    build_toda_group_proof_narrative_arguments(
+      presentation,
+      blocks,
+      semantic_sidecar=semantic_sidecar,
+    )
+  )
+
+  return any(
+    (
+      argument.supporting_blocks
+      and presentation.root_step
+      in argument.conclusion_block.steps
+    )
+    for argument in arguments
+  )
+
 def _is_phase150_rc4_generic_route_target(
   presentation: TodaGroupProofPresentation,
 ) -> bool:
   if presentation.max_depth < 2:
     return False
+
+  if _is_phase134_9_pi8_5_presentation(
+    presentation
+  ):
+    return False
+
+  if _phase158_r5_5b_has_ordered_root_argument(
+    presentation
+  ):
+    return True
 
   target = (
     presentation
@@ -4684,7 +4742,6 @@ def _is_phase150_rc4_generic_route_target(
       and target.sphere_dimension == 9
     )
   )
-
 
 def _phase158_baseline_render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,

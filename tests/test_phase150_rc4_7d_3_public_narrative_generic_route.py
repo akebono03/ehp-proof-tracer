@@ -119,13 +119,29 @@ def test_phase150_rc4_7d_3_pi8_dedicated_route_is_preserved():
   assert "Toda Proposition 5.6 のうち," in markdown
 
 
-def test_phase150_rc4_7d_3_pi15_dedicated_route_is_preserved():
+def test_phase150_rc4_7d_3_pi15_public_route_uses_generic_order():
   markdown = render_toda_group_proof_narrative_markdown(
     _presentation(8, 7)
   )
-  assert "Toda Proposition 5.15 のうち," in markdown
-  assert "直和因子の順序を入れ替えると," in markdown
 
+  transported = (
+    r"$\pi_{15}^{8} \cong "
+    r"\mathbb{Z}/8\{E\sigma'\} "
+    r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
+  )
+  final = (
+    r"$\pi_{15}^{8} = "
+    r"\mathbb{Z}\{\sigma_{8}\} "
+    r"\oplus \mathbb{Z}/8\{E\sigma'\}$"
+  )
+
+  assert transported in markdown
+  assert final in markdown
+  assert markdown.index(
+    transported
+  ) < markdown.index(
+    final
+  )
 
 def test_phase150_rc4_7d_3_depth1_rc4_target_keeps_existing_route():
   markdown = render_toda_group_proof_narrative_markdown(
