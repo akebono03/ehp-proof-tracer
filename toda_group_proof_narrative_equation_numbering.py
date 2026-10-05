@@ -91,90 +91,64 @@ def number_toda_group_proof_narrative_equations(
   sources_by_target = {}
 
   for transition in transitions:
-    target_id = id(transition.target_step)
+    target_id = id(
+      transition.target_step
+    )
     current = sources_by_target.get(
       target_id,
       (),
     )
+
     if any(
       step is transition.source_step
       for step in current
     ):
       continue
-    sources_by_target[target_id] = (
+
+    sources_by_target[
+      target_id
+    ] = (
       *current,
       transition.source_step,
     )
 
-  ordered_steps = []
-  seen_ids = set()
-
-  for block in blocks:
-    for target_step in block.steps:
-      source_steps = sources_by_target.get(
-        id(target_step),
-        (),
-      )
-      for source_step in source_steps:
-        source_id = id(source_step)
-        if source_id in seen_ids:
-          continue
-        ordered_steps.append(source_step)
-        seen_ids.add(source_id)
-
-      if (
-        source_steps
-        and id(target_step) not in seen_ids
-      ):
-        ordered_steps.append(target_step)
-        seen_ids.add(id(target_step))
-
-  number_by_id = {
-    id(step): number
-    for number, step in enumerate(
-      ordered_steps,
-      start=1,
-    )
+  step_by_id = {
+    id(
+      proof_step
+    ): proof_step
+    for block in blocks
+    for proof_step in block.steps
   }
-  plain_by_id = {
-    id(step): _render_generic_narrative_step(step)
-    for step in ordered_steps
-  }
-  tagged_by_id = {
-    id(step): _numbered_step_line(
-      step,
-      number_by_id[id(step)],
-    )
-    for step in ordered_steps
-  }
-
   lines = markdown.splitlines()
-
-  for index, line in enumerate(lines):
-    matching_id = next(
-      (
-        step_id
-        for step_id, plain in plain_by_id.items()
-        if line == plain
-      ),
-      None,
+  plain_by_id = {
+    step_id: _render_generic_narrative_step(
+      proof_step
     )
-    if matching_id is not None:
-      lines[index] = tagged_by_id[matching_id]
+    for step_id, proof_step in step_by_id.items()
+  }
+
+  reference_plans = []
+  line_index_by_id = {}
 
   for target_id, source_steps in sources_by_target.items():
-    target_line = tagged_by_id.get(target_id)
-    if target_line is None:
+    target_plain = plain_by_id.get(
+      target_id
+    )
+
+    if not target_plain:
       continue
 
     target_index = next(
       (
         index
-        for index, line in enumerate(lines)
-        if line == target_line
+        for index, line in enumerate(
+          lines
+        )
+        if line == target_plain
       ),
       None,
     )
+
     if target_index is None:
       continue
 
@@ -190,30 +164,176 @@ def number_toda_group_proof_narrative_equations(
       ),
       None,
     )
+
     if connector_index is None:
       continue
 
+    visible_source_ids = []
+
+    for source_step in source_steps:
+      source_id = id(
+        source_step
+      )
+      source_plain = plain_by_id.get(
+        source_id
+      )
+
+      if not source_plain:
+        continue
+
+      source_index = next(
+        (
+          index
+          for index in range(
+            connector_index - 1,
+            -1,
+            -1,
+          )
+          if lines[index] == source_plain
+        ),
+        None,
+      )
+
+      if source_index is None:
+        continue
+
+      visible_source_ids.append(
+        source_id
+      )
+      current_index = line_index_by_id.get(
+        source_id
+      )
+
+      if (
+        current_index is None
+        or source_index < current_index
+      ):
+        line_index_by_id[
+          source_id
+        ] = source_index
+
+    if not visible_source_ids:
+      continue
+
+    current_target_index = line_index_by_id.get(
+      target_id
+    )
+
+    if (
+      current_target_index is None
+      or target_index < current_target_index
+    ):
+      line_index_by_id[
+        target_id
+      ] = target_index
+
+    reference_plans.append(
+      (
+        connector_index,
+        tuple(
+          visible_source_ids
+        ),
+      )
+    )
+
+  ordered_step_ids = tuple(
+    step_id
+    for step_id, _line_index in sorted(
+      line_index_by_id.items(),
+      key=lambda item: item[1],
+    )
+  )
+  number_by_id = {
+    step_id: number
+    for number, step_id in enumerate(
+      ordered_step_ids,
+      start=1,
+    )
+  }
+
+  occupied_line_indices = set()
+
+  for step_id in ordered_step_ids:
+    line_index = line_index_by_id[
+      step_id
+    ]
+
+    if line_index in occupied_line_indices:
+      continue
+
+    proof_step = step_by_id.get(
+      step_id
+    )
+
+    if proof_step is None:
+      continue
+
+    tagged_line = _numbered_step_line(
+      proof_step,
+      number_by_id[
+        step_id
+      ],
+    )
+
+    if tagged_line == lines[
+      line_index
+    ]:
+      continue
+
+    lines[
+      line_index
+    ] = tagged_line
+    occupied_line_indices.add(
+      line_index
+    )
+
+  for connector_index, source_ids in reference_plans:
     references = tuple(
       toda_group_proof_narrative_equation_reference(
-        number_by_id[id(source_step)]
+        number_by_id[
+          source_id
+        ]
       )
-      for source_step in source_steps
-      if id(source_step) in number_by_id
+      for source_id in source_ids
+      if (
+        source_id in number_by_id
+        and line_index_by_id[
+          source_id
+        ] < connector_index
+      )
     )
+
     if not references:
       continue
 
-    if len(references) == 1:
-      reference_text = references[0]
+    if len(
+      references
+    ) == 1:
+      reference_text = references[
+        0
+      ]
     else:
       reference_text = (
-        ", ".join(references[:-1])
+        ", ".join(
+          references[
+            :-1
+          ]
+        )
         + " と "
-        + references[-1]
+        + references[
+          -1
+        ]
       )
 
-    lines[connector_index] = (
-      reference_text + " より, "
+    lines[
+      connector_index
+    ] = (
+      reference_text
+      + " より, "
     )
 
-  return "\n".join(lines)
+  return "\n".join(
+    lines
+  )
+
+

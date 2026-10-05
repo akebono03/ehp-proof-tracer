@@ -1,0 +1,269 @@
+========================================================================================================================
+Phase 158-R5-5b repair1q - contract runtime source diagnosis
+========================================================================================================================
+
+A. RUNTIME SOURCE LOCATION
+------------------------------------------------------------------------------------------------------------------------
+module_path=C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_group_proof_narrative_renderer.py
+function_module=toda_group_proof_narrative_renderer
+
+B. RUNTIME SOURCE
+------------------------------------------------------------------------------------------------------------------------
+def _phase158_normalize_public_narrative_contract(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  if presentation.max_depth < 2:
+    return rendered
+
+  title = "# Group proof narrative"
+  target_header = "## 証明対象"
+  reference_header = "## 使用する結果"
+  separator = "---"
+  proof_header = "## 証明"
+  qed = "□"
+
+  source_lines = (
+    rendered.rstrip().splitlines()
+  )
+
+  if (
+    source_lines
+    and source_lines[0] == title
+  ):
+    content_lines = source_lines[1:]
+  else:
+    content_lines = source_lines[:]
+
+  while (
+    content_lines
+    and not content_lines[0].strip()
+  ):
+    content_lines.pop(0)
+
+  def exact_index(
+    marker: str,
+  ) -> int | None:
+    try:
+      return content_lines.index(
+        marker
+      )
+    except ValueError:
+      return None
+
+  target_index = exact_index(
+    target_header
+  )
+  reference_index = exact_index(
+    reference_header
+  )
+  proof_index = exact_index(
+    proof_header
+  )
+
+  if target_index is not None:
+    target_end_candidates = [
+      index
+      for index in (
+        reference_index,
+        proof_index,
+        len(
+          content_lines
+        ),
+      )
+      if (
+        index is not None
+        and index > target_index
+      )
+    ]
+    target_end = min(
+      target_end_candidates
+    )
+    target_body = content_lines[
+      target_index + 1:
+      target_end
+    ]
+  else:
+    target_body = (
+      _phase158_public_narrative_target_lines(
+        presentation
+      )
+    )
+
+  while (
+    target_body
+    and not target_body[0].strip()
+  ):
+    target_body.pop(0)
+
+  while (
+    target_body
+    and not target_body[-1].strip()
+  ):
+    target_body.pop()
+
+  reference_body: list[str] = []
+
+  if (
+    reference_index is not None
+    and proof_index is not None
+    and reference_index < proof_index
+  ):
+    reference_body = content_lines[
+      reference_index + 1:
+      proof_index
+    ]
+
+  while (
+    reference_body
+    and not reference_body[0].strip()
+  ):
+    reference_body.pop(0)
+
+  while (
+    reference_body
+    and not reference_body[-1].strip()
+  ):
+    reference_body.pop()
+
+  if (
+    reference_body
+    and reference_body[-1].strip()
+    == separator
+  ):
+    reference_body.pop()
+
+    while (
+      reference_body
+      and not reference_body[-1].strip()
+    ):
+      reference_body.pop()
+
+  if proof_index is not None:
+    proof_body = content_lines[
+      proof_index + 1:
+    ]
+  elif (
+    target_index is None
+    and reference_index is None
+  ):
+    proof_body = content_lines[:]
+  else:
+    proof_body = []
+
+  while (
+    proof_body
+    and not proof_body[0].strip()
+  ):
+    proof_body.pop(0)
+
+  proof_body = (
+    _phase158_strip_terminal_qed_lines(
+      proof_body
+    )
+  )
+  proof_body = (
+    _phase158_normalize_public_equation_numbers(
+      proof_body
+    )
+  )
+
+  lines = [
+    title,
+    "",
+    target_header,
+    "",
+    *target_body,
+    "",
+    reference_header,
+    "",
+  ]
+
+  if reference_body:
+    lines.extend(
+      (
+        *reference_body,
+        "",
+      )
+    )
+
+  lines.extend(
+    (
+      separator,
+      "",
+      proof_header,
+      "",
+      *proof_body,
+      "",
+      qed,
+    )
+  )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+
+C. TAG-RELATED SOURCE CHECKS
+------------------------------------------------------------------------------------------------------------------------
+contains_tag_literal=False
+contains_replace=False
+contains_re_sub=False
+contains_splitlines=True
+
+D. BASELINE INTERESTING LINES
+------------------------------------------------------------------------------------------------------------------------
+009: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$.
+036: $H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}\tag{4}$.
+054: $\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=0$ かつ $2\nu'\neq0$ である.
+056: [R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$.
+058: $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$.
+060: $2\nu' = \eta_{3}^{3}$.
+
+E. NORMALIZED INTERESTING LINES
+------------------------------------------------------------------------------------------------------------------------
+017: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$.
+062: $\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=0$ かつ $2\nu'\neq0$ である.
+064: [R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}$.
+066: $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$.
+068: $2\nu' = \eta_{3}^{3}$.
+
+F. LINE-BY-LINE TAG LOSS
+------------------------------------------------------------------------------------------------------------------------
+baseline=$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}\tag{4}$.
+  exact_in_normalized=False
+  untagged_in_normalized=True
+  untagged=$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
+baseline=[R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$.
+  exact_in_normalized=False
+  untagged_in_normalized=True
+  untagged=[R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}$.
+baseline=$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$.
+  exact_in_normalized=False
+  untagged_in_normalized=True
+  untagged=$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$.
+
+========================================================================================================================
+Production code changes: none
+Repository-wide pytest: not run
+========================================================================================================================

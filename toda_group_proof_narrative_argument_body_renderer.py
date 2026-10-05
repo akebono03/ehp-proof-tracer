@@ -2,8 +2,6 @@ from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _generic_short_exact_sequence_reason_prose,
-  _normalize_generic_eta_family_latex,
-  _render_generic_narrative_expression_latex,
   _render_generic_narrative_proof_block,
   _render_generic_narrative_step,
 )
@@ -467,11 +465,22 @@ def _relocatable_toda_group_proof_narrative_direct_derivation_premises(
   ProofStep,
   ...,
 ]:
+  transition_source_step_ids = frozenset(
+    id(
+      source_step
+    )
+    for source_steps in sources_by_target_id.values()
+    for source_step in source_steps
+  )
+
   return tuple(
     premise_step
     for premise_step in direct_derivation_premises
     if (
       premise_step not in conclusion_block.steps
+      and id(
+        premise_step
+      ) not in transition_source_step_ids
       and not sources_by_target_id.get(
         id(
           premise_step
@@ -661,18 +670,9 @@ def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
     return False
 
   try:
-    lhs_normalized = (
-      _normalize_generic_eta_family_latex(
-        _render_generic_narrative_expression_latex(
-          statement.lhs
-        )
-      )
-    )
-    rhs_normalized = (
-      _normalize_generic_eta_family_latex(
-        _render_generic_narrative_expression_latex(
-          statement.rhs
-        )
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
       )
     )
   except (
@@ -681,14 +681,33 @@ def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
   ):
     return False
 
-  return (
-    lhs_normalized
-    == rhs_normalized
+  if (
+    not rendered.startswith(
+      "$"
+    )
+    or not rendered.endswith(
+      "$"
+    )
+  ):
+    return False
+
+  equation = rendered[
+    1:-1
+  ]
+  separator = " = "
+
+  if separator not in equation:
+    return False
+
+  lhs_rendered, rhs_rendered = equation.split(
+    separator,
+    1,
   )
 
-
-
-
+  return (
+    lhs_rendered
+    == rhs_rendered
+  )
 
 
 def render_toda_group_proof_narrative_argument_body_markdown(

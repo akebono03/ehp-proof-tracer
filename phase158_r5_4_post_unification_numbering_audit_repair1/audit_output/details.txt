@@ -1,0 +1,145 @@
+========================================================================================
+Phase 158-R5-4 — post-unification public Narrative numbering audit
+========================================================================================
+
+Production code changes: none
+Test code changes: none
+pytest: not run
+
+----------------------------------------------------------------------------------------
+pi6_3_reference: pi_6^3
+----------------------------------------------------------------------------------------
+left proof-item numbering: 0
+equation tags: 0
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+
+----------------------------------------------------------------------------------------
+pi8_5_former_dedicated: pi_8^5
+----------------------------------------------------------------------------------------
+left proof-item numbering: 0
+equation tags: 0
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+
+----------------------------------------------------------------------------------------
+pi15_8_former_dedicated: pi_15^8
+----------------------------------------------------------------------------------------
+left proof-item numbering: 7
+equation tags: 6
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+left proof-item lines:
+  L57: (1) より,
+  L73: (2) より,
+  L103: (2) より,
+  L131: (3) より,
+  L201: (4) より,
+  L215: (5) より,
+  L237: (6) より,
+tagged equation lines:
+  L55: tag(1) [R3]より, $\Delta\left(\eta_{13}\right) = 0\tag{1}$.
+  L67: tag(2) $\Delta\left(\iota_{11}\right) = \nu_{5}\eta_{8}\tag{2}$.
+  L127: tag(3) $\nu_{6}\eta_{9} = 0\tag{3}$.
+  L199: tag(4) $\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}\tag{4}$.
+  L213: tag(5) $E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}\tag{5}$.
+  L231: tag(6) $\eta_{3}\nu' = 0\tag{6}$.
+
+----------------------------------------------------------------------------------------
+pi7_4_former_legacy: pi_7^4
+----------------------------------------------------------------------------------------
+left proof-item numbering: 0
+equation tags: 0
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+
+----------------------------------------------------------------------------------------
+pi10_4_existing_generic: pi_10^4
+----------------------------------------------------------------------------------------
+left proof-item numbering: 6
+equation tags: 5
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+left proof-item lines:
+  L72: (1) より,
+  L102: (2) より,
+  L112: (2) より,
+  L118: (3) より,
+  L142: (4) より,
+  L150: (5) より,
+tagged equation lines:
+  L66: tag(1) $\eta_{3}\nu' = 0\tag{1}$.
+  L84: tag(2) $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}\tag{2}$.
+  L116: tag(3) $\nu_{6}\eta_{9} = 0\tag{3}$.
+  L140: tag(4) $\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}\tag{4}$.
+  L148: tag(5) $E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}\tag{5}$.
+
+----------------------------------------------------------------------------------------
+pi12_5_existing_generic: pi_12^5
+----------------------------------------------------------------------------------------
+left proof-item numbering: 7
+equation tags: 6
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+left proof-item lines:
+  L142: (1) より,
+  L148: (2) より,
+  L172: (3) より,
+  L180: (4) より,
+  L190: (5) より,
+  L200: (6) より,
+  L204: (6) より,
+tagged equation lines:
+  L112: tag(1) $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}\tag{1}$.
+  L146: tag(2) $\nu_{6}\eta_{9} = 0\tag{2}$.
+  L170: tag(3) $\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}\tag{3}$.
+  L178: tag(4) $E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}\tag{4}$.
+  L188: tag(5) $\eta_{3}\nu' = 0\tag{5}$.
+  L198: tag(6) $\Delta\left(\iota_{11}\right) = \nu_{5}\eta_{8}\tag{6}$.
+
+----------------------------------------------------------------------------------------
+pi16_9_existing_generic: pi_16^9
+----------------------------------------------------------------------------------------
+left proof-item numbering: 8
+equation tags: 7
+tags without later reference: 0
+duplicate tags: 0
+parenthesized number uses without tag: 0
+old dedicated-route markers: none
+shell: has_title=True, has_target_section=True, has_reference_section=True, has_proof_section=True, has_separator=True, has_qed=True
+left proof-item lines:
+  L63: (1) より,
+  L133: (3) より,
+  L157: (3) より,
+  L177: (2) より,
+  L189: (4) より,
+  L207: (5) より,
+  L213: (6) より,
+  L223: (7) より,
+tagged equation lines:
+  L61: tag(1) [R3]より, $\Delta\left(\eta_{13}\right) = 0\tag{1}$.
+  L125: tag(2) $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}\tag{2}$.
+  L127: tag(3) $\Delta\left(\iota_{11}\right) = \nu_{5}\eta_{8}\tag{3}$.
+  L187: tag(4) $\nu_{6}\eta_{9} = 0\tag{4}$.
+  L205: tag(5) $\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}\tag{5}$.
+  L211: tag(6) $E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}\tag{6}$.
+  L221: tag(7) $\eta_{3}\nu' = 0\tag{7}$.
+

@@ -459,23 +459,25 @@ def _normalize_generic_narrative_statement_latex(
       "latex must be a str"
     )
 
-  normalized = (
-    _normalize_generic_eta_family_latex(
-      latex
-    )
-  )
-
   if not hasattr(
     statement,
     "lhs",
   ):
-    return normalized
+    return (
+      _normalize_generic_eta_family_latex(
+        latex
+      )
+    )
 
   if not hasattr(
     statement,
     "rhs",
   ):
-    return normalized
+    return (
+      _normalize_generic_eta_family_latex(
+        latex
+      )
+    )
 
   replacements = []
   search_start = 0
@@ -499,7 +501,7 @@ def _normalize_generic_narrative_statement_latex(
       )
     )
 
-    expression_start = normalized.find(
+    expression_start = latex.find(
       rendered_expression,
       search_start,
     )
@@ -529,6 +531,8 @@ def _normalize_generic_narrative_statement_latex(
       )
     )
 
+  normalized = latex
+
   for (
     expression_start,
     expression_end,
@@ -546,11 +550,7 @@ def _normalize_generic_narrative_statement_latex(
       ]
     )
 
-  return (
-    _normalize_generic_eta_family_latex(
-      normalized
-    )
-  )
+  return normalized
 
 
 def _normalize_generic_narrative_step_latex(

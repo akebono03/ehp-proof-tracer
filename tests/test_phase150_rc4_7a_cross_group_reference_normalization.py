@@ -64,17 +64,32 @@ def test_phase150_rc4_7a_pi16_9_numbers_normalized_references(
   assert "[R1]" in rendered
 
 
-def test_phase150_rc4_7a_pi15_8_special_renderer_is_unchanged(
+def test_phase150_rc4_7a_pi15_8_uses_generic_order_contract(
 ):
-  rendered = _render_group(8, 7)
-
-  assert "Proposition 4.4.**" in rendered
-  assert (
-    r"\left(α, \beta\right) \mapsto "
-    r"Eα + \sigma_{8}\beta"
-    in rendered
+  rendered = _render_group(
+    8,
+    7,
   )
-  assert "直和因子の順序を入れ替えると," in rendered
+
+  transported = (
+    r"$\pi_{15}^{8} \cong "
+    r"\mathbb{Z}/8\{E\sigma'\} "
+    r"\oplus \mathbb{Z}\{\sigma_{8}\}$"
+  )
+  final = (
+    r"$\pi_{15}^{8} = "
+    r"\mathbb{Z}\{\sigma_{8}\} "
+    r"\oplus \mathbb{Z}/8\{E\sigma'\}$"
+  )
+
+  assert "Proposition 4.4" in rendered
+  assert transported in rendered
+  assert final in rendered
+  assert rendered.index(
+    transported
+  ) < rendered.index(
+    final
+  )
 
 def test_phase150_rc4_7a_depth1_keeps_legacy_reference_free_fallback(
 ):

@@ -1,0 +1,30 @@
+==============================================================================
+Phase 158-R4 - 112-group prose formatting / continuity audit
+==============================================================================
+Production code changes: none
+Existing test changes: none
+Full pytest: not run
+
+Expected groups: 112
+Rendered groups: 112
+Exceptions: 0
+Findings: 11
+Affected groups: 3
+
+Category counts
+------------------------------------------------------------------------------
+standalone_period: 0
+unreferenced_equation_tag: 4
+missing_equation_tag: 5
+ambiguous_anaphora: 2
+split_calculation_sequence: 0
+
+Interpretation
+------------------------------------------------------------------------------
+standalone_period: definite formatting defect
+missing_equation_tag: definite numbering/linkage defect
+unreferenced_equation_tag: candidate for unnecessary equation numbering
+ambiguous_anaphora: prose review candidate
+split_calculation_sequence: continuity review candidate
+
+R4 audit only. Do not modify production code from this package.

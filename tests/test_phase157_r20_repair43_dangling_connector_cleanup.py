@@ -1,6 +1,9 @@
 from toda_calculation_facade import (
   build_standard_toda_report,
 )
+from toda_group_proof_narrative_contribution_renderer import (
+  suppress_toda_group_proof_narrative_dangling_connectors,
+)
 from toda_group_proof_narrative_renderer import (
   render_toda_group_proof_narrative_markdown,
 )
@@ -69,21 +72,42 @@ def test_phase157_r20_repair43_has_no_dangling_connector_paragraphs_or_lines():
       -1
     ] not in standalone_connectors
 
-    assert not (
-      lines[
-        -1
-      ].startswith(
-        "("
-      )
-      and lines[
-        -1
-      ].endswith(
-        "より,"
-      )
-      and ") と (" in lines[
-        -1
-      ]
+
+def test_phase157_r20_repair43_keeps_valid_numbered_derivation_connector():
+  markdown = "\n\n".join(
+    (
+      r"$a=b\tag{4}$",
+      r"$b=c\tag{7}$",
+      "(4) と (7) より,",
+      r"$a=c$",
     )
+  )
+
+  rendered = (
+    suppress_toda_group_proof_narrative_dangling_connectors(
+      markdown
+    )
+  )
+
+  assert "(4) と (7) より," in rendered
+
+
+def test_phase157_r20_repair43_removes_unreferenced_numbered_connector():
+  markdown = "\n\n".join(
+    (
+      r"$a=b$",
+      "(4) と (7) より,",
+      r"$a=c$",
+    )
+  )
+
+  rendered = (
+    suppress_toda_group_proof_narrative_dangling_connectors(
+      markdown
+    )
+  )
+
+  assert "(4) と (7) より," not in rendered
 
 
 def test_phase157_r20_repair43_reference_marker_does_not_keep_redundant_connector_prefix():

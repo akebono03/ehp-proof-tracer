@@ -1,0 +1,10 @@
+﻿label,n,k,group,visible_derivation,renderer_visibility_gap,no_consumer_in_proof_graph,unmapped_rendered_use,standalone_connector
+pi6_3_reference,3,3,pi_6^3,0,0,0,0,0
+pi8_5_former_dedicated,5,3,pi_8^5,0,0,0,0,0
+pi15_8_former_dedicated,8,7,pi_15^8,0,0,0,1,0
+pi7_4_former_legacy,4,3,pi_7^4,1,0,0,1,0
+pi10_4_generic,4,6,pi_10^4,0,0,0,0,0
+pi11_4_prose_target,4,7,pi_11^4,0,0,0,0,0
+pi12_5_generic,5,7,pi_12^5,0,0,0,1,0
+pi16_9_generic,9,7,pi_16^9,0,0,0,2,0
+pi4_3_small_unstable,3,1,pi_4^3,0,0,0,0,0

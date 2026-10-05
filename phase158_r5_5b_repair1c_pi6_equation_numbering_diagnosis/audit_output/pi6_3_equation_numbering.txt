@@ -1,0 +1,223 @@
+====================================================================================================
+Phase 158-R5-5b repair1c - pi6 equation numbering diagnosis
+====================================================================================================
+
+A. NUMBERING CANDIDATES
+----------------------------------------------------------------------------------------------------
+N1: type=Relation raw_plain=True final_plain=True final_tag=False
+  $2\nu' = \eta_{3}^{3}$
+N2: type=Relation raw_plain=False final_plain=False final_tag=False
+  $\eta_{3}^{3} = \eta_{3}^{3}$
+N3: type=Relation raw_plain=True final_plain=True final_tag=False
+  $2\nu' = \eta_{3}^{3}$
+N4: type=Relation raw_plain=True final_plain=True final_tag=False
+  $H\left(\nu'\right) = \eta_{5}$
+N5: type=Relation raw_plain=False final_plain=False final_tag=False
+  $\eta_{5} = \eta_{5}$
+N6: type=Relation raw_plain=True final_plain=True final_tag=False
+  $H\left(\nu'\right) = \eta_{5}$
+
+B. ARGUMENT LOCAL BODY / METHOD EVIDENCE
+----------------------------------------------------------------------------------------------------
+A2 ordered_position=0 role=establish_definition local_blocks=(16, 10, 15) evidence_blocks=() conclusion_block=15
+  B16 role=group_structure
+    Relation :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  B10 role=precondition
+    Relation :: $2\eta_{3} = 0$
+  B15 role=definition
+    TodaBracketMembershipStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+A1 ordered_position=1 role=establish_order local_blocks=(9, 16, 10, 8, 19, 11, 17, 18, 3, 12, 20, 4, 1) evidence_blocks=(12, 20) conclusion_block=1
+  B9 role=reference
+    Toda53NuPrimeBracketSpecializationStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+  B16 role=group_structure
+    Relation :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  B10 role=precondition
+    Relation :: $2\eta_{3} = 0$
+  B8 role=calculation
+    Relation :: $2\nu' = \eta_{3}^{3}$
+    Relation :: $2\nu' = \eta_{3}^{3}$
+    Relation :: $\eta_{3}^{3} = \eta_{3}^{3}$
+  B19 role=group_structure
+    TodaPrimaryGroupZeroStatement :: $\pi_{i - 1}^{1} = 0$
+  B11 role=reference
+    Toda52CompositionIsomorphismStatement :: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    TodaProp44IsomorphismStatement :: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    TodaProp44SecondSummandRestrictionStatement :: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+  B17 role=map_property
+    TodaSuspensionIsomorphismStatement :: $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+  B18 role=calculation
+    Relation :: $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+  B3 role=group_structure
+    Relation :: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$
+    Relation :: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+    Relation :: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$
+  B12 role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+  B20 role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.
+  B4 role=map_property
+    TodaSuspensionInjectiveStatement :: $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+    TodaDeltaZeroStatement :: $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+  B1 role=order
+    Relation :: $\operatorname{ord}\left(\nu'\right) = 4$
+    Relation :: $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+A0 ordered_position=2 role=establish_group_structure local_blocks=(9, 16, 10, 2, 19, 11, 17, 18, 3, 12, 20, 4, 5, 13, 21, 22, 23, 24, 14, 6, 7, 0) evidence_blocks=(5, 12, 20) conclusion_block=0
+  B9 role=reference
+    Toda53NuPrimeBracketSpecializationStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+  B16 role=group_structure
+    Relation :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  B10 role=precondition
+    Relation :: $2\eta_{3} = 0$
+  B2 role=membership
+    HomotopyGroupMembershipStatement :: $\nu' \in \pi_{6}^{3}$
+  B19 role=group_structure
+    TodaPrimaryGroupZeroStatement :: $\pi_{i - 1}^{1} = 0$
+  B11 role=reference
+    Toda52CompositionIsomorphismStatement :: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    TodaProp44IsomorphismStatement :: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    TodaProp44SecondSummandRestrictionStatement :: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+  B17 role=map_property
+    TodaSuspensionIsomorphismStatement :: $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+  B18 role=calculation
+    Relation :: $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+  B3 role=group_structure
+    Relation :: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$
+    Relation :: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+    Relation :: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$
+  B12 role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+  B20 role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.
+  B4 role=map_property
+    TodaSuspensionInjectiveStatement :: $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+    TodaDeltaZeroStatement :: $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+  B5 role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$ は完全である.
+  B13 role=calculation
+    Relation :: $H\left(\nu'\right) = \eta_{5}$
+    Relation :: $H\left(\nu'\right) = \eta_{5}$
+    Relation :: $\eta_{5} = \eta_{5}$
+  B21 role=group_structure
+    Relation :: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+  B22 role=calculation
+    Relation :: $H\left(\eta_{2}\right) = \iota_{3}$
+  B23 role=map_property
+    TodaDeltaImageUpToSignStatement :: $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+  B24 role=group_structure
+    Relation :: $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$
+  B14 role=reference
+    TodaProp51FiniteDimensionalStatement :: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+  B6 role=map_property
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+  B7 role=group_structure
+    Relation :: $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+  B0 role=target
+    Relation :: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+C. RAW MARKDOWN BEFORE NUMBERING
+----------------------------------------------------------------------------------------------------
+まず, $\nu'$ を定める.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$2\eta_{3} = 0$
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+次に, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+これらより, 
+
+$2\nu' = \eta_{3}^{3}$
+
+$2\nu' = \eta_{3}^{3}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より, 
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+これらより, 
+
+$H\left(\nu'\right) = \eta_{5}$
+
+これらより, 
+
+$H\left(\nu'\right) = \eta_{5}$
+
+この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$\nu' \in \pi_{6}^{3}$
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+以上より, 
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+D. FINAL MARKDOWN AFTER NUMBERING
+----------------------------------------------------------------------------------------------------
+まず, $\nu'$ を定める.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$2\eta_{3} = 0$
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+
+次に, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$
+
+これらより, 
+
+$2\nu' = \eta_{3}^{3}$
+
+$2\nu' = \eta_{3}^{3}$
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より, 
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+これらより, 
+
+$H\left(\nu'\right) = \eta_{5}$
+
+これらより, 
+
+$H\left(\nu'\right) = \eta_{5}$
+
+この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$\nu' \in \pi_{6}^{3}$
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+$\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+
+以上より, 
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+====================================================================================================

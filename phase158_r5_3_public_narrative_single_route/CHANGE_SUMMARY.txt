@@ -1,0 +1,16 @@
+変更箇所:
+toda_group_proof_narrative_renderer.py
+関数:
+_phase158_baseline_render_toda_group_proof_narrative_markdown
+
+旧 dedicated / group-target dispatch を削除し、semantic closure 後に:
+
+  if presentation.max_depth >= 2:
+      semantic_sidecar -> blocks -> arguments
+      -> render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
+      -> _wrap_phase150_rc4_generic_public_narrative
+      -> _finalize_toda_group_proof_narrative_markdown
+
+へ一律接続する。
+
+max_depth < 2 は既存 fallback をそのまま残す。

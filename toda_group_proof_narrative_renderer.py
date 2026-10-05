@@ -3705,6 +3705,11 @@ def _phase134_24_render_pi15_8_narrative(
   if presentation.max_depth < 2:
     return None
 
+  if _phase158_r5_5b_has_ordered_root_argument(
+    presentation
+  ):
+    return None
+
   target = (
     presentation
     .source_replay
@@ -4657,11 +4662,64 @@ def _finalize_toda_group_proof_narrative_markdown(
   )
 
 
+def _phase158_r5_5b_has_ordered_root_argument(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if presentation.max_depth < 2:
+    return False
+
+  semantic_sidecar = (
+    build_toda_group_proof_narrative_semantic_sidecar(
+      presentation
+    )
+  )
+  blocks = (
+    build_toda_group_proof_narrative_blocks(
+      presentation,
+      semantic_sidecar=semantic_sidecar,
+    )
+  )
+  arguments = (
+    build_toda_group_proof_narrative_arguments(
+      presentation,
+      blocks,
+      semantic_sidecar=semantic_sidecar,
+    )
+  )
+
+  return any(
+    (
+      argument.supporting_blocks
+      and presentation.root_step
+      in argument.conclusion_block.steps
+    )
+    for argument in arguments
+  )
+
 def _is_phase150_rc4_generic_route_target(
   presentation: TodaGroupProofPresentation,
 ) -> bool:
   if presentation.max_depth < 2:
     return False
+
+  if _is_phase134_9_pi8_5_presentation(
+    presentation
+  ):
+    return False
+
+  if _phase158_r5_5b_has_ordered_root_argument(
+    presentation
+  ):
+    return True
 
   target = (
     presentation
@@ -4685,7 +4743,6 @@ def _is_phase150_rc4_generic_route_target(
     )
   )
 
-
 def _phase158_baseline_render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -4704,30 +4761,7 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
     )
   )
 
-  phase134_24_pi15_8 = (
-    _phase134_24_render_pi15_8_narrative(
-      presentation
-    )
-  )
-
-  if phase134_24_pi15_8 is not None:
-    return (
-      _finalize_toda_group_proof_narrative_markdown(
-        _phase153_r3_10_connect_public_reference_section(
-          presentation,
-          phase134_24_pi15_8,
-        )
-      )
-    )
-
-  if (
-    _is_phase134_3_pi6_3_presentation(
-      presentation
-    )
-    or _is_phase150_rc4_generic_route_target(
-      presentation
-    )
-  ):
+  if presentation.max_depth >= 2:
     semantic_sidecar = (
       build_toda_group_proof_narrative_semantic_sidecar(
         presentation
@@ -4766,24 +4800,6 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
     return (
       _finalize_toda_group_proof_narrative_markdown(
         public_rendered
-      )
-    )
-
-  if _is_phase134_9_pi8_5_presentation(
-    presentation
-  ):
-    rendered = (
-      _render_phase134_9_pi8_5_narrative_markdown(
-        presentation
-      )
-    )
-
-    return (
-      _finalize_toda_group_proof_narrative_markdown(
-        _phase153_r3_10_connect_public_reference_section(
-          presentation,
-          rendered,
-        )
       )
     )
 
@@ -5063,6 +5079,345 @@ def _phase158_strip_terminal_qed_lines(
   return result
 
 
+def _phase158_public_equation_tag_number(
+  line: str,
+) -> int | None:
+  marker = r"\tag{"
+  marker_index = line.find(
+    marker
+  )
+
+  if marker_index < 0:
+    return None
+
+  number_start = (
+    marker_index
+    + len(
+      marker
+    )
+  )
+  number_end = line.find(
+    "}",
+    number_start,
+  )
+
+  if number_end < 0:
+    return None
+
+  number_text = line[
+    number_start:
+    number_end
+  ]
+
+  if not number_text.isdigit():
+    return None
+
+  return int(
+    number_text
+  )
+
+
+def _phase158_public_equation_connector_numbers(
+  line: str,
+) -> tuple[
+  int,
+  ...,
+] | None:
+  stripped = line.strip()
+  suffix = "より,"
+
+  if not stripped.endswith(
+    suffix
+  ):
+    return None
+
+  reference_text = stripped[
+    :-len(
+      suffix
+    )
+  ].strip()
+
+  if not reference_text:
+    return None
+
+  if " と " in reference_text:
+    left, right = reference_text.rsplit(
+      " と ",
+      1,
+    )
+    pieces = tuple(
+      (
+        *(
+          piece.strip()
+          for piece in left.split(
+            ","
+          )
+          if piece.strip()
+        ),
+        right.strip(),
+      )
+    )
+  else:
+    pieces = (
+      reference_text,
+    )
+
+  numbers = []
+
+  for piece in pieces:
+    if (
+      not piece.startswith(
+        "("
+      )
+      or not piece.endswith(
+        ")"
+      )
+    ):
+      return None
+
+    number_text = piece[
+      1:-1
+    ]
+
+    if not number_text.isdigit():
+      return None
+
+    numbers.append(
+      int(
+        number_text
+      )
+    )
+
+  return tuple(
+    numbers
+  )
+
+
+def _phase158_render_public_equation_connector(
+  numbers: tuple[
+    int,
+    ...,
+  ],
+) -> str:
+  references = tuple(
+    "("
+    + str(
+      number
+    )
+    + ")"
+    for number in numbers
+  )
+
+  if len(
+    references
+  ) == 1:
+    return (
+      references[
+        0
+      ]
+      + " より,"
+    )
+
+  return (
+    ", ".join(
+      references[
+        :-1
+      ]
+    )
+    + " と "
+    + references[
+      -1
+    ]
+    + " より,"
+  )
+
+
+def _phase158_normalize_public_equation_numbers(
+  proof_body: list[
+    str
+  ],
+) -> list[
+  str
+]:
+  connector_numbers_by_index = {}
+  referenced_numbers = set()
+
+  for index, line in enumerate(
+    proof_body
+  ):
+    numbers = (
+      _phase158_public_equation_connector_numbers(
+        line
+      )
+    )
+
+    if numbers is None:
+      continue
+
+    connector_numbers_by_index[
+      index
+    ] = numbers
+    referenced_numbers.update(
+      numbers
+    )
+
+  derivation_target_numbers = set()
+
+  for connector_index in connector_numbers_by_index:
+    target_index = next(
+      (
+        index
+        for index in range(
+          connector_index + 1,
+          len(
+            proof_body
+          ),
+        )
+        if proof_body[
+          index
+        ].strip()
+      ),
+      None,
+    )
+
+    if target_index is None:
+      continue
+
+    target_number = (
+      _phase158_public_equation_tag_number(
+        proof_body[
+          target_index
+        ]
+      )
+    )
+
+    if target_number is not None:
+      derivation_target_numbers.add(
+        target_number
+      )
+
+  retained_numbers = (
+    referenced_numbers
+    | derivation_target_numbers
+  )
+  retained_old_numbers = []
+  seen_old_numbers = set()
+
+  for line in proof_body:
+    number = (
+      _phase158_public_equation_tag_number(
+        line
+      )
+    )
+
+    if (
+      number is None
+      or number not in retained_numbers
+      or number in seen_old_numbers
+    ):
+      continue
+
+    retained_old_numbers.append(
+      number
+    )
+    seen_old_numbers.add(
+      number
+    )
+
+  number_map = {
+    old_number: new_number
+    for new_number, old_number in enumerate(
+      retained_old_numbers,
+      start=1,
+    )
+  }
+
+  result = []
+  emitted_old_numbers = set()
+
+  for index, source_line in enumerate(
+    proof_body
+  ):
+    line = source_line
+    tag_number = (
+      _phase158_public_equation_tag_number(
+        line
+      )
+    )
+
+    if tag_number is not None:
+      old_marker = (
+        r"\tag{"
+        + str(
+          tag_number
+        )
+        + "}"
+      )
+
+      if (
+        tag_number not in number_map
+        or tag_number in emitted_old_numbers
+      ):
+        line = line.replace(
+          old_marker,
+          "",
+          1,
+        )
+      else:
+        line = line.replace(
+          old_marker,
+          (
+            r"\tag{"
+            + str(
+              number_map[
+                tag_number
+              ]
+            )
+            + "}"
+          ),
+          1,
+        )
+        emitted_old_numbers.add(
+          tag_number
+        )
+
+    connector_numbers = (
+      connector_numbers_by_index.get(
+        index
+      )
+    )
+
+    if connector_numbers is not None:
+      if all(
+        number in number_map
+        for number in connector_numbers
+      ):
+        line = (
+          _phase158_render_public_equation_connector(
+            tuple(
+              number_map[
+                number
+              ]
+              for number in connector_numbers
+            )
+          )
+        )
+      else:
+        line = (
+          "これより,"
+          if len(
+            connector_numbers
+          ) == 1
+          else "これらより,"
+        )
+
+    result.append(
+      line
+    )
+
+  return result
+
+
 def _phase158_normalize_public_narrative_contract(
   presentation: TodaGroupProofPresentation,
   rendered: str,
@@ -5230,6 +5585,11 @@ def _phase158_normalize_public_narrative_contract(
 
   proof_body = (
     _phase158_strip_terminal_qed_lines(
+      proof_body
+    )
+  )
+  proof_body = (
+    _phase158_normalize_public_equation_numbers(
       proof_body
     )
   )

@@ -1,0 +1,103 @@
+====================================================================================================
+Phase 158-R5-5b repair1m - relocation identity diagnosis
+====================================================================================================
+
+order_argument_index=1
+conclusion_block_role=order
+
+A. ORDER CONCLUSION
+----------------------------------------------------------------------------------------------------
+id=2362367132336 type=Relation $\operatorname{ord}\left(\nu'\right) = 4$
+
+B. DIRECT PREMISES
+----------------------------------------------------------------------------------------------------
+P0 id=2362367112288 type=Relation $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+  transition_source=False incoming_sources=() relocatable=False
+P1 id=2362366606400 type=Relation $2\nu' = \eta_{3}^{3}$
+  transition_source=False incoming_sources=(2362366591520, 2362366604336) relocatable=False
+
+C. SUPPORT STEPS
+----------------------------------------------------------------------------------------------------
+S0 id=2362367028112 type=Relation $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+  transition_source=False incoming_sources=() relocatable=True
+S1 id=2362367109024 type=TodaSuspensionInjectiveStatement $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+  transition_source=False incoming_sources=() relocatable=True
+S2 id=2362366591520 type=Relation $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+  transition_source=True incoming_sources=() relocatable=False
+S3 id=2362366604336 type=Relation $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$
+  transition_source=True incoming_sources=() relocatable=False
+
+D. CALCULATION TRANSITIONS
+----------------------------------------------------------------------------------------------------
+B8
+  T0 id=2362366606400 type=Relation $2\nu' = \eta_{3}^{3}$
+    sources=(2362366591520, 2362366604336)
+      <- id=2362366591520 type=Relation $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+      <- id=2362366604336 type=Relation $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$
+  T1 id=2362366591520 type=Relation $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+    sources=()
+  T2 id=2362366604336 type=Relation $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$
+    sources=()
+B13
+  T0 id=2362366598048 type=Relation $H\left(\nu'\right) = \eta_{5}$
+    sources=(2362366558848, 2362366595792)
+      <- id=2362366558848 type=Relation $H\left(\nu'\right) = \eta_{5}$
+      <- id=2362366595792 type=Relation $\eta_{5} = \eta_{5}$
+  T1 id=2362366558848 type=Relation $H\left(\nu'\right) = \eta_{5}$
+    sources=()
+  T2 id=2362366595792 type=Relation $\eta_{5} = \eta_{5}$
+    sources=()
+B18
+  T0 id=2362366772224 type=Relation $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+    sources=()
+B22
+  T0 id=2362366730080 type=Relation $H\left(\eta_{2}\right) = \iota_{3}$
+    sources=()
+
+E. ORDER ARGUMENT LOCAL BLOCKS
+----------------------------------------------------------------------------------------------------
+B9 role=reference
+  id=2362366572576 type=Toda53NuPrimeBracketSpecializationStatement $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+B16 role=group_structure
+  id=2362366570944 type=Relation $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+B10 role=precondition
+  id=2362366568736 type=Relation $2\eta_{3} = 0$
+B8 role=calculation
+  id=2362366606400 type=Relation $2\nu' = \eta_{3}^{3}$
+  id=2362366591520 type=Relation $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+  id=2362366604336 type=Relation $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$
+B19 role=group_structure
+  id=2362366572000 type=TodaPrimaryGroupZeroStatement $\pi_{i - 1}^{1} = 0$
+B11 role=reference
+  id=2362366675120 type=Toda52CompositionIsomorphismStatement $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+  id=2362366678240 type=TodaProp44IsomorphismStatement $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+  id=2362366656128 type=TodaProp44SecondSummandRestrictionStatement 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+B17 role=map_property
+  id=2362366780192 type=TodaSuspensionIsomorphismStatement $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+B18 role=calculation
+  id=2362366772224 type=Relation $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+B3 role=group_structure
+  id=2362367028112 type=Relation $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+  id=2362366779424 type=Relation $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}\eta_{4}\}$
+  id=2362366681744 type=Relation $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\}$
+B12 role=exactness
+  id=2362367021728 type=TodaProp42ExactnessStatement $\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+B20 role=exactness
+  id=2362367019376 type=TodaProp42ExactnessStatement $\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.
+B4 role=map_property
+  id=2362367109024 type=TodaSuspensionInjectiveStatement $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+  id=2362367105376 type=TodaDeltaZeroStatement $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+  id=2362367101152 type=TodaHopfInvariantSurjectiveStatement $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+B1 role=order
+  id=2362367132336 type=Relation $\operatorname{ord}\left(\nu'\right) = 4$
+  id=2362367112288 type=Relation $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+F. RELOCATABLE RESULT
+----------------------------------------------------------------------------------------------------
+R0 id=2362367028112 type=Relation $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$
+R1 id=2362367109024 type=TodaSuspensionInjectiveStatement $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+====================================================================================================
+Production changes: none
+Repository-wide pytest: not run
+====================================================================================================

@@ -24,8 +24,6 @@ from scalar_rules import (
 from toda_group_proof_generic_narrative_renderer import (
   _generic_short_exact_sequence_latex,
   _generic_short_exact_sequence_reason_prose,
-  _normalize_generic_eta_family_latex,
-  _render_generic_narrative_expression_latex,
   _render_generic_narrative_step,
 )
 from toda_human_readable_renderer import (
@@ -3774,44 +3772,139 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
     "これらより,",
   }
 
-  def is_dangling_connector_line(
+  def numbered_connector_numbers(
     line: str,
-  ) -> bool:
+  ) -> tuple[
+    int,
+    ...,
+  ] | None:
     stripped = line.strip()
 
-    if stripped in standalone_connectors:
-      return True
-
     if (
-      stripped.startswith(
+      not stripped.startswith(
         "("
       )
-      and stripped.endswith(
+      or not stripped.endswith(
         "より,"
       )
-      and ") と (" in stripped
-      and "$" not in stripped
-      and "[R" not in stripped
+      or "$" in stripped
+      or "[R" in stripped
     ):
-      return True
+      return None
 
-    return False
+    relation_text = stripped[
+      : -len(
+        "より,"
+      )
+    ].strip()
+    parts = tuple(
+      part.strip()
+      for part in relation_text.split(
+        " と "
+      )
+    )
 
+    if not parts:
+      return None
+
+    numbers = []
+
+    for part in parts:
+      if (
+        len(
+          part
+        ) < 3
+        or not part.startswith(
+          "("
+        )
+        or not part.endswith(
+          ")"
+        )
+      ):
+        return None
+
+      number_text = part[
+        1:-1
+      ]
+
+      if not number_text.isdigit():
+        return None
+
+      numbers.append(
+        int(
+          number_text
+        )
+      )
+
+    return tuple(
+      numbers
+    )
+
+  paragraphs = markdown.split(
+    "\n\n"
+  )
   retained_paragraphs = []
 
-  for paragraph in markdown.split(
-    "\n\n"
+  for paragraph_index, paragraph in enumerate(
+    paragraphs
   ):
     lines = paragraph.splitlines()
 
-    while (
-      lines
-      and is_dangling_connector_line(
-        lines[
-          -1
+    while lines:
+      stripped = lines[
+        -1
+      ].strip()
+
+      if stripped in standalone_connectors:
+        lines.pop()
+        continue
+
+      connector_numbers = (
+        numbered_connector_numbers(
+          stripped
+        )
+      )
+
+      if connector_numbers is None:
+        break
+
+      previous_text = "\n\n".join(
+        paragraphs[
+          :paragraph_index
         ]
       )
-    ):
+      referenced_tags_exist = all(
+        (
+          r"\tag{"
+          + str(
+            number
+          )
+          + "}"
+        )
+        in previous_text
+        for number in connector_numbers
+      )
+
+      next_paragraph = next(
+        (
+          candidate.strip()
+          for candidate in paragraphs[
+            paragraph_index + 1:
+          ]
+          if candidate.strip()
+        ),
+        "",
+      )
+      has_following_derivation = (
+        "$" in next_paragraph
+      )
+
+      if (
+        referenced_tags_exist
+        and has_following_derivation
+      ):
+        break
+
       lines.pop()
 
     if not lines:
@@ -3859,7 +3952,6 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
   return "\n\n".join(
     retained_paragraphs
   )
-
 
 
 def order_toda_group_proof_narrative_visible_relation_dependencies(
@@ -4467,18 +4559,9 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
       continue
 
     try:
-      lhs_normalized = (
-        _normalize_generic_eta_family_latex(
-          _render_generic_narrative_expression_latex(
-            statement.lhs
-          )
-        )
-      )
-      rhs_normalized = (
-        _normalize_generic_eta_family_latex(
-          _render_generic_narrative_expression_latex(
-            statement.rhs
-          )
+      rendered = (
+        _render_generic_narrative_step(
+          node.proof_step
         )
       )
     except (
@@ -4488,18 +4571,32 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
       continue
 
     if (
-      lhs_normalized
-      != rhs_normalized
+      not rendered.startswith(
+        "$"
+      )
+      or not rendered.endswith(
+        "$"
+      )
     ):
       continue
 
-    rendered = (
-      _render_generic_narrative_step(
-        node.proof_step
-      )
+    equation = rendered[
+      1:-1
+    ]
+    separator = " = "
+
+    if separator not in equation:
+      continue
+
+    lhs_rendered, rhs_rendered = equation.split(
+      separator,
+      1,
     )
 
-    if not rendered:
+    if (
+      lhs_rendered
+      != rhs_rendered
+    ):
       continue
 
     reflexive_keys.add(
@@ -4549,8 +4646,6 @@ def suppress_toda_group_proof_narrative_reflexive_equalities(
   return "\n\n".join(
     retained
   )
-
-
 
 
 def order_toda_group_proof_narrative_surjectivity_support(

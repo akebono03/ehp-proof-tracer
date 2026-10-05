@@ -176,8 +176,7 @@ def test_phase157_r20_repair47_public_narrative_places_reason_before_eta_order()
     1,
   )[1]
 
-  reason_text = (
-    "この群構造と $E$ の単射性より, "
+  reason_tail = (
     r"$E(\eta_{2}^{3})="
     r"\eta_{3}^{3}\neq0$ であり, "
     "単射写像は元の位数を保つ."
@@ -187,10 +186,11 @@ def test_phase157_r20_repair47_public_narrative_places_reason_before_eta_order()
     r"\left(\eta_{3}^{3}\right) = 2$."
   )
 
-  assert reason_text in body
+  assert "この群構造と" not in body
+  assert reason_tail in body
   assert order_text in body
   assert body.index(
-    reason_text
+    reason_tail
   ) < body.index(
     order_text
   )

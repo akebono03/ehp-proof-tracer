@@ -132,8 +132,16 @@ def render_toda_group_proof_narrative_reason_sentence(
     ):
       return None
 
+    group_structure = (
+      _render_generic_narrative_step(
+        reason.premise_steps[
+          0
+        ]
+      )
+    )
+
     return (
-      "この群構造と $E$ の単射性より, "
+      f"{group_structure} と $E$ の単射性より, "
       f"$E({source_generator_latex})"
       f"={target_latex}\\neq0$ であり, "
       "単射写像は元の位数を保つ.\n"
@@ -208,7 +216,7 @@ def render_toda_group_proof_narrative_reason_sentence(
 
   if reason.kind is TodaGroupProofNarrativeReasonKind.GROUP_ORDER_DERIVATION:
     return (
-      "この群構造と写像による移送の結果を合わせると, "
+      "群構造に関する結果と写像による移送の結果を合わせると, "
       "対象の群の位数と写像の単射性が決まる.\nしたがって, "
     )
 

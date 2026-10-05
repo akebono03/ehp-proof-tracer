@@ -1,0 +1,48 @@
+====================================================================================================
+Phase 158-R5-5a repair3b lightweight diagnosis: pi15_8
+====================================================================================================
+group=pi_15^8 web_mode=narrative web_max_depth=2
+replay_steps=5 presentation_nodes=5 blocks=5 arguments=1
+
+PUBLIC BODY
+----------------------------------------------------------------------------------------------------
+P000 $\pi_{15}^{8}$ の群構造を決定する.
+P001 以上より, $\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$.
+P002 $\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$.
+P003 □
+
+SEMANTIC BLOCKS
+----------------------------------------------------------------------------------------------------
+B000 role=target dependencies=(1,) step_types=('Relation',)
+  text=$\pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}$
+B001 role=other dependencies=(2, 3, 4) step_types=('Toda515Sigma8TransportedDecompositionStatement',)
+  text=$\pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}$
+B002 role=reference dependencies=() step_types=('TodaProp44IsomorphismStatement',)
+  text=$(α, \beta) \mapsto Eα + \sigma_{8}\beta: \pi_{14}^{7} \oplus \pi_{15}^{15} \to \pi_{15}^{8}$ は同型写像である.
+B003 role=group_structure dependencies=() step_types=('Relation',)
+  text=$\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+B004 role=group_structure dependencies=() step_types=('Relation',)
+  text=$\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}$
+
+GENERIC BLOCK PROOF ORDER
+----------------------------------------------------------------------------------------------------
+order=(2, 3, 4, 1, 0)
+O000 -> B002 role=reference step_types=('TodaProp44IsomorphismStatement',)
+O001 -> B003 role=group_structure step_types=('Relation',)
+O002 -> B004 role=group_structure step_types=('Relation',)
+O003 -> B001 role=other step_types=('Toda515Sigma8TransportedDecompositionStatement',)
+O004 -> B000 role=target step_types=('Relation',)
+
+LIGHTWEIGHT NARRATIVE ARGUMENTS
+----------------------------------------------------------------------------------------------------
+A000 role=establish_group_structure supporting_blocks=(1,) conclusion_block=0 children=()
+  supporting_types=(('Toda515Sigma8TransportedDecompositionStatement',),)
+  conclusion_types=('Relation',)
+
+PRESENTATION EDGES WITH BLOCK OWNERSHIP
+----------------------------------------------------------------------------------------------------
+E000 B1 -> B0 premise_index=0 premise_type=Toda515Sigma8TransportedDecompositionStatement parent_type=Relation
+E001 B2 -> B1 premise_index=0 premise_type=TodaProp44IsomorphismStatement parent_type=Toda515Sigma8TransportedDecompositionStatement
+E002 B3 -> B1 premise_index=1 premise_type=Relation parent_type=Toda515Sigma8TransportedDecompositionStatement
+E003 B4 -> B1 premise_index=2 premise_type=Relation parent_type=Toda515Sigma8TransportedDecompositionStatement
+

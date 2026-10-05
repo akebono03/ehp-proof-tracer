@@ -1,0 +1,17 @@
+{
+  "phase": "158-R4",
+  "production_changes": false,
+  "existing_test_changes": false,
+  "population": "n=2..15, k=0..7",
+  "expected_groups": 112,
+  "replay_depth": 2,
+  "rendered_groups": 112,
+  "exceptions": 0,
+  "findings": 11,
+  "affected_groups": 3,
+  "category_counts": {
+    "ambiguous_anaphora": 2,
+    "missing_equation_tag": 5,
+    "unreferenced_equation_tag": 4
+  }
+}
