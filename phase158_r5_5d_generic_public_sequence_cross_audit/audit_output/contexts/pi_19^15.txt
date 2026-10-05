@@ -1,0 +1,18 @@
+group: pi_19^15
+n=15 k=4
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{19}^{15} = 0$', 5)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+[R2]より, E^{n - 6}: \pi_{6 + 4}^{6} \to \pi_{n + 4}^{n} は同型写像である.
+[R1]より, \pi_{n + 4}^{n} = 0.
+\pi_{10}^{6} = 0.
+以上より, \pi_{19}^{15} = 0.
+□

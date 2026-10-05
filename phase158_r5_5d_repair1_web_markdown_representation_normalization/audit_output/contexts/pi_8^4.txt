@@ -1,0 +1,20 @@
+group: pi_8^4
+n=4 k=4
+arguments=1
+visible_argument_intervals=1
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=None
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=(2, 6) conclusion_positions=(6,) conclusion="$\\pi_{8}^{4} = \\mathbb{Z}/2\\{\\nu_{4}\\eta_{7}\\} \\oplus \\mathbb{Z}/2\\{E\\nu'\\eta_{7}\\}$"
+
+PUBLIC PROOF BODY
+\pi_{8}^{4} の群構造を決定する.
+[R3]を用いて, \nu_{4} の分解を用いる.
+[R2]より, \pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}, H\left(\eta_{2}\right) = \iota_{3}, \Delta\left(\iota_{5}\right) = \pm 2\eta_{2}, \pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\} が成り立つ.
+[R1]より, \pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}.
+E\nu'\eta_{6} = E\nu'\eta_{7}.
+以上より, \pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}.
+□

@@ -215,18 +215,6 @@ def number_toda_group_proof_narrative_equations(
     if not visible_source_ids:
       continue
 
-    current_target_index = line_index_by_id.get(
-      target_id
-    )
-
-    if (
-      current_target_index is None
-      or target_index < current_target_index
-    ):
-      line_index_by_id[
-        target_id
-      ] = target_index
-
     reference_plans.append(
       (
         connector_index,

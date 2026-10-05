@@ -1,0 +1,27 @@
+Phase 158-R5-5c-1 — finding classification
+
+Scope:
+  classify only the 5 equation-chain findings from R5-5c
+  Web Narrative depth=2
+  production code changes: none
+  existing test changes: none
+
+classified findings: 5
+exceptions: 0
+
+Classification counts:
+  REAL_ORDERING_DEFECT: 0
+  TARGET_VISIBILITY_SUPPRESSION: 0
+  CONNECTOR_TARGET_NOT_TAGGED: 4
+  AUDIT_HARNESS_FALSE_POSITIVE: 1
+
+confirmed production ordering bugs: 0
+suppression cases requiring pipeline inspection: 0
+
+Decision rule:
+  Do not change production code for CONNECTOR_TARGET_NOT_TAGGED or
+  AUDIT_HARNESS_FALSE_POSITIVE findings.
+  Change production code only after a REAL_ORDERING_DEFECT is confirmed,
+  or after a TARGET_VISIBILITY_SUPPRESSION case is separately proven incorrect.
+
+Repository-wide pytest: not run

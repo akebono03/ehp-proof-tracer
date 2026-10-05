@@ -1,0 +1,15 @@
+group: pi_9^2
+n=2 k=7
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{9}^{2} = 0$', 2)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+[R2]を用いて, [R1]を用いて, 以上より, \pi_{9}^{2} = 0.
+□

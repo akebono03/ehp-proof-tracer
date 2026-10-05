@@ -1,0 +1,19 @@
+group: pi_10^4
+n=4 k=6
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$', 6)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+\pi_{10}^{4} の群構造を決定する.
+[R3]を用いて, \nu_{4} の分解を用いる.
+[R1]より, \pi_{9}^{3} = 0.
+[R2]より, \pi_{10}^{7} = \mathbb{Z}/8\{\nu_{7}\}.
+以上より, \pi_{10}^{4} = \mathbb{Z}/8\{\nu_{4}\nu_{7}\}.
+□

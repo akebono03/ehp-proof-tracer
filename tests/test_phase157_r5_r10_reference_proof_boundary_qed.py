@@ -157,7 +157,7 @@ def test_phase157_r5_r10_narrative_ends_with_qed(
   )
 
   assert rendered.rstrip().endswith(
-    r"$\square$"
+    "□"
   )
 
 
@@ -209,8 +209,8 @@ def test_phase157_r5_r10_web_adapter_exposes_separator_and_qed():
   )
   assert any(
     any(
-      segment.kind == "inline_math"
-      and segment.value == r"\square"
+      segment.kind == "text"
+      and segment.value == "□"
       for segment in line.segments
     )
     for line in view.rendered_lines

@@ -1,0 +1,21 @@
+group: pi_11^4
+n=4 k=7
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{11}^{4} = 0$', 8)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+\Delta: \pi_{10}^{5} \to \pi_{8}^{2} は全射である.
+\Delta: \pi_{10}^{5} \to \pi_{8}^{2} は単射である.
+[R1]より, \pi_{10}^{3} = 0.
+\pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}.
+[R2]より, \pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}, \pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}, \pi_{8}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\}, \pi_{9}^{5} = \mathbb{Z}/2\{\nu_{5}\eta_{8}\}, \pi_{n + 4}^{n} = 0, n \ge 6 が成り立つ.
+[R3]を用いて, \nu_{4} の分解写像は同型写像である.
+以上より, \pi_{11}^{4} = 0.
+□

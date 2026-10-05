@@ -1,0 +1,20 @@
+group: pi_18^11
+n=11 k=7
+arguments=2
+visible_argument_intervals=2
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=None
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=(4, 5) conclusion_positions=(5,) conclusion='$\\pi_{18}^{11} = \\mathbb{Z}/16\\{\\sigma_{11}\\}$'
+A1 role=ESTABLISH_DEFINITION interval=(2, 2) conclusion_positions=(2,) conclusion='$\\sigma_{n}$ を \\(\\sigma\\)-family の元として定める.'
+
+PUBLIC PROOF BODY
+まず, \sigma_{n} を定める.
+\sigma_{n} を \(\sigma\)-family の元として定める.
+最後に, \pi_{18}^{11} の群構造を決定する.
+[R1]を用いて, \pi_{n + 7}^{n} = \mathbb{Z}/16\{\sigma_{n}\}.
+以上より, \pi_{18}^{11} = \mathbb{Z}/16\{\sigma_{11}\}.
+□

@@ -1,0 +1,35 @@
+Phase 158-R5-5d repair1 — Web/Markdown representation normalization
+
+Scope:
+  current historical audit corpus: n=2..15, k=0..7, Web Narrative depth=2
+  NOTE: this coordinate window is an audit corpus only; it is NOT an architectural group-count contract.
+
+Normalization applied only inside the audit harness:
+  - remove Markdown $ delimiters
+  - remove Markdown ** strong delimiters
+  - ignore display-only equation tags \\tag{N}
+  - collapse whitespace
+  - preserve mathematical LaTeX and prose content
+
+Totals:
+  audited coordinates: 112
+  rendered: 112
+  exceptions: 0
+  arguments: 128
+  visible argument intervals: 126
+  crossing argument-interval findings: 0
+  dangling-transition findings: 0
+  repeated-conclusion findings: 0
+  target/QED findings: 0
+  groups with any finding: 0
+
+Interpretation:
+  This repair changes only audit matching semantics.
+  A remaining finding is diagnostic, not automatically a production bug.
+
+Production changes: none
+Existing test changes: none
+Repository-wide pytest: not run
+
+R5-5d repair1 RESULT: PASS
+The normalized cross-audit found no generic public-sequence defect.

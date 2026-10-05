@@ -1,0 +1,16 @@
+group: pi_6^2
+n=2 k=4
+arguments=1
+visible_argument_intervals=1
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=None
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=(2, 2) conclusion_positions=(2,) conclusion="$\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$"
+
+PUBLIC PROOF BODY
+\pi_{6}^{2} の群構造を決定する.
+[R2]を用いて, [R1]を用いて, 以上より, \pi_{6}^{2} = \mathbb{Z}/4\{\eta_{2}\nu'\}.
+□

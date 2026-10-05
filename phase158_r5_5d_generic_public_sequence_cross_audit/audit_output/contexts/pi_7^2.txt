@@ -1,0 +1,20 @@
+group: pi_7^2
+n=2 k=5
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', "$\\pi_{7}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\nu'\\eta_{6}\\}$", 7)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+\pi_{7}^{2} の群構造を決定する.
+[R2]より, \eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2} は同型写像である.
+[R3]より, (\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2} は同型写像である.
+分解写像の第二成分は \eta_{2}γ で与えられる.
+[R1]より, \pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}.
+以上より, \pi_{7}^{2} = \mathbb{Z}/2\{\eta_{2}\nu'\eta_{6}\}.
+□

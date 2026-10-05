@@ -1,0 +1,20 @@
+group: pi_9^3
+n=3 k=6
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{9}^{3} = 0$', 7)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+E: \pi_{8}^{2} \to \pi_{9}^{3} \text{ is the zero map}.
+H: \pi_{9}^{3} \to \pi_{9}^{5} は単射である.
+\Delta: \pi_{9}^{5} \to \pi_{7}^{2} は全射である.
+\Delta: \pi_{9}^{5} \to \pi_{7}^{2} は単射である.
+\pi_{9}^{3} \xrightarrow{H} \pi_{9}^{5} \xrightarrow{\Delta} \pi_{7}^{2}.
+以上より, \pi_{9}^{3} = 0.
+□
