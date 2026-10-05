@@ -11,6 +11,10 @@ from homotopy_groups import (
 from low_dimensional_facts import (
   pi_7_7_free_cyclic_fact,
 )
+from hopf_rules import (
+  toda_prop22_right_inference_rule,
+)
+
 from map_facts import (
   EHP_DELTA_MAP,
   EHP_E_MAP,
@@ -22,6 +26,8 @@ from proof import (
   Relation,
   RelationType,
   run_inference_until_stable_with_history,
+  apply_inference_match,
+  find_inference_match,
 )
 from scalar_rules import (
   ScalarGreaterEqualStatement,
@@ -193,6 +199,38 @@ def build_toda_prop56_bootstrap_step(
     rule=ProofRule.GIVEN,
   )
 
+  hopf_relation = (
+    hopf_nu_prime_step.conclusion
+  )
+  prop22_rule = (
+    toda_prop22_right_inference_rule(
+      alpha=(
+        hopf_relation
+        .lhs
+        .expression
+      ),
+      gamma=hopf_relation.rhs,
+    )
+  )
+
+  prop22_match = (
+    find_inference_match(
+      prop22_rule,
+      (),
+    )
+  )
+
+  if prop22_match is None:
+    raise ValueError(
+      "Toda Proposition 2.2 must be directly applicable"
+    )
+
+  prop22_step = (
+    apply_inference_match(
+      prop22_match
+    )
+  )
+
   equation57_result = (
     run_inference_until_stable_with_history(
       (
@@ -206,6 +244,7 @@ def build_toda_prop56_bootstrap_step(
         prop53_step,
         eta5_definition_step,
         eta6_definition_step,
+        prop22_step,
         h_delta_exactness_step,
         delta_e_exactness_step,
       ),

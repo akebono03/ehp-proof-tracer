@@ -33954,6 +33954,12 @@ def toda_57_nu_prime_eta6_hopf_inference_rule():
       ].conclusion
     )
 
+    prop22_relation = (
+      premises[
+        3
+      ].conclusion
+    )
+
     nu_prime = HomotopyElement(
       name="ν′",
       dimension=3,
@@ -34106,6 +34112,34 @@ def toda_57_nu_prime_eta6_hopf_inference_rule():
     ):
       return False
 
+    expected_prop22_relation = Relation(
+      lhs=MapApplication(
+        map=EHP_H_MAP,
+        expression=Composition(
+          left=nu_prime,
+          right=Suspension(
+            expression=canonical_eta_5,
+          ),
+        ),
+      ),
+      rhs=Composition(
+        left=MapApplication(
+          map=EHP_H_MAP,
+          expression=nu_prime,
+        ),
+        right=Suspension(
+          expression=canonical_eta_5,
+        ),
+      ),
+      relation_type=RelationType.EQUALITY,
+    )
+
+    if (
+      prop22_relation
+      != expected_prop22_relation
+    ):
+      return False
+
     return True
 
   def build_conclusion(
@@ -34168,21 +34202,11 @@ def toda_57_nu_prime_eta6_hopf_inference_rule():
       "nu-prime eta_6 Hopf value"
     ),
     description=(
-      "Use the independently derived "
-      "relation H(nu-prime)=eta_5 "
-      "and the concrete eta-family "
-      "definitions at indices 5 and 6. "
-      "Accept the existing eta-family "
-      "constructor names structurally "
-      "through dimension and generator "
-      "identity, then construct the "
-      "canonical Toda notation eta_5 "
-      "and eta_6 locally. "
-      "The Proposition 2.2 composition "
-      "formula gives "
-      "H(nu-prime composed with eta_6)"
-      "=eta_5 composed with eta_6, "
-      "which is eta_5 squared."
+      "Use H(nu-prime)=eta_5, the eta-family "
+      "definitions at indices 5 and 6, and the "
+      "actual Proposition 2.2 right-composition "
+      "proof step.  The result is "
+      "H(nu-prime eta_6)=eta_5 squared."
     ),
     premise_patterns=(
       PremisePattern(
@@ -34202,6 +34226,13 @@ def toda_57_nu_prime_eta6_hopf_inference_rule():
         proof_rule=ProofRule.GIVEN,
         statement_type=(
           TodaEtaFamilyDefinitionStatement
+        ),
+      ),
+      PremisePattern(
+        proof_rule=ProofRule.INFERENCE,
+        statement_type=Relation,
+        relation_type=(
+          RelationType.EQUALITY
         ),
       ),
     ),

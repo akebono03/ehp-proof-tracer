@@ -17,8 +17,12 @@ from proof import (
 )
 from toda_group_result import TodaGroupResult
 from toda_rules import (
+  TodaSuspensionInjectiveStatement,
+  TodaEtaFamilyDefinitionStatement,
+  TodaDeltaZeroStatement,
   TodaDeltaImageUpToSignStatement,
   TodaDeltaInjectiveStatement,
+  TodaHopfInvariantSurjectiveStatement,
   TodaHopfInvariantZeroStatement,
   TodaNuFamilyDefinitionStatement,
   TodaProp42ExactnessStatement,
@@ -124,7 +128,10 @@ def classify_toda_proof_step_role(
     (
       TodaDeltaImageUpToSignStatement,
       TodaDeltaInjectiveStatement,
+      TodaDeltaZeroStatement,
+      TodaHopfInvariantSurjectiveStatement,
       TodaHopfInvariantZeroStatement,
+      TodaSuspensionInjectiveStatement,
       TodaSuspensionSurjectiveStatement,
     ),
   ):
@@ -135,7 +142,10 @@ def classify_toda_proof_step_role(
 
   if isinstance(
     conclusion,
-    TodaNuFamilyDefinitionStatement,
+    (
+      TodaEtaFamilyDefinitionStatement,
+      TodaNuFamilyDefinitionStatement,
+    ),
   ):
     return (
       TodaProofDependencyRole

@@ -1,0 +1,785 @@
+﻿n,k,group,route_hint,exception_type,message,traceback
+2,0,pi_2^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,1,pi_3^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,2,pi_4^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,3,pi_5^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,4,pi_6^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,5,pi_7^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,6,pi_8^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+2,7,pi_9^2,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,0,pi_3^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,1,pi_4^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,2,pi_5^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,3,pi_6^3,pi6_3_generic_semantic,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,4,pi_7^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,5,pi_8^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,6,pi_9^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+3,7,pi_10^3,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,0,pi_4^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,1,pi_5^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,2,pi_6^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,3,pi_7^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,4,pi_8^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,5,pi_9^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,6,pi_10^4,phase150_rc4_generic_public_wrapper,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+4,7,pi_11^4,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,0,pi_5^5,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,1,pi_6^5,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,2,pi_7^5,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,3,pi_8^5,phase134_9_pi8_5_dedicated,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,4,pi_9^5,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,5,pi_10^5,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,6,pi_11^5,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+5,7,pi_12^5,phase150_rc4_generic_public_wrapper,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,0,pi_6^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,1,pi_7^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,2,pi_8^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,3,pi_9^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,4,pi_10^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,5,pi_11^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,6,pi_12^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+6,7,pi_13^6,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,0,pi_7^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,1,pi_8^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,2,pi_9^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,3,pi_10^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,4,pi_11^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,5,pi_12^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,6,pi_13^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+7,7,pi_14^7,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,0,pi_8^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,1,pi_9^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,2,pi_10^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,3,pi_11^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,4,pi_12^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,5,pi_13^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,6,pi_14^8,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+8,7,pi_15^8,phase134_24_pi15_8_dedicated,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,0,pi_9^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,1,pi_10^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,2,pi_11^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,3,pi_12^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,4,pi_13^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,5,pi_14^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,6,pi_15^9,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+9,7,pi_16^9,phase150_rc4_generic_public_wrapper,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,0,pi_10^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,1,pi_11^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,2,pi_12^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,3,pi_13^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,4,pi_14^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,5,pi_15^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,6,pi_16^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+10,7,pi_17^10,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,0,pi_11^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,1,pi_12^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,2,pi_13^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,3,pi_14^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,4,pi_15^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,5,pi_16^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,6,pi_17^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+11,7,pi_18^11,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,0,pi_12^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,1,pi_13^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,2,pi_14^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,3,pi_15^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,4,pi_16^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,5,pi_17^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,6,pi_18^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+12,7,pi_19^12,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,0,pi_13^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,1,pi_14^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,2,pi_15^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,3,pi_16^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,4,pi_17^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,5,pi_18^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,6,pi_19^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+13,7,pi_20^13,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,0,pi_14^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,1,pi_15^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,2,pi_16^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,3,pi_17^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,4,pi_18^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,5,pi_19^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,6,pi_20^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+14,7,pi_21^14,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,0,pi_15^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,1,pi_16^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,2,pi_17^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,3,pi_18^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,4,pi_19^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,5,pi_20^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,6,pi_21^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"
+15,7,pi_22^15,default_public_renderer,ModuleNotFoundError,No module named 'toda_calculation_facade',"Traceback (most recent call last):
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 215, in main
+    rendered = _render_group(
+  File ""C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase158_r1_narrative_public_contract_inventory\audit_phase158_r1.py"", line 133, in _render_group
+    from toda_calculation_facade import (
+ModuleNotFoundError: No module named 'toda_calculation_facade'
+"

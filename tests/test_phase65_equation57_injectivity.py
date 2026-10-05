@@ -13,6 +13,10 @@ from homotopy_groups import (
   TodaPrimaryGroup,
   TodaSuspensionMap,
 )
+from hopf_rules import (
+  toda_prop22_right_inference_rule,
+)
+
 from map_facts import (
   EHP_DELTA_MAP,
   EHP_E_MAP,
@@ -26,6 +30,7 @@ from proof import (
   RelationType,
   find_inference_match,
   run_inference_until_stable_with_history,
+  apply_inference_match,
 )
 from probes.probe_phase58_capabilities import (
   build_phase58_representative_result,
@@ -225,6 +230,13 @@ def build_phase65_3_data():
     )
   )
 
+  prop22_rule = (
+    toda_prop22_right_inference_rule(
+      alpha=nu_prime,
+      gamma=eta_5,
+    )
+  )
+
   equation57_rule = (
     toda_57_nu_prime_eta6_hopf_inference_rule()
   )
@@ -248,11 +260,27 @@ def build_phase65_3_data():
     suspension_injective_rule,
   )
 
+  prop22_match = (
+    find_inference_match(
+      prop22_rule,
+      (),
+    )
+  )
+
+  assert prop22_match is not None
+
+  prop22_step = (
+    apply_inference_match(
+      prop22_match
+    )
+  )
+
   premise_steps = (
     hopf_nu_prime_step,
     prop53_step,
     eta5_definition_step,
     eta6_definition_step,
+    prop22_step,
     h_delta_exactness_step,
     delta_e_exactness_step,
   )
@@ -353,6 +381,12 @@ def build_phase65_3_data():
     "expected_suspension_injective": (
       expected_suspension_injective
     ),
+    "prop22_rule": (
+      prop22_rule
+    ),
+    "prop22_step": (
+      prop22_step
+    ),
     "equation57_rule": (
       equation57_rule
     ),
@@ -449,6 +483,9 @@ def test_phase65_3_equation57_rule_matches_dependencies():
       data[
         "eta6_definition_step"
       ],
+      data[
+        "prop22_step"
+      ],
     ),
   ) is not None
 
@@ -532,6 +569,9 @@ def test_phase65_3_equation57_provenance():
       ],
       data[
         "eta6_definition_step"
+      ],
+      data[
+        "prop22_step"
       ],
     )
   )
@@ -811,5 +851,3 @@ def test_phase65_3_reaches_fixed_point_in_four_rounds():
       3
     ].new_steps
   )
-
-

@@ -121,7 +121,7 @@ def test_phase156_r6_local_ordering_moves_derived_equation_next_to_sources():
   )
 
 
-def test_phase156_r6_pi6_places_equation3_before_order_and_group_transport():
+def test_phase156_r6_pi6_places_equation3_before_transport_and_order():
   rendered = _render_pi6_3()
 
   equation_two = (
@@ -132,12 +132,16 @@ def test_phase156_r6_pi6_places_equation3_before_order_and_group_transport():
   equation_three = (
     r"$2\nu' = \eta_{3}^{3}\tag{3}$"
   )
+  transported_group_body = (
+    "[R1]より, "
+    r"$\pi_{5}^{2} = "
+    r"\mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$."
+  )
+  injectivity = (
+    r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である."
+  )
   eta_cube_order = (
     r"$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$"
-  )
-  transported_group = (
-    r"$\pi_{5}^{2} = "
-    r"\mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}$"
   )
 
   assert (
@@ -151,10 +155,13 @@ def test_phase156_r6_pi6_places_equation3_before_order_and_group_transport():
       equation_three
     )
     < rendered.index(
-      eta_cube_order
+      transported_group_body
     )
     < rendered.index(
-      transported_group
+      injectivity
+    )
+    < rendered.index(
+      eta_cube_order
     )
   )
 

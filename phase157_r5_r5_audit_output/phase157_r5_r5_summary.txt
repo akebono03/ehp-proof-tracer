@@ -1,0 +1,61 @@
+==============================================================================
+Phase157-R5-R5 — 112-group Literature Statement Boundary re-audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure + generic R5-R4 boundary filter
+production changes: none
+existing test changes: none
+pytest: not run
+full Narrative rendering: not used
+
+Population:
+  groups: 112
+  exceptions: 0
+
+Before generic boundary filter:
+  reference entries: 225
+  selected Reference steps: 235
+
+After generic boundary filter:
+  reference entries: 134
+  selected Reference steps: 158
+  removed reference entries: 91
+  removed selected-step population: 77
+
+Boundary classification after filter:
+  FIXED_STATEMENT: occurrences=158, affected_groups=64
+  PROOF_INTERNAL: occurrences=0, affected_groups=0
+  UNTRACKED: occurrences=0, affected_groups=0
+  FIXED_STATEMENT_INELIGIBLE: occurrences=0, affected_groups=0
+  FIXED_STATEMENT_WITHOUT_COMPONENT: occurrences=0, affected_groups=0
+  FIXED_STATEMENT_MISSING_COMPONENT: occurrences=0, affected_groups=0
+
+Confirmed boundary defects after filter:
+  PROOF_INTERNAL selected as Reference: 0
+  same-theorem fixed component but ineligible: 0
+  fixed statement without component key: 0
+  fixed statement missing registered component: 0
+  total confirmed defects: 0
+  UNTRACKED selected steps: 0
+
+R5-R1 baseline comparison:
+  confirmed defects: 72 -> 0
+  UNTRACKED: 128 -> 0
+  selected Reference steps: 234 -> 158
+
+Completion criterion:
+  groups == 112
+  exceptions == 0
+  confirmed boundary defects == 0
+  UNTRACKED selected steps == 0
+
+Output files:
+  phase157_r5_r5_summary.txt
+  phase157_r5_r5_result.json
+  phase157_r5_r5_selected_steps.csv
+  phase157_r5_r5_confirmed_defects.csv
+  phase157_r5_r5_group_inventory.csv
+  phase157_r5_r5_locator_summary.csv
+  phase157_r5_r5_exceptions.csv
+==============================================================================
+
+AUDIT RESULT: PASS

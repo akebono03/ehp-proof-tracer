@@ -95,6 +95,10 @@ def toda_prop22_right_inference_rule(
     ),
     premise_patterns=(),
     conclusion_builder=conclusion_builder,
+    literature_reference=LiteratureReference(
+      label="Toda Proposition 2.2",
+      locator="Proposition 2.2",
+    ),
   )
 
 

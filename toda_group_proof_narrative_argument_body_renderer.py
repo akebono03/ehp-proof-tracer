@@ -2,11 +2,15 @@ from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _generic_short_exact_sequence_reason_prose,
+  _normalize_generic_eta_family_latex,
+  _render_generic_narrative_expression_latex,
   _render_generic_narrative_proof_block,
   _render_generic_narrative_step,
 )
 from proof import (
   ProofStep,
+  Relation,
+  RelationType,
 )
 from toda_group_proof_narrative_blocks import (
   TodaGroupProofNarrativeBlock,
@@ -633,6 +637,60 @@ def _insert_toda_group_proof_narrative_connector_before_conclusion_step(
   )
 
 
+def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
+  proof_step: ProofStep,
+) -> bool:
+  if not isinstance(
+    proof_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "proof_step must be a ProofStep"
+    )
+
+  statement = proof_step.conclusion
+
+  if (
+    not isinstance(
+      statement,
+      Relation,
+    )
+    or statement.relation_type
+    is not RelationType.EQUALITY
+  ):
+    return False
+
+  try:
+    lhs_normalized = (
+      _normalize_generic_eta_family_latex(
+        _render_generic_narrative_expression_latex(
+          statement.lhs
+        )
+      )
+    )
+    rhs_normalized = (
+      _normalize_generic_eta_family_latex(
+        _render_generic_narrative_expression_latex(
+          statement.rhs
+        )
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
+    return False
+
+  return (
+    lhs_normalized
+    == rhs_normalized
+  )
+
+
+
+
+
+
 def render_toda_group_proof_narrative_argument_body_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -1109,6 +1167,11 @@ def render_toda_group_proof_narrative_argument_body_markdown(
               premise_step
             ) not in context_hidden_step_ids
           )
+          and not (
+            _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
+              premise_step
+            )
+          )
         )
       )
     )
@@ -1226,6 +1289,12 @@ def render_toda_group_proof_narrative_argument_body_markdown(
               proof_step
             ) not in context_hidden_step_ids
           )
+          and not (
+            _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
+              proof_step
+            )
+          )
+
           and (
             (
               id(

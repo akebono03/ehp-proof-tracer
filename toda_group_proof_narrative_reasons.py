@@ -44,6 +44,9 @@ class TodaGroupProofNarrativeReasonKind(
   EXACTNESS_TO_MAP_PROPERTY = (
     "exactness_to_map_property"
   )
+  INJECTIVE_IMAGE_ORDER = (
+    "injective_image_order"
+  )
   MULTIPLE_RELATION_TO_ORDER = (
     "multiple_relation_to_order"
   )
@@ -361,6 +364,101 @@ def _exactness_to_map_property_reason(
     premise_steps=(
       zero_premise,
       exactness_premise,
+    ),
+    conclusion_step=proof_step,
+  )
+
+
+def _injective_image_order_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  conclusion = proof_step.conclusion
+
+  if (
+    not isinstance(
+      conclusion,
+      Relation,
+    )
+    or conclusion.relation_type
+    is not RelationType.ORDER
+  ):
+    return None
+
+  group_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if (
+      isinstance(
+        premise.conclusion,
+        Relation,
+      )
+      and premise.conclusion.relation_type
+      is RelationType.EQUALITY
+      and isinstance(
+        premise.conclusion.rhs,
+        FiniteCyclicGroup,
+      )
+    )
+  )
+  injective_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaSuspensionInjectiveStatement,
+    )
+  )
+
+  compatible_pairs = []
+
+  for group_premise in group_premises:
+    group_statement = group_premise.conclusion
+    source_group = group_statement.lhs
+    finite_group = group_statement.rhs
+
+    if (
+      finite_group.order
+      != conclusion.rhs
+    ):
+      continue
+
+    for injective_premise in injective_premises:
+      injective_statement = (
+        injective_premise.conclusion
+      )
+
+      if (
+        injective_statement.map.source_group
+        != source_group
+      ):
+        continue
+
+      compatible_pairs.append(
+        (
+          group_premise,
+          injective_premise,
+        )
+      )
+
+  if len(
+    compatible_pairs
+  ) != 1:
+    return None
+
+  group_premise, injective_premise = (
+    compatible_pairs[
+      0
+    ]
+  )
+
+  return TodaGroupProofNarrativeReason(
+    kind=(
+      TodaGroupProofNarrativeReasonKind
+      .INJECTIVE_IMAGE_ORDER
+    ),
+    premise_steps=(
+      group_premise,
+      injective_premise,
     ),
     conclusion_step=proof_step,
   )
@@ -731,6 +829,16 @@ def build_toda_group_proof_narrative_reason_sidecar(
     )
     if exactness_reason is not None:
       append_if_visible(exactness_reason)
+
+    injective_image_order_reason = (
+      _injective_image_order_reason(
+        node.proof_step
+      )
+    )
+    if injective_image_order_reason is not None:
+      append_if_visible(
+        injective_image_order_reason
+      )
 
     multiple_order_reason = _multiple_relation_to_order_reason(
       node.proof_step

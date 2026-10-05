@@ -1,0 +1,46 @@
+==============================================================================
+Phase157-R5-R1 — 112-group Literature Statement Boundary cross-audit
+==============================================================================
+scope: n=2..15, k=0..7, depth=2, semantic closure
+production changes: none
+existing test changes: none
+pytest: not run
+full Narrative rendering: not used
+
+groups: 112
+exceptions: 0
+reference entries: 225
+selected Reference steps: 234
+
+Boundary classification:
+  FIXED_STATEMENT: occurrences=34, affected_groups=15
+  PROOF_INTERNAL: occurrences=46, affected_groups=42
+  UNTRACKED: occurrences=128, affected_groups=66
+  FIXED_STATEMENT_INELIGIBLE: occurrences=2, affected_groups=2
+  FIXED_STATEMENT_WITHOUT_COMPONENT: occurrences=24, affected_groups=21
+  FIXED_STATEMENT_MISSING_COMPONENT: occurrences=0, affected_groups=0
+
+Confirmed boundary defects:
+  PROOF_INTERNAL selected as Reference: 46
+  same-theorem fixed component but ineligible: 2
+  fixed statement without component key: 24
+  fixed statement missing registered component: 0
+  total confirmed defects: 72
+
+UNTRACKED selected steps requiring catalog review: 128
+
+Interpretation:
+  FIXED_STATEMENT is eligible under the currently registered Literature Statement Boundary.
+  PROOF_INTERNAL and FIXED_STATEMENT_INELIGIBLE are confirmed Reference-boundary defects.
+  UNTRACKED is not automatically a defect; it means the locator/rule has not yet been classified in the Phase157 boundary catalog.
+  R5-R1 does not alter production code. Its purpose is to measure the remaining population before deciding R5-R2 catalog expansion and selection integration.
+
+Output files:
+  phase157_r5_r1_summary.txt
+  phase157_r5_r1_result.json
+  phase157_r5_r1_selected_steps.csv
+  phase157_r5_r1_confirmed_defects.csv
+  phase157_r5_r1_group_inventory.csv
+  phase157_r5_r1_locator_summary.csv
+  phase157_r5_r1_exceptions.csv
+==============================================================================

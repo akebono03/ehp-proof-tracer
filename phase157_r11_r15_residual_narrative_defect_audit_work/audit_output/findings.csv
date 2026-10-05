@@ -1,0 +1,18 @@
+﻿n,k,group,category,detail
+3,3,pi_6^3,zero_map_used_without_visible_statement,body uses zero-map shorthand while full statement is hidden: $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+3,3,pi_6^3,possible_redundant_left_ehp_term,four-term Delta-E-H sequence appears after E injectivity is already visible: $\pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$.
+3,3,pi_6^3,standalone_connector,"paragraph[10]: 以上より,"
+3,3,pi_6^3,standalone_connector,"paragraph[24]: 以上より,"
+3,3,pi_6^3,repeated_numeric_equality,"この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$ である.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4=4$ であるから, $\nu'$ は中央の群を生成する.
+したがって,"
+4,6,pi_10^4,standalone_connector,"paragraph[3]: 以上より,"
+4,6,pi_10^4,public_reference_without_body_marker,[R1] Lemma 5.4
+5,3,pi_8^5,standalone_connector,"paragraph[13]: したがって,"
+5,7,pi_12^5,standalone_connector,"paragraph[6]: 以上より,"
+5,7,pi_12^5,public_reference_without_body_marker,[R1] Lemma 5.13
+5,7,pi_12^5,public_reference_without_body_marker,[R3] (5.5)
+8,7,pi_15^8,standalone_connector,"paragraph[9]: したがって,"
+9,7,pi_16^9,standalone_connector,"paragraph[8]: 以上より,"
+9,7,pi_16^9,public_reference_without_body_marker,[R1] Lemma 5.14
+9,7,pi_16^9,public_reference_without_body_marker,[R2] Lemma 5.13

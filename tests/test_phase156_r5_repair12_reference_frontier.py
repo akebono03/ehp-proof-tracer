@@ -185,10 +185,11 @@ def test_phase156_r5_repair12_public_depth2_reference_headers_are_frontier_only(
   )
 
   assert headers == [
+    "Proposition 5.6",
     "(5.3)",
     "Proposition 5.3",
-    "Lemma 5.4",
-    "(5.2)",
+    "Proposition 5.1",
+    "Proposition 2.2",
   ]
 
 
@@ -206,8 +207,12 @@ def test_phase156_r5_repair12_public_depth3_prunes_proposition51():
     rendered,
   )
 
-  assert "Proposition 5.1" not in headers
-  assert "(5.3)" in headers
-  assert "Proposition 5.3" in headers
-  assert "Lemma 5.4" in headers
-  assert "(5.2)" in headers
+  assert headers == [
+    "Proposition 5.6",
+    "(5.3)",
+    "Proposition 5.3",
+    "Proposition 5.1",
+    "Proposition 2.2",
+  ]
+  assert "Lemma 5.4" not in headers
+  assert "(5.2)" not in headers

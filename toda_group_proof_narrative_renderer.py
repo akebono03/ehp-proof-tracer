@@ -55,6 +55,7 @@ from toda_group_proof_narrative_references import (
   build_toda_group_proof_narrative_reference_entries,
   exclude_toda_group_proof_narrative_root_reference,
   filter_toda_group_proof_narrative_reference_entries_by_body_usage,
+  filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary,
   render_toda_group_proof_narrative_reference_entries_markdown,
 )
 from toda_group_proof_narrative_provenance_catalog import (
@@ -3986,6 +3987,12 @@ def _phase153_r3_10_connect_public_reference_section(
       presentation
     )
   )
+  reference_entries = (
+    filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
 
   if not reference_entries:
     return rendered
@@ -4003,6 +4010,96 @@ def _phase153_r3_10_connect_public_reference_section(
       + 1:
     ]
   ).lstrip()
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  if (
+    target.group_dimension == 15
+    and target.sphere_dimension == 8
+  ):
+    prop515_entry = next(
+      (
+        entry
+        for entry in reference_entries
+        if entry.reference.locator
+        == "Proposition 5.15"
+      ),
+      None,
+    )
+    prop44_reference_number = next(
+      (
+        entry.number
+        for entry in reference_entries
+        if entry.reference.locator
+        == "Proposition 4.4"
+      ),
+      None,
+    )
+
+    if prop515_entry is not None:
+      pi14_7_step = next(
+        (
+          proof_step
+          for proof_step in prop515_entry.proof_steps
+          if (
+            proof_step.inference_rule is not None
+            and "pi_14^7 finite cyclic"
+            in proof_step.inference_rule.name
+          )
+        ),
+        None,
+      )
+
+      if pi14_7_step is not None:
+        pi14_7_latex = (
+          render_repository_conclusion_latex(
+            pi14_7_step.conclusion
+          )
+        )
+        legacy_pi14_7_block = (
+          "既に,\n\n"
+          "\\[\n"
+          + pi14_7_latex
+          + "\n\\]"
+        )
+
+        if legacy_pi14_7_block in proof_body:
+          proof_body = proof_body.replace(
+            legacy_pi14_7_block,
+            (
+              "[R"
+              + str(
+                prop515_entry.number
+              )
+              + "] より,\n\n"
+              "\\[\n"
+              + pi14_7_latex
+              + "\n\\]"
+            ),
+            1,
+          )
+
+    if (
+      prop44_reference_number is not None
+      and "[R1] より, これらの生成元はそれぞれ"
+      in proof_body
+    ):
+      proof_body = proof_body.replace(
+        "[R1] より, これらの生成元はそれぞれ",
+        (
+          "[R"
+          + str(
+            prop44_reference_number
+          )
+          + "] より, これらの生成元はそれぞれ"
+        ),
+        1,
+      )
 
   (
     used_reference_entries,
@@ -4036,6 +4133,13 @@ def _phase153_r3_10_connect_public_reference_section(
     )
   ):
     return rendered
+
+  filtered_statement_lines = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      filtered_reference_entries,
+    )
+  )
 
   filtered_proof_body = (
     suppress_toda_group_proof_narrative_reference_body_restatements(
@@ -4075,6 +4179,8 @@ def _phase153_r3_10_connect_public_reference_section(
         "",
         reference_section,
         "",
+        "---",
+        "",
         proof_header,
         "",
         filtered_proof_body,
@@ -4110,6 +4216,12 @@ def _wrap_phase150_rc4_generic_public_narrative(
       presentation
     )
   )
+  reference_entries = (
+    filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
   statement_lines_by_reference_number = (
     _toda_group_proof_narrative_reference_statement_lines_by_number(
       presentation,
@@ -4126,14 +4238,29 @@ def _wrap_phase150_rc4_generic_public_narrative(
   if not reference_section:
     return rendered
 
-  reference_prefix = (
-    reference_section
-    + "\n\n"
+  reference_prefixes = (
+    (
+      reference_section
+      + "\n\n"
+    ),
+    (
+      "使用する結果を先にまとめる.\n\n"
+      + reference_section
+      + "\n\n"
+    ),
+  )
+  reference_prefix = next(
+    (
+      prefix
+      for prefix in reference_prefixes
+      if rendered.startswith(
+        prefix
+      )
+    ),
+    None,
   )
 
-  if not rendered.startswith(
-    reference_prefix
-  ):
+  if reference_prefix is None:
     return rendered
 
   proof = rendered[
@@ -4153,8 +4280,379 @@ def _wrap_phase150_rc4_generic_public_narrative(
     "## 使用する結果\n\n"
     + reference_section
     + "\n\n"
+    "---\n\n"
     "## 証明\n\n"
     + proof.rstrip()
+    + "\n"
+  )
+
+
+def _phase157_r11_r17_normalize_public_connectors(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  paragraphs = rendered.split(
+    "\n\n"
+  )
+  connectors = {
+    "以上より,",
+    "したがって,",
+    "これより,",
+  }
+  index = 0
+
+  while index < len(
+    paragraphs
+  ) - 1:
+    stripped = paragraphs[
+      index
+    ].strip()
+
+    if stripped not in connectors:
+      index += 1
+      continue
+
+    next_paragraph = paragraphs[
+      index + 1
+    ]
+    separator = (
+      "\n"
+      if next_paragraph.lstrip().startswith(
+        r"\["
+      )
+      else " "
+    )
+
+    paragraphs[
+      index:
+      index + 2
+    ] = [
+      stripped
+      + separator
+      + next_paragraph,
+    ]
+
+  return "\n\n".join(
+    paragraphs
+  )
+
+
+def _phase157_r11_r17_normalize_public_numeric_equalities(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  characters = []
+  index = 0
+
+  while index < len(
+    rendered
+  ):
+    if rendered[
+      index
+    ] != "=":
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    first_number_start = index + 1
+
+    while (
+      first_number_start < len(
+        rendered
+      )
+      and rendered[
+        first_number_start
+      ].isspace()
+    ):
+      first_number_start += 1
+
+    first_number_end = first_number_start
+
+    while (
+      first_number_end < len(
+        rendered
+      )
+      and rendered[
+        first_number_end
+      ].isdigit()
+    ):
+      first_number_end += 1
+
+    if first_number_end == first_number_start:
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    second_equals_index = first_number_end
+
+    while (
+      second_equals_index < len(
+        rendered
+      )
+      and rendered[
+        second_equals_index
+      ].isspace()
+    ):
+      second_equals_index += 1
+
+    if (
+      second_equals_index >= len(
+        rendered
+      )
+      or rendered[
+        second_equals_index
+      ] != "="
+    ):
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    second_number_start = second_equals_index + 1
+
+    while (
+      second_number_start < len(
+        rendered
+      )
+      and rendered[
+        second_number_start
+      ].isspace()
+    ):
+      second_number_start += 1
+
+    second_number_end = second_number_start
+
+    while (
+      second_number_end < len(
+        rendered
+      )
+      and rendered[
+        second_number_end
+      ].isdigit()
+    ):
+      second_number_end += 1
+
+    first_number = rendered[
+      first_number_start:
+      first_number_end
+    ]
+    second_number = rendered[
+      second_number_start:
+      second_number_end
+    ]
+
+    if (
+      not second_number
+      or first_number != second_number
+    ):
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    characters.append(
+      rendered[
+        index:
+        first_number_end
+      ]
+    )
+    index = second_number_end
+
+  return "".join(
+    characters
+  )
+
+
+
+def _normalize_toda_group_proof_narrative_display_closing_fragments(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  lines = rendered.splitlines()
+  normalized = []
+  closing_fragments = {
+    "である.",
+    "を得る.",
+    "を用いる.",
+    "となる.",
+  }
+
+  for line in lines:
+    stripped = line.strip()
+
+    if (
+      stripped
+      in closing_fragments
+      and normalized
+    ):
+      previous_index = (
+        len(
+          normalized
+        )
+        - 1
+      )
+
+      while (
+        previous_index >= 0
+        and not normalized[
+          previous_index
+        ].strip()
+      ):
+        previous_index -= 1
+
+      if (
+        previous_index >= 0
+        and normalized[
+          previous_index
+        ].strip()
+        == r"\]"
+      ):
+        del normalized[
+          previous_index + 1:
+        ]
+
+    normalized.append(
+      line
+    )
+
+  return "\n".join(
+    normalized
+  )
+
+def _finalize_toda_group_proof_narrative_markdown(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  rendered = (
+    _phase157_r11_r17_normalize_public_connectors(
+      rendered
+    )
+  )
+  rendered = (
+    _phase157_r11_r17_normalize_public_numeric_equalities(
+      rendered
+    )
+  )
+  rendered = (
+    _normalize_toda_group_proof_narrative_display_closing_fragments(
+      rendered
+    )
+  )
+  lines = rendered.rstrip().splitlines()
+
+  reference_header = "## 使用する結果"
+  proof_header = "## 証明"
+
+  if (
+    reference_header in lines
+    and proof_header in lines
+  ):
+    reference_index = lines.index(
+      reference_header
+    )
+    proof_index = lines.index(
+      proof_header
+    )
+
+    if reference_index < proof_index:
+      before_proof = lines[
+        :proof_index
+      ]
+      proof_and_after = lines[
+        proof_index:
+      ]
+
+      while (
+        before_proof
+        and not before_proof[-1].strip()
+      ):
+        before_proof.pop()
+
+      if (
+        before_proof
+        and before_proof[-1].strip()
+        == "---"
+      ):
+        before_proof.pop()
+
+        while (
+          before_proof
+          and not before_proof[-1].strip()
+        ):
+          before_proof.pop()
+
+      lines = [
+        *before_proof,
+        "",
+        "---",
+        "",
+        *proof_and_after,
+      ]
+
+  while (
+    lines
+    and not lines[-1].strip()
+  ):
+    lines.pop()
+
+  if (
+    not lines
+    or lines[-1].strip()
+    != r"$\square$"
+  ):
+    lines.extend(
+      (
+        "",
+        r"$\square$",
+      )
+    )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
     + "\n"
   )
 
@@ -4188,7 +4686,7 @@ def _is_phase150_rc4_generic_route_target(
   )
 
 
-def render_toda_group_proof_narrative_markdown(
+def _phase158_baseline_render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
   if not isinstance(
@@ -4214,9 +4712,11 @@ def render_toda_group_proof_narrative_markdown(
 
   if phase134_24_pi15_8 is not None:
     return (
-      _phase153_r3_10_connect_public_reference_section(
-        presentation,
-        phase134_24_pi15_8,
+      _finalize_toda_group_proof_narrative_markdown(
+        _phase153_r3_10_connect_public_reference_section(
+          presentation,
+          phase134_24_pi15_8,
+        )
       )
     )
 
@@ -4256,15 +4756,18 @@ def render_toda_group_proof_narrative_markdown(
       )
     )
 
-    if _is_phase150_rc4_generic_route_target(
-      presentation
-    ):
-      return _wrap_phase150_rc4_generic_public_narrative(
+    public_rendered = (
+      _wrap_phase150_rc4_generic_public_narrative(
         presentation,
         rendered,
       )
+    )
 
-    return rendered
+    return (
+      _finalize_toda_group_proof_narrative_markdown(
+        public_rendered
+      )
+    )
 
   if _is_phase134_9_pi8_5_presentation(
     presentation
@@ -4276,9 +4779,11 @@ def render_toda_group_proof_narrative_markdown(
     )
 
     return (
-      _phase153_r3_10_connect_public_reference_section(
-        presentation,
-        rendered,
+      _finalize_toda_group_proof_narrative_markdown(
+        _phase153_r3_10_connect_public_reference_section(
+          presentation,
+          rendered,
+        )
       )
     )
 
@@ -4490,4 +4995,297 @@ def render_toda_group_proof_narrative_markdown(
         + "\n"
       )
 
-  return rendered
+  return (
+    _finalize_toda_group_proof_narrative_markdown(
+      rendered
+    )
+  )
+
+def _phase158_public_narrative_target_lines(
+  presentation: TodaGroupProofPresentation,
+) -> list[str]:
+  root_latex = (
+    _render_group_proof_narrative_latex(
+      presentation.root_step
+    )
+  )
+
+  if root_latex is not None:
+    return [
+      r"\[",
+      root_latex,
+      r"\]",
+      "",
+      "を示す.",
+    ]
+
+  return [
+    (
+      _render_group_proof_narrative_fact(
+        presentation.root_step
+      )
+      + "を示す."
+    ),
+  ]
+
+
+def _phase158_strip_terminal_qed_lines(
+  lines: list[str],
+) -> list[str]:
+  result = lines[:]
+
+  while (
+    result
+    and not result[-1].strip()
+  ):
+    result.pop()
+
+  qed_markers = {
+    "□",
+    r"$\square$",
+    r"\(\square\)",
+    r"\square",
+  }
+
+  if (
+    result
+    and result[-1].strip()
+    in qed_markers
+  ):
+    result.pop()
+
+  while (
+    result
+    and not result[-1].strip()
+  ):
+    result.pop()
+
+  return result
+
+
+def _phase158_normalize_public_narrative_contract(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  if presentation.max_depth < 2:
+    return rendered
+
+  title = "# Group proof narrative"
+  target_header = "## 証明対象"
+  reference_header = "## 使用する結果"
+  separator = "---"
+  proof_header = "## 証明"
+  qed = "□"
+
+  source_lines = (
+    rendered.rstrip().splitlines()
+  )
+
+  if (
+    source_lines
+    and source_lines[0] == title
+  ):
+    content_lines = source_lines[1:]
+  else:
+    content_lines = source_lines[:]
+
+  while (
+    content_lines
+    and not content_lines[0].strip()
+  ):
+    content_lines.pop(0)
+
+  def exact_index(
+    marker: str,
+  ) -> int | None:
+    try:
+      return content_lines.index(
+        marker
+      )
+    except ValueError:
+      return None
+
+  target_index = exact_index(
+    target_header
+  )
+  reference_index = exact_index(
+    reference_header
+  )
+  proof_index = exact_index(
+    proof_header
+  )
+
+  if target_index is not None:
+    target_end_candidates = [
+      index
+      for index in (
+        reference_index,
+        proof_index,
+        len(
+          content_lines
+        ),
+      )
+      if (
+        index is not None
+        and index > target_index
+      )
+    ]
+    target_end = min(
+      target_end_candidates
+    )
+    target_body = content_lines[
+      target_index + 1:
+      target_end
+    ]
+  else:
+    target_body = (
+      _phase158_public_narrative_target_lines(
+        presentation
+      )
+    )
+
+  while (
+    target_body
+    and not target_body[0].strip()
+  ):
+    target_body.pop(0)
+
+  while (
+    target_body
+    and not target_body[-1].strip()
+  ):
+    target_body.pop()
+
+  reference_body: list[str] = []
+
+  if (
+    reference_index is not None
+    and proof_index is not None
+    and reference_index < proof_index
+  ):
+    reference_body = content_lines[
+      reference_index + 1:
+      proof_index
+    ]
+
+  while (
+    reference_body
+    and not reference_body[0].strip()
+  ):
+    reference_body.pop(0)
+
+  while (
+    reference_body
+    and not reference_body[-1].strip()
+  ):
+    reference_body.pop()
+
+  if (
+    reference_body
+    and reference_body[-1].strip()
+    == separator
+  ):
+    reference_body.pop()
+
+    while (
+      reference_body
+      and not reference_body[-1].strip()
+    ):
+      reference_body.pop()
+
+  if proof_index is not None:
+    proof_body = content_lines[
+      proof_index + 1:
+    ]
+  elif (
+    target_index is None
+    and reference_index is None
+  ):
+    proof_body = content_lines[:]
+  else:
+    proof_body = []
+
+  while (
+    proof_body
+    and not proof_body[0].strip()
+  ):
+    proof_body.pop(0)
+
+  proof_body = (
+    _phase158_strip_terminal_qed_lines(
+      proof_body
+    )
+  )
+
+  lines = [
+    title,
+    "",
+    target_header,
+    "",
+    *target_body,
+    "",
+    reference_header,
+    "",
+  ]
+
+  if reference_body:
+    lines.extend(
+      (
+        *reference_body,
+        "",
+      )
+    )
+
+  lines.extend(
+    (
+      separator,
+      "",
+      proof_header,
+      "",
+      *proof_body,
+      "",
+      qed,
+    )
+  )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+
+def render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  rendered = (
+    _phase158_baseline_render_toda_group_proof_narrative_markdown(
+      presentation
+    )
+  )
+
+  return (
+    _phase158_normalize_public_narrative_contract(
+      presentation,
+      rendered,
+    )
+  )
+

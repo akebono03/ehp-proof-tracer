@@ -40,16 +40,19 @@ def _render_pi6_3(
 def _body(
   rendered: str,
 ) -> str:
-  marker = (
-    "次に, $\\nu'$ の位数を決定するために"
-  )
+  marker = "\n## 証明\n"
   index = rendered.find(
     marker
   )
   assert index >= 0
-  return rendered[
-    index:
+
+  body = rendered[
+    index + len(
+      marker
+    ):
   ]
+
+  return body.lstrip()
 
 
 def test_phase156_r5_repair9_depth2_public_body_starts_after_53_boundary():
@@ -59,21 +62,31 @@ def test_phase156_r5_repair9_depth2_public_body_starts_after_53_boundary():
   body = _body(
     rendered
   )
-
-  assert rendered.startswith(
-    "使用する結果を先にまとめる."
-  )
-  assert "(5.3)" in rendered
-  assert "Lemma 5.2" not in rendered
-  assert "$\\nu'$ を定める." not in rendered
-  assert (
+  reference_part = rendered.split(
+    "\n## 証明\n",
+    1,
+  )[0]
+  bracket_definition = (
     "\\nu' \\in "
     "\\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}"
+  )
+
+  assert rendered.startswith(
+    "# Group proof narrative"
+  )
+  assert "## 使用する結果" in rendered
+  assert "\n## 証明\n" in rendered
+  assert (
+    "使用する結果を先にまとめる."
     not in rendered
   )
-  assert body.startswith(
-    "次に, $\\nu'$ の位数を決定するために"
-  )
+  assert "(5.3)" in reference_part
+  assert "Lemma 5.2" not in rendered
+  assert "$\\nu'$ を定める." not in body
+  assert bracket_definition in reference_part
+  assert bracket_definition not in body
+  assert body
+  assert r"\pi_{7}^{3}" in body
 
 
 def test_phase156_r5_repair9_depth3_public_body_starts_after_53_boundary():
@@ -83,15 +96,19 @@ def test_phase156_r5_repair9_depth3_public_body_starts_after_53_boundary():
   body = _body(
     rendered
   )
-
-  assert "(5.3)" in rendered
-  assert "Lemma 5.2" not in rendered
-  assert "$\\nu'$ を定める." not in rendered
-  assert (
+  reference_part = rendered.split(
+    "\n## 証明\n",
+    1,
+  )[0]
+  bracket_definition = (
     "\\nu' \\in "
     "\\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}"
-    not in rendered
   )
-  assert body.startswith(
-    "次に, $\\nu'$ の位数を決定するために"
-  )
+
+  assert "(5.3)" in reference_part
+  assert "Lemma 5.2" not in rendered
+  assert "$\\nu'$ を定める." not in body
+  assert bracket_definition in reference_part
+  assert bracket_definition not in body
+  assert body
+  assert r"\pi_{7}^{3}" in body

@@ -29,7 +29,7 @@ def test_phase132_7_group_proof_default_mode_is_narrative(
 
   assert exit_code == 0
   assert captured.err == ""
-  assert "使用する結果を先にまとめる." in captured.out
+  assert "## 使用する結果" in captured.out
   assert (
     r"$\pi_{16}^{9} = "
     r"\mathbb{Z}/16\{\sigma_{9}\}$"
@@ -108,7 +108,7 @@ def test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer(
 
   assert exit_code == 0
   assert captured.err == ""
-  assert "使用する結果を先にまとめる." in captured.out
+  assert "## 使用する結果" in captured.out
   assert "[R1]" in captured.out
   assert (
     r"$\pi_{16}^{9} = "

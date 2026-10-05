@@ -1,0 +1,80 @@
+{
+  "phase": "157-R4-R4",
+  "production_code_changes": false,
+  "existing_test_changes": false,
+  "depth": 3,
+  "render_count": 5,
+  "cases": [
+    {
+      "label": "pi_8^5",
+      "n": 5,
+      "k": 3,
+      "depth": 3,
+      "reference_present": true,
+      "reference_marker_count": 2,
+      "reference_chars": 79,
+      "body_chars": 628,
+      "forbidden_reference_hits": [],
+      "reference_section": "## 使用する結果\n\n**[R1] Toda (5.5) の ν-family 有限次元結果.**\n\n**[R2] Toda (5.6) の ν₄ 分解.**",
+      "body_prefix": "## 証明\n\nまず, $\\nu_{5}$ の位数を求める.\n\n**(1)** $\\nu_{5}$ を $\\nu$-family の定義により取る.\n\n[R1], (1) より,\n\n\\[\n2\\nu_{5} = E^{2}\\nu'\\tag{2}\n\\]\n\n既に,\n\n\\[\n\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}\\tag{3}\n\\]\n\n[R2] より,\n**(4)** E²: π₆³ → π₈⁵ の単射性.\n\n(3), (4) より,\n**(5)** $E^{2}\\nu'$ の位数は $4$ である.\n\n(2), (5), (1) より,\n**(6)** $\\nu_{5}$ の位数は $8$ である.\n\n[R2] より,\n**(7)** π₈⁵ / E²π₆³ が位数 2 であること.\n\n最後に, これらの結果から $\\pi_{8}^{5}$ の群構造を決定する.\n\n(3), (4), (7) より, $E^{2}\\pi_{6}^{3}$ は位数 $4$ の部分群であり, その商が位数 $2$ なので, $\\pi_{8}^{5}$ の位数は $8$ である.\n\n(6) より $\\nu_{5}$ も位数 $8$ であるから, $\\nu_{5}$ は $\\pi_{8}^{5}$ を生成する.\n\nしたがって,\n\n\\[\n\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}\\tag{8}\n\\]\n\nを得る.",
+      "output_file": "phase157_r4_r4_spotcheck_output\\pi_8_5.md"
+    },
+    {
+      "label": "pi_10^4",
+      "n": 4,
+      "k": 6,
+      "depth": 3,
+      "reference_present": true,
+      "reference_marker_count": 1,
+      "reference_chars": 330,
+      "body_chars": 103,
+      "forbidden_reference_hits": [],
+      "reference_section": "使用する結果を先にまとめる.\n\n**[R1] Proposition 5.6.**\n$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$\n$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$\n$\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}$\n$\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$\n\n$\\pi_{10}^{4}$ の群構造を決定する.\n\n$\\pi_{9}^{3} = 0$\n\n$\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$",
+      "body_prefix": "以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$\n\n$\\nu_{4}$ の分解を用いる.",
+      "output_file": "phase157_r4_r4_spotcheck_output\\pi_10_4.md"
+    },
+    {
+      "label": "pi_12^5",
+      "n": 5,
+      "k": 7,
+      "depth": 3,
+      "reference_present": true,
+      "reference_marker_count": 4,
+      "reference_chars": 348,
+      "body_chars": 594,
+      "forbidden_reference_hits": [],
+      "reference_section": "## 使用する結果\n\n使用する結果を先にまとめる.\n\n**[R1] Proposition 5.15.**\n$\\pi_{11}^{4} = 0$\n**[R2] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.\n**[R3] Proposition 5.11.**\n$\\pi_{9}^{3} = 0$\n$\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$\n**[R4] Equation 5.13.**\n$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$",
+      "body_prefix": "## 証明\n\nまず, $\\nu_{n}$ を定める.\n\n$\\nu_{n}$ を \\(\\nu\\)-family の元として定める.\n\n次に, $\\sigma'''$ を定める.\n\n$H: \\pi_{12}^{5} \\to \\pi_{12}^{9}$ は単射である.\n\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n\n`ScalarGreaterEqualStatement`\n\n$2\\nu_{n} = E^{n - 3}\\nu'$\n\n$4\\nu_{n} = \\eta_{n}\\eta_{n + 1}\\eta_{n + 2}$\n\n最後に, $\\pi_{12}^{5}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{11}^{4} \\xrightarrow{E} \\pi_{12}^{5} \\xrightarrow{H} \\pi_{12}^{9} \\xrightarrow{\\Delta} \\pi_{10}^{4}$\n\n以上より, \n\n[R3]を用いる.\n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\nこの完全性, 既知の群構造, および写像の像に関する結果を合わせると, 対象となる写像の像と核が決まる.\nしたがって, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$",
+      "output_file": "phase157_r4_r4_spotcheck_output\\pi_12_5.md"
+    },
+    {
+      "label": "pi_15^8",
+      "n": 8,
+      "k": 7,
+      "depth": 3,
+      "reference_present": true,
+      "reference_marker_count": 1,
+      "reference_chars": 181,
+      "body_chars": 427,
+      "forbidden_reference_hits": [],
+      "reference_section": "## 使用する結果\n\n**[R1] Toda Proposition 4.4 の分解同型.**\n\n次の写像は同型である.\n\n\\[\n\\pi_{14}^{7} \\oplus \\pi_{15}^{15} \\longrightarrow \\pi_{15}^{8}\n\\]\n\n\\[\n(α, \\beta) \\longmapsto Eα + \\sigma_{8}\\beta\n\\]",
+      "body_prefix": "## 証明\n\n既に,\n\n\\[\n\\pi_{14}^{7} = \\mathbb{Z}/8\\{\\sigma'\\}\n\\]\n\nである.\n\nまた,\n\n\\[\n\\pi_{15}^{15} = \\mathbb{Z}\\{\\iota_{15}\\}\n\\]\n\nである.\n\n[R1] より, これらの生成元はそれぞれ\n\n\\[\n\\sigma' \\longmapsto E\\sigma',\n\\qquad\n\\iota_{15} \\longmapsto \\sigma_{8}\n\\]\n\nと写る.\n\nしたがって,\n\n\\[\n\\pi_{15}^{8} \\cong \\mathbb{Z}/8\\{E\\sigma'\\} \\oplus \\mathbb{Z}\\{\\sigma_{8}\\}\n\\]\n\nを得る.\n\n直和因子の順序を入れ替えると,\n\n\\[\n\\pi_{15}^{8} = \\mathbb{Z}\\{\\sigma_{8}\\} \\oplus \\mathbb{Z}/8\\{E\\sigma'\\}\n\\]\n\nを得る.",
+      "output_file": "phase157_r4_r4_spotcheck_output\\pi_15_8.md"
+    },
+    {
+      "label": "pi_16^9",
+      "n": 9,
+      "k": 7,
+      "depth": 3,
+      "reference_present": true,
+      "reference_marker_count": 3,
+      "reference_chars": 552,
+      "body_chars": 684,
+      "forbidden_reference_hits": [],
+      "reference_section": "使用する結果を先にまとめる.\n\n**[R1] Lemma 5.14.**\n$\\sigma_{8} = xα* + -1\\,y\\Delta\\left(\\iota_{17}\\right)$, $H\\left(\\sigma_{8}\\right) = \\iota_{15}$, $E\\sigma_{8} = xEα*$, $2E\\sigma_{8} = E^{2}\\sigma'$ が成り立つ.\n$2\\sigma' = E\\sigma''$, $H\\left(\\sigma'\\right) = \\eta_{13}$ が成り立つ.\n$E^{3}\\sigma'' = 4\\,xEα*, \\qquad 2\\sigma'' = E\\sigma''', \\qquad H\\left(\\sigma''\\right) = \\eta_{11}\\eta_{12}$\n**[R2] Lemma 5.13.**\n$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ.\n**[R3] Equation 5.13.**\n$\\Delta\\left(\\nu_{9}\\right) = \\pm 2\\nu_{4}\\nu_{7}$",
+      "body_prefix": "まず, $\\sigma'''$ を定める.\n\n次の短完全列を得る.\n\n$0\\longrightarrow \\pi_{13}^{6}\\xrightarrow{E} \\pi_{14}^{7}\\xrightarrow{H} \\pi_{14}^{13}\\longrightarrow 0$\n\n$H: \\pi_{12}^{5} \\to \\pi_{12}^{9}$ は単射である.\n\n$\\pi_{12}^{9} = \\mathbb{Z}/8\\{\\nu_{9}\\}$\n\n次に, $\\sigma_{9}$ を定める.\n\n$\\sigma_{9}$ を \\(\\sigma\\)-family の元として定める.\n\n$\\pi_{14}^{7} = \\mathbb{Z}/8\\{\\sigma'\\}$\n\n最後に, $\\pi_{16}^{9}$ の群構造を決定する.\n\nこの群構造と写像による移送の結果を合わせると, 対象の群の位数と写像の単射性が決まる.\nしたがって, \n\n$|\\pi_{16}^{9}| = 16$ であり, $E^{4}: \\pi_{12}^{5} \\to \\pi_{16}^{9}$ は単射である.\n\nこの完全性, 既知の群構造, および写像の像に関する結果を合わせると, 対象となる写像の像と核が決まる.\nしたがって, \n\n$\\pi_{12}^{5} = \\mathbb{Z}/2\\{\\sigma'''\\}$\n\n以上で得た群構造, 生成元, および写像に関する結果を合わせると, \n\n$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$",
+      "output_file": "phase157_r4_r4_spotcheck_output\\pi_16_9.md"
+    }
+  ],
+  "forbidden_reference_hits": []
+}

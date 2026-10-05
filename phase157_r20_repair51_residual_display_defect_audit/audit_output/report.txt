@@ -1,0 +1,21 @@
+================================================================================================
+Phase157-R20 repair51 - residual display defect audit
+================================================================================================
+Production code changes: none
+pytest: not run
+Scope: 112 groups, depth 2
+
+exceptions: 0
+findings: 6
+
+Finding counts:
+  isolated_sentence_fragment: 5
+  root_statement_repeated: 1
+
+Findings:
+  pi_4^3 | root_statement_repeated | count=2: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  pi_8^5 | isolated_sentence_fragment | paragraph=14: を得る.
+  pi_15^8 | isolated_sentence_fragment | paragraph=2: である.
+  pi_15^8 | isolated_sentence_fragment | paragraph=5: である.
+  pi_15^8 | isolated_sentence_fragment | paragraph=10: を得る.
+  pi_15^8 | isolated_sentence_fragment | paragraph=13: を得る.

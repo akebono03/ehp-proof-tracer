@@ -1,0 +1,361 @@
+================================================================================================
+Phase157-R20 repair50 - cross-audit finding classification
+================================================================================================
+Production code changes: none
+pytest: not run
+
+------------------------------------------------------------------------------------------------
+pi_2^2  (n=2, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{2}^{2} = \mathbb{Z}\{\iota_{2}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{2}^{2} = \mathbb{Z}\{\iota_{2}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_3^2  (n=2, k=1)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  まず, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は単射である.
+  まず, $E: \pi_{1}^{1} \to \pi_{2}^{2}$ は同型写像である.
+  このことから, $E: \pi_{1}^{1} \to \pi_{2}^{2}$ は単射である.
+  さらに, $\pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ は完全である.
+  これらから, $\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ は零写像である.
+  さらに, $\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1}$ は完全である.
+  これらから, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は全射である.
+  これらから, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は同型写像である.
+  また, $\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$を用いる.
+  これらから, $H(\eta_{2}) = \iota_{3}$を得る.
+  したがって, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$を得る.
+last non-empty lines:
+  まず, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は単射である.
+  まず, $E: \pi_{1}^{1} \to \pi_{2}^{2}$ は同型写像である.
+  このことから, $E: \pi_{1}^{1} \to \pi_{2}^{2}$ は単射である.
+  さらに, $\pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ は完全である.
+  これらから, $\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ は零写像である.
+  さらに, $\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1}$ は完全である.
+  これらから, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は全射である.
+  これらから, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は同型写像である.
+  また, $\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$を用いる.
+  これらから, $H(\eta_{2}) = \iota_{3}$を得る.
+  したがって, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$を得る.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_3^3  (n=3, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_4^3  (n=3, k=1)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  まず, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$を用いる.
+  また, $\ker\left(E: \pi_{3}^{2} \to \pi_{4}^{3}\right) = \mathbb{Z}\{2\eta_{2}\}$を用いる.
+  まず, $\pi_{4}^{5} = 0$を用いる.
+  さらに, $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+  これらから, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+  これらから, $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$を得る.
+  まず, η-family の定義を用いる.
+  このことから, $\eta_{3} = \eta_{3}$を得る.
+  したがって, $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$を得る.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  まず, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$を用いる.
+  また, $\ker\left(E: \pi_{3}^{2} \to \pi_{4}^{3}\right) = \mathbb{Z}\{2\eta_{2}\}$を用いる.
+  まず, $\pi_{4}^{5} = 0$を用いる.
+  さらに, $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+  これらから, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+  これらから, $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$を得る.
+  まず, η-family の定義を用いる.
+  このことから, $\eta_{3} = \eta_{3}$を得る.
+  したがって, $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$を得る.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_4^4  (n=4, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{4}^{4} = \mathbb{Z}\{\iota_{4}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{4}^{4} = \mathbb{Z}\{\iota_{4}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_5^5  (n=5, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_6^6  (n=6, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{6}^{6} = \mathbb{Z}\{\iota_{6}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{6}^{6} = \mathbb{Z}\{\iota_{6}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_7^7  (n=7, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{7}^{7} = \mathbb{Z}\{\iota_{7}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{7}^{7} = \mathbb{Z}\{\iota_{7}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_12^7  (n=7, k=5)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  まず, $\pi_{13}^{13} = \mathbb{Z}\{\iota_{13}\}$を用いる.
+  さらに, $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$を用いる.
+  これらから, $\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.
+  まず, $\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7}$を用いる.
+  このことから, $\pi_{13}^{13} \xrightarrow{Δ} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7}$ は完全である.
+  まず, $\pi_{12}^{13} = 0$を用いる.
+  まず, $\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13}$を用いる.
+  このことから, $\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13}$ は完全である.
+  これらから, $E: \pi_{11}^{6} \to \pi_{12}^{7}$ は全射である.
+  したがって, $\pi_{12}^{7} = 0$を得る.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  まず, $\pi_{13}^{13} = \mathbb{Z}\{\iota_{13}\}$を用いる.
+  さらに, $\pi_{11}^{6} = \mathbb{Z}\{\Delta\left(\iota_{13}\right)\}$を用いる.
+  これらから, $\Delta: \pi_{13}^{13} \to \pi_{11}^{6}$ は全射である.
+  まず, $\pi_{13}^{13} \xrightarrow{\Delta} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7}$を用いる.
+  このことから, $\pi_{13}^{13} \xrightarrow{Δ} \pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7}$ は完全である.
+  まず, $\pi_{12}^{13} = 0$を用いる.
+  まず, $\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13}$を用いる.
+  このことから, $\pi_{11}^{6} \xrightarrow{E} \pi_{12}^{7} \xrightarrow{H} \pi_{12}^{13}$ は完全である.
+  これらから, $E: \pi_{11}^{6} \to \pi_{12}^{7}$ は全射である.
+  したがって, $\pi_{12}^{7} = 0$を得る.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_8^8  (n=8, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{8}^{8} = \mathbb{Z}\{\iota_{8}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{8}^{8} = \mathbb{Z}\{\iota_{8}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_14^8  (n=8, k=6)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  まず, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$を用いる.
+  さらに, $E: \pi_{12}^{6} \to \pi_{13}^{7}$ は同型写像である.
+  これらから, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$を得る.
+  まず, $(\beta, γ) \mapsto E\beta + \sigma_{8}γ: \pi_{13}^{7} \oplus \pi_{14}^{15} \to \pi_{14}^{8}$ は同型写像である.
+  さらに, $\pi_{14}^{15} = 0$を用いる.
+  これらから, $E: \pi_{13}^{7} \to \pi_{14}^{8}$ は同型写像である.
+  したがって, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$を得る.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  まず, $\pi_{12}^{6} = \mathbb{Z}/2\{\nu_{6}\nu_{9}\}$を用いる.
+  さらに, $E: \pi_{12}^{6} \to \pi_{13}^{7}$ は同型写像である.
+  これらから, $\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}$を得る.
+  まず, $(\beta, γ) \mapsto E\beta + \sigma_{8}γ: \pi_{13}^{7} \oplus \pi_{14}^{15} \to \pi_{14}^{8}$ は同型写像である.
+  さらに, $\pi_{14}^{15} = 0$を用いる.
+  これらから, $E: \pi_{13}^{7} \to \pi_{14}^{8}$ は同型写像である.
+  したがって, $\pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}$を得る.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_15^8  (n=8, k=7)
+findings:
+  - exact_duplicate_paragraph: count=2: である.
+  - exact_duplicate_paragraph: count=2: を得る.
+classification: HAS_PROOF_SECTION
+first non-empty lines:
+  # Group proof narrative
+  ## 証明対象
+  Toda Proposition 5.15 のうち,
+  \[
+  \pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}
+  \]
+  を示す.
+  ## 使用する結果
+  使用する結果を先にまとめる.
+  **[R1] Proposition 5.15.**
+  $\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}$
+  ---
+last non-empty lines:
+  と写る.
+  したがって,
+  \[
+  \pi_{15}^{8} \cong \mathbb{Z}/8\{E\sigma'\} \oplus \mathbb{Z}\{\sigma_{8}\}
+  \]
+  を得る.
+  直和因子の順序を入れ替えると,
+  \[
+  \pi_{15}^{8} = \mathbb{Z}\{\sigma_{8}\} \oplus \mathbb{Z}/8\{E\sigma'\}
+  \]
+  を得る.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_9^9  (n=9, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{9}^{9} = \mathbb{Z}\{\iota_{9}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{9}^{9} = \mathbb{Z}\{\iota_{9}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_10^10  (n=10, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{10}^{10} = \mathbb{Z}\{\iota_{10}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{10}^{10} = \mathbb{Z}\{\iota_{10}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_11^11  (n=11, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{11}^{11} = \mathbb{Z}\{\iota_{11}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{11}^{11} = \mathbb{Z}\{\iota_{11}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_12^12  (n=12, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{12}^{12} = \mathbb{Z}\{\iota_{12}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{12}^{12} = \mathbb{Z}\{\iota_{12}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_13^13  (n=13, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{13}^{13} = \mathbb{Z}\{\iota_{13}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{13}^{13} = \mathbb{Z}\{\iota_{13}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_14^14  (n=14, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{14}^{14} = \mathbb{Z}\{\iota_{14}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{14}^{14} = \mathbb{Z}\{\iota_{14}\}$である.
+  $\square$
+
+------------------------------------------------------------------------------------------------
+pi_15^15  (n=15, k=0)
+findings:
+  - missing_proof_section: 
+classification: NO_REFERENCE_SECTION_EITHER
+first non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}$である.
+  $\square$
+last non-empty lines:
+  # Group proof narrative
+  したがって, $\pi_{15}^{15} = \mathbb{Z}\{\iota_{15}\}$である.
+  $\square$
+
+================================================================================================
+EXACT DUPLICATE SUMMARY
+================================================================================================
+count: 2
+pi_15^8: count=2: である.
+pi_15^8: count=2: を得る.

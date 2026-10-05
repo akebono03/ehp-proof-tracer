@@ -1,0 +1,7 @@
+n,k,group,kind,detail
+3,1,pi_4^3,root_statement_repeated,count=2: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+5,3,pi_8^5,isolated_sentence_fragment,paragraph=14: を得る.
+8,7,pi_15^8,isolated_sentence_fragment,paragraph=2: である.
+8,7,pi_15^8,isolated_sentence_fragment,paragraph=5: である.
+8,7,pi_15^8,isolated_sentence_fragment,paragraph=10: を得る.
+8,7,pi_15^8,isolated_sentence_fragment,paragraph=13: を得る.

@@ -1,0 +1,154 @@
+def select_toda_group_proof_narrative_reference_statement_steps(
+  entry: TodaGroupProofNarrativeReferenceEntry,
+  candidate_steps: tuple[ProofStep, ...],
+  proof_edges: tuple[TodaProofEdge, ...],
+  root_step: ProofStep | None = None,
+) -> tuple[ProofStep, ...]:
+  if not isinstance(
+    entry,
+    TodaGroupProofNarrativeReferenceEntry,
+  ):
+    raise TypeError(
+      "entry must be a "
+      "TodaGroupProofNarrativeReferenceEntry"
+    )
+
+  if not isinstance(
+    candidate_steps,
+    tuple,
+  ):
+    raise TypeError(
+      "candidate_steps must be a tuple"
+    )
+
+  if not all(
+    isinstance(
+      step,
+      ProofStep,
+    )
+    for step in candidate_steps
+  ):
+    raise TypeError(
+      "candidate_steps must contain only "
+      "ProofStep objects"
+    )
+
+  if (
+    root_step is not None
+    and not isinstance(
+      root_step,
+      ProofStep,
+    )
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep or None"
+    )
+
+  entry_step_ids = {
+    id(
+      step
+    )
+    for step in entry.proof_steps
+  }
+  seen_candidate_step_ids = set()
+
+  for step in candidate_steps:
+    step_id = id(
+      step
+    )
+
+    if step_id not in entry_step_ids:
+      raise ValueError(
+        "candidate_steps must contain only "
+        "steps from entry.proof_steps"
+      )
+
+    if step_id in seen_candidate_step_ids:
+      raise ValueError(
+        "candidate_steps must not contain "
+        "the same ProofStep more than once"
+      )
+
+    seen_candidate_step_ids.add(
+      step_id
+    )
+
+  if not isinstance(
+    proof_edges,
+    tuple,
+  ):
+    raise TypeError(
+      "proof_edges must be a tuple"
+    )
+
+  if not all(
+    isinstance(
+      edge,
+      TodaProofEdge,
+    )
+    for edge in proof_edges
+  ):
+    raise TypeError(
+      "proof_edges must contain only "
+      "TodaProofEdge objects"
+    )
+
+  eligible_candidates = tuple(
+    step
+    for step in candidate_steps
+    if step is not root_step
+  )
+
+  if not eligible_candidates:
+    return ()
+
+  boundary_used_step_ids = {
+    id(
+      edge.premise_step
+    )
+    for edge in proof_edges
+    if (
+      edge.premise_step
+      is not root_step
+      and extract_toda_group_proof_step_literature_reference(
+        edge.premise_step
+      )
+      == entry.reference
+      and extract_toda_group_proof_step_literature_reference(
+        edge.parent_step
+      )
+      != entry.reference
+    )
+  }
+
+  entry_external_used_step_ids = {
+    id(
+      edge.premise_step
+    )
+    for edge in proof_edges
+    if id(
+      edge.parent_step
+    ) not in entry_step_ids
+  }
+
+  used_candidate_step_ids = (
+    boundary_used_step_ids
+    | entry_external_used_step_ids
+  )
+
+  used_candidates = tuple(
+    step
+    for step in eligible_candidates
+    if id(
+      step
+    ) in used_candidate_step_ids
+  )
+
+  if used_candidates:
+    return used_candidates
+
+  return (
+    eligible_candidates[
+      0
+    ],
+  )

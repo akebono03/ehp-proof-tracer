@@ -178,10 +178,11 @@ class WebGroupProofRenderedLineView:
   ) -> None:
     if self.kind not in (
       "heading",
+      "separator",
       "text",
     ):
       raise ValueError(
-        "kind must be heading or text"
+        "kind must be heading, separator, or text"
       )
 
     if (
@@ -714,6 +715,18 @@ def _build_group_proof_rendered_lines(
     indent_level = (
       leading_spaces // 2
     )
+
+    if stripped == "---":
+      lines.append(
+        WebGroupProofRenderedLineView(
+          kind="separator",
+          indent_level=0,
+          prefix="",
+          statement_latex=None,
+          suffix="",
+        )
+      )
+      continue
 
     if display_math_lines is not None:
       if stripped == r"\]":

@@ -1,0 +1,13 @@
+Changed function: _finalize_toda_group_proof_narrative_markdown
+
+The complete function remains the existing implementation, with this new
+generic normalization call inserted after numeric-equality normalization:
+
+  rendered = (
+    _normalize_toda_group_proof_narrative_display_closing_fragments(
+      rendered
+    )
+  )
+
+The apply script edits the complete function by AST range and verifies the
+anchor exactly once. There are no import changes.

@@ -17,8 +17,15 @@ from toda_group_result_proof_replay import (
   TodaGroupResultProofReplayResult,
   TodaGroupResultProofReplayStep,
 )
+from toda_literature_statement_boundary import (
+  TodaLiteratureStatementClassification,
+  classify_toda_literature_statement_step,
+)
+
 from toda_proof_dependency import (
+  TodaProofDependencyRole,
   TodaProofEdge,
+  classify_toda_proof_step_role,
   extract_toda_recursive_proof_provenance,
 )
 from toda_rules import (
@@ -610,6 +617,155 @@ def build_toda_group_proof_narrative_semantic_closure_presentation(
           edge.premise_step
         )
       )
+
+  map_property_equality_step_ids = set()
+
+  for node in presentation.nodes:
+    if (
+      classify_toda_proof_step_role(
+        node.proof_step
+      )
+      is not TodaProofDependencyRole.MAP_PROPERTY
+    ):
+      continue
+
+    for edge in edges_by_parent_step_id.get(
+      id(
+        node.proof_step
+      ),
+      (),
+    ):
+      premise_statement = (
+        edge.premise_step.conclusion
+      )
+
+      if (
+        isinstance(
+          premise_statement,
+          Relation,
+        )
+        and premise_statement.relation_type
+        is RelationType.EQUALITY
+      ):
+        map_property_equality_step_ids.add(
+          id(
+            edge.premise_step
+          )
+        )
+
+  for equality_step_id in (
+    map_property_equality_step_ids
+  ):
+    for edge in edges_by_parent_step_id.get(
+      equality_step_id,
+      (),
+    ):
+      premise_statement = (
+        edge.premise_step.conclusion
+      )
+
+      if (
+        not isinstance(
+          premise_statement,
+          Relation,
+        )
+        or premise_statement.relation_type
+        is not RelationType.EQUALITY
+      ):
+        continue
+
+      selected_step_ids.add(
+        id(
+          edge.premise_step
+        )
+      )
+
+  map_property_frontier = [
+    node.proof_step
+    for node in provenance.nodes
+    if (
+      id(
+        node.proof_step
+      )
+      in selected_step_ids
+      and classify_toda_proof_step_role(
+        node.proof_step
+      )
+      is TodaProofDependencyRole.MAP_PROPERTY
+    )
+  ]
+  expanded_map_dependency_ids = set()
+
+  while map_property_frontier:
+    current_step = map_property_frontier.pop()
+    current_step_id = id(
+      current_step
+    )
+
+    if (
+      current_step_id
+      in expanded_map_dependency_ids
+    ):
+      continue
+
+    expanded_map_dependency_ids.add(
+      current_step_id
+    )
+
+    current_boundary = (
+      classify_toda_literature_statement_step(
+        current_step
+      )
+    )
+
+    if (
+      current_boundary is not None
+      and current_boundary.classification
+      is TodaLiteratureStatementClassification.FIXED_STATEMENT
+    ):
+      continue
+
+    for edge in edges_by_parent_step_id.get(
+      current_step_id,
+      (),
+    ):
+      premise_step = edge.premise_step
+      premise_step_id = id(
+        premise_step
+      )
+
+      selected_step_ids.add(
+        premise_step_id
+      )
+
+      premise_boundary = (
+        classify_toda_literature_statement_step(
+          premise_step
+        )
+      )
+
+      if (
+        premise_boundary is not None
+        and premise_boundary.classification
+        is TodaLiteratureStatementClassification.FIXED_STATEMENT
+      ):
+        continue
+
+      premise_role = (
+        classify_toda_proof_step_role(
+          premise_step
+        )
+      )
+
+      if premise_role in (
+        TodaProofDependencyRole.MAP_PROPERTY,
+        TodaProofDependencyRole.RELATION,
+        TodaProofDependencyRole.EHP_EXACTNESS,
+        TodaProofDependencyRole.EHP_WINDOW,
+      ):
+        map_property_frontier.append(
+          premise_step
+        )
 
   changed = True
 

@@ -1,0 +1,8 @@
+Changed import section in toda_group_proof_narrative_contribution_renderer.py
+
+from toda_group_proof_narrative_reason_renderer import (
+  insert_toda_group_proof_narrative_reason_prose,
+  order_toda_group_proof_narrative_injective_image_order_reason,
+)
+
+No other import section changes.

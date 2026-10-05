@@ -1,0 +1,21 @@
+n,k,group,kind,detail
+2,0,pi_2^2,missing_proof_section,
+2,1,pi_3^2,missing_proof_section,
+3,0,pi_3^3,missing_proof_section,
+3,1,pi_4^3,missing_proof_section,
+4,0,pi_4^4,missing_proof_section,
+5,0,pi_5^5,missing_proof_section,
+6,0,pi_6^6,missing_proof_section,
+7,0,pi_7^7,missing_proof_section,
+7,5,pi_12^7,missing_proof_section,
+8,0,pi_8^8,missing_proof_section,
+8,6,pi_14^8,missing_proof_section,
+8,7,pi_15^8,exact_duplicate_paragraph,count=2: である.
+8,7,pi_15^8,exact_duplicate_paragraph,count=2: を得る.
+9,0,pi_9^9,missing_proof_section,
+10,0,pi_10^10,missing_proof_section,
+11,0,pi_11^11,missing_proof_section,
+12,0,pi_12^12,missing_proof_section,
+13,0,pi_13^13,missing_proof_section,
+14,0,pi_14^14,missing_proof_section,
+15,0,pi_15^15,missing_proof_section,
