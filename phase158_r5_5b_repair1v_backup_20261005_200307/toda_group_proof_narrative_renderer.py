@@ -5261,45 +5261,6 @@ def _phase158_normalize_public_equation_numbers(
       numbers
     )
 
-  derivation_target_numbers = set()
-
-  for connector_index in connector_numbers_by_index:
-    target_index = next(
-      (
-        index
-        for index in range(
-          connector_index + 1,
-          len(
-            proof_body
-          ),
-        )
-        if proof_body[
-          index
-        ].strip()
-      ),
-      None,
-    )
-
-    if target_index is None:
-      continue
-
-    target_number = (
-      _phase158_public_equation_tag_number(
-        proof_body[
-          target_index
-        ]
-      )
-    )
-
-    if target_number is not None:
-      derivation_target_numbers.add(
-        target_number
-      )
-
-  retained_numbers = (
-    referenced_numbers
-    | derivation_target_numbers
-  )
   retained_old_numbers = []
   seen_old_numbers = set()
 
@@ -5312,7 +5273,7 @@ def _phase158_normalize_public_equation_numbers(
 
     if (
       number is None
-      or number not in retained_numbers
+      or number not in referenced_numbers
       or number in seen_old_numbers
     ):
       continue

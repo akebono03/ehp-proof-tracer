@@ -1,65 +1,104 @@
-from proof import (
-  ProofStep,
-)
-from toda_group_proof_generic_narrative_renderer import (
-  _render_generic_narrative_step,
-)
-from toda_group_proof_narrative_blocks import (
-  TodaGroupProofNarrativeBlock,
-)
-from toda_group_proof_narrative_step_transitions import (
-  extract_toda_group_proof_narrative_step_transitions,
-)
-from toda_group_proof_presentation import (
-  TodaGroupProofPresentation,
-)
+========================================================================================================================
+Phase 158-R5-5b repair1u - ordering branch runtime diagnosis
+========================================================================================================================
 
+A. RUNTIME MODULE PATH
+------------------------------------------------------------------------------------------------------------------------
+multi_module=C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_group_proof_narrative_argument_multi_renderer.py
 
-def toda_group_proof_narrative_equation_reference(
-  equation_number: int,
-) -> str:
-  if (
-    not isinstance(
-      equation_number,
-      int,
+B. MULTI-RENDERER LOCAL-BODY BRANCH
+------------------------------------------------------------------------------------------------------------------------
+local_body_blocks = (
+      extract_toda_group_proof_narrative_argument_local_body_blocks(
+        presentation,
+        blocks,
+        semantic_sidecar,
+        arguments,
+        argument_index,
+      )
     )
-    or isinstance(
-      equation_number,
-      bool,
-    )
-    or equation_number <= 0
-  ):
-    raise ValueError(
-      "equation_number must be a positive integer"
-    )
+    local_body_block_ids = {
+      id(
+        block
+      )
+      for block in local_body_blocks
+    }
+    evidence_block_ids = {
+      id(
+        block
+      )
+      for block in evidence
+    }
 
-  return "(" + str(equation_number) + ")"
+    if (
+      argument.conclusion_block.role
+      is TodaGroupProofNarrativeMathematicalBlockRole
+      .TARGET
+    ):
+      missing_evidence_blocks = tuple(
+        block
+        for block in blocks
+        if (
+          id(
+            block
+          ) in evidence_block_ids
+          and id(
+            block
+          ) not in local_body_block_ids
+        )
+      )
 
+      if missing_evidence_blocks:
+        conclusion_position = next(
+          (
+            index
+            for index, block in enumerate(
+              local_body_blocks
+            )
+            if block is argument.conclusion_block
+          ),
+          len(
+            local_body_blocks
+          ),
+        )
+        local_body_blocks = (
+          local_body_blocks[
+            :conclusion_position
+          ]
+          + missing_evidence_blocks
+          + local_body_blocks[
+            conclusion_position:
+          ]
+        )
+    else:
+      local_body_blocks = tuple(
+        block
+        for block in blocks
+        if (
+          id(
+            block
+          ) in local_body_block_ids
+          or id(
+            block
+          ) in evidence_block_ids
+        )
+      )
 
-def _numbered_step_line(
-  proof_step: ProofStep,
-  equation_number: int,
-) -> str:
-  rendered = _render_generic_narrative_step(
-    proof_step
-  )
-  closing = rendered.rfind("$")
+    
 
-  if (
-    not rendered.startswith("$")
-    or closing <= 0
-  ):
-    return rendered
+C. BRANCH CHECKS
+------------------------------------------------------------------------------------------------------------------------
+contains_TARGET_branch=True
+contains_missing_evidence=True
+contains_global_blocks_merge=True
 
-  return (
-    rendered[:closing]
-    + r"\tag{"
-    + str(equation_number)
-    + "}"
-    + rendered[closing:]
-  )
+D. NUMBERING CHECKS
+------------------------------------------------------------------------------------------------------------------------
+numbers_target_explicitly=False
+source_only_runtime=True
 
-
+E. FULL NUMBERING SOURCE
+------------------------------------------------------------------------------------------------------------------------
 def number_toda_group_proof_narrative_equations(
   markdown: str,
   presentation: TodaGroupProofPresentation,
@@ -91,23 +130,17 @@ def number_toda_group_proof_narrative_equations(
   sources_by_target = {}
 
   for transition in transitions:
-    target_id = id(
-      transition.target_step
-    )
+    target_id = id(transition.target_step)
     current = sources_by_target.get(
       target_id,
       (),
     )
-
     if any(
       step is transition.source_step
       for step in current
     ):
       continue
-
-    sources_by_target[
-      target_id
-    ] = (
+    sources_by_target[target_id] = (
       *current,
       transition.source_step,
     )
@@ -128,13 +161,12 @@ def number_toda_group_proof_narrative_equations(
   }
 
   reference_plans = []
-  line_index_by_id = {}
+  source_line_index_by_id = {}
 
   for target_id, source_steps in sources_by_target.items():
     target_plain = plain_by_id.get(
       target_id
     )
-
     if not target_plain:
       continue
 
@@ -148,7 +180,6 @@ def number_toda_group_proof_narrative_equations(
       ),
       None,
     )
-
     if target_index is None:
       continue
 
@@ -164,7 +195,6 @@ def number_toda_group_proof_narrative_equations(
       ),
       None,
     )
-
     if connector_index is None:
       continue
 
@@ -177,7 +207,6 @@ def number_toda_group_proof_narrative_equations(
       source_plain = plain_by_id.get(
         source_id
       )
-
       if not source_plain:
         continue
 
@@ -193,39 +222,27 @@ def number_toda_group_proof_narrative_equations(
         ),
         None,
       )
-
       if source_index is None:
         continue
 
       visible_source_ids.append(
         source_id
       )
-      current_index = line_index_by_id.get(
-        source_id
+      current_index = (
+        source_line_index_by_id.get(
+          source_id
+        )
       )
-
       if (
         current_index is None
         or source_index < current_index
       ):
-        line_index_by_id[
+        source_line_index_by_id[
           source_id
         ] = source_index
 
     if not visible_source_ids:
       continue
-
-    current_target_index = line_index_by_id.get(
-      target_id
-    )
-
-    if (
-      current_target_index is None
-      or target_index < current_target_index
-    ):
-      line_index_by_id[
-        target_id
-      ] = target_index
 
     reference_plans.append(
       (
@@ -236,45 +253,44 @@ def number_toda_group_proof_narrative_equations(
       )
     )
 
-  ordered_step_ids = tuple(
-    step_id
-    for step_id, _line_index in sorted(
-      line_index_by_id.items(),
+  ordered_source_ids = tuple(
+    source_id
+    for source_id, _line_index in sorted(
+      source_line_index_by_id.items(),
       key=lambda item: item[1],
     )
   )
   number_by_id = {
-    step_id: number
-    for number, step_id in enumerate(
-      ordered_step_ids,
+    source_id: number
+    for number, source_id in enumerate(
+      ordered_source_ids,
       start=1,
     )
   }
 
   occupied_line_indices = set()
 
-  for step_id in ordered_step_ids:
-    line_index = line_index_by_id[
-      step_id
-    ]
-
+  for source_id in ordered_source_ids:
+    line_index = (
+      source_line_index_by_id[
+        source_id
+      ]
+    )
     if line_index in occupied_line_indices:
       continue
 
     proof_step = step_by_id.get(
-      step_id
+      source_id
     )
-
     if proof_step is None:
       continue
 
     tagged_line = _numbered_step_line(
       proof_step,
       number_by_id[
-        step_id
+        source_id
       ],
     )
-
     if tagged_line == lines[
       line_index
     ]:
@@ -297,21 +313,16 @@ def number_toda_group_proof_narrative_equations(
       for source_id in source_ids
       if (
         source_id in number_by_id
-        and line_index_by_id[
+        and source_line_index_by_id[
           source_id
         ] < connector_index
       )
     )
-
     if not references:
       continue
 
-    if len(
-      references
-    ) == 1:
-      reference_text = references[
-        0
-      ]
+    if len(references) == 1:
+      reference_text = references[0]
     else:
       reference_text = (
         ", ".join(
@@ -337,3 +348,7 @@ def number_toda_group_proof_narrative_equations(
   )
 
 
+========================================================================================================================
+Production code changes: none
+Repository-wide pytest: not run
+========================================================================================================================

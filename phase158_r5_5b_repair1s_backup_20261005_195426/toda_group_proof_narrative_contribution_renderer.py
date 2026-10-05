@@ -3772,139 +3772,44 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
     "これらより,",
   }
 
-  def numbered_connector_numbers(
+  def is_dangling_connector_line(
     line: str,
-  ) -> tuple[
-    int,
-    ...,
-  ] | None:
+  ) -> bool:
     stripped = line.strip()
 
+    if stripped in standalone_connectors:
+      return True
+
     if (
-      not stripped.startswith(
+      stripped.startswith(
         "("
       )
-      or not stripped.endswith(
+      and stripped.endswith(
         "より,"
       )
-      or "$" in stripped
-      or "[R" in stripped
+      and ") と (" in stripped
+      and "$" not in stripped
+      and "[R" not in stripped
     ):
-      return None
+      return True
 
-    relation_text = stripped[
-      : -len(
-        "より,"
-      )
-    ].strip()
-    parts = tuple(
-      part.strip()
-      for part in relation_text.split(
-        " と "
-      )
-    )
+    return False
 
-    if not parts:
-      return None
-
-    numbers = []
-
-    for part in parts:
-      if (
-        len(
-          part
-        ) < 3
-        or not part.startswith(
-          "("
-        )
-        or not part.endswith(
-          ")"
-        )
-      ):
-        return None
-
-      number_text = part[
-        1:-1
-      ]
-
-      if not number_text.isdigit():
-        return None
-
-      numbers.append(
-        int(
-          number_text
-        )
-      )
-
-    return tuple(
-      numbers
-    )
-
-  paragraphs = markdown.split(
-    "\n\n"
-  )
   retained_paragraphs = []
 
-  for paragraph_index, paragraph in enumerate(
-    paragraphs
+  for paragraph in markdown.split(
+    "\n\n"
   ):
     lines = paragraph.splitlines()
 
-    while lines:
-      stripped = lines[
-        -1
-      ].strip()
-
-      if stripped in standalone_connectors:
-        lines.pop()
-        continue
-
-      connector_numbers = (
-        numbered_connector_numbers(
-          stripped
-        )
-      )
-
-      if connector_numbers is None:
-        break
-
-      previous_text = "\n\n".join(
-        paragraphs[
-          :paragraph_index
+    while (
+      lines
+      and is_dangling_connector_line(
+        lines[
+          -1
         ]
       )
-      referenced_tags_exist = all(
-        (
-          r"\tag{"
-          + str(
-            number
-          )
-          + "}"
-        )
-        in previous_text
-        for number in connector_numbers
-      )
-
-      next_paragraph = next(
-        (
-          candidate.strip()
-          for candidate in paragraphs[
-            paragraph_index + 1:
-          ]
-          if candidate.strip()
-        ),
-        "",
-      )
-      has_following_derivation = (
-        "$" in next_paragraph
-      )
-
-      if (
-        referenced_tags_exist
-        and has_following_derivation
-      ):
-        break
-
+    ):
       lines.pop()
 
     if not lines:
@@ -3952,6 +3857,7 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
   return "\n\n".join(
     retained_paragraphs
   )
+
 
 
 def order_toda_group_proof_narrative_visible_relation_dependencies(
