@@ -7675,6 +7675,13 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
   rendered = (
+    insert_toda_group_proof_narrative_map_property_dependencies(
+      presentation,
+      rendered,
+      reference_entries,
+    )
+  )
+  rendered = (
     order_toda_group_proof_narrative_injective_image_order_reason(
       rendered,
       reason_sidecar,

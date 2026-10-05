@@ -160,13 +160,27 @@ def test_phase149_rc3_3_unowned_recursive_exactness_remains_hidden(
       assert latex not in rendered
 
 
-def test_phase149_rc3_3_pi6_3_calculation_chain_remains_numbered():
+def test_phase149_rc3_3_pi6_3_calculation_chain_keeps_referenced_equations_numbered():
   rendered, _records = _case_data(
     3,
     3,
   )
 
+  connector = "(1) と (2) より, "
+  equation_three = (
+    r"2\nu' = \eta_{3}^{3}"
+  )
+
   assert r"\tag{1}" in rendered
   assert r"\tag{2}" in rendered
-  assert r"\tag{3}" in rendered
-  assert "(1) と (2) より, " in rendered
+  assert r"\tag{3}" not in rendered
+  assert connector in rendered
+  assert equation_three in rendered
+  assert (
+    rendered.index(
+      connector
+    )
+    < rendered.index(
+      equation_three
+    )
+  )

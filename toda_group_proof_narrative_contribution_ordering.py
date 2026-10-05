@@ -1,4 +1,4 @@
-from collections import defaultdict, deque
+﻿from collections import defaultdict, deque
 from dataclasses import dataclass
 from enum import Enum
 
@@ -721,6 +721,44 @@ def build_toda_group_proof_narrative_ordered_contributions(
       id(occurrence.proof_step)
     )
 
+  normalized_markdown = (
+    _normalized(current_markdown)
+    if current_markdown is not None
+    else None
+  )
+  visible_step_ids_by_argument = defaultdict(set)
+
+  if normalized_markdown is not None:
+    for argument_index, argument in enumerate(arguments):
+      local_body = (
+        extract_toda_group_proof_narrative_argument_local_body_blocks(
+          presentation,
+          blocks,
+          semantic_sidecar,
+          arguments,
+          argument_index,
+        )
+      )
+
+      for block in local_body:
+        for proof_step in block.steps:
+          rendered = _render_generic_narrative_step(
+            proof_step
+          )
+
+          if not rendered:
+            continue
+
+          if (
+            _normalized(rendered)
+            in normalized_markdown
+          ):
+            visible_step_ids_by_argument[
+              argument_index
+            ].add(
+              id(proof_step)
+            )
+
   selected_owners = []
   for owner in owners:
     step_id = id(owner.proof_step)
@@ -732,7 +770,19 @@ def build_toda_group_proof_narrative_ordered_contributions(
       and _reachable(step_id, peer_id, children)
       for peer_id in occurrence_peers
     )
-    if owner.provider_anchor or has_downstream_occurrence:
+    visible_peers = visible_step_ids_by_argument[
+      owner.argument_index
+    ]
+    has_visible_downstream = any(
+      peer_id != step_id
+      and _reachable(step_id, peer_id, children)
+      for peer_id in visible_peers
+    )
+    if (
+      owner.provider_anchor
+      or has_downstream_occurrence
+      or has_visible_downstream
+    ):
       selected_owners.append(owner)
 
   selected_step_ids_by_argument = defaultdict(set)

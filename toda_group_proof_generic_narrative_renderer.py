@@ -70,6 +70,7 @@ from toda_rules import (
   TodaLemma514SigmaPrimeStatement,
   TodaLemma54Statement,
   TodaNuFamilyDefinitionStatement,
+  TodaPi32Eta2DefinitionStatement,
   TodaProp27HopfInvariantUpToSignStatement,
   TodaProp42ExactnessStatement,
   TodaProp44IsomorphismStatement,
@@ -1322,6 +1323,30 @@ def _render_generic_narrative_statement_prose(
       "$"
       + map_latex
       + "$ は零写像である."
+    )
+
+  if isinstance(
+    statement,
+    TodaPi32Eta2DefinitionStatement,
+  ):
+    return (
+      "$H("
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        statement.image
+      )
+      + "$ を満たす $"
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + r" \in "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + "$ を定める."
     )
 
   if isinstance(

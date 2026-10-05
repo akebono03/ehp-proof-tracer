@@ -81,7 +81,7 @@ def test_phase158_r5_5b_repair1v_web_verification_import_and_render():
 
   assert r"\tag{1}" in pi6
   assert r"\tag{2}" in pi6
-  assert r"\tag{3}" in pi6
+  assert r"\tag{3}" not in pi6
   assert "(1) と (2) より," in pi6
 
   equation_one = (
@@ -94,7 +94,7 @@ def test_phase158_r5_5b_repair1v_web_verification_import_and_render():
   )
   connector = "(1) と (2) より,"
   equation_three = (
-    r"2\nu' = \eta_{3}^{3}\tag{3}"
+    r"2\nu' = \eta_{3}^{3}"
   )
   order_statement = (
     r"\operatorname{ord}\left("
