@@ -1,0 +1,33 @@
+================================================================================================
+Phase 158-R5-5 — derivation completeness audit
+================================================================================================
+targets: 9
+rendered: 9
+exceptions: 0
+
+Categories:
+  VISIBLE_DERIVATION: 1
+  RENDERER_VISIBILITY_GAP: 0
+  NO_CONSUMER_IN_PROOF_GRAPH: 0
+  UNMAPPED_RENDERED_USE: 5
+  STANDALONE_CONNECTOR: 0
+
+Interpretation:
+  VISIBLE_DERIVATION = a visible 'use' premise has at least one visible direct consumer fact.
+  RENDERER_VISIBILITY_GAP = proof graph has a direct consumer, but that consumer fact is not visible in the rendered proof body.
+  NO_CONSUMER_IN_PROOF_GRAPH = visible 'use' statement has no direct consumer in the current proof graph.
+  UNMAPPED_RENDERED_USE = visible 'use' prose could not be mapped back to a generic proof step.
+  STANDALONE_CONNECTOR = connector prose has no following mathematical/conclusion line.
+
+Boundary:
+  Audit only. No repair is performed.
+  R5-5 classifies whether the next repair belongs to renderer visibility or proof/semantic data.
+  Repository-wide contract verification remains R5-6.
+
+Output:
+  audit_output/summary.txt
+  audit_output/details.txt
+  audit_output/summary.csv
+  audit_output/exceptions.csv
+  audit_output/rendered/*.md
+================================================================================================

@@ -1,0 +1,121 @@
+================================================================================================
+Phase 158-R5-5 — derivation completeness audit
+================================================================================================
+
+Production code changes: none
+Test code changes: none
+pytest: not run
+
+------------------------------------------------------------------------------------------------
+pi6_3_reference: pi_6^3
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 0
+STANDALONE_CONNECTOR: 0
+
+------------------------------------------------------------------------------------------------
+pi8_5_former_dedicated: pi_8^5
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 0
+STANDALONE_CONNECTOR: 0
+
+------------------------------------------------------------------------------------------------
+pi15_8_former_dedicated: pi_15^8
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 1
+STANDALONE_CONNECTOR: 0
+
+[UNMAPPED_RENDERED_USE]
+statement_type: 
+consumer_count: 0
+rendered: [R4]を用いる.
+
+------------------------------------------------------------------------------------------------
+pi7_4_former_legacy: pi_7^4
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 1
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 1
+STANDALONE_CONNECTOR: 0
+
+[VISIBLE_DERIVATION]
+statement_type: Toda56Nu4DecompositionStatement
+consumer_count: 1
+rendered: $\nu_{4}$ の分解を用いる.
+visible consumers:
+  - $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$
+
+[UNMAPPED_RENDERED_USE]
+statement_type: 
+consumer_count: 0
+rendered: [R2]を用いて, $\nu_{4}$ の分解を用いる.
+
+------------------------------------------------------------------------------------------------
+pi10_4_generic: pi_10^4
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 0
+STANDALONE_CONNECTOR: 0
+
+------------------------------------------------------------------------------------------------
+pi11_4_prose_target: pi_11^4
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 0
+STANDALONE_CONNECTOR: 0
+
+------------------------------------------------------------------------------------------------
+pi12_5_generic: pi_12^5
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 1
+STANDALONE_CONNECTOR: 0
+
+[UNMAPPED_RENDERED_USE]
+statement_type: 
+consumer_count: 0
+rendered: [R3]を用いる.
+
+------------------------------------------------------------------------------------------------
+pi16_9_generic: pi_16^9
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 2
+STANDALONE_CONNECTOR: 0
+
+[UNMAPPED_RENDERED_USE]
+statement_type: 
+consumer_count: 0
+rendered: [R2]を用いる.
+
+[UNMAPPED_RENDERED_USE]
+statement_type: 
+consumer_count: 0
+rendered: [R5]を用いる.
+
+------------------------------------------------------------------------------------------------
+pi4_3_small_unstable: pi_4^3
+------------------------------------------------------------------------------------------------
+VISIBLE_DERIVATION: 0
+RENDERER_VISIBILITY_GAP: 0
+NO_CONSUMER_IN_PROOF_GRAPH: 0
+UNMAPPED_RENDERED_USE: 0
+STANDALONE_CONNECTOR: 0
+
