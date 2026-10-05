@@ -87,10 +87,6 @@ $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$.
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
-これより,
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
-
 次の完全列を考える.
 
 $$\pi_{5}^{5} \xrightarrow{Δ} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ は完全である.$ は完全である.

@@ -30,9 +30,13 @@ $\Delta\left(\eta_{11}^{2}\right) = 0$.
 $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}^{2}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ.
 $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$.
 $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}^{2}\}$.
-**[R5] Proposition 5.6.**
+**[R5] (5.5).**
+$\nu_{n} = E^{n - 4}\nu_{4}$, $n \ge 5$, $2\nu_{n} = E^{n - 3}\nu'$, $4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$ が成り立つ.
+**[R6] Proposition 5.6.**
 $\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$.
-**[R6] (5.3).**
+**[R7] Proposition 5.9.**
+$\pi_{8}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}^{2}\}$.
+**[R8] (5.3).**
 $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ とすると,
 $\nu' \in \pi_{6}^{3}$.
 $2\nu' = \eta_{3}^{3}$.
@@ -62,25 +66,29 @@ $\Delta\left(\eta_{13}^{2}\right) = 0$.
 
 $\Delta\left(\iota_{11}\right) = \nu_{5}\eta_{8}\tag{2}$.
 
-(7) より,
+$\eta_{n}\nu_{n + 1} = 0$.
 
-$\eta_{n}\nu_{n + 1} = 0\tag{3}$.
+[R5]を用いて, $\Delta\left(\nu_{11}\right) = 0$.
 
 (2) より,
 
-[R3]より, $\Delta\left(\eta_{11}^{2}\right) = 0$.
-
-(8) より,
+$\eta_{5}\nu_{6} = 0$.
 
 $\eta_{5}\nu_{6} = E^{2}\nu'\eta_{8}$.
 
 $2\nu_{5} = E^{2}\nu'$.
 
-[R6]より, $H\left(\nu'\right) = \eta_{5}$.
+[R8]より, $H\left(\nu'\right) = \eta_{5}$.
 
 $H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
 
-(3) より,
+$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
+
+これより,
+
+$\eta_{3}\nu_{4} = \nu'\eta_{6}$.
+
+これより,
 
 $\eta_{6}\nu_{7} = 0$.
 
@@ -96,35 +104,19 @@ $H\left(\eta_{3}\nu_{4}\right) = \eta_{5}^{2}$.
 
 $\Delta\left(\eta_{11}\right) = \nu_{5}\eta_{8}^{2}$.
 
-(4) より,
+$4\nu_{n} = 2E^{n - 3}\nu'$.
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
-(5) より,
-
-$4\nu_{n} = 22\nu_{n}$.
-
-(6) より,
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-[R6]より, $2\nu' = \eta_{3}^{3}\tag{4}$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
-$22\nu_{n} = 4\nu_{n}\tag{5}$.
-
-$2\nu_{n} = E^{n - 3}\nu'\tag{6}$.
+$2\nu_{n} = E^{n - 3}\nu'$.
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
 [R1]を用いて, $H: \pi_{12}^{5} \to \pi_{12}^{9}$ は単射である.
 
-[R5]より, $\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$.
-
-これより,
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
+[R6]より, $\pi_{12}^{9} = \mathbb{Z}/8\{\nu_{9}\}$.
 
 $\eta_{6}\nu_{7} = 0$.
 
@@ -132,15 +124,15 @@ $\eta_{2} \wedge \nu_{4} = {-1}^{3\,3}\eta_{6}E^{3}\nu_{4}$.
 
 $\eta_{2} \wedge \nu_{4} = {-1}^{2\,3}E^{2}\nu_{4}\eta_{9}$.
 
-$\nu_{6}\eta_{9} = 0$.
+$\nu_{6}\eta_{9} = 0\tag{3}$.
 
 $\eta_{n}\nu_{n + 1} = 0$.
 
-これより,
+(3) より,
 
 $E\nu_{5}\eta_{8}^{2} = 0$.
 
-$\eta_{5}\nu_{6} = 0\tag{7}$.
+$\eta_{5}\nu_{6} = 0$.
 
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
 
@@ -152,13 +144,9 @@ $\eta_{5}\nu_{6} = E^{2}\nu'\eta_{8}$.
 
 $2\nu_{5} = E^{2}\nu'$.
 
-$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
-
-$\eta_{3}\nu_{4} = \nu'\eta_{6}\tag{8}$.
+$\eta_{3}\nu_{4} = \nu'\eta_{6}$.
 
 $H\left(\eta_{3}\nu_{4}\right) = \eta_{5}^{2}$.
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
 
 これより, $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$, この完全性と $Δ=0$ より, $\ker E=\operatorname{Im}Δ=0$ である.
 
@@ -198,17 +186,7 @@ $\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=
 
 これより, これらより, 
 
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$22\nu_{n} = 4\nu_{n}$.
 
 $2\nu_{n} = E^{n - 3}\nu'$.
 
@@ -218,37 +196,25 @@ $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
 $\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$.
 
-$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}\tag{9}$.
+$\Delta\left(\eta_{9}\right) = E\nu'\eta_{7}\tag{4}$.
 
-(9) より,
+(4) より,
 
 $\Delta\left(\eta_{9}^{2}\right) = E\nu'\eta_{7}^{2}$.
 
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$22\nu_{n} = 4\nu_{n}$.
 
 $2\nu_{n} = E^{n - 3}\nu'$.
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
-$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
-
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
 
-$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}\tag{10}$.
+$E\nu_{4}\eta_{7} = \nu_{5}\eta_{8}\tag{5}$.
 
-(10) より,
+(5) より,
 
-$E\nu_{4}\eta_{7}^{2} = \nu_{5}\eta_{8}^{2}$.
+[R7]を用いて, $E\nu_{4}\eta_{7}^{2} = \nu_{5}\eta_{8}^{2}$.
 
 次の完全列を考える.
 
@@ -258,15 +224,17 @@ $$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ は完全
 
 $$\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1}$ は完全である.$ は完全である.
 
-(12) より,
+$\eta_{4}\nu' = 0$.
 
-$\eta_{3}\nu' = 0\tag{11}$.
+これより,
+
+$\eta_{3}\nu' = 0\tag{6}$.
 
 $\eta_{4}\nu' = \eta_{4}E^{2}\nu'$.
 
 $2\eta_{4} = 0$.
 
-(11) より,
+(6) より,
 
 $\eta_{3}\nu'\eta_{6} = 0$.
 
@@ -280,15 +248,13 @@ $0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^
 
 $\pi_{8}^{5}/E^{2}\left(\pi_{6}^{3}\right) \cong \mathbb{Z}/2$.
 
-$\eta_{4}\nu' = 0\tag{12}$.
+$\eta_{4}\nu' = 0$.
 
 $\eta_{3}\nu' = 0$.
 
 $\eta_{4}\nu' = \eta_{4}E^{2}\nu'$.
 
 $2\eta_{4} = 0$.
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
 
 次の完全列を考える.
 
@@ -302,8 +268,6 @@ $$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$ は完全
 
 $0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$.
 
-$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
-
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
 
 $\eta_{6}\nu_{7} = 0$.
@@ -316,15 +280,11 @@ $\nu_{6}\eta_{9} = 0$.
 
 $\eta_{n}\nu_{n + 1} = 0$.
 
-$\Delta\left(\nu_{11}\right) = 0$.
-
 $\eta_{5}\nu_{6} = 0$.
 
 $\eta_{5}\nu_{6} = E^{2}\nu'\eta_{8}$.
 
 $2\nu_{5} = E^{2}\nu'$.
-
-$\eta_{5}\nu_{6} = 0$.
 
 $\eta_{3}\nu_{4} = \nu'\eta_{6}$.
 
@@ -340,17 +300,7 @@ $$\pi_{5}^{5} \xrightarrow{Δ} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ は完�
 
 $$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.$ は完全である.
 
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$22\nu_{n} = 4\nu_{n}$.
 
 $2\nu_{n} = E^{n - 3}\nu'$.
 
@@ -359,8 +309,6 @@ $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 次の完全列を考える.
 
 $$\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.$ は完全である.
-
-$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
 
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
 
@@ -372,17 +320,7 @@ $$\pi_{5}^{5} \xrightarrow{Δ} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3}$ は完�
 
 $$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.$ は完全である.
 
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$22\nu_{n} = 4\nu_{n}$.
 
 $2\nu_{n} = E^{n - 3}\nu'$.
 
@@ -391,8 +329,6 @@ $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 次の完全列を考える.
 
 $$\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.$ は完全である.
-
-$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
 
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
 
@@ -462,10 +398,6 @@ $\eta_{4}\nu' = \eta_{4}E^{2}\nu'$.
 
 $2\eta_{4} = 0$.
 
-$\eta_{4}\nu' = 0$.
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
-
 次の完全列を考える.
 
 $$\pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ は完全である.$ は完全である.
@@ -494,8 +426,6 @@ $$\pi_{6}^{5} \xrightarrow{Δ} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3}$ は完�
 
 $$\pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5}$ は完全である.$ は完全である.
 
-$E^{n - 3}\eta_{3} = \eta_{n}$.
-
 次の完全列を考える.
 
 $$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ は完全である.$ は完全である.
@@ -540,19 +470,7 @@ $$\pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{Δ} \pi_{4}^{2}$ は完�
 
 $$\pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{Δ} \pi_{3}^{2}$ は完全である.$ は完全である.
 
-$E^{n - 3}\eta_{3} = \eta_{n}$.
-
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$22\nu_{n} = 4\nu_{n}$.
 
 $2\nu_{n} = E^{n - 3}\nu'$.
 
@@ -562,13 +480,7 @@ $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
 $$\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.$ は完全である.
 
-$H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
-
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
-
-$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
-
-$\eta_{3}\nu_{4} = \nu'\eta_{6}$.
 
 次の完全列を考える.
 
@@ -634,25 +546,11 @@ $$\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3}$ は完全
 
 $$\pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{Δ} \pi_{1}^{1}$ は完全である.$ は完全である.
 
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$4\nu_{n} = 2E^{n - 3}\nu'$.
-
-$22\nu_{n} = 4\nu_{n}$.
 
 $2\nu_{n} = E^{n - 3}\nu'$.
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
 次の完全列を考える.
 
@@ -725,8 +623,6 @@ $$\pi_{6}^{5} \xrightarrow{Δ} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3}$ は完�
 次の完全列を考える.
 
 $$\pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5}$ は完全である.$ は完全である.
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
 
 次の完全列を考える.
 

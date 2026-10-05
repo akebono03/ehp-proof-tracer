@@ -49,27 +49,15 @@ $\operatorname{ord}\left(\nu'\right) = 4$.
 
 $\operatorname{ord}\left(\nu_{5}\right) = 8$.
 
+$4\nu_{n} = 2E^{n - 3}\nu'$.
+
 これより,
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
-(1) より,
-
-$22\nu_{n} = 4\nu_{n}\tag{1}$.
-
-$4\nu_{n} = 22\nu_{n}$.
-
-(2) より,
-
-$2\nu_{n} = E^{n - 3}\nu'\tag{2}$.
-
-$22\nu_{n} = 2E^{n - 3}\nu'$.
-
-$4\nu_{n} = 2E^{n - 3}\nu'$.
+$2\nu_{n} = E^{n - 3}\nu'$.
 
 $2E^{n - 3}\nu' = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
-
-$4\nu_{n} = \eta_{n}\eta_{n + 1}\eta_{n + 2}$.
 
 [R2]より, $H\left(\nu'\right) = \eta_{5}$.
 
@@ -78,10 +66,6 @@ $H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}$.
 $\eta_{6}=E\eta_{5}$ である.
 
 $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
-
-これより,
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
 
 次の完全列を考える.
 

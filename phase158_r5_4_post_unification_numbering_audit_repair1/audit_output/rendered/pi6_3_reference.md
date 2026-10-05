@@ -80,10 +80,6 @@ $$\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完�
 
 $$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.$ は完全である.
 
-これより,
-
-$E^{n - 3}\eta_{3} = \eta_{n}$.
-
 次の完全列を考える.
 
 $$\pi_{6}^{5} \xrightarrow{Δ} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3}$ は完全である.$ は完全である.
