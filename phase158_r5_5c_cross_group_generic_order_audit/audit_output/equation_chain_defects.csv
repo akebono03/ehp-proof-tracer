@@ -1,0 +1,6 @@
+﻿n,k,group,connector_index,connector,missing_references,late_references,next_index,next_line,next_has_tag
+3,4,pi_7^3,3,"(1) と (2) より,",(),(),4,\eta_{6}=E\eta_{5} である.,False
+5,5,pi_10^5,5,"(1) より,",(),(),6,\pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}.,False
+5,6,pi_11^5,4,"(1) より,",(),(),5,"[R3]より, \pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}.",False
+6,6,pi_12^6,4,"(1) より,",(),(),5,"[R3]より, \pi_{9}^{4} = \mathbb{Z}/2\{\nu_{4}\eta_{7}\eta_{8}\} \oplus \mathbb{Z}/2\{E\nu'\eta_{7}\eta_{8}\}.",False
+6,6,pi_12^6,13,"(2) より,",(),(),14,E\nu_{4}\eta_{7}^{2} = \nu_{5}\eta_{8}^{2}.,False

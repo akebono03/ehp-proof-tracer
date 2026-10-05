@@ -1,0 +1,29 @@
+========================================================================================
+Phase 158-R5-5c — generic public ordering cross-audit
+========================================================================================
+
+Scope:
+  current historical audit corpus: n=2..15, k=0..7, Web Narrative depth=2
+  NOTE: this coordinate window is an audit corpus only; it is NOT an architectural group-count contract.
+
+Totals:
+  audited coordinates: 112
+  rendered: 112
+  exceptions: 0
+  argument-order defects: 0
+  groups with argument-order defect: 0
+  equation-chain defects: 5
+  groups with equation-chain defect: 4
+  groups with target-position defect: 0
+
+Interpretation:
+  argument-order defect = a visible direct/support premise appears at or after its visible conclusion.
+  equation-chain defect = a numbered connector references missing/late sources or is not followed by a tagged target.
+  target-position defect = public root target is missing, QED is missing, or visible content remains after the target.
+
+Production changes: none
+Existing test changes: none
+Repository-wide pytest: not run
+
+R5-5c RESULT: FINDINGS
+Review the CSV files before changing production code. A finding is diagnostic, not automatically a defect.
