@@ -1,0 +1,47 @@
+group: pi_6^3
+n=3 k=3
+arguments=2
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$", 33)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+A1 role=ESTABLISH_ORDER interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+まず, \nu' の位数を決定するために, 次の完全列を考える.
+\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} は完全である.
+[R2]より, 2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}.
+\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}.
+(1) と (2) より,
+2\nu' = \eta_{3}^{3}\tag{3}.
+[R2]より, H\left(\nu'\right) = \eta_{5}.
+H\left(\nu'\eta_{6}\right) = H\left(\nu'\right)\eta_{6}.
+\eta_{6}=E\eta_{5} である.
+H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}.
+[R1] と E の単射性より, E(\eta_{2}^{3})=\eta_{3}^{3}\neq0 であり, 単射写像は元の位数を保つ.
+[R1]より, \pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}\eta_{3}\eta_{4}\}.
+[R5]より, H(\alpha\circ E\beta) = H(\alpha)\circ E\beta.
+[R3]より, \pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}\eta_{6}\}.
+H: \pi_{7}^{3} \to \pi_{7}^{5} は全射である.
+完全性より, \ker \Delta=\operatorname{Im}H=\pi_{7}^{5} である.
+\Delta: \pi_{7}^{5} \to \pi_{5}^{2} は零写像である.
+この完全性と Δ=0 より, \ker E=\operatorname{Im}Δ=0 である.
+E: \pi_{5}^{2} \to \pi_{6}^{3} は単射である.
+\operatorname{ord}\left(\eta_{3}^{3}\right) = 2.
+\operatorname{ord}(\eta_{3}^{3})=2 かつ 2\nu'=\eta_{3}^{3} より, 4\nu'=0 かつ 2\nu'\neq0 である.
+\operatorname{ord}\left(\nu'\right) = 4.
+最後に, \pi_{6}^{3} の群構造を決定するために, 次の完全列を考える.
+\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}.
+[R2]より, \nu' \in \pi_{6}^{3}.
+[R4]より, \pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}.
+H: \pi_{6}^{3} \to \pi_{6}^{5} は全射である.
+この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0.
+この短完全列と両端の群の位数より, 中央の群の位数は 2\cdot2=4 である.
+また, \nu' は中央の群に属し, \operatorname{ord}(\nu')=4 であるから, \nu' は中央の群を生成する.
+\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}.
+□

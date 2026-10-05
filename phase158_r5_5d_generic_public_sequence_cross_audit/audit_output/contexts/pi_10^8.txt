@@ -1,0 +1,17 @@
+group: pi_10^8
+n=8 k=2
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{10}^{8} = \\mathbb{Z}/2\\{\\eta_{8}\\eta_{9}\\}$', 4)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+\pi_{10}^{8} の群構造を決定する.
+[R1]より, \pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}.
+以上より, \pi_{10}^{8} = \mathbb{Z}/2\{\eta_{8}\eta_{9}\}.
+□

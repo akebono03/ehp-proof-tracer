@@ -1,0 +1,18 @@
+group: pi_14^8
+n=8 k=6
+arguments=1
+visible_argument_intervals=0
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=('ROOT_TARGET_NOT_VISIBLE', '$\\pi_{14}^{8} = \\mathbb{Z}/2\\{\\nu_{8}\\nu_{11}\\}$', 5)
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=None conclusion_positions=()
+
+PUBLIC PROOF BODY
+\pi_{14}^{8} の群構造を決定する.
+\pi_{13}^{7} = \mathbb{Z}/2\{\nu_{7}\nu_{10}\}
+E: \pi_{13}^{7} \to \pi_{14}^{8} は同型写像である.
+以上より, \pi_{14}^{8} = \mathbb{Z}/2\{\nu_{8}\nu_{11}\}
+□

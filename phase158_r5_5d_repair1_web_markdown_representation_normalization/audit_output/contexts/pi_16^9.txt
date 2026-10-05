@@ -1,0 +1,25 @@
+group: pi_16^9
+n=9 k=7
+arguments=3
+visible_argument_intervals=2
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=None
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=(3, 9) conclusion_positions=(9,) conclusion='$\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}$'
+A1 role=ESTABLISH_DEFINITION interval=(3, 8) conclusion_positions=(4,) conclusion='$\\sigma_{9}$ を \\(\\sigma\\)-family の元として定める.'
+A2 role=ESTABLISH_DEFINITION interval=None conclusion_positions=() conclusion="$\\sigma''' \\in \\{\\nu_{5}, 8\\iota_{8}, \\nu_{8}\\}_{3}$, $H(\\sigma''') = 4\\nu_{9}$ が成り立つ."
+
+PUBLIC PROOF BODY
+まず, \sigma''' を定める.
+次に, \sigma_{9} を定める.
+\pi_{14}^{7} = \mathbb{Z}/8\{\sigma'\}.
+[R1]を用いて, \sigma_{9} を \(\sigma\)-family の元として定める.
+最後に, \pi_{16}^{9} の群構造を決定する.
+群構造に関する結果と写像による移送の結果を合わせると, 対象の群の位数と写像の単射性が決まる.
+|\pi_{16}^{9}| = 16 であり, E^{4}: \pi_{12}^{5} \to \pi_{16}^{9} は単射である.
+\pi_{12}^{5} = \mathbb{Z}/2\{\sigma'''\}.
+以上より, \pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}.
+□

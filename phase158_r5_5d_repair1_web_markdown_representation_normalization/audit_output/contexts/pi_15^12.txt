@@ -1,0 +1,17 @@
+group: pi_15^12
+n=12 k=3
+arguments=1
+visible_argument_intervals=1
+argument_interval_findings=0
+transition_findings=0
+duplicate_conclusion_findings=0
+target_qed_finding=None
+
+ARGUMENT RECORDS
+A0 role=ESTABLISH_GROUP_STRUCTURE interval=(2, 3) conclusion_positions=(3,) conclusion='$\\pi_{15}^{12} = \\mathbb{Z}/8\\{\\nu_{12}\\}$'
+
+PUBLIC PROOF BODY
+\pi_{15}^{12} の群構造を決定する.
+[R1]より, \pi_{n + 3}^{n} = \mathbb{Z}/8\{\nu_{n}\}.
+以上より, \pi_{15}^{12} = \mathbb{Z}/8\{\nu_{12}\}.
+□
