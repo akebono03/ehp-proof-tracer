@@ -2,6 +2,8 @@ from toda_group_proof_generic_narrative_renderer import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _generic_short_exact_sequence_reason_prose,
+  _normalize_generic_eta_family_latex,
+  _render_generic_narrative_expression_latex,
   _render_generic_narrative_proof_block,
   _render_generic_narrative_step,
 )
@@ -659,9 +661,18 @@ def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
     return False
 
   try:
-    rendered = (
-      _render_generic_narrative_step(
-        proof_step
+    lhs_normalized = (
+      _normalize_generic_eta_family_latex(
+        _render_generic_narrative_expression_latex(
+          statement.lhs
+        )
+      )
+    )
+    rhs_normalized = (
+      _normalize_generic_eta_family_latex(
+        _render_generic_narrative_expression_latex(
+          statement.rhs
+        )
       )
     )
   except (
@@ -670,33 +681,14 @@ def _is_toda_group_proof_narrative_rendered_reflexive_equality_step(
   ):
     return False
 
-  if (
-    not rendered.startswith(
-      "$"
-    )
-    or not rendered.endswith(
-      "$"
-    )
-  ):
-    return False
-
-  equation = rendered[
-    1:-1
-  ]
-  separator = " = "
-
-  if separator not in equation:
-    return False
-
-  lhs_rendered, rhs_rendered = equation.split(
-    separator,
-    1,
-  )
-
   return (
-    lhs_rendered
-    == rhs_rendered
+    lhs_normalized
+    == rhs_normalized
   )
+
+
+
+
 
 
 def render_toda_group_proof_narrative_argument_body_markdown(
