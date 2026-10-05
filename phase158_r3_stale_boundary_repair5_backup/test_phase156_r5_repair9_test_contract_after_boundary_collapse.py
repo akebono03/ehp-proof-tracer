@@ -85,8 +85,9 @@ def test_phase156_r5_repair9_depth2_public_body_starts_after_53_boundary():
   assert "$\\nu'$ を定める." not in body
   assert bracket_definition in reference_part
   assert bracket_definition not in body
-  assert body
-  assert r"\pi_{7}^{3}" in body
+  assert body.startswith(
+    "まず, $\\nu'$ の位数を決定するために"
+  )
 
 
 def test_phase156_r5_repair9_depth3_public_body_starts_after_53_boundary():
@@ -110,5 +111,6 @@ def test_phase156_r5_repair9_depth3_public_body_starts_after_53_boundary():
   assert "$\\nu'$ を定める." not in body
   assert bracket_definition in reference_part
   assert bracket_definition not in body
-  assert body
-  assert r"\pi_{7}^{3}" in body
+  assert body.startswith(
+    "まず, $\\nu'$ の位数を決定するために"
+  )

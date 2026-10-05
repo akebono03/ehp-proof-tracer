@@ -98,10 +98,12 @@ def test_phase153_r3_4_reference_renderer_accepts_statement_lines_without_breaki
   )
 
   assert legacy == (
-        "**[R1] Proposition X.**"
+    "使用する結果を先にまとめる.\n\n"
+    "**[R1] Proposition X.**"
   )
   assert connected == (
-        "**[R1] Proposition X.**\n"
+    "使用する結果を先にまとめる.\n\n"
+    "**[R1] Proposition X.**\n"
     "$A = B$"
   )
 
