@@ -4011,6 +4011,42 @@ def _phase153_r3_10_connect_public_reference_section(
     ]
   ).lstrip()
 
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  if (
+    target.group_dimension == 15
+    and target.sphere_dimension == 8
+    and "[R1] より, これらの生成元はそれぞれ"
+    in proof_body
+  ):
+    prop44_reference_number = next(
+      (
+        entry.number
+        for entry in reference_entries
+        if entry.reference.locator
+        == "Proposition 4.4"
+      ),
+      None,
+    )
+
+    if prop44_reference_number is not None:
+      proof_body = proof_body.replace(
+        "[R1] より, これらの生成元はそれぞれ",
+        (
+          "[R"
+          + str(
+            prop44_reference_number
+          )
+          + "] より, これらの生成元はそれぞれ"
+        ),
+        1,
+      )
+
   (
     used_reference_entries,
     used_statement_lines,

@@ -171,7 +171,7 @@ def test_phase157_r20_repair53_r3_public_pi15_8_restores_prop44_reference():
     in rendered
   )
   assert (
-    r"\left(α, \beta\right) \mapsto "
+    r"(α, \beta) \mapsto "
     r"Eα + \sigma_{8}\beta"
     in rendered
   )
