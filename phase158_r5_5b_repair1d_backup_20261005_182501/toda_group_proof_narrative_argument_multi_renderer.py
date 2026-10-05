@@ -364,59 +364,40 @@ def render_toda_group_proof_narrative_multi_argument_markdown(
       )
       for block in evidence
     }
-
-    if (
-      argument.conclusion_block.role
-      is TodaGroupProofNarrativeMathematicalBlockRole
-      .TARGET
-    ):
-      missing_evidence_blocks = tuple(
-        block
-        for block in blocks
-        if (
-          id(
-            block
-          ) in evidence_block_ids
-          and id(
-            block
-          ) not in local_body_block_ids
-        )
+    missing_evidence_blocks = tuple(
+      block
+      for block in blocks
+      if (
+        id(
+          block
+        ) in evidence_block_ids
+        and id(
+          block
+        ) not in local_body_block_ids
       )
+    )
 
-      if missing_evidence_blocks:
-        conclusion_position = next(
-          (
-            index
-            for index, block in enumerate(
-              local_body_blocks
-            )
-            if block is argument.conclusion_block
-          ),
-          len(
+    if missing_evidence_blocks:
+      conclusion_position = next(
+        (
+          index
+          for index, block in enumerate(
             local_body_blocks
-          ),
-        )
-        local_body_blocks = (
-          local_body_blocks[
-            :conclusion_position
-          ]
-          + missing_evidence_blocks
-          + local_body_blocks[
-            conclusion_position:
-          ]
-        )
-    else:
-      local_body_blocks = tuple(
-        block
-        for block in blocks
-        if (
-          id(
-            block
-          ) in local_body_block_ids
-          or id(
-            block
-          ) in evidence_block_ids
-        )
+          )
+          if block is argument.conclusion_block
+        ),
+        len(
+          local_body_blocks
+        ),
+      )
+      local_body_blocks = (
+        local_body_blocks[
+          :conclusion_position
+        ]
+        + missing_evidence_blocks
+        + local_body_blocks[
+          conclusion_position:
+        ]
       )
 
     context_hidden_step_ids = frozenset(

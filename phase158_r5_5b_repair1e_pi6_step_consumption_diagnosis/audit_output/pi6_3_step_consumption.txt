@@ -1,0 +1,142 @@
+====================================================================================================
+Phase 158-R5-5b repair1e - pi6 step-consumption diagnosis
+====================================================================================================
+
+A. CALCULATION BLOCK INVENTORY
+----------------------------------------------------------------------------------------------------
+B8 role=calculation
+  S0 id=2828932957856 transition_participant=True type=Relation
+    $2\nu' = \eta_{3}^{3}$
+  S1 id=2828932910144 transition_participant=True type=Relation
+    $2\nu' = \eta_{3}^{3}$
+  S2 id=2828932922960 transition_participant=True type=Relation
+    $\eta_{3}^{3} = \eta_{3}^{3}$
+B13 role=calculation
+  S0 id=2828932916672 transition_participant=True type=Relation
+    $H\left(\nu'\right) = \eta_{5}$
+  S1 id=2828932909088 transition_participant=True type=Relation
+    $H\left(\nu'\right) = \eta_{5}$
+  S2 id=2828932914416 transition_participant=True type=Relation
+    $\eta_{5} = \eta_{5}$
+B18 role=calculation
+  S0 id=2828933109248 transition_participant=False type=Relation
+    $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+B22 role=calculation
+  S0 id=2828933015744 transition_participant=False type=Relation
+    $H\left(\eta_{2}\right) = \iota_{3}$
+
+B. ARGUMENT-BY-ARGUMENT CONSUMPTION
+----------------------------------------------------------------------------------------------------
+A2 ordered_position=0 role=establish_definition conclusion_block=15
+  seen_before=()
+  local_blocks=(10, 15, 16)
+  BODY:
+    $2\eta_{3} = 0$
+    
+    $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+    
+    $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  seen_after=(2828932790064, 2828932879872, 2828932889520)
+
+A1 ordered_position=1 role=establish_order conclusion_block=1
+  seen_before=(2828932790064, 2828932879872, 2828932889520)
+  local_blocks=(1, 3, 4, 8, 9, 10, 11, 12, 16, 17, 18, 19, 20)
+  calculation B8:
+    VISIBLE id=2828932957856 :: $2\nu' = \eta_{3}^{3}$
+    VISIBLE id=2828932910144 :: $2\nu' = \eta_{3}^{3}$
+    VISIBLE id=2828932922960 :: $\eta_{3}^{3} = \eta_{3}^{3}$
+  calculation B18:
+    VISIBLE id=2828933109248 :: $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+  BODY:
+    $\operatorname{ord}\left(\nu'\right) = 4$
+    
+    $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+    
+    $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$
+    
+    $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+    
+    $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$
+    
+    $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+    
+    $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+    
+    $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+    
+    これらより, 
+    
+    $2\nu' = \eta_{3}^{3}$
+    
+    これらより, 
+    
+    $2\nu' = \eta_{3}^{3}$
+    
+    $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+    
+    $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+    
+    $\pi_{i - 1}^{1} = 0$
+    
+    次の完全列を考える.
+    
+    $$\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.$ は完全である.
+    
+    次の完全列を考える.
+    
+    $$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.$ は完全である.
+  seen_after=(2828932790064, 2828932877088, 2828932879872, 2828932889520, 2828932910144, 2828932922960, 2828932957760, 2828932957856, 2828932971344, 2828932994176, 2828932994224, 2828932997248, 2828932997296, 2828933109248, 2828933110976, 2828933361872, 2828933403008, 2828933407232, 2828933410880, 2828933447744, 2828933450576)
+
+A0 ordered_position=2 role=establish_group_structure conclusion_block=0
+  seen_before=(2828932790064, 2828932877088, 2828932879872, 2828932889520, 2828932910144, 2828932922960, 2828932957760, 2828932957856, 2828932971344, 2828932994176, 2828932994224, 2828932997248, 2828932997296, 2828933109248, 2828933110976, 2828933361872, 2828933403008, 2828933407232, 2828933410880, 2828933447744, 2828933450576)
+  local_blocks=(9, 16, 10, 2, 19, 11, 17, 18, 3, 12, 20, 4, 5, 13, 21, 22, 23, 24, 14, 6, 7, 0)
+  calculation B18:
+    EXCLUDED id=2828933109248 :: $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+  calculation B13:
+    VISIBLE id=2828932916672 :: $H\left(\nu'\right) = \eta_{5}$
+    VISIBLE id=2828932909088 :: $H\left(\nu'\right) = \eta_{5}$
+    VISIBLE id=2828932914416 :: $\eta_{5} = \eta_{5}$
+  calculation B22:
+    VISIBLE id=2828933015744 :: $H\left(\eta_{2}\right) = \iota_{3}$
+  BODY:
+    $\nu' \in \pi_{6}^{3}$
+    
+    これらより, 
+    
+    $H\left(\nu'\right) = \eta_{5}$
+    
+    これらより, 
+    
+    $H\left(\nu'\right) = \eta_{5}$
+    
+    $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+    
+    $H\left(\eta_{2}\right) = \iota_{3}$
+    
+    $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+    
+    $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$
+    
+    $H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+    
+    $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+    
+    $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+    
+    次の完全列を考える.
+    
+    $$\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.$ は完全である.
+    
+    次の完全列を考える.
+    
+    $$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.$ は完全である.
+    
+    次の完全列を考える.
+    
+    $$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$ は完全である.$ は完全である.
+    
+    この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る.
+    
+    $0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+  seen_after=(2828932790016, 2828932790064, 2828932877088, 2828932879872, 2828932889520, 2828932909088, 2828932910144, 2828932910432, 2828932914416, 2828932916672, 2828932922960, 2828932957760, 2828932957856, 2828932960160, 2828932971344, 2828932994176, 2828932994224, 2828932997248, 2828932997296, 2828933015744, 2828933016128, 2828933016464, 2828933109248, 2828933110976, 2828933119184, 2828933139472, 2828933361872, 2828933403008, 2828933407232, 2828933410880, 2828933447744, 2828933450576, 2828933453648)
+
