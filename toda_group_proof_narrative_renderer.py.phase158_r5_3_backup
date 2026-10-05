@@ -4704,7 +4704,30 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
     )
   )
 
-  if presentation.max_depth >= 2:
+  phase134_24_pi15_8 = (
+    _phase134_24_render_pi15_8_narrative(
+      presentation
+    )
+  )
+
+  if phase134_24_pi15_8 is not None:
+    return (
+      _finalize_toda_group_proof_narrative_markdown(
+        _phase153_r3_10_connect_public_reference_section(
+          presentation,
+          phase134_24_pi15_8,
+        )
+      )
+    )
+
+  if (
+    _is_phase134_3_pi6_3_presentation(
+      presentation
+    )
+    or _is_phase150_rc4_generic_route_target(
+      presentation
+    )
+  ):
     semantic_sidecar = (
       build_toda_group_proof_narrative_semantic_sidecar(
         presentation
@@ -4743,6 +4766,24 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
     return (
       _finalize_toda_group_proof_narrative_markdown(
         public_rendered
+      )
+    )
+
+  if _is_phase134_9_pi8_5_presentation(
+    presentation
+  ):
+    rendered = (
+      _render_phase134_9_pi8_5_narrative_markdown(
+        presentation
+      )
+    )
+
+    return (
+      _finalize_toda_group_proof_narrative_markdown(
+        _phase153_r3_10_connect_public_reference_section(
+          presentation,
+          rendered,
+        )
       )
     )
 
