@@ -5791,17 +5791,11 @@ def _phase158_normalize_public_narrative_contract(
     )
   )
 
-  normalized = (
+  return (
     "\n".join(
       lines
     ).rstrip()
     + "\n"
-  )
-
-  return (
-    _phase136_compact_eta_powers(
-      normalized
-    )
   )
 
 def render_toda_group_proof_narrative_markdown(

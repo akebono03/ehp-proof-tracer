@@ -5418,166 +5418,6 @@ def _phase158_normalize_public_equation_numbers(
   return result
 
 
-def _phase159_restore_isomorphism_to_injective_dependency_visibility(
-  presentation: TodaGroupProofPresentation,
-  proof_body: list[str],
-) -> list[str]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "TodaGroupProofPresentation"
-    )
-
-  if not isinstance(
-    proof_body,
-    list,
-  ):
-    raise TypeError(
-      "proof_body must be a list"
-    )
-
-  dependency_pairs = []
-  visited_step_ids = set()
-
-  def visit(
-    proof_step: ProofStep,
-  ) -> None:
-    step_id = id(
-      proof_step
-    )
-
-    if step_id in visited_step_ids:
-      return
-
-    visited_step_ids.add(
-      step_id
-    )
-
-    if isinstance(
-      proof_step.conclusion,
-      TodaSuspensionInjectiveStatement,
-    ):
-      injective_map = (
-        proof_step.conclusion.map
-      )
-      isomorphism_step = next(
-        (
-          premise_step
-          for premise_step in proof_step.premises
-          if (
-            isinstance(
-              premise_step.conclusion,
-              TodaSuspensionIsomorphismStatement,
-            )
-            and premise_step.conclusion.map
-            == injective_map
-          )
-        ),
-        None,
-      )
-
-      if isomorphism_step is not None:
-        dependency_pairs.append(
-          (
-            isomorphism_step,
-            proof_step,
-          )
-        )
-
-    for premise_step in proof_step.premises:
-      visit(
-        premise_step
-      )
-
-  visit(
-    presentation.root_step
-  )
-
-  rendered = "\n".join(
-    proof_body
-  )
-
-  for (
-    isomorphism_step,
-    injective_step,
-  ) in dependency_pairs:
-    isomorphism_prose = (
-      _render_generic_narrative_step(
-        isomorphism_step
-      )
-    )
-    injective_prose = (
-      _render_generic_narrative_step(
-        injective_step
-      )
-    )
-
-    if (
-      not isomorphism_prose
-      or not injective_prose
-    ):
-      continue
-
-    has_isomorphism = (
-      isomorphism_prose in rendered
-    )
-    has_injectivity = (
-      injective_prose in rendered
-    )
-
-    if (
-      has_isomorphism
-      and has_injectivity
-    ):
-      continue
-
-    if has_injectivity:
-      rendered = rendered.replace(
-        injective_prose,
-        (
-          isomorphism_prose
-          + "\n\n"
-          + "したがって, "
-          + injective_prose
-        ),
-        1,
-      )
-      continue
-
-    if has_isomorphism:
-      rendered = rendered.replace(
-        isomorphism_prose,
-        (
-          isomorphism_prose
-          + "\n\n"
-          + "したがって, "
-          + injective_prose
-        ),
-        1,
-      )
-      continue
-
-    dependency_prose = (
-      isomorphism_prose
-      + "\n\n"
-      + "したがって, "
-      + injective_prose
-    )
-
-    if rendered:
-      rendered = (
-        dependency_prose
-        + "\n\n"
-        + rendered
-      )
-    else:
-      rendered = dependency_prose
-
-  return rendered.splitlines()
-
 def _phase158_normalize_public_narrative_contract(
   presentation: TodaGroupProofPresentation,
   rendered: str,
@@ -5753,12 +5593,6 @@ def _phase158_normalize_public_narrative_contract(
       proof_body
     )
   )
-  proof_body = (
-    _phase159_restore_isomorphism_to_injective_dependency_visibility(
-      presentation,
-      proof_body,
-    )
-  )
 
   lines = [
     title,
@@ -5767,22 +5601,22 @@ def _phase158_normalize_public_narrative_contract(
     "",
     *target_body,
     "",
+    reference_header,
+    "",
   ]
 
   if reference_body:
     lines.extend(
       (
-        reference_header,
-        "",
         *reference_body,
-        "",
-        separator,
         "",
       )
     )
 
   lines.extend(
     (
+      separator,
+      "",
       proof_header,
       "",
       *proof_body,
@@ -5791,18 +5625,13 @@ def _phase158_normalize_public_narrative_contract(
     )
   )
 
-  normalized = (
+  return (
     "\n".join(
       lines
     ).rstrip()
     + "\n"
   )
 
-  return (
-    _phase136_compact_eta_powers(
-      normalized
-    )
-  )
 
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,

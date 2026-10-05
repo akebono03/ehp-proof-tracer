@@ -1,0 +1,37 @@
+$ErrorActionPreference = "Stop"
+
+Write-Host "=============================================================="
+Write-Host "Phase 159-R1-2 closure repair5 - eta canonicalization"
+Write-Host "=============================================================="
+Write-Host "Repository root: $(Get-Location)"
+
+Write-Host ""
+Write-Host "[1/5] Apply public Narrative canonicalization repair"
+python ".\phase159_r1_2_closure_repair5_eta_canonicalization\apply_phase159_r1_2_closure_repair5.py"
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host ""
+Write-Host "[2/5] Run pi3^2 focused closure tests"
+python -m pytest -q ".\tests\test_phase159_r1_2_pi3_2_closure.py"
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host ""
+Write-Host "[3/5] Run generic dependency/canonicalization regression"
+python -m pytest -q ".\tests\test_phase157_r20_generic_dependency_rendering.py"
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host ""
+Write-Host "[4/5] Run public generic route regression"
+python -m pytest -q ".\tests\test_phase158_r5_5b_public_generic_order_route.py"
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host ""
+Write-Host "[5/5] git diff --check"
+git diff --check
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+Write-Host ""
+Write-Host "=============================================================="
+Write-Host "Phase 159-R1-2 closure repair5 verification PASS"
+Write-Host "Full pytest intentionally NOT run."
+Write-Host "=============================================================="
