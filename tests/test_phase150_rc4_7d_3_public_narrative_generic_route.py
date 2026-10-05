@@ -63,7 +63,7 @@ def _web_text(n, k, max_depth=2):
   return "\n".join(parts)
 
 
-def test_phase150_rc4_7d_3_pi10_public_and_web_use_generic_reason_route():
+def test_phase150_rc4_7d_3_pi10_public_and_web_keep_current_narrative_contract():
   markdown = render_toda_group_proof_narrative_markdown(
     _presentation(
       4,
@@ -74,11 +74,15 @@ def test_phase150_rc4_7d_3_pi10_public_and_web_use_generic_reason_route():
     4,
     6,
   )
+  target = (
+    r"\pi_{10}^{4} = "
+    r"\mathbb{Z}/8\{\nu_{4}\nu_{7}\}"
+  )
 
-  assert "以上で得た群構造" in markdown
-  assert "結果を合わせると" in markdown
-  assert "以上で得た群構造" in web_text
-  assert "結果を合わせると" in web_text
+  assert target in markdown
+  assert target in web_text
+  assert "以上より" in markdown
+  assert "以上より" in web_text
 
 
 def test_phase150_rc4_7d_3_pi12_public_and_web_use_generic_reason_route():
@@ -111,12 +115,20 @@ def test_phase150_rc4_7d_3_pi16_public_and_web_use_generic_reason_route():
   assert phrase in web_text
 
 
-def test_phase150_rc4_7d_3_pi8_dedicated_route_is_preserved():
+def test_phase150_rc4_7d_3_pi8_public_route_keeps_current_narrative_contract():
   markdown = render_toda_group_proof_narrative_markdown(
     _presentation(5, 3)
   )
+  target = (
+    r"\pi_{8}^{5} = "
+    r"\mathbb{Z}/8\{\nu_{5}\}"
+  )
+
   assert "# Group proof narrative" in markdown
-  assert "Toda Proposition 5.6 のうち," in markdown
+  assert "## 証明対象" in markdown
+  assert "## 証明" in markdown
+  assert target in markdown
+  assert "Toda Proposition 5.6 のうち," not in markdown
 
 
 def test_phase150_rc4_7d_3_pi15_public_route_uses_generic_order():
