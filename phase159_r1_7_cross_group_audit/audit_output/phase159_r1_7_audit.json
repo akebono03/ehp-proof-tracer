@@ -1,0 +1,639 @@
+{
+  "phase": "159-R1-7",
+  "production_changes": false,
+  "existing_test_changes": false,
+  "full_pytest_run": false,
+  "records": [
+    {
+      "label": "pi6_3",
+      "n": 3,
+      "k": 3,
+      "group_latex": "\\pi_{6}^{3}",
+      "section_headers": [
+        "## 証明対象",
+        "## 使用する結果",
+        "## 証明"
+      ],
+      "exact_sequence_candidates": [
+        {
+          "start_line": 3,
+          "end_line": 5,
+          "arrow_count": 3,
+          "pi_count": 4,
+          "text": "\\pi_{7}^{3} \\xrightarrow{H} \\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3}."
+        },
+        {
+          "start_line": 45,
+          "end_line": 47,
+          "arrow_count": 2,
+          "pi_count": 3,
+          "text": "\\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5}."
+        }
+      ],
+      "non_display_sequence_candidates": [
+        {
+          "line": 59,
+          "text": "$0\\longrightarrow \\pi_{5}^{2}\\xrightarrow{E} \\pi_{6}^{3}\\xrightarrow{H} \\pi_{6}^{5}\\longrightarrow 0$ は完全である."
+        }
+      ],
+      "equation_tags": {
+        "tags": [
+          {
+            "number": 1,
+            "line": 7,
+            "text": "[R2] より, $2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}\\tag{1}$."
+          },
+          {
+            "number": 2,
+            "line": 9,
+            "text": "$\\eta_{3}\\eta_{4}\\eta_{5} = \\eta_{3}^{3}\\tag{2}$."
+          }
+        ],
+        "tag_numbers": [
+          1,
+          2
+        ],
+        "tags_sequential_from_one": true,
+        "duplicate_tags": [],
+        "tags_outside_display_math": [
+          {
+            "number": 1,
+            "line": 7,
+            "text": "[R2] より, $2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}\\tag{1}$."
+          },
+          {
+            "number": 2,
+            "line": 9,
+            "text": "$\\eta_{3}\\eta_{4}\\eta_{5} = \\eta_{3}^{3}\\tag{2}$."
+          }
+        ],
+        "numbered_connector_lines": [
+          {
+            "line": 11,
+            "numbers": [
+              1,
+              2
+            ],
+            "text": "(1) と (2) より,"
+          }
+        ],
+        "undefined_connector_numbers": []
+      },
+      "map_properties": {
+        "lines": [
+          {
+            "line": 21,
+            "text": "[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ."
+          },
+          {
+            "line": 27,
+            "text": "$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射."
+          },
+          {
+            "line": 31,
+            "text": "完全性より, $\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像."
+          },
+          {
+            "line": 35,
+            "text": "完全性より, $E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射."
+          },
+          {
+            "line": 55,
+            "text": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射."
+          },
+          {
+            "line": 57,
+            "text": "この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る."
+          }
+        ],
+        "word_counts": {
+          "単射": 3,
+          "全射": 3,
+          "零写像": 1
+        },
+        "verbose_dearu_candidates": []
+      },
+      "exactness_reasons": {
+        "lines": [
+          {
+            "line": 29,
+            "text": "完全性より, $\\ker \\Delta=\\operatorname{Im}H=\\pi_{7}^{5}$ である."
+          },
+          {
+            "line": 31,
+            "text": "完全性より, $\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像."
+          },
+          {
+            "line": 33,
+            "text": "この完全性と $Δ=0$ より, $\\ker E=\\operatorname{Im}Δ=0$ である."
+          },
+          {
+            "line": 35,
+            "text": "完全性より, $E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射."
+          },
+          {
+            "line": 57,
+            "text": "この完全性と, 左の写像が単射, 右の写像が全射であることより, 次の短完全列を得る."
+          }
+        ],
+        "variant_counts": {
+          "完全性より,": 3,
+          "other_japanese": 2
+        }
+      },
+      "references": {
+        "declared_reference_numbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "used_reference_numbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "unused_declared_reference_numbers": [],
+        "undefined_used_reference_numbers": [],
+        "body_reference_lines": [
+          {
+            "line": 7,
+            "text": "[R2] より, $2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}\\tag{1}$."
+          },
+          {
+            "line": 15,
+            "text": "[R2] より, $H\\left(\\nu'\\right) = \\eta_{5}$."
+          },
+          {
+            "line": 19,
+            "text": "[R5] より, $H\\left(\\nu'\\eta_{6}\\right) = \\eta_{5}^{2}$."
+          },
+          {
+            "line": 21,
+            "text": "[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ."
+          },
+          {
+            "line": 23,
+            "text": "[R1] より, $\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$."
+          },
+          {
+            "line": 25,
+            "text": "[R3] より, $\\pi_{7}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\eta_{6}\\}$."
+          },
+          {
+            "line": 49,
+            "text": "[R2] より, $\\nu' \\in \\pi_{6}^{3}$."
+          },
+          {
+            "line": 51,
+            "text": "[R4] より, $\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$."
+          }
+        ],
+        "body_reference_style_counts": {
+          "[R#] より,": 7,
+          "other": 1
+        },
+        "nonstandard_reference_lines": [
+          {
+            "line": 21,
+            "text": "[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ."
+          }
+        ]
+      },
+      "group_notation": {
+        "lines": [
+          {
+            "line": 6,
+            "text": "\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}."
+          },
+          {
+            "line": 12,
+            "text": "$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$."
+          },
+          {
+            "line": 19,
+            "text": "$\\pi_{7}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\eta_{6}\\}$."
+          },
+          {
+            "line": 21,
+            "text": "$\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$."
+          },
+          {
+            "line": 50,
+            "text": "[R1] より, $\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}\\eta_{3}\\eta_{4}\\}$."
+          },
+          {
+            "line": 52,
+            "text": "[R3] より, $\\pi_{7}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\eta_{6}\\}$."
+          },
+          {
+            "line": 78,
+            "text": "[R4] より, $\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$."
+          },
+          {
+            "line": 91,
+            "text": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$."
+          }
+        ],
+        "possible_missing_generator_braces": []
+      },
+      "display_punctuation": {
+        "missing_terminal_punctuation_candidates": [],
+        "detached_punctuation": []
+      },
+      "target_contract": {
+        "target_section": "\\[\n\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}.\n\\]",
+        "has_unwanted_show_phrase": false
+      },
+      "pi3_specific_leak": {
+        "hits": []
+      }
+    },
+    {
+      "label": "pi8_5",
+      "n": 5,
+      "k": 3,
+      "group_latex": "\\pi_{8}^{5}",
+      "section_headers": [
+        "## 証明対象",
+        "## 使用する結果",
+        "## 証明"
+      ],
+      "exact_sequence_candidates": [],
+      "non_display_sequence_candidates": [],
+      "equation_tags": {
+        "tags": [],
+        "tag_numbers": [],
+        "tags_sequential_from_one": true,
+        "duplicate_tags": [],
+        "tags_outside_display_math": [],
+        "numbered_connector_lines": [],
+        "undefined_connector_numbers": []
+      },
+      "map_properties": {
+        "lines": [
+          {
+            "line": 27,
+            "text": "群構造に関する結果と写像による移送の結果を合わせると, 対象の群の位数と写像の単射性が決まる."
+          }
+        ],
+        "word_counts": {
+          "単射": 1
+        },
+        "verbose_dearu_candidates": []
+      },
+      "exactness_reasons": {
+        "lines": [
+          {
+            "line": 15,
+            "text": "以上より, この完全性と $Δ=0$ より, $\\ker E=\\operatorname{Im}Δ=0$ である."
+          }
+        ],
+        "variant_counts": {
+          "other_japanese": 1
+        }
+      },
+      "references": {
+        "declared_reference_numbers": [
+          1,
+          2,
+          3
+        ],
+        "used_reference_numbers": [
+          1,
+          2,
+          3
+        ],
+        "unused_declared_reference_numbers": [],
+        "undefined_used_reference_numbers": [],
+        "body_reference_lines": [
+          {
+            "line": 7,
+            "text": "[R2] より, $H\\left(\\nu'\\right) = \\eta_{5}$."
+          },
+          {
+            "line": 11,
+            "text": "[R3] より, $H\\left(\\nu'\\eta_{6}\\right) = \\eta_{5}^{2}$."
+          },
+          {
+            "line": 19,
+            "text": "[R1] より, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$."
+          }
+        ],
+        "body_reference_style_counts": {
+          "[R#] より,": 3
+        },
+        "nonstandard_reference_lines": []
+      },
+      "group_notation": {
+        "lines": [
+          {
+            "line": 6,
+            "text": "\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}."
+          },
+          {
+            "line": 12,
+            "text": "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$."
+          },
+          {
+            "line": 40,
+            "text": "[R1] より, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$."
+          },
+          {
+            "line": 50,
+            "text": "$\\pi_{8}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$."
+          },
+          {
+            "line": 52,
+            "text": "以上より, $\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}$."
+          }
+        ],
+        "possible_missing_generator_braces": [
+          {
+            "line": 50,
+            "text": "$\\pi_{8}^{5}/E^{2}\\left(\\pi_{6}^{3}\\right) \\cong \\mathbb{Z}/2$."
+          }
+        ]
+      },
+      "display_punctuation": {
+        "missing_terminal_punctuation_candidates": [],
+        "detached_punctuation": []
+      },
+      "target_contract": {
+        "target_section": "\\[\n\\pi_{8}^{5} = \\mathbb{Z}/8\\{\\nu_{5}\\}.\n\\]",
+        "has_unwanted_show_phrase": false
+      },
+      "pi3_specific_leak": {
+        "hits": []
+      }
+    },
+    {
+      "label": "pi10_4",
+      "n": 4,
+      "k": 6,
+      "group_latex": "\\pi_{10}^{4}",
+      "section_headers": [
+        "## 証明対象",
+        "## 使用する結果",
+        "## 証明"
+      ],
+      "exact_sequence_candidates": [],
+      "non_display_sequence_candidates": [],
+      "equation_tags": {
+        "tags": [],
+        "tag_numbers": [],
+        "tags_sequential_from_one": true,
+        "duplicate_tags": [],
+        "tags_outside_display_math": [],
+        "numbered_connector_lines": [],
+        "undefined_connector_numbers": []
+      },
+      "map_properties": {
+        "lines": [],
+        "word_counts": {},
+        "verbose_dearu_candidates": []
+      },
+      "exactness_reasons": {
+        "lines": [],
+        "variant_counts": {}
+      },
+      "references": {
+        "declared_reference_numbers": [
+          1,
+          2,
+          3
+        ],
+        "used_reference_numbers": [
+          1,
+          2,
+          3
+        ],
+        "unused_declared_reference_numbers": [],
+        "undefined_used_reference_numbers": [],
+        "body_reference_lines": [
+          {
+            "line": 3,
+            "text": "[R3]を用いて, $\\nu_{4}$ の分解を用いる."
+          },
+          {
+            "line": 5,
+            "text": "[R1] より, $\\pi_{9}^{3} = 0$."
+          },
+          {
+            "line": 7,
+            "text": "[R2] より, $\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$."
+          }
+        ],
+        "body_reference_style_counts": {
+          "other": 1,
+          "[R#] より,": 2
+        },
+        "nonstandard_reference_lines": [
+          {
+            "line": 3,
+            "text": "[R3]を用いて, $\\nu_{4}$ の分解を用いる."
+          }
+        ]
+      },
+      "group_notation": {
+        "lines": [
+          {
+            "line": 6,
+            "text": "\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}."
+          },
+          {
+            "line": 14,
+            "text": "$\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$."
+          },
+          {
+            "line": 27,
+            "text": "[R2] より, $\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$."
+          },
+          {
+            "line": 29,
+            "text": "以上より, $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}$."
+          }
+        ],
+        "possible_missing_generator_braces": []
+      },
+      "display_punctuation": {
+        "missing_terminal_punctuation_candidates": [],
+        "detached_punctuation": []
+      },
+      "target_contract": {
+        "target_section": "\\[\n\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}\\nu_{7}\\}.\n\\]",
+        "has_unwanted_show_phrase": false
+      },
+      "pi3_specific_leak": {
+        "hits": []
+      }
+    },
+    {
+      "label": "pi11_4",
+      "n": 4,
+      "k": 7,
+      "group_latex": "\\pi_{11}^{4}",
+      "section_headers": [
+        "## 証明対象",
+        "## 使用する結果",
+        "## 証明"
+      ],
+      "exact_sequence_candidates": [],
+      "non_display_sequence_candidates": [
+        {
+          "line": 5,
+          "text": "$\\pi_{9}^{2} \\xrightarrow{E} \\pi_{10}^{3} \\xrightarrow{H} \\pi_{10}^{5}$ は完全である."
+        }
+      ],
+      "equation_tags": {
+        "tags": [],
+        "tag_numbers": [],
+        "tags_sequential_from_one": true,
+        "duplicate_tags": [],
+        "tags_outside_display_math": [],
+        "numbered_connector_lines": [],
+        "undefined_connector_numbers": []
+      },
+      "map_properties": {
+        "lines": [
+          {
+            "line": 1,
+            "text": "完全性より, $\\Delta: \\pi_{10}^{5} \\to \\pi_{8}^{2}$ は全射."
+          },
+          {
+            "line": 7,
+            "text": "$\\Delta: \\pi_{10}^{5} \\to \\pi_{8}^{2}$ は単射."
+          },
+          {
+            "line": 15,
+            "text": "[R3]を用いて, $\\nu_{4}$ の分解写像は同型写像である."
+          }
+        ],
+        "word_counts": {
+          "全射": 1,
+          "単射": 1,
+          "同型": 1
+        },
+        "verbose_dearu_candidates": [
+          {
+            "line": 15,
+            "text": "[R3]を用いて, $\\nu_{4}$ の分解写像は同型写像である."
+          }
+        ]
+      },
+      "exactness_reasons": {
+        "lines": [
+          {
+            "line": 1,
+            "text": "完全性より, $\\Delta: \\pi_{10}^{5} \\to \\pi_{8}^{2}$ は全射."
+          }
+        ],
+        "variant_counts": {
+          "完全性より,": 1
+        }
+      },
+      "references": {
+        "declared_reference_numbers": [
+          1,
+          2,
+          3
+        ],
+        "used_reference_numbers": [
+          1,
+          2,
+          3
+        ],
+        "unused_declared_reference_numbers": [],
+        "undefined_used_reference_numbers": [],
+        "body_reference_lines": [
+          {
+            "line": 3,
+            "text": "[R1] より, $\\pi_{9}^{2} = 0$."
+          },
+          {
+            "line": 9,
+            "text": "[R1] より, $\\pi_{10}^{3} = 0$."
+          },
+          {
+            "line": 13,
+            "text": "[R2] より, $\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$, $\\pi_{7}^{3} = \\mathbb{Z}/2\\{\\nu'\\eta_{6}\\}$, $\\pi_{8}^{4} = \\mathbb{Z}/2\\{\\nu_{4}\\eta_{7}\\} \\oplus \\mathbb{Z}/2\\{E\\nu'\\eta_{7}\\}$, $\\pi_{9}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}$, $\\pi_{n + 4}^{n} = 0$, $n \\ge 6$ が成り立つ."
+          },
+          {
+            "line": 15,
+            "text": "[R3]を用いて, $\\nu_{4}$ の分解写像は同型写像である."
+          }
+        ],
+        "body_reference_style_counts": {
+          "[R#] より,": 3,
+          "other": 1
+        },
+        "nonstandard_reference_lines": [
+          {
+            "line": 15,
+            "text": "[R3]を用いて, $\\nu_{4}$ の分解写像は同型写像である."
+          }
+        ]
+      },
+      "group_notation": {
+        "lines": [
+          {
+            "line": 15,
+            "text": "$\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$, $\\pi_{7}^{3} = \\mathbb{Z}/2\\{\\nu'\\eta_{6}\\}$, $\\pi_{8}^{4} = \\mathbb{Z}/2\\{\\nu_{4}\\eta_{7}\\} \\oplus \\mathbb{Z}/2\\{E\\nu'\\eta_{7}\\}$, $\\pi_{9}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}$, $\\pi_{n + 4}^{n} = 0$, $n \\ge 6$ が成り立つ."
+          },
+          {
+            "line": 32,
+            "text": "$\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$."
+          },
+          {
+            "line": 34,
+            "text": "[R2] より, $\\pi_{6}^{2} = \\mathbb{Z}/4\\{\\eta_{2}\\nu'\\}$, $\\pi_{7}^{3} = \\mathbb{Z}/2\\{\\nu'\\eta_{6}\\}$, $\\pi_{8}^{4} = \\mathbb{Z}/2\\{\\nu_{4}\\eta_{7}\\} \\oplus \\mathbb{Z}/2\\{E\\nu'\\eta_{7}\\}$, $\\pi_{9}^{5} = \\mathbb{Z}/2\\{\\nu_{5}\\eta_{8}\\}$, $\\pi_{n + 4}^{n} = 0$, $n \\ge 6$ が成り立つ."
+          }
+        ],
+        "possible_missing_generator_braces": []
+      },
+      "display_punctuation": {
+        "missing_terminal_punctuation_candidates": [],
+        "detached_punctuation": []
+      },
+      "target_contract": {
+        "target_section": "\\[\n\\pi_{11}^{4} = 0.\n\\]",
+        "has_unwanted_show_phrase": false
+      },
+      "pi3_specific_leak": {
+        "hits": []
+      }
+    }
+  ],
+  "defect_flags": {
+    "pi6_3": [
+      "exact_sequence_not_display_math",
+      "equation_tag_outside_display_math"
+    ],
+    "pi8_5": [],
+    "pi10_4": [],
+    "pi11_4": [
+      "exact_sequence_not_display_math"
+    ]
+  },
+  "review_flags": {
+    "pi6_3": [
+      "multiple_exact_sequence_candidates",
+      "exactness_reason_style_variation",
+      "reference_connector_style_candidate"
+    ],
+    "pi8_5": [
+      "exactness_reason_style_variation",
+      "group_generator_brace_candidate"
+    ],
+    "pi10_4": [
+      "reference_connector_style_candidate"
+    ],
+    "pi11_4": [
+      "map_property_dearu_style_candidate",
+      "reference_connector_style_candidate"
+    ]
+  }
+}
