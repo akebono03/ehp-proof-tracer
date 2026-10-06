@@ -48,6 +48,15 @@ def test_phase157_r20_reference_dependencies_are_recovered_from_graph():
   ):
     assert reference in rendered
 
+  assert (
+    rendered.index(
+      "[R5]より"
+    )
+    < rendered.index(
+      "[R3]より"
+    )
+  )
+
 def test_phase157_r20_eta_family_is_canonicalized_generically():
   rendered = _render_pi6_3_r20()
 

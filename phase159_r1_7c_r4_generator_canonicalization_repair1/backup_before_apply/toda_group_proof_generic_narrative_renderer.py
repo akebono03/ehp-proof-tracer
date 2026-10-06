@@ -448,20 +448,6 @@ def _try_render_generic_narrative_expression_latex(
     return None
 
 
-def _try_render_generic_narrative_group_structure_latex(
-  group,
-) -> str | None:
-  try:
-    return render_toda_raw_group_structure_latex(
-      group
-    )
-  except (
-    TypeError,
-    ValueError,
-  ):
-    return None
-
-
 def _normalize_generic_narrative_statement_latex(
   statement,
   latex: str,
@@ -506,33 +492,15 @@ def _normalize_generic_narrative_statement_latex(
         expression
       )
     )
-    normalized_expression = None
 
-    if rendered_expression is not None:
-      normalized_expression = (
-        _render_generic_narrative_expression_latex(
-          expression
-        )
-      )
-    else:
-      rendered_expression = (
-        _try_render_generic_narrative_group_structure_latex(
-          expression
-        )
-      )
-
-      if rendered_expression is not None:
-        normalized_expression = (
-          _normalize_generic_eta_family_latex(
-            rendered_expression
-          )
-        )
-
-    if (
-      rendered_expression is None
-      or normalized_expression is None
-    ):
+    if rendered_expression is None:
       continue
+
+    normalized_expression = (
+      _render_generic_narrative_expression_latex(
+        expression
+      )
+    )
 
     expression_start = latex.find(
       rendered_expression,
