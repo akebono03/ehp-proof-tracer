@@ -6766,116 +6766,6 @@ def _phase159_inject_foundational_reference_section(
     ]
   )
 
-def _phase159_normalize_public_reference_map_property_wording(
-  rendered: str,
-) -> str:
-  if not isinstance(
-    rendered,
-    str,
-  ):
-    raise TypeError(
-      "rendered must be a str"
-    )
-
-  reference_marker = (
-    "## 使用する結果\n\n"
-  )
-  proof_boundary = (
-    "\n---\n\n## 証明"
-  )
-  reference_start = rendered.find(
-    reference_marker
-  )
-
-  if reference_start < 0:
-    return rendered
-
-  content_start = (
-    reference_start
-    + len(
-      reference_marker
-    )
-  )
-  boundary_index = rendered.find(
-    proof_boundary,
-    content_start,
-  )
-
-  if boundary_index < 0:
-    return rendered
-
-  reference_body = rendered[
-    content_start:
-    boundary_index
-  ]
-
-  pattern = re.compile(
-    r"^(?P<prefix>\$.*\$\s+は)"
-    r"(?P<property>"
-    r"単射である"
-    r"|全射である"
-    r"|同型写像である"
-    r"|零写像である"
-    r")\.$"
-  )
-
-  normalized_lines = []
-
-  replacement_by_property = {
-    "単射である": "単射",
-    "全射である": "全射",
-    "同型写像である": "同型",
-    "零写像である": "零写像",
-  }
-
-  for line in reference_body.splitlines():
-    match = pattern.match(
-      line.strip()
-    )
-
-    if match is None:
-      normalized_lines.append(
-        line
-      )
-      continue
-
-    leading = line[
-      :len(
-        line
-      )
-      - len(
-        line.lstrip()
-      )
-    ]
-
-    normalized_lines.append(
-      leading
-      + match.group(
-        "prefix"
-      )
-      + replacement_by_property[
-        match.group(
-          "property"
-        )
-      ]
-      + "."
-    )
-
-  normalized_reference = "\n".join(
-    normalized_lines
-  )
-
-  return (
-    rendered[
-      :content_start
-    ]
-    + normalized_reference
-    + rendered[
-      boundary_index:
-    ]
-  )
-
-
 def _phase159_number_public_map_property_statement(
   rendered: str,
 ) -> str:
@@ -6957,11 +6847,6 @@ def render_toda_group_proof_narrative_markdown(
     _phase159_normalize_public_map_property_wording(
       presentation,
       rendered,
-    )
-  )
-  rendered = (
-    _phase159_normalize_public_reference_map_property_wording(
-      rendered
     )
   )
   rendered = (

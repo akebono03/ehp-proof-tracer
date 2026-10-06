@@ -509,7 +509,6 @@ _FIXED_COMPONENTS_BY_REFERENCE = {
 
 
 _FIXED_RULE_COMPONENT_KEYS = {
-  "Toda Equation 5.7 nu-prime eta_6 Hopf value": "nu_prime_eta6_hopf_relation",
   "Toda (5.1) circle higher homotopy zero": "circle_higher_homotopy_zero",
   "Toda (5.1) diagonal identity group": "diagonal_identity_group",
   "Toda (5.1) low-dimensional suspension isomorphism": "diagonal_suspension_isomorphism",
@@ -601,7 +600,6 @@ _FIXED_RULE_COMPONENT_KEYS = {
 
 
 _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
-  "Toda Equation 5.7 nu-prime eta_6 Hopf value": "Equation 5.7",
   "Toda (5.1) circle higher homotopy zero": "(5.1)",
   "Toda (5.1) diagonal identity group": "(5.1)",
   "Toda (5.1) low-dimensional suspension isomorphism": "(5.1)",
