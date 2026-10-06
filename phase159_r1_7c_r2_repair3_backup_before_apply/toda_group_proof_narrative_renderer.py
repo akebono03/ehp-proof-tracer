@@ -9064,43 +9064,6 @@ def _phase159_r1_7c_exact_step_line_indices(
   )
 
 
-def _phase159_r1_7c_rendered_equality_parts(
-  proof_step: ProofStep,
-) -> tuple[
-  str,
-  str,
-] | None:
-  content = (
-    _phase159_r1_7c_rendered_step_math_content(
-      proof_step
-    )
-  )
-
-  if (
-    content is None
-    or content.count(
-      " = "
-    )
-    != 1
-  ):
-    return None
-
-  left, right = content.split(
-    " = ",
-    1,
-  )
-
-  if (
-    not left
-    or not right
-  ):
-    return None
-
-  return (
-    left,
-    right,
-  )
-
 def _phase159_r1_7c_equality_transitivity_chain_latex(
   proof_step: ProofStep,
 ) -> str | None:
@@ -9146,65 +9109,40 @@ def _phase159_r1_7c_equality_transitivity_chain_latex(
   ):
     return None
 
-  first_parts = (
-    _phase159_r1_7c_rendered_equality_parts(
-      first_step
-    )
-  )
-  second_parts = (
-    _phase159_r1_7c_rendered_equality_parts(
-      second_step
-    )
-  )
-  conclusion_parts = (
-    _phase159_r1_7c_rendered_equality_parts(
-      proof_step
-    )
-  )
-
   if (
-    first_parts is None
-    or second_parts is None
-    or conclusion_parts is None
+    first.lhs == conclusion.lhs
+    and first.rhs == second.lhs
+    and second.rhs == conclusion.rhs
   ):
-    return None
-
-  first_left, first_right = (
-    first_parts
-  )
-  second_left, second_right = (
-    second_parts
-  )
-  conclusion_left, conclusion_right = (
-    conclusion_parts
-  )
-
-  if (
-    first_left == conclusion_left
-    and first_right == second_left
-    and second_right == conclusion_right
-  ):
-    middle = first_right
+    middle = first.rhs
   elif (
-    second_left == conclusion_left
-    and second_right == first_left
-    and first_right == conclusion_right
+    second.lhs == conclusion.lhs
+    and second.rhs == first.lhs
+    and first.rhs == conclusion.rhs
   ):
-    middle = second_right
+    middle = second.rhs
   else:
     return None
 
-  if middle == conclusion_right:
+  try:
+    return (
+      render_toda_expression_latex(
+        conclusion.lhs
+      )
+      + " = "
+      + render_toda_expression_latex(
+        middle
+      )
+      + " = "
+      + render_toda_expression_latex(
+        conclusion.rhs
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
     return None
-
-  return (
-    conclusion_left
-    + " = "
-    + middle
-    + " = "
-    + conclusion_right
-  )
-
 
 
 def _phase159_r1_7c_reference_prefix(
@@ -9308,60 +9246,28 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
     first_step, second_step = (
       proof_step.premises
     )
-
-    first_parts = (
-      _phase159_r1_7c_rendered_equality_parts(
-        first_step
-      )
-    )
-    second_parts = (
-      _phase159_r1_7c_rendered_equality_parts(
-        second_step
-      )
-    )
-    conclusion_parts = (
-      _phase159_r1_7c_rendered_equality_parts(
-        proof_step
-      )
-    )
+    first = first_step.conclusion
+    second = second_step.conclusion
+    conclusion = proof_step.conclusion
 
     if (
-      first_parts is None
-      or second_parts is None
-      or conclusion_parts is None
-    ):
-      continue
-
-    first_left, first_right = (
-      first_parts
-    )
-    second_left, second_right = (
-      second_parts
-    )
-    conclusion_left, conclusion_right = (
-      conclusion_parts
-    )
-
-    if (
-      first_left == conclusion_left
-      and first_right == second_left
-      and second_right == conclusion_right
+      first.lhs == conclusion.lhs
+      and first.rhs == second.lhs
+      and second.rhs == conclusion.rhs
     ):
       ordered_steps = (
         first_step,
         second_step,
       )
-      middle = first_right
     elif (
-      second_left == conclusion_left
-      and second_right == first_left
-      and first_right == conclusion_right
+      second.lhs == conclusion.lhs
+      and second.rhs == first.lhs
+      and first.rhs == conclusion.rhs
     ):
       ordered_steps = (
         second_step,
         first_step,
       )
-      middle = second_right
     else:
       continue
 
@@ -9392,234 +9298,156 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
       len(
         first_indices
       )
-      == 1
-      and len(
+      != 1
+      or len(
         second_indices
       )
-      == 1
-      and len(
+      != 1
+      or len(
         conclusion_indices
       )
-      == 1
+      != 1
     ):
-      first_index = first_indices[
+      continue
+
+    first_index = first_indices[
+      0
+    ]
+    second_index = second_indices[
+      0
+    ]
+    conclusion_index = (
+      conclusion_indices[
         0
       ]
-      second_index = second_indices[
-        0
-      ]
-      conclusion_index = (
-        conclusion_indices[
-          0
+    )
+
+    if not (
+      first_index
+      < second_index
+      < conclusion_index
+    ):
+      continue
+
+    first_number = (
+      _phase158_public_equation_tag_number(
+        result[
+          first_index
         ]
       )
-
-      if not (
-        first_index
-        < second_index
-        < conclusion_index
-      ):
-        continue
-
-      first_number = (
-        _phase158_public_equation_tag_number(
-          result[
-            first_index
-          ]
-        )
-      )
-      second_number = (
-        _phase158_public_equation_tag_number(
-          result[
-            second_index
-          ]
-        )
-      )
-
-      if (
-        first_number is None
-        or second_number is None
-      ):
-        continue
-
-      connector_indices = tuple(
-        index
-        for index in range(
-          second_index + 1,
-          conclusion_index,
-        )
-        if (
-          _phase158_public_equation_connector_numbers(
-            result[
-              index
-            ]
-          )
-          == (
-            first_number,
-            second_number,
-          )
-        )
-      )
-
-      if len(
-        connector_indices
-      ) != 1:
-        continue
-
-      connector_index = (
-        connector_indices[
-          0
+    )
+    second_number = (
+      _phase158_public_equation_tag_number(
+        result[
+          second_index
         ]
       )
-      local_indices = frozenset(
-        (
-          first_index,
-          second_index,
-          connector_index,
-          conclusion_index,
-        )
-      )
+    )
 
+    if (
+      first_number is None
+      or second_number is None
+    ):
+      continue
+
+    connector_indices = tuple(
+      index
+      for index in range(
+        second_index + 1,
+        conclusion_index,
+      )
       if (
-        _phase159_r1_7c_equation_number_reused(
-          result,
+        _phase158_public_equation_connector_numbers(
+          result[
+            index
+          ]
+        )
+        == (
           first_number,
-          local_indices,
-        )
-        or _phase159_r1_7c_equation_number_reused(
-          result,
           second_number,
-          local_indices,
         )
-      ):
-        continue
+      )
+    )
 
-      allowed_nonblank_indices = {
+    if len(
+      connector_indices
+    ) != 1:
+      continue
+
+    connector_index = (
+      connector_indices[
+        0
+      ]
+    )
+    local_indices = frozenset(
+      (
         first_index,
         second_index,
         connector_index,
         conclusion_index,
-      }
-
-      if any(
-        result[
-          index
-        ].strip()
-        and index
-        not in allowed_nonblank_indices
-        for index in range(
-          first_index,
-          conclusion_index + 1,
-        )
-      ):
-        continue
-
-      prefix = (
-        _phase159_r1_7c_reference_prefix(
-          result[
-            first_index
-          ]
-        )
       )
-      replacement = (
-        prefix
-        + "$"
-        + chain_latex
-        + "$."
-      )
-
-      result[
-        first_index:
-        conclusion_index + 1
-      ] = [
-        replacement,
-      ]
-      continue
-
-    projected_indices = []
-
-    for index, line in enumerate(
-      result
-    ):
-      content = (
-        _phase159_r1_7c_inline_math_content(
-          line
-        )
-      )
-
-      if content is None:
-        continue
-
-      if (
-        content.startswith(
-          conclusion_left
-          + " = "
-        )
-        and content.endswith(
-          " = "
-          + middle
-        )
-      ):
-        projected_indices.append(
-          index
-        )
-        continue
-
-      if content == (
-        conclusion_left
-        + " = "
-        + middle
-      ):
-        projected_indices.append(
-          index
-        )
-
-    if len(
-      projected_indices
-    ) != 1:
-      continue
-
-    projected_index = (
-      projected_indices[
-        0
-      ]
-    )
-    line = result[
-      projected_index
-    ]
-    math_start = line.find(
-      "$"
-    )
-    math_end = line.find(
-      "$",
-      math_start + 1,
     )
 
     if (
-      math_start < 0
-      or math_end < 0
+      _phase159_r1_7c_equation_number_reused(
+        result,
+        first_number,
+        local_indices,
+      )
+      or _phase159_r1_7c_equation_number_reused(
+        result,
+        second_number,
+        local_indices,
+      )
     ):
       continue
 
-    result[
-      projected_index
-    ] = (
-      line[
-        :math_start + 1
-      ]
-      + chain_latex
-      + line[
-        math_end:
-      ]
+    allowed_nonblank_indices = {
+      first_index,
+      second_index,
+      connector_index,
+      conclusion_index,
+    }
+
+    if any(
+      result[
+        index
+      ].strip()
+      and index
+      not in allowed_nonblank_indices
+      for index in range(
+        first_index,
+        conclusion_index + 1,
+      )
+    ):
+      continue
+
+    prefix = (
+      _phase159_r1_7c_reference_prefix(
+        result[
+          first_index
+        ]
+      )
     )
+    replacement = (
+      prefix
+      + "$"
+      + chain_latex
+      + "$."
+    )
+
+    result[
+      first_index:
+      conclusion_index + 1
+    ] = [
+      replacement,
+    ]
 
   return (
     _phase158_normalize_public_equation_numbers(
       result
     )
   )
-
-
 
 
 def _phase159_r1_7c_normalize_public_equality_chains(

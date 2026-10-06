@@ -9064,43 +9064,6 @@ def _phase159_r1_7c_exact_step_line_indices(
   )
 
 
-def _phase159_r1_7c_rendered_equality_parts(
-  proof_step: ProofStep,
-) -> tuple[
-  str,
-  str,
-] | None:
-  content = (
-    _phase159_r1_7c_rendered_step_math_content(
-      proof_step
-    )
-  )
-
-  if (
-    content is None
-    or content.count(
-      " = "
-    )
-    != 1
-  ):
-    return None
-
-  left, right = content.split(
-    " = ",
-    1,
-  )
-
-  if (
-    not left
-    or not right
-  ):
-    return None
-
-  return (
-    left,
-    right,
-  )
-
 def _phase159_r1_7c_equality_transitivity_chain_latex(
   proof_step: ProofStep,
 ) -> str | None:
@@ -9146,65 +9109,40 @@ def _phase159_r1_7c_equality_transitivity_chain_latex(
   ):
     return None
 
-  first_parts = (
-    _phase159_r1_7c_rendered_equality_parts(
-      first_step
-    )
-  )
-  second_parts = (
-    _phase159_r1_7c_rendered_equality_parts(
-      second_step
-    )
-  )
-  conclusion_parts = (
-    _phase159_r1_7c_rendered_equality_parts(
-      proof_step
-    )
-  )
-
   if (
-    first_parts is None
-    or second_parts is None
-    or conclusion_parts is None
+    first.lhs == conclusion.lhs
+    and first.rhs == second.lhs
+    and second.rhs == conclusion.rhs
   ):
-    return None
-
-  first_left, first_right = (
-    first_parts
-  )
-  second_left, second_right = (
-    second_parts
-  )
-  conclusion_left, conclusion_right = (
-    conclusion_parts
-  )
-
-  if (
-    first_left == conclusion_left
-    and first_right == second_left
-    and second_right == conclusion_right
-  ):
-    middle = first_right
+    middle = first.rhs
   elif (
-    second_left == conclusion_left
-    and second_right == first_left
-    and first_right == conclusion_right
+    second.lhs == conclusion.lhs
+    and second.rhs == first.lhs
+    and first.rhs == conclusion.rhs
   ):
-    middle = second_right
+    middle = second.rhs
   else:
     return None
 
-  if middle == conclusion_right:
+  try:
+    return (
+      render_toda_expression_latex(
+        conclusion.lhs
+      )
+      + " = "
+      + render_toda_expression_latex(
+        middle
+      )
+      + " = "
+      + render_toda_expression_latex(
+        conclusion.rhs
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
     return None
-
-  return (
-    conclusion_left
-    + " = "
-    + middle
-    + " = "
-    + conclusion_right
-  )
-
 
 
 def _phase159_r1_7c_reference_prefix(
@@ -9308,61 +9246,34 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
     first_step, second_step = (
       proof_step.premises
     )
-
-    first_parts = (
-      _phase159_r1_7c_rendered_equality_parts(
-        first_step
-      )
-    )
-    second_parts = (
-      _phase159_r1_7c_rendered_equality_parts(
-        second_step
-      )
-    )
-    conclusion_parts = (
-      _phase159_r1_7c_rendered_equality_parts(
-        proof_step
-      )
-    )
+    first = first_step.conclusion
+    second = second_step.conclusion
+    conclusion = proof_step.conclusion
 
     if (
-      first_parts is None
-      or second_parts is None
-      or conclusion_parts is None
+      first.lhs == conclusion.lhs
+      and first.rhs == second.lhs
+      and second.rhs == conclusion.rhs
     ):
+      ordered_steps = (
+        first_step,
+        second_step,
+      )
+      middle = first.rhs
+    elif (
+      second.lhs == conclusion.lhs
+      and second.rhs == first.lhs
+      and first.rhs == conclusion.rhs
+    ):
+      ordered_steps = (
+        second_step,
+        first_step,
+      )
+      middle = second.rhs
+    else:
       continue
 
-    first_left, first_right = (
-      first_parts
-    )
-    second_left, second_right = (
-      second_parts
-    )
-    conclusion_left, conclusion_right = (
-      conclusion_parts
-    )
-
-    if (
-      first_left == conclusion_left
-      and first_right == second_left
-      and second_right == conclusion_right
-    ):
-      ordered_steps = (
-        first_step,
-        second_step,
-      )
-      middle = first_right
-    elif (
-      second_left == conclusion_left
-      and second_right == first_left
-      and first_right == conclusion_right
-    ):
-      ordered_steps = (
-        second_step,
-        first_step,
-      )
-      middle = second_right
-    else:
+    if middle == conclusion.rhs:
       continue
 
     first_indices = (
@@ -9536,6 +9447,23 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
       ]
       continue
 
+    try:
+      lhs_latex = (
+        render_toda_expression_latex(
+          conclusion.lhs
+        )
+      )
+      middle_latex = (
+        render_toda_expression_latex(
+          middle
+        )
+      )
+    except (
+      TypeError,
+      ValueError,
+    ):
+      continue
+
     projected_indices = []
 
     for index, line in enumerate(
@@ -9552,12 +9480,12 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
 
       if (
         content.startswith(
-          conclusion_left
+          lhs_latex
           + " = "
         )
         and content.endswith(
           " = "
-          + middle
+          + middle_latex
         )
       ):
         projected_indices.append(
@@ -9566,9 +9494,9 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
         continue
 
       if content == (
-        conclusion_left
+        lhs_latex
         + " = "
-        + middle
+        + middle_latex
       ):
         projected_indices.append(
           index
@@ -9618,7 +9546,6 @@ def _phase159_r1_7c_collapse_equality_transitivity_chains(
       result
     )
   )
-
 
 
 
