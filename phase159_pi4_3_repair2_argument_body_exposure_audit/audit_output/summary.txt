@@ -1,0 +1,66 @@
+================================================================================
+Phase 159 - pi_4^3 repair2 Argument body exposure audit
+================================================================================
+Production code changes: none
+Existing test changes: none
+
+depth: 2
+presentation nodes: 7
+closure nodes: 9
+blocks: 8
+arguments: 1
+
+Argument:
+  role: establish_group_structure
+  direct supporting blocks: [1, 2]
+  child arguments: []
+  conclusion block: 0
+
+Method evidence blocks: [7]
+Exactness components: 1
+Primary exactness component blocks: [7]
+Recursive argument body blocks: [3, 6, 4, 1, 5, 2, 0]
+Local body blocks used by renderer: [3, 6, 7, 4, 1, 5, 2, 0]
+Frontier-hidden step count: 5
+
+All blocks:
+  [0] target :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  [1] group_structure :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$ | $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+  [2] calculation :: $\eta_{3} = \eta_{3}$
+  [3] other :: Toda pi_4^3 exactness Delta image equals E kernel
+  [4] map_property :: $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+  [5] other :: `TodaEtaFamilyDefinitionStatement`
+  [6] group_structure :: $\pi_{4}^{5} = 0$
+  [7] exactness :: $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+Renderer local body:
+  [3] other :: Toda pi_4^3 exactness Delta image equals E kernel
+  [6] group_structure :: $\pi_{4}^{5} = 0$
+  [7] exactness :: $\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+  [4] map_property :: $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+  [1] group_structure :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$ | $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+  [5] other :: `TodaEtaFamilyDefinitionStatement`
+  [2] calculation :: $\eta_{3} = \eta_{3}$
+  [0] target :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+Multi-argument markdown:
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+以上より, 
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+Interpretation guide:
+  If recursive body contains ker(E), zero, exactness, and E-surjective but local body does not, the loss is in local-body selection.
+  If local body contains them but multi markdown omits them, the loss is in frontier hiding or body rendering/suppression.
+  If recursive body itself lacks them, the dependency graph or argument-body traversal is the defect.
+  Steps outside the semantic closure remain a separate depth/closure issue.
+
+Boundary:
+  Audit only. No production repair is performed.
+  Repository-wide pytest is not run.
+================================================================================

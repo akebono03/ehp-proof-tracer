@@ -1,0 +1,9 @@
+block_index,role,step_count,steps
+3,other,1,Toda pi_4^3 exactness Delta image equals E kernel
+6,group_structure,1,$\pi_{4}^{5} = 0$
+7,exactness,1,$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+4,map_property,1,$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+1,group_structure,2,$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$ | $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+5,other,1,`TodaEtaFamilyDefinitionStatement`
+2,calculation,1,$\eta_{3} = \eta_{3}$
+0,target,1,$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$

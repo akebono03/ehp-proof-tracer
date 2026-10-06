@@ -1,0 +1,10 @@
+closure_index,shortest_depth,focus_kind,failure_stage,statement_type,inference_rule,in_raw_depth2,in_closure,block_index,block_role,argument_locations,public_body_positions,public_visible_exact,generic_rendered
+0,,pi4_3_Z2_eta3,PUBLIC_VISIBLE,Relation,Toda pi_4^3 eta_3 generator notation,True,True,0,target,"[(0, 'establish_group_structure', 'conclusion')]","(2,)",True,$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+1,,pi4_3_Z2_eta3,PUBLIC_VISIBLE,Relation,Toda pi_4^3 finite cyclic quotient calculation,True,True,1,group_structure,"[(0, 'establish_group_structure', 'support')]","(2,)",True,$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+2,,,LOST_BEFORE_PUBLIC_BODY,Relation,Toda eta_3 notation suspension bridge,True,True,2,calculation,"[(0, 'establish_group_structure', 'support')]",(),False,$\eta_{3} = \eta_{3}$
+3,,pi3_2_Z_eta2,LOST_BEFORE_PUBLIC_BODY,Relation,,True,True,1,group_structure,"[(0, 'establish_group_structure', 'support')]",(),False,$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+4,,kernel_E_Z_2eta2,NOT_OWNED_BY_ARGUMENT,TodaSuspensionKernelFreeCyclicStatement,Toda pi_4^3 exactness Delta image equals E kernel,True,True,3,other,[],(),False,Toda pi_4^3 exactness Delta image equals E kernel
+5,,E_surjective,NOT_OWNED_BY_ARGUMENT,TodaSuspensionSurjectiveStatement,Toda pi_4^3 E-H exactness zero-right suspension surjectivity,True,True,4,map_property,[],(),False,$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+6,,,NOT_OWNED_BY_ARGUMENT,TodaEtaFamilyDefinitionStatement,,True,True,5,other,[],(),False,`TodaEtaFamilyDefinitionStatement`
+7,,,NOT_IN_RAW_DEPTH2,TodaPrimaryGroupZeroStatement,,False,True,6,group_structure,[],(),False,$\pi_{4}^{5} = 0$
+8,,exact_E_H,NOT_IN_RAW_DEPTH2,TodaProp42ExactnessStatement,,False,True,7,exactness,[],(),False,$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.

@@ -1,0 +1,215 @@
+from toda_calculation_facade import (
+  build_standard_toda_report,
+)
+from toda_group_proof_narrative_argument_local_body import (
+  extract_toda_group_proof_narrative_argument_local_body_blocks,
+)
+from toda_group_proof_narrative_argument_multi_renderer import (
+  _toda_group_proof_narrative_argument_frontier_hidden_step_ids,
+  render_toda_group_proof_narrative_multi_argument_markdown,
+)
+from toda_group_proof_narrative_arguments import (
+  build_toda_group_proof_narrative_arguments,
+)
+from toda_group_proof_narrative_blocks import (
+  build_toda_group_proof_narrative_blocks,
+)
+from toda_group_proof_narrative_semantics import (
+  build_toda_group_proof_narrative_semantic_closure_presentation,
+  build_toda_group_proof_narrative_semantic_sidecar,
+)
+from toda_group_proof_presentation import (
+  build_toda_group_proof_presentation,
+)
+from toda_group_result_proof_replay import (
+  build_toda_group_result_proof_replay,
+)
+from toda_rules import (
+  TodaEtaFamilyDefinitionStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
+  TodaSuspensionSurjectiveStatement,
+)
+
+
+def _phase159_repair2_pi4_3_narrative_data():
+  report = build_standard_toda_report(
+    n=3,
+    k=1,
+  )
+
+  group_result = (
+    report.candidates[0]
+    .source_candidate
+    .group_result
+  )
+
+  replay = (
+    build_toda_group_result_proof_replay(
+      group_result,
+      max_depth=2,
+    )
+  )
+
+  presentation = (
+    build_toda_group_proof_presentation(
+      replay
+    )
+  )
+
+  presentation = (
+    build_toda_group_proof_narrative_semantic_closure_presentation(
+      presentation
+    )
+  )
+
+  sidecar = (
+    build_toda_group_proof_narrative_semantic_sidecar(
+      presentation
+    )
+  )
+
+  blocks = (
+    build_toda_group_proof_narrative_blocks(
+      presentation,
+      sidecar,
+    )
+  )
+
+  arguments = (
+    build_toda_group_proof_narrative_arguments(
+      presentation,
+      blocks,
+      sidecar,
+    )
+  )
+
+  assert len(arguments) == 1
+
+  local_body_blocks = (
+    extract_toda_group_proof_narrative_argument_local_body_blocks(
+      presentation,
+      blocks,
+      sidecar,
+      arguments,
+      0,
+    )
+  )
+
+  hidden_ids = (
+    _toda_group_proof_narrative_argument_frontier_hidden_step_ids(
+      presentation,
+      blocks,
+      local_body_blocks,
+      sidecar,
+      arguments[0],
+    )
+  )
+
+  return (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+    local_body_blocks,
+    hidden_ids,
+  )
+
+
+def test_phase159_repair2_protects_group_structure_direct_premise_prerequisites():
+  (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+    local_body_blocks,
+    hidden_ids,
+  ) = _phase159_repair2_pi4_3_narrative_data()
+
+  protected_steps = tuple(
+    step
+    for block in local_body_blocks
+    for step in block.steps
+    if (
+      isinstance(
+        step.conclusion,
+        TodaSuspensionKernelFreeCyclicStatement,
+      )
+      or isinstance(
+        step.conclusion,
+        TodaSuspensionSurjectiveStatement,
+      )
+    )
+  )
+
+  assert protected_steps
+  assert all(
+    id(step) not in hidden_ids
+    for step in protected_steps
+  )
+
+
+def test_phase159_repair2_keeps_internal_eta_definition_hidden():
+  (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+    local_body_blocks,
+    hidden_ids,
+  ) = _phase159_repair2_pi4_3_narrative_data()
+
+  eta_definition_steps = tuple(
+    step
+    for block in local_body_blocks
+    for step in block.steps
+    if isinstance(
+      step.conclusion,
+      TodaEtaFamilyDefinitionStatement,
+    )
+  )
+
+  assert eta_definition_steps
+  assert all(
+    id(step) in hidden_ids
+    for step in eta_definition_steps
+  )
+
+
+def test_phase159_repair2_pi4_3_markdown_exposes_kernel_and_surjectivity():
+  (
+    presentation,
+    blocks,
+    sidecar,
+    arguments,
+    local_body_blocks,
+    hidden_ids,
+  ) = _phase159_repair2_pi4_3_narrative_data()
+
+  rendered = (
+    render_toda_group_proof_narrative_multi_argument_markdown(
+      presentation,
+      blocks,
+      sidecar,
+      arguments,
+    )
+  )
+
+  assert (
+    "Toda pi_4^3 exactness "
+    "Delta image equals E kernel"
+    in rendered
+  )
+  assert (
+    r"E: \pi_{3}^{2} \to "
+    r"\pi_{4}^{3}"
+    in rendered
+  )
+  assert (
+    r"\pi_{3}^{2} = "
+    r"\mathbb{Z}\{\eta_{2}\}"
+    in rendered
+  )
+  assert (
+    "TodaEtaFamilyDefinitionStatement"
+    not in rendered
+  )

@@ -1,0 +1,150 @@
+================================================================================
+Phase 159 pi_4^3 repair2b - pi_6^3 regression root-cause audit
+================================================================================
+Production code changes: none
+Existing test changes: none
+
+A. Current Prop 5.1 builder result
+prop51 rule=Toda Proposition 5.1 finite-dimensional integration
+prop51 premise count=4
+  premise[0] type=Relation
+    rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+    rule=Toda pi_3^2 free cyclic generator transport
+    reference=
+  premise[1] type=Relation
+    rendered=$H\left(\eta_{2}\right) = \iota_{3}$
+    rule=Toda pi_3^2 eta_2 Hopf relation
+    reference=
+  premise[2] type=TodaDeltaImageUpToSignStatement
+    rendered=$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+    rule=Toda Proposition 5.1 Delta iota_5
+    reference=Proposition 5.1
+  premise[3] type=Relation
+    rendered=$\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$
+    rule=Toda higher eta-family finite-cyclic generator bridge
+    reference=
+direct Delta premise count=1
+
+B. pi_6^3 Reference entries
+  [R1] Proposition 5.6
+    Relation :: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+    Relation :: $\operatorname{ord}\left(\nu'\right) = 4$
+    Relation :: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$
+    TodaSuspensionInjectiveStatement :: $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+    Relation :: $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+    TodaDeltaZeroStatement :: $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+  [R2] (5.3)
+    HomotopyGroupMembershipStatement :: $\nu' \in \pi_{6}^{3}$
+    Toda53NuPrimeBracketSpecializationStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+    Relation :: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+    TodaBracketMembershipStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+    Relation :: $H\left(\nu'\right) = \eta_{5}$
+  [R3] Proposition 5.3
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+    Relation :: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+    TodaSuspensionIsomorphismStatement :: $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+  [R4] Lemma 5.4
+    Relation :: $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+  [R5] Proposition 5.1
+    Relation :: $2\eta_{3} = 0$
+    TodaProp51FiniteDimensionalStatement :: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+    TodaDeltaImageUpToSignStatement :: $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+  [R6] (5.2)
+    Toda52CompositionIsomorphismStatement :: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+  [R7] (5.2)
+    Relation :: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$
+  [R8] Proposition 4.4
+    TodaProp44IsomorphismStatement :: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+    TodaProp44SecondSummandRestrictionStatement :: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+Reference has Proposition 4.4=True
+
+C. pi_6^3 Argument transitions
+  transition[0] role=derivation sources=[2, 3, 4, 5, 6, 7] target=0
+    connector=以上より, 
+  transition[1] role=derivation sources=[8, 3, 4] target=1
+    connector=以上より, 
+  transition[2] role=support sources=[10] target=15
+    connector=None
+
+D. pi_6^3 blocks
+  block[0] role=target
+    Relation :: $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+  block[1] role=order
+    Relation :: $\operatorname{ord}\left(\nu'\right) = 4$
+    Relation :: $\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+  block[2] role=membership
+    HomotopyGroupMembershipStatement :: $\nu' \in \pi_{6}^{3}$
+      ref=(5.3)
+  block[3] role=group_structure
+    Relation :: $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$
+    Relation :: $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+    Relation :: $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$
+  block[4] role=map_property
+    TodaSuspensionInjectiveStatement :: $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+    TodaDeltaZeroStatement :: $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+  block[5] role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$ は完全である.
+  block[6] role=map_property
+    TodaHopfInvariantSurjectiveStatement :: $H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+  block[7] role=group_structure
+    Relation :: $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$
+  block[8] role=calculation
+    Relation :: $2\nu' = \eta_{3}^{3}$
+    Relation :: $2\nu' = \eta_{3}\eta_{4}\eta_{5}$
+      ref=(5.3)
+    Relation :: $\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}$
+  block[9] role=reference
+    Toda53NuPrimeBracketSpecializationStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$ が成り立つ.
+      ref=(5.3)
+  block[10] role=precondition
+    Relation :: $2\eta_{3} = 0$
+      ref=Proposition 5.1
+  block[11] role=reference
+    Toda52CompositionIsomorphismStatement :: $\eta_{2}\circ -: \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+      ref=(5.2)
+    TodaProp44IsomorphismStatement :: $(\beta, γ) \mapsto E\beta + \eta_{2}γ: \pi_{i - 1}^{1} \oplus \pi_{i}^{3} \to \pi_{i}^{2}$ は同型写像である.
+      ref=Proposition 4.4
+    TodaProp44SecondSummandRestrictionStatement :: 分解写像の第二成分は $\eta_{2}γ$ で与えられる.
+      ref=Proposition 4.4
+  block[12] role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+  block[13] role=calculation
+    Relation :: $H\left(\nu'\right) = \eta_{5}$
+    Relation :: $H\left(\nu'\right) = \eta_{5}$
+      ref=(5.3)
+    Relation :: $\eta_{5} = \eta_{5}$
+  block[14] role=reference
+    TodaProp51FiniteDimensionalStatement :: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+      ref=Proposition 5.1
+  block[15] role=definition
+    TodaBracketMembershipStatement :: $\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$
+      ref=(5.3)
+  block[16] role=group_structure
+    Relation :: $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+  block[17] role=map_property
+    TodaSuspensionIsomorphismStatement :: $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+  block[18] role=calculation
+    Relation :: $\eta_{3}\eta_{3} = \eta_{3}^{2}$
+  block[19] role=group_structure
+    TodaPrimaryGroupZeroStatement :: $\pi_{i - 1}^{1} = 0$
+  block[20] role=exactness
+    TodaProp42ExactnessStatement :: $\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.
+  block[21] role=group_structure
+    Relation :: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+  block[22] role=calculation
+    Relation :: $H\left(\eta_{2}\right) = \iota_{3}$
+  block[23] role=map_property
+    TodaDeltaImageUpToSignStatement :: $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+      ref=Proposition 5.1
+  block[24] role=group_structure
+    Relation :: $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$
+
+Interpretation targets:
+  1. If Proposition 4.4 is already absent from Reference entries, the regression is upstream of rendering.
+  2. If the transition that formerly produced '(4) と (5) より' has different source blocks or connector text, the provenance/argument graph changed before final rendering.
+  3. If both defects coexist after repair1b/1c, repair1 must be adjusted without restoring the legacy Phase50 public route.
+
+AUDIT_RESULT=PASS
+================================================================================

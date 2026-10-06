@@ -1,0 +1,8 @@
+parent_index,parent_focus,parent_type,premise_index,premise_focus,premise_type,premise_slot
+0,pi4_3_Z2_eta3,Relation,1,pi4_3_Z2_eta3,Relation,0
+0,pi4_3_Z2_eta3,Relation,2,,Relation,1
+1,pi4_3_Z2_eta3,Relation,3,pi3_2_Z_eta2,Relation,0
+1,pi4_3_Z2_eta3,Relation,4,kernel_E_Z_2eta2,TodaSuspensionKernelFreeCyclicStatement,1
+1,pi4_3_Z2_eta3,Relation,5,E_surjective,TodaSuspensionSurjectiveStatement,2
+5,E_surjective,TodaSuspensionSurjectiveStatement,7,,TodaPrimaryGroupZeroStatement,0
+5,E_surjective,TodaSuspensionSurjectiveStatement,8,exact_E_H,TodaProp42ExactnessStatement,1

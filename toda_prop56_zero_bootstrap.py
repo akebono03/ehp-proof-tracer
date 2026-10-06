@@ -292,44 +292,10 @@ def _build_prop51_step() -> ProofStep:
     "H(eta_2)",
   )
 
-  delta_whitehead_step = _find_unique_step(
-    phase50[
-      "result"
-    ].steps,
-    lambda step: (
-      isinstance(
-        step.conclusion,
-        TodaDeltaImageUpToSignStatement,
-      )
-      and isinstance(
-        step.conclusion.positive_value,
-        WhiteheadProduct,
-      )
-    ),
-    "Delta(iota_5)=+-Whitehead square",
-  )
-
-  whitehead_two_eta2_step = _find_unique_step(
-    phase50[
-      "result"
-    ].steps,
-    lambda step: isinstance(
-      step.conclusion,
-      TodaPi32WhiteheadSquareUpToSignStatement,
-    ),
-    "Whitehead square=+-2eta_2",
-  )
-
-  delta_result = run_inference_until_stable_with_history(
-    toda_delta_iota5_two_eta2_up_to_sign_inference_rule(),
-    (
-      delta_whitehead_step,
-      whitehead_two_eta2_step,
-    ),
-  )
-
   delta_step = _find_unique_step(
-    delta_result.steps,
+    phase50[
+      "result"
+    ].steps,
     lambda step: (
       isinstance(
         step.conclusion,
@@ -341,6 +307,21 @@ def _build_prop51_step() -> ProofStep:
       )
       and step.conclusion.positive_value.coefficient
       == 2
+      and (
+        step.inference_rule
+        is not None
+      )
+      and (
+        step.inference_rule
+        .literature_reference
+        is not None
+      )
+      and (
+        step.inference_rule
+        .literature_reference
+        .locator
+        == "Proposition 5.1"
+      )
     ),
     "Delta(iota_5)=+-2eta_2",
   )
@@ -494,7 +475,6 @@ def _build_prop51_step() -> ProofStep:
     lambda step: step.conclusion == expected,
     "Toda Proposition 5.1",
   )
-
 
 def _build_n3_suspension_isomorphism_step(
   prop51_step: ProofStep,
