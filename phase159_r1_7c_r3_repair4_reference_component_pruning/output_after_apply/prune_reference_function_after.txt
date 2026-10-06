@@ -1,0 +1,203 @@
+def prune_toda_group_proof_narrative_root_zero_direct_premise_references(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+  statement_lines_by_reference_number,
+):
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "statement_lines_by_reference_number must be a dict"
+    )
+
+  plan = (
+    _phase159_r1_7c_r3_root_zero_direct_premise_plan(
+      presentation
+    )
+  )
+
+  if plan is None:
+    return (
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+
+  (
+    support_records,
+    decomposition_step,
+    _,
+    _,
+  ) = plan
+
+  required_records = tuple(
+    (
+      support_step,
+      support_kind,
+      summand,
+    )
+    for (
+      summand,
+      support_step,
+      support_kind,
+    ) in support_records
+  ) + (
+    (
+      decomposition_step,
+      "decomposition",
+      None,
+    ),
+  )
+
+  required_by_reference = {}
+
+  for (
+    required_step,
+    required_kind,
+    target_group,
+  ) in required_records:
+    reference = (
+      extract_toda_group_proof_step_literature_reference(
+        required_step
+      )
+    )
+
+    if reference is None:
+      continue
+
+    required_by_reference.setdefault(
+      reference,
+      [],
+    ).append(
+      (
+        required_step,
+        required_kind,
+        target_group,
+      )
+    )
+
+  if not required_by_reference:
+    return (
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+
+  pruned_entries = []
+
+  for entry in reference_entries:
+    required_for_entry = (
+      required_by_reference.get(
+        entry.reference,
+      )
+    )
+
+    if not required_for_entry:
+      pruned_entries.append(
+        entry
+      )
+      continue
+
+    required_step_ids = {
+      id(
+        required_step
+      )
+      for (
+        required_step,
+        _,
+        _,
+      ) in required_for_entry
+    }
+
+    retained_steps = tuple(
+      proof_step
+      for proof_step in entry.proof_steps
+      if id(
+        proof_step
+      ) in required_step_ids
+    )
+
+    if not retained_steps:
+      pruned_entries.append(
+        entry
+      )
+      continue
+
+    pruned_entries.append(
+      replace(
+        entry,
+        proof_steps=retained_steps,
+      )
+    )
+
+  pruned_entries = tuple(
+    pruned_entries
+  )
+  pruned_lines = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      pruned_entries,
+    )
+  )
+
+  for entry in pruned_entries:
+    required_for_entry = (
+      required_by_reference.get(
+        entry.reference,
+      )
+    )
+
+    if not required_for_entry:
+      continue
+
+    aggregate_records = tuple(
+      (
+        required_step,
+        target_group,
+      )
+      for (
+        required_step,
+        required_kind,
+        target_group,
+      ) in required_for_entry
+      if required_kind == "aggregate_zero"
+    )
+
+    if len(
+      aggregate_records
+    ) != 1:
+      continue
+
+    (
+      aggregate_step,
+      target_group,
+    ) = aggregate_records[0]
+    component_line = (
+      _phase159_r1_7c_r3_repair4_aggregate_zero_component_line(
+        aggregate_step.conclusion,
+        target_group,
+      )
+    )
+
+    if component_line is None:
+      continue
+
+    pruned_lines[
+      entry.number
+    ] = (
+      component_line,
+    )
+
+  return (
+    pruned_entries,
+    pruned_lines,
+  )
+
+

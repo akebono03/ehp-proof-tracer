@@ -156,7 +156,7 @@ def test_phase157_r5_r6_pi6_reference_53_displays_bracket_definition():
 
   assert (
     re.search(
-      r"\*\*\[R\d+\] \(5\.3\)\.\*\*",
+      r"\*\*\[R\d+\] Equation 5\.3\.\*\*",
       reference_part,
     )
     is not None
