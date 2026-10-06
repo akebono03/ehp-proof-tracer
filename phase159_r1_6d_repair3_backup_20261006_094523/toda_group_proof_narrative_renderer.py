@@ -8003,6 +8003,16 @@ def _phase159_r1_6d_reorder_target_group_fact_after_surjectivity(
       "rendered must be a str"
     )
 
+  reference_number = (
+    _phase159_r1_6c_reference_number(
+      rendered,
+      "(5.1)",
+    )
+  )
+
+  if reference_number is None:
+    return rendered
+
   all_steps = (
     _phase159_r1_6c_recursive_proof_steps(
       presentation.root_step
@@ -8019,11 +8029,52 @@ def _phase159_r1_6d_reorder_target_group_fact_after_surjectivity(
     target_group = (
       surjective_step.conclusion.map.target_group
     )
-    target_group_latex = (
-      render_toda_primary_group_latex(
-        target_group
+
+    target_group_step = next(
+      (
+        proof_step
+        for proof_step in all_steps
+        if (
+          isinstance(
+            proof_step.conclusion,
+            Relation,
+          )
+          and proof_step.conclusion.lhs
+          == target_group
+          and (
+            _phase159_r1_6c_step_reference_locator(
+              proof_step
+            )
+            == "(5.1)"
+          )
+        )
+      ),
+      None,
+    )
+
+    if target_group_step is None:
+      continue
+
+    target_group_line = (
+      "[R"
+      + str(
+        reference_number
+      )
+      + "] より, "
+      + _phase159_r1_6c_compact_map_property_line(
+        _render_generic_narrative_step(
+          target_group_step
+        )
       )
     )
+
+    source_paragraph = (
+      target_group_line
+      + "\n\n"
+    )
+
+    if source_paragraph not in rendered:
+      continue
 
     rendered_surjective = (
       _phase159_r1_6c_compact_map_property_line(
@@ -8033,17 +8084,17 @@ def _phase159_r1_6d_reorder_target_group_fact_after_surjectivity(
       )
     )
 
-    surjective_match = re.match(
+    match = re.match(
       r"^\$(?P<math>.+)\$ は全射\.$",
       rendered_surjective,
     )
 
-    if surjective_match is None:
+    if match is None:
       continue
 
     display_prefix = (
       "\\[\n"
-      + surjective_match.group(
+      + match.group(
         "math"
       )
       + r"\quad\text{は全射}. \qquad ("
@@ -8068,94 +8119,62 @@ def _phase159_r1_6d_reorder_target_group_fact_after_surjectivity(
       "\n\\]"
     )
 
-    target_group_pattern = re.compile(
-      r"^\[R[0-9]+\] より, \$"
-      + re.escape(
-        target_group_latex
-      )
-      + r" = .+\$\.$",
-      flags=re.MULTILINE,
+    source_index = rendered.find(
+      source_paragraph
     )
 
-    target_group_match = (
-      target_group_pattern.search(
-        rendered
-      )
-    )
-
-    if target_group_match is None:
+    if source_index < 0:
       continue
-
-    target_group_line = (
-      target_group_match.group(
-        0
-      )
-    )
-
-    if (
-      target_group_match.start()
-      > display_end
-    ):
-      continue
-
-    source_start = (
-      target_group_match.start()
-    )
-    source_end = (
-      target_group_match.end()
-    )
-
-    while (
-      source_end < len(
-        rendered
-      )
-      and rendered[
-        source_end
-      ]
-      == "\n"
-    ):
-      source_end += 1
 
     without_source = (
       rendered[
-        :source_start
+        :source_index
       ]
       + rendered[
-        source_end:
+        source_index
+        + len(
+          source_paragraph
+        ):
       ]
     )
 
-    display_start = without_source.find(
-      display_prefix
-    )
+    if source_index < display_start:
+      display_start = without_source.find(
+        display_prefix
+      )
 
-    if display_start < 0:
-      continue
+      if display_start < 0:
+        continue
 
-    display_end = without_source.find(
-      "\n\\]",
-      display_start,
-    )
+      display_end = without_source.find(
+        "\n\\]",
+        display_start,
+      )
 
-    if display_end < 0:
-      continue
+      if display_end < 0:
+        continue
 
-    display_end += len(
-      "\n\\]"
+      display_end += len(
+        "\n\\]"
+      )
+
+    insertion = (
+      "\n\n"
+      + target_group_line
     )
 
     return (
       without_source[
         :display_end
       ]
-      + "\n\n"
-      + target_group_line
+      + insertion
       + without_source[
         display_end:
       ]
     )
 
   return rendered
+
 
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
