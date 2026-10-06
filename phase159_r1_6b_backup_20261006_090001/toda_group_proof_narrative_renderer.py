@@ -1,4 +1,3 @@
-import re
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
@@ -6766,69 +6765,6 @@ def _phase159_inject_foundational_reference_section(
     ]
   )
 
-def _phase159_number_public_map_property_statement(
-  rendered: str,
-) -> str:
-  if not isinstance(
-    rendered,
-    str,
-  ):
-    raise TypeError(
-      "rendered must be a str"
-    )
-
-  pattern = re.compile(
-    r"^\$(?P<map>.+?)"
-    r"\\tag\{(?P<number>[0-9]+)\}"
-    r"\$ は"
-    r"(?P<property>単射|全射|同型|零写像)"
-    r"\.$"
-  )
-
-  lines = []
-
-  for line in rendered.splitlines():
-    match = pattern.match(
-      line.strip()
-    )
-
-    if match is None:
-      lines.append(
-        line
-      )
-      continue
-
-    leading = line[
-      :len(
-        line
-      )
-      - len(
-        line.lstrip()
-      )
-    ]
-
-    lines.append(
-      leading
-      + "$"
-      + match.group(
-        "map"
-      )
-      + r" \text{ は"
-      + match.group(
-        "property"
-      )
-      + r"}. \tag{"
-      + match.group(
-        "number"
-      )
-      + "}$"
-    )
-
-  return "\n".join(
-    lines
-  )
-
-
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
@@ -6847,11 +6783,6 @@ def render_toda_group_proof_narrative_markdown(
     _phase159_normalize_public_map_property_wording(
       presentation,
       rendered,
-    )
-  )
-  rendered = (
-    _phase159_number_public_map_property_statement(
-      rendered
     )
   )
 

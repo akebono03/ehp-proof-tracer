@@ -104,58 +104,6 @@ _PROPOSITION_22_COMPONENTS = (
 )
 
 
-_EQUATION_51_COMPONENTS = (
-  TodaFixedStatementComponent(
-    reference_locator="(5.1)",
-    component_key="circle_higher_homotopy_zero",
-    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
-    order=None,
-    range_text="i > 1",
-    range_is_explicit_in_current_aggregate=True,
-  ),
-  TodaFixedStatementComponent(
-    reference_locator="(5.1)",
-    component_key="sphere_connectivity_zero",
-    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
-    order=None,
-    range_text="i < n",
-    range_is_explicit_in_current_aggregate=True,
-  ),
-  TodaFixedStatementComponent(
-    reference_locator="(5.1)",
-    component_key="stable_negative_zero",
-    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
-    order=None,
-    range_text="k < 0",
-    range_is_explicit_in_current_aggregate=True,
-  ),
-  TodaFixedStatementComponent(
-    reference_locator="(5.1)",
-    component_key="diagonal_identity_group",
-    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
-    order=None,
-    range_text=None,
-    range_is_explicit_in_current_aggregate=True,
-  ),
-  TodaFixedStatementComponent(
-    reference_locator="(5.1)",
-    component_key="stable_zero_stem",
-    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
-    order=None,
-    range_text=None,
-    range_is_explicit_in_current_aggregate=True,
-  ),
-  TodaFixedStatementComponent(
-    reference_locator="(5.1)",
-    component_key="diagonal_suspension_isomorphism",
-    statement_role=TodaLiteratureStatementRole.OTHER,
-    order=None,
-    range_text=None,
-    range_is_explicit_in_current_aggregate=False,
-  ),
-)
-
-
 _PROPOSITION_51_COMPONENTS = (
   TodaFixedStatementComponent(
     reference_locator="Proposition 5.1",
@@ -493,7 +441,6 @@ _EQUATION_55_COMPONENTS = (
 )
 
 _FIXED_COMPONENTS_BY_REFERENCE = {
-  "(5.1)": _EQUATION_51_COMPONENTS,
   "Proposition 2.2": _PROPOSITION_22_COMPONENTS,
   "Proposition 5.1": _PROPOSITION_51_COMPONENTS,
   "Proposition 5.3": _PROPOSITION_53_COMPONENTS,
@@ -509,9 +456,6 @@ _FIXED_COMPONENTS_BY_REFERENCE = {
 
 
 _FIXED_RULE_COMPONENT_KEYS = {
-  "Toda (5.1) circle higher homotopy zero": "circle_higher_homotopy_zero",
-  "Toda (5.1) diagonal identity group": "diagonal_identity_group",
-  "Toda (5.1) low-dimensional suspension isomorphism": "diagonal_suspension_isomorphism",
   "Toda Prop.2.2 right formula": "hopf_right_composition_formula",
   "Toda Proposition 5.11 finite-dimensional integration": None,
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
@@ -600,9 +544,6 @@ _FIXED_RULE_COMPONENT_KEYS = {
 
 
 _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
-  "Toda (5.1) circle higher homotopy zero": "(5.1)",
-  "Toda (5.1) diagonal identity group": "(5.1)",
-  "Toda (5.1) low-dimensional suspension isomorphism": "(5.1)",
   "Toda Prop.2.2 right formula": "Proposition 2.2",
   "Toda Proposition 5.11 finite-dimensional integration": "Proposition 5.11",
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (

@@ -50,7 +50,6 @@ from proof import (
   apply_inference_match,
   find_inference_match,
   run_inference_until_stable_with_history,
-  FoundationalReferenceIdentity,
 )
 from relation_rules import (
   equality_preserved_under_left_composition_inference_rule,
@@ -233,44 +232,16 @@ def _build_phase49_result():
       conclusion=pi_2_1_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
-      inference_rule=InferenceRule(
-        name=(
-          "Toda (5.1) circle higher homotopy zero"
-        ),
-        literature_reference=LiteratureReference(
-          label="Toda (5.1)",
-          locator="(5.1)",
-        ),
-      ),
     ),
     ProofStep(
       conclusion=pi_3_3_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
-      inference_rule=InferenceRule(
-        name=(
-          "Toda (5.1) diagonal identity group"
-        ),
-        literature_reference=LiteratureReference(
-          label="Toda (5.1)",
-          locator="(5.1)",
-        ),
-      ),
     ),
     ProofStep(
       conclusion=e_pi_1_1_to_pi_2_2_isomorphism_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
-      inference_rule=InferenceRule(
-        name=(
-          "Toda (5.1) low-dimensional "
-          "suspension isomorphism"
-        ),
-        literature_reference=LiteratureReference(
-          label="Toda (5.1)",
-          locator="(5.1)",
-        ),
-      ),
     ),
     ProofStep(
       conclusion=TodaProp42ExactnessStatement(

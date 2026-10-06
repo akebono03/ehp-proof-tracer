@@ -1,4 +1,3 @@
-import re
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
@@ -6576,77 +6575,52 @@ def _phase159_render_foundational_reference_section(
 
   entries = []
   index_by_key = {}
-  seen_step_ids = set()
 
-  def visit(
-    proof_step: ProofStep,
-  ) -> None:
-    step_id = id(
-      proof_step
-    )
-
-    if step_id in seen_step_ids:
-      return
-
-    seen_step_ids.add(
-      step_id
-    )
-
+  for node in presentation.nodes:
+    proof_step = node.proof_step
     identity = (
       proof_step.foundational_reference
     )
 
-    if identity is not None:
-      if not isinstance(
-        identity,
-        FoundationalReferenceIdentity,
-      ):
-        raise TypeError(
-          "foundational_reference must be a "
-          "FoundationalReferenceIdentity or None"
-        )
+    if identity is None:
+      continue
 
-      existing_index = (
-        index_by_key.get(
-          identity.key
-        )
+    if not isinstance(
+      identity,
+      FoundationalReferenceIdentity,
+    ):
+      raise TypeError(
+        "foundational_reference must be a "
+        "FoundationalReferenceIdentity or None"
       )
 
-      if existing_index is None:
-        index_by_key[
-          identity.key
-        ] = len(
-          entries
-        )
-        entries.append(
+    existing_index = index_by_key.get(
+      identity.key
+    )
+
+    if existing_index is None:
+      index_by_key[
+        identity.key
+      ] = len(
+        entries
+      )
+      entries.append(
+        [
+          identity,
           [
-            identity,
-            [
-              proof_step,
-            ],
-          ]
-        )
-      else:
-        entries[
-          existing_index
-        ][
-          1
-        ].append(
-          proof_step
-        )
+            proof_step,
+          ],
+        ]
+      )
+      continue
 
-    for premise in proof_step.premises:
-      if isinstance(
-        premise,
-        ProofStep,
-      ):
-        visit(
-          premise
-        )
-
-  visit(
-    presentation.root_step
-  )
+    entries[
+      existing_index
+    ][
+      1
+    ].append(
+      proof_step
+    )
 
   if not entries:
     return ""
@@ -6693,6 +6667,7 @@ def _phase159_render_foundational_reference_section(
     lines
   )
 
+
 def _phase159_inject_foundational_reference_section(
   presentation: TodaGroupProofPresentation,
   rendered: str,
@@ -6718,7 +6693,7 @@ def _phase159_inject_foundational_reference_section(
     "## 使用する結果\n\n"
   )
   proof_boundary = (
-    "---\n\n## 証明"
+    "\n---\n\n## 証明"
   )
   reference_start = rendered.find(
     reference_marker
@@ -6760,72 +6735,9 @@ def _phase159_inject_foundational_reference_section(
       :content_start
     ]
     + replacement
-    + "\n\n"
     + rendered[
       boundary_index:
     ]
-  )
-
-def _phase159_number_public_map_property_statement(
-  rendered: str,
-) -> str:
-  if not isinstance(
-    rendered,
-    str,
-  ):
-    raise TypeError(
-      "rendered must be a str"
-    )
-
-  pattern = re.compile(
-    r"^\$(?P<map>.+?)"
-    r"\\tag\{(?P<number>[0-9]+)\}"
-    r"\$ は"
-    r"(?P<property>単射|全射|同型|零写像)"
-    r"\.$"
-  )
-
-  lines = []
-
-  for line in rendered.splitlines():
-    match = pattern.match(
-      line.strip()
-    )
-
-    if match is None:
-      lines.append(
-        line
-      )
-      continue
-
-    leading = line[
-      :len(
-        line
-      )
-      - len(
-        line.lstrip()
-      )
-    ]
-
-    lines.append(
-      leading
-      + "$"
-      + match.group(
-        "map"
-      )
-      + r" \text{ は"
-      + match.group(
-        "property"
-      )
-      + r"}. \tag{"
-      + match.group(
-        "number"
-      )
-      + "}$"
-    )
-
-  return "\n".join(
-    lines
   )
 
 
@@ -6847,11 +6759,6 @@ def render_toda_group_proof_narrative_markdown(
     _phase159_normalize_public_map_property_wording(
       presentation,
       rendered,
-    )
-  )
-  rendered = (
-    _phase159_number_public_map_property_statement(
-      rendered
     )
   )
 

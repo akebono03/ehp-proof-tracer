@@ -233,43 +233,41 @@ def _build_phase49_result():
       conclusion=pi_2_1_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
-      inference_rule=InferenceRule(
-        name=(
-          "Toda (5.1) circle higher homotopy zero"
-        ),
-        literature_reference=LiteratureReference(
-          label="Toda (5.1)",
-          locator="(5.1)",
-        ),
+      foundational_reference=(
+        FoundationalReferenceIdentity(
+          key="sphere.circle.higher_zero",
+          label=(
+            "Circle higher homotopy vanishing"
+          ),
+        )
       ),
     ),
     ProofStep(
       conclusion=pi_3_3_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
-      inference_rule=InferenceRule(
-        name=(
-          "Toda (5.1) diagonal identity group"
-        ),
-        literature_reference=LiteratureReference(
-          label="Toda (5.1)",
-          locator="(5.1)",
-        ),
+      foundational_reference=(
+        FoundationalReferenceIdentity(
+          key="sphere.identity_group",
+          label="Sphere identity group",
+        )
       ),
     ),
     ProofStep(
       conclusion=e_pi_1_1_to_pi_2_2_isomorphism_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
-      inference_rule=InferenceRule(
-        name=(
-          "Toda (5.1) low-dimensional "
-          "suspension isomorphism"
-        ),
-        literature_reference=LiteratureReference(
-          label="Toda (5.1)",
-          locator="(5.1)",
-        ),
+      foundational_reference=(
+        FoundationalReferenceIdentity(
+          key=(
+            "sphere.low_dimensional."
+            "suspension_isomorphism"
+          ),
+          label=(
+            "Low-dimensional suspension "
+            "isomorphism"
+          ),
+        )
       ),
     ),
     ProofStep(
