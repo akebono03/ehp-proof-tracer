@@ -4524,89 +4524,6 @@ def order_toda_group_proof_narrative_order_support(
   )
 
 
-def suppress_toda_group_proof_narrative_literal_reflexive_equalities(
-  markdown: str,
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  retained = []
-
-  for paragraph in markdown.split(
-    "\n\n"
-  ):
-    comparable = paragraph.strip()
-
-    if comparable.startswith(
-      "[R"
-    ):
-      marker_end = comparable.find(
-        "]"
-      )
-
-      if marker_end >= 0:
-        suffix = comparable[
-          marker_end + 1:
-        ]
-
-        for prefix in (
-          "より, ",
-          "を用いて, ",
-        ):
-          if suffix.startswith(
-            prefix
-          ):
-            comparable = suffix[
-              len(
-                prefix
-              ):
-            ]
-            break
-
-    comparable = comparable.rstrip(
-      "."
-    ).strip()
-
-    if (
-      comparable.startswith(
-        "$"
-      )
-      and comparable.endswith(
-        "$"
-      )
-    ):
-      equation = comparable[
-        1:-1
-      ]
-
-      if equation.count(
-        "="
-      ) == 1:
-        lhs, rhs = equation.split(
-          "=",
-          1,
-        )
-
-        if (
-          lhs.strip()
-          == rhs.strip()
-        ):
-          continue
-
-    retained.append(
-      paragraph
-    )
-
-  return "\n\n".join(
-    retained
-  )
-
-
 def suppress_toda_group_proof_narrative_reflexive_equalities(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -8804,8 +8721,9 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
   )
 
   rendered = (
-    suppress_toda_group_proof_narrative_literal_reflexive_equalities(
-      rendered
+    suppress_toda_group_proof_narrative_reflexive_equalities(
+      presentation,
+      rendered,
     )
   )
 
@@ -8872,6 +8790,14 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       )
     )
 
+  rendered = (
+    link_toda_group_proof_narrative_unmarked_reference_consumers(
+      presentation,
+      rendered,
+      reference_entries,
+    )
+  )
+
   if "[R" in rendered:
     (
       reference_entries,
@@ -8895,10 +8821,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       statement_lines_by_reference_number,
     )
   )
-
-  if "[R" not in rendered:
-    reference_entries = ()
-    statement_lines_by_reference_number = {}
 
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(

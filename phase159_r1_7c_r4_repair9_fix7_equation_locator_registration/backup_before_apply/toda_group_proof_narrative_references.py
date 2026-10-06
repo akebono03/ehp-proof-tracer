@@ -61,12 +61,7 @@ def _infer_toda_group_proof_literature_reference_from_rule_name(
   )
   if named_match is not None:
     kind, number = named_match.groups()
-
-    if kind == "Equation":
-      locator = f"({number})"
-    else:
-      locator = f"{kind} {number}"
-
+    locator = f"{kind} {number}"
     return LiteratureReference(
       label=f"Toda {locator}",
       locator=locator,

@@ -58,17 +58,8 @@ def test_phase157_r20_repair30_eta_bridge_and_hopf_support_remain():
     r"$\eta_{6}=E\eta_{5}$.",
     r"$H\left(\nu'\right) = \eta_{5}",
     r"$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}",
+    r"$2\nu' = \eta_{3}^{3}",
   )
 
   for text in required:
     assert text in body
-
-  assert (
-    r"$2\nu' = \eta_{3}^{3}"
-    in body
-    or (
-      r"$2\nu' = \eta_{3}\eta_{4}\eta_{5}"
-      r" = \eta_{3}^{3}$"
-      in body
-    )
-  )

@@ -8895,8 +8895,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       statement_lines_by_reference_number,
     )
   )
-
-  if "[R" not in rendered:
+  else:
     reference_entries = ()
     statement_lines_by_reference_number = {}
 
