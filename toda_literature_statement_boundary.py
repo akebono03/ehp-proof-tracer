@@ -508,11 +508,17 @@ _FIXED_COMPONENTS_BY_REFERENCE = {
 }
 
 
+_FIXED_COMPONENTS_BY_REFERENCE[
+  "(5.1)"
+] = _EQUATION_51_COMPONENTS
+
 _FIXED_RULE_COMPONENT_KEYS = {
   "Toda Equation 5.7 nu-prime eta_6 Hopf value": "nu_prime_eta6_hopf_relation",
   "Toda (5.1) circle higher homotopy zero": "circle_higher_homotopy_zero",
   "Toda (5.1) diagonal identity group": "diagonal_identity_group",
   "Toda (5.1) low-dimensional suspension isomorphism": "diagonal_suspension_isomorphism",
+  "Toda Proposition 5.1 pi_3^2 group relation": "pi3_2_group_relation",
+  "Toda Proposition 5.1 Delta iota_5": "delta_iota5_relation",
   "Toda Prop.2.2 right formula": "hopf_right_composition_formula",
   "Toda Proposition 5.11 finite-dimensional integration": None,
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
@@ -605,6 +611,8 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
   "Toda (5.1) circle higher homotopy zero": "(5.1)",
   "Toda (5.1) diagonal identity group": "(5.1)",
   "Toda (5.1) low-dimensional suspension isomorphism": "(5.1)",
+  "Toda Proposition 5.1 pi_3^2 group relation": "Proposition 5.1",
+  "Toda Proposition 5.1 Delta iota_5": "Proposition 5.1",
   "Toda Prop.2.2 right formula": "Proposition 2.2",
   "Toda Proposition 5.11 finite-dimensional integration": "Proposition 5.11",
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
@@ -967,6 +975,18 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME.update(
     'Toda Proposition 5.9 pi_9^4 decomposition': 'Proposition 5.9',
   }
 )
+
+_FIXED_COMPONENTS_BY_REFERENCE[
+  "(5.1)"
+] = _EQUATION_51_COMPONENTS
+
+_FIXED_RULE_COMPONENT_KEYS[
+  "Toda (5.1) sphere connectivity zero"
+] = "sphere_connectivity_zero"
+
+_REFERENCE_LOCATOR_BY_FIXED_RULE_NAME[
+  "Toda (5.1) sphere connectivity zero"
+] = "(5.1)"
 
 _TRACKED_REFERENCE_LOCATORS = frozenset(
   _FIXED_COMPONENTS_BY_REFERENCE

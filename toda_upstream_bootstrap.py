@@ -208,6 +208,31 @@ def build_toda_45_stable_isomorphism_step(
   )
 
 
+
+
+def _toda_fixed_reference_metadata_rule(
+  name: str,
+  locator: str,
+) -> InferenceRule:
+  return InferenceRule(
+    name=name,
+    description=(
+      "Attach fixed Toda literature provenance "
+      "to an existing GIVEN fact."
+    ),
+    literature_reference=LiteratureReference(
+      label="Toda " + locator,
+      author="H. Toda",
+      title=(
+        "Composition Methods in "
+        "Homotopy Groups of Spheres"
+      ),
+      year=1962,
+      locator=locator,
+    ),
+  )
+
+
 def _build_phase49_result():
   pi_2_1 = TodaPrimaryGroup(
     group_dimension=2,
@@ -493,11 +518,23 @@ def _build_phase50_result():
       conclusion=pi_5_5_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=(
+        _toda_fixed_reference_metadata_rule(
+          'Toda (5.1) diagonal identity group',
+          '(5.1)',
+        )
+      ),
     ),
     ProofStep(
       conclusion=pi_4_5_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=(
+        _toda_fixed_reference_metadata_rule(
+          'Toda (5.1) sphere connectivity zero',
+          '(5.1)',
+        )
+      ),
     ),
     ProofStep(
       conclusion=delta_map,
@@ -541,6 +578,12 @@ def _build_phase50_result():
       ),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=(
+        _toda_fixed_reference_metadata_rule(
+          'Toda Proposition 5.1 pi_3^2 group relation',
+          'Proposition 5.1',
+        )
+      ),
     ),
     ProofStep(
       conclusion=toda_eta_family_definition_statement(

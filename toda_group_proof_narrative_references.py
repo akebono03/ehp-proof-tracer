@@ -686,8 +686,25 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
       )
     )
 
+  retained_entries = sorted(
+    retained_entries,
+    key=lambda entry: (
+      0
+      if entry.reference.locator
+      == "(5.1)"
+      else 1
+    ),
+  )
+
   return tuple(
-    retained_entries
+    replace(
+      entry,
+      number=number,
+    )
+    for number, entry in enumerate(
+      retained_entries,
+      start=1,
+    )
   )
 
 
