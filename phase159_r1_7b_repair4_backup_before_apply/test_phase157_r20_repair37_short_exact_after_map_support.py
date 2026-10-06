@@ -1,5 +1,3 @@
-import re
-
 from toda_calculation_facade import (
   build_standard_toda_report,
 )
@@ -41,67 +39,30 @@ def _body_pi6_3_repair37() -> str:
   )[1]
 
 
-def _normalized_display_blocks(
-  markdown: str,
-) -> tuple[
-  str,
-  ...,
-]:
-  blocks = re.findall(
-    r"\\\[\s*(.*?)\s*\\\]",
-    markdown,
-    flags=re.DOTALL,
-  )
-
-  return tuple(
-    re.sub(
-      r"\s+",
-      "",
-      block,
-    ).rstrip(
-      "."
-    )
-    for block in blocks
-  )
-
-
 def test_phase157_r20_repair37_short_exact_follows_surjectivity():
   body = _body_pi6_3_repair37()
 
   surjectivity = (
     r"$H: \pi_{6}^{3} \to \pi_{6}^{5}$ "
-    "は全射."
+    "は全射である."
   )
   reason = (
     "この完全性と, 左の写像が単射, "
     "右の写像が全射であることより, "
     "次の短完全列を得る."
   )
-  normalized_short_exact = re.sub(
-    r"\s+",
-    "",
-    (
-      r"0\longrightarrow \pi_{5}^{2}"
-      r"\xrightarrow{E} \pi_{6}^{3}"
-      r"\xrightarrow{H} \pi_{6}^{5}"
-      r"\longrightarrow 0"
-    ),
+  short_exact = (
+    "\\[\n"
+    r"0\longrightarrow \pi_{5}^{2}"
+    r"\xrightarrow{E} \pi_{6}^{3}"
+    r"\xrightarrow{H} \pi_{6}^{5}"
+    "\\longrightarrow 0.\n"
+    "\\]"
   )
 
   assert surjectivity in body
   assert reason in body
-  assert normalized_short_exact in (
-    _normalized_display_blocks(
-      body
-    )
-  )
-
-  short_exact_start = body.index(
-    r"\[",
-    body.index(
-      reason
-    ),
-  )
+  assert short_exact in body
 
   assert body.index(
     surjectivity
@@ -110,7 +71,9 @@ def test_phase157_r20_repair37_short_exact_follows_surjectivity():
   )
   assert body.index(
     reason
-  ) < short_exact_start
+  ) < body.index(
+    short_exact
+  )
 
 
 def test_phase157_r20_repair37_short_exact_follows_injectivity():
@@ -118,33 +81,19 @@ def test_phase157_r20_repair37_short_exact_follows_injectivity():
 
   injectivity = (
     r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ "
-    "は単射."
+    "は単射である."
   )
-  normalized_short_exact = re.sub(
-    r"\s+",
-    "",
-    (
-      r"0\longrightarrow \pi_{5}^{2}"
-      r"\xrightarrow{E} \pi_{6}^{3}"
-      r"\xrightarrow{H} \pi_{6}^{5}"
-      r"\longrightarrow 0"
-    ),
-  )
-
-  assert injectivity in body
-  assert normalized_short_exact in (
-    _normalized_display_blocks(
-      body
-    )
-  )
-
-  short_exact_start = body.index(
-    r"\[",
-    body.index(
-      injectivity
-    ),
+  short_exact = (
+    "\\[\n"
+    r"0\longrightarrow \pi_{5}^{2}"
+    r"\xrightarrow{E} \pi_{6}^{3}"
+    r"\xrightarrow{H} \pi_{6}^{5}"
+    "\\longrightarrow 0.\n"
+    "\\]"
   )
 
   assert body.index(
     injectivity
-  ) < short_exact_start
+  ) < body.index(
+    short_exact
+  )

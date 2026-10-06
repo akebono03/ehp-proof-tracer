@@ -6271,97 +6271,76 @@ def _phase159_project_generic_semantics_to_public_proof(
 def _phase159_r1_7b_exactness_step_latex(
   proof_step: ProofStep,
 ) -> str | None:
-  statement = proof_step.conclusion
-
   if not isinstance(
-    statement,
+    proof_step.conclusion,
     TodaProp42ExactnessStatement,
   ):
     return None
 
   rendered = (
-    render_toda_proof_statement_latex(
-      statement
+    _render_generic_narrative_step(
+      proof_step
     )
   )
 
-  if rendered is None:
-    return None
-
-  suffix = (
-    r" \text{ is exact}"
-  )
-
-  if not rendered.endswith(
-    suffix
+  if (
+    not rendered.startswith(
+      "$"
+    )
+    or not rendered.endswith(
+      "$"
+    )
   ):
     return None
 
-  return rendered[
-    :-len(
-      suffix
-    )
+  latex = rendered[
+    1:-1
   ]
+  english_suffix = (
+    r" \text{ is exact}"
+  )
 
+  if latex.endswith(
+    english_suffix
+  ):
+    latex = latex[
+      :-len(
+        english_suffix
+      )
+    ]
 
+  return latex
 
 
 def _phase159_r1_7b_inline_exactness_latex(
   line: str,
 ) -> str | None:
   stripped = line.strip()
-  verbose_suffix = "$ は完全である."
+  suffix = "$ は完全である."
 
   if (
-    stripped.startswith(
+    not stripped.startswith(
       "$"
     )
-    and stripped.endswith(
-      verbose_suffix
+    or not stripped.endswith(
+      suffix
     )
   ):
-    latex = stripped[
-      1:-len(
-        verbose_suffix
-      )
-    ]
-  elif (
-    stripped.startswith(
-      "$"
-    )
-    and stripped.endswith(
-      "$."
-    )
-  ):
-    latex = stripped[
-      1:-2
-    ]
-  elif (
-    stripped.startswith(
-      "$"
-    )
-    and stripped.endswith(
-      "$"
-    )
-  ):
-    latex = stripped[
-      1:-1
-    ]
-  else:
     return None
 
-  if latex.count(
-    r"\xrightarrow{"
-  ) < 2:
-    return None
+  latex = stripped[
+    1:-len(
+      suffix
+    )
+  ]
 
-  if not latex.startswith(
-    r"\pi_{"
+  if (
+    r"\xrightarrow{" not in latex
+    and r"\longrightarrow" not in latex
   ):
     return None
 
   return latex
-
 
 
 def _phase159_r1_7b_inline_short_exact_latex(
@@ -6647,19 +6626,43 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
       "proof_body must be a list"
     )
 
-  semantic_presentation = (
-    build_toda_group_proof_narrative_semantic_closure_presentation(
-      presentation
+  ancestry_steps = []
+  seen_step_ids = set()
+
+  def visit(
+    proof_step: ProofStep,
+  ) -> None:
+    proof_step_id = id(
+      proof_step
     )
+
+    if proof_step_id in seen_step_ids:
+      return
+
+    seen_step_ids.add(
+      proof_step_id
+    )
+
+    for premise_step in proof_step.premises:
+      visit(
+        premise_step
+      )
+
+    ancestry_steps.append(
+      proof_step
+    )
+
+  visit(
+    presentation.root_step
   )
 
   exactness_latex = tuple(
     latex
     for latex in (
       _phase159_r1_7b_exactness_step_latex(
-        node.proof_step
+        proof_step
       )
-      for node in semantic_presentation.nodes
+      for proof_step in ancestry_steps
     )
     if latex is not None
   )
@@ -6699,21 +6702,37 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
       line
     )
 
-  line_index = 0
+  connector_index = 0
 
-  while line_index < len(
+  while connector_index < len(
     lines
   ):
+    if lines[
+      connector_index
+    ].strip() != "完全性より,":
+      connector_index += 1
+      continue
+
+    property_index = (
+      _phase159_r1_7b_next_nonblank_index(
+        lines,
+        connector_index + 1,
+      )
+    )
+
+    if property_index is None:
+      break
+
     signature = (
       _phase159_r1_7b_map_property_signature(
         lines[
-          line_index
+          property_index
         ]
       )
     )
 
     if signature is None:
-      line_index += 1
+      connector_index += 1
       continue
 
     matching_latex = next(
@@ -6731,7 +6750,7 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
     )
 
     if matching_latex is None:
-      line_index += 1
+      connector_index += 1
       continue
 
     existing_span = (
@@ -6745,9 +6764,9 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
       existing_span is not None
       and existing_span[
         0
-      ] < line_index
+      ] < connector_index
     ):
-      line_index += 1
+      connector_index += 1
       continue
 
     if existing_span is not None:
@@ -6757,8 +6776,8 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
         span_start:span_end
       ]
 
-      if span_start < line_index:
-        line_index -= (
+      if span_start < connector_index:
+        connector_index -= (
           span_end
           - span_start
         )
@@ -6770,10 +6789,10 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
     )
 
     lines[
-      line_index:line_index
+      connector_index:connector_index
     ] = display_lines
 
-    line_index += (
+    connector_index += (
       len(
         display_lines
       )
@@ -6781,10 +6800,6 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
     )
 
   return lines
-
-
-
-
 
 
 

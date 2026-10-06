@@ -6279,30 +6279,25 @@ def _phase159_r1_7b_exactness_step_latex(
   ):
     return None
 
-  rendered = (
-    render_toda_proof_statement_latex(
-      statement
+  window = statement.window
+
+  return (
+    render_toda_primary_group_latex(
+      window.source_term
+    )
+    + r" \xrightarrow{"
+    + window.first_map.name
+    + r"} "
+    + render_toda_primary_group_latex(
+      window.middle_term
+    )
+    + r" \xrightarrow{"
+    + window.second_map.name
+    + r"} "
+    + render_toda_primary_group_latex(
+      window.target_term
     )
   )
-
-  if rendered is None:
-    return None
-
-  suffix = (
-    r" \text{ is exact}"
-  )
-
-  if not rendered.endswith(
-    suffix
-  ):
-    return None
-
-  return rendered[
-    :-len(
-      suffix
-    )
-  ]
-
 
 
 
@@ -6699,21 +6694,37 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
       line
     )
 
-  line_index = 0
+  connector_index = 0
 
-  while line_index < len(
+  while connector_index < len(
     lines
   ):
+    if lines[
+      connector_index
+    ].strip() != "完全性より,":
+      connector_index += 1
+      continue
+
+    property_index = (
+      _phase159_r1_7b_next_nonblank_index(
+        lines,
+        connector_index + 1,
+      )
+    )
+
+    if property_index is None:
+      break
+
     signature = (
       _phase159_r1_7b_map_property_signature(
         lines[
-          line_index
+          property_index
         ]
       )
     )
 
     if signature is None:
-      line_index += 1
+      connector_index += 1
       continue
 
     matching_latex = next(
@@ -6731,7 +6742,7 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
     )
 
     if matching_latex is None:
-      line_index += 1
+      connector_index += 1
       continue
 
     existing_span = (
@@ -6745,9 +6756,9 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
       existing_span is not None
       and existing_span[
         0
-      ] < line_index
+      ] < connector_index
     ):
-      line_index += 1
+      connector_index += 1
       continue
 
     if existing_span is not None:
@@ -6757,8 +6768,8 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
         span_start:span_end
       ]
 
-      if span_start < line_index:
-        line_index -= (
+      if span_start < connector_index:
+        connector_index -= (
           span_end
           - span_start
         )
@@ -6770,10 +6781,10 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
     )
 
     lines[
-      line_index:line_index
+      connector_index:connector_index
     ] = display_lines
 
-    line_index += (
+    connector_index += (
       len(
         display_lines
       )
@@ -6781,9 +6792,6 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
     )
 
   return lines
-
-
-
 
 
 
