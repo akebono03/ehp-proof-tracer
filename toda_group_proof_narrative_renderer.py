@@ -5354,10 +5354,11 @@ def _phase158_normalize_public_equation_numbers(
         line
       )
     )
+    public_number = None
 
     if tag_number is not None:
       old_marker = (
-        r"\tag{"
+        r"	ag{"
         + str(
           tag_number
         )
@@ -5374,17 +5375,12 @@ def _phase158_normalize_public_equation_numbers(
           1,
         )
       else:
+        public_number = number_map[
+          tag_number
+        ]
         line = line.replace(
           old_marker,
-          (
-            r"\tag{"
-            + str(
-              number_map[
-                tag_number
-              ]
-            )
-            + "}"
-          ),
+          "",
           1,
         )
         emitted_old_numbers.add(
@@ -5421,11 +5417,86 @@ def _phase158_normalize_public_equation_numbers(
           else "これらより,"
         )
 
+    line = line.replace(
+      "は零写像である.",
+      "は零写像.",
+    )
+
+    numbered_map_properties = (
+      (
+        " は単射.",
+        "は単射",
+      ),
+      (
+        " は全射.",
+        "は全射",
+      ),
+      (
+        " は同型.",
+        "は同型",
+      ),
+    )
+
+    normalized_map_property = False
+
+    if public_number is not None:
+      stripped = line.strip()
+
+      for suffix, property_text in numbered_map_properties:
+        if (
+          not stripped.startswith(
+            "$"
+          )
+          or not stripped.endswith(
+            suffix
+          )
+        ):
+          continue
+
+        math_and_suffix = stripped[
+          : -len(
+            suffix
+          )
+        ]
+
+        if not math_and_suffix.endswith(
+          "$"
+        ):
+          continue
+
+        math_content = math_and_suffix[
+          1:-1
+        ].rstrip()
+
+        result.extend(
+          (
+            r"\[",
+            (
+              math_content
+              + r"\quad	ext{"
+              + property_text
+              + r"}. \qquad ("
+              + str(
+                public_number
+              )
+              + ")"
+            ),
+            r"\]",
+          )
+        )
+        normalized_map_property = True
+        break
+
+    if normalized_map_property:
+      continue
+
     result.append(
       line
     )
 
   return result
+
+
 
 
 def _phase159_restore_isomorphism_to_injective_dependency_visibility(
@@ -9781,40 +9852,40 @@ def _phase159_r1_7c_r4_normalize_public_map_property_prose(
       "rendered must be a str"
     )
 
-  proof_marker = (
-    "## 証明\n\n"
-  )
-  marker_index = rendered.find(
-    proof_marker
+  replacements = (
+    (
+      "は単射である.",
+      "は単射.",
+    ),
+    (
+      "は全射である.",
+      "は全射.",
+    ),
+    (
+      "は同型写像である.",
+      "は同型.",
+    ),
+    (
+      "は同型である.",
+      "は同型.",
+    ),
+    (
+      "は零写像である.",
+      "は零写像.",
+    ),
   )
 
-  if marker_index < 0:
-    return rendered
+  normalized = rendered
 
-  proof_start = (
-    marker_index
-    + len(
-      proof_marker
+  for old, new in replacements:
+    normalized = normalized.replace(
+      old,
+      new,
     )
-  )
-  proof_body = rendered[
-    proof_start:
-  ]
-  proof_body = proof_body.replace(
-    "は単射である.",
-    "は単射.",
-  )
-  proof_body = proof_body.replace(
-    "は全射である.",
-    "は全射.",
-  )
 
-  return (
-    rendered[
-      :proof_start
-    ]
-    + proof_body
-  )
+  return normalized
+
+
 
 def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
   rendered: str,
@@ -9967,7 +10038,7 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     if injective is not None:
       injective_by_map.setdefault(
         injective[0],
-        []
+        [],
       ).append(
         (
           index,
@@ -9983,7 +10054,7 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     if surjective is not None:
       surjective_by_map.setdefault(
         surjective[0],
-        []
+        [],
       ).append(
         (
           index,
@@ -9998,7 +10069,7 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     if isomorphism is not None:
       isomorphism_by_map.setdefault(
         isomorphism[0],
-        []
+        [],
       ).append(
         (
           index,
@@ -10025,66 +10096,18 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     + 1
   )
 
-  def ensure_tag(
-    line_index: int,
-    number: int,
-  ) -> None:
-    line = lines[
-      line_index
-    ]
-
-    if tag_pattern.search(
-      line
-    ):
-      return
-
-    suffix_index = max(
-      line.rfind(
-        " は単射."
-      ),
-      line.rfind(
-        " は全射."
-      ),
-    )
-
-    if suffix_index < 0:
-      return
-
-    closing = line.rfind(
-      "$",
-      0,
-      suffix_index,
-    )
-
-    if closing < 0:
-      return
-
-    lines[
-      line_index
-    ] = (
-      line[
-        :closing
-      ]
-      + r"\tag{"
-      + str(
-        number
-      )
-      + "}"
-      + line[
-        closing:
-      ]
-    )
+  numbered_map_properties = {}
 
   for map_text in tuple(
     isomorphism_by_map
   ):
     injective_rows = injective_by_map.get(
       map_text,
-      ()
+      (),
     )
     surjective_rows = surjective_by_map.get(
       map_text,
-      ()
+      (),
     )
 
     if (
@@ -10107,18 +10130,25 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     if injective_number is None:
       injective_number = next_number
       next_number += 1
-      ensure_tag(
-        injective_index,
-        injective_number,
-      )
 
     if surjective_number is None:
       surjective_number = next_number
       next_number += 1
-      ensure_tag(
-        surjective_index,
-        surjective_number,
-      )
+
+    numbered_map_properties[
+      injective_index
+    ] = (
+      map_text,
+      "は単射",
+      injective_number,
+    )
+    numbered_map_properties[
+      surjective_index
+    ] = (
+      map_text,
+      "は全射",
+      surjective_number,
+    )
 
     isomorphism_index, _had_connector = (
       isomorphism_by_map[
@@ -10143,10 +10173,56 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
       + " は同型."
     )
 
+  output_lines = []
+
+  for index, line in enumerate(
+    lines
+  ):
+    numbered = numbered_map_properties.get(
+      index
+    )
+
+    if numbered is None:
+      output_lines.append(
+        line
+      )
+      continue
+
+    map_text, property_text, number = numbered
+
+    if (
+      map_text.startswith(
+        "$"
+      )
+      and map_text.endswith(
+        "$"
+      )
+    ):
+      map_text = map_text[
+        1:-1
+      ]
+
+    output_lines.extend(
+      (
+        r"\[",
+        (
+          map_text
+          + r"\quad\text{"
+          + property_text
+          + r"}. \qquad ("
+          + str(
+            number
+          )
+          + ")"
+        ),
+        r"\]",
+      )
+    )
+
   return (
     prefix
     + "\n".join(
-      lines
+      output_lines
     )
     + (
       "\n"
@@ -10156,6 +10232,8 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
       else ""
     )
   )
+
+
 
 def _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
   rendered: str,
