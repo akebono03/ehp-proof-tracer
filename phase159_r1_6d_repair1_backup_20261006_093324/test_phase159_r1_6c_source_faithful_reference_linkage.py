@@ -173,3 +173,4 @@ def test_phase159_r1_6c_statement_numbers_are_outside_math():
     "\n\\]"
     in rendered
   )
+

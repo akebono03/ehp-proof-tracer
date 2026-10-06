@@ -182,17 +182,13 @@ def test_phase159_r1_6b_pi3_2_number_tags_include_map_property_statement():
   )
 
   assert (
-    "\\[\n"
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は単射}. \qquad (1)"
-    "\n\\]"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射. (1)"
     in rendered
   )
   assert (
-    "\\[\n"
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は全射}. \qquad (2)"
-    "\n\\]"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は全射. (2)"
     in rendered
   )
 

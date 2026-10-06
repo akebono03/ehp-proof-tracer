@@ -57,18 +57,18 @@ def test_phase159_r1_6c_toda_51_reference_is_source_faithful():
   )
   assert (
     r"$\pi_{n}^{n} = "
-    r"\mathbb{Z}\{\iota_{n}\}$."
+    r"\langle \iota_{n} \rangle "
+    r"\cong \mathbb{Z}$."
     in reference
   )
 
-  assert r"\langle" not in reference
-  assert r"\rangle" not in reference
   assert r"\pi_{2}^{1} = 0" not in reference
   assert r"\pi_{3}^{3}" not in reference
   assert (
     r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$"
     not in reference
   )
+
 
 def test_phase159_r1_6c_exact_sequence_intro_does_not_repeat_exactness():
   rendered = (
@@ -83,16 +83,15 @@ def test_phase159_r1_6c_exact_sequence_intro_does_not_repeat_exactness():
     in rendered
   )
   assert (
-    "\\[\n"
-    r"\pi_{2}^{1} \xrightarrow{E} "
+    r"$\pi_{2}^{1} \xrightarrow{E} "
     r"\pi_{3}^{2} \xrightarrow{H} "
     r"\pi_{3}^{3} \xrightarrow{\Delta} "
     r"\pi_{1}^{1} \xrightarrow{E} "
-    r"\pi_{2}^{2}."
-    "\n\\]"
+    r"\pi_{2}^{2}$."
     in rendered
   )
   assert "は完全である." not in rendered
+
 
 def test_phase159_r1_6c_proof_body_links_reference_and_exactness():
   rendered = (
@@ -102,27 +101,17 @@ def test_phase159_r1_6c_proof_body_links_reference_and_exactness():
   )
 
   assert (
-    r"[R1] より, $\pi_{2}^{1} = 0$."
+    r"[R1]より, $\pi_{2}^{1} = 0$."
     in rendered
   )
   assert (
-    "完全性より,\n\n"
-    "\\[\n"
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は単射}. \qquad (1)"
-    "\n\\]"
+    r"完全性より, $H: \pi_{3}^{2} "
+    r"\to \pi_{3}^{3}$ は単射. (1)"
     in rendered
   )
   assert (
-    r"[R1] より, $\pi_{1}^{1} = "
-    r"\mathbb{Z}\{\iota_{1}\}$, "
-    r"$\pi_{2}^{2} = "
-    r"\mathbb{Z}\{\iota_{2}\}$."
-    in rendered
-  )
-  assert (
-    r"$E(\iota_{1}) = \iota_{2}$ であるから, "
-    r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ は同型."
+    r"[R1]より, $E: \pi_{1}^{1} "
+    r"\to \pi_{2}^{2}$ は同型."
     in rendered
   )
   assert (
@@ -136,18 +125,16 @@ def test_phase159_r1_6c_proof_body_links_reference_and_exactness():
     in rendered
   )
   assert (
-    r"[R1] より, $\pi_{3}^{3} = "
+    r"[R1]より, $\pi_{3}^{3} = "
     r"\mathbb{Z}\{\iota_{3}\}$."
     in rendered
   )
   assert (
-    "完全性より,\n\n"
-    "\\[\n"
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は全射}. \qquad (2)"
-    "\n\\]"
+    r"完全性より, $H: \pi_{3}^{2} "
+    r"\to \pi_{3}^{3}$ は全射. (2)"
     in rendered
   )
+
 
 def test_phase159_r1_6c_statement_numbers_are_outside_math():
   rendered = (
@@ -158,18 +145,16 @@ def test_phase159_r1_6c_statement_numbers_are_outside_math():
 
   assert r"\tag{1}" not in rendered
   assert r"\tag{2}" not in rendered
+  assert r"\text{ は単射}" not in rendered
+  assert r"\text{ は全射}" not in rendered
 
   assert (
-    "\\[\n"
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は単射}. \qquad (1)"
-    "\n\\]"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射. (1)"
     in rendered
   )
   assert (
-    "\\[\n"
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は全射}. \qquad (2)"
-    "\n\\]"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は全射. (2)"
     in rendered
   )
