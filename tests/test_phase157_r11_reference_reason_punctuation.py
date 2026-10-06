@@ -279,9 +279,9 @@ def test_phase157_r11_r14_surjectivity_precedes_short_exact_derivation():
     r"$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である."
   )
   short_exact_reason = (
-    "この完全性と, 左の写像が単射, "
-    "右の写像が全射であることより, "
-    "次の短完全列を得る."
+    "この完全性と, 左の写像の単射性, "
+    "右の写像の全射性より, "
+    "次の短完全列が成り立つ."
   )
   short_exact = (
     r"$0\longrightarrow \pi_{5}^{2}"

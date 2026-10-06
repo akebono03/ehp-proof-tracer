@@ -6651,7 +6651,7 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       + render_toda_primary_group_latex(
         window.middle_term
       )
-      + "$ である."
+      + "$."
     )
 
   candidate_zero_steps = []

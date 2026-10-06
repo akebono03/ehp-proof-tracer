@@ -105,7 +105,7 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
     r"\pi_{6}^{3}$ は完全である."
   )
   eta6_definition = (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
   )
   pi7_5 = (
     r"$\pi_{7}^{5} = "
@@ -117,7 +117,7 @@ def test_phase157_r19_pi6_3_delta_zero_has_shallow_dependency_support():
   kernel_reason = (
     "完全性より, "
     r"$\ker \Delta=\operatorname{Im}H="
-    r"\pi_{7}^{5}$ である."
+    r"\pi_{7}^{5}$."
   )
   delta_zero = (
     r"$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である."

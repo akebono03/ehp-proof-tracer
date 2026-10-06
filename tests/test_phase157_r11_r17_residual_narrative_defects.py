@@ -90,7 +90,7 @@ def test_phase157_r11_r17_pi6_3_zero_map_statement_precedes_its_use():
   )
   use = (
     "この完全性と $Δ=0$ より, "
-    r"$\ker E=\operatorname{Im}Δ=0$ である."
+    r"$\ker E=\operatorname{Im}Δ=0$."
   )
 
   assert zero_map in body

@@ -55,7 +55,7 @@ def test_phase157_r20_repair30_eta_bridge_and_hopf_support_remain():
   )[1]
 
   required = (
-    r"$\eta_{6}=E\eta_{5}$ である.",
+    r"$\eta_{6}=E\eta_{5}$.",
     r"$H\left(\nu'\right) = \eta_{5}",
     r"$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}",
     r"$2\nu' = \eta_{3}^{3}",

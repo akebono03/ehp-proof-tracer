@@ -133,17 +133,17 @@ def test_phase157_r20_repair43_required_reason_sentences_remain():
   assert (
     "完全性より, "
     r"$\ker \Delta=\operatorname{Im}H="
-    r"\pi_{7}^{5}$ である."
+    r"\pi_{7}^{5}$."
     in body
   )
   assert (
     "この完全性と $Δ=0$ より, "
-    r"$\ker E=\operatorname{Im}Δ=0$ である."
+    r"$\ker E=\operatorname{Im}Δ=0$."
     in body
   )
   assert (
     r"$\operatorname{ord}(\eta_{3}^{3})=2$ "
     r"かつ $2\nu'=\eta_{3}^{3}$ より, "
-    r"$4\nu'=0$ かつ $2\nu'\neq0$ である."
+    r"$4\nu'=0$ かつ $2\nu'\neq0$."
     in body
   )

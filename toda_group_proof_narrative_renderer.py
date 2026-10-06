@@ -6952,6 +6952,100 @@ def _phase159_r1_7b_normalize_public_exact_sequences(
 
 
 
+def _phase159_r1_7c_r4_normalize_proof_body_prose(
+  proof_body: list[str],
+) -> list[str]:
+  if not isinstance(
+    proof_body,
+    list,
+  ):
+    raise TypeError(
+      "proof_body must be a list"
+    )
+
+  normalized = []
+
+  for source_line in proof_body:
+    if not isinstance(
+      source_line,
+      str,
+    ):
+      raise TypeError(
+        "proof_body must contain only strings"
+      )
+
+    line = source_line
+    stripped = line.strip()
+
+    if (
+      stripped.startswith(
+        "$"
+      )
+      and stripped.endswith(
+        "$ である."
+      )
+    ):
+      leading = line[
+        :len(line)
+        - len(line.lstrip())
+      ]
+      trailing = line[
+        len(line.rstrip()):
+      ]
+      stripped = (
+        stripped[
+          :-len(
+            " である."
+          )
+        ]
+        + "."
+      )
+      line = (
+        leading
+        + stripped
+        + trailing
+      )
+
+    for redundant_prefix in (
+      "以上より, この完全性と ",
+      "したがって, この完全性と ",
+    ):
+      stripped = line.strip()
+
+      if not stripped.startswith(
+        redundant_prefix
+      ):
+        continue
+
+      leading = line[
+        :len(line)
+        - len(line.lstrip())
+      ]
+      trailing = line[
+        len(line.rstrip()):
+      ]
+      stripped = (
+        "この完全性と "
+        + stripped[
+          len(
+            redundant_prefix
+          ):
+        ]
+      )
+      line = (
+        leading
+        + stripped
+        + trailing
+      )
+      break
+
+    normalized.append(
+      line
+    )
+
+  return normalized
+
+
 def _phase158_normalize_public_narrative_contract(
   presentation: TodaGroupProofPresentation,
   rendered: str,
@@ -7060,6 +7154,12 @@ def _phase158_normalize_public_narrative_contract(
   proof_body = _phase159_project_generic_semantics_to_public_proof(
     presentation,
     proof_body,
+  )
+
+  proof_body = (
+    _phase159_r1_7c_r4_normalize_proof_body_prose(
+      proof_body
+    )
   )
 
   lines = [

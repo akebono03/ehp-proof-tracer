@@ -82,7 +82,7 @@ def test_phase157_r20_repair22_keeps_eta_suspension_bridge():
   )[1]
 
   assert (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
     in body
   )
   assert (

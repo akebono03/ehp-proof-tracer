@@ -1,0 +1,24 @@
+# Diagnostics
+
+Reference headers:
+  R1: Proposition 5.6
+  R2: (5.3)
+  R3: Proposition 5.3
+  R4: Proposition 5.1
+  R5: Equation 5.7
+
+Body markers:
+  R1, R2, R3, R4, R5
+
+Missing body markers:
+  <none>
+
+Defect counts:
+reflexive_eta5: 1
+eta6_old_suffix: 0
+kernel_old_suffix: 0
+exactness_to_map_old_suffix: 0
+multiple_order_old_suffix: 0
+short_exact_old_phrase: 0
+duplicate_transition: 0
+repeated_numeric_equality: 0

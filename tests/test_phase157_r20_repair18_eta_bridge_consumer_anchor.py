@@ -44,7 +44,7 @@ def test_phase157_r20_repair18_eta_bridge_uses_consumer_anchor():
   )[1]
 
   bridge = (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
   )
   hopf_value = (
     r"$H\left(\nu'\eta_{6}\right) = "
@@ -68,7 +68,7 @@ def test_phase157_r20_repair18_does_not_require_visible_eta_definition_paragraph
   )[1]
 
   assert (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
     in body
   )
   assert (

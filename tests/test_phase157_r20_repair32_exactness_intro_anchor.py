@@ -50,7 +50,7 @@ def test_phase157_r20_repair32_full_exactness_uses_intro_sequence_anchor():
     r"\pi_{6}^{3}$ は完全である."
   )
   eta6_definition = (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
   )
 
   assert full_exactness in body
