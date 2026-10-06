@@ -90,11 +90,11 @@ def test_phase159_r1_7c_r4_pi11_6_uses_concise_map_property_prose():
     in rendered
   )
   assert (
-    r"[R1]より, $H: \pi_{7}^{3} \to \pi_{7}^{5}\tag{1}$ は単射."
+    r"[R1]より, $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は単射."
     in rendered
   )
   assert (
-    r"$H: \pi_{7}^{3} \to \pi_{7}^{5}\tag{2}$ は全射."
+    r"$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射."
     in rendered
   )
 
