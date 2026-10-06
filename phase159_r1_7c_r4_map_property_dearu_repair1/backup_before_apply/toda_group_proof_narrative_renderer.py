@@ -9770,70 +9770,21 @@ def _phase159_r1_7c_normalize_public_equality_chains(
     + "\n"
   )
 
-def _phase159_r1_7c_r4_normalize_public_map_property_prose(
-  rendered: str,
-) -> str:
-  if not isinstance(
-    rendered,
-    str,
-  ):
-    raise TypeError(
-      "rendered must be a str"
-    )
-
-  proof_marker = (
-    "## 証明\n\n"
-  )
-  marker_index = rendered.find(
-    proof_marker
-  )
-
-  if marker_index < 0:
-    return rendered
-
-  proof_start = (
-    marker_index
-    + len(
-      proof_marker
-    )
-  )
-  proof_body = rendered[
-    proof_start:
-  ]
-  proof_body = proof_body.replace(
-    "は単射である.",
-    "は単射.",
-  )
-  proof_body = proof_body.replace(
-    "は全射である.",
-    "は全射.",
-  )
-
-  return (
-    rendered[
-      :proof_start
-    ]
-    + proof_body
-  )
-
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
   rendered = (
-    _phase158_baseline_render_toda_group_proof_narrative_markdown(
+    _phase159_r1_7c_preexisting_render_toda_group_proof_narrative_markdown(
       presentation
     )
   )
-  rendered = (
-    _phase158_normalize_public_narrative_contract(
+
+  return (
+    _phase159_r1_7c_normalize_public_equality_chains(
       presentation,
       rendered,
     )
   )
 
-  return (
-    _phase159_r1_7c_r4_normalize_public_map_property_prose(
-      rendered
-    )
-  )
+
 
