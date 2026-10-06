@@ -86,7 +86,7 @@ def test_phase159_r1_4_pi3_2_public_uses_exactly_one_exact_sequence():
     r"\pi_{3}^{2} \xrightarrow{H} "
     r"\pi_{3}^{3} \xrightarrow{\Delta} "
     r"\pi_{1}^{1} \xrightarrow{E} "
-    r"\pi_{2}^{2}$."
+    r"\pi_{2}^{2}$ は完全である."
   )
 
   proof_body = rendered.split(
@@ -103,7 +103,6 @@ def test_phase159_r1_4_pi3_2_public_uses_exactly_one_exact_sequence():
   assert exactness_lines == (
     long_exact,
   )
-  assert "は完全である." not in proof_body
 
 def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   presentation = _phase159_r1_2_pi3_2_presentation()

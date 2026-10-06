@@ -162,6 +162,21 @@ def test_phase159_r1_6b_pi3_2_public_reference_uses_single_toda_51_entry():
   assert "[F3]" not in reference_section
 
   assert (
+    r"$\pi_{2}^{1} = 0$."
+    in reference_section
+  )
+  assert (
+    r"$\pi_{3}^{3} = "
+    r"\mathbb{Z}\{\iota_{3}\}$."
+    in reference_section
+  )
+  assert (
+    r"$E: \pi_{1}^{1} \to "
+    r"\pi_{2}^{2}$ は同型."
+    in reference_section
+  )
+
+  assert (
     r"\pi_{3}^{2} = "
     r"\mathbb{Z}\{\eta_{2}\}"
     not in reference_section
@@ -170,6 +185,7 @@ def test_phase159_r1_6b_pi3_2_public_reference_uses_single_toda_51_entry():
     "Proposition 5.1"
     not in reference_section
   )
+
 
 def test_phase159_r1_6b_pi3_2_number_tags_include_map_property_statement():
   presentation = (
@@ -182,24 +198,31 @@ def test_phase159_r1_6b_pi3_2_number_tags_include_map_property_statement():
   )
 
   assert (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は単射. (1)"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3} "
+    r"\text{ は単射}. \tag{1}$"
     in rendered
   )
   assert (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は全射. (2)"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3} "
+    r"\text{ は全射}. \tag{2}$"
     in rendered
   )
 
-  assert r"\tag{1}" not in rendered
-  assert r"\tag{2}" not in rendered
+  assert (
+    r"\tag{1}$ は単射."
+    not in rendered
+  )
+  assert (
+    r"\tag{2}$ は全射."
+    not in rendered
+  )
 
   assert (
     "(1), (2) より, "
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ は同型."
     in rendered
   )
+
 
 def test_phase159_r1_6b_pi3_2_has_no_foundational_reference_labels():
   presentation = (

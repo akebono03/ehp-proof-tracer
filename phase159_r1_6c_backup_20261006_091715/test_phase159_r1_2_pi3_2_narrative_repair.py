@@ -86,7 +86,7 @@ def test_phase159_r1_4_pi3_2_public_uses_exactly_one_exact_sequence():
     r"\pi_{3}^{2} \xrightarrow{H} "
     r"\pi_{3}^{3} \xrightarrow{\Delta} "
     r"\pi_{1}^{1} \xrightarrow{E} "
-    r"\pi_{2}^{2}$."
+    r"\pi_{2}^{2}$ は完全である."
   )
 
   proof_body = rendered.split(
@@ -103,7 +103,6 @@ def test_phase159_r1_4_pi3_2_public_uses_exactly_one_exact_sequence():
   assert exactness_lines == (
     long_exact,
   )
-  assert "は完全である." not in proof_body
 
 def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   presentation = _phase159_r1_2_pi3_2_presentation()
@@ -112,12 +111,12 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   )
 
   injective = (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は単射. (1)"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3} "
+    r"\text{ は単射}. \tag{1}$"
   )
   surjective = (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は全射. (2)"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3} "
+    r"\text{ は全射}. \tag{2}$"
   )
   isomorphism = (
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
@@ -139,10 +138,14 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
     isomorphism
   )
 
-  assert r"\tag{1}" not in rendered
-  assert r"\tag{2}" not in rendered
-  assert r"\text{ は単射}" not in rendered
-  assert r"\text{ は全射}" not in rendered
+  assert (
+    r"\tag{1}$ は単射."
+    not in rendered
+  )
+  assert (
+    r"\tag{2}$ は全射."
+    not in rendered
+  )
 
   assert (
     "(1), (2) より, "
