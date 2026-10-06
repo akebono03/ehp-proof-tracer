@@ -5874,6 +5874,9 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
 
   return markdown
 
+
+
+
 def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -8531,88 +8534,6 @@ def prune_toda_group_proof_narrative_root_zero_direct_premise_references(
   )
 
 
-def suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
-  markdown: str,
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  retained = []
-  prior_sequence_cores = []
-
-  for paragraph in markdown.split(
-    "\n\n"
-  ):
-    stripped = paragraph.strip()
-
-    if (
-      not stripped.startswith(
-        "$"
-      )
-      or r"\xrightarrow{"
-      not in stripped
-    ):
-      retained.append(
-        paragraph
-      )
-      continue
-
-    closing_math_index = stripped.find(
-      "$",
-      1,
-    )
-
-    if closing_math_index < 0:
-      retained.append(
-        paragraph
-      )
-      continue
-
-    sequence_core = stripped[
-      1:
-      closing_math_index
-    ]
-    arrow_count = sequence_core.count(
-      r"\xrightarrow{"
-    )
-
-    if arrow_count < 1:
-      retained.append(
-        paragraph
-      )
-      continue
-
-    is_late_prefix_restatement = any(
-      prior_core.startswith(
-        sequence_core
-      )
-      and prior_core != sequence_core
-      and prior_core.count(
-        r"\xrightarrow{"
-      ) > arrow_count
-      for prior_core in prior_sequence_cores
-    )
-
-    if is_late_prefix_restatement:
-      continue
-
-    prior_sequence_cores.append(
-      sequence_core
-    )
-    retained.append(
-      paragraph
-    )
-
-  return "\n\n".join(
-    retained
-  )
-
-
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -8884,12 +8805,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
 
   rendered = (
     suppress_toda_group_proof_narrative_literal_reflexive_equalities(
-      rendered
-    )
-  )
-
-  rendered = (
-    suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
       rendered
     )
   )

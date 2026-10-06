@@ -5818,6 +5818,53 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
         == bare_sequence
       )
 
+      sequence_core = bare_sequence[
+        1:
+        -1
+      ]
+      sequence_arrow_count = (
+        sequence_core.count(
+          r"\xrightarrow{"
+        )
+      )
+      longer_prefix_indices = tuple(
+        index
+        for index, paragraph in enumerate(
+          paragraphs
+        )
+        if (
+          paragraph.strip().startswith(
+            "$"
+            + sequence_core
+          )
+          and paragraph.count(
+            r"\xrightarrow{"
+          )
+          > sequence_arrow_count
+        )
+      )
+
+      removal_indices = {
+        left_index,
+        right_index,
+      }
+      removal_indices.update(
+        bare_indices
+      )
+
+      if longer_prefix_indices:
+        for index in sorted(
+          removal_indices,
+          reverse=True,
+        ):
+          paragraphs.pop(
+            index
+          )
+
+        return "\n\n".join(
+          paragraphs
+        )
+
       introduction_index = (
         bare_indices[
           0
@@ -5828,15 +5875,7 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
         else None
       )
 
-      removal_indices = {
-        left_index,
-        right_index,
-      }
-
       if introduction_index is not None:
-        removal_indices.add(
-          introduction_index
-        )
         insertion_index = (
           introduction_index
         )

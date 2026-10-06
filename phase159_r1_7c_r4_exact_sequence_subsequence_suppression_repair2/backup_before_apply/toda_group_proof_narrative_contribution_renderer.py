@@ -5818,6 +5818,53 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
         == bare_sequence
       )
 
+      sequence_core = bare_sequence[
+        1:
+        -1
+      ]
+      sequence_arrow_count = (
+        sequence_core.count(
+          r"\xrightarrow{"
+        )
+      )
+      longer_prefix_indices = tuple(
+        index
+        for index, paragraph in enumerate(
+          paragraphs
+        )
+        if (
+          paragraph.strip().startswith(
+            "$"
+            + sequence_core
+          )
+          and paragraph.count(
+            r"\xrightarrow{"
+          )
+          > sequence_arrow_count
+        )
+      )
+
+      removal_indices = {
+        left_index,
+        right_index,
+      }
+      removal_indices.update(
+        bare_indices
+      )
+
+      if longer_prefix_indices:
+        for index in sorted(
+          removal_indices,
+          reverse=True,
+        ):
+          paragraphs.pop(
+            index
+          )
+
+        return "\n\n".join(
+          paragraphs
+        )
+
       introduction_index = (
         bare_indices[
           0
@@ -5828,15 +5875,7 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
         else None
       )
 
-      removal_indices = {
-        left_index,
-        right_index,
-      }
-
       if introduction_index is not None:
-        removal_indices.add(
-          introduction_index
-        )
         insertion_index = (
           introduction_index
         )
@@ -8531,88 +8570,6 @@ def prune_toda_group_proof_narrative_root_zero_direct_premise_references(
   )
 
 
-def suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
-  markdown: str,
-) -> str:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
-
-  retained = []
-  prior_sequence_cores = []
-
-  for paragraph in markdown.split(
-    "\n\n"
-  ):
-    stripped = paragraph.strip()
-
-    if (
-      not stripped.startswith(
-        "$"
-      )
-      or r"\xrightarrow{"
-      not in stripped
-    ):
-      retained.append(
-        paragraph
-      )
-      continue
-
-    closing_math_index = stripped.find(
-      "$",
-      1,
-    )
-
-    if closing_math_index < 0:
-      retained.append(
-        paragraph
-      )
-      continue
-
-    sequence_core = stripped[
-      1:
-      closing_math_index
-    ]
-    arrow_count = sequence_core.count(
-      r"\xrightarrow{"
-    )
-
-    if arrow_count < 1:
-      retained.append(
-        paragraph
-      )
-      continue
-
-    is_late_prefix_restatement = any(
-      prior_core.startswith(
-        sequence_core
-      )
-      and prior_core != sequence_core
-      and prior_core.count(
-        r"\xrightarrow{"
-      ) > arrow_count
-      for prior_core in prior_sequence_cores
-    )
-
-    if is_late_prefix_restatement:
-      continue
-
-    prior_sequence_cores.append(
-      sequence_core
-    )
-    retained.append(
-      paragraph
-    )
-
-  return "\n\n".join(
-    retained
-  )
-
-
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -8884,12 +8841,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
 
   rendered = (
     suppress_toda_group_proof_narrative_literal_reflexive_equalities(
-      rendered
-    )
-  )
-
-  rendered = (
-    suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
       rendered
     )
   )

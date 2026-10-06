@@ -42,17 +42,13 @@ def _body_pi6_3_repair32() -> str:
 
 def test_phase157_r20_repair32_full_exactness_uses_intro_sequence_anchor():
   body = _body_pi6_3_repair32()
-  normalized_body = " ".join(
-    body.split()
-  )
 
-  exact_sequence_block = (
-    r"\[ "
+  exact_sequence_core = (
     r"\pi_{7}^{3} \xrightarrow{H} "
     r"\pi_{7}^{5} \xrightarrow{\Delta} "
     r"\pi_{5}^{2} \xrightarrow{E} "
-    r"\pi_{6}^{3}. "
-    r"\]"
+    r"\pi_{6}^{3} \xrightarrow{H} "
+    r"\pi_{6}^{5}"
   )
   eta6_definition = (
     r"$\eta_{6}=E\eta_{5}$."
@@ -62,18 +58,15 @@ def test_phase157_r20_repair32_full_exactness_uses_intro_sequence_anchor():
     "次の完全列を考える."
     in body
   )
-  assert exact_sequence_block in normalized_body
-  assert normalized_body.index(
-    exact_sequence_block
-  ) < normalized_body.index(
+  assert exact_sequence_core in body
+  assert body.index(
+    exact_sequence_core
+  ) < body.index(
     eta6_definition
   )
 
 def test_phase157_r20_repair32_bare_duplicate_full_sequence_is_removed():
   body = _body_pi6_3_repair32()
-  normalized_body = " ".join(
-    body.split()
-  )
 
   duplicate_bare_sequence = (
     r"$\pi_{7}^{3} \xrightarrow{H} "
@@ -87,18 +80,17 @@ def test_phase157_r20_repair32_bare_duplicate_full_sequence_is_removed():
     r"\pi_{5}^{2} \xrightarrow{E} "
     r"\pi_{6}^{3}$ は完全である."
   )
-  exact_sequence_block = (
-    r"\[ "
+  exact_sequence_core = (
     r"\pi_{7}^{3} \xrightarrow{H} "
     r"\pi_{7}^{5} \xrightarrow{\Delta} "
     r"\pi_{5}^{2} \xrightarrow{E} "
-    r"\pi_{6}^{3}. "
-    r"\]"
+    r"\pi_{6}^{3} \xrightarrow{H} "
+    r"\pi_{6}^{5}"
   )
 
   assert duplicate_bare_sequence not in body
   assert stale_inline_exactness not in body
-  assert normalized_body.count(
-    exact_sequence_block
+  assert body.count(
+    exact_sequence_core
   ) == 1
 
