@@ -800,19 +800,9 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       insertion_index
     ] = block
 
-  rendered = "\n\n".join(
+  return "\n\n".join(
     paragraphs
   )
-
-  for reason in reason_sidecar.reasons:
-    rendered = (
-      _normalize_exactness_to_map_property_reason_prose(
-        rendered,
-        reason,
-      )
-    )
-
-  return rendered
 
 def _toda_group_proof_narrative_reason_insertion_index(
   markdown: str,
@@ -955,183 +945,11 @@ def _normalize_exactness_to_map_property_reason_prose(
     paragraphs.pop(
       reason_index - 1
     )
-    reason_index -= 1
-
-  def statement_match_key(
-    line: str,
-  ) -> str:
-    normalized = line.strip().rstrip(
-      ".,"
-    )
-    marker = r"\tag{"
-
-    while True:
-      marker_index = normalized.find(
-        marker
-      )
-
-      if marker_index < 0:
-        break
-
-      number_start = (
-        marker_index
-        + len(
-          marker
-        )
-      )
-      number_end = normalized.find(
-        "}",
-        number_start,
-      )
-
-      if number_end < 0:
-        break
-
-      number_text = normalized[
-        number_start:
-        number_end
-      ]
-
-      if not number_text.isdigit():
-        break
-
-      normalized = (
-        normalized[
-          :marker_index
-        ]
-        + normalized[
-          number_end + 1:
-        ]
-      )
-
-    return normalized
-
-  def paragraph_match_key(
-    paragraph: str,
-  ) -> str:
-    stripped = paragraph.strip()
-
-    if stripped.startswith(
-      "[R"
-    ):
-      marker_end = stripped.find(
-        "]"
-      )
-
-      if marker_end >= 0:
-        suffix = stripped[
-          marker_end + 1:
-        ]
-
-        for prefix in (
-          "より, ",
-          "を用いて, ",
-        ):
-          if suffix.startswith(
-            prefix
-          ):
-            stripped = suffix[
-              len(
-                prefix
-              ):
-            ]
-            break
-
-    for prefix in (
-      "完全性より, ",
-      "以上より, ",
-      "したがって, ",
-      "これより, ",
-      "これらより, ",
-    ):
-      if stripped.startswith(
-        prefix
-      ):
-        stripped = stripped[
-          len(
-            prefix
-          ):
-        ]
-        break
-
-    return statement_match_key(
-      stripped
-    )
-
-  visible_premise_indices = []
-
-  for premise_step in reason.premise_steps:
-    premise_line = (
-      _render_generic_narrative_step(
-        premise_step
-      )
-    )
-
-    if not premise_line:
-      continue
-
-    premise_key = statement_match_key(
-      premise_line
-    )
-    premise_matches = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if (
-        index != reason_index
-        and paragraph_match_key(
-          paragraph
-        )
-        == premise_key
-      )
-    )
-
-    if len(
-      premise_matches
-    ) != 1:
-      continue
-
-    visible_premise_indices.append(
-      premise_matches[
-        0
-      ]
-    )
-
-  if not visible_premise_indices:
-    return "\n\n".join(
-      paragraphs
-    )
-
-  latest_premise_index = max(
-    visible_premise_indices
-  )
-
-  if (
-    reason_index
-    == latest_premise_index + 1
-  ):
-    return "\n\n".join(
-      paragraphs
-    )
-
-  if reason_index <= latest_premise_index:
-    return "\n\n".join(
-      paragraphs
-    )
-
-  paragraph = paragraphs.pop(
-    reason_index
-  )
-
-  paragraphs.insert(
-    latest_premise_index + 1,
-    paragraph,
-  )
 
   return "\n\n".join(
     paragraphs
   )
+
 
 def _normalize_exactness_to_kernel_reason_prose(
   markdown: str,

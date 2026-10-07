@@ -800,19 +800,9 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       insertion_index
     ] = block
 
-  rendered = "\n\n".join(
+  return "\n\n".join(
     paragraphs
   )
-
-  for reason in reason_sidecar.reasons:
-    rendered = (
-      _normalize_exactness_to_map_property_reason_prose(
-        rendered,
-        reason,
-      )
-    )
-
-  return rendered
 
 def _toda_group_proof_narrative_reason_insertion_index(
   markdown: str,
