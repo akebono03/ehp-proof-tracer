@@ -45,6 +45,7 @@ from proof import (
   RelationType,
   apply_inference_match,
   find_inference_match,
+  run_inference_until_stable_with_history,
 )
 from scalar_rules import (
   ScalarGreaterEqualStatement,
@@ -66,6 +67,13 @@ from toda_prop58_zero_bootstrap import (
   _build_support,
   _build_toda59_step,
   build_toda_prop58_zero_argument_step,
+)
+from toda_stable_generator_normalization import (
+  toda_nu_squared_transport_generator_normalization_inference_rule,
+)
+from toda_stable_group_transport import (
+  toda_45_generic_finite_cyclic_transport_inference_rule,
+  toda_45_generic_zero_group_transport_inference_rule,
 )
 from toda_rules import (
   TodaDeltaImageUpToSignStatement,
@@ -134,7 +142,6 @@ from toda_rules import (
   toda_prop59_e_nu_prime_eta6_squared_bridge_inference_rule,
   toda_prop59_finite_dimensional_integration_inference_rule,
   toda_prop59_finite_dimensional_literature_statements,
-  toda_prop59_higher_five_stem_zero_transport_inference_rule,
   toda_prop59_nu_prime_eta6_squared_hopf_inference_rule,
   toda_prop59_pi10_5_concrete_exactness_inference_rule,
   toda_prop59_pi10_5_delta_e_exactness_inference_rule,
@@ -160,7 +167,6 @@ from toda_rules import (
   toda_prop511_513_delta_nu9_inference_rule,
   toda_prop511_finite_dimensional_integration_inference_rule,
   toda_prop511_finite_dimensional_literature_statements,
-  toda_prop511_higher_six_stem_nu_squared_transport_inference_rule,
   toda_prop511_nu_squared_finite_dimensional_integration_inference_rule,
   toda_prop511_nu_squared_finite_dimensional_literature_statements,
   toda_prop511_pi10_4_nu4_squared_inference_rule,
@@ -1310,7 +1316,7 @@ def _build_prop59_context(
   )
 
   higher_zero_step = _apply(
-    toda_prop59_higher_five_stem_zero_transport_inference_rule(),
+    toda_45_generic_zero_group_transport_inference_rule(),
     (
       pi12_7_zero_step,
       build_toda_45_stable_isomorphism_step(
@@ -2520,18 +2526,57 @@ def _build_nu_squared_aggregate_step(
     )
   )
 
-  higher_step = _apply(
-    toda_prop511_higher_six_stem_nu_squared_transport_inference_rule(),
-    (
-      pi14_8_step,
-      build_toda_45_stable_isomorphism_step(
-        n=8,
-        k=6,
-        m=n,
+  stable_isomorphism_step = (
+    build_toda_45_stable_isomorphism_step(
+      n=8,
+      k=6,
+      m=n,
+    )
+  )
+
+  stable_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_45_generic_finite_cyclic_transport_inference_rule(),
+        toda_nu_squared_transport_generator_normalization_inference_rule(),
       ),
-      n_ge_9_step,
+      (
+        pi14_8_step,
+        stable_isomorphism_step,
+        n_ge_9_step,
+      ),
+    )
+  )
+
+  expected_target = TodaPrimaryGroup(
+    group_dimension=ScalarSum(
+      left=n,
+      right=6,
     ),
-    "higher six-stem nu squared",
+    sphere_dimension=n,
+  )
+
+  higher_step = next(
+    step
+    for step in stable_result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == expected_target
+      and isinstance(
+        step.conclusion.rhs,
+        FiniteCyclicGroup,
+      )
+      and step.conclusion.rhs.order
+      == 2
+      and isinstance(
+        step.conclusion.rhs.generator,
+        Composition,
+      )
+    )
   )
 
   return _apply(
@@ -2546,7 +2591,6 @@ def _build_nu_squared_aggregate_step(
     ),
     "Prop.5.11 nu-squared aggregate",
   )
-
 
 def build_toda_prop511_zero_argument_step() -> ProofStep:
   context = _build_phase68_context()

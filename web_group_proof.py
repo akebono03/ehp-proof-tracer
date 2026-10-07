@@ -26,6 +26,9 @@ from toda_group_proof_presentation import (
 from toda_group_result_proof_replay import (
   build_toda_group_result_proof_replay,
 )
+from toda_human_readable_renderer import (
+  render_toda_public_group_relation_latex,
+)
 from toda_proof_narrative_renderer import (
   render_toda_proof_statement_latex,
 )
@@ -440,6 +443,18 @@ def _group_proof_statement_latex(
   str | None,
   str | None,
 ]:
+  public_group_latex = (
+    render_toda_public_group_relation_latex(
+      statement
+    )
+  )
+
+  if public_group_latex is not None:
+    return (
+      public_group_latex,
+      None,
+    )
+
   try:
     latex = (
       render_repository_conclusion_latex(
@@ -468,7 +483,6 @@ def _group_proof_statement_latex(
     latex,
     None,
   )
-
 
 def _split_group_proof_rendered_line(
   line: str,

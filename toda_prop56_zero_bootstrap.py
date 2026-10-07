@@ -65,6 +65,9 @@ from toda_midstream_bootstrap import (
 from toda_phase65_bootstrap import (
   build_toda_prop56_bootstrap_step,
 )
+from toda_stable_group_transport import (
+  toda_45_generic_finite_cyclic_transport_inference_rule,
+)
 from toda_rules import (
   Toda36Lemma54SpecializationStatement,
   Toda45IsomorphismStatement,
@@ -88,7 +91,6 @@ from toda_rules import (
   TodaSuspensionSurjectiveStatement,
   toda_32_phase60_suspension_surjective_inference_rule,
   toda_36_lemma54_specialization_inference_rule,
-  toda_45_pi4_3_finite_cyclic_transport_inference_rule,
   toda_53_eta3_twice_zero_inference_rule,
   toda_53_n3_delta_injective_hopf_zero_inference_rule,
   toda_53_n3_delta_zero_suspension_injective_inference_rule,
@@ -121,7 +123,6 @@ from toda_rules import (
   toda_prop44_first_summand_restriction_inference_rule,
   toda_prop44_isomorphism_inference_rule,
   toda_prop44_suspension_injective_inference_rule,
-  toda_prop53_eta4_squared_stable_transport_inference_rule,
   toda_prop53_n4_eta_square_suspension_bridge_inference_rule,
   toda_prop53_n4_phase48_injectivity_bridge_inference_rule,
   toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule,
@@ -338,7 +339,7 @@ def _build_prop51_step() -> ProofStep:
 
   transported_result = (
     run_inference_until_stable_with_history(
-      toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
+      toda_45_generic_finite_cyclic_transport_inference_rule(),
       (
         phase50[
           "final_group_step"
@@ -880,11 +881,10 @@ def _build_higher_eta_transport(
   )
 
   result = run_inference_until_stable_with_history(
-    toda_prop53_eta4_squared_stable_transport_inference_rule(),
+    toda_45_generic_finite_cyclic_transport_inference_rule(),
     (
       pi6_4_step,
       stable_step,
-      higher_range_step,
     ),
   )
 

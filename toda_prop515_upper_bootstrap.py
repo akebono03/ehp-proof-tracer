@@ -33,6 +33,12 @@ from toda_prop515_sigma_chain_bootstrap import (
   TodaProp515SigmaChainBootstrapResult,
   build_toda_prop515_sigma_chain_bootstrap,
 )
+from toda_stable_generator_normalization import (
+  toda_sigma_transport_generator_normalization_inference_rule,
+)
+from toda_stable_group_transport import (
+  toda_45_generic_finite_cyclic_transport_inference_rule,
+)
 from toda_rules import (
   Toda45IsomorphismStatement,
   Toda48Pi16_9OrderAndE4InjectiveStatement,
@@ -42,7 +48,6 @@ from toda_rules import (
   TodaProp515FiniteDimensionalStatement,
   TodaSigmaFamilyDefinitionStatement,
   toda_45_isomorphism_inference_rule,
-  toda_45_sigma9_finite_cyclic_transport_inference_rule,
   toda_48_pi16_9_order_and_e4_injective_inference_rule,
   toda_lemma514_sigma_family_definition_inference_rule,
   toda_prop515_finite_dimensional_integration_inference_rule,
@@ -410,11 +415,13 @@ def build_toda_prop515_upper_bootstrap():
     run_inference_until_stable_with_history(
       (
         toda_45_isomorphism_inference_rule(),
-        toda_45_sigma9_finite_cyclic_transport_inference_rule(),
+        toda_45_generic_finite_cyclic_transport_inference_rule(),
+        toda_sigma_transport_generator_normalization_inference_rule(),
       ),
       (
         pi16_9_step,
         sigma_family_step,
+        sigma9_definition_step,
         stable_range_step,
         higher_range_step,
         stable_suspension_map_step,
@@ -449,6 +456,8 @@ def build_toda_prop515_upper_bootstrap():
       )
       and step.conclusion.rhs.order
       == 16
+      and step.conclusion.rhs.generator
+      == sigma_family_step.conclusion.element
     )
   )
 

@@ -600,6 +600,181 @@ def render_toda_target_latex(
   )
 
 
+def _toda_public_eta_composition_factors(
+  expression,
+) -> tuple[
+  HomotopyElement,
+  ...,
+] | None:
+  if isinstance(
+    expression,
+    Composition,
+  ):
+    left = (
+      _toda_public_eta_composition_factors(
+        expression.left
+      )
+    )
+    right = (
+      _toda_public_eta_composition_factors(
+        expression.right
+      )
+    )
+
+    if (
+      left is None
+      or right is None
+    ):
+      return None
+
+    return (
+      left
+      + right
+    )
+
+  if not isinstance(
+    expression,
+    HomotopyElement,
+  ):
+    return None
+
+  generator = expression.generator
+
+  if (
+    generator is None
+    or generator.family != "η"
+    or not isinstance(
+      generator.index,
+      int,
+    )
+    or isinstance(
+      generator.index,
+      bool,
+    )
+    or generator.decoration is not None
+  ):
+    return None
+
+  return (
+    expression,
+  )
+
+
+def render_toda_public_group_generator_latex(
+  expression,
+) -> str:
+  eta_factors = (
+    _toda_public_eta_composition_factors(
+      expression
+    )
+  )
+
+  if (
+    eta_factors is not None
+    and len(
+      eta_factors
+    ) >= 2
+  ):
+    indices = tuple(
+      factor.generator.index
+      for factor in eta_factors
+    )
+    start_index = indices[
+      0
+    ]
+
+    if indices == tuple(
+      range(
+        start_index,
+        start_index
+        + len(
+          eta_factors
+        ),
+      )
+    ):
+      return (
+        r"\eta_{"
+        + str(
+          start_index
+        )
+        + r"}^{"
+        + str(
+          len(
+            eta_factors
+          )
+        )
+        + "}"
+      )
+
+  if isinstance(
+    expression,
+    Composition,
+  ):
+    left = expression.left
+    right = expression.right
+
+    if (
+      isinstance(
+        left,
+        HomotopyElement,
+      )
+      and isinstance(
+        right,
+        HomotopyElement,
+      )
+    ):
+      left_generator = (
+        left.generator
+      )
+      right_generator = (
+        right.generator
+      )
+
+      if (
+        left_generator is not None
+        and right_generator is not None
+        and left_generator.family
+        == "ν"
+        and right_generator.family
+        == "ν"
+        and isinstance(
+          left_generator.index,
+          int,
+        )
+        and not isinstance(
+          left_generator.index,
+          bool,
+        )
+        and isinstance(
+          right_generator.index,
+          int,
+        )
+        and not isinstance(
+          right_generator.index,
+          bool,
+        )
+        and left_generator.decoration
+        is None
+        and right_generator.decoration
+        is None
+        and right_generator.index
+        == left_generator.index + 3
+      ):
+        return (
+          r"\nu_{"
+          + str(
+            left_generator.index
+          )
+          + r"}^{2}"
+        )
+
+  return (
+    render_toda_expression_latex(
+      expression
+    )
+  )
+
+
 def render_toda_group_structure_latex(
   group_structure: TodaGroupStructurePresentation,
 ) -> str:
@@ -624,7 +799,7 @@ def render_toda_group_structure_latex(
   ):
     return (
       r"\mathbb{Z}\{"
-      + render_toda_expression_latex(
+      + render_toda_public_group_generator_latex(
         group_structure
         .generator
         .source_generator
@@ -645,7 +820,7 @@ def render_toda_group_structure_latex(
         .value
       )
       + r"\{"
-      + render_toda_expression_latex(
+      + render_toda_public_group_generator_latex(
         group_structure
         .generator
         .source_generator
@@ -668,6 +843,126 @@ def render_toda_group_structure_latex(
 
   raise ValueError(
     "unsupported group structure kind"
+  )
+
+def render_toda_public_group_relation_latex(
+  statement,
+) -> str | None:
+  from homotopy_groups import (
+    DirectSumGroup,
+    FiniteCyclicGroup,
+    FreeCyclicGroup,
+    TodaPrimaryGroup,
+    TodaPrimaryGroupZeroStatement,
+  )
+  from proof import (
+    Relation,
+    RelationType,
+  )
+
+  if isinstance(
+    statement,
+    TodaPrimaryGroupZeroStatement,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement
+        .group
+        .group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement
+        .group
+        .sphere_dimension
+      )
+      + "} = 0"
+    )
+
+  if (
+    not isinstance(
+      statement,
+      Relation,
+    )
+    or statement.relation_type
+    is not RelationType.EQUALITY
+    or not isinstance(
+      statement.lhs,
+      TodaPrimaryGroup,
+    )
+    or not isinstance(
+      statement.rhs,
+      (
+        FreeCyclicGroup,
+        FiniteCyclicGroup,
+        DirectSumGroup,
+      ),
+    )
+  ):
+    return None
+
+  def render_group_structure(
+    group_structure,
+  ) -> str:
+    if isinstance(
+      group_structure,
+      FreeCyclicGroup,
+    ):
+      return (
+        r"\mathbb{Z}\{"
+        + render_toda_public_group_generator_latex(
+          group_structure.generator
+        )
+        + r"\}"
+      )
+
+    if isinstance(
+      group_structure,
+      FiniteCyclicGroup,
+    ):
+      return (
+        r"\mathbb{Z}/"
+        + str(
+          group_structure.order
+        )
+        + r"\{"
+        + render_toda_public_group_generator_latex(
+          group_structure.generator
+        )
+        + r"\}"
+      )
+
+    if isinstance(
+      group_structure,
+      DirectSumGroup,
+    ):
+      return r" \oplus ".join(
+        render_group_structure(
+          summand
+        )
+        for summand in (
+          group_structure.summands
+        )
+      )
+
+    raise ValueError(
+      "unsupported public group structure"
+    )
+
+  return (
+    r"\pi_{"
+    + _render_scalar_latex(
+      statement.lhs.group_dimension
+    )
+    + r"}^{"
+    + _render_scalar_latex(
+      statement.lhs.sphere_dimension
+    )
+    + "} = "
+    + render_group_structure(
+      statement.rhs
+    )
   )
 
 
