@@ -11596,12 +11596,13 @@ def render_toda_group_proof_narrative_markdown(
   )
 
 
-# Phase159 pi_(n+1)^n stable transport repair3 public wrapper
-_phase159_repair3_previous_public_narrative_renderer = (
+# Phase160-R7 generic stable finite-cyclic public narrative
+_phase160_r7_previous_public_narrative_renderer = (
   render_toda_group_proof_narrative_markdown
 )
 
-def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
+
+def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
   presentation: TodaGroupProofPresentation,
 ) -> str | None:
   if not isinstance(
@@ -11613,31 +11614,137 @@ def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
       "TodaGroupProofPresentation"
     )
 
-  target = (
+  group_result = (
     presentation
     .source_replay
     .group_result
-    .target
   )
+  target = group_result.target
   sphere_dimension = target.sphere_dimension
   group_dimension = target.group_dimension
+  group_structure = group_result.group_structure
 
   if (
     not isinstance(
       sphere_dimension,
       int,
     )
+    or isinstance(
+      sphere_dimension,
+      bool,
+    )
     or not isinstance(
       group_dimension,
       int,
     )
-    or sphere_dimension < 4
-    or group_dimension != sphere_dimension + 1
+    or isinstance(
+      group_dimension,
+      bool,
+    )
   ):
     return None
 
-  target_n = sphere_dimension
-  suspension_exponent = target_n - 3
+  stem = (
+    group_dimension
+    - sphere_dimension
+  )
+
+  stable_family_contract = {
+    1: (
+      "Proposition 5.1",
+      "η",
+      r"\eta",
+    ),
+    7: (
+      "Proposition 5.15",
+      "σ",
+      r"\sigma",
+    ),
+  }
+
+  contract = (
+    stable_family_contract.get(
+      stem
+    )
+  )
+
+  if contract is None:
+    return None
+
+  (
+    reference_locator,
+    expected_family,
+    family_latex,
+  ) = contract
+
+  base_sphere_dimension = (
+    stem + 2
+  )
+
+  if (
+    sphere_dimension
+    <= base_sphere_dimension
+  ):
+    return None
+
+  if (
+    type(
+      group_structure
+    ).__name__
+    != "FiniteCyclicGroup"
+  ):
+    return None
+
+  target_generator = (
+    group_structure.generator
+  )
+  target_generator_symbol = getattr(
+    target_generator,
+    "generator",
+    None,
+  )
+
+  if (
+    target_generator_symbol is None
+    or getattr(
+      target_generator_symbol,
+      "family",
+      None,
+    )
+    != expected_family
+    or getattr(
+      target_generator_symbol,
+      "index",
+      None,
+    )
+    != sphere_dimension
+  ):
+    return None
+
+  order = group_structure.order
+
+  if (
+    not isinstance(
+      order,
+      int,
+    )
+    or isinstance(
+      order,
+      bool,
+    )
+    or order <= 0
+  ):
+    return None
+
+  base_group_dimension = (
+    base_sphere_dimension
+    + stem
+  )
+  suspension_exponent = (
+    sphere_dimension
+    - base_sphere_dimension
+  )
+
   suspension_latex = (
     "E"
     if suspension_exponent == 1
@@ -11650,6 +11757,46 @@ def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
     )
   )
 
+  base_group_latex = (
+    r"\pi_{"
+    + str(
+      base_group_dimension
+    )
+    + r"}^{"
+    + str(
+      base_sphere_dimension
+    )
+    + "}"
+  )
+
+  target_group_latex = (
+    render_toda_primary_group_latex(
+      target
+    )
+  )
+
+  base_generator_latex = (
+    family_latex
+    + "_{"
+    + str(
+      base_sphere_dimension
+    )
+    + "}"
+  )
+
+  target_generator_latex = (
+    render_toda_expression_latex(
+      target_generator
+    )
+  )
+
+  group_prefix_latex = (
+    r"\mathbb{Z}/"
+    + str(
+      order
+    )
+  )
+
   return "\n".join(
     (
       "# Group proof narrative",
@@ -11658,20 +11805,12 @@ def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
       "",
       r"\[",
       (
-        r"\pi_{"
-        + str(
-          target_n + 1
-        )
-        + r"}^{"
-        + str(
-          target_n
-        )
-        + r"} = "
-        + r"\mathbb{Z}/2\{\eta_{"
-        + str(
-          target_n
-        )
-        + r"}\}."
+        target_group_latex
+        + " = "
+        + group_prefix_latex
+        + r"\{"
+        + target_generator_latex
+        + r"\}."
       ),
       r"\]",
       "",
@@ -11686,10 +11825,19 @@ def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
         r"\pi_{m+k}^{m}$ は同型."
       ),
       "",
-      "**[R2] Proposition 5.1.**",
       (
-        r"$\pi_{4}^{3} = "
-        r"\mathbb{Z}/2\{\eta_{3}\}$."
+        "**[R2] "
+        + reference_locator
+        + ".**"
+      ),
+      (
+        r"$"
+        + base_group_latex
+        + " = "
+        + group_prefix_latex
+        + r"\{"
+        + base_generator_latex
+        + r"\}$."
       ),
       "",
       "---",
@@ -11697,72 +11845,64 @@ def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
       "## 証明",
       "",
       (
-        r"$\pi_{"
-        + str(
-          target_n + 1
-        )
-        + r"}^{"
-        + str(
-          target_n
-        )
-        + r"}$ の群構造を決定する."
+        r"$"
+        + target_group_latex
+        + r"$ の群構造を決定する."
       ),
       "",
       (
         r"[R2]より, "
-        r"$\pi_{4}^{3} = "
-        r"\mathbb{Z}/2\{\eta_{3}\}$."
+        r"$"
+        + base_group_latex
+        + " = "
+        + group_prefix_latex
+        + r"\{"
+        + base_generator_latex
+        + r"\}$."
       ),
       "",
       (
         r"[R1]を "
-        r"$(n,m,k)=(3,"
+        r"$(n,m,k)=("
         + str(
-          target_n
+          base_sphere_dimension
         )
-        + r",1)$ に適用すると, "
+        + ","
+        + str(
+          sphere_dimension
+        )
+        + ","
+        + str(
+          stem
+        )
+        + r")$ に適用すると, "
         r"$"
         + suspension_latex
-        + r": \pi_{4}^{3} "
-        r"\to "
-        r"\pi_{"
-        + str(
-          target_n + 1
-        )
-        + r"}^{"
-        + str(
-          target_n
-        )
-        + r"}$ は同型."
+        + ": "
+        + base_group_latex
+        + r" \to "
+        + target_group_latex
+        + r"$ は同型."
       ),
       "",
       (
         r"$"
         + suspension_latex
-        + r"\eta_{3} = "
-        r"\eta_{"
-        + str(
-          target_n
-        )
-        + r"}$."
+        + base_generator_latex
+        + " = "
+        + target_generator_latex
+        + r"$."
       ),
       "",
       (
         r"以上より, "
-        r"$\pi_{"
-        + str(
-          target_n + 1
-        )
-        + r"}^{"
-        + str(
-          target_n
-        )
-        + r"} = "
-        r"\mathbb{Z}/2\{\eta_{"
-        + str(
-          target_n
-        )
-        + r"}\}$."
+        r"$"
+        + target_group_latex
+        + " = "
+        + group_prefix_latex
+        + r"\{"
+        + target_generator_latex
+        + r"\}$."
       ),
       "",
       "□",
@@ -11775,7 +11915,7 @@ def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
   stable_transport_narrative = (
-    _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
+    _phase160_r7_render_stable_finite_cyclic_transport_narrative(
       presentation
     )
   )
@@ -11784,7 +11924,7 @@ def render_toda_group_proof_narrative_markdown(
     return stable_transport_narrative
 
   return (
-    _phase159_repair3_previous_public_narrative_renderer(
+    _phase160_r7_previous_public_narrative_renderer(
       presentation
     )
   )
