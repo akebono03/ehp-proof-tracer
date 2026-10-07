@@ -4375,11 +4375,28 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
   ) < 2:
     return markdown
 
-  owner_argument_indices_by_step_id = {}
+  source_index_by_argument_id = {
+    id(
+      argument
+    ): argument_index
+    for argument_index, argument in enumerate(
+      arguments
+    )
+  }
+  ordered_arguments = (
+    order_toda_group_proof_narrative_arguments(
+      arguments
+    )
+  )
+  owner_argument_index_by_step_id = {}
+  local_step_ids_by_argument_index = {}
 
-  for argument_index, argument in enumerate(
-    arguments
-  ):
+  for argument in ordered_arguments:
+    argument_index = source_index_by_argument_id[
+      id(
+        argument
+      )
+    ]
     local_body = (
       extract_toda_group_proof_narrative_argument_local_body_blocks(
         presentation,
@@ -4389,7 +4406,6 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
         argument_index,
       )
     )
-
     local_step_ids = {
       id(
         proof_step
@@ -4411,173 +4427,209 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
         )
       )
 
+    local_step_ids_by_argument_index[
+      argument_index
+    ] = frozenset(
+      local_step_ids
+    )
+
     for proof_step_id in local_step_ids:
-      owner_argument_indices_by_step_id.setdefault(
+      if (
+        proof_step_id
+        not in visible_index_by_step_id
+      ):
+        continue
+
+      owner_argument_index_by_step_id.setdefault(
         proof_step_id,
-        set(),
-      ).add(
-        argument_index
+        argument_index,
       )
-
-  visible_step_ids = set(
-    visible_index_by_step_id
-  )
-  successors = {
-    proof_step_id: set()
-    for proof_step_id in visible_step_ids
-  }
-  indegree = {
-    proof_step_id: 0
-    for proof_step_id in visible_step_ids
-  }
-
-  for edge in presentation.edges:
-    premise_id = id(
-      edge.premise_step
-    )
-    consumer_id = id(
-      edge.parent_step
-    )
-
-    if (
-      premise_id
-      not in visible_step_ids
-      or consumer_id
-      not in visible_step_ids
-      or premise_id == consumer_id
-    ):
-      continue
-
-    premise_owners = (
-      owner_argument_indices_by_step_id.get(
-        premise_id,
-        set(),
-      )
-    )
-    consumer_owners = (
-      owner_argument_indices_by_step_id.get(
-        consumer_id,
-        set(),
-      )
-    )
-
-    if not (
-      premise_owners
-      & consumer_owners
-    ):
-      continue
-
-    if consumer_id in successors[
-      premise_id
-    ]:
-      continue
-
-    successors[
-      premise_id
-    ].add(
-      consumer_id
-    )
-    indegree[
-      consumer_id
-    ] += 1
-
-  if not any(
-    successors.values()
-  ):
-    return markdown
-
-  remaining = set(
-    visible_step_ids
-  )
-  ordered_step_ids = []
-
-  while remaining:
-    ready = [
-      proof_step_id
-      for proof_step_id in remaining
-      if indegree[
-        proof_step_id
-      ] == 0
-    ]
-
-    if not ready:
-      return markdown
-
-    ready.sort(
-      key=lambda proof_step_id: (
-        visible_index_by_step_id[
-          proof_step_id
-        ],
-      )
-    )
-    chosen = ready[
-      0
-    ]
-    ordered_step_ids.append(
-      chosen
-    )
-    remaining.remove(
-      chosen
-    )
-
-    for successor in successors[
-      chosen
-    ]:
-      if successor in remaining:
-        indegree[
-          successor
-        ] -= 1
-
-  current_step_ids = tuple(
-    sorted(
-      visible_step_ids,
-      key=lambda proof_step_id: (
-        visible_index_by_step_id[
-          proof_step_id
-        ]
-      ),
-    )
-  )
-
-  ordered_step_ids = tuple(
-    ordered_step_ids
-  )
-
-  if ordered_step_ids == current_step_ids:
-    return markdown
-
-  visible_paragraph_indices = tuple(
-    visible_index_by_step_id[
-      proof_step_id
-    ]
-    for proof_step_id in current_step_ids
-  )
-  paragraph_by_step_id = {
-    proof_step_id: paragraphs[
-      visible_index_by_step_id[
-        proof_step_id
-      ]
-    ]
-    for proof_step_id in visible_step_ids
-  }
 
   reordered = list(
     paragraphs
   )
 
-  for paragraph_index, proof_step_id in zip(
-    visible_paragraph_indices,
-    ordered_step_ids,
-  ):
-    reordered[
-      paragraph_index
-    ] = paragraph_by_step_id[
-      proof_step_id
+  for argument in ordered_arguments:
+    argument_index = source_index_by_argument_id[
+      id(
+        argument
+      )
     ]
+    owned_step_ids = {
+      proof_step_id
+      for proof_step_id, owner_index
+      in owner_argument_index_by_step_id.items()
+      if owner_index == argument_index
+    }
+
+    if len(
+      owned_step_ids
+    ) < 2:
+      continue
+
+    successors = {
+      proof_step_id: set()
+      for proof_step_id in owned_step_ids
+    }
+    indegree = {
+      proof_step_id: 0
+      for proof_step_id in owned_step_ids
+    }
+
+    for edge in presentation.edges:
+      premise_id = id(
+        edge.premise_step
+      )
+      consumer_id = id(
+        edge.parent_step
+      )
+
+      if (
+        premise_id
+        not in owned_step_ids
+        or consumer_id
+        not in owned_step_ids
+        or premise_id == consumer_id
+      ):
+        continue
+
+      if consumer_id in successors[
+        premise_id
+      ]:
+        continue
+
+      successors[
+        premise_id
+      ].add(
+        consumer_id
+      )
+      indegree[
+        consumer_id
+      ] += 1
+
+    if not any(
+      successors.values()
+    ):
+      continue
+
+    remaining = set(
+      owned_step_ids
+    )
+    ordered_step_ids = []
+    preferred_ready_step_ids = set()
+
+    while remaining:
+      ready = [
+        proof_step_id
+        for proof_step_id in remaining
+        if indegree[
+          proof_step_id
+        ] == 0
+      ]
+
+      if not ready:
+        ordered_step_ids = []
+        break
+
+      preferred_ready = [
+        proof_step_id
+        for proof_step_id in ready
+        if proof_step_id
+        in preferred_ready_step_ids
+      ]
+      candidates = (
+        preferred_ready
+        if preferred_ready
+        else ready
+      )
+      candidates.sort(
+        key=lambda proof_step_id: (
+          visible_index_by_step_id[
+            proof_step_id
+          ],
+        )
+      )
+      chosen = candidates[
+        0
+      ]
+      ordered_step_ids.append(
+        chosen
+      )
+      remaining.remove(
+        chosen
+      )
+      newly_ready_step_ids = set()
+
+      for successor in successors[
+        chosen
+      ]:
+        if successor not in remaining:
+          continue
+
+        indegree[
+          successor
+        ] -= 1
+
+        if indegree[
+          successor
+        ] == 0:
+          newly_ready_step_ids.add(
+            successor
+          )
+
+      preferred_ready_step_ids = (
+        newly_ready_step_ids
+      )
+
+    if not ordered_step_ids:
+      continue
+
+    current_step_ids = tuple(
+      sorted(
+        owned_step_ids,
+        key=lambda proof_step_id: (
+          visible_index_by_step_id[
+            proof_step_id
+          ]
+        ),
+      )
+    )
+    ordered_step_ids = tuple(
+      ordered_step_ids
+    )
+
+    if ordered_step_ids == current_step_ids:
+      continue
+
+    paragraph_slots = tuple(
+      visible_index_by_step_id[
+        proof_step_id
+      ]
+      for proof_step_id in current_step_ids
+    )
+    paragraph_by_step_id = {
+      proof_step_id: paragraphs[
+        visible_index_by_step_id[
+          proof_step_id
+        ]
+      ]
+      for proof_step_id in owned_step_ids
+    }
+
+    for paragraph_index, proof_step_id in zip(
+      paragraph_slots,
+      ordered_step_ids,
+    ):
+      reordered[
+        paragraph_index
+      ] = paragraph_by_step_id[
+        proof_step_id
+      ]
 
   return "\n\n".join(
     reordered
   )
+
 
 def order_toda_group_proof_narrative_visible_relation_dependencies(
   presentation: TodaGroupProofPresentation,

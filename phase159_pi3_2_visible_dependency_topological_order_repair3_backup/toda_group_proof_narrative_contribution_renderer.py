@@ -4490,6 +4490,7 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
     visible_step_ids
   )
   ordered_step_ids = []
+  preferred_ready_step_ids = set()
 
   while remaining:
     ready = [
@@ -4503,14 +4504,26 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
     if not ready:
       return markdown
 
-    ready.sort(
+    preferred_ready = [
+      proof_step_id
+      for proof_step_id in ready
+      if proof_step_id
+      in preferred_ready_step_ids
+    ]
+
+    candidates = (
+      preferred_ready
+      if preferred_ready
+      else ready
+    )
+    candidates.sort(
       key=lambda proof_step_id: (
         visible_index_by_step_id[
           proof_step_id
         ],
       )
     )
-    chosen = ready[
+    chosen = candidates[
       0
     ]
     ordered_step_ids.append(
@@ -4520,13 +4533,28 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
       chosen
     )
 
+    newly_ready_step_ids = set()
+
     for successor in successors[
       chosen
     ]:
-      if successor in remaining:
-        indegree[
+      if successor not in remaining:
+        continue
+
+      indegree[
+        successor
+      ] -= 1
+
+      if indegree[
+        successor
+      ] == 0:
+        newly_ready_step_ids.add(
           successor
-        ] -= 1
+        )
+
+    preferred_ready_step_ids = (
+      newly_ready_step_ids
+    )
 
   current_step_ids = tuple(
     sorted(
@@ -4578,6 +4606,7 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
   return "\n\n".join(
     reordered
   )
+
 
 def order_toda_group_proof_narrative_visible_relation_dependencies(
   presentation: TodaGroupProofPresentation,

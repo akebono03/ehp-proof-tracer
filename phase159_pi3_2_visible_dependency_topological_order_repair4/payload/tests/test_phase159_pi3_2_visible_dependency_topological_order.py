@@ -42,11 +42,12 @@ def _phase159_pi3_2_proof_body() -> str:
   rendered = (
     _phase159_dependency_order_pi3_2()
   )
-  before, marker, after = rendered.partition(
-    "## 証明"
+  marker = "## 証明"
+  before, separator, after = rendered.partition(
+    marker
   )
 
-  assert marker == "## 証明"
+  assert separator == marker
   assert before
 
   return after.lstrip()
@@ -60,9 +61,9 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
   pi2_zero = (
     r"$\pi_{2}^{1} = 0$."
   )
-  pi3_target = (
-    r"$\pi_{3}^{3} = "
-    r"\mathbb{Z}\{\iota_{3}\}$."
+  h_injective = (
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射."
   )
   e_isomorphism = (
     r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
@@ -80,13 +81,13 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
     "は全射."
   )
-  h_injective = (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は単射."
-  )
   h_isomorphism = (
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
     "は同型."
+  )
+  pi3_target = (
+    r"$\pi_{3}^{3} = "
+    r"\mathbb{Z}\{\iota_{3}\}$."
   )
   eta2_definition = (
     "この同型写像により, "
@@ -100,13 +101,13 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
 
   for sentence in (
     pi2_zero,
-    pi3_target,
+    h_injective,
     e_isomorphism,
     e_injective,
     delta_zero,
     h_surjective,
-    h_injective,
     h_isomorphism,
+    pi3_target,
     eta2_definition,
     final_result,
   ):
@@ -162,21 +163,32 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
   )
 
 
-def test_phase159_pi3_2_exactness_reason_is_attached():
+def test_phase159_pi3_2_visible_dependency_order_keeps_exactness_reason_attached():
   body = (
     _phase159_pi3_2_proof_body()
   )
 
-  expected = (
+  assert (
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射."
+    in body
+  )
+  assert (
     "完全性より, "
     r"$\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ "
     "は零写像."
+    in body
+  )
+  assert (
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は全射."
+    in body
   )
 
-  assert expected in body
 
-
-def test_phase159_pi3_2_stable_order_does_not_pull_definition_forward():
+def test_phase159_pi3_2_stable_topological_order_does_not_pull_definition_forward():
   body = (
     _phase159_pi3_2_proof_body()
   )
@@ -207,7 +219,7 @@ def test_phase159_pi3_2_stable_order_does_not_pull_definition_forward():
   )
 
 
-def test_phase159_pi3_2_stable_order_preserves_unconstrained_root_order():
+def test_phase159_pi3_2_stable_topological_order_preserves_unconstrained_root_order():
   body = (
     _phase159_pi3_2_proof_body()
   )

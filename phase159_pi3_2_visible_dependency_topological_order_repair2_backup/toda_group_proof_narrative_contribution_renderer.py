@@ -4579,6 +4579,7 @@ def order_toda_group_proof_narrative_visible_step_dependencies(
     reordered
   )
 
+
 def order_toda_group_proof_narrative_visible_relation_dependencies(
   presentation: TodaGroupProofPresentation,
   markdown: str,

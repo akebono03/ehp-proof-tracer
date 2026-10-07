@@ -42,14 +42,11 @@ def _phase159_pi3_2_proof_body() -> str:
   rendered = (
     _phase159_dependency_order_pi3_2()
   )
-  before, marker, after = rendered.partition(
-    "## 証明"
-  )
 
-  assert marker == "## 証明"
-  assert before
-
-  return after.lstrip()
+  return rendered.split(
+    "## 証明\n\n",
+    1,
+  )[1]
 
 
 def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
@@ -60,9 +57,9 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
   pi2_zero = (
     r"$\pi_{2}^{1} = 0$."
   )
-  pi3_target = (
-    r"$\pi_{3}^{3} = "
-    r"\mathbb{Z}\{\iota_{3}\}$."
+  h_injective = (
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射."
   )
   e_isomorphism = (
     r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
@@ -80,13 +77,13 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
     "は全射."
   )
-  h_injective = (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は単射."
-  )
   h_isomorphism = (
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
     "は同型."
+  )
+  pi3_target = (
+    r"$\pi_{3}^{3} = "
+    r"\mathbb{Z}\{\iota_{3}\}$."
   )
   eta2_definition = (
     "この同型写像により, "
@@ -100,13 +97,13 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
 
   for sentence in (
     pi2_zero,
-    pi3_target,
+    h_injective,
     e_isomorphism,
     e_injective,
     delta_zero,
     h_surjective,
-    h_injective,
     h_isomorphism,
+    pi3_target,
     eta2_definition,
     final_result,
   ):
@@ -162,21 +159,103 @@ def test_phase159_pi3_2_visible_dependency_order_follows_proof_graph():
   )
 
 
-def test_phase159_pi3_2_exactness_reason_is_attached():
+def test_phase159_pi3_2_newly_ready_consumer_stays_with_local_dependency_branch():
   body = (
     _phase159_pi3_2_proof_body()
   )
 
-  expected = (
+  pi2_zero = (
+    r"$\pi_{2}^{1} = 0$."
+  )
+  h_injective = (
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射."
+  )
+  pi3_target = (
+    r"$\pi_{3}^{3} = "
+    r"\mathbb{Z}\{\iota_{3}\}$."
+  )
+
+  assert body.index(
+    pi2_zero
+  ) < body.index(
+    h_injective
+  )
+  assert body.index(
+    h_injective
+  ) < body.index(
+    pi3_target
+  )
+
+
+def test_phase159_pi3_2_e_dependency_branch_remains_in_order():
+  body = (
+    _phase159_pi3_2_proof_body()
+  )
+
+  e_isomorphism = (
+    r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
+    "は同型."
+  )
+  e_injective = (
+    r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
+    "は単射."
+  )
+  delta_zero = (
     "完全性より, "
     r"$\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ "
     "は零写像."
   )
+  h_surjective = (
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は全射."
+  )
 
-  assert expected in body
+  assert body.index(
+    e_isomorphism
+  ) < body.index(
+    e_injective
+  )
+  assert body.index(
+    e_injective
+  ) < body.index(
+    delta_zero
+  )
+  assert body.index(
+    delta_zero
+  ) < body.index(
+    h_surjective
+  )
 
 
-def test_phase159_pi3_2_stable_order_does_not_pull_definition_forward():
+def test_phase159_pi3_2_visible_dependency_order_keeps_exactness_reason_attached():
+  body = (
+    _phase159_pi3_2_proof_body()
+  )
+
+  assert (
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射."
+    in body
+  )
+  assert (
+    "完全性より, "
+    r"$\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ "
+    "は零写像."
+    in body
+  )
+  assert (
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は全射."
+    in body
+  )
+
+
+def test_phase159_pi3_2_definition_and_final_result_stay_after_h_isomorphism():
   body = (
     _phase159_pi3_2_proof_body()
   )
@@ -204,25 +283,4 @@ def test_phase159_pi3_2_stable_order_does_not_pull_definition_forward():
     eta2_definition
   ) < body.index(
     final_result
-  )
-
-
-def test_phase159_pi3_2_stable_order_preserves_unconstrained_root_order():
-  body = (
-    _phase159_pi3_2_proof_body()
-  )
-
-  pi3_target = (
-    r"$\pi_{3}^{3} = "
-    r"\mathbb{Z}\{\iota_{3}\}$."
-  )
-  e_isomorphism = (
-    r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
-    "は同型."
-  )
-
-  assert body.index(
-    pi3_target
-  ) < body.index(
-    e_isomorphism
   )
