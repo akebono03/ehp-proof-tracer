@@ -1814,19 +1814,95 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
 ]:
   statement_lines_by_reference_number = {}
 
+  def reference_display_line(
+    proof_step: ProofStep,
+    rendered_statement: str,
+  ) -> str:
+    boundary = (
+      classify_toda_literature_statement_step(
+        proof_step
+      )
+    )
+
+    if (
+      boundary is not None
+      and boundary.reference_locator
+      == "(5.1)"
+      and boundary.component_key
+      == "circle_higher_homotopy_zero"
+    ):
+      return (
+        r"$\pi_{i}^{1} = 0\ (i > 1)$."
+      )
+
+    if (
+      boundary is not None
+      and boundary.reference_locator
+      == "(5.1)"
+      and boundary.component_key
+      == "sphere_connectivity_zero"
+    ):
+      return (
+        r"$\pi_{i}^{n} = 0\ (i < n)$."
+      )
+
+    if (
+      boundary is not None
+      and boundary.reference_locator
+      == "(5.1)"
+      and boundary.component_key
+      == "diagonal_identity_group"
+    ):
+      return (
+        r"$\pi_{n}^{n} = "
+        r"\mathbb{Z}\{\iota_{n}\}$."
+      )
+
+    return (
+      _phase157_r20_canonical_fixed_reference_line(
+        proof_step,
+        rendered_statement,
+      )
+    )
+
   for entry in reference_entries:
     candidate_steps = []
     rendered_by_step_id = {}
     seen_rendered_statements = set()
 
     for proof_step in entry.proof_steps:
+      boundary = (
+        classify_toda_literature_statement_step(
+          proof_step
+        )
+      )
+
+      if (
+        boundary is not None
+        and boundary.classification
+        is TodaLiteratureStatementClassification.FIXED_STATEMENT
+        and boundary.component_key is not None
+      ):
+        component = (
+          get_toda_fixed_statement_component(
+            boundary.reference_locator,
+            boundary.component_key,
+          )
+        )
+
+        if not (
+          component
+          .range_is_explicit_in_current_aggregate
+        ):
+          continue
+
       rendered_statement = (
         _render_generic_narrative_step(
           proof_step
         )
       )
       rendered_statement = (
-        _phase157_r20_canonical_fixed_reference_line(
+        reference_display_line(
           proof_step,
           rendered_statement,
         )
@@ -1906,7 +1982,7 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       id(
         proof_step
       ): (
-        _phase157_r20_canonical_fixed_reference_line(
+        reference_display_line(
           proof_step,
           _phase153_r6_render_reference_statement(
             presentation,

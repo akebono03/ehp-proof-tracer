@@ -101,7 +101,6 @@ from toda_proof_dependency import (
 from toda_literature_statement_boundary import (
   TodaLiteratureStatementClassification,
   classify_toda_literature_statement_step,
-  get_toda_fixed_statement_component,
 )
 
 
@@ -1429,6 +1428,40 @@ def _phase157_r20_canonical_fixed_reference_line(
       proof_step
     )
   )
+
+  if (
+    boundary is not None
+    and boundary.reference_locator
+    == "(5.1)"
+    and boundary.component_key
+    == "circle_higher_homotopy_zero"
+  ):
+    return (
+      r"$\pi_{i}^{1} = 0\ (i > 1)$."
+    )
+
+  if (
+    boundary is not None
+    and boundary.reference_locator
+    == "(5.1)"
+    and boundary.component_key
+    == "sphere_connectivity_zero"
+  ):
+    return (
+      r"$\pi_{i}^{n} = 0\ (i < n)$."
+    )
+
+  if (
+    boundary is not None
+    and boundary.reference_locator
+    == "(5.1)"
+    and boundary.component_key
+    == "diagonal_identity_group"
+  ):
+    return (
+      r"$\pi_{n}^{n} = "
+      r"\mathbb{Z}\{\iota_{n}\}$."
+    )
 
   if (
     boundary is not None

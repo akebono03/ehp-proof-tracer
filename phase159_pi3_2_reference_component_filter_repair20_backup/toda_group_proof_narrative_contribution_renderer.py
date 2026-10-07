@@ -101,7 +101,6 @@ from toda_proof_dependency import (
 from toda_literature_statement_boundary import (
   TodaLiteratureStatementClassification,
   classify_toda_literature_statement_step,
-  get_toda_fixed_statement_component,
 )
 
 

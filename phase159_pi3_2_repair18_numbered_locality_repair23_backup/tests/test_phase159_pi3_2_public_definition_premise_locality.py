@@ -10,8 +10,16 @@ ZERO_GROUP = (
   "[R1] より, "
   r"$\pi_{2}^{1} = 0$."
 )
-H_INJECTIVE = '\\[\nH: \\pi_{3}^{2} \\to \\pi_{3}^{3}\\quad\\text{は単射}. \\qquad (1)\n\\]'
-E_ISOMORPHISM = '$E(\\iota_{1}) = \\iota_{2}$ であるから, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型.'
+H_INJECTIVE = (
+  "完全性より, "
+  r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+  "は単射."
+)
+E_ISOMORPHISM = (
+  "[R1] より, "
+  r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
+  "は同型."
+)
 E_INJECTIVE = (
   r"$E: \pi_{1}^{1} \to \pi_{2}^{2}$ "
   "は単射."
@@ -21,8 +29,15 @@ DELTA_ZERO = (
   r"$\Delta: \pi_{3}^{3} \to \pi_{1}^{1}$ "
   "は零写像."
 )
-H_SURJECTIVE = '\\[\nH: \\pi_{3}^{2} \\to \\pi_{3}^{3}\\quad\\text{は全射}. \\qquad (2)\n\\]'
-H_ISOMORPHISM = '(1), (2) より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型.'
+H_SURJECTIVE = (
+  "完全性より, "
+  r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+  "は全射."
+)
+H_ISOMORPHISM = (
+  r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+  "は同型."
+)
 PI3_TARGET = (
   "[R1] より, "
   r"$\pi_{3}^{3} = "

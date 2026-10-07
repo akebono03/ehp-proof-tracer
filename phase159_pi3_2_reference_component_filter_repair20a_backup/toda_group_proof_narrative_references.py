@@ -656,6 +656,12 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
       if component is None:
         continue
 
+      if not (
+        component
+        .range_is_explicit_in_current_aggregate
+      ):
+        continue
+
       if (
         target_reference_locator is not None
         and target_component_key is not None
@@ -2020,57 +2026,6 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
 
     title = entry.reference.locator or entry.reference.label
     lines.append(f"**[R{entry.number}] {title}.**")
-
-    if entry.reference.locator == "(5.1)":
-      component_keys = {
-        boundary.component_key
-        for proof_step in entry.proof_steps
-        for boundary in (
-          classify_toda_literature_statement_step(
-            proof_step
-          ),
-        )
-        if (
-          boundary is not None
-          and boundary.classification
-          == TodaLiteratureStatementClassification.FIXED_STATEMENT
-          and boundary.reference_locator
-          == "(5.1)"
-          and boundary.component_key is not None
-        )
-      }
-
-      if "circle_higher_homotopy_zero" in component_keys:
-        lines.append(
-          r"$\pi_{i}^{1} = 0\ (i > 1)$."
-        )
-
-      if "sphere_connectivity_zero" in component_keys:
-        component = (
-          get_toda_fixed_statement_component(
-            "(5.1)",
-            "sphere_connectivity_zero",
-          )
-        )
-
-        if (
-          component is not None
-          and component
-          .range_is_explicit_in_current_aggregate
-        ):
-          lines.append(
-            r"$\pi_{i}^{n} = 0\ (i < n)$."
-          )
-
-      if "diagonal_identity_group" in component_keys:
-        lines.append(
-          (
-            r"$\pi_{n}^{n} = "
-            r"\mathbb{Z}\{\iota_{n}\}$."
-          )
-        )
-
-      continue
 
     statement_lines = (
       ()

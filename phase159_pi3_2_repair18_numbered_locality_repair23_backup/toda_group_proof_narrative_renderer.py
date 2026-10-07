@@ -10570,63 +10570,6 @@ def _phase159_order_public_unique_preimage_definition_premises(
   ) -> str:
     stripped = paragraph.strip()
 
-    if (
-      stripped.startswith(
-        r"\["
-      )
-      and stripped.endswith(
-        r"\]"
-      )
-    ):
-      display_lines = tuple(
-        line.strip()
-        for line in stripped.splitlines()
-        if line.strip()
-      )
-
-      if len(
-        display_lines
-      ) == 3:
-        display_body = display_lines[
-          1
-        ]
-        display_match = re.fullmatch(
-          (
-            r"(?P<map>.+?)"
-            r"\\quad\\text\{"
-            r"(?P<property>は単射|は全射)"
-            r"\}\.\s*"
-            r"\\qquad\s*"
-            r"\((?P<number>\d+)\)"
-          ),
-          display_body,
-        )
-
-        if display_match is not None:
-          stripped = (
-            "$"
-            + display_match.group(
-              "map"
-            )
-            + "$ "
-            + display_match.group(
-              "property"
-            )
-            + "."
-          )
-
-    numbered_connector = re.compile(
-      (
-        r"^(?:\(\d+\)"
-        r"(?:,\s*|\s+と\s+)?)"
-        r"+\s*より,\s*"
-      )
-    )
-    stripped = numbered_connector.sub(
-      "",
-      stripped,
-    )
-
     if stripped.startswith(
       "[R"
     ):
@@ -10637,7 +10580,7 @@ def _phase159_order_public_unique_preimage_definition_premises(
       if marker_end >= 0:
         suffix = stripped[
           marker_end + 1:
-        ].lstrip()
+        ]
 
         for reference_prefix in (
           "より, ",
