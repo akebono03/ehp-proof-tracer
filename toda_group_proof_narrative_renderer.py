@@ -11652,6 +11652,10 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
   if stem not in (
     1,
     2,
+    3,
+    4,
+    5,
+    6,
     7,
   ):
     return None
@@ -11665,6 +11669,138 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
     <= base_sphere_dimension
   ):
     return None
+
+  base_group_dimension = (
+    base_sphere_dimension
+    + stem
+  )
+  suspension_exponent = (
+    sphere_dimension
+    - base_sphere_dimension
+  )
+  suspension_latex = (
+    "E"
+    if suspension_exponent == 1
+    else (
+      "E^{"
+      + str(
+        suspension_exponent
+      )
+      + "}"
+    )
+  )
+  base_group_latex = (
+    r"\pi_{"
+    + str(
+      base_group_dimension
+    )
+    + r"}^{"
+    + str(
+      base_sphere_dimension
+    )
+    + "}"
+  )
+  target_group_latex = (
+    render_toda_primary_group_latex(
+      target
+    )
+  )
+
+  if stem in (
+    4,
+    5,
+  ):
+    if group_structure is not None:
+      return None
+
+    reference_locator = (
+      "Proposition 5.8"
+      if stem == 4
+      else "Proposition 5.9"
+    )
+
+    return "\n".join(
+      (
+        "# Group proof narrative",
+        "",
+        "## 証明対象",
+        "",
+        r"\[",
+        target_group_latex + " = 0.",
+        r"\]",
+        "",
+        "## 使用する結果",
+        "",
+        "**[R1] (4.5).**",
+        (
+          r"$n \ge k + 2$ のとき, "
+          r"$E^{m-n}: "
+          r"\pi_{n+k}^{n} "
+          r"\to "
+          r"\pi_{m+k}^{m}$ は同型."
+        ),
+        "",
+        (
+          "**[R2] "
+          + reference_locator
+          + ".**"
+        ),
+        (
+          r"$"
+          + base_group_latex
+          + r" = 0$."
+        ),
+        "",
+        "---",
+        "",
+        "## 証明",
+        "",
+        (
+          r"$"
+          + target_group_latex
+          + r"$ の群構造を決定する."
+        ),
+        "",
+        (
+          r"[R2]より, $"
+          + base_group_latex
+          + r" = 0$."
+        ),
+        "",
+        (
+          r"[R1]を "
+          r"$(n,m,k)=("
+          + str(
+            base_sphere_dimension
+          )
+          + ","
+          + str(
+            sphere_dimension
+          )
+          + ","
+          + str(
+            stem
+          )
+          + r")$ に適用すると, "
+          r"$"
+          + suspension_latex
+          + ": "
+          + base_group_latex
+          + r" \to "
+          + target_group_latex
+          + r"$ は同型."
+        ),
+        "",
+        (
+          r"したがって, $"
+          + target_group_latex
+          + r" = 0$."
+        ),
+        "",
+        "□",
+        "",
+      )
+    )
 
   if (
     type(
@@ -11807,7 +11943,121 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
       + r"}^{2}"
     )
 
-  else:
+  elif stem == 3:
+    target_generator_symbol = getattr(
+      target_generator,
+      "generator",
+      None,
+    )
+
+    if (
+      order != 8
+      or target_generator_symbol is None
+      or getattr(
+        target_generator_symbol,
+        "family",
+        None,
+      )
+      != "ν"
+      or getattr(
+        target_generator_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension
+    ):
+      return None
+
+    reference_locator = (
+      "Proposition 5.6"
+    )
+    base_generator_latex = (
+      r"\nu_{5}"
+    )
+    target_generator_latex = (
+      r"\nu_{"
+      + str(
+        sphere_dimension
+      )
+      + "}"
+    )
+
+  elif stem == 6:
+    if (
+      order != 2
+      or type(
+        target_generator
+      ).__name__
+      != "Composition"
+    ):
+      return None
+
+    left = getattr(
+      target_generator,
+      "left",
+      None,
+    )
+    right = getattr(
+      target_generator,
+      "right",
+      None,
+    )
+    left_symbol = getattr(
+      left,
+      "generator",
+      None,
+    )
+    right_symbol = getattr(
+      right,
+      "generator",
+      None,
+    )
+
+    if (
+      left_symbol is None
+      or right_symbol is None
+      or getattr(
+        left_symbol,
+        "family",
+        None,
+      )
+      != "ν"
+      or getattr(
+        right_symbol,
+        "family",
+        None,
+      )
+      != "ν"
+      or getattr(
+        left_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension
+      or getattr(
+        right_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension + 3
+    ):
+      return None
+
+    reference_locator = (
+      "Proposition 5.11"
+    )
+    base_generator_latex = (
+      r"\nu_{8}^{2}"
+    )
+    target_generator_latex = (
+      r"\nu_{"
+      + str(
+        sphere_dimension
+      )
+      + r"}^{2}"
+    )
+
+  elif stem == 7:
     target_generator_symbol = getattr(
       target_generator,
       "generator",
@@ -11846,44 +12096,8 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
       + "}"
     )
 
-  base_group_dimension = (
-    base_sphere_dimension
-    + stem
-  )
-  suspension_exponent = (
-    sphere_dimension
-    - base_sphere_dimension
-  )
-
-  suspension_latex = (
-    "E"
-    if suspension_exponent == 1
-    else (
-      "E^{"
-      + str(
-        suspension_exponent
-      )
-      + "}"
-    )
-  )
-
-  base_group_latex = (
-    r"\pi_{"
-    + str(
-      base_group_dimension
-    )
-    + r"}^{"
-    + str(
-      base_sphere_dimension
-    )
-    + "}"
-  )
-
-  target_group_latex = (
-    render_toda_primary_group_latex(
-      target
-    )
-  )
+  else:
+    return None
 
   group_prefix_latex = (
     r"\mathbb{Z}/"

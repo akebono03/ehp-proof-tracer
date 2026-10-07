@@ -35,6 +35,9 @@ from scalar_rules import (
 from toda_proof_builders import (
   build_toda_prop56_proof_step,
 )
+from toda_stable_group_transport import (
+  toda_45_generic_finite_cyclic_transport_inference_rule,
+)
 from toda_rules import (
   TodaIteratedSuspensionInjectiveStatement,
   TodaProp42ExactnessStatement,
@@ -49,7 +52,6 @@ from toda_rules import (
   toda_prop56_higher_nu_finite_cyclic_generator_inference_rule,
   toda_prop56_nu5_double_relation_inference_rule,
   toda_prop56_nu5_order_eight_inference_rule,
-  toda_prop56_nu5_stable_transport_inference_rule,
   toda_prop56_nu_prime_order_four_inference_rule,
   toda_prop56_pi5_2_eta2_cube_inference_rule,
   toda_prop56_pi5_2_suspension_injective_inference_rule,
@@ -474,7 +476,7 @@ def build_toda_prop56_bootstrap_step(
   stable_result = (
     run_inference_until_stable_with_history(
       (
-        toda_prop56_nu5_stable_transport_inference_rule(),
+        toda_45_generic_finite_cyclic_transport_inference_rule(),
         toda_prop56_higher_nu_family_bridge_inference_rule(),
         toda_prop56_higher_nu_finite_cyclic_generator_inference_rule(),
       ),

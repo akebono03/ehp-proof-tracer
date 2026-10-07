@@ -64,6 +64,9 @@ from toda_prop56_zero_bootstrap import (
   _build_toda56_step,
   build_toda_prop56_zero_argument_step,
 )
+from toda_stable_group_transport import (
+  toda_45_generic_zero_group_transport_inference_rule,
+)
 from toda_rules import (
   Toda58EquationStatement,
   Toda58WhiteheadSquareUpToSignStatement,
@@ -113,7 +116,6 @@ from toda_rules import (
   toda_prop58_eta6_nu7_zero_specialization_inference_rule,
   toda_prop58_finite_dimensional_integration_inference_rule,
   toda_prop58_finite_dimensional_literature_statements,
-  toda_prop58_higher_four_stem_zero_transport_inference_rule,
   toda_prop58_higher_nu_eta_zero_inference_rule,
   toda_prop58_pi10_6_concrete_exactness_inference_rule,
   toda_prop58_pi10_6_suspension_surjective_inference_rule,
@@ -1466,7 +1468,7 @@ def _build_higher_zero_steps(
       toda_prop58_pi10_6_concrete_exactness_inference_rule(),
       toda_prop58_pi10_6_suspension_surjective_inference_rule(),
       toda_prop58_pi10_6_zero_inference_rule(),
-      toda_prop58_higher_four_stem_zero_transport_inference_rule(),
+      toda_45_generic_zero_group_transport_inference_rule(),
     ),
     (
       pi9_5_step,
