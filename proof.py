@@ -20,6 +20,39 @@ class LiteratureReference:
 
 
 @dataclass(frozen=True)
+class FoundationalReferenceIdentity:
+  key: str
+  label: str
+
+  def __post_init__(self) -> None:
+    if not isinstance(
+      self.key,
+      str,
+    ):
+      raise TypeError(
+        "key must be a str"
+      )
+
+    if not self.key:
+      raise ValueError(
+        "key must not be empty"
+      )
+
+    if not isinstance(
+      self.label,
+      str,
+    ):
+      raise TypeError(
+        "label must be a str"
+      )
+
+    if not self.label:
+      raise ValueError(
+        "label must not be empty"
+      )
+
+
+@dataclass(frozen=True)
 class LiteratureStatement:
   reference: LiteratureReference
   statement: str
@@ -423,6 +456,10 @@ class ProofStep:
   rule: ProofRule
   note: str | None = None
   inference_rule: InferenceRule | None = None
+  foundational_reference: (
+    FoundationalReferenceIdentity
+    | None
+  ) = None
 
 
 @dataclass(frozen=True)

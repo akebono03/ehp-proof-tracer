@@ -1,0 +1,20 @@
+# Diagnostics
+
+Reference headers:
+  R1: Lemma 5.14
+
+Body markers:
+  R1
+
+Missing body markers:
+  <none>
+
+Defect counts:
+reflexive_eta5: 0
+eta6_old_suffix: 0
+kernel_old_suffix: 0
+exactness_to_map_old_suffix: 0
+multiple_order_old_suffix: 0
+short_exact_old_phrase: 0
+duplicate_transition: 0
+repeated_numeric_equality: 0

@@ -1,0 +1,4 @@
+depth,statement_type,rule,premise_count,is_pi4_5_zero,is_direct_delta,is_delta_image,is_E_surjective,rendered
+4,Relation,,0,False,False,False,False,$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$
+4,TodaDeltaImageUpToSignStatement,Toda Delta iota_5 Whitehead-square relation,1,False,False,False,False,"$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$"
+4,TodaPi32WhiteheadSquareUpToSignStatement,Toda pi_3^2 Whitehead square equals twice eta_2 up to sign,4,False,False,False,False,Toda pi_3^2 Whitehead square equals twice eta_2 up to sign

@@ -64,7 +64,7 @@ def test_phase157_r20_repair26_keeps_required_nonreflexive_support():
     r"$2\nu' = \eta_{3}^{3}",
     r"$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2",
     r"$H\left(\nu'\right) = \eta_{5}",
-    r"$\eta_{6}=E\eta_{5}$ である.",
+    r"$\eta_{6}=E\eta_{5}$.",
     r"$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}",
   )
 

@@ -11,6 +11,7 @@ from expression import (
 )
 from homotopy_groups import (
   TodaPrimaryGroup,
+  TodaPrimaryGroupZeroStatement,
 )
 
 from proof import (
@@ -256,6 +257,33 @@ def _contribution_insertion_indices(
       if candidate_index >= 0:
         conclusion_index = candidate_index
 
+        prefix = markdown[
+          :conclusion_index
+        ].rstrip()
+        previous_paragraph_start = (
+          prefix.rfind(
+            "\n\n"
+          )
+          + 2
+        )
+        previous_paragraph = prefix[
+          previous_paragraph_start:
+        ].strip()
+        standalone_conclusion_connectors = {
+          "以上より,",
+          "したがって,",
+          "これより,",
+          "これらより,",
+        }
+
+        if (
+          previous_paragraph
+          in standalone_conclusion_connectors
+        ):
+          conclusion_index = (
+            previous_paragraph_start
+          )
+
     if conclusion_index is None:
       conclusion_index = (
         _argument_fallback_anchor_index(
@@ -298,7 +326,10 @@ def _contribution_insertion_indices(
         ] = (
           conclusion_index
           if anchor_index is None
-          else anchor_index
+          else min(
+            anchor_index,
+            conclusion_index,
+          )
         )
         continue
 
@@ -350,7 +381,6 @@ def _contribution_insertion_indices(
   return tuple(
     result
   )
-
 
 def _direct_contribution_dependency_pairs(
   presentation: TodaGroupProofPresentation,
@@ -637,6 +667,7 @@ def _insert_toda_group_proof_narrative_argument_contributions(
       ordered_contributions,
     )
   )
+
   insertions_by_index = {}
 
   for argument_index, contributions in enumerate(
@@ -650,8 +681,10 @@ def _insert_toda_group_proof_narrative_argument_contributions(
           contribution.proof_step
         )
       )
+
       if not contribution_line:
         continue
+
       if not (
         _is_toda_group_proof_narrative_reference_statement_candidate(
           contribution.proof_step,
@@ -659,6 +692,7 @@ def _insert_toda_group_proof_narrative_argument_contributions(
         )
       ):
         continue
+
       if contribution_line in markdown:
         continue
 
@@ -667,6 +701,7 @@ def _insert_toda_group_proof_narrative_argument_contributions(
       ][
         contribution_index
       ]
+
       if insertion_index is None:
         continue
 
@@ -678,10 +713,12 @@ def _insert_toda_group_proof_narrative_argument_contributions(
         )
       )
       lines = []
+
       if connector is not None:
         lines.append(
           connector
         )
+
       lines.append(
         contribution_line
       )
@@ -712,7 +749,9 @@ def _insert_toda_group_proof_narrative_argument_contributions(
     )
 
     if (
-      insertion_index < len(markdown)
+      insertion_index < len(
+        markdown
+      )
       and not markdown[
         insertion_index:
       ].startswith(
@@ -3693,6 +3732,10 @@ def normalize_toda_group_proof_narrative_connectors(
     "したがって,",
     "これより,",
   }
+  exactness_reason_prefixes = (
+    "この完全性と ",
+    "完全性より,",
+  )
   index = 0
 
   while index < len(
@@ -3710,6 +3753,18 @@ def normalize_toda_group_proof_narrative_connectors(
       index + 1
     ]
     next_stripped = next_paragraph.lstrip()
+
+    if (
+      stripped == "これより,"
+      and next_stripped.startswith(
+        exactness_reason_prefixes
+      )
+    ):
+      normalized_paragraphs.pop(
+        index
+      )
+      continue
+
     separator = (
       "\n"
       if next_stripped.startswith(
@@ -3751,7 +3806,6 @@ def normalize_toda_group_proof_narrative_connectors(
   return "\n\n".join(
     normalized_paragraphs
   )
-
 
 
 def suppress_toda_group_proof_narrative_dangling_connectors(
@@ -3953,7 +4007,6 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
     retained_paragraphs
   )
 
-
 def order_toda_group_proof_narrative_visible_relation_dependencies(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -4138,6 +4191,39 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
       "markdown must be a str"
     )
 
+  def normalized_step_key(
+    line: str,
+  ) -> str:
+    key = (
+      _phase157_r11_reference_statement_match_key(
+        line
+      )
+    )
+
+    for verbose, concise in (
+      (
+        " は単射である",
+        " は単射",
+      ),
+      (
+        " は全射である",
+        " は全射",
+      ),
+    ):
+      if key.endswith(
+        verbose
+      ):
+        return (
+          key[
+            :-len(
+              verbose
+            )
+          ]
+          + concise
+        )
+
+    return key
+
   step_ids_by_key = {}
 
   for node in presentation.nodes:
@@ -4151,10 +4237,8 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
     if not rendered:
       continue
 
-    key = (
-      _phase157_r11_reference_statement_match_key(
-        rendered
-      )
+    key = normalized_step_key(
+      rendered
     )
 
     step_ids_by_key.setdefault(
@@ -4174,18 +4258,50 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
     ) == 1
   }
 
-  if not unique_step_keys:
-    return markdown
-
   connector_prefixes = (
     "以上より, ",
     "したがって, ",
     "これより, ",
     "これらより, ",
+    "完全性より, ",
   )
+
+  exactness_map_property_keys = set()
+
+  for paragraph in markdown.split(
+    "\n\n"
+  ):
+    stripped = paragraph.strip()
+
+    if not stripped.startswith(
+      "完全性より, "
+    ):
+      continue
+
+    comparable = stripped[
+      len(
+        "完全性より, "
+      ):
+    ]
+    key = normalized_step_key(
+      comparable
+    )
+
+    if (
+      key.endswith(
+        " は単射"
+      )
+      or key.endswith(
+        " は全射"
+      )
+    ):
+      exactness_map_property_keys.add(
+        key
+      )
 
   retained = []
   seen_unique_keys = set()
+  seen_exactness_map_property_keys = set()
 
   for paragraph in markdown.split(
     "\n\n"
@@ -4204,11 +4320,28 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
         ]
         break
 
-    key = (
-      _phase157_r11_reference_statement_match_key(
-        comparable
-      )
+    key = normalized_step_key(
+      comparable
     )
+
+    if key in exactness_map_property_keys:
+      if stripped.startswith(
+        "完全性より, "
+      ):
+        if (
+          key
+          in seen_exactness_map_property_keys
+        ):
+          continue
+
+        seen_exactness_map_property_keys.add(
+          key
+        )
+        retained.append(
+          paragraph
+        )
+
+      continue
 
     if key not in unique_step_keys:
       retained.append(
@@ -4229,6 +4362,8 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
   return "\n\n".join(
     retained
   )
+
+
 def _toda_group_proof_narrative_equation_tag_number(
   paragraph: str,
 ) -> int | None:
@@ -4520,6 +4655,89 @@ def order_toda_group_proof_narrative_order_support(
 
   return "\n\n".join(
     paragraphs
+  )
+
+
+def suppress_toda_group_proof_narrative_literal_reflexive_equalities(
+  markdown: str,
+) -> str:
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  retained = []
+
+  for paragraph in markdown.split(
+    "\n\n"
+  ):
+    comparable = paragraph.strip()
+
+    if comparable.startswith(
+      "[R"
+    ):
+      marker_end = comparable.find(
+        "]"
+      )
+
+      if marker_end >= 0:
+        suffix = comparable[
+          marker_end + 1:
+        ]
+
+        for prefix in (
+          "より, ",
+          "を用いて, ",
+        ):
+          if suffix.startswith(
+            prefix
+          ):
+            comparable = suffix[
+              len(
+                prefix
+              ):
+            ]
+            break
+
+    comparable = comparable.rstrip(
+      "."
+    ).strip()
+
+    if (
+      comparable.startswith(
+        "$"
+      )
+      and comparable.endswith(
+        "$"
+      )
+    ):
+      equation = comparable[
+        1:-1
+      ]
+
+      if equation.count(
+        "="
+      ) == 1:
+        lhs, rhs = equation.split(
+          "=",
+          1,
+        )
+
+        if (
+          lhs.strip()
+          == rhs.strip()
+        ):
+          continue
+
+    retained.append(
+      paragraph
+    )
+
+  return "\n\n".join(
+    retained
   )
 
 
@@ -5790,9 +6008,6 @@ def merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows(
 
   return markdown
 
-
-
-
 def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -6551,6 +6766,51 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       0
     ]
 
+  def concise_map_property_reason(
+    proof_step: ProofStep,
+  ) -> str | None:
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+
+    if not rendered:
+      return None
+
+    concise = rendered
+
+    for verbose, short in (
+      (
+        " は単射である.",
+        " は単射.",
+      ),
+      (
+        " は全射である.",
+        " は全射.",
+      ),
+    ):
+      if concise.endswith(
+        verbose
+      ):
+        concise = (
+          concise[
+            :-len(
+              verbose
+            )
+          ]
+          + short
+        )
+        break
+
+    if concise == rendered:
+      return None
+
+    return (
+      "完全性より, "
+      + concise
+    )
+
   def map_latex(
     group_map,
   ) -> str | None:
@@ -6703,30 +6963,45 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
     )
 
     if zero_index is None:
-      consumer_index = next(
+      consumer_match = next(
         (
-          visible_index(
-            node.proof_step
+          (
+            node.proof_step,
+            visible_index(
+              node.proof_step
+            ),
           )
           for node in presentation.nodes
-          if zero_step in node.proof_step.premises
-          and visible_index(
-            node.proof_step
+          if (
+            zero_step
+            in node.proof_step.premises
+            and visible_index(
+              node.proof_step
+            )
+            is not None
           )
-          is not None
         ),
         None,
       )
 
-      if consumer_index is None:
+      if consumer_match is None:
         continue
 
+      (
+        consumer_step,
+        consumer_index,
+      ) = consumer_match
       insertion_index = consumer_index
 
       if insertion_index > 0:
         previous = paragraphs[
           insertion_index - 1
         ]
+        concise_reason = (
+          concise_map_property_reason(
+            consumer_step
+          )
+        )
 
         if (
           "零写像"
@@ -6740,6 +7015,11 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
             in previous
             and r"\operatorname{Im}"
             in previous
+          )
+          or (
+            concise_reason is not None
+            and previous.strip()
+            == concise_reason
           )
         ):
           insertion_index -= 1
@@ -6788,7 +7068,6 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
   return "\n\n".join(
     paragraphs
   )
-
 
 def trim_toda_group_proof_narrative_redundant_left_ehp_terms(
   markdown: str,
@@ -7425,6 +7704,1115 @@ def _phase157_r3_find_recursive_proof_step_by_rule_name(
 
 
 
+def _phase159_r1_7c_r3_specialize_primary_group(
+  group: TodaPrimaryGroup,
+  symbol,
+  binding: int,
+) -> TodaPrimaryGroup | None:
+  group_dimension = (
+    _phase157_r20_reference_scalar_value(
+      group.group_dimension,
+      symbol,
+      binding,
+    )
+  )
+  sphere_dimension = (
+    _phase157_r20_reference_scalar_value(
+      group.sphere_dimension,
+      symbol,
+      binding,
+    )
+  )
+
+  if (
+    group_dimension is None
+    or sphere_dimension is None
+  ):
+    return None
+
+  return TodaPrimaryGroup(
+    group_dimension=group_dimension,
+    sphere_dimension=sphere_dimension,
+  )
+
+
+def _phase159_r1_7c_r3_aggregate_zero_specializes_to(
+  statement,
+  target_group: TodaPrimaryGroup,
+) -> bool:
+  if not isinstance(
+    target_group,
+    TodaPrimaryGroup,
+  ):
+    raise TypeError(
+      "target_group must be a TodaPrimaryGroup"
+    )
+
+  if not is_dataclass(
+    statement
+  ):
+    return False
+
+  target_sphere_dimension = (
+    target_group.sphere_dimension
+  )
+
+  if (
+    not isinstance(
+      target_sphere_dimension,
+      int,
+    )
+    or isinstance(
+      target_sphere_dimension,
+      bool,
+    )
+  ):
+    return False
+
+  statement_values = tuple(
+    getattr(
+      statement,
+      field.name,
+    )
+    for field in fields(
+      statement
+    )
+  )
+  range_statements = tuple(
+    value
+    for value in statement_values
+    if isinstance(
+      value,
+      ScalarGreaterEqualStatement,
+    )
+  )
+
+  for value in statement_values:
+    if not isinstance(
+      value,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      continue
+
+    template_group = value.group
+    symbol = (
+      template_group.sphere_dimension
+    )
+
+    if not isinstance(
+      symbol,
+      ScalarSymbol,
+    ):
+      continue
+
+    specialized_group = (
+      _phase159_r1_7c_r3_specialize_primary_group(
+        template_group,
+        symbol,
+        target_sphere_dimension,
+      )
+    )
+
+    if specialized_group != target_group:
+      continue
+
+    applicable_range_found = False
+
+    for range_statement in range_statements:
+      left = (
+        _phase157_r20_reference_scalar_value(
+          range_statement.left,
+          symbol,
+          target_sphere_dimension,
+        )
+      )
+      right = (
+        _phase157_r20_reference_scalar_value(
+          range_statement.right,
+          symbol,
+          target_sphere_dimension,
+        )
+      )
+
+      if (
+        left is not None
+        and right is not None
+        and left >= right
+      ):
+        applicable_range_found = True
+        break
+
+    if applicable_range_found:
+      return True
+
+  return False
+
+
+def _phase159_r1_7c_r3_decomposition_specialization(
+  statement,
+  target_group: TodaPrimaryGroup,
+):
+  prop44_statement = getattr(
+    statement,
+    "prop44_isomorphism",
+    None,
+  )
+
+  if prop44_statement is not None:
+    decomposition_map = getattr(
+      prop44_statement,
+      "map",
+      None,
+    )
+  else:
+    decomposition_map = getattr(
+      statement,
+      "map",
+      None,
+    )
+
+  if decomposition_map is None:
+    return None
+
+  source_group = getattr(
+    decomposition_map,
+    "source_group",
+    None,
+  )
+  map_target_group = getattr(
+    decomposition_map,
+    "target_group",
+    None,
+  )
+  summands = getattr(
+    source_group,
+    "summands",
+    None,
+  )
+
+  if (
+    not isinstance(
+      map_target_group,
+      TodaPrimaryGroup,
+    )
+    or not isinstance(
+      summands,
+      tuple,
+    )
+    or len(
+      summands
+    ) != 2
+    or not all(
+      isinstance(
+        summand,
+        TodaPrimaryGroup,
+      )
+      for summand in summands
+    )
+  ):
+    return None
+
+  target_dimension = (
+    target_group.group_dimension
+  )
+
+  if (
+    not isinstance(
+      target_dimension,
+      int,
+    )
+    or isinstance(
+      target_dimension,
+      bool,
+    )
+  ):
+    return None
+
+  map_dimension = (
+    map_target_group.group_dimension
+  )
+
+  if isinstance(
+    map_dimension,
+    ScalarSymbol,
+  ):
+    symbol = map_dimension
+    binding = target_dimension
+  elif isinstance(
+    map_dimension,
+    int,
+  ) and not isinstance(
+    map_dimension,
+    bool,
+  ):
+    if map_target_group != target_group:
+      return None
+
+    symbol = ScalarSymbol(
+      name="_phase159_r1_7c_r3_unused",
+    )
+    binding = target_dimension
+  else:
+    return None
+
+  specialized_target = (
+    _phase159_r1_7c_r3_specialize_primary_group(
+      map_target_group,
+      symbol,
+      binding,
+    )
+  )
+
+  if specialized_target != target_group:
+    return None
+
+  specialized_summands = tuple(
+    _phase159_r1_7c_r3_specialize_primary_group(
+      summand,
+      symbol,
+      binding,
+    )
+    for summand in summands
+  )
+
+  if any(
+    summand is None
+    for summand in specialized_summands
+  ):
+    return None
+
+  return (
+    specialized_summands,
+    target_group,
+  )
+
+
+def _phase159_r1_7c_r3_root_zero_direct_premise_plan(
+  presentation: TodaGroupProofPresentation,
+):
+  root_step = presentation.root_step
+
+  if not isinstance(
+    root_step.conclusion,
+    TodaPrimaryGroupZeroStatement,
+  ):
+    return None
+
+  target_group = (
+    root_step.conclusion.group
+  )
+  decomposition_matches = tuple(
+    (
+      premise_step,
+      specialization,
+    )
+    for premise_step in root_step.premises
+    for specialization in (
+      _phase159_r1_7c_r3_decomposition_specialization(
+        premise_step.conclusion,
+        target_group,
+      ),
+    )
+    if specialization is not None
+  )
+
+  if len(
+    decomposition_matches
+  ) != 1:
+    return None
+
+  (
+    decomposition_step,
+    decomposition_specialization,
+  ) = decomposition_matches[0]
+  (
+    specialized_summands,
+    specialized_target,
+  ) = decomposition_specialization
+  support_records = []
+
+  for summand in specialized_summands:
+    direct_zero_matches = tuple(
+      premise_step
+      for premise_step in root_step.premises
+      if (
+        isinstance(
+          premise_step.conclusion,
+          TodaPrimaryGroupZeroStatement,
+        )
+        and premise_step.conclusion.group
+        == summand
+      )
+    )
+
+    if len(
+      direct_zero_matches
+    ) == 1:
+      support_records.append(
+        (
+          summand,
+          direct_zero_matches[0],
+          "known_zero",
+        )
+      )
+      continue
+
+    aggregate_matches = tuple(
+      premise_step
+      for premise_step in root_step.premises
+      if (
+        premise_step is not decomposition_step
+        and _phase159_r1_7c_r3_aggregate_zero_specializes_to(
+          premise_step.conclusion,
+          summand,
+        )
+      )
+    )
+
+    if len(
+      aggregate_matches
+    ) != 1:
+      return None
+
+    support_records.append(
+      (
+        summand,
+        aggregate_matches[0],
+        "aggregate_zero",
+      )
+    )
+
+  support_kinds = {
+    support_kind
+    for _, _, support_kind in support_records
+  }
+
+  if support_kinds != {
+    "known_zero",
+    "aggregate_zero",
+  }:
+    return None
+
+  return (
+    tuple(
+      support_records
+    ),
+    decomposition_step,
+    specialized_summands,
+    specialized_target,
+  )
+
+
+def _phase159_r1_7c_r3_reference_marker(
+  paragraph: str,
+) -> str | None:
+  stripped = paragraph.lstrip()
+
+  if not stripped.startswith(
+    "[R"
+  ):
+    return None
+
+  closing_index = stripped.find(
+    "]"
+  )
+
+  if closing_index < 0:
+    return None
+
+  number = stripped[
+    2:closing_index
+  ]
+
+  if not number.isdigit():
+    return None
+
+  return stripped[
+    :closing_index + 1
+  ]
+
+
+def _phase159_r1_7c_r3_specialized_zero_paragraph(
+  paragraph: str,
+  group: TodaPrimaryGroup,
+) -> str:
+  marker = (
+    _phase159_r1_7c_r3_reference_marker(
+      paragraph
+    )
+  )
+  statement = (
+    "$"
+    + render_toda_primary_group_latex(
+      group
+    )
+    + " = 0$."
+  )
+
+  if marker is None:
+    return statement
+
+  return (
+    marker
+    + "より, "
+    + statement
+  )
+
+
+def _phase159_r1_7c_r3_specialized_decomposition_paragraph(
+  paragraph: str,
+  summands: tuple[
+    TodaPrimaryGroup,
+    ...,
+  ],
+  target_group: TodaPrimaryGroup,
+) -> str:
+  marker = (
+    _phase159_r1_7c_r3_reference_marker(
+      paragraph
+    )
+  )
+  source_latex = r" \oplus ".join(
+    render_toda_primary_group_latex(
+      summand
+    )
+    for summand in summands
+  )
+  statement = (
+    "$"
+    + source_latex
+    + r" \xrightarrow{\cong} "
+    + render_toda_primary_group_latex(
+      target_group
+    )
+    + "$."
+  )
+
+  if marker is None:
+    return statement
+
+  return (
+    marker
+    + "より, "
+    + statement
+  )
+
+
+def specialize_toda_group_proof_narrative_root_zero_direct_premises(
+  presentation: TodaGroupProofPresentation,
+  markdown: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  plan = (
+    _phase159_r1_7c_r3_root_zero_direct_premise_plan(
+      presentation
+    )
+  )
+
+  if plan is None:
+    return markdown
+
+  (
+    support_records,
+    decomposition_step,
+    specialized_summands,
+    specialized_target,
+  ) = plan
+  replacement_by_rendered_step = {}
+
+  for (
+    summand,
+    support_step,
+    support_kind,
+  ) in support_records:
+    if support_kind != "aggregate_zero":
+      continue
+
+    rendered_support = (
+      _render_generic_narrative_step(
+        support_step
+      )
+    )
+
+    if rendered_support:
+      replacement_by_rendered_step[
+        rendered_support
+      ] = (
+        "zero",
+        summand,
+      )
+
+  rendered_decomposition = (
+    _render_generic_narrative_step(
+      decomposition_step
+    )
+  )
+
+  if rendered_decomposition:
+    replacement_by_rendered_step[
+      rendered_decomposition
+    ] = (
+      "decomposition",
+      (
+        specialized_summands,
+        specialized_target,
+      ),
+    )
+
+  direct_premise_ids = {
+    id(
+      premise_step
+    )
+    for premise_step in (
+      presentation.root_step.premises
+    )
+  }
+  ancestor_steps = []
+  seen_ancestor_ids = set()
+  stack = [
+    ancestor_step
+    for premise_step in (
+      presentation.root_step.premises
+    )
+    for ancestor_step in (
+      premise_step.premises
+    )
+  ]
+
+  while stack:
+    proof_step = stack.pop()
+    proof_step_id = id(
+      proof_step
+    )
+
+    if (
+      proof_step_id
+      in seen_ancestor_ids
+      or proof_step_id
+      in direct_premise_ids
+    ):
+      continue
+
+    seen_ancestor_ids.add(
+      proof_step_id
+    )
+    ancestor_steps.append(
+      proof_step
+    )
+    stack.extend(
+      proof_step.premises
+    )
+
+  ancestor_fragments = tuple(
+    rendered
+    for rendered in (
+      _render_generic_narrative_step(
+        proof_step
+      )
+      for proof_step in ancestor_steps
+    )
+    if rendered
+  )
+  root_rendered = (
+    _render_generic_narrative_step(
+      presentation.root_step
+    )
+  )
+  retained_paragraphs = []
+
+  for paragraph in markdown.split(
+    "\n\n"
+  ):
+    replacement = next(
+      (
+        replacement
+        for rendered_step, replacement
+        in replacement_by_rendered_step.items()
+        if rendered_step in paragraph
+      ),
+      None,
+    )
+
+    if replacement is not None:
+      replacement_kind, value = replacement
+
+      if replacement_kind == "zero":
+        retained_paragraphs.append(
+          _phase159_r1_7c_r3_specialized_zero_paragraph(
+            paragraph,
+            value,
+          )
+        )
+      else:
+        (
+          summands,
+          target_group,
+        ) = value
+        retained_paragraphs.append(
+          _phase159_r1_7c_r3_specialized_decomposition_paragraph(
+            paragraph,
+            summands,
+            target_group,
+          )
+        )
+
+      continue
+
+    if (
+      root_rendered
+      and root_rendered in paragraph
+    ):
+      retained_paragraphs.append(
+        paragraph
+      )
+      continue
+
+    if any(
+      fragment in paragraph
+      for fragment in ancestor_fragments
+    ):
+      continue
+
+    retained_paragraphs.append(
+      paragraph
+    )
+
+  return "\n\n".join(
+    retained_paragraphs
+  )
+
+
+def _phase159_r1_7c_r3_repair4_aggregate_zero_component_line(
+  statement,
+  target_group: TodaPrimaryGroup,
+) -> str | None:
+  if not isinstance(
+    target_group,
+    TodaPrimaryGroup,
+  ):
+    raise TypeError(
+      "target_group must be a TodaPrimaryGroup"
+    )
+
+  if not is_dataclass(
+    statement
+  ):
+    return None
+
+  target_sphere_dimension = (
+    target_group.sphere_dimension
+  )
+
+  if (
+    not isinstance(
+      target_sphere_dimension,
+      int,
+    )
+    or isinstance(
+      target_sphere_dimension,
+      bool,
+    )
+  ):
+    return None
+
+  statement_values = tuple(
+    getattr(
+      statement,
+      field.name,
+    )
+    for field in fields(
+      statement
+    )
+  )
+  range_statements = tuple(
+    value
+    for value in statement_values
+    if isinstance(
+      value,
+      ScalarGreaterEqualStatement,
+    )
+  )
+
+  for value in statement_values:
+    if not isinstance(
+      value,
+      TodaPrimaryGroupZeroStatement,
+    ):
+      continue
+
+    template_group = value.group
+    symbol = (
+      template_group.sphere_dimension
+    )
+
+    if not isinstance(
+      symbol,
+      ScalarSymbol,
+    ):
+      continue
+
+    specialized_group = (
+      _phase159_r1_7c_r3_specialize_primary_group(
+        template_group,
+        symbol,
+        target_sphere_dimension,
+      )
+    )
+
+    if specialized_group != target_group:
+      continue
+
+    applicable_range = next(
+      (
+        range_statement
+        for range_statement in range_statements
+        for left, right in (
+          (
+            _phase157_r20_reference_scalar_value(
+              range_statement.left,
+              symbol,
+              target_sphere_dimension,
+            ),
+            _phase157_r20_reference_scalar_value(
+              range_statement.right,
+              symbol,
+              target_sphere_dimension,
+            ),
+          ),
+        )
+        if (
+          left is not None
+          and right is not None
+          and left >= right
+        )
+      ),
+      None,
+    )
+
+    if applicable_range is None:
+      continue
+
+    return (
+      "$"
+      + render_toda_primary_group_latex(
+        template_group
+      )
+      + " = 0$, $"
+      + _render_scalar_latex(
+        applicable_range.left
+      )
+      + r" \ge "
+      + _render_scalar_latex(
+        applicable_range.right
+      )
+      + "$ が成り立つ."
+    )
+
+  return None
+
+
+def prune_toda_group_proof_narrative_root_zero_direct_premise_references(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+  statement_lines_by_reference_number,
+):
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "statement_lines_by_reference_number must be a dict"
+    )
+
+  plan = (
+    _phase159_r1_7c_r3_root_zero_direct_premise_plan(
+      presentation
+    )
+  )
+
+  if plan is None:
+    return (
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+
+  (
+    support_records,
+    decomposition_step,
+    _,
+    _,
+  ) = plan
+
+  required_records = tuple(
+    (
+      support_step,
+      support_kind,
+      summand,
+    )
+    for (
+      summand,
+      support_step,
+      support_kind,
+    ) in support_records
+  ) + (
+    (
+      decomposition_step,
+      "decomposition",
+      None,
+    ),
+  )
+
+  required_by_reference = {}
+
+  for (
+    required_step,
+    required_kind,
+    target_group,
+  ) in required_records:
+    reference = (
+      extract_toda_group_proof_step_literature_reference(
+        required_step
+      )
+    )
+
+    if reference is None:
+      continue
+
+    required_by_reference.setdefault(
+      reference,
+      [],
+    ).append(
+      (
+        required_step,
+        required_kind,
+        target_group,
+      )
+    )
+
+  if not required_by_reference:
+    return (
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+
+  pruned_entries = []
+
+  for entry in reference_entries:
+    required_for_entry = (
+      required_by_reference.get(
+        entry.reference,
+      )
+    )
+
+    if not required_for_entry:
+      pruned_entries.append(
+        entry
+      )
+      continue
+
+    required_step_ids = {
+      id(
+        required_step
+      )
+      for (
+        required_step,
+        _,
+        _,
+      ) in required_for_entry
+    }
+
+    retained_steps = tuple(
+      proof_step
+      for proof_step in entry.proof_steps
+      if id(
+        proof_step
+      ) in required_step_ids
+    )
+
+    if not retained_steps:
+      pruned_entries.append(
+        entry
+      )
+      continue
+
+    pruned_entries.append(
+      replace(
+        entry,
+        proof_steps=retained_steps,
+      )
+    )
+
+  pruned_entries = tuple(
+    pruned_entries
+  )
+  pruned_lines = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      pruned_entries,
+    )
+  )
+
+  for entry in pruned_entries:
+    required_for_entry = (
+      required_by_reference.get(
+        entry.reference,
+      )
+    )
+
+    if not required_for_entry:
+      continue
+
+    aggregate_records = tuple(
+      (
+        required_step,
+        target_group,
+      )
+      for (
+        required_step,
+        required_kind,
+        target_group,
+      ) in required_for_entry
+      if required_kind == "aggregate_zero"
+    )
+
+    if len(
+      aggregate_records
+    ) != 1:
+      continue
+
+    (
+      aggregate_step,
+      target_group,
+    ) = aggregate_records[0]
+    component_line = (
+      _phase159_r1_7c_r3_repair4_aggregate_zero_component_line(
+        aggregate_step.conclusion,
+        target_group,
+      )
+    )
+
+    if component_line is None:
+      continue
+
+    pruned_lines[
+      entry.number
+    ] = (
+      component_line,
+    )
+
+  return (
+    pruned_entries,
+    pruned_lines,
+  )
+
+
+def suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
+  markdown: str,
+) -> str:
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  retained = []
+  prior_sequence_cores = []
+
+  for paragraph in markdown.split(
+    "\n\n"
+  ):
+    stripped = paragraph.strip()
+
+    if (
+      not stripped.startswith(
+        "$"
+      )
+      or r"\xrightarrow{"
+      not in stripped
+    ):
+      retained.append(
+        paragraph
+      )
+      continue
+
+    closing_math_index = stripped.find(
+      "$",
+      1,
+    )
+
+    if closing_math_index < 0:
+      retained.append(
+        paragraph
+      )
+      continue
+
+    sequence_core = stripped[
+      1:
+      closing_math_index
+    ]
+    arrow_count = sequence_core.count(
+      r"\xrightarrow{"
+    )
+
+    if arrow_count < 1:
+      retained.append(
+        paragraph
+      )
+      continue
+
+    is_late_prefix_restatement = any(
+      prior_core.startswith(
+        sequence_core
+      )
+      and prior_core != sequence_core
+      and prior_core.count(
+        r"\xrightarrow{"
+      ) > arrow_count
+      for prior_core in prior_sequence_cores
+    )
+
+    if is_late_prefix_restatement:
+      continue
+
+    prior_sequence_cores.append(
+      sequence_core
+    )
+    retained.append(
+      paragraph
+    )
+
+  return "\n\n".join(
+    retained
+  )
+
+
+
+
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -7682,9 +9070,33 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
   rendered = (
+    suppress_toda_group_proof_narrative_repeated_unique_step_statements(
+      presentation,
+      rendered,
+    )
+  )
+  rendered = (
     order_toda_group_proof_narrative_injective_image_order_reason(
       rendered,
       reason_sidecar,
+    )
+  )
+  rendered = (
+    specialize_toda_group_proof_narrative_root_zero_direct_premises(
+      presentation,
+      rendered,
+    )
+  )
+
+  rendered = (
+    suppress_toda_group_proof_narrative_literal_reflexive_equalities(
+      rendered
+    )
+  )
+
+  rendered = (
+    suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
+      rendered
     )
   )
 
@@ -7763,6 +9175,17 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         rendered,
       )
     )
+
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    prune_toda_group_proof_narrative_root_zero_direct_premise_references(
+      presentation,
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
 
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(

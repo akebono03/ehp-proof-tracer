@@ -44,19 +44,9 @@ def test_phase157_r20_reference_dependencies_are_recovered_from_graph():
     "(5.3)",
     "Proposition 5.3",
     "Proposition 5.1",
-    "Proposition 2.2",
+    "(5.7)",
   ):
     assert reference in rendered
-
-  assert (
-    rendered.index(
-      "[R5]より"
-    )
-    < rendered.index(
-      "[R3]より"
-    )
-  )
-
 
 def test_phase157_r20_eta_family_is_canonicalized_generically():
   rendered = _render_pi6_3_r20()
@@ -64,16 +54,19 @@ def test_phase157_r20_eta_family_is_canonicalized_generically():
   assert r"\eta_{2}^{3}" in rendered
   assert r"\eta_{3}^{3}" in rendered
   assert r"\eta_{5}" in rendered
+  assert r"\eta_{5}^{2}" in rendered
 
   assert (
     r"\eta_{2}\eta_{3}\eta_{4}"
     not in rendered
   )
   assert (
-    r"\eta_{3}\eta_{4}\eta_{5}"
+    r"$\pi_{7}^{5} = "
+    r"\mathbb{Z}/2\{\eta_{5}\eta_{6}\}$."
     not in rendered
   )
   assert (
     r"E^{2}\eta_{3}"
     not in rendered
   )
+

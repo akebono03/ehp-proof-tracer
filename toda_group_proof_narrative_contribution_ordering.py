@@ -1,4 +1,4 @@
-﻿from collections import defaultdict, deque
+from collections import defaultdict, deque
 from dataclasses import dataclass
 from enum import Enum
 
@@ -232,39 +232,151 @@ def _anchored_chain_step_ids(
     for block in local_body
     for step in block.steps
   }
-  anchors = _provider_anchor_step_ids(proof_chain) & local_ids
-  distances = _reverse_distances(presentation, conclusion_step)
-  parents = _parents_by_premise(presentation)
-  chain_ids = {id(conclusion_step)}
-  queue = deque(
+  anchors = (
+    _provider_anchor_step_ids(
+      proof_chain
+    )
+    & local_ids
+  )
+  distances = _reverse_distances(
+    presentation,
+    conclusion_step,
+  )
+  parents = _parents_by_premise(
+    presentation
+  )
+  premises = _premises_by_parent(
+    presentation
+  )
+  chain_ids = {
+    id(
+      conclusion_step
+    )
+  }
+
+  downstream_queue = deque(
     step
     for block in local_body
     for step in block.steps
     if id(step) in anchors
   )
-  visited = set(anchors)
+  downstream_visited = set(
+    anchors
+  )
 
-  while queue:
-    step = queue.popleft()
-    step_id = id(step)
+  while downstream_queue:
+    step = downstream_queue.popleft()
+    step_id = id(
+      step
+    )
+
     if step_id not in distances:
       continue
-    chain_ids.add(step_id)
-    for parent in parents.get(step_id, ()):
-      parent_id = id(parent)
+
+    chain_ids.add(
+      step_id
+    )
+
+    for parent in parents.get(
+      step_id,
+      (),
+    ):
+      parent_id = id(
+        parent
+      )
+
       if parent_id not in local_ids:
         continue
       if parent_id not in distances:
         continue
-      if distances[parent_id] >= distances[step_id]:
+      if (
+        distances[
+          parent_id
+        ]
+        >= distances[
+          step_id
+        ]
+      ):
         continue
-      chain_ids.add(parent_id)
-      if parent_id in visited:
-        continue
-      visited.add(parent_id)
-      queue.append(parent)
 
-  return frozenset(chain_ids), frozenset(anchors), distances
+      chain_ids.add(
+        parent_id
+      )
+
+      if parent_id in downstream_visited:
+        continue
+
+      downstream_visited.add(
+        parent_id
+      )
+      downstream_queue.append(
+        parent
+      )
+
+  upstream_queue = deque(
+    step
+    for block in local_body
+    for step in block.steps
+    if id(step) in anchors
+  )
+  upstream_visited = set(
+    anchors
+  )
+
+  while upstream_queue:
+    step = upstream_queue.popleft()
+    step_id = id(
+      step
+    )
+
+    if step_id not in distances:
+      continue
+
+    for premise in premises.get(
+      step_id,
+      (),
+    ):
+      premise_id = id(
+        premise
+      )
+
+      if premise_id not in local_ids:
+        continue
+      if premise_id not in distances:
+        continue
+      if (
+        distances[
+          premise_id
+        ]
+        <= distances[
+          step_id
+        ]
+      ):
+        continue
+
+      chain_ids.add(
+        premise_id
+      )
+
+      if premise_id in upstream_visited:
+        continue
+
+      upstream_visited.add(
+        premise_id
+      )
+      upstream_queue.append(
+        premise
+      )
+
+  return (
+    frozenset(
+      chain_ids
+    ),
+    frozenset(
+      anchors
+    ),
+    distances,
+  )
 
 
 def _can_reach_conclusion(
@@ -308,14 +420,22 @@ def _necessity_for_chain(
   dict[int, int],
   dict[int, tuple[int, ...]],
 ]:
-  chain_ids, anchors, distances = _anchored_chain_step_ids(
+  (
+    chain_ids,
+    anchors,
+    distances,
+  ) = _anchored_chain_step_ids(
     presentation,
     local_body,
     proof_chain,
     conclusion_step,
   )
-  parents = _parents_by_premise(presentation)
-  conclusion_id = id(conclusion_step)
+  parents = _parents_by_premise(
+    presentation
+  )
+  conclusion_id = id(
+    conclusion_step
+  )
   reachable_anchors = tuple(
     anchor_id
     for anchor_id in anchors
@@ -327,13 +447,16 @@ def _necessity_for_chain(
     )
   )
   necessity = {}
+
   for step_id in chain_ids:
-    necessity[step_id] = tuple(
-      anchor_id
-      for anchor_id in reachable_anchors
-      if (
-        step_id != anchor_id
-        and not _can_reach_conclusion(
+    required_by = []
+
+    for anchor_id in reachable_anchors:
+      if step_id == anchor_id:
+        continue
+
+      downstream_required = (
+        not _can_reach_conclusion(
           anchor_id,
           conclusion_id,
           parents,
@@ -341,8 +464,35 @@ def _necessity_for_chain(
           removed_id=step_id,
         )
       )
+      upstream_prerequisite = (
+        _can_reach_conclusion(
+          step_id,
+          anchor_id,
+          parents,
+          chain_ids,
+        )
+      )
+
+      if (
+        downstream_required
+        or upstream_prerequisite
+      ):
+        required_by.append(
+          anchor_id
+        )
+
+    necessity[
+      step_id
+    ] = tuple(
+      required_by
     )
-  return chain_ids, anchors, distances, necessity
+
+  return (
+    chain_ids,
+    anchors,
+    distances,
+    necessity,
+  )
 
 
 def _effective_hidden_step_ids(
@@ -409,23 +559,93 @@ def _provider_keys_for_step(
   step_id: int,
 ) -> tuple[tuple[str, int], ...]:
   keys = []
+
   for provider in proof_chain.providers:
     if provider.supporting_block is None:
       continue
+
     provider_chain = TodaGroupProofNarrativeProofChain(
       argument_index=proof_chain.argument_index,
       argument=proof_chain.argument,
-      providers=(provider,),
+      providers=(
+        provider,
+      ),
     )
-    chain_ids, _, _, _ = _necessity_for_chain(
+
+    (
+      chain_ids,
+      _anchors,
+      _distances,
+    ) = _anchored_chain_step_ids(
       presentation,
       local_body,
       provider_chain,
       conclusion_step,
     )
+
     if step_id in chain_ids:
-      keys.append(_provider_key(provider))
-  return tuple(keys)
+      keys.append(
+        _provider_key(
+          provider
+        )
+      )
+
+  return tuple(
+    keys
+  )
+
+
+def _provider_keys_by_step_id(
+  presentation: TodaGroupProofPresentation,
+  local_body: tuple[TodaGroupProofNarrativeBlock, ...],
+  proof_chain: TodaGroupProofNarrativeProofChain,
+  conclusion_step: ProofStep,
+) -> dict[int, tuple[tuple[str, int], ...]]:
+  keys_by_step_id = defaultdict(
+    list
+  )
+
+  for provider in proof_chain.providers:
+    if provider.supporting_block is None:
+      continue
+
+    provider_chain = TodaGroupProofNarrativeProofChain(
+      argument_index=proof_chain.argument_index,
+      argument=proof_chain.argument,
+      providers=(
+        provider,
+      ),
+    )
+
+    (
+      chain_ids,
+      _anchors,
+      _distances,
+    ) = _anchored_chain_step_ids(
+      presentation,
+      local_body,
+      provider_chain,
+      conclusion_step,
+    )
+
+    provider_key = _provider_key(
+      provider
+    )
+
+    for step_id in chain_ids:
+      keys_by_step_id[
+        step_id
+      ].append(
+        provider_key
+      )
+
+  return {
+    step_id: tuple(
+      provider_keys
+    )
+    for step_id, provider_keys
+    in keys_by_step_id.items()
+  }
 
 
 def _children_by_step_id(
@@ -519,6 +739,16 @@ def _build_visibility_occurrences(
       for block in local_body
       for step in block.steps
     }
+    provider_keys_by_step_id = (
+      _provider_keys_by_step_id(
+        presentation,
+        local_body,
+        proof_chains[
+          argument_index
+        ],
+        conclusion_step,
+      )
+    )
 
     for step_id in chain_ids & hidden_ids:
       if not necessity.get(step_id, ()):
@@ -538,12 +768,9 @@ def _build_visibility_occurrences(
           proof_step=step,
           provider_anchor=step_id in anchors,
           distance_to_conclusion=distances.get(step_id),
-          provider_keys=_provider_keys_for_step(
-            presentation,
-            local_body,
-            proof_chains[argument_index],
-            conclusion_step,
+          provider_keys=provider_keys_by_step_id.get(
             step_id,
+            (),
           ),
         )
       )

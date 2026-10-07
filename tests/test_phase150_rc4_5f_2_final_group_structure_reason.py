@@ -147,11 +147,25 @@ def test_phase150_rc4_5f_2_final_reason_is_visible_before_final_group_conclusion
   assert "この短完全列と両端の群の位数より" in sentence
   assert r"中央の群の位数は $2\cdot2=4$" in sentence
   assert "中央の群を生成する" in sentence
-  assert rendered.count(sentence) == 1
+  assert "である." not in sentence
+  assert "であるから" not in sentence
+  assert r"\operatorname{ord}(\nu')=4=4" not in sentence
+
+  visible_sentence = sentence.removesuffix(
+    "\nしたがって, "
+  )
+
+  assert rendered.count(
+    visible_sentence
+  ) == 1
 
   conclusion = r"$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$"
   assert conclusion in rendered
-  assert rendered.index(sentence) < rendered.index(conclusion)
+  assert rendered.index(
+    visible_sentence
+  ) < rendered.index(
+    conclusion
+  )
 
 def test_phase150_rc4_5f_2_classifier_has_no_target_or_rule_name_special_case():
   import toda_group_proof_narrative_reasons as module

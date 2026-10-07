@@ -93,7 +93,7 @@ def test_phase150_rc4_5c_2_builds_exactness_to_map_property_from_typed_direct_pr
   assert window.second_map.name == "E"
 
 
-def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusion():
+def test_phase150_rc4_5c_2_exactness_reason_is_visible_without_verbose_duplicate():
   (
     presentation,
     blocks,
@@ -126,21 +126,19 @@ def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusi
   )
 
   assert sentence == (
-    "この完全性と $Δ=0$ より, "
-    "$\\ker E=\\operatorname{Im}Δ=0$ である.\n"
-    "したがって, "
+    "完全性より, "
+    "$E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ "
+    "は単射."
   )
-  assert rendered.count(sentence) == 1
+  assert rendered.count(
+    sentence
+  ) == 1
 
-  conclusion = (
+  verbose_duplicate = (
     "$E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ "
     "は単射である."
   )
-  assert conclusion in rendered
-  assert rendered.index(sentence) < rendered.index(
-    conclusion
-  )
-
+  assert verbose_duplicate not in rendered
 
 def test_phase150_rc4_5c_2_reason_builder_has_no_pi6_or_rule_name_special_case():
   import toda_group_proof_narrative_reasons as module

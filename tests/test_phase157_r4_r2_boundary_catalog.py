@@ -173,7 +173,7 @@ def test_phase157_r4_r2_equation513_three_map_values_are_registered():
     boundary = classify_toda_literature_statement_step(
       _step(
         rule_name,
-        "Equation 5.13",
+        "(5.13)",
       )
     )
 

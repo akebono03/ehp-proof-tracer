@@ -214,6 +214,6 @@ def test_phase157_r20_repair47_existing_nu_prime_order_reason_remains():
   assert (
     r"$\operatorname{ord}(\eta_{3}^{3})=2$ "
     r"かつ $2\nu'=\eta_{3}^{3}$ より, "
-    r"$4\nu'=0$ かつ $2\nu'\neq0$ である."
+    r"$4\nu'=0$ かつ $2\nu'\neq0$."
     in body
   )

@@ -1,0 +1,48 @@
+================================================================================
+Phase 159 - pi_4^3 post-repair1 Narrative ownership audit
+================================================================================
+Production code changes: none
+Existing test changes: none
+Target: pi_4^3, depth=2 public Narrative
+
+presentation nodes: 7
+closure nodes: 9
+blocks: 8
+arguments: 1
+
+Focus matrix:
+  prop51_direct_delta: NOT_IN_DEPTH2_CLOSURE
+  image_delta: NOT_IN_DEPTH2_CLOSURE
+  exact_delta_E: NOT_IN_DEPTH2_CLOSURE
+  kernel_E: depth= blocks=[(3, 'other')] arguments=[] public=False
+  pi3_2: depth= blocks=[(1, 'group_structure')] arguments=[(0, 'establish_group_structure', 'support')] public=False
+  pi4_5_zero: depth= blocks=[(6, 'group_structure')] arguments=[] public=False
+  exact_E_H: depth= blocks=[(7, 'exactness')] arguments=[] public=False
+  E_surjective: depth= blocks=[(4, 'map_property')] arguments=[] public=False
+  pi4_3_result: depth= blocks=[(0, 'target')] arguments=[(0, 'establish_group_structure', 'conclusion')] public=True
+  pi4_3_result: depth= blocks=[(1, 'group_structure')] arguments=[(0, 'establish_group_structure', 'support')] public=True
+
+Public Narrative:
+## 証明対象
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}.$
+## 使用する結果
+---
+## 証明
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}.$
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+以上より, $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+□
+
+Interpretation:
+  NOT_IN_DEPTH2_CLOSURE:
+    The required step is still outside the depth=2 semantic closure.
+  argument_owners=[]:
+    The step reaches a Narrative block but is not owned by an Argument.
+  public=False with Argument ownership:
+    Ownership exists but later rendering/suppression hides the step.
+
+Boundary:
+  Audit only. No Narrative repair is performed.
+  Repository-wide pytest is not run.
+================================================================================

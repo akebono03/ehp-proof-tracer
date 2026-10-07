@@ -104,6 +104,58 @@ _PROPOSITION_22_COMPONENTS = (
 )
 
 
+_EQUATION_51_COMPONENTS = (
+  TodaFixedStatementComponent(
+    reference_locator="(5.1)",
+    component_key="circle_higher_homotopy_zero",
+    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+    order=None,
+    range_text="i > 1",
+    range_is_explicit_in_current_aggregate=True,
+  ),
+  TodaFixedStatementComponent(
+    reference_locator="(5.1)",
+    component_key="sphere_connectivity_zero",
+    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+    order=None,
+    range_text="i < n",
+    range_is_explicit_in_current_aggregate=True,
+  ),
+  TodaFixedStatementComponent(
+    reference_locator="(5.1)",
+    component_key="stable_negative_zero",
+    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+    order=None,
+    range_text="k < 0",
+    range_is_explicit_in_current_aggregate=True,
+  ),
+  TodaFixedStatementComponent(
+    reference_locator="(5.1)",
+    component_key="diagonal_identity_group",
+    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+    order=None,
+    range_text=None,
+    range_is_explicit_in_current_aggregate=True,
+  ),
+  TodaFixedStatementComponent(
+    reference_locator="(5.1)",
+    component_key="stable_zero_stem",
+    statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
+    order=None,
+    range_text=None,
+    range_is_explicit_in_current_aggregate=True,
+  ),
+  TodaFixedStatementComponent(
+    reference_locator="(5.1)",
+    component_key="diagonal_suspension_isomorphism",
+    statement_role=TodaLiteratureStatementRole.OTHER,
+    order=None,
+    range_text=None,
+    range_is_explicit_in_current_aggregate=False,
+  ),
+)
+
+
 _PROPOSITION_51_COMPONENTS = (
   TodaFixedStatementComponent(
     reference_locator="Proposition 5.1",
@@ -403,7 +455,7 @@ _LEMMA_514_COMPONENTS = (
 
 _EQUATION_513_COMPONENTS = (
   TodaFixedStatementComponent(
-    reference_locator="Equation 5.13",
+    reference_locator="(5.13)",
     component_key="delta_nu9_relation",
     statement_role=TodaLiteratureStatementRole.MAP_VALUE,
     order=None,
@@ -411,7 +463,7 @@ _EQUATION_513_COMPONENTS = (
     range_is_explicit_in_current_aggregate=True,
   ),
   TodaFixedStatementComponent(
-    reference_locator="Equation 5.13",
+    reference_locator="(5.13)",
     component_key="delta_eta11_squared_zero",
     statement_role=TodaLiteratureStatementRole.MAP_VALUE,
     order=None,
@@ -419,7 +471,7 @@ _EQUATION_513_COMPONENTS = (
     range_is_explicit_in_current_aggregate=True,
   ),
   TodaFixedStatementComponent(
-    reference_locator="Equation 5.13",
+    reference_locator="(5.13)",
     component_key="delta_eta13_zero",
     statement_role=TodaLiteratureStatementRole.MAP_VALUE,
     order=None,
@@ -441,6 +493,7 @@ _EQUATION_55_COMPONENTS = (
 )
 
 _FIXED_COMPONENTS_BY_REFERENCE = {
+  "(5.1)": _EQUATION_51_COMPONENTS,
   "Proposition 2.2": _PROPOSITION_22_COMPONENTS,
   "Proposition 5.1": _PROPOSITION_51_COMPONENTS,
   "Proposition 5.3": _PROPOSITION_53_COMPONENTS,
@@ -449,13 +502,23 @@ _FIXED_COMPONENTS_BY_REFERENCE = {
   "Proposition 5.15": _PROPOSITION_515_COMPONENTS,
   "Lemma 5.13": _LEMMA_513_COMPONENTS,
   "Lemma 5.14": _LEMMA_514_COMPONENTS,
-  "Equation 5.13": _EQUATION_513_COMPONENTS,
+  "(5.13)": _EQUATION_513_COMPONENTS,
   "(5.5)": _EQUATION_55_COMPONENTS,
   "(5.3)": _EQUATION_53_COMPONENTS,
 }
 
 
+_FIXED_COMPONENTS_BY_REFERENCE[
+  "(5.1)"
+] = _EQUATION_51_COMPONENTS
+
 _FIXED_RULE_COMPONENT_KEYS = {
+  "Toda Equation 5.7 nu-prime eta_6 Hopf value": "nu_prime_eta6_hopf_relation",
+  "Toda (5.1) circle higher homotopy zero": "circle_higher_homotopy_zero",
+  "Toda (5.1) diagonal identity group": "diagonal_identity_group",
+  "Toda (5.1) low-dimensional suspension isomorphism": "diagonal_suspension_isomorphism",
+  "Toda Proposition 5.1 pi_3^2 group relation": "pi3_2_group_relation",
+  "Toda Proposition 5.1 Delta iota_5": "delta_iota5_relation",
   "Toda Prop.2.2 right formula": "hopf_right_composition_formula",
   "Toda Proposition 5.11 finite-dimensional integration": None,
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
@@ -544,6 +607,12 @@ _FIXED_RULE_COMPONENT_KEYS = {
 
 
 _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
+  "Toda Equation 5.7 nu-prime eta_6 Hopf value": "(5.7)",
+  "Toda (5.1) circle higher homotopy zero": "(5.1)",
+  "Toda (5.1) diagonal identity group": "(5.1)",
+  "Toda (5.1) low-dimensional suspension isomorphism": "(5.1)",
+  "Toda Proposition 5.1 pi_3^2 group relation": "Proposition 5.1",
+  "Toda Proposition 5.1 Delta iota_5": "Proposition 5.1",
   "Toda Prop.2.2 right formula": "Proposition 2.2",
   "Toda Proposition 5.11 finite-dimensional integration": "Proposition 5.11",
   "Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2)": (
@@ -575,9 +644,9 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
   "Toda Lemma 5.14 sigma double-prime branch": "Lemma 5.14",
   "Toda Lemma 5.14 sigma-prime branch": "Lemma 5.14",
   "Toda Lemma 5.14 sigma_8 branch": "Lemma 5.14",
-  "Toda Equation 5.13 Delta nu_9": "Equation 5.13",
-  "Toda Equation 5.13 Delta eta_11 squared zero": "Equation 5.13",
-  "Toda Equation 5.13 Delta eta_13 zero": "Equation 5.13",
+  "Toda Equation 5.13 Delta nu_9": "(5.13)",
+  "Toda Equation 5.13 Delta eta_11 squared zero": "(5.13)",
+  "Toda Equation 5.13 Delta eta_13 zero": "(5.13)",
   "Toda (5.5) nu-family finite-dimensional integration": "(5.5)",
   "Toda Proposition 5.1 finite-dimensional integration": (
     "Proposition 5.1"
@@ -635,9 +704,9 @@ _PHASE157_R5_R3_ADDITIONAL_COMPONENTS = {
       range_is_explicit_in_current_aggregate=True,
     ),
   ),
-  "Equation 5.7": (
+  "(5.7)": (
     TodaFixedStatementComponent(
-      reference_locator="Equation 5.7",
+      reference_locator="(5.7)",
       component_key="nu_prime_eta6_hopf_relation",
       statement_role=TodaLiteratureStatementRole.MAP_VALUE,
       order=None,
@@ -645,9 +714,9 @@ _PHASE157_R5_R3_ADDITIONAL_COMPONENTS = {
       range_is_explicit_in_current_aggregate=True,
     ),
   ),
-  "Equation 5.8": (
+  "(5.8)": (
     TodaFixedStatementComponent(
-      reference_locator="Equation 5.8",
+      reference_locator="(5.8)",
       component_key="delta_iota9_relation",
       statement_role=TodaLiteratureStatementRole.MAP_VALUE,
       order=None,
@@ -837,6 +906,7 @@ for (
 
 
 _PHASE157_R5_R3_INTERNAL_RULE_LOCATORS = {
+    'Toda Equation 5.7 nu-prime eta_6 Hopf value': '(5.7)',
     'Toda 4.5 pi_4^3 finite-cyclic transport': '(4.5)',
     'Toda 5.2 pi_4^2 finite-cyclic transport': '(5.2)',
     'Toda Lemma 5.14 sigma-family definition': 'Lemma 5.14',
@@ -883,7 +953,7 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME.update(
     'Toda 4.5 stable-range iterated suspension isomorphism': '(4.5)',
     'Toda 5.2 eta_2 composition isomorphism': '(5.2)',
     'Toda 5.5 nu-family finite-dimensional integration': '(5.5)',
-    'Toda Equation 5.8 integration': 'Equation 5.8',
+    'Toda Equation 5.8 integration': '(5.8)',
     'Toda Lemma 5.4 integration': 'Lemma 5.4',
     'Toda Lemma 5.7 Delta nu_5 generator': 'Lemma 5.7',
     'Toda Proposition 2.5 Delta eta_9 composition': 'Proposition 2.5',
@@ -905,6 +975,18 @@ _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME.update(
     'Toda Proposition 5.9 pi_9^4 decomposition': 'Proposition 5.9',
   }
 )
+
+_FIXED_COMPONENTS_BY_REFERENCE[
+  "(5.1)"
+] = _EQUATION_51_COMPONENTS
+
+_FIXED_RULE_COMPONENT_KEYS[
+  "Toda (5.1) sphere connectivity zero"
+] = "sphere_connectivity_zero"
+
+_REFERENCE_LOCATOR_BY_FIXED_RULE_NAME[
+  "Toda (5.1) sphere connectivity zero"
+] = "(5.1)"
 
 _TRACKED_REFERENCE_LOCATORS = frozenset(
   _FIXED_COMPONENTS_BY_REFERENCE

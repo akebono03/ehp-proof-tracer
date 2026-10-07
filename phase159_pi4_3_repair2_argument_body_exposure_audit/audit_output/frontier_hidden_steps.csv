@@ -1,0 +1,10 @@
+block_index,step_index,role,hidden_by_frontier,statement_type,rule,rendered
+0,0,target,False,Relation,Toda pi_4^3 eta_3 generator notation,$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+1,0,group_structure,False,Relation,Toda pi_4^3 finite cyclic quotient calculation,$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+1,1,group_structure,True,Relation,,$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+2,0,calculation,False,Relation,Toda eta_3 notation suspension bridge,$\eta_{3} = \eta_{3}$
+3,0,other,True,TodaSuspensionKernelFreeCyclicStatement,Toda pi_4^3 exactness Delta image equals E kernel,Toda pi_4^3 exactness Delta image equals E kernel
+4,0,map_property,True,TodaSuspensionSurjectiveStatement,Toda pi_4^3 E-H exactness zero-right suspension surjectivity,$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+5,0,other,True,TodaEtaFamilyDefinitionStatement,,`TodaEtaFamilyDefinitionStatement`
+6,0,group_structure,True,TodaPrimaryGroupZeroStatement,,$\pi_{4}^{5} = 0$
+7,0,exactness,False,TodaProp42ExactnessStatement,,$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.

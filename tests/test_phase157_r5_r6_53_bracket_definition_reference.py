@@ -1,3 +1,5 @@
+import re
+
 from toda_calculation_facade import (
   build_standard_toda_report,
 )
@@ -145,7 +147,7 @@ def test_phase157_r5_r6_pi6_reference_53_displays_bracket_definition():
   )
   reference_part = (
     rendered.split(
-      "まず",
+      "---\n\n## 証明",
       1,
     )[
       0
@@ -153,8 +155,11 @@ def test_phase157_r5_r6_pi6_reference_53_displays_bracket_definition():
   )
 
   assert (
-    "**[R1] (5.3).**"
-    in reference_part
+    re.search(
+      r"\*\*\[R\d+\] \(5\.3\)\.\*\*",
+      reference_part,
+    )
+    is not None
   )
   assert (
     r"\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}"
@@ -163,8 +168,6 @@ def test_phase157_r5_r6_pi6_reference_53_displays_bracket_definition():
     r"\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}"
     in reference_part
   )
-
-
 def test_phase157_r5_r6_pi6_hides_fixed_definition_internal_body():
   rendered = (
     render_toda_group_proof_narrative_markdown(

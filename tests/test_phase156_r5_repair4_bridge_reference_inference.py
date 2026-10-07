@@ -52,3 +52,15 @@ def test_phase156_r5_repair4_eta5_bridge_rule_has_no_fallback_reference():
     )
     is None
   )
+
+def test_phase159_r1_7c_r4_repair9_fix7_named_equation_infers_parenthesized_locator():
+  reference = (
+    _infer_toda_group_proof_literature_reference_from_rule_name(
+      "Toda Equation 5.7 nu-prime eta_6 Hopf value"
+    )
+  )
+
+  assert reference is not None
+  assert reference.label == "Toda (5.7)"
+  assert reference.locator == "(5.7)"
+

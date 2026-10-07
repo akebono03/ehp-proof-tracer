@@ -1,0 +1,63 @@
+================================================================================
+Phase 159 - pi_4^3 repair2 frontier-hidden decomposition audit
+================================================================================
+Production code changes: none
+Existing test changes: none
+
+hidden step count: 5
+
+Frontier-hidden steps:
+  block=1 step=1 role=group_structure type=Relation
+    rule=
+    rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+  block=3 step=0 role=other type=TodaSuspensionKernelFreeCyclicStatement
+    rule=Toda pi_4^3 exactness Delta image equals E kernel
+    rendered=Toda pi_4^3 exactness Delta image equals E kernel
+  block=4 step=0 role=map_property type=TodaSuspensionSurjectiveStatement
+    rule=Toda pi_4^3 E-H exactness zero-right suspension surjectivity
+    rendered=$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+  block=5 step=0 role=other type=TodaEtaFamilyDefinitionStatement
+    rule=
+    rendered=`TodaEtaFamilyDefinitionStatement`
+  block=6 step=0 role=group_structure type=TodaPrimaryGroupZeroStatement
+    rule=
+    rendered=$\pi_{4}^{5} = 0$
+
+Body WITH frontier hiding:
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+Body WITHOUT frontier hiding:
+Toda pi_4^3 exactness Delta image equals E kernel
+
+$\pi_{4}^{5} = 0$
+
+$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+
+`TodaEtaFamilyDefinitionStatement`
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+Current multi-argument markdown:
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+以上より, 
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+Interpretation:
+  If the missing mathematical support appears in Body WITHOUT frontier hiding, the current frontier policy is suppressing relevant proof content.
+  If it remains absent even without frontier hiding, the loss is inside body rendering or exactness contribution filtering.
+  Proposition 5.1 direct Delta / Im(Delta) / Delta-E exactness remain outside depth=2 closure and are not repaired by this audit.
+
+AUDIT_RESULT=PASS
+================================================================================

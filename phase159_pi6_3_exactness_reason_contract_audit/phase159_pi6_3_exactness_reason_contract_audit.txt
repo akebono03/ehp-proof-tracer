@@ -1,0 +1,306 @@
+# Phase 159 pi6_3 exactness reason contract audit
+
+## Current local renderer source
+
+def render_toda_group_proof_narrative_reason_sentence(
+  reason: TodaGroupProofNarrativeReason,
+) -> str | None:
+  if not isinstance(
+    reason,
+    TodaGroupProofNarrativeReason,
+  ):
+    raise TypeError(
+      "reason must be a "
+      "TodaGroupProofNarrativeReason"
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .DEFINITION_APPLICABILITY
+  ):
+    application = reason.reference_application
+
+    if application is None or len(application.bindings) != 1:
+      return (
+        "この前提条件を満たすので, "
+        "次の定義を用いる."
+      )
+
+    binding = application.bindings[0]
+    reference_label = application.reference.label
+    formal_latex = render_toda_expression_latex(
+      binding.formal_variable
+    )
+    instantiated_latex = render_toda_expression_latex(
+      binding.instantiated_expression
+    )
+
+    return (
+      "この前提条件を満たすので, "
+      f"{reference_label} を適用できる.\n"
+      f"{reference_label} の "
+      f"${formal_latex}$ を "
+      f"${instantiated_latex}$ と定めると, "
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .EXACTNESS_TO_MAP_PROPERTY
+  ):
+    if len(reason.premise_steps) != 2:
+      return None
+
+    conclusion = (
+      _render_generic_narrative_step(
+        reason.conclusion_step
+      )
+    )
+    if not conclusion:
+      return None
+
+    concise_conclusion = conclusion
+
+    for verbose, concise in (
+      (" は単射である.", " は単射."),
+      (" は全射である.", " は全射."),
+    ):
+      if concise_conclusion.endswith(
+        verbose
+      ):
+        concise_conclusion = (
+          concise_conclusion[
+            :-len(verbose)
+          ]
+          + concise
+        )
+        break
+
+    return (
+      "完全性より, "
+      + concise_conclusion
+    )
+
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .EXACTNESS_TO_KERNEL
+  ):
+    if len(reason.premise_steps) != 2:
+      return None
+
+    image_statement = (
+      reason.premise_steps[0].conclusion
+    )
+    exactness_statement = (
+      reason.premise_steps[1].conclusion
+    )
+    conclusion = (
+      reason.conclusion_step.conclusion
+    )
+    window = exactness_statement.window
+    first_map_name = window.first_map.name
+    second_map_name = window.second_map.name
+    group_latex = (
+      render_toda_raw_group_structure_latex(
+        conclusion.kernel_group
+      )
+    )
+
+    if (
+      image_statement.image_group
+      != conclusion.kernel_group
+    ):
+      return None
+
+    return (
+      "完全性より, "
+      f"$\\ker {second_map_name}"
+      f"=\\operatorname{{Im}}{first_map_name}"
+      f"={group_latex}$."
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .INJECTIVE_IMAGE_ORDER
+  ):
+    if len(
+      reason.premise_steps
+    ) != 2:
+      return None
+
+    group_statement = (
+      reason.premise_steps[
+        0
+      ].conclusion
+    )
+    injective_statement = (
+      reason.premise_steps[
+        1
+      ].conclusion
+    )
+    order_statement = (
+      reason.conclusion_step.conclusion
+    )
+
+    finite_group = group_statement.rhs
+    source_generator_latex = (
+      _render_generic_narrative_expression_latex(
+        finite_group.generator
+      )
+    )
+    target_latex = (
+      _render_generic_narrative_expression_latex(
+        order_statement.lhs
+      )
+    )
+    order = finite_group.order
+
+    if (
+      not source_generator_latex
+      or not target_latex
+    ):
+      return None
+
+    if (
+      type(
+        injective_statement.map
+      ).__name__
+      not in (
+        "TodaSuspensionMap",
+        "TodaIteratedSuspensionMap",
+      )
+    ):
+      return None
+
+    group_structure = (
+      _render_generic_narrative_step(
+        reason.premise_steps[
+          0
+        ]
+      )
+    )
+
+    return (
+      f"{group_structure} と $E$ の単射性より, "
+      f"$E({source_generator_latex})"
+      f"={target_latex}\\neq0$ であり, "
+      "単射写像は元の位数を保つ.\n"
+      "したがって, "
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .MULTIPLE_RELATION_TO_ORDER
+  ):
+    if len(reason.premise_steps) != 2:
+      return None
+
+    order_statement = reason.premise_steps[0].conclusion
+    equality_statement = reason.premise_steps[1].conclusion
+    ordered_latex = (
+      _render_generic_narrative_expression_latex(
+        order_statement.lhs
+      )
+    )
+    target_latex = (
+      _render_generic_narrative_expression_latex(
+        equality_statement.lhs.expression
+      )
+    )
+
+    return (
+      f"$\\operatorname{{ord}}({ordered_latex})=2$ "
+      f"かつ $2{target_latex}={ordered_latex}$ より, "
+      f"$4{target_latex}=0$ かつ "
+      f"$2{target_latex}\\neq0$.\n"
+      "したがって, "
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .FINAL_GROUP_STRUCTURE
+  ):
+    if len(reason.premise_steps) != 7:
+      return None
+
+    left_group_statement = reason.premise_steps[0].conclusion
+    right_group_statement = reason.premise_steps[4].conclusion
+    order_statement = reason.premise_steps[5].conclusion
+    membership_statement = reason.premise_steps[6].conclusion
+
+    left_order = left_group_statement.rhs.order
+    right_order = right_group_statement.rhs.order
+    middle_order = left_order * right_order
+    generator_latex = render_toda_expression_latex(
+      membership_statement.element
+    )
+
+    return (
+      "この短完全列と両端の群の位数より, "
+      f"中央の群の位数は ${left_order}\\cdot"
+      f"{right_order}={middle_order}$.\n"
+      f"また, ${generator_latex}$ は中央の群に属し, "
+      f"$\\operatorname{{ord}}({generator_latex})"
+      f"={middle_order}$ より, "
+      f"${generator_latex}$ は中央の群を生成する.\n"
+      "したがって, "
+    )
+
+  if reason.kind is TodaGroupProofNarrativeReasonKind.MAP_STRUCTURE_DERIVATION:
+    return (
+      "この完全性, 既知の群構造, および写像の像に関する結果を合わせると, "
+      "対象となる写像の像と核が決まる.\nしたがって, "
+    )
+
+  if reason.kind is TodaGroupProofNarrativeReasonKind.GROUP_ORDER_DERIVATION:
+    return (
+      "群構造に関する結果と写像による移送の結果を合わせると, "
+      "対象の群の位数と写像の単射性が決まる.\nしたがって, "
+    )
+
+  if reason.kind is TodaGroupProofNarrativeReasonKind.FINAL_RESULT_DERIVATION:
+    return None
+
+  return None
+
+
+## Current local exactness reason
+
+count=1
+reason_0='完全性より, $E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射.'
+
+## Public pi6_3 body lines around injectivity
+
+26: [R1] と $E$ の単射性より, $E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$ であり, 単射写像は元の位数を保つ.
+27: 
+28: 完全性より, $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射.
+29: 
+30: [R3]より, $\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}$.
+
+## Tests containing old contract fragment
+
+tests\test_phase150_rc4_5c_2_exactness_to_map_property.py:139: "この完全性と $Δ=0$ より"
+tests\test_phase157_r11_r17_residual_narrative_defects.py:92: "この完全性と $Δ=0$ より, "
+tests\test_phase157_r20_repair43_dangling_connector_cleanup.py:140: "この完全性と $Δ=0$ より, "
+
+## Tests containing concise contract fragment
+
+(none)
+
+## git diff: reason renderer
+
+
+
+## git diff: Phase 150 exactness test
+
+
+
+## git diff: Phase 157 dangling connector test
+
+

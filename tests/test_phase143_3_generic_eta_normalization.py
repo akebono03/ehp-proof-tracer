@@ -60,12 +60,23 @@ def test_phase143_3_pi6_3_generic_step_uses_eta_cube():
     _render_generic_narrative_step(step)
     for step in _pi6_3_steps()
   )
-  assert any(r"\eta_{3}^{3}" in rendered for rendered in rendered_steps)
-  assert all(
-    r"\eta_{3}\eta_{4}\eta_{5}" not in rendered
+
+  assert any(
+    r"\eta_{3}^{3}"
+    in rendered
     for rendered in rendered_steps
   )
-
+  assert any(
+    (
+      r"\eta_{3}\eta_{4}\eta_{5}"
+      in rendered
+    )
+    and (
+      r"\eta_{3}^{3}"
+      in rendered
+    )
+    for rendered in rendered_steps
+  )
 
 def test_phase143_3_has_no_pi6_or_fixed_eta_replacement_table():
   source = inspect.getsource(

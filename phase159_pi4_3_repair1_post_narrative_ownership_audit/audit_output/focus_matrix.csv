@@ -1,0 +1,8 @@
+closure_index,focus_kind,shortest_depth,statement_type,rule,in_presentation,in_closure,block_owners,argument_owners,rendered,rendered_text_in_public
+0,pi4_3_result,,Relation,Toda pi_4^3 eta_3 generator notation,True,True,"[(0, 'target')]","[(0, 'establish_group_structure', 'conclusion')]",$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$,True
+1,pi4_3_result,,Relation,Toda pi_4^3 finite cyclic quotient calculation,True,True,"[(1, 'group_structure')]","[(0, 'establish_group_structure', 'support')]",$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$,True
+3,pi3_2,,Relation,,True,True,"[(1, 'group_structure')]","[(0, 'establish_group_structure', 'support')]",$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$,False
+4,kernel_E,,TodaSuspensionKernelFreeCyclicStatement,Toda pi_4^3 exactness Delta image equals E kernel,True,True,"[(3, 'other')]",[],Toda pi_4^3 exactness Delta image equals E kernel,False
+5,E_surjective,,TodaSuspensionSurjectiveStatement,Toda pi_4^3 E-H exactness zero-right suspension surjectivity,True,True,"[(4, 'map_property')]",[],$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.,False
+7,pi4_5_zero,,TodaPrimaryGroupZeroStatement,,False,True,"[(6, 'group_structure')]",[],$\pi_{4}^{5} = 0$,False
+8,exact_E_H,,TodaProp42ExactnessStatement,,False,True,"[(7, 'exactness')]",[],$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.,False

@@ -1,0 +1,52 @@
+================================================================================
+Phase 159 - pi_4^3 corrected provenance route audit
+================================================================================
+Production code changes: none
+Existing test changes: none
+complete max depth: 6
+complete provenance nodes: 20
+
+Corrected structural checks:
+  pi_4^5 zero nodes in provenance: 1
+  direct Delta(iota_5)=+/-2eta_2 nodes in provenance: 0
+  pi_4^5 zero is direct premise of E-surjective step: True
+  direct Delta statement is direct premise of Im Delta step: False
+
+Current Im Delta premises:
+  premise[0] depth=4 type=Relation
+    rule=
+    rendered=$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$
+  premise[1] depth=4 type=TodaDeltaImageUpToSignStatement
+    rule=Toda Delta iota_5 Whitehead-square relation
+    rendered=$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$
+  premise[2] depth=4 type=TodaPi32WhiteheadSquareUpToSignStatement
+    rule=Toda pi_3^2 Whitehead square equals twice eta_2 up to sign
+    rendered=Toda pi_3^2 Whitehead square equals twice eta_2 up to sign
+
+Current E-surjective premises:
+  premise[0] depth=3 type=TodaPrimaryGroupZeroStatement
+    rule=
+    rendered=$\pi_{4}^{5} = 0$
+  premise[1] depth=3 type=TodaProp42ExactnessStatement
+    rule=
+    rendered=$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+Direct-bridge feasibility:
+  current ancestry can derive Delta(iota_5)=+/-2eta_2 with existing bridge rule: True
+  current Im Delta rule matches a reduced candidate set containing the direct Delta step: False
+
+Interpretation:
+  If pi_4^5 zero is a direct E-surjective premise, the previous NOT_IN_PROVENANCE result was an audit false negative.
+  If the direct Delta statement is absent from provenance but derivable with the existing bridge rule, the production pi_4^3 ancestry is still using the older indirect route.
+  The next repair should be chosen only after this distinction is confirmed.
+
+Output:
+  audit_output/summary.txt
+  audit_output/all_provenance_nodes.csv
+  audit_output/delta_image_premises.csv
+  audit_output/E_surjective_premises.csv
+
+Boundary:
+  Audit only. No production repair is performed.
+  Repository-wide pytest is not run.
+================================================================================

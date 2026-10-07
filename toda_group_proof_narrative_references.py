@@ -61,7 +61,12 @@ def _infer_toda_group_proof_literature_reference_from_rule_name(
   )
   if named_match is not None:
     kind, number = named_match.groups()
-    locator = f"{kind} {number}"
+
+    if kind == "Equation":
+      locator = f"({number})"
+    else:
+      locator = f"{kind} {number}"
+
     return LiteratureReference(
       label=f"Toda {locator}",
       locator=locator,
@@ -681,8 +686,25 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
       )
     )
 
+  retained_entries = sorted(
+    retained_entries,
+    key=lambda entry: (
+      0
+      if entry.reference.locator
+      == "(5.1)"
+      else 1
+    ),
+  )
+
   return tuple(
-    retained_entries
+    replace(
+      entry,
+      number=number,
+    )
+    for number, entry in enumerate(
+      retained_entries,
+      start=1,
+    )
   )
 
 

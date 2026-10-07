@@ -120,6 +120,112 @@ def _toda_group_structure_narrative_fact(
   return None
 
 
+def _toda_group_structure_narrative_generator_equivalent_via_direct_bridge(
+  left_generator,
+  right_generator,
+  direct_premise_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> bool:
+  if left_generator == right_generator:
+    return True
+
+  equivalent_values = [
+    left_generator,
+  ]
+  changed = True
+
+  while changed:
+    changed = False
+
+    for premise_step in direct_premise_steps:
+      statement = premise_step.conclusion
+
+      if (
+        not isinstance(
+          statement,
+          Relation,
+        )
+        or statement.relation_type
+        is not RelationType.EQUALITY
+      ):
+        continue
+
+      lhs = statement.lhs
+      rhs = statement.rhs
+      lhs_known = any(
+        lhs == value
+        for value in equivalent_values
+      )
+      rhs_known = any(
+        rhs == value
+        for value in equivalent_values
+      )
+
+      if lhs_known and not rhs_known:
+        equivalent_values.append(
+          rhs
+        )
+        changed = True
+
+      if rhs_known and not lhs_known:
+        equivalent_values.append(
+          lhs
+        )
+        changed = True
+
+  return any(
+    right_generator == value
+    for value in equivalent_values
+  )
+
+
+def _toda_group_structure_narrative_group_equivalent_via_direct_bridge(
+  left_group,
+  right_group,
+  direct_premise_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> bool:
+  if type(
+    left_group
+  ) is not type(
+    right_group
+  ):
+    return False
+
+  if isinstance(
+    left_group,
+    FreeCyclicGroup,
+  ):
+    return (
+      _toda_group_structure_narrative_generator_equivalent_via_direct_bridge(
+        left_group.generator,
+        right_group.generator,
+        direct_premise_steps,
+      )
+    )
+
+  if isinstance(
+    left_group,
+    FiniteCyclicGroup,
+  ):
+    if left_group.order != right_group.order:
+      return False
+
+    return (
+      _toda_group_structure_narrative_generator_equivalent_via_direct_bridge(
+        left_group.generator,
+        right_group.generator,
+        direct_premise_steps,
+      )
+    )
+
+  return False
+
+
 def extract_toda_group_structure_narrative_redundant_direct_premise_step_ids(
   conclusion_step: ProofStep,
 ) -> frozenset[
@@ -152,10 +258,12 @@ def extract_toda_group_structure_narrative_redundant_direct_premise_step_ids(
       conclusion_group
     )
   )
-
+  direct_premise_steps = (
+    conclusion_step.premises
+  )
   redundant_step_ids = set()
 
-  for premise_step in conclusion_step.premises:
+  for premise_step in direct_premise_steps:
     premise_fact = (
       _toda_group_structure_narrative_fact(
         premise_step.conclusion
@@ -173,19 +281,32 @@ def extract_toda_group_structure_narrative_redundant_direct_premise_step_ids(
     if premise_target != conclusion_target:
       continue
 
-    if (
+    premise_key = (
       toda_group_structure_narrative_semantic_key(
         premise_group
       )
-      != conclusion_key
-    ):
+    )
+
+    if premise_key == conclusion_key:
+      redundant_step_ids.add(
+        id(
+          premise_step
+        )
+      )
       continue
 
-    redundant_step_ids.add(
-      id(
-        premise_step
+    if (
+      _toda_group_structure_narrative_group_equivalent_via_direct_bridge(
+        premise_group,
+        conclusion_group,
+        direct_premise_steps,
       )
-    )
+    ):
+      redundant_step_ids.add(
+        id(
+          premise_step
+        )
+      )
 
   return frozenset(
     redundant_step_ids

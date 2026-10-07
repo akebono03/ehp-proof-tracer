@@ -1,0 +1,5746 @@
+from barratt_hilton_rules import (
+  HomotopyGroupMembershipStatement,
+)
+from homotopy_groups import (
+  HomotopyEHPExactnessWindow,
+  HomotopyGroup,
+  TodaDeltaMap,
+  TodaIteratedSuspensionMap,
+  TodaPrimaryGroup,
+  TodaPrimaryGroupMembershipStatement,
+  TodaProp44DecompositionMap,
+  TodaSuspensionIsomorphismStatement,
+  TodaSuspensionMap,
+)
+from proof import (
+  ProofStep,
+  Relation,
+  RelationType,
+)
+from scalar_rules import (
+  ScalarGreaterEqualStatement,
+)
+from repository_element_presentation import (
+  render_repository_conclusion_latex,
+)
+from toda_group_proof_presentation import (
+  TodaGroupProofPresentation,
+)
+from toda_group_proof_generic_narrative_renderer import (
+  _render_generic_narrative_step,
+)
+from toda_group_proof_narrative_arguments import (
+  build_toda_group_proof_narrative_arguments,
+)
+from toda_group_proof_narrative_argument_multi_renderer import (
+  render_toda_group_proof_narrative_multi_argument_markdown,
+)
+from toda_group_proof_narrative_contribution_renderer import (
+  _toda_group_proof_narrative_reference_statement_lines_by_number,
+  build_toda_group_proof_narrative_reference_reuse_marker_by_step_id,
+  link_toda_group_proof_narrative_reference_body_consumers,
+  render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+  suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
+  suppress_toda_group_proof_narrative_reference_body_duplicates,
+  suppress_toda_group_proof_narrative_reference_body_restatements,
+)
+from toda_group_proof_narrative_blocks import (
+  build_toda_group_proof_narrative_blocks,
+)
+from toda_group_proof_narrative_semantics import (
+  build_toda_group_proof_narrative_semantic_closure_presentation,
+  build_toda_group_proof_narrative_semantic_sidecar,
+)
+from toda_group_proof_narrative_references import (
+  build_toda_group_proof_narrative_reference_entries,
+  exclude_toda_group_proof_narrative_root_reference,
+  filter_toda_group_proof_narrative_reference_entries_by_body_usage,
+  filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary,
+  render_toda_group_proof_narrative_reference_entries_markdown,
+)
+from toda_group_proof_narrative_provenance_catalog import (
+  is_toda_group_proof_narrative_provenance_only_statement,
+)
+from toda_group_proof_narrative_helpers import (
+  root_generator,
+  root_target_group,
+)
+from toda_group_proof_narrative_classifier import (
+  TodaGroupProofNarrativeBlockRole,
+  TodaGroupProofNarrativeFactRole,
+  classify_toda_group_proof_narrative_step,
+)
+from toda_human_readable_renderer import (
+  _render_scalar_latex,
+  render_toda_expression_latex,
+)
+from toda_proof_narrative_renderer import (
+  render_toda_primary_group_latex,
+  render_toda_proof_statement_latex,
+  render_toda_raw_group_structure_latex,
+)
+from toda_rules import (
+  Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+  Toda45IsomorphismStatement,
+  Toda48Pi16_9OrderAndE4InjectiveStatement,
+  Toda52CompositionIsomorphismStatement,
+  Toda53NuPrimeBracketSpecializationStatement,
+  Toda55NuFamilyFiniteDimensionalStatement,
+  Toda56Nu4DecompositionIsomorphismStatement,
+  Toda56Nu4DecompositionStatement,
+  Toda58WhiteheadSquareUpToSignStatement,
+  TodaDeltaImageFreeCyclicStatement,
+  TodaDeltaKernelFreeCyclicStatement,
+  TodaDeltaSurjectiveStatement,
+  TodaDeltaZeroStatement,
+  TodaEtaFamilyDefinitionStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantIsomorphismStatement,
+  TodaHopfInvariantSurjectiveStatement,
+  TodaIteratedSuspensionInjectiveStatement,
+  TodaLemma513Statement,
+  TodaLemma514Sigma8Statement,
+  TodaLemma514SigmaPrimeStatement,
+  TodaLemma54Statement,
+  TodaPi32Eta2DefinitionStatement,
+  TodaPi32WhiteheadSquareUpToSignStatement,
+  TodaProp27HopfInvariantUpToSignStatement,
+  TodaProp42ExactnessStatement,
+  TodaProp44IsomorphismStatement,
+  TodaProp44SecondSummandRestrictionStatement,
+  TodaProp51FiniteDimensionalStatement,
+  TodaProp511FiniteDimensionalStatement,
+  TodaProp515Pi12_5HopfIsomorphismStatement,
+  TodaProp56FiniteDimensionalStatement,
+  TodaProp56Pi8_5QuotientStatement,
+  TodaSigmaFamilyDefinitionStatement,
+  TodaSuspensionInjectiveStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
+)
+
+def _group_proof_narrative_statement_label(
+  statement,
+) -> str | None:
+  if isinstance(
+    statement,
+    Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+  ):
+    return (
+      "Theorem 3.6 と Lemma 5.14 を結ぶ σ″ の関係"
+    )
+
+  if isinstance(
+    statement,
+    Toda48Pi16_9OrderAndE4InjectiveStatement,
+  ):
+    return (
+      "π₁₆⁹ の位数 16 と E⁴ の単射性"
+    )
+
+  if isinstance(
+    statement,
+    Toda52CompositionIsomorphismStatement,
+  ):
+    return "Toda (5.2) の η₂ 合成同型"
+
+  if isinstance(
+    statement,
+    Toda53NuPrimeBracketSpecializationStatement,
+  ):
+    return (
+      "ν′ に対する Lemma 5.2 の Toda bracket 特殊化"
+    )
+
+  if isinstance(
+    statement,
+    Toda55NuFamilyFiniteDimensionalStatement,
+  ):
+    return (
+      "Toda (5.5) の ν-family 有限次元結果"
+    )
+
+  if isinstance(
+    statement,
+    Toda56Nu4DecompositionIsomorphismStatement,
+  ):
+    return "Toda (5.6) の ν₄ 分解同型"
+
+  if isinstance(
+    statement,
+    Toda56Nu4DecompositionStatement,
+  ):
+    return "Toda (5.6) の ν₄ 分解"
+
+  if isinstance(
+    statement,
+    TodaDeltaZeroStatement,
+  ):
+    return "Δ 写像が零写像であること"
+
+  if isinstance(
+    statement,
+    TodaHopfInvariantInjectiveStatement,
+  ):
+    return "Hopf 写像の単射性"
+
+  if isinstance(
+    statement,
+    TodaIteratedSuspensionInjectiveStatement,
+  ):
+    return "E²: π₆³ → π₈⁵ の単射性"
+
+  if isinstance(
+    statement,
+    TodaLemma513Statement,
+  ):
+    return (
+      "Toda Lemma 5.13 の σ‴ に関する結果"
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma514Sigma8Statement,
+  ):
+    return (
+      "Toda Lemma 5.14 の σ₈ に関する結果"
+    )
+
+  if isinstance(
+    statement,
+    TodaLemma514SigmaPrimeStatement,
+  ):
+    return "Toda Lemma 5.14 の σ′ に関する結果"
+
+  if isinstance(
+    statement,
+    TodaLemma54Statement,
+  ):
+    return "Toda Lemma 5.4 の結果"
+
+  if isinstance(
+    statement,
+    TodaProp51FiniteDimensionalStatement,
+  ):
+    return (
+      "Toda Proposition 5.1 の有限次元結果"
+    )
+
+  if isinstance(
+    statement,
+    TodaProp511FiniteDimensionalStatement,
+  ):
+    return (
+      "Toda Proposition 5.11 の有限次元結果"
+    )
+
+  if isinstance(
+    statement,
+    TodaProp515Pi12_5HopfIsomorphismStatement,
+  ):
+    return (
+      "π₁₂⁵ の位数 2 の Hopf 像への同型"
+    )
+
+  if isinstance(
+    statement,
+    TodaProp56FiniteDimensionalStatement,
+  ):
+    return (
+      "Toda Proposition 5.6 の有限次元結果"
+    )
+
+  if isinstance(
+    statement,
+    TodaProp56Pi8_5QuotientStatement,
+  ):
+    return (
+      "π₈⁵ / E²π₆³ が位数 2 であること"
+    )
+
+  if isinstance(
+    statement,
+    TodaEtaFamilyDefinitionStatement,
+  ):
+    return "η-family の定義"
+
+  if isinstance(
+    statement,
+    TodaSigmaFamilyDefinitionStatement,
+  ):
+    return "σ-family の定義"
+
+  return None
+
+
+def _render_finite_dimensional_aggregate_statement_latex(
+  statement,
+) -> str | None:
+  target_names = {
+    "TodaProp53FiniteDimensionalStatement",
+    "TodaProp58FiniteDimensionalStatement",
+    "TodaProp59FiniteDimensionalStatement",
+    "TodaProp511NuSquaredFiniteDimensionalStatement",
+  }
+
+  if type(statement).__name__ not in target_names:
+    return None
+
+  parts = []
+  range_latex = None
+
+  for field_name in statement.__dataclass_fields__:
+    value = getattr(
+      statement,
+      field_name,
+    )
+
+    if isinstance(
+      value,
+      Relation,
+    ):
+      if (
+        value.relation_type
+        != RelationType.EQUALITY
+      ):
+        return None
+
+      parts.append(
+        render_toda_primary_group_latex(
+          value.lhs
+        )
+        + " = "
+        + render_toda_raw_group_structure_latex(
+          value.rhs
+        )
+      )
+      continue
+
+    if (
+      type(value).__name__
+      == "TodaPrimaryGroupZeroStatement"
+    ):
+      parts.append(
+        render_toda_primary_group_latex(
+          value.group
+        )
+        + " = 0"
+      )
+      continue
+
+    if (
+      type(value).__name__
+      == "ScalarGreaterEqualStatement"
+    ):
+      range_latex = (
+        _render_scalar_latex(
+          value.left
+        )
+        + r" \ge "
+        + _render_scalar_latex(
+          value.right
+        )
+      )
+
+  if not parts:
+    return None
+
+  latex = r",\quad ".join(parts)
+
+  if range_latex is not None:
+    latex += (
+      r"\qquad ("
+      + range_latex
+      + ")"
+    )
+
+  return latex
+
+
+
+
+def _render_prop44_suspension_injective_statement_latex(
+  statement,
+) -> str | None:
+  if (
+    type(statement).__name__
+    != "TodaProp44SuspensionInjectiveStatement"
+  ):
+    return None
+
+  suspension_map = statement.map
+
+  return (
+    "E: "
+    + render_toda_primary_group_latex(
+      suspension_map.source_group
+    )
+    + r" \hookrightarrow "
+    + render_toda_primary_group_latex(
+      suspension_map.target_group
+    )
+  )
+
+def _render_group_proof_narrative_latex(
+  proof_step: ProofStep,
+) -> str | None:
+  if not isinstance(
+    proof_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "proof_step must be a ProofStep"
+    )
+
+  statement = proof_step.conclusion
+
+
+  prop44_suspension_injective_latex = (
+    _render_prop44_suspension_injective_statement_latex(
+      statement
+    )
+  )
+
+  if (
+    prop44_suspension_injective_latex
+    is not None
+  ):
+    return prop44_suspension_injective_latex
+
+
+  finite_dimensional_latex = (
+    _render_finite_dimensional_aggregate_statement_latex(
+      statement
+    )
+  )
+
+  if finite_dimensional_latex is not None:
+    return finite_dimensional_latex
+
+  if isinstance(
+    statement,
+    HomotopyGroup,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.sphere_dimension
+      )
+      + "}"
+    )
+
+  if isinstance(
+    statement,
+    HomotopyEHPExactnessWindow,
+  ):
+    return (
+      r"\pi_{"
+      + _render_scalar_latex(
+        statement.source_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.source_term.sphere_dimension
+      )
+      + r"} \xrightarrow{"
+      + statement.first_map.name
+      + r"} \pi_{"
+      + _render_scalar_latex(
+        statement.middle_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.middle_term.sphere_dimension
+      )
+      + r"} \xrightarrow{"
+      + statement.second_map.name
+      + r"} \pi_{"
+      + _render_scalar_latex(
+        statement.target_term.group_dimension
+      )
+      + r"}^{"
+      + _render_scalar_latex(
+        statement.target_term.sphere_dimension
+      )
+      + "}"
+    )
+
+  if isinstance(
+    statement,
+    TodaPi32Eta2DefinitionStatement,
+  ):
+    return (
+      "H("
+      + render_toda_expression_latex(
+        statement.element
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        statement.image
+      )
+    )
+
+  if isinstance(
+    statement,
+    (
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      Toda58WhiteheadSquareUpToSignStatement,
+    ),
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.whitehead_square
+      )
+      + r" = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp27HopfInvariantUpToSignStatement,
+  ):
+    return (
+      "H("
+      + render_toda_expression_latex(
+        statement.argument
+      )
+      + r") = \pm "
+      + render_toda_expression_latex(
+        statement.positive_value
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaPrimaryGroupMembershipStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.element
+      )
+      + r" \in "
+      + render_toda_primary_group_latex(
+        statement.group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44IsomorphismStatement,
+  ):
+    return (
+      r"\left("
+      + render_toda_expression_latex(
+        statement.map.beta
+      )
+      + r", "
+      + render_toda_expression_latex(
+        statement.map.gamma
+      )
+      + r"\right) \mapsto "
+      + render_toda_expression_latex(
+        statement.map.formula
+      )
+      + r"\quad\text{は同型写像}"
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionIsomorphismStatement,
+  ):
+    return (
+      r"E: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    Toda45IsomorphismStatement,
+  ):
+    return (
+      r"E^{"
+      + _render_scalar_latex(
+        statement.map.exponent
+      )
+      + r"}: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaHopfInvariantIsomorphismStatement,
+  ):
+    return (
+      r"H: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \xrightarrow{\cong} "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44SecondSummandRestrictionStatement,
+  ):
+    return (
+      render_toda_expression_latex(
+        statement.decomposition_map.gamma
+      )
+      + r" \mapsto "
+      + render_toda_expression_latex(
+        statement.composition
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionMap,
+  ):
+    return (
+      "E: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaSurjectiveStatement,
+  ):
+    return (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \twoheadrightarrow "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionKernelFreeCyclicStatement,
+  ):
+    return (
+      r"\ker\left(E: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaImageFreeCyclicStatement,
+  ):
+    return (
+      r"\operatorname{Im}\left(\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.image_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaKernelFreeCyclicStatement,
+  ):
+    return (
+      r"\ker\left(\Delta: "
+      + render_toda_primary_group_latex(
+        statement.map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.map.target_group
+      )
+      + r"\right) = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaIteratedSuspensionMap,
+  ):
+    return (
+      r"E^{"
+      + _render_scalar_latex(
+        statement.exponent
+      )
+      + r"}: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaMap,
+  ):
+    return (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+    )
+
+  if isinstance(
+    statement,
+    TodaProp44DecompositionMap,
+  ):
+    return (
+      r"("
+      + render_toda_expression_latex(
+        statement.beta
+      )
+      + r", "
+      + render_toda_expression_latex(
+        statement.gamma
+      )
+      + r") \mapsto "
+      + render_toda_expression_latex(
+        statement.formula
+      )
+    )
+
+  if isinstance(
+    statement,
+    ScalarGreaterEqualStatement,
+  ):
+    return (
+      _render_scalar_latex(
+        statement.left
+      )
+      + r" \ge "
+      + _render_scalar_latex(
+        statement.right
+      )
+    )
+
+  try:
+    latex = (
+      render_repository_conclusion_latex(
+        statement
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
+    latex = None
+
+  if latex is not None:
+    return latex
+
+  return (
+    render_toda_proof_statement_latex(
+      statement
+    )
+  )
+
+
+def _render_group_proof_narrative_fact(
+  proof_step: ProofStep,
+) -> str:
+  if not isinstance(
+    proof_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "proof_step must be a ProofStep"
+    )
+
+  statement = proof_step.conclusion
+
+  generic_fact = (
+    _render_generic_narrative_step(
+      proof_step
+    )
+  )
+  internal_fallbacks = {
+    (
+      proof_step.inference_rule.name
+      if proof_step.inference_rule is not None
+      else None
+    ),
+    (
+      "`"
+      + type(
+        statement
+      ).__name__
+      + "`"
+    ),
+  }
+
+  if (
+    generic_fact
+    and generic_fact not in internal_fallbacks
+  ):
+    return generic_fact
+
+  latex = (
+    _render_group_proof_narrative_latex(
+      proof_step
+    )
+  )
+
+  if latex is not None:
+    return (
+      "$"
+      + latex
+      + "$"
+    )
+
+  label = (
+    _group_proof_narrative_statement_label(
+      statement
+    )
+  )
+
+  if label is not None:
+    return label
+
+  return "補助結果"
+
+def _narrative_edges_for_parent(
+  presentation: TodaGroupProofPresentation,
+  parent_step: ProofStep,
+):
+  return tuple(
+    sorted(
+      (
+        edge
+        for edge in presentation.edges
+        if edge.parent_step is parent_step
+      ),
+      key=lambda edge: edge.premise_index,
+    )
+  )
+
+
+def _premise_lead(
+  premise_number: int,
+  premise_count: int,
+) -> str:
+  if premise_count <= 0:
+    raise ValueError(
+      "premise_count must be positive"
+    )
+
+  if (
+    premise_number < 0
+    or premise_number >= premise_count
+  ):
+    raise ValueError(
+      "premise_number must be within "
+      "the premise range"
+    )
+
+  if premise_number == 0:
+    return "まず"
+
+  if premise_number == premise_count - 1:
+    return "さらに"
+
+  return "また"
+
+
+def _derivation_lead(
+  premise_count: int,
+) -> str:
+  if premise_count <= 0:
+    raise ValueError(
+      "premise_count must be positive"
+    )
+
+  if premise_count == 1:
+    return "このことから"
+
+  return "これらから"
+
+
+def _is_phase134_3_pi6_3_presentation(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  return (
+    target.group_dimension == 6
+    and target.sphere_dimension == 3
+    and presentation.source_entry.theorem
+    == "Toda Proposition 5.6"
+  )
+
+
+def _is_phase134_5_reference_step(
+  proof_step: ProofStep,
+) -> bool:
+  return isinstance(
+    proof_step.conclusion,
+    (
+      Toda52CompositionIsomorphismStatement,
+      TodaProp51FiniteDimensionalStatement,
+    ),
+  )
+
+
+def _phase134_5_pi6_3_ordered_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  ordered_steps = []
+  visited_step_ids = set()
+  active_step_ids = set()
+
+  def visit(
+    proof_step: ProofStep,
+  ) -> None:
+    step_id = id(
+      proof_step
+    )
+
+    if step_id in visited_step_ids:
+      return
+
+    if step_id in active_step_ids:
+      return
+
+    active_step_ids.add(
+      step_id
+    )
+
+    if not _is_phase134_5_reference_step(
+      proof_step
+    ):
+      for edge in (
+        _narrative_edges_for_parent(
+          presentation,
+          proof_step,
+        )
+      ):
+        visit(
+          edge.premise_step
+        )
+
+    active_step_ids.remove(
+      step_id
+    )
+
+    visited_step_ids.add(
+      step_id
+    )
+
+    ordered_steps.append(
+      proof_step
+    )
+
+  visit(
+    presentation.root_step
+  )
+
+  return tuple(
+    ordered_steps
+  )
+
+
+def _phase134_5_pi6_3_reference_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  return _phase134_9_reference_steps(
+    presentation
+  )
+
+def _phase134_5_reference_title(
+  proof_step: ProofStep,
+) -> str:
+  statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    Toda52CompositionIsomorphismStatement,
+  ):
+    return "Toda (5.2) の η₂ 合成同型"
+
+  if isinstance(
+    statement,
+    TodaProp51FiniteDimensionalStatement,
+  ):
+    return (
+      "Toda Proposition 5.1 の有限次元結果"
+    )
+
+  raise ValueError(
+    "unsupported Phase 134-5 reference step"
+  )
+
+
+def _phase134_5_reference_statement_lines(
+  proof_step: ProofStep,
+) -> tuple[
+  str,
+  ...,
+]:
+  statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    Toda52CompositionIsomorphismStatement,
+  ):
+    composition_element = (
+      statement.composition.left
+    )
+
+    latex = (
+      render_toda_expression_latex(
+        composition_element
+      )
+      + r"\circ - : "
+      + render_toda_primary_group_latex(
+        statement.source_group
+      )
+      + r" \longrightarrow "
+      + render_toda_primary_group_latex(
+        statement.target_group
+      )
+      + "."
+    )
+
+    return (
+      "次の合成写像は同型である.",
+      "",
+      r"\[",
+      latex,
+      r"\]",
+    )
+
+  if isinstance(
+    statement,
+    TodaProp51FiniteDimensionalStatement,
+  ):
+    latex = (
+      render_repository_conclusion_latex(
+        statement.higher_eta_group_relation
+      )
+      + r"\qquad (n \ge 3)."
+    )
+
+    return (
+      "次の群構造を用いる.",
+      "",
+      r"\[",
+      latex,
+      r"\]",
+    )
+
+  raise ValueError(
+    "unsupported Phase 134-5 reference step"
+  )
+
+def _phase134_5_dependency_text(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+  number_by_step_id: dict[
+    int,
+    int,
+  ],
+  reference_by_step_id: dict[
+    int,
+    str,
+  ],
+) -> str:
+  dependency_labels = []
+
+  for edge in (
+    _narrative_edges_for_parent(
+      presentation,
+      proof_step,
+    )
+  ):
+    premise_id = id(
+      edge.premise_step
+    )
+
+    reference_label = (
+      reference_by_step_id.get(
+        premise_id
+      )
+    )
+
+    if reference_label is not None:
+      dependency_labels.append(
+        "["
+        + reference_label
+        + "]"
+      )
+      continue
+
+    premise_number = (
+      number_by_step_id.get(
+        premise_id
+      )
+    )
+
+    if premise_number is not None:
+      dependency_labels.append(
+        "("
+        + str(
+          premise_number
+        )
+        + ")"
+      )
+
+  return ", ".join(
+    dependency_labels
+  )
+
+
+def _is_phase134_9_reference_step(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> bool:
+  classification = (
+    classify_toda_group_proof_narrative_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+  return (
+    classification.fact_role
+    is TodaGroupProofNarrativeFactRole.REFERENCE
+  )
+
+
+def _phase134_9_ordered_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  ordered_steps = []
+  visited_step_ids = set()
+  active_step_ids = set()
+
+  def visit(
+    proof_step: ProofStep,
+  ) -> None:
+    step_id = id(
+      proof_step
+    )
+
+    if step_id in visited_step_ids:
+      return
+
+    if step_id in active_step_ids:
+      return
+
+    active_step_ids.add(
+      step_id
+    )
+
+    if not _is_phase134_9_reference_step(
+      presentation,
+      proof_step,
+    ):
+      for edge in (
+        _narrative_edges_for_parent(
+          presentation,
+          proof_step,
+        )
+      ):
+        visit(
+          edge.premise_step
+        )
+
+    active_step_ids.remove(
+      step_id
+    )
+
+    visited_step_ids.add(
+      step_id
+    )
+
+    ordered_steps.append(
+      proof_step
+    )
+
+  visit(
+    presentation.root_step
+  )
+
+  return tuple(
+    ordered_steps
+  )
+
+
+def _phase134_9_numbered_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  return tuple(
+    proof_step
+    for proof_step in (
+      _phase134_9_ordered_steps(
+        presentation
+      )
+    )
+    if not _is_phase134_9_reference_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+
+def _phase134_9_reference_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  return tuple(
+    proof_step
+    for proof_step in (
+      _phase134_9_ordered_steps(
+        presentation
+      )
+    )
+    if _is_phase134_9_reference_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+
+def _phase134_3_pi6_3_numbered_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  return _phase134_9_numbered_steps(
+    presentation
+  )
+
+def _phase134_6_boundary_fact_latex(
+  statement,
+) -> tuple[
+  str | None,
+  str | None,
+]:
+  if isinstance(
+    statement,
+    TodaDeltaZeroStatement,
+  ):
+    group_map = statement.map
+
+    latex = (
+      r"\Delta: "
+      + render_toda_primary_group_latex(
+        group_map.source_group
+      )
+      + r" \to "
+      + render_toda_primary_group_latex(
+        group_map.target_group
+      )
+    )
+
+    return (
+      latex,
+      "は零写像である.",
+    )
+
+  if isinstance(
+    statement,
+    Toda53NuPrimeBracketSpecializationStatement,
+  ):
+    latex = (
+      render_repository_conclusion_latex(
+        statement.bracket_membership
+      )
+    )
+
+    return (
+      latex,
+      None,
+    )
+
+  return (
+    None,
+    None,
+  )
+
+
+def _phase134_3_reference_text(
+  premise_numbers: tuple[
+    int,
+    ...,
+  ],
+) -> str:
+  return ", ".join(
+    (
+      "("
+      + str(
+        number
+      )
+      + ")"
+    )
+    for number in premise_numbers
+  )
+
+
+def _strip_phase134_3_latex_suffix(
+  latex: str | None,
+  suffix: str,
+) -> str | None:
+  if latex is None:
+    return None
+
+  if latex.endswith(
+    suffix
+  ):
+    return latex[
+      :-len(
+        suffix
+      )
+    ]
+
+  return latex
+
+
+def _phase136_compact_eta_powers(
+  latex: str,
+) -> str:
+  if not isinstance(
+    latex,
+    str,
+  ):
+    raise TypeError(
+      "latex must be a str"
+    )
+
+  replacements = (
+    (
+      r"\eta_{2}\eta_{3}\eta_{4}",
+      r"\eta_{2}^{3}",
+    ),
+    (
+      r"\eta_{3}\eta_{4}\eta_{5}",
+      r"\eta_{3}^{3}",
+    ),
+    (
+      r"\eta_{2}\eta_{3}",
+      r"\eta_{2}^{2}",
+    ),
+    (
+      r"\eta_{3}\eta_{4}",
+      r"\eta_{3}^{2}",
+    ),
+  )
+
+  rendered = latex
+
+  for old, new in replacements:
+    rendered = rendered.replace(
+      old,
+      new,
+    )
+
+  return rendered
+
+
+def _phase136_2_pi6_3_reference_blocks() -> tuple[
+  tuple[
+    str,
+    tuple[str, ...],
+  ],
+  ...,
+]:
+  return (
+    (
+      "Toda Proposition 5.3",
+      (
+        r"\[",
+        (
+          r"\pi_{n + 2}^{n} = "
+          r"\mathbb{Z}/2\{\eta_{n}^{2}\}"
+          r"\qquad (n \ge 2)."
+        ),
+        r"\]",
+        "",
+        r"\[",
+        (
+          r"\pi_{5}^{3} = "
+          r"\mathbb{Z}/2\{\eta_{3}^{2}\},"
+          r"\qquad"
+          r"\pi_{7}^{5} = "
+          r"\mathbb{Z}/2\{\eta_{5}^{2}\}."
+        ),
+        r"\]",
+      ),
+    ),
+    (
+      "Toda Lemma 5.2",
+      (
+        "まず Lemma 5.2 の一般形を記す.",
+        "",
+        "$\\alpha\\in\\pi_i^3$, $2\\alpha=0$ であり,",
+        "",
+        r"\[",
+        r"\beta \in \{\eta_{3},2\iota_{4},E\alpha\}_{1}",
+        r"\]",
+        "",
+        "ならば,",
+        "",
+        r"\[",
+        r"\beta\in\pi_{i+2}^{3},",
+        r"\qquad",
+        r"H(\beta)=E^{2}\alpha,",
+        r"\qquad",
+        r"2\beta=\eta_{3}\circ E\alpha\circ\eta_{i+1},",
+        r"\qquad",
+        r"\Delta(E^{2}\alpha)=0.",
+        r"\]",
+        "",
+        (
+          "この証明では $\\alpha=\\eta_{3}$, "
+          "$i=4$ とする. まず $2\\eta_{3}=0$ "
+          "を確認すると, Toda bracket"
+        ),
+        "",
+        r"\[",
+        r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}",
+        r"\]",
+        "",
+        (
+          "が定義できる. この bracket のある元を "
+          "$\\nu'$ と定める. すなわち,"
+        ),
+        "",
+        r"\[",
+        r"\nu' \in \{\eta_{3},2\iota_{4},\eta_{4}\}_{1}.",
+        r"\]",
+        "",
+        "すると Lemma 5.2 より,",
+        "",
+        r"\[",
+        r"\nu'\in\pi_{6}^{3},",
+        r"\qquad",
+        r"H(\nu')=E^{2}\eta_{3},",
+        r"\qquad",
+        r"2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5},",
+        r"\qquad",
+        r"\Delta(E^{2}\eta_{3})=0",
+        r"\]",
+        "",
+        "を得る.",
+      ),
+    ),
+    (
+      "Toda Proposition 2.2 の右合成公式",
+      (
+        r"\[",
+        r"H(\alpha\circ E\beta)=H(\alpha)\circ E\beta.",
+        r"\]",
+      ),
+    ),
+  )
+
+def _phase136_2_is_pi6_5_group_step(
+  proof_step: ProofStep,
+) -> bool:
+  statement = proof_step.conclusion
+
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  lhs = statement.lhs
+
+  return (
+    isinstance(
+      lhs,
+      TodaPrimaryGroup,
+    )
+    and lhs.group_dimension == 6
+    and lhs.sphere_dimension == 5
+    and statement.relation_type
+    is RelationType.EQUALITY
+  )
+
+
+def _phase136_2_pi6_3_ordered_numbered_steps(
+  numbered_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  hopf_surjective_step = next(
+    (
+      proof_step
+      for proof_step in numbered_steps
+      if isinstance(
+        proof_step.conclusion,
+        TodaHopfInvariantSurjectiveStatement,
+      )
+    ),
+    None,
+  )
+
+  pi6_5_step = next(
+    (
+      proof_step
+      for proof_step in numbered_steps
+      if _phase136_2_is_pi6_5_group_step(
+        proof_step
+      )
+    ),
+    None,
+  )
+
+  if (
+    hopf_surjective_step is None
+    or pi6_5_step is None
+  ):
+    return numbered_steps
+
+  hopf_index = numbered_steps.index(
+    hopf_surjective_step
+  )
+  pi6_5_index = numbered_steps.index(
+    pi6_5_step
+  )
+
+  if pi6_5_index < hopf_index:
+    return numbered_steps
+
+  reordered = list(
+    numbered_steps
+  )
+  reordered.pop(
+    pi6_5_index
+  )
+  reordered.insert(
+    hopf_index,
+    pi6_5_step,
+  )
+
+  return tuple(
+    reordered
+  )
+
+
+def _phase136_pi6_3_reason_lead(
+  number: int,
+) -> str | None:
+  if not isinstance(
+    number,
+    int,
+  ):
+    raise TypeError(
+      "number must be an int"
+    )
+
+  reasons = {
+    1: "[R3] より,",
+    4: "EHP 完全列より,",
+    10: "[R2] の $n=3$ の場合より,",
+    12: "EHP 完全列より,",
+    14: "[R2] の $n=5$ の場合より,",
+  }
+
+  return reasons.get(
+    number
+  )
+
+def _append_phase134_3_pi6_3_fact(
+  lines: list[str],
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+  number_by_step_id: dict[
+    int,
+    int,
+  ],
+  reference_by_step_id: dict[
+    int,
+    str,
+  ],
+) -> None:
+  number = number_by_step_id[
+    id(
+      proof_step
+    )
+  ]
+
+  dependency_text = (
+    _phase134_5_dependency_text(
+      presentation,
+      proof_step,
+      number_by_step_id,
+      reference_by_step_id,
+    )
+  )
+
+  statement = proof_step.conclusion
+
+  if number == 14:
+    dependency_text = "[R2] の $n=5$ の場合より,"
+
+  if (
+    isinstance(
+      statement,
+      TodaHopfInvariantSurjectiveStatement,
+    )
+    and number == 15
+  ):
+    dependency_text = "(13), (14)"
+
+  if proof_step is presentation.root_step:
+    lines.append(
+      "以上により,"
+    )
+  elif number == 3:
+    lines.extend(
+      (
+        "まず, $\\Delta$ の直前を含む EHP 完全列",
+        "",
+        r"\[",
+        (
+          r"\pi_{7}^{3}\xrightarrow{H}"
+          r"\pi_{7}^{5}\xrightarrow{\Delta}"
+          r"\pi_{5}^{2}"
+          r"\quad\text{は完全である.}"
+        ),
+        r"\]",
+        "",
+        (
+          "[R4] の $\\nu'$ への適用から "
+          "$H(\\nu')=E^{2}\\eta_{3}$ を得て, "
+          "$E^{2}\\eta_{3}=\\eta_{5}$ だから"
+        ),
+        "",
+        r"\[",
+        r"H(\nu'\eta_{6})=\eta_{5}\eta_{6}=\eta_{5}^{2}.",
+        r"\]",
+        "",
+        (
+          "[R3] の $n=5$ の場合より "
+          "$\\pi_{7}^{5}=\\mathbb{Z}/2\\{\\eta_{5}^{2}\\}$ "
+          "なので, $H:\\pi_{7}^{3}\\to\\pi_{7}^{5}$ は全射である."
+        ),
+        (
+          "したがって完全性から "
+          "$\\ker\\Delta=\\pi_{7}^{5}$ となり,"
+        ),
+        "",
+      )
+    )
+  elif number == 7:
+    lines.extend(
+      (
+        (
+          "Lemma 5.2 に $\\alpha=\\eta_{3}$, "
+          "$i=4$, $\\beta=\\nu'$ を代入すると,"
+        ),
+        "",
+        r"\[",
+        r"2\nu'=\eta_{3}\circ E\eta_{3}\circ\eta_{5}.",
+        r"\]",
+        "",
+        (
+          "ここで $E\\eta_{3}=\\eta_{4}$ なので, "
+          "$\\eta_{3}\\circ E\\eta_{3}\\circ\\eta_{5}$ "
+          "は $\\eta_{3}^{3}$ と書ける. よって,"
+        ),
+        "",
+      )
+    )
+  elif number == 9:
+    lines.extend(
+      (
+        (
+          "次に Lemma 5.2 を $\\alpha=\\eta_{3}$, "
+          "$i=4$, $\\beta=\\nu'$ として適用するための"
+          "仮定を確認する."
+        ),
+        (
+          "$E\\eta_{3}=\\eta_{4}$ であるから, "
+          "Toda bracket に関する仮定は"
+        ),
+        "",
+      )
+    )
+  elif number == 11:
+    lines.extend(
+      (
+        (
+          "(9), (10) により Lemma 5.2 の仮定が満たされる. "
+          "したがって Lemma 5.2 の結論 "
+          "$\\beta\\in\\pi_{i+2}^{3}$ に "
+          "$i=4$, $\\beta=\\nu'$ を代入して,"
+        ),
+        "",
+      )
+    )
+  elif number == 13:
+    lines.extend(
+      (
+        (
+          "同じ Lemma 5.2 の結論 "
+          "$H(\\beta)=E^{2}\\alpha$ に "
+          "$\\alpha=\\eta_{3}$, $\\beta=\\nu'$ を代入すると,"
+        ),
+        "",
+        r"\[",
+        r"H(\nu')=E^{2}\eta_{3}.",
+        r"\]",
+        "",
+        "さらに $E^{2}\\eta_{3}=\\eta_{5}$ なので,",
+        "",
+      )
+    )
+  elif dependency_text:
+    if number == 14:
+      lines.append(
+        dependency_text
+      )
+    else:
+      lines.append(
+        dependency_text
+        + " より,"
+      )
+  else:
+    reason_lead = (
+      _phase136_pi6_3_reason_lead(
+        number
+      )
+    )
+
+    if reason_lead is not None:
+      lines.append(
+        reason_lead
+      )
+
+  boundary_latex, boundary_sentence = (
+    _phase134_6_boundary_fact_latex(
+      statement
+    )
+  )
+
+  if boundary_latex is not None:
+    rendered_latex = (
+      _phase136_compact_eta_powers(
+        boundary_latex
+      )
+    )
+
+    if boundary_sentence is not None:
+      rendered_latex = (
+        rendered_latex
+        + r"\quad\text{"
+        + boundary_sentence
+        + "}"
+      )
+    else:
+      rendered_latex = (
+        rendered_latex
+        + "."
+      )
+
+    lines.extend(
+      _phase134_30_display_math_lines(
+        rendered_latex,
+        number,
+      )
+    )
+    return
+
+  if isinstance(
+    statement,
+    TodaProp42ExactnessStatement,
+  ):
+    latex = (
+      _strip_phase134_3_latex_suffix(
+        render_toda_proof_statement_latex(
+          statement
+        ),
+        r" \text{ is exact}",
+      )
+    )
+
+    if latex is not None:
+      lines.extend(
+        _phase134_30_display_math_lines(
+          (
+            _phase136_compact_eta_powers(
+              latex
+            )
+            + r"\quad\text{は完全である.}"
+          ),
+          number,
+        )
+      )
+      return
+
+  if isinstance(
+    statement,
+    TodaSuspensionInjectiveStatement,
+  ):
+    latex = (
+      _strip_phase134_3_latex_suffix(
+        render_toda_proof_statement_latex(
+          statement
+        ),
+        r" \text{ is injective}",
+      )
+    )
+
+    if latex is not None:
+      lines.extend(
+        _phase134_30_display_math_lines(
+          (
+            _phase136_compact_eta_powers(
+              latex
+            )
+            + r"\quad\text{は単射である.}"
+          ),
+          number,
+        )
+      )
+      return
+
+  if isinstance(
+    statement,
+    TodaHopfInvariantSurjectiveStatement,
+  ):
+    latex = (
+      _strip_phase134_3_latex_suffix(
+        render_toda_proof_statement_latex(
+          statement
+        ),
+        r" \text{ is surjective}",
+      )
+    )
+
+    if latex is not None:
+      lines.extend(
+        _phase134_30_display_math_lines(
+          (
+            _phase136_compact_eta_powers(
+              latex
+            )
+            + r"\quad\text{は全射である.}"
+          ),
+          number,
+        )
+      )
+      return
+
+  if (
+    isinstance(
+      statement,
+      Relation,
+    )
+    and statement.relation_type
+    is RelationType.ORDER
+  ):
+    lhs_latex = (
+      _phase136_compact_eta_powers(
+        render_toda_expression_latex(
+          statement.lhs
+        )
+      )
+    )
+
+    lines.extend(
+      _phase134_30_display_math_lines(
+        (
+          lhs_latex
+          + r"\text{ の位数は }"
+          + str(
+            statement.rhs
+          )
+          + r"\text{ である.}"
+        ),
+        number,
+      )
+    )
+    return
+
+  latex = (
+    _render_group_proof_narrative_latex(
+      proof_step
+    )
+  )
+
+  if latex is not None:
+    rendered_latex = (
+      _phase136_compact_eta_powers(
+        latex
+      )
+    )
+
+    if proof_step is presentation.root_step:
+      lines.extend(
+        _phase134_30_display_math_lines(
+          rendered_latex,
+          number,
+        )
+      )
+      lines.extend(
+        (
+          "を得る.",
+          "",
+        )
+      )
+      return
+
+    if isinstance(
+      statement,
+      HomotopyGroupMembershipStatement,
+    ):
+      lines.extend(
+        _phase134_30_display_math_lines(
+          rendered_latex + ".",
+          number,
+        )
+      )
+      return
+
+    if (
+      isinstance(
+        statement,
+        Relation,
+      )
+      and statement.relation_type
+      in (
+        RelationType.EQUALITY,
+        RelationType.ZERO,
+      )
+    ):
+      lines.extend(
+        _phase134_30_display_math_lines(
+          rendered_latex + ".",
+          number,
+        )
+      )
+
+      if number == 10:
+        lines.extend(
+          (
+            (
+              "この $2\\eta_{3}=0$ は, "
+              "Lemma 5.2 を $\\alpha=\\eta_{3}$, "
+              "$i=4$, $\\beta=\\nu'$ として適用するために"
+              "必要な仮定である."
+            ),
+            "",
+          )
+        )
+
+      return
+
+    lines.extend(
+      _phase134_30_display_math_lines(
+        (
+          rendered_latex
+          + r"\quad\text{が成り立つ.}"
+        ),
+        number,
+      )
+    )
+    return
+
+  label = (
+    _group_proof_narrative_statement_label(
+      statement
+    )
+  )
+
+  if label is None:
+    label = (
+      _render_group_proof_narrative_fact(
+        proof_step
+      )
+    )
+
+  if dependency_text:
+    lines.extend(
+      (
+        (
+          "**("
+          + str(
+            number
+          )
+          + ")** "
+          + label
+          + "を得る."
+        ),
+        "",
+      )
+    )
+    return
+
+  lines.extend(
+    (
+      (
+        "**("
+        + str(
+          number
+        )
+        + ")** "
+        + label
+        + "を用いる."
+      ),
+      "",
+    )
+  )
+
+def _phase134_7_block_lead(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+  first_step: ProofStep,
+) -> str | None:
+  classification = (
+    classify_toda_group_proof_narrative_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+  generator = root_generator(
+    presentation
+  )
+
+  target = root_target_group(
+    presentation
+  )
+
+  generator_latex = (
+    render_toda_expression_latex(
+      generator
+    )
+    if generator is not None
+    else None
+  )
+
+  target_latex = (
+    "\\pi_{"
+    + str(
+      target.group_dimension
+    )
+    + "}^{"
+    + str(
+      target.sphere_dimension
+    )
+    + "}"
+  )
+
+  if (
+    proof_step is first_step
+    and classification.block_role
+    is TodaGroupProofNarrativeBlockRole.ORDER
+    and generator_latex is not None
+  ):
+    return (
+      "まず, $"
+      + generator_latex
+      + "$ の位数を求める."
+    )
+
+  if (
+    classification.block_role
+    is TodaGroupProofNarrativeBlockRole.MEMBERSHIP
+    and isinstance(
+      proof_step.conclusion,
+      Toda53NuPrimeBracketSpecializationStatement,
+    )
+    and generator_latex is not None
+  ):
+    return (
+      "次に, $"
+      + generator_latex
+      + " \\in "
+      + target_latex
+      + "$ であることを確認する."
+    )
+
+  if (
+    classification.block_role
+    is TodaGroupProofNarrativeBlockRole.GROUP_STRUCTURE
+    and isinstance(
+      proof_step.conclusion,
+      TodaProp42ExactnessStatement,
+    )
+  ):
+    return (
+      "最後に, EHP 完全列を用いて $"
+      + target_latex
+      + "$ の群構造を決定する."
+    )
+
+  return None
+
+
+def _phase134_26_narrative_section_header_lines(
+  section_title: str,
+) -> list[str]:
+  if not isinstance(
+    section_title,
+    str,
+  ):
+    raise TypeError(
+      "section_title must be a str"
+    )
+
+  if not section_title:
+    raise ValueError(
+      "section_title must not be empty"
+    )
+
+  return [
+    "## " + section_title,
+    "",
+  ]
+
+
+def _phase134_26_narrative_start_lines(
+  target_lines: list[str],
+) -> list[str]:
+  if not isinstance(
+    target_lines,
+    list,
+  ):
+    raise TypeError(
+      "target_lines must be a list"
+    )
+
+  return [
+    "# Group proof narrative",
+    "",
+    *_phase134_26_narrative_section_header_lines(
+      "証明対象"
+    ),
+    *target_lines,
+    "",
+  ]
+
+
+
+def _phase134_28_reference_section_lines(
+  reference_blocks: tuple[
+    tuple[
+      str,
+      tuple[
+        str,
+        ...,
+      ],
+    ],
+    ...,
+  ],
+) -> list[str]:
+  if not isinstance(
+    reference_blocks,
+    tuple,
+  ):
+    raise TypeError(
+      "reference_blocks must be a tuple"
+    )
+
+  if not reference_blocks:
+    return []
+
+  lines = (
+    _phase134_26_narrative_section_header_lines(
+      "使用する結果"
+    )
+  )
+
+  for index, reference_block in enumerate(
+    reference_blocks,
+    start=1,
+  ):
+    if not (
+      isinstance(
+        reference_block,
+        tuple,
+      )
+      and len(
+        reference_block
+      ) == 2
+    ):
+      raise TypeError(
+        "each reference block must be "
+        "a (title, statement_lines) tuple"
+      )
+
+    title, statement_lines = (
+      reference_block
+    )
+
+    if not isinstance(
+      title,
+      str,
+    ):
+      raise TypeError(
+        "reference title must be a str"
+      )
+
+    if not isinstance(
+      statement_lines,
+      tuple,
+    ):
+      raise TypeError(
+        "reference statement_lines must be a tuple"
+      )
+
+    lines.extend(
+      (
+        (
+          "**[R"
+          + str(
+            index
+          )
+          + "] "
+          + title
+          + ".**"
+        ),
+        "",
+      )
+    )
+
+    if statement_lines:
+      lines.extend(
+        statement_lines
+      )
+      lines.append(
+        ""
+      )
+
+  return lines
+
+
+
+def _phase134_30_display_math_lines(
+  latex: str,
+  tag: int | None = None,
+) -> list[str]:
+  if not isinstance(
+    latex,
+    str,
+  ):
+    raise TypeError(
+      "latex must be a str"
+    )
+
+  if tag is not None and not isinstance(
+    tag,
+    int,
+  ):
+    raise TypeError(
+      "tag must be an int or None"
+    )
+
+  rendered_latex = latex
+
+  if tag is not None:
+    rendered_latex = (
+      rendered_latex
+      + r"\tag{"
+      + str(
+        tag
+      )
+      + "}"
+    )
+
+  return [
+    "",
+    r"\[",
+    rendered_latex,
+    r"\]",
+    "",
+  ]
+
+
+def _phase134_30_completed_boundary_lines(
+  latex: str,
+  tag: int | None = None,
+  closing_text: str | None = None,
+) -> list[str]:
+  if closing_text is not None and not isinstance(
+    closing_text,
+    str,
+  ):
+    raise TypeError(
+      "closing_text must be a str or None"
+    )
+
+  lines = [
+    "既に,",
+    *_phase134_30_display_math_lines(
+      latex,
+      tag,
+    ),
+  ]
+
+  if closing_text is not None:
+    lines.extend(
+      (
+        closing_text,
+        "",
+      )
+    )
+
+  return lines
+
+
+def _phase134_30_final_conclusion_lines(
+  latex: str,
+  tag: int | None = None,
+) -> list[str]:
+  return [
+    "したがって,",
+    *_phase134_30_display_math_lines(
+      latex,
+      tag,
+    ),
+    "を得る.",
+    "",
+  ]
+
+
+def _render_phase134_3_pi6_3_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  reference_steps = (
+    _phase134_5_pi6_3_reference_steps(
+      presentation
+    )
+  )
+
+  root_latex = (
+    _render_group_proof_narrative_latex(
+      presentation.root_step
+    )
+  )
+
+  lines = (
+    _phase134_26_narrative_start_lines(
+      [
+        "Toda Proposition 5.6 のうち,",
+        "",
+        r"\[",
+        root_latex,
+        r"\]",
+        "",
+        "を示す.",
+      ]
+    )
+  )
+
+  reference_blocks = tuple(
+    (
+      (
+        "Toda Proposition 5.1"
+        if isinstance(
+          proof_step.conclusion,
+          TodaProp51FiniteDimensionalStatement,
+        )
+        else _phase134_5_reference_title(
+          proof_step
+        )
+      ),
+      (
+        (
+          r"\[",
+          (
+            r"\pi_{n + 1}^{n} = "
+            r"\mathbb{Z}/2\{\eta_{n}\}"
+            r"\qquad (n \ge 3)."
+          ),
+          r"\]",
+        )
+        if isinstance(
+          proof_step.conclusion,
+          TodaProp51FiniteDimensionalStatement,
+        )
+        else _phase134_5_reference_statement_lines(
+          proof_step
+        )
+      ),
+    )
+    for proof_step in reference_steps
+  ) + _phase136_2_pi6_3_reference_blocks()
+
+  if reference_blocks:
+    lines.extend(
+      _phase134_28_reference_section_lines(
+        reference_blocks
+      )
+    )
+
+  lines.extend(
+    _phase134_26_narrative_section_header_lines(
+      "証明"
+    )
+  )
+
+  lines.extend(
+    (
+      (
+        "まず, Lemma 5.2 を "
+        "$\\alpha=\\eta_{3}$, $i=4$, "
+        "$\\beta=\\nu'$ として適用するための仮定を確認する."
+      ),
+      "",
+      "[R2] の $n=3$ の場合より,",
+      "",
+      r"\[",
+      r"2\eta_{3}=0.\tag{1}",
+      r"\]",
+      "",
+      (
+        "したがって Toda bracket "
+        "$\\{\\eta_{3},2\\iota_{4},\\eta_{4}\\}_{1}$ "
+        "が定義できる. [R4] でこの bracket のある元を "
+        "$\\nu'$ と定めたので,"
+      ),
+      "",
+      r"\[",
+      (
+        r"\nu' \in "
+        r"\{\eta_{3},2\iota_{4},\eta_{4}\}_{1}."
+        r"\tag{2}"
+      ),
+      r"\]",
+      "",
+      (
+        "(1), (2) により Lemma 5.2 の仮定が満たされる. "
+        "したがって Lemma 5.2 の結論から,"
+      ),
+      "",
+      r"\[",
+      r"\nu'\in\pi_{6}^{3}.\tag{3}",
+      r"\]",
+      "",
+      (
+        "さらに $H(\\beta)=E^{2}\\alpha$ と "
+        "$E^{2}\\eta_{3}=\\eta_{5}$ から,"
+      ),
+      "",
+      r"\[",
+      r"H(\nu')=\eta_{5}.\tag{4}",
+      r"\]",
+      "",
+      (
+        "また $2\\beta="
+        "\\eta_{3}\\circ E\\alpha\\circ\\eta_{i+1}$ と "
+        "$E\\eta_{3}=\\eta_{4}$ から,"
+      ),
+      "",
+      r"\[",
+      (
+        r"2\nu'="
+        r"\eta_{3}\circ E\eta_{3}\circ\eta_{5}"
+        r"=\eta_{3}^{3}."
+        r"\tag{5}"
+      ),
+      r"\]",
+      "",
+      "[R3] の $n=3$ の場合より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{5}^{3}="
+        r"\mathbb{Z}/2\{\eta_{3}^{2}\}."
+        r"\tag{6}"
+      ),
+      r"\]",
+      "",
+      "(6), [R1] より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{5}^{2}="
+        r"\mathbb{Z}/2\{\eta_{2}^{3}\}."
+        r"\tag{7}"
+      ),
+      r"\]",
+      "",
+      (
+        "$\\nu'$ の位数を決定するために, "
+        "次の EHP 完全列を考える."
+      ),
+      "",
+      r"\[",
+      (
+        r"\pi_{7}^{3}"
+        r"\xrightarrow{H}"
+        r"\pi_{7}^{5}"
+        r"\xrightarrow{\Delta}"
+        r"\pi_{5}^{2}"
+        r"\xrightarrow{E}"
+        r"\pi_{6}^{3}"
+        r"\xrightarrow{H}"
+        r"\pi_{6}^{5}"
+        r"\quad\text{は完全である.}"
+        r"\tag{8}"
+      ),
+      r"\]",
+      "",
+      (
+        "[R2] の $n=6$ の場合より "
+        "$\\eta_{6}\\in\\pi_{7}^{6}$ であり, "
+        "(3) と合成して,"
+      ),
+      "",
+      r"\[",
+      r"\nu'\eta_{6}\in\pi_{7}^{3}.\tag{9}",
+      r"\]",
+      "",
+      (
+        "また η-family の suspension relation "
+        "$\\eta_{6}=E\\eta_{5}$ を用いる. "
+        "[R5] の Toda Proposition 2.2 に "
+        "$\\alpha=\\nu'$, $\\beta=\\eta_{5}$ "
+        "を代入すると,"
+      ),
+      "",
+      r"\[",
+      (
+        r"H(\nu'\eta_{6})"
+        r"=H(\nu'\circ E\eta_{5})"
+        r"=H(\nu')\circ E\eta_{5}"
+        r"=\eta_{5}\eta_{6}"
+        r"=\eta_{5}^{2}."
+        r"\tag{10}"
+      ),
+      r"\]",
+      "",
+      "[R3] の $n=5$ の場合より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{7}^{5}="
+        r"\mathbb{Z}/2\{\eta_{5}^{2}\}."
+        r"\tag{11}"
+      ),
+      r"\]",
+      "",
+      (
+        "(9), (10), (11) より, "
+        "$H:\\pi_{7}^{3}\\to\\pi_{7}^{5}$ は"
+        "生成元 $\\eta_{5}^{2}$ を像に持つ. "
+        "したがって,"
+      ),
+      "",
+      r"\[",
+      (
+        r"H:\pi_{7}^{3}\to\pi_{7}^{5}"
+        r"\quad\text{は全射である.}"
+        r"\tag{12}"
+      ),
+      r"\]",
+      "",
+      (
+        "(8), (12) の完全性より "
+        "$\\operatorname{Im}H=\\ker\\Delta"
+        "=\\pi_{7}^{5}$ である. よって,"
+      ),
+      "",
+      r"\[",
+      (
+        r"\Delta:\pi_{7}^{5}\to\pi_{5}^{2}"
+        r"\quad\text{は零写像である.}"
+        r"\tag{13}"
+      ),
+      r"\]",
+      "",
+      (
+        "さらに (8), (13) より "
+        "$\\operatorname{Im}\\Delta=\\ker E=0$ "
+        "なので,"
+      ),
+      "",
+      r"\[",
+      (
+        r"E:\pi_{5}^{2}\to\pi_{6}^{3}"
+        r"\quad\text{は単射である.}"
+        r"\tag{14}"
+      ),
+      r"\]",
+      "",
+      (
+        "(7), (14) と η-family の suspension "
+        "relation $E(\\eta_{2}^{3})="
+        "\\eta_{3}^{3}$ より,"
+      ),
+      "",
+      r"\[",
+      (
+        r"\eta_{3}^{3}"
+        r"\text{ の位数は }2"
+        r"\text{ である.}"
+        r"\tag{15}"
+      ),
+      r"\]",
+      "",
+      "(5), (15) より,",
+      "",
+      r"\[",
+      (
+        r"\nu'"
+        r"\text{ の位数は }4"
+        r"\text{ である.}"
+        r"\tag{16}"
+      ),
+      r"\]",
+      "",
+      "最後に, $\\pi_{6}^{3}$ の群構造を決定する.",
+      "",
+      "[R2] の $n=5$ の場合より,",
+      "",
+      r"\[",
+      (
+        r"\pi_{6}^{5}="
+        r"\mathbb{Z}/2\{\eta_{5}\}."
+        r"\tag{17}"
+      ),
+      r"\]",
+      "",
+      "(4), (17) より,",
+      "",
+      r"\[",
+      (
+        r"H:\pi_{6}^{3}\to\pi_{6}^{5}"
+        r"\quad\text{は全射である.}"
+        r"\tag{18}"
+      ),
+      r"\]",
+      "",
+      (
+        "(8), (14), (18) より, "
+        "$E$ は単射, $H$ は全射なので, "
+        "次の短完全列を得る."
+      ),
+      "",
+      r"\[",
+      (
+        r"0\longrightarrow\pi_{5}^{2}"
+        r"\xrightarrow{E}"
+        r"\pi_{6}^{3}"
+        r"\xrightarrow{H}"
+        r"\pi_{6}^{5}"
+        r"\longrightarrow 0."
+        r"\tag{19}"
+      ),
+      r"\]",
+      "",
+      (
+        "(7), (17), (19) より $\\pi_{6}^{3}$ の位数は 4 "
+        "である. 一方, (3), (16) より "
+        "$\\nu'\\in\\pi_{6}^{3}$ は位数 4 の元なので, "
+        "$\\nu'$ が群全体を生成する."
+      ),
+      "",
+      "以上により,",
+      "",
+      r"\[",
+      (
+        r"\pi_{6}^{3}="
+        r"\mathbb{Z}/4\{\nu'\}"
+        r"\tag{20}"
+      ),
+      r"\]",
+      "",
+      "を得る.",
+      "",
+    )
+  )
+
+  return (
+    "\n".join(
+      lines
+    )
+    + "\n"
+  )
+
+def _append_narrative_for_step(
+  lines: list[str],
+  presentation: TodaGroupProofPresentation,
+  parent_step: ProofStep,
+  active_step_ids: set[int],
+  expanded_step_ids: set[int],
+  reference_marker_by_step_id: dict[int, str] | None = None,
+  reference_reuse_marker_by_step_id: dict[int, str] | None = None,
+) -> None:
+  parent_id = id(
+    parent_step
+  )
+
+  if parent_id in active_step_ids:
+    return
+
+  active_step_ids.add(
+    parent_id
+  )
+
+  edges = (
+    _narrative_edges_for_parent(
+      presentation,
+      parent_step,
+    )
+  )
+
+  for index, edge in enumerate(
+    edges
+  ):
+    premise_step = edge.premise_step
+    premise_id = id(
+      premise_step
+    )
+    premise_fact = (
+      _render_group_proof_narrative_fact(
+        premise_step
+      )
+    )
+    premise_reference_marker = (
+      None
+      if (
+        reference_marker_by_step_id is None
+        or isinstance(
+          premise_step.conclusion,
+          TodaProp42ExactnessStatement,
+        )
+      )
+      else reference_marker_by_step_id.get(
+        premise_id
+      )
+    )
+    premise_reference_reuse_marker = (
+      None
+      if (
+        reference_reuse_marker_by_step_id is None
+        or isinstance(
+          premise_step.conclusion,
+          TodaProp42ExactnessStatement,
+        )
+      )
+      else reference_reuse_marker_by_step_id.get(
+        premise_id
+      )
+    )
+    lead = (
+      _premise_lead(
+        index,
+        len(
+          edges
+        ),
+      )
+    )
+
+    if premise_id in expanded_step_ids:
+      if parent_step is presentation.root_step:
+        lines.append(
+          (
+            lead
+            + ", すでに得た"
+            + premise_fact
+            + "を用いる."
+          )
+        )
+      continue
+
+    premise_edges = (
+      _narrative_edges_for_parent(
+        presentation,
+        premise_step,
+      )
+    )
+
+    if (
+      premise_edges
+      and premise_reference_reuse_marker is not None
+    ):
+      lines.append(
+        (
+          lead
+          + ", "
+          + premise_reference_reuse_marker
+          + "を用いる."
+        )
+      )
+    elif premise_edges:
+      _append_narrative_for_step(
+        lines,
+        presentation,
+        premise_step,
+        active_step_ids,
+        expanded_step_ids,
+        reference_marker_by_step_id,
+        reference_reuse_marker_by_step_id,
+      )
+
+      generic_premise_fact = (
+        _render_generic_narrative_step(
+          premise_step
+        )
+      )
+      if (
+        generic_premise_fact.endswith(".")
+        or generic_premise_fact.endswith("。")
+      ):
+        lines.append(
+          (
+            _derivation_lead(
+              len(
+                premise_edges
+              )
+            )
+            + ", "
+            + generic_premise_fact
+          )
+        )
+      else:
+        lines.append(
+          (
+            _derivation_lead(
+              len(
+                premise_edges
+              )
+            )
+            + ", "
+            + premise_fact
+            + "を得る."
+          )
+        )
+    else:
+      generic_premise_fact = (
+        _render_generic_narrative_step(
+          premise_step
+        )
+      )
+      inference_rule = (
+        premise_step.inference_rule
+      )
+      generic_fact_is_fallback = (
+        (
+          inference_rule is not None
+          and generic_premise_fact == inference_rule.name
+        )
+        or generic_premise_fact
+        == (
+          "`"
+          + type(
+            premise_step.conclusion
+          ).__name__
+          + "`"
+        )
+        or generic_premise_fact == repr(
+          premise_step.conclusion
+        )
+        or generic_premise_fact == str(
+          premise_step.conclusion
+        )
+      )
+      reference_plus_semantic_fact = (
+        premise_reference_marker is not None
+        and not (
+          is_toda_group_proof_narrative_provenance_only_statement(
+            premise_step.conclusion
+          )
+        )
+        and not generic_fact_is_fallback
+      )
+
+      if reference_plus_semantic_fact:
+        if (
+          generic_premise_fact.startswith("$")
+          and generic_premise_fact.endswith("$")
+        ):
+          lines.append(
+            (
+              lead
+              + ", "
+              + premise_reference_marker
+              + " により, "
+              + generic_premise_fact
+              + "を得る."
+            )
+          )
+        else:
+          lines.append(
+            (
+              lead
+              + ", "
+              + premise_reference_marker
+              + " により, "
+              + generic_premise_fact
+            )
+          )
+      elif (
+        not generic_fact_is_fallback
+        and (
+          generic_premise_fact.endswith(".")
+          or generic_premise_fact.endswith("。")
+        )
+      ):
+        lines.append(
+          (
+            lead
+            + ", "
+            + generic_premise_fact
+          )
+        )
+      else:
+        lines.append(
+          (
+            lead
+            + ", "
+            + (
+              premise_reference_marker
+              if premise_reference_marker is not None
+              else premise_fact
+            )
+            + "を用いる."
+          )
+        )
+
+    expanded_step_ids.add(
+      premise_id
+    )
+
+  active_step_ids.remove(
+    parent_id
+  )
+
+def _is_phase134_9_pi8_5_presentation(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  root = presentation.root_step.conclusion
+
+  if not isinstance(
+    root,
+    Relation,
+  ):
+    return False
+
+  if not isinstance(
+    root.lhs,
+    TodaPrimaryGroup,
+  ):
+    return False
+
+  return (
+    root.lhs.group_dimension == 8
+    and root.lhs.sphere_dimension == 5
+  )
+
+
+def _phase134_9_reference_title(
+  proof_step: ProofStep,
+) -> str:
+  statement = proof_step.conclusion
+
+  if isinstance(
+    statement,
+    Toda55NuFamilyFiniteDimensionalStatement,
+  ):
+    return (
+      "Toda (5.5) の ν-family 有限次元結果"
+    )
+
+  if isinstance(
+    statement,
+    Toda56Nu4DecompositionStatement,
+  ):
+    return "Toda (5.6) の ν₄ 分解"
+
+  return _phase134_5_reference_title(
+    proof_step
+  )
+
+
+def _phase134_9_pi8_5_block_lead(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+  previous_block_role,
+) -> str | None:
+  classification = (
+    classify_toda_group_proof_narrative_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+  if (
+    classification.block_role
+    is previous_block_role
+  ):
+    return None
+
+  generator = root_generator(
+    presentation
+  )
+
+  target = root_target_group(
+    presentation
+  )
+
+  generator_latex = (
+    render_toda_expression_latex(
+      generator
+    )
+    if generator is not None
+    else None
+  )
+
+  target_latex = (
+    "\\pi_{"
+    + str(
+      target.group_dimension
+    )
+    + "}^{"
+    + str(
+      target.sphere_dimension
+    )
+    + "}"
+  )
+
+  if (
+    classification.block_role
+    is TodaGroupProofNarrativeBlockRole.ORDER
+    and generator_latex is not None
+  ):
+    return (
+      "まず, $"
+      + generator_latex
+      + "$ の位数を求める."
+    )
+
+  if (
+    classification.block_role
+    is TodaGroupProofNarrativeBlockRole.GROUP_STRUCTURE
+  ):
+    return (
+      "最後に, これらの結果から $"
+      + target_latex
+      + "$ の群構造を決定する."
+    )
+
+  return None
+
+def _is_phase134_11_pi8_5_boundary_step(
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+) -> bool:
+  classification = (
+    classify_toda_group_proof_narrative_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+  return (
+    classification.fact_role
+    is TodaGroupProofNarrativeFactRole.BOUNDARY
+    and isinstance(
+      proof_step.conclusion,
+      Relation,
+    )
+    and isinstance(
+      proof_step.conclusion.lhs,
+      TodaPrimaryGroup,
+    )
+    and (
+      proof_step.conclusion
+      .lhs
+      .group_dimension
+      == 6
+    )
+    and (
+      proof_step.conclusion
+      .lhs
+      .sphere_dimension
+      == 3
+    )
+  )
+
+
+def _phase134_11_pi8_5_numbered_steps(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  ordered_steps = []
+  visited_step_ids = set()
+  active_step_ids = set()
+
+  def visit(
+    proof_step: ProofStep,
+  ) -> None:
+    step_id = id(
+      proof_step
+    )
+
+    if step_id in visited_step_ids:
+      return
+
+    if step_id in active_step_ids:
+      return
+
+    active_step_ids.add(
+      step_id
+    )
+
+    classification = (
+      classify_toda_group_proof_narrative_step(
+        presentation,
+        proof_step,
+      )
+    )
+
+    stop_here = (
+      classification.fact_role
+      is TodaGroupProofNarrativeFactRole.REFERENCE
+      or _is_phase134_11_pi8_5_boundary_step(
+        presentation,
+        proof_step,
+      )
+    )
+
+    if not stop_here:
+      for edge in (
+        _narrative_edges_for_parent(
+          presentation,
+          proof_step,
+        )
+      ):
+        visit(
+          edge.premise_step
+        )
+
+    active_step_ids.remove(
+      step_id
+    )
+    visited_step_ids.add(
+      step_id
+    )
+
+    if (
+      classification.fact_role
+      is not TodaGroupProofNarrativeFactRole.REFERENCE
+    ):
+      ordered_steps.append(
+        proof_step
+      )
+
+  visit(
+    presentation.root_step
+  )
+
+  return tuple(
+    ordered_steps
+  )
+
+
+def _phase134_11_pi8_5_reference_steps(
+  presentation: TodaGroupProofPresentation,
+  numbered_steps: tuple[
+    ProofStep,
+    ...,
+  ],
+) -> tuple[
+  ProofStep,
+  ...,
+]:
+  references = []
+  seen_ids = set()
+
+  for proof_step in numbered_steps:
+    for premise_step in proof_step.premises:
+      classification = (
+        classify_toda_group_proof_narrative_step(
+          presentation,
+          premise_step,
+        )
+      )
+
+      if (
+        classification.fact_role
+        is not TodaGroupProofNarrativeFactRole.REFERENCE
+      ):
+        continue
+
+      premise_id = id(
+        premise_step
+      )
+
+      if premise_id in seen_ids:
+        continue
+
+      seen_ids.add(
+        premise_id
+      )
+      references.append(
+        premise_step
+      )
+
+  return tuple(
+    references
+  )
+
+
+def _phase134_11_pi8_5_dependency_text(
+  proof_step: ProofStep,
+  number_by_step_id: dict[
+    int,
+    int,
+  ],
+  reference_by_step_id: dict[
+    int,
+    str,
+  ],
+) -> str:
+  parts = []
+  seen = set()
+
+  for premise_step in proof_step.premises:
+    premise_id = id(
+      premise_step
+    )
+
+    if premise_id in reference_by_step_id:
+      part = (
+        "["
+        + reference_by_step_id[
+          premise_id
+        ]
+        + "]"
+      )
+    elif premise_id in number_by_step_id:
+      part = (
+        "("
+        + str(
+          number_by_step_id[
+            premise_id
+          ]
+        )
+        + ")"
+      )
+    else:
+      continue
+
+    if part in seen:
+      continue
+
+    seen.add(
+      part
+    )
+    parts.append(
+      part
+    )
+
+  return ", ".join(
+    parts
+  )
+
+
+def _append_phase134_11_pi8_5_fact(
+  lines: list[str],
+  presentation: TodaGroupProofPresentation,
+  proof_step: ProofStep,
+  number_by_step_id: dict[
+    int,
+    int,
+  ],
+  reference_by_step_id: dict[
+    int,
+    str,
+  ],
+) -> None:
+  number = number_by_step_id[
+    id(
+      proof_step
+    )
+  ]
+
+  classification = (
+    classify_toda_group_proof_narrative_step(
+      presentation,
+      proof_step,
+    )
+  )
+
+  statement = proof_step.conclusion
+
+  dependency_text = (
+    _phase134_11_pi8_5_dependency_text(
+      proof_step,
+      number_by_step_id,
+      reference_by_step_id,
+    )
+  )
+
+  if proof_step is presentation.root_step:
+    lines.append(
+      "したがって,"
+    )
+  elif dependency_text:
+    lines.append(
+      dependency_text
+      + " より,"
+    )
+  elif (
+    classification.fact_role
+    is TodaGroupProofNarrativeFactRole.BOUNDARY
+  ):
+    lines.append(
+      "既に,"
+    )
+
+  if (
+    classification.fact_role
+    is TodaGroupProofNarrativeFactRole.DEFINITION
+  ):
+    element_latex = (
+      render_toda_expression_latex(
+        statement.element
+      )
+    )
+
+    lines.extend(
+      (
+        (
+          "**("
+          + str(
+            number
+          )
+          + ")** "
+          + "$"
+          + element_latex
+          + "$"
+          + " を "
+          + "$\\nu$-family"
+          + " の定義により取る."
+        ),
+        "",
+      )
+    )
+    return
+
+  if isinstance(
+    statement,
+    TodaIteratedSuspensionInjectiveStatement,
+  ):
+    label = (
+      _group_proof_narrative_statement_label(
+        statement
+      )
+    )
+
+    lines.extend(
+      (
+        (
+          "**("
+          + str(
+            number
+          )
+          + ")** "
+          + label
+          + "."
+        ),
+        "",
+      )
+    )
+    return
+
+  if isinstance(
+    statement,
+    TodaProp56Pi8_5QuotientStatement,
+  ):
+    label = (
+      _group_proof_narrative_statement_label(
+        statement
+      )
+    )
+
+    lines.extend(
+      (
+        (
+          "**("
+          + str(
+            number
+          )
+          + ")** "
+          + label
+          + "."
+        ),
+        "",
+      )
+    )
+    return
+
+  if (
+    isinstance(
+      statement,
+      Relation,
+    )
+    and statement.relation_type
+    is RelationType.ORDER
+  ):
+    lhs_latex = (
+      render_toda_expression_latex(
+        statement.lhs
+      )
+    )
+
+    lines.extend(
+      (
+        (
+          "**("
+          + str(
+            number
+          )
+          + ")** "
+          + "$"
+          + lhs_latex
+          + "$"
+          + " の位数は "
+          + "$"
+          + str(
+            statement.rhs
+          )
+          + "$"
+          + " である."
+        ),
+        "",
+      )
+    )
+    return
+
+  latex = (
+    _render_group_proof_narrative_latex(
+      proof_step
+    )
+  )
+
+  if latex is not None:
+    lines.extend(
+      _phase134_30_display_math_lines(
+        latex,
+        number,
+      )
+    )
+
+    if proof_step is presentation.root_step:
+      lines.extend(
+        (
+          "を得る.",
+          "",
+        )
+      )
+
+    return
+
+  label = (
+    _group_proof_narrative_statement_label(
+      statement
+    )
+  )
+
+  if label is None:
+    label = (
+      _render_group_proof_narrative_fact(
+        proof_step
+      )
+    )
+
+  lines.extend(
+    (
+      (
+        "**("
+        + str(
+          number
+        )
+        + ")** "
+        + label
+        + "."
+      ),
+      "",
+    )
+  )
+
+def _render_phase134_9_pi8_5_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  numbered_steps = (
+    _phase134_11_pi8_5_numbered_steps(
+      presentation
+    )
+  )
+
+  reference_steps = (
+    _phase134_11_pi8_5_reference_steps(
+      presentation,
+      numbered_steps,
+    )
+  )
+
+  number_by_step_id = {
+    id(
+      proof_step
+    ): number
+    for number, proof_step in enumerate(
+      numbered_steps,
+      start=1,
+    )
+  }
+
+  reference_by_step_id = {
+    id(
+      proof_step
+    ): (
+      "R"
+      + str(
+        number
+      )
+    )
+    for number, proof_step in enumerate(
+      reference_steps,
+      start=1,
+    )
+  }
+
+  root_latex = (
+    _render_group_proof_narrative_latex(
+      presentation.root_step
+    )
+  )
+
+  lines = (
+    _phase134_26_narrative_start_lines(
+      [
+        "Toda Proposition 5.6 のうち,",
+        "",
+        r"\[",
+        root_latex,
+        r"\]",
+        "",
+        "を示す.",
+      ]
+    )
+  )
+
+  if reference_steps:
+    reference_blocks = tuple(
+      (
+        _phase134_9_reference_title(
+          proof_step
+        ),
+        (),
+      )
+      for proof_step in reference_steps
+    )
+
+    lines.extend(
+      _phase134_28_reference_section_lines(
+        reference_blocks
+      )
+    )
+
+  lines.extend(
+    _phase134_26_narrative_section_header_lines(
+      "証明"
+    )
+  )
+
+  previous_block_role = None
+
+  for proof_step in numbered_steps:
+    classification = (
+      classify_toda_group_proof_narrative_step(
+        presentation,
+        proof_step,
+      )
+    )
+
+    lead = (
+      _phase134_9_pi8_5_block_lead(
+        presentation,
+        proof_step,
+        previous_block_role,
+      )
+    )
+
+    if lead is not None:
+      lines.extend(
+        (
+          lead,
+          "",
+        )
+      )
+
+    if proof_step is presentation.root_step:
+      lines.extend(
+        (
+          (
+            "(3), (4), (7) より, "
+            "$E^{2}\\pi_{6}^{3}$ は位数 $4$ の部分群であり, "
+            "その商が位数 $2$ なので, "
+            "$\\pi_{8}^{5}$ の位数は $8$ である."
+          ),
+          "",
+          (
+            "(6) より $\\nu_{5}$ も位数 $8$ であるから, "
+            "$\\nu_{5}$ は $\\pi_{8}^{5}$ を生成する."
+          ),
+          "",
+        )
+      )
+
+    _append_phase134_11_pi8_5_fact(
+      lines,
+      presentation,
+      proof_step,
+      number_by_step_id,
+      reference_by_step_id,
+    )
+
+    if (
+      classification.block_role
+      is not TodaGroupProofNarrativeBlockRole.OTHER
+    ):
+      previous_block_role = (
+        classification.block_role
+      )
+
+  return (
+    "\n".join(
+      lines
+    )
+    + "\n"
+  )
+
+def _phase134_24_render_pi15_8_narrative(
+  presentation: TodaGroupProofPresentation,
+) -> str | None:
+  from toda_human_readable_renderer import (
+    render_toda_expression_latex,
+  )
+  from toda_proof_narrative_renderer import (
+    render_toda_primary_group_latex,
+    render_toda_raw_group_structure_latex,
+  )
+  from toda_rules import (
+    Toda515Sigma8TransportedDecompositionStatement,
+  )
+
+  if presentation.max_depth < 2:
+    return None
+
+  if _phase158_r5_5b_has_ordered_root_argument(
+    presentation
+  ):
+    return None
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  if (
+    target.group_dimension != 15
+    or target.sphere_dimension != 8
+  ):
+    return None
+
+  transported_step = next(
+    (
+      node.proof_step
+      for node in presentation.nodes
+      if isinstance(
+        node.proof_step.conclusion,
+        Toda515Sigma8TransportedDecompositionStatement,
+      )
+    ),
+    None,
+  )
+
+  if transported_step is None:
+    return None
+
+  statement = transported_step.conclusion
+  decomposition_map = (
+    statement
+    .prop44_isomorphism
+    .map
+  )
+
+  source_summands = (
+    decomposition_map
+    .source_group
+    .summands
+  )
+
+  if len(
+    source_summands
+  ) != 2:
+    return None
+
+  pi14_7_latex = (
+    render_repository_conclusion_latex(
+      statement.pi14_7_group_relation
+    )
+  )
+
+  pi15_15_latex = (
+    render_repository_conclusion_latex(
+      statement.pi15_15_group_relation
+    )
+  )
+
+  source_left_latex = (
+    render_toda_primary_group_latex(
+      source_summands[0]
+    )
+  )
+
+  source_right_latex = (
+    render_toda_primary_group_latex(
+      source_summands[1]
+    )
+  )
+
+  target_latex = (
+    render_toda_primary_group_latex(
+      decomposition_map.target_group
+    )
+  )
+
+  first_variable_latex = (
+    render_toda_expression_latex(
+      decomposition_map.beta
+    )
+  )
+
+  second_variable_latex = (
+    render_toda_expression_latex(
+      decomposition_map.gamma
+    )
+  )
+
+  formula_latex = (
+    render_toda_expression_latex(
+      decomposition_map.formula
+    )
+  )
+
+  first_source_generator_latex = (
+    render_toda_expression_latex(
+      statement
+      .pi14_7_group_relation
+      .rhs
+      .generator
+    )
+  )
+
+  second_source_generator_latex = (
+    render_toda_expression_latex(
+      statement
+      .pi15_15_group_relation
+      .rhs
+      .generator
+    )
+  )
+
+  first_image_latex = (
+    render_toda_expression_latex(
+      statement.first_generator_image
+    )
+  )
+
+  second_image_latex = (
+    render_toda_expression_latex(
+      statement.second_generator_image
+    )
+  )
+
+  transported_group_latex = (
+    render_toda_raw_group_structure_latex(
+      statement.transported_group
+    )
+  )
+
+  final_relation_latex = (
+    render_repository_conclusion_latex(
+      presentation.root_step.conclusion
+    )
+  )
+
+  lines = [
+    *_phase134_26_narrative_start_lines(
+      [
+        "Toda Proposition 5.15 のうち,",
+        "",
+        "\\[",
+        final_relation_latex,
+        "\\]",
+        "",
+        "を示す.",
+      ]
+    ),
+    *_phase134_28_reference_section_lines(
+      (
+        (
+          "Toda Proposition 4.4 の分解同型",
+          (
+            "次の写像は同型である.",
+            "",
+            "\\[",
+            (
+              source_left_latex
+              + r" \oplus "
+              + source_right_latex
+              + r" \longrightarrow "
+              + target_latex
+            ),
+            "\\]",
+            "",
+            "\\[",
+            (
+              "("
+              + first_variable_latex
+              + ", "
+              + second_variable_latex
+              + r") \longmapsto "
+              + formula_latex
+            ),
+            "\\]",
+          ),
+        ),
+      )
+    ),
+    *_phase134_26_narrative_section_header_lines(
+      "証明"
+    ),
+    *_phase134_30_completed_boundary_lines(
+      pi14_7_latex,
+      closing_text="である.",
+    ),
+    "また,",
+    "",
+    "\\[",
+    pi15_15_latex,
+    "\\]",
+    "",
+    "である.",
+    "",
+    "[R1] より, これらの生成元はそれぞれ",
+    "",
+    "\\[",
+    (
+      first_source_generator_latex
+      + r" \longmapsto "
+      + first_image_latex
+      + ","
+    ),
+    "\\qquad",
+    (
+      second_source_generator_latex
+      + r" \longmapsto "
+      + second_image_latex
+    ),
+    "\\]",
+    "",
+    "と写る.",
+    "",
+    *_phase134_30_final_conclusion_lines(
+      (
+        target_latex
+        + r" \cong "
+        + transported_group_latex
+      )
+    ),
+    "直和因子の順序を入れ替えると,",
+    "",
+    "\\[",
+    final_relation_latex,
+    "\\]",
+    "",
+    "を得る.",
+  ]
+
+  return (
+    "\n".join(
+      lines
+    )
+    + "\n"
+  )
+
+def _phase153_r3_10_connect_public_reference_section(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  if presentation.max_depth < 2:
+    return rendered
+
+  lines = rendered.splitlines()
+  reference_header = "## 使用する結果"
+  proof_header = "## 証明"
+
+  try:
+    reference_index = lines.index(
+      reference_header
+    )
+    proof_index = lines.index(
+      proof_header
+    )
+  except ValueError:
+    return rendered
+
+  if reference_index >= proof_index:
+    return rendered
+
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+  reference_entries = (
+    filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
+
+  if not reference_entries:
+    return rendered
+
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  proof_body = "\n".join(
+    lines[
+      proof_index
+      + 1:
+    ]
+  ).lstrip()
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  if (
+    target.group_dimension == 15
+    and target.sphere_dimension == 8
+  ):
+    prop515_entry = next(
+      (
+        entry
+        for entry in reference_entries
+        if entry.reference.locator
+        == "Proposition 5.15"
+      ),
+      None,
+    )
+    prop44_reference_number = next(
+      (
+        entry.number
+        for entry in reference_entries
+        if entry.reference.locator
+        == "Proposition 4.4"
+      ),
+      None,
+    )
+
+    if prop515_entry is not None:
+      pi14_7_step = next(
+        (
+          proof_step
+          for proof_step in prop515_entry.proof_steps
+          if (
+            proof_step.inference_rule is not None
+            and "pi_14^7 finite cyclic"
+            in proof_step.inference_rule.name
+          )
+        ),
+        None,
+      )
+
+      if pi14_7_step is not None:
+        pi14_7_latex = (
+          render_repository_conclusion_latex(
+            pi14_7_step.conclusion
+          )
+        )
+        legacy_pi14_7_block = (
+          "既に,\n\n"
+          "\\[\n"
+          + pi14_7_latex
+          + "\n\\]"
+        )
+
+        if legacy_pi14_7_block in proof_body:
+          proof_body = proof_body.replace(
+            legacy_pi14_7_block,
+            (
+              "[R"
+              + str(
+                prop515_entry.number
+              )
+              + "] より,\n\n"
+              "\\[\n"
+              + pi14_7_latex
+              + "\n\\]"
+            ),
+            1,
+          )
+
+    if (
+      prop44_reference_number is not None
+      and "[R1] より, これらの生成元はそれぞれ"
+      in proof_body
+    ):
+      proof_body = proof_body.replace(
+        "[R1] より, これらの生成元はそれぞれ",
+        (
+          "[R"
+          + str(
+            prop44_reference_number
+          )
+          + "] より, これらの生成元はそれぞれ"
+        ),
+        1,
+      )
+
+  (
+    used_reference_entries,
+    used_statement_lines,
+    filtered_proof_body,
+  ) = (
+    filter_toda_group_proof_narrative_reference_entries_by_body_usage(
+      reference_entries,
+      statement_lines_by_reference_number,
+      proof_body,
+    )
+  )
+
+  (
+    filtered_reference_entries,
+    filtered_statement_lines,
+  ) = (
+    exclude_toda_group_proof_narrative_root_reference(
+      used_reference_entries,
+      used_statement_lines,
+      presentation.root_step,
+    )
+  )
+
+  if (
+    len(
+      filtered_reference_entries
+    )
+    != len(
+      used_reference_entries
+    )
+  ):
+    return rendered
+
+  filtered_statement_lines = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      filtered_reference_entries,
+    )
+  )
+
+  filtered_proof_body = (
+    suppress_toda_group_proof_narrative_reference_body_restatements(
+      filtered_proof_body,
+      filtered_statement_lines,
+    )
+  )
+
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      filtered_reference_entries,
+      filtered_statement_lines,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  prefix_lines = lines[
+    :reference_index
+  ]
+
+  while (
+    prefix_lines
+    and not prefix_lines[
+      -1
+    ].strip()
+  ):
+    prefix_lines.pop()
+
+  return (
+    "\n".join(
+      (
+        *prefix_lines,
+        "",
+        reference_header,
+        "",
+        reference_section,
+        "",
+        "---",
+        "",
+        proof_header,
+        "",
+        filtered_proof_body,
+      )
+    ).rstrip()
+    + "\n"
+  )
+
+
+def _wrap_phase150_rc4_generic_public_narrative(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+  reference_entries = (
+    filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(
+      reference_entries,
+      presentation.root_step,
+    )
+  )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+
+  if not reference_section:
+    return rendered
+
+  reference_prefixes = (
+    (
+      reference_section
+      + "\n\n"
+    ),
+    (
+      "使用する結果を先にまとめる.\n\n"
+      + reference_section
+      + "\n\n"
+    ),
+  )
+  reference_prefix = next(
+    (
+      prefix
+      for prefix in reference_prefixes
+      if rendered.startswith(
+        prefix
+      )
+    ),
+    None,
+  )
+
+  if reference_prefix is None:
+    return rendered
+
+  proof = rendered[
+    len(
+      reference_prefix
+    ):
+  ].lstrip()
+  proof = (
+    suppress_toda_group_proof_narrative_reference_body_restatements(
+      proof,
+      statement_lines_by_reference_number,
+    )
+  )
+
+  return (
+    "# Group proof narrative\n\n"
+    "## 使用する結果\n\n"
+    + reference_section
+    + "\n\n"
+    "---\n\n"
+    "## 証明\n\n"
+    + proof.rstrip()
+    + "\n"
+  )
+
+
+def _phase157_r11_r17_normalize_public_connectors(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  paragraphs = rendered.split(
+    "\n\n"
+  )
+  connectors = {
+    "以上より,",
+    "したがって,",
+    "これより,",
+  }
+  index = 0
+
+  while index < len(
+    paragraphs
+  ) - 1:
+    stripped = paragraphs[
+      index
+    ].strip()
+
+    if stripped not in connectors:
+      index += 1
+      continue
+
+    next_paragraph = paragraphs[
+      index + 1
+    ]
+    separator = (
+      "\n"
+      if next_paragraph.lstrip().startswith(
+        r"\["
+      )
+      else " "
+    )
+
+    paragraphs[
+      index:
+      index + 2
+    ] = [
+      stripped
+      + separator
+      + next_paragraph,
+    ]
+
+  return "\n\n".join(
+    paragraphs
+  )
+
+
+def _phase157_r11_r17_normalize_public_numeric_equalities(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  characters = []
+  index = 0
+
+  while index < len(
+    rendered
+  ):
+    if rendered[
+      index
+    ] != "=":
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    first_number_start = index + 1
+
+    while (
+      first_number_start < len(
+        rendered
+      )
+      and rendered[
+        first_number_start
+      ].isspace()
+    ):
+      first_number_start += 1
+
+    first_number_end = first_number_start
+
+    while (
+      first_number_end < len(
+        rendered
+      )
+      and rendered[
+        first_number_end
+      ].isdigit()
+    ):
+      first_number_end += 1
+
+    if first_number_end == first_number_start:
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    second_equals_index = first_number_end
+
+    while (
+      second_equals_index < len(
+        rendered
+      )
+      and rendered[
+        second_equals_index
+      ].isspace()
+    ):
+      second_equals_index += 1
+
+    if (
+      second_equals_index >= len(
+        rendered
+      )
+      or rendered[
+        second_equals_index
+      ] != "="
+    ):
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    second_number_start = second_equals_index + 1
+
+    while (
+      second_number_start < len(
+        rendered
+      )
+      and rendered[
+        second_number_start
+      ].isspace()
+    ):
+      second_number_start += 1
+
+    second_number_end = second_number_start
+
+    while (
+      second_number_end < len(
+        rendered
+      )
+      and rendered[
+        second_number_end
+      ].isdigit()
+    ):
+      second_number_end += 1
+
+    first_number = rendered[
+      first_number_start:
+      first_number_end
+    ]
+    second_number = rendered[
+      second_number_start:
+      second_number_end
+    ]
+
+    if (
+      not second_number
+      or first_number != second_number
+    ):
+      characters.append(
+        rendered[
+          index
+        ]
+      )
+      index += 1
+      continue
+
+    characters.append(
+      rendered[
+        index:
+        first_number_end
+      ]
+    )
+    index = second_number_end
+
+  return "".join(
+    characters
+  )
+
+
+
+def _normalize_toda_group_proof_narrative_display_closing_fragments(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  lines = rendered.splitlines()
+  normalized = []
+  closing_fragments = {
+    "である.",
+    "を得る.",
+    "を用いる.",
+    "となる.",
+  }
+
+  for line in lines:
+    stripped = line.strip()
+
+    if (
+      stripped
+      in closing_fragments
+      and normalized
+    ):
+      previous_index = (
+        len(
+          normalized
+        )
+        - 1
+      )
+
+      while (
+        previous_index >= 0
+        and not normalized[
+          previous_index
+        ].strip()
+      ):
+        previous_index -= 1
+
+      if (
+        previous_index >= 0
+        and normalized[
+          previous_index
+        ].strip()
+        == r"\]"
+      ):
+        del normalized[
+          previous_index + 1:
+        ]
+
+    normalized.append(
+      line
+    )
+
+  return "\n".join(
+    normalized
+  )
+
+def _finalize_toda_group_proof_narrative_markdown(
+  rendered: str,
+) -> str:
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  rendered = (
+    _phase157_r11_r17_normalize_public_connectors(
+      rendered
+    )
+  )
+  rendered = (
+    _phase157_r11_r17_normalize_public_numeric_equalities(
+      rendered
+    )
+  )
+  rendered = (
+    _normalize_toda_group_proof_narrative_display_closing_fragments(
+      rendered
+    )
+  )
+  lines = rendered.rstrip().splitlines()
+
+  reference_header = "## 使用する結果"
+  proof_header = "## 証明"
+
+  if (
+    reference_header in lines
+    and proof_header in lines
+  ):
+    reference_index = lines.index(
+      reference_header
+    )
+    proof_index = lines.index(
+      proof_header
+    )
+
+    if reference_index < proof_index:
+      before_proof = lines[
+        :proof_index
+      ]
+      proof_and_after = lines[
+        proof_index:
+      ]
+
+      while (
+        before_proof
+        and not before_proof[-1].strip()
+      ):
+        before_proof.pop()
+
+      if (
+        before_proof
+        and before_proof[-1].strip()
+        == "---"
+      ):
+        before_proof.pop()
+
+        while (
+          before_proof
+          and not before_proof[-1].strip()
+        ):
+          before_proof.pop()
+
+      lines = [
+        *before_proof,
+        "",
+        "---",
+        "",
+        *proof_and_after,
+      ]
+
+  while (
+    lines
+    and not lines[-1].strip()
+  ):
+    lines.pop()
+
+  if (
+    not lines
+    or lines[-1].strip()
+    != r"$\square$"
+  ):
+    lines.extend(
+      (
+        "",
+        r"$\square$",
+      )
+    )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+
+def _phase158_r5_5b_has_ordered_root_argument(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if presentation.max_depth < 2:
+    return False
+
+  semantic_sidecar = (
+    build_toda_group_proof_narrative_semantic_sidecar(
+      presentation
+    )
+  )
+  blocks = (
+    build_toda_group_proof_narrative_blocks(
+      presentation,
+      semantic_sidecar=semantic_sidecar,
+    )
+  )
+  arguments = (
+    build_toda_group_proof_narrative_arguments(
+      presentation,
+      blocks,
+      semantic_sidecar=semantic_sidecar,
+    )
+  )
+
+  return any(
+    (
+      argument.supporting_blocks
+      and presentation.root_step
+      in argument.conclusion_block.steps
+    )
+    for argument in arguments
+  )
+
+def _is_phase150_rc4_generic_route_target(
+  presentation: TodaGroupProofPresentation,
+) -> bool:
+  if presentation.max_depth < 2:
+    return False
+
+  if _is_phase134_9_pi8_5_presentation(
+    presentation
+  ):
+    return False
+
+  if _phase158_r5_5b_has_ordered_root_argument(
+    presentation
+  ):
+    return True
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+
+  return (
+    (
+      target.group_dimension == 10
+      and target.sphere_dimension == 4
+    )
+    or (
+      target.group_dimension == 12
+      and target.sphere_dimension == 5
+    )
+    or (
+      target.group_dimension == 16
+      and target.sphere_dimension == 9
+    )
+  )
+
+def _phase158_baseline_render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  presentation = (
+    build_toda_group_proof_narrative_semantic_closure_presentation(
+      presentation
+    )
+  )
+
+  if presentation.max_depth >= 2:
+    semantic_sidecar = (
+      build_toda_group_proof_narrative_semantic_sidecar(
+        presentation
+      )
+    )
+    blocks = (
+      build_toda_group_proof_narrative_blocks(
+        presentation,
+        semantic_sidecar=semantic_sidecar,
+      )
+    )
+    arguments = (
+      build_toda_group_proof_narrative_arguments(
+        presentation,
+        blocks,
+        semantic_sidecar=semantic_sidecar,
+      )
+    )
+
+    rendered = (
+      render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
+        presentation,
+        blocks,
+        semantic_sidecar,
+        arguments,
+      )
+    )
+
+    public_rendered = (
+      _wrap_phase150_rc4_generic_public_narrative(
+        presentation,
+        rendered,
+      )
+    )
+
+    return (
+      _finalize_toda_group_proof_narrative_markdown(
+        public_rendered
+      )
+    )
+
+  reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+    if presentation.max_depth >= 2
+    else ()
+  )
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
+      presentation,
+      reference_entries,
+    )
+    if reference_entries
+    else {}
+  )
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    exclude_toda_group_proof_narrative_root_reference(
+      reference_entries,
+      statement_lines_by_reference_number,
+      presentation.root_step,
+    )
+  )
+  reference_section = (
+    render_toda_group_proof_narrative_reference_entries_markdown(
+      reference_entries,
+      statement_lines_by_reference_number,
+    )
+  )
+  reference_marker_by_step_id = {
+    id(proof_step): f"[R{entry.number}]"
+    for entry in reference_entries
+    for proof_step in entry.proof_steps
+  }
+  reference_reuse_marker_by_step_id = (
+    build_toda_group_proof_narrative_reference_reuse_marker_by_step_id(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  lines = [
+    "# Group proof narrative",
+    "",
+  ]
+
+  if reference_section:
+    lines.extend(
+      (
+        "## 使用する結果",
+        "",
+        reference_section,
+        "",
+        "## 証明",
+        "",
+      )
+    )
+
+  root_edges = (
+    _narrative_edges_for_parent(
+      presentation,
+      presentation.root_step,
+    )
+  )
+
+  if root_edges:
+    target = (
+      presentation
+      .source_replay
+      .group_result
+      .target
+    )
+
+    if (
+      target.group_dimension == 16
+      and target.sphere_dimension == 9
+    ):
+      lines.extend(
+        (
+          (
+            "$\\sigma_{9}$ の位数を確認し, "
+            "これが $\\pi_{16}^{9}$ を生成することを示す。"
+          ),
+          "",
+        )
+      )
+
+    _append_narrative_for_step(
+      lines,
+      presentation,
+      presentation.root_step,
+      set(),
+      set(),
+      reference_marker_by_step_id,
+      reference_reuse_marker_by_step_id,
+    )
+
+    lines.extend(
+      (
+        "",
+        (
+          "したがって, "
+          + _render_group_proof_narrative_fact(
+            presentation.root_step
+          )
+          + "を得る."
+        ),
+      )
+    )
+  else:
+    lines.append(
+      (
+        "したがって, "
+        + _render_group_proof_narrative_fact(
+          presentation.root_step
+        )
+        + "である."
+      )
+    )
+
+  rendered = (
+    "\n".join(
+      lines
+    )
+    + "\n"
+  )
+
+  if reference_section:
+    proof_section_marker = "## 証明\n\n"
+    proof_section_index = rendered.find(
+      proof_section_marker
+    )
+
+    if proof_section_index >= 0:
+      body_start = (
+        proof_section_index
+        + len(
+          proof_section_marker
+        )
+      )
+      body = rendered[
+        body_start:
+      ]
+      suppressed_body = (
+        suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry(
+          presentation,
+          body,
+          reference_entries,
+        )
+      )
+      suppressed_body = (
+        suppress_toda_group_proof_narrative_reference_body_duplicates(
+          suppressed_body,
+          statement_lines_by_reference_number,
+        )
+      )
+      suppressed_body = (
+        link_toda_group_proof_narrative_reference_body_consumers(
+          presentation,
+          suppressed_body,
+          reference_entries,
+        )
+      )
+      (
+        filtered_reference_entries,
+        filtered_statement_lines,
+        suppressed_body,
+      ) = (
+        filter_toda_group_proof_narrative_reference_entries_by_body_usage(
+          reference_entries,
+          statement_lines_by_reference_number,
+          suppressed_body,
+        )
+      )
+      filtered_reference_section = (
+        render_toda_group_proof_narrative_reference_entries_markdown(
+          filtered_reference_entries,
+          filtered_statement_lines,
+        )
+      )
+      prefix_lines = [
+        "# Group proof narrative",
+        "",
+      ]
+
+      if filtered_reference_section:
+        prefix_lines.extend(
+          (
+            "## 使用する結果",
+            "",
+            filtered_reference_section,
+            "",
+            "## 証明",
+            "",
+          )
+        )
+
+      rendered = (
+        "\n".join(
+          prefix_lines
+        )
+        + "\n"
+        + suppressed_body
+        + "\n"
+      )
+
+  return (
+    _finalize_toda_group_proof_narrative_markdown(
+      rendered
+    )
+  )
+
+def _phase158_public_narrative_target_lines(
+  presentation: TodaGroupProofPresentation,
+) -> list[str]:
+  root_latex = (
+    _render_group_proof_narrative_latex(
+      presentation.root_step
+    )
+  )
+
+  if root_latex is not None:
+    return [
+      r"\[",
+      root_latex,
+      r"\]",
+      "",
+      "を示す.",
+    ]
+
+  return [
+    (
+      _render_group_proof_narrative_fact(
+        presentation.root_step
+      )
+      + "を示す."
+    ),
+  ]
+
+
+def _phase158_strip_terminal_qed_lines(
+  lines: list[str],
+) -> list[str]:
+  result = lines[:]
+
+  while (
+    result
+    and not result[-1].strip()
+  ):
+    result.pop()
+
+  qed_markers = {
+    "□",
+    r"$\square$",
+    r"\(\square\)",
+    r"\square",
+  }
+
+  if (
+    result
+    and result[-1].strip()
+    in qed_markers
+  ):
+    result.pop()
+
+  while (
+    result
+    and not result[-1].strip()
+  ):
+    result.pop()
+
+  return result
+
+
+def _phase158_public_equation_tag_number(
+  line: str,
+) -> int | None:
+  marker = r"\tag{"
+  marker_index = line.find(
+    marker
+  )
+
+  if marker_index < 0:
+    return None
+
+  number_start = (
+    marker_index
+    + len(
+      marker
+    )
+  )
+  number_end = line.find(
+    "}",
+    number_start,
+  )
+
+  if number_end < 0:
+    return None
+
+  number_text = line[
+    number_start:
+    number_end
+  ]
+
+  if not number_text.isdigit():
+    return None
+
+  return int(
+    number_text
+  )
+
+
+def _phase158_public_equation_connector_numbers(
+  line: str,
+) -> tuple[
+  int,
+  ...,
+] | None:
+  stripped = line.strip()
+  suffix = "より,"
+
+  if not stripped.endswith(
+    suffix
+  ):
+    return None
+
+  reference_text = stripped[
+    :-len(
+      suffix
+    )
+  ].strip()
+
+  if not reference_text:
+    return None
+
+  if " と " in reference_text:
+    left, right = reference_text.rsplit(
+      " と ",
+      1,
+    )
+    pieces = tuple(
+      (
+        *(
+          piece.strip()
+          for piece in left.split(
+            ","
+          )
+          if piece.strip()
+        ),
+        right.strip(),
+      )
+    )
+  else:
+    pieces = (
+      reference_text,
+    )
+
+  numbers = []
+
+  for piece in pieces:
+    if (
+      not piece.startswith(
+        "("
+      )
+      or not piece.endswith(
+        ")"
+      )
+    ):
+      return None
+
+    number_text = piece[
+      1:-1
+    ]
+
+    if not number_text.isdigit():
+      return None
+
+    numbers.append(
+      int(
+        number_text
+      )
+    )
+
+  return tuple(
+    numbers
+  )
+
+
+def _phase158_render_public_equation_connector(
+  numbers: tuple[
+    int,
+    ...,
+  ],
+) -> str:
+  references = tuple(
+    "("
+    + str(
+      number
+    )
+    + ")"
+    for number in numbers
+  )
+
+  if len(
+    references
+  ) == 1:
+    return (
+      references[
+        0
+      ]
+      + " より,"
+    )
+
+  return (
+    ", ".join(
+      references[
+        :-1
+      ]
+    )
+    + " と "
+    + references[
+      -1
+    ]
+    + " より,"
+  )
+
+
+def _phase158_normalize_public_equation_numbers(
+  proof_body: list[
+    str
+  ],
+) -> list[
+  str
+]:
+  connector_numbers_by_index = {}
+  referenced_numbers = set()
+
+  for index, line in enumerate(
+    proof_body
+  ):
+    numbers = (
+      _phase158_public_equation_connector_numbers(
+        line
+      )
+    )
+
+    if numbers is None:
+      continue
+
+    connector_numbers_by_index[
+      index
+    ] = numbers
+    referenced_numbers.update(
+      numbers
+    )
+
+  derivation_target_numbers = set()
+
+  for connector_index in connector_numbers_by_index:
+    target_index = next(
+      (
+        index
+        for index in range(
+          connector_index + 1,
+          len(
+            proof_body
+          ),
+        )
+        if proof_body[
+          index
+        ].strip()
+      ),
+      None,
+    )
+
+    if target_index is None:
+      continue
+
+    target_number = (
+      _phase158_public_equation_tag_number(
+        proof_body[
+          target_index
+        ]
+      )
+    )
+
+    if target_number is not None:
+      derivation_target_numbers.add(
+        target_number
+      )
+
+  retained_numbers = (
+    referenced_numbers
+    | derivation_target_numbers
+  )
+  retained_old_numbers = []
+  seen_old_numbers = set()
+
+  for line in proof_body:
+    number = (
+      _phase158_public_equation_tag_number(
+        line
+      )
+    )
+
+    if (
+      number is None
+      or number not in retained_numbers
+      or number in seen_old_numbers
+    ):
+      continue
+
+    retained_old_numbers.append(
+      number
+    )
+    seen_old_numbers.add(
+      number
+    )
+
+  number_map = {
+    old_number: new_number
+    for new_number, old_number in enumerate(
+      retained_old_numbers,
+      start=1,
+    )
+  }
+
+  result = []
+  emitted_old_numbers = set()
+
+  for index, source_line in enumerate(
+    proof_body
+  ):
+    line = source_line
+    tag_number = (
+      _phase158_public_equation_tag_number(
+        line
+      )
+    )
+
+    if tag_number is not None:
+      old_marker = (
+        r"\tag{"
+        + str(
+          tag_number
+        )
+        + "}"
+      )
+
+      if (
+        tag_number not in number_map
+        or tag_number in emitted_old_numbers
+      ):
+        line = line.replace(
+          old_marker,
+          "",
+          1,
+        )
+      else:
+        line = line.replace(
+          old_marker,
+          (
+            r"\tag{"
+            + str(
+              number_map[
+                tag_number
+              ]
+            )
+            + "}"
+          ),
+          1,
+        )
+        emitted_old_numbers.add(
+          tag_number
+        )
+
+    connector_numbers = (
+      connector_numbers_by_index.get(
+        index
+      )
+    )
+
+    if connector_numbers is not None:
+      if all(
+        number in number_map
+        for number in connector_numbers
+      ):
+        line = (
+          _phase158_render_public_equation_connector(
+            tuple(
+              number_map[
+                number
+              ]
+              for number in connector_numbers
+            )
+          )
+        )
+      else:
+        line = (
+          "これより,"
+          if len(
+            connector_numbers
+          ) == 1
+          else "これらより,"
+        )
+
+    result.append(
+      line
+    )
+
+  return result
+
+
+def _phase159_restore_isomorphism_to_injective_dependency_visibility(
+  presentation: TodaGroupProofPresentation,
+  proof_body: list[str],
+) -> list[str]:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    proof_body,
+    list,
+  ):
+    raise TypeError(
+      "proof_body must be a list"
+    )
+
+  rendered = "\n".join(
+    proof_body
+  )
+
+  for node in presentation.nodes:
+    injective_step = node.proof_step
+
+    if not isinstance(
+      injective_step.conclusion,
+      TodaSuspensionInjectiveStatement,
+    ):
+      continue
+
+    injective_map = (
+      injective_step.conclusion.map
+    )
+    isomorphism_step = next(
+      (
+        premise_step
+        for premise_step in injective_step.premises
+        if (
+          isinstance(
+            premise_step.conclusion,
+            TodaSuspensionIsomorphismStatement,
+          )
+          and premise_step.conclusion.map
+          == injective_map
+        )
+      ),
+      None,
+    )
+
+    if isomorphism_step is None:
+      continue
+
+    injective_prose = (
+      _render_generic_narrative_step(
+        injective_step
+      )
+    )
+    isomorphism_prose = (
+      _render_generic_narrative_step(
+        isomorphism_step
+      )
+    )
+
+    if (
+      not injective_prose
+      or not isomorphism_prose
+      or injective_prose not in rendered
+      or isomorphism_prose in rendered
+    ):
+      continue
+
+    replacement = (
+      isomorphism_prose
+      + "\n\n"
+      + "したがって, "
+      + injective_prose
+    )
+    rendered = rendered.replace(
+      injective_prose,
+      replacement,
+      1,
+    )
+
+  return rendered.splitlines()
+
+
+def _phase158_normalize_public_narrative_contract(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  if presentation.max_depth < 2:
+    return rendered
+
+  title = "# Group proof narrative"
+  target_header = "## 証明対象"
+  reference_header = "## 使用する結果"
+  separator = "---"
+  proof_header = "## 証明"
+  qed = "□"
+
+  source_lines = (
+    rendered.rstrip().splitlines()
+  )
+
+  if (
+    source_lines
+    and source_lines[0] == title
+  ):
+    content_lines = source_lines[1:]
+  else:
+    content_lines = source_lines[:]
+
+  while (
+    content_lines
+    and not content_lines[0].strip()
+  ):
+    content_lines.pop(0)
+
+  def exact_index(
+    marker: str,
+  ) -> int | None:
+    try:
+      return content_lines.index(
+        marker
+      )
+    except ValueError:
+      return None
+
+  target_index = exact_index(
+    target_header
+  )
+  reference_index = exact_index(
+    reference_header
+  )
+  proof_index = exact_index(
+    proof_header
+  )
+
+  if target_index is not None:
+    target_end_candidates = [
+      index
+      for index in (
+        reference_index,
+        proof_index,
+        len(
+          content_lines
+        ),
+      )
+      if (
+        index is not None
+        and index > target_index
+      )
+    ]
+    target_end = min(
+      target_end_candidates
+    )
+    target_body = content_lines[
+      target_index + 1:
+      target_end
+    ]
+  else:
+    target_body = (
+      _phase158_public_narrative_target_lines(
+        presentation
+      )
+    )
+
+  while (
+    target_body
+    and not target_body[0].strip()
+  ):
+    target_body.pop(0)
+
+  while (
+    target_body
+    and not target_body[-1].strip()
+  ):
+    target_body.pop()
+
+  reference_body: list[str] = []
+
+  if (
+    reference_index is not None
+    and proof_index is not None
+    and reference_index < proof_index
+  ):
+    reference_body = content_lines[
+      reference_index + 1:
+      proof_index
+    ]
+
+  while (
+    reference_body
+    and not reference_body[0].strip()
+  ):
+    reference_body.pop(0)
+
+  while (
+    reference_body
+    and not reference_body[-1].strip()
+  ):
+    reference_body.pop()
+
+  if (
+    reference_body
+    and reference_body[-1].strip()
+    == separator
+  ):
+    reference_body.pop()
+
+    while (
+      reference_body
+      and not reference_body[-1].strip()
+    ):
+      reference_body.pop()
+
+  if proof_index is not None:
+    proof_body = content_lines[
+      proof_index + 1:
+    ]
+  elif (
+    target_index is None
+    and reference_index is None
+  ):
+    proof_body = content_lines[:]
+  else:
+    proof_body = []
+
+  while (
+    proof_body
+    and not proof_body[0].strip()
+  ):
+    proof_body.pop(0)
+
+  proof_body = (
+    _phase158_strip_terminal_qed_lines(
+      proof_body
+    )
+  )
+  proof_body = (
+    _phase158_normalize_public_equation_numbers(
+      proof_body
+    )
+  )
+  proof_body = (
+    _phase159_restore_isomorphism_to_injective_dependency_visibility(
+      presentation,
+      proof_body,
+    )
+  )
+
+  lines = [
+    title,
+    "",
+    target_header,
+    "",
+    *target_body,
+    "",
+  ]
+
+  if reference_body:
+    lines.extend(
+      (
+        reference_header,
+        "",
+        *reference_body,
+        "",
+        separator,
+        "",
+      )
+    )
+
+  lines.extend(
+    (
+      proof_header,
+      "",
+      *proof_body,
+      "",
+      qed,
+    )
+  )
+
+  return (
+    "\n".join(
+      lines
+    ).rstrip()
+    + "\n"
+  )
+
+def render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  rendered = (
+    _phase158_baseline_render_toda_group_proof_narrative_markdown(
+      presentation
+    )
+  )
+
+  return (
+    _phase158_normalize_public_narrative_contract(
+      presentation,
+      rendered,
+    )
+  )
+

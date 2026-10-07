@@ -1,0 +1,111 @@
+# Phase 159 pi4_3 semantic duplication stage audit
+
+root_fragment: \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}
+
+00_base_multi_argument: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+01_after_contribution_insertion: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+02_after_reason_prose: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+03_reference_internal_body: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+04_irrelevant_aggregate_ancestry: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+05_reference_body_duplicates: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+06_reference_body_consumers: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+07_normalize_connectors_a: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+08_local_equation_derivations: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+09_order_support: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+10_hidden_zero_map: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+11_map_property_dependencies_a: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+12_eta_suspension_bridges: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+13_merge_exactness_windows: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+14_trim_left_ehp_terms: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+15_normalize_connectors_b: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+16_numeric_equalities: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+17_unmarked_reference_consumers: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+18_reflexive_equalities: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+19_surjectivity_support: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+20_short_exact_support: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+21_reference_restatements: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+22_dangling_connectors: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+23_visible_relation_dependencies: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+24_repeated_unique_step_statements: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+25_map_property_dependencies_b: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+26_injective_image_order_reason: 2
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  ROOT: '以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+
+## Final staged body
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+[R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+以上より, $\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$

@@ -43,7 +43,7 @@ def test_phase157_r20_repair16_eta_bridge_preserves_suspension_reason():
     1,
   )[1]
 
-  assert r"$\eta_{6}=E\eta_{5}$ である." in body
+  assert r"$\eta_{6}=E\eta_{5}$." in body
   assert r"$\eta_{6}=\eta_{6}$ である." not in body
 
 
@@ -78,7 +78,7 @@ def test_phase157_r20_repair16_kernel_reason_follows_surjectivity_and_exactness(
   kernel = (
     "完全性より, "
     r"$\ker \Delta=\operatorname{Im}H="
-    r"\pi_{7}^{5}$ である."
+    r"\pi_{7}^{5}$."
   )
   delta_zero = (
     r"$\Delta: \pi_{7}^{5} \to "

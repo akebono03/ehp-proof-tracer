@@ -50,11 +50,15 @@ from proof import (
   apply_inference_match,
   find_inference_match,
   run_inference_until_stable_with_history,
+  FoundationalReferenceIdentity,
 )
 from relation_rules import (
   equality_preserved_under_left_composition_inference_rule,
   equality_preserved_under_right_composition_inference_rule,
   equality_transitivity_inference_rule,
+)
+from toda_delta_image_rules import (
+  free_cyclic_generator_delta_image_inference_rule,
 )
 from scalar_rules import (
   ScalarGreaterEqualStatement,
@@ -64,6 +68,7 @@ from toda_rules import (
   Toda52CompositionIsomorphismStatement,
   Toda53NuPrimeBracketSpecializationStatement,
   TodaBracketMembershipStatement,
+  TodaDeltaImageUpToSignStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantInjectiveStatement,
   TodaHopfInvariantIsomorphismStatement,
@@ -82,7 +87,6 @@ from toda_rules import (
   toda_53_nu_prime_lemma52_double_inference_rule,
   toda_53_nu_prime_lemma52_hopf_inference_rule,
   toda_53_nu_prime_lemma52_membership_inference_rule,
-  toda_delta_iota5_whitehead_square_inference_rule,
   toda_eta_family_definition_statement,
   toda_eta3_suspension_relation_inference_rule,
   toda_exactness_injective_right_implies_delta_zero_inference_rule,
@@ -93,7 +97,6 @@ from toda_rules import (
   toda_pi3_2_eta2_hopf_relation_inference_rule,
   toda_pi3_2_free_cyclic_generator_inference_rule,
   toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
-  toda_pi4_3_delta_image_free_cyclic_inference_rule,
   toda_pi4_3_eta3_generator_inference_rule,
   toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
   toda_pi4_3_finite_cyclic_inference_rule,
@@ -205,6 +208,31 @@ def build_toda_45_stable_isomorphism_step(
   )
 
 
+
+
+def _toda_fixed_reference_metadata_rule(
+  name: str,
+  locator: str,
+) -> InferenceRule:
+  return InferenceRule(
+    name=name,
+    description=(
+      "Attach fixed Toda literature provenance "
+      "to an existing GIVEN fact."
+    ),
+    literature_reference=LiteratureReference(
+      label="Toda " + locator,
+      author="H. Toda",
+      title=(
+        "Composition Methods in "
+        "Homotopy Groups of Spheres"
+      ),
+      year=1962,
+      locator=locator,
+    ),
+  )
+
+
 def _build_phase49_result():
   pi_2_1 = TodaPrimaryGroup(
     group_dimension=2,
@@ -232,16 +260,44 @@ def _build_phase49_result():
       conclusion=pi_2_1_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=InferenceRule(
+        name=(
+          "Toda (5.1) circle higher homotopy zero"
+        ),
+        literature_reference=LiteratureReference(
+          label="Toda (5.1)",
+          locator="(5.1)",
+        ),
+      ),
     ),
     ProofStep(
       conclusion=pi_3_3_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=InferenceRule(
+        name=(
+          "Toda (5.1) diagonal identity group"
+        ),
+        literature_reference=LiteratureReference(
+          label="Toda (5.1)",
+          locator="(5.1)",
+        ),
+      ),
     ),
     ProofStep(
       conclusion=e_pi_1_1_to_pi_2_2_isomorphism_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=InferenceRule(
+        name=(
+          "Toda (5.1) low-dimensional "
+          "suspension isomorphism"
+        ),
+        literature_reference=LiteratureReference(
+          label="Toda (5.1)",
+          locator="(5.1)",
+        ),
+      ),
     ),
     ProofStep(
       conclusion=TodaProp42ExactnessStatement(
@@ -345,6 +401,14 @@ def _build_phase50_result():
       index=3,
     ),
   )
+  iota_5 = HomotopyElement(
+    name="ι_5",
+    dimension=5,
+    generator=GeneratorSymbol(
+      family="ι",
+      index=5,
+    ),
+  )
   eta_2 = HomotopyElement(
     name="η₂",
     dimension=2,
@@ -369,6 +433,48 @@ def _build_phase50_result():
   hopf_map = TodaHopfInvariantMap(
     source_group=pi_3_2,
     target_group=pi_3_3,
+  )
+
+  delta_map = TodaDeltaMap(
+    source_group=pi_5_5,
+    target_group=pi_3_2,
+  )
+
+  prop51_delta_step = ProofStep(
+    conclusion=(
+      TodaDeltaImageUpToSignStatement(
+        map=delta_map,
+        element=iota_5,
+        positive_value=Multiple(
+          coefficient=2,
+          expression=eta_2,
+        ),
+      )
+    ),
+    premises=(),
+    rule=ProofRule.INFERENCE,
+    inference_rule=InferenceRule(
+      name=(
+        "Toda Proposition 5.1 "
+        "Delta iota_5"
+      ),
+      description=(
+        "Toda Proposition 5.1 gives "
+        "Delta(iota_5)=+/-2 eta_2."
+      ),
+      literature_reference=(
+        LiteratureReference(
+          label="Toda Proposition 5.1",
+          author="H. Toda",
+          title=(
+            "Composition Methods in "
+            "Homotopy Groups of Spheres"
+          ),
+          year=1962,
+          locator="Proposition 5.1",
+        )
+      ),
+    ),
   )
 
   premise_steps = (
@@ -412,20 +518,30 @@ def _build_phase50_result():
       conclusion=pi_5_5_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=(
+        _toda_fixed_reference_metadata_rule(
+          'Toda (5.1) diagonal identity group',
+          '(5.1)',
+        )
+      ),
     ),
     ProofStep(
       conclusion=pi_4_5_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=(
+        _toda_fixed_reference_metadata_rule(
+          'Toda (5.1) sphere connectivity zero',
+          '(5.1)',
+        )
+      ),
     ),
     ProofStep(
-      conclusion=TodaDeltaMap(
-        source_group=pi_5_5,
-        target_group=pi_3_2,
-      ),
+      conclusion=delta_map,
       premises=(),
       rule=ProofRule.GIVEN,
     ),
+    prop51_delta_step,
     ProofStep(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
@@ -462,6 +578,12 @@ def _build_phase50_result():
       ),
       premises=(),
       rule=ProofRule.GIVEN,
+      inference_rule=(
+        _toda_fixed_reference_metadata_rule(
+          'Toda Proposition 5.1 pi_3^2 group relation',
+          'Proposition 5.1',
+        )
+      ),
     ),
     ProofStep(
       conclusion=toda_eta_family_definition_statement(
@@ -475,8 +597,7 @@ def _build_phase50_result():
   rules = (
     toda_prop27_iota2_whitehead_hopf_invariant_inference_rule(),
     toda_pi3_2_whitehead_square_up_to_sign_inference_rule(),
-    toda_delta_iota5_whitehead_square_inference_rule(),
-    toda_pi4_3_delta_image_free_cyclic_inference_rule(),
+    free_cyclic_generator_delta_image_inference_rule(),
     toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule(),
     toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule(),
     toda_pi4_3_finite_cyclic_inference_rule(),
@@ -514,7 +635,6 @@ def _build_phase50_result():
     "result": result,
     "final_group_step": final_group_step,
   }
-
 
 def build_toda_52_composition_isomorphism_step() -> ProofStep:
   phase49 = _build_phase49_result()

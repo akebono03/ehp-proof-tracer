@@ -1,0 +1,40 @@
+================================================================================
+Phase 159 - pi_4^3 provenance depth / ownership audit
+================================================================================
+Production code changes: none
+Existing test changes: none
+complete provenance nodes: 20
+complete provenance edges: 19
+complete max depth: 6
+
+Required-chain shortest depths:
+  pi5_5_Z_iota5: depth=4
+  delta_iota5_pm_2eta2: NOT_IN_PROVENANCE
+  image_delta_Z_2eta2: depth=3
+  exact_delta_E: depth=3
+  kernel_E_Z_2eta2: depth=2
+  pi3_2_Z_eta2: depth=2
+  exact_E_H: depth=3
+  pi4_5_zero: NOT_IN_PROVENANCE
+  E_surjective: depth=2
+  pi4_3_Z2_eta3: depth=0, 1
+
+Direct Delta(iota_5)=+/-2eta_2 ancestry candidates:
+  none
+
+Interpretation:
+  A required node at depth > 2 explains depth=2 replay truncation.
+  NOT_IN_PROVENANCE means the current group-result ancestry is not connected to that fact.
+  owned_by_argument=False after the node is present identifies a separate Narrative ownership defect.
+
+Output:
+  audit_output/summary.txt
+  audit_output/all_provenance_nodes.csv
+  audit_output/focus_nodes.csv
+  audit_output/provenance_edges.csv
+  audit_output/depth_matrix.csv
+
+Boundary:
+  Audit only. No production repair is performed.
+  Repository-wide pytest is not run.
+================================================================================

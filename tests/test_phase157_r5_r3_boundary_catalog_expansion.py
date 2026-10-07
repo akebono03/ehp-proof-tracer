@@ -89,7 +89,7 @@ CASES = (
     None,
   ),
   (
-    'Equation 5.7',
+    '(5.7)',
     'Toda Equation 5.7 nu-prime eta_6 Hopf value',
     'fixed_statement',
     'nu_prime_eta6_hopf_relation',
@@ -149,7 +149,7 @@ CASES = (
     'pi8_3_group_relation',
   ),
   (
-    'Equation 5.8',
+    '(5.8)',
     'Toda Equation 5.8 integration',
     'fixed_statement',
     'delta_iota9_relation',

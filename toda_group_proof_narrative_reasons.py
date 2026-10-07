@@ -9,6 +9,10 @@ from expression import (
 )
 from homotopy_groups import (
   FiniteCyclicGroup,
+  TodaPrimaryGroupZeroStatement,
+  TodaDeltaMap,
+  TodaHopfInvariantMap,
+  TodaSuspensionMap,
 )
 from proof import (
   ProofStep,
@@ -16,10 +20,18 @@ from proof import (
   RelationType,
 )
 from toda_rules import (
+  TodaDeltaImageFreeCyclicStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
+  TodaSuspensionSurjectiveStatement,
+  TodaDeltaInjectiveStatement,
+  TodaDeltaSurjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantZeroStatement,
+  TodaSuspensionZeroStatement,
 )
 from toda_group_proof_narrative_aggregate_semantics import (
   TodaGroupProofNarrativeAggregateSemanticKind,
@@ -43,6 +55,9 @@ class TodaGroupProofNarrativeReasonKind(
   )
   EXACTNESS_TO_MAP_PROPERTY = (
     "exactness_to_map_property"
+  )
+  EXACTNESS_TO_KERNEL = (
+    "exactness_to_kernel"
   )
   INJECTIVE_IMAGE_ORDER = (
     "injective_image_order"
@@ -285,20 +300,62 @@ def _exactness_to_map_property_reason(
 ) -> TodaGroupProofNarrativeReason | None:
   conclusion = proof_step.conclusion
 
-  if not isinstance(
-    conclusion,
+  injective_types = (
+    TodaDeltaInjectiveStatement,
+    TodaHopfInvariantInjectiveStatement,
     TodaSuspensionInjectiveStatement,
+  )
+  surjective_types = (
+    TodaDeltaSurjectiveStatement,
+    TodaHopfInvariantSurjectiveStatement,
+    TodaSuspensionSurjectiveStatement,
+  )
+  zero_map_types = (
+    TodaDeltaZeroStatement,
+    TodaHopfInvariantZeroStatement,
+    TodaSuspensionZeroStatement,
+  )
+
+  def map_name(
+    group_map,
+  ) -> str | None:
+    if isinstance(
+      group_map,
+      TodaSuspensionMap,
+    ):
+      return "E"
+
+    if isinstance(
+      group_map,
+      TodaHopfInvariantMap,
+    ):
+      return "H"
+
+    if isinstance(
+      group_map,
+      TodaDeltaMap,
+    ):
+      return "Δ"
+
+    return getattr(
+      group_map,
+      "name",
+      None,
+    )
+
+  if isinstance(
+    conclusion,
+    injective_types,
   ):
+    conclusion_kind = "injective"
+  elif isinstance(
+    conclusion,
+    surjective_types,
+  ):
+    conclusion_kind = "surjective"
+  else:
     return None
 
-  zero_premises = tuple(
-    premise
-    for premise in proof_step.premises
-    if isinstance(
-      premise.conclusion,
-      TodaDeltaZeroStatement,
-    )
-  )
   exactness_premises = tuple(
     premise
     for premise in proof_step.premises
@@ -307,38 +364,108 @@ def _exactness_to_map_property_reason(
       TodaProp42ExactnessStatement,
     )
   )
+  zero_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      (
+        TodaPrimaryGroupZeroStatement,
+        *zero_map_types,
+      ),
+    )
+  )
 
   compatible_pairs = []
 
   for zero_premise in zero_premises:
-    zero_map = zero_premise.conclusion.map
+    zero_statement = zero_premise.conclusion
 
     for exactness_premise in exactness_premises:
       window = exactness_premise.conclusion.window
+      conclusion_map = conclusion.map
 
-      if (
-        zero_map.source_group
-        != window.source_term
-        or zero_map.target_group
-        != window.middle_term
-        or window.middle_term
-        != conclusion.map.source_group
-        or window.target_term
-        != conclusion.map.target_group
-        or getattr(
-          window.first_map,
-          "name",
-          None,
-        )
-        != "Δ"
-        or getattr(
-          window.second_map,
-          "name",
-          None,
-        )
-        != "E"
-      ):
-        continue
+      if conclusion_kind == "injective":
+        if (
+          conclusion_map.source_group
+          != window.middle_term
+          or conclusion_map.target_group
+          != window.target_term
+          or map_name(
+            conclusion_map
+          )
+          != map_name(
+            window.second_map
+          )
+        ):
+          continue
+
+        if isinstance(
+          zero_statement,
+          TodaPrimaryGroupZeroStatement,
+        ):
+          if (
+            zero_statement.group
+            != window.source_term
+          ):
+            continue
+        else:
+          zero_map = zero_statement.map
+
+          if (
+            zero_map.source_group
+            != window.source_term
+            or zero_map.target_group
+            != window.middle_term
+            or map_name(
+              zero_map
+            )
+            != map_name(
+              window.first_map
+            )
+          ):
+            continue
+
+      else:
+        if (
+          conclusion_map.source_group
+          != window.source_term
+          or conclusion_map.target_group
+          != window.middle_term
+          or map_name(
+            conclusion_map
+          )
+          != map_name(
+            window.first_map
+          )
+        ):
+          continue
+
+        if isinstance(
+          zero_statement,
+          TodaPrimaryGroupZeroStatement,
+        ):
+          if (
+            zero_statement.group
+            != window.target_term
+          ):
+            continue
+        else:
+          zero_map = zero_statement.map
+
+          if (
+            zero_map.source_group
+            != window.middle_term
+            or zero_map.target_group
+            != window.target_term
+            or map_name(
+              zero_map
+            )
+            != map_name(
+              window.second_map
+            )
+          ):
+            continue
 
       compatible_pairs.append(
         (
@@ -363,6 +490,98 @@ def _exactness_to_map_property_reason(
     ),
     premise_steps=(
       zero_premise,
+      exactness_premise,
+    ),
+    conclusion_step=proof_step,
+  )
+
+
+def _exactness_to_kernel_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  conclusion = proof_step.conclusion
+
+  if not isinstance(
+    conclusion,
+    TodaSuspensionKernelFreeCyclicStatement,
+  ):
+    return None
+
+  image_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaDeltaImageFreeCyclicStatement,
+    )
+  )
+  exactness_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaProp42ExactnessStatement,
+    )
+  )
+
+  compatible_pairs = []
+
+  for image_premise in image_premises:
+    image_statement = image_premise.conclusion
+    image_map = image_statement.map
+
+    for exactness_premise in exactness_premises:
+      window = exactness_premise.conclusion.window
+
+      if (
+        image_map.source_group
+        != window.source_term
+        or image_map.target_group
+        != window.middle_term
+        or window.middle_term
+        != conclusion.map.source_group
+        or window.target_term
+        != conclusion.map.target_group
+        or image_statement.image_group
+        != conclusion.kernel_group
+        or getattr(
+          window.first_map,
+          "name",
+          None,
+        )
+        != "Δ"
+        or getattr(
+          window.second_map,
+          "name",
+          None,
+        )
+        != "E"
+      ):
+        continue
+
+      compatible_pairs.append(
+        (
+          image_premise,
+          exactness_premise,
+        )
+      )
+
+  if len(
+    compatible_pairs
+  ) != 1:
+    return None
+
+  image_premise, exactness_premise = (
+    compatible_pairs[0]
+  )
+
+  return TodaGroupProofNarrativeReason(
+    kind=(
+      TodaGroupProofNarrativeReasonKind
+      .EXACTNESS_TO_KERNEL
+    ),
+    premise_steps=(
+      image_premise,
       exactness_premise,
     ),
     conclusion_step=proof_step,
@@ -829,6 +1048,16 @@ def build_toda_group_proof_narrative_reason_sidecar(
     )
     if exactness_reason is not None:
       append_if_visible(exactness_reason)
+
+    exactness_kernel_reason = (
+      _exactness_to_kernel_reason(
+        node.proof_step
+      )
+    )
+    if exactness_kernel_reason is not None:
+      append_if_visible(
+        exactness_kernel_reason
+      )
 
     injective_image_order_reason = (
       _injective_image_order_reason(

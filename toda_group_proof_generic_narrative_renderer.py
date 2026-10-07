@@ -56,6 +56,7 @@ from toda_rules import (
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
+  TodaDeltaImageFreeCyclicStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaKernelFreeCyclicStatement,
   TodaDeltaSurjectiveStatement,
@@ -87,6 +88,7 @@ from toda_rules import (
   TodaSigmaFamilyDefinitionStatement,
   TodaSuspensionInjectiveStatement,
   TodaSuspensionIsomorphismStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
   TodaSuspensionSurjectiveStatement,
 )
 
@@ -448,6 +450,20 @@ def _try_render_generic_narrative_expression_latex(
     return None
 
 
+def _try_render_generic_narrative_group_structure_latex(
+  group,
+) -> str | None:
+  try:
+    return render_toda_raw_group_structure_latex(
+      group
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
+    return None
+
+
 def _normalize_generic_narrative_statement_latex(
   statement,
   latex: str,
@@ -492,15 +508,33 @@ def _normalize_generic_narrative_statement_latex(
         expression
       )
     )
+    normalized_expression = None
 
-    if rendered_expression is None:
-      continue
-
-    normalized_expression = (
-      _render_generic_narrative_expression_latex(
-        expression
+    if rendered_expression is not None:
+      normalized_expression = (
+        _render_generic_narrative_expression_latex(
+          expression
+        )
       )
-    )
+    else:
+      rendered_expression = (
+        _try_render_generic_narrative_group_structure_latex(
+          expression
+        )
+      )
+
+      if rendered_expression is not None:
+        normalized_expression = (
+          _normalize_generic_eta_family_latex(
+            rendered_expression
+          )
+        )
+
+    if (
+      rendered_expression is None
+      or normalized_expression is None
+    ):
+      continue
 
     expression_start = latex.find(
       rendered_expression,
@@ -1247,6 +1281,48 @@ def _render_generic_narrative_statement_prose(
         window.target_term
       )
       + "$ は完全である."
+    )
+
+  if isinstance(
+    statement,
+    TodaDeltaImageFreeCyclicStatement,
+  ):
+    map_name = _generic_group_map_name(
+      statement.map
+    )
+
+    if map_name is None:
+      return None
+
+    return (
+      r"$\operatorname{Im}"
+      + map_name
+      + " = "
+      + render_toda_raw_group_structure_latex(
+        statement.image_group
+      )
+      + "$."
+    )
+
+  if isinstance(
+    statement,
+    TodaSuspensionKernelFreeCyclicStatement,
+  ):
+    map_name = _generic_group_map_name(
+      statement.map
+    )
+
+    if map_name is None:
+      return None
+
+    return (
+      r"$\ker "
+      + map_name
+      + " = "
+      + render_toda_raw_group_structure_latex(
+        statement.kernel_group
+      )
+      + "$."
     )
 
   if isinstance(
@@ -2005,9 +2081,9 @@ def _generic_short_exact_sequence_reason_prose(
     return None
 
   return (
-    "この完全性と, 左の写像が単射, "
-    "右の写像が全射であることより, "
-    "次の短完全列を得る."
+    "この完全性と, 左の写像の単射性, "
+    "右の写像の全射性より, "
+    "次の短完全列が成り立つ."
   )
 
 

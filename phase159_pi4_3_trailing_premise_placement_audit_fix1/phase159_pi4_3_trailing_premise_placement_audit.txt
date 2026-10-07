@@ -1,0 +1,72 @@
+# Phase 159 pi4_3 trailing premise placement audit
+
+## Base markdown
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+以上より, 
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+## Arguments and contributions
+
+argument_0_role=TodaGroupProofNarrativeArgumentRole.ESTABLISH_GROUP_STRUCTURE
+argument_0_conclusion='$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  local_block_0_role=TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
+    step_0='$\\pi_{5}^{5} \\xrightarrow{Δ} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3}$ は完全である.'
+  local_block_1_role=TodaGroupProofNarrativeMathematicalBlockRole.OTHER
+    step_0='$\\ker E = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+    step_1='$\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+  local_block_2_role=TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE
+    step_0='$\\pi_{4}^{5} = 0$'
+  local_block_3_role=TodaGroupProofNarrativeMathematicalBlockRole.EXACTNESS
+    step_0='$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.'
+  local_block_4_role=TodaGroupProofNarrativeMathematicalBlockRole.MAP_PROPERTY
+    step_0='$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  local_block_5_role=TodaGroupProofNarrativeMathematicalBlockRole.GROUP_STRUCTURE
+    step_0='$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+    step_1='$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+  local_block_6_role=TodaGroupProofNarrativeMathematicalBlockRole.OTHER
+    step_0='`TodaEtaFamilyDefinitionStatement`'
+  local_block_7_role=TodaGroupProofNarrativeMathematicalBlockRole.CALCULATION
+    step_0='$\\eta_{3} = \\eta_{3}$'
+  local_block_8_role=TodaGroupProofNarrativeMathematicalBlockRole.TARGET
+    step_0='$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  contribution_0_rendered='$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+    placement=TodaGroupProofNarrativeContributionPlacement.AT_PROVIDER_ANCHOR
+    provider_anchor=True
+    distance_to_conclusion=2
+    provider_keys=(('block', 2061304874992),)
+    provider_anchor_index=192
+    insertion_index=192
+    *** TARGET TRAILING PREMISE ***
+  contribution_1_rendered='$\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+    placement=TodaGroupProofNarrativeContributionPlacement.BEFORE_DEPENDENT_CONTRIBUTION
+    provider_anchor=False
+    distance_to_conclusion=3
+    provider_keys=(('block', 2061304874992),)
+    provider_anchor_index=192
+    insertion_index=144
+  contribution_2_rendered='$\\ker E = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+    placement=TodaGroupProofNarrativeContributionPlacement.BEFORE_ARGUMENT_CONCLUSION
+    provider_anchor=False
+    distance_to_conclusion=2
+    provider_keys=(('block', 2061304874992),)
+    provider_anchor_index=192
+    insertion_index=144
+  contribution_3_rendered='$\\pi_{4}^{5} = 0$'
+    placement=TodaGroupProofNarrativeContributionPlacement.BEFORE_DEPENDENT_CONTRIBUTION
+    provider_anchor=False
+    distance_to_conclusion=3
+    provider_keys=(('block', 2061304874992),)
+    provider_anchor_index=192
+    insertion_index=144
+  contribution_4_rendered='$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+    placement=TodaGroupProofNarrativeContributionPlacement.BEFORE_ARGUMENT_CONCLUSION
+    provider_anchor=False
+    distance_to_conclusion=2
+    provider_keys=(('block', 2061304874992),)
+    provider_anchor_index=192
+    insertion_index=144

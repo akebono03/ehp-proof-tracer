@@ -1,0 +1,57 @@
+==============================================================================
+Phase 159 - pi_4^3 focused failure decomposition audit
+==============================================================================
+Production code changes: none
+Existing test changes: none
+Target: pi_4^3 (n=3, k=1), public depth=2 Narrative
+
+raw nodes: 7
+closure nodes: 9
+blocks: 8
+arguments: 1
+public proof-body lines: 5
+
+Expected proof chain:
+  pi_5^5 = Z{iota_5}
+  -> Delta(iota_5) = +/- 2 eta_2
+  -> Im Delta = Z{2 eta_2}
+  -> exactness
+  -> ker E = Z{2 eta_2}
+  -> pi_3^2 = Z{eta_2}
+  -> exactness with pi_4^5 = 0
+  -> E surjective
+  -> pi_4^3 = Z/2{eta_3}
+
+Focus classification:
+  pi4_3_Z2_eta3: PUBLIC_VISIBLE
+  pi4_3_Z2_eta3: PUBLIC_VISIBLE
+  pi3_2_Z_eta2: LOST_BEFORE_PUBLIC_BODY
+  kernel_E_Z_2eta2: NOT_OWNED_BY_ARGUMENT
+  E_surjective: NOT_OWNED_BY_ARGUMENT
+  exact_E_H: NOT_IN_RAW_DEPTH2
+
+Missing expected focus nodes:
+  delta_iota5_pm_2eta2, exact_delta_E, image_delta_Z_2eta2, pi4_5_zero, pi5_5_Z_iota5
+
+Duplicate focus nodes:
+  pi4_3_Z2_eta3
+
+Interpretation:
+  NOT_IN_RAW_DEPTH2      = depth=2 replay does not expose the required step.
+  LOST_BEFORE_BLOCKS     = semantic closure has it, but block construction loses it.
+  NOT_OWNED_BY_ARGUMENT  = block exists, but no Narrative Argument owns it.
+  LOST_BEFORE_PUBLIC_BODY= structural pipeline retains it, public body suppresses it.
+  PUBLIC_VISIBLE         = the generic-rendered step is visibly present in public proof body.
+
+Output:
+  audit_output/summary.txt
+  audit_output/public_body.txt
+  audit_output/focus_chain.txt
+  audit_output/focus_chain.csv
+  audit_output/focus_edges.csv
+  audit_output/all_steps.csv
+
+Boundary:
+  Audit only. No production repair is performed.
+  Repository-wide pytest is not run.
+==============================================================================

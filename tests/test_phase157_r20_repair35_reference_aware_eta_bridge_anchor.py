@@ -44,7 +44,7 @@ def test_phase157_r20_repair35_eta_bridge_precedes_reference_aware_prop22():
   body = _body_pi6_3_repair35()
 
   eta6_definition = (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
   )
   prop22 = (
     "[R5]より, "
@@ -82,7 +82,7 @@ def test_phase157_r20_repair35_full_exactness_stays_before_eta_bridge():
     r"\pi_{6}^{3}$ は完全である."
   )
   eta6_definition = (
-    r"$\eta_{6}=E\eta_{5}$ である."
+    r"$\eta_{6}=E\eta_{5}$."
   )
 
   assert body.index(
