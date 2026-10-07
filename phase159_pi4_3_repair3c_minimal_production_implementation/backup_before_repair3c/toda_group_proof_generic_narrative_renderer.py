@@ -56,7 +56,6 @@ from toda_rules import (
   Toda55NuFamilyFiniteDimensionalStatement,
   Toda56Nu4DecompositionIsomorphismStatement,
   Toda56Nu4DecompositionStatement,
-  TodaDeltaImageFreeCyclicStatement,
   TodaDeltaInjectiveStatement,
   TodaDeltaKernelFreeCyclicStatement,
   TodaDeltaSurjectiveStatement,
@@ -88,7 +87,6 @@ from toda_rules import (
   TodaSigmaFamilyDefinitionStatement,
   TodaSuspensionInjectiveStatement,
   TodaSuspensionIsomorphismStatement,
-  TodaSuspensionKernelFreeCyclicStatement,
   TodaSuspensionSurjectiveStatement,
 )
 
@@ -1281,48 +1279,6 @@ def _render_generic_narrative_statement_prose(
         window.target_term
       )
       + "$ は完全である."
-    )
-
-  if isinstance(
-    statement,
-    TodaDeltaImageFreeCyclicStatement,
-  ):
-    map_name = _generic_group_map_name(
-      statement.map
-    )
-
-    if map_name is None:
-      return None
-
-    return (
-      r"$\operatorname{Im}"
-      + map_name
-      + " = "
-      + render_toda_raw_group_structure_latex(
-        statement.image_group
-      )
-      + "$."
-    )
-
-  if isinstance(
-    statement,
-    TodaSuspensionKernelFreeCyclicStatement,
-  ):
-    map_name = _generic_group_map_name(
-      statement.map
-    )
-
-    if map_name is None:
-      return None
-
-    return (
-      r"$\ker "
-      + map_name
-      + " = "
-      + render_toda_raw_group_structure_latex(
-        statement.kernel_group
-      )
-      + "$."
     )
 
   if isinstance(

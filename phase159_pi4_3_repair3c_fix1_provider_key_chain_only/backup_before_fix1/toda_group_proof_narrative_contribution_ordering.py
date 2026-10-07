@@ -559,93 +559,23 @@ def _provider_keys_for_step(
   step_id: int,
 ) -> tuple[tuple[str, int], ...]:
   keys = []
-
   for provider in proof_chain.providers:
     if provider.supporting_block is None:
       continue
-
     provider_chain = TodaGroupProofNarrativeProofChain(
       argument_index=proof_chain.argument_index,
       argument=proof_chain.argument,
-      providers=(
-        provider,
-      ),
+      providers=(provider,),
     )
-
-    (
-      chain_ids,
-      _anchors,
-      _distances,
-    ) = _anchored_chain_step_ids(
+    chain_ids, _, _, _ = _necessity_for_chain(
       presentation,
       local_body,
       provider_chain,
       conclusion_step,
     )
-
     if step_id in chain_ids:
-      keys.append(
-        _provider_key(
-          provider
-        )
-      )
-
-  return tuple(
-    keys
-  )
-
-
-def _provider_keys_by_step_id(
-  presentation: TodaGroupProofPresentation,
-  local_body: tuple[TodaGroupProofNarrativeBlock, ...],
-  proof_chain: TodaGroupProofNarrativeProofChain,
-  conclusion_step: ProofStep,
-) -> dict[int, tuple[tuple[str, int], ...]]:
-  keys_by_step_id = defaultdict(
-    list
-  )
-
-  for provider in proof_chain.providers:
-    if provider.supporting_block is None:
-      continue
-
-    provider_chain = TodaGroupProofNarrativeProofChain(
-      argument_index=proof_chain.argument_index,
-      argument=proof_chain.argument,
-      providers=(
-        provider,
-      ),
-    )
-
-    (
-      chain_ids,
-      _anchors,
-      _distances,
-    ) = _anchored_chain_step_ids(
-      presentation,
-      local_body,
-      provider_chain,
-      conclusion_step,
-    )
-
-    provider_key = _provider_key(
-      provider
-    )
-
-    for step_id in chain_ids:
-      keys_by_step_id[
-        step_id
-      ].append(
-        provider_key
-      )
-
-  return {
-    step_id: tuple(
-      provider_keys
-    )
-    for step_id, provider_keys
-    in keys_by_step_id.items()
-  }
+      keys.append(_provider_key(provider))
+  return tuple(keys)
 
 
 def _children_by_step_id(
@@ -739,16 +669,6 @@ def _build_visibility_occurrences(
       for block in local_body
       for step in block.steps
     }
-    provider_keys_by_step_id = (
-      _provider_keys_by_step_id(
-        presentation,
-        local_body,
-        proof_chains[
-          argument_index
-        ],
-        conclusion_step,
-      )
-    )
 
     for step_id in chain_ids & hidden_ids:
       if not necessity.get(step_id, ()):
@@ -768,9 +688,12 @@ def _build_visibility_occurrences(
           proof_step=step,
           provider_anchor=step_id in anchors,
           distance_to_conclusion=distances.get(step_id),
-          provider_keys=provider_keys_by_step_id.get(
+          provider_keys=_provider_keys_for_step(
+            presentation,
+            local_body,
+            proof_chains[argument_index],
+            conclusion_step,
             step_id,
-            (),
           ),
         )
       )
