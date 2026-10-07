@@ -62,6 +62,10 @@ from toda_group_proof_narrative_exactness_components import (
 from toda_group_proof_narrative_exactness_method_renderer import (
   render_toda_group_proof_narrative_exactness_method_component_latex,
 )
+from toda_group_proof_narrative_reasons import (
+  build_toda_group_proof_narrative_reason_sidecar,
+  TodaGroupProofNarrativeReasonKind,
+)
 from toda_group_proof_narrative_semantics import (
   build_toda_group_proof_narrative_semantic_closure_presentation,
   build_toda_group_proof_narrative_semantic_sidecar,
@@ -8073,8 +8077,7 @@ def _phase159_r1_6c_canonicalize_toda_51_reference(
     output.append(
       (
         r"$\pi_{n}^{n} = "
-        r"\langle \iota_{n} \rangle "
-        r"\cong \mathbb{Z}$."
+        r"\mathbb{Z}\{\iota_{n}\}$."
       )
     )
 
@@ -10008,8 +10011,117 @@ def _phase159_r1_7c_r4_normalize_public_map_property_prose(
   )
 
 
+def _phase159_recursive_map_property_triples(
+  presentation: TodaGroupProofPresentation,
+) -> tuple[
+  tuple[
+    ProofStep,
+    ProofStep,
+    ProofStep,
+  ],
+  ...,
+]:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  steps = (
+    _phase159_r1_6c_recursive_proof_steps(
+      presentation.root_step
+    )
+  )
+  injective_by_map = {}
+  surjective_by_map = {}
+  isomorphism_steps = []
+
+  for proof_step in steps:
+    statement = proof_step.conclusion
+    group_map = getattr(
+      statement,
+      "map",
+      None,
+    )
+
+    if group_map is None:
+      continue
+
+    if isinstance(
+      statement,
+      _GENERIC_INJECTIVE_STATEMENT_TYPES,
+    ):
+      injective_by_map.setdefault(
+        group_map,
+        proof_step,
+      )
+      continue
+
+    if isinstance(
+      statement,
+      _GENERIC_SURJECTIVE_STATEMENT_TYPES,
+    ):
+      surjective_by_map.setdefault(
+        group_map,
+        proof_step,
+      )
+      continue
+
+    if isinstance(
+      statement,
+      _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
+    ):
+      isomorphism_steps.append(
+        proof_step
+      )
+
+  triples = []
+
+  for isomorphism_step in isomorphism_steps:
+    group_map = getattr(
+      isomorphism_step.conclusion,
+      "map",
+      None,
+    )
+
+    if group_map is None:
+      continue
+
+    injective_step = (
+      injective_by_map.get(
+        group_map
+      )
+    )
+    surjective_step = (
+      surjective_by_map.get(
+        group_map
+      )
+    )
+
+    if (
+      injective_step is None
+      or surjective_step is None
+    ):
+      continue
+
+    triples.append(
+      (
+        injective_step,
+        surjective_step,
+        isomorphism_step,
+      )
+    )
+
+  return tuple(
+    triples
+  )
+
 def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
   rendered: str,
+  presentation: TodaGroupProofPresentation | None = None,
 ) -> str:
   if not isinstance(
     rendered,
@@ -10018,6 +10130,21 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     raise TypeError(
       "rendered must be a str"
     )
+
+  if (
+    presentation is not None
+    and not isinstance(
+      presentation,
+      TodaGroupProofPresentation,
+    )
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation or None"
+    )
+
+  if presentation is None:
+    return rendered
 
   proof_marker = "## 証明\n\n"
   marker_index = rendered.find(
@@ -10041,162 +10168,35 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
   ]
   lines = proof_body.splitlines()
 
-  reference_prefix = re.compile(
-    r"^\[R\d+\]より,\s*"
+  (
+    semantic_presentation,
+    semantic_sidecar,
+    _primary_component,
+  ) = _phase159_public_semantic_projection_context(
+    presentation
   )
-  connector_prefix = re.compile(
-    r"^\((\d+)\),\s*\((\d+)\)\s+より,\s*"
+
+  reason_sidecar = (
+    build_toda_group_proof_narrative_reason_sidecar(
+      semantic_presentation,
+      semantic_sidecar,
+    )
   )
+  exactness_conclusion_step_ids = {
+    id(
+      reason.conclusion_step
+    )
+    for reason in reason_sidecar.reasons
+    if (
+      reason.kind
+      is TodaGroupProofNarrativeReasonKind
+      .EXACTNESS_TO_MAP_PROPERTY
+    )
+  }
+
   tag_pattern = re.compile(
     r"\\tag\{(\d+)\}"
   )
-
-  def map_property(
-    line: str,
-    suffix: str,
-  ) -> tuple[
-    str,
-    int | None,
-  ] | None:
-    stripped = line.strip()
-    stripped = reference_prefix.sub(
-      "",
-      stripped,
-    )
-
-    if not stripped.endswith(
-      suffix
-    ):
-      return None
-
-    map_text = stripped[
-      :-len(
-        suffix
-      )
-    ].strip()
-
-    tag_match = tag_pattern.search(
-      map_text
-    )
-    tag_number = (
-      int(
-        tag_match.group(
-          1
-        )
-      )
-      if tag_match is not None
-      else None
-    )
-    map_text = tag_pattern.sub(
-      "",
-      map_text,
-    ).strip()
-
-    return (
-      map_text,
-      tag_number,
-    )
-
-  def isomorphism_map(
-    line: str,
-  ) -> tuple[
-    str,
-    bool,
-  ] | None:
-    stripped = line.strip()
-
-    if reference_prefix.match(
-      stripped
-    ):
-      return None
-
-    had_connector = (
-      connector_prefix.match(
-        stripped
-      )
-      is not None
-    )
-    stripped = connector_prefix.sub(
-      "",
-      stripped,
-    )
-
-    for suffix in (
-      " は同型.",
-      " は同型写像.",
-      " は同型である.",
-      " は同型写像である.",
-    ):
-      if stripped.endswith(
-        suffix
-      ):
-        return (
-          tag_pattern.sub(
-            "",
-            stripped[
-              :-len(
-                suffix
-              )
-            ].strip(),
-          ),
-          had_connector,
-        )
-
-    return None
-
-  injective_by_map = {}
-  surjective_by_map = {}
-  isomorphism_by_map = {}
-
-  for index, line in enumerate(
-    lines
-  ):
-    injective = map_property(
-      line,
-      " は単射.",
-    )
-
-    if injective is not None:
-      injective_by_map.setdefault(
-        injective[0],
-        [],
-      ).append(
-        (
-          index,
-          injective[1],
-        )
-      )
-
-    surjective = map_property(
-      line,
-      " は全射.",
-    )
-
-    if surjective is not None:
-      surjective_by_map.setdefault(
-        surjective[0],
-        [],
-      ).append(
-        (
-          index,
-          surjective[1],
-        )
-      )
-
-    isomorphism = isomorphism_map(
-      line
-    )
-
-    if isomorphism is not None:
-      isomorphism_by_map.setdefault(
-        isomorphism[0],
-        [],
-      ).append(
-        (
-          index,
-          isomorphism[1],
-        )
-      )
 
   existing_numbers = tuple(
     int(
@@ -10217,36 +10217,163 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     + 1
   )
 
-  numbered_map_properties = {}
-
-  for map_text in tuple(
-    isomorphism_by_map
-  ):
-    injective_rows = injective_by_map.get(
-      map_text,
-      (),
+  def semantic_map_latex(
+    proof_step: ProofStep,
+  ) -> str | None:
+    group_map = getattr(
+      proof_step.conclusion,
+      "map",
+      None,
     )
-    surjective_rows = surjective_by_map.get(
-      map_text,
-      (),
+
+    if group_map is None:
+      return None
+
+    return (
+      _render_generic_narrative_group_map_latex(
+        group_map
+      )
+    )
+
+  def find_property_line(
+    proof_step: ProofStep,
+    property_label: str,
+  ) -> tuple[
+    int,
+    int | None,
+  ] | None:
+    map_latex = semantic_map_latex(
+      proof_step
+    )
+
+    if map_latex is None:
+      return None
+
+    prose_marker = (
+      "は"
+      + property_label
+    )
+    display_marker = (
+      r"\text{は"
+      + property_label
+      + "}"
+    )
+
+    matches = []
+
+    for index, line in enumerate(
+      lines
+    ):
+      if map_latex not in line:
+        continue
+
+      if (
+        prose_marker not in line
+        and display_marker not in line
+      ):
+        continue
+
+      tag_match = tag_pattern.search(
+        line
+      )
+      matches.append(
+        (
+          index,
+          (
+            int(
+              tag_match.group(
+                1
+              )
+            )
+            if tag_match is not None
+            else None
+          ),
+        )
+      )
+
+    if len(
+      matches
+    ) != 1:
+      return None
+
+    return matches[
+      0
+    ]
+
+  def find_isomorphism_line(
+    proof_step: ProofStep,
+  ) -> int | None:
+    map_latex = semantic_map_latex(
+      proof_step
+    )
+
+    if map_latex is None:
+      return None
+
+    matches = [
+      index
+      for index, line in enumerate(
+        lines
+      )
+      if (
+        map_latex in line
+        and (
+          "は同型." in line
+          or "は同型写像." in line
+          or "は同型である." in line
+          or "は同型写像である." in line
+        )
+      )
+    ]
+
+    if len(
+      matches
+    ) != 1:
+      return None
+
+    return matches[
+      0
+    ]
+
+  numbered_by_index = {}
+  isomorphism_by_index = {}
+
+  for (
+    injective_step,
+    surjective_step,
+    isomorphism_step,
+  ) in _phase159_recursive_map_property_triples(
+    presentation
+  ):
+    injective_row = find_property_line(
+      injective_step,
+      "単射",
+    )
+    surjective_row = find_property_line(
+      surjective_step,
+      "全射",
+    )
+    isomorphism_index = (
+      find_isomorphism_line(
+        isomorphism_step
+      )
     )
 
     if (
-      not injective_rows
-      or not surjective_rows
+      injective_row is None
+      or surjective_row is None
+      or isomorphism_index is None
     ):
       continue
 
-    injective_index, injective_number = (
-      injective_rows[
-        0
-      ]
-    )
-    surjective_index, surjective_number = (
-      surjective_rows[
-        0
-      ]
-    )
+    (
+      injective_index,
+      injective_number,
+    ) = injective_row
+    (
+      surjective_index,
+      surjective_number,
+    ) = surjective_row
 
     if injective_number is None:
       injective_number = next_number
@@ -10256,94 +10383,185 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
       surjective_number = next_number
       next_number += 1
 
-    numbered_map_properties[
-      injective_index
-    ] = (
-      map_text,
-      "は単射",
-      injective_number,
+    injective_map_latex = (
+      semantic_map_latex(
+        injective_step
+      )
     )
-    numbered_map_properties[
-      surjective_index
-    ] = (
-      map_text,
-      "は全射",
-      surjective_number,
+    surjective_map_latex = (
+      semantic_map_latex(
+        surjective_step
+      )
+    )
+    isomorphism_line = (
+      _phase159_plain_map_property_line(
+        isomorphism_step,
+        "同型",
+      )
     )
 
-    isomorphism_index, _had_connector = (
-      isomorphism_by_map[
-        map_text
-      ][
-        0
-      ]
+    if (
+      injective_map_latex is None
+      or surjective_map_latex is None
+      or isomorphism_line is None
+    ):
+      continue
+
+    numbered_by_index[
+      injective_index
+    ] = (
+      injective_map_latex,
+      "単射",
+      injective_number,
+      (
+        id(
+          injective_step
+        )
+        in exactness_conclusion_step_ids
+      ),
     )
-    lines[
+    numbered_by_index[
+      surjective_index
+    ] = (
+      surjective_map_latex,
+      "全射",
+      surjective_number,
+      (
+        id(
+          surjective_step
+        )
+        in exactness_conclusion_step_ids
+      ),
+    )
+    isomorphism_by_index[
       isomorphism_index
     ] = (
-      "("
-      + str(
-        injective_number
-      )
-      + "), ("
-      + str(
-        surjective_number
-      )
-      + ") より, "
-      + map_text
-      + " は同型."
+      injective_number,
+      surjective_number,
+      isomorphism_line,
     )
 
   output_lines = []
 
-  for index, line in enumerate(
-    lines
-  ):
-    numbered = numbered_map_properties.get(
-      index
+  def append_exactness_connector() -> None:
+    previous_nonblank = next(
+      (
+        line.strip()
+        for line in reversed(
+          output_lines
+        )
+        if line.strip()
+      ),
+      None,
     )
 
-    if numbered is None:
-      output_lines.append(
-        line
-      )
-      continue
-
-    map_text, property_text, number = numbered
+    if previous_nonblank == "完全性より,":
+      return
 
     if (
-      map_text.startswith(
-        "$"
-      )
-      and map_text.endswith(
-        "$"
-      )
+      output_lines
+      and output_lines[
+        -1
+      ].strip()
     ):
-      map_text = map_text[
-        1:-1
-      ]
+      output_lines.append(
+        ""
+      )
 
     output_lines.extend(
       (
-        r"\[",
-        (
-          map_text
-          + r"\quad\text{"
-          + property_text
-          + r"}. \qquad ("
-          + str(
-            number
-          )
-          + ")"
-        ),
-        r"\]",
+        "完全性より,",
+        "",
       )
     )
+
+  for index, line in enumerate(
+    lines
+  ):
+    numbered = numbered_by_index.get(
+      index
+    )
+
+    if numbered is not None:
+      (
+        map_latex,
+        property_label,
+        number,
+        uses_exactness,
+      ) = numbered
+
+      if uses_exactness:
+        append_exactness_connector()
+
+      output_lines.extend(
+        (
+          r"\[",
+          (
+            map_latex
+            + r"\quad\text{は"
+            + property_label
+            + r"}. \qquad ("
+            + str(
+              number
+            )
+            + ")"
+          ),
+          r"\]",
+        )
+      )
+      continue
+
+    isomorphism = isomorphism_by_index.get(
+      index
+    )
+
+    if isomorphism is not None:
+      (
+        injective_number,
+        surjective_number,
+        isomorphism_line,
+      ) = isomorphism
+      output_lines.append(
+        (
+          "("
+          + str(
+            injective_number
+          )
+          + "), ("
+          + str(
+            surjective_number
+          )
+          + ") より, "
+          + isomorphism_line
+        )
+      )
+      continue
+
+    output_lines.append(
+      line
+    )
+
+  compacted = []
+  previous_blank = False
+
+  for line in output_lines:
+    is_blank = not line.strip()
+
+    if (
+      is_blank
+      and previous_blank
+    ):
+      continue
+
+    compacted.append(
+      line
+    )
+    previous_blank = is_blank
 
   return (
     prefix
     + "\n".join(
-      output_lines
+      compacted
     )
     + (
       "\n"
@@ -10354,6 +10572,262 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     )
   )
 
+def _phase159_reorder_unique_preimage_definition_premise_locality(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  proof_marker = "## 証明\n\n"
+  marker_index = rendered.find(
+    proof_marker
+  )
+
+  if marker_index < 0:
+    return rendered
+
+  semantic_presentation = (
+    build_toda_group_proof_narrative_semantic_closure_presentation(
+      presentation
+    )
+  )
+
+  proof_start = (
+    marker_index
+    + len(
+      proof_marker
+    )
+  )
+  prefix = rendered[
+    :proof_start
+  ]
+  proof_body = rendered[
+    proof_start:
+  ]
+  had_trailing_newline = (
+    rendered.endswith(
+      "\n"
+    )
+  )
+  paragraphs = proof_body.rstrip(
+    "\n"
+  ).split(
+    "\n\n"
+  )
+
+  for node in semantic_presentation.nodes:
+    consumer_step = node.proof_step
+    consumer_line = (
+      _phase159_unique_preimage_definition_line(
+        consumer_step
+      )
+    )
+
+    if consumer_line is None:
+      continue
+
+    group_map = getattr(
+      consumer_step.conclusion,
+      "map",
+      None,
+    )
+
+    if group_map is None:
+      continue
+
+    isomorphism_premise = next(
+      (
+        premise_step
+        for premise_step in consumer_step.premises
+        if (
+          isinstance(
+            premise_step,
+            ProofStep,
+          )
+          and isinstance(
+            premise_step.conclusion,
+            _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
+          )
+          and getattr(
+            premise_step.conclusion,
+            "map",
+            None,
+          )
+          == group_map
+        )
+      ),
+      None,
+    )
+
+    if isomorphism_premise is None:
+      continue
+
+    ordered_premises = (
+      tuple(
+        premise_step
+        for premise_step in consumer_step.premises
+        if premise_step is not isomorphism_premise
+      )
+      + (
+        isomorphism_premise,
+      )
+    )
+
+    consumer_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if consumer_line in paragraph
+    )
+
+    if len(
+      consumer_matches
+    ) != 1:
+      continue
+
+    premise_rows = []
+
+    for premise_step in ordered_premises:
+      premise_line = (
+        _render_generic_narrative_step(
+          premise_step
+        )
+      )
+
+      if not premise_line:
+        premise_rows = []
+        break
+
+      premise_matches = tuple(
+        index
+        for index, paragraph in enumerate(
+          paragraphs
+        )
+        if premise_line in paragraph
+      )
+
+      if len(
+        premise_matches
+      ) != 1:
+        premise_rows = []
+        break
+
+      premise_rows.append(
+        (
+          premise_step,
+          premise_matches[
+            0
+          ],
+          paragraphs[
+            premise_matches[
+              0
+            ]
+          ],
+        )
+      )
+
+    if len(
+      premise_rows
+    ) != len(
+      ordered_premises
+    ):
+      continue
+
+    premise_indices = tuple(
+      row[
+        1
+      ]
+      for row in premise_rows
+    )
+
+    if len(
+      set(
+        premise_indices
+      )
+    ) != len(
+      premise_indices
+    ):
+      continue
+
+    if consumer_matches[
+      0
+    ] in premise_indices:
+      continue
+
+    premise_paragraph_by_step_id = {
+      id(
+        premise_step
+      ): paragraph
+      for (
+        premise_step,
+        _,
+        paragraph,
+      ) in premise_rows
+    }
+
+    for premise_index in sorted(
+      premise_indices,
+      reverse=True,
+    ):
+      paragraphs.pop(
+        premise_index
+      )
+
+    consumer_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if consumer_line in paragraph
+    )
+
+    if len(
+      consumer_matches
+    ) != 1:
+      continue
+
+    consumer_index = consumer_matches[
+      0
+    ]
+
+    for premise_step in ordered_premises:
+      paragraphs.insert(
+        consumer_index,
+        premise_paragraph_by_step_id[
+          id(
+            premise_step
+          )
+        ],
+      )
+      consumer_index += 1
+
+  result = (
+    prefix
+    + "\n\n".join(
+      paragraphs
+    )
+  )
+
+  if had_trailing_newline:
+    result += "\n"
+
+  return result
 
 
 def _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
@@ -10509,9 +10983,544 @@ def _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
 
   return result
 
+def _phase159_order_public_unique_preimage_definition_premises(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  proof_marker = "## 証明\n\n"
+  marker_index = rendered.find(
+    proof_marker
+  )
+
+  if marker_index < 0:
+    return rendered
+
+  proof_start = (
+    marker_index
+    + len(
+      proof_marker
+    )
+  )
+  prefix = rendered[
+    :proof_start
+  ]
+  proof_body = rendered[
+    proof_start:
+  ]
+  had_trailing_newline = rendered.endswith(
+    "\n"
+  )
+  paragraphs = proof_body.rstrip(
+    "\n"
+  ).split(
+    "\n\n"
+  )
+
+  def match_key(
+    paragraph: str,
+  ) -> str:
+    stripped = paragraph.strip()
+
+    if (
+      stripped.startswith(
+        r"\["
+      )
+      and stripped.endswith(
+        r"\]"
+      )
+    ):
+      display_lines = tuple(
+        line.strip()
+        for line in stripped.splitlines()
+        if line.strip()
+      )
+
+      if len(
+        display_lines
+      ) == 3:
+        display_body = display_lines[
+          1
+        ]
+        display_match = re.fullmatch(
+          (
+            r"(?P<map>.+?)"
+            r"\\quad\\text\{"
+            r"(?P<property>は単射|は全射)"
+            r"\}\.\s*"
+            r"\\qquad\s*"
+            r"\((?P<number>\d+)\)"
+          ),
+          display_body,
+        )
+
+        if display_match is not None:
+          stripped = (
+            "$"
+            + display_match.group(
+              "map"
+            )
+            + "$ "
+            + display_match.group(
+              "property"
+            )
+            + "."
+          )
+
+    numbered_connector = re.compile(
+      (
+        r"^(?:\(\d+\)"
+        r"(?:,\s*|\s+と\s+)?)"
+        r"+\s*より,\s*"
+      )
+    )
+    stripped = numbered_connector.sub(
+      "",
+      stripped,
+    )
+
+    if stripped.startswith(
+      "[R"
+    ):
+      marker_end = stripped.find(
+        "]"
+      )
+
+      if marker_end >= 0:
+        suffix = stripped[
+          marker_end + 1:
+        ].lstrip()
+
+        for reference_prefix in (
+          "より, ",
+          "を用いて, ",
+        ):
+          if suffix.startswith(
+            reference_prefix
+          ):
+            stripped = suffix[
+              len(
+                reference_prefix
+              ):
+            ]
+            break
+
+    for prose_prefix in (
+      "完全性より, ",
+      "以上より, ",
+      "したがって, ",
+      "これより, ",
+      "これらより, ",
+    ):
+      if stripped.startswith(
+        prose_prefix
+      ):
+        stripped = stripped[
+          len(
+            prose_prefix
+          ):
+        ]
+        break
+
+    for verbose, concise in (
+      (
+        " は単射である.",
+        " は単射.",
+      ),
+      (
+        " は全射である.",
+        " は全射.",
+      ),
+      (
+        " は零写像である.",
+        " は零写像.",
+      ),
+      (
+        " は同型写像である.",
+        " は同型.",
+      ),
+    ):
+      if stripped.endswith(
+        verbose
+      ):
+        stripped = (
+          stripped[
+            :-len(
+              verbose
+            )
+          ]
+          + concise
+        )
+        break
+
+    return stripped.rstrip(
+      ".,"
+    )
+
+  def paragraph_index_for_step(
+    proof_step: ProofStep,
+  ) -> int | None:
+    line = _render_generic_narrative_step(
+      proof_step
+    )
+
+    if not line:
+      return None
+
+    target_key = match_key(
+      line
+    )
+    matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if match_key(
+        paragraph
+      )
+      == target_key
+    )
+
+    if len(
+      matches
+    ) != 1:
+      return None
+
+    return matches[
+      0
+    ]
+
+  for node in presentation.nodes:
+    proof_step = node.proof_step
+    definition_line = (
+      _phase159_unique_preimage_definition_line(
+        proof_step
+      )
+    )
+
+    if definition_line is None:
+      continue
+
+    definition_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if paragraph.strip()
+      == definition_line
+    )
+
+    if len(
+      definition_matches
+    ) != 1:
+      continue
+
+    visible_premise_records = tuple(
+      (
+        premise_step,
+        paragraph_index_for_step(
+          premise_step
+        ),
+      )
+      for premise_step in proof_step.premises
+    )
+
+    if any(
+      premise_index is None
+      for (
+        _,
+        premise_index,
+      ) in visible_premise_records
+    ):
+      continue
+
+    premise_indices = tuple(
+      premise_index
+      for (
+        _,
+        premise_index,
+      ) in visible_premise_records
+      if premise_index is not None
+    )
+
+    if len(
+      premise_indices
+    ) != len(
+      proof_step.premises
+    ):
+      continue
+
+    definition_index = definition_matches[
+      0
+    ]
+    expected_indices = tuple(
+      range(
+        definition_index
+        - len(
+          premise_indices
+        ),
+        definition_index,
+      )
+    )
+
+    if premise_indices == expected_indices:
+      continue
+
+    premise_paragraphs = tuple(
+      paragraphs[
+        premise_index
+      ]
+      for premise_index in premise_indices
+    )
+
+    for premise_index in sorted(
+      premise_indices,
+      reverse=True,
+    ):
+      paragraphs.pop(
+        premise_index
+      )
+
+    definition_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if paragraph.strip()
+      == definition_line
+    )
+
+    if len(
+      definition_matches
+    ) != 1:
+      continue
+
+    definition_index = definition_matches[
+      0
+    ]
+    paragraphs[
+      definition_index:
+      definition_index
+    ] = premise_paragraphs
+
+  result = (
+    prefix
+    + "\n\n".join(
+      paragraphs
+    )
+  )
+
+  if had_trailing_newline:
+    result += "\n"
+
+  return result
+
+
+def _phase159_render_pi_n_plus_1_n_stable_transport_narrative(
+  presentation: TodaGroupProofPresentation,
+) -> str | None:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+  sphere_dimension = (
+    target.sphere_dimension
+  )
+  group_dimension = (
+    target.group_dimension
+  )
+
+  if (
+    not isinstance(
+      sphere_dimension,
+      int,
+    )
+    or not isinstance(
+      group_dimension,
+      int,
+    )
+    or sphere_dimension < 4
+    or group_dimension
+    != sphere_dimension + 1
+  ):
+    return None
+
+  target_n = sphere_dimension
+  suspension_exponent = (
+    target_n - 3
+  )
+  suspension_latex = (
+    "E"
+    if suspension_exponent == 1
+    else (
+      "E^{"
+      + str(
+        suspension_exponent
+      )
+      + "}"
+    )
+  )
+
+  return "\n".join(
+    (
+      "# Group proof narrative",
+      "",
+      "## 証明対象",
+      "",
+      r"\[",
+      (
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        + r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}."
+      ),
+      r"\]",
+      "",
+      "## 使用する結果",
+      "",
+      "**[R1] (4.5).**",
+      (
+        r"$n \ge k + 2$ のとき, "
+        r"$E^{m-n}: "
+        r"\pi_{n+k}^{n} "
+        r"\to "
+        r"\pi_{m+k}^{m}$ は同型."
+      ),
+      "",
+      "**[R2] Proposition 5.1.**",
+      (
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      "---",
+      "",
+      "## 証明",
+      "",
+      (
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ の群構造を決定する."
+      ),
+      "",
+      (
+        r"[R2]より, "
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      (
+        r"[R1]を "
+        r"$(n,m,k)=(3,"
+        + str(
+          target_n
+        )
+        + r",1)$ に適用すると, "
+        r"$"
+        + suspension_latex
+        + r": \pi_{4}^{3} "
+        r"\to "
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ は同型."
+      ),
+      "",
+      (
+        r"$"
+        + suspension_latex
+        + r"\eta_{3} = "
+        r"\eta_{"
+        + str(
+          target_n
+        )
+        + r"}$."
+      ),
+      "",
+      (
+        r"以上より, "
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}$."
+      ),
+      "",
+      "□",
+      "",
+    )
+  )
+
+
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
+  stable_transport_narrative = (
+    _phase159_render_pi_n_plus_1_n_stable_transport_narrative(
+      presentation
+    )
+  )
+
+  if stable_transport_narrative is not None:
+    return stable_transport_narrative
+
   rendered = (
     _phase158_baseline_render_toda_group_proof_narrative_markdown(
       presentation
@@ -10533,10 +11542,250 @@ def render_toda_group_proof_narrative_markdown(
       rendered
     )
   )
+  rendered = (
+    _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
+      rendered
+    )
+  )
+
+  return (
+    _phase159_r1_6d_finalize_reference_and_linkage(
+      presentation,
+      _phase159_order_public_unique_preimage_definition_premises(
+        presentation,
+        rendered,
+      ),
+    )
+  )
+def render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  rendered = (
+    _phase158_baseline_render_toda_group_proof_narrative_markdown(
+      presentation
+    )
+  )
+  rendered = (
+    _phase158_normalize_public_narrative_contract(
+      presentation,
+      rendered,
+    )
+  )
+  rendered = (
+    _phase159_reorder_unique_preimage_definition_premise_locality(
+      presentation,
+      rendered,
+    )
+  )
+  rendered = (
+    _phase159_r1_7c_r4_normalize_public_map_property_prose(
+      rendered
+    )
+  )
+  rendered = (
+    _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
+      rendered,
+      presentation=presentation,
+    )
+  )
 
   return (
     _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
       rendered
+    )
+  )
+
+
+# Phase159 pi_(n+1)^n stable transport repair3 public wrapper
+_phase159_repair3_previous_public_narrative_renderer = (
+  render_toda_group_proof_narrative_markdown
+)
+
+def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
+  presentation: TodaGroupProofPresentation,
+) -> str | None:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+  sphere_dimension = target.sphere_dimension
+  group_dimension = target.group_dimension
+
+  if (
+    not isinstance(
+      sphere_dimension,
+      int,
+    )
+    or not isinstance(
+      group_dimension,
+      int,
+    )
+    or sphere_dimension < 4
+    or group_dimension != sphere_dimension + 1
+  ):
+    return None
+
+  target_n = sphere_dimension
+  suspension_exponent = target_n - 3
+  suspension_latex = (
+    "E"
+    if suspension_exponent == 1
+    else (
+      "E^{"
+      + str(
+        suspension_exponent
+      )
+      + "}"
+    )
+  )
+
+  return "\n".join(
+    (
+      "# Group proof narrative",
+      "",
+      "## 証明対象",
+      "",
+      r"\[",
+      (
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        + r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}."
+      ),
+      r"\]",
+      "",
+      "## 使用する結果",
+      "",
+      "**[R1] (4.5).**",
+      (
+        r"$n \ge k + 2$ のとき, "
+        r"$E^{m-n}: "
+        r"\pi_{n+k}^{n} "
+        r"\to "
+        r"\pi_{m+k}^{m}$ は同型."
+      ),
+      "",
+      "**[R2] Proposition 5.1.**",
+      (
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      "---",
+      "",
+      "## 証明",
+      "",
+      (
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ の群構造を決定する."
+      ),
+      "",
+      (
+        r"[R2]より, "
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      (
+        r"[R1]を "
+        r"$(n,m,k)=(3,"
+        + str(
+          target_n
+        )
+        + r",1)$ に適用すると, "
+        r"$"
+        + suspension_latex
+        + r": \pi_{4}^{3} "
+        r"\to "
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ は同型."
+      ),
+      "",
+      (
+        r"$"
+        + suspension_latex
+        + r"\eta_{3} = "
+        r"\eta_{"
+        + str(
+          target_n
+        )
+        + r"}$."
+      ),
+      "",
+      (
+        r"以上より, "
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}$."
+      ),
+      "",
+      "□",
+      "",
+    )
+  )
+
+
+def render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  stable_transport_narrative = (
+    _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
+      presentation
+    )
+  )
+
+  if stable_transport_narrative is not None:
+    return stable_transport_narrative
+
+  return (
+    _phase159_repair3_previous_public_narrative_renderer(
+      presentation
     )
   )
 

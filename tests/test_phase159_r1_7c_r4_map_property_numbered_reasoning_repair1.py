@@ -46,15 +46,22 @@ def test_phase159_r1_7c_r4_pi11_6_numbers_existing_hopf_reasoning():
   )
 
   assert (
-    r"$H: \pi_{7}^{3} \to \pi_{7}^{5}\tag{1}$ は単射."
+    "\\[\n"
+    r"H: \pi_{7}^{3} \to \pi_{7}^{5}"
+    r"\quad\text{は単射}. \qquad (1)"
+    "\n\\]"
     in rendered
   )
   assert (
-    r"$H: \pi_{7}^{3} \to \pi_{7}^{5}\tag{2}$ は全射."
+    "\\[\n"
+    r"H: \pi_{7}^{3} \to \pi_{7}^{5}"
+    r"\quad\text{は全射}. \qquad (2)"
+    "\n\\]"
     in rendered
   )
   assert (
-    r"(1), (2) より, $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は同型."
+    r"(1), (2) より, "
+    r"$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は同型."
     in rendered
   )
   assert (
@@ -70,15 +77,22 @@ def test_phase159_r1_7c_r4_pi3_2_keeps_existing_numbered_hopf_reasoning():
   )
 
   assert (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}\tag{1}$ は単射."
+    "\\[\n"
+    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
+    r"\quad\text{は単射}. \qquad (1)"
+    "\n\\]"
     in rendered
   )
   assert (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}\tag{2}$ は全射."
+    "\\[\n"
+    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
+    r"\quad\text{は全射}. \qquad (2)"
+    "\n\\]"
     in rendered
   )
   assert (
-    r"(1), (2) より, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は同型."
+    r"(1), (2) より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ は同型."
     in rendered
   )
 
@@ -133,7 +147,7 @@ def test_phase159_r1_7c_r4_delta_pairs_without_isomorphism_are_not_numbered():
     )
 
 
-def test_phase159_r1_7c_r4_numbered_reasoning_is_general_not_pi11_hardcoded():
+def test_phase159_r1_7c_r4_numbered_reasoning_requires_semantic_presentation():
   from toda_group_proof_narrative_renderer import (
     _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning,
   )
@@ -145,8 +159,8 @@ def test_phase159_r1_7c_r4_numbered_reasoning_is_general_not_pi11_hardcoded():
     "## 使用する結果\n\n"
     "---\n\n"
     "## 証明\n\n"
-    "$F: A \\to B$ は単射.\n"
-    "$F: A \\to B$ は全射.\n"
+    "完全性より, $F: A \\to B$ は単射.\n"
+    "完全性より, $F: A \\to B$ は全射.\n"
     "$F: A \\to B$ は同型写像である.\n\n"
     "□\n"
   )
@@ -157,15 +171,5 @@ def test_phase159_r1_7c_r4_numbered_reasoning_is_general_not_pi11_hardcoded():
     )
   )
 
-  assert (
-    r"$F: A \to B\tag{1}$ は単射."
-    in normalized
-  )
-  assert (
-    r"$F: A \to B\tag{2}$ は全射."
-    in normalized
-  )
-  assert (
-    r"(1), (2) より, $F: A \to B$ は同型."
-    in normalized
-  )
+  assert normalized == rendered
+

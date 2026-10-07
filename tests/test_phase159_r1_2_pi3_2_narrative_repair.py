@@ -118,18 +118,22 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   )
 
   injective = (
-    "完全性より, "
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は単射."
+    "完全性より,\n\n"
+    "\\[\n"
+    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
+    r"\quad\text{は単射}. \qquad (1)"
+    "\n\\]"
   )
   surjective = (
-    "完全性より, "
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は全射."
+    "完全性より,\n\n"
+    "\\[\n"
+    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
+    r"\quad\text{は全射}. \qquad (2)"
+    "\n\\]"
   )
   isomorphism = (
-    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-    "は同型."
+    r"(1), (2) より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ は同型."
   )
 
   assert injective in rendered
@@ -139,20 +143,17 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   assert rendered.index(
     injective
   ) < rendered.index(
-    isomorphism
-  )
-  assert rendered.index(
     surjective
   ) < rendered.index(
     isomorphism
   )
 
   assert (
-    r"\quad\text{は単射}. \qquad"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}\tag{1}$ は単射."
     not in rendered
   )
   assert (
-    r"\quad\text{は全射}. \qquad"
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}\tag{2}$ は全射."
     not in rendered
   )
 

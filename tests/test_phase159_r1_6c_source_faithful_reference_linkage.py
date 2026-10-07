@@ -50,9 +50,7 @@ def test_phase159_r1_6c_toda_51_reference_is_source_faithful():
 
   assert "**[R1] (5.1).**" in reference
   assert (
-    r"$\pi_{i}^{1} = 0\ (i > 1),"
-    r"\qquad "
-    r"\pi_{i}^{n} = 0\ (i < n)$."
+    r"$\pi_{i}^{1} = 0\ (i > 1)$."
     in reference
   )
   assert (
@@ -61,6 +59,10 @@ def test_phase159_r1_6c_toda_51_reference_is_source_faithful():
     in reference
   )
 
+  assert (
+    r"$\pi_{i}^{n} = 0\ (i < n)$."
+    not in reference
+  )
   assert r"\langle" not in reference
   assert r"\rangle" not in reference
   assert r"\pi_{2}^{1} = 0" not in reference
