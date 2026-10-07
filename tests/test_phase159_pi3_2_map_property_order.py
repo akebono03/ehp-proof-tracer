@@ -6,15 +6,8 @@ from toda_group_proof_narrative_renderer import (
 )
 
 
-H_INJECTIVE = (
-  "完全性より, "
-  r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-  "は単射."
-)
-H_SURJECTIVE = (
-  "完全性より, "
-  r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
-  "は全射."
+H_MAP = (
+  r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
 )
 H_ISOMORPHISM = (
   r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
@@ -31,6 +24,10 @@ FINAL_GROUP = (
   "以上より, "
   r"$\pi_{3}^{2} = "
   r"\mathbb{Z}\{\eta_{2}\}$."
+)
+PI3_3_GROUP = (
+  r"\pi_{3}^{3} = "
+  r"\mathbb{Z}\{\iota_{3}\}"
 )
 
 
@@ -56,23 +53,63 @@ def _phase159_pi3_2_public_body() -> str:
   )[1]
 
 
+def _paragraphs(
+  body: str,
+) -> tuple[str, ...]:
+  return tuple(
+    paragraph.strip()
+    for paragraph in body.split(
+      "\n\n"
+    )
+    if paragraph.strip()
+  )
+
+
+def _map_property_index(
+  paragraphs: tuple[str, ...],
+  property_text: str,
+) -> int:
+  matches = tuple(
+    index
+    for index, paragraph in enumerate(
+      paragraphs
+    )
+    if (
+      H_MAP in paragraph
+      and property_text in paragraph
+    )
+  )
+
+  assert len(
+    matches
+  ) == 1
+
+  return matches[
+    0
+  ]
+
+
 def test_phase159_pi3_2_bijectivity_precedes_isomorphism():
   body = _phase159_pi3_2_public_body()
-
-  assert H_INJECTIVE in body
-  assert H_SURJECTIVE in body
-  assert H_ISOMORPHISM in body
-
-  assert body.index(
-    H_INJECTIVE
-  ) < body.index(
-    H_ISOMORPHISM
+  paragraphs = _paragraphs(
+    body
   )
-  assert body.index(
-    H_SURJECTIVE
-  ) < body.index(
-    H_ISOMORPHISM
+
+  injective_index = _map_property_index(
+    paragraphs,
+    "は単射",
   )
+  surjective_index = _map_property_index(
+    paragraphs,
+    "は全射",
+  )
+  isomorphism_index = _map_property_index(
+    paragraphs,
+    "は同型",
+  )
+
+  assert injective_index < isomorphism_index
+  assert surjective_index < isomorphism_index
 
 
 def test_phase159_pi3_2_isomorphism_precedes_eta2_definition_and_final_group():
@@ -92,3 +129,51 @@ def test_phase159_pi3_2_isomorphism_precedes_eta2_definition_and_final_group():
   ) < body.index(
     FINAL_GROUP
   )
+
+
+def test_phase159_pi3_2_definition_premises_are_local_to_semantic_consumer():
+  body = _phase159_pi3_2_public_body()
+  paragraphs = _paragraphs(
+    body
+  )
+
+  group_matches = tuple(
+    index
+    for index, paragraph in enumerate(
+      paragraphs
+    )
+    if PI3_3_GROUP in paragraph
+  )
+  definition_matches = tuple(
+    index
+    for index, paragraph in enumerate(
+      paragraphs
+    )
+    if ETA2_DEFINITION in paragraph
+  )
+
+  assert len(
+    group_matches
+  ) == 1
+  assert len(
+    definition_matches
+  ) == 1
+
+  group_index = group_matches[
+    0
+  ]
+  isomorphism_index = _map_property_index(
+    paragraphs,
+    "は同型",
+  )
+  definition_index = definition_matches[
+    0
+  ]
+  surjective_index = _map_property_index(
+    paragraphs,
+    "は全射",
+  )
+
+  assert surjective_index < group_index
+  assert group_index + 1 == isomorphism_index
+  assert isomorphism_index + 1 == definition_index

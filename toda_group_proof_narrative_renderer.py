@@ -10572,6 +10572,264 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     )
   )
 
+def _phase159_reorder_unique_preimage_definition_premise_locality(
+  presentation: TodaGroupProofPresentation,
+  rendered: str,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    rendered,
+    str,
+  ):
+    raise TypeError(
+      "rendered must be a str"
+    )
+
+  proof_marker = "## 証明\n\n"
+  marker_index = rendered.find(
+    proof_marker
+  )
+
+  if marker_index < 0:
+    return rendered
+
+  semantic_presentation = (
+    build_toda_group_proof_narrative_semantic_closure_presentation(
+      presentation
+    )
+  )
+
+  proof_start = (
+    marker_index
+    + len(
+      proof_marker
+    )
+  )
+  prefix = rendered[
+    :proof_start
+  ]
+  proof_body = rendered[
+    proof_start:
+  ]
+  had_trailing_newline = (
+    rendered.endswith(
+      "\n"
+    )
+  )
+  paragraphs = proof_body.rstrip(
+    "\n"
+  ).split(
+    "\n\n"
+  )
+
+  for node in semantic_presentation.nodes:
+    consumer_step = node.proof_step
+    consumer_line = (
+      _phase159_unique_preimage_definition_line(
+        consumer_step
+      )
+    )
+
+    if consumer_line is None:
+      continue
+
+    group_map = getattr(
+      consumer_step.conclusion,
+      "map",
+      None,
+    )
+
+    if group_map is None:
+      continue
+
+    isomorphism_premise = next(
+      (
+        premise_step
+        for premise_step in consumer_step.premises
+        if (
+          isinstance(
+            premise_step,
+            ProofStep,
+          )
+          and isinstance(
+            premise_step.conclusion,
+            _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
+          )
+          and getattr(
+            premise_step.conclusion,
+            "map",
+            None,
+          )
+          == group_map
+        )
+      ),
+      None,
+    )
+
+    if isomorphism_premise is None:
+      continue
+
+    ordered_premises = (
+      tuple(
+        premise_step
+        for premise_step in consumer_step.premises
+        if premise_step is not isomorphism_premise
+      )
+      + (
+        isomorphism_premise,
+      )
+    )
+
+    consumer_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if consumer_line in paragraph
+    )
+
+    if len(
+      consumer_matches
+    ) != 1:
+      continue
+
+    premise_rows = []
+
+    for premise_step in ordered_premises:
+      premise_line = (
+        _render_generic_narrative_step(
+          premise_step
+        )
+      )
+
+      if not premise_line:
+        premise_rows = []
+        break
+
+      premise_matches = tuple(
+        index
+        for index, paragraph in enumerate(
+          paragraphs
+        )
+        if premise_line in paragraph
+      )
+
+      if len(
+        premise_matches
+      ) != 1:
+        premise_rows = []
+        break
+
+      premise_rows.append(
+        (
+          premise_step,
+          premise_matches[
+            0
+          ],
+          paragraphs[
+            premise_matches[
+              0
+            ]
+          ],
+        )
+      )
+
+    if len(
+      premise_rows
+    ) != len(
+      ordered_premises
+    ):
+      continue
+
+    premise_indices = tuple(
+      row[
+        1
+      ]
+      for row in premise_rows
+    )
+
+    if len(
+      set(
+        premise_indices
+      )
+    ) != len(
+      premise_indices
+    ):
+      continue
+
+    if consumer_matches[
+      0
+    ] in premise_indices:
+      continue
+
+    premise_paragraph_by_step_id = {
+      id(
+        premise_step
+      ): paragraph
+      for (
+        premise_step,
+        _,
+        paragraph,
+      ) in premise_rows
+    }
+
+    for premise_index in sorted(
+      premise_indices,
+      reverse=True,
+    ):
+      paragraphs.pop(
+        premise_index
+      )
+
+    consumer_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if consumer_line in paragraph
+    )
+
+    if len(
+      consumer_matches
+    ) != 1:
+      continue
+
+    consumer_index = consumer_matches[
+      0
+    ]
+
+    for premise_step in ordered_premises:
+      paragraphs.insert(
+        consumer_index,
+        premise_paragraph_by_step_id[
+          id(
+            premise_step
+          )
+        ],
+      )
+      consumer_index += 1
+
+  result = (
+    prefix
+    + "\n\n".join(
+      paragraphs
+    )
+  )
+
+  if had_trailing_newline:
+    result += "\n"
+
+  return result
+
+
 def _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
   rendered: str,
 ) -> str:
@@ -11082,8 +11340,22 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     )
   )
+def render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  rendered = (
+    _phase158_baseline_render_toda_group_proof_narrative_markdown(
+      presentation
+    )
+  )
   rendered = (
     _phase158_normalize_public_narrative_contract(
+      presentation,
+      rendered,
+    )
+  )
+  rendered = (
+    _phase159_reorder_unique_preimage_definition_premise_locality(
       presentation,
       rendered,
     )
