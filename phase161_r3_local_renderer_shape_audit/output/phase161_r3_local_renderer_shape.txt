@@ -1,0 +1,23 @@
+==============================================================================
+Phase 161-R3 local renderer shape audit
+==============================================================================
+target: C:\Users\user\Dropbox\Python\fitz\ehp_proof\toda_group_proof_narrative_contribution_renderer.py
+total lines: 0
+
+Functions containing restore helper:
+  NONE
+
+Functions containing body-usage filter:
+  NONE
+
+Functions containing unmarked-reference relink:
+  NONE
+
+==============================================================================
+Restore call sites and local context
+==============================================================================
+NO restore call found.
+
+==============================================================================
+Candidate render/public functions
+==============================================================================

@@ -9732,6 +9732,13 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         presentation=presentation,
       )
     )
+    rendered = (
+      link_toda_group_proof_narrative_unmarked_reference_consumers(
+        presentation,
+        rendered,
+        reference_entries,
+      )
+    )
   else:
     frontier_step_ids = (
       _toda_group_proof_narrative_reference_frontier_step_ids(
