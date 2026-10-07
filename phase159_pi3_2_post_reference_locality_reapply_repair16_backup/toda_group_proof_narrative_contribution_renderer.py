@@ -9780,13 +9780,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
-  rendered = (
-    order_toda_group_proof_narrative_injective_image_order_reason(
-      rendered,
-      reason_sidecar,
-    )
-  )
-
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
       reference_entries,

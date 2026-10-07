@@ -9686,12 +9686,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       rendered
     )
   )
-  rendered = (
-    order_toda_group_proof_narrative_injective_image_order_reason(
-      rendered,
-      reason_sidecar,
-    )
-  )
 
   generic_used_step_ids = (
     build_toda_group_proof_narrative_generic_used_step_ids(
@@ -9777,13 +9771,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation,
       reference_entries,
       statement_lines_by_reference_number,
-    )
-  )
-
-  rendered = (
-    order_toda_group_proof_narrative_injective_image_order_reason(
-      rendered,
-      reason_sidecar,
     )
   )
 

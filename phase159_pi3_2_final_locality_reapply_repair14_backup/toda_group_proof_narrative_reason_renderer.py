@@ -996,87 +996,118 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       paragraph,
     )
 
-  def math_spans(
-    text: str,
-  ) -> tuple[
-    str,
-    ...,
-  ]:
-    spans = []
-    search_start = 0
-
-    while True:
-      open_index = text.find(
-        "$",
-        search_start,
-      )
-
-      if open_index < 0:
-        break
-
-      close_index = text.find(
-        "$",
-        open_index + 1,
-      )
-
-      if close_index < 0:
-        break
-
-      spans.append(
-        text[
-          open_index:
-          close_index + 1
-        ]
-      )
-      search_start = close_index + 1
-
-    return tuple(
-      spans
+  def unique_preimage_definition_line(
+    proof_step,
+  ) -> str | None:
+    statement = getattr(
+      proof_step,
+      "conclusion",
+      None,
     )
-
-  for node in reason_sidecar.presentation.nodes:
-    proof_step = node.proof_step
-    generic_definition = (
-      _render_generic_narrative_step(
-        proof_step
-      )
+    group_map = getattr(
+      statement,
+      "map",
+      None,
     )
-
-    if not generic_definition:
-      continue
+    element = getattr(
+      statement,
+      "element",
+      None,
+    )
+    image = getattr(
+      statement,
+      "image",
+      None,
+    )
 
     if (
-      "を満たす" not in generic_definition
-      or "を定める." not in generic_definition
+      group_map is None
+      or element is None
+      or image is None
     ):
-      continue
+      return None
 
-    premise_lines = tuple(
-      _render_generic_narrative_step(
-        premise_step
-      )
-      for premise_step in proof_step.premises
-    )
     isomorphism_premises = tuple(
-      premise_line
-      for premise_line in premise_lines
+      premise_step
+      for premise_step in proof_step.premises
       if (
-        premise_line
-        and "同型写像である."
-        in premise_line
+        getattr(
+          getattr(
+            premise_step,
+            "conclusion",
+            None,
+          ),
+          "map",
+          None,
+        )
+        == group_map
+        and "同型"
+        in (
+          _render_generic_narrative_step(
+            premise_step
+          )
+          or ""
+        )
       )
     )
 
     if len(
       isomorphism_premises
     ) != 1:
-      continue
+      return None
 
-    definition_spans = math_spans(
-      generic_definition
+    map_name = getattr(
+      group_map,
+      "name",
+      None,
     )
 
-    if not definition_spans:
+    if not isinstance(
+      map_name,
+      str,
+    ):
+      return None
+
+    source_group = getattr(
+      group_map,
+      "source_group",
+      None,
+    )
+
+    if source_group is None:
+      return None
+
+    return (
+      "この同型写像により, $"
+      + map_name
+      + "("
+      + render_toda_expression_latex(
+        element
+      )
+      + ") = "
+      + render_toda_expression_latex(
+        image
+      )
+      + "$ となる $"
+      + render_toda_expression_latex(
+        element
+      )
+      + r" \in "
+      + render_toda_primary_group_latex(
+        source_group
+      )
+      + "$ が一意に存在する."
+    )
+
+  for node in reason_sidecar.presentation.nodes:
+    proof_step = node.proof_step
+    definition_line = (
+      unique_preimage_definition_line(
+        proof_step
+      )
+    )
+
+    if definition_line is None:
       continue
 
     definition_matches = tuple(
@@ -1084,15 +1115,8 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       for index, paragraph in enumerate(
         paragraphs
       )
-      if (
-        paragraph.strip().startswith(
-          "この同型写像により, "
-        )
-        and all(
-          span in paragraph
-          for span in definition_spans
-        )
-      )
+      if paragraph.strip()
+      == definition_line
     )
 
     if len(
@@ -1158,15 +1182,8 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       for index, paragraph in enumerate(
         paragraphs
       )
-      if (
-        paragraph.strip().startswith(
-          "この同型写像により, "
-        )
-        and all(
-          span in paragraph
-          for span in definition_spans
-        )
-      )
+      if paragraph.strip()
+      == definition_line
     )
 
     if len(

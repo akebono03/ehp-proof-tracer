@@ -803,11 +803,20 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
   rendered = "\n\n".join(
     paragraphs
   )
+
+  for reason in reason_sidecar.reasons:
+    rendered = (
+      _normalize_exactness_to_map_property_reason_prose(
+        rendered,
+        reason,
+      )
+    )
+
   paragraphs = rendered.split(
     "\n\n"
   )
 
-  def locality_match_key(
+  def exactness_locality_match_key(
     paragraph: str,
   ) -> str:
     stripped = paragraph.strip()
@@ -890,21 +899,205 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       stripped
     )
 
-  def paragraph_index_for_line(
-    line: str,
+  def concise_step_line(
+    proof_step,
+  ) -> str | None:
+    line = (
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+
+    if not line:
+      return None
+
+    for verbose, concise in (
+      (
+        " は単射である.",
+        " は単射.",
+      ),
+      (
+        " は全射である.",
+        " は全射.",
+      ),
+      (
+        " は零写像である.",
+        " は零写像.",
+      ),
+      (
+        " は同型写像である.",
+        " は同型.",
+      ),
+    ):
+      if line.endswith(
+        verbose
+      ):
+        return (
+          line[
+            :-len(
+              verbose
+            )
+          ]
+          + concise
+        )
+
+    return line
+
+  for node in reason_sidecar.presentation.nodes:
+    proof_step = node.proof_step
+    conclusion_line = (
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+
+    if not conclusion_line:
+      continue
+
+    if not (
+      conclusion_line.endswith(
+        " は単射である."
+      )
+      or conclusion_line.endswith(
+        " は全射である."
+      )
+    ):
+      continue
+
+    concise_conclusion = (
+      concise_step_line(
+        proof_step
+      )
+    )
+
+    if concise_conclusion is None:
+      continue
+
+    expected_paragraph = (
+      "完全性より, "
+      + concise_conclusion
+    )
+    conclusion_matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if paragraph.strip()
+      == expected_paragraph
+    )
+
+    if len(
+      conclusion_matches
+    ) != 1:
+      continue
+
+    conclusion_index = conclusion_matches[
+      0
+    ]
+    visible_premise_indices = []
+
+    for premise_step in proof_step.premises:
+      premise_line = (
+        concise_step_line(
+          premise_step
+        )
+      )
+
+      if premise_line is None:
+        continue
+
+      premise_key = (
+        exactness_locality_match_key(
+          premise_line
+        )
+      )
+      premise_matches = tuple(
+        index
+        for index, paragraph in enumerate(
+          paragraphs
+        )
+        if (
+          index != conclusion_index
+          and exactness_locality_match_key(
+            paragraph
+          )
+          == premise_key
+        )
+      )
+
+      if len(
+        premise_matches
+      ) != 1:
+        continue
+
+      visible_premise_indices.append(
+        premise_matches[
+          0
+        ]
+      )
+
+    if not visible_premise_indices:
+      continue
+
+    latest_premise_index = max(
+      visible_premise_indices
+    )
+
+    if (
+      conclusion_index
+      <= latest_premise_index
+    ):
+      continue
+
+    if (
+      conclusion_index
+      == latest_premise_index + 1
+    ):
+      continue
+
+    paragraph = paragraphs.pop(
+      conclusion_index
+    )
+    paragraphs.insert(
+      latest_premise_index + 1,
+      paragraph,
+    )
+
+  rendered = "\n\n".join(
+    paragraphs
+  )
+  paragraphs = rendered.split(
+    "\n\n"
+  )
+
+  def paragraph_index_for_reason_step(
+    proof_step,
   ) -> int | None:
-    target_key = locality_match_key(
-      line
+    line = (
+      concise_step_line(
+        proof_step
+      )
+    )
+
+    if line is None:
+      return None
+
+    target_key = (
+      exactness_locality_match_key(
+        line
+      )
     )
     matches = tuple(
       index
       for index, paragraph in enumerate(
         paragraphs
       )
-      if locality_match_key(
-        paragraph
+      if (
+        exactness_locality_match_key(
+          paragraph
+        )
+        == target_key
       )
-      == target_key
     )
 
     if len(
@@ -920,268 +1113,57 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
     if (
       reason.kind
       is not TodaGroupProofNarrativeReasonKind
-      .EXACTNESS_TO_MAP_PROPERTY
+      .DEFINITION_APPLICABILITY
     ):
       continue
 
-    reason_paragraph = (
-      visible_reason_paragraph(
-        reason
-      )
-    )
-
-    if reason_paragraph is None:
-      continue
-
-    conclusion_matches = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if paragraph.strip()
-      == reason_paragraph
-    )
-
     if len(
-      conclusion_matches
+      reason.premise_steps
     ) != 1:
       continue
 
-    conclusion_index = conclusion_matches[
-      0
-    ]
-    visible_premise_indices = []
-
-    for premise_step in reason.premise_steps:
-      premise_line = (
-        _render_generic_narrative_step(
-          premise_step
-        )
-      )
-
-      if not premise_line:
-        continue
-
-      premise_index = paragraph_index_for_line(
-        premise_line
-      )
-
-      if premise_index is None:
-        continue
-
-      visible_premise_indices.append(
-        premise_index
-      )
-
-    if not visible_premise_indices:
-      continue
-
-    latest_premise_index = max(
-      visible_premise_indices
-    )
-
-    if (
-      conclusion_index
-      <= latest_premise_index
-      or conclusion_index
-      == latest_premise_index + 1
-    ):
-      continue
-
-    paragraph = paragraphs.pop(
-      conclusion_index
-    )
-    paragraphs.insert(
-      latest_premise_index + 1,
-      paragraph,
-    )
-
-  def math_spans(
-    text: str,
-  ) -> tuple[
-    str,
-    ...,
-  ]:
-    spans = []
-    search_start = 0
-
-    while True:
-      open_index = text.find(
-        "$",
-        search_start,
-      )
-
-      if open_index < 0:
-        break
-
-      close_index = text.find(
-        "$",
-        open_index + 1,
-      )
-
-      if close_index < 0:
-        break
-
-      spans.append(
-        text[
-          open_index:
-          close_index + 1
+    prerequisite_index = (
+      paragraph_index_for_reason_step(
+        reason.premise_steps[
+          0
         ]
       )
-      search_start = close_index + 1
-
-    return tuple(
-      spans
     )
-
-  for node in reason_sidecar.presentation.nodes:
-    proof_step = node.proof_step
-    generic_definition = (
-      _render_generic_narrative_step(
-        proof_step
+    definition_index = (
+      paragraph_index_for_reason_step(
+        reason.conclusion_step
       )
     )
-
-    if not generic_definition:
-      continue
 
     if (
-      "を満たす" not in generic_definition
-      or "を定める." not in generic_definition
+      prerequisite_index is None
+      or definition_index is None
+      or prerequisite_index
+      == definition_index - 1
     ):
       continue
 
-    premise_lines = tuple(
-      _render_generic_narrative_step(
-        premise_step
-      )
-      for premise_step in proof_step.premises
+    prerequisite_paragraph = paragraphs.pop(
+      prerequisite_index
     )
-    isomorphism_premises = tuple(
-      premise_line
-      for premise_line in premise_lines
-      if (
-        premise_line
-        and "同型写像である."
-        in premise_line
+
+    definition_index = (
+      paragraph_index_for_reason_step(
+        reason.conclusion_step
       )
     )
 
-    if len(
-      isomorphism_premises
-    ) != 1:
+    if definition_index is None:
+      paragraphs.insert(
+        prerequisite_index,
+        prerequisite_paragraph,
+      )
       continue
 
-    definition_spans = math_spans(
-      generic_definition
+    paragraphs.insert(
+      definition_index,
+      prerequisite_paragraph,
     )
-
-    if not definition_spans:
-      continue
-
-    definition_matches = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if (
-        paragraph.strip().startswith(
-          "この同型写像により, "
-        )
-        and all(
-          span in paragraph
-          for span in definition_spans
-        )
-      )
-    )
-
-    if len(
-      definition_matches
-    ) != 1:
-      continue
-
-    visible_premise_records = []
-
-    for premise_step in proof_step.premises:
-      premise_line = (
-        _render_generic_narrative_step(
-          premise_step
-        )
-      )
-
-      if not premise_line:
-        continue
-
-      premise_index = paragraph_index_for_line(
-        premise_line
-      )
-
-      if premise_index is None:
-        continue
-
-      visible_premise_records.append(
-        (
-          premise_step,
-          premise_index,
-        )
-      )
-
-    if not visible_premise_records:
-      continue
-
-    premise_paragraphs = [
-      paragraphs[
-        premise_index
-      ]
-      for (
-        _,
-        premise_index,
-      ) in visible_premise_records
-    ]
-
-    for premise_index in sorted(
-      (
-        premise_index
-        for (
-          _,
-          premise_index,
-        ) in visible_premise_records
-      ),
-      reverse=True,
-    ):
-      paragraphs.pop(
-        premise_index
-      )
-
-    definition_matches = tuple(
-      index
-      for index, paragraph in enumerate(
-        paragraphs
-      )
-      if (
-        paragraph.strip().startswith(
-          "この同型写像により, "
-        )
-        and all(
-          span in paragraph
-          for span in definition_spans
-        )
-      )
-    )
-
-    if len(
-      definition_matches
-    ) != 1:
-      continue
-
-    definition_index = definition_matches[
-      0
-    ]
-
-    paragraphs[
-      definition_index:
-      definition_index
-    ] = premise_paragraphs
 
   return "\n\n".join(
     paragraphs
