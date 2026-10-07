@@ -123,7 +123,6 @@ from toda_rules import (
   toda_prop44_first_summand_restriction_inference_rule,
   toda_prop44_isomorphism_inference_rule,
   toda_prop44_suspension_injective_inference_rule,
-  toda_prop53_eta4_squared_stable_transport_inference_rule,
   toda_prop53_n4_eta_square_suspension_bridge_inference_rule,
   toda_prop53_n4_phase48_injectivity_bridge_inference_rule,
   toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule,
@@ -882,11 +881,10 @@ def _build_higher_eta_transport(
   )
 
   result = run_inference_until_stable_with_history(
-    toda_prop53_eta4_squared_stable_transport_inference_rule(),
+    toda_45_generic_finite_cyclic_transport_inference_rule(),
     (
       pi6_4_step,
       stable_step,
-      higher_range_step,
     ),
   )
 
