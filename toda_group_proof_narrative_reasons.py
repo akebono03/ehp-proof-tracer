@@ -9,6 +9,10 @@ from expression import (
 )
 from homotopy_groups import (
   FiniteCyclicGroup,
+  TodaPrimaryGroupZeroStatement,
+  TodaDeltaMap,
+  TodaHopfInvariantMap,
+  TodaSuspensionMap,
 )
 from proof import (
   ProofStep,
@@ -22,6 +26,12 @@ from toda_rules import (
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
   TodaSuspensionKernelFreeCyclicStatement,
+  TodaSuspensionSurjectiveStatement,
+  TodaDeltaInjectiveStatement,
+  TodaDeltaSurjectiveStatement,
+  TodaHopfInvariantInjectiveStatement,
+  TodaHopfInvariantZeroStatement,
+  TodaSuspensionZeroStatement,
 )
 from toda_group_proof_narrative_aggregate_semantics import (
   TodaGroupProofNarrativeAggregateSemanticKind,
@@ -290,20 +300,62 @@ def _exactness_to_map_property_reason(
 ) -> TodaGroupProofNarrativeReason | None:
   conclusion = proof_step.conclusion
 
-  if not isinstance(
-    conclusion,
+  injective_types = (
+    TodaDeltaInjectiveStatement,
+    TodaHopfInvariantInjectiveStatement,
     TodaSuspensionInjectiveStatement,
+  )
+  surjective_types = (
+    TodaDeltaSurjectiveStatement,
+    TodaHopfInvariantSurjectiveStatement,
+    TodaSuspensionSurjectiveStatement,
+  )
+  zero_map_types = (
+    TodaDeltaZeroStatement,
+    TodaHopfInvariantZeroStatement,
+    TodaSuspensionZeroStatement,
+  )
+
+  def map_name(
+    group_map,
+  ) -> str | None:
+    if isinstance(
+      group_map,
+      TodaSuspensionMap,
+    ):
+      return "E"
+
+    if isinstance(
+      group_map,
+      TodaHopfInvariantMap,
+    ):
+      return "H"
+
+    if isinstance(
+      group_map,
+      TodaDeltaMap,
+    ):
+      return "Δ"
+
+    return getattr(
+      group_map,
+      "name",
+      None,
+    )
+
+  if isinstance(
+    conclusion,
+    injective_types,
   ):
+    conclusion_kind = "injective"
+  elif isinstance(
+    conclusion,
+    surjective_types,
+  ):
+    conclusion_kind = "surjective"
+  else:
     return None
 
-  zero_premises = tuple(
-    premise
-    for premise in proof_step.premises
-    if isinstance(
-      premise.conclusion,
-      TodaDeltaZeroStatement,
-    )
-  )
   exactness_premises = tuple(
     premise
     for premise in proof_step.premises
@@ -312,38 +364,108 @@ def _exactness_to_map_property_reason(
       TodaProp42ExactnessStatement,
     )
   )
+  zero_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      (
+        TodaPrimaryGroupZeroStatement,
+        *zero_map_types,
+      ),
+    )
+  )
 
   compatible_pairs = []
 
   for zero_premise in zero_premises:
-    zero_map = zero_premise.conclusion.map
+    zero_statement = zero_premise.conclusion
 
     for exactness_premise in exactness_premises:
       window = exactness_premise.conclusion.window
+      conclusion_map = conclusion.map
 
-      if (
-        zero_map.source_group
-        != window.source_term
-        or zero_map.target_group
-        != window.middle_term
-        or window.middle_term
-        != conclusion.map.source_group
-        or window.target_term
-        != conclusion.map.target_group
-        or getattr(
-          window.first_map,
-          "name",
-          None,
-        )
-        != "Δ"
-        or getattr(
-          window.second_map,
-          "name",
-          None,
-        )
-        != "E"
-      ):
-        continue
+      if conclusion_kind == "injective":
+        if (
+          conclusion_map.source_group
+          != window.middle_term
+          or conclusion_map.target_group
+          != window.target_term
+          or map_name(
+            conclusion_map
+          )
+          != map_name(
+            window.second_map
+          )
+        ):
+          continue
+
+        if isinstance(
+          zero_statement,
+          TodaPrimaryGroupZeroStatement,
+        ):
+          if (
+            zero_statement.group
+            != window.source_term
+          ):
+            continue
+        else:
+          zero_map = zero_statement.map
+
+          if (
+            zero_map.source_group
+            != window.source_term
+            or zero_map.target_group
+            != window.middle_term
+            or map_name(
+              zero_map
+            )
+            != map_name(
+              window.first_map
+            )
+          ):
+            continue
+
+      else:
+        if (
+          conclusion_map.source_group
+          != window.source_term
+          or conclusion_map.target_group
+          != window.middle_term
+          or map_name(
+            conclusion_map
+          )
+          != map_name(
+            window.first_map
+          )
+        ):
+          continue
+
+        if isinstance(
+          zero_statement,
+          TodaPrimaryGroupZeroStatement,
+        ):
+          if (
+            zero_statement.group
+            != window.target_term
+          ):
+            continue
+        else:
+          zero_map = zero_statement.map
+
+          if (
+            zero_map.source_group
+            != window.middle_term
+            or zero_map.target_group
+            != window.target_term
+            or map_name(
+              zero_map
+            )
+            != map_name(
+              window.second_map
+            )
+          ):
+            continue
 
       compatible_pairs.append(
         (

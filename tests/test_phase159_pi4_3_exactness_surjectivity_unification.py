@@ -1,5 +1,8 @@
 import inspect
 
+from homotopy_groups import (
+  TodaPrimaryGroupZeroStatement,
+)
 from tests.test_phase143_19_method_evidence import (
   _method_evidence_data,
 )
@@ -14,13 +17,12 @@ from toda_group_proof_narrative_reasons import (
   build_toda_group_proof_narrative_reason_sidecar,
 )
 from toda_rules import (
-  TodaDeltaZeroStatement,
   TodaProp42ExactnessStatement,
-  TodaSuspensionInjectiveStatement,
+  TodaSuspensionSurjectiveStatement,
 )
 
 
-def _pi6_reason_data():
+def _pi4_3_surjectivity_reason_data():
   (
     presentation,
     blocks,
@@ -28,7 +30,7 @@ def _pi6_reason_data():
     arguments,
   ) = _method_evidence_data(
     3,
-    3,
+    1,
   )
   reason_sidecar = (
     build_toda_group_proof_narrative_reason_sidecar(
@@ -45,14 +47,14 @@ def _pi6_reason_data():
   )
 
 
-def test_phase150_rc4_5c_2_builds_exactness_to_map_property_from_typed_direct_premises():
+def test_phase159_pi4_3_builds_exactness_to_surjectivity_reason():
   (
     presentation,
     blocks,
     semantic_sidecar,
     arguments,
     reason_sidecar,
-  ) = _pi6_reason_data()
+  ) = _pi4_3_surjectivity_reason_data()
 
   reasons = tuple(
     reason
@@ -61,46 +63,57 @@ def test_phase150_rc4_5c_2_builds_exactness_to_map_property_from_typed_direct_pr
       reason.kind
       is TodaGroupProofNarrativeReasonKind
       .EXACTNESS_TO_MAP_PROPERTY
+      and isinstance(
+        reason.conclusion_step.conclusion,
+        TodaSuspensionSurjectiveStatement,
+      )
     )
   )
 
   assert len(reasons) == 1
   reason = reasons[0]
 
-  assert isinstance(
-    reason.conclusion_step.conclusion,
-    TodaSuspensionInjectiveStatement,
-  )
   assert len(reason.premise_steps) == 2
   assert isinstance(
     reason.premise_steps[0].conclusion,
-    TodaDeltaZeroStatement,
+    TodaPrimaryGroupZeroStatement,
   )
   assert isinstance(
     reason.premise_steps[1].conclusion,
     TodaProp42ExactnessStatement,
   )
 
-  zero_map = reason.premise_steps[0].conclusion.map
-  window = reason.premise_steps[1].conclusion.window
-  injective_map = reason.conclusion_step.conclusion.map
+  zero_group = (
+    reason.premise_steps[0].conclusion.group
+  )
+  window = (
+    reason.premise_steps[1].conclusion.window
+  )
+  surjective_map = (
+    reason.conclusion_step.conclusion.map
+  )
 
-  assert zero_map.source_group == window.source_term
-  assert zero_map.target_group == window.middle_term
-  assert window.middle_term == injective_map.source_group
-  assert window.target_term == injective_map.target_group
-  assert window.first_map.name == "Δ"
-  assert window.second_map.name == "E"
+  assert (
+    window.source_term
+    == surjective_map.source_group
+  )
+  assert (
+    window.middle_term
+    == surjective_map.target_group
+  )
+  assert zero_group == window.target_term
+  assert window.first_map.name == "E"
+  assert window.second_map.name == "H"
 
 
-def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusion():
+def test_phase159_pi4_3_surjectivity_reason_is_visible_without_double_connector():
   (
     presentation,
     blocks,
     semantic_sidecar,
     arguments,
     reason_sidecar,
-  ) = _pi6_reason_data()
+  ) = _pi4_3_surjectivity_reason_data()
 
   reason = next(
     reason
@@ -109,6 +122,10 @@ def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusi
       reason.kind
       is TodaGroupProofNarrativeReasonKind
       .EXACTNESS_TO_MAP_PROPERTY
+      and isinstance(
+        reason.conclusion_step.conclusion,
+        TodaSuspensionSurjectiveStatement,
+      )
     )
   )
   sentence = (
@@ -127,21 +144,25 @@ def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusi
 
   assert sentence == (
     "完全性より, "
-    r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射."
+    r"$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射."
   )
   assert rendered.count(
     sentence
   ) == 1
   assert rendered.count(
-    r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射."
+    r"$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射."
   ) == 1
   assert (
-    "この完全性と $Δ=0$ より"
+    "この完全性と "
+    not in rendered
+  )
+  assert (
+    "これより, 完全性より,"
     not in rendered
   )
 
 
-def test_phase150_rc4_5c_2_reason_builder_has_no_pi6_or_rule_name_special_case():
+def test_phase159_exactness_to_map_property_builder_has_no_pi4_special_case():
   import toda_group_proof_narrative_reasons as module
 
   source = inspect.getsource(
@@ -149,32 +170,13 @@ def test_phase150_rc4_5c_2_reason_builder_has_no_pi6_or_rule_name_special_case()
   )
 
   forbidden_fragments = (
-    "(6, 3)",
-    "pi6",
-    "nu_prime",
-    "ν′",
-    "Proposition 5.6",
+    "(4, 3)",
+    "pi4",
+    "eta_2",
+    "η₂",
+    "Proposition 5.1",
     "inference_rule",
     ".rule",
-  )
-
-  for fragment in forbidden_fragments:
-    assert fragment not in source
-
-
-def test_phase150_rc4_5c_2_renderer_has_no_pi6_or_proposition_special_case():
-  import toda_group_proof_narrative_reason_renderer as module
-
-  source = inspect.getsource(
-    module.render_toda_group_proof_narrative_reason_sentence
-  )
-
-  forbidden_fragments = (
-    "(6, 3)",
-    "pi6",
-    "nu_prime",
-    "ν′",
-    "Proposition 5.6",
   )
 
   for fragment in forbidden_fragments:

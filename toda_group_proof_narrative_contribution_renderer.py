@@ -3694,6 +3694,10 @@ def normalize_toda_group_proof_narrative_connectors(
     "したがって,",
     "これより,",
   }
+  exactness_reason_prefixes = (
+    "この完全性と ",
+    "完全性より,",
+  )
   index = 0
 
   while index < len(
@@ -3711,6 +3715,18 @@ def normalize_toda_group_proof_narrative_connectors(
       index + 1
     ]
     next_stripped = next_paragraph.lstrip()
+
+    if (
+      stripped == "これより,"
+      and next_stripped.startswith(
+        exactness_reason_prefixes
+      )
+    ):
+      normalized_paragraphs.pop(
+        index
+      )
+      continue
+
     separator = (
       "\n"
       if next_stripped.startswith(
@@ -3752,7 +3768,6 @@ def normalize_toda_group_proof_narrative_connectors(
   return "\n\n".join(
     normalized_paragraphs
   )
-
 
 
 def suppress_toda_group_proof_narrative_dangling_connectors(
@@ -4139,6 +4154,39 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
       "markdown must be a str"
     )
 
+  def normalized_step_key(
+    line: str,
+  ) -> str:
+    key = (
+      _phase157_r11_reference_statement_match_key(
+        line
+      )
+    )
+
+    for verbose, concise in (
+      (
+        " は単射である",
+        " は単射",
+      ),
+      (
+        " は全射である",
+        " は全射",
+      ),
+    ):
+      if key.endswith(
+        verbose
+      ):
+        return (
+          key[
+            :-len(
+              verbose
+            )
+          ]
+          + concise
+        )
+
+    return key
+
   step_ids_by_key = {}
 
   for node in presentation.nodes:
@@ -4152,10 +4200,8 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
     if not rendered:
       continue
 
-    key = (
-      _phase157_r11_reference_statement_match_key(
-        rendered
-      )
+    key = normalized_step_key(
+      rendered
     )
 
     step_ids_by_key.setdefault(
@@ -4175,18 +4221,50 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
     ) == 1
   }
 
-  if not unique_step_keys:
-    return markdown
-
   connector_prefixes = (
     "以上より, ",
     "したがって, ",
     "これより, ",
     "これらより, ",
+    "完全性より, ",
   )
+
+  exactness_map_property_keys = set()
+
+  for paragraph in markdown.split(
+    "\n\n"
+  ):
+    stripped = paragraph.strip()
+
+    if not stripped.startswith(
+      "完全性より, "
+    ):
+      continue
+
+    comparable = stripped[
+      len(
+        "完全性より, "
+      ):
+    ]
+    key = normalized_step_key(
+      comparable
+    )
+
+    if (
+      key.endswith(
+        " は単射"
+      )
+      or key.endswith(
+        " は全射"
+      )
+    ):
+      exactness_map_property_keys.add(
+        key
+      )
 
   retained = []
   seen_unique_keys = set()
+  seen_exactness_map_property_keys = set()
 
   for paragraph in markdown.split(
     "\n\n"
@@ -4205,11 +4283,28 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
         ]
         break
 
-    key = (
-      _phase157_r11_reference_statement_match_key(
-        comparable
-      )
+    key = normalized_step_key(
+      comparable
     )
+
+    if key in exactness_map_property_keys:
+      if stripped.startswith(
+        "完全性より, "
+      ):
+        if (
+          key
+          in seen_exactness_map_property_keys
+        ):
+          continue
+
+        seen_exactness_map_property_keys.add(
+          key
+        )
+        retained.append(
+          paragraph
+        )
+
+      continue
 
     if key not in unique_step_keys:
       retained.append(
@@ -4230,6 +4325,8 @@ def suppress_toda_group_proof_narrative_repeated_unique_step_statements(
   return "\n\n".join(
     retained
   )
+
+
 def _toda_group_proof_narrative_equation_tag_number(
   paragraph: str,
 ) -> int | None:
@@ -8869,6 +8966,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation,
       rendered,
       reference_entries,
+    )
+  )
+  rendered = (
+    suppress_toda_group_proof_narrative_repeated_unique_step_statements(
+      presentation,
+      rendered,
     )
   )
   rendered = (
