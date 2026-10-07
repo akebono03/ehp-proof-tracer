@@ -10,6 +10,9 @@ from toda_group_proof_narrative_reasons import (
   TodaGroupProofNarrativeReasonKind,
   TodaGroupProofNarrativeReasonSidecar,
 )
+from toda_proof_narrative_renderer import (
+  render_toda_raw_group_structure_latex,
+)
 
 
 def render_toda_group_proof_narrative_reason_sentence(
@@ -75,6 +78,45 @@ def render_toda_group_proof_narrative_reason_sentence(
       f"$\\ker {second_map_name}"
       f"=\\operatorname{{Im}}{first_map_name}=0$.\n"
       "したがって, "
+    )
+
+  if (
+    reason.kind
+    is TodaGroupProofNarrativeReasonKind
+    .EXACTNESS_TO_KERNEL
+  ):
+    if len(reason.premise_steps) != 2:
+      return None
+
+    image_statement = (
+      reason.premise_steps[0].conclusion
+    )
+    exactness_statement = (
+      reason.premise_steps[1].conclusion
+    )
+    conclusion = (
+      reason.conclusion_step.conclusion
+    )
+    window = exactness_statement.window
+    first_map_name = window.first_map.name
+    second_map_name = window.second_map.name
+    group_latex = (
+      render_toda_raw_group_structure_latex(
+        conclusion.kernel_group
+      )
+    )
+
+    if (
+      image_statement.image_group
+      != conclusion.kernel_group
+    ):
+      return None
+
+    return (
+      "完全性より, "
+      f"$\\ker {second_map_name}"
+      f"=\\operatorname{{Im}}{first_map_name}"
+      f"={group_latex}$."
     )
 
   if (
@@ -576,6 +618,115 @@ def _toda_group_proof_narrative_reason_insertion_index(
   return None
 
 
+
+def _normalize_exactness_to_kernel_reason_prose(
+  markdown: str,
+  reason: TodaGroupProofNarrativeReason,
+) -> str:
+  if (
+    reason.kind
+    is not TodaGroupProofNarrativeReasonKind
+    .EXACTNESS_TO_KERNEL
+  ):
+    return markdown
+
+  sentence = (
+    render_toda_group_proof_narrative_reason_sentence(
+      reason
+    )
+  )
+  if sentence is None:
+    return markdown
+
+  reason_lines = sentence.splitlines()
+
+  while (
+    reason_lines
+    and reason_lines[-1].strip()
+    in {
+      "以上より,",
+      "したがって,",
+      "これより,",
+      "これらより,",
+    }
+  ):
+    reason_lines.pop()
+
+  reason_body = "\n".join(
+    reason_lines
+  ).strip()
+
+  if not reason_body:
+    return markdown
+
+  paragraphs = markdown.split(
+    "\n\n"
+  )
+  reason_indices = tuple(
+    index
+    for index, paragraph in enumerate(
+      paragraphs
+    )
+    if paragraph.strip() == reason_body
+  )
+
+  if len(reason_indices) != 1:
+    return markdown
+
+  reason_index = reason_indices[0]
+
+  if (
+    reason_index > 0
+    and paragraphs[
+      reason_index - 1
+    ].strip()
+    == "これより,"
+  ):
+    paragraphs.pop(
+      reason_index - 1
+    )
+    reason_index -= 1
+
+  image_line = (
+    _render_generic_narrative_step(
+      reason.premise_steps[0]
+    )
+    if reason.premise_steps
+    else ""
+  )
+  kernel_line = (
+    _render_generic_narrative_step(
+      reason.conclusion_step
+    )
+  )
+  covered_lines = {
+    line.strip()
+    for line in (
+      image_line,
+      kernel_line,
+    )
+    if line
+  }
+
+  retained = paragraphs[
+    :reason_index + 1
+  ]
+
+  for paragraph in paragraphs[
+    reason_index + 1:
+  ]:
+    if paragraph.strip() in covered_lines:
+      continue
+
+    retained.append(
+      paragraph
+    )
+
+  return "\n\n".join(
+    retained
+  )
+
+
 def insert_toda_group_proof_narrative_reason_prose(
   markdown: str,
   reason_sidecar: TodaGroupProofNarrativeReasonSidecar,
@@ -634,6 +785,14 @@ def insert_toda_group_proof_narrative_reason_prose(
       rendered[:insertion_index]
       + prefix
       + rendered[insertion_index:]
+    )
+
+  for reason in reason_sidecar.reasons:
+    rendered = (
+      _normalize_exactness_to_kernel_reason_prose(
+        rendered,
+        reason,
+      )
     )
 
   return rendered

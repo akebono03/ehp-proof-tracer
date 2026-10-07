@@ -127,13 +127,13 @@ def test_phase150_rc4_5c_2_exactness_reason_is_visible_before_injective_conclusi
 
   assert sentence == (
     "この完全性と $Δ=0$ より, "
-    "$\\ker E=\\operatorname{Im}Δ=0$ である.\n"
+    "$\\ker E=\\operatorname{Im}Δ=0$.\n"
     "したがって, "
   )
 
   reason_body = (
     "この完全性と $Δ=0$ より, "
-    "$\\ker E=\\operatorname{Im}Δ=0$ である."
+    "$\\ker E=\\operatorname{Im}Δ=0$."
   )
   assert rendered.count(
     reason_body

@@ -16,10 +16,12 @@ from proof import (
   RelationType,
 )
 from toda_rules import (
+  TodaDeltaImageFreeCyclicStatement,
   TodaDeltaZeroStatement,
   TodaHopfInvariantSurjectiveStatement,
   TodaProp42ExactnessStatement,
   TodaSuspensionInjectiveStatement,
+  TodaSuspensionKernelFreeCyclicStatement,
 )
 from toda_group_proof_narrative_aggregate_semantics import (
   TodaGroupProofNarrativeAggregateSemanticKind,
@@ -43,6 +45,9 @@ class TodaGroupProofNarrativeReasonKind(
   )
   EXACTNESS_TO_MAP_PROPERTY = (
     "exactness_to_map_property"
+  )
+  EXACTNESS_TO_KERNEL = (
+    "exactness_to_kernel"
   )
   INJECTIVE_IMAGE_ORDER = (
     "injective_image_order"
@@ -363,6 +368,98 @@ def _exactness_to_map_property_reason(
     ),
     premise_steps=(
       zero_premise,
+      exactness_premise,
+    ),
+    conclusion_step=proof_step,
+  )
+
+
+def _exactness_to_kernel_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  conclusion = proof_step.conclusion
+
+  if not isinstance(
+    conclusion,
+    TodaSuspensionKernelFreeCyclicStatement,
+  ):
+    return None
+
+  image_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaDeltaImageFreeCyclicStatement,
+    )
+  )
+  exactness_premises = tuple(
+    premise
+    for premise in proof_step.premises
+    if isinstance(
+      premise.conclusion,
+      TodaProp42ExactnessStatement,
+    )
+  )
+
+  compatible_pairs = []
+
+  for image_premise in image_premises:
+    image_statement = image_premise.conclusion
+    image_map = image_statement.map
+
+    for exactness_premise in exactness_premises:
+      window = exactness_premise.conclusion.window
+
+      if (
+        image_map.source_group
+        != window.source_term
+        or image_map.target_group
+        != window.middle_term
+        or window.middle_term
+        != conclusion.map.source_group
+        or window.target_term
+        != conclusion.map.target_group
+        or image_statement.image_group
+        != conclusion.kernel_group
+        or getattr(
+          window.first_map,
+          "name",
+          None,
+        )
+        != "Δ"
+        or getattr(
+          window.second_map,
+          "name",
+          None,
+        )
+        != "E"
+      ):
+        continue
+
+      compatible_pairs.append(
+        (
+          image_premise,
+          exactness_premise,
+        )
+      )
+
+  if len(
+    compatible_pairs
+  ) != 1:
+    return None
+
+  image_premise, exactness_premise = (
+    compatible_pairs[0]
+  )
+
+  return TodaGroupProofNarrativeReason(
+    kind=(
+      TodaGroupProofNarrativeReasonKind
+      .EXACTNESS_TO_KERNEL
+    ),
+    premise_steps=(
+      image_premise,
       exactness_premise,
     ),
     conclusion_step=proof_step,
@@ -829,6 +926,16 @@ def build_toda_group_proof_narrative_reason_sidecar(
     )
     if exactness_reason is not None:
       append_if_visible(exactness_reason)
+
+    exactness_kernel_reason = (
+      _exactness_to_kernel_reason(
+        node.proof_step
+      )
+    )
+    if exactness_kernel_reason is not None:
+      append_if_visible(
+        exactness_kernel_reason
+      )
 
     injective_image_order_reason = (
       _injective_image_order_reason(
