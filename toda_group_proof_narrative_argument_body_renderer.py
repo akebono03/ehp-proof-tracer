@@ -1314,19 +1314,9 @@ def render_toda_group_proof_narrative_argument_body_markdown(
             )
           )
 
-          and (
-            (
-              id(
-                block
-              ) in preserve_provenance_block_ids
-              and id(
-                proof_step
-              ) in redundant_direct_premise_step_ids
-            )
-            or id(
-              proof_step
-            ) not in redundant_direct_premise_step_ids
-          )
+          and id(
+            proof_step
+          ) not in redundant_direct_premise_step_ids
           and (
             id(
               proof_step

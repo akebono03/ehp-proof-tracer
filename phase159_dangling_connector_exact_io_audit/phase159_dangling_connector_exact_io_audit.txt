@@ -1,0 +1,313 @@
+# Phase 159 dangling connector exact I/O audit
+
+============================================================
+pi_4^3
+============================================================
+
+BEFORE connector count: 1
+AFTER connector count: 0
+
+## BEFORE paragraphs
+
+P0: '$\\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.'
+P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+P4: 'これより, $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+P5: '完全性より, $\\ker E=\\operatorname{Im}Δ=\\mathbb{Z}\\{2\\eta_{2}\\}$.'
+P6: '[R1]より, $\\pi_{4}^{5} = 0$.'
+P7: '完全性より, $E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射.'
+P8: '$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.'
+P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## AFTER paragraphs
+
+P0: '$\\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.'
+P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+P2: '[R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+P4: 'これより, $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+P5: '完全性より, $\\ker E=\\operatorname{Im}Δ=\\mathbb{Z}\\{2\\eta_{2}\\}$.'
+P6: '[R1]より, $\\pi_{4}^{5} = 0$.'
+P7: '完全性より, $E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射.'
+P8: '$\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$ は完全である.'
+P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## BEFORE raw
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+以上より, [R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+## AFTER raw
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+[R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+============================================================
+pi_6^3
+============================================================
+
+BEFORE connector count: 2
+AFTER connector count: 2
+
+## BEFORE paragraphs
+
+P0: "まず, $\\nu'$ の位数を決定するために, 次の完全列を考える."
+P1: '$\\pi_{7}^{3} \\xrightarrow{H} \\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3}$ は完全である.'
+P2: "[R2]より, $2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}\\tag{1}$."
+P3: '$\\eta_{3}\\eta_{4}\\eta_{5} = \\eta_{3}^{3}\\tag{2}$'
+P4: '(1) と (2) より, '
+P5: "$2\\nu' = \\eta_{3}^{3}$"
+P6: 'これらより, '
+P7: "[R2]より, $H\\left(\\nu'\\right) = \\eta_{5}$."
+P8: 'これらより, '
+P9: '(3) より, '
+P10: '$\\eta_{6}=E\\eta_{5}$ である.'
+P11: "[R6]より, $H\\left(\\nu'\\eta_{6}\\right) = \\eta_{5}^{2}$."
+P12: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+P13: '以上より, 完全性より, $E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射.'
+P14: '[R3]より, $\\pi_{7}^{5} = \\mathbb{Z}/2\\{\\eta_{5}^{2}\\}$'
+P15: '$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射である.'
+P16: '完全性より, $\\ker \\Delta=\\operatorname{Im}H=\\pi_{7}^{5}$.'
+P17: '$\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像である.'
+P18: '$E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射である.'
+P19: '$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$'
+P20: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+P21: "$\\operatorname{ord}\\left(\\nu'\\right) = 4$"
+P22: '最後に, $\\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.'
+P23: '$\\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5}$'
+P24: "[R2]より, $\\nu' \\in \\pi_{6}^{3}$."
+P25: '[R4]より, $\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$.'
+P26: '$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.'
+P27: 'この完全性と, 左の写像の単射性, 右の写像の全射性より, 次の短完全列が成り立つ.'
+P28: '$0\\longrightarrow \\pi_{5}^{2}\\xrightarrow{E} \\pi_{6}^{3}\\xrightarrow{H} \\pi_{6}^{5}\\longrightarrow 0$'
+P29: '以上より, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$'
+P30: 'これより, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$, $\\pi_{6}^{4} = \\mathbb{Z}/2\\{\\eta_{4}^{2}\\}$, $\\pi_{n + 2}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\eta_{n + 1}\\}$, $n \\ge 5$ が成り立つ.'
+P31: 'これより, $H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射である.'
+P32: 'これより, $\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像である.'
+P33: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+P34: "$\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"
+
+## AFTER paragraphs
+
+P0: "まず, $\\nu'$ の位数を決定するために, 次の完全列を考える."
+P1: '$\\pi_{7}^{3} \\xrightarrow{H} \\pi_{7}^{5} \\xrightarrow{\\Delta} \\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3}$ は完全である.'
+P2: "[R2]より, $2\\nu' = \\eta_{3}\\eta_{4}\\eta_{5}\\tag{1}$."
+P3: '$\\eta_{3}\\eta_{4}\\eta_{5} = \\eta_{3}^{3}\\tag{2}$'
+P4: '(1) と (2) より, '
+P5: "$2\\nu' = \\eta_{3}^{3}$"
+P6: "[R2]より, $H\\left(\\nu'\\right) = \\eta_{5}$."
+P7: '$\\eta_{6}=E\\eta_{5}$ である.'
+P8: "[R6]より, $H\\left(\\nu'\\eta_{6}\\right) = \\eta_{5}^{2}$."
+P9: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.'
+P10: 'したがって, 以上より, 完全性より, $E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射.'
+P11: '[R3]より, $\\pi_{7}^{5} = \\mathbb{Z}/2\\{\\eta_{5}^{2}\\}$'
+P12: '$H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射である.'
+P13: '完全性より, $\\ker \\Delta=\\operatorname{Im}H=\\pi_{7}^{5}$.'
+P14: '$\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像である.'
+P15: '$E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射である.'
+P16: '$\\operatorname{ord}\\left(\\eta_{3}^{3}\\right) = 2$'
+P17: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$."
+P18: "したがって, $\\operatorname{ord}\\left(\\nu'\\right) = 4$"
+P19: '最後に, $\\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.'
+P20: '$\\pi_{5}^{2} \\xrightarrow{E} \\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5}$'
+P21: "[R2]より, $\\nu' \\in \\pi_{6}^{3}$."
+P22: '[R4]より, $\\pi_{6}^{5} = \\mathbb{Z}/2\\{\\eta_{5}\\}$.'
+P23: '$H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.'
+P24: 'この完全性と, 左の写像の単射性, 右の写像の全射性より, 次の短完全列が成り立つ.'
+P25: '$0\\longrightarrow \\pi_{5}^{2}\\xrightarrow{E} \\pi_{6}^{3}\\xrightarrow{H} \\pi_{6}^{5}\\longrightarrow 0$'
+P26: '以上より, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$'
+P27: 'これより, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$, $\\pi_{6}^{4} = \\mathbb{Z}/2\\{\\eta_{4}^{2}\\}$, $\\pi_{n + 2}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\eta_{n + 1}\\}$, $n \\ge 5$ が成り立つ.'
+P28: 'これより, $H: \\pi_{7}^{3} \\to \\pi_{7}^{5}$ は全射である.'
+P29: 'これより, $\\Delta: \\pi_{7}^{5} \\to \\pi_{5}^{2}$ は零写像である.'
+P30: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する."
+P31: "したがって, $\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}$"
+
+## BEFORE raw
+
+まず, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+
+[R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$.
+
+$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+(1) と (2) より, 
+
+$2\nu' = \eta_{3}^{3}$
+
+これらより, 
+
+[R2]より, $H\left(\nu'\right) = \eta_{5}$.
+
+これらより, 
+
+(3) より, 
+
+$\eta_{6}=E\eta_{5}$ である.
+
+[R6]より, $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
+
+[R1] と $E$ の単射性より, $E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$ であり, 単射写像は元の位数を保つ.
+したがって, 
+
+以上より, 完全性より, $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射.
+
+[R3]より, $\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}$
+
+$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+完全性より, $\ker \Delta=\operatorname{Im}H=\pi_{7}^{5}$.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+$\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=0$ かつ $2\nu'\neq0$.
+したがって, 
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+[R2]より, $\nu' \in \pi_{6}^{3}$.
+
+[R4]より, $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+この完全性と, 左の写像の単射性, 右の写像の全射性より, 次の短完全列が成り立つ.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+以上より, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+
+これより, $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}^{2}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ.
+
+これより, $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+これより, $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4$ より, $\nu'$ は中央の群を生成する.
+したがって, 
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$
+
+## AFTER raw
+
+まず, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+
+[R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$.
+
+$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+(1) と (2) より, 
+
+$2\nu' = \eta_{3}^{3}$
+
+[R2]より, $H\left(\nu'\right) = \eta_{5}$.
+
+$\eta_{6}=E\eta_{5}$ である.
+
+[R6]より, $H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$.
+
+[R1] と $E$ の単射性より, $E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$ であり, 単射写像は元の位数を保つ.
+
+したがって, 以上より, 完全性より, $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射.
+
+[R3]より, $\pi_{7}^{5} = \mathbb{Z}/2\{\eta_{5}^{2}\}$
+
+$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+完全性より, $\ker \Delta=\operatorname{Im}H=\pi_{7}^{5}$.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射である.
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+$\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=0$ かつ $2\nu'\neq0$.
+
+したがって, $\operatorname{ord}\left(\nu'\right) = 4$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+[R2]より, $\nu' \in \pi_{6}^{3}$.
+
+[R4]より, $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+この完全性と, 左の写像の単射性, 右の写像の全射性より, 次の短完全列が成り立つ.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+以上より, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$
+
+これより, $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$, $\pi_{6}^{4} = \mathbb{Z}/2\{\eta_{4}^{2}\}$, $\pi_{n + 2}^{n} = \mathbb{Z}/2\{\eta_{n}\eta_{n + 1}\}$, $n \ge 5$ が成り立つ.
+
+これより, $H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+これより, $\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4$ より, $\nu'$ は中央の群を生成する.
+
+したがって, $\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$

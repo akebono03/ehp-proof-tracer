@@ -133,12 +133,13 @@ def test_phase157_r20_repair43_required_reason_sentences_remain():
   assert (
     "完全性より, "
     r"$\ker \Delta=\operatorname{Im}H="
-    r"\pi_{7}^{5}$."
+    r"\pi_{7}^{5}$ である."
     in body
   )
   assert (
-    "この完全性と $Δ=0$ より, "
-    r"$\ker E=\operatorname{Im}Δ=0$."
+    "完全性より, "
+    r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ "
+    "は単射."
     in body
   )
   assert (
@@ -147,3 +148,4 @@ def test_phase157_r20_repair43_required_reason_sentences_remain():
     r"$4\nu'=0$ かつ $2\nu'\neq0$."
     in body
   )
+

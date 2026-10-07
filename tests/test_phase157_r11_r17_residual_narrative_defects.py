@@ -86,11 +86,12 @@ def test_phase157_r11_r17_pi6_3_zero_map_statement_precedes_its_use():
 
   zero_map = (
     r"$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ "
-    "は零写像である."
+    "は零写像."
   )
   use = (
-    "この完全性と $Δ=0$ より, "
-    r"$\ker E=\operatorname{Im}Δ=0$."
+    "完全性より, "
+    r"$E: \pi_{5}^{2} \to \pi_{6}^{3}$ "
+    "は単射."
   )
 
   assert zero_map in body
@@ -100,7 +101,6 @@ def test_phase157_r11_r17_pi6_3_zero_map_statement_precedes_its_use():
   ) < body.index(
     use
   )
-
 
 def test_phase157_r11_r17_pi6_3_uses_one_full_initial_exact_sequence_and_trims_later_sequence():
   _, body = _reference_and_body(

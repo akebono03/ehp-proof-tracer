@@ -1,0 +1,165 @@
+# Phase 159 pi6_3 exactness reason stage audit
+
+exactness_reason_count=1
+
+reason_0_sentence='完全性より, $E: \\pi_{5}^{2} \\to \\pi_{6}^{3}$ は単射.'
+reason_0_conclusion_rule=Toda Proposition 5.6 pi_5^2 suspension injective
+
+boundary_filtered_exactness_reason_count=1
+
+## Stage summaries
+
+00_base_multi_argument: target_present=False
+01_contribution_insertion: target_present=False
+02_reason_insertion: target_present=False
+  P10: '$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{3}\\}$ と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P17: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P45: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+03_reference_internal_body: target_present=False
+  P7: '$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{3}\\}$ と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P13: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P34: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+04_irrelevant_aggregate_ancestry: target_present=False
+  P7: '$\\pi_{5}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{3}\\}$ と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P13: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P34: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+05_reference_body_duplicates: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P13: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P34: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+06_reference_body_consumers: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P13: "$\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P34: "この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+07_normalize_connectors_a: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P12: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P30: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+08_local_equation_derivations: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P12: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P30: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+09_order_support: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P12: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P30: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+10_hidden_zero_map: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P14: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P32: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+11_map_property_dependencies_a: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P18: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P38: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+12_eta_suspension_bridges: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P18: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P38: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+13_merge_exactness_windows: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P36: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+14_trim_left_ehp_terms: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P36: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+15_normalize_connectors_b: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P36: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+16_numeric_equalities: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P36: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+17_unmarked_reference_consumers: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P36: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+18_reflexive_equalities: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P35: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+19_surjectivity_support: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P35: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+20_short_exact_support: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P35: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+21_reference_restatements: target_present=False
+  P7: '[R1] と $E$ の単射性より, $E(\\eta_{2}^{3})=\\eta_{3}^{3}\\neq0$ であり, 単射写像は元の位数を保つ.\nしたがって, '
+  P16: "以上より, $\\operatorname{ord}(\\eta_{3}^{3})=2$ かつ $2\\nu'=\\eta_{3}^{3}$ より, $4\\nu'=0$ かつ $2\\nu'\\neq0$.\nしたがって, "
+  P32: "以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\\cdot2=4$.\nまた, $\\nu'$ は中央の群に属し, $\\operatorname{ord}(\\nu')=4$ より, $\\nu'$ は中央の群を生成する.\nしたがって, "
+22_dangling_connectors: target_present=False
+23_visible_relation_dependencies: target_present=False
+24_repeated_unique_step_statements: target_present=False
+25_map_property_dependencies_b: target_present=False
+26_injective_image_order_reason: target_present=False
+
+## Final staged markdown
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+次に, $\nu'$ の位数を決定するために, 次の完全列を考える.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{\Delta} \pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3}$ は完全である.
+
+[R2]より, $2\nu' = \eta_{3}\eta_{4}\eta_{5}\tag{1}$.
+
+$\eta_{3}\eta_{4}\eta_{5} = \eta_{3}^{3}\tag{2}$
+
+(1) と (2) より, 
+
+$2\nu' = \eta_{3}^{3}$
+
+[R1] と $E$ の単射性より, $E(\eta_{2}^{3})=\eta_{3}^{3}\neq0$ であり, 単射写像は元の位数を保つ.
+
+$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$
+
+[R3]より, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$.
+
+[R1]より, $\pi_{5}^{2} = \mathbb{Z}/2\{\eta_{2}^{3}\}$.
+
+完全性より, $E: \pi_{5}^{2} \to \pi_{6}^{3}$ は単射.
+
+$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$
+
+$H: \pi_{7}^{3} \to \pi_{7}^{5}$ は全射である.
+
+完全性より, $\ker \Delta=\operatorname{Im}H=\pi_{7}^{5}$.
+
+$\pi_{7}^{3} \xrightarrow{H} \pi_{7}^{5} \xrightarrow{Δ} \pi_{5}^{2}$ は完全である.
+
+$\Delta: \pi_{7}^{5} \to \pi_{5}^{2}$ は零写像である.
+
+$\operatorname{ord}\left(\eta_{3}^{3}\right) = 2$
+
+以上より, $\operatorname{ord}(\eta_{3}^{3})=2$ かつ $2\nu'=\eta_{3}^{3}$ より, $4\nu'=0$ かつ $2\nu'\neq0$.
+
+$\operatorname{ord}\left(\nu'\right) = 4$
+
+最後に, $\pi_{6}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{2} \xrightarrow{E} \pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5}$
+
+[R2]より, $H\left(\nu'\right) = \eta_{5}$.
+
+[R2]より, $\nu' \in \pi_{6}^{3}$.
+
+[R4]より, $\pi_{6}^{5} = \mathbb{Z}/2\{\eta_{5}\}$.
+
+$\eta_{5} = \eta_{5}$
+
+$H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射である.
+
+この完全性と, 左の写像の単射性, 右の写像の全射性より, 次の短完全列が成り立つ.
+
+$0\longrightarrow \pi_{5}^{2}\xrightarrow{E} \pi_{6}^{3}\xrightarrow{H} \pi_{6}^{5}\longrightarrow 0$
+
+$E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型写像である.
+
+以上より, この短完全列と両端の群の位数より, 中央の群の位数は $2\cdot2=4$.
+また, $\nu'$ は中央の群に属し, $\operatorname{ord}(\nu')=4$ より, $\nu'$ は中央の群を生成する.
+
+$\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}$

@@ -1,0 +1,240 @@
+# Phase 159 pi4_3 connector position stage audit
+
+## 00_base_multi_argument
+
+connector_indices=(2,)
+root_indices=(3,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+
+## 01_contribution_insertion
+
+connector_indices=(2,)
+root_indices=(13,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: ''
+  P12: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P13: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P14: '$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+
+## 02_reason_prose
+
+connector_indices=(2,)
+root_indices=(12,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: ''
+  P11: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P12: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P13: '$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+
+## 03_reference_internal_body
+
+connector_indices=(2,)
+root_indices=(12,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: ''
+  P11: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P12: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P13: '$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+
+## 04_irrelevant_aggregate_ancestry
+
+connector_indices=(2,)
+root_indices=(12,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: ''
+  P11: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P12: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P13: '$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+
+## 05_reference_body_duplicates
+
+connector_indices=(2,)
+root_indices=(11,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: '[R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P10: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P11: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P12: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 06_reference_body_consumers
+
+connector_indices=(2,)
+root_indices=(11,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, '
+  P3: '[R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P10: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P11: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P12: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 07_normalize_connectors_a
+
+connector_indices=(2,)
+root_indices=(9,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P8: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P9: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P10: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 08_local_equation_derivations
+
+connector_indices=(2,)
+root_indices=(9,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P8: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P9: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P10: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 09_order_support
+
+connector_indices=(2,)
+root_indices=(9,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P8: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P9: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P10: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 10_hidden_zero_map
+
+connector_indices=(2,)
+root_indices=(9,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P8: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P9: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P10: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 11_map_property_dependencies_a
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 12_eta_suspension_bridges
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 13_merge_exactness_windows
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 14_trim_left_ehp_terms
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 15_normalize_connectors_b
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 16_numeric_equalities
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 17_unmarked_reference_consumers
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 18_reflexive_equalities
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 19_surjectivity_support
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 20_short_exact_support
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'
+
+## 21_reference_restatements
+
+connector_indices=(2,)
+root_indices=(10,)
+  P1: '$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$'
+  P2: '以上より, [R1]より, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.'
+  P3: '[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.'
+  P9: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  P10: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  P11: '[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.'

@@ -1,0 +1,187 @@
+# Phase 159 pi4_3 target block render trace audit
+
+root_fragment: \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}
+connector: '以上より, '
+target_block_index: 0
+
+## Target block steps
+
+### target step 0
+  step_id: 1485695797136
+  rule: Toda pi_4^3 eta_3 generator notation
+  is_root_step: True
+  semantic_equals_root: True
+  rendered_contains_root_fragment: True
+  rendered: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+## Direct derivation premises
+
+### direct premise 0
+  step_id: 1485695643184
+  rule: Toda pi_4^3 finite cyclic quotient calculation
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: True
+  rendered: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+### direct premise 1
+  step_id: 1485695796176
+  rule: Toda eta_3 notation suspension bridge
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$\\eta_{3} = \\eta_{3}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+## Direct derivation support steps
+
+### support step 0
+  step_id: 1485695804624
+  rule: Toda Proposition 5.1 pi_3^2 group relation
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+### support step 1
+  step_id: 1485695636368
+  rule: Toda pi_4^3 exactness Delta image equals E kernel
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$\\ker E = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+  conclusion_type: TodaSuspensionKernelFreeCyclicStatement
+  conclusion_repr: TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))
+
+### support step 2
+  step_id: 1485695797520
+  rule: Toda pi_4^3 E-H exactness zero-right suspension surjectivity
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  conclusion_type: TodaSuspensionSurjectiveStatement
+  conclusion_repr: TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))
+
+### support step 3
+  step_id: 1485695807264
+  rule: given
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '`TodaEtaFamilyDefinitionStatement`'
+  conclusion_type: TodaEtaFamilyDefinitionStatement
+  conclusion_repr: TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))
+
+## Relocatable direct premises
+
+### relocated 0
+  step_id: 1485695804624
+  rule: Toda Proposition 5.1 pi_3^2 group relation
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+### relocated 1
+  step_id: 1485695636368
+  rule: Toda pi_4^3 exactness Delta image equals E kernel
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$\\ker E = \\mathbb{Z}\\{2\\eta_{2}\\}$.'
+  conclusion_type: TodaSuspensionKernelFreeCyclicStatement
+  conclusion_repr: TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))
+
+### relocated 2
+  step_id: 1485695797520
+  rule: Toda pi_4^3 E-H exactness zero-right suspension surjectivity
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射である.'
+  conclusion_type: TodaSuspensionSurjectiveStatement
+  conclusion_repr: TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))
+
+### relocated 3
+  step_id: 1485695807264
+  rule: given
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '`TodaEtaFamilyDefinitionStatement`'
+  conclusion_type: TodaEtaFamilyDefinitionStatement
+  conclusion_repr: TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))
+
+### relocated 4
+  step_id: 1485695643184
+  rule: Toda pi_4^3 finite cyclic quotient calculation
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: True
+  rendered: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+### relocated 5
+  step_id: 1485695796176
+  rule: Toda eta_3 notation suspension bridge
+  is_root_step: False
+  semantic_equals_root: False
+  rendered_contains_root_fragment: False
+  rendered: '$\\eta_{3} = \\eta_{3}$'
+  conclusion_type: Relation
+  conclusion_repr: Relation(lhs=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+## Stage A: target block generic render
+root_fragment_count: 1
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+
+## Stage B: after relocated direct premises
+root_fragment_count: 2
+
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+
+$\ker E = \mathbb{Z}\{2\eta_{2}\}$.
+
+$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+
+`TodaEtaFamilyDefinitionStatement`
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$\eta_{3} = \eta_{3}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+
+## Stage C: after connector insertion
+root_fragment_count: 2
+
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+
+$\ker E = \mathbb{Z}\{2\eta_{2}\}$.
+
+$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+
+`TodaEtaFamilyDefinitionStatement`
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+$\eta_{3} = \eta_{3}$
+
+以上より, 
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+

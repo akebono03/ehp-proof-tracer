@@ -1,0 +1,144 @@
+# Phase 159 pi4_3 outer public connector audit
+
+root_fragment: \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}
+
+00_base_multi_argument: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+01_with_contributions: root=1, connector=0  <-- CONNECTOR CHANGED FROM 1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.'
+02_public_wrapper: root=1, connector=0
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.'
+03_finalizer: root=1, connector=0
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.'
+04_public_contract_normalization: root=2, connector=0
+  ROOT: '\\[\n\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n\\]'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.'
+05_actual_public_renderer: root=2, connector=0
+  ROOT: '\\[\n\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n\\]'
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.'
+
+## Contributions output
+
+# Group proof narrative
+
+## 使用する結果
+
+**[R1] (5.1).**
+$\pi_{4}^{5} = 0$.
+$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+**[R2] Proposition 5.1.**
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+---
+
+## 証明
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$.
+
+[R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+
+## Wrapped output
+
+# Group proof narrative
+
+## 使用する結果
+
+**[R1] (5.1).**
+$\pi_{4}^{5} = 0$.
+$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+**[R2] Proposition 5.1.**
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+---
+
+## 証明
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$.
+
+[R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+
+## Actual public output
+
+# Group proof narrative
+
+## 証明対象
+
+\[
+\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}.
+\]
+
+## 使用する結果
+
+**[R1] (5.1).**
+$\pi_{4}^{5} = 0$.
+$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+**[R2] Proposition 5.1.**
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+---
+
+## 証明
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+\[
+\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}.
+\]
+
+[R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+
+□
+

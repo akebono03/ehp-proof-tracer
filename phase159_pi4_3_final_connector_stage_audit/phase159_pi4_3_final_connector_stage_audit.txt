@@ -1,0 +1,80 @@
+# Phase 159 pi4_3 final connector stage audit
+
+00_base_multi_argument: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+01_after_contribution_insertion: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+02_after_reason_prose: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+03_reference_internal_body: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+04_irrelevant_aggregate_ancestry: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+05_reference_body_duplicates: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+06_reference_body_consumers: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+07_normalize_connectors_a: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+08_local_equation_derivations: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+09_order_support: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+10_hidden_zero_map: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+11_map_property_dependencies_a: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+12_eta_suspension_bridges: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+13_merge_exactness_windows: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+14_trim_left_ehp_terms: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+15_normalize_connectors_b: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+16_numeric_equalities: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+17_unmarked_reference_consumers: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+18_reflexive_equalities: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+19_surjectivity_support: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+20_short_exact_support: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+21_reference_restatements: root=1, connector=1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+22_dangling_connectors: root=1, connector=0  <-- CONNECTOR CHANGED FROM 1
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+23_visible_relation_dependencies: root=1, connector=0
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+24_repeated_unique_step_statements: root=1, connector=0
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+25_map_property_dependencies_b: root=1, connector=0
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+26_injective_image_order_reason: root=1, connector=0
+  ROOT: '$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$'
+
+## Final staged body
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+[R1]より, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+[R2]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+[R1]より, $\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+$\pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$ は完全である.
+
+[R2]より, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$

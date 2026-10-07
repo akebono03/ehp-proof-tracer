@@ -226,6 +226,12 @@ def _contribution_insertion_indices(
   ...,
 ]:
   result = []
+  standalone_conclusion_connectors = {
+    "以上より,",
+    "したがって,",
+    "これより,",
+    "これらより,",
+  }
 
   for argument_index, contributions in enumerate(
     ordered_contributions
@@ -256,6 +262,29 @@ def _contribution_insertion_indices(
 
       if candidate_index >= 0:
         conclusion_index = candidate_index
+
+        prefix = markdown[
+          :conclusion_index
+        ].rstrip()
+
+        if prefix:
+          previous_paragraph_start = (
+            prefix.rfind(
+              "\n\n"
+            )
+            + 2
+          )
+          previous_paragraph = prefix[
+            previous_paragraph_start:
+          ].strip()
+
+          if (
+            previous_paragraph
+            in standalone_conclusion_connectors
+          ):
+            conclusion_index = (
+              previous_paragraph_start
+            )
 
     if conclusion_index is None:
       conclusion_index = (
@@ -320,6 +349,7 @@ def _contribution_insertion_indices(
       contribution = contributions[
         contribution_index
       ]
+
       if (
         contribution.placement
         is not TodaGroupProofNarrativeContributionPlacement
@@ -351,7 +381,6 @@ def _contribution_insertion_indices(
   return tuple(
     result
   )
-
 
 def _direct_contribution_dependency_pairs(
   presentation: TodaGroupProofPresentation,
@@ -638,6 +667,7 @@ def _insert_toda_group_proof_narrative_argument_contributions(
       ordered_contributions,
     )
   )
+
   insertions_by_index = {}
 
   for argument_index, contributions in enumerate(
@@ -651,8 +681,10 @@ def _insert_toda_group_proof_narrative_argument_contributions(
           contribution.proof_step
         )
       )
+
       if not contribution_line:
         continue
+
       if not (
         _is_toda_group_proof_narrative_reference_statement_candidate(
           contribution.proof_step,
@@ -660,6 +692,7 @@ def _insert_toda_group_proof_narrative_argument_contributions(
         )
       ):
         continue
+
       if contribution_line in markdown:
         continue
 
@@ -668,6 +701,7 @@ def _insert_toda_group_proof_narrative_argument_contributions(
       ][
         contribution_index
       ]
+
       if insertion_index is None:
         continue
 
@@ -679,10 +713,12 @@ def _insert_toda_group_proof_narrative_argument_contributions(
         )
       )
       lines = []
+
       if connector is not None:
         lines.append(
           connector
         )
+
       lines.append(
         contribution_line
       )
@@ -713,7 +749,9 @@ def _insert_toda_group_proof_narrative_argument_contributions(
     )
 
     if (
-      insertion_index < len(markdown)
+      insertion_index < len(
+        markdown
+      )
       and not markdown[
         insertion_index:
       ].startswith(
@@ -3969,7 +4007,6 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
     retained_paragraphs
   )
 
-
 def order_toda_group_proof_narrative_visible_relation_dependencies(
   presentation: TodaGroupProofPresentation,
   markdown: str,
@@ -6729,6 +6766,51 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       0
     ]
 
+  def concise_map_property_reason(
+    proof_step: ProofStep,
+  ) -> str | None:
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+
+    if not rendered:
+      return None
+
+    concise = rendered
+
+    for verbose, short in (
+      (
+        " は単射である.",
+        " は単射.",
+      ),
+      (
+        " は全射である.",
+        " は全射.",
+      ),
+    ):
+      if concise.endswith(
+        verbose
+      ):
+        concise = (
+          concise[
+            :-len(
+              verbose
+            )
+          ]
+          + short
+        )
+        break
+
+    if concise == rendered:
+      return None
+
+    return (
+      "完全性より, "
+      + concise
+    )
+
   def map_latex(
     group_map,
   ) -> str | None:
@@ -6828,7 +6910,7 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
       + render_toda_primary_group_latex(
         window.middle_term
       )
-      + "$."
+      + "$ である."
     )
 
   candidate_zero_steps = []
@@ -6881,30 +6963,45 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
     )
 
     if zero_index is None:
-      consumer_index = next(
+      consumer_match = next(
         (
-          visible_index(
-            node.proof_step
+          (
+            node.proof_step,
+            visible_index(
+              node.proof_step
+            ),
           )
           for node in presentation.nodes
-          if zero_step in node.proof_step.premises
-          and visible_index(
-            node.proof_step
+          if (
+            zero_step
+            in node.proof_step.premises
+            and visible_index(
+              node.proof_step
+            )
+            is not None
           )
-          is not None
         ),
         None,
       )
 
-      if consumer_index is None:
+      if consumer_match is None:
         continue
 
+      (
+        consumer_step,
+        consumer_index,
+      ) = consumer_match
       insertion_index = consumer_index
 
       if insertion_index > 0:
         previous = paragraphs[
           insertion_index - 1
         ]
+        concise_reason = (
+          concise_map_property_reason(
+            consumer_step
+          )
+        )
 
         if (
           "零写像"
@@ -6918,6 +7015,11 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
             in previous
             and r"\operatorname{Im}"
             in previous
+          )
+          or (
+            concise_reason is not None
+            and previous.strip()
+            == concise_reason
           )
         ):
           insertion_index -= 1
@@ -6966,7 +7068,6 @@ def insert_toda_group_proof_narrative_hidden_zero_map_premises(
   return "\n\n".join(
     paragraphs
   )
-
 
 def trim_toda_group_proof_narrative_redundant_left_ehp_terms(
   markdown: str,

@@ -1,0 +1,68 @@
+# Phase 159 pi4_3 base multi-argument duplication audit
+
+root_fragment: \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}
+
+## Block inventory
+
+block 0: role=target, step_count=1, contains_root_step=True
+block 1: role=group_structure, step_count=2, contains_root_step=False
+block 2: role=calculation, step_count=1, contains_root_step=False
+block 3: role=other, step_count=2, contains_root_step=False
+block 4: role=map_property, step_count=1, contains_root_step=False
+block 5: role=other, step_count=1, contains_root_step=False
+block 6: role=exactness, step_count=1, contains_root_step=False
+block 7: role=group_structure, step_count=1, contains_root_step=False
+block 8: role=exactness, step_count=1, contains_root_step=False
+block 9: role=group_structure, step_count=1, contains_root_step=False
+block 10: role=map_property, step_count=1, contains_root_step=False
+
+## Argument detail
+
+### ordered argument 0
+
+source_argument_index: 0
+role: establish_group_structure
+discourse_role: single
+conclusion_block_index: 0
+conclusion_step_is_root: True
+connector: '以上より, '
+local_body_block_indices: (6, 9, 10, 3, 7, 8, 4, 1, 5, 2, 0)
+local_root_block_occurrences: 1
+body_root_count: 2
+
+BODY:
+$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$
+
+$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+
+$\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+$\pi_{4}^{5} = 0$
+
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$
+
+$\ker E = \mathbb{Z}\{2\eta_{2}\}$.
+
+$E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射である.
+
+`TodaEtaFamilyDefinitionStatement`
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+以上より, 
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+## Actual base multi-argument output
+
+root_count: 2
+
+$\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+$\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}$
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$
+
+以上より, 
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$

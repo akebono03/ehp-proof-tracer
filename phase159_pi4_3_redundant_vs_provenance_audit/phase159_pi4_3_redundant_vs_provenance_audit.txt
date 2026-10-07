@@ -1,0 +1,38 @@
+# Phase 159 pi4_3 redundant-vs-provenance audit
+
+target_rule: Toda pi_4^3 finite cyclic quotient calculation
+
+## Target step
+
+step_id: 2718762826000
+block_index: 1
+block_role: group_structure
+is_redundant_direct_premise: True
+block_is_preserve_provenance: True
+block_is_local_body: True
+
+## Root transition
+
+transition_exists: True
+transition_role: derivation
+source_block_indices: (1, 2)
+target_block_index: 0
+
+## Derivation-source blocks
+
+block 1: role=group_structure
+  step: Toda pi_4^3 finite cyclic quotient calculation | redundant=True
+  step: Toda Proposition 5.1 pi_3^2 group relation | redundant=False
+block 2: role=calculation
+  step: Toda eta_3 notation suspension bridge | redundant=False
+
+## All direct derivation premises
+
+Toda pi_4^3 finite cyclic quotient calculation | block=1 | redundant=True | preserve=True
+Toda eta_3 notation suspension bridge | block=2 | redundant=False | preserve=True
+
+## Interpretation
+
+If target step is redundant=True and preserve=True, the duplicate survives because the provenance-preservation exception overrides redundant-direct-premise suppression.
+
+If redundant=True and preserve=False, the remaining duplicate must come from another body path and this audit is not sufficient.
