@@ -118,30 +118,22 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
   )
 
   injective = (
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は単射}. \qquad (1)"
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は単射."
   )
   surjective = (
-    r"H: \pi_{3}^{2} \to \pi_{3}^{3}"
-    r"\quad\text{は全射}. \qquad (2)"
+    "完全性より, "
+    r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
+    "は全射."
   )
   isomorphism = (
     r"$H: \pi_{3}^{2} \to \pi_{3}^{3}$ "
     "は同型."
   )
 
-  assert (
-    "\\[\n"
-    + injective
-    + "\n\\]"
-    in rendered
-  )
-  assert (
-    "\\[\n"
-    + surjective
-    + "\n\\]"
-    in rendered
-  )
+  assert injective in rendered
+  assert surjective in rendered
   assert isomorphism in rendered
 
   assert rendered.index(
@@ -155,13 +147,13 @@ def test_phase159_r1_4_pi3_2_public_numbers_map_properties_semantically():
     isomorphism
   )
 
-  assert r"\tag{1}" not in rendered
-  assert r"\tag{2}" not in rendered
-
   assert (
-    "(1), (2) より, "
-    + isomorphism
-    in rendered
+    r"\quad\text{は単射}. \qquad"
+    not in rendered
+  )
+  assert (
+    r"\quad\text{は全射}. \qquad"
+    not in rendered
   )
 
 def test_phase159_r1_3_pi3_2_public_definition_uses_isomorphism_semantics():

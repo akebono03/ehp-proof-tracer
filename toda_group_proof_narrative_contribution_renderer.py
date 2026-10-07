@@ -226,12 +226,6 @@ def _contribution_insertion_indices(
   ...,
 ]:
   result = []
-  standalone_conclusion_connectors = {
-    "以上より,",
-    "したがって,",
-    "これより,",
-    "これらより,",
-  }
 
   for argument_index, contributions in enumerate(
     ordered_contributions
@@ -266,25 +260,29 @@ def _contribution_insertion_indices(
         prefix = markdown[
           :conclusion_index
         ].rstrip()
-
-        if prefix:
-          previous_paragraph_start = (
-            prefix.rfind(
-              "\n\n"
-            )
-            + 2
+        previous_paragraph_start = (
+          prefix.rfind(
+            "\n\n"
           )
-          previous_paragraph = prefix[
-            previous_paragraph_start:
-          ].strip()
+          + 2
+        )
+        previous_paragraph = prefix[
+          previous_paragraph_start:
+        ].strip()
+        standalone_conclusion_connectors = {
+          "以上より,",
+          "したがって,",
+          "これより,",
+          "これらより,",
+        }
 
-          if (
-            previous_paragraph
-            in standalone_conclusion_connectors
-          ):
-            conclusion_index = (
-              previous_paragraph_start
-            )
+        if (
+          previous_paragraph
+          in standalone_conclusion_connectors
+        ):
+          conclusion_index = (
+            previous_paragraph_start
+          )
 
     if conclusion_index is None:
       conclusion_index = (
@@ -328,7 +326,10 @@ def _contribution_insertion_indices(
         ] = (
           conclusion_index
           if anchor_index is None
-          else anchor_index
+          else min(
+            anchor_index,
+            conclusion_index,
+          )
         )
         continue
 
@@ -349,7 +350,6 @@ def _contribution_insertion_indices(
       contribution = contributions[
         contribution_index
       ]
-
       if (
         contribution.placement
         is not TodaGroupProofNarrativeContributionPlacement

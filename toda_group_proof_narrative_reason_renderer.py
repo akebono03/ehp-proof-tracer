@@ -579,9 +579,231 @@ def order_toda_group_proof_narrative_injective_image_order_reason(
       paragraph,
     )
 
+  def map_identity(
+    proof_step,
+  ):
+    statement = getattr(
+      proof_step,
+      "conclusion",
+      None,
+    )
+
+    return getattr(
+      statement,
+      "map",
+      None,
+    )
+
+  def visible_reason_index(
+    reason: TodaGroupProofNarrativeReason,
+  ) -> int | None:
+    reason_paragraph = (
+      visible_reason_paragraph(
+        reason
+      )
+    )
+
+    if reason_paragraph is None:
+      return None
+
+    matches = tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if paragraph.strip()
+      == reason_paragraph
+    )
+
+    if len(
+      matches
+    ) != 1:
+      return None
+
+    return matches[
+      0
+    ]
+
+  connector_paragraphs = {
+    "以上より,",
+    "したがって,",
+    "これより,",
+    "これらより,",
+  }
+
+  for node in reason_sidecar.presentation.nodes:
+    isomorphism_step = node.proof_step
+    isomorphism_line = (
+      _render_generic_narrative_step(
+        isomorphism_step
+      )
+    )
+
+    if (
+      not isomorphism_line
+      or "は同型写像である."
+      not in isomorphism_line
+    ):
+      continue
+
+    isomorphism_map = map_identity(
+      isomorphism_step
+    )
+
+    if isomorphism_map is None:
+      continue
+
+    injective_indices = []
+    surjective_indices = []
+
+    for reason in reason_sidecar.reasons:
+      conclusion_step = reason.conclusion_step
+
+      if map_identity(
+        conclusion_step
+      ) != isomorphism_map:
+        continue
+
+      conclusion_line = (
+        _render_generic_narrative_step(
+          conclusion_step
+        )
+      )
+
+      if not conclusion_line:
+        continue
+
+      reason_index = visible_reason_index(
+        reason
+      )
+
+      if reason_index is None:
+        continue
+
+      if "は単射である." in conclusion_line:
+        injective_indices.append(
+          reason_index
+        )
+        continue
+
+      if "は全射である." in conclusion_line:
+        surjective_indices.append(
+          reason_index
+        )
+
+    if (
+      not injective_indices
+      or not surjective_indices
+    ):
+      continue
+
+    isomorphism_index = (
+      paragraph_index_for_step(
+        isomorphism_step
+      )
+    )
+
+    if isomorphism_index is None:
+      continue
+
+    latest_support_index = max(
+      (
+        *injective_indices,
+        *surjective_indices,
+      )
+    )
+
+    if isomorphism_index > latest_support_index:
+      continue
+
+    block_start = isomorphism_index
+
+    if (
+      block_start > 0
+      and paragraphs[
+        block_start - 1
+      ].strip()
+      in connector_paragraphs
+    ):
+      block_start -= 1
+
+    block = paragraphs[
+      block_start:
+      isomorphism_index + 1
+    ]
+
+    del paragraphs[
+      block_start:
+      isomorphism_index + 1
+    ]
+
+    injective_indices = []
+    surjective_indices = []
+
+    for reason in reason_sidecar.reasons:
+      conclusion_step = reason.conclusion_step
+
+      if map_identity(
+        conclusion_step
+      ) != isomorphism_map:
+        continue
+
+      conclusion_line = (
+        _render_generic_narrative_step(
+          conclusion_step
+        )
+      )
+
+      if not conclusion_line:
+        continue
+
+      reason_index = visible_reason_index(
+        reason
+      )
+
+      if reason_index is None:
+        continue
+
+      if "は単射である." in conclusion_line:
+        injective_indices.append(
+          reason_index
+        )
+        continue
+
+      if "は全射である." in conclusion_line:
+        surjective_indices.append(
+          reason_index
+        )
+
+    if (
+      not injective_indices
+      or not surjective_indices
+    ):
+      paragraphs[
+        block_start:
+        block_start
+      ] = block
+      continue
+
+    insertion_index = (
+      max(
+        (
+          *injective_indices,
+          *surjective_indices,
+        )
+      )
+      + 1
+    )
+
+    paragraphs[
+      insertion_index:
+      insertion_index
+    ] = block
+
   return "\n\n".join(
     paragraphs
   )
+
 def _toda_group_proof_narrative_reason_insertion_index(
   markdown: str,
   reason: TodaGroupProofNarrativeReason,
