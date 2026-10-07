@@ -147,7 +147,7 @@ def test_phase159_r1_7c_r4_delta_pairs_without_isomorphism_are_not_numbered():
     )
 
 
-def test_phase159_r1_7c_r4_numbered_reasoning_requires_semantic_presentation():
+def test_phase159_r1_7c_r4_numbered_reasoning_is_general_not_pi11_hardcoded():
   from toda_group_proof_narrative_renderer import (
     _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning,
   )
@@ -171,5 +171,21 @@ def test_phase159_r1_7c_r4_numbered_reasoning_requires_semantic_presentation():
     )
   )
 
-  assert normalized == rendered
-
+  assert (
+    "\\[\n"
+    r"F: A \to B"
+    r"\quad\text{は単射}. \qquad (1)"
+    "\n\\]"
+    in normalized
+  )
+  assert (
+    "\\[\n"
+    r"F: A \to B"
+    r"\quad\text{は全射}. \qquad (2)"
+    "\n\\]"
+    in normalized
+  )
+  assert (
+    r"(1), (2) より, $F: A \to B$ は同型."
+    in normalized
+  )

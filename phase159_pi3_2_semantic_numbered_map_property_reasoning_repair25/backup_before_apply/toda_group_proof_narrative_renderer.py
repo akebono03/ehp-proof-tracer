@@ -10011,114 +10011,6 @@ def _phase159_r1_7c_r4_normalize_public_map_property_prose(
   )
 
 
-def _phase159_recursive_map_property_triples(
-  presentation: TodaGroupProofPresentation,
-) -> tuple[
-  tuple[
-    ProofStep,
-    ProofStep,
-    ProofStep,
-  ],
-  ...,
-]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "TodaGroupProofPresentation"
-    )
-
-  steps = (
-    _phase159_r1_6c_recursive_proof_steps(
-      presentation.root_step
-    )
-  )
-  injective_by_map = {}
-  surjective_by_map = {}
-  isomorphism_steps = []
-
-  for proof_step in steps:
-    statement = proof_step.conclusion
-    group_map = getattr(
-      statement,
-      "map",
-      None,
-    )
-
-    if group_map is None:
-      continue
-
-    if isinstance(
-      statement,
-      _GENERIC_INJECTIVE_STATEMENT_TYPES,
-    ):
-      injective_by_map.setdefault(
-        group_map,
-        proof_step,
-      )
-      continue
-
-    if isinstance(
-      statement,
-      _GENERIC_SURJECTIVE_STATEMENT_TYPES,
-    ):
-      surjective_by_map.setdefault(
-        group_map,
-        proof_step,
-      )
-      continue
-
-    if isinstance(
-      statement,
-      _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
-    ):
-      isomorphism_steps.append(
-        proof_step
-      )
-
-  triples = []
-
-  for isomorphism_step in isomorphism_steps:
-    group_map = getattr(
-      isomorphism_step.conclusion,
-      "map",
-      None,
-    )
-
-    if group_map is None:
-      continue
-
-    injective_step = (
-      injective_by_map.get(
-        group_map
-      )
-    )
-    surjective_step = (
-      surjective_by_map.get(
-        group_map
-      )
-    )
-
-    if (
-      injective_step is None
-      or surjective_step is None
-    ):
-      continue
-
-    triples.append(
-      (
-        injective_step,
-        surjective_step,
-        isomorphism_step,
-      )
-    )
-
-  return tuple(
-    triples
-  )
-
 def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
   rendered: str,
   presentation: TodaGroupProofPresentation | None = None,
@@ -10342,8 +10234,8 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     injective_step,
     surjective_step,
     isomorphism_step,
-  ) in _phase159_recursive_map_property_triples(
-    presentation
+  ) in _phase159_public_map_property_triples(
+    semantic_presentation
   ):
     injective_row = find_property_line(
       injective_step,

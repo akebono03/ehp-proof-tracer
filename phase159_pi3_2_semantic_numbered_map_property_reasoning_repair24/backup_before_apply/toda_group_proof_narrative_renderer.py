@@ -62,10 +62,6 @@ from toda_group_proof_narrative_exactness_components import (
 from toda_group_proof_narrative_exactness_method_renderer import (
   render_toda_group_proof_narrative_exactness_method_component_latex,
 )
-from toda_group_proof_narrative_reasons import (
-  build_toda_group_proof_narrative_reason_sidecar,
-  TodaGroupProofNarrativeReasonKind,
-)
 from toda_group_proof_narrative_semantics import (
   build_toda_group_proof_narrative_semantic_closure_presentation,
   build_toda_group_proof_narrative_semantic_sidecar,
@@ -10011,117 +10007,8 @@ def _phase159_r1_7c_r4_normalize_public_map_property_prose(
   )
 
 
-def _phase159_recursive_map_property_triples(
-  presentation: TodaGroupProofPresentation,
-) -> tuple[
-  tuple[
-    ProofStep,
-    ProofStep,
-    ProofStep,
-  ],
-  ...,
-]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "TodaGroupProofPresentation"
-    )
-
-  steps = (
-    _phase159_r1_6c_recursive_proof_steps(
-      presentation.root_step
-    )
-  )
-  injective_by_map = {}
-  surjective_by_map = {}
-  isomorphism_steps = []
-
-  for proof_step in steps:
-    statement = proof_step.conclusion
-    group_map = getattr(
-      statement,
-      "map",
-      None,
-    )
-
-    if group_map is None:
-      continue
-
-    if isinstance(
-      statement,
-      _GENERIC_INJECTIVE_STATEMENT_TYPES,
-    ):
-      injective_by_map.setdefault(
-        group_map,
-        proof_step,
-      )
-      continue
-
-    if isinstance(
-      statement,
-      _GENERIC_SURJECTIVE_STATEMENT_TYPES,
-    ):
-      surjective_by_map.setdefault(
-        group_map,
-        proof_step,
-      )
-      continue
-
-    if isinstance(
-      statement,
-      _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
-    ):
-      isomorphism_steps.append(
-        proof_step
-      )
-
-  triples = []
-
-  for isomorphism_step in isomorphism_steps:
-    group_map = getattr(
-      isomorphism_step.conclusion,
-      "map",
-      None,
-    )
-
-    if group_map is None:
-      continue
-
-    injective_step = (
-      injective_by_map.get(
-        group_map
-      )
-    )
-    surjective_step = (
-      surjective_by_map.get(
-        group_map
-      )
-    )
-
-    if (
-      injective_step is None
-      or surjective_step is None
-    ):
-      continue
-
-    triples.append(
-      (
-        injective_step,
-        surjective_step,
-        isomorphism_step,
-      )
-    )
-
-  return tuple(
-    triples
-  )
-
 def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
   rendered: str,
-  presentation: TodaGroupProofPresentation | None = None,
 ) -> str:
   if not isinstance(
     rendered,
@@ -10130,21 +10017,6 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     raise TypeError(
       "rendered must be a str"
     )
-
-  if (
-    presentation is not None
-    and not isinstance(
-      presentation,
-      TodaGroupProofPresentation,
-    )
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "TodaGroupProofPresentation or None"
-    )
-
-  if presentation is None:
-    return rendered
 
   proof_marker = "## 証明\n\n"
   marker_index = rendered.find(
@@ -10168,35 +10040,169 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
   ]
   lines = proof_body.splitlines()
 
-  (
-    semantic_presentation,
-    semantic_sidecar,
-    _primary_component,
-  ) = _phase159_public_semantic_projection_context(
-    presentation
+  reference_prefix = re.compile(
+    r"^\[R\d+\]\s*より,\s*"
   )
-
-  reason_sidecar = (
-    build_toda_group_proof_narrative_reason_sidecar(
-      semantic_presentation,
-      semantic_sidecar,
-    )
+  exactness_prefix = re.compile(
+    r"^完全性より,\s*"
   )
-  exactness_conclusion_step_ids = {
-    id(
-      reason.conclusion_step
-    )
-    for reason in reason_sidecar.reasons
-    if (
-      reason.kind
-      is TodaGroupProofNarrativeReasonKind
-      .EXACTNESS_TO_MAP_PROPERTY
-    )
-  }
-
+  connector_prefix = re.compile(
+    r"^\((\d+)\),\s*\((\d+)\)\s+より,\s*"
+  )
   tag_pattern = re.compile(
     r"\\tag\{(\d+)\}"
   )
+
+  def map_property(
+    line: str,
+    suffix: str,
+  ) -> tuple[
+    str,
+    int | None,
+  ] | None:
+    stripped = line.strip()
+    stripped = reference_prefix.sub(
+      "",
+      stripped,
+    )
+    stripped = exactness_prefix.sub(
+      "",
+      stripped,
+    )
+
+    if not stripped.endswith(
+      suffix
+    ):
+      return None
+
+    map_text = stripped[
+      :-len(
+        suffix
+      )
+    ].strip()
+
+    tag_match = tag_pattern.search(
+      map_text
+    )
+    tag_number = (
+      int(
+        tag_match.group(
+          1
+        )
+      )
+      if tag_match is not None
+      else None
+    )
+    map_text = tag_pattern.sub(
+      "",
+      map_text,
+    ).strip()
+
+    return (
+      map_text,
+      tag_number,
+    )
+
+  def isomorphism_map(
+    line: str,
+  ) -> tuple[
+    str,
+    bool,
+  ] | None:
+    stripped = line.strip()
+
+    if reference_prefix.match(
+      stripped
+    ):
+      return None
+
+    had_connector = (
+      connector_prefix.match(
+        stripped
+      )
+      is not None
+    )
+    stripped = connector_prefix.sub(
+      "",
+      stripped,
+    )
+
+    for suffix in (
+      " は同型.",
+      " は同型写像.",
+      " は同型である.",
+      " は同型写像である.",
+    ):
+      if stripped.endswith(
+        suffix
+      ):
+        return (
+          tag_pattern.sub(
+            "",
+            stripped[
+              :-len(
+                suffix
+              )
+            ].strip(),
+          ),
+          had_connector,
+        )
+
+    return None
+
+  injective_by_map = {}
+  surjective_by_map = {}
+  isomorphism_by_map = {}
+
+  for index, line in enumerate(
+    lines
+  ):
+    injective = map_property(
+      line,
+      " は単射.",
+    )
+
+    if injective is not None:
+      injective_by_map.setdefault(
+        injective[0],
+        [],
+      ).append(
+        (
+          index,
+          injective[1],
+        )
+      )
+
+    surjective = map_property(
+      line,
+      " は全射.",
+    )
+
+    if surjective is not None:
+      surjective_by_map.setdefault(
+        surjective[0],
+        [],
+      ).append(
+        (
+          index,
+          surjective[1],
+        )
+      )
+
+    isomorphism = isomorphism_map(
+      line
+    )
+
+    if isomorphism is not None:
+      isomorphism_by_map.setdefault(
+        isomorphism[0],
+        [],
+      ).append(
+        (
+          index,
+          isomorphism[1],
+        )
+      )
 
   existing_numbers = tuple(
     int(
@@ -10217,163 +10223,36 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
     + 1
   )
 
-  def semantic_map_latex(
-    proof_step: ProofStep,
-  ) -> str | None:
-    group_map = getattr(
-      proof_step.conclusion,
-      "map",
-      None,
-    )
+  numbered_map_properties = {}
 
-    if group_map is None:
-      return None
-
-    return (
-      _render_generic_narrative_group_map_latex(
-        group_map
-      )
-    )
-
-  def find_property_line(
-    proof_step: ProofStep,
-    property_label: str,
-  ) -> tuple[
-    int,
-    int | None,
-  ] | None:
-    map_latex = semantic_map_latex(
-      proof_step
-    )
-
-    if map_latex is None:
-      return None
-
-    prose_marker = (
-      "は"
-      + property_label
-    )
-    display_marker = (
-      r"\text{は"
-      + property_label
-      + "}"
-    )
-
-    matches = []
-
-    for index, line in enumerate(
-      lines
-    ):
-      if map_latex not in line:
-        continue
-
-      if (
-        prose_marker not in line
-        and display_marker not in line
-      ):
-        continue
-
-      tag_match = tag_pattern.search(
-        line
-      )
-      matches.append(
-        (
-          index,
-          (
-            int(
-              tag_match.group(
-                1
-              )
-            )
-            if tag_match is not None
-            else None
-          ),
-        )
-      )
-
-    if len(
-      matches
-    ) != 1:
-      return None
-
-    return matches[
-      0
-    ]
-
-  def find_isomorphism_line(
-    proof_step: ProofStep,
-  ) -> int | None:
-    map_latex = semantic_map_latex(
-      proof_step
-    )
-
-    if map_latex is None:
-      return None
-
-    matches = [
-      index
-      for index, line in enumerate(
-        lines
-      )
-      if (
-        map_latex in line
-        and (
-          "は同型." in line
-          or "は同型写像." in line
-          or "は同型である." in line
-          or "は同型写像である." in line
-        )
-      )
-    ]
-
-    if len(
-      matches
-    ) != 1:
-      return None
-
-    return matches[
-      0
-    ]
-
-  numbered_by_index = {}
-  isomorphism_by_index = {}
-
-  for (
-    injective_step,
-    surjective_step,
-    isomorphism_step,
-  ) in _phase159_recursive_map_property_triples(
-    presentation
+  for map_text in tuple(
+    isomorphism_by_map
   ):
-    injective_row = find_property_line(
-      injective_step,
-      "単射",
+    injective_rows = injective_by_map.get(
+      map_text,
+      (),
     )
-    surjective_row = find_property_line(
-      surjective_step,
-      "全射",
-    )
-    isomorphism_index = (
-      find_isomorphism_line(
-        isomorphism_step
-      )
+    surjective_rows = surjective_by_map.get(
+      map_text,
+      (),
     )
 
     if (
-      injective_row is None
-      or surjective_row is None
-      or isomorphism_index is None
+      not injective_rows
+      or not surjective_rows
     ):
       continue
 
-    (
-      injective_index,
-      injective_number,
-    ) = injective_row
-    (
-      surjective_index,
-      surjective_number,
-    ) = surjective_row
+    injective_index, injective_number = (
+      injective_rows[
+        0
+      ]
+    )
+    surjective_index, surjective_number = (
+      surjective_rows[
+        0
+      ]
+    )
 
     if injective_number is None:
       injective_number = next_number
@@ -10383,185 +10262,94 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
       surjective_number = next_number
       next_number += 1
 
-    injective_map_latex = (
-      semantic_map_latex(
-        injective_step
-      )
-    )
-    surjective_map_latex = (
-      semantic_map_latex(
-        surjective_step
-      )
-    )
-    isomorphism_line = (
-      _phase159_plain_map_property_line(
-        isomorphism_step,
-        "同型",
-      )
-    )
-
-    if (
-      injective_map_latex is None
-      or surjective_map_latex is None
-      or isomorphism_line is None
-    ):
-      continue
-
-    numbered_by_index[
+    numbered_map_properties[
       injective_index
     ] = (
-      injective_map_latex,
-      "単射",
+      map_text,
+      "は単射",
       injective_number,
-      (
-        id(
-          injective_step
-        )
-        in exactness_conclusion_step_ids
-      ),
     )
-    numbered_by_index[
+    numbered_map_properties[
       surjective_index
     ] = (
-      surjective_map_latex,
-      "全射",
+      map_text,
+      "は全射",
       surjective_number,
-      (
-        id(
-          surjective_step
-        )
-        in exactness_conclusion_step_ids
-      ),
     )
-    isomorphism_by_index[
+
+    isomorphism_index, _had_connector = (
+      isomorphism_by_map[
+        map_text
+      ][
+        0
+      ]
+    )
+    lines[
       isomorphism_index
     ] = (
-      injective_number,
-      surjective_number,
-      isomorphism_line,
+      "("
+      + str(
+        injective_number
+      )
+      + "), ("
+      + str(
+        surjective_number
+      )
+      + ") より, "
+      + map_text
+      + " は同型."
     )
 
   output_lines = []
 
-  def append_exactness_connector() -> None:
-    previous_nonblank = next(
-      (
-        line.strip()
-        for line in reversed(
-          output_lines
-        )
-        if line.strip()
-      ),
-      None,
-    )
-
-    if previous_nonblank == "完全性より,":
-      return
-
-    if (
-      output_lines
-      and output_lines[
-        -1
-      ].strip()
-    ):
-      output_lines.append(
-        ""
-      )
-
-    output_lines.extend(
-      (
-        "完全性より,",
-        "",
-      )
-    )
-
   for index, line in enumerate(
     lines
   ):
-    numbered = numbered_by_index.get(
+    numbered = numbered_map_properties.get(
       index
     )
 
-    if numbered is not None:
-      (
-        map_latex,
-        property_label,
-        number,
-        uses_exactness,
-      ) = numbered
-
-      if uses_exactness:
-        append_exactness_connector()
-
-      output_lines.extend(
-        (
-          r"\[",
-          (
-            map_latex
-            + r"\quad\text{は"
-            + property_label
-            + r"}. \qquad ("
-            + str(
-              number
-            )
-            + ")"
-          ),
-          r"\]",
-        )
-      )
-      continue
-
-    isomorphism = isomorphism_by_index.get(
-      index
-    )
-
-    if isomorphism is not None:
-      (
-        injective_number,
-        surjective_number,
-        isomorphism_line,
-      ) = isomorphism
+    if numbered is None:
       output_lines.append(
-        (
-          "("
-          + str(
-            injective_number
-          )
-          + "), ("
-          + str(
-            surjective_number
-          )
-          + ") より, "
-          + isomorphism_line
-        )
+        line
       )
       continue
 
-    output_lines.append(
-      line
-    )
-
-  compacted = []
-  previous_blank = False
-
-  for line in output_lines:
-    is_blank = not line.strip()
+    map_text, property_text, number = numbered
 
     if (
-      is_blank
-      and previous_blank
+      map_text.startswith(
+        "$"
+      )
+      and map_text.endswith(
+        "$"
+      )
     ):
-      continue
+      map_text = map_text[
+        1:-1
+      ]
 
-    compacted.append(
-      line
+    output_lines.extend(
+      (
+        r"\[",
+        (
+          map_text
+          + r"\quad\text{"
+          + property_text
+          + r"}. \qquad ("
+          + str(
+            number
+          )
+          + ")"
+        ),
+        r"\]",
+      )
     )
-    previous_blank = is_blank
 
   return (
     prefix
     + "\n".join(
-      compacted
+      output_lines
     )
     + (
       "\n"
@@ -10571,6 +10359,8 @@ def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
       else ""
     )
   )
+
+
 
 def _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
   rendered: str,
@@ -11095,14 +10885,21 @@ def render_toda_group_proof_narrative_markdown(
   )
   rendered = (
     _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
-      rendered,
-      presentation=presentation,
+      rendered
     )
   )
-
-  return (
+  rendered = (
     _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
       rendered
     )
   )
 
+  return (
+    _phase159_r1_6d_finalize_reference_and_linkage(
+      presentation,
+      _phase159_order_public_unique_preimage_definition_premises(
+                      presentation,
+                      rendered,
+                    ),
+    )
+  )
