@@ -11649,33 +11649,12 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
     - sphere_dimension
   )
 
-  stable_family_contract = {
-    1: (
-      "Proposition 5.1",
-      "η",
-      r"\eta",
-    ),
-    7: (
-      "Proposition 5.15",
-      "σ",
-      r"\sigma",
-    ),
-  }
-
-  contract = (
-    stable_family_contract.get(
-      stem
-    )
-  )
-
-  if contract is None:
+  if stem not in (
+    1,
+    2,
+    7,
+  ):
     return None
-
-  (
-    reference_locator,
-    expected_family,
-    family_latex,
-  ) = contract
 
   base_sphere_dimension = (
     stem + 2
@@ -11695,32 +11674,6 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
   ):
     return None
 
-  target_generator = (
-    group_structure.generator
-  )
-  target_generator_symbol = getattr(
-    target_generator,
-    "generator",
-    None,
-  )
-
-  if (
-    target_generator_symbol is None
-    or getattr(
-      target_generator_symbol,
-      "family",
-      None,
-    )
-    != expected_family
-    or getattr(
-      target_generator_symbol,
-      "index",
-      None,
-    )
-    != sphere_dimension
-  ):
-    return None
-
   order = group_structure.order
 
   if (
@@ -11735,6 +11688,163 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
     or order <= 0
   ):
     return None
+
+  target_generator = (
+    group_structure.generator
+  )
+
+  if stem == 1:
+    target_generator_symbol = getattr(
+      target_generator,
+      "generator",
+      None,
+    )
+
+    if (
+      order != 2
+      or target_generator_symbol is None
+      or getattr(
+        target_generator_symbol,
+        "family",
+        None,
+      )
+      != "η"
+      or getattr(
+        target_generator_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension
+    ):
+      return None
+
+    reference_locator = (
+      "Proposition 5.1"
+    )
+    base_generator_latex = (
+      r"\eta_{3}"
+    )
+    target_generator_latex = (
+      r"\eta_{"
+      + str(
+        sphere_dimension
+      )
+      + "}"
+    )
+
+  elif stem == 2:
+    if (
+      order != 2
+      or type(
+        target_generator
+      ).__name__
+      != "Composition"
+    ):
+      return None
+
+    left = getattr(
+      target_generator,
+      "left",
+      None,
+    )
+    right = getattr(
+      target_generator,
+      "right",
+      None,
+    )
+    left_symbol = getattr(
+      left,
+      "generator",
+      None,
+    )
+    right_symbol = getattr(
+      right,
+      "generator",
+      None,
+    )
+
+    if (
+      left_symbol is None
+      or right_symbol is None
+      or getattr(
+        left_symbol,
+        "family",
+        None,
+      )
+      != "η"
+      or getattr(
+        right_symbol,
+        "family",
+        None,
+      )
+      != "η"
+      or getattr(
+        left_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension
+      or getattr(
+        right_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension + 1
+    ):
+      return None
+
+    reference_locator = (
+      "Proposition 5.3"
+    )
+    base_generator_latex = (
+      r"\eta_{4}^{2}"
+    )
+    target_generator_latex = (
+      r"\eta_{"
+      + str(
+        sphere_dimension
+      )
+      + r"}^{2}"
+    )
+
+  else:
+    target_generator_symbol = getattr(
+      target_generator,
+      "generator",
+      None,
+    )
+
+    if (
+      order != 16
+      or target_generator_symbol is None
+      or getattr(
+        target_generator_symbol,
+        "family",
+        None,
+      )
+      != "σ"
+      or getattr(
+        target_generator_symbol,
+        "index",
+        None,
+      )
+      != sphere_dimension
+    ):
+      return None
+
+    reference_locator = (
+      "Proposition 5.15"
+    )
+    base_generator_latex = (
+      r"\sigma_{9}"
+    )
+    target_generator_latex = (
+      r"\sigma_{"
+      + str(
+        sphere_dimension
+      )
+      + "}"
+    )
 
   base_group_dimension = (
     base_sphere_dimension
@@ -11772,21 +11882,6 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
   target_group_latex = (
     render_toda_primary_group_latex(
       target
-    )
-  )
-
-  base_generator_latex = (
-    family_latex
-    + "_{"
-    + str(
-      base_sphere_dimension
-    )
-    + "}"
-  )
-
-  target_generator_latex = (
-    render_toda_expression_latex(
-      target_generator
     )
   )
 
@@ -11909,7 +12004,6 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
       "",
     )
   )
-
 
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
