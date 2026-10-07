@@ -9883,8 +9883,129 @@ def _phase159_r1_7c_r4_normalize_public_map_property_prose(
       new,
     )
 
-  return normalized
+  outer_connector_prefixes = (
+    "以上より, ",
+    "したがって, ",
+    "これより, ",
+    "これらより, ",
+  )
 
+  paragraphs = normalized.split(
+    "\n\n"
+  )
+  normalized_paragraphs = []
+
+  for paragraph in paragraphs:
+    stripped = paragraph.strip()
+    replacement = paragraph
+
+    for prefix in outer_connector_prefixes:
+      combined_prefix = (
+        prefix
+        + "完全性より, "
+      )
+
+      if stripped.startswith(
+        combined_prefix
+      ):
+        leading_length = (
+          len(
+            paragraph
+          )
+          - len(
+            paragraph.lstrip()
+          )
+        )
+        leading = paragraph[
+          :leading_length
+        ]
+        replacement = (
+          leading
+          + stripped[
+            len(
+              prefix
+            ):
+          ]
+        )
+        break
+
+    normalized_paragraphs.append(
+      replacement
+    )
+
+  normalized = "\n\n".join(
+    normalized_paragraphs
+  )
+
+  def map_property_key(
+    paragraph: str,
+  ) -> str | None:
+    stripped = paragraph.strip()
+
+    if stripped.startswith(
+      "完全性より, "
+    ):
+      stripped = stripped[
+        len(
+          "完全性より, "
+        ):
+      ]
+
+    for suffix in (
+      " は単射.",
+      " は全射.",
+    ):
+      if stripped.endswith(
+        suffix
+      ):
+        return stripped
+
+    return None
+
+  exactness_map_property_keys = {
+    key
+    for paragraph in normalized.split(
+      "\n\n"
+    )
+    if paragraph.strip().startswith(
+      "完全性より, "
+    )
+    for key in (
+      map_property_key(
+        paragraph
+      ),
+    )
+    if key is not None
+  }
+
+  if not exactness_map_property_keys:
+    return normalized
+
+  retained = []
+
+  for paragraph in normalized.split(
+    "\n\n"
+  ):
+    stripped = paragraph.strip()
+    key = map_property_key(
+      paragraph
+    )
+
+    if (
+      key in exactness_map_property_keys
+      and not stripped.startswith(
+        "完全性より, "
+      )
+    ):
+      continue
+
+    retained.append(
+      paragraph
+    )
+
+  return "\n\n".join(
+    retained
+  )
 
 
 def _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
