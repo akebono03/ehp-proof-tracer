@@ -11332,12 +11332,229 @@ def _phase159_order_public_unique_preimage_definition_premises(
   return result
 
 
+def _phase159_render_pi_n_plus_1_n_stable_transport_narrative(
+  presentation: TodaGroupProofPresentation,
+) -> str | None:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+  sphere_dimension = (
+    target.sphere_dimension
+  )
+  group_dimension = (
+    target.group_dimension
+  )
+
+  if (
+    not isinstance(
+      sphere_dimension,
+      int,
+    )
+    or not isinstance(
+      group_dimension,
+      int,
+    )
+    or sphere_dimension < 4
+    or group_dimension
+    != sphere_dimension + 1
+  ):
+    return None
+
+  target_n = sphere_dimension
+  suspension_exponent = (
+    target_n - 3
+  )
+  suspension_latex = (
+    "E"
+    if suspension_exponent == 1
+    else (
+      "E^{"
+      + str(
+        suspension_exponent
+      )
+      + "}"
+    )
+  )
+
+  return "\n".join(
+    (
+      "# Group proof narrative",
+      "",
+      "## 証明対象",
+      "",
+      r"\[",
+      (
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        + r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}."
+      ),
+      r"\]",
+      "",
+      "## 使用する結果",
+      "",
+      "**[R1] (4.5).**",
+      (
+        r"$n \ge k + 2$ のとき, "
+        r"$E^{m-n}: "
+        r"\pi_{n+k}^{n} "
+        r"\to "
+        r"\pi_{m+k}^{m}$ は同型."
+      ),
+      "",
+      "**[R2] Proposition 5.1.**",
+      (
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      "---",
+      "",
+      "## 証明",
+      "",
+      (
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ の群構造を決定する."
+      ),
+      "",
+      (
+        r"[R2]より, "
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      (
+        r"[R1]を "
+        r"$(n,m,k)=(3,"
+        + str(
+          target_n
+        )
+        + r",1)$ に適用すると, "
+        r"$"
+        + suspension_latex
+        + r": \pi_{4}^{3} "
+        r"\to "
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ は同型."
+      ),
+      "",
+      (
+        r"$"
+        + suspension_latex
+        + r"\eta_{3} = "
+        r"\eta_{"
+        + str(
+          target_n
+        )
+        + r"}$."
+      ),
+      "",
+      (
+        r"以上より, "
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}$."
+      ),
+      "",
+      "□",
+      "",
+    )
+  )
+
+
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
+  stable_transport_narrative = (
+    _phase159_render_pi_n_plus_1_n_stable_transport_narrative(
+      presentation
+    )
+  )
+
+  if stable_transport_narrative is not None:
+    return stable_transport_narrative
+
   rendered = (
     _phase158_baseline_render_toda_group_proof_narrative_markdown(
       presentation
+    )
+  )
+  rendered = (
+    _phase158_normalize_public_narrative_contract(
+      presentation,
+      rendered,
+    )
+  )
+  rendered = (
+    _phase159_r1_7c_r4_normalize_public_map_property_prose(
+      rendered
+    )
+  )
+  rendered = (
+    _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
+      rendered
+    )
+  )
+  rendered = (
+    _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
+      rendered
+    )
+  )
+
+  return (
+    _phase159_r1_6d_finalize_reference_and_linkage(
+      presentation,
+      _phase159_order_public_unique_preimage_definition_premises(
+        presentation,
+        rendered,
+      ),
     )
   )
 def render_toda_group_proof_narrative_markdown(
@@ -11375,6 +11592,200 @@ def render_toda_group_proof_narrative_markdown(
   return (
     _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
       rendered
+    )
+  )
+
+
+# Phase159 pi_(n+1)^n stable transport repair3 public wrapper
+_phase159_repair3_previous_public_narrative_renderer = (
+  render_toda_group_proof_narrative_markdown
+)
+
+def _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
+  presentation: TodaGroupProofPresentation,
+) -> str | None:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a "
+      "TodaGroupProofPresentation"
+    )
+
+  target = (
+    presentation
+    .source_replay
+    .group_result
+    .target
+  )
+  sphere_dimension = target.sphere_dimension
+  group_dimension = target.group_dimension
+
+  if (
+    not isinstance(
+      sphere_dimension,
+      int,
+    )
+    or not isinstance(
+      group_dimension,
+      int,
+    )
+    or sphere_dimension < 4
+    or group_dimension != sphere_dimension + 1
+  ):
+    return None
+
+  target_n = sphere_dimension
+  suspension_exponent = target_n - 3
+  suspension_latex = (
+    "E"
+    if suspension_exponent == 1
+    else (
+      "E^{"
+      + str(
+        suspension_exponent
+      )
+      + "}"
+    )
+  )
+
+  return "\n".join(
+    (
+      "# Group proof narrative",
+      "",
+      "## 証明対象",
+      "",
+      r"\[",
+      (
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        + r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}."
+      ),
+      r"\]",
+      "",
+      "## 使用する結果",
+      "",
+      "**[R1] (4.5).**",
+      (
+        r"$n \ge k + 2$ のとき, "
+        r"$E^{m-n}: "
+        r"\pi_{n+k}^{n} "
+        r"\to "
+        r"\pi_{m+k}^{m}$ は同型."
+      ),
+      "",
+      "**[R2] Proposition 5.1.**",
+      (
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      "---",
+      "",
+      "## 証明",
+      "",
+      (
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ の群構造を決定する."
+      ),
+      "",
+      (
+        r"[R2]より, "
+        r"$\pi_{4}^{3} = "
+        r"\mathbb{Z}/2\{\eta_{3}\}$."
+      ),
+      "",
+      (
+        r"[R1]を "
+        r"$(n,m,k)=(3,"
+        + str(
+          target_n
+        )
+        + r",1)$ に適用すると, "
+        r"$"
+        + suspension_latex
+        + r": \pi_{4}^{3} "
+        r"\to "
+        r"\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"}$ は同型."
+      ),
+      "",
+      (
+        r"$"
+        + suspension_latex
+        + r"\eta_{3} = "
+        r"\eta_{"
+        + str(
+          target_n
+        )
+        + r"}$."
+      ),
+      "",
+      (
+        r"以上より, "
+        r"$\pi_{"
+        + str(
+          target_n + 1
+        )
+        + r"}^{"
+        + str(
+          target_n
+        )
+        + r"} = "
+        r"\mathbb{Z}/2\{\eta_{"
+        + str(
+          target_n
+        )
+        + r"}\}$."
+      ),
+      "",
+      "□",
+      "",
+    )
+  )
+
+
+def render_toda_group_proof_narrative_markdown(
+  presentation: TodaGroupProofPresentation,
+) -> str:
+  stable_transport_narrative = (
+    _phase159_repair3_render_pi_n_plus_1_n_stable_transport_narrative(
+      presentation
+    )
+  )
+
+  if stable_transport_narrative is not None:
+    return stable_transport_narrative
+
+  return (
+    _phase159_repair3_previous_public_narrative_renderer(
+      presentation
     )
   )
 

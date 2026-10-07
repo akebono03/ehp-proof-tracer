@@ -336,16 +336,22 @@ def test_phase159_repair2g_pi4_public_reference_policy_is_51_then_prop51():
   )
 
   assert (
-    r"\pi_{5}^{5}"
+    r"\pi_{i}^{n} = 0\ (i < n)"
     in reference
   )
   assert (
-    r"\mathbb{Z}\{\iota_{5}\}"
+    r"\pi_{n}^{n} = "
+    r"\mathbb{Z}\{\iota_{n}\}"
     in reference
+  )
+
+  assert (
+    r"\pi_{5}^{5}"
+    not in reference
   )
   assert (
     r"\pi_{4}^{5} = 0"
-    in reference
+    not in reference
   )
 
   assert (
