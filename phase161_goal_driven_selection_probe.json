@@ -1,0 +1,65 @@
+{
+  "scope": "Goal dimensions -> n3 rule family + EHP exactness; no target ancestry selected",
+  "production_root_count": 4,
+  "production_scope_count": 3614,
+  "production_catalog_count": 1268,
+  "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "rule_candidates": [
+    {
+      "factory": "toda_53_n3_prop51_delta_injective_inference_rule",
+      "candidate_count": 7,
+      "selected_key": "standard.production.applicability.0081"
+    },
+    {
+      "factory": "toda_53_n3_delta_injective_hopf_zero_inference_rule",
+      "candidate_count": 7,
+      "selected_key": "standard.production.applicability.0061"
+    },
+    {
+      "factory": "toda_53_n3_hopf_zero_suspension_surjective_inference_rule",
+      "candidate_count": 7,
+      "selected_key": "standard.production.applicability.0039"
+    },
+    {
+      "factory": "toda_53_n3_hopf_eta5_surjective_inference_rule",
+      "candidate_count": 11,
+      "selected_key": "standard.production.applicability.0011"
+    },
+    {
+      "factory": "toda_53_n3_hopf_surjective_delta_zero_inference_rule",
+      "candidate_count": 7,
+      "selected_key": "standard.production.applicability.0060"
+    },
+    {
+      "factory": "toda_53_n3_delta_zero_suspension_injective_inference_rule",
+      "candidate_count": 7,
+      "selected_key": "standard.production.applicability.0038"
+    },
+    {
+      "factory": "toda_53_n3_suspension_isomorphism_inference_rule",
+      "candidate_count": 7,
+      "selected_key": "standard.production.applicability.0020"
+    }
+  ],
+  "exactness_found": [
+    true,
+    true,
+    true,
+    true
+  ],
+  "proposition_candidate_count": 1,
+  "hopf_relation_candidate_count": 2,
+  "limitations": [
+    "This is a goal-dimension-specific candidate profile, not general automatic rule discovery.",
+    "Search opt-in applies only to an isolated temporary catalog; not a safety certification.",
+    "Proposition and Hopf premise disambiguation may remain unresolved."
+  ],
+  "status": "GOAL_DERIVED_WITHOUT_TARGET_ANCESTRY_SELECTION",
+  "successful_pair": {
+    "search_status": "success",
+    "prop_rule": "Toda Proposition 5.1 finite-dimensional integration",
+    "hopf_rule": "equality transitivity",
+    "goal_derived": true
+  },
+  "pairs_examined": 1
+}
