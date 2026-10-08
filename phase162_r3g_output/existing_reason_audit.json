@@ -1,0 +1,78 @@
+{
+  "status": "EXISTING_REASON_BRIDGE_AUDIT_NOT_COMPLETE_PROOF",
+  "node_count": 123,
+  "edge_count": 135,
+  "given_count": 56,
+  "explained_count": 13,
+  "unexplained_count": 54,
+  "explanation_kinds": {
+    "ROOT_GROUP_STRUCTURE_TRANSPORT": 1,
+    "exactness_to_kernel": 3,
+    "exactness_to_map_property": 9
+  },
+  "reason_step_indices": [
+    [
+      15,
+      "exactness_to_kernel"
+    ],
+    [
+      18,
+      "exactness_to_map_property"
+    ],
+    [
+      31,
+      "exactness_to_map_property"
+    ],
+    [
+      37,
+      "exactness_to_map_property"
+    ],
+    [
+      52,
+      "exactness_to_kernel"
+    ],
+    [
+      55,
+      "exactness_to_map_property"
+    ],
+    [
+      73,
+      "exactness_to_map_property"
+    ],
+    [
+      78,
+      "exactness_to_map_property"
+    ],
+    [
+      92,
+      "exactness_to_kernel"
+    ],
+    [
+      95,
+      "exactness_to_map_property"
+    ],
+    [
+      104,
+      "exactness_to_map_property"
+    ],
+    [
+      110,
+      "exactness_to_map_property"
+    ],
+    [
+      123,
+      "ROOT_GROUP_STRUCTURE_TRANSPORT"
+    ]
+  ],
+  "all_nodes_once": true,
+  "dependency_first": true,
+  "root_is_last": true,
+  "historical_markdown_used_as_input": false,
+  "public_renderer_changed": false,
+  "full_proof_semantic_certification": false,
+  "limitations": [
+    "Only previously implemented, directly matched exactness-to-map-property and exactness-to-kernel reasons are reused.",
+    "Existing reason sentences do not themselves constitute a new proof checker.",
+    "Unexplained steps remain explicitly labeled; other reason kinds are not yet connected."
+  ]
+}
