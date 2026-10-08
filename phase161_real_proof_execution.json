@@ -1,0 +1,97 @@
+{
+  "scope": "Real existing Production ProofSteps as premises; focused seven already-identified rules; no target ancestry selection and no synthetic premise",
+  "production_scope_nodes": 3614,
+  "unique_production_steps": 1839,
+  "catalog_entries": 1268,
+  "exactness_matches": [
+    7,
+    7,
+    7,
+    7
+  ],
+  "proposition_candidates": 7,
+  "hopf_relation_candidates": 28,
+  "rule_selection": [
+    {
+      "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "catalog_entries": 7
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+      "catalog_entries": 7
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+      "catalog_entries": 7
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+      "catalog_entries": 11
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+      "catalog_entries": 7
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+      "catalog_entries": 7
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "catalog_entries": 7
+    }
+  ],
+  "pairs_attempted": 2,
+  "success": true,
+  "status": "REAL_PRODUCTION_PREMISES_DERIVED_ALL_THREE",
+  "derived": {
+    "injective": {
+      "found": true,
+      "is_new_inference": true,
+      "count": 1
+    },
+    "surjective": {
+      "found": true,
+      "is_new_inference": true,
+      "count": 1
+    },
+    "isomorphism": {
+      "found": true,
+      "is_new_inference": true,
+      "count": 1
+    }
+  },
+  "selected_provenance": [
+    {
+      "statement_type": "TodaProp51FiniteDimensionalStatement",
+      "proof_rule": "INFERENCE",
+      "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+    },
+    {
+      "statement_type": "Relation",
+      "proof_rule": "INFERENCE",
+      "inference_rule": "equality transitivity"
+    },
+    {
+      "statement_type": "TodaProp42ExactnessStatement",
+      "proof_rule": "GIVEN",
+      "inference_rule": null
+    },
+    {
+      "statement_type": "TodaProp42ExactnessStatement",
+      "proof_rule": "GIVEN",
+      "inference_rule": null
+    },
+    {
+      "statement_type": "TodaProp42ExactnessStatement",
+      "proof_rule": "GIVEN",
+      "inference_rule": null
+    },
+    {
+      "statement_type": "TodaProp42ExactnessStatement",
+      "proof_rule": "GIVEN",
+      "inference_rule": null
+    }
+  ],
+  "new_step_count": 7
+}

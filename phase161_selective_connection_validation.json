@@ -1,0 +1,110 @@
+{
+  "scope": "Actual Production proof scope and rule instances only; isolated temporary objects; not general goal-only discovery",
+  "production_roots": 4,
+  "production_scope_nodes": 3614,
+  "production_catalog_entries": 1268,
+  "matching_goal_nodes_in_ancestry": 14,
+  "trace_found": true,
+  "selected_trace_rule_names": [
+    "Toda Proposition 5.1 n=3 Delta injectivity",
+    "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+    "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+    "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+    "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+    "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+    "Toda Proposition 5.3 n=3 suspension isomorphism"
+  ],
+  "missing_trace_rule_names": [],
+  "trace_boundary_count": 6,
+  "trace_boundary_types": [
+    "Relation",
+    "TodaProp51FiniteDimensionalStatement",
+    "TodaProp42ExactnessStatement",
+    "TodaProp42ExactnessStatement",
+    "TodaProp42ExactnessStatement",
+    "TodaProp42ExactnessStatement"
+  ],
+  "trace_boundary_rule_kinds": [
+    "INFERENCE",
+    "INFERENCE",
+    "GIVEN",
+    "GIVEN",
+    "GIVEN",
+    "GIVEN"
+  ],
+  "trace_origin_root": "standard.toda.prop56",
+  "selected_rule_evidence": [
+    {
+      "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "actual_production_catalog_entries": 7,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+      "actual_production_catalog_entries": 7,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+      "actual_production_catalog_entries": 7,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+      "actual_production_catalog_entries": 11,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+      "actual_production_catalog_entries": 7,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+      "actual_production_catalog_entries": 7,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    },
+    {
+      "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "actual_production_catalog_entries": 7,
+      "same_identity_as_catalog_entry": true,
+      "temporary_search_eligibility_only": true
+    }
+  ],
+  "depth_results": [
+    {
+      "max_depth": 2,
+      "search_status": "depth_limit",
+      "producer_nodes": 0,
+      "execution_status": "depth_limit",
+      "goal_derived": false
+    },
+    {
+      "max_depth": 3,
+      "search_status": "success",
+      "producer_nodes": 6,
+      "execution_status": "success",
+      "goal_derived": true
+    },
+    {
+      "max_depth": 4,
+      "search_status": "success",
+      "producer_nodes": 6,
+      "execution_status": "success",
+      "goal_derived": true
+    }
+  ],
+  "outcome": "ISOLATED_EXECUTION_EVALUATED",
+  "limitations": [
+    "Temporary fixed_point_safe=True is only an isolated opt-in experiment, not a safety certification.",
+    "No mutation of the production repository, production catalog or persistent files.",
+    "Selecting facts/rules from an existing proof ancestry is not independent discovery from goal alone.",
+    "This run does not perform full pytest."
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "scope": "Synthetic premise compatibility only; no proof registration; no family name selection or ancestry lookup",
+  "catalog_entry_count": 1268,
+  "branches": [
+    {
+      "branch": "injectivity",
+      "goal": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+      "structural_candidates_examined": 11,
+      "guard_compatible_candidates": 7,
+      "exact_goal_generating_candidates": 7,
+      "candidates": [
+        {
+          "catalog_key": "standard.production.applicability.0010",
+          "rule_name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0038",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0202",
+          "rule_name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0265",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0283",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0602",
+          "rule_name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0718",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0740",
+          "rule_name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0778",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0853",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0921",
+          "rule_name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        }
+      ]
+    },
+    {
+      "branch": "surjectivity",
+      "goal": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+      "structural_candidates_examined": 14,
+      "guard_compatible_candidates": 7,
+      "exact_goal_generating_candidates": 7,
+      "candidates": [
+        {
+          "catalog_key": "standard.production.applicability.0039",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0168",
+          "rule_name": "Toda Proposition 5.8 pi_9^5 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0266",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0284",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0509",
+          "rule_name": "Toda Proposition 5.11 pi_11^5 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0523",
+          "rule_name": "Toda Proposition 5.9 pi_10^5 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0554",
+          "rule_name": "Toda Proposition 5.11 pi_12^6 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0556",
+          "rule_name": "Toda Proposition 5.11 pi_13^7 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0594",
+          "rule_name": "Toda Proposition 5.8 pi_9^5 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0649",
+          "rule_name": "Toda Proposition 5.8 pi_9^5 suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 0,
+          "goal_equal": false,
+          "generated_conclusions": [],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0719",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0779",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0854",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        },
+        {
+          "catalog_key": "standard.production.applicability.0922",
+          "rule_name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "production_safe": false,
+          "premise_signature_matches": true,
+          "matches_found": 1,
+          "goal_equal": true,
+          "generated_conclusions": [
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+          ],
+          "errors": []
+        }
+      ]
+    }
+  ],
+  "status": "BOTH_BRANCHES_EXACT_CONCLUSION_COMPATIBLE",
+  "limitations": [
+    "Synthetic ProofSteps do NOT establish the premises.",
+    "A matching conclusion is necessary but not sufficient for a valid proof.",
+    "Production safe flags are unchanged; no whole-suite tests."
+  ]
+}

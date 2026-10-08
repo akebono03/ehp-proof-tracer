@@ -1,0 +1,50 @@
+def _filter_toda_group_proof_narrative_reference_entries_to_frontier(
+  reference_entries,
+  statement_lines_by_reference_number,
+  frontier_step_ids: frozenset[int],
+):
+  retained_entries = tuple(
+    entry
+    for entry in reference_entries
+    if any(
+      id(
+        proof_step
+      )
+      in frontier_step_ids
+      for proof_step in entry.proof_steps
+    )
+  )
+
+  number_map = {
+    entry.number: new_number
+    for new_number, entry in enumerate(
+      retained_entries,
+      start=1,
+    )
+  }
+
+  filtered_entries = tuple(
+    replace(
+      entry,
+      number=number_map[
+        entry.number
+      ],
+    )
+    for entry in retained_entries
+  )
+
+  filtered_statement_lines = {
+    number_map[
+      entry.number
+    ]: statement_lines_by_reference_number[
+      entry.number
+    ]
+    for entry in retained_entries
+    if entry.number
+    in statement_lines_by_reference_number
+  }
+
+  return (
+    filtered_entries,
+    filtered_statement_lines,
+  )

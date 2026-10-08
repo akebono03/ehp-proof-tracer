@@ -1,0 +1,119 @@
+def _toda_group_proof_narrative_fixed_frontier_internal_step_ids(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> frozenset[int]:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  frontier_step_ids = (
+    _toda_group_proof_narrative_reference_frontier_step_ids(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  fixed_frontier_step_ids = {
+    id(
+      proof_step
+    )
+    for entry in reference_entries
+    for proof_step in entry.proof_steps
+    for boundary in (
+      classify_toda_literature_statement_step(
+        proof_step
+      ),
+    )
+    if (
+      id(
+        proof_step
+      )
+      in frontier_step_ids
+      and boundary is not None
+      and boundary.classification
+      is TodaLiteratureStatementClassification.FIXED_STATEMENT
+    )
+  }
+
+  if not fixed_frontier_step_ids:
+    return frozenset()
+
+  consumers_by_step_id = {}
+
+  for edge in presentation.edges:
+    consumers_by_step_id.setdefault(
+      id(
+        edge.premise_step
+      ),
+      [],
+    ).append(
+      edge.parent_step
+    )
+
+  closure_step_ids = set(
+    fixed_frontier_step_ids
+  )
+  internal_step_ids = set()
+
+  changed = True
+
+  while changed:
+    changed = False
+
+    for edge in presentation.edges:
+      parent_step_id = id(
+        edge.parent_step
+      )
+
+      if parent_step_id not in closure_step_ids:
+        continue
+
+      premise_step = edge.premise_step
+      premise_step_id = id(
+        premise_step
+      )
+
+      if (
+        premise_step
+        is presentation.root_step
+        or premise_step_id
+        in closure_step_ids
+        or premise_step_id
+        in frontier_step_ids
+      ):
+        continue
+
+      consumers = tuple(
+        consumers_by_step_id.get(
+          premise_step_id,
+          (),
+        )
+      )
+
+      if not consumers:
+        continue
+
+      if not all(
+        id(
+          consumer
+        )
+        in closure_step_ids
+        for consumer in consumers
+      ):
+        continue
+
+      closure_step_ids.add(
+        premise_step_id
+      )
+      internal_step_ids.add(
+        premise_step_id
+      )
+      changed = True
+
+  return frozenset(
+    internal_step_ids
+  )

@@ -1,0 +1,367 @@
+{
+  "scope": "Two immediate subgoals only; no rule-family-name filter; no target ancestry; no proof execution",
+  "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "binding_count": 1,
+  "same_suspension_map": true,
+  "catalog_entry_count": 1268,
+  "branches": [
+    {
+      "branch": "injectivity",
+      "goal": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+      "zero_goal": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))",
+      "exactness_goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "candidates": {
+        "same_conclusion_type_candidates": 27,
+        "two_premise_structural_candidates": [
+          {
+            "key": "standard.production.applicability.0010",
+            "name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0038",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0202",
+            "name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0265",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0283",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0602",
+            "name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0718",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0740",
+            "name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0778",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0853",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0921",
+            "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          }
+        ]
+      },
+      "structural_candidate_found": true,
+      "unique_structural_candidate": false
+    },
+    {
+      "branch": "surjectivity",
+      "goal": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+      "zero_goal": "TodaHopfInvariantZeroStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5)))",
+      "exactness_goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "candidates": {
+        "same_conclusion_type_candidates": 47,
+        "two_premise_structural_candidates": [
+          {
+            "key": "standard.production.applicability.0039",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0168",
+            "name": "Toda Proposition 5.8 pi_9^5 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0266",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0284",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0509",
+            "name": "Toda Proposition 5.11 pi_11^5 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0523",
+            "name": "Toda Proposition 5.9 pi_10^5 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0554",
+            "name": "Toda Proposition 5.11 pi_12^6 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0556",
+            "name": "Toda Proposition 5.11 pi_13^7 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0594",
+            "name": "Toda Proposition 5.8 pi_9^5 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0649",
+            "name": "Toda Proposition 5.8 pi_9^5 suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0719",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0779",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0854",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          },
+          {
+            "key": "standard.production.applicability.0922",
+            "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+            "premise_positions_for_zero": [
+              0
+            ],
+            "premise_positions_for_exactness": [
+              1
+            ],
+            "conclusion_pattern_available": false,
+            "safe_in_production": false,
+            "conclusion_builder_available": true
+          }
+        ]
+      },
+      "structural_candidate_found": true,
+      "unique_structural_candidate": false
+    }
+  ],
+  "status": "BOTH_SUBGOALS_STRUCTURALLY_EXPANDED",
+  "limitations": [
+    "Subgoal maps are constructed from EHP dimensions for this focused n=3 trial, not inferred by a general unifier.",
+    "A matching premise signature does not prove its conclusion builder produces this exact goal.",
+    "Hypothetical proof-rule attributes only test premise pattern contracts; they are not proofs.",
+    "No Production mutation, fixed-point safety certification, or pytest execution."
+  ]
+}

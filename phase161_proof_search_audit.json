@@ -1,0 +1,16 @@
+{
+  "scope": "Phase 59 explicitly seeded premises and rules (not goal-only production search)",
+  "goal_type": "TodaSuspensionIsomorphismStatement",
+  "premise_count": 6,
+  "given_count": 4,
+  "catalog_rule_count": 7,
+  "compatible_final_rules": [
+    "phase161.audit.rule.6"
+  ],
+  "search_report_status": "DEPTH_LIMIT",
+  "producer_node_count": 0,
+  "goal_derived": false,
+  "goal_step": null,
+  "phase59_goal_present": true,
+  "note": "Failure is diagnostic only; depth-2 bounded search is not the Phase 59 full forward chain."
+}

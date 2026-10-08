@@ -1,0 +1,48 @@
+{
+  "scope": "Single production final rule; separate statement matching and proof provenance; no proof execution",
+  "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "goal_binding_count": 1,
+  "round_trip_goal_equal": true,
+  "injective_generated": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "surjective_generated": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "same_map_in_both_premises": true,
+  "production_rule_matching_name_count": 7,
+  "selected_production_catalog_key": "standard.production.applicability.0020",
+  "original_rule_fixed_point_safe": false,
+  "rule_premise_count": 2,
+  "premise_pattern_checks": [
+    {
+      "index": 0,
+      "statement_available": true,
+      "statement_type": "TodaSuspensionInjectiveStatement",
+      "required_statement_type": "TodaSuspensionInjectiveStatement",
+      "required_proof_rule": "INFERENCE",
+      "semantic_match": true,
+      "given_step_match": false,
+      "required_provenance_simulation_match": true,
+      "has_statement_pattern": false,
+      "simulated_step_is_actual_proof": false
+    },
+    {
+      "index": 1,
+      "statement_available": true,
+      "statement_type": "TodaSuspensionSurjectiveStatement",
+      "required_statement_type": "TodaSuspensionSurjectiveStatement",
+      "required_proof_rule": "INFERENCE",
+      "semantic_match": true,
+      "given_step_match": false,
+      "required_provenance_simulation_match": true,
+      "has_statement_pattern": false,
+      "simulated_step_is_actual_proof": false
+    }
+  ],
+  "generated_both_premises_semantically": true,
+  "both_premises_simulated_provenance_compatible": true,
+  "proof_generated": false,
+  "limitations": [
+    "A synthetic INFERENCE step is only for checking the pattern contract; it is NOT a derivation.",
+    "Actual INFERENCE proof steps must be independently derived before running the final rule.",
+    "Only one final-rule family is selected by name for this audit.",
+    "Production catalog and inference rules are unchanged."
+  ]
+}

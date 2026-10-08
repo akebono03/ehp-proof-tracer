@@ -1,0 +1,897 @@
+{
+  "scope": "Production catalog and scope, goal-derived statement-type closure; no rule name list and no goal proof ancestry selection",
+  "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "repository_roots": 4,
+  "production_scope_nodes": 3614,
+  "unique_scope_steps": 1839,
+  "catalog_entries": 1268,
+  "fixed_point_safe_entries": 0,
+  "final_goal_type_candidates": 31,
+  "final_exact_conclusion_pattern_candidates": 0,
+  "semantic_type_levels": [
+    {
+      "depth": 0,
+      "conclusion_types": [
+        "TodaSuspensionIsomorphismStatement"
+      ],
+      "candidate_entry_count": 31,
+      "distinct_rule_identities": 31,
+      "premise_types": [
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp44IsomorphismStatement",
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ],
+      "candidate_samples": [
+        {
+          "key": "standard.production.applicability.0020",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0108",
+          "name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0139",
+          "name": "Toda (5.1) low-dimensional suspension isomorphism",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0141",
+          "name": "Toda (5.1) low-dimensional suspension isomorphism",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0218",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0220",
+          "name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0240",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0398",
+          "name": "Toda (5.1) low-dimensional suspension isomorphism",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0412",
+          "name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0425",
+          "name": "Toda (5.1) low-dimensional suspension isomorphism",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0459",
+          "name": "Toda (5.1) low-dimensional suspension isomorphism",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0461",
+          "name": "Toda (5.1) low-dimensional suspension isomorphism",
+          "safe": false,
+          "premise_count": 0
+        }
+      ]
+    },
+    {
+      "depth": 1,
+      "conclusion_types": [
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp44IsomorphismStatement",
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ],
+      "candidate_entry_count": 163,
+      "distinct_rule_identities": 163,
+      "premise_types": [
+        "Relation",
+        "ScalarGreaterEqualStatement",
+        "Toda45IsomorphismStatement",
+        "Toda515Sigma8Prop44SpecializationStatement",
+        "Toda52CompositionIsomorphismStatement",
+        "Toda56Nu4DecompositionIsomorphismStatement",
+        "Toda56Nu4Prop44SpecializationStatement",
+        "TodaDeltaInjectiveStatement",
+        "TodaDeltaSurjectiveStatement",
+        "TodaDeltaZeroStatement",
+        "TodaHopfInvariantInjectiveStatement",
+        "TodaHopfInvariantZeroStatement",
+        "TodaPi32Eta2DefinitionStatement",
+        "TodaPrimaryGroupMembershipStatement",
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp42ExactnessStatement",
+        "TodaProp44DecompositionMap",
+        "TodaProp44FirstSummandRestrictionStatement",
+        "TodaProp44IsomorphismStatement",
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaProp511FiniteDimensionalStatement",
+        "TodaProp58FiniteDimensionalStatement",
+        "TodaSuspensionIsomorphismStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ],
+      "candidate_samples": [
+        {
+          "key": "standard.production.applicability.0010",
+          "name": "Toda Proposition 5.6 pi_5^2 suspension injective",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0022",
+          "name": "Toda pi_(i-1)^1 zero for i at least 3",
+          "safe": false,
+          "premise_count": 1
+        },
+        {
+          "key": "standard.production.applicability.0023",
+          "name": "Toda Proposition 4.4 eta_2 n=2 specialization",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0038",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0039",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0053",
+          "name": "Toda Proposition 4.4 nu_4 n=4 decomposition specialization",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0087",
+          "name": "Toda pi_4^3 E-H exactness zero-right suspension surjectivity",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0103",
+          "name": "Toda pi_4^3 E-H exactness zero-right suspension surjectivity",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0104",
+          "name": "Toda (5.1) circle higher homotopy zero",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0107",
+          "name": "Toda (5.1) sphere connectivity zero",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0112",
+          "name": "Toda (5.1) circle higher homotopy zero",
+          "safe": false,
+          "premise_count": 0
+        },
+        {
+          "key": "standard.production.applicability.0122",
+          "name": "Toda (5.1) sphere connectivity zero",
+          "safe": false,
+          "premise_count": 0
+        }
+      ]
+    },
+    {
+      "depth": 2,
+      "conclusion_types": [
+        "Relation",
+        "ScalarGreaterEqualStatement",
+        "Toda45IsomorphismStatement",
+        "Toda515Sigma8Prop44SpecializationStatement",
+        "Toda52CompositionIsomorphismStatement",
+        "Toda56Nu4DecompositionIsomorphismStatement",
+        "Toda56Nu4Prop44SpecializationStatement",
+        "TodaDeltaInjectiveStatement",
+        "TodaDeltaSurjectiveStatement",
+        "TodaDeltaZeroStatement",
+        "TodaHopfInvariantInjectiveStatement",
+        "TodaHopfInvariantZeroStatement",
+        "TodaPi32Eta2DefinitionStatement",
+        "TodaPrimaryGroupMembershipStatement",
+        "TodaProp42ExactnessStatement",
+        "TodaProp44DecompositionMap",
+        "TodaProp44FirstSummandRestrictionStatement",
+        "TodaProp511FiniteDimensionalStatement",
+        "TodaProp58FiniteDimensionalStatement"
+      ],
+      "candidate_entry_count": 746,
+      "distinct_rule_identities": 746,
+      "premise_types": [
+        "HomotopyGroupMembershipStatement",
+        "Relation",
+        "ScalarGreaterEqualStatement",
+        "Toda45IsomorphismStatement",
+        "Toda48Pi16_9OrderAndE4InjectiveStatement",
+        "Toda514FirstShortExactStatement",
+        "Toda514SecondShortExactStatement",
+        "Toda515Sigma8TransportedDecompositionStatement",
+        "Toda52CompositionIsomorphismStatement",
+        "Toda53NuPrimeBracketSpecializationStatement",
+        "Toda54BracketUpToSignStatement",
+        "Toda55NuFamilyFiniteDimensionalStatement",
+        "Toda56Nu4DecompositionStatement",
+        "Toda58EquationStatement",
+        "TodaDeltaImageUpToSignStatement",
+        "TodaDeltaInjectiveStatement",
+        "TodaDeltaKernelFreeCyclicStatement",
+        "TodaDeltaSurjectiveStatement",
+        "TodaEHPExactnessWindow",
+        "TodaEtaFamilyDefinitionStatement",
+        "TodaHopfInvariantInjectiveStatement",
+        "TodaHopfInvariantIsomorphismStatement",
+        "TodaHopfInvariantSurjectiveStatement",
+        "TodaIteratedSuspensionInjectiveStatement",
+        "TodaIteratedSuspensionMap",
+        "TodaLemma510BracketModuloStatement",
+        "TodaLemma513Statement",
+        "TodaLemma514Sigma8Statement",
+        "TodaLemma514SigmaDoublePrimeStatement",
+        "TodaLemma514SigmaPrimeStatement",
+        "TodaLemma54Nu4ConstructionStatement",
+        "TodaLemma54Statement",
+        "TodaLemma57TwoIota5ImageMembershipStatement",
+        "TodaNuFamilyDefinitionStatement",
+        "TodaPi32Eta2DefinitionStatement",
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp27HopfInvariantUpToSignStatement",
+        "TodaProp42ExactnessStatement",
+        "TodaProp44DecompositionMap",
+        "TodaProp44IsomorphismStatement",
+        "TodaProp44SecondSummandRestrictionStatement",
+        "TodaProp511FiniteDimensionalStatement",
+        "TodaProp511NuSquaredFiniteDimensionalStatement",
+        "TodaProp515Pi12_5HopfIsomorphismStatement",
+        "TodaProp51FiniteDimensionalStatement",
+        "TodaProp53FiniteDimensionalStatement",
+        "TodaProp56FiniteDimensionalStatement",
+        "TodaProp56Pi8_5QuotientStatement",
+        "TodaProp58FiniteDimensionalStatement",
+        "TodaProp59DeltaKernelStatement",
+        "TodaProp59FiniteDimensionalStatement",
+        "TodaSigmaFamilyDefinitionStatement",
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionIsomorphismStatement",
+        "TodaSuspensionKernelFreeCyclicStatement",
+        "TodaSuspensionMap",
+        "TodaSuspensionSurjectiveStatement",
+        "TodaSuspensionZeroStatement"
+      ],
+      "candidate_samples": [
+        {
+          "key": "standard.production.applicability.0001",
+          "name": "Toda Proposition 5.6 pi_5^2 eta_2 cube",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0002",
+          "name": "Toda Proposition 5.6 pi_6^3 finite cyclic",
+          "safe": false,
+          "premise_count": 7
+        },
+        {
+          "key": "standard.production.applicability.0003",
+          "name": "Toda Proposition 5.6 pi_7^4 decomposition",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0004",
+          "name": "Toda Proposition 5.6 pi_8^5 finite cyclic",
+          "safe": false,
+          "premise_count": 5
+        },
+        {
+          "key": "standard.production.applicability.0005",
+          "name": "Toda Proposition 5.6 higher nu finite-cyclic generator bridge",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0006",
+          "name": "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0007",
+          "name": "Toda 5.2 eta_2 composition isomorphism",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0008",
+          "name": "Toda Proposition 5.6 nu-prime order four",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0012",
+          "name": "Toda Lemma 5.4 pi_6^5 finite-cyclic specialization",
+          "safe": false,
+          "premise_count": 1
+        },
+        {
+          "key": "standard.production.applicability.0014",
+          "name": "Toda Proposition 5.6 nu_5 order eight",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0017",
+          "name": "Toda 4.5 generic finite-cyclic transport",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0018",
+          "name": "Toda Proposition 5.6 higher nu-family bridge",
+          "safe": false,
+          "premise_count": 3
+        }
+      ]
+    },
+    {
+      "depth": 3,
+      "conclusion_types": [
+        "HomotopyGroupMembershipStatement",
+        "Toda48Pi16_9OrderAndE4InjectiveStatement",
+        "Toda514FirstShortExactStatement",
+        "Toda514SecondShortExactStatement",
+        "Toda515Sigma8TransportedDecompositionStatement",
+        "Toda53NuPrimeBracketSpecializationStatement",
+        "Toda54BracketUpToSignStatement",
+        "Toda55NuFamilyFiniteDimensionalStatement",
+        "Toda56Nu4DecompositionStatement",
+        "Toda58EquationStatement",
+        "TodaDeltaImageUpToSignStatement",
+        "TodaDeltaKernelFreeCyclicStatement",
+        "TodaEHPExactnessWindow",
+        "TodaEtaFamilyDefinitionStatement",
+        "TodaHopfInvariantIsomorphismStatement",
+        "TodaHopfInvariantSurjectiveStatement",
+        "TodaIteratedSuspensionInjectiveStatement",
+        "TodaIteratedSuspensionMap",
+        "TodaLemma510BracketModuloStatement",
+        "TodaLemma513Statement",
+        "TodaLemma514Sigma8Statement",
+        "TodaLemma514SigmaDoublePrimeStatement",
+        "TodaLemma514SigmaPrimeStatement",
+        "TodaLemma54Nu4ConstructionStatement",
+        "TodaLemma54Statement",
+        "TodaLemma57TwoIota5ImageMembershipStatement",
+        "TodaNuFamilyDefinitionStatement",
+        "TodaProp27HopfInvariantUpToSignStatement",
+        "TodaProp44SecondSummandRestrictionStatement",
+        "TodaProp511NuSquaredFiniteDimensionalStatement",
+        "TodaProp515Pi12_5HopfIsomorphismStatement",
+        "TodaProp51FiniteDimensionalStatement",
+        "TodaProp53FiniteDimensionalStatement",
+        "TodaProp56FiniteDimensionalStatement",
+        "TodaProp56Pi8_5QuotientStatement",
+        "TodaProp59DeltaKernelStatement",
+        "TodaProp59FiniteDimensionalStatement",
+        "TodaSigmaFamilyDefinitionStatement",
+        "TodaSuspensionKernelFreeCyclicStatement",
+        "TodaSuspensionMap",
+        "TodaSuspensionZeroStatement"
+      ],
+      "candidate_entry_count": 229,
+      "distinct_rule_identities": 229,
+      "premise_types": [
+        "HomotopyGroupMembershipStatement",
+        "Relation",
+        "ScalarGreaterEqualStatement",
+        "Toda36Lemma514SigmaDoublePrimeBridgeStatement",
+        "Toda514FirstShortExactStatement",
+        "Toda514SecondShortExactStatement",
+        "Toda53NuPrimeBracketSpecializationStatement",
+        "Toda54BracketUpToSignStatement",
+        "Toda54IndeterminacyGeneratorStatement",
+        "Toda55NuFamilyFiniteDimensionalStatement",
+        "Toda56Nu4DecompositionIsomorphismStatement",
+        "Toda56Nu4DecompositionStatement",
+        "Toda58EquationStatement",
+        "Toda58WhiteheadSquareUpToSignStatement",
+        "TodaBracketMembershipStatement",
+        "TodaDeltaImageFreeCyclicStatement",
+        "TodaDeltaImageUpToSignStatement",
+        "TodaDeltaSurjectiveStatement",
+        "TodaDeltaZeroStatement",
+        "TodaHopfInvariantInjectiveStatement",
+        "TodaHopfInvariantSurjectiveStatement",
+        "TodaLemma510OrdinaryBracketPlusSuspensionImageStatement",
+        "TodaLemma510OrdinaryIndeterminacyDoubleStatement",
+        "TodaLemma510OrdinarySuspensionImageInDoubleStatement",
+        "TodaLemma514Sigma8Statement",
+        "TodaLemma514SigmaDoublePrimeStatement",
+        "TodaLemma514SigmaPrimeStatement",
+        "TodaLemma54DoubleSuspensionUpToSignStatement",
+        "TodaLemma54HopfOddMultipleStatement",
+        "TodaLemma54Nu4ConstructionStatement",
+        "TodaLemma54Statement",
+        "TodaLemma54WhiteheadCorrectionDataStatement",
+        "TodaNuFamilyDefinitionStatement",
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp42ExactnessStatement",
+        "TodaProp44IsomorphismStatement",
+        "TodaProp511FiniteDimensionalStatement",
+        "TodaProp515Pi12_5HopfIsomorphismStatement",
+        "TodaProp51FiniteDimensionalStatement",
+        "TodaProp53FiniteDimensionalStatement",
+        "TodaProp56FiniteDimensionalStatement",
+        "TodaProp59FiniteDimensionalStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ],
+      "candidate_samples": [
+        {
+          "key": "standard.production.applicability.0000",
+          "name": "Toda Proposition 5.6 finite-dimensional integration",
+          "safe": false,
+          "premise_count": 6
+        },
+        {
+          "key": "standard.production.applicability.0009",
+          "name": "Toda 5.3 nu-prime Lemma 5.2 membership specialization",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0011",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0013",
+          "name": "Toda (5.6) nu_4 decomposition integration",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0015",
+          "name": "Toda Proposition 5.6 E^2 pi_6^3 injective",
+          "safe": false,
+          "premise_count": 1
+        },
+        {
+          "key": "standard.production.applicability.0016",
+          "name": "Toda Proposition 5.6 pi_8^5 quotient by E^2 pi_6^3",
+          "safe": false,
+          "premise_count": 1
+        },
+        {
+          "key": "standard.production.applicability.0024",
+          "name": "Toda Proposition 4.4 eta_2 second-summand restriction",
+          "safe": false,
+          "premise_count": 1
+        },
+        {
+          "key": "standard.production.applicability.0027",
+          "name": "Toda 5.3 nu-prime Lemma 5.2 bracket specialization",
+          "safe": false,
+          "premise_count": 1
+        },
+        {
+          "key": "standard.production.applicability.0031",
+          "name": "Toda Proposition 5.1 finite-dimensional integration",
+          "safe": false,
+          "premise_count": 4
+        },
+        {
+          "key": "standard.production.applicability.0033",
+          "name": "Toda Lemma 5.4 integration",
+          "safe": false,
+          "premise_count": 3
+        },
+        {
+          "key": "standard.production.applicability.0046",
+          "name": "Toda Proposition 5.6 pi_7^3 Hopf surjective",
+          "safe": false,
+          "premise_count": 2
+        },
+        {
+          "key": "standard.production.applicability.0051",
+          "name": "Toda Proposition 5.1 Delta iota_5",
+          "safe": false,
+          "premise_count": 0
+        }
+      ]
+    }
+  ],
+  "final_premise_pattern_availability": [
+    {
+      "key": "standard.production.applicability.0020",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0108",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0139",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0141",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0218",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0220",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0240",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0398",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0412",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0425",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0459",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0461",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0510",
+      "rule": "Toda Proposition 5.11 pi_12^6 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0511",
+      "rule": "Toda Proposition 5.11 pi_13^7 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0512",
+      "rule": "Toda Proposition 5.11 pi_14^8 Proposition 4.4 zero-second-summand suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        23,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0636",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0638",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0684",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0756",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0758",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0828",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        27,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.0919",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1055",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1114",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1139",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1150",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_match_counts_in_production_scope": [
+        14,
+        47
+      ],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1163",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1175",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1177",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1215",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    },
+    {
+      "key": "standard.production.applicability.1217",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_match_counts_in_production_scope": [],
+      "all_premises_have_individual_matches": true,
+      "conclusion_pattern_equals_goal": false
+    }
+  ],
+  "scope_statement_type_counts": {
+    "HomotopyGroupMembershipStatement": 17,
+    "Relation": 573,
+    "ScalarGreaterEqualStatement": 124,
+    "Toda36Lemma514SigmaDoublePrimeBridgeStatement": 1,
+    "Toda45IsomorphismStatement": 23,
+    "Toda48Pi16_9OrderAndE4InjectiveStatement": 1,
+    "Toda514FirstShortExactStatement": 1,
+    "Toda514SecondShortExactStatement": 1,
+    "Toda515Sigma8Prop44SpecializationStatement": 1,
+    "Toda515Sigma8TransportedDecompositionStatement": 1,
+    "Toda52CompositionIsomorphismStatement": 7,
+    "Toda53NuPrimeBracketSpecializationStatement": 15,
+    "Toda54BracketUpToSignStatement": 16,
+    "Toda54IndeterminacyGeneratorStatement": 16,
+    "Toda55NuFamilyFiniteDimensionalStatement": 7,
+    "Toda56Nu4DecompositionIsomorphismStatement": 7,
+    "Toda56Nu4DecompositionStatement": 7,
+    "Toda56Nu4Prop44SpecializationStatement": 7,
+    "Toda58EquationStatement": 3,
+    "Toda58WhiteheadSquareUpToSignStatement": 3,
+    "TodaBracketMembershipStatement": 23,
+    "TodaDeltaImageFreeCyclicStatement": 21,
+    "TodaDeltaImageUpToSignStatement": 32,
+    "TodaDeltaInjectiveStatement": 16,
+    "TodaDeltaKernelFreeCyclicStatement": 1,
+    "TodaDeltaSurjectiveStatement": 5,
+    "TodaDeltaZeroStatement": 25,
+    "TodaEHPExactnessWindow": 49,
+    "TodaEtaFamilyDefinitionStatement": 112,
+    "TodaHopfInvariantInjectiveStatement": 22,
+    "TodaHopfInvariantIsomorphismStatement": 17,
+    "TodaHopfInvariantSurjectiveStatement": 32,
+    "TodaHopfInvariantZeroStatement": 14,
+    "TodaIteratedSuspensionInjectiveStatement": 4,
+    "TodaIteratedSuspensionMap": 23,
+    "TodaLemma510BracketModuloStatement": 1,
+    "TodaLemma510OrdinaryBracketPlusSuspensionImageStatement": 1,
+    "TodaLemma510OrdinaryIndeterminacyDoubleStatement": 1,
+    "TodaLemma510OrdinarySuspensionImageInDoubleStatement": 1,
+    "TodaLemma513Statement": 1,
+    "TodaLemma514Sigma8Statement": 1,
+    "TodaLemma514SigmaDoublePrimeStatement": 1,
+    "TodaLemma514SigmaPrimeStatement": 1,
+    "TodaLemma54DoubleSuspensionUpToSignStatement": 7,
+    "TodaLemma54HopfOddMultipleStatement": 7,
+    "TodaLemma54Nu4ConstructionStatement": 7,
+    "TodaLemma54Statement": 7,
+    "TodaLemma54WhiteheadCorrectionDataStatement": 7,
+    "TodaLemma57TwoIota5ImageMembershipStatement": 3,
+    "TodaNuFamilyDefinitionStatement": 31,
+    "TodaPi32Eta2DefinitionStatement": 14,
+    "TodaPrimaryGroupMembershipStatement": 7,
+    "TodaPrimaryGroupZeroStatement": 65,
+    "TodaProp27HopfInvariantUpToSignStatement": 1,
+    "TodaProp42ExactnessStatement": 180,
+    "TodaProp44DecompositionMap": 22,
+    "TodaProp44FirstSummandRestrictionStatement": 7,
+    "TodaProp44IsomorphismStatement": 23,
+    "TodaProp44SecondSummandRestrictionStatement": 7,
+    "TodaProp44SuspensionInjectiveStatement": 14,
+    "TodaProp511FiniteDimensionalStatement": 1,
+    "TodaProp511NuSquaredFiniteDimensionalStatement": 1,
+    "TodaProp515Pi12_5HopfIsomorphismStatement": 1,
+    "TodaProp51FiniteDimensionalStatement": 7,
+    "TodaProp53FiniteDimensionalStatement": 7,
+    "TodaProp56FiniteDimensionalStatement": 4,
+    "TodaProp56Pi8_5QuotientStatement": 4,
+    "TodaProp58FiniteDimensionalStatement": 2,
+    "TodaProp59DeltaKernelStatement": 1,
+    "TodaProp59FiniteDimensionalStatement": 1,
+    "TodaSigmaFamilyDefinitionStatement": 2,
+    "TodaSuspensionInjectiveStatement": 27,
+    "TodaSuspensionIsomorphismStatement": 31,
+    "TodaSuspensionKernelFreeCyclicStatement": 21,
+    "TodaSuspensionMap": 7,
+    "TodaSuspensionSurjectiveStatement": 47,
+    "TodaSuspensionZeroStatement": 2
+  },
+  "status": "CANDIDATE_DISCOVERY_ONLY",
+  "not_yet_proven": [
+    "Rule soundness and fixed-point safety",
+    "Unique goal-specific final rule by meaning instead of type alone",
+    "Binding-compatible simultaneous premise selection",
+    "Automatic proof construction without prespecified rule families"
+  ]
+}

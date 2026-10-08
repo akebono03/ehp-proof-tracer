@@ -1,0 +1,20 @@
+==============================================================================
+Phase 161-R3 renderer recovery
+==============================================================================
+target: C:\Users\user\Dropbox\Python\fitz\ehp_proof\toda_group_proof_narrative_contribution_renderer.py
+primary backup: C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase161_r3_pi4_2_restored_reference_relink\backup_before_apply\toda_group_proof_narrative_contribution_renderer.py
+
+target size before recovery: 0
+primary backup valid: True
+
+restored from primary backup
+target size after recovery: 185660
+restored target valid: True
+
+required symbols:
+  restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage: True
+  filter_toda_group_proof_narrative_reference_entries_by_body_usage: True
+  link_toda_group_proof_narrative_unmarked_reference_consumers: True
+
+RECOVERY COMPLETE
+Phase 161-R3 feature repair has NOT been applied.

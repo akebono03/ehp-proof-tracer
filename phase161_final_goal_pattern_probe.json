@@ -1,0 +1,34 @@
+{
+  "scope": "Single final rule goal-pattern compatibility; no rule mutation, no proof execution",
+  "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "goal_binding_count": 1,
+  "round_trip_goal_equal": true,
+  "injective_generated": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "surjective_generated": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "same_map_in_both_premises": true,
+  "production_rule_matching_name_count": 7,
+  "selected_production_catalog_key": "standard.production.applicability.0020",
+  "original_rule_fixed_point_safe": false,
+  "rule_premise_count": 2,
+  "premise_pattern_checks": [
+    {
+      "index": 0,
+      "statement_type": "TodaSuspensionInjectiveStatement",
+      "matches_generated_statement": false,
+      "has_statement_pattern": false
+    },
+    {
+      "index": 1,
+      "statement_type": "TodaSuspensionSurjectiveStatement",
+      "matches_generated_statement": false,
+      "has_statement_pattern": false
+    }
+  ],
+  "generated_both_premises": false,
+  "limitations": [
+    "Only one final-rule family, selected by name for this focused audit.",
+    "No full backward search or independent derivation of premises is performed.",
+    "Synthetic GIVEN steps are never registered as mathematical proof facts.",
+    "No safety certification or production modification is performed."
+  ]
+}

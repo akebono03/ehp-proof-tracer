@@ -37,6 +37,8 @@ from map_facts import (
   EHP_H_MAP,
 )
 from proof import (
+  InferenceRule,
+  LiteratureReference,
   ProofRule,
   ProofStep,
   Relation,
@@ -183,9 +185,107 @@ def _require_match(
   )
 
 
+def _build_pi4_3_prop51_specialization_link_step(
+  pi4_3_step: ProofStep,
+  prop51_step: ProofStep,
+) -> ProofStep:
+  if not isinstance(
+    pi4_3_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "pi4_3_step must be a ProofStep"
+    )
+
+  if not isinstance(
+    prop51_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "prop51_step must be a ProofStep"
+    )
+
+  if not isinstance(
+    pi4_3_step.conclusion,
+    Relation,
+  ):
+    raise TypeError(
+      "pi4_3_step conclusion must be a Relation"
+    )
+
+  if (
+    pi4_3_step.conclusion.lhs
+    != TodaPrimaryGroup(
+      group_dimension=4,
+      sphere_dimension=3,
+    )
+  ):
+    raise ValueError(
+      "pi4_3_step must conclude a relation for pi_4^3"
+    )
+
+  if not isinstance(
+    prop51_step.conclusion,
+    TodaProp51FiniteDimensionalStatement,
+  ):
+    raise TypeError(
+      "prop51_step must conclude a "
+      "TodaProp51FiniteDimensionalStatement"
+    )
+
+  general_step = ProofStep(
+    conclusion=(
+      prop51_step
+      .conclusion
+      .higher_eta_group_relation
+    ),
+    premises=(
+      prop51_step,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=InferenceRule(
+      name=(
+        "Toda Proposition 5.1 "
+        "higher eta group relation"
+      ),
+      description=(
+        "Expose the higher-eta group component "
+        "of Toda Proposition 5.1 as a fixed "
+        "general literature statement."
+      ),
+      literature_reference=LiteratureReference(
+        label="Toda Proposition 5.1",
+        locator="Proposition 5.1",
+      ),
+    ),
+  )
+
+  return ProofStep(
+    conclusion=pi4_3_step.conclusion,
+    premises=(
+      pi4_3_step,
+      general_step,
+    ),
+    rule=ProofRule.INFERENCE,
+    inference_rule=InferenceRule(
+      name=(
+        "pi_4^3 Proposition 5.1 "
+        "specialization linkage"
+      ),
+      description=(
+        "Link the independently derived concrete "
+        "pi_4^3 group relation to the general "
+        "higher-eta group component of Toda "
+        "Proposition 5.1 without replacing the "
+        "existing pi_4^3 derivation."
+      ),
+    ),
+  )
+
 def _build_pi4_2_step(
   pi4_3_step: ProofStep,
   toda52_step: ProofStep,
+  prop51_step: ProofStep | None = None,
 ) -> ProofStep:
   eta_2 = HomotopyElement(
     name="η₂",
@@ -223,6 +323,16 @@ def _build_pi4_2_step(
     relation_type=RelationType.EQUALITY,
   )
 
+  effective_pi4_3_step = pi4_3_step
+
+  if prop51_step is not None:
+    effective_pi4_3_step = (
+      _build_pi4_3_prop51_specialization_link_step(
+        pi4_3_step,
+        prop51_step,
+      )
+    )
+
   from toda_rules import (
     toda_52_pi4_2_finite_cyclic_transport_inference_rule,
   )
@@ -230,7 +340,7 @@ def _build_pi4_2_step(
   result = run_inference_until_stable_with_history(
     toda_52_pi4_2_finite_cyclic_transport_inference_rule(),
     (
-      pi4_3_step,
+      effective_pi4_3_step,
       toda52_step,
     ),
   )
@@ -1754,14 +1864,15 @@ def build_toda_prop56_zero_argument_step() -> ProofStep:
     "final_group_step"
   ]
 
+  prop51_step = _build_prop51_step()
+
   pi4_2_step = _build_pi4_2_step(
     pi4_3_step,
     core[
       "toda52_step"
     ],
+    prop51_step=prop51_step,
   )
-
-  prop51_step = _build_prop51_step()
 
   n3_isomorphism_step = (
     _build_n3_suspension_isomorphism_step(

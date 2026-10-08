@@ -134,7 +134,7 @@ _EQUATION_51_COMPONENTS = (
     component_key="diagonal_identity_group",
     statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
     order=None,
-    range_text=None,
+    range_text="n >= 1",
     range_is_explicit_in_current_aggregate=True,
   ),
   TodaFixedStatementComponent(
@@ -186,7 +186,7 @@ _PROPOSITION_51_COMPONENTS = (
     component_key="higher_eta_group_relation",
     statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
     order=4,
-    range_text=None,
+    range_text="n >= 3",
     range_is_explicit_in_current_aggregate=False,
   ),
 )
@@ -573,6 +573,7 @@ _FIXED_RULE_COMPONENT_KEYS = {
     "nu_family_relations"
   ),
   "Toda Proposition 5.1 finite-dimensional integration": None,
+  "Toda Proposition 5.1 higher eta group relation": "higher_eta_group_relation",
   "Toda Proposition 5.3 finite-dimensional integration": None,
   "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport": (
     "pi5_3_group_relation"
@@ -607,6 +608,7 @@ _FIXED_RULE_COMPONENT_KEYS = {
 
 
 _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
+  "Toda Proposition 5.1 higher eta group relation": "Proposition 5.1",
   "Toda Equation 5.7 nu-prime eta_6 Hopf value": "(5.7)",
   "Toda (5.1) circle higher homotopy zero": "(5.1)",
   "Toda (5.1) diagonal identity group": "(5.1)",
@@ -700,7 +702,7 @@ _PHASE157_R5_R3_ADDITIONAL_COMPONENTS = {
       component_key="eta2_composition_isomorphism",
       statement_role=TodaLiteratureStatementRole.OTHER,
       order=None,
-      range_text=None,
+      range_text="i >= 3",
       range_is_explicit_in_current_aggregate=True,
     ),
   ),

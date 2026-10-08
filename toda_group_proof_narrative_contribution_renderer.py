@@ -1802,17 +1802,17 @@ def _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
 
 
 
-def _toda_group_proof_narrative_reference_statement_lines_by_number(
+def _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
   presentation: TodaGroupProofPresentation,
   reference_entries,
-) -> dict[
-  int,
-  tuple[
-    str,
-    ...,
-  ],
-]:
+):
   statement_lines_by_reference_number = {}
+  normalized_entries = []
+
+  presentation_steps = tuple(
+    node.proof_step
+    for node in presentation.nodes
+  )
 
   for entry in reference_entries:
     candidate_steps = []
@@ -1902,6 +1902,85 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
         ],
       )
 
+    replacement_by_step_id = {}
+
+    for proof_step in selected_steps:
+      component = (
+        _phase153_r6_reference_aggregate_component(
+          presentation,
+          entry,
+          proof_step,
+        )
+      )
+
+      if component is None:
+        continue
+
+      matching_fixed_component_steps = []
+
+      for candidate_step in presentation_steps:
+        if candidate_step.conclusion != component:
+          continue
+
+        boundary = (
+          classify_toda_literature_statement_step(
+            candidate_step
+          )
+        )
+
+        if (
+          boundary is None
+          or boundary.classification
+          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+          or boundary.reference_locator
+          != entry.reference.locator
+          or boundary.component_key is None
+        ):
+          continue
+
+        matching_fixed_component_steps.append(
+          candidate_step
+        )
+
+      unique_matching_steps = tuple(
+        dict.fromkeys(
+          matching_fixed_component_steps
+        )
+      )
+
+      if len(
+        unique_matching_steps
+      ) != 1:
+        continue
+
+      replacement_by_step_id[
+        id(
+          proof_step
+        )
+      ] = unique_matching_steps[
+        0
+      ]
+
+    if replacement_by_step_id:
+      normalized_entry = replace(
+        entry,
+        proof_steps=tuple(
+          replacement_by_step_id.get(
+            id(
+              proof_step
+            ),
+            proof_step,
+          )
+          for proof_step in entry.proof_steps
+        ),
+      )
+    else:
+      normalized_entry = entry
+
+    normalized_entries.append(
+      normalized_entry
+    )
+
     rendered_selected_by_step_id = {
       id(
         proof_step
@@ -1934,6 +2013,34 @@ def _toda_group_proof_narrative_reference_statement_lines_by_number(
       statement_lines_by_reference_number[
         entry.number
       ] = statement_lines
+
+  return (
+    tuple(
+      normalized_entries
+    ),
+    statement_lines_by_reference_number,
+  )
+
+
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
+  (
+    _,
+    statement_lines_by_reference_number,
+  ) = (
+    _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+      presentation,
+      reference_entries,
+    )
+  )
 
   return statement_lines_by_reference_number
 
@@ -2176,6 +2283,11 @@ def _phase154_r5_reference_source_steps_by_number(
 ]:
   source_steps_by_number = {}
 
+  presentation_steps = tuple(
+    node.proof_step
+    for node in presentation.nodes
+  )
+
   for entry in reference_entries:
     candidate_steps = []
     seen_rendered_statements = set()
@@ -2211,12 +2323,90 @@ def _phase154_r5_reference_source_steps_by_number(
       )
     )
 
+    effective_selected_steps = []
+    replaced_selected_step_ids = set()
+
+    for proof_step in selected_steps:
+      component = (
+        _phase153_r6_reference_aggregate_component(
+          presentation,
+          entry,
+          proof_step,
+        )
+      )
+
+      if component is None:
+        effective_selected_steps.append(
+          proof_step
+        )
+        continue
+
+      fixed_component_steps = []
+
+      for candidate_step in presentation_steps:
+        if candidate_step.conclusion != component:
+          continue
+
+        boundary = (
+          classify_toda_literature_statement_step(
+            candidate_step
+          )
+        )
+
+        if (
+          boundary is None
+          or boundary.classification
+          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+          or boundary.reference_locator
+          != entry.reference.locator
+          or boundary.component_key is None
+        ):
+          continue
+
+        fixed_component_steps.append(
+          candidate_step
+        )
+
+      unique_fixed_component_steps = tuple(
+        dict.fromkeys(
+          fixed_component_steps
+        )
+      )
+
+      if len(
+        unique_fixed_component_steps
+      ) != 1:
+        effective_selected_steps.append(
+          proof_step
+        )
+        continue
+
+      effective_selected_steps.append(
+        unique_fixed_component_steps[
+          0
+        ]
+      )
+      replaced_selected_step_ids.add(
+        id(
+          proof_step
+        )
+      )
+
     ordered_source_steps = []
     seen_step_ids = set()
 
+    fallback_entry_steps = tuple(
+      proof_step
+      for proof_step in entry.proof_steps
+      if id(
+        proof_step
+      )
+      not in replaced_selected_step_ids
+    )
+
     for proof_step in (
-      *selected_steps,
-      *entry.proof_steps,
+      *effective_selected_steps,
+      *fallback_entry_steps,
     ):
       proof_step_id = id(
         proof_step
@@ -2415,19 +2605,20 @@ def link_toda_group_proof_narrative_reference_body_consumers(
       for index, line in enumerate(
         lines
       )
-      if (
-        marker in line
-        and line.rstrip().endswith(
-          marker
-          + "を用いる."
-        )
-      )
+      if marker in line
     )
 
     if len(
       marker_indices
     ) != 1:
       continue
+
+    marker_index = marker_indices[
+      0
+    ]
+    marker_line = lines[
+      marker_index
+    ]
 
     current_body = "\n".join(
       lines
@@ -2449,7 +2640,7 @@ def link_toda_group_proof_narrative_reference_body_consumers(
         lines
       )
       if (
-        index != marker_indices[0]
+        index != marker_index
         and consumer_line in line
       )
     )
@@ -2459,14 +2650,69 @@ def link_toda_group_proof_narrative_reference_body_consumers(
     ) != 1:
       continue
 
-    marker_index = marker_indices[
-      0
-    ]
     consumer_index = consumer_indices[
       0
     ]
 
-    if consumer_index <= marker_index:
+    legacy_marker_only = (
+      marker_line
+      .rstrip()
+      .endswith(
+        marker
+        + "を用いる。"
+      )
+    )
+
+    rendered_source_lines = tuple(
+      rendered
+      for source_step in source_steps
+      for rendered in (
+        _render_generic_narrative_step(
+          source_step
+        ),
+      )
+      if rendered
+    )
+
+    self_reference_marker = (
+      not legacy_marker_only
+      and any(
+        rendered_source in marker_line
+        for rendered_source in rendered_source_lines
+      )
+      and consumer_line not in marker_line
+    )
+
+    if legacy_marker_only:
+      if consumer_index <= marker_index:
+        continue
+
+      lines[
+        marker_index
+      ] = (
+        marker
+        + "より, "
+        + consumer_line
+      )
+      del lines[
+        consumer_index
+      ]
+      continue
+
+    if not self_reference_marker:
+      continue
+
+    if consumer_index < marker_index:
+      lines[
+        consumer_index
+      ] = (
+        marker
+        + "より, "
+        + consumer_line
+      )
+      del lines[
+        marker_index
+      ]
       continue
 
     lines[
@@ -3239,6 +3485,164 @@ def _toda_group_proof_narrative_reference_owned_step_ids(
   )
 
 
+def _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
+  presentation: TodaGroupProofPresentation,
+) -> frozenset[int]:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  root_step = presentation.root_step
+  root_boundary = (
+    classify_toda_literature_statement_step(
+      root_step
+    )
+  )
+
+  if (
+    root_boundary is None
+    or root_boundary.classification
+    is not TodaLiteratureStatementClassification.PROOF_INTERNAL
+    or root_boundary.reference_locator is None
+  ):
+    return frozenset()
+
+  boundary_steps = tuple(
+    node.proof_step
+    for node in presentation.nodes
+    for boundary in (
+      classify_toda_literature_statement_step(
+        node.proof_step
+      ),
+    )
+    if (
+      boundary is not None
+      and boundary.classification
+      is TodaLiteratureStatementClassification.FIXED_STATEMENT
+      and boundary.reference_locator
+      == root_boundary.reference_locator
+    )
+  )
+
+  if not boundary_steps:
+    return frozenset()
+
+  consumers_by_step_id = {}
+
+  for edge in presentation.edges:
+    consumers_by_step_id.setdefault(
+      id(
+        edge.premise_step
+      ),
+      [],
+    ).append(
+      edge.parent_step
+    )
+
+  root_ancestor_ids = {
+    id(
+      root_step
+    )
+  }
+  changed = True
+
+  while changed:
+    changed = False
+
+    for edge in presentation.edges:
+      if id(
+        edge.parent_step
+      ) not in root_ancestor_ids:
+        continue
+
+      premise_step_id = id(
+        edge.premise_step
+      )
+
+      if premise_step_id in root_ancestor_ids:
+        continue
+
+      root_ancestor_ids.add(
+        premise_step_id
+      )
+      changed = True
+
+  active_boundary_steps = tuple(
+    proof_step
+    for proof_step in boundary_steps
+    if id(
+      proof_step
+    ) in root_ancestor_ids
+  )
+
+  if not active_boundary_steps:
+    return frozenset()
+
+  closure_step_ids = {
+    id(
+      proof_step
+    )
+    for proof_step in active_boundary_steps
+  }
+  internal_step_ids = set()
+
+  changed = True
+
+  while changed:
+    changed = False
+
+    for edge in presentation.edges:
+      if id(
+        edge.parent_step
+      ) not in closure_step_ids:
+        continue
+
+      premise_step = edge.premise_step
+      premise_step_id = id(
+        premise_step
+      )
+
+      if (
+        premise_step is root_step
+        or premise_step_id in closure_step_ids
+      ):
+        continue
+
+      consumers = tuple(
+        consumers_by_step_id.get(
+          premise_step_id,
+          (),
+        )
+      )
+
+      if not consumers:
+        continue
+
+      if not all(
+        id(
+          consumer
+        )
+        in closure_step_ids
+        for consumer in consumers
+      ):
+        continue
+
+      closure_step_ids.add(
+        premise_step_id
+      )
+      internal_step_ids.add(
+        premise_step_id
+      )
+      changed = True
+
+  return frozenset(
+    internal_step_ids
+  )
+
 def _toda_group_proof_narrative_reference_internal_step_ids(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -3299,10 +3703,23 @@ def _toda_group_proof_narrative_reference_internal_step_ids(
     )
   )
 
+  root_fixed_internal_step_ids = (
+    _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
+      presentation
+    )
+  )
+
   return frozenset(
-    step_id
-    for step_id in owned_step_ids
-    if step_id not in selected_step_ids
+    (
+      {
+        step_id
+        for step_id in owned_step_ids
+        if step_id not in selected_step_ids
+      }
+      | set(
+        root_fixed_internal_step_ids
+      )
+    )
   )
 
 
@@ -9386,6 +9803,380 @@ def suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements(
 
 
 
+def _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_plan(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+):
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  root_step = presentation.root_step
+
+  if not isinstance(
+    root_step.conclusion,
+    Relation,
+  ):
+    return None
+
+  target_group = (
+    root_step.conclusion.lhs
+  )
+
+  if not isinstance(
+    target_group,
+    TodaPrimaryGroup,
+  ):
+    return None
+
+  target_dimension = (
+    target_group.group_dimension
+  )
+
+  if (
+    not isinstance(
+      target_dimension,
+      int,
+    )
+    or isinstance(
+      target_dimension,
+      bool,
+    )
+  ):
+    return None
+
+  matches = []
+
+  for entry in reference_entries:
+    for proof_step in entry.proof_steps:
+      boundary = (
+        classify_toda_literature_statement_step(
+          proof_step
+        )
+      )
+
+      if (
+        boundary is None
+        or boundary.classification
+        is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+        or boundary.component_key
+        != "eta2_composition_isomorphism"
+      ):
+        continue
+
+      statement = proof_step.conclusion
+      source_group = getattr(
+        statement,
+        "source_group",
+        None,
+      )
+      map_target_group = getattr(
+        statement,
+        "target_group",
+        None,
+      )
+      composition = getattr(
+        statement,
+        "composition",
+        None,
+      )
+
+      if (
+        not isinstance(
+          source_group,
+          TodaPrimaryGroup,
+        )
+        or not isinstance(
+          map_target_group,
+          TodaPrimaryGroup,
+        )
+        or composition is None
+      ):
+        continue
+
+      symbol = (
+        map_target_group.group_dimension
+      )
+
+      if not isinstance(
+        symbol,
+        ScalarSymbol,
+      ):
+        continue
+
+      specialized_source = (
+        _phase159_r1_7c_r3_specialize_primary_group(
+          source_group,
+          symbol,
+          target_dimension,
+        )
+      )
+      specialized_target = (
+        _phase159_r1_7c_r3_specialize_primary_group(
+          map_target_group,
+          symbol,
+          target_dimension,
+        )
+      )
+
+      if (
+        specialized_source is None
+        or specialized_target != target_group
+      ):
+        continue
+
+      source_steps = tuple(
+        premise_step
+        for premise_step in root_step.premises
+        if (
+          isinstance(
+            premise_step.conclusion,
+            Relation,
+          )
+          and premise_step.conclusion.lhs
+          == specialized_source
+        )
+      )
+
+      if len(
+        source_steps
+      ) != 1:
+        continue
+
+      source_step = source_steps[
+        0
+      ]
+      source_structure = (
+        source_step.conclusion.rhs
+      )
+      target_structure = (
+        root_step.conclusion.rhs
+      )
+      source_generator = getattr(
+        source_structure,
+        "generator",
+        None,
+      )
+      target_generator = getattr(
+        target_structure,
+        "generator",
+        None,
+      )
+      source_order = getattr(
+        source_structure,
+        "order",
+        None,
+      )
+      target_order = getattr(
+        target_structure,
+        "order",
+        None,
+      )
+
+      if (
+        source_generator is None
+        or target_generator is None
+        or source_order != target_order
+      ):
+        continue
+
+      matches.append(
+        (
+          entry,
+          proof_step,
+          source_step,
+          specialized_source,
+          specialized_target,
+          source_generator,
+          target_generator,
+          target_dimension,
+        )
+      )
+
+  if len(
+    matches
+  ) != 1:
+    return None
+
+  return matches[
+    0
+  ]
+
+
+def specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application(
+  presentation: TodaGroupProofPresentation,
+  markdown: str,
+  reference_entries,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  plan = (
+    _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_plan(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  if plan is None:
+    return markdown
+
+  (
+    entry,
+    fixed_step,
+    source_step,
+    specialized_source,
+    specialized_target,
+    source_generator,
+    target_generator,
+    target_dimension,
+  ) = plan
+
+  marker = (
+    "[R"
+    + str(
+      entry.number
+    )
+    + "]"
+  )
+  specialized_map_paragraph = (
+    marker
+    + "を $i="
+    + str(
+      target_dimension
+    )
+    + "$ に適用すると, "
+    + r"$\eta_{2}\circ -: "
+    + render_toda_primary_group_latex(
+      specialized_source
+    )
+    + r" \to "
+    + render_toda_primary_group_latex(
+      specialized_target
+    )
+    + "$ は同型である."
+  )
+  generator_paragraph = (
+    "この同型で, $"
+    + render_toda_expression_latex(
+      source_generator
+    )
+    + r" \mapsto "
+    + render_toda_expression_latex(
+      target_generator
+    )
+    + "$."
+  )
+
+  if specialized_map_paragraph in markdown:
+    return markdown
+
+  fixed_rendered = (
+    _render_generic_narrative_step(
+      fixed_step
+    )
+  )
+  source_rendered = (
+    _render_generic_narrative_step(
+      source_step
+    )
+  )
+  root_rendered = (
+    _render_generic_narrative_step(
+      presentation.root_step
+    )
+  )
+
+  paragraphs = markdown.split(
+    "\n\n"
+  )
+  retained = []
+
+  for paragraph in paragraphs:
+    if (
+      fixed_rendered
+      and fixed_rendered in paragraph
+    ):
+      continue
+
+    retained.append(
+      paragraph
+    )
+
+  insertion_index = None
+
+  if source_rendered:
+    matching_indices = tuple(
+      index
+      for index, paragraph in enumerate(
+        retained
+      )
+      if source_rendered in paragraph
+    )
+
+    if len(
+      matching_indices
+    ) == 1:
+      insertion_index = (
+        matching_indices[
+          0
+        ]
+        + 1
+      )
+
+  if (
+    insertion_index is None
+    and root_rendered
+  ):
+    matching_indices = tuple(
+      index
+      for index, paragraph in enumerate(
+        retained
+      )
+      if root_rendered in paragraph
+    )
+
+    if len(
+      matching_indices
+    ) == 1:
+      insertion_index = (
+        matching_indices[
+          0
+        ]
+      )
+
+  if insertion_index is None:
+    return markdown
+
+  retained[
+    insertion_index:
+    insertion_index
+  ] = [
+    specialized_map_paragraph,
+    generator_paragraph,
+  ]
+
+  return "\n\n".join(
+    retained
+  )
+
 def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown(
   presentation: TodaGroupProofPresentation,
   blocks: tuple[
@@ -9443,8 +10234,11 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation.root_step,
     )
   )
-  statement_lines_by_reference_number = (
-    _toda_group_proof_narrative_reference_statement_lines_by_number(
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
       presentation,
       reference_entries,
     )
@@ -9465,6 +10259,7 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation.root_step,
     )
   )
+
   reference_owned_step_ids = (
     _toda_group_proof_narrative_reference_owned_step_ids(
       presentation,
@@ -9677,6 +10472,14 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
   )
 
   rendered = (
+    specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application(
+      presentation,
+      rendered,
+      reference_entries,
+    )
+  )
+
+  rendered = (
     suppress_toda_group_proof_narrative_literal_reflexive_equalities(
       rendered
     )
@@ -9732,6 +10535,13 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
         presentation=presentation,
       )
     )
+    rendered = (
+      link_toda_group_proof_narrative_unmarked_reference_consumers(
+        presentation,
+        rendered,
+        reference_entries,
+      )
+    )
   else:
     frontier_step_ids = (
       _toda_group_proof_narrative_reference_frontier_step_ids(
@@ -9785,6 +10595,14 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     order_toda_group_proof_narrative_injective_image_order_reason(
       rendered,
       reason_sidecar,
+    )
+  )
+
+  rendered = (
+    link_toda_group_proof_narrative_reference_body_consumers(
+      presentation,
+      rendered,
+      reference_entries,
     )
   )
 

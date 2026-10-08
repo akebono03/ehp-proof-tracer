@@ -174,36 +174,75 @@ def _same_toda_group_proof_literature_reference(
 def build_toda_group_proof_narrative_reference_entries(
   presentation: TodaGroupProofPresentation,
 ) -> tuple[TodaGroupProofNarrativeReferenceEntry, ...]:
-  if not isinstance(presentation, TodaGroupProofPresentation):
-    raise TypeError("presentation must be a TodaGroupProofPresentation")
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
 
   references = []
   steps_by_reference = []
 
   for node in presentation.nodes:
     proof_step = node.proof_step
-    reference = extract_toda_group_proof_step_literature_reference(
-      proof_step
+    reference = (
+      extract_toda_group_proof_step_literature_reference(
+        proof_step
+      )
     )
+
     if reference is None:
       continue
 
-    try:
-      index = references.index(reference)
-    except ValueError:
-      references.append(reference)
-      steps_by_reference.append([proof_step])
-    else:
-      steps_by_reference[index].append(proof_step)
+    matching_index = next(
+      (
+        index
+        for index, existing_reference in enumerate(
+          references
+        )
+        if _same_toda_group_proof_literature_reference(
+          existing_reference,
+          reference,
+        )
+      ),
+      None,
+    )
+
+    if matching_index is None:
+      references.append(
+        reference
+      )
+      steps_by_reference.append(
+        [
+          proof_step,
+        ]
+      )
+      continue
+
+    steps_by_reference[
+      matching_index
+    ].append(
+      proof_step
+    )
 
   return tuple(
     TodaGroupProofNarrativeReferenceEntry(
       number=number,
       reference=reference,
-      proof_steps=tuple(proof_steps),
+      proof_steps=tuple(
+        proof_steps
+      ),
     )
-    for number, (reference, proof_steps) in enumerate(
-      zip(references, steps_by_reference),
+    for number, (
+      reference,
+      proof_steps,
+    ) in enumerate(
+      zip(
+        references,
+        steps_by_reference,
+      ),
       start=1,
     )
   )
@@ -296,9 +335,52 @@ def exclude_toda_group_proof_narrative_root_reference(
       )
       continue
 
+    if root_boundary is None:
+      continue
+
     if (
-      root_boundary is None
-      or root_boundary.classification
+      root_boundary.classification
+      is TodaLiteratureStatementClassification.PROOF_INTERNAL
+    ):
+      fixed_steps = []
+
+      for proof_step in entry.proof_steps:
+        if proof_step is root_step:
+          continue
+
+        boundary = (
+          classify_toda_literature_statement_step(
+            proof_step
+          )
+        )
+
+        if (
+          boundary is None
+          or boundary.classification
+          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+          or boundary.reference_locator
+          != root_boundary.reference_locator
+        ):
+          continue
+
+        fixed_steps.append(
+          proof_step
+        )
+
+      if fixed_steps:
+        retained_entries.append(
+          replace(
+            entry,
+            proof_steps=tuple(
+              fixed_steps
+            ),
+          )
+        )
+
+      continue
+
+    if (
+      root_boundary.classification
       is not TodaLiteratureStatementClassification.FIXED_STATEMENT
       or root_boundary.component_key is None
     ):
@@ -2063,10 +2145,23 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
           )
 
       if "diagonal_identity_group" in component_keys:
+        component = get_toda_fixed_statement_component(
+          "(5.1)",
+          "diagonal_identity_group",
+        )
+        range_latex = ""
+        if component.range_text is not None:
+          range_latex = (
+            r"\qquad ("
+            + component.range_text.replace(">=", r"\ge").replace("<=", r"\le")
+            + ")"
+          )
         lines.append(
           (
             r"$\pi_{n}^{n} = "
-            r"\mathbb{Z}\{\iota_{n}\}$."
+            r"\mathbb{Z}\{\iota_{n}\}"
+            + range_latex
+            + "$."
           )
         )
 
@@ -2082,8 +2177,51 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
     )
 
     for statement_line in statement_lines:
-      lines.append(
-        statement_line
-      )
+      # A catalog range belongs to its general formula, not to an
+      # unrelated specialization or another component of the same theorem.
+      applicable_ranges = []
+      fixed_keys = set()
+      for proof_step in entry.proof_steps:
+        boundary = classify_toda_literature_statement_step(proof_step)
+        if (
+          boundary is not None
+          and boundary.classification
+          == TodaLiteratureStatementClassification.FIXED_STATEMENT
+          and boundary.reference_locator == entry.reference.locator
+          and boundary.component_key is not None
+        ):
+          fixed_keys.add(boundary.component_key)
+
+      for component in get_toda_fixed_statement_components(
+        entry.reference.locator
+      ):
+        if component.range_text is None:
+          continue
+        range_variable = component.range_text.split()[0]
+        # Symbolic indices are required in the displayed formula.
+        if re.search(
+          r"(?<![A-Za-z])" + re.escape(range_variable) + r"(?![A-Za-z])",
+          statement_line,
+        ) is None:
+          continue
+        # Explicit component matches are preferred; aggregate carriers
+        # can use the unique matching symbolic statement component.
+        if fixed_keys and component.component_key not in fixed_keys:
+          continue
+        rendered_range = (
+          component.range_text.replace(">=", r"\ge")
+          .replace("<=", r"\le")
+        )
+        if rendered_range not in applicable_ranges:
+          applicable_ranges.append(rendered_range)
+
+      if len(applicable_ranges) == 1 and statement_line.startswith("$"):
+        range_suffix = r"$\;(" + applicable_ranges[0].strip() + ")$"
+        if range_suffix not in statement_line:
+          if statement_line.endswith("."):
+            statement_line = statement_line[:-1] + " " + range_suffix + "."
+          else:
+            statement_line += " " + range_suffix
+      lines.append(statement_line)
 
   return "\n".join(lines)

@@ -1,0 +1,202 @@
+def _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_plan(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+):
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  root_step = presentation.root_step
+
+  if not isinstance(
+    root_step.conclusion,
+    Relation,
+  ):
+    return None
+
+  target_group = (
+    root_step.conclusion.lhs
+  )
+
+  if not isinstance(
+    target_group,
+    TodaPrimaryGroup,
+  ):
+    return None
+
+  target_dimension = (
+    target_group.group_dimension
+  )
+
+  if (
+    not isinstance(
+      target_dimension,
+      int,
+    )
+    or isinstance(
+      target_dimension,
+      bool,
+    )
+  ):
+    return None
+
+  matches = []
+
+  for entry in reference_entries:
+    for proof_step in entry.proof_steps:
+      boundary = (
+        classify_toda_literature_statement_step(
+          proof_step
+        )
+      )
+
+      if (
+        boundary is None
+        or boundary.classification
+        is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+        or boundary.component_key
+        != "eta2_composition_isomorphism"
+      ):
+        continue
+
+      statement = proof_step.conclusion
+      map_object = getattr(
+        statement,
+        "map",
+        None,
+      )
+
+      if map_object is None:
+        continue
+
+      source_group = getattr(
+        map_object,
+        "source_group",
+        None,
+      )
+      map_target_group = getattr(
+        map_object,
+        "target_group",
+        None,
+      )
+
+      if (
+        not isinstance(
+          source_group,
+          TodaPrimaryGroup,
+        )
+        or not isinstance(
+          map_target_group,
+          TodaPrimaryGroup,
+        )
+      ):
+        continue
+
+      symbol = (
+        map_target_group.group_dimension
+      )
+
+      if not isinstance(
+        symbol,
+        ScalarSymbol,
+      ):
+        continue
+
+      specialized_source = (
+        _phase159_r1_7c_r3_specialize_primary_group(
+          source_group,
+          symbol,
+          target_dimension,
+        )
+      )
+      specialized_target = (
+        _phase159_r1_7c_r3_specialize_primary_group(
+          map_target_group,
+          symbol,
+          target_dimension,
+        )
+      )
+
+      if specialized_target != target_group:
+        continue
+
+      source_steps = tuple(
+        premise_step
+        for premise_step in root_step.premises
+        if (
+          isinstance(
+            premise_step.conclusion,
+            Relation,
+          )
+          and premise_step.conclusion.lhs
+          == specialized_source
+        )
+      )
+
+      if len(
+        source_steps
+      ) != 1:
+        continue
+
+      source_step = source_steps[
+        0
+      ]
+      source_structure = (
+        source_step.conclusion.rhs
+      )
+      target_structure = (
+        root_step.conclusion.rhs
+      )
+      source_generator = getattr(
+        source_structure,
+        "generator",
+        None,
+      )
+      target_generator = getattr(
+        target_structure,
+        "generator",
+        None,
+      )
+      source_order = getattr(
+        source_structure,
+        "order",
+        None,
+      )
+      target_order = getattr(
+        target_structure,
+        "order",
+        None,
+      )
+
+      if (
+        source_generator is None
+        or target_generator is None
+        or source_order != target_order
+      ):
+        continue
+
+      matches.append(
+        (
+          entry,
+          proof_step,
+          source_step,
+          specialized_source,
+          specialized_target,
+          source_generator,
+          target_generator,
+          target_dimension,
+        )
+      )
+
+  if len(
+    matches
+  ) != 1:
+    return None
+
+  return matches[
+    0
+  ]

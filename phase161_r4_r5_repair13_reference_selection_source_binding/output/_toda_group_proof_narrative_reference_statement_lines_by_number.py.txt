@@ -1,0 +1,21 @@
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
+  (
+    _,
+    statement_lines_by_reference_number,
+  ) = (
+    _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  return statement_lines_by_reference_number

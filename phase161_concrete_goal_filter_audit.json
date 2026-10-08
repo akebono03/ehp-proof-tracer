@@ -1,0 +1,52 @@
+{
+  "purpose": "Concrete-goal matching capability audit. No per-type beam, no fabricated ProofStep; NOT a completed goal-only proof search.",
+  "goal_only_input": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "scope_node_count": 3614,
+  "witness_step_count": 1839,
+  "catalog_entry_count": 1268,
+  "uses_existing_target_ancestry_as_witness": true,
+  "uses_witnesses_for_new_proof": false,
+  "audit": {
+    "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+    "type_candidate_count": 31,
+    "invertible_pattern_count": 0,
+    "pattern_exact_count": 0,
+    "pattern_incompatible_count": 0,
+    "builder_only_count": 17,
+    "non_executable_count": 14,
+    "actual_match_count": 689,
+    "exact_output_count": 343,
+    "exact_producer_keys": [
+      "standard.production.applicability.0020",
+      "standard.production.applicability.0218",
+      "standard.production.applicability.0240",
+      "standard.production.applicability.0636",
+      "standard.production.applicability.0684",
+      "standard.production.applicability.0756",
+      "standard.production.applicability.0828"
+    ],
+    "builder_only_keys": [
+      "standard.production.applicability.0020",
+      "standard.production.applicability.0108",
+      "standard.production.applicability.0218",
+      "standard.production.applicability.0220",
+      "standard.production.applicability.0240",
+      "standard.production.applicability.0412",
+      "standard.production.applicability.0510",
+      "standard.production.applicability.0511",
+      "standard.production.applicability.0512",
+      "standard.production.applicability.0636",
+      "standard.production.applicability.0638",
+      "standard.production.applicability.0684",
+      "standard.production.applicability.0756",
+      "standard.production.applicability.0758",
+      "standard.production.applicability.0828",
+      "standard.production.applicability.1055",
+      "standard.production.applicability.1150"
+    ],
+    "errors": [],
+    "concrete_goal_filter_usable_without_premises": 0,
+    "builder_only_needs_forward_witness": 17
+  },
+  "status": "CONCRETE_BACKWARD_METADATA_GAP_CONFIRMED"
+}

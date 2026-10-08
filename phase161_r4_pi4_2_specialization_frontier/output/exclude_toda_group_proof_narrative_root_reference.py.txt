@@ -1,0 +1,222 @@
+def exclude_toda_group_proof_narrative_root_reference(
+  entries: tuple[
+    TodaGroupProofNarrativeReferenceEntry,
+    ...,
+  ],
+  statement_lines_by_reference_number: dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+  root_step: ProofStep,
+) -> tuple[
+  tuple[
+    TodaGroupProofNarrativeReferenceEntry,
+    ...,
+  ],
+  dict[
+    int,
+    tuple[
+      str,
+      ...,
+    ],
+  ],
+]:
+  if not isinstance(entries, tuple):
+    raise TypeError("entries must be a tuple")
+
+  if not all(
+    isinstance(
+      entry,
+      TodaGroupProofNarrativeReferenceEntry,
+    )
+    for entry in entries
+  ):
+    raise TypeError(
+      "entries must contain only "
+      "TodaGroupProofNarrativeReferenceEntry objects"
+    )
+
+  if not isinstance(
+    statement_lines_by_reference_number,
+    dict,
+  ):
+    raise TypeError(
+      "statement_lines_by_reference_number must be a dict"
+    )
+
+  if not isinstance(
+    root_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "root_step must be a ProofStep"
+    )
+
+  root_reference = (
+    extract_toda_group_proof_step_literature_reference(
+      root_step
+    )
+  )
+
+  if root_reference is None:
+    return (
+      entries,
+      statement_lines_by_reference_number,
+    )
+
+  root_boundary = (
+    classify_toda_literature_statement_step(
+      root_step
+    )
+  )
+
+  retained_entries = []
+
+  for entry in entries:
+    if not _same_toda_group_proof_literature_reference(
+      entry.reference,
+      root_reference,
+    ):
+      retained_entries.append(
+        entry
+      )
+      continue
+
+    if root_boundary is None:
+      continue
+
+    if (
+      root_boundary.classification
+      is TodaLiteratureStatementClassification.PROOF_INTERNAL
+    ):
+      fixed_steps = []
+
+      for proof_step in entry.proof_steps:
+        if proof_step is root_step:
+          continue
+
+        boundary = (
+          classify_toda_literature_statement_step(
+            proof_step
+          )
+        )
+
+        if (
+          boundary is None
+          or boundary.classification
+          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+          or boundary.reference_locator
+          != root_boundary.reference_locator
+        ):
+          continue
+
+        fixed_steps.append(
+          proof_step
+        )
+
+      if fixed_steps:
+        retained_entries.append(
+          replace(
+            entry,
+            proof_steps=tuple(
+              fixed_steps
+            ),
+          )
+        )
+
+      continue
+
+    if (
+      root_boundary.classification
+      is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+      or root_boundary.component_key is None
+    ):
+      continue
+
+    eligible_steps = []
+
+    for proof_step in entry.proof_steps:
+      boundary = (
+        classify_toda_literature_statement_step(
+          proof_step
+        )
+      )
+
+      if (
+        boundary is None
+        or boundary.classification
+        is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+        or boundary.reference_locator
+        != root_boundary.reference_locator
+        or boundary.component_key is None
+      ):
+        continue
+
+      component = get_toda_fixed_statement_component(
+        boundary.reference_locator,
+        boundary.component_key,
+      )
+
+      if not (
+        is_toda_fixed_statement_component_reference_eligible(
+          component,
+          root_boundary.reference_locator,
+          root_boundary.component_key,
+        )
+      ):
+        continue
+
+      eligible_steps.append(
+        proof_step
+      )
+
+    if eligible_steps:
+      retained_entries.append(
+        replace(
+          entry,
+          proof_steps=tuple(
+            eligible_steps
+          ),
+        )
+      )
+
+  retained_entries = tuple(
+    retained_entries
+  )
+
+  number_map = {
+    entry.number: new_number
+    for new_number, entry in enumerate(
+      retained_entries,
+      start=1,
+    )
+  }
+
+  filtered_entries = tuple(
+    replace(
+      entry,
+      number=number_map[
+        entry.number
+      ],
+    )
+    for entry in retained_entries
+  )
+
+  filtered_statement_lines = {
+    number_map[
+      entry.number
+    ]: statement_lines_by_reference_number[
+      entry.number
+    ]
+    for entry in retained_entries
+    if entry.number
+    in statement_lines_by_reference_number
+  }
+
+  return (
+    filtered_entries,
+    filtered_statement_lines,
+  )

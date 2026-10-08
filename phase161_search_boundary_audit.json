@@ -1,0 +1,91 @@
+{
+  "scope": "Read-only seeded Phase 59 rule/premise catalog, NOT production goal-only search",
+  "initial_premises": 6,
+  "registered_rules": 7,
+  "goals": [
+    {
+      "goal": "delta_injective",
+      "goal_type": "TodaDeltaInjectiveStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.0"
+      ],
+      "search_status": "SUCCESS",
+      "search_producer_nodes": 0,
+      "forward_derived": true,
+      "forward_proof_depth": 15,
+      "forward_rule": "Toda Proposition 5.1 n=3 Delta injectivity"
+    },
+    {
+      "goal": "hopf_zero",
+      "goal_type": "TodaHopfInvariantZeroStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.1"
+      ],
+      "search_status": "SUCCESS",
+      "search_producer_nodes": 1,
+      "forward_derived": true,
+      "forward_proof_depth": 16,
+      "forward_rule": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero"
+    },
+    {
+      "goal": "suspension_surjective",
+      "goal_type": "TodaSuspensionSurjectiveStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.2"
+      ],
+      "search_status": "SUCCESS",
+      "search_producer_nodes": 2,
+      "forward_derived": true,
+      "forward_proof_depth": 17,
+      "forward_rule": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective"
+    },
+    {
+      "goal": "hopf_surjective",
+      "goal_type": "TodaHopfInvariantSurjectiveStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.3"
+      ],
+      "search_status": "SUCCESS",
+      "search_producer_nodes": 0,
+      "forward_derived": true,
+      "forward_proof_depth": 15,
+      "forward_rule": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity"
+    },
+    {
+      "goal": "delta_zero",
+      "goal_type": "TodaDeltaZeroStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.4"
+      ],
+      "search_status": "SUCCESS",
+      "search_producer_nodes": 1,
+      "forward_derived": true,
+      "forward_proof_depth": 16,
+      "forward_rule": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero"
+    },
+    {
+      "goal": "suspension_injective",
+      "goal_type": "TodaSuspensionInjectiveStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.5"
+      ],
+      "search_status": "SUCCESS",
+      "search_producer_nodes": 2,
+      "forward_derived": true,
+      "forward_proof_depth": 17,
+      "forward_rule": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective"
+    },
+    {
+      "goal": "suspension_isomorphism",
+      "goal_type": "TodaSuspensionIsomorphismStatement",
+      "catalog_matching_rules": [
+        "phase161.boundary.rule.6"
+      ],
+      "search_status": "DEPTH_LIMIT",
+      "search_producer_nodes": 0,
+      "forward_derived": true,
+      "forward_proof_depth": 18,
+      "forward_rule": "Toda Proposition 5.3 n=3 suspension isomorphism"
+    }
+  ]
+}
