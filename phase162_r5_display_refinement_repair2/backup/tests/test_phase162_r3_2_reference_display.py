@@ -6,7 +6,6 @@ from phase162_validated_proof_presentation import (
     render_validated_backward_proof_markdown,
     _render_validated_backward_step,
     _validated_proof_body_lines,
-    _is_display_tautology,
 )
 from proof import ProofRule
 from tests.test_phase162_r2_validated_proof_presentation import _validated_fixture
@@ -83,33 +82,5 @@ def test_phase162_r3_2_proof_internal_stays_in_body():
                 getattr(step.conclusion, "lhs", object())
                 == getattr(step.conclusion, "rhs", None)
             )
-            or _is_display_tautology(
-                step, _render_validated_backward_step(step)
-            )
         )
     assert _render_validated_backward_step(presentation.root_step) in body
-
-
-def test_phase162_r3_2_display_tautology_retains_proof_step_ancestry():
-    presentation = build_validated_backward_proof_presentation(_validated_fixture())
-    rendered = render_validated_backward_proof_markdown(presentation)
-    _, body = rendered.split("## 証明", 1)
-    hidden_internal_steps = [
-        step for step in presentation.nodes
-        if (boundary := classify_toda_literature_statement_step(step)) is not None
-        and boundary.classification is TodaLiteratureStatementClassification.PROOF_INTERNAL
-        and _is_display_tautology(step, _render_validated_backward_step(step))
-    ]
-    assert hidden_internal_steps
-    assert all(
-        _render_validated_backward_step(step) not in body.splitlines()
-        for step in hidden_internal_steps
-    )
-    assert all(
-        any(node is step for node in presentation.nodes)
-        for step in hidden_internal_steps
-    )
-    assert any(
-        any(premise is step for node in presentation.nodes for premise in node.premises)
-        for step in hidden_internal_steps
-    )

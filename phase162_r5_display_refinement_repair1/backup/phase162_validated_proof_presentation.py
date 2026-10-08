@@ -5,7 +5,6 @@ The established common ProofStep statement renderer remains the prose source.
 """
 
 from dataclasses import dataclass
-import re
 
 from phase161_r7_premise_provenance_validation import (
     ValidatedBackwardReconstruction,
@@ -185,35 +184,16 @@ def _render_validated_reference_section(
     )
 
 
-def _is_display_tautology(step: ProofStep, prose: str) -> bool:
-    """Hide a visibly reflexive equality, without changing its ProofStep."""
-    statement = step.conclusion
-    if not isinstance(statement, Relation) or statement.relation_type is not RelationType.EQUALITY:
-        return False
-    normalized = prose.strip().rstrip(".。")
-    match = re.fullmatch(r"\$([^$]+)\$", normalized)
-    if match is None:
-        return False
-    parts = match.group(1).split(" = ")
-    return len(parts) == 2 and parts[0].strip() == parts[1].strip()
-
-
 def _validated_proof_body_lines(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
 ) -> tuple[str, ...]:
-    """Suppress duplicate display without modifying validated proof ancestry.
+    """Render only meaningful distinct conclusions without changing proof ancestry.
 
-    ProofStep identity and semantic equality continue to control reference
-    attribution and mathematical inference. Text-based checks are used ONLY
-    for redundant public presentation, never for proof validity.
+    Semantic equality, rather than rendered-string equality, identifies repeated
+    conclusions. This affects display only; the verified proof DAG is untouched.
     """
     seen_conclusions = []
-    seen_rendered = set()
-    reference_lines = set()
-    for entry in build_validated_proof_reference_entries(presentation):
-        for fixed_step in entry.proof_steps:
-            reference_lines.add(_render_validated_backward_step(fixed_step).strip())
     lines = []
     for step in presentation.nodes:
         if step.rule is ProofRule.GIVEN or id(step) in reference_step_ids:
@@ -229,12 +209,6 @@ def _validated_proof_body_lines(
             continue
         seen_conclusions.append(statement)
         prose = _render_validated_backward_step(step)
-        normalized = prose.strip()
-        if _is_display_tautology(step, prose):
-            continue
-        if normalized in seen_rendered or normalized in reference_lines:
-            continue
-        seen_rendered.add(normalized)
         if (
             any(
                 isinstance(premise.conclusion, TodaProp42ExactnessStatement)

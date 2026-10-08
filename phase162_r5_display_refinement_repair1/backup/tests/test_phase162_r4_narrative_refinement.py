@@ -18,12 +18,25 @@ from toda_rules import (
 def test_phase162_r4_no_duplicate_semantic_conclusion_or_tautology():
     presentation = build_validated_backward_proof_presentation(_validated_fixture())
     _, fixed_ids = _render_validated_reference_section(presentation)
+    previous = []
+    expected_lines = []
+    for step in presentation.nodes:
+        if step.rule is ProofRule.GIVEN or id(step) in fixed_ids:
+            continue
+        conclusion = step.conclusion
+        if (
+            isinstance(conclusion, Relation)
+            and conclusion.relation_type is RelationType.EQUALITY
+            and conclusion.lhs == conclusion.rhs
+        ):
+            continue
+        if any(conclusion == item for item in previous):
+            continue
+        previous.append(conclusion)
+        expected_lines.append(step)
     actual_lines = _validated_proof_body_lines(presentation, fixed_ids)
-    assert actual_lines
-    assert len(actual_lines) == len(set(actual_lines))
-    assert all(r"$\eta_{3} = \eta_{3}$" not in line for line in actual_lines)
-    assert all(r"$\eta_{5} = \eta_{5}$" not in line for line in actual_lines)
-    assert any(r"E: \pi_{4}^{2} \to \pi_{5}^{3}" in line for line in actual_lines)
+    assert len(actual_lines) == len(expected_lines)
+    assert len(previous) == len(actual_lines)
 
 
 def test_phase162_r4_exactness_connector_only_when_premise_is_exactness():

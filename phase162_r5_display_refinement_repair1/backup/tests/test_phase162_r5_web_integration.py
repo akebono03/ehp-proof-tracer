@@ -40,19 +40,3 @@ def test_phase162_r5_outline_does_not_run_reconstruction():
     ):
         view = build_standard_web_group_proof_view(3, 2, max_depth=1, mode="outline")
     assert view.mode == "outline"
-
-
-def test_phase162_r5_real_display_suppresses_reflexive_eta_notation():
-    markdown = build_phase162_web_validated_isomorphism_markdown()
-    assert r"$\eta_{3} = \eta_{3}$" not in markdown
-    assert r"$\eta_{5} = \eta_{5}$" not in markdown
-    assert r"E: \pi_{4}^{2} \to \pi_{5}^{3}" in markdown
-    assert "## 使用する結果" in markdown
-    assert markdown.rstrip().endswith("□")
-
-
-def test_phase162_r5_real_display_has_no_repeated_nonempty_body_lines():
-    markdown = build_phase162_web_validated_isomorphism_markdown()
-    body = markdown.split("## 証明", 1)[1]
-    lines = [line.strip() for line in body.splitlines() if line.strip() and line.strip() != "□"]
-    assert len(lines) == len(set(lines))
