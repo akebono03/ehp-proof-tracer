@@ -1,0 +1,350 @@
+{
+  "scope": "Read-only existing matcher / substitution probe, production catalog, no family-name selection",
+  "goal_type": "TodaSuspensionIsomorphismStatement",
+  "map_whole_variable_binding": 1,
+  "injective_substitution_matches_goal_map": true,
+  "surjective_substitution_matches_goal_map": true,
+  "different_map_binding_conflict_rejected": true,
+  "positive_premise_binding_compatible": true,
+  "negative_premise_binding_rejected": true,
+  "production_goal_type_entries": 31,
+  "production_conclusion_pattern_match_entries": 0,
+  "production_no_conclusion_pattern_entries": 31,
+  "candidate_diagnostics": [
+    {
+      "catalog_key": "standard.production.applicability.0020",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0108",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0139",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.0141",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.0218",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0220",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0240",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0398",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.0412",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0425",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.0459",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.0461",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.0510",
+      "rule_name": "Toda Proposition 5.11 pi_12^6 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0511",
+      "rule_name": "Toda Proposition 5.11 pi_13^7 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0512",
+      "rule_name": "Toda Proposition 5.11 pi_14^8 Proposition 4.4 zero-second-summand suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44IsomorphismStatement",
+        "TodaPrimaryGroupZeroStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0636",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0638",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0684",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0756",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0758",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0828",
+      "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.0919",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1055",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.1114",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1139",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1150",
+      "rule_name": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "premise_count": 2,
+      "has_conclusion_builder": true,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": [
+        "TodaProp44SuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ]
+    },
+    {
+      "catalog_key": "standard.production.applicability.1163",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1175",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1177",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1215",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    },
+    {
+      "catalog_key": "standard.production.applicability.1217",
+      "rule_name": "Toda (5.1) low-dimensional suspension isomorphism",
+      "premise_count": 0,
+      "has_conclusion_builder": false,
+      "pattern_status": "NO_CONCLUSION_PATTERN",
+      "match_binding_count": null,
+      "premise_statement_types": []
+    }
+  ],
+  "limitations": [
+    "Template demonstrates whole-map-variable bindings; it is not a production rule's own conclusion pattern.",
+    "A missing conclusion pattern does not imply a rule is inapplicable; conclusion builders may compute a goal after premises bind.",
+    "Does not enumerate or execute all compatible candidate chains; no safety certification or full autonomous goal-only proof."
+  ]
+}
