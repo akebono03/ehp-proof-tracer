@@ -338,57 +338,6 @@ def _validated_reference_application_prose(
     )
 
 
-def _reference_component_reuse_boundary_ids(
-    presentation: ValidatedProofPresentation,
-    reference_step_ids: frozenset[int],
-) -> frozenset[int]:
-    """Treat a uniquely identified (5.3) application as a presentation leaf.
-
-    The fixed (5.3) source supplies H(nu')=eta_5.  Its derived inference
-    may still be needed as a premise for the main proof, but its unique
-    E^2-eta_3 bridge ancestry need not be narrated a second time.  This
-    boundary is intentionally restricted to the audited Phase 162 pattern;
-    an ambiguous/shared bridge cannot authorize a shortcut.
-    """
-    reference_entries = build_validated_proof_reference_entries(presentation)
-    if not any(
-        entry.reference.locator == "(5.3)"
-        for entry in reference_entries
-    ):
-        return frozenset()
-    source = get_general_reference_statement("(5.3)")
-    if source is None or not any(
-        component.component_key == "nu_prime_hopf_relation"
-        for component in source.components
-    ):
-        return frozenset()
-
-    bridge_steps = [
-        step for step in presentation.nodes
-        if step.rule is ProofRule.INFERENCE
-        and getattr(step.inference_rule, "name", None)
-        == "Toda 5.3 eta_5 iterated suspension bridge"
-    ]
-    if len(bridge_steps) != 1:
-        return frozenset()
-    bridge = bridge_steps[0]
-    consumers = [
-        step for step in presentation.nodes
-        if any(premise is bridge for premise in step.premises)
-    ]
-    if len(consumers) != 1:
-        return frozenset()
-    application = consumers[0]
-    if (
-        id(application) in reference_step_ids
-        or application.rule is not ProofRule.INFERENCE
-        or not isinstance(application.conclusion, Relation)
-        or application.conclusion.relation_type is not RelationType.EQUALITY
-    ):
-        return frozenset()
-    return frozenset((id(application),))
-
-
 def _fixed_statement_reuse_visible_ids(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
@@ -400,16 +349,13 @@ def _fixed_statement_reuse_visible_ids(
     proof path remain visible. Only rendering is affected, never the DAG.
     """
     reachable: set[int] = set()
-    component_boundary_ids = _reference_component_reuse_boundary_ids(
-        presentation, reference_step_ids
-    )
 
     def visit(step: ProofStep) -> None:
         identifier = id(step)
         if identifier in reachable:
             return
         reachable.add(identifier)
-        if identifier in reference_step_ids or identifier in component_boundary_ids:
+        if identifier in reference_step_ids:
             return
         for premise in step.premises:
             visit(premise)
