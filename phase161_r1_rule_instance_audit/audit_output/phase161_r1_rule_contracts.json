@@ -1,0 +1,375 @@
+{
+  "purpose": "read-only rule contract audit",
+  "rules": [
+    {
+      "factory": "toda_53_n3_prop51_delta_injective_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_prop51_delta_injective_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30051,
+        "source": "def toda_53_n3_prop51_delta_injective_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    statement = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    delta_relation = (\n      statement\n      .delta_iota5_relation\n    )\n\n    pi_5_5 = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=5,\n    )\n\n    pi_3_2 = TodaPrimaryGroup(\n      group_dimension=3,\n      sphere_dimension=2,\n    )\n\n    if (\n      delta_relation.map.source_group\n      != pi_5_5\n    ):\n      return False\n\n    if (\n      delta_relation.map.target_group\n      != pi_3_2\n    ):\n      return False\n\n    iota_5 = HomotopyElement(\n      name=\"ι_5\",\n      dimension=5,\n      generator=GeneratorSymbol(\n        family=\"ι\",\n        index=5,\n      ),\n    )\n\n    if (\n      delta_relation.element\n      != iota_5\n    ):\n      return False\n\n    eta_2 = HomotopyElement(\n      name=\"η₂\",\n      dimension=2,\n      source=3,\n      target=2,\n      generator=GeneratorSymbol(\n        family=\"η\",\n        index=2,\n      ),\n    )\n\n    return (\n      delta_relation.positive_value\n      == Multiple(\n        coefficient=2,\n        expression=eta_2,\n      )\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    statement = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    return TodaDeltaInjectiveStatement(\n      map=(\n        statement\n        .delta_iota5_relation\n        .map\n      ),\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.1 \"\n      \"n=3 Delta injectivity\"\n    ),\n    description=(\n      \"For the concrete Delta map \"\n      \"from pi_5^5 to pi_3^2, \"\n      \"the Proposition 5.1 data \"\n      \"Delta(iota_5)=plus or minus \"\n      \"2 eta_2 gives the injectivity \"\n      \"required in the n=3 proof of \"\n      \"Toda Proposition 5.3.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaProp51FiniteDimensionalStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "description": "For the concrete Delta map from pi_5^5 to pi_3^2, the Proposition 5.1 data Delta(iota_5)=plus or minus 2 eta_2 gives the injectivity required in the n=3 proof of Toda Proposition 5.3.",
+      "premise_count": 1,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaProp51FiniteDimensionalStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_prop51_delta_injective_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30123,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    statement = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    return TodaDeltaInjectiveStatement(\n      map=(\n        statement\n        .delta_iota5_relation\n        .map\n      ),\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_prop51_delta_injective_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30052,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    statement = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    delta_relation = (\n      statement\n      .delta_iota5_relation\n    )\n\n    pi_5_5 = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=5,\n    )\n\n    pi_3_2 = TodaPrimaryGroup(\n      group_dimension=3,\n      sphere_dimension=2,\n    )\n\n    if (\n      delta_relation.map.source_group\n      != pi_5_5\n    ):\n      return False\n\n    if (\n      delta_relation.map.target_group\n      != pi_3_2\n    ):\n      return False\n\n    iota_5 = HomotopyElement(\n      name=\"ι_5\",\n      dimension=5,\n      generator=GeneratorSymbol(\n        family=\"ι\",\n        index=5,\n      ),\n    )\n\n    if (\n      delta_relation.element\n      != iota_5\n    ):\n      return False\n\n    eta_2 = HomotopyElement(\n      name=\"η₂\",\n      dimension=2,\n      source=3,\n      target=2,\n      generator=GeneratorSymbol(\n        family=\"η\",\n        index=2,\n      ),\n    )\n\n    return (\n      delta_relation.positive_value\n      == Multiple(\n        coefficient=2,\n        expression=eta_2,\n      )\n    )\n"
+      },
+      "literature_reference": null
+    },
+    {
+      "factory": "toda_53_n3_delta_injective_hopf_zero_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_delta_injective_hopf_zero_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30167,
+        "source": "def toda_53_n3_delta_injective_hopf_zero_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    injectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=3,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=5,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=3,\n      sphere_dimension=2,\n    )\n\n    if (\n      window.first_map\n      != EHP_H_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_DELTA_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      injectivity.map\n      == TodaDeltaMap(\n        source_group=expected_middle,\n        target_group=expected_target,\n      )\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaHopfInvariantZeroStatement(\n      map=TodaHopfInvariantMap(\n        source_group=window.source_term,\n        target_group=window.middle_term,\n      ),\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.3 \"\n      \"n=3 Delta injectivity \"\n      \"implies Hopf zero\"\n    ),\n    description=(\n      \"In the concrete exact sequence \"\n      \"pi_5^3 -> pi_5^5 -> pi_3^2, \"\n      \"injectivity of Delta makes \"\n      \"Ker(Delta) zero. Exactness \"\n      \"therefore makes the image of H \"\n      \"zero.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaDeltaInjectiveStatement\n        ),\n      ),\n      PremisePattern(\n        statement_type=(\n          TodaProp42ExactnessStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+      "description": "In the concrete exact sequence pi_5^3 -> pi_5^5 -> pi_3^2, injectivity of Delta makes Ker(Delta) zero. Exactness therefore makes the image of H zero.",
+      "premise_count": 2,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaDeltaInjectiveStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        },
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": null,
+            "statement_type": "toda_rules.TodaProp42ExactnessStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_delta_injective_hopf_zero_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30239,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaHopfInvariantZeroStatement(\n      map=TodaHopfInvariantMap(\n        source_group=window.source_term,\n        target_group=window.middle_term,\n      ),\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_delta_injective_hopf_zero_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30168,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    injectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=3,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=5,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=3,\n      sphere_dimension=2,\n    )\n\n    if (\n      window.first_map\n      != EHP_H_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_DELTA_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      injectivity.map\n      == TodaDeltaMap(\n        source_group=expected_middle,\n        target_group=expected_target,\n      )\n    )\n"
+      },
+      "literature_reference": null
+    },
+    {
+      "factory": "toda_53_n3_hopf_zero_suspension_surjective_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_zero_suspension_surjective_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30289,
+        "source": "def toda_53_n3_hopf_zero_suspension_surjective_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    hopf_zero = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=4,\n      sphere_dimension=2,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=3,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=5,\n    )\n\n    if (\n      window.first_map\n      != EHP_E_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_H_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      hopf_zero.map\n      == TodaHopfInvariantMap(\n        source_group=expected_middle,\n        target_group=expected_target,\n      )\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaSuspensionSurjectiveStatement(\n      map=TodaSuspensionMap(\n        source_group=window.source_term,\n        target_group=window.middle_term,\n      ),\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.3 \"\n      \"n=3 Hopf zero \"\n      \"implies suspension surjective\"\n    ),\n    description=(\n      \"In the concrete exact sequence \"\n      \"pi_4^2 -> pi_5^3 -> pi_5^5, \"\n      \"if H is zero then Ker(H) is \"\n      \"all of pi_5^3. Exactness \"\n      \"therefore makes suspension E \"\n      \"surjective.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaHopfInvariantZeroStatement\n        ),\n      ),\n      PremisePattern(\n        statement_type=(\n          TodaProp42ExactnessStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+      "description": "In the concrete exact sequence pi_4^2 -> pi_5^3 -> pi_5^5, if H is zero then Ker(H) is all of pi_5^3. Exactness therefore makes suspension E surjective.",
+      "premise_count": 2,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaHopfInvariantZeroStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        },
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": null,
+            "statement_type": "toda_rules.TodaProp42ExactnessStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_zero_suspension_surjective_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30361,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaSuspensionSurjectiveStatement(\n      map=TodaSuspensionMap(\n        source_group=window.source_term,\n        target_group=window.middle_term,\n      ),\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_zero_suspension_surjective_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30290,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    hopf_zero = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=4,\n      sphere_dimension=2,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=3,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=5,\n    )\n\n    if (\n      window.first_map\n      != EHP_E_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_H_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      hopf_zero.map\n      == TodaHopfInvariantMap(\n        source_group=expected_middle,\n        target_group=expected_target,\n      )\n    )\n"
+      },
+      "literature_reference": null
+    },
+    {
+      "factory": "toda_53_n3_hopf_eta5_surjective_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_eta5_surjective_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30411,
+        "source": "def toda_53_n3_hopf_eta5_surjective_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    hopf_relation = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    prop51_statement = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    nu_prime = HomotopyElement(\n      name=\"ν′\",\n      dimension=3,\n      source=6,\n      target=3,\n      generator=GeneratorSymbol(\n        family=\"ν\",\n        decoration=\"′\",\n      ),\n    )\n\n    eta_5 = HomotopyElement(\n      name=\"η₅\",\n      dimension=5,\n      source=6,\n      target=5,\n      generator=GeneratorSymbol(\n        family=\"η\",\n        index=5,\n      ),\n    )\n\n    if (\n      hopf_relation\n      != Relation(\n        lhs=MapApplication(\n          map=EHP_H_MAP,\n          expression=nu_prime,\n        ),\n        rhs=eta_5,\n        relation_type=RelationType.EQUALITY,\n      )\n    ):\n      return False\n\n    higher_relation = (\n      prop51_statement\n      .higher_eta_group_relation\n    )\n\n    if not isinstance(\n      higher_relation.lhs,\n      TodaPrimaryGroup,\n    ):\n      return False\n\n    if not isinstance(\n      higher_relation.rhs,\n      FiniteCyclicGroup,\n    ):\n      return False\n\n    n = (\n      higher_relation\n      .lhs\n      .sphere_dimension\n    )\n\n    if not isinstance(\n      n,\n      ScalarSymbol,\n    ):\n      return False\n\n    expected_symbolic_group = TodaPrimaryGroup(\n      group_dimension=ScalarSum(\n        left=n,\n        right=1,\n      ),\n      sphere_dimension=n,\n    )\n\n    if (\n      higher_relation.lhs\n      != expected_symbolic_group\n    ):\n      return False\n\n    if (\n      higher_relation.rhs.order\n      != 2\n    ):\n      return False\n\n    eta_n = HomotopyElement(\n      name=\"η_n\",\n      dimension=n,\n      source=ScalarSum(\n        left=n,\n        right=1,\n      ),\n      target=n,\n      generator=GeneratorSymbol(\n        family=\"η\",\n        index=n,\n      ),\n    )\n\n    return (\n      higher_relation\n      .rhs\n      .generator\n      == eta_n\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    return TodaHopfInvariantSurjectiveStatement(\n      map=TodaHopfInvariantMap(\n        source_group=TodaPrimaryGroup(\n          group_dimension=6,\n          sphere_dimension=3,\n        ),\n        target_group=TodaPrimaryGroup(\n          group_dimension=6,\n          sphere_dimension=5,\n        ),\n      ),\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.3 \"\n      \"n=3 Hopf eta_5 surjectivity\"\n    ),\n    description=(\n      \"Phase 58 gives H(nu-prime)=eta_5. \"\n      \"Proposition 5.1 gives the \"\n      \"order-two higher eta family, \"\n      \"whose n=5 instance is \"\n      \"pi_6^5=Z/2{eta_5}. Therefore \"\n      \"H from pi_6^3 to pi_6^5 is \"\n      \"surjective.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=Relation,\n        relation_type=(\n          RelationType.EQUALITY\n        ),\n      ),\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaProp51FiniteDimensionalStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+      "description": "Phase 58 gives H(nu-prime)=eta_5. Proposition 5.1 gives the order-two higher eta family, whose n=5 instance is pi_6^5=Z/2{eta_5}. Therefore H from pi_6^3 to pi_6^5 is surjective.",
+      "premise_count": 2,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "proof.Relation",
+            "statement_pattern": null,
+            "relation_type": "<RelationType.EQUALITY: 'equality'>",
+            "relation_pattern": null
+          }
+        },
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaProp51FiniteDimensionalStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_eta5_surjective_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30533,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    return TodaHopfInvariantSurjectiveStatement(\n      map=TodaHopfInvariantMap(\n        source_group=TodaPrimaryGroup(\n          group_dimension=6,\n          sphere_dimension=3,\n        ),\n        target_group=TodaPrimaryGroup(\n          group_dimension=6,\n          sphere_dimension=5,\n        ),\n      ),\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_eta5_surjective_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30412,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    hopf_relation = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    prop51_statement = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    nu_prime = HomotopyElement(\n      name=\"ν′\",\n      dimension=3,\n      source=6,\n      target=3,\n      generator=GeneratorSymbol(\n        family=\"ν\",\n        decoration=\"′\",\n      ),\n    )\n\n    eta_5 = HomotopyElement(\n      name=\"η₅\",\n      dimension=5,\n      source=6,\n      target=5,\n      generator=GeneratorSymbol(\n        family=\"η\",\n        index=5,\n      ),\n    )\n\n    if (\n      hopf_relation\n      != Relation(\n        lhs=MapApplication(\n          map=EHP_H_MAP,\n          expression=nu_prime,\n        ),\n        rhs=eta_5,\n        relation_type=RelationType.EQUALITY,\n      )\n    ):\n      return False\n\n    higher_relation = (\n      prop51_statement\n      .higher_eta_group_relation\n    )\n\n    if not isinstance(\n      higher_relation.lhs,\n      TodaPrimaryGroup,\n    ):\n      return False\n\n    if not isinstance(\n      higher_relation.rhs,\n      FiniteCyclicGroup,\n    ):\n      return False\n\n    n = (\n      higher_relation\n      .lhs\n      .sphere_dimension\n    )\n\n    if not isinstance(\n      n,\n      ScalarSymbol,\n    ):\n      return False\n\n    expected_symbolic_group = TodaPrimaryGroup(\n      group_dimension=ScalarSum(\n        left=n,\n        right=1,\n      ),\n      sphere_dimension=n,\n    )\n\n    if (\n      higher_relation.lhs\n      != expected_symbolic_group\n    ):\n      return False\n\n    if (\n      higher_relation.rhs.order\n      != 2\n    ):\n      return False\n\n    eta_n = HomotopyElement(\n      name=\"η_n\",\n      dimension=n,\n      source=ScalarSum(\n        left=n,\n        right=1,\n      ),\n      target=n,\n      generator=GeneratorSymbol(\n        family=\"η\",\n        index=n,\n      ),\n    )\n\n    return (\n      higher_relation\n      .rhs\n      .generator\n      == eta_n\n    )\n"
+      },
+      "literature_reference": null
+    },
+    {
+      "factory": "toda_53_n3_hopf_surjective_delta_zero_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_surjective_delta_zero_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30583,
+        "source": "def toda_53_n3_hopf_surjective_delta_zero_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    surjectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=6,\n      sphere_dimension=3,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=6,\n      sphere_dimension=5,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=4,\n      sphere_dimension=2,\n    )\n\n    if (\n      window.first_map\n      != EHP_H_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_DELTA_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      surjectivity.map\n      == TodaHopfInvariantMap(\n        source_group=expected_source,\n        target_group=expected_middle,\n      )\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaDeltaZeroStatement(\n      map=TodaDeltaMap(\n        source_group=window.middle_term,\n        target_group=window.target_term,\n      ),\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.3 \"\n      \"n=3 Hopf surjective \"\n      \"implies Delta zero\"\n    ),\n    description=(\n      \"In the concrete exact sequence \"\n      \"pi_6^3 -> pi_6^5 -> pi_4^2, \"\n      \"surjectivity of H makes Im(H) \"\n      \"all of pi_6^5. Exactness gives \"\n      \"Ker(Delta)=pi_6^5, so Delta \"\n      \"is zero.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaHopfInvariantSurjectiveStatement\n        ),\n      ),\n      PremisePattern(\n        statement_type=(\n          TodaProp42ExactnessStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+      "description": "In the concrete exact sequence pi_6^3 -> pi_6^5 -> pi_4^2, surjectivity of H makes Im(H) all of pi_6^5. Exactness gives Ker(Delta)=pi_6^5, so Delta is zero.",
+      "premise_count": 2,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaHopfInvariantSurjectiveStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        },
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": null,
+            "statement_type": "toda_rules.TodaProp42ExactnessStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_surjective_delta_zero_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30655,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaDeltaZeroStatement(\n      map=TodaDeltaMap(\n        source_group=window.middle_term,\n        target_group=window.target_term,\n      ),\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_hopf_surjective_delta_zero_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30584,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    surjectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=6,\n      sphere_dimension=3,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=6,\n      sphere_dimension=5,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=4,\n      sphere_dimension=2,\n    )\n\n    if (\n      window.first_map\n      != EHP_H_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_DELTA_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      surjectivity.map\n      == TodaHopfInvariantMap(\n        source_group=expected_source,\n        target_group=expected_middle,\n      )\n    )\n"
+      },
+      "literature_reference": null
+    },
+    {
+      "factory": "toda_53_n3_delta_zero_suspension_injective_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_delta_zero_suspension_injective_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30705,
+        "source": "def toda_53_n3_delta_zero_suspension_injective_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    delta_zero = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=6,\n      sphere_dimension=5,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=4,\n      sphere_dimension=2,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=3,\n    )\n\n    if (\n      window.first_map\n      != EHP_DELTA_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_E_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      delta_zero.map\n      == TodaDeltaMap(\n        source_group=expected_source,\n        target_group=expected_middle,\n      )\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaSuspensionInjectiveStatement(\n      map=TodaSuspensionMap(\n        source_group=window.middle_term,\n        target_group=window.target_term,\n      ),\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.3 \"\n      \"n=3 Delta zero \"\n      \"implies suspension injective\"\n    ),\n    description=(\n      \"In the concrete exact sequence \"\n      \"pi_6^5 -> pi_4^2 -> pi_5^3, \"\n      \"Delta zero makes Im(Delta) zero. \"\n      \"Exactness therefore makes the \"\n      \"kernel of suspension E zero, so \"\n      \"E is injective.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaDeltaZeroStatement\n        ),\n      ),\n      PremisePattern(\n        statement_type=(\n          TodaProp42ExactnessStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+      "description": "In the concrete exact sequence pi_6^5 -> pi_4^2 -> pi_5^3, Delta zero makes Im(Delta) zero. Exactness therefore makes the kernel of suspension E zero, so E is injective.",
+      "premise_count": 2,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaDeltaZeroStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        },
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": null,
+            "statement_type": "toda_rules.TodaProp42ExactnessStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_delta_zero_suspension_injective_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30777,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    return TodaSuspensionInjectiveStatement(\n      map=TodaSuspensionMap(\n        source_group=window.middle_term,\n        target_group=window.target_term,\n      ),\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_delta_zero_suspension_injective_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30706,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    delta_zero = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    exactness = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    window = exactness.window\n\n    expected_source = TodaPrimaryGroup(\n      group_dimension=6,\n      sphere_dimension=5,\n    )\n\n    expected_middle = TodaPrimaryGroup(\n      group_dimension=4,\n      sphere_dimension=2,\n    )\n\n    expected_target = TodaPrimaryGroup(\n      group_dimension=5,\n      sphere_dimension=3,\n    )\n\n    if (\n      window.first_map\n      != EHP_DELTA_MAP\n    ):\n      return False\n\n    if (\n      window.second_map\n      != EHP_E_MAP\n    ):\n      return False\n\n    if (\n      window.source_term\n      != expected_source\n    ):\n      return False\n\n    if (\n      window.middle_term\n      != expected_middle\n    ):\n      return False\n\n    if (\n      window.target_term\n      != expected_target\n    ):\n      return False\n\n    return (\n      delta_zero.map\n      == TodaDeltaMap(\n        source_group=expected_source,\n        target_group=expected_middle,\n      )\n    )\n"
+      },
+      "literature_reference": null
+    },
+    {
+      "factory": "toda_53_n3_suspension_isomorphism_inference_rule",
+      "factory_source": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_suspension_isomorphism_inference_rule",
+        "signature": "()",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30827,
+        "source": "def toda_53_n3_suspension_isomorphism_inference_rule():\n  def guard(\n    premises,\n    bindings,\n  ):\n    injectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    surjectivity = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    expected_map = TodaSuspensionMap(\n      source_group=TodaPrimaryGroup(\n        group_dimension=4,\n        sphere_dimension=2,\n      ),\n      target_group=TodaPrimaryGroup(\n        group_dimension=5,\n        sphere_dimension=3,\n      ),\n    )\n\n    return (\n      injectivity.map\n      == expected_map\n      and surjectivity.map\n      == expected_map\n    )\n\n  def build_conclusion(\n    premises,\n  ):\n    injectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    return TodaSuspensionIsomorphismStatement(\n      map=injectivity.map,\n    )\n\n  return InferenceRule(\n    name=(\n      \"Toda Proposition 5.3 \"\n      \"n=3 suspension isomorphism\"\n    ),\n    description=(\n      \"If the concrete suspension map \"\n      \"from pi_4^2 to pi_5^3 is both \"\n      \"injective and surjective, it is \"\n      \"an isomorphism.\"\n    ),\n    premise_patterns=(\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaSuspensionInjectiveStatement\n        ),\n      ),\n      PremisePattern(\n        proof_rule=ProofRule.INFERENCE,\n        statement_type=(\n          TodaSuspensionSurjectiveStatement\n        ),\n      ),\n    ),\n    conclusion_builder=build_conclusion,\n    match_guard=guard,\n  )\n"
+      },
+      "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "description": "If the concrete suspension map from pi_4^2 to pi_5^3 is both injective and surjective, it is an isomorphism.",
+      "premise_count": 2,
+      "premise_patterns": [
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaSuspensionInjectiveStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        },
+        {
+          "type": "proof.PremisePattern",
+          "fields": {
+            "proof_rule": "<ProofRule.INFERENCE: 'inference'>",
+            "statement_type": "toda_rules.TodaSuspensionSurjectiveStatement",
+            "statement_pattern": null,
+            "relation_type": null,
+            "relation_pattern": null
+          }
+        }
+      ],
+      "conclusion_pattern": null,
+      "conclusion_builder": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_suspension_isomorphism_inference_rule.<locals>.build_conclusion",
+        "signature": "(premises)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30862,
+        "source": "  def build_conclusion(\n    premises,\n  ):\n    injectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    return TodaSuspensionIsomorphismStatement(\n      map=injectivity.map,\n    )\n"
+      },
+      "match_guard": {
+        "module": "toda_rules",
+        "qualname": "toda_53_n3_suspension_isomorphism_inference_rule.<locals>.guard",
+        "signature": "(premises, bindings)",
+        "source_file": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_line": 30828,
+        "source": "  def guard(\n    premises,\n    bindings,\n  ):\n    injectivity = (\n      premises[\n        0\n      ].conclusion\n    )\n\n    surjectivity = (\n      premises[\n        1\n      ].conclusion\n    )\n\n    expected_map = TodaSuspensionMap(\n      source_group=TodaPrimaryGroup(\n        group_dimension=4,\n        sphere_dimension=2,\n      ),\n      target_group=TodaPrimaryGroup(\n        group_dimension=5,\n        sphere_dimension=3,\n      ),\n    )\n\n    return (\n      injectivity.map\n      == expected_map\n      and surjectivity.map\n      == expected_map\n    )\n"
+      },
+      "literature_reference": null
+    }
+  ],
+  "errors": [],
+  "toda_rules_location": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py"
+}
