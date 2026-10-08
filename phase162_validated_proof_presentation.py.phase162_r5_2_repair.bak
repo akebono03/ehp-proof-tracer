@@ -163,47 +163,32 @@ def build_validated_proof_reference_entries(
 def _render_validated_reference_section(
     presentation: ValidatedProofPresentation,
 ) -> tuple[str, frozenset[int]]:
-    """Render registered source statements without reattaching inferred ranges.
-
-    The legacy renderer is retained for locators without a general schema.
-    Referenced ProofStep identities are unchanged in either case.
-    """
     entries = build_validated_proof_reference_entries(presentation)
     if not entries:
         return "", frozenset()
-
-    referenced_ids = frozenset(
-        id(step) for entry in entries for step in entry.proof_steps
-    )
-    blocks = []
+    statement_lines = {}
+    referenced_ids = set()
     for entry in entries:
-        locator = entry.reference.locator
-        general_lines = render_general_reference_statement_lines(locator)
-        if general_lines is not None:
-            title = locator or entry.reference.label
-            blocks.append("\n".join((
-                f"**[R{entry.number}] {title}.**",
-                *general_lines,
-            )))
-            continue
-
-        rendered_lines = []
+        lines = []
         seen = set()
         for step in entry.proof_steps:
+            referenced_ids.add(id(step))
             statement = _render_validated_backward_step(step)
             if statement not in seen:
                 seen.add(statement)
-                rendered_lines.append(statement)
-        blocks.append(
-            render_toda_group_proof_narrative_reference_entries_markdown(
-                (entry,),
-                statement_lines_by_reference_number={
-                    entry.number: tuple(rendered_lines)
-                },
-            ).rstrip()
+                lines.append(statement)
+        # The literature's fixed general form takes precedence over the
+        # concrete conclusion of the ProofStep that invoked it.
+        general_lines = render_general_reference_statement_lines(
+            entry.reference.locator
         )
-
-    return "\n".join(blocks).rstrip(), referenced_ids
+        statement_lines[entry.number] = general_lines if general_lines is not None else tuple(lines)
+    return (
+        render_toda_group_proof_narrative_reference_entries_markdown(
+            entries, statement_lines_by_reference_number=statement_lines,
+        ).rstrip(),
+        frozenset(referenced_ids),
+    )
 
 
 def _is_display_tautology(step: ProofStep, prose: str) -> bool:

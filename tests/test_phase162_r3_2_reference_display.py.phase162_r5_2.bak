@@ -45,12 +45,7 @@ def test_phase162_r3_2_fixed_statements_are_outside_proof_body():
         assert entry.reference.locator in reference
         for step in entry.proof_steps:
             statement = _render_validated_backward_step(step)
-            from toda_general_reference_schema import render_general_reference_statement_lines
-            registered = render_general_reference_statement_lines(entry.reference.locator)
-            if registered is None:
-                assert statement.rstrip(".") in reference
-            else:
-                assert all(line in reference for line in registered)
+            assert statement.rstrip(".") in reference
 
     # Compare the entire emitted inference sequence against the non-fixed
     # ProofStep objects. Equal strings from *other* inference steps are valid:
