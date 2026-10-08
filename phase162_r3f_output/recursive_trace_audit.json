@@ -1,0 +1,23 @@
+{
+  "status": "RECURSIVE_TRACE_NOT_FULLY_NARRATED",
+  "root_rule": "phase162_group_structure_transport",
+  "node_count": 123,
+  "edge_count": 135,
+  "expected_node_count": 123,
+  "expected_edge_count": 135,
+  "given_count": 56,
+  "inference_explained_count": 1,
+  "inference_unexplained_count": 66,
+  "all_nodes_once": true,
+  "dependency_first": true,
+  "root_is_last": true,
+  "historical_markdown_used_as_input": false,
+  "public_renderer_changed": false,
+  "full_proof_semantic_certification": false,
+  "limitations": [
+    "Only the Phase 162 group-structure transport root has a narrated inference reason.",
+    "Other inference nodes are displayed as facts with an explicit unexplained status.",
+    "The generic fact renderer can fall back to type or rule labels.",
+    "Proof prose coherence, reference selection, and mathematical validity of all ancestry are not audited here."
+  ]
+}
