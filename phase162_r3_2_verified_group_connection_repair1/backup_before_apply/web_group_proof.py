@@ -1002,7 +1002,7 @@ def build_standard_web_group_proof_view(
         markdown = (
           markdown.rstrip()
           + "\n\n---\n\n"
-          + "## 群構造の検証済み証明\n\n"
+          + "## 懸垂同型の検証済み証明\n\n"
           + validated_markdown
         )
 

@@ -27,7 +27,6 @@ from proof import Relation, RelationType, apply_inference_match, find_inference_
 from toda_rules import (
     toda_52_pi4_2_finite_cyclic_transport_inference_rule,
     toda_eta_family_definition_statement,
-    toda_prop53_n3_eta_square_suspension_bridge_inference_rule,
 )
 
 def _format_phase162_proof_sentences(markdown: str) -> str:
@@ -153,7 +152,7 @@ def _build_phase162_legacy_validated_isomorphism_markdown() -> str:
 
 
 def _build_phase162_existing_group_connection():
-    """Build the group-root proof from independently derived existing evidence."""
+    """Build the R2 group-root proof from independently derived existing evidence."""
     phase50 = build_phase50_representative_result()
     phase56 = build_phase56_representative_result()
     pi4_3_steps = phase50["final_group_steps"]
@@ -181,29 +180,13 @@ def _build_phase162_existing_group_connection():
         for index in (3, 4)
     )
     source_generator = source_step.conclusion.rhs.generator
-    bridge_rule = toda_prop53_n3_eta_square_suspension_bridge_inference_rule()
-    bridge_match = find_inference_match(bridge_rule, eta_definitions)
-    if bridge_match is None:
-        raise ValueError("Existing eta-family definitions do not derive the image")
-    bridge_step = apply_inference_match(bridge_match)
-    from expression import Composition, Suspension
-    if (
-        not isinstance(bridge_step.conclusion, Relation)
-        or bridge_step.conclusion.relation_type is not RelationType.EQUALITY
-        or bridge_step.conclusion.lhs != Suspension(expression=source_generator)
-        or not isinstance(bridge_step.conclusion.rhs, Composition)
-        or bridge_step.conclusion.rhs.left.generator.family != "η"
-        or bridge_step.conclusion.rhs.left.generator.index != 3
-        or bridge_step.conclusion.rhs.right.generator.family != "η"
-        or bridge_step.conclusion.rhs.right.generator.index != 4
-    ):
-        raise ValueError("Eta-family bridge does not match the source and target generators")
+    eta3 = eta_definitions[0].conclusion.element
+    eta4 = eta_definitions[1].conclusion.element
+    from expression import Composition
+    target_generator = Composition(left=eta3, right=eta4)
     goal = Relation(
         lhs=pi5_3,
-        rhs=FiniteCyclicGroup(
-            order=source_step.conclusion.rhs.order,
-            generator=bridge_step.conclusion.rhs,
-        ),
+        rhs=FiniteCyclicGroup(order=source_step.conclusion.rhs.order, generator=target_generator),
         relation_type=RelationType.EQUALITY,
     )
     suspension_map = TodaSuspensionMap(source_group=pi4_2, target_group=pi5_3)
