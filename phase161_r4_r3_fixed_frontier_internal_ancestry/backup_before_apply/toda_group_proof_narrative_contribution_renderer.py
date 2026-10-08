@@ -3239,164 +3239,6 @@ def _toda_group_proof_narrative_reference_owned_step_ids(
   )
 
 
-def _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
-  presentation: TodaGroupProofPresentation,
-) -> frozenset[int]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  root_step = presentation.root_step
-  root_boundary = (
-    classify_toda_literature_statement_step(
-      root_step
-    )
-  )
-
-  if (
-    root_boundary is None
-    or root_boundary.classification
-    is not TodaLiteratureStatementClassification.PROOF_INTERNAL
-    or root_boundary.reference_locator is None
-  ):
-    return frozenset()
-
-  boundary_steps = tuple(
-    node.proof_step
-    for node in presentation.nodes
-    for boundary in (
-      classify_toda_literature_statement_step(
-        node.proof_step
-      ),
-    )
-    if (
-      boundary is not None
-      and boundary.classification
-      is TodaLiteratureStatementClassification.FIXED_STATEMENT
-      and boundary.reference_locator
-      == root_boundary.reference_locator
-    )
-  )
-
-  if not boundary_steps:
-    return frozenset()
-
-  consumers_by_step_id = {}
-
-  for edge in presentation.edges:
-    consumers_by_step_id.setdefault(
-      id(
-        edge.premise_step
-      ),
-      [],
-    ).append(
-      edge.parent_step
-    )
-
-  root_ancestor_ids = {
-    id(
-      root_step
-    )
-  }
-  changed = True
-
-  while changed:
-    changed = False
-
-    for edge in presentation.edges:
-      if id(
-        edge.parent_step
-      ) not in root_ancestor_ids:
-        continue
-
-      premise_step_id = id(
-        edge.premise_step
-      )
-
-      if premise_step_id in root_ancestor_ids:
-        continue
-
-      root_ancestor_ids.add(
-        premise_step_id
-      )
-      changed = True
-
-  active_boundary_steps = tuple(
-    proof_step
-    for proof_step in boundary_steps
-    if id(
-      proof_step
-    ) in root_ancestor_ids
-  )
-
-  if not active_boundary_steps:
-    return frozenset()
-
-  closure_step_ids = {
-    id(
-      proof_step
-    )
-    for proof_step in active_boundary_steps
-  }
-  internal_step_ids = set()
-
-  changed = True
-
-  while changed:
-    changed = False
-
-    for edge in presentation.edges:
-      if id(
-        edge.parent_step
-      ) not in closure_step_ids:
-        continue
-
-      premise_step = edge.premise_step
-      premise_step_id = id(
-        premise_step
-      )
-
-      if (
-        premise_step is root_step
-        or premise_step_id in closure_step_ids
-      ):
-        continue
-
-      consumers = tuple(
-        consumers_by_step_id.get(
-          premise_step_id,
-          (),
-        )
-      )
-
-      if not consumers:
-        continue
-
-      if not all(
-        id(
-          consumer
-        )
-        in closure_step_ids
-        for consumer in consumers
-      ):
-        continue
-
-      closure_step_ids.add(
-        premise_step_id
-      )
-      internal_step_ids.add(
-        premise_step_id
-      )
-      changed = True
-
-  return frozenset(
-    internal_step_ids
-  )
-
 def _toda_group_proof_narrative_reference_internal_step_ids(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -3457,23 +3299,10 @@ def _toda_group_proof_narrative_reference_internal_step_ids(
     )
   )
 
-  root_fixed_internal_step_ids = (
-    _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
-      presentation
-    )
-  )
-
   return frozenset(
-    (
-      {
-        step_id
-        for step_id in owned_step_ids
-        if step_id not in selected_step_ids
-      }
-      | set(
-        root_fixed_internal_step_ids
-      )
-    )
+    step_id
+    for step_id in owned_step_ids
+    if step_id not in selected_step_ids
   )
 
 
@@ -3771,6 +3600,57 @@ def _toda_group_proof_narrative_reference_externally_used_step_ids(
   )
 
 
+def _filter_toda_group_proof_narrative_reference_entries_to_frontier(
+  reference_entries,
+  statement_lines_by_reference_number,
+  frontier_step_ids: frozenset[int],
+):
+  retained_entries = tuple(
+    entry
+    for entry in reference_entries
+    if any(
+      id(
+        proof_step
+      )
+      in frontier_step_ids
+      for proof_step in entry.proof_steps
+    )
+  )
+
+  number_map = {
+    entry.number: new_number
+    for new_number, entry in enumerate(
+      retained_entries,
+      start=1,
+    )
+  }
+
+  filtered_entries = tuple(
+    replace(
+      entry,
+      number=number_map[
+        entry.number
+      ],
+    )
+    for entry in retained_entries
+  )
+
+  filtered_statement_lines = {
+    number_map[
+      entry.number
+    ]: statement_lines_by_reference_number[
+      entry.number
+    ]
+    for entry in retained_entries
+    if entry.number
+    in statement_lines_by_reference_number
+  }
+
+  return (
+    filtered_entries,
+    filtered_statement_lines,
+  )
+
 def _toda_group_proof_narrative_reference_frontier_step_ids(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -3788,11 +3668,6 @@ def _toda_group_proof_narrative_reference_frontier_step_ids(
     )
 
   root_step = presentation.root_step
-  root_reference = (
-    extract_toda_group_proof_step_literature_reference(
-      root_step
-    )
-  )
   frontier_step_ids = set()
 
   for entry in reference_entries:
@@ -3847,9 +3722,28 @@ def _toda_group_proof_narrative_reference_frontier_step_ids(
           if (
             child_reference is not None
             and child_reference != entry.reference
-            and child_reference != root_reference
           ):
-            continue
+            child_boundary = (
+              classify_toda_literature_statement_step(
+                child_step
+              )
+            )
+
+            if (
+              child_boundary is not None
+              and child_boundary.classification
+              is TodaLiteratureStatementClassification.FIXED_STATEMENT
+            ):
+              continue
+
+            root_reference = (
+              extract_toda_group_proof_step_literature_reference(
+                root_step
+              )
+            )
+
+            if child_reference != root_reference:
+              continue
 
           queue.append(
             child_step
@@ -10011,6 +9905,22 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
+  phase161_r4_frontier_step_ids = (
+    _toda_group_proof_narrative_reference_frontier_step_ids(
+      presentation,
+      reference_entries,
+    )
+  )
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = (
+    _filter_toda_group_proof_narrative_reference_entries_to_frontier(
+      reference_entries,
+      statement_lines_by_reference_number,
+      phase161_r4_frontier_step_ids,
+    )
+  )
   reference_owned_step_ids = (
     _toda_group_proof_narrative_reference_owned_step_ids(
       presentation,

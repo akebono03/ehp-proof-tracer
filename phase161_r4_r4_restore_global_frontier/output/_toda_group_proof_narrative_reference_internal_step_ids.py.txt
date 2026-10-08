@@ -1,0 +1,78 @@
+def _toda_group_proof_narrative_reference_internal_step_ids(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> frozenset[int]:
+  selected_step_ids = set()
+
+  for entry in reference_entries:
+    candidate_steps = []
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if rendered_statement in seen_rendered_statements:
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+        root_step=presentation.root_step,
+      )
+    )
+
+    selected_step_ids.update(
+      id(
+        proof_step
+      )
+      for proof_step in selected_steps
+    )
+
+  owned_step_ids = (
+    _toda_group_proof_narrative_reference_owned_step_ids(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  root_fixed_internal_step_ids = (
+    _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
+      presentation
+    )
+  )
+
+  return frozenset(
+    (
+      {
+        step_id
+        for step_id in owned_step_ids
+        if step_id not in selected_step_ids
+      }
+      | set(
+        root_fixed_internal_step_ids
+      )
+    )
+  )

@@ -3239,164 +3239,6 @@ def _toda_group_proof_narrative_reference_owned_step_ids(
   )
 
 
-def _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
-  presentation: TodaGroupProofPresentation,
-) -> frozenset[int]:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a TodaGroupProofPresentation"
-    )
-
-  root_step = presentation.root_step
-  root_boundary = (
-    classify_toda_literature_statement_step(
-      root_step
-    )
-  )
-
-  if (
-    root_boundary is None
-    or root_boundary.classification
-    is not TodaLiteratureStatementClassification.PROOF_INTERNAL
-    or root_boundary.reference_locator is None
-  ):
-    return frozenset()
-
-  boundary_steps = tuple(
-    node.proof_step
-    for node in presentation.nodes
-    for boundary in (
-      classify_toda_literature_statement_step(
-        node.proof_step
-      ),
-    )
-    if (
-      boundary is not None
-      and boundary.classification
-      is TodaLiteratureStatementClassification.FIXED_STATEMENT
-      and boundary.reference_locator
-      == root_boundary.reference_locator
-    )
-  )
-
-  if not boundary_steps:
-    return frozenset()
-
-  consumers_by_step_id = {}
-
-  for edge in presentation.edges:
-    consumers_by_step_id.setdefault(
-      id(
-        edge.premise_step
-      ),
-      [],
-    ).append(
-      edge.parent_step
-    )
-
-  root_ancestor_ids = {
-    id(
-      root_step
-    )
-  }
-  changed = True
-
-  while changed:
-    changed = False
-
-    for edge in presentation.edges:
-      if id(
-        edge.parent_step
-      ) not in root_ancestor_ids:
-        continue
-
-      premise_step_id = id(
-        edge.premise_step
-      )
-
-      if premise_step_id in root_ancestor_ids:
-        continue
-
-      root_ancestor_ids.add(
-        premise_step_id
-      )
-      changed = True
-
-  active_boundary_steps = tuple(
-    proof_step
-    for proof_step in boundary_steps
-    if id(
-      proof_step
-    ) in root_ancestor_ids
-  )
-
-  if not active_boundary_steps:
-    return frozenset()
-
-  closure_step_ids = {
-    id(
-      proof_step
-    )
-    for proof_step in active_boundary_steps
-  }
-  internal_step_ids = set()
-
-  changed = True
-
-  while changed:
-    changed = False
-
-    for edge in presentation.edges:
-      if id(
-        edge.parent_step
-      ) not in closure_step_ids:
-        continue
-
-      premise_step = edge.premise_step
-      premise_step_id = id(
-        premise_step
-      )
-
-      if (
-        premise_step is root_step
-        or premise_step_id in closure_step_ids
-      ):
-        continue
-
-      consumers = tuple(
-        consumers_by_step_id.get(
-          premise_step_id,
-          (),
-        )
-      )
-
-      if not consumers:
-        continue
-
-      if not all(
-        id(
-          consumer
-        )
-        in closure_step_ids
-        for consumer in consumers
-      ):
-        continue
-
-      closure_step_ids.add(
-        premise_step_id
-      )
-      internal_step_ids.add(
-        premise_step_id
-      )
-      changed = True
-
-  return frozenset(
-    internal_step_ids
-  )
-
 def _toda_group_proof_narrative_reference_internal_step_ids(
   presentation: TodaGroupProofPresentation,
   reference_entries,
@@ -3457,23 +3299,10 @@ def _toda_group_proof_narrative_reference_internal_step_ids(
     )
   )
 
-  root_fixed_internal_step_ids = (
-    _toda_group_proof_narrative_root_fixed_statement_internal_step_ids(
-      presentation
-    )
-  )
-
   return frozenset(
-    (
-      {
-        step_id
-        for step_id in owned_step_ids
-        if step_id not in selected_step_ids
-      }
-      | set(
-        root_fixed_internal_step_ids
-      )
-    )
+    step_id
+    for step_id in owned_step_ids
+    if step_id not in selected_step_ids
   )
 
 
@@ -9623,19 +9452,23 @@ def _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_pla
         continue
 
       statement = proof_step.conclusion
-      source_group = getattr(
+      map_object = getattr(
         statement,
+        "map",
+        None,
+      )
+
+      if map_object is None:
+        continue
+
+      source_group = getattr(
+        map_object,
         "source_group",
         None,
       )
       map_target_group = getattr(
-        statement,
+        map_object,
         "target_group",
-        None,
-      )
-      composition = getattr(
-        statement,
-        "composition",
         None,
       )
 
@@ -9648,7 +9481,6 @@ def _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_pla
           map_target_group,
           TodaPrimaryGroup,
         )
-        or composition is None
       ):
         continue
 
@@ -9677,10 +9509,7 @@ def _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_pla
         )
       )
 
-      if (
-        specialized_source is None
-        or specialized_target != target_group
-      ):
+      if specialized_target != target_group:
         continue
 
       source_steps = tuple(
@@ -10010,7 +9839,6 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation.root_step,
     )
   )
-
   reference_owned_step_ids = (
     _toda_group_proof_narrative_reference_owned_step_ids(
       presentation,

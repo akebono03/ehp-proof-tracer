@@ -296,9 +296,52 @@ def exclude_toda_group_proof_narrative_root_reference(
       )
       continue
 
+    if root_boundary is None:
+      continue
+
     if (
-      root_boundary is None
-      or root_boundary.classification
+      root_boundary.classification
+      is TodaLiteratureStatementClassification.PROOF_INTERNAL
+    ):
+      fixed_steps = []
+
+      for proof_step in entry.proof_steps:
+        if proof_step is root_step:
+          continue
+
+        boundary = (
+          classify_toda_literature_statement_step(
+            proof_step
+          )
+        )
+
+        if (
+          boundary is None
+          or boundary.classification
+          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+          or boundary.reference_locator
+          != root_boundary.reference_locator
+        ):
+          continue
+
+        fixed_steps.append(
+          proof_step
+        )
+
+      if fixed_steps:
+        retained_entries.append(
+          replace(
+            entry,
+            proof_steps=tuple(
+              fixed_steps
+            ),
+          )
+        )
+
+      continue
+
+    if (
+      root_boundary.classification
       is not TodaLiteratureStatementClassification.FIXED_STATEMENT
       or root_boundary.component_key is None
     ):

@@ -1,0 +1,169 @@
+def specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application(
+  presentation: TodaGroupProofPresentation,
+  markdown: str,
+  reference_entries,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  plan = (
+    _toda_group_proof_narrative_fixed_composition_isomorphism_specialization_plan(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  if plan is None:
+    return markdown
+
+  (
+    entry,
+    fixed_step,
+    source_step,
+    specialized_source,
+    specialized_target,
+    source_generator,
+    target_generator,
+    target_dimension,
+  ) = plan
+
+  marker = (
+    "[R"
+    + str(
+      entry.number
+    )
+    + "]"
+  )
+  specialized_map_paragraph = (
+    marker
+    + "を $i="
+    + str(
+      target_dimension
+    )
+    + "$ に適用すると, "
+    + r"$\eta_{2}\circ -: "
+    + render_toda_primary_group_latex(
+      specialized_source
+    )
+    + r" \to "
+    + render_toda_primary_group_latex(
+      specialized_target
+    )
+    + "$ は同型である."
+  )
+  generator_paragraph = (
+    "この同型で, $"
+    + render_toda_expression_latex(
+      source_generator
+    )
+    + r" \mapsto "
+    + render_toda_expression_latex(
+      target_generator
+    )
+    + "$."
+  )
+
+  if specialized_map_paragraph in markdown:
+    return markdown
+
+  fixed_rendered = (
+    _render_generic_narrative_step(
+      fixed_step
+    )
+  )
+  source_rendered = (
+    _render_generic_narrative_step(
+      source_step
+    )
+  )
+  root_rendered = (
+    _render_generic_narrative_step(
+      presentation.root_step
+    )
+  )
+
+  paragraphs = markdown.split(
+    "\n\n"
+  )
+  retained = []
+
+  for paragraph in paragraphs:
+    if (
+      fixed_rendered
+      and fixed_rendered in paragraph
+    ):
+      continue
+
+    retained.append(
+      paragraph
+    )
+
+  insertion_index = None
+
+  if source_rendered:
+    matching_indices = tuple(
+      index
+      for index, paragraph in enumerate(
+        retained
+      )
+      if source_rendered in paragraph
+    )
+
+    if len(
+      matching_indices
+    ) == 1:
+      insertion_index = (
+        matching_indices[
+          0
+        ]
+        + 1
+      )
+
+  if (
+    insertion_index is None
+    and root_rendered
+  ):
+    matching_indices = tuple(
+      index
+      for index, paragraph in enumerate(
+        retained
+      )
+      if root_rendered in paragraph
+    )
+
+    if len(
+      matching_indices
+    ) == 1:
+      insertion_index = (
+        matching_indices[
+          0
+        ]
+      )
+
+  if insertion_index is None:
+    return markdown
+
+  retained[
+    insertion_index:
+    insertion_index
+  ] = [
+    specialized_map_paragraph,
+    generator_paragraph,
+  ]
+
+  return "\n\n".join(
+    retained
+  )
