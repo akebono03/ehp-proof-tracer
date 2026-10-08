@@ -77,14 +77,6 @@ def test_phase162_r2_text_is_rendered_by_common_step_renderer():
 
     presentation = build_validated_backward_proof_presentation(_validated_fixture())
     text = render_validated_backward_proof_markdown(presentation)
-    reference, body = text.split("## 証明", 1)
-    fixed_ids = {
-        id(step)
-        for entry in build_validated_proof_reference_entries(presentation)
-        for step in entry.proof_steps
-    }
-    body_lines = body.splitlines()
-
     for step in presentation.nodes:
         if step.rule is not ProofRule.INFERENCE:
             continue
@@ -99,15 +91,14 @@ def test_phase162_r2_text_is_rendered_by_common_step_renderer():
             assert latex is not None
             expected = "$" + latex + "$"
         assert _render_validated_backward_step(step) == expected
-        if id(step) in fixed_ids:
-            # The common reference renderer can append the catalog's general
-            # range condition. The original statement remains its prefix.
-            assert expected.rstrip(".") in reference
+        if id(step) in {
+            id(fixed) for entry in build_validated_proof_reference_entries(presentation)
+            for fixed in entry.proof_steps
+        }:
+            assert expected in text.split("## 証明", 1)[0]
         else:
-            assert expected in body_lines
+            assert expected in text.split("## 証明", 1)[1]
     assert text.rstrip().endswith("□")
-
-
 
 
 def test_phase162_r2_whitehead_square_uses_existing_latex_renderer():
