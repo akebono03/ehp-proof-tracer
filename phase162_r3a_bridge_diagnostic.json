@@ -1,0 +1,392 @@
+{
+  "matching_bridge_rules": 1,
+  "target_group": {
+    "type": "Relation",
+    "fields": {
+      "lhs": {
+        "type": "TodaPrimaryGroup",
+        "fields": {
+          "group_dimension": 5,
+          "sphere_dimension": 3
+        }
+      },
+      "rhs": {
+        "type": "FiniteCyclicGroup",
+        "fields": {
+          "order": 2,
+          "generator": {
+            "type": "Composition",
+            "fields": {
+              "left": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": "η₃",
+                  "dimension": 3,
+                  "source": 4,
+                  "target": 3,
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": "η",
+                      "index": 3,
+                      "decoration": null
+                    }
+                  }
+                }
+              },
+              "right": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": "η_4",
+                  "dimension": 4,
+                  "source": 5,
+                  "target": 4,
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": "η",
+                      "index": 4,
+                      "decoration": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "relation_type": {
+        "enum": "RelationType",
+        "name": "EQUALITY"
+      },
+      "source": null,
+      "note": null
+    }
+  },
+  "source_generator": {
+    "type": "Composition",
+    "fields": {
+      "left": {
+        "type": "HomotopyElement",
+        "fields": {
+          "name": "η₂",
+          "dimension": 2,
+          "source": 3,
+          "target": 2,
+          "generator": {
+            "type": "GeneratorSymbol",
+            "fields": {
+              "family": "η",
+              "index": 2,
+              "decoration": null
+            }
+          }
+        }
+      },
+      "right": {
+        "type": "HomotopyElement",
+        "fields": {
+          "name": "η₃",
+          "dimension": 3,
+          "source": 4,
+          "target": 3,
+          "generator": {
+            "type": "GeneratorSymbol",
+            "fields": {
+              "family": "η",
+              "index": 3,
+              "decoration": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "planned_bridge": {
+    "type": "Relation",
+    "fields": {
+      "lhs": {
+        "type": "Suspension",
+        "fields": {
+          "expression": {
+            "type": "Composition",
+            "fields": {
+              "left": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": "η₂",
+                  "dimension": 2,
+                  "source": 3,
+                  "target": 2,
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": "η",
+                      "index": 2,
+                      "decoration": null
+                    }
+                  }
+                }
+              },
+              "right": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": "η₃",
+                  "dimension": 3,
+                  "source": 4,
+                  "target": 3,
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": "η",
+                      "index": 3,
+                      "decoration": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "rhs": {
+        "type": "Composition",
+        "fields": {
+          "left": {
+            "type": "HomotopyElement",
+            "fields": {
+              "name": "η₃",
+              "dimension": 3,
+              "source": 4,
+              "target": 3,
+              "generator": {
+                "type": "GeneratorSymbol",
+                "fields": {
+                  "family": "η",
+                  "index": 3,
+                  "decoration": null
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "HomotopyElement",
+            "fields": {
+              "name": "η_4",
+              "dimension": 4,
+              "source": 5,
+              "target": 4,
+              "generator": {
+                "type": "GeneratorSymbol",
+                "fields": {
+                  "family": "η",
+                  "index": 4,
+                  "decoration": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "relation_type": {
+        "enum": "RelationType",
+        "name": "EQUALITY"
+      },
+      "source": null,
+      "note": null
+    }
+  },
+  "eta_definitions": [
+    {
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "fields": {
+        "index": 3,
+        "element": {
+          "type": "HomotopyElement",
+          "fields": {
+            "name": "η₃",
+            "dimension": 3,
+            "source": 4,
+            "target": 3,
+            "generator": {
+              "type": "GeneratorSymbol",
+              "fields": {
+                "family": "η",
+                "index": 3,
+                "decoration": null
+              }
+            }
+          }
+        },
+        "iterated_suspension": {
+          "type": "IteratedSuspension",
+          "fields": {
+            "expression": {
+              "type": "HomotopyElement",
+              "fields": {
+                "name": "η₂",
+                "dimension": 2,
+                "source": 3,
+                "target": 2,
+                "generator": {
+                  "type": "GeneratorSymbol",
+                  "fields": {
+                    "family": "η",
+                    "index": 2,
+                    "decoration": null
+                  }
+                }
+              }
+            },
+            "exponent": 1
+          }
+        }
+      }
+    },
+    {
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "fields": {
+        "index": 4,
+        "element": {
+          "type": "HomotopyElement",
+          "fields": {
+            "name": "η_4",
+            "dimension": 4,
+            "source": 5,
+            "target": 4,
+            "generator": {
+              "type": "GeneratorSymbol",
+              "fields": {
+                "family": "η",
+                "index": 4,
+                "decoration": null
+              }
+            }
+          }
+        },
+        "iterated_suspension": {
+          "type": "IteratedSuspension",
+          "fields": {
+            "expression": {
+              "type": "HomotopyElement",
+              "fields": {
+                "name": "η₂",
+                "dimension": 2,
+                "source": 3,
+                "target": 2,
+                "generator": {
+                  "type": "GeneratorSymbol",
+                  "fields": {
+                    "family": "η",
+                    "index": 2,
+                    "decoration": null
+                  }
+                }
+              }
+            },
+            "exponent": 2
+          }
+        }
+      }
+    }
+  ],
+  "actual_bridge": {
+    "type": "Relation",
+    "fields": {
+      "lhs": {
+        "type": "Suspension",
+        "fields": {
+          "expression": {
+            "type": "Composition",
+            "fields": {
+              "left": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": "η₂",
+                  "dimension": 2,
+                  "source": 3,
+                  "target": 2,
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": "η",
+                      "index": 2,
+                      "decoration": null
+                    }
+                  }
+                }
+              },
+              "right": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": "η₃",
+                  "dimension": 3,
+                  "source": 4,
+                  "target": 3,
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": "η",
+                      "index": 3,
+                      "decoration": null
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "rhs": {
+        "type": "Composition",
+        "fields": {
+          "left": {
+            "type": "HomotopyElement",
+            "fields": {
+              "name": "η₃",
+              "dimension": 3,
+              "source": 4,
+              "target": 3,
+              "generator": {
+                "type": "GeneratorSymbol",
+                "fields": {
+                  "family": "η",
+                  "index": 3,
+                  "decoration": null
+                }
+              }
+            }
+          },
+          "right": {
+            "type": "HomotopyElement",
+            "fields": {
+              "name": "η₄",
+              "dimension": 4,
+              "source": 5,
+              "target": 4,
+              "generator": {
+                "type": "GeneratorSymbol",
+                "fields": {
+                  "family": "η",
+                  "index": 4,
+                  "decoration": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "relation_type": {
+        "enum": "RelationType",
+        "name": "EQUALITY"
+      },
+      "source": null,
+      "note": null
+    }
+  },
+  "bridge_equal": false,
+  "lhs_equal": true,
+  "rhs_equal": false,
+  "lhs_actual_type": "Suspension",
+  "lhs_expected_type": "Suspension"
+}
