@@ -219,31 +219,6 @@ def _is_display_tautology(step: ProofStep, prose: str) -> bool:
     return len(parts) == 2 and parts[0].strip() == parts[1].strip()
 
 
-
-def _validated_reference_number_by_step_id(
-    presentation: ValidatedProofPresentation,
-) -> dict[int, int]:
-    """Bind each fixed source ProofStep identity to its public reference number."""
-    return {
-        id(step): entry.number
-        for entry in build_validated_proof_reference_entries(presentation)
-        for step in entry.proof_steps
-    }
-
-
-def _direct_reference_markers(
-    step: ProofStep,
-    reference_number_by_id: dict[int, int],
-) -> tuple[str, ...]:
-    """Attribute only direct, identity-matched fixed literature premises."""
-    numbers = sorted({
-        reference_number_by_id[id(premise)]
-        for premise in step.premises
-        if id(premise) in reference_number_by_id
-    })
-    return tuple(f"[R{number}]" for number in numbers)
-
-
 def _validated_proof_body_lines(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
@@ -254,7 +229,6 @@ def _validated_proof_body_lines(
     attribution and mathematical inference. Text-based checks are used ONLY
     for redundant public presentation, never for proof validity.
     """
-    reference_number_by_id = _validated_reference_number_by_step_id(presentation)
     seen_conclusions = []
     seen_rendered = set()
     reference_lines = set()
@@ -293,9 +267,6 @@ def _validated_proof_body_lines(
             )
         ):
             prose = "完全性より、" + prose
-        markers = _direct_reference_markers(step, reference_number_by_id)
-        if markers:
-            prose = ", ".join(markers) + "より、" + prose
         lines.append(prose)
     return tuple(lines)
 
