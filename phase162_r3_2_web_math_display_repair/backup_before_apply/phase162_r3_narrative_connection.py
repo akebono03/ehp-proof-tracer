@@ -144,25 +144,6 @@ def _phase162_legacy_ehp_body(existing_public_markdown: str | None) -> str | Non
         raise ValueError("Expected validated EHP proof details in legacy narrative")
     return proof.strip()
 
-
-def _phase162_web_display_math_delimiters(markdown: str) -> str:
-    r"""Convert delimiter-only $$ lines to the Web parser's \[ and \] blocks."""
-    if not isinstance(markdown, str):
-        raise TypeError("markdown must be a str")
-    converted = []
-    in_math = False
-    for line in markdown.splitlines(keepends=True):
-        if line.strip() != "$$":
-            converted.append(line)
-            continue
-        newline = "\n" if line.endswith("\n") else ""
-        converted.append((r"\]" if in_math else r"\[") + newline)
-        in_math = not in_math
-    if in_math:
-        raise ValueError("Unterminated $$ math block in R3 narrative")
-    return "".join(converted)
-
-
 def render_phase162_r3_narrative(
     connection: ExistingProofConnectionResult,
     existing_public_markdown: str | None = None,
@@ -266,9 +247,7 @@ def render_phase162_r3_narrative(
         + "$ に移すので\n\n$$\n" + target + "\n$$\n\n□\n"
     )
     return Phase162R3Narrative(
-        markdown=_phase162_web_display_math_delimiters(
-            heading + "\n---\n\n## 証明\n\n" + detailed_ehp + "\n\n" + conclusion
-        ),
+        markdown=heading + "\n---\n\n## 証明\n\n" + detailed_ehp + "\n\n" + conclusion,
         root_step=root,
         ordered_steps=ancestors,
     )

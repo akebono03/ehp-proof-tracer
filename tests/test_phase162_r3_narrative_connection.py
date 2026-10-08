@@ -54,7 +54,7 @@ def test_r3_final_claim_is_derived_from_proof_root():
     assert result.markdown.count(r"\pi_{5}^{3}=\mathbb{Z}/2") == 2
     assert "\\ker E=" in result.markdown
     assert "\\operatorname{im}E=" in result.markdown
-    assert "\\square" in result.markdown
+    assert result.markdown.rstrip().endswith("□")
 
 
 def test_r3_reference_section_is_preserved_verbatim():
