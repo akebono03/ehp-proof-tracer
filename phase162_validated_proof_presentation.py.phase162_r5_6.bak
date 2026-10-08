@@ -32,12 +32,7 @@ from toda_group_proof_narrative_renderer import (
 )
 from toda_general_reference_schema import render_general_reference_statement_lines
 from toda_proof_dependency import TodaProofEdge
-from homotopy_groups import TodaSuspensionIsomorphismStatement
 from toda_rules import (
-    TodaDeltaInjectiveStatement,
-    TodaDeltaZeroStatement,
-    TodaHopfInvariantSurjectiveStatement,
-    TodaHopfInvariantZeroStatement,
     TodaSuspensionInjectiveStatement,
     TodaSuspensionSurjectiveStatement,
     TodaProp42ExactnessStatement,
@@ -362,106 +357,36 @@ def _validated_proof_branch_ids(root: ProofStep) -> tuple[frozenset[int], frozen
     return ancestry_ids(injective), ancestry_ids(surjective)
 
 
-def _validated_main_proof_steps(
-    presentation: ValidatedProofPresentation,
-) -> frozenset[int]:
-    """Use the seven map-goal derivations, not every source ancestry step.
-
-    Only map-property premises on the actual final derivation path are core.
-    Earlier calculations remain preparation even when they support injectivity.
-    """
-    recognized = (
-        TodaSuspensionIsomorphismStatement,
-        TodaSuspensionInjectiveStatement,
-        TodaSuspensionSurjectiveStatement,
-        TodaHopfInvariantSurjectiveStatement,
-        TodaHopfInvariantZeroStatement,
-        TodaDeltaZeroStatement,
-        TodaDeltaInjectiveStatement,
-    )
-    seen = set()
-
-    def visit(step: ProofStep) -> None:
-        if id(step) in seen or not isinstance(step.conclusion, recognized):
-            return
-        seen.add(id(step))
-        for premise in step.premises:
-            visit(premise)
-
-    visit(presentation.root_step)
-    return frozenset(seen)
-
-
-def _validated_ancestral_reference_numbers(
-    step: ProofStep,
-    reference_number_by_id: dict[int, int],
-) -> tuple[int, ...]:
-    """Trace concrete premises only; never infer attribution from prose."""
-    seen = set()
-    numbers = set()
-
-    def visit(current: ProofStep) -> None:
-        if id(current) in seen:
-            return
-        seen.add(id(current))
-        reference_number = reference_number_by_id.get(id(current))
-        if reference_number is not None:
-            numbers.add(reference_number)
-        for premise in current.premises:
-            visit(premise)
-
-    for premise in step.premises:
-        visit(premise)
-    return tuple(sorted(numbers))
-
-
 def _composed_validated_proof_sections(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
 ) -> tuple[tuple[str, tuple[str, ...]], ...]:
-    """Separate preparatory calculations from seven final map derivations.
+    """Partition topologically ordered steps by proven branch ancestry.
 
-    All visibly emitted steps remain represented exactly once. No inference
-    or mathematical proof fact is removed or manufactured.
+    Shared prerequisites appear once in preparation. Branch-specific steps
+    remain in their premise-before-conclusion order. Unknown goal shapes
+    retain the original flat proof without fabricated sections.
     """
     records = _validated_proof_body_step_lines(presentation, reference_step_ids)
     branches = _validated_proof_branch_ids(presentation.root_step)
     if branches is None:
         return (("証明", tuple(prose for _, prose in records)),)
     injective_ids, surjective_ids = branches
-    core_ids = _validated_main_proof_steps(presentation)
-    if id(presentation.root_step) not in core_ids:
-        return (("証明", tuple(prose for _, prose in records)),)
-    reference_number_by_id = _validated_reference_number_by_step_id(presentation)
+    shared_ids = injective_ids & surjective_ids
     sections = {"準備": [], "単射性": [], "全射性": [], "結論": []}
     for step, prose in records:
         identifier = id(step)
-        if identifier == id(presentation.root_step):
-            label = "結論"
-        elif identifier not in core_ids:
-            label = "準備"
+        if step is presentation.root_step:
+            sections["結論"].append(prose)
+        elif identifier in shared_ids:
+            sections["準備"].append(prose)
         elif identifier in injective_ids:
-            label = "単射性"
+            sections["単射性"].append(prose)
         elif identifier in surjective_ids:
-            label = "全射性"
+            sections["全射性"].append(prose)
         else:
-            label = "準備"
-
-        if identifier in core_ids and identifier != id(presentation.root_step):
-            ancestors = _validated_ancestral_reference_numbers(
-                step, reference_number_by_id
-            )
-            direct = _direct_reference_markers(step, reference_number_by_id)
-            if len(ancestors) > 1:
-                # A single directly used fixed step need not be the only
-                # literature basis of the claim. Do not claim it is.
-                if direct:
-                    prefix = ", ".join(direct) + "より、"
-                    if prose.startswith(prefix):
-                        prose = prose[len(prefix):]
-                prose = ", ".join(f"[R{number}]" for number in ancestors) + "を用いて、" + prose
-        sections[label].append(prose)
-
+            # A proof node outside both final branches must not be dropped.
+            sections["準備"].append(prose)
     return tuple(
         (label, tuple(lines)) for label, lines in sections.items() if lines
     )

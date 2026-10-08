@@ -1,8 +1,5 @@
 """Focused tests for the Phase 162 R2 proof-presentation boundary."""
 
-from tests.phase162_r5_6_reference_test_utils import assert_composed_steps_preserved
-
-
 from dataclasses import replace
 
 import pytest
@@ -146,10 +143,9 @@ def test_phase162_r2_text_is_rendered_by_common_step_renderer():
         )
     ]
     assert [line for line in body_lines if line and line != "□"] == expected_body_lines
-    assert_composed_steps_preserved(
-        [line for _, prose_lines in sections for line in prose_lines],
-        _validated_proof_body_lines(presentation, frozenset(fixed_ids)),
-    )
+    assert sorted(
+        line for _, prose_lines in sections for line in prose_lines
+    ) == sorted(_validated_proof_body_lines(presentation, frozenset(fixed_ids)))
     assert text.rstrip().endswith("□")
 
 

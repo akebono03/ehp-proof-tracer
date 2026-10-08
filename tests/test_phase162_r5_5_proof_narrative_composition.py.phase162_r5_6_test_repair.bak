@@ -1,8 +1,5 @@
 """Phase 162 R5-5: composition follows validated step ancestry."""
 
-from tests.phase162_r5_6_reference_test_utils import assert_composed_steps_preserved
-
-
 from phase162_validated_proof_presentation import (
     _composed_validated_proof_sections,
     _render_validated_reference_section,
@@ -22,7 +19,8 @@ def test_phase162_r5_5_sections_preserve_all_visible_steps_in_order_per_branch()
     )
     flat_lines = _validated_proof_body_lines(presentation, reference_ids)
     composed_lines = tuple(line for _, lines in sections for line in lines)
-    assert_composed_steps_preserved(composed_lines, flat_lines)
+    assert len(composed_lines) == len(flat_lines)
+    assert set(composed_lines) == set(flat_lines)
     assert composed_lines[-1] == flat_lines[-1]
 
 

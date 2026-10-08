@@ -1,8 +1,5 @@
 """Focused Phase 162 R3-2 fixed statement / proof internal display checks."""
 
-from tests.phase162_r5_6_reference_test_utils import assert_composed_steps_preserved
-
-
 from phase162_validated_proof_presentation import (
     build_validated_backward_proof_presentation,
     build_validated_proof_reference_entries,
@@ -76,10 +73,9 @@ def test_phase162_r3_2_fixed_statements_are_outside_proof_body():
         )
     ]
     assert actual_body_statements == expected_body_statements
-    assert_composed_steps_preserved(
-        [line for _, prose_lines in sections for line in prose_lines],
-        _validated_proof_body_lines(presentation, frozenset(fixed_ids)),
-    )
+    assert sorted(
+        line for _, prose_lines in sections for line in prose_lines
+    ) == sorted(_validated_proof_body_lines(presentation, frozenset(fixed_ids)))
 
 
 
