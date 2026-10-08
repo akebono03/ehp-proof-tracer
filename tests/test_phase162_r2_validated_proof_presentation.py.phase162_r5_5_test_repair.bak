@@ -14,7 +14,6 @@ from phase162_validated_proof_presentation import (
     build_validated_proof_reference_entries,
     _render_validated_backward_step,
     _validated_proof_body_lines,
-    _composed_validated_proof_sections,
 )
 from proof import ProofRule
 from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
@@ -132,20 +131,9 @@ def test_phase162_r2_text_is_rendered_by_common_step_renderer():
             # R4 may elide a repeated semantic conclusion or a tautology.
             # The full emitted sequence is checked separately.
             assert isinstance(expected, str) and expected
-    sections = _composed_validated_proof_sections(
-        presentation, frozenset(fixed_ids)
+    assert [line for line in body_lines if line and line != "□"] == list(
+        _validated_proof_body_lines(presentation, frozenset(fixed_ids))
     )
-    expected_body_lines = [
-        line
-        for heading, prose_lines in sections
-        for line in (
-            (("### " + heading,) if heading != "証明" else ()) + prose_lines
-        )
-    ]
-    assert [line for line in body_lines if line and line != "□"] == expected_body_lines
-    assert sorted(
-        line for _, prose_lines in sections for line in prose_lines
-    ) == sorted(_validated_proof_body_lines(presentation, frozenset(fixed_ids)))
     assert text.rstrip().endswith("□")
 
 

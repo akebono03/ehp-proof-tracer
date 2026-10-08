@@ -263,11 +263,16 @@ def _direct_reference_markers(
     return tuple(f"[R{number}]" for number in numbers)
 
 
-def _validated_proof_body_step_lines(
+def _validated_proof_body_lines(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
-) -> tuple[tuple[ProofStep, str], ...]:
-    """Render visible proof steps while preserving their source identities."""
+) -> tuple[str, ...]:
+    """Suppress duplicate display without modifying validated proof ancestry.
+
+    ProofStep identity and semantic equality continue to control reference
+    attribution and mathematical inference. Text-based checks are used ONLY
+    for redundant public presentation, never for proof validity.
+    """
     reference_number_by_id = _validated_reference_number_by_step_id(presentation)
     seen_conclusions = []
     seen_rendered = set()
@@ -310,86 +315,8 @@ def _validated_proof_body_step_lines(
         markers = _direct_reference_markers(step, reference_number_by_id)
         if markers:
             prose = ", ".join(markers) + "より、" + prose
-        lines.append((step, prose))
+        lines.append(prose)
     return tuple(lines)
-
-
-def _validated_proof_body_lines(
-    presentation: ValidatedProofPresentation,
-    reference_step_ids: frozenset[int],
-) -> tuple[str, ...]:
-    """Backward-compatible flat body, retaining all existing prose contracts."""
-    return tuple(
-        prose for _, prose in _validated_proof_body_step_lines(
-            presentation, reference_step_ids
-        )
-    )
-
-
-def _validated_proof_branch_ids(root: ProofStep) -> tuple[frozenset[int], frozenset[int]] | None:
-    """Find the two proof ancestries from the actual root, not rendered text."""
-    if len(root.premises) != 2:
-        return None
-    injective = next(
-        (step for step in root.premises
-         if isinstance(step.conclusion, TodaSuspensionInjectiveStatement)),
-        None,
-    )
-    surjective = next(
-        (step for step in root.premises
-         if isinstance(step.conclusion, TodaSuspensionSurjectiveStatement)),
-        None,
-    )
-    if injective is None or surjective is None:
-        return None
-
-    def ancestry_ids(start: ProofStep) -> frozenset[int]:
-        visited = set()
-        def visit(step: ProofStep) -> None:
-            if id(step) in visited:
-                return
-            visited.add(id(step))
-            for premise in step.premises:
-                visit(premise)
-        visit(start)
-        return frozenset(visited)
-
-    return ancestry_ids(injective), ancestry_ids(surjective)
-
-
-def _composed_validated_proof_sections(
-    presentation: ValidatedProofPresentation,
-    reference_step_ids: frozenset[int],
-) -> tuple[tuple[str, tuple[str, ...]], ...]:
-    """Partition topologically ordered steps by proven branch ancestry.
-
-    Shared prerequisites appear once in preparation. Branch-specific steps
-    remain in their premise-before-conclusion order. Unknown goal shapes
-    retain the original flat proof without fabricated sections.
-    """
-    records = _validated_proof_body_step_lines(presentation, reference_step_ids)
-    branches = _validated_proof_branch_ids(presentation.root_step)
-    if branches is None:
-        return (("証明", tuple(prose for _, prose in records)),)
-    injective_ids, surjective_ids = branches
-    shared_ids = injective_ids & surjective_ids
-    sections = {"準備": [], "単射性": [], "全射性": [], "結論": []}
-    for step, prose in records:
-        identifier = id(step)
-        if step is presentation.root_step:
-            sections["結論"].append(prose)
-        elif identifier in shared_ids:
-            sections["準備"].append(prose)
-        elif identifier in injective_ids:
-            sections["単射性"].append(prose)
-        elif identifier in surjective_ids:
-            sections["全射性"].append(prose)
-        else:
-            # A proof node outside both final branches must not be dropped.
-            sections["準備"].append(prose)
-    return tuple(
-        (label, tuple(lines)) for label, lines in sections.items() if lines
-    )
 
 
 def render_validated_backward_proof_markdown(
@@ -408,12 +335,7 @@ def render_validated_backward_proof_markdown(
     if reference_section:
         lines.extend(("## 使用する結果", "", reference_section, "", "---", ""))
     lines.extend(("## 証明", ""))
-    for heading, prose_lines in _composed_validated_proof_sections(
-        presentation, reference_step_ids
-    ):
-        if heading != "証明":
-            lines.extend(("### " + heading, ""))
-        for prose in prose_lines:
-            lines.extend((prose, ""))
+    for prose in _validated_proof_body_lines(presentation, reference_step_ids):
+        lines.extend((prose, ""))
     lines.extend(("□", ""))
     return "\n".join(lines)

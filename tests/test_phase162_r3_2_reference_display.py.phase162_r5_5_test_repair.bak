@@ -6,7 +6,6 @@ from phase162_validated_proof_presentation import (
     render_validated_backward_proof_markdown,
     _render_validated_backward_step,
     _validated_proof_body_lines,
-    _composed_validated_proof_sections,
     _is_display_tautology,
 )
 from proof import ProofRule
@@ -62,20 +61,10 @@ def test_phase162_r3_2_fixed_statements_are_outside_proof_body():
         line for line in body.splitlines()
         if line and line != "□"
     ]
-    sections = _composed_validated_proof_sections(
-        presentation, frozenset(fixed_ids)
+    expected_body_statements = list(
+        _validated_proof_body_lines(presentation, frozenset(fixed_ids))
     )
-    expected_body_statements = [
-        line
-        for heading, prose_lines in sections
-        for line in (
-            (("### " + heading,) if heading != "証明" else ()) + prose_lines
-        )
-    ]
     assert actual_body_statements == expected_body_statements
-    assert sorted(
-        line for _, prose_lines in sections for line in prose_lines
-    ) == sorted(_validated_proof_body_lines(presentation, frozenset(fixed_ids)))
 
 
 
