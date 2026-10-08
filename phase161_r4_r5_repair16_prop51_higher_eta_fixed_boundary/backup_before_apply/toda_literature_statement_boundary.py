@@ -608,7 +608,6 @@ _FIXED_RULE_COMPONENT_KEYS = {
 
 
 _REFERENCE_LOCATOR_BY_FIXED_RULE_NAME = {
-  "Toda Proposition 5.1 higher eta group relation": "Proposition 5.1",
   "Toda Equation 5.7 nu-prime eta_6 Hopf value": "(5.7)",
   "Toda (5.1) circle higher homotopy zero": "(5.1)",
   "Toda (5.1) diagonal identity group": "(5.1)",

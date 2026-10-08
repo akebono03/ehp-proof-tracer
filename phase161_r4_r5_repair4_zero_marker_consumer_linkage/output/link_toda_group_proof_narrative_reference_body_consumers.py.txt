@@ -1,0 +1,180 @@
+def link_toda_group_proof_narrative_reference_body_consumers(
+  presentation: TodaGroupProofPresentation,
+  body_markdown: str,
+  reference_entries,
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    body_markdown,
+    str,
+  ):
+    raise TypeError(
+      "body_markdown must be a str"
+    )
+
+  source_steps_by_number = (
+    _phase154_r5_reference_source_steps_by_number(
+      presentation,
+      reference_entries,
+    )
+  )
+  lines = body_markdown.splitlines()
+
+  for reference_number, source_steps in (
+    source_steps_by_number.items()
+  ):
+    marker = (
+      "[R"
+      + str(
+        reference_number
+      )
+      + "]"
+    )
+
+    current_body = "\n".join(
+      lines
+    )
+    consumer_line = (
+      _phase154_r5_unique_visible_non_root_consumer_line(
+        presentation,
+        source_steps,
+        current_body,
+      )
+    )
+
+    if consumer_line is None:
+      continue
+
+    marker_indices = tuple(
+      index
+      for index, line in enumerate(
+        lines
+      )
+      if marker in line
+    )
+
+    if len(
+      marker_indices
+    ) > 1:
+      continue
+
+    consumer_indices = tuple(
+      index
+      for index, line in enumerate(
+        lines
+      )
+      if (
+        consumer_line in line
+        and (
+          not marker_indices
+          or index != marker_indices[0]
+        )
+      )
+    )
+
+    if len(
+      consumer_indices
+    ) != 1:
+      continue
+
+    consumer_index = consumer_indices[
+      0
+    ]
+
+    if not marker_indices:
+      consumer_text = lines[
+        consumer_index
+      ]
+
+      if marker in consumer_text:
+        continue
+
+      lines[
+        consumer_index
+      ] = (
+        marker
+        + "より, "
+        + consumer_text
+      )
+      continue
+
+    marker_index = marker_indices[
+      0
+    ]
+    marker_line = lines[
+      marker_index
+    ]
+
+    if consumer_index <= marker_index:
+      continue
+
+    legacy_marker_only = (
+      marker_line
+      .rstrip()
+      .endswith(
+        marker
+        + "を用いる。"
+      )
+    )
+
+    rendered_source_lines = tuple(
+      rendered
+      for source_step in source_steps
+      for rendered in (
+        _render_generic_narrative_step(
+          source_step
+        ),
+      )
+      if rendered
+    )
+
+    self_reference_marker = (
+      not legacy_marker_only
+      and any(
+        rendered_source in marker_line
+        for rendered_source in rendered_source_lines
+      )
+      and consumer_line not in marker_line
+    )
+
+    if not (
+      legacy_marker_only
+      or self_reference_marker
+    ):
+      continue
+
+    lines[
+      marker_index
+    ] = (
+      marker
+      + "より, "
+      + consumer_line
+    )
+    del lines[
+      consumer_index
+    ]
+
+  compacted_lines = []
+  previous_blank = False
+
+  for line in lines:
+    is_blank = not line.strip()
+
+    if is_blank and previous_blank:
+      continue
+
+    compacted_lines.append(
+      line
+    )
+    previous_blank = is_blank
+
+  return "\n".join(
+    compacted_lines
+  ).strip()

@@ -1,0 +1,166 @@
+def build_toda_prop56_zero_argument_step() -> ProofStep:
+  core = build_toda_prop56_upstream_core()
+
+  phase50 = _build_phase50_result()
+  pi4_3_step = phase50[
+    "final_group_step"
+  ]
+
+  prop51_step = _build_prop51_step()
+
+  pi4_2_step = _build_pi4_2_step(
+    pi4_3_step,
+    core[
+      "toda52_step"
+    ],
+    prop51_step=prop51_step,
+  )
+
+  n3_isomorphism_step = (
+    _build_n3_suspension_isomorphism_step(
+      prop51_step,
+      core[
+        "hopf_nu_prime_step"
+      ],
+    )
+  )
+
+  pi5_3_step = build_phase59_pi5_3_step(
+    pi4_2_step,
+    n3_isomorphism_step,
+  )
+
+  pi6_4_step = _build_pi6_4_step(
+    pi5_3_step
+  )
+
+  (
+    higher_transport_step,
+    higher_range_step,
+  ) = _build_higher_eta_transport(
+    pi6_4_step
+  )
+
+  prop53_step = build_phase59_prop53_step(
+    pi4_2_step,
+    pi5_3_step,
+    pi6_4_step,
+    higher_transport_step,
+    higher_range_step,
+  )
+
+  hopf_surjective_step = (
+    build_phase59_hopf_surjective_step(
+      prop51_step,
+      core[
+        "hopf_nu_prime_step"
+      ],
+    )
+  )
+
+  lemma54_step, pi6_5_step = (
+    _build_lemma54_step(
+      prop51_step,
+      prop53_step,
+      core[
+        "hopf_nu_prime_step"
+      ],
+      core[
+        "double_step"
+      ],
+      pi4_3_step,
+    )
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+  t = ScalarSymbol(
+    name="t",
+  )
+
+  phase60_3_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_54_t_ge_1_indeterminacy_eta_cube_inference_rule(),
+        toda_54_nu_prime_triple_eta_transport_inference_rule(),
+        toda_54_indeterminacy_double_nu_prime_generator_inference_rule(),
+      ),
+      (
+        prop53_step,
+        core[
+          "double_step"
+        ],
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=n,
+            right=3,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+        ProofStep(
+          conclusion=ScalarGreaterEqualStatement(
+            left=t,
+            right=1,
+          ),
+          premises=(),
+          rule=ProofRule.GIVEN,
+        ),
+      ),
+    )
+  )
+
+  triple_eta_step = _find_unique_step(
+    phase60_3_result.steps,
+    lambda step: (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and isinstance(
+        step.conclusion.lhs,
+        Multiple,
+      )
+      and step.conclusion.lhs.coefficient
+      == 2
+      and isinstance(
+        step.conclusion.lhs.expression,
+        IteratedSuspension,
+      )
+    ),
+    "triple eta transport",
+  )
+
+  toda55_step = _build_toda55_step(
+    lemma54_step,
+    triple_eta_step,
+  )
+
+  toda56_step = _build_toda56_step(
+    lemma54_step
+  )
+
+  return build_toda_prop56_bootstrap_step(
+    core[
+      "toda52_step"
+    ],
+    pi5_3_step,
+    core[
+      "hopf_nu_prime_step"
+    ],
+    prop53_step,
+    core[
+      "double_step"
+    ],
+    core[
+      "membership_step"
+    ],
+    hopf_surjective_step,
+    pi6_5_step,
+    toda55_step,
+    toda56_step,
+    core[
+      "stable_isomorphism_step"
+    ],
+  )

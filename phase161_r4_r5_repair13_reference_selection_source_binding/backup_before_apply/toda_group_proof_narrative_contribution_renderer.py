@@ -1802,17 +1802,17 @@ def _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
 
 
 
-def _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
   presentation: TodaGroupProofPresentation,
   reference_entries,
-):
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
   statement_lines_by_reference_number = {}
-  normalized_entries = []
-
-  presentation_steps = tuple(
-    node.proof_step
-    for node in presentation.nodes
-  )
 
   for entry in reference_entries:
     candidate_steps = []
@@ -1902,85 +1902,6 @@ def _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
         ],
       )
 
-    replacement_by_step_id = {}
-
-    for proof_step in selected_steps:
-      component = (
-        _phase153_r6_reference_aggregate_component(
-          presentation,
-          entry,
-          proof_step,
-        )
-      )
-
-      if component is None:
-        continue
-
-      matching_fixed_component_steps = []
-
-      for candidate_step in presentation_steps:
-        if candidate_step.conclusion != component:
-          continue
-
-        boundary = (
-          classify_toda_literature_statement_step(
-            candidate_step
-          )
-        )
-
-        if (
-          boundary is None
-          or boundary.classification
-          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
-          or boundary.reference_locator
-          != entry.reference.locator
-          or boundary.component_key is None
-        ):
-          continue
-
-        matching_fixed_component_steps.append(
-          candidate_step
-        )
-
-      unique_matching_steps = tuple(
-        dict.fromkeys(
-          matching_fixed_component_steps
-        )
-      )
-
-      if len(
-        unique_matching_steps
-      ) != 1:
-        continue
-
-      replacement_by_step_id[
-        id(
-          proof_step
-        )
-      ] = unique_matching_steps[
-        0
-      ]
-
-    if replacement_by_step_id:
-      normalized_entry = replace(
-        entry,
-        proof_steps=tuple(
-          replacement_by_step_id.get(
-            id(
-              proof_step
-            ),
-            proof_step,
-          )
-          for proof_step in entry.proof_steps
-        ),
-      )
-    else:
-      normalized_entry = entry
-
-    normalized_entries.append(
-      normalized_entry
-    )
-
     rendered_selected_by_step_id = {
       id(
         proof_step
@@ -2013,34 +1934,6 @@ def _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
       statement_lines_by_reference_number[
         entry.number
       ] = statement_lines
-
-  return (
-    tuple(
-      normalized_entries
-    ),
-    statement_lines_by_reference_number,
-  )
-
-
-def _toda_group_proof_narrative_reference_statement_lines_by_number(
-  presentation: TodaGroupProofPresentation,
-  reference_entries,
-) -> dict[
-  int,
-  tuple[
-    str,
-    ...,
-  ],
-]:
-  (
-    _,
-    statement_lines_by_reference_number,
-  ) = (
-    _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
-      presentation,
-      reference_entries,
-    )
-  )
 
   return statement_lines_by_reference_number
 
@@ -10234,11 +10127,8 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
       presentation.root_step,
     )
   )
-  (
-    reference_entries,
-    statement_lines_by_reference_number,
-  ) = (
-    _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+  statement_lines_by_reference_number = (
+    _toda_group_proof_narrative_reference_statement_lines_by_number(
       presentation,
       reference_entries,
     )

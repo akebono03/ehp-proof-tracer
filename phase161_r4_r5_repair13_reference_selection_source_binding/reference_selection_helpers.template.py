@@ -1,0 +1,241 @@
+def _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+):
+  statement_lines_by_reference_number = {}
+  normalized_entries = []
+
+  presentation_steps = tuple(
+    node.proof_step
+    for node in presentation.nodes
+  )
+
+  for entry in reference_entries:
+    candidate_steps = []
+    rendered_by_step_id = {}
+    seen_rendered_statements = set()
+
+    for proof_step in entry.proof_steps:
+      rendered_statement = (
+        _render_generic_narrative_step(
+          proof_step
+        )
+      )
+      rendered_statement = (
+        _phase157_r20_canonical_fixed_reference_line(
+          proof_step,
+          rendered_statement,
+        )
+      )
+
+      if not (
+        _is_toda_group_proof_narrative_reference_statement_candidate(
+          proof_step,
+          rendered_statement,
+        )
+      ):
+        continue
+
+      if (
+        rendered_statement
+        in seen_rendered_statements
+      ):
+        continue
+
+      seen_rendered_statements.add(
+        rendered_statement
+      )
+      candidate_steps.append(
+        proof_step
+      )
+      rendered_by_step_id[
+        id(
+          proof_step
+        )
+      ] = rendered_statement
+
+    selected_steps = (
+      select_toda_group_proof_narrative_reference_statement_steps(
+        entry,
+        tuple(
+          candidate_steps
+        ),
+        presentation.edges,
+        root_step=presentation.root_step,
+      )
+    )
+
+    aggregate_specializations = tuple(
+      (
+        proof_step,
+        _phase153_r6_reference_aggregate_component(
+          presentation,
+          entry,
+          proof_step,
+        ),
+      )
+      for proof_step in selected_steps
+      if is_dataclass(
+        proof_step.conclusion
+      )
+    )
+    aggregate_specializations = tuple(
+      pair
+      for pair in aggregate_specializations
+      if pair[
+        1
+      ] is not None
+    )
+
+    if len(
+      aggregate_specializations
+    ) == 1:
+      selected_steps = (
+        aggregate_specializations[
+          0
+        ][
+          0
+        ],
+      )
+
+    replacement_by_step_id = {}
+
+    for proof_step in selected_steps:
+      component = (
+        _phase153_r6_reference_aggregate_component(
+          presentation,
+          entry,
+          proof_step,
+        )
+      )
+
+      if component is None:
+        continue
+
+      matching_fixed_component_steps = []
+
+      for candidate_step in presentation_steps:
+        if candidate_step.conclusion != component:
+          continue
+
+        boundary = (
+          classify_toda_literature_statement_step(
+            candidate_step
+          )
+        )
+
+        if (
+          boundary is None
+          or boundary.classification
+          is not TodaLiteratureStatementClassification.FIXED_STATEMENT
+          or boundary.reference_locator
+          != entry.reference.locator
+          or boundary.component_key is None
+        ):
+          continue
+
+        matching_fixed_component_steps.append(
+          candidate_step
+        )
+
+      unique_matching_steps = tuple(
+        dict.fromkeys(
+          matching_fixed_component_steps
+        )
+      )
+
+      if len(
+        unique_matching_steps
+      ) != 1:
+        continue
+
+      replacement_by_step_id[
+        id(
+          proof_step
+        )
+      ] = unique_matching_steps[
+        0
+      ]
+
+    if replacement_by_step_id:
+      normalized_entry = replace(
+        entry,
+        proof_steps=tuple(
+          replacement_by_step_id.get(
+            id(
+              proof_step
+            ),
+            proof_step,
+          )
+          for proof_step in entry.proof_steps
+        ),
+      )
+    else:
+      normalized_entry = entry
+
+    normalized_entries.append(
+      normalized_entry
+    )
+
+    rendered_selected_by_step_id = {
+      id(
+        proof_step
+      ): (
+        _phase157_r20_canonical_fixed_reference_line(
+          proof_step,
+          _phase153_r6_render_reference_statement(
+            presentation,
+            entry,
+            proof_step,
+            rendered_by_step_id[
+              id(
+                proof_step
+              )
+            ],
+          ),
+        )
+      )
+      for proof_step in selected_steps
+    }
+
+    statement_lines = (
+      _phase157_r5_r7_order_and_connect_fixed_definition_reference_lines(
+        selected_steps,
+        rendered_selected_by_step_id,
+      )
+    )
+
+    if statement_lines:
+      statement_lines_by_reference_number[
+        entry.number
+      ] = statement_lines
+
+  return (
+    tuple(
+      normalized_entries
+    ),
+    statement_lines_by_reference_number,
+  )
+
+
+def _toda_group_proof_narrative_reference_statement_lines_by_number(
+  presentation: TodaGroupProofPresentation,
+  reference_entries,
+) -> dict[
+  int,
+  tuple[
+    str,
+    ...,
+  ],
+]:
+  (
+    _,
+    statement_lines_by_reference_number,
+  ) = (
+    _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+      presentation,
+      reference_entries,
+    )
+  )
+
+  return statement_lines_by_reference_number

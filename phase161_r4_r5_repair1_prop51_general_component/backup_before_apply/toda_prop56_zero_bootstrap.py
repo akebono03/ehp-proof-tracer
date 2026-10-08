@@ -38,7 +38,6 @@ from map_facts import (
 )
 from proof import (
   InferenceRule,
-  LiteratureReference,
   ProofRule,
   ProofStep,
   Relation,
@@ -233,44 +232,17 @@ def _build_pi4_3_prop51_specialization_link_step(
       "TodaProp51FiniteDimensionalStatement"
     )
 
-  general_step = ProofStep(
-    conclusion=(
-      prop51_step
-      .conclusion
-      .higher_eta_group_relation
-    ),
+  return ProofStep(
+    conclusion=pi4_3_step.conclusion,
     premises=(
+      pi4_3_step,
       prop51_step,
     ),
     rule=ProofRule.INFERENCE,
     inference_rule=InferenceRule(
       name=(
         "Toda Proposition 5.1 "
-        "higher eta group relation"
-      ),
-      description=(
-        "Expose the higher-eta group component "
-        "of Toda Proposition 5.1 as a fixed "
-        "general literature statement."
-      ),
-      literature_reference=LiteratureReference(
-        label="Toda Proposition 5.1",
-        locator="Proposition 5.1",
-      ),
-    ),
-  )
-
-  return ProofStep(
-    conclusion=pi4_3_step.conclusion,
-    premises=(
-      pi4_3_step,
-      general_step,
-    ),
-    rule=ProofRule.INFERENCE,
-    inference_rule=InferenceRule(
-      name=(
-        "pi_4^3 Proposition 5.1 "
-        "specialization linkage"
+        "pi_4^3 specialization linkage"
       ),
       description=(
         "Link the independently derived concrete "
