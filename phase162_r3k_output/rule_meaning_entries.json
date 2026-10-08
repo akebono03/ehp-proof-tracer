@@ -1,0 +1,851 @@
+[
+  {
+    "index": 2,
+    "rule_name": "Toda 5.3 nu-prime Lemma 5.2 bracket specialization",
+    "description": "Recognize the concrete Toda (5.3) membership nu-prime in {eta_3, 2 iota_4, eta_4}_1 as the alpha=eta_3 and i=4 instance to which the already proved Lemma 5.2 consequence will be specialized. This rule does not reimplement the proof of Lemma 5.2.",
+    "premise_indices": [
+      1
+    ],
+    "premise_types": [
+      "TodaBracketMembershipStatement"
+    ],
+    "statement_type": "Toda53NuPrimeBracketSpecializationStatement",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S001] $\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$\n規則: Toda 5.3 nu-prime Lemma 5.2 bracket specialization\n規則の登録説明（数学的理由文としては未認証）: Recognize the concrete Toda (5.3) membership nu-prime in {eta_3, 2 iota_4, eta_4}_1 as the alpha=eta_3 and i=4 instance to which the already proved Lemma 5.2 consequence will be specialized. This rule does not reimplement the proof of Lemma 5.2.\n結論（同じ前提による規則再適用で一致）: $\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 6,
+    "rule_name": "Toda Delta iota_5 Whitehead-square relation",
+    "description": "For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign.",
+    "premise_indices": [
+      5
+    ],
+    "premise_types": [
+      "TodaDeltaMap"
+    ],
+    "statement_type": "TodaDeltaImageUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S005] `TodaDeltaMap`\n規則: Toda Delta iota_5 Whitehead-square relation\n規則の登録説明（数学的理由文としては未認証）: For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign.\n結論（同じ前提による規則再適用で一致）: $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 8,
+    "rule_name": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+    "description": "For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3.",
+    "premise_indices": [
+      7
+    ],
+    "premise_types": [
+      "WhiteheadProduct"
+    ],
+    "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S007] $[\\iota_{2}, \\iota_{2}]$\n規則: Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign\n規則の登録説明（数学的理由文としては未認証）: For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3.\n結論（同じ前提による規則再適用で一致）: $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 12,
+    "rule_name": "Toda pi_3^2 Whitehead square equals twice eta_2 up to sign",
+    "description": "For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2.",
+    "premise_indices": [
+      8,
+      9,
+      10,
+      11
+    ],
+    "premise_types": [
+      "TodaProp27HopfInvariantUpToSignStatement",
+      "TodaPi32Eta2DefinitionStatement",
+      "Relation",
+      "TodaHopfInvariantInjectiveStatement"
+    ],
+    "statement_type": "TodaPi32WhiteheadSquareUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S008] $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.\n- [S009] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n- [S010] $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n- [S011] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n規則: Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則の登録説明（数学的理由文としては未認証）: For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2.\n結論（同じ前提による規則再適用で一致）: Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 13,
+    "rule_name": "Toda pi_4^3 Delta image generated by twice eta_2",
+    "description": "If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2.",
+    "premise_indices": [
+      4,
+      6,
+      12
+    ],
+    "premise_types": [
+      "Relation",
+      "TodaDeltaImageUpToSignStatement",
+      "TodaPi32WhiteheadSquareUpToSignStatement"
+    ],
+    "statement_type": "TodaDeltaImageFreeCyclicStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S004] $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$\n- [S006] $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n- [S012] Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則: Toda pi_4^3 Delta image generated by twice eta_2\n規則の登録説明（数学的理由文としては未認証）: If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2.\n結論（同じ前提による規則再適用で一致）: $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 21,
+    "rule_name": "Toda eta_3 notation suspension bridge",
+    "description": "The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension.",
+    "premise_indices": [
+      20
+    ],
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S020] `TodaEtaFamilyDefinitionStatement`\n規則: Toda eta_3 notation suspension bridge\n規則の登録説明（数学的理由文としては未認証）: The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension.\n結論（同じ前提による規則再適用で一致）: $\\eta_{3} = \\eta_{3}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 23,
+    "rule_name": "Toda 5.3 eta_3 twice zero",
+    "description": "From the independently derived relation pi_4^3=Z/2{eta_3}, derive the concrete order-two consequence 2 eta_3=0 required for the alpha=eta_3 specialization of Lemma 5.2.",
+    "premise_indices": [
+      22
+    ],
+    "premise_types": [
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S022] $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$\n規則: Toda 5.3 eta_3 twice zero\n規則の登録説明（数学的理由文としては未認証）: From the independently derived relation pi_4^3=Z/2{eta_3}, derive the concrete order-two consequence 2 eta_3=0 required for the alpha=eta_3 specialization of Lemma 5.2.\n結論（同じ前提による規則再適用で一致）: $2\\eta_{3} = 0$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 24,
+    "rule_name": "Toda 5.3 nu-prime Lemma 5.2 Hopf specialization",
+    "description": "Specialize the already proved Lemma 5.2 Hopf conclusion H(beta)=E^2 alpha to alpha=eta_3, i=4, and beta=nu-prime, using the independently derived order-two relation 2 eta_3=0.",
+    "premise_indices": [
+      2,
+      23
+    ],
+    "premise_types": [
+      "Toda53NuPrimeBracketSpecializationStatement",
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S002] $\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}$ が成り立つ.\n- [S023] $2\\eta_{3} = 0$\n規則: Toda 5.3 nu-prime Lemma 5.2 Hopf specialization\n規則の登録説明（数学的理由文としては未認証）: Specialize the already proved Lemma 5.2 Hopf conclusion H(beta)=E^2 alpha to alpha=eta_3, i=4, and beta=nu-prime, using the independently derived order-two relation 2 eta_3=0.\n結論（同じ前提による規則再適用で一致）: $H\\left(\\nu'\\right) = \\eta_{5}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 27,
+    "rule_name": "Toda 5.3 eta_5 iterated suspension bridge",
+    "description": "For the concrete eta-family definitions at indices 3 and 5, derive the Phase 58 consequence E^2 eta_3=eta_5. The existing eta-family constructor uses the structural name eta_5 at index 5, while Toda 5.3 uses the canonical concrete notation eta-subscript-5. This narrow bridge connects those representations without changing the Phase 54 constructor or adding generic suspension normalization.",
+    "premise_indices": [
+      25,
+      26
+    ],
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement",
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S025] `TodaEtaFamilyDefinitionStatement`\n- [S026] `TodaEtaFamilyDefinitionStatement`\n規則: Toda 5.3 eta_5 iterated suspension bridge\n規則の登録説明（数学的理由文としては未認証）: For the concrete eta-family definitions at indices 3 and 5, derive the Phase 58 consequence E^2 eta_3=eta_5. The existing eta-family constructor uses the structural name eta_5 at index 5, while Toda 5.3 uses the canonical concrete notation eta-subscript-5. This narrow bridge connects those representations without changing the Phase 54 constructor or adding generic suspension normalization.\n結論（同じ前提による規則再適用で一致）: $\\eta_{5} = \\eta_{5}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 28,
+    "rule_name": "equality transitivity",
+    "description": "If one expression is equal to a second expression and the second expression is equal to a third expression, the first expression is equal to the third.",
+    "premise_indices": [
+      24,
+      27
+    ],
+    "premise_types": [
+      "Relation",
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "has_guard": false,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S024] $H\\left(\\nu'\\right) = \\eta_{5}$\n- [S027] $\\eta_{5} = \\eta_{5}$\n規則: equality transitivity\n規則の登録説明（数学的理由文としては未認証）: If one expression is equal to a second expression and the second expression is equal to a third expression, the first expression is equal to the third.\n結論（同じ前提による規則再適用で一致）: $H\\left(\\nu'\\right) = \\eta_{5}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 33,
+    "rule_name": "Toda suspension isomorphism implies injectivity",
+    "description": "An instance-aware Toda suspension isomorphism implies injectivity of the same suspension map instance.",
+    "premise_indices": [
+      32
+    ],
+    "premise_types": [
+      "TodaSuspensionIsomorphismStatement"
+    ],
+    "statement_type": "TodaSuspensionInjectiveStatement",
+    "has_guard": false,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S032] $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n規則: Toda suspension isomorphism implies injectivity\n規則の登録説明（数学的理由文としては未認証）: An instance-aware Toda suspension isomorphism implies injectivity of the same suspension map instance.\n結論（同じ前提による規則再適用で一致）: $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は単射である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 35,
+    "rule_name": "Toda EHP exactness injective-right Delta zero",
+    "description": "If a Delta-E Toda EHP window is exact and the corresponding suspension map E is injective, then the preceding Delta map is zero.",
+    "premise_indices": [
+      33,
+      34
+    ],
+    "premise_types": [
+      "TodaSuspensionInjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaDeltaZeroStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S033] $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は単射である.\n- [S034] $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.\n規則: Toda EHP exactness injective-right Delta zero\n規則の登録説明（数学的理由文としては未認証）: If a Delta-E Toda EHP window is exact and the corresponding suspension map E is injective, then the preceding Delta map is zero.\n結論（同じ前提による規則再適用で一致）: $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 38,
+    "rule_name": "Toda Hopf invariant injective and surjective implies isomorphism",
+    "description": "If the same instance-aware Toda Hopf invariant map is both injective and surjective, then that Hopf invariant map is an isomorphism.",
+    "premise_indices": [
+      31,
+      37
+    ],
+    "premise_types": [
+      "TodaHopfInvariantInjectiveStatement",
+      "TodaHopfInvariantSurjectiveStatement"
+    ],
+    "statement_type": "TodaHopfInvariantIsomorphismStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S031] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n- [S037] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射である.\n規則: Toda Hopf invariant injective and surjective implies isomorphism\n規則の登録説明（数学的理由文としては未認証）: If the same instance-aware Toda Hopf invariant map is both injective and surjective, then that Hopf invariant map is an isomorphism.\n結論（同じ前提による規則再適用で一致）: $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 40,
+    "rule_name": "Toda pi_3^2 define eta_2 as unique Hopf preimage",
+    "description": "Because the specific Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, iota_3 has a unique preimage in pi_3^2. Denote that unique preimage by eta_2.",
+    "premise_indices": [
+      38,
+      39
+    ],
+    "premise_types": [
+      "TodaHopfInvariantIsomorphismStatement",
+      "Relation"
+    ],
+    "statement_type": "TodaPi32Eta2DefinitionStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S038] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n- [S039] $\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$\n規則: Toda pi_3^2 define eta_2 as unique Hopf preimage\n規則の登録説明（数学的理由文としては未認証）: Because the specific Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, iota_3 has a unique preimage in pi_3^2. Denote that unique preimage by eta_2.\n結論（同じ前提による規則再適用で一致）: $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 41,
+    "rule_name": "Toda pi_3^2 free cyclic generator transport",
+    "description": "If the Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, pi_3^3 is freely generated by iota_3, and eta_2 is defined as the unique preimage of iota_3, then pi_3^2 is freely generated by eta_2.",
+    "premise_indices": [
+      38,
+      39,
+      40
+    ],
+    "premise_types": [
+      "TodaHopfInvariantIsomorphismStatement",
+      "Relation",
+      "TodaPi32Eta2DefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S038] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n- [S039] $\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$\n- [S040] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n規則: Toda pi_3^2 free cyclic generator transport\n規則の登録説明（数学的理由文としては未認証）: If the Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, pi_3^3 is freely generated by iota_3, and eta_2 is defined as the unique preimage of iota_3, then pi_3^2 is freely generated by eta_2.\n結論（同じ前提による規則再適用で一致）: $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 42,
+    "rule_name": "Toda pi_3^2 eta_2 Hopf relation",
+    "description": "The element denoted eta_2 was defined as the unique preimage of iota_3 under the Hopf invariant map, hence H(eta_2)=iota_3.",
+    "premise_indices": [
+      40
+    ],
+    "premise_types": [
+      "TodaPi32Eta2DefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S040] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n規則: Toda pi_3^2 eta_2 Hopf relation\n規則の登録説明（数学的理由文としては未認証）: The element denoted eta_2 was defined as the unique preimage of iota_3 under the Hopf invariant map, hence H(eta_2)=iota_3.\n結論（同じ前提による規則再適用で一致）: $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 44,
+    "rule_name": "Toda Delta iota_5 Whitehead-square relation",
+    "description": "For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign.",
+    "premise_indices": [
+      43
+    ],
+    "premise_types": [
+      "TodaDeltaMap"
+    ],
+    "statement_type": "TodaDeltaImageUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S043] `TodaDeltaMap`\n規則: Toda Delta iota_5 Whitehead-square relation\n規則の登録説明（数学的理由文としては未認証）: For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign.\n結論（同じ前提による規則再適用で一致）: $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 46,
+    "rule_name": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+    "description": "For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3.",
+    "premise_indices": [
+      45
+    ],
+    "premise_types": [
+      "WhiteheadProduct"
+    ],
+    "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S045] $[\\iota_{2}, \\iota_{2}]$\n規則: Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign\n規則の登録説明（数学的理由文としては未認証）: For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3.\n結論（同じ前提による規則再適用で一致）: $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 47,
+    "rule_name": "Toda pi_3^2 Whitehead square equals twice eta_2 up to sign",
+    "description": "For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2.",
+    "premise_indices": [
+      46,
+      40,
+      42,
+      31
+    ],
+    "premise_types": [
+      "TodaProp27HopfInvariantUpToSignStatement",
+      "TodaPi32Eta2DefinitionStatement",
+      "Relation",
+      "TodaHopfInvariantInjectiveStatement"
+    ],
+    "statement_type": "TodaPi32WhiteheadSquareUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S046] $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.\n- [S040] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n- [S042] $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n- [S031] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n規則: Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則の登録説明（数学的理由文としては未認証）: For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2.\n結論（同じ前提による規則再適用で一致）: Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 48,
+    "rule_name": "Toda Delta iota_5 twice eta_2 up-to-sign bridge",
+    "description": "For the specific Delta map from pi_5^5 to pi_3^2, if Delta(iota_5) equals [iota_2,iota_2] up to sign and [iota_2,iota_2] equals 2 eta_2 up to sign, then Delta(iota_5) equals 2 eta_2 up to sign.",
+    "premise_indices": [
+      44,
+      47
+    ],
+    "premise_types": [
+      "TodaDeltaImageUpToSignStatement",
+      "TodaPi32WhiteheadSquareUpToSignStatement"
+    ],
+    "statement_type": "TodaDeltaImageUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S044] $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n- [S047] Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則: Toda Delta iota_5 twice eta_2 up-to-sign bridge\n規則の登録説明（数学的理由文としては未認証）: For the specific Delta map from pi_5^5 to pi_3^2, if Delta(iota_5) equals [iota_2,iota_2] up to sign and [iota_2,iota_2] equals 2 eta_2 up to sign, then Delta(iota_5) equals 2 eta_2 up to sign.\n結論（同じ前提による規則再適用で一致）: $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 50,
+    "rule_name": "Toda pi_4^3 Delta image generated by twice eta_2",
+    "description": "If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2.",
+    "premise_indices": [
+      49,
+      44,
+      47
+    ],
+    "premise_types": [
+      "Relation",
+      "TodaDeltaImageUpToSignStatement",
+      "TodaPi32WhiteheadSquareUpToSignStatement"
+    ],
+    "statement_type": "TodaDeltaImageFreeCyclicStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S049] $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$\n- [S044] $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n- [S047] Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則: Toda pi_4^3 Delta image generated by twice eta_2\n規則の登録説明（数学的理由文としては未認証）: If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2.\n結論（同じ前提による規則再適用で一致）: $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 58,
+    "rule_name": "Toda eta_3 notation suspension bridge",
+    "description": "The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension.",
+    "premise_indices": [
+      57
+    ],
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S057] `TodaEtaFamilyDefinitionStatement`\n規則: Toda eta_3 notation suspension bridge\n規則の登録説明（数学的理由文としては未認証）: The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension.\n結論（同じ前提による規則再適用で一致）: $\\eta_{3} = \\eta_{3}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 63,
+    "rule_name": "Toda 4.5 stable-range iterated suspension isomorphism",
+    "description": "If n is at least k+2 and m is at least n, Toda (4.5) states that the iterated suspension E^(m-n) from pi_(n+k)^n to pi_(m+k)^m is an isomorphism.",
+    "premise_indices": [
+      60,
+      61,
+      62
+    ],
+    "premise_types": [
+      "ScalarGreaterEqualStatement",
+      "ScalarGreaterEqualStatement",
+      "TodaIteratedSuspensionMap"
+    ],
+    "statement_type": "Toda45IsomorphismStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S060] `ScalarGreaterEqualStatement`\n- [S061] `ScalarGreaterEqualStatement`\n- [S062] `TodaIteratedSuspensionMap`\n規則: Toda 4.5 stable-range iterated suspension isomorphism\n規則の登録説明（数学的理由文としては未認証）: If n is at least k+2 and m is at least n, Toda (4.5) states that the iterated suspension E^(m-n) from pi_(n+k)^n to pi_(m+k)^m is an isomorphism.\n結論（同じ前提による規則再適用で一致）: $E^{n - 3}: \\pi_{3 + 1}^{3} \\to \\pi_{n + 1}^{n}$ は同型写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 66,
+    "rule_name": "Toda higher eta-family iterated suspension bridge",
+    "description": "For the eta-family definition eta_n = E^(n-2) eta_2 and the specific relation eta_3 = E eta_2, derive the eta-family-specific relation E^(n-3) eta_3 = eta_n. This rule does not introduce generic iterated-suspension composition or normalization.",
+    "premise_indices": [
+      65,
+      58
+    ],
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement",
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S065] `TodaEtaFamilyDefinitionStatement`\n- [S058] $\\eta_{3} = \\eta_{3}$\n規則: Toda higher eta-family iterated suspension bridge\n規則の登録説明（数学的理由文としては未認証）: For the eta-family definition eta_n = E^(n-2) eta_2 and the specific relation eta_3 = E eta_2, derive the eta-family-specific relation E^(n-3) eta_3 = eta_n. This rule does not introduce generic iterated-suspension composition or normalization.\n結論（同じ前提による規則再適用で一致）: $E^{n - 3}\\eta_{3} = \\eta_{n}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 68,
+    "rule_name": "Toda Proposition 5.1 finite-dimensional integration",
+    "description": "Integrate the independently derived finite-dimensional results pi_3^2=Z{eta_2}, H(eta_2)=iota_3, Delta(iota_5)=plus or minus 2 eta_2, and pi_(n+1)^n=Z/2{eta_n} into the finite-dimensional Toda Proposition 5.1 statement.",
+    "premise_indices": [
+      41,
+      42,
+      48,
+      67
+    ],
+    "premise_types": [
+      "Relation",
+      "Relation",
+      "TodaDeltaImageUpToSignStatement",
+      "Relation"
+    ],
+    "statement_type": "TodaProp51FiniteDimensionalStatement",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S041] $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$\n- [S042] $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n- [S048] $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$\n- [S067] $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$\n規則: Toda Proposition 5.1 finite-dimensional integration\n規則の登録説明（数学的理由文としては未認証）: Integrate the independently derived finite-dimensional results pi_3^2=Z{eta_2}, H(eta_2)=iota_3, Delta(iota_5)=plus or minus 2 eta_2, and pi_(n+1)^n=Z/2{eta_n} into the finite-dimensional Toda Proposition 5.1 statement.\n結論（同じ前提による規則再適用で一致）: $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 69,
+    "rule_name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+    "description": "Phase 58 gives H(nu-prime)=eta_5. Proposition 5.1 gives the order-two higher eta family, whose n=5 instance is pi_6^5=Z/2{eta_5}. Therefore H from pi_6^3 to pi_6^5 is surjective.",
+    "premise_indices": [
+      28,
+      68
+    ],
+    "premise_types": [
+      "Relation",
+      "TodaProp51FiniteDimensionalStatement"
+    ],
+    "statement_type": "TodaHopfInvariantSurjectiveStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S028] $H\\left(\\nu'\\right) = \\eta_{5}$\n- [S068] $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.\n規則: Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity\n規則の登録説明（数学的理由文としては未認証）: Phase 58 gives H(nu-prime)=eta_5. Proposition 5.1 gives the order-two higher eta family, whose n=5 instance is pi_6^5=Z/2{eta_5}. Therefore H from pi_6^3 to pi_6^5 is surjective.\n結論（同じ前提による規則再適用で一致）: $H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 71,
+    "rule_name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+    "description": "In the concrete exact sequence pi_6^3 -> pi_6^5 -> pi_4^2, surjectivity of H makes Im(H) all of pi_6^5. Exactness gives Ker(Delta)=pi_6^5, so Delta is zero.",
+    "premise_indices": [
+      69,
+      70
+    ],
+    "premise_types": [
+      "TodaHopfInvariantSurjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaDeltaZeroStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S069] $H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射である.\n- [S070] $\\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5} \\xrightarrow{Δ} \\pi_{4}^{2}$ は完全である.\n規則: Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero\n規則の登録説明（数学的理由文としては未認証）: In the concrete exact sequence pi_6^3 -> pi_6^5 -> pi_4^2, surjectivity of H makes Im(H) all of pi_6^5. Exactness gives Ker(Delta)=pi_6^5, so Delta is zero.\n結論（同じ前提による規則再適用で一致）: $\\Delta: \\pi_{6}^{5} \\to \\pi_{4}^{2}$ は零写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 74,
+    "rule_name": "Toda Proposition 5.1 n=3 Delta injectivity",
+    "description": "For the concrete Delta map from pi_5^5 to pi_3^2, the Proposition 5.1 data Delta(iota_5)=plus or minus 2 eta_2 gives the injectivity required in the n=3 proof of Toda Proposition 5.3.",
+    "premise_indices": [
+      68
+    ],
+    "premise_types": [
+      "TodaProp51FiniteDimensionalStatement"
+    ],
+    "statement_type": "TodaDeltaInjectiveStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S068] $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ.\n規則: Toda Proposition 5.1 n=3 Delta injectivity\n規則の登録説明（数学的理由文としては未認証）: For the concrete Delta map from pi_5^5 to pi_3^2, the Proposition 5.1 data Delta(iota_5)=plus or minus 2 eta_2 gives the injectivity required in the n=3 proof of Toda Proposition 5.3.\n結論（同じ前提による規則再適用で一致）: $\\Delta: \\pi_{5}^{5} \\to \\pi_{3}^{2}$ は単射である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 76,
+    "rule_name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+    "description": "In the concrete exact sequence pi_5^3 -> pi_5^5 -> pi_3^2, injectivity of Delta makes Ker(Delta) zero. Exactness therefore makes the image of H zero.",
+    "premise_indices": [
+      74,
+      75
+    ],
+    "premise_types": [
+      "TodaDeltaInjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaHopfInvariantZeroStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S074] $\\Delta: \\pi_{5}^{5} \\to \\pi_{3}^{2}$ は単射である.\n- [S075] $\\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5} \\xrightarrow{Δ} \\pi_{3}^{2}$ は完全である.\n規則: Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero\n規則の登録説明（数学的理由文としては未認証）: In the concrete exact sequence pi_5^3 -> pi_5^5 -> pi_3^2, injectivity of Delta makes Ker(Delta) zero. Exactness therefore makes the image of H zero.\n結論（同じ前提による規則再適用で一致）: $H: \\pi_{5}^{3} \\to \\pi_{5}^{5}$ は零写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 79,
+    "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+    "description": "If the concrete suspension map from pi_4^2 to pi_5^3 is both injective and surjective, it is an isomorphism.",
+    "premise_indices": [
+      73,
+      78
+    ],
+    "premise_types": [
+      "TodaSuspensionInjectiveStatement",
+      "TodaSuspensionSurjectiveStatement"
+    ],
+    "statement_type": "TodaSuspensionIsomorphismStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S073] $E: \\pi_{4}^{2} \\to \\pi_{5}^{3}$ は単射である.\n- [S078] $E: \\pi_{4}^{2} \\to \\pi_{5}^{3}$ は全射である.\n規則: Toda Proposition 5.3 n=3 suspension isomorphism\n規則の登録説明（数学的理由文としては未認証）: If the concrete suspension map from pi_4^2 to pi_5^3 is both injective and surjective, it is an isomorphism.\n結論（同じ前提による規則再適用で一致）: $E: \\pi_{4}^{2} \\to \\pi_{5}^{3}$ は同型写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 83,
+    "rule_name": "Toda Delta iota_5 Whitehead-square relation",
+    "description": "For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign.",
+    "premise_indices": [
+      82
+    ],
+    "premise_types": [
+      "TodaDeltaMap"
+    ],
+    "statement_type": "TodaDeltaImageUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S082] `TodaDeltaMap`\n規則: Toda Delta iota_5 Whitehead-square relation\n規則の登録説明（数学的理由文としては未認証）: For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign.\n結論（同じ前提による規則再適用で一致）: $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 85,
+    "rule_name": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+    "description": "For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3.",
+    "premise_indices": [
+      84
+    ],
+    "premise_types": [
+      "WhiteheadProduct"
+    ],
+    "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S084] $[\\iota_{2}, \\iota_{2}]$\n規則: Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign\n規則の登録説明（数学的理由文としては未認証）: For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3.\n結論（同じ前提による規則再適用で一致）: $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 89,
+    "rule_name": "Toda pi_3^2 Whitehead square equals twice eta_2 up to sign",
+    "description": "For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2.",
+    "premise_indices": [
+      85,
+      86,
+      87,
+      88
+    ],
+    "premise_types": [
+      "TodaProp27HopfInvariantUpToSignStatement",
+      "TodaPi32Eta2DefinitionStatement",
+      "Relation",
+      "TodaHopfInvariantInjectiveStatement"
+    ],
+    "statement_type": "TodaPi32WhiteheadSquareUpToSignStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S085] $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.\n- [S086] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n- [S087] $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n- [S088] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n規則: Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則の登録説明（数学的理由文としては未認証）: For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2.\n結論（同じ前提による規則再適用で一致）: Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 90,
+    "rule_name": "Toda pi_4^3 Delta image generated by twice eta_2",
+    "description": "If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2.",
+    "premise_indices": [
+      81,
+      83,
+      89
+    ],
+    "premise_types": [
+      "Relation",
+      "TodaDeltaImageUpToSignStatement",
+      "TodaPi32WhiteheadSquareUpToSignStatement"
+    ],
+    "statement_type": "TodaDeltaImageFreeCyclicStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S081] $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$\n- [S083] $\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$\n- [S089] Toda pi_3^2 Whitehead square equals twice eta_2 up to sign\n規則: Toda pi_4^3 Delta image generated by twice eta_2\n規則の登録説明（数学的理由文としては未認証）: If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2.\n結論（同じ前提による規則再適用で一致）: $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 98,
+    "rule_name": "Toda eta_3 notation suspension bridge",
+    "description": "The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension.",
+    "premise_indices": [
+      97
+    ],
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S097] `TodaEtaFamilyDefinitionStatement`\n規則: Toda eta_3 notation suspension bridge\n規則の登録説明（数学的理由文としては未認証）: The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension.\n結論（同じ前提による規則再適用で一致）: $\\eta_{3} = \\eta_{3}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 101,
+    "rule_name": "Toda pi_(i-1)^1 zero for i at least 3",
+    "description": "For symbolic i at least 3, the Toda primary group pi_(i-1)^1 is zero.",
+    "premise_indices": [
+      100
+    ],
+    "premise_types": [
+      "ScalarGreaterEqualStatement"
+    ],
+    "statement_type": "TodaPrimaryGroupZeroStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S100] `ScalarGreaterEqualStatement`\n規則: Toda pi_(i-1)^1 zero for i at least 3\n規則の登録説明（数学的理由文としては未認証）: For symbolic i at least 3, the Toda primary group pi_(i-1)^1 is zero.\n結論（同じ前提による規則再適用で一致）: $\\pi_{i - 1}^{1} = 0$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 106,
+    "rule_name": "Toda suspension isomorphism implies injectivity",
+    "description": "An instance-aware Toda suspension isomorphism implies injectivity of the same suspension map instance.",
+    "premise_indices": [
+      105
+    ],
+    "premise_types": [
+      "TodaSuspensionIsomorphismStatement"
+    ],
+    "statement_type": "TodaSuspensionInjectiveStatement",
+    "has_guard": false,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S105] $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n規則: Toda suspension isomorphism implies injectivity\n規則の登録説明（数学的理由文としては未認証）: An instance-aware Toda suspension isomorphism implies injectivity of the same suspension map instance.\n結論（同じ前提による規則再適用で一致）: $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は単射である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 108,
+    "rule_name": "Toda EHP exactness injective-right Delta zero",
+    "description": "If a Delta-E Toda EHP window is exact and the corresponding suspension map E is injective, then the preceding Delta map is zero.",
+    "premise_indices": [
+      106,
+      107
+    ],
+    "premise_types": [
+      "TodaSuspensionInjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaDeltaZeroStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S106] $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は単射である.\n- [S107] $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.\n規則: Toda EHP exactness injective-right Delta zero\n規則の登録説明（数学的理由文としては未認証）: If a Delta-E Toda EHP window is exact and the corresponding suspension map E is injective, then the preceding Delta map is zero.\n結論（同じ前提による規則再適用で一致）: $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 111,
+    "rule_name": "Toda Hopf invariant injective and surjective implies isomorphism",
+    "description": "If the same instance-aware Toda Hopf invariant map is both injective and surjective, then that Hopf invariant map is an isomorphism.",
+    "premise_indices": [
+      104,
+      110
+    ],
+    "premise_types": [
+      "TodaHopfInvariantInjectiveStatement",
+      "TodaHopfInvariantSurjectiveStatement"
+    ],
+    "statement_type": "TodaHopfInvariantIsomorphismStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S104] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n- [S110] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射である.\n規則: Toda Hopf invariant injective and surjective implies isomorphism\n規則の登録説明（数学的理由文としては未認証）: If the same instance-aware Toda Hopf invariant map is both injective and surjective, then that Hopf invariant map is an isomorphism.\n結論（同じ前提による規則再適用で一致）: $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 113,
+    "rule_name": "Toda pi_3^2 define eta_2 as unique Hopf preimage",
+    "description": "Because the specific Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, iota_3 has a unique preimage in pi_3^2. Denote that unique preimage by eta_2.",
+    "premise_indices": [
+      111,
+      112
+    ],
+    "premise_types": [
+      "TodaHopfInvariantIsomorphismStatement",
+      "Relation"
+    ],
+    "statement_type": "TodaPi32Eta2DefinitionStatement",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S111] $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n- [S112] $\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$\n規則: Toda pi_3^2 define eta_2 as unique Hopf preimage\n規則の登録説明（数学的理由文としては未認証）: Because the specific Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, iota_3 has a unique preimage in pi_3^2. Denote that unique preimage by eta_2.\n結論（同じ前提による規則再適用で一致）: $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 114,
+    "rule_name": "Toda pi_3^2 eta_2 Hopf relation",
+    "description": "The element denoted eta_2 was defined as the unique preimage of iota_3 under the Hopf invariant map, hence H(eta_2)=iota_3.",
+    "premise_indices": [
+      113
+    ],
+    "premise_types": [
+      "TodaPi32Eta2DefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S113] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n規則: Toda pi_3^2 eta_2 Hopf relation\n規則の登録説明（数学的理由文としては未認証）: The element denoted eta_2 was defined as the unique preimage of iota_3 under the Hopf invariant map, hence H(eta_2)=iota_3.\n結論（同じ前提による規則再適用で一致）: $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 116,
+    "rule_name": "Toda Proposition 4.4 eta_2 n=2 specialization",
+    "description": "Specialize Toda Proposition 4.4 to n=2 and alpha=eta_2 using the independently derived definition of eta_2 and H(eta_2)=iota_3. The resulting decomposition map from pi_(i-1)^1 direct sum pi_i^3 to pi_i^2 is an isomorphism.",
+    "premise_indices": [
+      113,
+      114,
+      115
+    ],
+    "premise_types": [
+      "TodaPi32Eta2DefinitionStatement",
+      "Relation",
+      "TodaProp44DecompositionMap"
+    ],
+    "statement_type": "TodaProp44IsomorphismStatement",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S113] $H(\\eta_{2}) = \\iota_{3}$ を満たす $\\eta_{2} \\in \\pi_{3}^{2}$ を定める.\n- [S114] $H\\left(\\eta_{2}\\right) = \\iota_{3}$\n- [S115] `TodaProp44DecompositionMap`\n規則: Toda Proposition 4.4 eta_2 n=2 specialization\n規則の登録説明（数学的理由文としては未認証）: Specialize Toda Proposition 4.4 to n=2 and alpha=eta_2 using the independently derived definition of eta_2 and H(eta_2)=iota_3. The resulting decomposition map from pi_(i-1)^1 direct sum pi_i^3 to pi_i^2 is an isomorphism.\n結論（同じ前提による規則再適用で一致）: $(\\beta, γ) \\mapsto E\\beta + \\eta_{2}γ: \\pi_{i - 1}^{1} \\oplus \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 117,
+    "rule_name": "Toda Proposition 4.4 eta_2 second-summand restriction",
+    "description": "For the derived n=2 and alpha=eta_2 specialization of Toda Proposition 4.4, restrict the decomposition map E(beta)+eta_2 composed with gamma to the second direct-sum summand. The resulting expression is eta_2 composed with gamma.",
+    "premise_indices": [
+      116
+    ],
+    "premise_types": [
+      "TodaProp44IsomorphismStatement"
+    ],
+    "statement_type": "TodaProp44SecondSummandRestrictionStatement",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S116] $(\\beta, γ) \\mapsto E\\beta + \\eta_{2}γ: \\pi_{i - 1}^{1} \\oplus \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.\n規則: Toda Proposition 4.4 eta_2 second-summand restriction\n規則の登録説明（数学的理由文としては未認証）: For the derived n=2 and alpha=eta_2 specialization of Toda Proposition 4.4, restrict the decomposition map E(beta)+eta_2 composed with gamma to the second direct-sum summand. The resulting expression is eta_2 composed with gamma.\n結論（同じ前提による規則再適用で一致）: 分解写像の第二成分は $\\eta_{2}γ$ で与えられる.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 118,
+    "rule_name": "Toda 5.2 eta_2 composition isomorphism",
+    "description": "If the first summand pi_(i-1)^1 is zero, the derived n=2 and alpha=eta_2 Toda Proposition 4.4 decomposition map is an isomorphism, and its restriction to the second summand is composition with eta_2, then composition with eta_2 gives an isomorphism from pi_i^3 to pi_i^2.",
+    "premise_indices": [
+      101,
+      116,
+      117
+    ],
+    "premise_types": [
+      "TodaPrimaryGroupZeroStatement",
+      "TodaProp44IsomorphismStatement",
+      "TodaProp44SecondSummandRestrictionStatement"
+    ],
+    "statement_type": "Toda52CompositionIsomorphismStatement",
+    "has_guard": true,
+    "has_literature_reference": true,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S101] $\\pi_{i - 1}^{1} = 0$\n- [S116] $(\\beta, γ) \\mapsto E\\beta + \\eta_{2}γ: \\pi_{i - 1}^{1} \\oplus \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.\n- [S117] 分解写像の第二成分は $\\eta_{2}γ$ で与えられる.\n規則: Toda 5.2 eta_2 composition isomorphism\n規則の登録説明（数学的理由文としては未認証）: If the first summand pi_(i-1)^1 is zero, the derived n=2 and alpha=eta_2 Toda Proposition 4.4 decomposition map is an isomorphism, and its restriction to the second summand is composition with eta_2, then composition with eta_2 gives an isomorphism from pi_i^3 to pi_i^2.\n結論（同じ前提による規則再適用で一致）: $\\eta_{2}\\circ -: \\pi_{i}^{3} \\to \\pi_{i}^{2}$ は同型写像である.\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  },
+  {
+    "index": 122,
+    "rule_name": "Toda Proposition 5.3 n=3 eta-square suspension bridge",
+    "description": "For the concrete eta-family definitions at indices 3 and 4, derive the Proposition 5.3 n=3 relation E(eta_2 composed with eta_3) equals eta_3 composed with eta_4. This is the concrete relation E eta_2 squared=eta_3 squared. No generic eta-square expression or suspension normalization is introduced.",
+    "premise_indices": [
+      120,
+      121
+    ],
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement",
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "has_guard": true,
+    "has_literature_reference": false,
+    "evidence_status": "RULE_REPLAY_VERIFIED",
+    "prose_status": "RULE_DESCRIPTION_ONLY_NOT_A_PROOF_REASON",
+    "explanation_draft": "前提（ProofStep由来）:\n- [S120] `TodaEtaFamilyDefinitionStatement`\n- [S121] `TodaEtaFamilyDefinitionStatement`\n規則: Toda Proposition 5.3 n=3 eta-square suspension bridge\n規則の登録説明（数学的理由文としては未認証）: For the concrete eta-family definitions at indices 3 and 4, derive the Proposition 5.3 n=3 relation E(eta_2 composed with eta_3) equals eta_3 composed with eta_4. This is the concrete relation E eta_2 squared=eta_3 squared. No generic eta-square expression or suspension normalization is introduced.\n結論（同じ前提による規則再適用で一致）: $\\eta_{3}\\eta_{3} = \\eta_{3}^{2}$\n状態: RULE_REPLAY_VERIFIED / PROSE_NOT_CERTIFIED"
+  }
+]
