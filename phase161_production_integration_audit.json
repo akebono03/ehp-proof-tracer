@@ -1,0 +1,190 @@
+{
+  "scope": "Actual standard production repository and applicability catalog; no Phase 59 test seeds",
+  "repository_entry_count": 4,
+  "repository_entry_keys": [
+    "standard.toda.prop56",
+    "standard.toda.prop58",
+    "standard.toda.prop511",
+    "standard.toda.prop515"
+  ],
+  "available_step_count": 4,
+  "catalog_entry_count": 1268,
+  "safe_catalog_entry_count": 0,
+  "goal_type_catalog_count": 31,
+  "goal_type_entries": [
+    {
+      "key": "standard.production.applicability.0020",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0108",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0139",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0141",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0218",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0220",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0240",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0398",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0412",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0425",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0459",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0461",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0510",
+      "rule": "Toda Proposition 5.11 pi_12^6 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0511",
+      "rule": "Toda Proposition 5.11 pi_13^7 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0512",
+      "rule": "Toda Proposition 5.11 pi_14^8 Proposition 4.4 zero-second-summand suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0636",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0638",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0684",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0756",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0758",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0828",
+      "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.0919",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1055",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1114",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1139",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1150",
+      "rule": "Toda Proposition 5.3 n=4 suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1163",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1175",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1177",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1215",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    },
+    {
+      "key": "standard.production.applicability.1217",
+      "rule": "Toda (5.1) low-dimensional suspension isomorphism",
+      "safe": false
+    }
+  ],
+  "goal_compatible_entry_count": 0,
+  "goal_initially_available": false,
+  "depth_results": [
+    {
+      "max_depth": 2,
+      "report_status": "NO_FINAL_RULE",
+      "producer_nodes": 0
+    },
+    {
+      "max_depth": 3,
+      "report_status": "NO_FINAL_RULE",
+      "producer_nodes": 0
+    },
+    {
+      "max_depth": 4,
+      "report_status": "NO_FINAL_RULE",
+      "producer_nodes": 0
+    }
+  ]
+}
