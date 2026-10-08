@@ -1,0 +1,1 @@
+Phase 162 R3-D Repair 1: replace only the focused test expectations and add a separate conclusion-guard test. The original audit implementation is unchanged. Run run_phase162_r3d.ps1 from the repository root. Full suite is not run.
