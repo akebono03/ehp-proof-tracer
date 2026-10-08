@@ -338,32 +338,6 @@ def _validated_reference_application_prose(
     )
 
 
-def _fixed_statement_reuse_visible_ids(
-    presentation: ValidatedProofPresentation,
-    reference_step_ids: frozenset[int],
-) -> frozenset[int]:
-    """Keep paths to the goal, treating cited fixed statements as trusted leaves.
-
-    A fixed statement is a presentation boundary: its internal proof ancestry
-    is not needed to demonstrate this goal. Shared steps reached by any other
-    proof path remain visible. Only rendering is affected, never the DAG.
-    """
-    reachable: set[int] = set()
-
-    def visit(step: ProofStep) -> None:
-        identifier = id(step)
-        if identifier in reachable:
-            return
-        reachable.add(identifier)
-        if identifier in reference_step_ids:
-            return
-        for premise in step.premises:
-            visit(premise)
-
-    visit(presentation.root_step)
-    return frozenset(reachable)
-
-
 def _validated_proof_body_step_lines(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
@@ -381,15 +355,8 @@ def _validated_proof_body_step_lines(
         for fixed_step in entry.proof_steps:
             reference_lines.add(_render_validated_backward_step(fixed_step).strip())
     lines = []
-    visible_ids = _fixed_statement_reuse_visible_ids(
-        presentation, reference_step_ids
-    )
     for step in presentation.nodes:
-        if (
-            id(step) not in visible_ids
-            or step.rule is ProofRule.GIVEN
-            or id(step) in reference_step_ids
-        ):
+        if step.rule is ProofRule.GIVEN or id(step) in reference_step_ids:
             continue
         statement = step.conclusion
         if (

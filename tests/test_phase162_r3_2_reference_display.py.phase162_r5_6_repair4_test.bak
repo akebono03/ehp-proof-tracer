@@ -11,8 +11,6 @@ from phase162_validated_proof_presentation import (
     _validated_proof_body_lines,
     _composed_validated_proof_sections,
     _is_display_tautology,
-    _fixed_statement_reuse_visible_ids,
-    _render_validated_reference_section,
 )
 from proof import ProofRule
 from toda_general_reference_schema import render_general_reference_statement_lines
@@ -90,22 +88,13 @@ def test_phase162_r3_2_proof_internal_stays_in_body():
     presentation = build_validated_backward_proof_presentation(_validated_fixture())
     rendered = render_validated_backward_proof_markdown(presentation)
     reference, body = rendered.split("## 証明", 1)
-    _, fixed_ids = _render_validated_reference_section(presentation)
-    visible_ids = _fixed_statement_reuse_visible_ids(presentation, fixed_ids)
     internal = [
         step for step in presentation.nodes
         if (boundary := classify_toda_literature_statement_step(step)) is not None
         and boundary.classification is TodaLiteratureStatementClassification.PROOF_INTERNAL
     ]
     assert internal
-    suppressed = []
     for step in internal:
-        if id(step) not in visible_ids:
-            # The source is cited at a fixed-statement boundary. Its proof
-            # remains in the DAG, but its exclusive ancestry is not displayed.
-            suppressed.append(step)
-            assert any(node is step for node in presentation.nodes)
-            continue
         assert (
             _render_validated_backward_step(step) in body
             or any(
@@ -120,8 +109,6 @@ def test_phase162_r3_2_proof_internal_stays_in_body():
                 step, _render_validated_backward_step(step)
             )
         )
-    assert suppressed, "Fixture must exercise fixed-statement source suppression"
-    assert "(5.3)" in reference
     assert _render_validated_backward_step(presentation.root_step) in body
 
 

@@ -17,21 +17,14 @@ from tests.test_phase162_r2_validated_proof_presentation import _validated_fixtu
 
 def test_phase162_r5_6_preparatory_delta_relations_not_in_injectivity_section():
     presentation = build_validated_backward_proof_presentation(_validated_fixture())
-    reference, fixed_ids = _render_validated_reference_section(presentation)
+    _, fixed_ids = _render_validated_reference_section(presentation)
     sections = dict(_composed_validated_proof_sections(presentation, fixed_ids))
     preparation = "\n".join(sections["準備"])
     injectivity = "\n".join(sections["単射性"])
-    surjectivity = "\n".join(sections["全射性"])
-    # Under fixed-source reuse, the delta(iota5) computation may be hidden
-    # behind Proposition 5.1 instead of being repeated in preparation.
-    delta_formula = r"\Delta(\iota_{5})=\pm2\eta_{2}"
-    assert delta_formula in reference
-    if r"\Delta\left(\iota_{5}\right)" in preparation:
-        assert r"\Delta\left(\iota_{5}\right)" not in injectivity
+    assert r"\Delta\left(\iota_{5}\right)" in preparation
     assert r"\Delta\left(\iota_{5}\right)" not in injectivity
-    assert "Proposition 5.1" in surjectivity
     assert "は単射" in injectivity
-    assert "は全射" in surjectivity
+    assert "は全射" in "\n".join(sections["全射性"])
 
 
 def test_phase162_r5_6_core_uses_actual_map_goal_ancestry():
