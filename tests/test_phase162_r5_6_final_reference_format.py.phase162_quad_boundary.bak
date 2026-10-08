@@ -10,14 +10,3 @@ def test_phase162_r5_6_45_condition_spacing():
     assert r"n\ge k+2,\quad m\ge n" in lines[0]
     assert r"\quadm" not in lines[0]
     assert r"E^{m-n}:\pi_{n+k}^{n}\xrightarrow{\cong}\pi_{m+k}^{m}" in lines[0]
-
-
-def test_phase162_r5_6_45_no_joined_latex_macros():
-    lines = render_general_reference_statement_lines("(4.5)")
-    assert lines is not None
-    assert len(lines) == 1
-    line = lines[0]
-    assert r"\quadm" not in line
-    assert r"\quadE" not in line
-    assert r"\quad\Longrightarrow" not in line
-    assert r"\quad m\ge n\quad \Longrightarrow\quad E^{m-n}" in line

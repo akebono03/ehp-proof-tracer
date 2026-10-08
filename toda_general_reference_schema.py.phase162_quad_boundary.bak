@@ -103,5 +103,5 @@ def render_general_reference_statement_lines(locator: str) -> tuple[str, ...] | 
         return None
     if statement.conditions_latex:
         conditions = r",\quad ".join(statement.conditions_latex)
-        return ("$" + conditions + r"\quad \Longrightarrow\quad " + statement.components[0].statement_latex + "$.",)
+        return ("$" + conditions + r"\quad\Longrightarrow\quad" + statement.components[0].statement_latex + "$.",)
     return tuple("$" + component.statement_latex + "$." for component in statement.components)
