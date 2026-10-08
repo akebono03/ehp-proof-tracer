@@ -1,0 +1,1035 @@
+{
+  "scope": "Actual production repository/catalog; Phase59 is oracle ONLY",
+  "production_repository_root_count": 4,
+  "production_repository_keys": [
+    "standard.toda.prop56",
+    "standard.toda.prop58",
+    "standard.toda.prop511",
+    "standard.toda.prop515"
+  ],
+  "production_scope_node_count": 3614,
+  "production_catalog_count": 1268,
+  "production_catalog_safe_count": 0,
+  "seven_rules": [
+    {
+      "phase59_rule_index": 0,
+      "factory": "toda_53_n3_prop51_delta_injective_inference_rule",
+      "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "premise_count": 1,
+      "production_catalog_entries": 7,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0081",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0352",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0369",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0909",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0966",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.1034",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.1085",
+          "name": "Toda Proposition 5.1 n=3 Delta injectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    },
+    {
+      "phase59_rule_index": 1,
+      "factory": "toda_53_n3_delta_injective_hopf_zero_inference_rule",
+      "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+      "premise_count": 2,
+      "production_catalog_entries": 7,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0061",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0313",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0328",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0816",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0873",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0951",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.1010",
+          "name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    },
+    {
+      "phase59_rule_index": 2,
+      "factory": "toda_53_n3_hopf_zero_suspension_surjective_inference_rule",
+      "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+      "premise_count": 2,
+      "production_catalog_entries": 7,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0039",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0266",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0284",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0719",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0779",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0854",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0922",
+          "name": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    },
+    {
+      "phase59_rule_index": 3,
+      "factory": "toda_53_n3_hopf_eta5_surjective_inference_rule",
+      "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+      "premise_count": 2,
+      "production_catalog_entries": 11,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0011",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0080",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0203",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0351",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0368",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0603",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0741",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0908",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0965",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.1033",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.1084",
+          "name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+          "fixed_point_safe": false,
+          "relevance_category": "theorem_specific",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    },
+    {
+      "phase59_rule_index": 4,
+      "factory": "toda_53_n3_hopf_surjective_delta_zero_inference_rule",
+      "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+      "premise_count": 2,
+      "production_catalog_entries": 7,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0060",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0312",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0327",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0815",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0872",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0950",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.1009",
+          "name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    },
+    {
+      "phase59_rule_index": 5,
+      "factory": "toda_53_n3_delta_zero_suspension_injective_inference_rule",
+      "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+      "premise_count": 2,
+      "production_catalog_entries": 7,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0038",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0265",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0283",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0718",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0778",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0853",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0921",
+          "name": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "fixed_point_safe": false,
+          "relevance_category": "structural",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    },
+    {
+      "phase59_rule_index": 6,
+      "factory": "toda_53_n3_suspension_isomorphism_inference_rule",
+      "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "premise_count": 2,
+      "production_catalog_entries": 7,
+      "catalog_matches": [
+        {
+          "key": "standard.production.applicability.0020",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0218",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0240",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0636",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0684",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0756",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        },
+        {
+          "key": "standard.production.applicability.0828",
+          "name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "fixed_point_safe": false,
+          "relevance_category": "map_property",
+          "same_object_as_oracle_rule": false
+        }
+      ],
+      "any_search_eligible": false,
+      "safety_conclusion": "NOT_CERTIFIED_BY_THIS_AUDIT"
+    }
+  ],
+  "six_premises": [
+    {
+      "key": "prop51_step",
+      "statement_type": "TodaProp51FiniteDimensionalStatement",
+      "phase59_rule_kind": "INFERENCE",
+      "phase59_inference_rule": "Toda Proposition 5.1 finite-dimensional integration",
+      "direct_repository": false,
+      "scope_matches": [
+        {
+          "root_key": "standard.toda.prop56",
+          "depth": 3,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 2,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 5,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 5,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 6,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 6,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 8,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 3,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 4,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 4,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 7,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 7,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+        }
+      ],
+      "usable_as_current_search_initial_premise": false
+    },
+    {
+      "key": "hopf_eta5_step",
+      "statement_type": "Relation",
+      "phase59_rule_kind": "INFERENCE",
+      "phase59_inference_rule": "equality transitivity",
+      "direct_repository": false,
+      "scope_matches": [
+        {
+          "root_key": "standard.toda.prop56",
+          "depth": 3,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 3,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 5,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 6,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 6,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 6,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 8,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 5,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 6,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 7,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 7,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "INFERENCE",
+          "inference_rule": "equality transitivity"
+        }
+      ],
+      "usable_as_current_search_initial_premise": false
+    },
+    {
+      "key": "h_delta_5_step",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "phase59_rule_kind": "GIVEN",
+      "phase59_inference_rule": null,
+      "direct_repository": false,
+      "scope_matches": [
+        {
+          "root_key": "standard.toda.prop56",
+          "depth": 6,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 7,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 11,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 11,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 12,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 13,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        }
+      ],
+      "usable_as_current_search_initial_premise": false
+    },
+    {
+      "key": "e_h_5_step",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "phase59_rule_kind": "GIVEN",
+      "phase59_inference_rule": null,
+      "direct_repository": false,
+      "scope_matches": [
+        {
+          "root_key": "standard.toda.prop56",
+          "depth": 5,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 6,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 7,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 7,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 11,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 12,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        }
+      ],
+      "usable_as_current_search_initial_premise": false
+    },
+    {
+      "key": "h_delta_6_step",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "phase59_rule_kind": "GIVEN",
+      "phase59_inference_rule": null,
+      "direct_repository": false,
+      "scope_matches": [
+        {
+          "root_key": "standard.toda.prop56",
+          "depth": 6,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 7,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 11,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 11,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 12,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 13,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        }
+      ],
+      "usable_as_current_search_initial_premise": false
+    },
+    {
+      "key": "delta_e_6_step",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "phase59_rule_kind": "GIVEN",
+      "phase59_inference_rule": null,
+      "direct_repository": false,
+      "scope_matches": [
+        {
+          "root_key": "standard.toda.prop56",
+          "depth": 5,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 6,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop58",
+          "depth": 7,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop511",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 7,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 8,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 9,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 10,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 11,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        },
+        {
+          "root_key": "standard.toda.prop515",
+          "depth": 12,
+          "rule_kind": "GIVEN",
+          "inference_rule": null
+        }
+      ],
+      "usable_as_current_search_initial_premise": false
+    }
+  ],
+  "audit_limitations": [
+    "Catalog presence does not establish mathematical soundness or fixed-point safety.",
+    "Ancestry occurrence does not mean repository_available_steps exposes the premise.",
+    "No search policy or production repository was modified.",
+    "No full pytest suite was executed."
+  ]
+}
