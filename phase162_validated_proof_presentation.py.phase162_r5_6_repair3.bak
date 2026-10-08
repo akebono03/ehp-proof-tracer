@@ -30,10 +30,7 @@ from toda_group_proof_generic_narrative_renderer import (
 from toda_group_proof_narrative_renderer import (
     _render_group_proof_narrative_latex,
 )
-from toda_general_reference_schema import (
-    get_general_reference_statement,
-    render_general_reference_statement_lines,
-)
+from toda_general_reference_schema import render_general_reference_statement_lines
 from toda_proof_dependency import TodaProofEdge
 from homotopy_groups import TodaSuspensionIsomorphismStatement
 from toda_rules import (
@@ -271,83 +268,12 @@ def _direct_reference_markers(
     return tuple(f"[R{number}]" for number in numbers)
 
 
-def _validated_reference_application_prose(
-    step: ProofStep,
-    prose: str,
-    reference_number_by_id: dict[int, int],
-    reference_locator_by_number: dict[int, str],
-) -> str:
-    """Explain two concrete uses of registered source components.
-
-    This Phase 162 n=3,k=2 specialization is intentionally limited to the
-    verified target proof; it never changes the ProofStep or its premises.
-    Unregistered or non-direct source evidence retains the ordinary prose.
-    """
-    conclusion = step.conclusion
-    markers = _direct_reference_markers(step, reference_number_by_id)
-    if not markers or not isinstance(
-        conclusion, (TodaHopfInvariantSurjectiveStatement, TodaDeltaInjectiveStatement)
-    ):
-        return prose
-    direct_numbers = {
-        reference_number_by_id[id(premise)]
-        for premise in step.premises
-        if id(premise) in reference_number_by_id
-    }
-    prop51_numbers = {
-        number for number in direct_numbers
-        if reference_locator_by_number.get(number) == "Proposition 5.1"
-    }
-    if not prop51_numbers:
-        return prose
-    prop51 = get_general_reference_statement("Proposition 5.1")
-    if prop51 is None:
-        return prose
-    keys = {component.component_key for component in prop51.components}
-    lead = ", ".join(markers) + "より、"
-    if not prose.startswith(lead):
-        return prose
-    body = prose[len(lead):]
-    if isinstance(conclusion, TodaHopfInvariantSurjectiveStatement):
-        if "higher_eta_group_relation" not in keys:
-            return prose
-        # The H(nu') component must really be present in this same reference set.
-        if not any(
-            locator == "(5.3)" for locator in reference_locator_by_number.values()
-        ):
-            return prose
-        return (
-            lead
-            + "Proposition 5.1 の $n=5$ への適用から "
-            + r"$\pi_{6}^{5}=\mathbb{Z}/2\{\eta_{5}\}$"
-            + " を得る。準備で使用した (5.3) の "
-            + r"$H(\nu')=\eta_{5}$"
-            + " と合わせると、"
-            + body
-        )
-    if "delta_iota5_relation" not in keys or "pi3_2_group_relation" not in keys:
-        return prose
-    return (
-        lead
-        + "Proposition 5.1 の "
-        + r"$\Delta(\iota_{5})=\pm2\eta_{2}$"
-        + " と "
-        + r"$\pi_{3}^{2}=\mathbb{Z}\{\eta_{2}\}$"
-        + r" を用いる。$\pi_{5}^{5}$ が $\iota_{5}$ で生成される無限巡回群であることから、"
-        + body
-    )
-
-
 def _validated_proof_body_step_lines(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
 ) -> tuple[tuple[ProofStep, str], ...]:
     """Render visible proof steps while preserving their source identities."""
     reference_number_by_id = _validated_reference_number_by_step_id(presentation)
-    reference_locator_by_number = {
-        entry.number: entry.reference.locator
-        for entry in build_validated_proof_reference_entries(presentation)
-    }
     seen_conclusions = []
     seen_rendered = set()
     reference_lines = set()
@@ -389,9 +315,6 @@ def _validated_proof_body_step_lines(
         markers = _direct_reference_markers(step, reference_number_by_id)
         if markers:
             prose = ", ".join(markers) + "より、" + prose
-        prose = _validated_reference_application_prose(
-            step, prose, reference_number_by_id, reference_locator_by_number
-        )
         lines.append((step, prose))
     return tuple(lines)
 
