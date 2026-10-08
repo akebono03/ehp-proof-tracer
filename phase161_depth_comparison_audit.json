@@ -1,0 +1,49 @@
+{
+  "scope": "Phase 59 seeded premise/rule catalog only; not production goal-only proof search",
+  "goal_type": "TodaSuspensionIsomorphismStatement",
+  "initial_premises": 6,
+  "registered_rules": 7,
+  "depth_comparison": [
+    {
+      "max_depth": 2,
+      "search_status": "DEPTH_LIMIT",
+      "producer_nodes": 0,
+      "producer_rules": [],
+      "execution_status": "DEPTH_LIMIT",
+      "goal_derived": false,
+      "execution_result_available": false
+    },
+    {
+      "max_depth": 3,
+      "search_status": "SUCCESS",
+      "producer_nodes": 6,
+      "producer_rules": [
+        "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+        "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+        "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+        "Toda Proposition 5.1 n=3 Delta injectivity",
+        "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+        "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective"
+      ],
+      "execution_status": "SUCCESS",
+      "goal_derived": true,
+      "execution_result_available": true
+    },
+    {
+      "max_depth": 4,
+      "search_status": "SUCCESS",
+      "producer_nodes": 6,
+      "producer_rules": [
+        "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+        "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+        "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+        "Toda Proposition 5.1 n=3 Delta injectivity",
+        "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+        "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective"
+      ],
+      "execution_status": "SUCCESS",
+      "goal_derived": true,
+      "execution_result_available": true
+    }
+  ]
+}
