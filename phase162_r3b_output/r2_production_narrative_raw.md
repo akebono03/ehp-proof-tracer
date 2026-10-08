@@ -62,13 +62,31 @@ $$\pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}$ は�
 
 $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
 
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
 完全性より, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は単射.
 
 これより, これより, 
 
 完全性より, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は全射.
 
-これより, $\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+これより, $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
 
 $[\iota_{2}, \iota_{2}]$.
 
@@ -81,24 +99,6 @@ $\pi_{4}^{5} = 0$.
 完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
 
 これより, これより, 
-
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
-
-$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
-
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
-
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
-
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
-
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
-
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
-
-$\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
-
-完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
 
 $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
 
@@ -146,13 +146,15 @@ $\eta_{3}\eta_{3} = \eta_{3}^{2}$.
 
 これより, $\eta_{3} = \eta_{3}$.
 
-$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
 
 $[\iota_{2}, \iota_{2}]$.
 
 これより, $H([\iota_{2}, \iota_{2}]) = \pm 2\iota_{3}$ が成り立つ.
 
 これより, $\pi_{4}^{5} = 0$.
+
+群構造の移送に必要な前提を確認する. $E: \pi_{4}^{2} \xrightarrow{\cong} \pi_{5}^{3}$ は同型であり, $\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$ および $E\eta_{2}\eta_{3} = \eta_{3}\eta_{4}$ が成り立つ. したがって, 同型写像によって位数と生成元が移され, 移送先は指定された生成元を持つ同じ位数の巡回群である.
 
 以上より, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$.
 

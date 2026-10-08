@@ -25,6 +25,9 @@ from scalar_rules import (
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
+from toda_group_structure_transport_reason import (
+  render_group_structure_transport_reason,
+)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
@@ -12231,9 +12234,28 @@ def render_toda_group_proof_narrative_markdown(
   if stable_transport_narrative is not None:
     return stable_transport_narrative
 
-  return (
+  rendered = (
     _phase160_r7_previous_public_narrative_renderer(
       presentation
     )
+  )
+  reason = render_group_structure_transport_reason(
+    presentation.root_step
+  )
+  if reason is None:
+    return rendered
+
+  # Connect the verified inference explanation immediately before its
+  # existing final conclusion; do not replace proof text or use old Markdown.
+  conclusion_marker = '以上より,'
+  marker_position = rendered.rfind(conclusion_marker)
+  proof_position = rendered.find('## 証明')
+  if marker_position < 0 or marker_position < proof_position:
+    raise ValueError('Cannot locate final proof conclusion for transport reasoning')
+  return (
+    rendered[:marker_position]
+    + reason
+    + '\n\n'
+    + rendered[marker_position:]
   )
 
