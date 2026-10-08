@@ -16,67 +16,6 @@ from proof import ProofRule, ProofStep
 from toda_rules import TodaProp42ExactnessStatement
 
 
-def _format_phase162_proof_sentences(markdown: str) -> str:
-    """Use ASCII prose punctuation and separate sentences in the proof body.
-
-    Preserve the reference block and math strings unchanged.  All newlines are
-    paragraph boundaries because the web narrative Markdown renderer may
-    collapse a single newline inside a paragraph.
-    """
-    if "## 証明\n" not in markdown:
-        return markdown
-    prefix, proof = markdown.split("## 証明\n", 1)
-    paragraphs = []
-    for block in proof.split("\n\n"):
-        if not block.strip():
-            continue
-        if block.startswith("### ") or block.strip() == "□":
-            paragraphs.append(block.strip())
-            continue
-        parts = block.split("。")
-        for index, part in enumerate(parts):
-            sentence = part.strip().replace("、", ", ")
-            if not sentence:
-                continue
-            # The delimiter was a Japanese full stop.  Existing English
-            # periods (including math source numbers) are not split.
-            if index < len(parts) - 1:
-                sentence += "."
-            paragraphs.append(sentence)
-    return prefix + "## 証明\n\n" + "\n\n".join(paragraphs) + "\n"
-
-
-def _compose_phase162_group_conclusion(markdown: str) -> str:
-    """Connect the verified map goal to this existing n=3, k=2 group result.
-
-    This is a Web presentation of a separately known pi_4^2 group and its
-    generator suspension, not an additional R7-validated inference step.
-    """
-    if "## 証明\n" not in markdown or "### 結論\n" not in markdown:
-        return markdown
-    introduction = (
-        "EHP 完全列を考える.\n\n"
-        r"$\pi_{6}^{3}\xrightarrow{H}\pi_{6}^{5}"
-        r"\xrightarrow{\Delta}\pi_{4}^{2}"
-        r"\xrightarrow{E}\pi_{5}^{3}"
-        r"\xrightarrow{H}\pi_{5}^{5}"
-        r"\xrightarrow{\Delta}\pi_{3}^{2}$."
-        "\n\n"
-    )
-    markdown = markdown.replace("## 証明\n\n", "## 証明\n\n" + introduction, 1)
-    conclusion_prefix, conclusion = markdown.split("### 結論\n", 1)
-    if "□" not in conclusion:
-        return markdown
-    conclusion_body, ending = conclusion.rsplit("□", 1)
-    addition = (
-        r"既知の $\pi_{4}^{2}=\mathbb{Z}/2\{\eta_{2}^{2}\}$ と "
-        r"$E(\eta_{2}^{2})=\eta_{3}^{2}$ を用いると, "
-        "同型 $E$ は生成元を生成元へ送る.\n\n"
-        r"$\pi_{5}^{3}=\mathbb{Z}/2\{\eta_{3}^{2}\}$."
-    )
-    return conclusion_prefix + "### 結論\n" + conclusion_body.rstrip() + "\n\n" + addition + "\n\n□" + ending
-
-
 def build_phase162_web_validated_isomorphism_markdown() -> str:
     """Render only after the exact provenance roots pass R7 validation."""
     prop51 = build_phase55_representative_result()["prop51_steps"][0]
@@ -132,7 +71,4 @@ def build_phase162_web_validated_isomorphism_markdown() -> str:
         phase161_r5_target_goal(), leaves, tuple(trusted.values())
     )
     presentation = build_validated_backward_proof_presentation(validated)
-    markdown = render_validated_backward_proof_markdown(presentation)
-    return _format_phase162_proof_sentences(
-        _compose_phase162_group_conclusion(markdown)
-    )
+    return render_validated_backward_proof_markdown(presentation)
