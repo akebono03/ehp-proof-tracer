@@ -1,0 +1,246 @@
+{
+  "scope": "Name-free RULE selection by typed exact intermediate goals + real premise matches; mathematical subgoal chain is specified; existing relation provenance filter is still name-based",
+  "production_scope_nodes": 3614,
+  "catalog_entries": 1268,
+  "exactness_candidate_counts": [
+    7,
+    7,
+    7,
+    7
+  ],
+  "proposition_candidate_count": 7,
+  "hopf_relation_candidate_count": 28,
+  "pairs_attempted": 2,
+  "success": true,
+  "first_pair_diagnostics": [
+    {
+      "stage": "delta_injective",
+      "candidate_entries": 16,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0081",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "selected_premise_types": [
+        "TodaProp51FiniteDimensionalStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "hopf_zero",
+      "candidate_entries": 14,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0061",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+      "selected_premise_types": [
+        "TodaDeltaInjectiveStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "suspension_surjective",
+      "candidate_entries": 47,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0039",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+      "selected_premise_types": [
+        "TodaHopfInvariantZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "hopf_surjective",
+      "candidate_entries": 32,
+      "matching_rules": 0,
+      "exact_goal_producers": 0
+    }
+  ],
+  "status": "SEMANTIC_RULE_SELECTION_REAL_PROOF_SUCCESS",
+  "stages": [
+    {
+      "stage": "delta_injective",
+      "candidate_entries": 16,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0081",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "selected_premise_types": [
+        "TodaProp51FiniteDimensionalStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "hopf_zero",
+      "candidate_entries": 14,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0061",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+      "selected_premise_types": [
+        "TodaDeltaInjectiveStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "suspension_surjective",
+      "candidate_entries": 47,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0039",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective",
+      "selected_premise_types": [
+        "TodaHopfInvariantZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "hopf_surjective",
+      "candidate_entries": 32,
+      "matching_rules": 11,
+      "exact_goal_producers": 11,
+      "selected_catalog_key": "standard.production.applicability.0011",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+      "selected_premise_types": [
+        "Relation",
+        "TodaProp51FiniteDimensionalStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "delta_zero",
+      "candidate_entries": 25,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0060",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+      "selected_premise_types": [
+        "TodaHopfInvariantSurjectiveStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "suspension_injective",
+      "candidate_entries": 27,
+      "matching_rules": 7,
+      "exact_goal_producers": 7,
+      "selected_catalog_key": "standard.production.applicability.0038",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+      "selected_premise_types": [
+        "TodaDeltaZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    },
+    {
+      "stage": "isomorphism",
+      "candidate_entries": 31,
+      "matching_rules": 21,
+      "exact_goal_producers": 7,
+      "errors": [
+        {
+          "key": "standard.production.applicability.0139",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.0141",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.0398",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.0425",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.0459",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.0461",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.0919",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1114",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1139",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1163",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1175",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1177",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1215",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        },
+        {
+          "key": "standard.production.applicability.1217",
+          "error": "inference rule must have a conclusion builder or a conclusion pattern"
+        }
+      ],
+      "selected_catalog_key": "standard.production.applicability.0020",
+      "selected_rule_name_for_reporting_only": "Toda Proposition 5.3 n=3 suspension isomorphism",
+      "selected_premise_types": [
+        "TodaSuspensionInjectiveStatement",
+        "TodaSuspensionSurjectiveStatement"
+      ],
+      "selected_premises_are_existing_or_new_real_steps": true
+    }
+  ],
+  "new_inference_steps": 7,
+  "selected_initial_provenance": [
+    {
+      "type": "TodaProp51FiniteDimensionalStatement",
+      "rule": "INFERENCE",
+      "inference_rule": "Toda Proposition 5.1 finite-dimensional integration"
+    },
+    {
+      "type": "Relation",
+      "rule": "INFERENCE",
+      "inference_rule": "equality transitivity"
+    },
+    {
+      "type": "TodaProp42ExactnessStatement",
+      "rule": "GIVEN",
+      "inference_rule": null
+    },
+    {
+      "type": "TodaProp42ExactnessStatement",
+      "rule": "GIVEN",
+      "inference_rule": null
+    },
+    {
+      "type": "TodaProp42ExactnessStatement",
+      "rule": "GIVEN",
+      "inference_rule": null
+    },
+    {
+      "type": "TodaProp42ExactnessStatement",
+      "rule": "GIVEN",
+      "inference_rule": null
+    }
+  ],
+  "all_generated_steps_are_inferences": true
+}
