@@ -419,11 +419,10 @@ def _composed_validated_proof_sections(
     presentation: ValidatedProofPresentation,
     reference_step_ids: frozenset[int],
 ) -> tuple[tuple[str, tuple[str, ...]], ...]:
-    """Organize visible steps without promoting transitive ancestry to citations.
+    """Separate preparatory calculations from seven final map derivations.
 
-    The per-step renderer owns direct fixed-literature attribution.  A later
-    map-property inference may depend on a previously proved fact, but that
-    fact's remote literature ancestors are not new direct citations.
+    All visibly emitted steps remain represented exactly once. No inference
+    or mathematical proof fact is removed or manufactured.
     """
     records = _validated_proof_body_step_lines(presentation, reference_step_ids)
     branches = _validated_proof_branch_ids(presentation.root_step)
@@ -433,7 +432,7 @@ def _composed_validated_proof_sections(
     core_ids = _validated_main_proof_steps(presentation)
     if id(presentation.root_step) not in core_ids:
         return (("証明", tuple(prose for _, prose in records)),)
-
+    reference_number_by_id = _validated_reference_number_by_step_id(presentation)
     sections = {"準備": [], "単射性": [], "全射性": [], "結論": []}
     for step, prose in records:
         identifier = id(step)
@@ -447,6 +446,20 @@ def _composed_validated_proof_sections(
             label = "全射性"
         else:
             label = "準備"
+
+        if identifier in core_ids and identifier != id(presentation.root_step):
+            ancestors = _validated_ancestral_reference_numbers(
+                step, reference_number_by_id
+            )
+            direct = _direct_reference_markers(step, reference_number_by_id)
+            if len(ancestors) > 1:
+                # A single directly used fixed step need not be the only
+                # literature basis of the claim. Do not claim it is.
+                if direct:
+                    prefix = ", ".join(direct) + "より、"
+                    if prose.startswith(prefix):
+                        prose = prose[len(prefix):]
+                prose = ", ".join(f"[R{number}]" for number in ancestors) + "を用いて、" + prose
         sections[label].append(prose)
 
     return tuple(
