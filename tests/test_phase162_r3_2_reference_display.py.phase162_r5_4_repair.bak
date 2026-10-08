@@ -9,7 +9,6 @@ from phase162_validated_proof_presentation import (
     _is_display_tautology,
 )
 from proof import ProofRule
-from toda_general_reference_schema import render_general_reference_statement_lines
 from tests.test_phase162_r2_validated_proof_presentation import _validated_fixture
 from toda_literature_statement_boundary import (
     TodaLiteratureStatementClassification,
@@ -44,15 +43,14 @@ def test_phase162_r3_2_fixed_statements_are_outside_proof_body():
     }
     for entry in entries:
         assert entry.reference.locator in reference
-        registered = render_general_reference_statement_lines(entry.reference.locator)
-        if registered is not None:
-            # The fixed source's general formula is independent of the
-            # instantiated conclusions held by its ProofStep objects.
-            assert all(line in reference for line in registered)
-        else:
-            for step in entry.proof_steps:
-                statement = _render_validated_backward_step(step)
+        for step in entry.proof_steps:
+            statement = _render_validated_backward_step(step)
+            from toda_general_reference_schema import render_general_reference_statement_lines
+            registered = render_general_reference_statement_lines(entry.reference.locator)
+            if registered is None:
                 assert statement.rstrip(".") in reference
+            else:
+                assert all(line in reference for line in registered)
 
     # Compare the entire emitted inference sequence against the non-fixed
     # ProofStep objects. Equal strings from *other* inference steps are valid:
@@ -101,34 +99,22 @@ def test_phase162_r3_2_display_tautology_retains_proof_step_ancestry():
     presentation = build_validated_backward_proof_presentation(_validated_fixture())
     rendered = render_validated_backward_proof_markdown(presentation)
     _, body = rendered.split("## 証明", 1)
-
-    # An internal inference may render as a reflexive expression in older
-    # renderers. R5-4 preserves the iterated suspension operator, so this
-    # test must not require such suppressed lines to exist.
-    internal_steps = [
+    hidden_internal_steps = [
         step for step in presentation.nodes
         if (boundary := classify_toda_literature_statement_step(step)) is not None
         and boundary.classification is TodaLiteratureStatementClassification.PROOF_INTERNAL
+        and _is_display_tautology(step, _render_validated_backward_step(step))
     ]
-    assert internal_steps
-
-    hidden_internal_steps = [
-        step for step in internal_steps
-        if _is_display_tautology(step, _render_validated_backward_step(step))
-    ]
+    assert hidden_internal_steps
     assert all(
         _render_validated_backward_step(step) not in body.splitlines()
         for step in hidden_internal_steps
     )
     assert all(
         any(node is step for node in presentation.nodes)
-        for step in internal_steps
+        for step in hidden_internal_steps
     )
-
-    # In particular, the former η₅ = η₅ display must retain E²η₃ = η₅.
-    assert r"E^{2}\eta_{3}" in body
-    assert r"\eta_{5}" in body
     assert any(
         any(premise is step for node in presentation.nodes for premise in node.premises)
-        for step in internal_steps
+        for step in hidden_internal_steps
     )

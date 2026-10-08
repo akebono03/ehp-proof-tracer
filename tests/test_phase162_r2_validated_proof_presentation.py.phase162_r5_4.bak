@@ -93,20 +93,7 @@ def test_phase162_r2_text_is_rendered_by_common_step_renderer():
         fallback = (
             step.inference_rule.name if step.inference_rule is not None else None
         )
-        from expression import IteratedSuspension
-        from proof import Relation, RelationType
-        from repository_element_presentation import render_repository_conclusion_latex
-        conclusion = step.conclusion
-        if (
-            isinstance(conclusion, Relation)
-            and conclusion.relation_type is RelationType.EQUALITY
-            and (
-                isinstance(conclusion.lhs, IteratedSuspension)
-                or isinstance(conclusion.rhs, IteratedSuspension)
-            )
-        ):
-            expected = "$" + render_repository_conclusion_latex(conclusion) + "$"
-        elif generic and generic != fallback and generic != f"`{type(step.conclusion).__name__}`":
+        if generic and generic != fallback and generic != f"`{type(step.conclusion).__name__}`":
             expected = generic
         else:
             latex = _render_group_proof_narrative_latex(step)

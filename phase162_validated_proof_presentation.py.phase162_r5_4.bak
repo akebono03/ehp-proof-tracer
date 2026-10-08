@@ -7,14 +7,11 @@ The established common ProofStep statement renderer remains the prose source.
 from dataclasses import dataclass
 import re
 
-from expression import IteratedSuspension
-
 from phase161_r7_premise_provenance_validation import (
     ValidatedBackwardReconstruction,
     validate_phase161_r7_provenance,
 )
 from proof import ProofRule, ProofStep, Relation, RelationType
-from repository_element_presentation import render_repository_conclusion_latex
 from toda_literature_statement_boundary import (
     TodaLiteratureStatementClassification,
     classify_toda_literature_statement_step,
@@ -105,23 +102,7 @@ def build_validated_backward_proof_presentation(
 
 
 def _render_validated_backward_step(step: ProofStep) -> str:
-    """Keep structural suspension expressions before normalizing prose.
-
-    Generic prose is still the default for all other statement types.  A
-    relation involving iterated suspension must retain its E-exponent, even
-    when a generator-normalizing renderer would show equal normal forms.
-    """
-    conclusion = step.conclusion
-    if (
-        isinstance(conclusion, Relation)
-        and conclusion.relation_type is RelationType.EQUALITY
-        and (
-            isinstance(conclusion.lhs, IteratedSuspension)
-            or isinstance(conclusion.rhs, IteratedSuspension)
-        )
-    ):
-        return "$" + render_repository_conclusion_latex(conclusion) + "$"
-
+    """Use existing statement prose, then existing mathematical LaTeX renderer."""
     prose = _render_generic_narrative_step(step)
     fallback = (
         step.inference_rule.name if step.inference_rule is not None else None

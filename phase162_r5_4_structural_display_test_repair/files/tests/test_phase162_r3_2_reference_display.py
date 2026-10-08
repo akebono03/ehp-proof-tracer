@@ -9,7 +9,6 @@ from phase162_validated_proof_presentation import (
     _is_display_tautology,
 )
 from proof import ProofRule
-from toda_general_reference_schema import render_general_reference_statement_lines
 from tests.test_phase162_r2_validated_proof_presentation import _validated_fixture
 from toda_literature_statement_boundary import (
     TodaLiteratureStatementClassification,
@@ -44,15 +43,9 @@ def test_phase162_r3_2_fixed_statements_are_outside_proof_body():
     }
     for entry in entries:
         assert entry.reference.locator in reference
-        registered = render_general_reference_statement_lines(entry.reference.locator)
-        if registered is not None:
-            # The fixed source's general formula is independent of the
-            # instantiated conclusions held by its ProofStep objects.
-            assert all(line in reference for line in registered)
-        else:
-            for step in entry.proof_steps:
-                statement = _render_validated_backward_step(step)
-                assert statement.rstrip(".") in reference
+        for step in entry.proof_steps:
+            statement = _render_validated_backward_step(step)
+            assert statement.rstrip(".") in reference
 
     # Compare the entire emitted inference sequence against the non-fixed
     # ProofStep objects. Equal strings from *other* inference steps are valid:
