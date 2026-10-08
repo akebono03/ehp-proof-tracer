@@ -2145,10 +2145,23 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
           )
 
       if "diagonal_identity_group" in component_keys:
+        component = get_toda_fixed_statement_component(
+          "(5.1)",
+          "diagonal_identity_group",
+        )
+        range_latex = ""
+        if component.range_text is not None:
+          range_latex = (
+            r"\qquad ("
+            + component.range_text.replace(">=", r"\ge").replace("<=", r"\le")
+            + ")"
+          )
         lines.append(
           (
             r"$\pi_{n}^{n} = "
-            r"\mathbb{Z}\{\iota_{n}\}$."
+            r"\mathbb{Z}\{\iota_{n}\}"
+            + range_latex
+            + "$."
           )
         )
 
@@ -2164,8 +2177,51 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
     )
 
     for statement_line in statement_lines:
-      lines.append(
-        statement_line
-      )
+      # A catalog range belongs to its general formula, not to an
+      # unrelated specialization or another component of the same theorem.
+      applicable_ranges = []
+      fixed_keys = set()
+      for proof_step in entry.proof_steps:
+        boundary = classify_toda_literature_statement_step(proof_step)
+        if (
+          boundary is not None
+          and boundary.classification
+          == TodaLiteratureStatementClassification.FIXED_STATEMENT
+          and boundary.reference_locator == entry.reference.locator
+          and boundary.component_key is not None
+        ):
+          fixed_keys.add(boundary.component_key)
+
+      for component in get_toda_fixed_statement_components(
+        entry.reference.locator
+      ):
+        if component.range_text is None:
+          continue
+        range_variable = component.range_text.split()[0]
+        # Symbolic indices are required in the displayed formula.
+        if re.search(
+          r"(?<![A-Za-z])" + re.escape(range_variable) + r"(?![A-Za-z])",
+          statement_line,
+        ) is None:
+          continue
+        # Explicit component matches are preferred; aggregate carriers
+        # can use the unique matching symbolic statement component.
+        if fixed_keys and component.component_key not in fixed_keys:
+          continue
+        rendered_range = (
+          component.range_text.replace(">=", r"\ge")
+          .replace("<=", r"\le")
+        )
+        if rendered_range not in applicable_ranges:
+          applicable_ranges.append(rendered_range)
+
+      if len(applicable_ranges) == 1 and statement_line.startswith("$"):
+        range_suffix = r"$\;(" + applicable_ranges[0].strip() + ")$"
+        if range_suffix not in statement_line:
+          if statement_line.endswith("."):
+            statement_line = statement_line[:-1] + " " + range_suffix + "."
+          else:
+            statement_line += " " + range_suffix
+      lines.append(statement_line)
 
   return "\n".join(lines)

@@ -134,7 +134,7 @@ _EQUATION_51_COMPONENTS = (
     component_key="diagonal_identity_group",
     statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
     order=None,
-    range_text=None,
+    range_text="n >= 1",
     range_is_explicit_in_current_aggregate=True,
   ),
   TodaFixedStatementComponent(
@@ -186,7 +186,7 @@ _PROPOSITION_51_COMPONENTS = (
     component_key="higher_eta_group_relation",
     statement_role=TodaLiteratureStatementRole.GROUP_STRUCTURE,
     order=4,
-    range_text=None,
+    range_text="n >= 3",
     range_is_explicit_in_current_aggregate=False,
   ),
 )
@@ -702,7 +702,7 @@ _PHASE157_R5_R3_ADDITIONAL_COMPONENTS = {
       component_key="eta2_composition_isomorphism",
       statement_role=TodaLiteratureStatementRole.OTHER,
       order=None,
-      range_text=None,
+      range_text="i >= 3",
       range_is_explicit_in_current_aggregate=True,
     ),
   ),
