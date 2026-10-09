@@ -1,0 +1,15 @@
+{
+  "phase": "163 R1F",
+  "status": "PROVISIONAL_NOT_COMPLETE",
+  "entry_constructor_sites": 21,
+  "entry_types": {
+    "ProofRepositoryEntry": 20,
+    "TheoremFactEntry": 1
+  },
+  "explicit_key_sites": 8,
+  "sites_without_explicit_key": 13,
+  "unresolved_gate_count": 6,
+  "mathematical_statement_total": null,
+  "scope": "R1E static evidence reconciliation only; no imports of project application code",
+  "next_action": "Review unresolved evidence against runtime repositories and literature source before declaring R1 complete"
+}
