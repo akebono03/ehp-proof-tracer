@@ -105,14 +105,6 @@ def extract_toda_group_proof_step_literature_reference(
   if not isinstance(proof_step, ProofStep):
     raise TypeError("proof_step must be a ProofStep")
 
-  from phase162_r10_reference_identity import fixed_citation_identity
-  citation = fixed_citation_identity(proof_step)
-  if citation is not None:
-    return LiteratureReference(
-      label="Toda " + citation[0],
-      locator=citation[0],
-    )
-
   inference_rule = proof_step.inference_rule
   if inference_rule is None:
     return None
@@ -1169,14 +1161,16 @@ def filter_toda_group_proof_narrative_reference_entries_by_body_usage(
     )
   )
 
+  if not body_reference_numbers:
+    return (
+      entries,
+      statement_lines_by_reference_number,
+      body_markdown,
+    )
+
   used_reference_numbers = set(
     body_reference_numbers
   )
-  from phase162_r10_reference_identity import is_cited_inference
-  for entry in entries:
-    if any(is_cited_inference(step) for step in entry.proof_steps):
-      used_reference_numbers.add(entry.number)
-
   used_entries = tuple(
     entry
     for entry in entries
