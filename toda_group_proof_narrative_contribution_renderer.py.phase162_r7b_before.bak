@@ -4432,39 +4432,9 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
         normalized
       )
 
-  # An exactness introduction must introduce a displayed EHP sequence,
-  # not a repeated introduction or a calculation on another subject.
-  # Keep the mathematical proof steps; remove only orphaned prose.
-  cleaned_paragraphs = []
-  for index, paragraph in enumerate(
+  return "\n\n".join(
     retained_paragraphs
-  ):
-    if paragraph.strip() == "次の完全列を考える.":
-      following = next(
-        (
-          candidate.strip()
-          for candidate in retained_paragraphs[
-            index + 1:
-          ]
-          if candidate.strip()
-        ),
-        "",
-      )
-      is_exactness_display = (
-        (
-          following.startswith(r"\[")
-          or following.startswith("$")
-        )
-        and (
-          r"\xrightarrow{" in following
-          or r"\longrightarrow" in following
-        )
-      )
-      if not is_exactness_display:
-        continue
-    cleaned_paragraphs.append(paragraph)
-
-  return "\n\n".join(cleaned_paragraphs)
+  )
 
 def normalize_toda_group_proof_narrative_zero_map_exactness_reason(
   presentation: TodaGroupProofPresentation,
