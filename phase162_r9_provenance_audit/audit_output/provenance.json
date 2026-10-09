@@ -1,0 +1,1288 @@
+{
+  "nodes": [
+    {
+      "path": "root",
+      "depth": 0,
+      "id": 1973840158176,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Relation",
+      "latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1",
+      "depth": 1,
+      "id": 1973839779280,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1",
+      "depth": 2,
+      "id": 1973839613184,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1",
+      "depth": 3,
+      "id": 1973839617936,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{E\\eta_{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/1",
+      "depth": 4,
+      "id": 1973839505792,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/2",
+      "depth": 4,
+      "id": 1973839611504,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionKernelFreeCyclicStatement",
+      "latex": null,
+      "fallback": "TodaSuspensionKernelFreeCyclicStatement"
+    },
+    {
+      "path": "root/1/1/1/2/1",
+      "depth": 5,
+      "id": 1973839495280,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "TodaDeltaImageFreeCyclicStatement",
+      "latex": null,
+      "fallback": "TodaDeltaImageFreeCyclicStatement"
+    },
+    {
+      "path": "root/1/1/1/2/1/1",
+      "depth": 6,
+      "id": 1973839330032,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/2/1/2",
+      "depth": 6,
+      "id": 1973839502912,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaDeltaImageUpToSignStatement",
+      "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/2/1/2/1",
+      "depth": 7,
+      "id": 1973839498640,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaDeltaMap",
+      "latex": null,
+      "fallback": "TodaDeltaMap"
+    },
+    {
+      "path": "root/1/1/1/2/1/3",
+      "depth": 6,
+      "id": 1973839501376,
+      "rule": "INFERENCE",
+      "premises": 4,
+      "type": "TodaPi32WhiteheadSquareUpToSignStatement",
+      "latex": null,
+      "fallback": "TodaPi32WhiteheadSquareUpToSignStatement"
+    },
+    {
+      "path": "root/1/1/1/2/1/3/1",
+      "depth": 7,
+      "id": 1973839503584,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaProp27HopfInvariantUpToSignStatement",
+      "latex": null,
+      "fallback": "TodaProp27HopfInvariantUpToSignStatement"
+    },
+    {
+      "path": "root/1/1/1/2/1/3/1/1",
+      "depth": 8,
+      "id": 1973839319328,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "WhiteheadProduct",
+      "latex": "[\\iota_{2}, \\iota_{2}]",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/2/1/3/2",
+      "depth": 7,
+      "id": 1973839327632,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPi32Eta2DefinitionStatement",
+      "latex": null,
+      "fallback": "TodaPi32Eta2DefinitionStatement"
+    },
+    {
+      "path": "root/1/1/1/2/1/3/3",
+      "depth": 7,
+      "id": 1973839318032,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "H\\left(\\eta_{2}\\right) = \\iota_{3}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/2/1/3/4",
+      "depth": 7,
+      "id": 1973839330848,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaHopfInvariantInjectiveStatement",
+      "latex": null,
+      "fallback": "TodaHopfInvariantInjectiveStatement"
+    },
+    {
+      "path": "root/1/1/1/2/2",
+      "depth": 5,
+      "id": 1973839505312,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/3",
+      "depth": 4,
+      "id": 1973839502528,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionSurjectiveStatement",
+      "latex": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/3/1",
+      "depth": 5,
+      "id": 1973839498592,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPrimaryGroupZeroStatement",
+      "latex": "\\pi_{4}^{5} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/1/3/2",
+      "depth": 5,
+      "id": 1973839505936,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/2",
+      "depth": 3,
+      "id": 1973839502240,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Relation",
+      "latex": "\\eta_{3} = E\\eta_{2}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/1/2/1",
+      "depth": 4,
+      "id": 1973839505120,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/1/2",
+      "depth": 2,
+      "id": 1973839773808,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Toda52CompositionIsomorphismStatement",
+      "latex": null,
+      "fallback": "Toda52CompositionIsomorphismStatement"
+    },
+    {
+      "path": "root/1/2/1",
+      "depth": 3,
+      "id": 1973839714368,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaPrimaryGroupZeroStatement",
+      "latex": "\\pi_{i - 1}^{1} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/1/1",
+      "depth": 4,
+      "id": 1973839708464,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "ScalarGreaterEqualStatement",
+      "latex": null,
+      "fallback": "ScalarGreaterEqualStatement"
+    },
+    {
+      "path": "root/1/2/2",
+      "depth": 3,
+      "id": 1973839721664,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "TodaProp44IsomorphismStatement",
+      "latex": null,
+      "fallback": "TodaProp44IsomorphismStatement"
+    },
+    {
+      "path": "root/1/2/2/1",
+      "depth": 4,
+      "id": 1973839723584,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaPi32Eta2DefinitionStatement",
+      "latex": null,
+      "fallback": "TodaPi32Eta2DefinitionStatement"
+    },
+    {
+      "path": "root/1/2/2/1/1",
+      "depth": 5,
+      "id": 1973839712064,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantIsomorphismStatement",
+      "latex": null,
+      "fallback": "TodaHopfInvariantIsomorphismStatement"
+    },
+    {
+      "path": "root/1/2/2/1/1/1",
+      "depth": 6,
+      "id": 1973839713696,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantInjectiveStatement",
+      "latex": null,
+      "fallback": "TodaHopfInvariantInjectiveStatement"
+    },
+    {
+      "path": "root/1/2/2/1/1/1/1",
+      "depth": 7,
+      "id": 1973839614624,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPrimaryGroupZeroStatement",
+      "latex": "\\pi_{2}^{1} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/1/1/1/2",
+      "depth": 7,
+      "id": 1973839624464,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/1/1/2",
+      "depth": 6,
+      "id": 1973839650848,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantSurjectiveStatement",
+      "latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/1/1/2/1",
+      "depth": 7,
+      "id": 1973839718208,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaDeltaZeroStatement",
+      "latex": null,
+      "fallback": "TodaDeltaZeroStatement"
+    },
+    {
+      "path": "root/1/2/2/1/1/2/1/1",
+      "depth": 8,
+      "id": 1973839713936,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaSuspensionInjectiveStatement",
+      "latex": "E: \\pi_{1}^{1} \\to \\pi_{2}^{2} \\text{ is injective}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/1/1/2/1/1/1",
+      "depth": 9,
+      "id": 1973839626192,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaSuspensionIsomorphismStatement",
+      "latex": null,
+      "fallback": "TodaSuspensionIsomorphismStatement"
+    },
+    {
+      "path": "root/1/2/2/1/1/2/1/2",
+      "depth": 8,
+      "id": 1973839624416,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/1/1/2/2",
+      "depth": 7,
+      "id": 1973839624368,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/1/2",
+      "depth": 5,
+      "id": 1973839620672,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/2",
+      "depth": 4,
+      "id": 1973839729792,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Relation",
+      "latex": "H\\left(\\eta_{2}\\right) = \\iota_{3}",
+      "fallback": null
+    },
+    {
+      "path": "root/1/2/2/3",
+      "depth": 4,
+      "id": 1973839708320,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp44DecompositionMap",
+      "latex": null,
+      "fallback": "TodaProp44DecompositionMap"
+    },
+    {
+      "path": "root/1/2/3",
+      "depth": 3,
+      "id": 1973839733536,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaProp44SecondSummandRestrictionStatement",
+      "latex": null,
+      "fallback": "TodaProp44SecondSummandRestrictionStatement"
+    },
+    {
+      "path": "root/2",
+      "depth": 1,
+      "id": 1973840277040,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionIsomorphismStatement",
+      "latex": null,
+      "fallback": "TodaSuspensionIsomorphismStatement"
+    },
+    {
+      "path": "root/2/1",
+      "depth": 2,
+      "id": 1973840269024,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionInjectiveStatement",
+      "latex": "E: \\pi_{4}^{2} \\to \\pi_{5}^{3} \\text{ is injective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1",
+      "depth": 3,
+      "id": 1973840268928,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaDeltaZeroStatement",
+      "latex": null,
+      "fallback": "TodaDeltaZeroStatement"
+    },
+    {
+      "path": "root/2/1/1/1",
+      "depth": 4,
+      "id": 1973840271328,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantSurjectiveStatement",
+      "latex": "H: \\pi_{6}^{3} \\to \\pi_{6}^{5} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1",
+      "depth": 5,
+      "id": 1973840184368,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "H\\left(\\nu'\\right) = \\eta_{5}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1",
+      "depth": 6,
+      "id": 1973840161200,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "H\\left(\\nu'\\right) = E^{2}\\eta_{3}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/1",
+      "depth": 7,
+      "id": 1973840153856,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Toda53NuPrimeBracketSpecializationStatement",
+      "latex": null,
+      "fallback": "Toda53NuPrimeBracketSpecializationStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/1/1",
+      "depth": 8,
+      "id": 1973840155392,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaBracketMembershipStatement",
+      "latex": "\\nu' \\in \\{\\eta_{3}, 2\\iota_{4}, \\eta_{4}\\}_{1}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2",
+      "depth": 7,
+      "id": 1973840161728,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Relation",
+      "latex": "2\\eta_{3} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1",
+      "depth": 8,
+      "id": 1973840271712,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1",
+      "depth": 9,
+      "id": 1973840155920,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{E\\eta_{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/1",
+      "depth": 10,
+      "id": 1973840275120,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2",
+      "depth": 10,
+      "id": 1973840360688,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionKernelFreeCyclicStatement",
+      "latex": null,
+      "fallback": "TodaSuspensionKernelFreeCyclicStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1",
+      "depth": 11,
+      "id": 1973840357712,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "TodaDeltaImageFreeCyclicStatement",
+      "latex": null,
+      "fallback": "TodaDeltaImageFreeCyclicStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/1",
+      "depth": 12,
+      "id": 1973840274160,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/2",
+      "depth": 12,
+      "id": 1973840278912,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaDeltaImageUpToSignStatement",
+      "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/2/1",
+      "depth": 13,
+      "id": 1973840269072,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaDeltaMap",
+      "latex": null,
+      "fallback": "TodaDeltaMap"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/3",
+      "depth": 12,
+      "id": 1973840269840,
+      "rule": "INFERENCE",
+      "premises": 4,
+      "type": "TodaPi32WhiteheadSquareUpToSignStatement",
+      "latex": null,
+      "fallback": "TodaPi32WhiteheadSquareUpToSignStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/3/1",
+      "depth": 13,
+      "id": 1973840280160,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaProp27HopfInvariantUpToSignStatement",
+      "latex": null,
+      "fallback": "TodaProp27HopfInvariantUpToSignStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/3/1/1",
+      "depth": 14,
+      "id": 1973840277616,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "WhiteheadProduct",
+      "latex": "[\\iota_{2}, \\iota_{2}]",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/3/2",
+      "depth": 13,
+      "id": 1973840274016,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPi32Eta2DefinitionStatement",
+      "latex": null,
+      "fallback": "TodaPi32Eta2DefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/3/3",
+      "depth": 13,
+      "id": 1973840273920,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "H\\left(\\eta_{2}\\right) = \\iota_{3}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/1/3/4",
+      "depth": 13,
+      "id": 1973840273968,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaHopfInvariantInjectiveStatement",
+      "latex": null,
+      "fallback": "TodaHopfInvariantInjectiveStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/2/2",
+      "depth": 11,
+      "id": 1973840277904,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/3",
+      "depth": 10,
+      "id": 1973840279680,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionSurjectiveStatement",
+      "latex": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/3/1",
+      "depth": 11,
+      "id": 1973840268976,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPrimaryGroupZeroStatement",
+      "latex": "\\pi_{4}^{5} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/1/3/2",
+      "depth": 11,
+      "id": 1973840278048,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/2",
+      "depth": 9,
+      "id": 1973840271088,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Relation",
+      "latex": "\\eta_{3} = E\\eta_{2}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/1/2/1/2/1",
+      "depth": 10,
+      "id": 1973840275024,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/2",
+      "depth": 6,
+      "id": 1973840162928,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "E^{2}\\eta_{3} = \\eta_{5}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/1/2/1",
+      "depth": 7,
+      "id": 1973840164320,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/1/1/2/2",
+      "depth": 7,
+      "id": 1973840152272,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2",
+      "depth": 5,
+      "id": 1973840553600,
+      "rule": "INFERENCE",
+      "premises": 4,
+      "type": "TodaProp51FiniteDimensionalStatement",
+      "latex": null,
+      "fallback": "TodaProp51FiniteDimensionalStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/1",
+      "depth": 6,
+      "id": 1973840315632,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Relation",
+      "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1",
+      "depth": 7,
+      "id": 1973840274592,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantIsomorphismStatement",
+      "latex": null,
+      "fallback": "TodaHopfInvariantIsomorphismStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/1",
+      "depth": 8,
+      "id": 1973840237792,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantInjectiveStatement",
+      "latex": null,
+      "fallback": "TodaHopfInvariantInjectiveStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/1/1",
+      "depth": 9,
+      "id": 1973839783312,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPrimaryGroupZeroStatement",
+      "latex": "\\pi_{2}^{1} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/1/2",
+      "depth": 9,
+      "id": 1973839783456,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/2",
+      "depth": 8,
+      "id": 1973840234672,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantSurjectiveStatement",
+      "latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/2/1",
+      "depth": 9,
+      "id": 1973840266528,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaDeltaZeroStatement",
+      "latex": null,
+      "fallback": "TodaDeltaZeroStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/2/1/1",
+      "depth": 10,
+      "id": 1973840236112,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaSuspensionInjectiveStatement",
+      "latex": "E: \\pi_{1}^{1} \\to \\pi_{2}^{2} \\text{ is injective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/2/1/1/1",
+      "depth": 11,
+      "id": 1973839783408,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaSuspensionIsomorphismStatement",
+      "latex": null,
+      "fallback": "TodaSuspensionIsomorphismStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/2/1/2",
+      "depth": 10,
+      "id": 1973839783552,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/1/2/2",
+      "depth": 9,
+      "id": 1973839783504,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/2",
+      "depth": 7,
+      "id": 1973839783360,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/1/3",
+      "depth": 7,
+      "id": 1973840280592,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaPi32Eta2DefinitionStatement",
+      "latex": null,
+      "fallback": "TodaPi32Eta2DefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/2",
+      "depth": 6,
+      "id": 1973840317024,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Relation",
+      "latex": "H\\left(\\eta_{2}\\right) = \\iota_{3}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/3",
+      "depth": 6,
+      "id": 1973840350560,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaDeltaImageUpToSignStatement",
+      "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/3/1",
+      "depth": 7,
+      "id": 1973840242544,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaDeltaImageUpToSignStatement",
+      "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/3/1/1",
+      "depth": 8,
+      "id": 1973839645808,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaDeltaMap",
+      "latex": null,
+      "fallback": "TodaDeltaMap"
+    },
+    {
+      "path": "root/2/1/1/1/2/3/2",
+      "depth": 7,
+      "id": 1973840328448,
+      "rule": "INFERENCE",
+      "premises": 4,
+      "type": "TodaPi32WhiteheadSquareUpToSignStatement",
+      "latex": null,
+      "fallback": "TodaPi32WhiteheadSquareUpToSignStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/3/2/1",
+      "depth": 8,
+      "id": 1973840241872,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaProp27HopfInvariantUpToSignStatement",
+      "latex": null,
+      "fallback": "TodaProp27HopfInvariantUpToSignStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/3/2/1/1",
+      "depth": 9,
+      "id": 1973839715280,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "WhiteheadProduct",
+      "latex": "[\\iota_{2}, \\iota_{2}]",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4",
+      "depth": 6,
+      "id": 1973840427952,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1",
+      "depth": 7,
+      "id": 1973840416672,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1",
+      "depth": 8,
+      "id": 1973840390672,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1",
+      "depth": 9,
+      "id": 1973840383808,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Relation",
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{E\\eta_{2}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/2",
+      "depth": 10,
+      "id": 1973840318032,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionKernelFreeCyclicStatement",
+      "latex": null,
+      "fallback": "TodaSuspensionKernelFreeCyclicStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/2/1",
+      "depth": 11,
+      "id": 1973840348928,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "TodaDeltaImageFreeCyclicStatement",
+      "latex": null,
+      "fallback": "TodaDeltaImageFreeCyclicStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/2/1/1",
+      "depth": 12,
+      "id": 1973839716288,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "Relation",
+      "latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/2/2",
+      "depth": 11,
+      "id": 1973839653584,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/3",
+      "depth": 10,
+      "id": 1973840242928,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionSurjectiveStatement",
+      "latex": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/3/1",
+      "depth": 11,
+      "id": 1973839643600,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaPrimaryGroupZeroStatement",
+      "latex": "\\pi_{4}^{5} = 0",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/1/3/2",
+      "depth": 11,
+      "id": 1973839658480,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/2",
+      "depth": 9,
+      "id": 1973840243216,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "Relation",
+      "latex": "\\eta_{3} = E\\eta_{2}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/1/2/1",
+      "depth": 10,
+      "id": 1973839734832,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/2",
+      "depth": 8,
+      "id": 1973840243504,
+      "rule": "INFERENCE",
+      "premises": 3,
+      "type": "Toda45IsomorphismStatement",
+      "latex": null,
+      "fallback": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/2/1",
+      "depth": 9,
+      "id": 1973839922272,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "ScalarGreaterEqualStatement",
+      "latex": null,
+      "fallback": "ScalarGreaterEqualStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/2/2",
+      "depth": 9,
+      "id": 1973839929472,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "ScalarGreaterEqualStatement",
+      "latex": null,
+      "fallback": "ScalarGreaterEqualStatement"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/1/2/3",
+      "depth": 9,
+      "id": 1973839926640,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaIteratedSuspensionMap",
+      "latex": null,
+      "fallback": "TodaIteratedSuspensionMap"
+    },
+    {
+      "path": "root/2/1/1/1/2/4/2",
+      "depth": 7,
+      "id": 1973840247296,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "E^{n - 3}\\eta_{3} = \\eta_{n}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/1/1/2/4/2/1",
+      "depth": 8,
+      "id": 1973840127472,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/2/1/1/2",
+      "depth": 4,
+      "id": 1973840352768,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5} \\xrightarrow{\\Delta} \\pi_{4}^{2} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/1/2",
+      "depth": 3,
+      "id": 1973840349456,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{6}^{5} \\xrightarrow{\\Delta} \\pi_{4}^{2} \\xrightarrow{E} \\pi_{5}^{3} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/2",
+      "depth": 2,
+      "id": 1973840271232,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaSuspensionSurjectiveStatement",
+      "latex": "E: \\pi_{4}^{2} \\to \\pi_{5}^{3} \\text{ is surjective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/2/1",
+      "depth": 3,
+      "id": 1973840268544,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "TodaHopfInvariantZeroStatement",
+      "latex": "H: \\pi_{5}^{3} \\to \\pi_{5}^{5} \\text{ is the zero map}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/2/1/1",
+      "depth": 4,
+      "id": 1973840272528,
+      "rule": "INFERENCE",
+      "premises": 1,
+      "type": "TodaDeltaInjectiveStatement",
+      "latex": "\\Delta: \\pi_{5}^{5} \\to \\pi_{3}^{2} \\text{ is injective}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/2/1/2",
+      "depth": 4,
+      "id": 1973840348160,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/2/2/2",
+      "depth": 3,
+      "id": 1973840347536,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaProp42ExactnessStatement",
+      "latex": "\\pi_{4}^{2} \\xrightarrow{E} \\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5} \\text{ is exact}",
+      "fallback": null
+    },
+    {
+      "path": "root/3",
+      "depth": 1,
+      "id": 1973840162688,
+      "rule": "INFERENCE",
+      "premises": 2,
+      "type": "Relation",
+      "latex": "E\\eta_{2}\\eta_{3} = \\eta_{3}\\eta_{4}",
+      "fallback": null
+    },
+    {
+      "path": "root/3/1",
+      "depth": 2,
+      "id": 1973839782400,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    },
+    {
+      "path": "root/3/2",
+      "depth": 2,
+      "id": 1973839780912,
+      "rule": "GIVEN",
+      "premises": 0,
+      "type": "TodaEtaFamilyDefinitionStatement",
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement"
+    }
+  ],
+  "issues": {
+    "unrelated_H_pi3": {
+      "description": "H(π3²→π3³): unrelated map",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "unrelated_E_pi3": {
+      "description": "E(π3²→π4³): ancillary suspension",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "wrong_kernel_context": {
+      "description": "ker E / Im Δ claim: inspect map context",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "symbolic_stable": {
+      "description": "symbolic stable family in pi5³ output",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "stable_tail": {
+      "description": "stable transport appended narrative",
+      "paragraph_numbers": [
+        44
+      ],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "eta_tautology": {
+      "description": "eta3 tautology",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "eta_composition": {
+      "description": "eta3 eta3 expression",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    },
+    "delta_iota5": {
+      "description": "delta(iota5) repetitions",
+      "paragraph_numbers": [],
+      "tree_node_count_containing_exact_fragment": 0,
+      "tree_paths_containing_exact_fragment": []
+    }
+  },
+  "transport_facts_found": true,
+  "transport_tail_rendered": false
+}
