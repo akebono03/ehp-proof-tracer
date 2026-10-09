@@ -1,0 +1,22 @@
+{
+  "scope": "selected real runtime repositories, NOT all registered mathematical statements",
+  "standard_fixture_requested": true,
+  "repositories": [],
+  "errors": [
+    {
+      "repository": "THEOREM_FACT_REPOSITORY",
+      "error": "ModuleNotFoundError: No module named 'theorem_facts'"
+    },
+    {
+      "repository": "build_standard_proof_repository",
+      "error": "ModuleNotFoundError: No module named 'proof_repository'"
+    }
+  ],
+  "unverified": [
+    "other repositories and indirect factories",
+    "distinct mathematical statement identity",
+    "literature source, publication order, proof-completion position",
+    "fixed-statement versus proof-internal classification",
+    "general-variable application domains and dependencies"
+  ]
+}
