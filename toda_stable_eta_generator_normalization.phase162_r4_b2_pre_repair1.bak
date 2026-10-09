@@ -52,11 +52,7 @@ def toda_eta_concrete_generator_normalization_inference_rule():
         n = transported.lhs.sphere_dimension
         if isinstance(n, bool) or not isinstance(n, int) or n <= 3:
             return False
-        structural_dimension = transported.lhs.group_dimension
-        if structural_dimension not in (
-            n + 1,
-            ScalarSum(left=n, right=1),
-        ):
+        if transported.lhs.group_dimension != n + 1:
             return False
         if base_definition.index != 3 or target_definition.index != n:
             return False
@@ -79,10 +75,7 @@ def toda_eta_concrete_generator_normalization_inference_rule():
         transported = premises[0].conclusion
         target_definition = premises[2].conclusion
         return Relation(
-            lhs=TodaPrimaryGroup(
-                group_dimension=transported.lhs.sphere_dimension + 1,
-                sphere_dimension=transported.lhs.sphere_dimension,
-            ),
+            lhs=transported.lhs,
             rhs=FiniteCyclicGroup(
                 order=transported.rhs.order,
                 generator=target_definition.element,
