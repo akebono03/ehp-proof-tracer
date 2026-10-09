@@ -1,0 +1,24 @@
+{
+  "status": "ROOT_REASON_STRUCTURE_AND_PLACEMENT_VERIFIED",
+  "full_proof_semantic_certification": false,
+  "root_reason_semantic_basis": "three validated ProofStep premises",
+  "root_rule": "phase162_group_structure_transport",
+  "root_premise_types": [
+    "TodaSuspensionIsomorphismStatement",
+    "Relation",
+    "Relation"
+  ],
+  "root_edges_identity_preserved": true,
+  "root_transport_equation_verified": true,
+  "reason_occurrences": 1,
+  "reason_before_final_conclusion": true,
+  "reason_adjacent_to_final_conclusion": true,
+  "final_conclusion_matches_root": true,
+  "reason_characters": 225,
+  "markdown_characters": 3169,
+  "known_limitation": "The public renderer inserts this verified root reason using a text marker, not a general inference-aware placement algorithm. Other inference explanations, prose coherence, and deduplication remain unverified.",
+  "node_count": 123,
+  "edge_count": 135,
+  "inference_count": 67,
+  "given_count": 56
+}

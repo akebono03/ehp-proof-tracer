@@ -847,6 +847,18 @@ def build_standard_web_group_proof_view(
   max_depth: int = 2,
   mode: str = "narrative",
 ) -> WebGroupProofView:
+  if (
+    mode == "narrative"
+    and k == 1
+    and n in (4, 5)
+  ):
+    from phase162_r4_b3_web_common_display import (
+      build_phase162_r4_b3_web_common_display_view,
+    )
+    return build_phase162_r4_b3_web_common_display_view(
+      n=n, k=k, max_depth=max_depth,
+    )
+
   query = TodaGroupQuery(
     n=n,
     k=k,
@@ -992,6 +1004,19 @@ def build_standard_web_group_proof_view(
           presentation
         )
       )
+      if n == 3 and k == 2:
+        from phase162_web_narrative_integration import (
+          build_phase162_web_validated_isomorphism_markdown,
+        )
+        validated_markdown = (
+          build_phase162_web_validated_isomorphism_markdown()
+        )
+        markdown = (
+          markdown.rstrip()
+          + "\n\n---\n\n"
+          + "## 群構造の検証済み証明\n\n"
+          + validated_markdown
+        )
 
     rendered_lines = (
       _build_group_proof_rendered_lines(

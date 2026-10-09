@@ -1,4 +1,7 @@
 import re
+from toda_group_proof_narrative_transport_link import (
+  add_transport_link_to_common_markdown,
+)
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
@@ -25,6 +28,9 @@ from scalar_rules import (
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
+from toda_group_structure_transport_reason import (
+  render_group_structure_transport_reason,
+)
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
@@ -48,6 +54,7 @@ from toda_group_proof_narrative_contribution_renderer import (
   build_toda_group_proof_narrative_reference_reuse_marker_by_step_id,
   link_toda_group_proof_narrative_reference_body_consumers,
   render_toda_group_proof_narrative_multi_argument_with_contributions_markdown,
+  suppress_toda_group_proof_narrative_dangling_connectors,
   suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry,
   suppress_toda_group_proof_narrative_reference_body_duplicates,
   suppress_toda_group_proof_narrative_reference_body_restatements,
@@ -4817,6 +4824,14 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
       )
     )
 
+    public_rendered = (
+      add_transport_link_to_common_markdown(
+        presentation.root_step,
+        public_rendered,
+        _render_group_proof_narrative_latex,
+      )
+    )
+
     return (
       _finalize_toda_group_proof_narrative_markdown(
         public_rendered
@@ -5953,29 +5968,35 @@ def _phase159_unique_preimage_definition_line(
 def _phase159_public_exactness_latex(
   line: str,
 ) -> str | None:
+  """Extract only the math body of an inline EHP exactness statement.
+
+  Reject malformed or prose-containing delimiters rather than re-wrapping
+  the full sentence in another pair of dollar signs.
+  """
+  if not isinstance(line, str):
+    raise TypeError("line must be a str")
+
   stripped = line.strip()
+  if not stripped.startswith("$"):
+    return None
+
+  closing_math = stripped.find("$", 1)
+  if closing_math <= 1:
+    return None
+
+  latex = stripped[1:closing_math]
+  suffix = stripped[closing_math + 1:]
+  if suffix not in ("", ".", " は完全である."):
+    return None
 
   if (
-    not stripped.startswith("$")
-    or r"\xrightarrow{" not in stripped
+    "$" in latex
+    or r"\xrightarrow{" not in latex
+    or not latex.startswith(r"\pi_{")
   ):
     return None
 
-  closing_math = stripped.rfind(
-    "$"
-  )
-
-  if closing_math <= 0:
-    return None
-
-  latex = stripped[
-    1:closing_math
-  ]
-
-  return latex.replace(
-    "Δ",
-    r"\Delta",
-  )
+  return latex.replace("Δ", r"\Delta")
 
 
 def _phase159_consolidate_public_exactness_lines(
@@ -12231,9 +12252,12 @@ def render_toda_group_proof_narrative_markdown(
   if stable_transport_narrative is not None:
     return stable_transport_narrative
 
-  return (
+  rendered = (
     _phase160_r7_previous_public_narrative_renderer(
       presentation
     )
+  )
+  return suppress_toda_group_proof_narrative_dangling_connectors(
+    rendered
   )
 

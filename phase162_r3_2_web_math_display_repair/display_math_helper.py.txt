@@ -1,0 +1,19 @@
+
+def _phase162_web_display_math_delimiters(markdown: str) -> str:
+    r"""Convert delimiter-only $$ lines to the Web parser's \[ and \] blocks."""
+    if not isinstance(markdown, str):
+        raise TypeError("markdown must be a str")
+    converted = []
+    in_math = False
+    for line in markdown.splitlines(keepends=True):
+        if line.strip() != "$$":
+            converted.append(line)
+            continue
+        newline = "\n" if line.endswith("\n") else ""
+        converted.append((r"\]" if in_math else r"\[") + newline)
+        in_math = not in_math
+    if in_math:
+        raise ValueError("Unterminated $$ math block in R3 narrative")
+    return "".join(converted)
+
+

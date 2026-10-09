@@ -1,0 +1,466 @@
+[
+  {
+    "rule_name": "Toda 4.5 stable-range iterated suspension isomorphism",
+    "premise_types": [
+      "ScalarGreaterEqualStatement",
+      "ScalarGreaterEqualStatement",
+      "TodaIteratedSuspensionMap"
+    ],
+    "statement_type": "Toda45IsomorphismStatement",
+    "count": 1,
+    "step_indices": [
+      63
+    ],
+    "description_variants": [
+      "If n is at least k+2 and m is at least n, Toda (4.5) states that the iterated suspension E^(m-n) from pi_(n+k)^n to pi_(m+k)^m is an isomorphism."
+    ]
+  },
+  {
+    "rule_name": "Toda 5.2 eta_2 composition isomorphism",
+    "premise_types": [
+      "TodaPrimaryGroupZeroStatement",
+      "TodaProp44IsomorphismStatement",
+      "TodaProp44SecondSummandRestrictionStatement"
+    ],
+    "statement_type": "Toda52CompositionIsomorphismStatement",
+    "count": 1,
+    "step_indices": [
+      118
+    ],
+    "description_variants": [
+      "If the first summand pi_(i-1)^1 is zero, the derived n=2 and alpha=eta_2 Toda Proposition 4.4 decomposition map is an isomorphism, and its restriction to the second summand is composition with eta_2, then composition with eta_2 gives an isomorphism from pi_i^3 to pi_i^2."
+    ]
+  },
+  {
+    "rule_name": "Toda 5.3 eta_3 twice zero",
+    "premise_types": [
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      23
+    ],
+    "description_variants": [
+      "From the independently derived relation pi_4^3=Z/2{eta_3}, derive the concrete order-two consequence 2 eta_3=0 required for the alpha=eta_3 specialization of Lemma 5.2."
+    ]
+  },
+  {
+    "rule_name": "Toda 5.3 eta_5 iterated suspension bridge",
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement",
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      27
+    ],
+    "description_variants": [
+      "For the concrete eta-family definitions at indices 3 and 5, derive the Phase 58 consequence E^2 eta_3=eta_5. The existing eta-family constructor uses the structural name eta_5 at index 5, while Toda 5.3 uses the canonical concrete notation eta-subscript-5. This narrow bridge connects those representations without changing the Phase 54 constructor or adding generic suspension normalization."
+    ]
+  },
+  {
+    "rule_name": "Toda 5.3 nu-prime Lemma 5.2 Hopf specialization",
+    "premise_types": [
+      "Toda53NuPrimeBracketSpecializationStatement",
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      24
+    ],
+    "description_variants": [
+      "Specialize the already proved Lemma 5.2 Hopf conclusion H(beta)=E^2 alpha to alpha=eta_3, i=4, and beta=nu-prime, using the independently derived order-two relation 2 eta_3=0."
+    ]
+  },
+  {
+    "rule_name": "Toda 5.3 nu-prime Lemma 5.2 bracket specialization",
+    "premise_types": [
+      "TodaBracketMembershipStatement"
+    ],
+    "statement_type": "Toda53NuPrimeBracketSpecializationStatement",
+    "count": 1,
+    "step_indices": [
+      2
+    ],
+    "description_variants": [
+      "Recognize the concrete Toda (5.3) membership nu-prime in {eta_3, 2 iota_4, eta_4}_1 as the alpha=eta_3 and i=4 instance to which the already proved Lemma 5.2 consequence will be specialized. This rule does not reimplement the proof of Lemma 5.2."
+    ]
+  },
+  {
+    "rule_name": "Toda Delta iota_5 Whitehead-square relation",
+    "premise_types": [
+      "TodaDeltaMap"
+    ],
+    "statement_type": "TodaDeltaImageUpToSignStatement",
+    "count": 3,
+    "step_indices": [
+      6,
+      44,
+      83
+    ],
+    "description_variants": [
+      "For the specific Delta map from pi_5^5 to pi_3^2, Delta(iota_5) equals the Whitehead square [iota_2,iota_2] up to sign."
+    ]
+  },
+  {
+    "rule_name": "Toda Delta iota_5 twice eta_2 up-to-sign bridge",
+    "premise_types": [
+      "TodaDeltaImageUpToSignStatement",
+      "TodaPi32WhiteheadSquareUpToSignStatement"
+    ],
+    "statement_type": "TodaDeltaImageUpToSignStatement",
+    "count": 1,
+    "step_indices": [
+      48
+    ],
+    "description_variants": [
+      "For the specific Delta map from pi_5^5 to pi_3^2, if Delta(iota_5) equals [iota_2,iota_2] up to sign and [iota_2,iota_2] equals 2 eta_2 up to sign, then Delta(iota_5) equals 2 eta_2 up to sign."
+    ]
+  },
+  {
+    "rule_name": "Toda EHP exactness injective-right Delta zero",
+    "premise_types": [
+      "TodaSuspensionInjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaDeltaZeroStatement",
+    "count": 2,
+    "step_indices": [
+      35,
+      108
+    ],
+    "description_variants": [
+      "If a Delta-E Toda EHP window is exact and the corresponding suspension map E is injective, then the preceding Delta map is zero."
+    ]
+  },
+  {
+    "rule_name": "Toda Hopf invariant injective and surjective implies isomorphism",
+    "premise_types": [
+      "TodaHopfInvariantInjectiveStatement",
+      "TodaHopfInvariantSurjectiveStatement"
+    ],
+    "statement_type": "TodaHopfInvariantIsomorphismStatement",
+    "count": 2,
+    "step_indices": [
+      38,
+      111
+    ],
+    "description_variants": [
+      "If the same instance-aware Toda Hopf invariant map is both injective and surjective, then that Hopf invariant map is an isomorphism."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+    "premise_types": [
+      "WhiteheadProduct"
+    ],
+    "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+    "count": 3,
+    "step_indices": [
+      8,
+      46,
+      85
+    ],
+    "description_variants": [
+      "For the Whitehead square [iota_2,iota_2], the required Toda Proposition 2.7 consequence states that its Hopf invariant is plus or minus 2 iota_3."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 4.4 eta_2 n=2 specialization",
+    "premise_types": [
+      "TodaPi32Eta2DefinitionStatement",
+      "Relation",
+      "TodaProp44DecompositionMap"
+    ],
+    "statement_type": "TodaProp44IsomorphismStatement",
+    "count": 1,
+    "step_indices": [
+      116
+    ],
+    "description_variants": [
+      "Specialize Toda Proposition 4.4 to n=2 and alpha=eta_2 using the independently derived definition of eta_2 and H(eta_2)=iota_3. The resulting decomposition map from pi_(i-1)^1 direct sum pi_i^3 to pi_i^2 is an isomorphism."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 4.4 eta_2 second-summand restriction",
+    "premise_types": [
+      "TodaProp44IsomorphismStatement"
+    ],
+    "statement_type": "TodaProp44SecondSummandRestrictionStatement",
+    "count": 1,
+    "step_indices": [
+      117
+    ],
+    "description_variants": [
+      "For the derived n=2 and alpha=eta_2 specialization of Toda Proposition 4.4, restrict the decomposition map E(beta)+eta_2 composed with gamma to the second direct-sum summand. The resulting expression is eta_2 composed with gamma."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.1 finite-dimensional integration",
+    "premise_types": [
+      "Relation",
+      "Relation",
+      "TodaDeltaImageUpToSignStatement",
+      "Relation"
+    ],
+    "statement_type": "TodaProp51FiniteDimensionalStatement",
+    "count": 1,
+    "step_indices": [
+      68
+    ],
+    "description_variants": [
+      "Integrate the independently derived finite-dimensional results pi_3^2=Z{eta_2}, H(eta_2)=iota_3, Delta(iota_5)=plus or minus 2 eta_2, and pi_(n+1)^n=Z/2{eta_n} into the finite-dimensional Toda Proposition 5.1 statement."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.1 n=3 Delta injectivity",
+    "premise_types": [
+      "TodaProp51FiniteDimensionalStatement"
+    ],
+    "statement_type": "TodaDeltaInjectiveStatement",
+    "count": 1,
+    "step_indices": [
+      74
+    ],
+    "description_variants": [
+      "For the concrete Delta map from pi_5^5 to pi_3^2, the Proposition 5.1 data Delta(iota_5)=plus or minus 2 eta_2 gives the injectivity required in the n=3 proof of Toda Proposition 5.3."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero",
+    "premise_types": [
+      "TodaDeltaInjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaHopfInvariantZeroStatement",
+    "count": 1,
+    "step_indices": [
+      76
+    ],
+    "description_variants": [
+      "In the concrete exact sequence pi_5^3 -> pi_5^5 -> pi_3^2, injectivity of Delta makes Ker(Delta) zero. Exactness therefore makes the image of H zero."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+    "premise_types": [
+      "Relation",
+      "TodaProp51FiniteDimensionalStatement"
+    ],
+    "statement_type": "TodaHopfInvariantSurjectiveStatement",
+    "count": 1,
+    "step_indices": [
+      69
+    ],
+    "description_variants": [
+      "Phase 58 gives H(nu-prime)=eta_5. Proposition 5.1 gives the order-two higher eta family, whose n=5 instance is pi_6^5=Z/2{eta_5}. Therefore H from pi_6^3 to pi_6^5 is surjective."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+    "premise_types": [
+      "TodaHopfInvariantSurjectiveStatement",
+      "TodaProp42ExactnessStatement"
+    ],
+    "statement_type": "TodaDeltaZeroStatement",
+    "count": 1,
+    "step_indices": [
+      71
+    ],
+    "description_variants": [
+      "In the concrete exact sequence pi_6^3 -> pi_6^5 -> pi_4^2, surjectivity of H makes Im(H) all of pi_6^5. Exactness gives Ker(Delta)=pi_6^5, so Delta is zero."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.3 n=3 eta-square suspension bridge",
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement",
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      122
+    ],
+    "description_variants": [
+      "For the concrete eta-family definitions at indices 3 and 4, derive the Proposition 5.3 n=3 relation E(eta_2 composed with eta_3) equals eta_3 composed with eta_4. This is the concrete relation E eta_2 squared=eta_3 squared. No generic eta-square expression or suspension normalization is introduced."
+    ]
+  },
+  {
+    "rule_name": "Toda Proposition 5.3 n=3 suspension isomorphism",
+    "premise_types": [
+      "TodaSuspensionInjectiveStatement",
+      "TodaSuspensionSurjectiveStatement"
+    ],
+    "statement_type": "TodaSuspensionIsomorphismStatement",
+    "count": 1,
+    "step_indices": [
+      79
+    ],
+    "description_variants": [
+      "If the concrete suspension map from pi_4^2 to pi_5^3 is both injective and surjective, it is an isomorphism."
+    ]
+  },
+  {
+    "rule_name": "Toda eta_3 notation suspension bridge",
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "count": 3,
+    "step_indices": [
+      21,
+      58,
+      98
+    ],
+    "description_variants": [
+      "The eta-family definition eta_n = E^(n-2) eta_2 specializes at n=3 to eta_3 = E eta_2. This rule does not introduce a general normalization between iterated and ordinary suspension."
+    ]
+  },
+  {
+    "rule_name": "Toda higher eta-family iterated suspension bridge",
+    "premise_types": [
+      "TodaEtaFamilyDefinitionStatement",
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      66
+    ],
+    "description_variants": [
+      "For the eta-family definition eta_n = E^(n-2) eta_2 and the specific relation eta_3 = E eta_2, derive the eta-family-specific relation E^(n-3) eta_3 = eta_n. This rule does not introduce generic iterated-suspension composition or normalization."
+    ]
+  },
+  {
+    "rule_name": "Toda pi_(i-1)^1 zero for i at least 3",
+    "premise_types": [
+      "ScalarGreaterEqualStatement"
+    ],
+    "statement_type": "TodaPrimaryGroupZeroStatement",
+    "count": 1,
+    "step_indices": [
+      101
+    ],
+    "description_variants": [
+      "For symbolic i at least 3, the Toda primary group pi_(i-1)^1 is zero."
+    ]
+  },
+  {
+    "rule_name": "Toda pi_3^2 Whitehead square equals twice eta_2 up to sign",
+    "premise_types": [
+      "TodaProp27HopfInvariantUpToSignStatement",
+      "TodaPi32Eta2DefinitionStatement",
+      "Relation",
+      "TodaHopfInvariantInjectiveStatement"
+    ],
+    "statement_type": "TodaPi32WhiteheadSquareUpToSignStatement",
+    "count": 3,
+    "step_indices": [
+      12,
+      47,
+      89
+    ],
+    "description_variants": [
+      "For the specific Hopf invariant map from pi_3^2 to pi_3^3, Toda Proposition 2.7 gives H([iota_2,iota_2]) equal to plus or minus 2 iota_3. Since eta_2 maps to iota_3 and the same Hopf map is injective, the Whitehead square [iota_2,iota_2] equals plus or minus 2 eta_2."
+    ]
+  },
+  {
+    "rule_name": "Toda pi_3^2 define eta_2 as unique Hopf preimage",
+    "premise_types": [
+      "TodaHopfInvariantIsomorphismStatement",
+      "Relation"
+    ],
+    "statement_type": "TodaPi32Eta2DefinitionStatement",
+    "count": 2,
+    "step_indices": [
+      40,
+      113
+    ],
+    "description_variants": [
+      "Because the specific Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, iota_3 has a unique preimage in pi_3^2. Denote that unique preimage by eta_2."
+    ]
+  },
+  {
+    "rule_name": "Toda pi_3^2 eta_2 Hopf relation",
+    "premise_types": [
+      "TodaPi32Eta2DefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "count": 2,
+    "step_indices": [
+      42,
+      114
+    ],
+    "description_variants": [
+      "The element denoted eta_2 was defined as the unique preimage of iota_3 under the Hopf invariant map, hence H(eta_2)=iota_3."
+    ]
+  },
+  {
+    "rule_name": "Toda pi_3^2 free cyclic generator transport",
+    "premise_types": [
+      "TodaHopfInvariantIsomorphismStatement",
+      "Relation",
+      "TodaPi32Eta2DefinitionStatement"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      41
+    ],
+    "description_variants": [
+      "If the Hopf invariant map from pi_3^2 to pi_3^3 is an isomorphism, pi_3^3 is freely generated by iota_3, and eta_2 is defined as the unique preimage of iota_3, then pi_3^2 is freely generated by eta_2."
+    ]
+  },
+  {
+    "rule_name": "Toda pi_4^3 Delta image generated by twice eta_2",
+    "premise_types": [
+      "Relation",
+      "TodaDeltaImageUpToSignStatement",
+      "TodaPi32WhiteheadSquareUpToSignStatement"
+    ],
+    "statement_type": "TodaDeltaImageFreeCyclicStatement",
+    "count": 3,
+    "step_indices": [
+      13,
+      50,
+      90
+    ],
+    "description_variants": [
+      "If pi_5^5 is freely generated by iota_5, Delta(iota_5) equals the Whitehead square up to sign, and that Whitehead square equals twice eta_2 up to sign, then the image of the specific Delta map is freely generated by 2 eta_2."
+    ]
+  },
+  {
+    "rule_name": "Toda suspension isomorphism implies injectivity",
+    "premise_types": [
+      "TodaSuspensionIsomorphismStatement"
+    ],
+    "statement_type": "TodaSuspensionInjectiveStatement",
+    "count": 2,
+    "step_indices": [
+      33,
+      106
+    ],
+    "description_variants": [
+      "An instance-aware Toda suspension isomorphism implies injectivity of the same suspension map instance."
+    ]
+  },
+  {
+    "rule_name": "equality transitivity",
+    "premise_types": [
+      "Relation",
+      "Relation"
+    ],
+    "statement_type": "Relation",
+    "count": 1,
+    "step_indices": [
+      28
+    ],
+    "description_variants": [
+      "If one expression is equal to a second expression and the second expression is equal to a third expression, the first expression is equal to the third."
+    ]
+  }
+]

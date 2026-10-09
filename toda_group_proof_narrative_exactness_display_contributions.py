@@ -89,20 +89,19 @@ def _exactness_window_latex(
     )
   )
 
+  exactness_suffix = "$ は完全である."
   if (
-    len(
-      rendered
-    ) >= 2
-    and rendered.startswith(
-      "$"
-    )
-    and rendered.endswith(
-      "$"
-    )
+    rendered.startswith("$")
+    and rendered.endswith(exactness_suffix)
   ):
-    return rendered[
-      1:-1
-    ]
+    return rendered[1:-len(exactness_suffix)]
+
+  if (
+    len(rendered) >= 2
+    and rendered.startswith("$")
+    and rendered.endswith("$")
+  ):
+    return rendered[1:-1]
 
   return rendered
 

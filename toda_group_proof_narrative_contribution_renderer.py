@@ -4221,6 +4221,17 @@ def normalize_toda_group_proof_narrative_connectors(
 
     break
 
+  # Repeated identical discourse prefixes convey no additional proof step.
+  # Preserve all following mathematical statements and reference markers.
+  for index, paragraph in enumerate(normalized_paragraphs):
+    leading = paragraph[:len(paragraph) - len(paragraph.lstrip())]
+    content = paragraph.lstrip()
+    for connector in ("これより,", "したがって,", "以上より,"):
+      prefix = connector + " "
+      while content.startswith(prefix + prefix):
+        content = content[len(prefix):]
+    normalized_paragraphs[index] = leading + content
+
   return "\n\n".join(
     normalized_paragraphs
   )
@@ -4421,9 +4432,39 @@ def suppress_toda_group_proof_narrative_dangling_connectors(
         normalized
       )
 
-  return "\n\n".join(
+  # An exactness introduction must introduce a displayed EHP sequence,
+  # not a repeated introduction or a calculation on another subject.
+  # Keep the mathematical proof steps; remove only orphaned prose.
+  cleaned_paragraphs = []
+  for index, paragraph in enumerate(
     retained_paragraphs
-  )
+  ):
+    if paragraph.strip() == "次の完全列を考える.":
+      following = next(
+        (
+          candidate.strip()
+          for candidate in retained_paragraphs[
+            index + 1:
+          ]
+          if candidate.strip()
+        ),
+        "",
+      )
+      is_exactness_display = (
+        (
+          following.startswith(r"\[")
+          or following.startswith("$")
+        )
+        and (
+          r"\xrightarrow{" in following
+          or r"\longrightarrow" in following
+        )
+      )
+      if not is_exactness_display:
+        continue
+    cleaned_paragraphs.append(paragraph)
+
+  return "\n\n".join(cleaned_paragraphs)
 
 def normalize_toda_group_proof_narrative_zero_map_exactness_reason(
   presentation: TodaGroupProofPresentation,
@@ -7504,9 +7545,7 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
       == target_key
     )
 
-    if len(
-      matches
-    ) != 1:
+    if not matches:
       return None
 
     return matches[

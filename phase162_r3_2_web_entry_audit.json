@@ -1,0 +1,2123 @@
+{
+  "purpose": "R3-2 local verified panel entrypoint audit; read only; no code changed",
+  "repository_root": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof",
+  "files": [
+    {
+      "path": "phase162_web_narrative_integration.py",
+      "exists": true,
+      "line_count": 138,
+      "matched_context": [
+        {
+          "line": 1,
+          "context": [
+            {
+              "number": 1,
+              "text": "\"\"\"Phase 162 R5: add a separately validated map-isomorphism proof to web narrative.\"\"\""
+            },
+            {
+              "number": 2,
+              "text": ""
+            },
+            {
+              "number": 3,
+              "text": "from homotopy_groups import TodaEHPExactnessWindow, TodaPrimaryGroup"
+            }
+          ]
+        },
+        {
+          "line": 7,
+          "context": [
+            {
+              "number": 5,
+              "text": "from phase161_r5_backward_proof_reconstruction import phase161_r5_target_goal"
+            },
+            {
+              "number": 6,
+              "text": "from phase161_r7_premise_provenance_validation import ("
+            },
+            {
+              "number": 7,
+              "text": "    reconstruct_phase161_r7_validated_goal,"
+            },
+            {
+              "number": 8,
+              "text": ")"
+            },
+            {
+              "number": 9,
+              "text": "from phase162_validated_proof_presentation import ("
+            }
+          ]
+        },
+        {
+          "line": 9,
+          "context": [
+            {
+              "number": 7,
+              "text": "    reconstruct_phase161_r7_validated_goal,"
+            },
+            {
+              "number": 8,
+              "text": ")"
+            },
+            {
+              "number": 9,
+              "text": "from phase162_validated_proof_presentation import ("
+            },
+            {
+              "number": 10,
+              "text": "    build_validated_backward_proof_presentation,"
+            },
+            {
+              "number": 11,
+              "text": "    render_validated_backward_proof_markdown,"
+            }
+          ]
+        },
+        {
+          "line": 10,
+          "context": [
+            {
+              "number": 8,
+              "text": ")"
+            },
+            {
+              "number": 9,
+              "text": "from phase162_validated_proof_presentation import ("
+            },
+            {
+              "number": 10,
+              "text": "    build_validated_backward_proof_presentation,"
+            },
+            {
+              "number": 11,
+              "text": "    render_validated_backward_proof_markdown,"
+            },
+            {
+              "number": 12,
+              "text": ")"
+            }
+          ]
+        },
+        {
+          "line": 11,
+          "context": [
+            {
+              "number": 9,
+              "text": "from phase162_validated_proof_presentation import ("
+            },
+            {
+              "number": 10,
+              "text": "    build_validated_backward_proof_presentation,"
+            },
+            {
+              "number": 11,
+              "text": "    render_validated_backward_proof_markdown,"
+            },
+            {
+              "number": 12,
+              "text": ")"
+            },
+            {
+              "number": 13,
+              "text": "from probes.probe_phase55_capabilities import build_phase55_representative_result"
+            }
+          ]
+        },
+        {
+          "line": 19,
+          "context": [
+            {
+              "number": 17,
+              "text": ""
+            },
+            {
+              "number": 18,
+              "text": ""
+            },
+            {
+              "number": 19,
+              "text": "def _format_phase162_proof_sentences(markdown: str) -> str:"
+            },
+            {
+              "number": 20,
+              "text": "    \"\"\"Use ASCII prose punctuation and separate sentences in the proof body."
+            },
+            {
+              "number": 21,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 22,
+          "context": [
+            {
+              "number": 20,
+              "text": "    \"\"\"Use ASCII prose punctuation and separate sentences in the proof body."
+            },
+            {
+              "number": 21,
+              "text": ""
+            },
+            {
+              "number": 22,
+              "text": "    Preserve the reference block and math strings unchanged.  All newlines are"
+            },
+            {
+              "number": 23,
+              "text": "    paragraph boundaries because the web narrative Markdown renderer may"
+            },
+            {
+              "number": 24,
+              "text": "    collapse a single newline inside a paragraph."
+            }
+          ]
+        },
+        {
+          "line": 23,
+          "context": [
+            {
+              "number": 21,
+              "text": ""
+            },
+            {
+              "number": 22,
+              "text": "    Preserve the reference block and math strings unchanged.  All newlines are"
+            },
+            {
+              "number": 23,
+              "text": "    paragraph boundaries because the web narrative Markdown renderer may"
+            },
+            {
+              "number": 24,
+              "text": "    collapse a single newline inside a paragraph."
+            },
+            {
+              "number": 25,
+              "text": "    \"\"\""
+            }
+          ]
+        },
+        {
+          "line": 49,
+          "context": [
+            {
+              "number": 47,
+              "text": ""
+            },
+            {
+              "number": 48,
+              "text": ""
+            },
+            {
+              "number": 49,
+              "text": "def _compose_phase162_group_conclusion(markdown: str) -> str:"
+            },
+            {
+              "number": 50,
+              "text": "    \"\"\"Connect the verified map goal to this existing n=3, k=2 group result."
+            },
+            {
+              "number": 51,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 50,
+          "context": [
+            {
+              "number": 48,
+              "text": ""
+            },
+            {
+              "number": 49,
+              "text": "def _compose_phase162_group_conclusion(markdown: str) -> str:"
+            },
+            {
+              "number": 50,
+              "text": "    \"\"\"Connect the verified map goal to this existing n=3, k=2 group result."
+            },
+            {
+              "number": 51,
+              "text": ""
+            },
+            {
+              "number": 52,
+              "text": "    This is a Web presentation of a separately known pi_4^2 group and its"
+            }
+          ]
+        },
+        {
+          "line": 53,
+          "context": [
+            {
+              "number": 51,
+              "text": ""
+            },
+            {
+              "number": 52,
+              "text": "    This is a Web presentation of a separately known pi_4^2 group and its"
+            },
+            {
+              "number": 53,
+              "text": "    generator suspension, not an additional R7-validated inference step."
+            },
+            {
+              "number": 54,
+              "text": "    \"\"\""
+            },
+            {
+              "number": 55,
+              "text": "    if \"## 証明\\n\" not in markdown or \"### 結論\\n\" not in markdown:"
+            }
+          ]
+        },
+        {
+          "line": 80,
+          "context": [
+            {
+              "number": 78,
+              "text": ""
+            },
+            {
+              "number": 79,
+              "text": ""
+            },
+            {
+              "number": 80,
+              "text": "def build_phase162_web_validated_isomorphism_markdown() -> str:"
+            },
+            {
+              "number": 81,
+              "text": "    \"\"\"Render only after the exact provenance roots pass R7 validation.\"\"\""
+            },
+            {
+              "number": 82,
+              "text": "    prop51 = build_phase55_representative_result()[\"prop51_steps\"][0]"
+            }
+          ]
+        },
+        {
+          "line": 131,
+          "context": [
+            {
+              "number": 129,
+              "text": "        collect(leaf)"
+            },
+            {
+              "number": 130,
+              "text": ""
+            },
+            {
+              "number": 131,
+              "text": "    validated = reconstruct_phase161_r7_validated_goal("
+            },
+            {
+              "number": 132,
+              "text": "        phase161_r5_target_goal(), leaves, tuple(trusted.values())"
+            },
+            {
+              "number": 133,
+              "text": "    )"
+            }
+          ]
+        },
+        {
+          "line": 134,
+          "context": [
+            {
+              "number": 132,
+              "text": "        phase161_r5_target_goal(), leaves, tuple(trusted.values())"
+            },
+            {
+              "number": 133,
+              "text": "    )"
+            },
+            {
+              "number": 134,
+              "text": "    presentation = build_validated_backward_proof_presentation(validated)"
+            },
+            {
+              "number": 135,
+              "text": "    markdown = render_validated_backward_proof_markdown(presentation)"
+            },
+            {
+              "number": 136,
+              "text": "    return _format_phase162_proof_sentences("
+            }
+          ]
+        },
+        {
+          "line": 135,
+          "context": [
+            {
+              "number": 133,
+              "text": "    )"
+            },
+            {
+              "number": 134,
+              "text": "    presentation = build_validated_backward_proof_presentation(validated)"
+            },
+            {
+              "number": 135,
+              "text": "    markdown = render_validated_backward_proof_markdown(presentation)"
+            },
+            {
+              "number": 136,
+              "text": "    return _format_phase162_proof_sentences("
+            },
+            {
+              "number": 137,
+              "text": "        _compose_phase162_group_conclusion(markdown)"
+            }
+          ]
+        },
+        {
+          "line": 136,
+          "context": [
+            {
+              "number": 134,
+              "text": "    presentation = build_validated_backward_proof_presentation(validated)"
+            },
+            {
+              "number": 135,
+              "text": "    markdown = render_validated_backward_proof_markdown(presentation)"
+            },
+            {
+              "number": 136,
+              "text": "    return _format_phase162_proof_sentences("
+            },
+            {
+              "number": 137,
+              "text": "        _compose_phase162_group_conclusion(markdown)"
+            },
+            {
+              "number": 138,
+              "text": "    )"
+            }
+          ]
+        },
+        {
+          "line": 137,
+          "context": [
+            {
+              "number": 135,
+              "text": "    markdown = render_validated_backward_proof_markdown(presentation)"
+            },
+            {
+              "number": 136,
+              "text": "    return _format_phase162_proof_sentences("
+            },
+            {
+              "number": 137,
+              "text": "        _compose_phase162_group_conclusion(markdown)"
+            },
+            {
+              "number": 138,
+              "text": "    )"
+            }
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "name": "_format_phase162_proof_sentences",
+          "line": 19
+        },
+        {
+          "name": "_compose_phase162_group_conclusion",
+          "line": 49
+        },
+        {
+          "name": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 80
+        }
+      ]
+    },
+    {
+      "path": "web_app.py",
+      "exists": true,
+      "line_count": 395,
+      "matched_context": [
+        {
+          "line": 3,
+          "context": [
+            {
+              "number": 1,
+              "text": "from flask import ("
+            },
+            {
+              "number": 2,
+              "text": "  Flask,"
+            },
+            {
+              "number": 3,
+              "text": "  render_template,"
+            },
+            {
+              "number": 4,
+              "text": "  request,"
+            },
+            {
+              "number": 5,
+              "text": ")"
+            }
+          ]
+        },
+        {
+          "line": 29,
+          "context": [
+            {
+              "number": 27,
+              "text": "from web_group_proof import ("
+            },
+            {
+              "number": 28,
+              "text": "  WebGroupProofView,"
+            },
+            {
+              "number": 29,
+              "text": "  build_standard_web_group_proof_view,"
+            },
+            {
+              "number": 30,
+              "text": ")"
+            },
+            {
+              "number": 31,
+              "text": "from web_group_query import ("
+            }
+          ]
+        },
+        {
+          "line": 108,
+          "context": [
+            {
+              "number": 106,
+              "text": "    group_proof_mode_value = request.form.get("
+            },
+            {
+              "number": 107,
+              "text": "      \"group_proof_mode\","
+            },
+            {
+              "number": 108,
+              "text": "      \"narrative\","
+            },
+            {
+              "number": 109,
+              "text": "    )"
+            },
+            {
+              "number": 110,
+              "text": "    generator_input_value = request.form.get("
+            }
+          ]
+        },
+        {
+          "line": 136,
+          "context": [
+            {
+              "number": 134,
+              "text": ""
+            },
+            {
+              "number": 135,
+              "text": "    view: WebGroupQueryView | None = None"
+            },
+            {
+              "number": 136,
+              "text": "    group_proof_view: ("
+            },
+            {
+              "number": 137,
+              "text": "      WebGroupProofView"
+            },
+            {
+              "number": 138,
+              "text": "      | None"
+            }
+          ]
+        },
+        {
+          "line": 203,
+          "context": [
+            {
+              "number": 201,
+              "text": "            )"
+            },
+            {
+              "number": 202,
+              "text": "          )"
+            },
+            {
+              "number": 203,
+              "text": "          group_proof_view = ("
+            },
+            {
+              "number": 204,
+              "text": "            build_standard_web_group_proof_view("
+            },
+            {
+              "number": 205,
+              "text": "              n,"
+            }
+          ]
+        },
+        {
+          "line": 204,
+          "context": [
+            {
+              "number": 202,
+              "text": "          )"
+            },
+            {
+              "number": 203,
+              "text": "          group_proof_view = ("
+            },
+            {
+              "number": 204,
+              "text": "            build_standard_web_group_proof_view("
+            },
+            {
+              "number": 205,
+              "text": "              n,"
+            },
+            {
+              "number": 206,
+              "text": "              k,"
+            }
+          ]
+        },
+        {
+          "line": 333,
+          "context": [
+            {
+              "number": 331,
+              "text": "        )"
+            },
+            {
+              "number": 332,
+              "text": ""
+            },
+            {
+              "number": 333,
+              "text": "    return render_template("
+            },
+            {
+              "number": 334,
+              "text": "      \"index.html\","
+            },
+            {
+              "number": 335,
+              "text": "      n_value=n_value,"
+            }
+          ]
+        },
+        {
+          "line": 368,
+          "context": [
+            {
+              "number": 366,
+              "text": "      ),"
+            },
+            {
+              "number": 367,
+              "text": "      view=view,"
+            },
+            {
+              "number": 368,
+              "text": "      group_proof_view=("
+            },
+            {
+              "number": 369,
+              "text": "        group_proof_view"
+            },
+            {
+              "number": 370,
+              "text": "      ),"
+            }
+          ]
+        },
+        {
+          "line": 369,
+          "context": [
+            {
+              "number": 367,
+              "text": "      view=view,"
+            },
+            {
+              "number": 368,
+              "text": "      group_proof_view=("
+            },
+            {
+              "number": 369,
+              "text": "        group_proof_view"
+            },
+            {
+              "number": 370,
+              "text": "      ),"
+            },
+            {
+              "number": 371,
+              "text": "      operation_query_view=("
+            }
+          ]
+        }
+      ],
+      "definitions": []
+    },
+    {
+      "path": "web_group_proof.py",
+      "exists": true,
+      "line_count": 1028,
+      "matched_context": [
+        {
+          "line": 17,
+          "context": [
+            {
+              "number": 15,
+              "text": "  classify_toda_group_query_domain,"
+            },
+            {
+              "number": 16,
+              "text": ")"
+            },
+            {
+              "number": 17,
+              "text": "from toda_group_proof_narrative_renderer import ("
+            },
+            {
+              "number": 18,
+              "text": "  render_toda_group_proof_narrative_markdown,"
+            },
+            {
+              "number": 19,
+              "text": ")"
+            }
+          ]
+        },
+        {
+          "line": 18,
+          "context": [
+            {
+              "number": 16,
+              "text": ")"
+            },
+            {
+              "number": 17,
+              "text": "from toda_group_proof_narrative_renderer import ("
+            },
+            {
+              "number": 18,
+              "text": "  render_toda_group_proof_narrative_markdown,"
+            },
+            {
+              "number": 19,
+              "text": ")"
+            },
+            {
+              "number": 20,
+              "text": "from toda_group_proof_outline_renderer import ("
+            }
+          ]
+        },
+        {
+          "line": 32,
+          "context": [
+            {
+              "number": 30,
+              "text": "  render_toda_public_group_relation_latex,"
+            },
+            {
+              "number": 31,
+              "text": ")"
+            },
+            {
+              "number": 32,
+              "text": "from toda_proof_narrative_renderer import ("
+            },
+            {
+              "number": 33,
+              "text": "  render_toda_proof_statement_latex,"
+            },
+            {
+              "number": 34,
+              "text": ")"
+            }
+          ]
+        },
+        {
+          "line": 389,
+          "context": [
+            {
+              "number": 387,
+              "text": "      \"trace\","
+            },
+            {
+              "number": 388,
+              "text": "      \"outline\","
+            },
+            {
+              "number": 389,
+              "text": "      \"narrative\","
+            },
+            {
+              "number": 390,
+              "text": "    ):"
+            },
+            {
+              "number": 391,
+              "text": "      raise ValueError("
+            }
+          ]
+        },
+        {
+          "line": 392,
+          "context": [
+            {
+              "number": 390,
+              "text": "    ):"
+            },
+            {
+              "number": 391,
+              "text": "      raise ValueError("
+            },
+            {
+              "number": 392,
+              "text": "        \"mode must be trace, outline, or narrative\""
+            },
+            {
+              "number": 393,
+              "text": "      )"
+            },
+            {
+              "number": 394,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 426,
+          "context": [
+            {
+              "number": 424,
+              "text": "    ):"
+            },
+            {
+              "number": 425,
+              "text": "      raise ValueError("
+            },
+            {
+              "number": 426,
+              "text": "        \"outline and narrative modes require \""
+            },
+            {
+              "number": 427,
+              "text": "        \"rendered_lines\""
+            },
+            {
+              "number": 428,
+              "text": "      )"
+            }
+          ]
+        },
+        {
+          "line": 844,
+          "context": [
+            {
+              "number": 842,
+              "text": ""
+            },
+            {
+              "number": 843,
+              "text": ""
+            },
+            {
+              "number": 844,
+              "text": "def build_standard_web_group_proof_view("
+            },
+            {
+              "number": 845,
+              "text": "  n: int,"
+            },
+            {
+              "number": 846,
+              "text": "  k: int,"
+            }
+          ]
+        },
+        {
+          "line": 848,
+          "context": [
+            {
+              "number": 846,
+              "text": "  k: int,"
+            },
+            {
+              "number": 847,
+              "text": "  max_depth: int = 2,"
+            },
+            {
+              "number": 848,
+              "text": "  mode: str = \"narrative\","
+            },
+            {
+              "number": 849,
+              "text": ") -> WebGroupProofView:"
+            },
+            {
+              "number": 850,
+              "text": "  query = TodaGroupQuery("
+            }
+          ]
+        },
+        {
+          "line": 895,
+          "context": [
+            {
+              "number": 893,
+              "text": "    \"trace\","
+            },
+            {
+              "number": 894,
+              "text": "    \"outline\","
+            },
+            {
+              "number": 895,
+              "text": "    \"narrative\","
+            },
+            {
+              "number": 896,
+              "text": "  ):"
+            },
+            {
+              "number": 897,
+              "text": "    raise ValueError("
+            }
+          ]
+        },
+        {
+          "line": 898,
+          "context": [
+            {
+              "number": 896,
+              "text": "  ):"
+            },
+            {
+              "number": 897,
+              "text": "    raise ValueError("
+            },
+            {
+              "number": 898,
+              "text": "      \"mode must be trace, outline, or narrative\""
+            },
+            {
+              "number": 899,
+              "text": "    )"
+            },
+            {
+              "number": 900,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 991,
+          "context": [
+            {
+              "number": 989,
+              "text": "    else:"
+            },
+            {
+              "number": 990,
+              "text": "      markdown = ("
+            },
+            {
+              "number": 991,
+              "text": "        render_toda_group_proof_narrative_markdown("
+            },
+            {
+              "number": 992,
+              "text": "          presentation"
+            },
+            {
+              "number": 993,
+              "text": "        )"
+            }
+          ]
+        },
+        {
+          "line": 996,
+          "context": [
+            {
+              "number": 994,
+              "text": "      )"
+            },
+            {
+              "number": 995,
+              "text": "      if n == 3 and k == 2:"
+            },
+            {
+              "number": 996,
+              "text": "        from phase162_web_narrative_integration import ("
+            },
+            {
+              "number": 997,
+              "text": "          build_phase162_web_validated_isomorphism_markdown,"
+            },
+            {
+              "number": 998,
+              "text": "        )"
+            }
+          ]
+        },
+        {
+          "line": 997,
+          "context": [
+            {
+              "number": 995,
+              "text": "      if n == 3 and k == 2:"
+            },
+            {
+              "number": 996,
+              "text": "        from phase162_web_narrative_integration import ("
+            },
+            {
+              "number": 997,
+              "text": "          build_phase162_web_validated_isomorphism_markdown,"
+            },
+            {
+              "number": 998,
+              "text": "        )"
+            },
+            {
+              "number": 999,
+              "text": "        validated_markdown = ("
+            }
+          ]
+        },
+        {
+          "line": 999,
+          "context": [
+            {
+              "number": 997,
+              "text": "          build_phase162_web_validated_isomorphism_markdown,"
+            },
+            {
+              "number": 998,
+              "text": "        )"
+            },
+            {
+              "number": 999,
+              "text": "        validated_markdown = ("
+            },
+            {
+              "number": 1000,
+              "text": "          build_phase162_web_validated_isomorphism_markdown()"
+            },
+            {
+              "number": 1001,
+              "text": "        )"
+            }
+          ]
+        },
+        {
+          "line": 1000,
+          "context": [
+            {
+              "number": 998,
+              "text": "        )"
+            },
+            {
+              "number": 999,
+              "text": "        validated_markdown = ("
+            },
+            {
+              "number": 1000,
+              "text": "          build_phase162_web_validated_isomorphism_markdown()"
+            },
+            {
+              "number": 1001,
+              "text": "        )"
+            },
+            {
+              "number": 1002,
+              "text": "        markdown = ("
+            }
+          ]
+        },
+        {
+          "line": 1005,
+          "context": [
+            {
+              "number": 1003,
+              "text": "          markdown.rstrip()"
+            },
+            {
+              "number": 1004,
+              "text": "          + \"\\n\\n---\\n\\n\""
+            },
+            {
+              "number": 1005,
+              "text": "          + \"## 懸垂同型の検証済み証明\\n\\n\""
+            },
+            {
+              "number": 1006,
+              "text": "          + validated_markdown"
+            },
+            {
+              "number": 1007,
+              "text": "        )"
+            }
+          ]
+        },
+        {
+          "line": 1006,
+          "context": [
+            {
+              "number": 1004,
+              "text": "          + \"\\n\\n---\\n\\n\""
+            },
+            {
+              "number": 1005,
+              "text": "          + \"## 懸垂同型の検証済み証明\\n\\n\""
+            },
+            {
+              "number": 1006,
+              "text": "          + validated_markdown"
+            },
+            {
+              "number": 1007,
+              "text": "        )"
+            },
+            {
+              "number": 1008,
+              "text": ""
+            }
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "name": "WebGroupProofStepView",
+          "line": 38
+        },
+        {
+          "name": "WebGroupProofInlineSegmentView",
+          "line": 135
+        },
+        {
+          "name": "WebGroupProofRenderedLineView",
+          "line": 168
+        },
+        {
+          "name": "WebGroupProofView",
+          "line": 257
+        },
+        {
+          "name": "_group_proof_rule_name",
+          "line": 431
+        },
+        {
+          "name": "_group_proof_statement_latex",
+          "line": 440
+        },
+        {
+          "name": "_split_group_proof_rendered_line",
+          "line": 487
+        },
+        {
+          "name": "_build_group_proof_inline_segments",
+          "line": 531
+        },
+        {
+          "name": "_build_group_proof_rendered_lines",
+          "line": 699
+        },
+        {
+          "name": "build_standard_web_group_proof_view",
+          "line": 844
+        }
+      ]
+    },
+    {
+      "path": "templates\\index.html",
+      "exists": true,
+      "line_count": 1344,
+      "matched_context": [
+        {
+          "line": 527,
+          "context": [
+            {
+              "number": 525,
+              "text": "                  >Outline</option>"
+            },
+            {
+              "number": 526,
+              "text": "                  <option"
+            },
+            {
+              "number": 527,
+              "text": "                    value=\"narrative\""
+            },
+            {
+              "number": 528,
+              "text": "                    {% if group_proof_mode_value == \"narrative\" %}selected{% endif %}"
+            },
+            {
+              "number": 529,
+              "text": "                  >Narrative</option>"
+            }
+          ]
+        },
+        {
+          "line": 528,
+          "context": [
+            {
+              "number": 526,
+              "text": "                  <option"
+            },
+            {
+              "number": 527,
+              "text": "                    value=\"narrative\""
+            },
+            {
+              "number": 528,
+              "text": "                    {% if group_proof_mode_value == \"narrative\" %}selected{% endif %}"
+            },
+            {
+              "number": 529,
+              "text": "                  >Narrative</option>"
+            },
+            {
+              "number": 530,
+              "text": "                </select>"
+            }
+          ]
+        },
+        {
+          "line": 529,
+          "context": [
+            {
+              "number": 527,
+              "text": "                    value=\"narrative\""
+            },
+            {
+              "number": 528,
+              "text": "                    {% if group_proof_mode_value == \"narrative\" %}selected{% endif %}"
+            },
+            {
+              "number": 529,
+              "text": "                  >Narrative</option>"
+            },
+            {
+              "number": 530,
+              "text": "                </select>"
+            },
+            {
+              "number": 531,
+              "text": "              </label>"
+            }
+          ]
+        },
+        {
+          "line": 550,
+          "context": [
+            {
+              "number": 548,
+              "text": "    {% endif %}"
+            },
+            {
+              "number": 549,
+              "text": ""
+            },
+            {
+              "number": 550,
+              "text": "    {% if group_proof_view %}"
+            },
+            {
+              "number": 551,
+              "text": "      <section"
+            },
+            {
+              "number": 552,
+              "text": "        aria-labelledby=\"group-proof-heading\""
+            }
+          ]
+        },
+        {
+          "line": 560,
+          "context": [
+            {
+              "number": 558,
+              "text": "        <p>"
+            },
+            {
+              "number": 559,
+              "text": "          Selected depth:"
+            },
+            {
+              "number": 560,
+              "text": "          {{ group_proof_view.max_depth }}"
+            },
+            {
+              "number": 561,
+              "text": "        </p>"
+            },
+            {
+              "number": 562,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 565,
+          "context": [
+            {
+              "number": 563,
+              "text": "        <p>"
+            },
+            {
+              "number": 564,
+              "text": "          Selected view:"
+            },
+            {
+              "number": 565,
+              "text": "          {{ group_proof_view.mode }}"
+            },
+            {
+              "number": 566,
+              "text": "        </p>"
+            },
+            {
+              "number": 567,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 574,
+          "context": [
+            {
+              "number": 572,
+              "text": "        <div"
+            },
+            {
+              "number": 573,
+              "text": "          id=\"group-proof-conclusion\""
+            },
+            {
+              "number": 574,
+              "text": "          data-latex=\"{{ group_proof_view.conclusion_latex }}\""
+            },
+            {
+              "number": 575,
+              "text": "        >{{ group_proof_view.conclusion_latex }}</div>"
+            },
+            {
+              "number": 576,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 575,
+          "context": [
+            {
+              "number": 573,
+              "text": "          id=\"group-proof-conclusion\""
+            },
+            {
+              "number": 574,
+              "text": "          data-latex=\"{{ group_proof_view.conclusion_latex }}\""
+            },
+            {
+              "number": 575,
+              "text": "        >{{ group_proof_view.conclusion_latex }}</div>"
+            },
+            {
+              "number": 576,
+              "text": ""
+            },
+            {
+              "number": 577,
+              "text": "        <h3>"
+            }
+          ]
+        },
+        {
+          "line": 582,
+          "context": [
+            {
+              "number": 580,
+              "text": ""
+            },
+            {
+              "number": 581,
+              "text": "        <p>"
+            },
+            {
+              "number": 582,
+              "text": "          {% if group_proof_view.theorem %}"
+            },
+            {
+              "number": 583,
+              "text": "            {{ group_proof_view.theorem }}"
+            },
+            {
+              "number": 584,
+              "text": "            {% if group_proof_view.phase %}"
+            }
+          ]
+        },
+        {
+          "line": 583,
+          "context": [
+            {
+              "number": 581,
+              "text": "        <p>"
+            },
+            {
+              "number": 582,
+              "text": "          {% if group_proof_view.theorem %}"
+            },
+            {
+              "number": 583,
+              "text": "            {{ group_proof_view.theorem }}"
+            },
+            {
+              "number": 584,
+              "text": "            {% if group_proof_view.phase %}"
+            },
+            {
+              "number": 585,
+              "text": "              — Phase {{ group_proof_view.phase }}"
+            }
+          ]
+        },
+        {
+          "line": 584,
+          "context": [
+            {
+              "number": 582,
+              "text": "          {% if group_proof_view.theorem %}"
+            },
+            {
+              "number": 583,
+              "text": "            {{ group_proof_view.theorem }}"
+            },
+            {
+              "number": 584,
+              "text": "            {% if group_proof_view.phase %}"
+            },
+            {
+              "number": 585,
+              "text": "              — Phase {{ group_proof_view.phase }}"
+            },
+            {
+              "number": 586,
+              "text": "            {% endif %}"
+            }
+          ]
+        },
+        {
+          "line": 585,
+          "context": [
+            {
+              "number": 583,
+              "text": "            {{ group_proof_view.theorem }}"
+            },
+            {
+              "number": 584,
+              "text": "            {% if group_proof_view.phase %}"
+            },
+            {
+              "number": 585,
+              "text": "              — Phase {{ group_proof_view.phase }}"
+            },
+            {
+              "number": 586,
+              "text": "            {% endif %}"
+            },
+            {
+              "number": 587,
+              "text": "          {% else %}"
+            }
+          ]
+        },
+        {
+          "line": 588,
+          "context": [
+            {
+              "number": 586,
+              "text": "            {% endif %}"
+            },
+            {
+              "number": 587,
+              "text": "          {% else %}"
+            },
+            {
+              "number": 588,
+              "text": "            {{ group_proof_view.key }}"
+            },
+            {
+              "number": 589,
+              "text": "          {% endif %}"
+            },
+            {
+              "number": 590,
+              "text": "        </p>"
+            }
+          ]
+        },
+        {
+          "line": 596,
+          "context": [
+            {
+              "number": 594,
+              "text": "        </h3>"
+            },
+            {
+              "number": 595,
+              "text": ""
+            },
+            {
+              "number": 596,
+              "text": "        {% if group_proof_view.mode == \"trace\" %}"
+            },
+            {
+              "number": 597,
+              "text": "          <ol>"
+            },
+            {
+              "number": 598,
+              "text": "            {% for step in group_proof_view.steps %}"
+            }
+          ]
+        },
+        {
+          "line": 598,
+          "context": [
+            {
+              "number": 596,
+              "text": "        {% if group_proof_view.mode == \"trace\" %}"
+            },
+            {
+              "number": 597,
+              "text": "          <ol>"
+            },
+            {
+              "number": 598,
+              "text": "            {% for step in group_proof_view.steps %}"
+            },
+            {
+              "number": 599,
+              "text": "              <li class=\"group-proof-step\">"
+            },
+            {
+              "number": 600,
+              "text": "                <p>"
+            }
+          ]
+        },
+        {
+          "line": 632,
+          "context": [
+            {
+              "number": 630,
+              "text": "          <div"
+            },
+            {
+              "number": 631,
+              "text": "            id=\"group-proof-rendered-lines\""
+            },
+            {
+              "number": 632,
+              "text": "            data-proof-mode=\"{{ group_proof_view.mode }}\""
+            },
+            {
+              "number": 633,
+              "text": "          >"
+            },
+            {
+              "number": 634,
+              "text": "            {% for line in group_proof_view.rendered_lines %}"
+            }
+          ]
+        },
+        {
+          "line": 634,
+          "context": [
+            {
+              "number": 632,
+              "text": "            data-proof-mode=\"{{ group_proof_view.mode }}\""
+            },
+            {
+              "number": 633,
+              "text": "          >"
+            },
+            {
+              "number": 634,
+              "text": "            {% for line in group_proof_view.rendered_lines %}"
+            },
+            {
+              "number": 635,
+              "text": "              {% if line.kind == \"heading\" %}"
+            },
+            {
+              "number": 636,
+              "text": "                <h4>"
+            }
+          ]
+        }
+      ],
+      "definitions": null
+    },
+    {
+      "path": "phase162_r3_narrative_connection.py",
+      "exists": true,
+      "line_count": 191,
+      "matched_context": [
+        {
+          "line": 1,
+          "context": [
+            {
+              "number": 1,
+              "text": "\"\"\"Phase 162 R3: render the validated group-root proof, not map-property headings."
+            },
+            {
+              "number": 2,
+              "text": ""
+            },
+            {
+              "number": 3,
+              "text": "The existing public renderer remains unchanged. Reference lines can be carried"
+            }
+          ]
+        },
+        {
+          "line": 3,
+          "context": [
+            {
+              "number": 1,
+              "text": "\"\"\"Phase 162 R3: render the validated group-root proof, not map-property headings."
+            },
+            {
+              "number": 2,
+              "text": ""
+            },
+            {
+              "number": 3,
+              "text": "The existing public renderer remains unchanged. Reference lines can be carried"
+            },
+            {
+              "number": 4,
+              "text": "across verbatim from its output; the proof body is derived from the R2 graph."
+            },
+            {
+              "number": 5,
+              "text": "\"\"\""
+            }
+          ]
+        },
+        {
+          "line": 11,
+          "context": [
+            {
+              "number": 9,
+              "text": "from expression import Composition, HomotopyElement, Suspension"
+            },
+            {
+              "number": 10,
+              "text": "from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup, TodaSuspensionIsomorphismStatement"
+            },
+            {
+              "number": 11,
+              "text": "from phase162_r2_existing_proof_connection import ExistingProofConnectionResult"
+            },
+            {
+              "number": 12,
+              "text": "from proof import ProofRule, ProofStep, Relation, RelationType"
+            },
+            {
+              "number": 13,
+              "text": "from toda_rules import ("
+            }
+          ]
+        },
+        {
+          "line": 24,
+          "context": [
+            {
+              "number": 22,
+              "text": ""
+            },
+            {
+              "number": 23,
+              "text": "@dataclass(frozen=True)"
+            },
+            {
+              "number": 24,
+              "text": "class Phase162R3Narrative:"
+            },
+            {
+              "number": 25,
+              "text": "    markdown: str"
+            },
+            {
+              "number": 26,
+              "text": "    root_step: ProofStep"
+            }
+          ]
+        },
+        {
+          "line": 93,
+          "context": [
+            {
+              "number": 91,
+              "text": ""
+            },
+            {
+              "number": 92,
+              "text": ""
+            },
+            {
+              "number": 93,
+              "text": "def _reference_section(existing_public_markdown: str | None) -> str:"
+            },
+            {
+              "number": 94,
+              "text": "    if existing_public_markdown is None:"
+            },
+            {
+              "number": 95,
+              "text": "        return \"\""
+            }
+          ]
+        },
+        {
+          "line": 108,
+          "context": [
+            {
+              "number": 106,
+              "text": ""
+            },
+            {
+              "number": 107,
+              "text": ""
+            },
+            {
+              "number": 108,
+              "text": "def render_phase162_r3_narrative("
+            },
+            {
+              "number": 109,
+              "text": "    connection: ExistingProofConnectionResult,"
+            },
+            {
+              "number": 110,
+              "text": "    existing_public_markdown: str | None = None,"
+            }
+          ]
+        },
+        {
+          "line": 111,
+          "context": [
+            {
+              "number": 109,
+              "text": "    connection: ExistingProofConnectionResult,"
+            },
+            {
+              "number": 110,
+              "text": "    existing_public_markdown: str | None = None,"
+            },
+            {
+              "number": 111,
+              "text": ") -> Phase162R3Narrative:"
+            },
+            {
+              "number": 112,
+              "text": "    \"\"\"Produce group-root text only after checking the expected dependency graph.\"\"\""
+            },
+            {
+              "number": 113,
+              "text": "    if not isinstance(connection, ExistingProofConnectionResult):"
+            }
+          ]
+        },
+        {
+          "line": 114,
+          "context": [
+            {
+              "number": 112,
+              "text": "    \"\"\"Produce group-root text only after checking the expected dependency graph.\"\"\""
+            },
+            {
+              "number": 113,
+              "text": "    if not isinstance(connection, ExistingProofConnectionResult):"
+            },
+            {
+              "number": 114,
+              "text": "        raise TypeError(\"Expected validated R2 proof connection\")"
+            },
+            {
+              "number": 115,
+              "text": "    root = connection.reconstruction.final_step"
+            },
+            {
+              "number": 116,
+              "text": "    if root.rule is not ProofRule.INFERENCE or root.conclusion != connection.reconstruction.goal:"
+            }
+          ]
+        },
+        {
+          "line": 122,
+          "context": [
+            {
+              "number": 120,
+              "text": "    iso, source, image = root.premises"
+            },
+            {
+              "number": 121,
+              "text": "    if source is not connection.source_structure_step or image is not connection.generator_image_step:"
+            },
+            {
+              "number": 122,
+              "text": "        raise ValueError(\"Group structure premises differ from validated R2 connection\")"
+            },
+            {
+              "number": 123,
+              "text": "    if not isinstance(iso.conclusion, TodaSuspensionIsomorphismStatement):"
+            },
+            {
+              "number": 124,
+              "text": "        raise ValueError(\"Expected suspension isomorphism premise\")"
+            }
+          ]
+        },
+        {
+          "line": 125,
+          "context": [
+            {
+              "number": 123,
+              "text": "    if not isinstance(iso.conclusion, TodaSuspensionIsomorphismStatement):"
+            },
+            {
+              "number": 124,
+              "text": "        raise ValueError(\"Expected suspension isomorphism premise\")"
+            },
+            {
+              "number": 125,
+              "text": "    if root.inference_rule is None or root.inference_rule.name != \"phase162_group_structure_transport\":"
+            },
+            {
+              "number": 126,
+              "text": "        raise ValueError(\"Root was not derived by the group transport rule\")"
+            },
+            {
+              "number": 127,
+              "text": "    ancestors = _ordered_ancestry(root)"
+            }
+          ]
+        },
+        {
+          "line": 160,
+          "context": [
+            {
+              "number": 158,
+              "text": "    if left_h not in ancestors or right_delta not in ancestors:"
+            },
+            {
+              "number": 159,
+              "text": "        raise ValueError(\"Missing EHP input\")"
+            },
+            {
+              "number": 160,
+              "text": "    heading = \"# Group proof narrative\\n\\n## 証明対象\\n\\n$$\\n\" + target + \"\\n$$\\n\""
+            },
+            {
+              "number": 161,
+              "text": "    refs = _reference_section(existing_public_markdown)"
+            },
+            {
+              "number": 162,
+              "text": "    if refs:"
+            }
+          ]
+        },
+        {
+          "line": 161,
+          "context": [
+            {
+              "number": 159,
+              "text": "        raise ValueError(\"Missing EHP input\")"
+            },
+            {
+              "number": 160,
+              "text": "    heading = \"# Group proof narrative\\n\\n## 証明対象\\n\\n$$\\n\" + target + \"\\n$$\\n\""
+            },
+            {
+              "number": 161,
+              "text": "    refs = _reference_section(existing_public_markdown)"
+            },
+            {
+              "number": 162,
+              "text": "    if refs:"
+            },
+            {
+              "number": 163,
+              "text": "        heading += \"\\n\" + refs + \"\\n\""
+            }
+          ]
+        },
+        {
+          "line": 176,
+          "context": [
+            {
+              "number": 174,
+              "text": "        + target + \"\\n$$\\n\\nを得る。 $\\\\square$\\n\""
+            },
+            {
+              "number": 175,
+              "text": "    )"
+            },
+            {
+              "number": 176,
+              "text": "    return Phase162R3Narrative(markdown=heading + proof, root_step=root, ordered_steps=ancestors)"
+            },
+            {
+              "number": 177,
+              "text": ""
+            },
+            {
+              "number": 178,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 179,
+          "context": [
+            {
+              "number": 177,
+              "text": ""
+            },
+            {
+              "number": 178,
+              "text": ""
+            },
+            {
+              "number": 179,
+              "text": "def render_phase162_r3_with_public_references("
+            },
+            {
+              "number": 180,
+              "text": "    connection: ExistingProofConnectionResult,"
+            },
+            {
+              "number": 181,
+              "text": "    presentation: object,"
+            }
+          ]
+        },
+        {
+          "line": 182,
+          "context": [
+            {
+              "number": 180,
+              "text": "    connection: ExistingProofConnectionResult,"
+            },
+            {
+              "number": 181,
+              "text": "    presentation: object,"
+            },
+            {
+              "number": 182,
+              "text": ") -> Phase162R3Narrative:"
+            },
+            {
+              "number": 183,
+              "text": "    \"\"\"Reuse existing Reference layout while rendering a graph-derived proof body."
+            },
+            {
+              "number": 184,
+              "text": ""
+            }
+          ]
+        },
+        {
+          "line": 183,
+          "context": [
+            {
+              "number": 181,
+              "text": "    presentation: object,"
+            },
+            {
+              "number": 182,
+              "text": ") -> Phase162R3Narrative:"
+            },
+            {
+              "number": 183,
+              "text": "    \"\"\"Reuse existing Reference layout while rendering a graph-derived proof body."
+            },
+            {
+              "number": 184,
+              "text": ""
+            },
+            {
+              "number": 185,
+              "text": "    Explicit integration entrypoint: caller retains control over which proof"
+            }
+          ]
+        },
+        {
+          "line": 188,
+          "context": [
+            {
+              "number": 186,
+              "text": "    presentation belongs to the group and when this phase is enabled."
+            },
+            {
+              "number": 187,
+              "text": "    \"\"\""
+            },
+            {
+              "number": 188,
+              "text": "    from toda_group_proof_narrative_renderer import render_toda_group_proof_narrative_markdown"
+            },
+            {
+              "number": 189,
+              "text": ""
+            },
+            {
+              "number": 190,
+              "text": "    existing_markdown = render_toda_group_proof_narrative_markdown(presentation)"
+            }
+          ]
+        },
+        {
+          "line": 190,
+          "context": [
+            {
+              "number": 188,
+              "text": "    from toda_group_proof_narrative_renderer import render_toda_group_proof_narrative_markdown"
+            },
+            {
+              "number": 189,
+              "text": ""
+            },
+            {
+              "number": 190,
+              "text": "    existing_markdown = render_toda_group_proof_narrative_markdown(presentation)"
+            },
+            {
+              "number": 191,
+              "text": "    return render_phase162_r3_narrative(connection, existing_markdown)"
+            }
+          ]
+        },
+        {
+          "line": 191,
+          "context": [
+            {
+              "number": 189,
+              "text": ""
+            },
+            {
+              "number": 190,
+              "text": "    existing_markdown = render_toda_group_proof_narrative_markdown(presentation)"
+            },
+            {
+              "number": 191,
+              "text": "    return render_phase162_r3_narrative(connection, existing_markdown)"
+            }
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "name": "Phase162R3Narrative",
+          "line": 24
+        },
+        {
+          "name": "render_phase162_r3_narrative",
+          "line": 108
+        },
+        {
+          "name": "render_phase162_r3_with_public_references",
+          "line": 179
+        }
+      ]
+    },
+    {
+      "path": "phase162_r2_existing_proof_connection.py",
+      "exists": true,
+      "line_count": 118,
+      "matched_context": [
+        {
+          "line": 15,
+          "context": [
+            {
+              "number": 13,
+              "text": "    validate_phase161_r7_provenance,"
+            },
+            {
+              "number": 14,
+              "text": ")"
+            },
+            {
+              "number": 15,
+              "text": "from phase162_group_structure_backward import ("
+            },
+            {
+              "number": 16,
+              "text": "    GroupStructureBackwardResult,"
+            },
+            {
+              "number": 17,
+              "text": "    expand_group_structure_goal,"
+            }
+          ]
+        },
+        {
+          "line": 39,
+          "context": [
+            {
+              "number": 37,
+              "text": ""
+            },
+            {
+              "number": 38,
+              "text": ""
+            },
+            {
+              "number": 39,
+              "text": "def reconstruct_phase162_r2_from_existing_proofs("
+            },
+            {
+              "number": 40,
+              "text": "    goal: Relation,"
+            },
+            {
+              "number": 41,
+              "text": "    suspension_map: TodaSuspensionMap,"
+            }
+          ]
+        }
+      ],
+      "definitions": [
+        {
+          "name": "ExistingProofConnectionResult",
+          "line": 32
+        },
+        {
+          "name": "reconstruct_phase162_r2_from_existing_proofs",
+          "line": 39
+        }
+      ]
+    }
+  ]
+}

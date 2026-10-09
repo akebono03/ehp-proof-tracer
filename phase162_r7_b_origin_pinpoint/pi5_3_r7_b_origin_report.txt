@@ -1,0 +1,234 @@
+# Phase 162 R7-B: exact paragraph origin pinpoint
+Read-only trace. No ProofStep or renderer changes.
+Root preserved: True
+Presentation: 123 nodes; 135 edges
+Contributions: 38; public wrappers: 7
+
+## stable_tail (証明木に記録された群構造の移送について)
+40 PUBLIC:_finalize_toda_group_proof_narrative_markdown: 1
+41 PUBLIC:_phase158_baseline_render_toda_group_proof_narrative_markdown: 1
+42 PUBLIC:_phase158_normalize_public_narrative_contract: 1
+43 PUBLIC:_phase159_r1_7c_r4_normalize_public_map_property_prose: 1
+44 PUBLIC:_phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning: 1
+45 PUBLIC:_phase159_r1_7c_r4_reorder_public_equation_reference_conclusions: 1
+46 FINAL: 1
+FIRST: (40, 'PUBLIC:_finalize_toda_group_proof_narrative_markdown')
+FINAL COUNT: 1
+
+## stable_general (\pi_{n + 1}^{n} =)
+02 CONTRIBUTION:_insert_toda_group_proof_narrative_argument_contributions: 2
+03 CONTRIBUTION:insert_toda_group_proof_narrative_reason_prose: 2
+04 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_internal_body: 1
+05 CONTRIBUTION:suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry: 1
+06 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_body_duplicates: 1
+07 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 1
+08 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 1
+09 CONTRIBUTION:order_toda_group_proof_narrative_local_equation_derivations: 1
+10 CONTRIBUTION:order_toda_group_proof_narrative_order_support: 1
+11 CONTRIBUTION:insert_toda_group_proof_narrative_hidden_zero_map_premises: 1
+12 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 1
+13 CONTRIBUTION:insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges: 1
+14 CONTRIBUTION:merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows: 1
+15 CONTRIBUTION:trim_toda_group_proof_narrative_redundant_left_ehp_terms: 1
+16 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 1
+17 CONTRIBUTION:normalize_toda_group_proof_narrative_repeated_numeric_equalities: 1
+18 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 1
+19 CONTRIBUTION:suppress_toda_group_proof_narrative_reflexive_equalities: 1
+20 CONTRIBUTION:order_toda_group_proof_narrative_surjectivity_support: 1
+21 CONTRIBUTION:order_toda_group_proof_narrative_short_exact_support: 1
+22 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_reference_restatements: 1
+23 CONTRIBUTION:suppress_toda_group_proof_narrative_dangling_connectors: 1
+24 CONTRIBUTION:order_toda_group_proof_narrative_visible_relation_dependencies: 1
+25 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 1
+26 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 1
+27 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 1
+28 CONTRIBUTION:order_toda_group_proof_narrative_visible_step_dependencies: 1
+29 CONTRIBUTION:normalize_toda_group_proof_narrative_zero_map_exactness_reason: 1
+30 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 1
+31 CONTRIBUTION:specialize_toda_group_proof_narrative_root_zero_direct_premises: 1
+32 CONTRIBUTION:specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application: 1
+33 CONTRIBUTION:suppress_toda_group_proof_narrative_literal_reflexive_equalities: 1
+34 CONTRIBUTION:suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements: 1
+35 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 1
+36 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 1
+37 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 1
+38 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 1
+39 PUBLIC:_wrap_phase150_rc4_generic_public_narrative: 1
+40 PUBLIC:_finalize_toda_group_proof_narrative_markdown: 2
+41 PUBLIC:_phase158_baseline_render_toda_group_proof_narrative_markdown: 2
+42 PUBLIC:_phase158_normalize_public_narrative_contract: 2
+43 PUBLIC:_phase159_r1_7c_r4_normalize_public_map_property_prose: 2
+44 PUBLIC:_phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning: 2
+45 PUBLIC:_phase159_r1_7c_r4_reorder_public_equation_reference_conclusions: 2
+46 FINAL: 2
+FIRST: (2, 'CONTRIBUTION:_insert_toda_group_proof_narrative_argument_contributions')
+FINAL COUNT: 2
+
+## eta_square_issue (\eta_{3}\eta_{3} = \eta_{3}^{2})
+01 CONTRIBUTION:render_toda_group_proof_narrative_multi_argument_markdown: 1
+02 CONTRIBUTION:_insert_toda_group_proof_narrative_argument_contributions: 1
+03 CONTRIBUTION:insert_toda_group_proof_narrative_reason_prose: 1
+04 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_internal_body: 1
+05 CONTRIBUTION:suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry: 1
+06 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_body_duplicates: 1
+07 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 1
+08 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 1
+09 CONTRIBUTION:order_toda_group_proof_narrative_local_equation_derivations: 1
+10 CONTRIBUTION:order_toda_group_proof_narrative_order_support: 1
+11 CONTRIBUTION:insert_toda_group_proof_narrative_hidden_zero_map_premises: 1
+12 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 1
+13 CONTRIBUTION:insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges: 1
+14 CONTRIBUTION:merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows: 1
+15 CONTRIBUTION:trim_toda_group_proof_narrative_redundant_left_ehp_terms: 1
+16 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 1
+17 CONTRIBUTION:normalize_toda_group_proof_narrative_repeated_numeric_equalities: 1
+18 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 1
+19 CONTRIBUTION:suppress_toda_group_proof_narrative_reflexive_equalities: 1
+20 CONTRIBUTION:order_toda_group_proof_narrative_surjectivity_support: 1
+21 CONTRIBUTION:order_toda_group_proof_narrative_short_exact_support: 1
+22 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_reference_restatements: 1
+23 CONTRIBUTION:suppress_toda_group_proof_narrative_dangling_connectors: 1
+24 CONTRIBUTION:order_toda_group_proof_narrative_visible_relation_dependencies: 1
+25 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 1
+26 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 1
+27 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 1
+28 CONTRIBUTION:order_toda_group_proof_narrative_visible_step_dependencies: 1
+29 CONTRIBUTION:normalize_toda_group_proof_narrative_zero_map_exactness_reason: 1
+30 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 1
+31 CONTRIBUTION:specialize_toda_group_proof_narrative_root_zero_direct_premises: 1
+32 CONTRIBUTION:specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application: 1
+33 CONTRIBUTION:suppress_toda_group_proof_narrative_literal_reflexive_equalities: 1
+34 CONTRIBUTION:suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements: 1
+35 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 1
+36 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 1
+37 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 1
+38 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 1
+39 PUBLIC:_wrap_phase150_rc4_generic_public_narrative: 1
+40 PUBLIC:_finalize_toda_group_proof_narrative_markdown: 1
+41 PUBLIC:_phase158_baseline_render_toda_group_proof_narrative_markdown: 1
+42 PUBLIC:_phase158_normalize_public_narrative_contract: 1
+43 PUBLIC:_phase159_r1_7c_r4_normalize_public_map_property_prose: 1
+44 PUBLIC:_phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning: 1
+45 PUBLIC:_phase159_r1_7c_r4_reorder_public_equation_reference_conclusions: 1
+46 FINAL: 1
+FIRST: (1, 'CONTRIBUTION:render_toda_group_proof_narrative_multi_argument_markdown')
+FINAL COUNT: 1
+
+## repeated_delta (\Delta\left(\iota_{5}\right) =)
+02 CONTRIBUTION:_insert_toda_group_proof_narrative_argument_contributions: 3
+03 CONTRIBUTION:insert_toda_group_proof_narrative_reason_prose: 3
+04 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_internal_body: 2
+05 CONTRIBUTION:suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry: 2
+06 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_body_duplicates: 2
+07 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 2
+08 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 2
+09 CONTRIBUTION:order_toda_group_proof_narrative_local_equation_derivations: 2
+10 CONTRIBUTION:order_toda_group_proof_narrative_order_support: 2
+11 CONTRIBUTION:insert_toda_group_proof_narrative_hidden_zero_map_premises: 2
+12 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 5
+13 CONTRIBUTION:insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges: 5
+14 CONTRIBUTION:merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows: 5
+15 CONTRIBUTION:trim_toda_group_proof_narrative_redundant_left_ehp_terms: 5
+16 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 5
+17 CONTRIBUTION:normalize_toda_group_proof_narrative_repeated_numeric_equalities: 5
+18 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 5
+19 CONTRIBUTION:suppress_toda_group_proof_narrative_reflexive_equalities: 5
+20 CONTRIBUTION:order_toda_group_proof_narrative_surjectivity_support: 5
+21 CONTRIBUTION:order_toda_group_proof_narrative_short_exact_support: 5
+22 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_reference_restatements: 5
+23 CONTRIBUTION:suppress_toda_group_proof_narrative_dangling_connectors: 5
+24 CONTRIBUTION:order_toda_group_proof_narrative_visible_relation_dependencies: 5
+25 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 5
+26 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 8
+27 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 8
+28 CONTRIBUTION:order_toda_group_proof_narrative_visible_step_dependencies: 8
+29 CONTRIBUTION:normalize_toda_group_proof_narrative_zero_map_exactness_reason: 8
+30 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 8
+31 CONTRIBUTION:specialize_toda_group_proof_narrative_root_zero_direct_premises: 8
+32 CONTRIBUTION:specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application: 8
+33 CONTRIBUTION:suppress_toda_group_proof_narrative_literal_reflexive_equalities: 8
+34 CONTRIBUTION:suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements: 8
+35 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 8
+36 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 8
+37 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 8
+38 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 8
+39 PUBLIC:_wrap_phase150_rc4_generic_public_narrative: 8
+40 PUBLIC:_finalize_toda_group_proof_narrative_markdown: 8
+41 PUBLIC:_phase158_baseline_render_toda_group_proof_narrative_markdown: 8
+42 PUBLIC:_phase158_normalize_public_narrative_contract: 8
+43 PUBLIC:_phase159_r1_7c_r4_normalize_public_map_property_prose: 8
+44 PUBLIC:_phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning: 8
+45 PUBLIC:_phase159_r1_7c_r4_reorder_public_equation_reference_conclusions: 8
+46 FINAL: 8
+FIRST: (2, 'CONTRIBUTION:_insert_toda_group_proof_narrative_argument_contributions')
+FINAL COUNT: 8
+
+## bare_exactness_intro (次の完全列を考える.)
+01 CONTRIBUTION:render_toda_group_proof_narrative_multi_argument_markdown: 8
+02 CONTRIBUTION:_insert_toda_group_proof_narrative_argument_contributions: 8
+03 CONTRIBUTION:insert_toda_group_proof_narrative_reason_prose: 8
+04 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_internal_body: 8
+05 CONTRIBUTION:suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry: 8
+06 CONTRIBUTION:suppress_toda_group_proof_narrative_reference_body_duplicates: 8
+07 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 8
+08 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 8
+09 CONTRIBUTION:order_toda_group_proof_narrative_local_equation_derivations: 8
+10 CONTRIBUTION:order_toda_group_proof_narrative_order_support: 8
+11 CONTRIBUTION:insert_toda_group_proof_narrative_hidden_zero_map_premises: 8
+12 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 8
+13 CONTRIBUTION:insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges: 8
+14 CONTRIBUTION:merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows: 8
+15 CONTRIBUTION:trim_toda_group_proof_narrative_redundant_left_ehp_terms: 8
+16 CONTRIBUTION:normalize_toda_group_proof_narrative_connectors: 8
+17 CONTRIBUTION:normalize_toda_group_proof_narrative_repeated_numeric_equalities: 8
+18 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 8
+19 CONTRIBUTION:suppress_toda_group_proof_narrative_reflexive_equalities: 8
+20 CONTRIBUTION:order_toda_group_proof_narrative_surjectivity_support: 8
+21 CONTRIBUTION:order_toda_group_proof_narrative_short_exact_support: 8
+22 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_reference_restatements: 8
+23 CONTRIBUTION:suppress_toda_group_proof_narrative_dangling_connectors: 8
+24 CONTRIBUTION:order_toda_group_proof_narrative_visible_relation_dependencies: 8
+25 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 8
+26 CONTRIBUTION:insert_toda_group_proof_narrative_map_property_dependencies: 8
+27 CONTRIBUTION:suppress_toda_group_proof_narrative_repeated_unique_step_statements: 8
+28 CONTRIBUTION:order_toda_group_proof_narrative_visible_step_dependencies: 8
+29 CONTRIBUTION:normalize_toda_group_proof_narrative_zero_map_exactness_reason: 8
+30 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 8
+31 CONTRIBUTION:specialize_toda_group_proof_narrative_root_zero_direct_premises: 8
+32 CONTRIBUTION:specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application: 8
+33 CONTRIBUTION:suppress_toda_group_proof_narrative_literal_reflexive_equalities: 8
+34 CONTRIBUTION:suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements: 8
+35 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 8
+36 CONTRIBUTION:link_toda_group_proof_narrative_unmarked_reference_consumers: 8
+37 CONTRIBUTION:order_toda_group_proof_narrative_injective_image_order_reason: 8
+38 CONTRIBUTION:link_toda_group_proof_narrative_reference_body_consumers: 8
+39 PUBLIC:_wrap_phase150_rc4_generic_public_narrative: 8
+40 PUBLIC:_finalize_toda_group_proof_narrative_markdown: 8
+41 PUBLIC:_phase158_baseline_render_toda_group_proof_narrative_markdown: 8
+42 PUBLIC:_phase158_normalize_public_narrative_contract: 8
+43 PUBLIC:_phase159_r1_7c_r4_normalize_public_map_property_prose: 8
+44 PUBLIC:_phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning: 8
+45 PUBLIC:_phase159_r1_7c_r4_reorder_public_equation_reference_conclusions: 8
+46 FINAL: 8
+FIRST: (1, 'CONTRIBUTION:render_toda_group_proof_narrative_multi_argument_markdown')
+FINAL COUNT: 8
+
+## Final body: exact duplicate paragraphs (no category filtering)
+7x: 次の完全列を考える.
+2x: $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+8x: $\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+2x: $[\iota_{2}, \iota_{2}]$.
+2x: これより, $H([\iota_{2}, \iota_{2}]) = \pm 2\iota_{3}$ が成り立つ.
+2x: 完全性より,
+## Standalone exactness introduction and next paragraph
+paragraph 15: next='次の完全列を考える.'
+paragraph 16: next="[R1]より, $H\\left(\\nu'\\right) = \\eta_{5}$."
+paragraph 18: next='完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.'
+paragraph 20: next='完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射.'
+paragraph 22: next='次の完全列を考える.'
+paragraph 23: next='次の完全列を考える.'
+paragraph 24: next='$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$.'
+## Final three paragraphs
+'以上より, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$.'
+'証明木に記録された群構造の移送について、$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ と $E^{n - 3}: \\pi_{3 + 1}^{3} \\xrightarrow{\\cong} \\pi_{n + 1}^{n}$ から $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}$ を得る。生成元の対応は $E^{n - 3}\\eta_{3} = \\eta_{n}$ である。'
+'□'

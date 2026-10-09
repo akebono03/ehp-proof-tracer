@@ -1,0 +1,13 @@
+{
+  "status": "ROOT_COMPOSED_FROM_PROOFSTEP",
+  "public_renderer_changed": false,
+  "legacy_markdown_used_as_input": false,
+  "root_premise_count": 3,
+  "presentation_node_count": 123,
+  "presentation_edge_count": 135,
+  "inference_count": 67,
+  "root_reason_placement": "GRAPH_COMPOSITION_NOT_TEXT_MARKER",
+  "recursive_premise_proofs_rendered": false,
+  "full_proof_semantic_certification": false,
+  "next_boundary": "Integrate recursive evidence narration before replacing the public Renderer"
+}

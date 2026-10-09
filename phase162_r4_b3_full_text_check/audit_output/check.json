@@ -1,0 +1,30 @@
+{
+  "pi_5^4": {
+    "file": "pi_5^4_derived_common.md",
+    "flags": {
+      "has_proof_section": true,
+      "has_toda45_reference": true,
+      "has_target_in_reference": false,
+      "body_has_symbolic_eta_n": true,
+      "body_has_symbolic_group_n": true,
+      "body_has_transport_appendage": true,
+      "body_has_duplicate_transition": true,
+      "qed_count": 1,
+      "derived_root_rule": "Toda eta-family concrete transported-generator normalization"
+    }
+  },
+  "pi_6^5": {
+    "file": "pi_6^5_derived_common.md",
+    "flags": {
+      "has_proof_section": true,
+      "has_toda45_reference": true,
+      "has_target_in_reference": false,
+      "body_has_symbolic_eta_n": true,
+      "body_has_symbolic_group_n": true,
+      "body_has_transport_appendage": true,
+      "body_has_duplicate_transition": true,
+      "qed_count": 1,
+      "derived_root_rule": "Toda eta-family concrete transported-generator normalization"
+    }
+  }
+}

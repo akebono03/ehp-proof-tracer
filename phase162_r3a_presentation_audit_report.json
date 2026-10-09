@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "goal_conclusion_type": "Relation",
+  "root_inference_rule": "phase162_group_structure_transport",
+  "node_count": 123,
+  "edge_count": 135,
+  "max_depth": 14,
+  "given_count": 56,
+  "inference_count": 67,
+  "roles": {
+    "definition": 8,
+    "ehp_exactness": 16,
+    "group_structure": 24,
+    "map_property": 31,
+    "other": 31,
+    "relation": 13
+  },
+  "root_premise_count": 3,
+  "root_and_entry_identity": true,
+  "all_nodes_preserved": true,
+  "all_edges_preserved": true,
+  "premise_object_identity_preserved": true,
+  "provenance_verified_steps": 123,
+  "provenance_verified_inferences": 67
+}

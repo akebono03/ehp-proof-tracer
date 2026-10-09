@@ -1,0 +1,241 @@
+# Phase 162 R7-B: narrative selection vs. ProofStep provenance
+
+## Scope
+Read-only diagnosis; no changes to ProofStep, references, or renderer.
+Root: Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+Presentation nodes: 123
+Presentation edges: 135
+
+## Direct root premises
+1. Toda 5.2 pi_4^2 finite-cyclic transport: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+2. Toda Proposition 5.3 n=3 suspension isomorphism: TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))
+3. Toda Proposition 5.3 n=3 eta-square suspension bridge: Relation(lhs=Suspension(expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+## Source narrative stages (ordered)
+01 render_toda_group_proof_narrative_multi_argument_markdown: {'pi4_3': 6, 'target_pi5_3': 4, 'pi3_2': 7, 'delta': 5, 'exactness_or_maps': 8, 'stable_generic': 1}
+    changes from preceding snapshot: {'pi3_2': 7, 'pi4_3': 6, 'exactness_or_maps': 8, 'stable_generic': 1, 'target_pi5_3': 4, 'delta': 5}
+02 _insert_toda_group_proof_narrative_argument_contributions: {'pi4_3': 8, 'target_pi5_3': 7, 'pi3_2': 20, 'delta': 14, 'exactness_or_maps': 8, 'stable_generic': 4}
+    changes from preceding snapshot: {'pi3_2': 13, 'stable_generic': 3, 'delta': 9, 'pi4_3': 2, 'target_pi5_3': 3}
+03 insert_toda_group_proof_narrative_reason_prose: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 23, 'delta': 14, 'exactness_or_maps': 8, 'stable_generic': 4}
+    changes from preceding snapshot: {'pi3_2': 3, 'pi4_3': 1, 'target_pi5_3': 2}
+04 suppress_toda_group_proof_narrative_reference_internal_body: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 2}
+    changes from preceding snapshot: {'pi3_2': -10, 'stable_generic': -2, 'delta': -5, 'exactness_or_maps': -3}
+05 suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 2}
+06 suppress_toda_group_proof_narrative_reference_body_duplicates: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 2}
+07 link_toda_group_proof_narrative_reference_body_consumers: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 1}
+    changes from preceding snapshot: {'stable_generic': -1}
+08 normalize_toda_group_proof_narrative_connectors: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 1}
+09 order_toda_group_proof_narrative_local_equation_derivations: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 1}
+10 order_toda_group_proof_narrative_order_support: {'pi4_3': 9, 'target_pi5_3': 9, 'pi3_2': 13, 'delta': 9, 'exactness_or_maps': 5, 'stable_generic': 1}
+11 insert_toda_group_proof_narrative_hidden_zero_map_premises: {'pi4_3': 9, 'target_pi5_3': 10, 'pi3_2': 13, 'delta': 11, 'exactness_or_maps': 5, 'stable_generic': 1}
+    changes from preceding snapshot: {'delta': 2, 'target_pi5_3': 1}
+12 insert_toda_group_proof_narrative_map_property_dependencies: {'pi4_3': 12, 'target_pi5_3': 13, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 12, 'stable_generic': 1}
+    changes from preceding snapshot: {'pi3_2': 4, 'delta': 3, 'pi4_3': 3, 'target_pi5_3': 3, 'exactness_or_maps': 7}
+13 insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges: {'pi4_3': 12, 'target_pi5_3': 13, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 12, 'stable_generic': 1}
+14 merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+    changes from preceding snapshot: {'target_pi5_3': -1, 'exactness_or_maps': -1}
+15 trim_toda_group_proof_narrative_redundant_left_ehp_terms: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+16 normalize_toda_group_proof_narrative_connectors: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+17 normalize_toda_group_proof_narrative_repeated_numeric_equalities: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+18 link_toda_group_proof_narrative_unmarked_reference_consumers: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+19 suppress_toda_group_proof_narrative_reflexive_equalities: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+20 order_toda_group_proof_narrative_surjectivity_support: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+21 order_toda_group_proof_narrative_short_exact_support: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+22 suppress_toda_group_proof_narrative_repeated_reference_restatements: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+23 suppress_toda_group_proof_narrative_dangling_connectors: {'pi4_3': 12, 'target_pi5_3': 12, 'pi3_2': 17, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+24 order_toda_group_proof_narrative_visible_relation_dependencies: {'pi3_2': 17, 'pi4_3': 12, 'target_pi5_3': 12, 'delta': 14, 'exactness_or_maps': 11, 'stable_generic': 1}
+25 suppress_toda_group_proof_narrative_repeated_unique_step_statements: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+    changes from preceding snapshot: {'pi3_2': -2, 'pi4_3': -2, 'target_pi5_3': -3, 'delta': -1}
+26 insert_toda_group_proof_narrative_map_property_dependencies: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+27 suppress_toda_group_proof_narrative_repeated_unique_step_statements: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+28 order_toda_group_proof_narrative_visible_step_dependencies: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+29 normalize_toda_group_proof_narrative_zero_map_exactness_reason: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+30 order_toda_group_proof_narrative_injective_image_order_reason: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+31 specialize_toda_group_proof_narrative_root_zero_direct_premises: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+32 specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+33 suppress_toda_group_proof_narrative_literal_reflexive_equalities: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+34 suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+35 order_toda_group_proof_narrative_injective_image_order_reason: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+36 link_toda_group_proof_narrative_unmarked_reference_consumers: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+37 order_toda_group_proof_narrative_injective_image_order_reason: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+38 link_toda_group_proof_narrative_reference_body_consumers: {'pi3_2': 15, 'pi4_3': 10, 'target_pi5_3': 9, 'delta': 13, 'exactness_or_maps': 11, 'stable_generic': 1}
+
+## First observed stage for each paragraph category
+pi3_2: (1, 'render_toda_group_proof_narrative_multi_argument_markdown')
+pi4_3: (1, 'render_toda_group_proof_narrative_multi_argument_markdown')
+stable_generic: (1, 'render_toda_group_proof_narrative_multi_argument_markdown')
+target_pi5_3: (1, 'render_toda_group_proof_narrative_multi_argument_markdown')
+
+## Repeated exact paragraphs in final public narrative
+
+## Stable-generic paragraphs in final narrative
+paragraph 5: **[R1] (5.3).**
+$H\left(\nu'\right) = \eta_{5}$.
+**[R2] (4.5).**
+$E^{n - 3}: \pi_{3 + 1}^{3} \to \pi_{n + 1}^{n}$ は同型.
+paragraph 35: [R2]より, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$.
+paragraph 57: 証明木に記録された群構造の移送について、$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$ と $E^{n - 3}: \pi_{3 + 1}^{3} \xrightarrow{\cong} \pi_{n + 1}^{n}$ から $\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$ を得る。生成元の対応は $E^{n - 3}\eta_{3} = \eta_{n}$ である。
+
+## Generator-transport final conclusion context
+paragraph 3: \[
+\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}.
+\]
+paragraph 14: 最後に, $\pi_{5}^{3}$ の群構造を決定するために, 次の完全列を考える.
+paragraph 15: \[
+\pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}.
+\]
+paragraph 40: \[
+E: \pi_{4}^{2} \to \pi_{5}^{3}\quad\text{は単射}. \qquad (1)
+\]
+paragraph 42: \[
+\pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5}.
+\]
+paragraph 44: 完全性より, これより, $H: \pi_{5}^{3} \to \pi_{5}^{5}$ は零写像.
+paragraph 46: \[
+E: \pi_{4}^{2} \to \pi_{5}^{3}\quad\text{は全射}. \qquad (2)
+\]
+paragraph 47: (1), (2) より, $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型.
+paragraph 56: 以上より, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$.
+
+## Provenance steps matching suspect rule labels
+depth=0 Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport: Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(fami
+depth=1 Toda 5.2 pi_4^2 finite-cyclic transport: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(fami
+depth=1 Toda Proposition 5.3 n=3 eta-square suspension bridge: Relation(lhs=Suspension(expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), rhs=Composition(left=HomotopyElement(n
+depth=6 Toda 5.3 eta_5 iterated suspension bridge: Relation(lhs=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 
+depth=6 Toda pi_3^2 free cyclic generator transport: Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+depth=6 Toda higher eta-family finite-cyclic generator bridge: Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymb
+depth=7 Toda 4.5 pi_4^3 finite-cyclic transport: Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=ScalarS
+depth=7 Toda higher eta-family iterated suspension bridge: Relation(lhs=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarProduct(left=-1, right=3))), rhs=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=Scal
+depth=8 Toda 4.5 stable-range iterated suspension isomorphism: Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarProduct(left=-1, right=3)), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=3, right=1), sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimensio
+
+## Final public narrative
+# Group proof narrative
+
+## 証明対象
+
+\[
+\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}.
+\]
+
+## 使用する結果
+
+**[R1] (5.3).**
+$H\left(\nu'\right) = \eta_{5}$.
+**[R2] (4.5).**
+$E^{n - 3}: \pi_{3 + 1}^{3} \to \pi_{n + 1}^{n}$ は同型.
+
+---
+
+## 証明
+
+まず, $\nu'$ を定める.
+
+$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
+
+$2\eta_{3} = 0$.
+
+この前提条件を満たすので, Lemma 5.2 を適用できる.
+Lemma 5.2 の $\beta$ を $\nu'$ と定めると, 
+
+$\nu' \in \{\eta_{3}, 2\iota_{4}, \eta_{4}\}_{1}$.
+
+最後に, $\pi_{5}^{3}$ の群構造を決定するために, 次の完全列を考える.
+
+\[
+\pi_{6}^{3} \xrightarrow{H} \pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}.
+\]
+
+次の完全列を考える.
+
+次の完全列を考える.
+
+[R1]より, $H\left(\nu'\right) = \eta_{5}$.
+
+次の完全列を考える.
+
+完全性より, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は単射.
+
+次の完全列を考える.
+
+完全性より, $H: \pi_{3}^{2} \to \pi_{3}^{3}$ は全射.
+
+次の完全列を考える.
+
+次の完全列を考える.
+
+次の完全列を考える.
+
+$\pi_{4}^{2} = \mathbb{Z}/2\{\eta_{2}^{2}\}$.
+
+$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+これより, $\operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}$.
+
+完全性より, $\ker E=\operatorname{Im}Δ=\mathbb{Z}\{2\eta_{2}\}$.
+
+$\pi_{4}^{5} = 0$.
+
+完全性より, $E: \pi_{3}^{2} \to \pi_{4}^{3}$ は全射.
+
+これより, $\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$[\iota_{2}, \iota_{2}]$.
+
+これより, $H([\iota_{2}, \iota_{2}]) = \pm 2\iota_{3}$ が成り立つ.
+
+[R2]より, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$.
+
+これより, $\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$.
+
+これより, $H: \pi_{6}^{3} \to \pi_{6}^{5}$ は全射.
+
+これより, $\Delta: \pi_{6}^{5} \to \pi_{4}^{2}$ は零写像.
+
+完全性より,
+
+\[
+E: \pi_{4}^{2} \to \pi_{5}^{3}\quad\text{は単射}. \qquad (1)
+\]
+
+完全性より, $\ker \Delta=\operatorname{Im}H=\pi_{6}^{5}$ である.
+
+\[
+\pi_{6}^{5} \xrightarrow{\Delta} \pi_{4}^{2} \xrightarrow{E} \pi_{5}^{3} \xrightarrow{H} \pi_{5}^{5}.
+\]
+
+$\Delta: \pi_{5}^{5} \to \pi_{3}^{2}$ は単射.
+
+完全性より, これより, $H: \pi_{5}^{3} \to \pi_{5}^{5}$ は零写像.
+
+完全性より,
+
+\[
+E: \pi_{4}^{2} \to \pi_{5}^{3}\quad\text{は全射}. \qquad (2)
+\]
+
+(1), (2) より, $E: \pi_{4}^{2} \to \pi_{5}^{3}$ は同型.
+
+$\eta_{4}=E\eta_{3}$.
+
+$\eta_{3}\eta_{3} = \eta_{3}^{2}$.
+
+これより, $\eta_{3} = \eta_{3}$.
+
+$\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$.
+
+$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$.
+
+$[\iota_{2}, \iota_{2}]$.
+
+これより, $H([\iota_{2}, \iota_{2}]) = \pm 2\iota_{3}$ が成り立つ.
+
+これより, $\pi_{4}^{5} = 0$.
+
+以上より, $\pi_{5}^{3} = \mathbb{Z}/2\{\eta_{3}^{2}\}$.
+
+証明木に記録された群構造の移送について、$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$ と $E^{n - 3}: \pi_{3 + 1}^{3} \xrightarrow{\cong} \pi_{n + 1}^{n}$ から $\pi_{n + 1}^{n} = \mathbb{Z}/2\{E^{n - 3}\eta_{3}\}$ を得る。生成元の対応は $E^{n - 3}\eta_{3} = \eta_{n}$ である。
+
+□
+
