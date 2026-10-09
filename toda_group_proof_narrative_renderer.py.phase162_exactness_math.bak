@@ -5967,35 +5967,29 @@ def _phase159_unique_preimage_definition_line(
 def _phase159_public_exactness_latex(
   line: str,
 ) -> str | None:
-  """Extract only the math body of an inline EHP exactness statement.
-
-  Reject malformed or prose-containing delimiters rather than re-wrapping
-  the full sentence in another pair of dollar signs.
-  """
-  if not isinstance(line, str):
-    raise TypeError("line must be a str")
-
   stripped = line.strip()
-  if not stripped.startswith("$"):
-    return None
-
-  closing_math = stripped.find("$", 1)
-  if closing_math <= 1:
-    return None
-
-  latex = stripped[1:closing_math]
-  suffix = stripped[closing_math + 1:]
-  if suffix not in ("", ".", " は完全である."):
-    return None
 
   if (
-    "$" in latex
-    or r"\xrightarrow{" not in latex
-    or not latex.startswith(r"\pi_{")
+    not stripped.startswith("$")
+    or r"\xrightarrow{" not in stripped
   ):
     return None
 
-  return latex.replace("Δ", r"\Delta")
+  closing_math = stripped.rfind(
+    "$"
+  )
+
+  if closing_math <= 0:
+    return None
+
+  latex = stripped[
+    1:closing_math
+  ]
+
+  return latex.replace(
+    "Δ",
+    r"\Delta",
+  )
 
 
 def _phase159_consolidate_public_exactness_lines(
