@@ -3344,3 +3344,29 @@ R6 でこの限界を明示した。R7 の検証付き入口では、`INFERENCE`
 ### 検証方針
 
 利用者指定により Phase 161 終了時にも repository-wide full pytest を行わない。局所検証は R2–R5 合計17件、R6 4件、R7+R6 回帰10件の PASS 報告がある（R6 は重複して実行されている）。全体テスト成功は主張しない。
+
+<!-- PHASE162_CLOSURE_20261010 -->
+
+## Phase 162 終了時点の設計境界と Phase 163 方針（2026-10-10）
+
+Phase 162 の $\pi_5^3$ 監査では、既存の `ProofStep` を利用した証明再構築と、結論から任意の出典を独立に発見する一般探索とを区別する必要が明確になった。既存の `phase161_r5_backward_proof_reconstruction.py` と `phase162_pi5_3_backward_selection.py` は限定された目標と既存の証拠に依存する。Reference と Proof 本文の表示だけを調整しても証明木の根拠選択の正しさは保証されない。
+
+### 登録情報の責務分担
+
+- `proof.py`: `LiteratureReference`、`ProofStep`、`InferenceRule` などの基礎型。
+- `toda_rules.py` 等: 数学的 Statement と Production Rule。
+- `theorem_facts.py` 等: 文献由来の事実。
+- `proof_repository.py` / `standard_repository.py`: 証明ステップの登録・検索。
+- `toda_literature_statement_boundary.py`: fixed statement と proof-internal fact の区別、および一部 component `order`。
+
+これらは単一の検索・利用可能性判定契約ではない。特に component の `order` を、そのまま「先に証明済み」の証拠と解釈してはならない。
+
+### Phase 163 の統一 Registry に必要な情報
+
+文献識別子、命題識別子、主張識別子、構造化 Statement、適用範囲、出典 locator、文献内の掲載位置、同一命題内の主張順、主張が利用可能になる証明完了位置、proof-internal / fixed-statement 区分、依存関係、既存 `ProofStep` と `InferenceRule` の対応を共通に扱う。掲載位置と証明完了位置は異なる情報として保持する。複数の主張を同時に証明する場合は単純な直列番号で先行主張を利用可能にせず、依存グラフと同時証明の境界を扱う。
+
+資料の順序や証明完了位置が不明なら `unknown` として扱い、推測した番号で証明探索を許可しない。異なる文献の間には自動的な全順序を置かない。自己参照、未証明の後続命題の引用、循環依存、同一命題の未確立主張の流用は探索の候補選択で拒否する設計とする。既に証明済みの fixed statement を引用する場合、その内部の Lemma や proof steps を引用のたびに自動展開しない。
+
+### Phase 境界
+
+Phase 162 は問題の特定と監査記録で区切る。Phase 163 は全登録 Statement の棚卸し・共通 ID・来歴・順序と利用資格のデータ整備および共通検索までとし、一般証明探索の成功を主張しない。一般 Backward Search の規則選択・候補評価への統合は後続 Phase とする。既存 API と数学的推論規則の変更は必要最小限とする。
