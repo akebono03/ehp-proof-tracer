@@ -1,0 +1,24 @@
+{
+  "scope": "All canonical production Python files, static syntax only",
+  "inspected_registration_files": 25,
+  "registration_sites": 115,
+  "by_kind": {
+    "container_constructor": 5,
+    "entry_constructor": 21,
+    "reference_constructor": 50,
+    "registration_call": 39
+  },
+  "statement_type_definition_sites": 162,
+  "literal_entry_keys": 8,
+  "duplicate_literal_key_candidates": 0,
+  "repeated_entry_expression_candidates": 1,
+  "parse_errors": [],
+  "important_limits": [
+    "A constructor site is not a mathematical statement count",
+    "Same signature hash is not a proof of mathematical identity",
+    "Dynamic registration and runtime instances not counted",
+    "Literature publication order and availability not checked",
+    "Fixed statements and proof-internal steps not yet validated",
+    "AST call detection can miss indirect or aliased constructors"
+  ]
+}
