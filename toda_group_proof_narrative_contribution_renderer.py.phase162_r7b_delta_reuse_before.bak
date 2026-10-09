@@ -7545,7 +7545,9 @@ def insert_toda_group_proof_narrative_map_property_dependencies(
       == target_key
     )
 
-    if not matches:
+    if len(
+      matches
+    ) != 1:
       return None
 
     return matches[

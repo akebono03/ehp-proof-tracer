@@ -1,0 +1,77 @@
+# Phase 162 R7-B Delta premise provenance
+Read-only: no replacement of renderer output and no ProofStep mutation.
+Root preserved: True
+Nodes: 123; edges: 135
+
+## Step identities with matching rendered mathematical statement
+1. depth=5 step_id=2455257227872 rule=inference inference=Toda Proposition 5.1 finite-dimensional integration
+   conclusion=TodaProp51FiniteDimensionalStatement(pi3_2_group_relation=Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), eta2_hopf_relation=Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), delta_iota5_relation=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), higher_eta_group_relation=Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))
+   rendered=$\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}$, $H\left(\eta_{2}\right) = \iota_{3}$, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$, $\pi_{n + 1}^{n} = \mathbb{Z}/2\{\eta_{n}\}$ が成り立つ.
+   premises=4
+   equivalence_key='$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$, $H\\left(\\eta_{2}\\right) = \\iota_{3}$, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$ が成り立つ'
+2. depth=6 step_id=2455255725008 rule=inference inference=Toda Delta iota_5 Whitehead-square relation
+   conclusion=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=WhiteheadProduct(left=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None)), right=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None))))
+   rendered=$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$
+   premises=1
+   equivalence_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+3. depth=6 step_id=2455255322192 rule=inference inference=Toda Delta iota_5 twice eta_2 up-to-sign bridge
+   conclusion=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))
+   rendered=$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+   premises=2
+   equivalence_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$'
+4. depth=7 step_id=2455255327136 rule=inference inference=Toda Delta iota_5 Whitehead-square relation
+   conclusion=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=WhiteheadProduct(left=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None)), right=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None))))
+   rendered=$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$
+   premises=1
+   equivalence_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+5. depth=12 step_id=2455257067152 rule=inference inference=Toda Delta iota_5 Whitehead-square relation
+   conclusion=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=WhiteheadProduct(left=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None)), right=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None))))
+   rendered=$\Delta\left(\iota_{5}\right) = \pm [\iota_{2}, \iota_{2}]$
+   premises=1
+   equivalence_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+
+Matching ProofStep identities: 5
+Distinct structural conclusions: 3
+## Conclusion equivalence groups (by repr, diagnostic only)
+step_count=1 identities=[2455257227872]
+step_count=3 identities=[2455255725008, 2455255327136, 2455257067152]
+step_count=1 identities=[2455255322192]
+
+## Paragraph counts after selected renderer stages
+01 render_toda_group_proof_narrative_multi_argument_markdown: 0 delta paragraphs (change=None)
+02 _insert_toda_group_proof_narrative_argument_contributions: 3 delta paragraphs (change=3)
+04 suppress_toda_group_proof_narrative_reference_internal_body: 2 delta paragraphs (change=-1)
+12 insert_toda_group_proof_narrative_map_property_dependencies: 5 delta paragraphs (change=3)
+26 insert_toda_group_proof_narrative_map_property_dependencies: 8 delta paragraphs (change=3)
+
+## Final public narrative Delta paragraphs
+1. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+2. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+3. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+4. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+5. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+6. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+7. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+8. text='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.'
+   matching_step_ids=[2455255725008, 2455255327136, 2455257067152] (diagnostic, not ownership proof)
+   normalized_key='$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$'
+
+Final matching paragraphs: 8
+Distinct normalized text keys: 1
+## Interpretation warning
+Same normalized text does not imply the same ProofStep identity or redundant mathematical support.
+No deduplication was attempted.
