@@ -1,3 +1,6 @@
+from toda_group_proof_narrative_concrete_transport import (
+  render_concrete_transport_proof_from_steps,
+)
 import re
 from toda_group_proof_narrative_transport_link import (
   add_transport_link_to_common_markdown,
@@ -4780,6 +4783,10 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
       "presentation must be a "
       "TodaGroupProofPresentation"
     )
+
+  concrete = render_concrete_transport_proof_from_steps(presentation.root_step)
+  if concrete is not None:
+    return concrete
 
   presentation = (
     build_toda_group_proof_narrative_semantic_closure_presentation(

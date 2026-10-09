@@ -5,10 +5,10 @@
       "has_proof_section": true,
       "has_toda45_reference": true,
       "has_target_in_reference": false,
-      "body_has_symbolic_eta_n": false,
-      "body_has_symbolic_group_n": false,
-      "body_has_transport_appendage": false,
-      "body_has_duplicate_transition": false,
+      "body_has_symbolic_eta_n": true,
+      "body_has_symbolic_group_n": true,
+      "body_has_transport_appendage": true,
+      "body_has_duplicate_transition": true,
       "qed_count": 1,
       "derived_root_rule": "Toda eta-family concrete transported-generator normalization"
     }
@@ -19,10 +19,10 @@
       "has_proof_section": true,
       "has_toda45_reference": true,
       "has_target_in_reference": false,
-      "body_has_symbolic_eta_n": false,
-      "body_has_symbolic_group_n": false,
-      "body_has_transport_appendage": false,
-      "body_has_duplicate_transition": false,
+      "body_has_symbolic_eta_n": true,
+      "body_has_symbolic_group_n": true,
+      "body_has_transport_appendage": true,
+      "body_has_duplicate_transition": true,
       "qed_count": 1,
       "derived_root_rule": "Toda eta-family concrete transported-generator normalization"
     }
