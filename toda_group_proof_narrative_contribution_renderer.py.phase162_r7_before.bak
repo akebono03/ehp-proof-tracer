@@ -4221,17 +4221,6 @@ def normalize_toda_group_proof_narrative_connectors(
 
     break
 
-  # Repeated identical discourse prefixes convey no additional proof step.
-  # Preserve all following mathematical statements and reference markers.
-  for index, paragraph in enumerate(normalized_paragraphs):
-    leading = paragraph[:len(paragraph) - len(paragraph.lstrip())]
-    content = paragraph.lstrip()
-    for connector in ("これより,", "したがって,", "以上より,"):
-      prefix = connector + " "
-      while content.startswith(prefix + prefix):
-        content = content[len(prefix):]
-    normalized_paragraphs[index] = leading + content
-
   return "\n\n".join(
     normalized_paragraphs
   )
