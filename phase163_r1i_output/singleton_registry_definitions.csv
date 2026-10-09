@@ -1,0 +1,6 @@
+﻿file,name,line,expression
+composition_facts.py,ZERO_COMPOSITION_FACT_REPOSITORY,228,"ZeroCompositionFactRepository(facts=(ETA_3_E_NU_PRIME_ZERO_COMPOSITION_FACT, NU_PRIME_NU_6_ZERO_COMPOSITION_FACT))"
+generator_facts.py,GENERATOR_FACT_REPOSITORY,214,"GeneratorFactRepository(typing_facts=(ETA_3_TYPING_FACT, NU_PRIME_TYPING_FACT, NU_7_TYPING_FACT), ambient_group_facts=(ETA_3_AMBIENT_GROUP_FACT, NU_PRIME_AMBIENT_GROUP_FACT, NU_7_AMBIENT_GROUP_FACT))"
+map_facts.py,MAP_ISOMORPHISM_FACT_REPOSITORY,101,"MapIsomorphismFactRepository(facts=(EHP_H_MAP_ISOMORPHISM_FACT,))"
+theorem_facts.py,THEOREM_FACT_REPOSITORY,118,"TheoremFactRepository(entries=(EPSILON_3_TODA_MEMBERSHIP_FACT,))"
+toda_general_reference_schema.py,_GENERAL_REFERENCE_CATALOG,43,"(GeneralReferenceStatement(locator='(4.5)', conditions_latex=('n\\ge k+2', 'm\\ge n'), components=(GeneralReferenceComponent('stable_range_suspension_isomorphism', 'E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}'),)), GeneralRefe"
