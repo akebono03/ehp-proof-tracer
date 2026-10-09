@@ -1,7 +1,4 @@
 import re
-from toda_group_proof_narrative_transport_link import (
-  add_transport_link_to_common_markdown,
-)
 from barratt_hilton_rules import (
   HomotopyGroupMembershipStatement,
 )
@@ -4820,14 +4817,6 @@ def _phase158_baseline_render_toda_group_proof_narrative_markdown(
       _wrap_phase150_rc4_generic_public_narrative(
         presentation,
         rendered,
-      )
-    )
-
-    public_rendered = (
-      add_transport_link_to_common_markdown(
-        presentation.root_step,
-        public_rendered,
-        _render_group_proof_narrative_latex,
       )
     )
 
