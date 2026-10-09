@@ -1,0 +1,21 @@
+{
+  "scope": "R1B priority source files; static call sites only",
+  "input_priority_rows": 115,
+  "inspected_files": 25,
+  "identified_sites": 115,
+  "by_site_kind": {
+    "container_creation_site": 5,
+    "entry_instance_site": 21,
+    "literature_reference_site": 50,
+    "registration_invocation_site": 39
+  },
+  "inspection_errors": [],
+  "not_a_statement_count": true,
+  "still_unverified": [
+    "dynamic registration multiplicity",
+    "statement identity and deduplication",
+    "reference provenance and order",
+    "fixed statement versus proof-internal status",
+    "coverage of registries beyond R1B priority candidates"
+  ]
+}
