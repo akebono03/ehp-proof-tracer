@@ -1,0 +1,26 @@
+{
+  "scope": "static candidates in canonical Python sources, not unique mathematical statements",
+  "source_root": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof",
+  "production_candidates": 1034,
+  "test_candidates": 2520,
+  "production_files_with_candidates": 140,
+  "priority_candidates": 115,
+  "production_by_classification": {
+    "api_or_container_definition": 156,
+    "explicit_entry_constructor": 21,
+    "literature_reference_candidate": 50,
+    "named_container_assignment": 106,
+    "registration_call_candidate": 39,
+    "repository_constructor": 5,
+    "rule_function_candidate": 495,
+    "statement_class_candidate": 162
+  },
+  "parse_errors": [],
+  "not_yet_verified": [
+    "actual registered statement totals",
+    "runtime-created registrations",
+    "literature ordering and availability",
+    "fixed statements versus internal proof steps",
+    "exact distinctness of references and statement instances"
+  ]
+}
