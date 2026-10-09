@@ -1,1 +1,6 @@
 ﻿repository,index,entry_type,key,theorem,phase,statement_type,reference_type,premise_count,proof_step_present
+THEOREM_FACT_REPOSITORY,0,TheoremFactEntry,,,,TodaBracketMembershipTheoremStatement,LiteratureReference,,False
+build_standard_proof_repository,0,ProofRepositoryEntry,standard.toda.prop56,Toda Proposition 5.6,65,TodaProp56FiniteDimensionalStatement,,6,True
+build_standard_proof_repository,1,ProofRepositoryEntry,standard.toda.prop58,Toda Proposition 5.8,68,TodaProp58FiniteDimensionalStatement,,6,True
+build_standard_proof_repository,2,ProofRepositoryEntry,standard.toda.prop511,Toda Proposition 5.11,73,TodaProp511FiniteDimensionalStatement,,4,True
+build_standard_proof_repository,3,ProofRepositoryEntry,standard.toda.prop515,Toda Proposition 5.15,75,TodaProp515FiniteDimensionalStatement,,9,True

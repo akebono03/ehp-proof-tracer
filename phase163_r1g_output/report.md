@@ -2,8 +2,8 @@
 
 これは選択した Repository の実行時登録実体であり、全命題総数ではありません。
 
-- ERROR THEOREM_FACT_REPOSITORY: ModuleNotFoundError: No module named 'theorem_facts'
-- ERROR build_standard_proof_repository: ModuleNotFoundError: No module named 'proof_repository'
+- THEOREM_FACT_REPOSITORY: 1 entries
+- build_standard_proof_repository: 4 entries
 
 ## 未確認事項
 - other repositories and indirect factories

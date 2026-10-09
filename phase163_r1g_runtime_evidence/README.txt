@@ -1,4 +1,4 @@
-Phase 163 R1G: Selected runtime repository inspection only.
-Run run.ps1 from the extracted folder. No existing project sources are altered.
-The standard repository is built from an existing test fixture; this may take longer than a tiny unit test.
-No claim is made about complete coverage or distinct mathematical statement counts.
+Phase 163 R1G repair1: run as Python module from project root to resolve imports.
+Existing production sources and audit.py unchanged.
+The standard repository is built using the existing focused test fixture.
+Output: phase163_r1g_output. All-repository coverage is NOT claimed.
