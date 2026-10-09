@@ -1,0 +1,35 @@
+{
+  "audit_type": "static active-root source sites + default bridge snapshot",
+  "scope": "Python modules directly in repository root; excludes tests, archives and phase folders",
+  "files_scanned": 268,
+  "site_count": 315,
+  "site_counts_by_kind": {
+    "entry_constructor_site": 93,
+    "registry_or_factory_call_site": 40,
+    "repository_factory_candidate": 25,
+    "statement_or_definition_class": 157
+  },
+  "missing_core_files": [],
+  "parse_errors": [],
+  "bridge_status_counts": {
+    "metadata_only": 67,
+    "unresolved_source": 1
+  },
+  "bridge_unresolved": [
+    {
+      "source": "theorem_fact",
+      "key": "0",
+      "detail": "LiteratureReference.locator is missing; no attribution invented"
+    }
+  ],
+  "bridge_error": null,
+  "limitations": [
+    "A constructor site is not a runtime record and not a unique mathematical statement.",
+    "Statement class definitions are types, not registered theorem instances.",
+    "Dynamically constructed registrations and indirect factories may not be captured.",
+    "Rule catalog statements are not automatically literature-fixed statements.",
+    "Equivalent, duplicate, specialized and generic mathematical assertions remain unclassified.",
+    "Definition provenance, proof completion order and citation permission are not inferred.",
+    "R4 integration is incomplete; no backward search or renderer integration."
+  ]
+}
