@@ -1,0 +1,14 @@
+{
+  "scope": "R1D static entry constructor evidence; no imports, no runtime instantiation",
+  "entry_constructor_sites": 21,
+  "entry_files": 11,
+  "explicit_key_sites": 8,
+  "sites_without_explicit_key": 13,
+  "repeated_expression_rows_to_review": 8,
+  "kind_counts": {
+    "ProofRepositoryEntry": 20,
+    "TheoremFactEntry": 1
+  },
+  "status": "R1 INVENTORY PROVISIONAL; mathematical statement totals remain unknown",
+  "R2_boundary": "No registry schema or backward search changes"
+}
