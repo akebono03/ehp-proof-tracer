@@ -3652,3 +3652,26 @@ R5 は Phase 59 の完成済み最終同型 step の流用ではなく、7つの
 証明表示の公開接続は未実施であり、上記は生成された目標・推論依存の記録であって、public Narrative の完成出力ではない。
 
 局所検証記録：R2 3 PASS、R2–R3 7 PASS、R2–R4 11 PASS、R2–R5 17 PASS、R6 4 PASS、R7+R6 10 PASS。利用者の明示指示により Phase 161 で全体 pytest は実行しない。
+
+<!-- PHASE162_CLOSURE_20261010 -->
+
+## Phase 162 — $\pi_5^3$ 証明木の未解決境界（2026-10-10）
+
+対象目標：
+
+$$
+\pi_5^3=\mathbb Z/2\{\eta_3^2\},\qquad E:\pi_4^2\xrightarrow{\cong}\pi_5^3.
+$$
+
+Phase 161 の7規則再構築は、独立に用意された文献由来・完全性由来の葉を要求する限定的な証明構築であり、任意の出典を独立発見するものではない。Phase 162 の `phase162_pi5_3_backward_selection.py` は具体的群構造目標への規則選択を実装するが、一般的な証明発見の完成を意味しない。
+
+主要未解決事項：
+
+- 既存の `ProofStep` ancestry 由来の枝と、新たに必要な部分目標から構築された枝とを区別して記録する。
+- 固定された `(5.3)` を Reference として引用した後、そこへ至る Lemma 5.2 等の proof-internal steps を独立の本文根拠として無条件に追加しない。
+- Toda 本文の命題掲載順、同一命題内の主張順、各主張が証明済みとなる時点を確認し、証明目標より後にしか得られない結果の参照と自己引用を防ぐ。
+- fixed statement と proof-internal fact の分離、循環依存検出、外部葉の provenance は Renderer ではなく proof construction / premise selection に属する。
+
+命題の実際の掲載位置はこの記録から推測しない。`TodaFixedStatementComponent.order` は表示・成分上の順番であり、利用可能な先行証拠であることの証明にはならない。
+
+**記録の性格**：Phase 162 の未解決事項・Phase 163 への引き継ぎであり、上記目標の完全な一般自動証明を認定する記録ではない。2026-10-10 の文書更新で pytest は実行していない。過去の proof records は追記方針で保持した。

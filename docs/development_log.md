@@ -3865,3 +3865,15 @@ R7：`phase161_r7_premise_provenance_validation.py` に検証付き入口を新�
 Phase 161 の成果は「特定の非安定 EHP 同型性に対する goal-driven な依存生成・前提照合・推論再構築・限定的 provenance 検証」である。一般的な非安定証明探索、文献の完全自律発見、public Narrative 接続はまだ実装しない。次 Phase 162 で既存 Renderer への接続を監査する。
 
 **利用者の明示指示により、Phase 161 の終了時も repository-wide full pytest は実行しない。** 完了判定は局所検証と限定事項の記録に基づき、全体テスト成功は主張しない。
+
+<!-- PHASE162_CLOSURE_20261010 -->
+
+## Phase 162 — 証明木と Reference の責務監査、文書上の区切り（2026-10-10）
+
+Phase 161 で導入した具体的 Backward Goal Reconstruction を受け、Phase 162 では $\pi_5^3$ の群構造、$E:\pi_4^2\to\pi_5^3$ の同型性、既存 `ProofStep` に基づく証明構築と共通 Narrative 接続を確認した。途中で生成された文章と、結論から独立に組み立てた証明木の区別が必要と判明した。`(5.3)` を fixed Reference として利用する場合、Lemma 5.2 などその証明内部の根拠を同時に本文へ自動展開すべきでないという問題、Reference 内の命題と proof-internal fact の混在、不要枝や説明の混入が監査課題として残った。
+
+2026-10-10 の設計議論により、現行の登録情報が `toda_rules.py`、`theorem_facts.py`、`proof_repository.py`、`standard_repository.py`、`toda_literature_statement_boundary.py` 等に分散し、命題ごとの掲載順と同一命題内の主張順・証明完了順を統一的に用いて候補を制限できる保証がないと整理した。`toda_literature_statement_boundary.py` の一部 component には `order` があるが、それは直ちに利用可能性の根拠にはならない。
+
+Phase 162 は未解決事項を次 Phase に引き継ぐ**文書上の区切り**とし、一般的な Backward Search、証明全体の妥当性、Narrative の完成を達成済みとは扱わない。次 Phase 163 は登録済みの**全**命題・主張を対象とする統一 Statement Registry の整備と引用順序のモデル化。一般的な規則選択・証明探索への適用は後続 Phase に分離する。
+
+今回のドキュメント更新では**pytest は一切実行していない**。全体テストの PASS は主張しない。既存の過去記録は保持した。

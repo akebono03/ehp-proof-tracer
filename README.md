@@ -1598,3 +1598,21 @@ R7 + R6 regression: 10 passed
 ```
 
 **At the user's explicit request, no repository-wide pytest is run for Phase 161 closure.** The focused results are not a claim of repository-wide all-pass.
+
+<!-- PHASE162_CLOSURE_20261010 -->
+
+## Phase 162 — Proof Reconstruction and Reference Boundary Audit (2026-10-10)
+
+Phase 162 continued the narrow unstable target $\pi_5^3$ and the suspension isomorphism $E:\pi_4^2\to\pi_5^3$. The work included goal-directed group-structure selection, existing-rule proof reconstruction, recursive `ProofStep` checks, and inspection of the connection to common Narrative output. These are bounded, concrete capabilities; the system does **not** yet provide general independent backward theorem search or guaranteed correct selection of all literature premises.
+
+The audit exposed an architectural limitation: the existing literature references, structured statements, proof repositories, and statement-boundary components are distributed among several modules. In particular, there is no verified unified enforcement of the literary order of theorems, the order of claims inside one theorem, or the point at which each claim becomes available as a proved premise. A `locator` or presentation `order` alone does not establish proof eligibility. A referenced fixed statement should be treated as an external premise rather than automatically expanding its internal proof, and self-reference or later-theorem leakage must be prohibited.
+
+**Phase 162 is closed for planning/documentation purposes with unresolved proof-search and reference-order issues.** This is not a claim that the $\pi_5^3$ proof, the public prose, or the general backward engine is complete. No pytest tests were run as part of this documentation update; repository-wide success is not claimed.
+
+### Phase 163 — Unified Statement Registry (planned)
+
+Phase 163 will inventory **all existing registered statements** (not just the $\pi_5^3$ dependencies), define stable statement/component identities, connect provenance and mathematical content, record source-order and proof-availability boundaries without guessing missing information, and offer a unified read/search interface. Existing mathematics, inference rules, `ProofStep` APIs, and renderer behavior should be preserved wherever possible. Unverified source positions must remain explicitly unknown rather than being assigned synthetic literary order.
+
+### Later phase — General backward-search integration (planned)
+
+Only after the registry and eligibility rules are audited should general backward rule discovery and source-constrained premise selection be connected to proof reconstruction. A complete registry is not equivalent to a complete theorem prover.
