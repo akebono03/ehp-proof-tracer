@@ -1,0 +1,1690 @@
+{
+  "source_file": "phase162_r10_r5_prose_origin.json",
+  "source_summary": {
+    "nodes": 97,
+    "presentation_edges": 109,
+    "body_lines": 47,
+    "line_origins": {
+      "CONNECTOR_OR_PROSE": 10,
+      "MATH_WITHOUT_EXACT_STEP": 16,
+      "STEP_EXACT_MATH": 20,
+      "TRANSPORT_APPENDIX": 1
+    },
+    "duplicate_conclusions": 27,
+    "matched_steps": 24,
+    "unmatched_steps": 73
+  },
+  "root_step_ids": [
+    0
+  ],
+  "root_latex": [
+    "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}"
+  ],
+  "summary": {
+    "body_rows": 47,
+    "diagnoses": {
+      "NO_STEP_TEXT_MATCH": 19,
+      "PARTIAL_EXPRESSION_ONLY": 7,
+      "DIRECT_STEP_CANDIDATE": 21
+    },
+    "tags": {
+      "NO_EXACT_LATEX_MATCH": 16,
+      "OFF_TARGET_H_MAP": 2,
+      "DELTA_IOTA5": 2,
+      "WHITEHEAD_SQUARE": 6,
+      "TRANSPORT_APPENDIX": 1
+    },
+    "duplicate_text_groups": 6,
+    "duplicate_math_node_groups": 27
+  },
+  "rows": [
+    {
+      "line": 1,
+      "text": "対象",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 4,
+      "text": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        0
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "0": [
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 7,
+      "text": "## 使用する結果",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 9,
+      "text": "**[R1] (5.3).**",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 10,
+      "text": "$H\\left(\\nu'\\right) = \\eta_{5}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        37,
+        44
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "37": [
+          37,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "44": [
+          44,
+          37,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        37,
+        44
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 11,
+      "text": "**[R2] (4.5).**",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 12,
+      "text": "$E^{n - 3}: \\pi_{3 + 1}^{3} \\to \\pi_{n + 1}^{n}$ は同型.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        85
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "85": [
+          85,
+          73,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 16,
+      "text": "## 証明",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 18,
+      "text": "$\\pi_{5}^{3}$ の群構造を決定するために, 次の完全列を考える.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 21,
+      "text": "\\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5} \\xrightarrow{\\Delta} \\pi_{4}^{2} \\xrightarrow{E} \\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 24,
+      "text": "[R1]より, $H: \\pi_{6}^{3} \\to \\pi_{6}^{5}$ は全射.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        27
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "27": [
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 26,
+      "text": "完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "OFF_TARGET_H_MAP",
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        43,
+        69
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "43": [
+          43,
+          35,
+          24,
+          13,
+          5,
+          1,
+          0
+        ],
+        "69": [
+          69,
+          58,
+          45,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 28,
+      "text": "完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "OFF_TARGET_H_MAP",
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        43,
+        69
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "43": [
+          43,
+          35,
+          24,
+          13,
+          5,
+          1,
+          0
+        ],
+        "69": [
+          69,
+          58,
+          45,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 30,
+      "text": "完全性より, $E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        20,
+        21,
+        89,
+        90
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "20": [
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "21": [
+          21,
+          10,
+          4,
+          1,
+          0
+        ],
+        "89": [
+          89,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "90": [
+          90,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 32,
+      "text": "$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        1
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "1": [
+          1,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 34,
+      "text": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        19,
+        45
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "19": [
+          19,
+          10,
+          4,
+          1,
+          0
+        ],
+        "45": [
+          45,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        19,
+        45
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 36,
+      "text": "$\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        39,
+        96
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "39": [
+          39,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "96": [
+          96,
+          92,
+          89,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        39,
+        96
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 38,
+      "text": "$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [
+        "DELTA_IOTA5",
+        "WHITEHEAD_SQUARE"
+      ],
+      "exact_step_ids": [
+        40,
+        61
+      ],
+      "partial_latex_step_ids": [
+        65,
+        81
+      ],
+      "exact_paths_node_to_root": {
+        "40": [
+          40,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "61": [
+          61,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "65": [
+          65,
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "81": [
+          81,
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [
+        38,
+        54
+      ],
+      "same_statement_node_ids": [
+        40,
+        61
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 40,
+      "text": "$[\\iota_{2}, \\iota_{2}]$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "exact_step_ids": [
+        65,
+        81
+      ],
+      "partial_latex_step_ids": [
+        40,
+        41,
+        50,
+        61,
+        62,
+        71
+      ],
+      "exact_paths_node_to_root": {
+        "65": [
+          65,
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "81": [
+          81,
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "40": [
+          40,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "41": [
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "50": [
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "61": [
+          61,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "62": [
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "71": [
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [
+        40,
+        56
+      ],
+      "same_statement_node_ids": [
+        65,
+        81
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 42,
+      "text": "これより, $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "exact_step_ids": [
+        50,
+        71
+      ],
+      "partial_latex_step_ids": [
+        65,
+        81
+      ],
+      "exact_paths_node_to_root": {
+        "50": [
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "71": [
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "65": [
+          65,
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "81": [
+          81,
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [
+        42,
+        58
+      ],
+      "same_statement_node_ids": [
+        50,
+        71
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 44,
+      "text": "$\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 46,
+      "text": "完全性より, $\\ker E=\\operatorname{Im}Δ=\\mathbb{Z}\\{2\\eta_{2}\\}$.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 48,
+      "text": "$\\pi_{4}^{5} = 0$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        33,
+        94
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "33": [
+          33,
+          21,
+          10,
+          4,
+          1,
+          0
+        ],
+        "94": [
+          94,
+          90,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [
+        48,
+        62
+      ],
+      "same_statement_node_ids": [
+        33,
+        94
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 50,
+      "text": "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        4,
+        72
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "4": [
+          4,
+          1,
+          0
+        ],
+        "72": [
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [
+        50,
+        66
+      ],
+      "same_statement_node_ids": [
+        4,
+        72
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 52,
+      "text": "これより, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        39,
+        96
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "39": [
+          39,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "96": [
+          96,
+          92,
+          89,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        39,
+        96
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 54,
+      "text": "$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [
+        "DELTA_IOTA5",
+        "WHITEHEAD_SQUARE"
+      ],
+      "exact_step_ids": [
+        40,
+        61
+      ],
+      "partial_latex_step_ids": [
+        65,
+        81
+      ],
+      "exact_paths_node_to_root": {
+        "40": [
+          40,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "61": [
+          61,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "65": [
+          65,
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "81": [
+          81,
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [
+        38,
+        54
+      ],
+      "same_statement_node_ids": [
+        40,
+        61
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 56,
+      "text": "$[\\iota_{2}, \\iota_{2}]$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "exact_step_ids": [
+        65,
+        81
+      ],
+      "partial_latex_step_ids": [
+        40,
+        41,
+        50,
+        61,
+        62,
+        71
+      ],
+      "exact_paths_node_to_root": {
+        "65": [
+          65,
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "81": [
+          81,
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "40": [
+          40,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "41": [
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "50": [
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "61": [
+          61,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "62": [
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "71": [
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [
+        40,
+        56
+      ],
+      "same_statement_node_ids": [
+        65,
+        81
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 58,
+      "text": "これより, $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "exact_step_ids": [
+        50,
+        71
+      ],
+      "partial_latex_step_ids": [
+        65,
+        81
+      ],
+      "exact_paths_node_to_root": {
+        "50": [
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "71": [
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "65": [
+          65,
+          50,
+          41,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "81": [
+          81,
+          71,
+          62,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [
+        42,
+        58
+      ],
+      "same_statement_node_ids": [
+        50,
+        71
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 60,
+      "text": "[R2]より, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        63
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "63": [
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 62,
+      "text": "$\\pi_{4}^{5} = 0$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        33,
+        94
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "33": [
+          33,
+          21,
+          10,
+          4,
+          1,
+          0
+        ],
+        "94": [
+          94,
+          90,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [
+        48,
+        62
+      ],
+      "same_statement_node_ids": [
+        33,
+        94
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 64,
+      "text": "これより, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        19,
+        45
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "19": [
+          19,
+          10,
+          4,
+          1,
+          0
+        ],
+        "45": [
+          45,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        19,
+        45
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 66,
+      "text": "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        4,
+        72
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "4": [
+          4,
+          1,
+          0
+        ],
+        "72": [
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [
+        50,
+        66
+      ],
+      "same_statement_node_ids": [
+        4,
+        72
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 68,
+      "text": "完全性より, $\\ker \\Delta=\\operatorname{Im}H=\\pi_{6}^{5}$ である.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 70,
+      "text": "これより, $\\Delta: \\pi_{6}^{5} \\to \\pi_{4}^{2}$ は零写像.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 72,
+      "text": "完全性より,",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [
+        72,
+        86
+      ],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 75,
+      "text": "E: \\pi_{4}^{2} \\to \\pi_{5}^{3}\\quad\\text{は単射}. \\qquad (1)",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 79,
+      "text": "\\pi_{6}^{5} \\xrightarrow{\\Delta} \\pi_{4}^{2} \\xrightarrow{E} \\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5}.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 82,
+      "text": "$\\Delta: \\pi_{5}^{5} \\to \\pi_{3}^{2}$ は単射.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        49,
+        70
+      ],
+      "partial_latex_step_ids": [
+        29,
+        31,
+        92
+      ],
+      "exact_paths_node_to_root": {
+        "49": [
+          49,
+          40,
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "70": [
+          70,
+          61,
+          47,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {
+        "29": [
+          29,
+          17,
+          7,
+          2,
+          0
+        ],
+        "31": [
+          31,
+          20,
+          10,
+          4,
+          1,
+          0
+        ],
+        "92": [
+          92,
+          89,
+          82,
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        49,
+        70
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 84,
+      "text": "完全性より, これより, $H: \\pi_{5}^{3} \\to \\pi_{5}^{5}$ は零写像.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        17
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "17": [
+          17,
+          7,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 86,
+      "text": "完全性より,",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [
+        72,
+        86
+      ],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 89,
+      "text": "E: \\pi_{4}^{2} \\to \\pi_{5}^{3}\\quad\\text{は全射}. \\qquad (2)",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 92,
+      "text": "(1), (2) より, $E: \\pi_{4}^{2} \\to \\pi_{5}^{3}$ は同型.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [
+        6,
+        7
+      ],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {
+        "6": [
+          6,
+          2,
+          0
+        ],
+        "7": [
+          7,
+          2,
+          0
+        ]
+      },
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "PARTIAL_EXPRESSION_ONLY"
+    },
+    {
+      "line": 94,
+      "text": "$\\eta_{4}=E\\eta_{3}$.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 96,
+      "text": "$\\eta_{3}\\eta_{3} = \\eta_{3}^{2}$.",
+      "original_origin": "MATH_WITHOUT_EXACT_STEP",
+      "tags": [
+        "NO_EXACT_LATEX_MATCH"
+      ],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 98,
+      "text": "これより, 以上より,",
+      "original_origin": "CONNECTOR_OR_PROSE",
+      "tags": [],
+      "exact_step_ids": [],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {},
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "NO_STEP_TEXT_MATCH"
+    },
+    {
+      "line": 100,
+      "text": "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$.",
+      "original_origin": "STEP_EXACT_MATH",
+      "tags": [],
+      "exact_step_ids": [
+        0
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "0": [
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    },
+    {
+      "line": 102,
+      "text": "証明木に記録された群構造の移送について、$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ と $E^{n - 3}: \\pi_{3 + 1}^{3} \\xrightarrow{\\cong} \\pi_{n + 1}^{n}$ から $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}$ を得る。生成元の対応は $E^{n - 3}\\eta_{3} = \\eta_{n}$ である。",
+      "original_origin": "TRANSPORT_APPENDIX",
+      "tags": [
+        "TRANSPORT_APPENDIX"
+      ],
+      "exact_step_ids": [
+        4,
+        63,
+        64,
+        72,
+        73
+      ],
+      "partial_latex_step_ids": [],
+      "exact_paths_node_to_root": {
+        "4": [
+          4,
+          1,
+          0
+        ],
+        "63": [
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "64": [
+          64,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "72": [
+          72,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ],
+        "73": [
+          73,
+          63,
+          48,
+          38,
+          27,
+          15,
+          6,
+          2,
+          0
+        ]
+      },
+      "partial_paths_node_to_root": {},
+      "duplicate_text_lines": [],
+      "same_statement_node_ids": [
+        4,
+        63,
+        64,
+        72,
+        73
+      ],
+      "diagnosis": "DIRECT_STEP_CANDIDATE"
+    }
+  ],
+  "transport": {
+    "paragraph": "証明木に記録された群構造の移送について、$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ と $E^{n - 3}: \\pi_{3 + 1}^{3} \\xrightarrow{\\cong} \\pi_{n + 1}^{n}$ から $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}$ を得る。生成元の対応は $E^{n - 3}\\eta_{3} = \\eta_{n}$ である。",
+    "diagnosis": "祖先中の移送経路由来。最終目標そのものへの移送かは未認証。"
+  },
+  "warnings": [
+    "同じ数学式の候補が複数ある場合、どれが実際に Renderer に採用されたかはこの JSON のみでは確定できない。",
+    "一致しない数式については、説明文中の合成式・数式フォーマットの違いも考えられる。",
+    "証明木から最終結論に到達する依存経路は、数学的必要性や前提の妥当性を証明しない。"
+  ]
+}

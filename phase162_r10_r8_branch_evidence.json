@@ -1,0 +1,656 @@
+{
+  "source": "phase162_r10_r5_prose_origin.json",
+  "root_node_id": 0,
+  "root_branches": [
+    {
+      "node_id": 1,
+      "nodes": 40,
+      "statement": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "inference_rule": "Toda 5.2 pi_4^2 finite-cyclic transport"
+    },
+    {
+      "node_id": 2,
+      "nodes": 53,
+      "statement": "E: \\pi_{4}^{2} \\xrightarrow{\\cong} \\pi_{5}^{3}",
+      "inference_rule": "Toda Proposition 5.3 n=3 suspension isomorphism"
+    },
+    {
+      "node_id": 3,
+      "nodes": 3,
+      "statement": "E\\eta_{2}\\eta_{3} = \\eta_{3}\\eta_{4}",
+      "inference_rule": "Toda Proposition 5.3 n=3 eta-square suspension bridge"
+    }
+  ],
+  "counts": {
+    "nodes": 97,
+    "body_lines": 47,
+    "flagged_lines": 9,
+    "by_tag": {
+      "OFF_TARGET_H_MAP": 2,
+      "DELTA_IOTA5": 2,
+      "WHITEHEAD_SQUARE": 6,
+      "TRANSPORT_APPENDIX": 1
+    },
+    "flagged_with_direct_step": 7
+  },
+  "flagged_lines": [
+    {
+      "line": 26,
+      "tags": [
+        "OFF_TARGET_H_MAP"
+      ],
+      "text": "完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.",
+      "origin": "MATH_WITHOUT_EXACT_STEP",
+      "direct_step_candidates": [],
+      "duplicate_rendered_lines": [],
+      "assessment": "NOT_DIRECTLY_ATTRIBUTED",
+      "safe_to_delete": false
+    },
+    {
+      "line": 28,
+      "tags": [
+        "OFF_TARGET_H_MAP"
+      ],
+      "text": "完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射.",
+      "origin": "MATH_WITHOUT_EXACT_STEP",
+      "direct_step_candidates": [],
+      "duplicate_rendered_lines": [],
+      "assessment": "NOT_DIRECTLY_ATTRIBUTED",
+      "safe_to_delete": false
+    },
+    {
+      "line": 38,
+      "tags": [
+        "DELTA_IOTA5",
+        "WHITEHEAD_SQUARE"
+      ],
+      "text": "$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.",
+      "origin": "STEP_EXACT_MATH",
+      "direct_step_candidates": [
+        {
+          "id": 40,
+          "statement_type": "TodaDeltaImageUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Delta iota_5 Whitehead-square relation",
+          "reference": null,
+          "parents": [
+            31
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            40,
+            31,
+            20,
+            10,
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            40,
+            61
+          ],
+          "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]"
+        },
+        {
+          "id": 61,
+          "statement_type": "TodaDeltaImageUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Delta iota_5 Whitehead-square relation",
+          "reference": null,
+          "parents": [
+            47,
+            92
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            61,
+            47,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            40,
+            61
+          ],
+          "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]"
+        }
+      ],
+      "duplicate_rendered_lines": [
+        38,
+        54
+      ],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    },
+    {
+      "line": 40,
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "text": "$[\\iota_{2}, \\iota_{2}]$.",
+      "origin": "STEP_EXACT_MATH",
+      "direct_step_candidates": [
+        {
+          "id": 65,
+          "statement_type": "WhiteheadProduct",
+          "rule": "given",
+          "inference_rule": null,
+          "reference": null,
+          "parents": [
+            50
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            65,
+            50,
+            41,
+            31,
+            20,
+            10,
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            65,
+            81
+          ],
+          "statement_latex": "[\\iota_{2}, \\iota_{2}]"
+        },
+        {
+          "id": 81,
+          "statement_type": "WhiteheadProduct",
+          "rule": "given",
+          "inference_rule": null,
+          "reference": null,
+          "parents": [
+            71
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            81,
+            71,
+            62,
+            47,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            65,
+            81
+          ],
+          "statement_latex": "[\\iota_{2}, \\iota_{2}]"
+        }
+      ],
+      "duplicate_rendered_lines": [
+        40,
+        56
+      ],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    },
+    {
+      "line": 42,
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "text": "これより, $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.",
+      "origin": "STEP_EXACT_MATH",
+      "direct_step_candidates": [
+        {
+          "id": 50,
+          "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+          "reference": "Proposition 2.7",
+          "parents": [
+            41
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            50,
+            41,
+            31,
+            20,
+            10,
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            50,
+            71
+          ],
+          "statement_latex": "H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}"
+        },
+        {
+          "id": 71,
+          "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+          "reference": "Proposition 2.7",
+          "parents": [
+            62
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            71,
+            62,
+            47,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            50,
+            71
+          ],
+          "statement_latex": "H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}"
+        }
+      ],
+      "duplicate_rendered_lines": [
+        42,
+        58
+      ],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    },
+    {
+      "line": 54,
+      "tags": [
+        "DELTA_IOTA5",
+        "WHITEHEAD_SQUARE"
+      ],
+      "text": "$\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]$.",
+      "origin": "STEP_EXACT_MATH",
+      "direct_step_candidates": [
+        {
+          "id": 40,
+          "statement_type": "TodaDeltaImageUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Delta iota_5 Whitehead-square relation",
+          "reference": null,
+          "parents": [
+            31
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            40,
+            31,
+            20,
+            10,
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            40,
+            61
+          ],
+          "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]"
+        },
+        {
+          "id": 61,
+          "statement_type": "TodaDeltaImageUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Delta iota_5 Whitehead-square relation",
+          "reference": null,
+          "parents": [
+            47,
+            92
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            61,
+            47,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            40,
+            61
+          ],
+          "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm [\\iota_{2}, \\iota_{2}]"
+        }
+      ],
+      "duplicate_rendered_lines": [
+        38,
+        54
+      ],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    },
+    {
+      "line": 56,
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "text": "$[\\iota_{2}, \\iota_{2}]$.",
+      "origin": "STEP_EXACT_MATH",
+      "direct_step_candidates": [
+        {
+          "id": 65,
+          "statement_type": "WhiteheadProduct",
+          "rule": "given",
+          "inference_rule": null,
+          "reference": null,
+          "parents": [
+            50
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            65,
+            50,
+            41,
+            31,
+            20,
+            10,
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            65,
+            81
+          ],
+          "statement_latex": "[\\iota_{2}, \\iota_{2}]"
+        },
+        {
+          "id": 81,
+          "statement_type": "WhiteheadProduct",
+          "rule": "given",
+          "inference_rule": null,
+          "reference": null,
+          "parents": [
+            71
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            81,
+            71,
+            62,
+            47,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            65,
+            81
+          ],
+          "statement_latex": "[\\iota_{2}, \\iota_{2}]"
+        }
+      ],
+      "duplicate_rendered_lines": [
+        40,
+        56
+      ],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    },
+    {
+      "line": 58,
+      "tags": [
+        "WHITEHEAD_SQUARE"
+      ],
+      "text": "これより, $H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}$ が成り立つ.",
+      "origin": "STEP_EXACT_MATH",
+      "direct_step_candidates": [
+        {
+          "id": 50,
+          "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+          "reference": "Proposition 2.7",
+          "parents": [
+            41
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            50,
+            41,
+            31,
+            20,
+            10,
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            50,
+            71
+          ],
+          "statement_latex": "H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}"
+        },
+        {
+          "id": 71,
+          "statement_type": "TodaProp27HopfInvariantUpToSignStatement",
+          "rule": "inference",
+          "inference_rule": "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+          "reference": "Proposition 2.7",
+          "parents": [
+            62
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            71,
+            62,
+            47,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            50,
+            71
+          ],
+          "statement_latex": "H([\\iota_{2}, \\iota_{2}]) = \\pm 2\\iota_{3}"
+        }
+      ],
+      "duplicate_rendered_lines": [
+        42,
+        58
+      ],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    },
+    {
+      "line": 102,
+      "tags": [
+        "TRANSPORT_APPENDIX"
+      ],
+      "text": "証明木に記録された群構造の移送について、$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ と $E^{n - 3}: \\pi_{3 + 1}^{3} \\xrightarrow{\\cong} \\pi_{n + 1}^{n}$ から $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}$ を得る。生成元の対応は $E^{n - 3}\\eta_{3} = \\eta_{n}$ である。",
+      "origin": "TRANSPORT_APPENDIX",
+      "direct_step_candidates": [
+        {
+          "id": 4,
+          "statement_type": "Relation",
+          "rule": "inference",
+          "inference_rule": "Toda pi_4^3 eta_3 generator notation",
+          "reference": null,
+          "parents": [
+            1
+          ],
+          "root_branches": [
+            1
+          ],
+          "path_to_root": [
+            4,
+            1,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            4,
+            72
+          ],
+          "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+        },
+        {
+          "id": 63,
+          "statement_type": "Relation",
+          "rule": "inference",
+          "inference_rule": "Toda 4.5 pi_4^3 finite-cyclic transport",
+          "reference": "(4.5)",
+          "parents": [
+            48
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            63,
+            48,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            63
+          ],
+          "statement_latex": "\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{E^{n - 3}\\eta_{3}\\}"
+        },
+        {
+          "id": 64,
+          "statement_type": "Relation",
+          "rule": "inference",
+          "inference_rule": "Toda higher eta-family iterated suspension bridge",
+          "reference": null,
+          "parents": [
+            48
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            64,
+            48,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            64
+          ],
+          "statement_latex": "E^{n - 3}\\eta_{3} = \\eta_{n}"
+        },
+        {
+          "id": 72,
+          "statement_type": "Relation",
+          "rule": "inference",
+          "inference_rule": "Toda pi_4^3 eta_3 generator notation",
+          "reference": null,
+          "parents": [
+            63
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            72,
+            63,
+            48,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            4,
+            72
+          ],
+          "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+        },
+        {
+          "id": 73,
+          "statement_type": "Toda45IsomorphismStatement",
+          "rule": "inference",
+          "inference_rule": "Toda 4.5 stable-range iterated suspension isomorphism",
+          "reference": "(4.5)",
+          "parents": [
+            63
+          ],
+          "root_branches": [
+            2
+          ],
+          "path_to_root": [
+            73,
+            63,
+            48,
+            38,
+            27,
+            15,
+            6,
+            2,
+            0
+          ],
+          "equivalent_statement_nodes": [
+            73
+          ],
+          "statement_latex": "E^{n - 3}: \\pi_{3 + 1}^{3} \\xrightarrow{\\cong} \\pi_{n + 1}^{n}"
+        }
+      ],
+      "duplicate_rendered_lines": [],
+      "assessment": "DIRECT_STEP_CANDIDATE",
+      "safe_to_delete": false
+    }
+  ],
+  "limitations": [
+    "A path to the final conclusion does not prove the corresponding step should be shown in prose.",
+    "Line-level exact LaTeX matching is not a rendering call trace.",
+    "No ProofStep or source file has been modified; duplicate removal requires separate evidence."
+  ]
+}

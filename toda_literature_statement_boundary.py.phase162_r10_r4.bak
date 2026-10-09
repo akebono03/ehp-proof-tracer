@@ -1100,16 +1100,6 @@ def classify_toda_literature_statement_step(
   if not isinstance(proof_step, ProofStep):
     raise TypeError("proof_step must be a ProofStep")
 
-  from proof import ProofRule
-  from phase162_r10_reference_identity import fixed_citation_identity
-  citation = fixed_citation_identity(proof_step)
-  if citation is not None and proof_step.rule is ProofRule.INFERENCE:
-    return TodaLiteratureStatementBoundary(
-      classification=TodaLiteratureStatementClassification.FIXED_STATEMENT,
-      reference_locator=citation[0],
-      component_key=citation[1],
-    )
-
   inference_rule = proof_step.inference_rule
   if inference_rule is None:
     return None

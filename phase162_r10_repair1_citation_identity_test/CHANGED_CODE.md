@@ -1,0 +1,93 @@
+# Phase 162 R10 Repair 1
+
+変更対象: `phase162_r10_reference_boundary/test_r10.py` の `test_phase162_r10_web_proof_uses_hopf_citation_boundary()`。
+
+## 完全なテストファイル（import を含む）
+
+```python
+"""Focused R10 tests; no full suite."""
+from dataclasses import replace
+
+import pytest
+
+from phase162_reference_boundary import cite_verified_fixed_statement, validate_cited_fixed_statement
+from phase161_r7_premise_provenance_validation import validate_phase161_r7_provenance
+from phase162_web_narrative_integration import _build_phase162_existing_group_connection
+from probes.probe_phase58_capabilities import build_phase58_representative_result
+from proof import ProofRule
+
+
+def _nodes(root):
+    seen = {}
+    def visit(step):
+        if id(step) in seen:
+            return
+        seen[id(step)] = step
+        for premise in step.premises:
+            visit(premise)
+    visit(root)
+    return tuple(seen.values())
+
+
+def test_phase162_r10_citation_is_verified_leaf():
+    source = build_phase58_representative_result()
+    citation = cite_verified_fixed_statement(
+        source["final_hopf_step"], "(5.3)", "nu_prime_hopf_relation", source["expected_final_hopf"]
+    )
+    assert citation.rule is ProofRule.INFERENCE
+    assert len(citation.premises) == 1
+    assert citation.premises[0].rule is ProofRule.GIVEN
+    assert citation.premises[0].premises == ()
+    validate_cited_fixed_statement(citation, "(5.3)", "nu_prime_hopf_relation", source["expected_final_hopf"])
+    validate_phase161_r7_provenance((citation,), (citation.premises[0],))
+
+
+def test_phase162_r10_rejects_wrong_conclusion_and_citation_key():
+    source = build_phase58_representative_result()
+    witness = source["final_hopf_step"]
+    with pytest.raises(ValueError, match="does not match"):
+        cite_verified_fixed_statement(witness, "(5.3)", "nu_prime_hopf_relation", object())
+    citation = cite_verified_fixed_statement(witness, "(5.3)", "nu_prime_hopf_relation", source["expected_final_hopf"])
+    with pytest.raises(ValueError, match="Invalid fixed-statement"):
+        validate_cited_fixed_statement(citation, "(5.3)", "nu_prime_double_relation", source["expected_final_hopf"])
+    with pytest.raises(ValueError):
+        cite_verified_fixed_statement(replace(witness, premises=()), "(5.3)", "nu_prime_hopf_relation", source["expected_final_hopf"])
+
+
+def test_phase162_r10_web_proof_uses_hopf_citation_boundary():
+    source = build_phase58_representative_result()
+    connection = _build_phase162_existing_group_connection()
+    root = connection.reconstruction.final_step
+    nodes = _nodes(root)
+    matching = tuple(
+        step for step in nodes
+        if step.conclusion == source["expected_final_hopf"]
+    )
+    citation_steps = tuple(
+        step for step in matching
+        if step.rule is ProofRule.INFERENCE
+        and step.inference_rule is not None
+        and step.inference_rule.name == "phase162_verified_literature_citation"
+    )
+    assert len(citation_steps) == 1
+    citation = citation_steps[0]
+    validate_cited_fixed_statement(
+        citation, "(5.3)", "nu_prime_hopf_relation",
+        source["expected_final_hopf"]
+    )
+    assert len(citation.premises) == 1
+    cited_leaf = citation.premises[0]
+    assert cited_leaf.rule is ProofRule.GIVEN
+    assert cited_leaf.premises == ()
+    assert any(step is cited_leaf for step in nodes)
+    assert len(matching) == 2
+    assert all(step is citation or step is cited_leaf for step in matching)
+    assert len(nodes) < 123
+    assert not any(
+        "lemma52" in (
+            step.inference_rule.name.lower()
+            if step.inference_rule is not None else ""
+        )
+        for step in nodes
+    )
+```

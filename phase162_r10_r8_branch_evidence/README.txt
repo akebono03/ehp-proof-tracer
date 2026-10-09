@@ -1,0 +1,1 @@
+Phase 162 R10-R8: read-only evidence audit. No production source changes. Requires phase162_r10_r5_prose_origin.json in project root. Test: python -B -m pytest -q phase162_r10_r8_branch_evidence/test_r10_r8.py
