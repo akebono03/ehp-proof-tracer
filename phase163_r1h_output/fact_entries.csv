@@ -1,0 +1,8 @@
+﻿module,repository,collection,index,entry_type,entry_repr
+map_facts,MAP_ISOMORPHISM_FACT_REPOSITORY,facts,0,MapIsomorphismFact,"MapIsomorphismFact(typing=MapTypingFact(map=MapSymbol(name='H'), source_group_dimension=3, source_sphere_dimension=2, target_group_dimension=3, target_sphere_dimension=3))"
+generator_facts,GENERATOR_FACT_REPOSITORY,typing_facts,0,GeneratorTypingFact,"GeneratorTypingFact(generator=GeneratorSymbol(family='η', index=3, decoration=None), source=4, target=3)"
+generator_facts,GENERATOR_FACT_REPOSITORY,typing_facts,1,GeneratorTypingFact,"GeneratorTypingFact(generator=GeneratorSymbol(family='ν', index=None, decoration='′'), source=6, target=3)"
+generator_facts,GENERATOR_FACT_REPOSITORY,typing_facts,2,GeneratorTypingFact,"GeneratorTypingFact(generator=GeneratorSymbol(family='ν', index=7, decoration=None), source=10, target=7)"
+generator_facts,GENERATOR_FACT_REPOSITORY,ambient_group_facts,0,GeneratorAmbientGroupFact,"GeneratorAmbientGroupFact(generator=GeneratorSymbol(family='η', index=3, decoration=None), group_dimension=4, sphere_dimension=3)"
+generator_facts,GENERATOR_FACT_REPOSITORY,ambient_group_facts,1,GeneratorAmbientGroupFact,"GeneratorAmbientGroupFact(generator=GeneratorSymbol(family='ν', index=None, decoration='′'), group_dimension=6, sphere_dimension=3)"
+generator_facts,GENERATOR_FACT_REPOSITORY,ambient_group_facts,2,GeneratorAmbientGroupFact,"GeneratorAmbientGroupFact(generator=GeneratorSymbol(family='ν', index=7, decoration=None), group_dimension=10, sphere_dimension=7)"

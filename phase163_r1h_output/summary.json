@@ -1,0 +1,16 @@
+{
+  "phase": "163 R1H",
+  "status": "R1_NOT_COMPLETE",
+  "counts_of_fact_instances": {
+    "MAP_ISOMORPHISM_FACT_REPOSITORY.facts": 1,
+    "GENERATOR_FACT_REPOSITORY.typing_facts": 3,
+    "GENERATOR_FACT_REPOSITORY.ambient_group_facts": 3
+  },
+  "errors": [],
+  "limitations": [
+    "Fact entries are not necessarily published mathematical statements",
+    "Only two explicitly named singleton repositories are inspected",
+    "InferenceRuleCatalog is a different category and is not counted here",
+    "Other runtime repositories and literature ordering remain unverified"
+  ]
+}

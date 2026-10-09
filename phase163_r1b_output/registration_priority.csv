@@ -1,0 +1,116 @@
+﻿file,line,area,classification,symbol,snippet
+audit_phase162_r3a_presentation.py,81,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='phase162_r3a_audit_pi5_3', step=final, phase='162')"
+audit_phase162_r3b_existing_renderer.py,30,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='phase162_r3b_audit_pi5_3', step=root, phase='162')"
+barratt_hilton_rules.py,23,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Prop.3.1', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 3.1')"
+composition_scalar_rules.py,18,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (2.1)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(2.1)')"
+hopf_facts.py,13,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Prop.5.1', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 5.1')"
+hopf_rules.py,98,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 2.2', locator='Proposition 2.2')"
+phase162_pi5_3_web_replay.py,56,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='phase162-pi5-3-reconstructed-web', step=root, theorem='Toda Proposition 5.3', phase='162')"
+phase162_reference_boundary.py,88,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda ' + reference_locator, locator=reference_locator)"
+probe_relation_proof.py,16,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962)"
+probes/probe_phase86_capabilities.py,237,production,repository_constructor,ProofRepository,ProofRepository()
+repository_foundational_group_specialization.py,205,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.foundational::identity_{query.n}', step=step, phase='130', theorem='Sphere identity group')"
+repository_foundational_group_specialization.py,239,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.foundational::circle_zero_{query.k}', step=step, phase='56', theorem='Toda pi_(i-1)^1 zero for i at least 3')"
+repository_foundational_group_specialization.py,267,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.foundational::connectivity_{group_dimension}_{query.n}', step=step, phase='130', theorem='Sphere connectivity')"
+repository_generator_applicability_execution_entry.py,249,production,registration_call_candidate,catalog.register,catalog.register(execution_entry)
+repository_generator_applicability_execution_entry.py,315,production,registration_call_candidate,catalog.register,catalog.register(execution_entry)
+repository_generator_applicability_execution_seed.py,31,production,repository_constructor,ProofRepository,ProofRepository()
+repository_generator_applicability_execution_seed.py,32,production,registration_call_candidate,repository.register,"repository.register(ProofRepositoryEntry(key=f'{root_entry.key}::applicability-execution-seed', step=source_step, phase=root_entry.phase, theorem=root_entry.theorem))"
+repository_generator_applicability_execution_seed.py,33,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'{root_entry.key}::applicability-execution-seed', step=source_step, phase=root_entry.phase, theorem=root_entry.theorem)"
+repository_generator_applicability_handoff.py,311,production,registration_call_candidate,same_rule_catalog.register,same_rule_catalog.register(entry)
+repository_generator_production_application_execution_seed.py,44,production,repository_constructor,ProofRepository,ProofRepository()
+repository_generator_production_application_execution_seed.py,52,production,registration_call_candidate,repository.register,"repository.register(ProofRepositoryEntry(key=f'{root_entry.key}::applicability-execution-seed::{premise_index:03d}', step=premise_step, phase=root_entry.phase, theorem=root_entry.theorem))"
+repository_generator_production_application_execution_seed.py,53,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'{root_entry.key}::applicability-execution-seed::{premise_index:03d}', step=premise_step, phase=root_entry.phase, theorem=root_entry.theorem)"
+standard_production_applicability_catalog.py,790,production,registration_call_candidate,catalog.register,"catalog.register(InferenceRuleCatalogEntry(key=f'standard.production.applicability.{entry_index:04d}', rule=inference_rule, conclusion_type=conclusion_type, fixed_point_safe=False, relevance_category=_representative_relevance_category(infer"
+standard_production_applicability_catalog.py,1028,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d15_classify_entry(entry))
+standard_production_applicability_catalog.py,1105,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d18_classify_entry(entry))
+standard_production_applicability_catalog.py,1168,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d20_classify_entry(entry))
+standard_production_applicability_catalog.py,1246,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d24_classify_entry(entry))
+standard_production_applicability_catalog.py,1344,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d27_classify_entry(entry))
+standard_production_applicability_catalog.py,1421,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d30_classify_entry(entry))
+standard_production_applicability_catalog.py,1501,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d32_classify_entry(entry))
+standard_production_applicability_catalog.py,1580,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d35_classify_entry(entry))
+standard_production_applicability_catalog.py,1659,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d38_classify_entry(entry))
+standard_production_applicability_catalog.py,1738,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d41_classify_entry(entry))
+standard_production_applicability_catalog.py,1817,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d44_classify_entry(entry))
+standard_production_applicability_catalog.py,1896,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d47_classify_entry(entry))
+standard_production_applicability_catalog.py,1975,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d50_classify_entry(entry))
+standard_production_applicability_catalog.py,2054,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d53_classify_entry(entry))
+standard_production_applicability_catalog.py,2133,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d56_classify_entry(entry))
+standard_production_applicability_catalog.py,2212,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d59_classify_entry(entry))
+standard_production_applicability_catalog.py,2291,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d62_classify_entry(entry))
+standard_production_applicability_catalog.py,2371,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d65_classify_entry(entry))
+standard_production_applicability_catalog.py,2451,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d68_classify_entry(entry))
+standard_production_applicability_catalog.py,2532,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d71_classify_entry(entry))
+standard_production_applicability_catalog.py,2610,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d73_classify_entry(entry))
+standard_production_applicability_catalog.py,2688,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d76_classify_entry(entry))
+standard_production_applicability_catalog.py,2766,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d79_classify_entry(entry))
+standard_production_applicability_catalog.py,2844,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d82_classify_entry(entry))
+standard_production_applicability_catalog.py,2922,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d85_classify_entry(entry))
+standard_production_applicability_catalog.py,3000,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d88_classify_entry(entry))
+standard_production_applicability_catalog.py,3078,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d91_classify_entry(entry))
+standard_production_applicability_catalog.py,3157,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d94_classify_entry(entry))
+standard_production_applicability_catalog.py,3234,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d98_classify_entry(entry))
+standard_production_applicability_catalog.py,3311,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d101_classify_entry(entry))
+standard_production_applicability_catalog.py,3388,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d106_classify_entry(entry))
+standard_production_applicability_catalog.py,3477,production,registration_call_candidate,classified_catalog.register,classified_catalog.register(_phase103_6d108_classify_entry(entry))
+standard_repository.py,63,production,repository_constructor,ProofRepository,ProofRepository()
+standard_repository.py,66,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='standard.toda.prop56', step=prop56_step, phase='65', theorem='Toda Proposition 5.6')"
+standard_repository.py,72,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='standard.toda.prop58', step=prop58_step, phase='68', theorem='Toda Proposition 5.8')"
+standard_repository.py,78,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='standard.toda.prop511', step=prop511_step, phase='73', theorem='Toda Proposition 5.11')"
+standard_repository.py,84,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='standard.toda.prop515', step=prop515_step, phase='75', theorem='Toda Proposition 5.15')"
+standard_repository.py,93,production,registration_call_candidate,repository.register,repository.register(entry)
+theorem_facts.py,72,production,explicit_entry_constructor,TheoremFactEntry,"TheoremFactEntry(statement=TodaBracketMembershipTheoremStatement(element=HomotopyElement(name='ε₃', dimension=3, generator=GeneratorSymbol(family='ε', index=3)), bracket=TodaBracket(first=HomotopyElement(name='η₃', dimension=3, generator=Ge"
+theorem_facts.py,118,production,repository_constructor,TheoremFactRepository,"TheoremFactRepository(entries=(EPSILON_3_TODA_MEMBERSHIP_FACT,))"
+theorem_facts.py,112,production,literature_reference_candidate,LiteratureReference,LiteratureReference(label='Toda')
+toda_calculation.py,441,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.prop59::{branch_name}', step=source_step, phase='70', theorem='Toda Proposition 5.9')"
+toda_calculation.py,638,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.concrete::pi_{query.n + query.k}_{query.n}', step=source_node.proof_step, phase=phase, theorem=theorem)"
+toda_calculation.py,793,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key='standard.toda.prop515::pi16_9', step=source_step, phase='75', theorem='Toda Proposition 5.15')"
+toda_calculation.py,335,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.low-dimensional::{key_suffix}', step=node.proof_step, phase=phase, theorem=theorem)"
+toda_calculation.py,706,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'standard.toda.stable::{key_suffix}_{query.n}_specialization', step=node.proof_step, phase=phase, theorem=theorem)"
+toda_calculation.py,856,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'{source_entry.key}::sigma_{query.n}_specialization', step=node.proof_step, phase=source_entry.phase, theorem=source_entry.theorem)"
+toda_calculation_goal_normalization.py,53,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'{source_entry.key}::{candidate.source.branch_name}', step=recovered_step, phase=source_entry.phase, theorem=source_entry.theorem)"
+toda_group_proof_narrative_references.py,70,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label=f'Toda {locator}', locator=locator)"
+toda_group_proof_narrative_references.py,82,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label=f'Toda {locator}', locator=locator)"
+toda_group_proof_narrative_references.py,94,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label=f'Toda {locator}', locator=locator)"
+toda_group_proof_narrative_references.py,111,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda ' + citation[0], locator=citation[0])"
+toda_group_proof_narrative_references.py,148,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda ' + fixed_locator, locator=fixed_locator)"
+toda_prop56_zero_bootstrap.py,256,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.1', locator='Proposition 5.1')"
+toda_rules.py,30041,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.1', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 5.1')"
+toda_rules.py,33422,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.2)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(5.2)')"
+toda_rules.py,37419,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 4.4', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 4.4')"
+toda_rules.py,38162,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 4.4', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 4.4')"
+toda_rules.py,62897,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.3)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(5.3)')"
+toda_rules.py,63004,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.1', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 5.1')"
+toda_rules.py,63124,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.3)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(5.3)')"
+toda_rules.py,63265,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.3)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(5.3)')"
+toda_rules.py,63377,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.3)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(5.3)')"
+toda_rules.py,12943,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.12)', locator='Equation (5.12)', **toda_reference)"
+toda_rules.py,12971,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.9', locator='Proposition 5.9', **toda_reference)"
+toda_rules.py,13013,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.11', locator='Proposition 5.11', **toda_reference)"
+toda_rules.py,13041,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.8', locator='Proposition 5.8', **toda_reference)"
+toda_rules.py,29427,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.11', locator='Proposition 5.11', **toda_reference)"
+toda_rules.py,52368,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.15', locator='Proposition 5.15', **toda_reference)"
+toda_rules.py,56286,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.6)', locator='Equation (5.6)', **toda_reference)"
+toda_rules.py,57074,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.6', locator='Proposition 5.6', **toda_reference)"
+toda_rules.py,57958,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.8)', locator='Equation (5.8)', **toda_reference)"
+toda_rules.py,58224,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.5)', locator='Equation (5.5)', **toda_reference)"
+toda_rules.py,58523,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 1.3', locator='Proposition 1.3', **toda_reference)"
+toda_rules.py,58535,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (1.15)', locator='Equation (1.15)', **toda_reference)"
+toda_rules.py,58548,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (3.2)', locator='Equation (3.2)', **toda_reference)"
+toda_rules.py,58560,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Theorem 3.6', locator='Theorem 3.6', **toda_reference)"
+toda_rules.py,58574,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (4.7)', locator='Equation (4.7)', **toda_reference)"
+toda_rules.py,58587,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.3', locator='Proposition 5.3', **toda_reference)"
+toda_rules.py,58598,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.3)', locator='Equation (5.3)', **toda_reference)"
+toda_rules.py,58610,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.4)', locator='Equation (5.4)', **toda_reference)"
+toda_rules.py,58622,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (4.8)', locator='Equation (4.8)', **toda_reference)"
+toda_rules.py,58634,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Lemma 5.4 proof', locator='Lemma 5.4 proof', **toda_reference)"
+toda_rules.py,62369,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Lemma 5.5', locator='Lemma 5.5', **toda_reference)"
+toda_rules.py,62384,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Lemma 5.5 proof', locator='Lemma 5.5 proof', **toda_reference)"
+toda_stable_eta_proof_replay.py,65,production,explicit_entry_constructor,ProofRepositoryEntry,"ProofRepositoryEntry(key=f'phase162.r4b2.derived.{source.key}', step=derived_step, phase='162-R4-B2', theorem=source.theorem)"
+toda_upstream_bootstrap.py,223,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda ' + locator, author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator=locator)"
+toda_upstream_bootstrap.py,466,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda Proposition 5.1', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='Proposition 5.1')"
+toda_upstream_bootstrap.py,833,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.3)', author='H. Toda', title='Composition Methods in Homotopy Groups of Spheres', year=1962, locator='(5.3)')"
+toda_upstream_bootstrap.py,267,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.1)', locator='(5.1)')"
+toda_upstream_bootstrap.py,281,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.1)', locator='(5.1)')"
+toda_upstream_bootstrap.py,296,production,literature_reference_candidate,LiteratureReference,"LiteratureReference(label='Toda (5.1)', locator='(5.1)')"

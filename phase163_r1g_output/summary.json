@@ -1,0 +1,86 @@
+{
+  "scope": "selected real runtime repositories, NOT all registered mathematical statements",
+  "standard_fixture_requested": true,
+  "repositories": [
+    {
+      "repository": "THEOREM_FACT_REPOSITORY",
+      "entry_count": 1,
+      "entries": [
+        {
+          "repository": "THEOREM_FACT_REPOSITORY",
+          "index": 0,
+          "entry_type": "TheoremFactEntry",
+          "key": null,
+          "theorem": null,
+          "phase": null,
+          "statement_type": "TodaBracketMembershipTheoremStatement",
+          "reference_type": "LiteratureReference",
+          "premise_count": null,
+          "proof_step_present": false
+        }
+      ]
+    },
+    {
+      "repository": "build_standard_proof_repository",
+      "entry_count": 4,
+      "entries": [
+        {
+          "repository": "build_standard_proof_repository",
+          "index": 0,
+          "entry_type": "ProofRepositoryEntry",
+          "key": "standard.toda.prop56",
+          "theorem": "Toda Proposition 5.6",
+          "phase": "65",
+          "statement_type": "TodaProp56FiniteDimensionalStatement",
+          "reference_type": null,
+          "premise_count": 6,
+          "proof_step_present": true
+        },
+        {
+          "repository": "build_standard_proof_repository",
+          "index": 1,
+          "entry_type": "ProofRepositoryEntry",
+          "key": "standard.toda.prop58",
+          "theorem": "Toda Proposition 5.8",
+          "phase": "68",
+          "statement_type": "TodaProp58FiniteDimensionalStatement",
+          "reference_type": null,
+          "premise_count": 6,
+          "proof_step_present": true
+        },
+        {
+          "repository": "build_standard_proof_repository",
+          "index": 2,
+          "entry_type": "ProofRepositoryEntry",
+          "key": "standard.toda.prop511",
+          "theorem": "Toda Proposition 5.11",
+          "phase": "73",
+          "statement_type": "TodaProp511FiniteDimensionalStatement",
+          "reference_type": null,
+          "premise_count": 4,
+          "proof_step_present": true
+        },
+        {
+          "repository": "build_standard_proof_repository",
+          "index": 3,
+          "entry_type": "ProofRepositoryEntry",
+          "key": "standard.toda.prop515",
+          "theorem": "Toda Proposition 5.15",
+          "phase": "75",
+          "statement_type": "TodaProp515FiniteDimensionalStatement",
+          "reference_type": null,
+          "premise_count": 9,
+          "proof_step_present": true
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "unverified": [
+    "other repositories and indirect factories",
+    "distinct mathematical statement identity",
+    "literature source, publication order, proof-completion position",
+    "fixed-statement versus proof-internal classification",
+    "general-variable application domains and dependencies"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "scope": "canonical Python files, excluding archived and phase patch directories",
+  "source_root": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof",
+  "candidate_rows": 4932,
+  "candidate_files": 769,
+  "by_kind": {
+    "FunctionDef": 3036,
+    "ClassDef": 342,
+    "Call": 739,
+    "Assignment": 815
+  },
+  "parse_errors": [],
+  "known_limits": [
+    "AST candidates are not distinct theorem counts",
+    "runtime-generated registrations are not evaluated",
+    "literature order and proof availability are not inferred",
+    "review output manually before Phase 163 R2"
+  ]
+}

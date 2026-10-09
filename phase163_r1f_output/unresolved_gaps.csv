@@ -1,0 +1,7 @@
+﻿category,status,reason
+runtime_entry_count,UNVERIFIED,静的コンストラクタ出現数と実行時 Entry 数は一致するとは限らない
+identity_and_deduplication,UNVERIFIED,数式・主張の数学的同一性は AST の一致だけでは決まらない
+fixed_vs_internal,UNVERIFIED,文献の固定主張と証明内部ステップの区別が必要
+literature_order,UNVERIFIED,文献上の掲載順・主張順・証明完了位置は未確認
+indirect_registration,UNVERIFIED,エイリアス・間接生成・実行時登録の網羅性は未確認
+registered_statement_total,UNVERIFIED,数学的に異なる登録主張の総数は確定できない
