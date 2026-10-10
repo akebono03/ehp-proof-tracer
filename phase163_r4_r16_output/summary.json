@@ -1,0 +1,18 @@
+{
+  "phase": "163 R4-R16",
+  "source_sha256": "1c2c263803510d959c64188632bffa098e38b11fd8db80189fc67210a97e1f5c",
+  "source_file": "Toda_01.tex",
+  "syntactic_candidates": 102,
+  "named_statements": 9,
+  "enumerated_clause_markers": 5,
+  "formal_statement_ids_assigned": 0,
+  "semantically_verified": 0,
+  "existing_legacy_file_available": true,
+  "constraints": [
+    "Review queue only; classifications are heuristic, not established mathematical identity.",
+    "Embedded prose and inline math require full human review.",
+    "Nested items are not automatically separate statements.",
+    "Locator coincidence never establishes equivalence.",
+    "No repository, registry, or proof-search code is changed."
+  ]
+}
