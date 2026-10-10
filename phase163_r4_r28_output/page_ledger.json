@@ -1,0 +1,189 @@
+[
+  {
+    "pdf_page": 1,
+    "printed_page": 5,
+    "scope_hint": "章冒頭、球面・写像・ホモトピー集合の導入",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 3,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": "Printed p.5/PDF p.1: t_i relates to s_{i+1}; sign, reflection, and coordinate exchange corrected. Remaining content not exhaustively verified."
+  },
+  {
+    "pdf_page": 2,
+    "printed_page": 6,
+    "scope_hint": "写像の合成、reduced join、(1.3)〜(1.4)",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 1,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 3,
+    "printed_page": 7,
+    "scope_hint": "懸垂・ループ空間、(1.5)〜(1.8)",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 2,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 4,
+    "printed_page": 8,
+    "scope_hint": "ループ写像、随伴、(1.9)〜(1.13)",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 0,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 5,
+    "printed_page": 9,
+    "scope_hint": "二次合成の定義、Lemma 1.1",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 0,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 6,
+    "printed_page": 10,
+    "scope_hint": "Proposition 1.2 と証明",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 1,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 7,
+    "printed_page": 11,
+    "scope_hint": "Proposition 1.2 証明の続き、Proposition 1.3",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 0,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 8,
+    "printed_page": 12,
+    "scope_hint": "Proposition 1.4〜1.6 の周辺",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 2,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 9,
+    "printed_page": 13,
+    "scope_hint": "Proposition 1.6 の証明、Proposition 1.7",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 0,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 10,
+    "printed_page": 14,
+    "scope_hint": "Proposition 1.8〜1.9 と証明",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 3,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  },
+  {
+    "pdf_page": 11,
+    "printed_page": 15,
+    "scope_hint": "Proposition 1.9 の証明の続き",
+    "status": "UNVERIFIED",
+    "source_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+    "prior_corrections": 0,
+    "review": {
+      "definitions": false,
+      "equations": false,
+      "named_statements": false,
+      "proofs_and_prose": false,
+      "notation_and_conditions": false
+    },
+    "reviewer": "",
+    "evidence_note": ""
+  }
+]

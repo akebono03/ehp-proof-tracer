@@ -1,0 +1,19 @@
+{
+  "phase": "163 R4-R28",
+  "input_sha256": "c36eaa063d86ae92d813ee83ad54c3c92f9b8a36f0f0f067a5b746e96b1c1da3",
+  "output_sha256": "db046e212b9fcef0c8500dbf563d7bf74792c6ea92f98b493f43fca152896226",
+  "confirmed_corrections": 3,
+  "prior_confirmed_corrections": 9,
+  "total_recorded_corrections": 12,
+  "status_counts": {
+    "UNVERIFIED": 11,
+    "CORRECTION_REQUIRED": 0,
+    "VERIFIED": 0
+  },
+  "printed_page_reviewed": 5,
+  "page_fully_verified": false,
+  "chapter_fully_verified": false,
+  "statement_ids_changed": 0,
+  "production_code_changed": false,
+  "full_suite_run": false
+}
