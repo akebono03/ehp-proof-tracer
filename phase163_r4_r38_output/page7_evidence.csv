@@ -1,0 +1,10 @@
+﻿evidence_id,subject,assessment,source_basis
+p7-01,(1.5) reduced join relations,MATHEMATICAL_MATCH,"Original p.7 equations i), ii); editorial wedge replaces original #."
+p7-02,n-fold suspension space and associativity,MATHEMATICAL_MATCH,Original p.7 E^n X = X # S^n and E^n E^m X = E^(m+n) X.
+p7-03,suspension of maps and (1.6),MATHEMATICAL_MATCH,"Original p.7 equations 0), i), ii) and source/target."
+p7-04,d_X domain and exceptional original typography,NORMALIZED_EXCEPTION,"Original p.7 phi_(X,S^n) versus editorial phi_(X,S^1), recorded separately by R4-R37. Original typo not established."
+p7-05,d_X quotient and Ef,MATHEMATICAL_MATCH,"Original p.7 collapse of X x boundary I and basepoint x0 x I, Ef formula."
+p7-06,"addition and inverse on [EX,Y]",MATHEMATICAL_MATCH,Original p.7 two-branch + formula and reversal for -f.
+p7-07,group structure and mapping space,MATHEMATICAL_MATCH,Original p.7 group and locally compact X comparison with pi_1 mapping space.
+p7-08,(1.7) homomorphism and abelian n-fold case,MATHEMATICAL_MATCH,"Original p.7 f_* and (Eg)^*, homomorphism relations, n >= 2."
+p7-09,(1.8) sphere d_n and boundary text,MATHEMATICAL_MATCH,"Original p.7 domain S^n x I^1, formula via psi_(n+1); the sentence at top continues from p.6."
