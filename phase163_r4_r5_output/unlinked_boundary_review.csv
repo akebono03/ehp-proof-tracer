@@ -1,0 +1,11 @@
+﻿locator,component_key,statement_role,resolution
+(5.1),sphere_connectivity_zero,GROUP_STRUCTURE,not_verified
+(5.1),stable_negative_zero,GROUP_STRUCTURE,not_verified
+(5.1),stable_zero_stem,GROUP_STRUCTURE,not_verified
+Lemma 5.7,eta2_suspension_zero_statement,OTHER,not_verified
+Proposition 3.1,barratt_hilton_formula,OTHER,not_verified
+Proposition 5.1,eta2_hopf_relation,MAP_VALUE,not_verified
+Proposition 5.3,pi4_2_group_relation,GROUP_STRUCTURE,not_verified
+Proposition 5.8,pi6_2_group_relation,GROUP_STRUCTURE,not_verified
+Proposition 5.9,pi10_5_group_relation,GROUP_STRUCTURE,not_verified
+Proposition 5.9,pi7_2_group_relation,GROUP_STRUCTURE,not_verified
