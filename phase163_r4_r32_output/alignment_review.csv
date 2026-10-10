@@ -1,0 +1,3 @@
+﻿printed_page,source,subject,status,evidence
+6,Toda original PDF p.2,Sphere reduced-join associativity equation after (1.3),CORRECTED,"Original explicitly has phi_(m+n,p)(phi_(m,n)(a,b),c)=phi_(m,n+p)(a,phi_(n,p)(b,c)); TeX omitted this displayed identity."
+6,Toda original PDF p.2,Composition and (1.4) details,UNVERIFIED,Full line-by-line comparison not completed in R4-R32.
