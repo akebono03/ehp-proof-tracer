@@ -1,0 +1,17 @@
+{
+  "phase": "163 R4-R27",
+  "source_sha256": "c36eaa063d86ae92d813ee83ad54c3c92f9b8a36f0f0f067a5b746e96b1c1da3",
+  "pdf_pages": 11,
+  "printed_pages": "5-15",
+  "status_counts": {
+    "UNVERIFIED": 11,
+    "CORRECTION_REQUIRED": 0,
+    "VERIFIED": 0
+  },
+  "prior_confirmed_corrections": 9,
+  "new_confirmed_corrections": 0,
+  "chapter_fully_verified": false,
+  "statement_ids_changed": 0,
+  "production_code_changed": false,
+  "full_suite_run": false
+}
