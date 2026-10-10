@@ -1,0 +1,54 @@
+{
+  "phase": "163 R4-R11 repair3",
+  "status": "TYPED_SOURCE_UNVERIFIED",
+  "registered_count": 5,
+  "registered_keys": [
+    "pi5_2_group_relation",
+    "pi6_3_group_relation",
+    "pi7_4_group_relation",
+    "pi8_5_group_relation",
+    "higher_nu_group_relation"
+  ],
+  "source_status": "SOURCE_UNVERIFIED",
+  "proof_status": "PROOF_ANCESTRY_NOT_CHECKED",
+  "proof_links_unchanged": true,
+  "original_metadata_unchanged": true,
+  "evidence": [
+    {
+      "assertion_id": "boundary:Proposition 5.6:pi5_2_group_relation",
+      "source_description": "Phase65 representative pi5_2_step; Toda Proposition 5.6 candidate",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.6:pi6_3_group_relation",
+      "source_description": "Phase65 representative pi6_3_step; Toda Proposition 5.6 candidate",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.6:pi7_4_group_relation",
+      "source_description": "Phase65 representative pi7_4_step; Toda Proposition 5.6 candidate",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.6:pi8_5_group_relation",
+      "source_description": "Phase65 representative pi8_5_step; Toda Proposition 5.6 candidate",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.6:higher_nu_group_relation",
+      "source_description": "Phase65 representative higher_step; Toda Proposition 5.6 candidate",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    }
+  ],
+  "notes": [
+    "All five typed components have verified structure and generators.",
+    "This is a candidate literature assertion catalog, not literature authentication.",
+    "No ProofStepLink generated and no backward search eligibility granted.",
+    "Prior Phase 161 provenance failures are separate and unresolved."
+  ]
+}
