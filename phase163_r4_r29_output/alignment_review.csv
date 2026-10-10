@@ -1,0 +1,13 @@
+﻿pdf_page,printed_page,item,before_tex,after_tex,original_pdf_evidence,status
+1,5,tangent_direction,"での接ベクトルは,
+\((0,t_{1},\cdots,t_{n})\)
+に平行になるものとする.","での接ベクトルは,
+\(\{-1\}\times\overrightarrow{c_{0}x}\)
+に平行になるものとする.",印刷5ページ：接ベクトルは (-1) × (c_0 から x へのベクトル) に平行,CORRECTED
+1,5,coordinate_interchange,"\(t_{i}\)
+を
+\(t_{j}\)
+に置き換えたとき,","\(t_{i}\)
+と
+\(t_{j}\)
+を互いに交換したとき,",印刷5ページ：If t_i and t_j are interchanged,CORRECTED
