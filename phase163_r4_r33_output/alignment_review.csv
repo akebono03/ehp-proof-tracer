@@ -1,0 +1,4 @@
+﻿printed_page,pdf_page,subject,status,evidence
+6,2,Reduced join basepoint conditions,CORRECTED,Original printed p.6 explicitly states f(a0)=a0' and g(b0)=b0'; TeX relied on the global based-map convention. Restored explicit hypotheses.
+6,2,Equation (1.4) items 0/i/ii,PARTIALLY_REVIEWED,Items and composition order visually compared. Page-wide mathematical/content completion is not asserted.
+6,2,Whole page,UNVERIFIED,"Unfinished verification of the rest of the prose, source notation, and page boundary."
