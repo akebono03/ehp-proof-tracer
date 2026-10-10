@@ -1,0 +1,12 @@
+﻿pdf_page,printed_page,status,verification_scope,evidence_note
+1,5,VERIFIED,MATHEMATICAL_CONTENT_AND_CONDITIONS,"Printed p.5/PDF p.1: t_i relates to s_{i+1}; sign, reflection, and coordinate exchange corrected. Remaining content not exhaustively verified. R4-R29: tangent vector direction and interchanging t_i/t_j aligned with printed p.5. All fields not fully compared. R4-R30: printed p.5 after (1.2) gives psi_1(t), not psi_n(t). Equation (1.1)/(1.2) and basepoint notation compared in part only; page remains UNVERIFIED. R4-R31: all printed p.5 mathematical definitions, displayed equations, coordinate properties, prose conditions and the absence of named statements reviewed against original PDF p.1. Mathematical semantic verification complete. Not a verbatim transcription certification; notation and language normalization retained."
+2,6,VERIFIED,MATHEMATICAL_CONTENT_AND_CONDITIONS,"R4-R32: original printed p.6 (PDF p.2), explicit sphere reduced-join associativity equation restored after (1.3); remaining mathematical text not fully checked. R4-R33: printed p.6 (PDF p.2), f(a0)=a0' and g(b0)=b0' explicitly restored in the reduced join paragraph; equation (1.4) 0/i/ii visually checked, but full page not exhaustively verified. R4-R34: printed p.6/PDF p.2 equation (1.4) 0) based-map domains, codomains, and the induced based reduced-join homotopy explicitly restored. Remaining page boundary and full mathematical-content verification pending. R4-R35: 原本印刷6ページの数学的内容を全域照合。合成、reduced join、(1.3)、(1.4)、α#β の導入を確認。逐字照合ではない。末尾から印刷7ページへの継続は次ページに留保。"
+3,7,UNVERIFIED,PARTIAL_ORIGINAL_COMPARISON_WITH_CONFLICT,"R4-R36: (1.5)-(1.8) and suspension operations compared to original printed p.7; the original d_X formula prints S^n, but TeX corrected in R4-R22 says S^1. Not resolved or declared verified."
+4,8,UNVERIFIED,,
+5,9,UNVERIFIED,,
+6,10,UNVERIFIED,,
+7,11,UNVERIFIED,,
+8,12,UNVERIFIED,,
+9,13,UNVERIFIED,,
+10,14,UNVERIFIED,,
+11,15,UNVERIFIED,,
