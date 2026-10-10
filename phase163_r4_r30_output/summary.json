@@ -1,0 +1,19 @@
+{
+  "phase": "163 R4-R30",
+  "input_sha256": "d742543864fbfc77b79a683e95e322a33b18ee1bfaf102ea730533a95945847d",
+  "output_sha256": "521b481431b862b2c278069223c4990f36cf4fb6164987de78d75d1da47c7a82",
+  "confirmed_corrections": 1,
+  "prior_confirmed_corrections": 14,
+  "total_recorded_corrections": 15,
+  "printed_page_reviewed": 5,
+  "status_counts": {
+    "UNVERIFIED": 11,
+    "CORRECTION_REQUIRED": 0,
+    "VERIFIED": 0
+  },
+  "page_fully_verified": false,
+  "chapter_fully_verified": false,
+  "statement_ids_changed": 0,
+  "production_code_changed": false,
+  "full_suite_run": false
+}

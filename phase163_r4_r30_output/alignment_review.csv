@@ -1,0 +1,5 @@
+﻿pdf_page,printed_page,item,before_tex,after_tex,original_pdf_evidence,status
+1,5,circle_parameterization,"\psi_n(t) = (\cos 2\pi t,\ \sin 2\pi t).","\psi_1(t) = (\cos 2\pi t,\ \sin 2\pi t).","Printed p.5 following (1.2): psi_1(t)=(cos 2pi t, sin 2pi t)",CORRECTED
+1,5,equation_1_1,\psi_n:I^n\to S^n,,Printed p.5 (1.1) identifies the continuous map; no confirmed numerical discrepancy,PARTIALLY_REVIEWED
+1,5,equation_1_2,boundary and homeomorphism clauses,,Printed p.5 (1.2): boundary collapses to e0; map restricts to homeomorphism on complements,PARTIALLY_REVIEWED
+1,5,homotopy_set_notation,"[X,Y]",,Printed p.5 uses pi(X -> Y); notation normalization is not established as a transcription correction,UNRESOLVED_NOTATION
