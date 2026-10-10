@@ -1,0 +1,12 @@
+{
+  "phase": "163 R4-R24",
+  "input_canonical_sha256": "c498c52fba9a770a3b6deddcbed111dfb3badeb835a64afe0a914cadda58f6f2",
+  "confirmed_corrections": 2,
+  "carried_forward_r21_to_r23_corrections": 4,
+  "total_recorded_corrections": 6,
+  "remaining_review_groups": 7,
+  "chapter_fully_verified": false,
+  "statement_ids_changed": 0,
+  "production_code_changed": false,
+  "full_suite_run": false
+}
