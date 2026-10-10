@@ -1,0 +1,43 @@
+{
+  "phase": "163 R4-R7",
+  "status_counts": {
+    "GIVEN_UNVERIFIED": 1,
+    "STRUCTURED": 3
+  },
+  "total_base_records": 68,
+  "structured_records": 3,
+  "original_structured_records": 0,
+  "notes": [
+    "Citation ancestry check is not independent literature verification.",
+    "Brackets represented by a GIVEN remain unverified unless a legitimate derivation exists.",
+    "Nu-prime membership is not inferred from bracket membership automatically.",
+    "Any failed candidate remains metadata-only; no invented theorem facts.",
+    "No full pytest, no backward search or renderer changes."
+  ],
+  "attempts": [
+    {
+      "reference_locator": "(5.3)",
+      "component_key": "nu_prime_bracket_definition",
+      "status": "GIVEN_UNVERIFIED",
+      "detail": "GIVEN is not a derived proof and cannot be promoted"
+    },
+    {
+      "reference_locator": "(5.3)",
+      "component_key": "nu_prime_hopf_relation",
+      "status": "STRUCTURED",
+      "detail": "Existing citation boundary validated; external literary truth not independently established"
+    },
+    {
+      "reference_locator": "(5.3)",
+      "component_key": "nu_prime_double_relation",
+      "status": "STRUCTURED",
+      "detail": "Existing citation boundary validated; external literary truth not independently established"
+    },
+    {
+      "reference_locator": "Proposition 5.6",
+      "component_key": "pi5_2_group_relation",
+      "status": "STRUCTURED",
+      "detail": "Existing citation boundary validated; external literary truth not independently established"
+    }
+  ]
+}
