@@ -1,0 +1,20 @@
+{
+  "phase": "163 R4-R20",
+  "source_sha256": "1c2c263803510d959c64188632bffa098e38b11fd8db80189fc67210a97e1f5c",
+  "preserved_records": 24,
+  "detailed_independent_candidates": 14,
+  "review_by_kind": {
+    "compound_claim": 4,
+    "definition_component": 1,
+    "independent_claim": 8,
+    "needs_mathematical_correction": 1
+  },
+  "remaining_semantic_pending": 65,
+  "new_statement_ids_issued": 0,
+  "existing_ids_modified": 0,
+  "printed_original_verified": 0,
+  "legacy_equivalence_verified": 0,
+  "proof_search_connected": 0,
+  "exhaustive_review": false,
+  "major_issue": "S^m wedge S^n dimension in supplied TeX requires mathematical verification"
+}

@@ -1,0 +1,716 @@
+﻿candidate_no,start_line,end_line,tex_category,tex_label,review_status,linked_reserved_id,review_note_ja,manually_selected_for_review,new_statement_id,legacy_equivalence,source_excerpt,preceding_context,following_context,next_action,semantic_decision
+4,112,114,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \psi_n(t) = (\cos 2\pi t,\ \sin 2\pi t). \]","\(\psi_n\) は, 以下のような性質を持つ.
+\begin{equation}
+  \psi_n(\partial I^n) = e_0,\quad
+  \psi_n \text{ は, } I^n - \partial I^n \text{ を }
+  S^n - e_0 \text{ の上に同相に写す.}
+\end{equation}","\(i:S^{n}\hookrightarrow S^{n+1}\)
+を,
+\(i(s_{0},\cdots,s_{n}) := (s_{0},\cdots,s_{n},0)\)
+で定義するとき,
+\[
+\psi_{n+1}(t_{1},\cdots,t_{n},\frac{1}{2})=",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+5,119,122,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \psi_{n+1}(t_{1},\cdots,t_{n},\frac{1}{2})= i(\psi_{n}(t_{1},\cdots,t_{n})). \]","\psi_n(t) = (\cos 2\pi t,\ \sin 2\pi t).
+\]
+\(i:S^{n}\hookrightarrow S^{n+1}\)
+を,
+\(i(s_{0},\cdots,s_{n}) := (s_{0},\cdots,s_{n},0)\)
+で定義するとき,","\(\psi_{n}(t_{1},\cdots,t_{n})=(s_{0},\cdots,s_{n})\)
+と置く.\\
+\(t_{i}\geq\frac{1}{2}\ (t_{i}\leq\frac{1}{2})\)
+のとき,
+\(s_{i}\geq0\ (s_{i}\leq0)\),\\
+\(t_{i}\)",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+8,176,178,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ f^*(\beta)=[g\circ f],\qquad g_*(\alpha)=[g\circ f] \]","と書き, \(\alpha\) と \(\beta\) の合成 (composition) という.\\
+式 \(\beta\circ \alpha = f^*(\beta) = g_*(\alpha)\)
+は, 次の写像を定義する.
+\[
+f^*:[Y,Z]\to[X,Z],\quad g_*:[X,Y]\to[X,Z].
+\]","明らかに, 合成は結合的である. 
+\[
+(\gamma\circ \beta)\circ\alpha=\gamma\circ(\beta\circ\alpha).
+\]
+\[
+(f_2\circ f_1)^*=f_1^*\circ f_2^*,\quad ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+12,196,199,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \shrink_{A,B}:A\times B\longrightarrow A\times B/A\vee B = A\ \wedge\ B \]","$A\ \wedge\ B$ と書き, 積 $A\times B$ の部分集合
+\[
+A\vee B=\bigl(A\times\{b_0\}\bigr)\cup\bigl(\{a_0\}\times B\bigr)
+\]
+を, 一点につぶす (shrinking) ことにより得られる空間とする. 
+縮約写像 (shrinking map) を,","で表す. 3つの空間 $A,B,C$ に対して, 次の自然な同相がある.
+\[
+(A\ \wedge\ B)\ \wedge\ C\ \cong\ A\ \wedge\ (B\ \wedge\ C),
+\]
+\[
+\phi_{A\wedge B, C}(\phi_{A,B}(a,b),c)\longleftrightarrow",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+14,204,207,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \phi_{A\wedge B, C}(\phi_{A,B}(a,b),c)\longleftrightarrow \phi_{A,B\wedge C}(a, \phi_{B,C}(b,c)). \]","A\times B/A\vee B = A\ \wedge\ B
+\]
+で表す. 3つの空間 $A,B,C$ に対して, 次の自然な同相がある.
+\[
+(A\ \wedge\ B)\ \wedge\ C\ \cong\ A\ \wedge\ (B\ \wedge\ C),
+\]","これにより, $A\ \wedge\ B\ \wedge\ C$ と略記する. 
+
+二つの球面 $S^m$ と $S^n$ の reduced join は,
+\begin{equation}
+S^m\ \wedge\ S^n\ \cong\ S^{m+n+1}.
+% \tag{1.3}",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+16,218,220,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \shrink_{m,n}\bigl(\psi_m(x),\,\psi_n(y)\bigr)=\psi_{m+n+1}(x,y). \]","S^m\ \wedge\ S^n\ \cong\ S^{m+n+1}.
+% \tag{1.3}
+\end{equation}
+対応は, 
+$(x,y)\in I^m\times I^n$ に対して,
+次で与えられる.","写像
+\[
+f:A\to A',\quad g:B\to B'
+\]
+に対し, reduced join
+\[",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+17,222,224,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ f:A\to A',\quad g:B\to B' \]","$(x,y)\in I^m\times I^n$ に対して,
+次で与えられる.
+\[
+\shrink_{m,n}\bigl(\psi_m(x),\,\psi_n(y)\bigr)=\psi_{m+n+1}(x,y).
+\]
+写像","に対し, reduced join
+\[
+f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B'
+\]
+を, 次により自然に定める.
+\[",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+18,226,228,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B' \],"\]
+写像
+\[
+f:A\to A',\quad g:B\to B'
+\]
+に対し, reduced join","を, 次により自然に定める.
+\[
+(f\wedge g)\circ \phi_{A,B} = \phi_{A',B'}\circ (f\times g).
+\]
+次が成り立つ：
+\begin{equation}",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+19,230,232,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ (f\wedge g)\circ \phi_{A,B} = \phi_{A',B'}\circ (f\times g). \]","\]
+に対し, reduced join
+\[
+f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B'
+\]
+を, 次により自然に定める.","次が成り立つ：
+\begin{equation}
+% \tag{1.4}
+\raisetag{3ex}
+\begin{aligned}[t]
+\text{0).}\ & f\simeq f',\ g\simeq g' \ \Rightarrow\ ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+23,284,287,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \Ex^n f:\ \Ex^n X\longrightarrow \Ex^n Y,\quad (Ef = E^1 f) \]","特に, $n=1$ のときは, 単に $\Ex X=X\ \wedge\ S^1$ と書く. \\
+同一視 \(X\wedge S^{m+n} = X\wedge S^m\wedge S^n\)
+により, 
+\(E^n(E^m X) = E^{m+n} X\) を得る.
+
+写像 $f:X\to Y$ に対し, その $n$–重 suspension","を, $f\ \wedge\ \id_{S^n}$ により定める. これにより,
+\(
+\Ex^n(\Ex^m f)=\Ex^{m+n}f
+\)
+が成り立つ. 
+(1.4), (1.5) から次が成り立つ. ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+25,315,318,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ d_X:X\times I \to EX,\qquad d_X = \phi_{X,S^n}\circ (1_X\times \psi_1). \]","  \qquad\qquad\qquad\qquad\qquad\qquad\qquad
+\end{aligned}  
+\end{equation}
+
+また, \(X\) の suspension \(EX\) は, 
+次の写像によっても定義される.","ここで, \(1_X\) は \(X\) の恒等写像である.\\
+\(d_X\) は, \(X\times \partial{I} \cup x_0 \times I\)
+を, \(EX\) の基点へつぶす写像であり, 
+これは \(d_X\) を特徴づける.\\
+写像 $f:(X,x_0)\to(Y,y_0)$ に対し, 
+その suspension $\Ex f:\Ex X\to \Ex Y$ はまた,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+26,326,329,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \Ex f(d_X(x, t)) = d_Y(f(x), t),\quad x\in X,\quad t \in I. \]","\(d_X\) は, \(X\times \partial{I} \cup x_0 \times I\)
+を, \(EX\) の基点へつぶす写像であり, 
+これは \(d_X\) を特徴づける.\\
+写像 $f:(X,x_0)\to(Y,y_0)$ に対し, 
+その suspension $\Ex f:\Ex X\to \Ex Y$ はまた,
+次によっても定められる.","
+ホモトピー集合 \([EX, Y]\) を考える.\\
+写像 $f,g:(\Ex X,x_0)\to(Y,y_0)$ に対し, 
+\(f+g,\ -f: (EX,x_0)\to (Y,y_0)\) を, 次で定義する.
+\[
+(f+g)(d_X(x,t)) :=",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+28,341,344,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ (-f)(d_X(x, t)) := f(d_X(x, 1-t)). \]","(f+g)(d_X(x,t)) :=
+\begin{cases}
+f(d_X(x,2t)), & 0\le t\le \tfrac12,\\[2mm]
+g(d_X(x,2t-1)), & \tfrac12\le t\le 1,
+\end{cases}
+\]","これらの演算 \(+, -\) は, 
+ homotopy と compatible であり,
+よって, \([EX, Y]\) 上の演算を誘導する.\\
+写像 \((X,x_0)\to(Y,y_0)\) の空間 \(Y_0^X\)
+の基本群と同様,
+この演算により, $[\Ex X,Y]$ は群になる.\\",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+30,358,361,numbered_math,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\begin{equation} f:Y\to Z,\ g:W\to X \text{ に対して, 次は準同型である.} \end{equation}","\(X\) が locally compact のとき,
+これらは自然に同型となる.
+\[
+[\Ex X,Y]\cong \pi_1\bigl(Y^X_{0}\bigr).
+\]
+次の事は容易に得られる.","\[
+f_*:[EX, Y] \to [EX,Z],\quad Eg^*:[EX,Y]\to[EW,Y].
+\]
+すなわち,
+\[
+[f]\circ(\alpha + \alpha') = [f]\circ\alpha + [f]\circ\alpha',",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+31,362,364,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ f_*:[EX, Y] \to [EX,Z],\quad Eg^*:[EX,Y]\to[EW,Y]. \]","\]
+次の事は容易に得られる.
+\begin{equation}
+% (1.7)
+  f:Y\to Z,\ g:W\to X \text{ に対して, 次は準同型である.}
+\end{equation}","すなわち,
+\[
+[f]\circ(\alpha + \alpha') = [f]\circ\alpha + [f]\circ\alpha',
+\]
+\[
+(\alpha + \alpha')\circ E[g] = \alpha\circ E[g] + \alpha'\circ E[g].",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+34,378,382,numbered_math,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\begin{equation} d_n:S^n\times I\longrightarrow S^{n+1},\qquad d_n\bigl(\psi_n(t_1,\ldots,t_n),t\bigr)=\psi_{n+1}(t_1,\ldots,t_n,t). \end{equation}","特に, $n\ge 2$ のとき,
+\([\Ex^n X,Y]\) はアーベル群である.
+
+% \subsection*{球面の場合の $d_n$}
+$X=S^n$ のとき, 先の $d_X$ を $d_n$ と書き, 
+次で定められる.","
+%これは前述の同一視 $S^n\wedge S^1\cong S^{n+1}$ と整合する. 
+このとき, \([\Ex X, Y]\) と \(\pi_{n+1}(Y)\) の群演算は一致する. 
+
+% 以上で, 合成 (composition) , reduced join, および suspension の基本事項をまとめた. 以降では, これらを用いて secondary composition (EHP, Toda bracket へ至る前段) を構成していく. 
+",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+36,400,403,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \Ox:\ [X,Y]\longrightarrow [\Ox X,\Ox Y],\qquad \Omega [f] = [\Ox f] \]","$Y$ の loop 空間とする. 写像 $f:X\to Y$ に対し,
+\[
+\Ox f:\ \Ox X\longrightarrow \Ox Y,\qquad
+(\Ox f(\ell))(t)=f(\ell(t)),\ \ \ell\in\Ox X,\ t\in I
+\]
+で定める. もし, $f\simeq g$ なら, $\Ox f\simeq \Ox g$ であり, したがって,","が得られる. 明らかに, 
+$\Ox(g\circ f)=\Ox g\circ \Ox f$, および,
+\[
+\Ox(\beta\circ\alpha)=\Ox\beta\circ \Ox\alpha
+\]
+が成り立つ. ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+38,413,415,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ i(x)(t) = d_X(x,t)\qquad (t\in I). \]","\Ox(\beta\circ\alpha)=\Ox\beta\circ \Ox\alpha
+\]
+が成り立つ. 
+
+$EX$ の loop 空間 $\Ox EX$ を考える. 各 $x\in X$ に対し,
+\(EX\) の loop \(i(x)\) を次で定める.","このとき, 次の包含写像が得られる.
+\[
+i:X\to \Ox EX.
+\]
+これを, \emph{canonical injection} と呼ぶ. 
+任意の $f:X\to Y$ に対して, 次の図式は可換である：",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+39,417,419,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ i:X\to \Ox EX. \],"$EX$ の loop 空間 $\Ox EX$ を考える. 各 $x\in X$ に対し,
+\(EX\) の loop \(i(x)\) を次で定める.
+\[
+i(x)(t) = d_X(x,t)\qquad (t\in I).
+\]
+このとき, 次の包含写像が得られる.","これを, \emph{canonical injection} と呼ぶ. 
+任意の $f:X\to Y$ に対して, 次の図式は可換である：
+\begin{equation}\label{eq:loop-susp-comm}
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+\node (X) at (0,0) {$X$};
+\node (Y) at (3,0) {$Y$};",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+40,422,434,numbered_math,eq:loop-susp-comm,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\begin{equation}\label{eq:loop-susp-comm} \begin{tikzpicture}[baseline=(current bounding box.center)] \node (X) at (0,0) {$X$}; \node (Y) at (3,0) {$Y$}; \node (OX) at (0,-1.4) {$\Ox EX$}; \node (OY) at (3,-1.4) {$\Ox EY$}; \draw[->] (X)--n","このとき, 次の包含写像が得られる.
+\[
+i:X\to \Ox EX.
+\]
+これを, \emph{canonical injection} と呼ぶ. 
+任意の $f:X\to Y$ に対して, 次の図式は可換である：","
+$F:EX\to Y$ に対して,
+\[
+\Omega_0F=
+\Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y
+\]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+41,437,440,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ \Omega_0F= \Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y \],"\draw[->] (OX)--node[below] {$\Ox Ef$} (OY);
+\end{tikzpicture}
+% \tag{1.9}
+\end{equation}
+
+$F:EX\to Y$ に対して,","と書く. これは
+\[
+\Omega_0F(x)(t) = F(d_X(x,t))
+\]
+で直接に与えられる. \\
+対応 $F\longmapsto \Omega_0F$ は,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+42,442,444,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \Omega_0F(x)(t) = F(d_X(x,t)) \]","$F:EX\to Y$ に対して,
+\[
+\Omega_0F=
+\Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y
+\]
+と書く. これは","で直接に与えられる. \\
+対応 $F\longmapsto \Omega_0F$ は,
+$\map(EX,Y), \map(X,\Omega Y)$ のコンパクト部分集合
+の間の同相を与え, \\
+したがって, ホモトピー集合の間の次の全単射を誘導する.
+\begin{equation}",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+44,458,468,numbered_math,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\begin{equation} \begin{tikzpicture}[baseline=(current bounding box.center)] \node (PX) at (-3,0) {$[X, Y]$}; \node (P1) at (3,0) {$[EX, EY]$}; \node (P2) at (0,-1.4) {$[X, \Ox EY].$}; \draw[->] (PX)--node[above] {$E$} (P1); \draw[->] (PX)-","\Omega_0:\ [EX,Y]\xrightarrow{\ \cong\ }[X, \Ox Y].
+\end{equation}
+$[X,\Ox Y]$ に, \(\Omega Y\) loop 乗法による群演算を入れるとき, 
+\(\Omega_0\) は群の同型である.\\
+この演算は, $X$ が suspension $EX'$ のとき, 
+上述の $+$ と一致する. このとき, 次の図式は可換である：","
+$f:X\to Y,\ g:EY\to Z,\ h:Z\to W$ と,
+そのホモトピー類 $\alpha=[f],\ \beta=[g],\ \gamma=[h]$ に対して, \\
+以下が成り立つ：
+\begin{equation}
+% (1.12)",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+47,493,497,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ a:(\Ex^n Y,y_0)\to (Z,z_0),\quad b:(X,x_0)\to (Y,y_0),\quad c:(W,w_0)\to (X,x_0) \]","$\alpha\in[\Ex^n Y, Z]$, $\beta\in[X, Y]$, $\gamma\in[W, X]$ が,
+\begin{equation}
+% (1.13)
+\alpha\circ \Ex^n\beta=0,\qquad \beta\circ \gamma=0
+\end{equation}
+を満たすものとする. 代表写像を, それぞれ,","とする. 
+このとき, (1.13) の仮定から, それぞれの null homotopy
+\[
+A_t:(\Ex^n X,x_0)\to (Z,z_0),\qquad
+B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1)
+\]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+48,500,503,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ A_t:(\Ex^n X,x_0)\to (Z,z_0),\qquad B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1) \]","a:(\Ex^n Y,y_0)\to (Z,z_0),\quad
+b:(X,x_0)\to (Y,y_0),\quad
+c:(W,w_0)\to (X,x_0)
+\]
+とする. 
+このとき, (1.13) の仮定から, それぞれの null homotopy","で, 次を満たすものが存在する. 
+\[
+A_0=a\circ \Ex^n b,\quad A_1(\Ex^n X)=z_0,\qquad
+B_0=b\circ c,\quad B_1(W)=y_0.
+\]
+写像 $H:\ (\Ex^{n+1}W,w_0)\to (Z,z_0)$ を, 次で定める. ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+49,505,508,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ A_0=a\circ \Ex^n b,\quad A_1(\Ex^n X)=z_0,\qquad B_0=b\circ c,\quad B_1(W)=y_0. \]","このとき, (1.13) の仮定から, それぞれの null homotopy
+\[
+A_t:(\Ex^n X,x_0)\to (Z,z_0),\qquad
+B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1)
+\]
+で, 次を満たすものが存在する. ","写像 $H:\ (\Ex^{n+1}W,w_0)\to (Z,z_0)$ を, 次で定める. 
+\begin{equation}\label{eq:H-def}
+% (1.14)
+H(d(w,t))=
+\begin{cases}
+a\bigl(\Ex^n B_{2t-1}(w)\bigr), & \tfrac12\le t\le 1,\\[2mm]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+52,536,538,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ A\circ B=\{\ \alpha\circ\beta\mid \alpha\in A,\ \beta\in B\ \} \]","を, 上の方法で得られる写像 $H$ の, 
+ホモトピー類全体の集合として定める. 
+%\end{definition}
+
+ここで, 以下の記法を用いる. 
+$A\subset[Y, Z]$, $B\subset[X, Y]$ に対し,","と書く. また, $A_1,A_2\subset[\Ex X, Y]$ に対し,
+\[
+A_1+A_2=\{\ \alpha_1+\alpha_2\mid \alpha_i\in A_i\ \}
+\]
+とする. 
+",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+53,540,542,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ A_1+A_2=\{\ \alpha_1+\alpha_2\mid \alpha_i\in A_i\ \} \],"ここで, 以下の記法を用いる. 
+$A\subset[Y, Z]$, $B\subset[X, Y]$ に対し,
+\[
+A\circ B=\{\ \alpha\circ\beta\mid \alpha\in A,\ \beta\in B\ \}
+\]
+と書く. また, $A_1,A_2\subset[\Ex X, Y]$ に対し,","とする. 
+
+\begin{lemma}\label{lem:double-coset}
+% Lem1.1
+$\{\alpha,\Ex^n\beta,\Ex^n\gamma\}_n$ は,
+$[\Ex^{n+1}W, Z]$ の中で,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+55,576,579,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ F:(\Ex^{n+1}X,x_0)\to (Z,z_0), \quad G:(\Ex W,w_0)\to (Y,y_0) \]","$H$ を上で定義されたものとし, \\
+\(H'\) を
+\(a\circ E^n b,\ b\circ c\) の, 
+別の null-homotopy $A'_t,\ B'_t$ を用いて定義されたものとする.
+\newpage
+","を, 次で定義する.
+\[
+F(d_{E^{n}Z}(x,t))\equiv\left\{
+\begin{array}{ll}
+A_{2t-1}(x), & \frac{1}{2} \leq t \leq 1, \\
+A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+56,581,587,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ F(d_{E^{n}Z}(x,t))\equiv\left\{ \begin{array}{ll} A_{2t-1}(x), & \frac{1}{2} \leq t \leq 1, \\ A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\ \end{array}\right. \]","
+\[
+F:(\Ex^{n+1}X,x_0)\to (Z,z_0), \quad
+G:(\Ex W,w_0)\to (Y,y_0)
+\]
+を, 次で定義する.","\[
+G(d_{W}(w,t))\equiv\left\{
+\begin{array}{ll}
+B'_{2t-1}(w), & \frac{1}{2} \leq t \leq 1, \\
+B_{1-2t}(w), & 0 \leq t \leq \frac{1}{2}. \\
+\end{array}\right.",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+57,588,594,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ G(d_{W}(w,t))\equiv\left\{ \begin{array}{ll} B'_{2t-1}(w), & \frac{1}{2} \leq t \leq 1, \\ B_{1-2t}(w), & 0 \leq t \leq \frac{1}{2}. \\ \end{array}\right. \]","F(d_{E^{n}Z}(x,t))\equiv\left\{
+\begin{array}{ll}
+A_{2t-1}(x), & \frac{1}{2} \leq t \leq 1, \\
+A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\
+\end{array}\right.
+\]","ここで,
+\(x\in E^n X,\ w\in W\).
+このとき,
+\[
+H'\ \simeq\ F\circ \Ex^{n+1}c\ +\ \bigl(H\ +\ a\circ \Ex^n G\circ \sigma\bigr)
+\]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+58,598,600,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ H'\ \simeq\ F\circ \Ex^{n+1}c\ +\ \bigl(H\ +\ a\circ \Ex^n G\circ \sigma\bigr) \],"B_{1-2t}(w), & 0 \leq t \leq \frac{1}{2}. \\
+\end{array}\right.
+\]
+ここで,
+\(x\in E^n X,\ w\in W\).
+このとき,","が確かめられる. 
+ここで, 
+$\sigma:\Ex^{n+1}W=W\ \wedge\ S^{n+1}\to \Ex^{n+1}W$ は,
+\[
+\sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n))
+\]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+59,604,606,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n)) \]","\[
+H'\ \simeq\ F\circ \Ex^{n+1}c\ +\ \bigl(H\ +\ a\circ \Ex^n G\circ \sigma\bigr)
+\]
+が確かめられる. 
+ここで, 
+$\sigma:\Ex^{n+1}W=W\ \wedge\ S^{n+1}\to \Ex^{n+1}W$ は,","で与えられる自己同相である. 対応
+\[
+\psi_{n+1}(t_1,\cdots,t_n, t) \longleftrightarrow
+\psi_{n+1}(t,t_1,\cdots,t_n)
+\]
+は, $S^{n}$ 上の次数 $(-1)^n$ の同相写像なので,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+60,608,611,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \psi_{n+1}(t_1,\cdots,t_n, t) \longleftrightarrow \psi_{n+1}(t,t_1,\cdots,t_n) \]","ここで, 
+$\sigma:\Ex^{n+1}W=W\ \wedge\ S^{n+1}\to \Ex^{n+1}W$ は,
+\[
+\sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n))
+\]
+で与えられる自己同相である. 対応","は, $S^{n}$ 上の次数 $(-1)^n$ の同相写像なので,
+\(\sigma\) は,
+\(E^{n+1}W\) の恒等写像か,
+反転写像に homotopic である.\\
+よって,
+\[",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+61,617,620,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ [H'] = [F]\circ E^{n+1}\gamma + ([H] \pm \alpha \circ E^n [G]) \],"\]
+は, $S^{n}$ 上の次数 $(-1)^n$ の同相写像なので,
+\(\sigma\) は,
+\(E^{n+1}W\) の恒等写像か,
+反転写像に homotopic である.\\
+よって,","であり,
+従って $H$ と $H'$ は, 
+同じ double coset に属する. \\
+逆に, \([H]\) と同じ double coset に属する \([E^{n+1}W,Z]\) の任意の元は,
+ある写像
+\[",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+62,626,629,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ F':(E^{n+1}X,x_0)\to(Z,z_0),\qquad G':(EW, w_0)\to (Y,y_0) \]","\]
+であり,
+従って $H$ と $H'$ は, 
+同じ double coset に属する. \\
+逆に, \([H]\) と同じ double coset に属する \([E^{n+1}W,Z]\) の任意の元は,
+ある写像","によって, 次の写像で表される.
+\[
+F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma).
+\]
+ここで,
+\[",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+63,631,633,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma). \],"ある写像
+\[
+F':(E^{n+1}X,x_0)\to(Z,z_0),\qquad
+G':(EW, w_0)\to (Y,y_0)
+\]
+によって, 次の写像で表される.","ここで,
+\[
+A'_t(x)=
+\begin{cases}
+F'(d_{E^n X}(x,2-2t)),& \tfrac12\le t\le 1,\\
+A_{2t}(x),& 0\le t\le \tfrac12,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+64,635,647,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ A'_t(x)= \begin{cases} F'(d_{E^n X}(x,2-2t)),& \tfrac12\le t\le 1,\\ A_{2t}(x),& 0\le t\le \tfrac12, \end{cases} \qquad B'_t(w)= \begin{cases} G'(d_W(w,2t-1)),& \tfrac12\le t\le 1,\\ B_{2t}(w),& 0\le t\le \tfrac12, \end{cases} \]","\]
+によって, 次の写像で表される.
+\[
+F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma).
+\]
+ここで,","と定めることで,
+\(a\circ E^n b,\ b\circ c\) の null homotopy が得られる.\\
+この \(A'_t,\ B'_t\) を用いて, $H'$ を作ると,
+次が成り立つ.
+\[
+H'\ \simeq\ F'\circ \Ex^{n+1}c\ +\ (H+a\circ \Ex^n G').",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+65,652,654,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,\[ H'\ \simeq\ F'\circ \Ex^{n+1}c\ +\ (H+a\circ \Ex^n G'). \],"\end{cases}
+\]
+と定めることで,
+\(a\circ E^n b,\ b\circ c\) の null homotopy が得られる.\\
+この \(A'_t,\ B'_t\) を用いて, $H'$ を作ると,
+次が成り立つ.","よって,
+\([H]\)
+の同じ double coset に属する任意の元は,
+(1.14) の写像で表される.\\
+以上から,
+\(",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+66,675,680,numbered_math,eq:split-m,UNRESOLVED_CONTEXT,,命題直後の関係式、独立性の確認が必要,True,,UNVERIFIED,"\begin{equation}\label{eq:split-m} \{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n \ \subset\ \bigl\{\alpha,\ \Ex^{m}(E^{n-m}\beta),\ E^{m}(E^{n-m}\gamma)\bigr\}_m . \end{equation}","\(n\ge m\ge 0\) とする.
+(1.14) の写像は,
+\(a,\ E^{n-m}b,\ E^{n-m}c\) と, \\
+homotopy \(A_t,\ E^{n-m}B_t\)
+を使って構成したものとみなせる.
+これから, 次が成り立つ.","
+% \paragraph*{記法 ($n=0$ の場合) }
+$n=0$ のときは, 
+簡単に $\{\alpha,\beta,\gamma\}_0$ を,
+$\{\alpha,\beta,\gamma\} \subset[\Ex W, X]$ と書く. 
+",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+69,759,767,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ H(d_{ER}(d_R(w,s),t))= \begin{cases} a(\Ex^{n+1}B_{2t-1}(d_R(w,s))), & \tfrac12\le t\le 1,\\[2mm] A_{1-2t}(\Ex^{n+1}c(d_R(w,s))), & 0\le t\le \tfrac12, \end{cases} \]","
+Proof.\
+$a,b,c$ をそれぞれ $\alpha,\beta,\gamma$ の代表とする.\\
+\(\todai[n+1]{\alpha, E^{n+1}\beta, E^{n+1}\gamma}\) 
+の任意の元は, 次の写像 \(H:E^{n+2}W\to Z\)
+で表される.","ここで,
+\(w\in R = E^n W\)
+で,
+\(A_t,\ B_t\) 
+は, それぞれ,
+\(a\circ E^{n+1}b,\ b\circ c\)",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+70,778,780,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ d_{ER}(d_R(w,s),t) = \phi(w, \psi_2(s, t)). \]","は, それぞれ,
+\(a\circ E^{n+1}b,\ b\circ c\)
+の null-homotopy とする.\\
+\(E^2 R\) を定義する等化写像
+\(\phi:R\times S^2\to R\wedge S^2 = E^2 R\)
+に対して,","\(\sigma:E^{n+2}W\to E^{n+2}W\)
+を, 次で与えられる同相写像とする.
+\[
+\sigma(d_{ER}(d_R(w,s),t))
+= d_{ER}(d_R(w,t), s).
+\]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+71,783,786,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \sigma(d_{ER}(d_R(w,s),t)) = d_{ER}(d_R(w,t), s). \]","に対して,
+\[
+d_{ER}(d_R(w,s),t) = \phi(w, \psi_2(s, t)).
+\]
+\(\sigma:E^{n+2}W\to E^{n+2}W\)
+を, 次で与えられる同相写像とする.","このとき, Lem1.1の証明で見たように,
+\([H\circ \sigma] = -[H]\) である.\\
+(1.12) と \(\Omega_0\) の定義により,
+\[
+\Omega_0(H\circ \sigma)(d_R(w,t))=
+\begin{cases}",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+72,790,798,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \Omega_0(H\circ \sigma)(d_R(w,t))= \begin{cases} \Omega_0 a(\Ex^{n}B_{2t-1}(w)), & \tfrac12\le t\le 1,\\[2mm] \Omega_0 A_{1-2t}(\Ex^{n}c(w)), & 0\le t\le \tfrac12. \end{cases} \]","\sigma(d_{ER}(d_R(w,s),t))
+= d_{ER}(d_R(w,t), s).
+\]
+このとき, Lem1.1の証明で見たように,
+\([H\circ \sigma] = -[H]\) である.\\
+(1.12) と \(\Omega_0\) の定義により,","よって,
+\(\Omega_0[H\circ \sigma]\)
+は, 
+\(\todai[n]{\Omega_0\alpha, E^n\beta, E^n\gamma}\)
+に属する.\\
+逆に, ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+73,814,822,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \begin{align*} -E\todai[n]{\alpha, E^n\beta, E^n\gamma} & = -\Omega_0^{-1}(\iota \circ \todai[n]{\alpha, E^n\beta, E^n\gamma}) \subset -\Omega_0^{-1}\todai[n]{\iota\circ\alpha, E^n\beta, E^n\gamma}\\ & = \todai[n+1]{\Omega_0^{-1}\circ\io","上のような \(\Omega_0(H\circ \sigma)\) で表される.\\
+以上で, この Prop の最初の等式が証明された.
+
+\(\iota\) を, canonical injection \(i:Z\to \Omega EZ\)
+の類とする.
+(1.11), Prop1.2 iv) により,","これで, Prop1.3 の証明が完了した.
+\qed
+
+\begin{proposition}\label{prop:1-4}
+$\alpha\circ \Ex^n\beta=\beta\circ\gamma=\gamma\circ\delta=0$ のとき, 
+次が成り立つ.",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+75,845,854,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ H(d_{E^n V}(s, t)) = \left\{ \begin{array}{ll} A_{1-2t}(E^n c(E^n d(s))), & 0\leq t \leq \frac{1}{2},\\ a(E^n B_{2t-1}(E^n d(s))), & \frac{1}{2} \leq t \leq 1. \end{array} \right. \]","\(A_{t},\ B_{t},\ C_{t}\)
+をそれぞれ,
+\( a\circ\Ex^{n}b,\ b\circ c,\ c\circ d\)
+のnull homotopyとする.\\
+このとき, 
+\(H:E^{n+1}V\to Z\) を ","で, 定義すると,
+\([H]\) は 
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta\)
+の元を表す.\\
+homotopy
+\(H_{u}:(\Ex^{n+1}V,v_0) \longrightarrow (Z,z_0)\)",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+76,862,872,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ H_{u}(d_{\Ex^{n}V}(s,t))\equiv\left\{ \begin{array}{ll} A_{1-2t}(\Ex^{n}C_{2u(1-2t)}(s)), & 0\leq t \leq \frac{1}{2},\ 0\leq u \leq \frac{1}{2}, \\ A_{(2-2u)(1-2t)}(\Ex^{n}C_{1-2t}(s)), & 0\leq t \leq \frac{1}{2},\ \frac{1}{2} \leq u \le","\([H]\) は 
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta\)
+の元を表す.\\
+homotopy
+\(H_{u}:(\Ex^{n+1}V,v_0) \longrightarrow (Z,z_0)\)
+を, 次で定義する.","\(\sigma:\Ex^{n+1}V\to\Ex^{n+1}V \notag\)
+を, 次で定義される同相写像とする.
+\[
+\sigma(\phi_{V,S^{n+1}}(v,\psi_{n+1}(t_{1},\cdots,t_{n},t))) :=
+\phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})).
+\]",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+77,875,878,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \sigma(\phi_{V,S^{n+1}}(v,\psi_{n+1}(t_{1},\cdots,t_{n},t))) := \phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})). \]","a(\Ex^{n}B_{2t-1}(\Ex^{n}d(s))), &
+\frac{1}{2} \leq t \leq 1.
+\end{array}\right.
+\]
+\(\sigma:\Ex^{n+1}V\to\Ex^{n+1}V \notag\)
+を, 次で定義される同相写像とする.","また, 写像 \(K:EV\to Y\) を次で定義する.
+\[
+K(d_{V}(v, t)) = \left\{
+\begin{array}{ll}
+  B_{1-2t}(d(v)),
+  & 0\leq t \leq \frac{1}{2},\\",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+78,880,889,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ K(d_{V}(v, t)) = \left\{ \begin{array}{ll} B_{1-2t}(d(v)), & 0\leq t \leq \frac{1}{2},\\ b(C_{2t-1}(v)), & \frac{1}{2} \leq t \leq 1. \end{array} \right. \]","を, 次で定義される同相写像とする.
+\[
+\sigma(\phi_{V,S^{n+1}}(v,\psi_{n+1}(t_{1},\cdots,t_{n},t))) :=
+\phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})).
+\]
+また, 写像 \(K:EV\to Y\) を次で定義する.","このとき,
+\(K\) は \(\toda{\beta, \gamma, \delta}\) の元を表し,
+\(H_u\)
+は, \(H\) と \(a\circ E^n K \circ \sigma\) 
+の間の homotopy である.\\
+\(\sigma\) の degree が \((-1)^{n+1}\) なので,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+79,907,910,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ [a\circ E^n K\circ\sigma] \in \todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta \]","\((-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\)
+の任意の元は,\\
+適当な homotopy \(B_t,\ C_t\) によって,
+上のような合成 \(a\circ E^n K\circ \sigma\)
+で表される.\\
+homotopy \(H_{1-u}\) を使うことにより,","が示される.
+以上で, Prop1.4 の証明が完了した.
+\qed
+
+% --- (続き) p.12–13 ---
+",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+81,947,952,unnumbered_display,,UNRESOLVED_CONTEXT,,命題内・証明内のどちらの結論か確認が必要,True,,UNVERIFIED,"\[ \{\{\alpha,\beta,\gamma\},\ E\delta,\ E\varepsilon\} +\{\alpha,\ \{\beta,\gamma,\delta\},\ E\varepsilon\} +\{\alpha,\ \beta,\ \{\gamma,\delta,\varepsilon\}\} \equiv0 . \]","\ +\
+\{\alpha,\ \beta,\ \nu\}.
+\]
+\end{proposition}
+
+\noindent (要するに) ","このPropは [25]Th4.3(ii) の一般化で, 球面を位相空間に置き換えて, 
+同様の証明をすることで得られる. 
+
+\begin{proposition}[]\label{prop:1-6}
+% Prop1.6
+$\alpha,\alpha'\in[\Ex^n Y, Z]$, $\beta,\beta'\in[X, Y]$, ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+83,998,1001,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ (\alpha+\alpha')\circ \Ex^{n+1}\!\bigl([W, Y]\bigr) + [\Ex^{n+1}X, Z]\circ \Ex^{n+1}\gamma. \]","
+最後の関係式を示す. 
+\(
+\{\alpha+\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+\)
+は, 次の部分群の coset である. ","他方, 
+\(
+\{\alpha,\Ex^n\beta,\Ex^n\gamma\}_n + \{\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+\)
+は, 次の部分群の coset である.
+\[",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+84,1007,1011,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \alpha\circ E^{n+1}[W,X] + \alpha'\circ E^{n+1}[W,X] + [E^{n+1}X,Z]. \]","\]
+他方, 
+\(
+\{\alpha,\Ex^n\beta,\Ex^n\gamma\}_n + \{\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+\)
+は, 次の部分群の coset である.","この群は, 次の元を含んでいる.
+\[
+(\alpha + \alpha') \circ E^{n+1}[W,X]
++ [E^[n+1]X,Z] \circ E^{n+1}\gamma.
+\]
+よって,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+85,1013,1016,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ (\alpha + \alpha') \circ E^{n+1}[W,X] + [E^[n+1]X,Z] \circ E^{n+1}\gamma. \]","\[
+\alpha\circ E^{n+1}[W,X]
++ \alpha'\circ E^{n+1}[W,X]
++ [E^{n+1}X,Z].
+\]
+この群は, 次の元を含んでいる.","よって,
+\(
+\{\alpha+\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+\)
+と
+\(",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+86,1047,1053,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ H''(\phi(w,\psi_2(s, t))) := \begin{cases} H(\phi(w, \psi_2(2s, t))), & 0\le s\le \tfrac12,\\ H'(\phi(w, \psi_2(2s-1, t))), & \tfrac12\le s\le 1. \end{cases} \]","このとき,
+\(\sigma\) は,
+\(E^{n+1}W\) の反転写像と homotopic であり,\\
+任意の \(H_0:(E^{n+1}W,w_0)\to(Z,z_0)\) に対して,
+\([H_0\circ\sigma] = -[H_0]\) である.\\
+$H'':(E^{n+1}W,w_0)\to(Z,z_0)$ を, 次で定義する.","このとき, 
+\(H''\circ \sigma = 
+H\circ \sigma + H'\circ \sigma\)
+であることと,\\
+\(H''\) が
+\(a+a',\ b,\ c\) と, homotopy \(A_t + A'_t,\ B_t\) ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+87,1062,1065,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ [H] + [H'] = [H''] \in \todai[n]{\alpha + \alpha', E^n\beta, E^n\gamma} \]","H\circ \sigma + H'\circ \sigma\)
+であることと,\\
+\(H''\) が
+\(a+a',\ b,\ c\) と, homotopy \(A_t + A'_t,\ B_t\) 
+から, (1.14) により構成されることが, 直接的に確かめられる.\\
+したがって,","であり, 
+\([H'']\) は求める共通元である.
+以上より,
+Prop1.6 の最後の関係式が証明された.\\
+最初と2番目の関係式の証明は省略する.
+\qed",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+89,1100,1106,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ h(d_W(w, t)) \left\{ \begin{array}{ll} = d'_X(c(w), 1-2t), & 0 \leq t \leq \frac{1}{2}, \\ \in Y, & \frac{1}{2} \leq t \leq 1. \\ \end{array}\right. \]","$\alpha$ の \emph{extension} と呼ぶ.
+
+\(\widetilde{\gamma}\in[EW,Y\cup_\beta CX]\)
+に対して, \(\widetilde{\gamma}\) を表す写像 
+\(h:EW\to Y\cup_\beta CX\)
+が, 次の条件を満たすとする.","ここで, \(c:W\to X\) は \(\gamma\in[W,X]\) を表す写像とする.
+このとき, \(\widetilde{\gamma}\) を \(\gamma\) の \emph{coextension} と呼ぶ.\\
+extension $\overline\alpha$ が存在するための必要十分条件は,
+$\alpha\circ \beta=0$ であり,\\
+coextension $\widetilde{\gamma}$ が存在するための必要十分条件は,
+$\beta\circ\gamma=0$ である. ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+91,1121,1123,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \phi(d'_X(x,t),\psi_n(t_1,\ldots,t_n))\longleftrightarrow d'_Z(\phi'(x,\psi_n(t_1,\ldots,t_n)),t) \]","\begin{equation}\label{eq:cone-susp}
+% (1.16)
+\Ex^n(Y\cup_\beta CX)\ =\ 
+\Ex^nY\ \cup_{\beta'}\ C\Ex^n X,\quad \beta'=\Ex^n \beta.
+\end{equation}
+ここで, 対応は","により与えられ, $Z=\Ex^n X$ であり, \\
+$\phi, \ \phi'$ は, それぞれ, 
+$\Ex^n(Y\cup_\beta CX)=(Y\cup_\beta CX)\wedge S^n$ と,
+$\Ex^n X=X\wedge S^n$ を定義する写像である. 
+
+\begin{proposition}[]\label{prop:1-7}",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+93,1146,1152,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ h\bigl(d_W(w,t)\bigr)= \begin{cases} d'_X(c(w),1-2t), & 0\le t\le \tfrac12,\\ B_{2t-1}(w), & \tfrac12\le t\le 1. \end{cases} \]","
+Proof.\
+\(\beta\) を表す写像 \(b = f\) に対して, 
+\(B_t\) を \(b\circ c\) の null-homotopy とする.\\
+$h:EW\to Y\cup_f CX$ を,
+次で定める.","また, \(A_0 = a\circ E^n b = (g|_{E^n Y})\circ E^n f\)
+を満たす null-homotopy \(A_t\) に対して,\\
+\(\overline{\alpha}\) の代表 \(g\) が,
+\(g(d'_X(x, t)) = A_t(x)\) を満たす.\\
+Lem1.1 の証明における \(E^{n+1}W\) の同相写像 \(\sigma\) に対して,\\
+(1.14) により与えられた写像 \(H\) に対して,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+95,1192,1198,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ H_s\bigl(d(w,t)\bigr)= \begin{cases} d'_V\!\left(E^nB_{s(1-2t)}(w),\ (1-s)(1-2t)\right), & 0\le t\le \tfrac12,\\ A_{2t-1}\!\left(E^n c(w)\right), & \tfrac12\le t\le 1. \end{cases} \]","\end{proposition}
+
+Proof.\
+次の式で与えられる homotopy  
+\(H_s:(E^{n+1}W,w_0)\to (Z\cup_\alpha CE^n Y, z_0)\)
+を考える.","ここで, (1.14) と同じ記号を用い, \(V= E^n Y\) とする.\\
+(1.14) により与えられる写像 \(H\) に対して, 
+\(H_1 = -H\) であることと,\\
+\(H_0\) が 
+\(\widetilde{\beta}\circ E^{n+1}\gamma\)
+を表すことが, ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+97,1221,1224,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ p(d'_W(w, t)) = d_W(w, t),\qquad p(X) = x_0. \]","
+\begin{equation}\label{eq:p-def}
+% (1.17)
+p:X\cup_\gamma CW\to EW
+\end{equation}
+を, 次で与えらえる写像とする.","このとき,
+\(p\) は \(X\) を一点につぶす写像であり, 次が成り立つ.
+\begin{equation}\label{eq:p-star}
+% (1.18)
+p_*(\widetilde{\delta})=E\delta,
+\quad\text{for a coextension }\ ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+98,1227,1233,numbered_math,eq:p-star,UNRESOLVED_CONTEXT,,p_* 関係式が命題本文の一部か要確認,True,,UNVERIFIED,"\begin{equation}\label{eq:p-star} p_*(\widetilde{\delta})=E\delta, \quad\text{for a coextension }\ \widetilde{\delta}\in[EV, X\cup_\gamma CW] \text{ of }\delta\in[V, W]. \end{equation}","\[
+p(d'_W(w, t)) = d_W(w, t),\qquad
+p(X) = x_0.
+\]
+このとき,
+\(p\) は \(X\) を一点につぶす写像であり, 次が成り立つ.","
+\begin{proposition}\label{prop:1-9}
+% Prop1.9
+$\alpha,\beta,\gamma$ は, Prop$1.7$ と同様とする. \\
+$\overline\beta\in[X\cup_f CW, Y]$ を $\beta$ の \emph{extension} とする. 
+このとき,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+100,1264,1269,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ \begin{cases} G(x) = a(E^n b(x)), & x \in E^n X,\\ G(d'_V(w, t)) = a(E^n B_t(w)), & w \in E^n W = V,\ t \in I. \end{cases} \]","\end{proposition}
+
+Proof.\
+\(\alpha\circ E^n\overline{\beta}\) を表す写像 
+\(G:E^n(X\cup_\gamma CW)\to Z\) は,
+次の形で与えられる.","ここで,
+\(a,\ b,\ c\) はそれぞれ, \(\alpha,\ \beta,\ \gamma\) を表し,
+\(B_t\) は \(b\circ c\) の null-homotopy である.\\
+\(\alpha\circ E^n\beta = 0\) なので,
+制限 \(G|_{E^n X}\) は null-homotopic であり,\\
+homotopy extension theorem により, ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+101,1278,1281,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ G_0 = G,\qquad G_1(E^n X) = z_0. \]","\(B_t\) は \(b\circ c\) の null-homotopy である.\\
+\(\alpha\circ E^n\beta = 0\) なので,
+制限 \(G|_{E^n X}\) は null-homotopic であり,\\
+homotopy extension theorem により, 
+homotopy \(G_s:E^n(X\cup_\gamma CW) \to Z\)
+が存在し, 次を満たす.","このとき,
+\(H_1\circ E^n p = G_1\) を満たす写像 
+\(H_1 : E^{n+1}W \to Z\)
+が一意的に存在する.\\
+よって,
+\(H_1\) の類 \(\lambda\) は, ",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
+102,1298,1306,unnumbered_display,,NEEDS_FULL_TEXT_REVIEW,,構文抽出のみ。数学的役割は未判定,False,,UNVERIFIED,"\[ H_s\bigl(d_V(w,t)\bigr)= \begin{cases} A_{1-2t}\!\left(E^n c(w)\right), & 0\le t\le \dfrac{1-s}{2},\\ G_s\!\left(d'_V\!\left(w,\dfrac{2t-1+s}{1+s}\right)\right), & \dfrac{1-s}{2}\le t\le 1. \end{cases} \]","を満たす任意の元は, 
+この方法で与えられる写像 \(H_1\) により表される.\\
+\(A_t = G_t|_{E^n X}\) とするとき,
+\(A_t\) は \(a\circ E^n b\) の null-homotopy である.\\
+次で与えられる homotopy 
+$H_s:E^{n+1}W\to Z$ を考える.","このとき, 
+$H_s$ は $H_1$ と $H_0= (1.14) \text{ の }H$ の間の homotopy になる. \\
+よって,
+\(\lambda = [H_1] = [H]\) は,
+\(\todai[n]{\alpha,\Ex^n\beta,\Ex^n\gamma}\) に属する.\\
+上の議論の中で,",本文と前後の証明環境を読んで所属と独立性を判定,PENDING_MANUAL_REVIEW
