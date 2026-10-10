@@ -1,0 +1,11 @@
+﻿locator,key,role,component_order,line,status
+(5.1),sphere_connectivity_zero,GROUP_STRUCTURE,,116,no_explicit_rule_name_mapping
+(5.1),stable_negative_zero,GROUP_STRUCTURE,,124,no_explicit_rule_name_mapping
+(5.1),stable_zero_stem,GROUP_STRUCTURE,,140,no_explicit_rule_name_mapping
+Lemma 5.7,eta2_suspension_zero_statement,OTHER,,740,no_explicit_rule_name_mapping
+Proposition 3.1,barratt_hilton_formula,OTHER,,768,no_explicit_rule_name_mapping
+Proposition 5.1,eta2_hopf_relation,MAP_VALUE,2,168,no_explicit_rule_name_mapping
+Proposition 5.3,pi4_2_group_relation,GROUP_STRUCTURE,1,196,no_explicit_rule_name_mapping
+Proposition 5.8,pi6_2_group_relation,GROUP_STRUCTURE,1,788,no_explicit_rule_name_mapping
+Proposition 5.9,pi10_5_group_relation,GROUP_STRUCTURE,4,862,no_explicit_rule_name_mapping
+Proposition 5.9,pi7_2_group_relation,GROUP_STRUCTURE,1,838,no_explicit_rule_name_mapping
