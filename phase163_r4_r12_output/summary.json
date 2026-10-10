@@ -1,0 +1,62 @@
+{
+  "phase": "163 R4-R12",
+  "status": "TYPED_SOURCE_UNVERIFIED",
+  "registered_count": 8,
+  "counts_by_reference": {
+    "Proposition 5.1": 4,
+    "Proposition 5.3": 4
+  },
+  "proof_status": "PROOF_ANCESTRY_NOT_CHECKED",
+  "proof_links_unchanged": true,
+  "base_metadata_unchanged": true,
+  "evidence": [
+    {
+      "assertion_id": "boundary:Proposition 5.1:pi3_2_group_relation",
+      "source_description": "Existing typed aggregate TodaProp51FiniteDimensionalStatement.pi3_2_group_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.1:eta2_hopf_relation",
+      "source_description": "Existing typed aggregate TodaProp51FiniteDimensionalStatement.eta2_hopf_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.1:delta_iota5_relation",
+      "source_description": "Existing typed aggregate TodaProp51FiniteDimensionalStatement.delta_iota5_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.1:higher_eta_group_relation",
+      "source_description": "Existing typed aggregate TodaProp51FiniteDimensionalStatement.higher_eta_group_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.3:pi4_2_group_relation",
+      "source_description": "Existing typed aggregate TodaProp53FiniteDimensionalStatement.pi4_2_group_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.3:pi5_3_group_relation",
+      "source_description": "Existing typed aggregate TodaProp53FiniteDimensionalStatement.pi5_3_group_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.3:pi6_4_group_relation",
+      "source_description": "Existing typed aggregate TodaProp53FiniteDimensionalStatement.pi6_4_group_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.3:higher_eta_squared_group_relation",
+      "source_description": "Existing typed aggregate TodaProp53FiniteDimensionalStatement.higher_eta_squared_group_relation",
+      "verification_status": "SOURCE_UNVERIFIED",
+      "proof_status": "PROOF_ANCESTRY_NOT_CHECKED"
+    }
+  ]
+}
