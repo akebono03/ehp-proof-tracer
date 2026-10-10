@@ -1,0 +1,6 @@
+﻿review_field,original_pdf_evidence,tex_evidence,review_result
+definitions,"Printed p.5: I^n, S^n, psi_n and designated basepoints","TeX lines 75-106, 145-146",MATCH_SEMANTIC
+equations,"Printed p.5 (1.1), (1.2), psi_1 and psi_{n+1} restrictions",TeX lines 86-143; R4-R28 through R4-R30 corrections,MATCH_SEMANTIC
+named_statements,No named Lemma/Proposition/Theorem on printed p.5,TeX heading through homotopy groups,NOT_APPLICABLE
+proofs_and_prose,"Center and boundary map, great semicircle, basepoint-preserving homotopy","TeX lines 91-106, 145-160",MATCH_SEMANTIC
+notation_and_conditions,"Original pi(X -> Y), TeX [X,Y]; original f: (X,x0) -> (Y,y0); H(x0,t)=y0",TeX lines 147-160,MATCH_WITH_NOTATION_NORMALIZATION
