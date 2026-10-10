@@ -1,0 +1,64 @@
+{
+  "phase": "163 R4-R11 repair2",
+  "audit_status": "BLOCKED_BY_PROVENANCE",
+  "registration_status": {
+    "pi6_3_group_relation": "VERIFICATION_FAILED",
+    "pi7_4_group_relation": "VERIFICATION_FAILED",
+    "pi8_5_group_relation": "VERIFICATION_FAILED",
+    "higher_nu_group_relation": "VERIFICATION_FAILED"
+  },
+  "total_missing_occurrences": 14,
+  "distinct_missing_object_identities": 2,
+  "origins": [
+    {
+      "ordinal": 1,
+      "paths": [
+        "pi6_3_group_relation:root/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi6_3_group_relation:root/premise[3]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi7_4_group_relation:root/premise[1]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi7_4_group_relation:root/premise[1]/premise[3]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi8_5_group_relation:root/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi8_5_group_relation:root/premise[0]/premise[1]/premise[0]/premise[3]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi8_5_group_relation:root/premise[2]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "pi8_5_group_relation:root/premise[2]/premise[3]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "higher_nu_group_relation:root/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "higher_nu_group_relation:root/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[3]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "higher_nu_group_relation:root/premise[0]/premise[0]/premise[2]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+        "higher_nu_group_relation:root/premise[0]/premise[0]/premise[2]/premise[3]/premise[0]/premise[0]/premise[0]/premise[3]"
+      ],
+      "components": [
+        "pi6_3_group_relation",
+        "pi7_4_group_relation",
+        "pi8_5_group_relation",
+        "higher_nu_group_relation"
+      ],
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))))), rhs=Composition(left=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "inference_rule_name": "Toda Prop.2.2 right formula",
+      "proof_note": null,
+      "has_inference_rule": true,
+      "premise_count": 0,
+      "issue": "INFERENCE_PREMISES_MISSING"
+    },
+    {
+      "ordinal": 2,
+      "paths": [
+        "pi8_5_group_relation:root/premise[0]/premise[0]/premise[0]/premise[4]/premise[0]/premise[0]/premise[0]",
+        "higher_nu_group_relation:root/premise[0]/premise[0]/premise[0]/premise[0]/premise[0]/premise[4]/premise[0]/premise[0]/premise[0]"
+      ],
+      "components": [
+        "pi8_5_group_relation",
+        "higher_nu_group_relation"
+      ],
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=Multiple(coefficient=2, expression=Multiple(coefficient=2, expression=HomotopyElement(name='ν_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=3), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='ν', index=ScalarSymbol(name='n'), decoration=None)))), rhs=Multiple(coefficient=4, expression=HomotopyElement(name='ν_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=3), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='ν', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "inference_rule_name": "nested integer multiple",
+      "proof_note": null,
+      "has_inference_rule": true,
+      "premise_count": 0,
+      "issue": "INFERENCE_PREMISES_MISSING"
+    }
+  ],
+  "full_pytest_run": false,
+  "caveat": "Runtime identity sharing proves shared objects, not the generating source file; equal content can be separate objects."
+}

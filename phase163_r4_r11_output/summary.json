@@ -1,0 +1,82 @@
+{
+  "phase": "163 R4-R11 repair1",
+  "audit_status": "BLOCKED_BY_PROVENANCE",
+  "blocked_components": 4,
+  "components": [
+    {
+      "component": "pi6_3_group_relation",
+      "binding_status": "VERIFICATION_FAILED",
+      "binding_detail": "ValueError: Unjustified INFERENCE ancestry",
+      "integrity": "NOT_VERIFIED",
+      "scope": null,
+      "ancestry_findings": [
+        {
+          "path": "root/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+          "issue": "INFERENCE_PREMISES_MISSING",
+          "conclusion_type": "Relation",
+          "rule_name": "Toda Prop.2.2 right formula"
+        }
+      ]
+    },
+    {
+      "component": "pi7_4_group_relation",
+      "binding_status": "VERIFICATION_FAILED",
+      "binding_detail": "ValueError: Unjustified INFERENCE ancestry",
+      "integrity": "NOT_VERIFIED",
+      "scope": null,
+      "ancestry_findings": [
+        {
+          "path": "root/premise[1]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+          "issue": "INFERENCE_PREMISES_MISSING",
+          "conclusion_type": "Relation",
+          "rule_name": "Toda Prop.2.2 right formula"
+        }
+      ]
+    },
+    {
+      "component": "pi8_5_group_relation",
+      "binding_status": "VERIFICATION_FAILED",
+      "binding_detail": "ValueError: Unjustified INFERENCE ancestry",
+      "integrity": "NOT_VERIFIED",
+      "scope": null,
+      "ancestry_findings": [
+        {
+          "path": "root/premise[0]/premise[0]/premise[0]/premise[4]/premise[0]/premise[0]/premise[0]",
+          "issue": "INFERENCE_PREMISES_MISSING",
+          "conclusion_type": "Relation",
+          "rule_name": "nested integer multiple"
+        },
+        {
+          "path": "root/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+          "issue": "INFERENCE_PREMISES_MISSING",
+          "conclusion_type": "Relation",
+          "rule_name": "Toda Prop.2.2 right formula"
+        }
+      ]
+    },
+    {
+      "component": "higher_nu_group_relation",
+      "binding_status": "VERIFICATION_FAILED",
+      "binding_detail": "ValueError: Unjustified INFERENCE ancestry",
+      "integrity": "NOT_VERIFIED",
+      "scope": null,
+      "ancestry_findings": [
+        {
+          "path": "root/premise[0]/premise[0]/premise[0]/premise[0]/premise[0]/premise[4]/premise[0]/premise[0]/premise[0]",
+          "issue": "INFERENCE_PREMISES_MISSING",
+          "conclusion_type": "Relation",
+          "rule_name": "nested integer multiple"
+        },
+        {
+          "path": "root/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[1]/premise[0]/premise[0]/premise[0]/premise[3]",
+          "issue": "INFERENCE_PREMISES_MISSING",
+          "conclusion_type": "Relation",
+          "rule_name": "Toda Prop.2.2 right formula"
+        }
+      ]
+    }
+  ],
+  "source_independently_verified": false,
+  "full_pytest_run": false,
+  "note": "A structurally complete ancestry tree is necessary, not sufficient, for citation verification."
+}
