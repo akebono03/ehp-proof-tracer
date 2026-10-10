@@ -1,0 +1,6 @@
+﻿status,pdf_location,locator,tex_location,description
+CONFIRMED_CORRECTION,印刷6頁 / PDF 2頁,(1.3),TeX 210-220行,S^m\wedge S^n の次元、写像の定義、psi の添字を原本に合わせて修正
+NOT_YET_VERIFIED,印刷5頁 / PDF 1頁,(1.1)-(1.2),TeX 冒頭,式と定義の逐字照合が必要
+NOT_YET_VERIFIED,印刷6-7頁 / PDF 2-3頁,(1.4)-(1.8),TeX 本文,関係式、記号、次数条件の照合が必要
+NOT_YET_VERIFIED,印刷8-9頁 / PDF 4-5頁,"(1.9)-(1.14), Lemma 1.1",TeX 本文,式番号、lemma の式と証明の照合が必要
+NOT_YET_VERIFIED,印刷10-15頁 / PDF 6-11頁,"Proposition 1.2-1.9, (1.15)-(1.18)",TeX 本文,命題・仮定・証明中の式の照合が必要
