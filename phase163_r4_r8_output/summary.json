@@ -1,0 +1,19 @@
+{
+  "phase": "163 R4-R8",
+  "reference_locator": "(5.3)",
+  "component_key": "nu_prime_bracket_definition",
+  "defined_symbol": "ν′",
+  "expression": "nu_prime in {eta_3, 2 iota_4, eta_4}_1",
+  "typed_bracket_index": 1,
+  "status": "CHOICE_RECORDED_SOURCE_UNVERIFIED",
+  "bridge_status_unchanged": "metadata_only",
+  "source_rule": "given",
+  "choice_count": 1,
+  "notes": [
+    "A GIVEN source is a source-claimed selection, not a derived proof.",
+    "The typed choice catalog does not grant theorem availability or citation eligibility.",
+    "The original bridge remains metadata-only for this component.",
+    "No independent verification against the printed literature was performed.",
+    "R7 derived Hopf/double relations remain separate assertions."
+  ]
+}

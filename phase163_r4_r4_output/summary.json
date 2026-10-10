@@ -1,0 +1,34 @@
+{
+  "audit": "Phase 163 R4-R4 conservative role classification",
+  "counts": {
+    "total_sites": 403,
+    "role_candidates": {
+      "general_inference_candidate": 63,
+      "literature_mapping_candidate": 63,
+      "toda_rule_unclassified": 277
+    },
+    "toda_unmapped_literal_sites": 277,
+    "unlinked_components": 10,
+    "distinct_literal_rule_names": 398
+  },
+  "source_files": [
+    "toda_rules.py",
+    "hopf_rules.py",
+    "stable_rules.py",
+    "ehp_rules.py",
+    "scalar_rules.py",
+    "relation_rules.py",
+    "set_rules.py"
+  ],
+  "missing_sources": [],
+  "limitations": [
+    "Role labels are candidates only, not verified theorem identities.",
+    "A constructor site is not an instantiated rule or a unique statement.",
+    "A non-Toda rule is not necessarily generic mathematics.",
+    "Unlisted Toda rules can be fixed statements, specializations, or helper rules.",
+    "No automatic conversion into Unified Statement Registry is performed.",
+    "Definitions and runtime registrations are not exhaustively audited.",
+    "Publication and proof-completion order remain unknown.",
+    "No proof search, renderer, or existing API is modified."
+  ]
+}

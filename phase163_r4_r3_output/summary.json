@@ -1,0 +1,33 @@
+{
+  "scope": [
+    "ehp_rules.py",
+    "hopf_rules.py",
+    "relation_rules.py",
+    "scalar_rules.py",
+    "set_rules.py",
+    "stable_rules.py",
+    "toda_rules.py"
+  ],
+  "counts": {
+    "boundary_components": 67,
+    "boundary_rule_mapping_names": 72,
+    "rule_constructor_sites": 403,
+    "unlinked_boundary_components": 10,
+    "mapping_status": {
+      "aggregate_or_no_component": 5,
+      "candidate_mapped_metadata_only": 67
+    },
+    "site_status": {
+      "listed_in_boundary_mapping": 63,
+      "not_listed_in_boundary_mapping": 340
+    }
+  },
+  "limitations": [
+    "Only literal InferenceRule names and literal mapping dictionaries are inspected.",
+    "Constructor sites are not instantiated runtime rules or unique theorems.",
+    "A boundary mapping is not verified mathematical Statement equality.",
+    "Definitions, indirect registrations, dynamic names and proof positions remain unverified.",
+    "No citation availability or semantic equivalence is inferred.",
+    "Existing registries, proof search and renderer are untouched."
+  ]
+}

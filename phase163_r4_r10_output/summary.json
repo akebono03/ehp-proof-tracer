@@ -1,0 +1,12 @@
+{
+  "phase": "163 R4-R10",
+  "assertion_id": "boundary:Proposition 5.6:pi5_2_group_relation",
+  "status": "GENERATOR_PRESERVED",
+  "registration": "STRUCTURED",
+  "order": 2,
+  "generator_structure": "Composition(eta_2, Composition(eta_3, eta_4))",
+  "canonical_latex": "\\pi_5^2=\\mathbb{Z}/2\\{\\eta_2^3\\}",
+  "note": "Existing registered mathematical content is preserved; no production renderer or registration rewrite.",
+  "literature_source_independently_verified": false,
+  "full_pytest_run": false
+}

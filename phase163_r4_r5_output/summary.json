@@ -1,0 +1,23 @@
+{
+  "phase": "163 R4-R5",
+  "counts": {
+    "rule_constructor_sites": 403,
+    "toda_unmapped_sites": 277,
+    "unlinked_boundary_components": 10,
+    "triage": {
+      "definition_candidate": 11,
+      "explicit_reference_candidate": 3,
+      "specialization_candidate": 30,
+      "structured_rule_unresolved": 169,
+      "unresolved_rule": 64
+    }
+  },
+  "claims": [
+    "candidate triage only",
+    "no verified mathematical identity",
+    "no registry migration",
+    "no inference permission granted"
+  ],
+  "source": "live project sources at execution time",
+  "full_pytest": "not_run"
+}

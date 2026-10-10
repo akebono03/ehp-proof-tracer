@@ -1,0 +1,15 @@
+{
+  "phase": "163 R4-R12 repair2",
+  "status": "TYPED_SOURCE_UNVERIFIED",
+  "new_independent_minimum": "stable-base:1-stem:pi4_3_group_relation",
+  "existing_independent_minimum": "boundary:Proposition 5.3:pi6_4_group_relation",
+  "generic_1_scope": "n >= 3",
+  "generic_2_scope": "n >= 5",
+  "1_stem_relation": "WITHIN_GENERAL_SCOPE_N_EQUALS_3",
+  "2_stem_relation": "INDEPENDENT_MINIMUM_N_EQUALS_4_OUTSIDE_GENERAL_N_GE_5",
+  "source_verification": "SOURCE_UNVERIFIED",
+  "proof_ancestry": "PROOF_ANCESTRY_NOT_CHECKED",
+  "base_1_generator": "HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))",
+  "base_2_generator": "Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))",
+  "proof_links_count": 0
+}

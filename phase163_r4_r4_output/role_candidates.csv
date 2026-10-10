@@ -1,0 +1,404 @@
+﻿file,line,rule_name,mapping_status,role_candidate,evidence,manual_review_required
+ehp_rules.py,122,EHP exactness from image and kernel,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+ehp_rules.py,155,EHP exactness transfers image structure to kernel,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+ehp_rules.py,204,EHP exactness transfers kernel structure to image,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+ehp_rules.py,250,EHP exactness implies zero composition,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+ehp_rules.py,289,EHP zero composition implies zero relation,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+ehp_rules.py,76,EHP exactness from image and kernel,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,89,Toda Prop.2.2 right formula,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+hopf_rules.py,137,Toda Prop.2.2 left formula,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,185,generalized Hopf invariant to EHP H equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,227,EHP H preserves equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,257,generalized Hopf invariant enables composition law,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,299,generalized Hopf invariant enables left composition law,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,357,generalized Hopf left composition formula,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,409,generalized Hopf composition formula,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,474,generalized Hopf invariant value is zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+hopf_rules.py,540,EHP E-H zero composition implies suspended Hopf zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,22,additive inverse implies zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,46,sum commutativity,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,71,sum associativity,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,100,double equals repeated sum,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,152,order implies zero multiple,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,191,zero equality implies zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,248,composition equality to zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,300,zero composition equality implies zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,365,zero composition reverse equality implies zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,408,first iterated suspension equals suspension,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,440,suspension preserves equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,518,suspension composition functoriality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,549,suspension preserves zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,617,suspension preserves zero multiple,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,651,equality preserved under right composition,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,698,equality preserved under left composition,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,745,equality preserved under multiple,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,804,nested integer multiple,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,839,equality symmetry,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+relation_rules.py,878,equality transitivity,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+scalar_rules.py,70,Odd scalar implies congruence to one modulo two,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+scalar_rules.py,112,Even scalar implies congruence to zero modulo two,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+scalar_rules.py,145,Even exponent evaluates minus-one power to one,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+scalar_rules.py,178,Odd exponent evaluates minus-one power to minus one,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+scalar_rules.py,237,Evaluated symbolic sign applies to multiple,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+scalar_rules.py,269,Scalar congruent to one modulo two preserves order-two element,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,128,modulo implies difference membership,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,171,modulo implies coset equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,244,coset equality implies modulo,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,313,difference membership implies modulo,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,364,equality implies modulo,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,408,zero implies modulo,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,459,kernel membership implies mapped zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,509,mapped zero implies kernel membership,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,563,exactness implies subgroup equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,595,membership subset propagation,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,674,subgroup equality membership propagation,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,744,subgroup equality modulo propagation,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,774,subgroup equality symmetry,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,808,subgroup equality transitivity,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,849,subset transitivity,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,886,subgroup equality implies subset,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+set_rules.py,918,mutual subset implies subgroup equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+stable_rules.py,199,Freudenthal stable range implies suspension isomorphism,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+stable_rules.py,243,Freudenthal boundary range implies suspension epimorphism,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+stable_rules.py,279,Suspension isomorphism implies injectivity,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+stable_rules.py,332,Suspension injectivity reflects equality,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+stable_rules.py,393,Suspension injectivity reflects zero,not_listed_in_boundary_mapping,general_inference_candidate,non-Toda rule name absent from boundary mapping,yes
+toda_rules.py,240,Toda (2.11) ordinary EHP applicability,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,288,Toda (2.11) ordinary EHP exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,494,Serre (4.2) finite homotopy group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,650,Toda Lemma 5.7 double suspension composition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,850,Toda Lemma 5.7 double suspension zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,1054,Toda Lemma 4.5 n=3 suspension zero reflection,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,1176,Toda (4.5) stable 2-primary identification,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,1334,Toda Proposition 5.15 stable sigma definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,1626,Phase 78 stable G_0 through G_7 integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,1878,Toda Proposition 5.15 stable G_7 2-primary group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,2035,Toda Lemma 5.7 nu-prime hypothesis,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,2275,Toda Lemma 5.7 pi_6^2 eta_2 nu-prime,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,2371,Toda Lemma 5.7 concrete Delta-E exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,2529,Toda Lemma 5.7 Delta surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,2740,Toda Lemma 5.7 Delta nu_5 generator,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,2843,Toda Proposition 5.8 concrete E-H exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,3004,Toda Proposition 5.8 pi_7^3 Hopf injective,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,3302,Toda Proposition 5.8 pi_7^3 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,3543,Toda Proposition 5.8 E nu-prime eta_6 bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,3932,Toda Proposition 5.8 pi_8^4 decomposition,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,4143,Toda Proposition 2.5 Delta eta_9 composition,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,4409,Toda Proposition 5.8 Delta eta_9 value,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,4545,Toda Proposition 5.8 pi_9^5 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,4753,Toda Proposition 5.8 pi_9^9 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,4883,Toda Proposition 5.8 pi_9^5 Hopf zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,5005,Toda Proposition 5.8 pi_9^5 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,5250,Toda Proposition 5.8 E nu_4 eta_7 bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,5559,Toda Proposition 5.8 pi_9^5 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,5744,Toda Proposition 5.8 Hopf value of eta_3 nu_4,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,5944,Toda Equation 5.9 eta_3 nu_4,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,6141,Toda Proposition 5.8 eta_5 nu_6 bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,6322,Toda Proposition 5.8 eta_5 nu_6 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,6517,Toda Proposition 5.8 higher eta nu zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,6709,Toda Proposition 5.8 eta_6 nu_7 zero specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,6950,Toda Proposition 3.1 nu_6 eta_9 zero consequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,7148,Toda Proposition 5.8 higher nu eta zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,7273,Toda Proposition 5.15 pi_12^5 concrete EHP exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,7581,Toda Proposition 5.15 pi_12^5 Hopf isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,7784,Toda Proposition 5.15 pi_12^5 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,7977,Toda Proposition 5.15 pi_9^2 zero from Toda (5.2),listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,8092,Toda Proposition 5.15 pi_10^3 concrete EHP exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,8190,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,8328,Toda Proposition 5.15 pi_10^5 to pi_8^2 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,8457,Toda Proposition 5.15 pi_10^3 zero,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,8680,Toda Proposition 5.15 pi_11^4 zero,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,8939,Toda Lemma 5.12 shifted nu eta zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,9025,Toda Proposition 5.8 pi_10^6 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,9121,Toda Proposition 5.8 pi_10^6 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,9310,Toda Proposition 5.8 pi_10^6 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,9484,Toda Proposition 5.8 higher four-stem zero transport,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,9618,Toda Lemma 5.2 Delta inverse of twice eta_2,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,10045,Toda Lemma 5.12 first indeterminacy zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,10249,Toda Lemma 5.12 second indeterminacy higher zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,10480,Toda Lemma 5.12 second indeterminacy n=6 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,10718,Toda Lemma 5.12 second indeterminacy zero integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,11272,Toda Lemma 5.12 bracket singleton mod two,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,11747,Toda Lemma 5.12 coefficient stability,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,11938,Toda Lemma 5.12 Lemma 5.5 n=8 inclusion,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,12321,Toda Lemma 5.12 nonzero anchor at n=8,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,12862,Toda Lemma 5.12 final integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,13511,Toda Proposition 5.8 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,13623,Toda Equation (5.10) concrete Delta-E exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,13723,Toda Equation (5.10) Delta surjective prerequisite,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,13954,Toda Equation (5.10) Delta iota_11,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,14303,Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,14562,Toda Proposition 5.9 pi_7^2 suspension zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,14655,Toda Proposition 5.9 concrete E-H exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,14796,Toda Proposition 5.9 pi_8^3 Hopf injective,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,14893,Toda Proposition 5.9 concrete H-Delta exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,15063,Toda Proposition 5.9 Delta nu_5 kernel,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,15433,Toda Proposition 5.9 nu-prime eta_6 squared Hopf value,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,15703,Toda Proposition 5.9 pi_8^3 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,16064,Toda Proposition 5.9 E nu-prime eta_6 squared bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,16491,Toda Proposition 5.9 pi_9^4 decomposition,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,16834,Toda Proposition 5.9 Delta eta_9 squared,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,17145,Toda (5.12) n=4 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,17372,Toda (5.12) n=5 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,17525,Toda (5.12) n=6 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,17666,Toda (5.12) three-case Delta injectivity integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,17923,Toda Proposition 5.9 pi_10^9 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,18034,Toda Proposition 5.9 pi_10^5 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,18135,Toda Proposition 5.9 pi_10^5 Hopf zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,18241,Toda Proposition 5.9 pi_10^5 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,18317,Toda Proposition 5.9 pi_10^5 Delta-E exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,18624,Toda Proposition 5.9 E nu_4 eta_7 squared bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,19106,Toda Proposition 5.9 pi_10^5 finite cyclic,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,19410,Toda Proposition 5.9 E nu_5 eta_8 squared zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,19519,Toda Proposition 5.9 pi_11^6 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,19652,Toda Proposition 5.9 pi_11^6 Hopf injective,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,19836,Toda Proposition 5.9 pi_11^11 Delta kernel,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,19970,Toda Proposition 5.9 Delta iota_13 Hopf value,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,20195,Toda Proposition 5.9 pi_11^6 free cyclic,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,20316,Toda Proposition 5.9 pi_12^7 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,20447,Toda Proposition 5.9 pi_13^13 Delta surjective,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,20559,Toda Proposition 5.9 pi_12^7 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,20671,Toda Proposition 5.9 pi_12^7 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,20836,Toda Proposition 5.9 higher five-stem zero transport,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,21102,Toda Proposition 5.9 Delta eta_11,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,21912,Toda Proposition 5.9 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,22315,Toda Proposition 5.11 pi_8^2 from Proposition 5.9 and Toda (5.2),listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,22541,Toda Proposition 5.11 E pi_8^2 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,22743,Toda Proposition 5.11 E pi_7^2 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,22859,Toda Proposition 5.11 pi_9^3 concrete EHP exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,22996,Toda Proposition 5.11 pi_10^7 nu_7 specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,23242,Toda Proposition 5.11 pi_10^4 generated by nu_4 squared,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,23554,Toda Equation 5.13 Delta nu_9,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,24109,Toda Equation 5.13 Delta eta_11 squared zero,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,24913,Toda Equation 5.13 Delta eta_13 zero,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,25107,Toda Proposition 5.11 pi_12^9 nu_9 specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,25222,Toda Proposition 5.11 pi_11^5 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,25319,Toda Proposition 5.11 pi_11^5 Hopf zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,25421,Toda Proposition 5.11 pi_11^5 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,25686,Toda Proposition 5.11 pi_11^5 nu_5 squared,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,25913,Toda Proposition 5.11 pi_13^11 eta_11 squared,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26016,Toda Proposition 5.11 pi_12^6 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26231,Toda Proposition 5.11 pi_12^6 suspension injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26347,Toda Proposition 5.11 pi_12^6 Hopf zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26605,Toda Proposition 5.11 pi_12^6 suspension injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26727,Toda Proposition 5.11 pi_12^6 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26891,Toda Proposition 5.11 pi_14^13 eta_13,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,26994,Toda Proposition 5.11 pi_13^7 concrete exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,27182,Toda Proposition 5.11 pi_13^7 suspension injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,27298,Toda Proposition 5.11 pi_13^7 Hopf zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,27399,Toda Proposition 5.11 pi_13^7 suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,27477,Toda Proposition 5.11 pi_13^7 suspension isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,27641,Toda Proposition 5.11 pi_13^7 nu_7 squared,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,27800,Toda Proposition 5.11 pi_14^8 Proposition 4.4 zero-second-summand suspension isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,27980,Toda Proposition 5.11 pi_14^8 nu_8 squared,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,28266,Toda Proposition 5.11 higher six-stem nu squared transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,28588,Toda Proposition 5.11 nu-squared finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,28710,Toda Proposition 5.11 pi_12^6 suspension isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,28874,Toda Proposition 5.11 pi_12^6 nu_6 squared,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,28996,Toda Proposition 5.11 zero E implies H injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,29112,Toda Proposition 5.11 zero E implies Delta surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,29243,Toda Proposition 5.11 pi_9^5 to pi_7^2 Delta injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,29373,Toda Proposition 5.11 pi_9^3 zero,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,29717,Toda Proposition 5.11 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,29994,Toda Proposition 5.1 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,30140,Toda Proposition 5.1 n=3 Delta injectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,30257,Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,30379,Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,30549,Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,30673,Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,30795,Toda Proposition 5.3 n=3 Delta zero implies suspension injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,30875,Toda Proposition 5.3 n=3 suspension isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,31063,Toda Proposition 5.3 n=3 eta-square suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,31250,Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,31352,Toda Proposition 5.3 n=4 Phase 48 injectivity bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,31464,Toda Proposition 5.3 n=4 zero-right suspension surjectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,31547,Toda Proposition 5.3 n=4 suspension isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,31750,Toda Proposition 5.3 n=4 eta-square suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,31937,Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,32191,Toda Proposition 5.3 eta_4 squared stable transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,32399,Toda Proposition 5.3 higher eta-squared bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,32536,Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,32852,Toda Proposition 5.3 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,33100,Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,33383,Toda 5.2 eta_2 composition isomorphism,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,33637,Toda 5.2 pi_4^2 finite-cyclic transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,33896,Toda Proposition 5.6 pi_5^2 eta_2 cube,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,34199,Toda Equation 5.7 nu-prime eta_6 Hopf value,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,34383,Toda Proposition 5.6 eta_3 cube order two,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,34529,Toda Proposition 5.6 nu-prime order four,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,34778,Toda Proposition 5.6 pi_6^3 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,35104,Toda Proposition 5.6 pi_7^4 decomposition,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,35312,Toda Proposition 5.6 pi_8^5 quotient by E^2 pi_6^3,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,35494,Toda Proposition 5.6 E^2 pi_6^3 injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,35646,Toda Proposition 5.6 nu_5 double relation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,35761,Toda Proposition 5.6 E^2 nu-prime order four,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,35886,Toda Proposition 5.6 nu_5 order eight,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,36060,Toda Proposition 5.6 pi_8^5 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,36291,Toda Proposition 5.6 nu_5 stable transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,36464,Toda Proposition 5.6 higher nu-family bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,36622,Toda Proposition 5.6 higher nu finite-cyclic generator bridge,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,36864,Toda Proposition 5.6 pi_7^3 Hopf surjective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,36988,Toda Proposition 5.6 pi_7^5 Delta zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,37109,Toda Proposition 5.6 pi_5^2 suspension injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,37188,Toda pi_(i-1)^1 zero for i at least 3,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,37394,Toda Proposition 4.4 eta_2 second-summand restriction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,37537,Toda Proposition 4.4 first-summand restriction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,37648,Toda Proposition 4.4 suspension injectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,37877,Toda Proposition 4.4 decomposition isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,38125,Toda Proposition 4.4 eta_2 n=2 specialization,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,38313,Toda 4.5 stable-range iterated suspension isomorphism,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,38521,Toda 4.5 pi_4^3 finite-cyclic transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,38625,Toda Proposition 4.2 E-H exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,38734,Toda Proposition 4.2 H-Delta exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,38838,Toda Proposition 4.2 Delta-E exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,38877,Toda Proposition 4.2 exactness to generic exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,38958,Toda EHP exactness zero-left Hopf injectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39002,Toda suspension isomorphism implies injectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39093,Toda EHP exactness injective-right Delta zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39191,Toda EHP exactness zero-Delta Hopf surjectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39255,Toda Hopf invariant injective and surjective implies isomorphism,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39388,Toda pi_3^2 define eta_2 as unique Hopf preimage,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39497,Toda pi_3^2 eta_2 Hopf relation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39636,Toda pi_3^2 free cyclic generator transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39705,Toda Lemma 4.1 odd case,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39834,Toda Lemma 4.1 even Whitehead nonzero case,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,39954,Toda Lemma 4.1 even Whitehead zero case,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,40070,Toda Lemma 4.1 even zero alpha Hopf condition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,40188,Toda Lemma 4.1 even zero alpha suspension primary condition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,40366,Toda Proposition 5.1 stable eta definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,40622,Toda Proposition 5.3 stable eta squared definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,40805,Toda Proposition 5.6 stable nu definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41057,Toda Proposition 5.11 stable nu squared definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41170,Toda (4.3) pi_3^3 diagonal ordinary bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41260,Toda (3.3) stable ordinary G_0 identification,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41411,Toda (3.3) stable identity generator definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41601,Toda (3.3) stable G_0 free cyclic group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41729,Toda Proposition 5.8 stable G_4 2-primary zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,41851,Toda Proposition 5.9 stable G_5 2-primary zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,42068,Toda Proposition 5.11 stable G_6 2-primary group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,42326,Toda Proposition 5.6 stable G_3 2-primary group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,42561,Toda Proposition 5.3 stable G_2 2-primary group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,42807,Toda Proposition 5.1 stable G_1 2-primary group,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,43034,Toda Lemma 5.13 sigma triple-prime definition,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,43267,Toda (5.14) Delta eta_13 squared zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,43385,Toda (5.14) second short exact concrete EHP exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,43763,Toda (5.14) second short exact sequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,44043,Toda (5.14) Delta nu_11 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,44264,Toda (5.14) first short exact sequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,44680,Toda (5.14) Delta nu_11 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,44810,Toda (5.14) first short exact concrete EHP exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,45197,Toda (5.14) first short exact sequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,45449,Toda (4.8) pi_16^9 order sixteen and E4 injective,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,45748,Toda Proposition 5.15 pi_16^9 generated by sigma_9,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,46013,Toda (4.5) sigma_9 finite cyclic transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,46535,Toda Theorem 3.6 Lemma 5.14 sigma double-prime bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,46967,Toda Lemma 5.14 sigma double-prime branch,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,47323,Toda Lemma 5.14 sigma-prime branch,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,47684,Toda Proposition 5.15 pi_14^7 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,48003,Toda Proposition 5.15 pi_13^6 finite cyclic,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,48356,Toda Lemma 5.14 sigma_8 branch,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,48504,Toda Proposition 5.15 sigma_8 Proposition 4.4 specialization premises,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,48693,Toda Proposition 5.15 sigma_8 n=8 Proposition 4.4 decomposition specialization,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,49014,Toda Proposition 5.15 sigma_8 transported decomposition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,49325,Toda Proposition 5.15 pi_15^8 final decomposition,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,49711,Toda (5.16) sigma_8 suspension kernel,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,49822,Toda (5.16) concrete Delta-E exactness,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,49969,Toda (5.16) exactness kernel to Delta image,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,50243,Toda (5.16) Delta iota_17 generator,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,50925,Toda Theorem 3.6 Lemma 5.16 first bracket term,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,51240,Toda Theorem 3.6 Lemma 5.16 second bracket term,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,51440,Toda Theorem 3.6 Lemma 5.16 bracket-sum containment,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,51713,Toda Lemma 5.16 sigma_8 iterated suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,51866,Toda Lemma 5.16 sigma_(t+8) definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,52113,Toda Lemma 5.16 scaled composition bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,52313,Toda Lemma 5.16 scaled bracket-sum consequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,52854,Toda Proposition 5.15 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,53086,Toda Lemma 5.10 eta_8 two iota_9 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,53338,Toda Lemma 5.10 Proposition 2.6 indexed Hopf consequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,53456,Toda Lemma 5.10 Toda (1.15) n=1 m=0 split,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,53529,Toda Lemma 5.10 indexed-to-ordinary Hopf transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,53676,Toda Lemma 5.10 corrected ordinary E-H exactness core,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,53831,Toda Lemma 5.10 corrected ordinary E-H exactness core,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,53986,Toda Lemma 5.10 corrected ordinary modulo integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,54211,Toda Lemma 5.10 nu_6 ordinary composition primary reduction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,54442,Toda Lemma 5.10 nu_6 ordinary composition zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,54594,Toda Lemma 5.10 eta_9 two iota_10 zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,54758,Toda Lemma 5.10 ordinary indeterminacy double,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55064,Toda Lemma 5.10 indeterminacy reduction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55220,Toda Lemma 5.10 suspension image in double subgroup,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55306,Toda Lemma 5.10 ordinary suspension image finite,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55422,Toda Lemma 5.10 ordinary suspension image two-primary zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55545,Toda Lemma 5.10 ordinary suspension image in double subgroup,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55708,Toda Lemma 5.10 modulo indeterminacy integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,55940,Toda Lemma 5.10 Hopf bracket consequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,56141,Toda Lemma 5.10 E-H exactness core,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,56461,Toda (5.6) nu_4 decomposition integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,56604,Toda (5.6) nu_4 Proposition 4.4 specialization premises,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,56844,Toda Proposition 4.4 nu_4 n=4 decomposition specialization,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,57031,Toda (5.6) nu_4 decomposition isomorphism semantics,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,57394,Toda Proposition 5.6 finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,57584,Toda Equation 5.8 Delta iota_9 nu-expression,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,57757,Toda Equation 5.8 Whitehead-square nu-expression,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,57904,Toda Equation 5.8 Delta iota_9 Whitehead-square,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,58141,Toda Equation 5.8 integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,58451,Toda 5.5 nu-family finite-dimensional integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,58784,Toda Lemma 5.4 integration,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,58895,Toda Lemma 5.4 Whitehead correction data,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59087,Toda Lemma 5.4 piecewise nu_4 construction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59155,Toda Lemma 5.4 nu_4 membership,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59235,Toda Lemma 5.4 nu_4 Hopf correction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59322,Toda Lemma 5.4 nu_4 double suspension,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59458,Toda Lemma 5.4 pi_6^5 finite-cyclic specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59657,Toda 4.8 Lemma 5.4 Hopf odd multiple,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,59819,Toda Lemma 5.4 eta_6 twice zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,60036,Toda Theorem 3.6 Lemma 5.4 specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,60288,Toda 5.4 n=5 t=3 specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,60391,Toda Lemma 5.4 double suspension up to sign,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,60584,Toda 5.4 t>=1 indeterminacy generated by eta triple composition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,60819,Toda 5.4 nu-prime higher triple eta transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,60919,Toda 5.4 indeterminacy double nu-prime generator bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,61222,Toda 5.4 nu-prime suspended bracket inclusion,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,61330,Toda 5.4 t>=1 up-to-sign integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,61431,Toda 3.2 Phase 60 suspension surjectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,61662,Toda 5.4 t=0 bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,61968,Toda Lemma 5.5 alpha-star bracket inclusion,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,62143,Toda Lemma 5.5 nu_4 suspension correction,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,62316,Toda Lemma 5.5 alpha-star to nu_4 composition bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,62672,Toda Lemma 5.5 integration,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,62871,Toda 5.3 nu-prime Lemma 5.2 bracket specialization,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,62980,Toda 5.3 eta_3 twice zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,63093,Toda 5.3 nu-prime Lemma 5.2 Hopf specialization,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,63231,Toda 5.3 nu-prime Lemma 5.2 double specialization,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,63348,Toda 5.3 nu-prime Lemma 5.2 membership specialization,listed_in_boundary_mapping,literature_mapping_candidate,rule name explicitly listed in boundary mapping,yes
+toda_rules.py,63531,Toda 5.3 eta_5 iterated suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,63703,Toda 5.3 eta_4 suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,63927,Toda Proposition 1.4 Lemma 5.2 bracket transformation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,64125,Toda Proposition 1.3 Lemma 5.2 bracket transformation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,64324,Toda Corollary 3.7 Lemma 5.2 bracket representative,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,64464,Toda Proposition 5.1 eta_4 order-two consequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,64629,Toda (2.1) Lemma 5.2 suspended indeterminacy zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,64817,Toda Lemma 4.5 n=4 indeterminacy zero reflection,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,64965,Toda Lemma 5.2 Proposition 2.6 first zero premise,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,65139,Toda Lemma 5.2 Hopf invariant value,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,65295,Toda Lemma 5.2 beta homotopy-group membership,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,65647,Toda Lemma 5.2 twice beta value,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,65748,Toda Lemma 5.2 Delta E^2 alpha zero,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,65979,Toda Proposition 2.6 Lemma 5.2 Hopf bracket consequence,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66047,Toda bracket membership from theorem,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66115,Indexed Toda membership theorem bridge with structural and typing guards,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66189,Toda bracket defined by zero compositions,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66278,Indexed Toda bracket index 1 defined by base zero compositions,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66373,Toda Delta iota_5 Whitehead-square relation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66524,Toda Delta iota_5 twice eta_2 up-to-sign bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66695,Toda pi_3^2 Whitehead square equals twice eta_2 up to sign,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,66872,Toda pi_4^3 Delta image generated by twice eta_2,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,67007,Toda pi_4^3 exactness Delta image equals E kernel,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,67118,Toda pi_4^3 E-H exactness zero-right suspension surjectivity,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,67282,Toda pi_4^3 finite cyclic quotient calculation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,67634,Toda 5.5 nu-family double suspension transport,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,67920,Toda Lemma 5.14 sigma-family definition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,68040,Toda eta_3 notation suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,68198,Toda higher eta-family iterated suspension bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,68383,Toda higher eta-family finite-cyclic generator bridge,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,68522,Toda pi_4^3 eta_3 generator notation,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
+toda_rules.py,68601,Toda Lemma 4.5 n=4 two-iota_3 composition,not_listed_in_boundary_mapping,toda_rule_unclassified,Toda rule name absent from boundary mapping,yes
