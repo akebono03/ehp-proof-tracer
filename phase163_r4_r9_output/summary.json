@@ -1,0 +1,15 @@
+{
+  "phase": "163 R4-R9",
+  "declarations": 1,
+  "kind": "choice",
+  "reference_id": "toda:(5.3)",
+  "assertion_id": "boundary:(5.3):nu_prime_bracket_definition",
+  "defined_symbol": "ν′",
+  "index": 1,
+  "coefficient": 2,
+  "source_verification": "source_unverified",
+  "original_bridge_status": "metadata_only",
+  "definition_fixture_only": true,
+  "citation_eligibility_granted": false,
+  "full_pytest": "not_run"
+}
