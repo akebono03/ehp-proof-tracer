@@ -1,0 +1,12 @@
+﻿pdf_page,printed_page,item,before_tex,after_tex,source_evidence,status
+1,5,coordinate_sign,\(s_{i}\geq0\ (s_{i}\leq0)\),\(s_{i+1}\geq0\ (s_{i+1}\leq0)\),"Original PDF p.1, printed p.5, after (1.2)",CORRECTED
+1,5,coordinate_reflection,"\(s_{i}\)
+は
+\(-s_{i}\)","\(s_{i+1}\)
+は
+\(-s_{i+1}\)","Original PDF p.1, printed p.5, after (1.2)",CORRECTED
+1,5,coordinate_exchange,"\(s_{i}\)
+と
+\(s_{j}\)","\(s_{i+1}\)
+と
+\(s_{j+1}\)","Original PDF p.1, printed p.5, after (1.2)",CORRECTED

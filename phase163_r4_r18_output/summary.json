@@ -1,0 +1,11 @@
+{
+  "phase": "163 R4-R18",
+  "named_statements_preserved": 9,
+  "new_explicit_items_reserved": 15,
+  "total_records": 24,
+  "printed_original_verified": 0,
+  "legacy_equivalence_verified": 0,
+  "proof_search_connected": 0,
+  "full_chapter_exhaustive": false,
+  "note": "More prose and equations need semantic review before completeness can be claimed."
+}

@@ -1,0 +1,15 @@
+{
+  "phase": "163 R4-R17",
+  "named_statements_registered": 9,
+  "statement_ids_reserved": 9,
+  "transcription_reviewed_against_supplied_tex": 9,
+  "original_publication_verified": 0,
+  "legacy_equivalence_verified": 0,
+  "search_connected": 0,
+  "unreviewed_scope": [
+    "prose definitions",
+    "inline mathematical claims",
+    "standalone equations",
+    "components within named statements"
+  ]
+}

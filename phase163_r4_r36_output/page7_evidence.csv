@@ -1,0 +1,10 @@
+﻿topic,original_position,comparison,status,notes
+boundary_p6_p7,printed p.7 top,(1.4) gives (1.5),MATCHED_MATHEMATICAL_CONTENT,Connection to preceding page is retained
+equation_1_5,printed p.7 (1.5),Associativity and composition laws for reduced join,MATCHED_MATHEMATICAL_CONTENT,Original # represented as wedge
+suspension_objects,printed p.7 after (1.5),E^n X = X # S^n and iterated suspension,MATCHED_MATHEMATICAL_CONTENT,Original # represented as wedge
+equation_1_6,printed p.7 (1.6),"Homotopy, iterated suspension, composition",MATCHED_MATHEMATICAL_CONTENT,Check boundaries and conditions before final certification
+d_x_source_conflict,printed p.7 d_X definition,"PDF prints phi_{X,S^n} with psi_1, whereas corrected TeX uses phi_{X,S^1}",ORIGINAL_MATH_CONFLICT,Printed n may itself be a source typo: no silent replacement
+suspension_map,printed p.7 after d_X,"Ef(d_X(x,t))=d_Y(f(x),t)",MATCHED_MATHEMATICAL_CONTENT,Page not fully certified
+addition_negation,printed p.7 below d_X,Two-piece f+g and reversal -f,MATCHED_MATHEMATICAL_CONTENT,Original t interval notation retained semantically
+equation_1_7,printed p.7 (1.7),Induced homomorphisms and abelian n-fold suspension for n>=2,MATCHED_MATHEMATICAL_CONTENT,"Original pi(X->Y) represented as [X,Y]"
+equation_1_8,printed p.7 (1.8),d_n:S^n x I^1 -> S^(n+1) and psi_(n+1) formula,MATCHED_MATHEMATICAL_CONTENT,Original I^1 represented by I in TeX

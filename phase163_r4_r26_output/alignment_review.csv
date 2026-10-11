@@ -1,0 +1,10 @@
+﻿status,printed_page,pdf_page,item,before,after,evidence
+CONFIRMED_CORRECTION,14,10,Proposition 1.9 proof: first pullback equation,(E^n p)^*\lambda = \alpha\circ E^n\beta,(E^n p)^*\lambda = \alpha\circ E^n\overline\beta,Original printed p.14: (E^n p)^* lambda = alpha o E^n bar(beta)
+CONFIRMED_CORRECTION,14,10,Proposition 1.9 proof: repeated pullback equation,(E^n p)^*\lambda = \alpha\circ E^n\beta,(E^n p)^*\lambda = \alpha\circ E^n\overline\beta,Original printed p.14: repeated condition refers to extension bar(beta)
+PENDING_FULL_TEXT_COMPARISON,10,6,Proposition 1.3,,,Full statement/proof parity not certified
+PENDING_FULL_TEXT_COMPARISON,11,7,Proposition 1.4,,,Full statement/proof parity not certified
+PENDING_FULL_TEXT_COMPARISON,12,8,Proposition 1.5,,,Full statement/proof parity not certified
+PENDING_FULL_TEXT_COMPARISON,12,8,Proposition 1.6: remaining statement and proof,,,Full statement/proof parity not certified
+PENDING_FULL_TEXT_COMPARISON,13,9,Proposition 1.7: remaining statement and proof,,,Full statement/proof parity not certified
+PENDING_FULL_TEXT_COMPARISON,14,10,Proposition 1.8: remaining statement and proof,,,Full statement/proof parity not certified
+PENDING_FULL_TEXT_COMPARISON,14,10,Proposition 1.9: remaining statement and proof,,,Full statement/proof parity not certified

@@ -1,0 +1,7 @@
+﻿topic,evidence,status
+composition,原本印刷6ページ冒頭: 合成の独立性・結合律・誘導写像とその合成則,VERIFIED
+reduced_join_definition,"原本印刷6ページ中段: A#B=(A×B)/(A∨B), 基点、縮約写像と三重積",VERIFIED
+equation_1_3,原本(1.3): S^m×S^n→S^(m+n)、ψ による対応、球面積の結合性,VERIFIED
+join_maps,"原本印刷6ページ下段: f,g の基点保存・積写像の誘導",VERIFIED
+equation_1_4,"原本(1.4) 0), i), ii): 基点付きホモトピー、結合性、合成との両立",VERIFIED
+homotopy_join,原本末尾: α#β の代表写像非依存性・定義。続きの文は印刷7ページへ,VERIFIED_WITH_CONTINUATION

@@ -1,0 +1,20 @@
+{
+  "record_key": "toda_ch1_p7_dx_formula",
+  "printed_page": 7,
+  "pdf_page": 3,
+  "subject": "suspension canonical map d_X",
+  "source_formula_tex": "d_X = \\phi_{X,S^n}\\circ(1_X\\times\\psi_1)",
+  "editorial_normalization_tex": "d_X = \\phi_{X,S^1}\\circ(1_X\\times\\psi_1)",
+  "original_witness": "Supplied Toda_01.pdf, printed p.7, d_X definition",
+  "mathematical_basis": [
+    "d_X is specified on X × I^1",
+    "psi_1 maps I^1 to S^1",
+    "EX = X wedge S^1"
+  ],
+  "source_transcription_status": "VISUALLY_CONFIRMED",
+  "normalization_status": "MATHEMATICALLY_MOTIVATED_NOT_ORIGINAL_PRINT",
+  "source_typo_status": "POSSIBLE_NOT_ESTABLISHED",
+  "proof_search_eligible": false,
+  "printed_source_overwritten": false,
+  "editorial_tex_modified": false
+}
