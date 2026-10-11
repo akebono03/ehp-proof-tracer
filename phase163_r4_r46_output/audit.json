@@ -1,0 +1,412 @@
+{
+  "phase": "163 R4-R46",
+  "mode": "READ_ONLY_SEMANTIC_ANCHOR_AUDIT",
+  "source_sha256": {
+    "1": "92cbfbb9b3ea9ba59a07450a5a8f16ec6b80715bb8b7d8f6eab442dd1a402605",
+    "2": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+    "3": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+    "4": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+    "5": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374"
+  },
+  "assertion_count": 23,
+  "status_counts": {
+    "EXPLICIT": 15,
+    "SPECIALIZATION": 4,
+    "SURROUNDING_TEXT": 3,
+    "NOT_LOCATED": 1
+  },
+  "semantic_matches_confirmed_from_explicit_tex": 15,
+  "component_positions_newly_confirmed": 0,
+  "results": [
+    {
+      "reference_id": "toda:Proposition 5.1",
+      "assertion_id": "boundary:Proposition 5.1:pi3_2_group_relation",
+      "component_position_existing": 1,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に直接記載",
+      "tex_witness": {
+        "line_start": 192,
+        "line_end": 195,
+        "evidence_excerpt": "\n\\begin{proposition}\\label{prop:5.1}\n% Prop5.1.\\\n\\(\\pi^{2}_{3}=\\gen{\\eta_2}\\cong\\mathbb Z,\\quad",
+        "evidence_sha256": "ec09ea735eb83759c6b99ad11bda2cdd48e01d2db9fae0d07e46c1ce059ad554"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.1",
+      "assertion_id": "boundary:Proposition 5.1:eta2_hopf_relation",
+      "component_position_existing": 2,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に直接記載",
+      "tex_witness": {
+        "line_start": 196,
+        "line_end": 199,
+        "evidence_excerpt": "\\pi^{n}_{n+1}=\\gen{\\eta_n}\\cong\\mathbb Z_2\\ (n\\ge3),\\quad\n(G_1;2)=\\gen{\\eta}\\cong\\mathbb Z_2.\\) \\\\\nここで, \n\\(H(\\eta_2)=\\iota_3,\\ \\Delta(\\iota_5)=\\pm 2\\,\\eta_2\\) が成り立つ. ",
+        "evidence_sha256": "6cf549789afc89512c92103e8a378f957e60b9df8291cd9b257e485e7059c10b"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.1",
+      "assertion_id": "boundary:Proposition 5.1:delta_iota5_relation",
+      "component_position_existing": 3,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に直接記載",
+      "tex_witness": {
+        "line_start": 196,
+        "line_end": 199,
+        "evidence_excerpt": "\\pi^{n}_{n+1}=\\gen{\\eta_n}\\cong\\mathbb Z_2\\ (n\\ge3),\\quad\n(G_1;2)=\\gen{\\eta}\\cong\\mathbb Z_2.\\) \\\\\nここで, \n\\(H(\\eta_2)=\\iota_3,\\ \\Delta(\\iota_5)=\\pm 2\\,\\eta_2\\) が成り立つ. ",
+        "evidence_sha256": "6cf549789afc89512c92103e8a378f957e60b9df8291cd9b257e485e7059c10b"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.1",
+      "assertion_id": "boundary:Proposition 5.1:higher_eta_group_relation",
+      "component_position_existing": 4,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に一般式として直接記載",
+      "tex_witness": {
+        "line_start": 193,
+        "line_end": 196,
+        "evidence_excerpt": "\\begin{proposition}\\label{prop:5.1}\n% Prop5.1.\\\n\\(\\pi^{2}_{3}=\\gen{\\eta_2}\\cong\\mathbb Z,\\quad\n\\pi^{n}_{n+1}=\\gen{\\eta_n}\\cong\\mathbb Z_2\\ (n\\ge3),\\quad",
+        "evidence_sha256": "ffb7c6540b531aa70227af984b163c722b855095f3339762ab7849fccc8798fd"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.3",
+      "assertion_id": "boundary:Proposition 5.3:pi4_2_group_relation",
+      "component_position_existing": 1,
+      "status": "SPECIALIZATION",
+      "editorial_note": "n=2 の特殊化。文献内の別個の列挙ではない",
+      "tex_witness": {
+        "line_start": 367,
+        "line_end": 370,
+        "evidence_excerpt": "\n\\begin{proposition}\\label{prop:5.3}\n% Prop5.3.\\\n\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\",
+        "evidence_sha256": "5a2e3f659a797d4938f880caaf51695616231276e1dbdbc0afedb55310a72d36"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.3",
+      "assertion_id": "boundary:Proposition 5.3:pi5_3_group_relation",
+      "component_position_existing": 2,
+      "status": "SPECIALIZATION",
+      "editorial_note": "n=3 の特殊化。文献内の別個の列挙ではない",
+      "tex_witness": {
+        "line_start": 367,
+        "line_end": 370,
+        "evidence_excerpt": "\n\\begin{proposition}\\label{prop:5.3}\n% Prop5.3.\\\n\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\",
+        "evidence_sha256": "5a2e3f659a797d4938f880caaf51695616231276e1dbdbc0afedb55310a72d36"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.3",
+      "assertion_id": "boundary:Proposition 5.3:pi6_4_group_relation",
+      "component_position_existing": 3,
+      "status": "SPECIALIZATION",
+      "editorial_note": "n=4 の特殊化。文献内の別個の列挙ではない",
+      "tex_witness": {
+        "line_start": 367,
+        "line_end": 370,
+        "evidence_excerpt": "\n\\begin{proposition}\\label{prop:5.3}\n% Prop5.3.\\\n\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\",
+        "evidence_sha256": "5a2e3f659a797d4938f880caaf51695616231276e1dbdbc0afedb55310a72d36"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.3",
+      "assertion_id": "boundary:Proposition 5.3:higher_eta_squared_group_relation",
+      "component_position_existing": 4,
+      "status": "EXPLICIT",
+      "editorial_note": "n>=2 の一般式に直接記載",
+      "tex_witness": {
+        "line_start": 367,
+        "line_end": 370,
+        "evidence_excerpt": "\n\\begin{proposition}\\label{prop:5.3}\n% Prop5.3.\\\n\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\",
+        "evidence_sha256": "5a2e3f659a797d4938f880caaf51695616231276e1dbdbc0afedb55310a72d36"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.6",
+      "assertion_id": "boundary:Proposition 5.6:pi5_2_group_relation",
+      "component_position_existing": 1,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に直接記載",
+      "tex_witness": {
+        "line_start": 695,
+        "line_end": 698,
+        "evidence_excerpt": "\\begin{proposition}\\label{prop:5.6}\n% Prop5.6.\\\n\\ \\\\\n\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\",
+        "evidence_sha256": "ecbd4e5fe9f96bae7e1f699b32b1b70b560fe62605401e143a6f925eaf35372b"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.6",
+      "assertion_id": "boundary:Proposition 5.6:pi6_3_group_relation",
+      "component_position_existing": 2,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に直接記載",
+      "tex_witness": {
+        "line_start": 696,
+        "line_end": 699,
+        "evidence_excerpt": "% Prop5.6.\\\n\\ \\\\\n\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\\n\\(\\pi^{3}_{6}=\\gen{\\nu'}\\cong \\mathbb Z_{4},\\) \\\\",
+        "evidence_sha256": "10f1a10318d9241f425de90d50de4991a7c555c043933a4d7d12d801139bcbd4"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.6",
+      "assertion_id": "boundary:Proposition 5.6:pi7_4_group_relation",
+      "component_position_existing": 3,
+      "status": "EXPLICIT",
+      "editorial_note": "命題に直接記載",
+      "tex_witness": {
+        "line_start": 697,
+        "line_end": 700,
+        "evidence_excerpt": "\\ \\\\\n\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\\n\\(\\pi^{3}_{6}=\\gen{\\nu'}\\cong \\mathbb Z_{4},\\) \\\\\n\\(\\pi^{4}_{7}=\\gen{\\nu_{4}}\\oplus \\gen{E\\nu'}\\cong \\mathbb Z\\oplus\\mathbb Z_{4},\\) \\\\",
+        "evidence_sha256": "a79702d36e5f5a46218f567aa8eb9dd6b844f2ed0d672ff22a4867d1df20dcd1"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.6",
+      "assertion_id": "boundary:Proposition 5.6:pi8_5_group_relation",
+      "component_position_existing": 4,
+      "status": "SPECIALIZATION",
+      "editorial_note": "n=5 の特殊化",
+      "tex_witness": {
+        "line_start": 698,
+        "line_end": 701,
+        "evidence_excerpt": "\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\\n\\(\\pi^{3}_{6}=\\gen{\\nu'}\\cong \\mathbb Z_{4},\\) \\\\\n\\(\\pi^{4}_{7}=\\gen{\\nu_{4}}\\oplus \\gen{E\\nu'}\\cong \\mathbb Z\\oplus\\mathbb Z_{4},\\) \\\\\n\\(\\pi^{n}_{n+3}=\\gen{\\nu_{n}}\\cong \\mathbb Z_{8}\\ (n\\ge5),\\)\\qquad",
+        "evidence_sha256": "566590ea28c7bfa6ca8afb53d0a2ffe5976d4d768f7fc16a66bc617b3b26b2de"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:Proposition 5.6",
+      "assertion_id": "boundary:Proposition 5.6:higher_nu_group_relation",
+      "component_position_existing": 5,
+      "status": "EXPLICIT",
+      "editorial_note": "n>=5 の一般式に直接記載",
+      "tex_witness": {
+        "line_start": 698,
+        "line_end": 701,
+        "evidence_excerpt": "\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\\n\\(\\pi^{3}_{6}=\\gen{\\nu'}\\cong \\mathbb Z_{4},\\) \\\\\n\\(\\pi^{4}_{7}=\\gen{\\nu_{4}}\\oplus \\gen{E\\nu'}\\cong \\mathbb Z\\oplus\\mathbb Z_{4},\\) \\\\\n\\(\\pi^{n}_{n+3}=\\gen{\\nu_{n}}\\cong \\mathbb Z_{8}\\ (n\\ge5),\\)\\qquad",
+        "evidence_sha256": "566590ea28c7bfa6ca8afb53d0a2ffe5976d4d768f7fc16a66bc617b3b26b2de"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "assertion_id": "boundary:(5.1):circle_higher_homotopy_zero",
+      "component_position_existing": null,
+      "status": "EXPLICIT",
+      "editorial_note": "式 (5.1) に直接記載",
+      "tex_witness": {
+        "line_start": 88,
+        "line_end": 91,
+        "evidence_excerpt": "\\(\\alpha\\in \\pi_i(S^n)\\) により生成される巡回部分群とする. \\\\\n(4.1) から, 次が成り立つ：\n\\begin{equation}\\label{5.1}\n\\pi^{1}_{i}=0\\ (i>1),\\qquad",
+        "evidence_sha256": "6defcb875dd8aac2eef74480ad3996f25b9293d2e8df3b4913745a91a9edca82"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "assertion_id": "boundary:(5.1):sphere_connectivity_zero",
+      "component_position_existing": null,
+      "status": "EXPLICIT",
+      "editorial_note": "式 (5.1) に直接記載",
+      "tex_witness": {
+        "line_start": 89,
+        "line_end": 92,
+        "evidence_excerpt": "(4.1) から, 次が成り立つ：\n\\begin{equation}\\label{5.1}\n\\pi^{1}_{i}=0\\ (i>1),\\qquad\n\\pi^{n}_{i}=0\\ (i<n),\\qquad",
+        "evidence_sha256": "39c970827b05f166cd5404b270a4bb77cd41da61095f36cab04776c4f1a2263d"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "assertion_id": "boundary:(5.1):stable_negative_zero",
+      "component_position_existing": null,
+      "status": "EXPLICIT",
+      "editorial_note": "式 (5.1) に直接記載",
+      "tex_witness": {
+        "line_start": 90,
+        "line_end": 93,
+        "evidence_excerpt": "\\begin{equation}\\label{5.1}\n\\pi^{1}_{i}=0\\ (i>1),\\qquad\n\\pi^{n}_{i}=0\\ (i<n),\\qquad\nG_k=(G_k;2)=0\\ (k<0).",
+        "evidence_sha256": "daf5766096c4a3489b1e9f5469915cc5db30a689968242cf54591d35d909fd9d"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "assertion_id": "boundary:(5.1):diagonal_identity_group",
+      "component_position_existing": null,
+      "status": "SURROUNDING_TEXT",
+      "editorial_note": "番号付き (5.1) の直後の無番号表示",
+      "tex_witness": {
+        "line_start": 93,
+        "line_end": 96,
+        "evidence_excerpt": "G_k=(G_k;2)=0\\ (k<0).\n\\end{equation}\n\\[\n\\pi^{n}_{n}=\\gen{\\iota_n}\\cong \\mathbb Z,\\qquad",
+        "evidence_sha256": "41bc8d3d279d1594f345793f8667a1818207fc3c5e21be904c7b0f9d4590c32c"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "assertion_id": "boundary:(5.1):stable_zero_stem",
+      "component_position_existing": null,
+      "status": "SURROUNDING_TEXT",
+      "editorial_note": "番号付き (5.1) の直後の無番号表示",
+      "tex_witness": {
+        "line_start": 94,
+        "line_end": 97,
+        "evidence_excerpt": "\\end{equation}\n\\[\n\\pi^{n}_{n}=\\gen{\\iota_n}\\cong \\mathbb Z,\\qquad\nG_0=\\gen{\\iota}\\cong \\mathbb Z. \\quad ",
+        "evidence_sha256": "efcbab5b34b27080ed38bb273eaf11e7302c38106eb4d1c9f7b983198e43a875"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "assertion_id": "boundary:(5.1):diagonal_suspension_isomorphism",
+      "component_position_existing": null,
+      "status": "NOT_LOCATED",
+      "editorial_note": "式 (5.1) 自体には懸垂同型の主張を確認できない",
+      "tex_witness": null,
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.3)",
+      "assertion_id": "boundary:(5.3):nu_prime_bracket_definition",
+      "component_position_existing": null,
+      "status": "SURROUNDING_TEXT",
+      "editorial_note": "式 (5.3) の直前の記述",
+      "tex_witness": {
+        "line_start": 344,
+        "line_end": 347,
+        "evidence_excerpt": "\\begin{paracol}{2}\n\n\\(\\eta_3\\in\\pi_4(S^3)\\) は, 上のLemの条件 \\(2\\iota_3\\circ\\eta_3=0\\) を満たす. \\\\\n\\(\\nu'\\in\\todai[1]{\\eta_3,2\\iota_4,\\eta_4}\\) を考えると, ",
+        "evidence_sha256": "9cb06ac80952156e38e07e7cf6e2cd88f68f54a0d97983bf05d6c4b756425387"
+      },
+      "semantic_confirmation": false,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.3)",
+      "assertion_id": "boundary:(5.3):nu_prime_membership",
+      "component_position_existing": null,
+      "status": "EXPLICIT",
+      "editorial_note": "式 (5.3) に直接記載",
+      "tex_witness": {
+        "line_start": 348,
+        "line_end": 351,
+        "evidence_excerpt": "次を得る. \n\\begin{equation}\\label{eq:5.3}\n% (5.3).\\\n\\nu'\\in\\pi_6^3,\\ H(\\nu')=\\eta_5,\\ 2\\nu'=\\eta_3\\circ\\eta_4\\circ\\eta_5 .",
+        "evidence_sha256": "3fb707bd5883eb29aac982fb52a2f735bfc8ec51f7c3062e568cd6aed93dab68"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.3)",
+      "assertion_id": "boundary:(5.3):nu_prime_hopf_relation",
+      "component_position_existing": null,
+      "status": "EXPLICIT",
+      "editorial_note": "式 (5.3) に直接記載",
+      "tex_witness": {
+        "line_start": 348,
+        "line_end": 351,
+        "evidence_excerpt": "次を得る. \n\\begin{equation}\\label{eq:5.3}\n% (5.3).\\\n\\nu'\\in\\pi_6^3,\\ H(\\nu')=\\eta_5,\\ 2\\nu'=\\eta_3\\circ\\eta_4\\circ\\eta_5 .",
+        "evidence_sha256": "3fb707bd5883eb29aac982fb52a2f735bfc8ec51f7c3062e568cd6aed93dab68"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    },
+    {
+      "reference_id": "toda:(5.3)",
+      "assertion_id": "boundary:(5.3):nu_prime_double_relation",
+      "component_position_existing": null,
+      "status": "EXPLICIT",
+      "editorial_note": "式 (5.3) に直接記載",
+      "tex_witness": {
+        "line_start": 348,
+        "line_end": 351,
+        "evidence_excerpt": "次を得る. \n\\begin{equation}\\label{eq:5.3}\n% (5.3).\\\n\\nu'\\in\\pi_6^3,\\ H(\\nu')=\\eta_5,\\ 2\\nu'=\\eta_3\\circ\\eta_4\\circ\\eta_5 .",
+        "evidence_sha256": "3fb707bd5883eb29aac982fb52a2f735bfc8ec51f7c3062e568cd6aed93dab68"
+      },
+      "semantic_confirmation": true,
+      "component_order_newly_confirmed": false,
+      "source_verified": false,
+      "structured": false
+    }
+  ],
+  "registration_applied": false,
+  "id_allocated": false,
+  "proof_search_connected": false,
+  "source_verified": false
+}
