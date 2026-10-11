@@ -1,0 +1,1970 @@
+{
+  "phase": "163 R4-R43",
+  "mode": "READ_ONLY_MAPPING",
+  "registry_lookup": "AVAILABLE",
+  "source_sha256": {
+    "1": "92cbfbb9b3ea9ba59a07450a5a8f16ec6b80715bb8b7d8f6eab442dd1a402605",
+    "2": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+    "3": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+    "4": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+    "5": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374"
+  },
+  "item_count": 108,
+  "status_counts": {
+    "EXISTING_REFERENCE": 23,
+    "NEW_REFERENCE_CANDIDATE": 66,
+    "UNNUMBERED_ENVIRONMENT": 11,
+    "UNRESOLVED_SYMBOLIC_LABEL": 8
+  },
+  "matched_existing_reference_count": 23,
+  "unmatched_existing_reference_ids": [],
+  "duplicate_locator_candidates": {},
+  "rows": [
+    {
+      "chapter": 1,
+      "source_order": 1,
+      "kind": "equation",
+      "source_line": 87,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "146a1d857ec136558f62117ce4b8c5a0af3f09b7c896df35b19dca691bed1d9d",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 2,
+      "kind": "equation",
+      "source_line": 107,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "6e41c2a22d23e1c636587cf83462ccfb29f67630d52e1ac4f2b72c4f3e911030",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 3,
+      "kind": "equation",
+      "source_line": 213,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "5fccb9f0d1ea8165f899119bda2049c9ed101fbc4de1a7ab5a200083a258499a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 4,
+      "kind": "equation",
+      "source_line": 242,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "e84feb83a37c2d495dd1a086d40170b3d75fb974bbd35867cf20f5f35329d46c",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 5,
+      "kind": "equation",
+      "source_line": 270,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "93b81c17e0a942309e998846fb59c3e18d39c31c67b2a861bbaff517c00683be",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 6,
+      "kind": "equation",
+      "source_line": 304,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "fa6b03b95feb2d2d9e3ea3cd88e5d3f191124c6188035289e96d5c021642b527",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 7,
+      "kind": "equation",
+      "source_line": 369,
+      "labels": [
+        "eq:toda-1-7"
+      ],
+      "tags": [],
+      "locator_candidate": "(1.7)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(1.7)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "1582b9f1dec2e8995af63a803b6342b8f587fde89c0c2f270aae6b8e5705d0aa",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 8,
+      "kind": "equation",
+      "source_line": 387,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "d6733d7ca200a13eeb7ae679ba807b6bedc6436cd07df2b07b67afa117defb71",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 9,
+      "kind": "equation",
+      "source_line": 431,
+      "labels": [
+        "eq:loop-susp-comm"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "22a52c563c67e50afacaf34f7760537cc2572c6907e174944fb660bafde6e5d6",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 10,
+      "kind": "equation",
+      "source_line": 459,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "b434509ec3b5bc18ad945941b77ca2936e58ed8afd05c4cc8e90ae95f29ef1cb",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 11,
+      "kind": "equation",
+      "source_line": 467,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "060703ce10089cc3628865bca297a4787f6e8f5b386a3d422c136ca43829d5d7",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 12,
+      "kind": "equation",
+      "source_line": 482,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "2878d6b99b733da55a0395247362489822f037e4ec9075cc837bc5d45c0c659a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 13,
+      "kind": "equation",
+      "source_line": 497,
+      "labels": [],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNNUMBERED_ENVIRONMENT",
+      "sha256_tex_body": "b73b65b79792ff25f7620cdc50d8f082c9491c481ff80349e165c99618a92c6e",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 14,
+      "kind": "equation",
+      "source_line": 519,
+      "labels": [
+        "eq:H-def"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "55171c6ae4b662a1730b39e0e4313e746290bb32953f12f4322dd374d16c90ba",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 15,
+      "kind": "lemma",
+      "source_line": 554,
+      "labels": [
+        "lem:double-coset"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "499ed552abdddb4a72540843ccbb722836bfd535d95420c0db493dd51467765b",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 16,
+      "kind": "equation",
+      "source_line": 684,
+      "labels": [
+        "eq:split-m"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "3b00363642afbfed73ed9aecd0824f228b8b9e5f0300940eeec7186763000870",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 17,
+      "kind": "proposition",
+      "source_line": 696,
+      "labels": [
+        "prop:1-2"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.2",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.2",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "b2912967bef46a8bd2eb12a45702ab41019593ff2294e37c5b17c7dfe184c99d",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 18,
+      "kind": "proposition",
+      "source_line": 749,
+      "labels": [
+        "prop:1-3"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.3",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.3",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "d0ec26afd8a1dfd0e46da46ad0c52573c2507fddc29435665a813eb618947bc1",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 19,
+      "kind": "proposition",
+      "source_line": 835,
+      "labels": [
+        "prop:1-4"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.4",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.4",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "c5ed719290096db6d85373d3c745cf0158ae6976618fc8deeb64012645164b60",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 20,
+      "kind": "proposition",
+      "source_line": 926,
+      "labels": [
+        "prop:1-5"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.5",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.5",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "2067754b502a3832075d718c61caef586f2b3be24e5a5f87738e79134f1768a0",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 21,
+      "kind": "proposition",
+      "source_line": 965,
+      "labels": [
+        "prop:1-6"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.6",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.6",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "6a098fba869af803af36d3e3894f89cacf3bda24265c3b278864e8a32bfde872",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 22,
+      "kind": "equation",
+      "source_line": 1124,
+      "labels": [
+        "eq:cone-susp"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "5dc09ba6c69d23f41df72eb5dd4e2897e26b96e5c639f2d9c698e63e29dfff61",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 23,
+      "kind": "proposition",
+      "source_line": 1138,
+      "labels": [
+        "prop:1-7"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.7",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.7",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "63910047fba2980e89b183d8f75422e90c746cd965e44b48d598ef5c3d8df563",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 24,
+      "kind": "proposition",
+      "source_line": 1183,
+      "labels": [
+        "prop:1-8"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.8",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.8",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "377d009562aed21be8ff777e9131cdc5ed4eed139c0405bee453f2a70ccba093",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 25,
+      "kind": "equation",
+      "source_line": 1225,
+      "labels": [
+        "eq:p-def"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "6fbe7e089f3d682088cb07a6f44f89ab307408b7412a334765158895f5a21c76",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 26,
+      "kind": "equation",
+      "source_line": 1236,
+      "labels": [
+        "eq:p-star"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "f91d5ff100b0f3e42a84a8a441afe6162c3d21fa109a482ec20ec77780e6583e",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 1,
+      "source_order": 27,
+      "kind": "proposition",
+      "source_line": 1244,
+      "labels": [
+        "prop:1-9"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 1.9",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 1.9",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "dfbd64045e1087645ccccdf760dd0b8aa4b1a309bf391aa7ccc32ece72b2f0c8",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 1,
+      "kind": "equation",
+      "source_line": 81,
+      "labels": [
+        "eq:2.1"
+      ],
+      "tags": [],
+      "locator_candidate": "(2.1)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.1)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "8bb2e31e662e13923d4b778e259d34459035e6af136d3b26c3915a5ff0fad4c7",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 2,
+      "kind": "equation",
+      "source_line": 217,
+      "labels": [
+        "eq:2.2"
+      ],
+      "tags": [
+        "2.2"
+      ],
+      "locator_candidate": "(2.2)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.2)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "000dee56da1b43b1ed2107e09ad3141c57e54031409d4f39f2f7bce6e15f0798",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 3,
+      "kind": "lemma",
+      "source_line": 241,
+      "labels": [
+        "lemma:2.1"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 2.1",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 2.1",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "dad0d8f78634286cefcdae07b392269feebd0e688ebd4c3788b847c16e9c265c",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 4,
+      "kind": "equation",
+      "source_line": 255,
+      "labels": [
+        "eq:2.3"
+      ],
+      "tags": [
+        "2.3"
+      ],
+      "locator_candidate": "(2.3)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.3)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "e38e755e9c07045b47ad5d0d4e7cc830ebad4cb874e0e3b34fdca67df42c8a39",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 5,
+      "kind": "equation",
+      "source_line": 279,
+      "labels": [
+        "eq:2.4"
+      ],
+      "tags": [
+        "2.4"
+      ],
+      "locator_candidate": "(2.4)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.4)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "773ad734af3885c67f92539b8bf441a3961b3dbc9b76ddd6967c345beaf73c0e",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 6,
+      "kind": "equation",
+      "source_line": 299,
+      "labels": [
+        "eq:2.5"
+      ],
+      "tags": [
+        "2.5"
+      ],
+      "locator_candidate": "(2.5)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.5)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "5ebb808101f51a4d458f21759371be0b74190f91f2a2cee51844ab4ded7b6c10",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 7,
+      "kind": "equation",
+      "source_line": 306,
+      "labels": [
+        "eq:2.6"
+      ],
+      "tags": [
+        "2.6"
+      ],
+      "locator_candidate": "(2.6)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.6)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "dfc5817a12146100254224097cb7561fc1c35f8e3d51e1c259b7808f23920458",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 8,
+      "kind": "equation",
+      "source_line": 341,
+      "labels": [
+        "eq:2.7"
+      ],
+      "tags": [
+        "2.7"
+      ],
+      "locator_candidate": "(2.7)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.7)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "5db97159e9603b89fc87c72e47341c606a3a211571be4a15fad081e2993323d4",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 9,
+      "kind": "proposition",
+      "source_line": 353,
+      "labels": [
+        "prop:2.2"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 2.2",
+      "existing_reference_id": "toda:Proposition 2.2",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "94f6eb31dfa9c8a648d7e80830d72e567d64b75c7aeee60b8b9522a95a6322b7",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 10,
+      "kind": "proposition",
+      "source_line": 411,
+      "labels": [
+        "prop:2.3"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 2.3",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 2.3",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "3597a2adfbaa761376430488b7c901c68ceedafbe47abbb23b22b5d9cf1b1c8b",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 11,
+      "kind": "theorem",
+      "source_line": 483,
+      "labels": [
+        "thm:2.4"
+      ],
+      "tags": [],
+      "locator_candidate": "Theorem 2.4",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Theorem 2.4",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "ab87591b02fb2c33e47021f95fb3e08b2cc47f6047d97d55e15aff1dc0f6930a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 12,
+      "kind": "equation",
+      "source_line": 915,
+      "labels": [
+        "2.8"
+      ],
+      "tags": [
+        "2.8"
+      ],
+      "locator_candidate": "(2.8)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.8)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "c30dfc1152dd3b6d388ea7bfd915c0c1baf8cd88518a5d32890572c8f6717ff2",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 13,
+      "kind": "equation",
+      "source_line": 927,
+      "labels": [
+        "2.9"
+      ],
+      "tags": [
+        "2.9"
+      ],
+      "locator_candidate": "(2.9)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.9)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "828a7c8a65fd176f3d232b4f40843058d575e23ec6e42343d885b4ff3a09ad2f",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 14,
+      "kind": "equation",
+      "source_line": 936,
+      "labels": [
+        "2.10"
+      ],
+      "tags": [
+        "2.10"
+      ],
+      "locator_candidate": "(2.10)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.10)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "d10a8df3050eeb4c8ad6c1629eba370a44736606e11392b49cec721652097d4a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 15,
+      "kind": "equation",
+      "source_line": 949,
+      "labels": [
+        "2.11"
+      ],
+      "tags": [
+        "2.11"
+      ],
+      "locator_candidate": "(2.11)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(2.11)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "75a07b749ab63af044dfd5a228d3d793d8d1c358f0522adacf9cfb48dd6a0e85",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 16,
+      "kind": "proposition",
+      "source_line": 960,
+      "labels": [
+        "prop:2.5"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 2.5",
+      "existing_reference_id": "toda:Proposition 2.5",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "428e859046f7855080c8ada8613a462a99110983ce7b3d3d764d0352b0ec89f4",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 17,
+      "kind": "proposition",
+      "source_line": 1093,
+      "labels": [
+        "prop:2.6"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 2.6",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 2.6",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "f67436ac29746b633495b0c3869231932c8e7ee86b11acb383a679f701d723eb",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 2,
+      "source_order": 18,
+      "kind": "proposition",
+      "source_line": 1302,
+      "labels": [
+        "prop:2.7"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 2.7",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 2.7",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "023f16c6543557e1c96cc1272aeb31ed4509f9f54460cc4b670e5b3acf143df6",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 1,
+      "kind": "proposition",
+      "source_line": 83,
+      "labels": [
+        "prop:3.1"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 3.1",
+      "existing_reference_id": "toda:Proposition 3.1",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "b9bb2c78efb6bc348d4aebb7a0b83afa73309c8996fbf2d6be5b8db99527250d",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 2,
+      "kind": "proposition",
+      "source_line": 138,
+      "labels": [
+        "prop:3.2"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 3.2",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 3.2",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "2ebaa7fe9afeae51a8c67e0951a4ce6ed6da07ad9e36804d8da0c47c4793cf79",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 3,
+      "kind": "corollary",
+      "source_line": 195,
+      "labels": [
+        "cor:3.3"
+      ],
+      "tags": [],
+      "locator_candidate": "Corollary 3.3",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Corollary 3.3",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "d064f32c2dca6057200313683d4b0347ca20990587a7c0e9a05a205cb391bf43",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 4,
+      "kind": "proposition",
+      "source_line": 207,
+      "labels": [
+        "prop:3.4"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 3.4",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 3.4",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "c794f56959b12cadb956f9401d9994814698b9c70528ad5b432914a4047514d3",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 5,
+      "kind": "equation",
+      "source_line": 442,
+      "labels": [
+        "3.1"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.1)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.1)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "31b3c9301190be610371326b68df534b80a62c21eeb5727b67b4bf31359abd22",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 6,
+      "kind": "lemma",
+      "source_line": 578,
+      "labels": [
+        "lem:3.5"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 3.5",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 3.5",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "32272f4a185286e2b767a752a1ee510ee87cc377123c04958d25c7174ffc98f5",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 7,
+      "kind": "theorem",
+      "source_line": 810,
+      "labels": [
+        "thm:3.6"
+      ],
+      "tags": [],
+      "locator_candidate": "Theorem 3.6",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Theorem 3.6",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "ad57088361bbd29c5431b53e044ace661e58ca80198cfc783fcece156b41b49b",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 8,
+      "kind": "corollary",
+      "source_line": 1058,
+      "labels": [
+        "cor:3.7"
+      ],
+      "tags": [],
+      "locator_candidate": "Corollary 3.7",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Corollary 3.7",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "cffa591904414fe4634d2789a2e7f23ced56381e22596f08e62cb342045ae4d3",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 9,
+      "kind": "equation",
+      "source_line": 1193,
+      "labels": [
+        "3.2"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.2)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.2)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "e9277adf8a6989428b50cdc075e12a39e4c83f6e1ab66b380c350f810e18bbca",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 10,
+      "kind": "equation",
+      "source_line": 1208,
+      "labels": [
+        "3.3"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.3)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.3)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "48ef924e11c9060655c55af4ce9e73582fcd268c3b4c31c7c7ba6b207dde8f50",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 11,
+      "kind": "equation",
+      "source_line": 1228,
+      "labels": [
+        "3.4"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.4)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.4)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "0393f3332f9aa1ee20f9b5e33207587e293e42ea1b1431112e1930f5f83b4944",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 12,
+      "kind": "equation",
+      "source_line": 1343,
+      "labels": [
+        "3.prop-zero"
+      ],
+      "tags": [],
+      "locator_candidate": null,
+      "existing_reference_id": null,
+      "proposed_reference_id": null,
+      "status": "UNRESOLVED_SYMBOLIC_LABEL",
+      "sha256_tex_body": "783f92918af2bfd311a587380abc7af751fb777927cb009345e6f74144859fdf",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 13,
+      "kind": "equation",
+      "source_line": 1363,
+      "labels": [
+        "3.6-stable"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.6)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.6)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "55f1d6747e061cc29ad317b6a7568b882394aa444172016dd388b5b40604fd8a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 14,
+      "kind": "equation",
+      "source_line": 1372,
+      "labels": [
+        "3.7-stable"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.7)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.7)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "20054f9aa1554405cc7c58821f8d432618a4bbb2ba1fb5629d498c2949216054",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 15,
+      "kind": "equation",
+      "source_line": 1382,
+      "labels": [
+        "3.8-stable"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.8)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.8)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "37637a94e70cbc575a8b12a7a8627d20560109969461a2d73e04db21d4df36d4",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 16,
+      "kind": "equation",
+      "source_line": 1398,
+      "labels": [
+        "3.9-stable"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.9)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.9)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "9ef1a967d56f77ef3b012662d1d5a82f3ba8e8dae111f561d389cb872a22e604",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 3,
+      "source_order": 17,
+      "kind": "equation",
+      "source_line": 1415,
+      "labels": [
+        "prop:3.10"
+      ],
+      "tags": [],
+      "locator_candidate": "(3.10)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(3.10)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "00dd072292520a4f8ddb306f49c95366565b6721d7176eb3b84ca84ba9e3565d",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 1,
+      "kind": "equation",
+      "source_line": 78,
+      "labels": [
+        "4.1"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.1)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.1)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "4bee7bde31b6abc20201de99cb17cfcc46aaba9b0dcb6ffc114cfcc170fb65a8",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 2,
+      "kind": "equation",
+      "source_line": 85,
+      "labels": [
+        "4.2"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.2)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.2)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "5a599541a306e62af6fa38d12756cd58fb47dc176e89ac399c9cc5a29626292d",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 3,
+      "kind": "equation",
+      "source_line": 93,
+      "labels": [
+        "4.3"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.3)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.3)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "91ca9daba0cff445d676bd482e82d42077701bcec1ca7ec23dde808789bb94e6",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 4,
+      "kind": "lemma",
+      "source_line": 103,
+      "labels": [
+        "lem:4.1"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 4.1",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 4.1",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "b1582bcbb7b72211a37d3036aaa88f2390b90a01369462a6d3a5914cb26a4d3a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 5,
+      "kind": "proposition",
+      "source_line": 256,
+      "labels": [
+        "prop:4.2",
+        "4.4"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 4.2",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Proposition 4.2",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "deb4751516db91563cc908bf3879486c762abdc033346f7080474495d692bdcd",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 6,
+      "kind": "equation",
+      "source_line": 259,
+      "labels": [
+        "4.4"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.4)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.4)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "478ed391e4e3f61b37fc66475115a93e74bf4f01321d1ef7765b3542e86fc827",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 7,
+      "kind": "equation",
+      "source_line": 386,
+      "labels": [
+        "4.5"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.5)",
+      "existing_reference_id": "toda:(4.5)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "f7db212a131ef3df088c7e1513845a7bbe9e040b352b1b34b396b02df518c2fb",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 8,
+      "kind": "lemma",
+      "source_line": 393,
+      "labels": [
+        "lem:4.3"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 4.3",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 4.3",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "785fd48dbdc5232cd6ed7c3e315b4f77ad77d8e9ce8368c1ceeffeefd2f6431f",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 9,
+      "kind": "equation",
+      "source_line": 404,
+      "labels": [
+        "4.6"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.6)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.6)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "a49b3d8af3be711085661ff5bdd3a398a4ac2779f768b5135af970e5e1fabd42",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 10,
+      "kind": "equation",
+      "source_line": 417,
+      "labels": [
+        "4.7"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.7)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.7)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "fac2700c270a7bdf89d22d5744b8bdf16c76ee4f50174089f05104ef968da337",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 11,
+      "kind": "proposition",
+      "source_line": 469,
+      "labels": [
+        "prop:4.4"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 4.4",
+      "existing_reference_id": "toda:Proposition 4.4",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "b11cbb48bab5465dc51da4dc16ef2791415f76e6bb44b7970e3a6f8b70ab068c",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 12,
+      "kind": "lemma",
+      "source_line": 498,
+      "labels": [
+        "lem:4.5"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 4.5",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 4.5",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "fb628219fdc19499e874ca70408e29fb9bb8d1979d4c37c9c32b4fe1db43b9d2",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 13,
+      "kind": "equation",
+      "source_line": 520,
+      "labels": [
+        "4.8"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.8)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.8)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "1bfafc2ca8cdec1548a1a64746f149fd5555e754d096669b031dc6c57ec0a203",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 4,
+      "source_order": 14,
+      "kind": "equation",
+      "source_line": 539,
+      "labels": [
+        "4.9"
+      ],
+      "tags": [],
+      "locator_candidate": "(4.9)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(4.9)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "a4d1ffa74e4024e23247038571c136f257b1be3bb2e1ed41949a5a3b36f45062",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 1,
+      "kind": "equation",
+      "source_line": 90,
+      "labels": [
+        "5.1"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.1)",
+      "existing_reference_id": "toda:(5.1)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "cbab6881896e18389e26f6071c5f114646dc88dc4d9f4b21e169478e9e3adb5f",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 2,
+      "kind": "proposition",
+      "source_line": 193,
+      "labels": [
+        "prop:5.1"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.1",
+      "existing_reference_id": "toda:Proposition 5.1",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "139eb1d91930552a26511c757f66ef480cf1da8cc2c521353f78e4935b903ef2",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 3,
+      "kind": "equation",
+      "source_line": 204,
+      "labels": [
+        "eq:5.2"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.2)",
+      "existing_reference_id": "toda:(5.2)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "268c11858e986bf112bf63e59cfa6dc519135136fa455d8f0e43aa966d88e230",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 4,
+      "kind": "lemma",
+      "source_line": 213,
+      "labels": [
+        "lem:5.2"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.2",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 5.2",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "c063ecd06b67b63838e0da5757dfbc91d9fb83a894e48206132330c89aefef31",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 5,
+      "kind": "equation",
+      "source_line": 349,
+      "labels": [
+        "eq:5.3"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.3)",
+      "existing_reference_id": "toda:(5.3)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "1c4a310528dc8ed90a426c41659b2710292b8f724b7d05c4143d8db05d998b52",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 6,
+      "kind": "proposition",
+      "source_line": 368,
+      "labels": [
+        "prop:5.3"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.3",
+      "existing_reference_id": "toda:Proposition 5.3",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "9f1cd8dc9b440006f946cd18ed710f80dba8c4cadd9d8631dacf69ec357ac910",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 7,
+      "kind": "lemma",
+      "source_line": 444,
+      "labels": [
+        "lem:5.4"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.4",
+      "existing_reference_id": "toda:Lemma 5.4",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "03ad9cf91565b3530fc063e5eb59c235037614edf7daa0f7381b2f3a7d64dc57",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 8,
+      "kind": "equation",
+      "source_line": 473,
+      "labels": [
+        "eq:5.4"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.4)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.4)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "5aa2f212096f0a19117f9d1a4b3ede129150daf293cdcf64131b5ca9ecae9d0d",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 9,
+      "kind": "lemma",
+      "source_line": 582,
+      "labels": [
+        "lem:5.5"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.5",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 5.5",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "26dcf2f67e5d3d97b4812b93c70cc0c9ef2b34488fc17b09b008f12a9af40ecc",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 10,
+      "kind": "equation",
+      "source_line": 614,
+      "labels": [
+        "eq:5.5"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.5)",
+      "existing_reference_id": "toda:(5.5)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "abf8a947b23148f545139f0865434d070894ee8b030d3fb393e08cc4a0cd7e74",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 11,
+      "kind": "equation",
+      "source_line": 621,
+      "labels": [
+        "eq:5.6"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.6)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.6)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "2024a82158b60a066bed9313680bedaaa6b4353405b47fe59a01f0b4a76d134f",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 12,
+      "kind": "proposition",
+      "source_line": 695,
+      "labels": [
+        "prop:5.6"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.6",
+      "existing_reference_id": "toda:Proposition 5.6",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "f4e755e2ed76eb57510f993a08c373bf202bca75527445b8a0c6651ad9c0f7d5",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 13,
+      "kind": "equation",
+      "source_line": 740,
+      "labels": [
+        "eq:5.7"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.7)",
+      "existing_reference_id": "toda:(5.7)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "cb31bf59c66362685e13b0c7e9c43134d5c2e310a79dcc7a7ea3bd442e7e768f",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 14,
+      "kind": "equation",
+      "source_line": 748,
+      "labels": [
+        "eq:5.8"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.8)",
+      "existing_reference_id": "toda:(5.8)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "c4da59ce936334f8a987871da1a1a3fb5acb07935b5670b31026b82756aafe15",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 15,
+      "kind": "lemma",
+      "source_line": 758,
+      "labels": [
+        "lemma:5.7"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.7",
+      "existing_reference_id": "toda:Lemma 5.7",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "f33408feb3843175a54276a50366027bad2eb9f6a9503f9d4260fd22e4f34cd9",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 16,
+      "kind": "proposition",
+      "source_line": 852,
+      "labels": [
+        "prop:5.8"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.8",
+      "existing_reference_id": "toda:Proposition 5.8",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "b37f1fa087f7945aa2240ff2fbae1a0359257a0f736704310853cbb66a5cabcb",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 17,
+      "kind": "equation",
+      "source_line": 894,
+      "labels": [
+        "eq:5.9"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.9)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.9)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "763f5b44c82aff14f5c88150558a663ffb2011c76da8c0d5340e967c6482f4f0",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 18,
+      "kind": "equation",
+      "source_line": 1047,
+      "labels": [
+        "eq:5.10"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.10)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.10)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "0428322913ff6ad7491257bfc1874b767d3192a4277febb007b0e74fb357f21a",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 19,
+      "kind": "equation",
+      "source_line": 1053,
+      "labels": [
+        "eq:5.11"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.11)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.11)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "ce0f72f6e005c1a6db85d18b3cec7c74df88bc04d7a726768a5beac4c0d3f069",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 20,
+      "kind": "proposition",
+      "source_line": 1060,
+      "labels": [
+        "prop:5.9"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.9",
+      "existing_reference_id": "toda:Proposition 5.9",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "e9d698ef3fe2245738fff8c073da20e1d8ebb73c24b54332868f3c07cd660acc",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 21,
+      "kind": "equation",
+      "source_line": 1209,
+      "labels": [
+        "eq:5.12"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.12)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.12)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "5fd7dfe625ed295aefde622f2b7cfd9f035ada327100f9506b3644e21e7ad3c5",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 22,
+      "kind": "lemma",
+      "source_line": 1216,
+      "labels": [
+        "lemma:5.10"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.10",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 5.10",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "64c3d5102c2f2a464c0b292f5c4738bae30dea92dbbdec837a14c0d568e925a5",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 23,
+      "kind": "proposition",
+      "source_line": 1325,
+      "labels": [
+        "prop:5.11"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.11",
+      "existing_reference_id": "toda:Proposition 5.11",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "b15de24e382be12ca5787b9f87e102b53e98e72f5095f0a705e32880ba735fda",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 24,
+      "kind": "equation",
+      "source_line": 1359,
+      "labels": [
+        "eq:5.13"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.13)",
+      "existing_reference_id": "toda:(5.13)",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "10e4470e722608daad63216b2bba2a9c40e368f8b9dac4abd9c109f120ec25fb",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 25,
+      "kind": "lemma",
+      "source_line": 1517,
+      "labels": [
+        "lemma:5.12"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.12",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 5.12",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "179c6390b4df7818a883d70083fca35db639dbcda999a28b41bd7b7fdfd1e5df",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 26,
+      "kind": "lemma",
+      "source_line": 1717,
+      "labels": [
+        "lemma:5.13"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.13",
+      "existing_reference_id": "toda:Lemma 5.13",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "da2353e8f9a9d00a5c9e564fd3f01c47b7f909a724c2ad5f928479722e50d3a1",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 27,
+      "kind": "equation",
+      "source_line": 1777,
+      "labels": [
+        "eq:5.14"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.14)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.14)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "7cabbe625680b94952ab734222005e13cc9bacd66fb875b9ed99a6a8afc90caf",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 28,
+      "kind": "lemma",
+      "source_line": 1890,
+      "labels": [
+        "lemma:5.14"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.14",
+      "existing_reference_id": "toda:Lemma 5.14",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "08ea34d6e00e8482ac38912d6194523a5197e4160aa91f24635e776c1491d2d0",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 29,
+      "kind": "equation",
+      "source_line": 2121,
+      "labels": [
+        "eq:5.15"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.15)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.15)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "b240108274cb50b01b3cdcfd8eab3c9ed076c1510498c5ff132e82fc061d94e5",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 30,
+      "kind": "proposition",
+      "source_line": 2132,
+      "labels": [
+        "prop:5.15"
+      ],
+      "tags": [],
+      "locator_candidate": "Proposition 5.15",
+      "existing_reference_id": "toda:Proposition 5.15",
+      "proposed_reference_id": null,
+      "status": "EXISTING_REFERENCE",
+      "sha256_tex_body": "272a87e8b56370b8c6574664e97f1000a575d51952521e2f69f1c56f363934b6",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 31,
+      "kind": "equation",
+      "source_line": 2149,
+      "labels": [
+        "eq:5.16"
+      ],
+      "tags": [],
+      "locator_candidate": "(5.16)",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:(5.16)",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "c323b2e51c86b22947d35669d8567ba35c85cff65ee4ec48b0af6db016554dd1",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    },
+    {
+      "chapter": 5,
+      "source_order": 32,
+      "kind": "lemma",
+      "source_line": 2155,
+      "labels": [
+        "lem:5.16"
+      ],
+      "tags": [],
+      "locator_candidate": "Lemma 5.16",
+      "existing_reference_id": null,
+      "proposed_reference_id": "toda:Lemma 5.16",
+      "status": "NEW_REFERENCE_CANDIDATE",
+      "sha256_tex_body": "b333ae48c4c35756ae518a481f22d928759f0cc8b858c41f9d91502abc8e6f1f",
+      "source_verified": false,
+      "structured": false,
+      "tex_registered": false
+    }
+  ],
+  "registration_applied": false,
+  "id_allocated": false,
+  "proof_search_connected": false
+}

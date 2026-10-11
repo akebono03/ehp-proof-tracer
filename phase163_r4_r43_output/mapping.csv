@@ -1,0 +1,109 @@
+﻿chapter,source_order,kind,source_line,status,locator_candidate,existing_reference_id,proposed_reference_id,labels,tags,sha256_tex_body,tex_registered,structured,source_verified
+1,1,equation,87,UNNUMBERED_ENVIRONMENT,,,,[],[],146a1d857ec136558f62117ce4b8c5a0af3f09b7c896df35b19dca691bed1d9d,False,False,False
+1,2,equation,107,UNNUMBERED_ENVIRONMENT,,,,[],[],6e41c2a22d23e1c636587cf83462ccfb29f67630d52e1ac4f2b72c4f3e911030,False,False,False
+1,3,equation,213,UNNUMBERED_ENVIRONMENT,,,,[],[],5fccb9f0d1ea8165f899119bda2049c9ed101fbc4de1a7ab5a200083a258499a,False,False,False
+1,4,equation,242,UNNUMBERED_ENVIRONMENT,,,,[],[],e84feb83a37c2d495dd1a086d40170b3d75fb974bbd35867cf20f5f35329d46c,False,False,False
+1,5,equation,270,UNNUMBERED_ENVIRONMENT,,,,[],[],93b81c17e0a942309e998846fb59c3e18d39c31c67b2a861bbaff517c00683be,False,False,False
+1,6,equation,304,UNNUMBERED_ENVIRONMENT,,,,[],[],fa6b03b95feb2d2d9e3ea3cd88e5d3f191124c6188035289e96d5c021642b527,False,False,False
+1,7,equation,369,NEW_REFERENCE_CANDIDATE,(1.7),,toda:(1.7),"[""eq:toda-1-7""]",[],1582b9f1dec2e8995af63a803b6342b8f587fde89c0c2f270aae6b8e5705d0aa,False,False,False
+1,8,equation,387,UNNUMBERED_ENVIRONMENT,,,,[],[],d6733d7ca200a13eeb7ae679ba807b6bedc6436cd07df2b07b67afa117defb71,False,False,False
+1,9,equation,431,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""eq:loop-susp-comm""]",[],22a52c563c67e50afacaf34f7760537cc2572c6907e174944fb660bafde6e5d6,False,False,False
+1,10,equation,459,UNNUMBERED_ENVIRONMENT,,,,[],[],b434509ec3b5bc18ad945941b77ca2936e58ed8afd05c4cc8e90ae95f29ef1cb,False,False,False
+1,11,equation,467,UNNUMBERED_ENVIRONMENT,,,,[],[],060703ce10089cc3628865bca297a4787f6e8f5b386a3d422c136ca43829d5d7,False,False,False
+1,12,equation,482,UNNUMBERED_ENVIRONMENT,,,,[],[],2878d6b99b733da55a0395247362489822f037e4ec9075cc837bc5d45c0c659a,False,False,False
+1,13,equation,497,UNNUMBERED_ENVIRONMENT,,,,[],[],b73b65b79792ff25f7620cdc50d8f082c9491c481ff80349e165c99618a92c6e,False,False,False
+1,14,equation,519,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""eq:H-def""]",[],55171c6ae4b662a1730b39e0e4313e746290bb32953f12f4322dd374d16c90ba,False,False,False
+1,15,lemma,554,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""lem:double-coset""]",[],499ed552abdddb4a72540843ccbb722836bfd535d95420c0db493dd51467765b,False,False,False
+1,16,equation,684,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""eq:split-m""]",[],3b00363642afbfed73ed9aecd0824f228b8b9e5f0300940eeec7186763000870,False,False,False
+1,17,proposition,696,NEW_REFERENCE_CANDIDATE,Proposition 1.2,,toda:Proposition 1.2,"[""prop:1-2""]",[],b2912967bef46a8bd2eb12a45702ab41019593ff2294e37c5b17c7dfe184c99d,False,False,False
+1,18,proposition,749,NEW_REFERENCE_CANDIDATE,Proposition 1.3,,toda:Proposition 1.3,"[""prop:1-3""]",[],d0ec26afd8a1dfd0e46da46ad0c52573c2507fddc29435665a813eb618947bc1,False,False,False
+1,19,proposition,835,NEW_REFERENCE_CANDIDATE,Proposition 1.4,,toda:Proposition 1.4,"[""prop:1-4""]",[],c5ed719290096db6d85373d3c745cf0158ae6976618fc8deeb64012645164b60,False,False,False
+1,20,proposition,926,NEW_REFERENCE_CANDIDATE,Proposition 1.5,,toda:Proposition 1.5,"[""prop:1-5""]",[],2067754b502a3832075d718c61caef586f2b3be24e5a5f87738e79134f1768a0,False,False,False
+1,21,proposition,965,NEW_REFERENCE_CANDIDATE,Proposition 1.6,,toda:Proposition 1.6,"[""prop:1-6""]",[],6a098fba869af803af36d3e3894f89cacf3bda24265c3b278864e8a32bfde872,False,False,False
+1,22,equation,1124,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""eq:cone-susp""]",[],5dc09ba6c69d23f41df72eb5dd4e2897e26b96e5c639f2d9c698e63e29dfff61,False,False,False
+1,23,proposition,1138,NEW_REFERENCE_CANDIDATE,Proposition 1.7,,toda:Proposition 1.7,"[""prop:1-7""]",[],63910047fba2980e89b183d8f75422e90c746cd965e44b48d598ef5c3d8df563,False,False,False
+1,24,proposition,1183,NEW_REFERENCE_CANDIDATE,Proposition 1.8,,toda:Proposition 1.8,"[""prop:1-8""]",[],377d009562aed21be8ff777e9131cdc5ed4eed139c0405bee453f2a70ccba093,False,False,False
+1,25,equation,1225,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""eq:p-def""]",[],6fbe7e089f3d682088cb07a6f44f89ab307408b7412a334765158895f5a21c76,False,False,False
+1,26,equation,1236,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""eq:p-star""]",[],f91d5ff100b0f3e42a84a8a441afe6162c3d21fa109a482ec20ec77780e6583e,False,False,False
+1,27,proposition,1244,NEW_REFERENCE_CANDIDATE,Proposition 1.9,,toda:Proposition 1.9,"[""prop:1-9""]",[],dfbd64045e1087645ccccdf760dd0b8aa4b1a309bf391aa7ccc32ece72b2f0c8,False,False,False
+2,1,equation,81,NEW_REFERENCE_CANDIDATE,(2.1),,toda:(2.1),"[""eq:2.1""]",[],8bb2e31e662e13923d4b778e259d34459035e6af136d3b26c3915a5ff0fad4c7,False,False,False
+2,2,equation,217,NEW_REFERENCE_CANDIDATE,(2.2),,toda:(2.2),"[""eq:2.2""]","[""2.2""]",000dee56da1b43b1ed2107e09ad3141c57e54031409d4f39f2f7bce6e15f0798,False,False,False
+2,3,lemma,241,NEW_REFERENCE_CANDIDATE,Lemma 2.1,,toda:Lemma 2.1,"[""lemma:2.1""]",[],dad0d8f78634286cefcdae07b392269feebd0e688ebd4c3788b847c16e9c265c,False,False,False
+2,4,equation,255,NEW_REFERENCE_CANDIDATE,(2.3),,toda:(2.3),"[""eq:2.3""]","[""2.3""]",e38e755e9c07045b47ad5d0d4e7cc830ebad4cb874e0e3b34fdca67df42c8a39,False,False,False
+2,5,equation,279,NEW_REFERENCE_CANDIDATE,(2.4),,toda:(2.4),"[""eq:2.4""]","[""2.4""]",773ad734af3885c67f92539b8bf441a3961b3dbc9b76ddd6967c345beaf73c0e,False,False,False
+2,6,equation,299,NEW_REFERENCE_CANDIDATE,(2.5),,toda:(2.5),"[""eq:2.5""]","[""2.5""]",5ebb808101f51a4d458f21759371be0b74190f91f2a2cee51844ab4ded7b6c10,False,False,False
+2,7,equation,306,NEW_REFERENCE_CANDIDATE,(2.6),,toda:(2.6),"[""eq:2.6""]","[""2.6""]",dfc5817a12146100254224097cb7561fc1c35f8e3d51e1c259b7808f23920458,False,False,False
+2,8,equation,341,NEW_REFERENCE_CANDIDATE,(2.7),,toda:(2.7),"[""eq:2.7""]","[""2.7""]",5db97159e9603b89fc87c72e47341c606a3a211571be4a15fad081e2993323d4,False,False,False
+2,9,proposition,353,EXISTING_REFERENCE,Proposition 2.2,toda:Proposition 2.2,,"[""prop:2.2""]",[],94f6eb31dfa9c8a648d7e80830d72e567d64b75c7aeee60b8b9522a95a6322b7,False,False,False
+2,10,proposition,411,NEW_REFERENCE_CANDIDATE,Proposition 2.3,,toda:Proposition 2.3,"[""prop:2.3""]",[],3597a2adfbaa761376430488b7c901c68ceedafbe47abbb23b22b5d9cf1b1c8b,False,False,False
+2,11,theorem,483,NEW_REFERENCE_CANDIDATE,Theorem 2.4,,toda:Theorem 2.4,"[""thm:2.4""]",[],ab87591b02fb2c33e47021f95fb3e08b2cc47f6047d97d55e15aff1dc0f6930a,False,False,False
+2,12,equation,915,NEW_REFERENCE_CANDIDATE,(2.8),,toda:(2.8),"[""2.8""]","[""2.8""]",c30dfc1152dd3b6d388ea7bfd915c0c1baf8cd88518a5d32890572c8f6717ff2,False,False,False
+2,13,equation,927,NEW_REFERENCE_CANDIDATE,(2.9),,toda:(2.9),"[""2.9""]","[""2.9""]",828a7c8a65fd176f3d232b4f40843058d575e23ec6e42343d885b4ff3a09ad2f,False,False,False
+2,14,equation,936,NEW_REFERENCE_CANDIDATE,(2.10),,toda:(2.10),"[""2.10""]","[""2.10""]",d10a8df3050eeb4c8ad6c1629eba370a44736606e11392b49cec721652097d4a,False,False,False
+2,15,equation,949,NEW_REFERENCE_CANDIDATE,(2.11),,toda:(2.11),"[""2.11""]","[""2.11""]",75a07b749ab63af044dfd5a228d3d793d8d1c358f0522adacf9cfb48dd6a0e85,False,False,False
+2,16,proposition,960,EXISTING_REFERENCE,Proposition 2.5,toda:Proposition 2.5,,"[""prop:2.5""]",[],428e859046f7855080c8ada8613a462a99110983ce7b3d3d764d0352b0ec89f4,False,False,False
+2,17,proposition,1093,NEW_REFERENCE_CANDIDATE,Proposition 2.6,,toda:Proposition 2.6,"[""prop:2.6""]",[],f67436ac29746b633495b0c3869231932c8e7ee86b11acb383a679f701d723eb,False,False,False
+2,18,proposition,1302,NEW_REFERENCE_CANDIDATE,Proposition 2.7,,toda:Proposition 2.7,"[""prop:2.7""]",[],023f16c6543557e1c96cc1272aeb31ed4509f9f54460cc4b670e5b3acf143df6,False,False,False
+3,1,proposition,83,EXISTING_REFERENCE,Proposition 3.1,toda:Proposition 3.1,,"[""prop:3.1""]",[],b9bb2c78efb6bc348d4aebb7a0b83afa73309c8996fbf2d6be5b8db99527250d,False,False,False
+3,2,proposition,138,NEW_REFERENCE_CANDIDATE,Proposition 3.2,,toda:Proposition 3.2,"[""prop:3.2""]",[],2ebaa7fe9afeae51a8c67e0951a4ce6ed6da07ad9e36804d8da0c47c4793cf79,False,False,False
+3,3,corollary,195,NEW_REFERENCE_CANDIDATE,Corollary 3.3,,toda:Corollary 3.3,"[""cor:3.3""]",[],d064f32c2dca6057200313683d4b0347ca20990587a7c0e9a05a205cb391bf43,False,False,False
+3,4,proposition,207,NEW_REFERENCE_CANDIDATE,Proposition 3.4,,toda:Proposition 3.4,"[""prop:3.4""]",[],c794f56959b12cadb956f9401d9994814698b9c70528ad5b432914a4047514d3,False,False,False
+3,5,equation,442,NEW_REFERENCE_CANDIDATE,(3.1),,toda:(3.1),"[""3.1""]",[],31b3c9301190be610371326b68df534b80a62c21eeb5727b67b4bf31359abd22,False,False,False
+3,6,lemma,578,NEW_REFERENCE_CANDIDATE,Lemma 3.5,,toda:Lemma 3.5,"[""lem:3.5""]",[],32272f4a185286e2b767a752a1ee510ee87cc377123c04958d25c7174ffc98f5,False,False,False
+3,7,theorem,810,NEW_REFERENCE_CANDIDATE,Theorem 3.6,,toda:Theorem 3.6,"[""thm:3.6""]",[],ad57088361bbd29c5431b53e044ace661e58ca80198cfc783fcece156b41b49b,False,False,False
+3,8,corollary,1058,NEW_REFERENCE_CANDIDATE,Corollary 3.7,,toda:Corollary 3.7,"[""cor:3.7""]",[],cffa591904414fe4634d2789a2e7f23ced56381e22596f08e62cb342045ae4d3,False,False,False
+3,9,equation,1193,NEW_REFERENCE_CANDIDATE,(3.2),,toda:(3.2),"[""3.2""]",[],e9277adf8a6989428b50cdc075e12a39e4c83f6e1ab66b380c350f810e18bbca,False,False,False
+3,10,equation,1208,NEW_REFERENCE_CANDIDATE,(3.3),,toda:(3.3),"[""3.3""]",[],48ef924e11c9060655c55af4ce9e73582fcd268c3b4c31c7c7ba6b207dde8f50,False,False,False
+3,11,equation,1228,NEW_REFERENCE_CANDIDATE,(3.4),,toda:(3.4),"[""3.4""]",[],0393f3332f9aa1ee20f9b5e33207587e293e42ea1b1431112e1930f5f83b4944,False,False,False
+3,12,equation,1343,UNRESOLVED_SYMBOLIC_LABEL,,,,"[""3.prop-zero""]",[],783f92918af2bfd311a587380abc7af751fb777927cb009345e6f74144859fdf,False,False,False
+3,13,equation,1363,NEW_REFERENCE_CANDIDATE,(3.6),,toda:(3.6),"[""3.6-stable""]",[],55f1d6747e061cc29ad317b6a7568b882394aa444172016dd388b5b40604fd8a,False,False,False
+3,14,equation,1372,NEW_REFERENCE_CANDIDATE,(3.7),,toda:(3.7),"[""3.7-stable""]",[],20054f9aa1554405cc7c58821f8d432618a4bbb2ba1fb5629d498c2949216054,False,False,False
+3,15,equation,1382,NEW_REFERENCE_CANDIDATE,(3.8),,toda:(3.8),"[""3.8-stable""]",[],37637a94e70cbc575a8b12a7a8627d20560109969461a2d73e04db21d4df36d4,False,False,False
+3,16,equation,1398,NEW_REFERENCE_CANDIDATE,(3.9),,toda:(3.9),"[""3.9-stable""]",[],9ef1a967d56f77ef3b012662d1d5a82f3ba8e8dae111f561d389cb872a22e604,False,False,False
+3,17,equation,1415,NEW_REFERENCE_CANDIDATE,(3.10),,toda:(3.10),"[""prop:3.10""]",[],00dd072292520a4f8ddb306f49c95366565b6721d7176eb3b84ca84ba9e3565d,False,False,False
+4,1,equation,78,NEW_REFERENCE_CANDIDATE,(4.1),,toda:(4.1),"[""4.1""]",[],4bee7bde31b6abc20201de99cb17cfcc46aaba9b0dcb6ffc114cfcc170fb65a8,False,False,False
+4,2,equation,85,NEW_REFERENCE_CANDIDATE,(4.2),,toda:(4.2),"[""4.2""]",[],5a599541a306e62af6fa38d12756cd58fb47dc176e89ac399c9cc5a29626292d,False,False,False
+4,3,equation,93,NEW_REFERENCE_CANDIDATE,(4.3),,toda:(4.3),"[""4.3""]",[],91ca9daba0cff445d676bd482e82d42077701bcec1ca7ec23dde808789bb94e6,False,False,False
+4,4,lemma,103,NEW_REFERENCE_CANDIDATE,Lemma 4.1,,toda:Lemma 4.1,"[""lem:4.1""]",[],b1582bcbb7b72211a37d3036aaa88f2390b90a01369462a6d3a5914cb26a4d3a,False,False,False
+4,5,proposition,256,NEW_REFERENCE_CANDIDATE,Proposition 4.2,,toda:Proposition 4.2,"[""prop:4.2"", ""4.4""]",[],deb4751516db91563cc908bf3879486c762abdc033346f7080474495d692bdcd,False,False,False
+4,6,equation,259,NEW_REFERENCE_CANDIDATE,(4.4),,toda:(4.4),"[""4.4""]",[],478ed391e4e3f61b37fc66475115a93e74bf4f01321d1ef7765b3542e86fc827,False,False,False
+4,7,equation,386,EXISTING_REFERENCE,(4.5),toda:(4.5),,"[""4.5""]",[],f7db212a131ef3df088c7e1513845a7bbe9e040b352b1b34b396b02df518c2fb,False,False,False
+4,8,lemma,393,NEW_REFERENCE_CANDIDATE,Lemma 4.3,,toda:Lemma 4.3,"[""lem:4.3""]",[],785fd48dbdc5232cd6ed7c3e315b4f77ad77d8e9ce8368c1ceeffeefd2f6431f,False,False,False
+4,9,equation,404,NEW_REFERENCE_CANDIDATE,(4.6),,toda:(4.6),"[""4.6""]",[],a49b3d8af3be711085661ff5bdd3a398a4ac2779f768b5135af970e5e1fabd42,False,False,False
+4,10,equation,417,NEW_REFERENCE_CANDIDATE,(4.7),,toda:(4.7),"[""4.7""]",[],fac2700c270a7bdf89d22d5744b8bdf16c76ee4f50174089f05104ef968da337,False,False,False
+4,11,proposition,469,EXISTING_REFERENCE,Proposition 4.4,toda:Proposition 4.4,,"[""prop:4.4""]",[],b11cbb48bab5465dc51da4dc16ef2791415f76e6bb44b7970e3a6f8b70ab068c,False,False,False
+4,12,lemma,498,NEW_REFERENCE_CANDIDATE,Lemma 4.5,,toda:Lemma 4.5,"[""lem:4.5""]",[],fb628219fdc19499e874ca70408e29fb9bb8d1979d4c37c9c32b4fe1db43b9d2,False,False,False
+4,13,equation,520,NEW_REFERENCE_CANDIDATE,(4.8),,toda:(4.8),"[""4.8""]",[],1bfafc2ca8cdec1548a1a64746f149fd5555e754d096669b031dc6c57ec0a203,False,False,False
+4,14,equation,539,NEW_REFERENCE_CANDIDATE,(4.9),,toda:(4.9),"[""4.9""]",[],a4d1ffa74e4024e23247038571c136f257b1be3bb2e1ed41949a5a3b36f45062,False,False,False
+5,1,equation,90,EXISTING_REFERENCE,(5.1),toda:(5.1),,"[""5.1""]",[],cbab6881896e18389e26f6071c5f114646dc88dc4d9f4b21e169478e9e3adb5f,False,False,False
+5,2,proposition,193,EXISTING_REFERENCE,Proposition 5.1,toda:Proposition 5.1,,"[""prop:5.1""]",[],139eb1d91930552a26511c757f66ef480cf1da8cc2c521353f78e4935b903ef2,False,False,False
+5,3,equation,204,EXISTING_REFERENCE,(5.2),toda:(5.2),,"[""eq:5.2""]",[],268c11858e986bf112bf63e59cfa6dc519135136fa455d8f0e43aa966d88e230,False,False,False
+5,4,lemma,213,NEW_REFERENCE_CANDIDATE,Lemma 5.2,,toda:Lemma 5.2,"[""lem:5.2""]",[],c063ecd06b67b63838e0da5757dfbc91d9fb83a894e48206132330c89aefef31,False,False,False
+5,5,equation,349,EXISTING_REFERENCE,(5.3),toda:(5.3),,"[""eq:5.3""]",[],1c4a310528dc8ed90a426c41659b2710292b8f724b7d05c4143d8db05d998b52,False,False,False
+5,6,proposition,368,EXISTING_REFERENCE,Proposition 5.3,toda:Proposition 5.3,,"[""prop:5.3""]",[],9f1cd8dc9b440006f946cd18ed710f80dba8c4cadd9d8631dacf69ec357ac910,False,False,False
+5,7,lemma,444,EXISTING_REFERENCE,Lemma 5.4,toda:Lemma 5.4,,"[""lem:5.4""]",[],03ad9cf91565b3530fc063e5eb59c235037614edf7daa0f7381b2f3a7d64dc57,False,False,False
+5,8,equation,473,NEW_REFERENCE_CANDIDATE,(5.4),,toda:(5.4),"[""eq:5.4""]",[],5aa2f212096f0a19117f9d1a4b3ede129150daf293cdcf64131b5ca9ecae9d0d,False,False,False
+5,9,lemma,582,NEW_REFERENCE_CANDIDATE,Lemma 5.5,,toda:Lemma 5.5,"[""lem:5.5""]",[],26dcf2f67e5d3d97b4812b93c70cc0c9ef2b34488fc17b09b008f12a9af40ecc,False,False,False
+5,10,equation,614,EXISTING_REFERENCE,(5.5),toda:(5.5),,"[""eq:5.5""]",[],abf8a947b23148f545139f0865434d070894ee8b030d3fb393e08cc4a0cd7e74,False,False,False
+5,11,equation,621,NEW_REFERENCE_CANDIDATE,(5.6),,toda:(5.6),"[""eq:5.6""]",[],2024a82158b60a066bed9313680bedaaa6b4353405b47fe59a01f0b4a76d134f,False,False,False
+5,12,proposition,695,EXISTING_REFERENCE,Proposition 5.6,toda:Proposition 5.6,,"[""prop:5.6""]",[],f4e755e2ed76eb57510f993a08c373bf202bca75527445b8a0c6651ad9c0f7d5,False,False,False
+5,13,equation,740,EXISTING_REFERENCE,(5.7),toda:(5.7),,"[""eq:5.7""]",[],cb31bf59c66362685e13b0c7e9c43134d5c2e310a79dcc7a7ea3bd442e7e768f,False,False,False
+5,14,equation,748,EXISTING_REFERENCE,(5.8),toda:(5.8),,"[""eq:5.8""]",[],c4da59ce936334f8a987871da1a1a3fb5acb07935b5670b31026b82756aafe15,False,False,False
+5,15,lemma,758,EXISTING_REFERENCE,Lemma 5.7,toda:Lemma 5.7,,"[""lemma:5.7""]",[],f33408feb3843175a54276a50366027bad2eb9f6a9503f9d4260fd22e4f34cd9,False,False,False
+5,16,proposition,852,EXISTING_REFERENCE,Proposition 5.8,toda:Proposition 5.8,,"[""prop:5.8""]",[],b37f1fa087f7945aa2240ff2fbae1a0359257a0f736704310853cbb66a5cabcb,False,False,False
+5,17,equation,894,NEW_REFERENCE_CANDIDATE,(5.9),,toda:(5.9),"[""eq:5.9""]",[],763f5b44c82aff14f5c88150558a663ffb2011c76da8c0d5340e967c6482f4f0,False,False,False
+5,18,equation,1047,NEW_REFERENCE_CANDIDATE,(5.10),,toda:(5.10),"[""eq:5.10""]",[],0428322913ff6ad7491257bfc1874b767d3192a4277febb007b0e74fb357f21a,False,False,False
+5,19,equation,1053,NEW_REFERENCE_CANDIDATE,(5.11),,toda:(5.11),"[""eq:5.11""]",[],ce0f72f6e005c1a6db85d18b3cec7c74df88bc04d7a726768a5beac4c0d3f069,False,False,False
+5,20,proposition,1060,EXISTING_REFERENCE,Proposition 5.9,toda:Proposition 5.9,,"[""prop:5.9""]",[],e9d698ef3fe2245738fff8c073da20e1d8ebb73c24b54332868f3c07cd660acc,False,False,False
+5,21,equation,1209,NEW_REFERENCE_CANDIDATE,(5.12),,toda:(5.12),"[""eq:5.12""]",[],5fd7dfe625ed295aefde622f2b7cfd9f035ada327100f9506b3644e21e7ad3c5,False,False,False
+5,22,lemma,1216,NEW_REFERENCE_CANDIDATE,Lemma 5.10,,toda:Lemma 5.10,"[""lemma:5.10""]",[],64c3d5102c2f2a464c0b292f5c4738bae30dea92dbbdec837a14c0d568e925a5,False,False,False
+5,23,proposition,1325,EXISTING_REFERENCE,Proposition 5.11,toda:Proposition 5.11,,"[""prop:5.11""]",[],b15de24e382be12ca5787b9f87e102b53e98e72f5095f0a705e32880ba735fda,False,False,False
+5,24,equation,1359,EXISTING_REFERENCE,(5.13),toda:(5.13),,"[""eq:5.13""]",[],10e4470e722608daad63216b2bba2a9c40e368f8b9dac4abd9c109f120ec25fb,False,False,False
+5,25,lemma,1517,NEW_REFERENCE_CANDIDATE,Lemma 5.12,,toda:Lemma 5.12,"[""lemma:5.12""]",[],179c6390b4df7818a883d70083fca35db639dbcda999a28b41bd7b7fdfd1e5df,False,False,False
+5,26,lemma,1717,EXISTING_REFERENCE,Lemma 5.13,toda:Lemma 5.13,,"[""lemma:5.13""]",[],da2353e8f9a9d00a5c9e564fd3f01c47b7f909a724c2ad5f928479722e50d3a1,False,False,False
+5,27,equation,1777,NEW_REFERENCE_CANDIDATE,(5.14),,toda:(5.14),"[""eq:5.14""]",[],7cabbe625680b94952ab734222005e13cc9bacd66fb875b9ed99a6a8afc90caf,False,False,False
+5,28,lemma,1890,EXISTING_REFERENCE,Lemma 5.14,toda:Lemma 5.14,,"[""lemma:5.14""]",[],08ea34d6e00e8482ac38912d6194523a5197e4160aa91f24635e776c1491d2d0,False,False,False
+5,29,equation,2121,NEW_REFERENCE_CANDIDATE,(5.15),,toda:(5.15),"[""eq:5.15""]",[],b240108274cb50b01b3cdcfd8eab3c9ed076c1510498c5ff132e82fc061d94e5,False,False,False
+5,30,proposition,2132,EXISTING_REFERENCE,Proposition 5.15,toda:Proposition 5.15,,"[""prop:5.15""]",[],272a87e8b56370b8c6574664e97f1000a575d51952521e2f69f1c56f363934b6,False,False,False
+5,31,equation,2149,NEW_REFERENCE_CANDIDATE,(5.16),,toda:(5.16),"[""eq:5.16""]",[],c323b2e51c86b22947d35669d8567ba35c85cff65ee4ec48b0af6db016554dd1,False,False,False
+5,32,lemma,2155,NEW_REFERENCE_CANDIDATE,Lemma 5.16,,toda:Lemma 5.16,"[""lem:5.16""]",[],b333ae48c4c35756ae518a481f22d928759f0cc8b858c41f9d91502abc8e6f1f,False,False,False
