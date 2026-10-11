@@ -1,0 +1,767 @@
+{
+  "phase": "163 R4-R45",
+  "mode": "READ_ONLY_COMPONENT_EVIDENCE",
+  "source_sha256": {
+    "1": "92cbfbb9b3ea9ba59a07450a5a8f16ec6b80715bb8b7d8f6eab442dd1a402605",
+    "2": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+    "3": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+    "4": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+    "5": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374"
+  },
+  "total_assertions": 67,
+  "priority_reference_count": 5,
+  "priority_assertion_count": 23,
+  "other_assertion_count": 44,
+  "existing_position_count": 36,
+  "unknown_position_count": 31,
+  "semantic_matches_confirmed": 0,
+  "positions_newly_confirmed": 0,
+  "packets": [
+    {
+      "reference_id": "toda:Proposition 5.1",
+      "chapter": 5,
+      "source_order": 2,
+      "source_line": 193,
+      "sha256_tex_body": "139eb1d91930552a26511c757f66ef480cf1da8cc2c521353f78e4935b903ef2",
+      "tex_lines": [
+        {
+          "line": 193,
+          "tex": "\\begin{proposition}\\label{prop:5.1}"
+        },
+        {
+          "line": 194,
+          "tex": ""
+        },
+        {
+          "line": 195,
+          "tex": "\\(\\pi^{2}_{3}=\\gen{\\eta_2}\\cong\\mathbb Z,\\quad"
+        },
+        {
+          "line": 196,
+          "tex": "\\pi^{n}_{n+1}=\\gen{\\eta_n}\\cong\\mathbb Z_2\\ (n\\ge3),\\quad"
+        },
+        {
+          "line": 197,
+          "tex": "(G_1;2)=\\gen{\\eta}\\cong\\mathbb Z_2.\\) \\\\"
+        },
+        {
+          "line": 198,
+          "tex": "ここで, "
+        },
+        {
+          "line": 199,
+          "tex": "\\(H(\\eta_2)=\\iota_3,\\ \\Delta(\\iota_5)=\\pm 2\\,\\eta_2\\) が成り立つ. "
+        },
+        {
+          "line": 200,
+          "tex": "\\end{proposition}"
+        }
+      ],
+      "assertions": [
+        {
+          "assertion_id": "boundary:Proposition 5.1:pi3_2_group_relation",
+          "component_position_existing": 1,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.1:eta2_hopf_relation",
+          "component_position_existing": 2,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.1:delta_iota5_relation",
+          "component_position_existing": 3,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.1:higher_eta_group_relation",
+          "component_position_existing": 4,
+          "scope_existing": "n >= 3",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "reference_id": "toda:Proposition 5.3",
+      "chapter": 5,
+      "source_order": 6,
+      "source_line": 368,
+      "sha256_tex_body": "9f1cd8dc9b440006f946cd18ed710f80dba8c4cadd9d8631dacf69ec357ac910",
+      "tex_lines": [
+        {
+          "line": 368,
+          "tex": "\\begin{proposition}\\label{prop:5.3}"
+        },
+        {
+          "line": 369,
+          "tex": ""
+        },
+        {
+          "line": 370,
+          "tex": "\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\"
+        },
+        {
+          "line": 371,
+          "tex": "\\((G_2;2)=\\gen{\\eta^{2}}\\cong \\mathbb Z_2 .\\)"
+        },
+        {
+          "line": 372,
+          "tex": "\\end{proposition}"
+        }
+      ],
+      "assertions": [
+        {
+          "assertion_id": "boundary:Proposition 5.3:pi4_2_group_relation",
+          "component_position_existing": 1,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.3:pi5_3_group_relation",
+          "component_position_existing": 2,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.3:pi6_4_group_relation",
+          "component_position_existing": 3,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.3:higher_eta_squared_group_relation",
+          "component_position_existing": 4,
+          "scope_existing": "n >= 5",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "reference_id": "toda:Proposition 5.6",
+      "chapter": 5,
+      "source_order": 12,
+      "source_line": 695,
+      "sha256_tex_body": "f4e755e2ed76eb57510f993a08c373bf202bca75527445b8a0c6651ad9c0f7d5",
+      "tex_lines": [
+        {
+          "line": 695,
+          "tex": "\\begin{proposition}\\label{prop:5.6}"
+        },
+        {
+          "line": 696,
+          "tex": ""
+        },
+        {
+          "line": 697,
+          "tex": "\\ \\\\"
+        },
+        {
+          "line": 698,
+          "tex": "\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\"
+        },
+        {
+          "line": 699,
+          "tex": "\\(\\pi^{3}_{6}=\\gen{\\nu'}\\cong \\mathbb Z_{4},\\) \\\\"
+        },
+        {
+          "line": 700,
+          "tex": "\\(\\pi^{4}_{7}=\\gen{\\nu_{4}}\\oplus \\gen{E\\nu'}\\cong \\mathbb Z\\oplus\\mathbb Z_{4},\\) \\\\"
+        },
+        {
+          "line": 701,
+          "tex": "\\(\\pi^{n}_{n+3}=\\gen{\\nu_{n}}\\cong \\mathbb Z_{8}\\ (n\\ge5),\\)\\qquad"
+        },
+        {
+          "line": 702,
+          "tex": "\\((G_{3};2)=\\gen{\\nu}\\cong \\mathbb Z_{8}.\\)"
+        },
+        {
+          "line": 703,
+          "tex": "\\end{proposition}"
+        }
+      ],
+      "assertions": [
+        {
+          "assertion_id": "boundary:Proposition 5.6:pi5_2_group_relation",
+          "component_position_existing": 1,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.6:pi6_3_group_relation",
+          "component_position_existing": 2,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.6:pi7_4_group_relation",
+          "component_position_existing": 3,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.6:pi8_5_group_relation",
+          "component_position_existing": 4,
+          "scope_existing": "n = 5",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:Proposition 5.6:higher_nu_group_relation",
+          "component_position_existing": 5,
+          "scope_existing": "n >= 6",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "reference_id": "toda:(5.1)",
+      "chapter": 5,
+      "source_order": 1,
+      "source_line": 90,
+      "sha256_tex_body": "cbab6881896e18389e26f6071c5f114646dc88dc4d9f4b21e169478e9e3adb5f",
+      "tex_lines": [
+        {
+          "line": 90,
+          "tex": "\\begin{equation}\\label{5.1}"
+        },
+        {
+          "line": 91,
+          "tex": "\\pi^{1}_{i}=0\\ (i>1),\\qquad"
+        },
+        {
+          "line": 92,
+          "tex": "\\pi^{n}_{i}=0\\ (i<n),\\qquad"
+        },
+        {
+          "line": 93,
+          "tex": "G_k=(G_k;2)=0\\ (k<0)."
+        },
+        {
+          "line": 94,
+          "tex": "\\end{equation}"
+        }
+      ],
+      "assertions": [
+        {
+          "assertion_id": "boundary:(5.1):circle_higher_homotopy_zero",
+          "component_position_existing": null,
+          "scope_existing": "i > 1",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.1):sphere_connectivity_zero",
+          "component_position_existing": null,
+          "scope_existing": "i < n",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.1):stable_negative_zero",
+          "component_position_existing": null,
+          "scope_existing": "k < 0",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.1):diagonal_identity_group",
+          "component_position_existing": null,
+          "scope_existing": "n >= 1",
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.1):stable_zero_stem",
+          "component_position_existing": null,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.1):diagonal_suspension_isomorphism",
+          "component_position_existing": null,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        }
+      ]
+    },
+    {
+      "reference_id": "toda:(5.3)",
+      "chapter": 5,
+      "source_order": 5,
+      "source_line": 349,
+      "sha256_tex_body": "1c4a310528dc8ed90a426c41659b2710292b8f724b7d05c4143d8db05d998b52",
+      "tex_lines": [
+        {
+          "line": 349,
+          "tex": "\\begin{equation}\\label{eq:5.3}"
+        },
+        {
+          "line": 350,
+          "tex": ""
+        },
+        {
+          "line": 351,
+          "tex": "\\nu'\\in\\pi_6^3,\\ H(\\nu')=\\eta_5,\\ 2\\nu'=\\eta_3\\circ\\eta_4\\circ\\eta_5 ."
+        },
+        {
+          "line": 352,
+          "tex": "\\end{equation}"
+        }
+      ],
+      "assertions": [
+        {
+          "assertion_id": "boundary:(5.3):nu_prime_bracket_definition",
+          "component_position_existing": null,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.3):nu_prime_membership",
+          "component_position_existing": null,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.3):nu_prime_hopf_relation",
+          "component_position_existing": null,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        },
+        {
+          "assertion_id": "boundary:(5.3):nu_prime_double_relation",
+          "component_position_existing": null,
+          "scope_existing": null,
+          "content_type": "TodaFixedStatementComponent",
+          "candidate_span_start": null,
+          "candidate_span_end": null,
+          "match_level": "REFERENCE_ONLY",
+          "component_order_confirmed_from_tex": false,
+          "review_status": "NEEDS_SEMANTIC_REVIEW"
+        }
+      ]
+    }
+  ],
+  "remaining_assertions": [
+    {
+      "reference_id": "toda:Proposition 2.2",
+      "assertion_id": "boundary:Proposition 2.2:hopf_right_composition_formula",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 2.5",
+      "assertion_id": "boundary:Proposition 2.5:delta_composition_formula",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 3.1",
+      "assertion_id": "boundary:Proposition 3.1:barratt_hilton_formula",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(4.5)",
+      "assertion_id": "boundary:(4.5):stable_range_suspension_isomorphism",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 4.4",
+      "assertion_id": "boundary:Proposition 4.4:nu4_decomposition_isomorphism",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.2)",
+      "assertion_id": "boundary:(5.2):eta2_composition_isomorphism",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.4",
+      "assertion_id": "boundary:Lemma 5.4:nu4_statement",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.5)",
+      "assertion_id": "boundary:(5.5):nu_family_relations",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.7)",
+      "assertion_id": "boundary:(5.7):nu_prime_eta6_hopf_relation",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.8)",
+      "assertion_id": "boundary:(5.8):delta_iota9_relation",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.7",
+      "assertion_id": "boundary:Lemma 5.7:eta2_suspension_zero_statement",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.7",
+      "assertion_id": "boundary:Lemma 5.7:delta_nu5_relation",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.8",
+      "assertion_id": "boundary:Proposition 5.8:pi6_2_group_relation",
+      "component_position_existing": 1,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.8",
+      "assertion_id": "boundary:Proposition 5.8:pi7_3_group_relation",
+      "component_position_existing": 2,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.8",
+      "assertion_id": "boundary:Proposition 5.8:pi8_4_group_relation",
+      "component_position_existing": 3,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.8",
+      "assertion_id": "boundary:Proposition 5.8:pi9_5_group_relation",
+      "component_position_existing": 4,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.8",
+      "assertion_id": "boundary:Proposition 5.8:higher_four_stem_zero",
+      "component_position_existing": 5,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.8",
+      "assertion_id": "boundary:Proposition 5.8:finite_dimensional_aggregate",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:pi7_2_group_relation",
+      "component_position_existing": 1,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:pi8_3_group_relation",
+      "component_position_existing": 2,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:pi9_4_group_relation",
+      "component_position_existing": 3,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:pi10_5_group_relation",
+      "component_position_existing": 4,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:pi11_6_group_relation",
+      "component_position_existing": 5,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:higher_five_stem_zero",
+      "component_position_existing": 6,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.9",
+      "assertion_id": "boundary:Proposition 5.9:finite_dimensional_aggregate",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.11",
+      "assertion_id": "boundary:Proposition 5.11:pi8_2_group_relation",
+      "component_position_existing": 1,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.11",
+      "assertion_id": "boundary:Proposition 5.11:pi9_3_zero",
+      "component_position_existing": 2,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.11",
+      "assertion_id": "boundary:Proposition 5.11:pi10_4_group_relation",
+      "component_position_existing": 3,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.11",
+      "assertion_id": "boundary:Proposition 5.11:higher_nu_squared_group_relation",
+      "component_position_existing": 4,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.13)",
+      "assertion_id": "boundary:(5.13):delta_nu9_relation",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.13)",
+      "assertion_id": "boundary:(5.13):delta_eta11_squared_zero",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:(5.13)",
+      "assertion_id": "boundary:(5.13):delta_eta13_zero",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.13",
+      "assertion_id": "boundary:Lemma 5.13:sigma_triple_prime_statement",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.14",
+      "assertion_id": "boundary:Lemma 5.14:sigma_double_prime_statement",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.14",
+      "assertion_id": "boundary:Lemma 5.14:sigma_prime_statement",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Lemma 5.14",
+      "assertion_id": "boundary:Lemma 5.14:sigma8_statement",
+      "component_position_existing": null,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi9_2_zero",
+      "component_position_existing": 1,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi10_3_zero",
+      "component_position_existing": 2,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi11_4_zero",
+      "component_position_existing": 3,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi12_5_group_relation",
+      "component_position_existing": 4,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi13_6_group_relation",
+      "component_position_existing": 5,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi14_7_group_relation",
+      "component_position_existing": 6,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:pi15_8_group_relation",
+      "component_position_existing": 7,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    },
+    {
+      "reference_id": "toda:Proposition 5.15",
+      "assertion_id": "boundary:Proposition 5.15:higher_sigma_group_relation",
+      "component_position_existing": 8,
+      "match_level": "REFERENCE_ONLY",
+      "review_status": "NOT_IN_PRIORITY_SET"
+    }
+  ],
+  "registration_applied": false,
+  "id_allocated": false,
+  "proof_search_connected": false,
+  "source_verified": false
+}

@@ -1,0 +1,24 @@
+﻿reference_id,chapter,source_order,source_line,assertion_id,component_position_existing,scope_existing,content_type,candidate_span_start,candidate_span_end,match_level,component_order_confirmed_from_tex,review_status
+toda:Proposition 5.1,5,2,193,boundary:Proposition 5.1:pi3_2_group_relation,1,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.1,5,2,193,boundary:Proposition 5.1:eta2_hopf_relation,2,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.1,5,2,193,boundary:Proposition 5.1:delta_iota5_relation,3,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.1,5,2,193,boundary:Proposition 5.1:higher_eta_group_relation,4,n >= 3,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.3,5,6,368,boundary:Proposition 5.3:pi4_2_group_relation,1,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.3,5,6,368,boundary:Proposition 5.3:pi5_3_group_relation,2,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.3,5,6,368,boundary:Proposition 5.3:pi6_4_group_relation,3,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.3,5,6,368,boundary:Proposition 5.3:higher_eta_squared_group_relation,4,n >= 5,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.6,5,12,695,boundary:Proposition 5.6:pi5_2_group_relation,1,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.6,5,12,695,boundary:Proposition 5.6:pi6_3_group_relation,2,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.6,5,12,695,boundary:Proposition 5.6:pi7_4_group_relation,3,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.6,5,12,695,boundary:Proposition 5.6:pi8_5_group_relation,4,n = 5,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:Proposition 5.6,5,12,695,boundary:Proposition 5.6:higher_nu_group_relation,5,n >= 6,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.1),5,1,90,boundary:(5.1):circle_higher_homotopy_zero,,i > 1,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.1),5,1,90,boundary:(5.1):sphere_connectivity_zero,,i < n,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.1),5,1,90,boundary:(5.1):stable_negative_zero,,k < 0,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.1),5,1,90,boundary:(5.1):diagonal_identity_group,,n >= 1,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.1),5,1,90,boundary:(5.1):stable_zero_stem,,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.1),5,1,90,boundary:(5.1):diagonal_suspension_isomorphism,,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.3),5,5,349,boundary:(5.3):nu_prime_bracket_definition,,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.3),5,5,349,boundary:(5.3):nu_prime_membership,,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.3),5,5,349,boundary:(5.3):nu_prime_hopf_relation,,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
+toda:(5.3),5,5,349,boundary:(5.3):nu_prime_double_relation,,,TodaFixedStatementComponent,,,REFERENCE_ONLY,False,NEEDS_SEMANTIC_REVIEW
