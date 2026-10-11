@@ -1,0 +1,68 @@
+﻿reference_id,assertion_id,chapter,source_order,source_line,component_position_existing,component_order_confirmed_from_tex,scope_existing,assertion_kind,assertion_origin,content_type,match_level,tex_span_identified,requires_semantic_review,existing_id_preserved,tex_registered,source_verified
+toda:Proposition 2.2,boundary:Proposition 2.2:hopf_right_composition_formula,2,9,353,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 2.5,boundary:Proposition 2.5:delta_composition_formula,2,16,960,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 3.1,boundary:Proposition 3.1:barratt_hilton_formula,3,1,83,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(4.5),boundary:(4.5):stable_range_suspension_isomorphism,4,7,386,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 4.4,boundary:Proposition 4.4:nu4_decomposition_isomorphism,4,11,469,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.1),boundary:(5.1):circle_higher_homotopy_zero,5,1,90,,False,i > 1,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.1),boundary:(5.1):sphere_connectivity_zero,5,1,90,,False,i < n,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.1),boundary:(5.1):stable_negative_zero,5,1,90,,False,k < 0,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.1),boundary:(5.1):diagonal_identity_group,5,1,90,,False,n >= 1,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.1),boundary:(5.1):stable_zero_stem,5,1,90,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.1),boundary:(5.1):diagonal_suspension_isomorphism,5,1,90,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.1,boundary:Proposition 5.1:pi3_2_group_relation,5,2,193,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.1,boundary:Proposition 5.1:eta2_hopf_relation,5,2,193,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.1,boundary:Proposition 5.1:delta_iota5_relation,5,2,193,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.1,boundary:Proposition 5.1:higher_eta_group_relation,5,2,193,4,False,n >= 3,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.2),boundary:(5.2):eta2_composition_isomorphism,5,3,204,,False,i >= 3,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.3),boundary:(5.3):nu_prime_bracket_definition,5,5,349,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.3),boundary:(5.3):nu_prime_membership,5,5,349,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.3),boundary:(5.3):nu_prime_hopf_relation,5,5,349,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.3),boundary:(5.3):nu_prime_double_relation,5,5,349,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.3,boundary:Proposition 5.3:pi4_2_group_relation,5,6,368,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.3,boundary:Proposition 5.3:pi5_3_group_relation,5,6,368,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.3,boundary:Proposition 5.3:pi6_4_group_relation,5,6,368,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.3,boundary:Proposition 5.3:higher_eta_squared_group_relation,5,6,368,4,False,n >= 5,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.4,boundary:Lemma 5.4:nu4_statement,5,7,444,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.5),boundary:(5.5):nu_family_relations,5,10,614,,False,n >= 5,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.6,boundary:Proposition 5.6:pi5_2_group_relation,5,12,695,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.6,boundary:Proposition 5.6:pi6_3_group_relation,5,12,695,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.6,boundary:Proposition 5.6:pi7_4_group_relation,5,12,695,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.6,boundary:Proposition 5.6:pi8_5_group_relation,5,12,695,4,False,n = 5,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.6,boundary:Proposition 5.6:higher_nu_group_relation,5,12,695,5,False,n >= 6,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.7),boundary:(5.7):nu_prime_eta6_hopf_relation,5,13,740,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.8),boundary:(5.8):delta_iota9_relation,5,14,748,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.7,boundary:Lemma 5.7:eta2_suspension_zero_statement,5,15,758,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.7,boundary:Lemma 5.7:delta_nu5_relation,5,15,758,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.8,boundary:Proposition 5.8:pi6_2_group_relation,5,16,852,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.8,boundary:Proposition 5.8:pi7_3_group_relation,5,16,852,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.8,boundary:Proposition 5.8:pi8_4_group_relation,5,16,852,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.8,boundary:Proposition 5.8:pi9_5_group_relation,5,16,852,4,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.8,boundary:Proposition 5.8:higher_four_stem_zero,5,16,852,5,False,n >= 6,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.8,boundary:Proposition 5.8:finite_dimensional_aggregate,5,16,852,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:pi7_2_group_relation,5,20,1060,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:pi8_3_group_relation,5,20,1060,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:pi9_4_group_relation,5,20,1060,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:pi10_5_group_relation,5,20,1060,4,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:pi11_6_group_relation,5,20,1060,5,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:higher_five_stem_zero,5,20,1060,6,False,n >= 7,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.9,boundary:Proposition 5.9:finite_dimensional_aggregate,5,20,1060,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.11,boundary:Proposition 5.11:pi8_2_group_relation,5,23,1325,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.11,boundary:Proposition 5.11:pi9_3_zero,5,23,1325,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.11,boundary:Proposition 5.11:pi10_4_group_relation,5,23,1325,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.11,boundary:Proposition 5.11:higher_nu_squared_group_relation,5,23,1325,4,False,n >= 5,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.13),boundary:(5.13):delta_nu9_relation,5,24,1359,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.13),boundary:(5.13):delta_eta11_squared_zero,5,24,1359,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:(5.13),boundary:(5.13):delta_eta13_zero,5,24,1359,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.13,boundary:Lemma 5.13:sigma_triple_prime_statement,5,26,1717,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.14,boundary:Lemma 5.14:sigma_double_prime_statement,5,28,1890,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.14,boundary:Lemma 5.14:sigma_prime_statement,5,28,1890,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Lemma 5.14,boundary:Lemma 5.14:sigma8_statement,5,28,1890,,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi9_2_zero,5,30,2132,1,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi10_3_zero,5,30,2132,2,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi11_4_zero,5,30,2132,3,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi12_5_group_relation,5,30,2132,4,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi13_6_group_relation,5,30,2132,5,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi14_7_group_relation,5,30,2132,6,False,,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:pi15_8_group_relation,5,30,2132,7,False,n = 8,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False
+toda:Proposition 5.15,boundary:Proposition 5.15:higher_sigma_group_relation,5,30,2132,8,False,n >= 9,statement,fixed_statement,TodaFixedStatementComponent,REFERENCE_ONLY,False,True,True,False,False

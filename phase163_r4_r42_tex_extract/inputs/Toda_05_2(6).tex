@@ -1,0 +1,2394 @@
+% !TEX program = lualatex
+\documentclass[10pt, leqno]{ltjsarticle}
+% \documentclass[10pt]{ltjsarticle} % 日本語をそのまま扱えるクラス
+% \usepackage[margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\usepackage[
+  top=15mm,     % 上余白
+  bottom=15mm,  % 下余白
+  left=10mm,    % 左余白
+  right=10mm,    % 右余白
+  landscape,
+  margin=10mm
+]{geometry}
+% \usepackage[landscape,margin=20mm]{geometry} % 余白はお好みで
+\usepackage{paracol}
+\columnratio{0.5,0.5}             % 左右を 1:1 に
+\setlength{\columnseprule}{0.4pt} % 真ん中の縦線
+
+\usepackage{titlesec}
+\titleformat{\paragraph}
+  {\normalfont\bfseries}
+  {}      % ← 番号を空に
+  {0pt}
+  {}
+
+% ---- 記号・マクロ ----
+\newcommand{\xto}{\mathrel{\xrightarrow{}}}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\epi}{\twoheadrightarrow}
+\newcommand{\pto}{\rightrightarrows}
+\newcommand{\cls}[1]{\bigl(#1\bigr)}
+\newcommand{\redjoin}{\wedge}
+\newcommand{\shrink}{\phi}
+\newcommand{\Ex}{E}        % suspension functor E
+\newcommand{\Ox}{\Omega}   % loop functor Omega
+\newcommand{\id}{\mathrm{id}}
+% --- Toda bracket helpers ---
+\newcommand{\toda}[1]{\{\,#1\,\}}              % {a,b,c}
+\newcommand{\todai}[2][]{\{\,#2\,\}_{#1}}      % {a,b,c}_i   (#1 は添字, 空なら無し) 
+\newcommand{\gen}[1]{\{\,#1\,\}}       % ⟨generator⟩ 表記を { } で統一
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\hs}[2]{\bigl[#1,#2\bigr]}   % 一般のホモトピー集合
+\newcommand{\pis}[2]{\pi_{#1}(#2)}       % 左が球面のときのホモトピー群
+\newcommand{\pit}[2]{\pi_{#1}^{#2}}
+\newcommand{\ext}[1]{\overline{#1}}     % extension
+\newcommand{\coext}[1]{\widetilde{#1}}  % coextension
+\newcommand{\z}{\mathbb{Z}}
+
+% ---- theorem-like environments ----
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[]{Remark}
+
+% \title{PART 1 \quad CHAPTER I\\[2mm] General Composition and Secondary Composition}
+\author{}
+\date{}
+
+\begin{document}
+
+\setcounter{section}{5}
+
+\section*{CHAPTER V.\quad Auxiliary Calculation of \(\pi_{n+k}(S^n;2)\) for \(1\le k\le 7\)}
+
+\begin{paracol}{2}
+
+
+本章では, (4.4) の完全列を使うことによって, \\
+\(1\le k\le 7\) に対する \(\pi_{n+k}(S^n)\) の 2-成分に関して,\\
+\([7][8][14][16][20]\) で知られている結果について述べる. \\
+以下, \(\mathbb Z\) を整数全体から成る群, 
+\(\mathbb Z_r\) を法 \(r\) の整数から成る群とする. \\
+さらに, \(\gen{\alpha}\subset \pi_i(S^n)\) を, 
+\(\alpha\in \pi_i(S^n)\) により生成される巡回部分群とする. \\
+(4.1) から, 次が成り立つ：
+\begin{equation}\label{5.1}
+\pi^{1}_{i}=0\ (i>1),\qquad
+\pi^{n}_{i}=0\ (i<n),\qquad
+G_k=(G_k;2)=0\ (k<0).
+\end{equation}
+\[
+\pi^{n}_{n}=\gen{\iota_n}\cong \mathbb Z,\qquad
+G_0=\gen{\iota}\cong \mathbb Z. \quad 
+\iota=E^{\infty}\iota_n.
+\]
+
+\paragraph*{i) The Groups \(\pi^{n}_{n+1}\).}
+(5.1) より, \(\pi^{1}_{2}=0\) である. Prop 4.4 から,
+\(
+H:\pi^{2}_{3}\longrightarrow \pi^{3}_{3}
+\)
+は同型である. \\
+\(H(\eta_2)=\iota_3\) を満たす類 \(\eta_2\in \pi^{2}_{3}\) をとると, 
+\(\eta_2\) は \(\pi^{2}_{3}\cong\mathbb Z\) を生成する. \\
+\(n\ge2\) に対し, \(\eta_n=E^{\,n-2}\eta_2\), 
+さらに, \(\eta=E^{\infty}\eta_2\) と記す. \\
+Prop 2.7 により,
+\(H(\Delta(\iota_5))=\pm H[\iota_2,\iota_2]=\pm 2\iota_3\) である. \\
+\(H:\pi^{2}_{3}\to\pi^{3}_{3}\) が同型なので, 
+\[
+\Delta(\iota_5)=\pm 2\,\eta_2 .
+\]
+完全列 (4.4)
+\[
+\pi^{5}_{5}\xrightarrow{\ \Delta\ }\pi^{2}_{3}\xrightarrow{\ E\ }\pi^{3}_{4}\xrightarrow{\ \ }\pi_{4}^{5}=0
+\]
+を考える. ここで, \(E\) は全射であり, 
+その kernel は \(2\eta_2\) により生成される. \\
+したがって,
+\(\pi^{3}_{4}=\gen{\eta_3}\cong\mathbb Z_2\) であり, (4.5) から,
+\[
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2, \ (n\ge3), \
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.
+\]
+以上より, 次を得る. 
+
+\switchcolumn
+
+\noindent
+\textbf{\cite{Freudenthal1937}
+H.~Freudenthal,}
+\newblock Über die Klassen der Sphärenabbildungen,
+\newblock Compos. Math., {\bf 5} (1937).
+
+\noindent
+\textbf{\cite{Hopf1935}
+H.~Hopf,}
+\newblock Über die Abbildungen von Sphären auf Sphären niedriger Dimension,
+\newblock Fund. Math., {\bf 25} (1935).
+
+\noindent
+\textbf{\cite{Serre1953a}
+J.-P.~Serre,}
+\newblock Cohomologie modulo 2 des complexes d'Eilenberg-MacLane,
+\newblock Comm. Math. Helv., {\bf 27} (1953), 198--231.
+
+\noindent
+\textbf{\cite{Serre1953c}
+J.-P.~Serre,}
+\newblock Quelques calculs de groupes d'homotopie,
+\newblock Comptes Rendus Paris, {\bf 236} (1953), 2475--2477.
+
+\noindent
+\textbf{\cite{Toda1952}
+H.~Toda,}
+\newblock Generalized Whitehead products and homotopy groups of spheres,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 3} (1952), 43--82.
+
+\noindent
+\textbf{(4.1).}\
+\(\pis{i}{S^1} = 0\ (i>1),\
+\pis{i}{S^n} = 0\ (i < n),\
+\pis{n}{S^n} = \z\gen{\iota_n}. \)
+
+\noindent
+\textbf{Prop4.4.}\
+\(H(\alpha) = \pm 2\iota_{2m-1}\ \Longrightarrow\
+\pit{i-1}{m-1}\oplus\pit{i}{2m-1}\xrightarrow{\cong}\pit{i}{m},\
+(\beta,\gamma)\mapsto E\beta+\alpha\circ\gamma.\)\\
+\(0=\pit{2}{1}\to\pit{3}{2}
+\xrightarrow{H}{\cong}\pit{3}{3}
+\xrightarrow{\Delta}\pit{1}{1}
+\xrightarrow{E}\pit{2}{2}.\)
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\begin{proposition}\label{prop:5.1}
+% Prop5.1.\
+\(\pi^{2}_{3}=\gen{\eta_2}\cong\mathbb Z,\quad
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2\ (n\ge3),\quad
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.\) \\
+ここで, 
+\(H(\eta_2)=\iota_3,\ \Delta(\iota_5)=\pm 2\,\eta_2\) が成り立つ. 
+\end{proposition}
+
+(5.1) より,
+\(\pi^{1}_{i-1}=0\) (\(i\ge3\)) なので, Prop 4.4 から, 次が成り立つ. 
+\begin{equation}\label{eq:5.2}
+% (5.2).\
+\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }
+\end{equation}
+
+以下のLemを, 後で用いる. 
+
+\begin{lemma}\label{lem:5.2}
+% \noindent
+% \textbf{Lem5.2.}\
+\(\alpha\in\pi_{i}(S^{3})\) に対し,
+\(2\alpha=0\) と仮定する. \\
+このとき,
+\(\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\) 
+の任意の元 \(\beta\) に対して,
+\[
+H(\beta)=E^{2}\alpha,\qquad
+2\beta=\eta_3\circ E\alpha\circ \eta_{i+1}
+\]
+が成り立つ. そのような \(\beta\) は,
+\(\pi^{3}_{i+2}\) に属し, \(\Delta(E^{2}\alpha)=0\) である. 
+\end{lemma}
+
+\switchcolumn
+
+\noindent
+\textbf{Prop4.4.}\
+\(\alpha\in \pit{2n-1}{n},\ H(\alpha)=\pm\iota_{2n-1}\) のとき,\\
+\(\pit{i-1}{n-1}\oplus\pit{i}{2n-1}\to\pit{i}{n},\ 
+(\beta, \gamma)\mapsto E\beta+ \alpha\circ\gamma\)
+は, \({}^\forall i\) で同型.
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+\textbf{Proof.}\ 
+Lem 4.5 より, \(2\iota_3\circ \alpha=2\alpha=0\). \\
+Toda bracket 
+\(\todai[1]{\eta_3,\,2E\iota_3,\,E\alpha}\) に, 
+Prop 2.6 を適用すると, 
+\[
+H(\beta)\in \Delta^{-1}(\eta_2\circ 2\iota_3)\circ E^{2}\alpha
+= \Delta^{-1}(2\eta_2)\circ E^{2}\alpha
+= \pm \iota_5\circ E^{2}\alpha
+= E^{2}\alpha.
+\]
+また,
+\[
+\begin{align*}
+2\beta
+& \in  2\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\\
+& =  
+\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\circ 2\iota_{i+2}\\
+& =  
+\eta_3\circ E\toda{2\iota_3,\alpha,2\iota_{i}} 
+&& \text{by Prop1.4}\\
+& \subset 
+\eta_3\circ -\,\toda{2\iota_{4},E\alpha,2\iota_{i+1}}
+&& \text{by Prop1.3}\\
+& \ni  
+\eta_3\circ -(E\alpha\circ\eta_{i+1})
+&& \text{by Cor3.7}\\
+& =  \eta_3\circ E\alpha\circ \eta_{i+1}.
+\end{align*}
+\]
+さらに, 
+\(\eta_3\circ -\todai[1]{2\,\iota_{4},E\alpha,2\,\iota_{i+1}}\) は,
+\[
+\eta_3\circ \pi_{i+2}(S^{4})\circ 2\iota_{i+2} + \eta_3\circ2\iota_4\circ E\pi_{i+2}(S^4) = \eta_3\circ\pi_{i+2}(S^4)\circ2\iota_{i+2}
+\] 
+の coset である. \\
+\(\gamma\in\pi_{i+2}(S^4)\) に対して, (2.1) により, 
+\(E(\eta_3\circ\gamma\circ2\iota_{i+2})=\eta_4\circ2E\gamma
+=2\eta_4\circ E\gamma=0 .\)\\
+Lem 4.5 から, \(\eta_3\circ\gamma\circ2\iota_{i+2}=0 .\)\\
+よって, \(\eta_3\circ\pi_{i+2}(S^4)\circ2\iota_{i+2}=0\) なので, \\
+\(\eta_3\circ - \todai[1]{2\iota_4,E\alpha,2\iota_{i+1}}\)
+は, ただ1つの元から成る. \\
+以上より, \(2\beta=\eta_3\circ E\alpha\circ\eta_{i+1}\) である. \\
+明らかに, 
+\(4\beta=0,\ \beta\in\pi^{3}_{i+2}\), であり,
+\(\Delta(E^{2}\alpha)=\Delta(H(\beta))=0\) である. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{Lem4.5.}\
+\(n=2,4,8\) のとき, 
+\(E:\pis{i-1}{S^{n-1}}\to\pis{i}{S^n}\) は単射.\\ 
+\(r\iota_{n-1}\circ\beta = r\beta,\ \beta\in\pis{i-1}{S^{n-1}}\).
+
+\noindent
+\textbf{Prop2.6.}\
+\(H\todai[1]{E\alpha, E\beta, E\gamma} 
+= -\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma.\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{Prop1.3.}\
+\(-E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+\subset \todai[n+1]{E\alpha, E^{n+1}\beta, E^{n+1}\gamma}\).
+
+\noindent
+\textbf{Cor3.7.}\
+\(\todai[1]{r\iota_{m+1}, E\beta, r\iota_{m+k+1}}
+\ni E\beta\circ\eta_{m+k+1}\)\ 
+if \ \(r\equiv 2\ \pmod 4\).
+
+\noindent
+\(S^4\xleftarrow{2\iota_4}
+S^4\xleftarrow{E\alpha}
+S^{i+1}\xleftarrow{2\iota_{i+1}}
+S^{i+1}\).
+
+\noindent
+\(\eta_3\circ 2\iota_4 = 0.\)
+
+\noindent
+\textbf{(2.1).}\
+\(k(\alpha\circ\beta) = \alpha\circ k\beta,\
+k(\alpha\circ E\beta) = (k\alpha)\circ E\beta.\)
+
+\noindent
+\textbf{Lem4.5.}\
+\(E: \pis{i-1}{S^3}\to\pis{i}{S^4}\) は単射.
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\(\eta_3\in\pi_4(S^3)\) は, 上のLemの条件 \(2\iota_3\circ\eta_3=0\) を満たす. \\
+\(\nu'\in\todai[1]{\eta_3,2\iota_4,\eta_4}\) を考えると, 
+次を得る. 
+\begin{equation}\label{eq:5.3}
+% (5.3).\
+\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .
+\end{equation}
+
+
+\paragraph*{ii) The Group \(\pi^{n}_{n+2}\).}
+\(\eta_n^{2}:=\eta_n\circ \eta_{n+1}\) および,
+\(\eta^{2}:=\eta\circ\eta\) と記す. このとき,
+\[
+E\,\eta_n^{2}=\eta_{n+1}^{2},\qquad E^{\infty}\eta_n^{2}=\eta^{2}.
+\]
+
+\switchcolumn
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\begin{proposition}\label{prop:5.3}
+% Prop5.3.\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+\end{proposition}
+
+\noindent
+\textbf{Proof.}\ 
+ (5.2) より, \(\pi_{4}^{2}=\gen{\eta_2^{2}}\cong \mathbb Z_2 .\)
+完全列 (4.4)
+\[
+\pi_{6}^{3}\xrightarrow{\ H}\pi_{6}^{5}\xrightarrow{\ \Delta\ }\pi_{4}^{2}
+\xrightarrow{\ E\ }\pi_{5}^{3}\xrightarrow{\ H\ }\pi^{5}_{5}
+\xrightarrow{\ \Delta\ }\pi_{3}^{2}
+\]
+を考える. Prop 5.1 から,
+\(\Delta:\pi^{5}_{5}\to\pi_{3}^{2}\) は単射である. \\
+したがって, \(H(\pi_{5}^{3})=0\) で, \(E\) は全射. \\
+さらに, (5.3) とProp 5.1 より,
+\(H:\pi^{3}_{6}\to\pi^{5}_{6}\) は全射である. \\
+ゆえに, \(\Delta(\pi^{5}_{6})=0\) であり, 
+\(E\) は単射となる. \\
+よって, \(E:\pi_4^2\xrightarrow{}\pi_5^3\) は同型となり, \(n=3\) の場合が示せた. \\
+次に, 
+\(\pi_5^3\xrightarrow{E}\pi_6^4\xrightarrow{}\pi_6^7\)
+において, (5.1) により,
+\(\pit{6}{7}=0\) なので,
+\(E\) は全射である. \\
+Prop4.4 により, \(E\) は単射なので, 
+\(E:\pit{5}{3}\to\pit{6}{4}\) は同型であるので, \(n=4\) の場合が示せた. \\
+\(n>4\) と, \((G_2;2)\) については, (4.5) から分かる. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Prop5.1.}\
+\(\pi^{2}_{3}=\gen{\eta_2}\cong\mathbb Z,\quad
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2\ (n\ge3),\quad
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.\) \\
+ここで, 
+\(H(\eta_2)=\iota_3,\ \Delta(\iota_5)=\pm 2\,\eta_3\) が成り立つ. 
+
+\noindent
+\textbf{(5.3).}\
+\(\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .\)
+
+\noindent
+\textbf{Prop4.4.}\
+\(H(\alpha) = \pm 2\iota_{2m-1}\ \Longrightarrow\
+\pit{i-1}{m-1}\oplus\pit{i}{2m-1}\xrightarrow{\cong}\pit{i}{m},\
+(\beta,\gamma)\mapsto E\beta+\alpha\circ\gamma.\)\\
+\(0=\pit{2}{1}\to\pit{3}{2}
+\xrightarrow{H}{\cong}\pit{3}{3}
+\xrightarrow{\Delta}\pit{1}{1}
+\xrightarrow{E}\pit{2}{2}.\)
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\bigskip
+\paragraph*{iii). The Group \(\pi^{n}_{\,n+3}\).}
+
+\begin{lemma}[]
+\label{lem:5.4}
+% Lem5.4.\
+ある元 \(\nu_{4}\in \pi^{4}_{7}\) が存在して, 次を満たす. 
+\[
+H(\nu_{4})=\iota_7,\qquad 2E \nu_{4}=E^{2}\nu' .
+\]
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+Th 3.6 を, \(\alpha=\eta_{2}\) に適用すると, 
+\(\eta_{2}\) は条件 \((1-(-1)^{1})E^{4}\eta_{2}=2\eta_{6}=0\) を満たす. 
+よって, ある元 \(\alpha^{\ast}\in\pis{7}{S^4}\) が存在し, \\
+\(\beta\circ E^{t}\eta_{2}=0\) を満たす
+任意の \(\beta\in\pi_{\,t+2}(S^{\,m})\) に対して,
+\[
+E^{2}\beta\circ E^t\alpha^{\ast}\in (-1)^m \toda{E^{m}\eta_{2},\,E^{3}\beta,\,E^{t+3}\eta_{2}}_{3}
+\]
+となる. 
+とくに, \(\beta=2\iota_{3}\) とし, \(t=1\) の場合,  (2.1) より
+\(2\iota_3\circ E\eta_{2}=2E\eta_{2}=2\eta_3=0\). \\
+したがって,
+\[
+E^{2}(2\iota_{3})\circ E\alpha^{\ast}=2E\alpha^{\ast}
+\]
+は, \(-\todai[3]{\eta_{5},\,2\iota_{6},\,\eta_{6}}\) に含まれる. 
+ここで,
+\(n\ge3,\ t\le n-2\) のとき, 
+\begin{equation}\label{eq:5.4}
+% (5.4).\
+\todai[t]{\eta_{n},\,2\iota_{n+1},\,\eta_{n+1}} = \{E^{\,n-3}\nu',-E^{\,n-3}\nu'\}.
+\end{equation}
+
+\noindent
+まず, \(t\ge1\) の場合を考える.  
+(4.7) , Prop 5.3 と (5.3) より, 
+上の Toda bracket は,
+\[
+\eta_n\circ \pi^{n+1}_{n+3} + \pi^{n}_{n+2}\circ \eta_{n+2} 
+= \gen{\eta_n\circ\eta_{n+1}\circ\eta_{n+2}}
+= \gen{2E^{n-3}\nu'}
+\]
+の coset である. 
+
+\switchcolumn
+
+\noindent
+\textbf{Th3.6.}\
+$\alpha\in\pis{n+k}{S^{n}}$, $h\ge0$ が \eqref{3.1} を満たすとする.\\ 
+さらに, $k\le 2n-2$ と仮定する.
+このとき,
+\(\alpha^{*}\in\pis{2n+2k+1}{S^{2n}}\)
+が存在して, \\
+\(\beta\circ \Ex^{\ell}\alpha=0\)
+を満たす任意の $\beta\in\pis{n+\ell}{S^{n}}$ に対して, \\
+\(\Ex^{n}\beta \circ \Ex^{t}\alpha^{*}
+\in (-1)^{km+kt+t}\,\todai[n+k]{\Ex^{m}\alpha,\ 
+  \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}\)\\
+\(+ (-1)^{kn+h+t+1}\,\todai[h+t]{\Ex^{n}\beta,\ 
+  \Ex^{n+t}\alpha,\ (1-(-1)^k)\Ex^{n+k+t}\alpha}\ .\)\\
+さらに,
+\((1-(-1)^k)\Ex^{n+h+1}\alpha=0\), 特に \(k\) が偶数のとき, \\
+\(
+\Ex^{n}\beta\circ \Ex^{t}\alpha^{*}\ \in\
+(-1)^{km+kt+t}\,\todai[n+k]{\Ex^{m}\alpha,\ \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}\ .
+\)
+
+\noindent
+\textbf{(2.1).}\
+\(k(\alpha\circ\beta) = \alpha\circ k\beta,\
+k(\alpha\circ E\beta) = (k\alpha)\circ E\beta.\)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{(5.3).}\
+\(\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .\)
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+\(\nu'\) の定義, Prop 1.3, (1.15) から, 
+\begin{align*}
+E^{\,n-3}\nu'\in E^{\,n-3}\todai[1]{\eta_3,\,2\iota_{4},\,\eta_4}
+& \subset(-1)^{n-3}\todai[n-2]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}\\
+& \subset(-1)^{n-3}\todai[t]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}
+\end{align*}
+が従うので, \(t\ge1\) で (5.4) が成立する. \\
+(3.2) より, \(\pi_{\,n+3}(S^{n+1})=E\,\pi_{\,n+2}(S^{n})\) である. \\
+したがって,
+\(\todai[1]{\eta_n,2\iota_{n+1},\eta_{n+1}}\) と
+\(\toda{\eta_n,2\iota_{n+1},\eta_{n+1}}\)
+は, 同じ次の群の coset である. \\
+\(
+\eta_n\circ E\pi_{n+2}(S^n) + \pi_{n+2}(S^n)\circ\eta_{n+2} .
+\)\\
+(1.15) から, これらの Toda bracket は一致する. \\
+これから, \(t=0\) のとき, (5.4) が成り立つことが分かる. 
+\qed
+
+今, \(2E\alpha^{\ast}=\pm E^{2}\nu'\) である. \\
+\(H:\pi^{3}_{6}\to \pi^{5}_{6}\) は,
+\(\nu'\) を \(\pi_6^5\) の生成元 \(\eta_{5}\) に写すので, \(\nu'\) は 2 で割れない. \\
+一方, \(2E\alpha^{\ast}=\pm E^{2}\nu'\) より,
+\(E^{2}\nu'\) は 2 で割れる. \\
+(4.8) より,
+\(H(\alpha^{\ast})=(2s+1)\iota_{7}\), (\(s\in\mathbb Z\)). \\
+そこで,
+\(H[\iota_4,\iota_4]=(-1)^u 2\iota_7\) とし, 
+\(\nu_4\) を次で定義する. 
+(\([\iota_4,\iota_4]\) は Whitehead product)
+\[
+\nu_{4}:=
+\begin{cases}
+\alpha^{\ast}-(-1)^{u}\,s[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=E^{2}\nu'),\\[1mm]
+-\alpha^{\ast}+(-1)^{u}(s+1)[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=-E^{2}\nu').
+\end{cases}
+\]
+このとき, \(\nu_4\) がLem5.4 の条件を満たすことは簡単に確かめられる. 
+
+\begin{lemma}\label{lem:5.5}
+% Lem5.5.\
+$Lem 5.4$ の元 \(\nu_{4}\) に対し, 
+Toda bracket 
+\(\todai[3]{\eta_{m+2},\,E^{3}\beta,\,\eta_{t+5}}\) は,\\
+\(
+E^{2}\beta\circ E^{t}\nu_{4}\text{または,} -E^{2}\beta\circ E^{t}\nu_{4}
+\)
+を含む. \\
+ここで, \(\beta\in\pi_{t+2}(S^{m})\) は,
+\(\beta\circ \eta_{t+2}=0\), \(t>0\) を満たす元である. 
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+前Lemの証明より, \\
+\(E^{2}\beta\circ E^{t}\alpha^{\ast}\) あるいは,
+\(-E^{2}\beta\circ E^{t}\alpha^{\ast}\) 
+が, 当該 Toda bracket に含まれる. \\
+\(E[\iota_4,\iota_4]=0\) なので, 定義より,
+\(E^{t}\nu_{4}=\pm E^{t}\alpha^{\ast}\) である. 
+\qed
+
+\[
+\nu_n:=E^{\,n-4}\nu_{4},\ (n\ge 4),\qquad \nu:=E^{\infty}\nu_{4}
+\]
+\[
+\eta^{3}_{n}:=\eta_{n}\circ\eta_{n+1}\circ\eta_{n+2},\ (n\ge2),\qquad
+\eta^{3}:=\eta\circ\eta\circ\eta .
+\]
+と記す.
+Lem 5.4 とProp 5.3 より,
+\begin{equation}\label{eq:5.5}
+% (5.5).\
+n\ge5\ \text{に対して, } 2\nu_n=E^{\,n-3}\nu',\qquad
+4\nu_{n}=\eta_n^{3},\quad 4\nu=\eta^{3}.
+\end{equation}
+\noindent
+Prop 4.4 とLem 5.4 から,
+\begin{equation}\label{eq:5.6}
+% (5.6).\
+(\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }
+\end{equation}
+
+\switchcolumn
+
+\noindent
+\textbf{(Def).}\
+\(\nu'\in\todai[1]{\eta_3,2\iota_4,\eta_4}\).
+
+\noindent
+\textbf{Prop1.3.}\
+\(-E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+\subset \todai[n+1]{E\alpha, E^{n+1}\beta, E^{n+1}\gamma}\).
+
+\noindent
+\textbf{(1.15).}\
+\(\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n
+\ \subset\
+\bigl\{\alpha,\ \Ex^{m}(E^{n-m}\beta),\ E^{m}(E^{n-m}\gamma)\bigr\}_m .\)
+
+\noindent
+\textbf{(3.2).}\
+\(\Ex: \pis{i}{S^m} \longrightarrow \pis{i+1}{S^{m+1}}
+\quad\text{は, } i<2m-1 \text{で同型, } i=2m-1 \text{で全射である. }\)
+
+\noindent
+\textbf{(5.4).}\
+\(\todai[t]{\eta_{n},\,2\iota_{n+1},\,\eta_{n+1}} = \{E^{\,n-3}\nu',-E^{\,n-3}\nu'\}.\)
+
+\noindent
+\textbf{(4.8).}\
+\( n \ \text{を偶数とする. } \)\\
+\(\Delta(\iota_{2n-1})=[\iota_{n-1},\iota_{n-1}]\ne0 \ \text{のとき, }\)\\
+\(\pit{2n-1}{n}
+=E\,\pit{2n-2}{\,n-1}\ \oplus\ \Delta\,\pit{2n+1}{\,2n+1}
+\cong E\,\pit{2n-2}{\,n-1}\ \oplus\ \mathbb{Z},\ \pit{2n}{\,n+1} = E^{2}\,\pit{2n-2}{\,n-1} 
+\cong E\,\pit{2n-2}{\,n}.\)\\
+\(\Delta(\iota_{2n-1})=0 \ \text{のとき, }\)\\
+\(E^{2}:\pit{2n-2}{\,n-1}\to\pit{2n}{\,n+1}\ \text{は単射で, }\
+\pit{2n}{\,n+1}/E^{2}\pit{2n-2}{\,n-1}\cong\mathbb{Z}_2 . \)\\
+\(\text{さらに,}\ \alpha\in\pit{2n-1}{n} \ \text{に対して, 次が成り立つ. }\)\\
+\(E\alpha\in E^{2}\pit{2n-2}{\,n-1} \ \Leftrightarrow \
+H(\alpha)\in 2\,\pit{2n-1}{\,2n-1} .\)
+
+\noindent
+\textbf{Lem5.4.}\
+ある元 \(\nu_{4}\in \pi^{4}_{7}\) が存在して, 次を満たす. \\
+\(H(\nu_{4})=\iota_7,\ 2E \nu_{4}=E^{2}\nu' .\)
+
+\noindent
+\textbf{Prop5.3.}\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+
+\noindent
+\textbf{Prop4.4.}\
+\(\alpha\in \pit{2n-1}{n},\ H(\alpha)=\pm\iota_{2n-1}\) のとき,\\
+\(\pit{i-1}{n-1}\oplus\pit{i}{2n-1}\to\pit{i}{n},\ 
+(\beta, \gamma)\mapsto E\beta+ \alpha\circ\gamma\)
+は, \({}^\forall i\) で同型.
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\begin{proposition}\label{prop:5.6}
+% Prop5.6.\
+\ \\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+\end{proposition}
+
+\noindent
+\textbf{Proof.}\ 
+(5.2), Prop 5.3 より,
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong\mathbb Z_{2}\). 
+完全列 (4.4)
+\[
+\pi^{3}_{7}\xrightarrow{H}\pi^{5}_{7}\xrightarrow{\Delta}\pi^{2}_{5}
+\xrightarrow{E}\pi^{3}_{6}\xrightarrow{H}\pi^{5}_{6}
+\]
+を考える. Prop 2.2 とProp 5.3 から,
+\(
+H(\nu'\circ \eta_{6})=H(\nu')\circ\eta_{6}
+=\eta_{5}\circ \eta_{6}=\eta^{2}_{5}.
+\)\\
+また, Prop 5.3 より,
+\(H:\pi_{7}^{3}\to \pi_{7}^{5}\) は全射で, 
+\(E\) は単射. \\
+ゆえに, \(\eta^{3}_{3}=E\eta^{3}_{2}\) の位数は 2. 
+(5.3) から, \(\nu'\) の位数は 4である. \\
+\(\pi_6^5=\mathbb Z_2\gen{\eta_5}\) なので, 
+\(\nu'\) は \(\pi_6^3\) の生成元である. 
+したがって, \(\pi^{3}_{6}=\gen{\nu'}\cong\mathbb Z_{4}\). \\
+(5.6) より, \(\pi^{\,4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}
+\cong \mathbb Z\oplus\mathbb Z_{4}\). \\
+さらに, (4.8) と (5.6)? から, 
+\(\pi^{5}_{8}/E^{2}\pi^{3}_{6}\cong \mathbb Z_{2}\) で, 
+\(E^{2}:\pi^{3}_{6}\to \pi^{5}_{8}\) は単射. \\
+(5.5) より,
+\(\nu_5\) の位数は 8 であり, \(\pi_8^5\) の生成元である. \\
+(4.5) により, 
+\(\pi_{n+3}^n=\mathbb Z_8\gen{\nu_n},\ \) (\(n\ge5\)) , 
+\((G_3;2)=\mathbb Z_8\gen{\nu}\) である. 
+\qed
+
+証明の中で, 次を得た. 
+\begin{equation}\label{eq:5.7}
+% (5.7).\
+H(\nu'\circ\eta_6)=\eta_5^2 .
+\end{equation}
+
+\(E:\pi_7^4\rightarrow\pi_8^5\) の kernel が,
+\(2\nu_4-E\nu'\) により生成されることは, 簡単に確かめられる. \\
+これと, (4.4) の完全性から, 次を得る. 
+\begin{equation}\label{eq:5.8}
+% (5.8).\
+\Delta(\iota_9)=\pm(2\nu_4-E\nu')  \ (=\pm[\iota_4, \iota_4]) .
+\end{equation}
+
+\paragraph*{iv). The Group \(\pi^{n}_{n+4}\).}
+
+(5.2), Prop5.6 により, 
+\(\pi_6^2=\mathbb Z_4\gen{\eta_2\circ\nu'}\) である. 
+
+\begin{lemma}\label{lemma:5.7}
+% Lem5.7.\
+\(\alpha\in\pi_i(S^3)\) に対して,
+\(E^2\alpha\in2\iota_5\circ\pi_{i+2}(S^5)\) ならば, 
+\(E(\eta_2\circ\alpha)=0\) である. \\
+特に, \(E(\eta_2\circ\nu')=0, \ \Delta(\nu_5)=\pm(\eta_2\circ\nu')\) である. 
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+\(E^{2}(\eta_2\circ \alpha)
+=\eta_4\circ E^2\alpha\in\eta_4\circ2\iota_5\circ\pi_{i+2}(S^5)=0.\)\\
+従って, Lem4.5 から,
+\(E(\eta_2\circ \alpha)=0\) である.\\
+Lem5.4 により, \(E^2\nu'=2\nu_5=2\iota_5\circ E\nu_4\) なので, 
+\(E(\eta_2\circ \nu')=0\) である. \\
+列 (4.4) の完全性により,
+\(\pi^{2}_{6}=\Delta(\pi^{5}_{8})=\gen{\Delta(\nu_5)} .\)\\
+よって, \(\Delta(\nu_5)=\pm(\eta_2\circ\nu')\) である. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Prop5.3.}\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+
+\noindent
+\textbf{(5.3).}\
+\(\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{(4.8).}\
+\( n \ \text{を偶数とする. } \)\\
+\(\Delta(\iota_{2n-1})=[\iota_{n-1},\iota_{n-1}]\ne0 \ \text{のとき, }\)\\
+\(\pit{2n-1}{n}
+=E\,\pit{2n-2}{\,n-1}\ \oplus\ \Delta\,\pit{2n+1}{\,2n+1}
+\cong E\,\pit{2n-2}{\,n-1}\ \oplus\ \mathbb{Z},\ \pit{2n}{\,n+1} = E^{2}\,\pit{2n-2}{\,n-1} 
+\cong E\,\pit{2n-2}{\,n}.\)\\
+\(\Delta(\iota_{2n-1})=0 \ \text{のとき, }\)\\
+\(E^{2}:\pit{2n-2}{\,n-1}\to\pit{2n}{\,n+1}\ \text{は単射で, }\
+\pit{2n}{\,n+1}/E^{2}\pit{2n-2}{\,n-1}\cong\mathbb{Z}_2 . \)\\
+\(\text{さらに,}\ \alpha\in\pit{2n-1}{n} \ \text{に対して, 次が成り立つ. }\)\\
+\(E\alpha\in E^{2}\pit{2n-2}{\,n-1} \ \Leftrightarrow \
+H(\alpha)\in 2\,\pit{2n-1}{\,2n-1} .\)
+
+\noindent
+\textbf{(5.5).}\
+\(n\ge5\ \text{に対して, } 2\nu_n=E^{\,n-3}\nu',\
+4\nu_{n}=\eta_n^{3},\quad 4\nu=\eta^{3}.\)
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{Lem4.5.}\
+\(n=2,4,8\) のとき, 
+\(E:\pis{i-1}{S^n-1}\to\pis{i}{S^n}\) は単射.\\ 
+\(r\iota_{n-1}\circ\beta = r\beta,\ \beta\in\pis{i-1}{S^{n-1}}\).
+
+\noindent
+\textbf{Lem5.4.}\
+ある元 \(\nu_{4}\in \pi^{4}_{7}\) が存在して, 次を満たす. \\
+\(H(\nu_{4})=\iota_7,\ 2E \nu_{4}=E^{2}\nu' .\)
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+
+\(E\pi_6^2=\gen{E(\eta_2\circ\nu')}=0\) なので, 
+(4.4) から, 完全列 
+\(0\to\pi_7^3\xrightarrow H \pi_7^5\) を得る. \\
+(5.7) とProp5.3 により, \(H\) は同型で, 
+\(\pi_7^3=\mathbb Z_2\gen{\nu'\circ\eta_6}\) である. \\
+これで, 次のPropの最初の2つが証明できた. 
+
+\begin{proposition}\label{prop:5.8}
+\ \\
+% Prop5.8.\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \\
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \\
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \\
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+\end{proposition}
+
+\noindent
+\textbf{Proof.}\ 
+\(\pi_8^4\) に対する結果は, (5.6) とProp5.1 から従う. 
+(4.4) の完全列
+\[
+\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{9}_{8}\xrightarrow{\ E\ }\pi^{5}_{9}
+\xrightarrow{\ H }\pi^{9}_{9}\xrightarrow{\ \Delta\ }\pi^{4}_{7}
+\]
+を考える. (5.8) とProp5.6 により, \(\Delta:\pi_9^9\to\pi_7^4\) は単射である. \\
+よって, 完全性から, \(E\) は全射となることが分かる. \\
+\(E\) の kernel は次で生成される. 
+\[
+\begin{align*}
+\Delta(\eta_9)
+& =  \Delta(\iota_9)\circ \eta_7
+&& \text{by Prop2.5}\\
+& =  (2\nu_4-E\nu')\circ \eta_7
+&& \text{by (5.8)}\\
+& =  \nu_4\circ (2\eta_7)-E\nu'\circ \eta_7
+ =  E\nu'\circ \eta_7.
+\end{align*}
+\]
+これから, \(\pi_9^5=E\pi_8^4=\mathbb Z_2\gen{\nu_5\circ\eta_8}\) である. 
+次に, (4.4) の完全列
+\[
+\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}\xrightarrow{\ E } \pi^{6}_{10}
+\xrightarrow{\ H } \pi^{11}_{10}=0
+\]
+を考える. 
+\(E\) は全射で, \(\pi_{10}^6\) は \(\nu_6\circ\eta_9\) で生成される. 
+ここで, 次の関係式を証明する. 
+\begin{equation}\label{eq:5.9}
+% (5.9).\
+\eta_3\circ \nu_4= \nu'\circ \eta_6,\qquad
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\qquad
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)
+\end{equation}
+
+まず, \(\eta_3\circ\nu_4\) を考える. 
+\(
+2E(\eta_3\circ\nu_4)
+=2(\eta_4\circ\nu_5)
+=2\eta_4\circ\nu_5=0
+\)
+なので, \\
+Lem4.5 から, \(2(\eta_3\circ\nu_4)=0 .\)
+よって, \(\eta_3\circ\nu_4\in\pi_7^3 .\)\\
+\(\pi_7^3\) は \(\nu'\circ\eta_6\) で生成されるので, 
+\(\eta_3\circ\nu_4=x\nu'\circ\eta_6 \ (x = 0 \text{ or } 1) .\)
+\[
+\begin{align*}
+H(\eta_3\circ \nu_4)
+& =  E(\eta_2\wedge\eta_2)\circ H(\nu_4)
+&& \text{by Prop2.2}\\
+& =  \pm (\eta_5\circ \eta_6)\circ \iota_7
+&& \text{by Prop3.1, Lem5.4}\\
+& =  \eta_5^{2}
+&& \text{by Prop5.3}\\
+& =  H\big(x\nu'\circ \eta_6\big)
+=x\eta_5^2 
+&& \text{by (5.7)}.
+\end{align*}
+\]
+これより, \(x=1\), 
+\(\eta_3\circ\nu_4=\nu'\circ\eta_6\) である. 
+
+\switchcolumn
+
+\noindent
+\textbf{(5.7).}\
+\(H(\nu'\circ\eta_6)=\eta_5^2 .\)
+
+\noindent
+\textbf{Prop5.3.}\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.1.}\
+\(\pi^{2}_{3}=\gen{\eta_2}\cong\mathbb Z,\quad
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2\ (n\ge3),\quad
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.\) \\
+ここで, 
+\(H(\eta_2)=\iota_3,\ \Delta(\iota_5)=\pm 2\,\eta_3\) が成り立つ. 
+
+\noindent
+\textbf{(5.8).}\
+\(\Delta(\iota_9)=\pm(2\nu_4-E\nu')  \ (=\pm[\iota_4, \iota_4]) .\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Lem4.5.}\
+\(n=2,4,8\) のとき, 
+\(E:\pis{i-1}{S^n-1}\to\pis{i}{S^n}\) は単射.\\ 
+\(r\iota_{n-1}\circ\beta = r\beta,\ \beta\in\pis{i-1}{S^{n-1}}\).
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{Lem5.4.}\
+ある元 \(\nu_{4}\in \pi^{4}_{7}\) が存在して, 次を満たす. \\
+\(H(\nu_{4})=\iota_7,\ 2E \nu_{4}=E^{2}\nu' .\)
+
+\noindent
+\textbf{Prop5.3.}\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+
+\noindent
+\textbf{(5.7).}\
+\(H(\nu'\circ\eta_6)=\eta_5^2 .\)
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+次に, (5.5) により,
+\(\eta_5\circ\nu_6=E^2\nu'\circ\eta_8=2\nu_5\circ\eta_8=0 .\)\\
+よって, \(n\geq5\) に対して, \(\eta_n\circ\nu_{n+1}=0\) である.\\ 
+Prop3.1 により, \(\eta_2\wedge\nu_4=\eta_6\circ\nu_7=\nu_6\circ\eta_9 .\)\\
+よって, \(\nu_6\circ\eta_9=\eta_6\circ\nu_7=0, \)
+\(\nu_n\circ\eta_{n+3}=0,\ (n\geq6)\) である. \\
+これで, (5.9) が全て証明できた. 
+
+最後の結果により, \(\pi_{10}^6=\gen{\nu_6\circ\eta_9}=0 .\)\\
+(4.5) により, \(\pi_{n+4}^n=(G_4;2)=0, \ (n\geq6)\) である. \\
+以上で, Prop5.8 の証明が完了した. 
+\qed
+
+証明の中で, \(E:\pi_9^5\to\pi_{10}^6\) が自明だったので, 
+\(\Delta:\pi_{11}^{11}\to\pi_9^5\) が全射となった. \\
+\(\pi_9^5\) が \(\nu_5\circ\eta_8\) で生成されるので, 次を得る. 
+\begin{equation}\label{eq:5.10}
+% (5.10).\
+\Delta(\iota_{11})=\nu_5\circ\eta_8 .
+\end{equation}
+
+また, 証明の中で次の関係も得られた. 
+\begin{equation}\label{eq:5.11}
+% (5.11).\
+\Delta(\eta_9)=E\nu'\circ\eta_7 .
+\end{equation}
+
+\paragraph*{v). The Group \(\pi^{n}_{n+5}\).}
+
+\begin{proposition}\label{prop:5.9}
+\ \\
+% Prop5.9.\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \\
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \\
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \\
+\(\pi^{6}_{11}=\mathbb Z\gen{\Delta(\iota_{13})},\) \\
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+\end{proposition}
+
+\noindent
+\textbf{Proof.}\ 
+(5.2) とProp5.8 から, 最初の結果を得る. \\
+Lem5.7 により, \(E\pi_7^2=\gen{E(\eta_2\circ\nu')\circ\eta_7}=0 .\)
+よって, (4.4) から, 
+\[
+0\to \pi^{3}_{8}\xrightarrow{H}\pi^{5}_{8}\xrightarrow{\Delta}\pi^{2}_{6}
+\]
+は完全列である. 
+Lem5.7, Prop 5.6, (5.5) により, \(\ker\Delta\) は \(4\nu_5=\eta_5^3\) で生成される. \\
+Prop2.2 と (5.3) により, 次を得る. 
+\[
+H(\nu'\circ \eta_6^2)=H(\nu')\circ \eta_6^2=\eta_5\circ \eta_6^2=\eta_5^{3}.
+\]
+よって, 完全性から, Propの2番目が成り立つ. \\
+(5.6) により, \(\pi_9^4\) の結果を得る. 
+
+\switchcolumn
+
+\noindent
+\textbf{(5.5).}\
+\(n\ge5\ \text{に対して, } 2\nu_n=E^{\,n-3}\nu',\
+4\nu_{n}=\eta_n^{3},\ 4\nu=\eta^{3}.\)
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \\
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \\
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \\
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Lem5.7.}\
+\(\alpha\in\pi_i(S^3)\) に対して,
+\(E^2\alpha\in2\iota_5\circ\pi_{i+2}(S^5)\) ならば, 
+\(E(\eta_2\circ\alpha)=0\) である. \\
+特に, \(E(\eta_2\circ\nu')=0, \ \Delta(\nu_5)=\pm(\eta_2\circ\nu')\) である. 
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+\noindent
+\textbf{(5.5).}\
+\(n\ge5\ \text{に対して, } 2\nu_n=E^{\,n-3}\nu',\
+4\nu_{n}=\eta_n^{3},\ 4\nu=\eta^{3}.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{(5.3).}\
+\(\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+(4.4) の次の完全列を考える. 
+\[
+\pi^{9}_{11}\xrightarrow{\ \Delta\ }\pi^{4}_{9}\xrightarrow{\ E }\pi^{5}_{10}
+\xrightarrow{\ H }\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{4}_{8}\xrightarrow{E}\pi_9^5 .
+\]
+Prop5.8 と (5.11) により, \(\ker(E:\pi_8^4\to\pi_9^5)\cong\mathbb Z_2\) である. \\
+\(\pi_{10}^9\cong\mathbb Z_2\) は, \(\Delta\) により, \(\pi_8^4\) に単射で写る. 
+よって, \(E:\pi_9^4\to\pi_{10}^5\) は全射である. \\
+\(\pi_{11}^9\) は \(\eta_9^2\) で生成され, Prop2.5 と (5.11) により, 
+\(\Delta(\eta_9^2)=\Delta(\eta_9)\circ\eta_8=E\nu'\circ\eta_7^2\) である. 
+よって, \(\pi_{10}^5=E\pi_9^4=\mathbb Z_2\gen{\nu_5\circ\eta_8^2}\) である. \\
+(5.9) により, \(E(\nu_5\circ\eta_8^2)=\nu_6\circ\eta_9\circ\eta_{10}=0\) なので, 
+\(E\pi_{10}^5=0 .\)\\
+また, Prop2.5 と (5.10) により, \(\Delta(\eta_{11})=\nu_5\circ\eta_8^2\) である. 
+よって, (4.4) から, 
+\[
+0\to \pi^{6}_{11}\xrightarrow{H}\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}
+\]
+が完全列である. 
+Prop5.8 と (5.10) により, \(\Delta\) は全射で, \(\ker\Delta=\gen{2\iota_{11}}\) である. \\
+Prop2.7 により, \(H(\Delta(\iota_{13}))=\pm2\iota_{11}\) なので, 
+\(\pi_{11}^6=\mathbb Z \gen{\Delta(\iota_{13})}\) である. 
+\[
+\pi^{13}_{13}\xrightarrow[\cong]{\Delta}\pi^{6}_{11}\xrightarrow{E}\pi^{7}_{12}\xrightarrow{}\pi_{12}^{13}=0
+\]
+の完全性により, \(\pi_{12}^7=0\) である. 
+(4.5) により, Propの最後の結果が得られる. 
+\qed
+
+証明の中で次が示された. 
+\begin{equation}\label{eq:5.12}
+% (5.12).\
+\Delta:\ \pi^{2n+1}_{n+7}\ \longrightarrow\ \pi^{n}_{n+5}
+\quad\text{は, }n=4,5,6\text{ で単射である. }
+\end{equation}
+
+次のLemを示す. 
+\begin{lemma}\label{lemma:5.10}
+% Lem5.10.\
+\[
+\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}}\in\pi_{11}(S^6)/2\pi_{11}(S^6) .
+\]
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+この Toda bracket は, 次の群の coset である. (cf. (4.7), (5.9)).
+\[
+\nu_6\circ \pi_{11}(S^9)+\pi_{11}(S^6)\circ2\iota_{11}
+= \nu_6\circ\pi_{11}^9+2\pi_{11}(S^6)=2\pi_{11}(S^6) .
+\]
+(5.10) とProp2.6 により, 
+\(H\toda{\nu_6,\eta_9,2\iota_{10}}\ni\iota_{11}\circ E(2\iota_{10})=2\iota_{11} .\)\\
+また, \(H(\Delta(\iota_{13}))=\pm2\iota_{11}\) なので, (2.11) の完全列
+\[
+\pi_{10}(S^5)\xrightarrow{E}\pi_{11}(S^6)\xrightarrow{H}\pi_{11}(S^{11})
+\]
+から, 
+\(\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}} + E\pi_{10}(S^5)\) である. \\
+\(E\pi_{10}(S^5)\) は有限で, \(E\pi_{10}^5=0\) なので, 
+\(E\pi_{10}(S^5)\subset2\pi_{11}(S^6) .\)\\
+よって, \(\pm\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}}\) である. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \\
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \\
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \\
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{(5.11).}\
+\(\Delta(\eta_9)=E\nu'\circ\eta_7 .\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{Prop2.6.}\
+\(H\todai[1]{E\alpha, E\beta, E\gamma} 
+= -\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma.\)
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+% \bigskip
+\paragraph*{vi). The Group \(\pi^{n}_{n+6}\).}
+\[
+\nu_n^2:=\nu_n\circ\nu_{n+3},(n\ge4)\qquad
+\nu^2:=\nu\circ\nu.
+\]
+
+\begin{proposition}\label{prop:5.11}
+\ \\
+% Prop5.11.\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\) \\
+\(\pi^{3}_{9}=0,\) \\
+\(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+\end{proposition}
+
+\noindent
+\textbf{Proof.}\ 
+最初の結果は, Prop5.9 と (5.2) により証明される. \\
+Lem5.7 により, \(E\pi_8^2=\gen{E(\eta_2\circ\nu')\circ\eta_6^2}=0 .\)\\
+同様に, \(E\pi_7^2=0\) である. 
+(4.4) により, 
+\[
+0\to \pi^{3}_{9}\xrightarrow{H}\pi^{5}_{9}\xrightarrow{\Delta}\pi^{2}_{7}\to 0
+\]
+は完全である. 
+Prop \ref{prop:5.8}, \ref{prop:5.9} より,
+\(\Delta\) は同型で, 
+\(\pi^{3}_{9}=0 .\)\\
+さらに, Prop \ref{prop:5.6} と (\ref{eq:5.6}) により,
+\(\pi^{4}_{10}=\gen{\nu_4^{2}}\cong \mathbb Z_8 .\)\\
+次の完全列を考える. 
+\[
+\pi^{2n+1}_{n+8}\xrightarrow{\Delta}\pi^{n}_{n+6}
+\xrightarrow{E}\pi^{n+1}_{n+7}\xrightarrow{H}\pi^{2n+1}_{n+7}
+\xrightarrow{P}\pi_{n+5}^n, 
+\qquad(n=4,5,6) .
+\]
+(5.12) により, \(H\) は自明, \(E\) は全射である. 
+ここで, 次を証明する. 
+\begin{equation}\label{eq:5.13}
+% (5.13).\
+\Delta(\nu_9)=\pm\,2(\nu_4^{2}),\qquad
+\Delta(\eta^{2}_{11})=0,\qquad
+\Delta(\eta_{13})=0.
+\end{equation}
+
+Prop 2.5 と (\ref{eq:5.8}) より,
+\[
+\Delta(\nu_9)=\Delta(\iota_9)\circ \nu_7=\pm\,(2\nu_4-E\nu')\circ \nu_7
+=\pm\big(2\,\nu_4^{2}-E(\nu'\circ \nu_6)\big).
+\]
+\(\nu'\circ \nu_6\in \pi^{3}_{9}=0\) なので, 
+\(\Delta(\nu_9)=\pm 2(\nu_4^{2}) .\) また,
+\[
+\begin{align*}
+\Delta(\eta^{2}_{11})
+& =  \Delta(\iota_{11})\circ \eta_9^2
+&& \text{by Prop2.5}\\
+& =  \nu_5\circ \eta_8\circ \eta_9^2
+= \nu_5\circ \eta_8^{3}
+&& \text{by (5.10)}\\
+& =  4(\nu_5\circ\nu_8)
+= 4E(\nu_4^2)
+&& \text{by (5.5)}\\
+& =  E\Delta(\pm2\nu_9)
+=0 .
+\end{align*}
+\]
+\[
+\begin{align*}
+\Delta(\eta_{13})
+& =  \Delta(\iota_{13})\circ \eta_{11}
+&& \text{by Prop2.5}\\
+& \in \toda{ \nu_6,\ \eta_9,\ 2\iota_{10} }\circ \eta_{11}
+&& \text{by Lem5.10}\\
+& =  \nu_6\circ\toda{\eta_9,2\iota_{10},\eta_{10}} 
+&& \text{by Prop1.4}.
+\end{align*}
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \\
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \\
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \\
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \\
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Lem5.7.}\
+\(\alpha\in\pi_i(S^3)\) に対して,
+\(E^2\alpha\in2\iota_5\circ\pi_{i+2}(S^5)\) ならば, 
+\(E(\eta_2\circ\alpha)=0\) である. \\
+特に, \(E(\eta_2\circ\nu')=0, \ \Delta(\nu_5)=\pm(\eta_2\circ\nu')\) である. 
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \\
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \\
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \\
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{(5.12).}\
+\(\Delta:\ \pi^{2n+1}_{n+7}\ \longrightarrow\ \pi^{n}_{n+5}
+\quad\text{は, }n=4,5,6\text{ で単射である. }\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.8).}\
+\(\Delta(\iota_9)=\pm(2\nu_4-E\nu')  \ (=\pm[\iota_4, \iota_4]) .\)
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{(5.5).}\
+\(n\ge5\ \text{に対して, } 2\nu_n=E^{\,n-3}\nu',\
+4\nu_{n}=\eta_n^{3},\quad 4\nu=\eta^{3}.\)
+
+\noindent
+\textbf{Lem5.10.}\
+\(
+\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}}\in\pi_{11}(S^6)/2\pi_{11}(S^6) .
+\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+(5.4) により, 
+\(\nu_6\circ\gen{\eta_9,2\iota_{10},\eta_{10}}
+=\gen{\nu_6\circ E^6\nu', -\nu_6\circ E^6\nu'} .\)\\
+(5.5) より, 
+\(\nu_6 E^6\nu'=2\nu_6^2=E^2\Delta(\nu_9)=0\)
+なので, \(\Delta(\eta_{13})=0\) となり, (5.13) が示された. \\
+(5.13) を, 上の完全列に適用することにより, \(n=5,6,7\) に対してPropは真である. \\
+Prop4.4 により, 
+\(\pi_{14}^8\) は 
+\(\pi_{13}^7\oplus\pi_{14}^{15}=\pi_{13}^7\)
+に, \(E\) で同型となる. \\
+これで, Propの \(n=8\) の場合が示された. \\
+\(n\geq9\) に対しては, stable の範囲なので, (4.5) により, 
+Prop5.11 が証明できた. 
+\qed
+
+\begin{lemma}\label{lemma:5.12}
+% \noindent
+% \textbf{Lem5.12.}\
+\(\toda{\eta_n,\nu_{n+1},\eta_{n+4}} = \gen{\nu_n^2},\ (n\geq6) .\)
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+(5.9) により, この Toda bracket は定義され, \\
+\(\eta_n\circ \pi_{n+6}(S^{n+1})+\pi_{n+5}(S^{n})\circ \eta_{n+5}\) 
+の coset である. \\
+(3.2) により, \(\pi_{n+6}(S^{n+1})=E\pi_{n+5}(S^{n})\), \\
+(4.7) とProp\ref{prop:5.9} から, 
+\(\eta_n\circ \pi_{n+6}(S^{n+1})=\eta_n\circ \pi^{n}_{n+6}=0 .\)\\
+同様に,
+\(\pis{n+5}{S^n}\circ \eta_{n+5}=\pi_{n+5}^n\circ\eta_{n+5}\)
+であり, \\
+この群は \(n>6\) で自明で, 
+\(n=6\) のとき, \(\Delta(\iota_{13})\circ\eta_{11}\) で生成される. \\
+(5.13) の証明の中で見たように, \(\Delta(\iota_{13})\circ\eta_{11}=\Delta(\eta_{13})=0 .\)\\
+全ての場合で, この Toda bracket は, 単一の元
+\(x\,\nu_n^{2}\) (\(x=0\) または \(1\))から成る. \\
+(1.15) とProp 1.3により, 
+\(
+E\toda{\eta_n,\nu_{n+1},\eta_{n+4}}
+\subset -\toda{\eta_{n+1},\nu_{n+2},\eta_{n+5}} .
+\)\\
+これは, \(x\) の値が \(n\) によらないことを示している. \\
+ここで, \(\beta=\nu_m \ (m\geq6)\) に対して, Lem\ref{lem:5.5} を適用する. \\
+\(
+E^{2}\nu_m\circ E^{m+1}\nu_4
+=\nu_{m+2}^{2}
+\in \todai[3]{\eta_{m+2},E^3\nu_{m},\eta_{m+6}}
+\subset \toda{\eta_{m+2},\nu_{m+3},\eta_{m+6}} .
+\)\\
+よって, \(\nu_{m+2}^2=x\nu_{m+2}^2,\ x=1\) である. 
+\qed
+
+Remark.\  Lem5.12 は, \(n=5\) の場合も成立する. 
+
+
+\paragraph*{vii). The Group \(\pi^{n}_{n+7}\).}
+
+(\ref{eq:5.2}) とProp \ref{prop:5.11} より,
+\(\pi^{2}_{9}=0\). 
+(4.4) から, 次の列は完全である. 
+\[
+0=\pi^{2}_{9}\xto
+\pi^{3}_{10}\xrightarrow{H}
+\pi_{10}^5\xrightarrow{\Delta}
+\pi^{2}_{8}\xrightarrow{E}\pi^{3}_{9}=0 .
+\]
+Prop \ref{prop:5.9} とProp \ref{prop:5.11} より,
+\(\Delta\) は同型で, 
+\(\pi^{3}_{10}=0\). \\
+さらに (\ref{eq:5.6}) とProp \ref{prop:5.8} から, 
+\(\pi^{4}_{11}\cong \pi^{3}_{10}\oplus \pi^{7}_{11}=0\). \\
+ここで, 次の完全列を考える. 
+\[
+0=\pi^{4}_{11}\xto\pi^{5}_{12}\xrightarrow{H}
+\pi^{9}_{12}\xrightarrow{\Delta}\pi^{4}_{10} .
+\]
+(\ref{eq:5.13}), Prop \ref{prop:5.11}, Prop \ref{prop:5.6} から, 
+\(\Delta\) は 次数 2 の準同型 で, \\
+その kernel は \(4\nu_9=\eta_9^{3}\) により生成される.
+よって, 同型 
+\(H:\pi^{5}_{12}\xrightarrow{}4\pi^{9}_{12}\ \cong\ \mathbb Z_2 .\)
+を得る. 
+
+\switchcolumn
+
+\noindent
+\textbf{(5.4).}\
+\(\todai[t]{\eta_{n},\,2\iota_{n+1},\,\eta_{n+1}} = \{E^{\,n-3}\nu',-E^{\,n-3}\nu'\}.\)
+
+\noindent
+\textbf{(5.5).}\
+\(n\ge5\ \text{に対して, } 2\nu_n=E^{\,n-3}\nu',\
+4\nu_{n}=\eta_n^{3},\quad 4\nu=\eta^{3}.\)
+
+\noindent
+\textbf{(5.13).}\
+\(\Delta(\nu_9)=\pm\,2(\nu_4^{2}),\
+\Delta(\eta^{2}_{11})=0,\
+\Delta(\eta_{13})=0.\)
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{Prop4.4.}\
+\(H(\alpha) = \pm 2\iota_{2m-1}\ \Longrightarrow\
+\pit{i-1}{m-1}\oplus\pit{i}{2m-1}\xrightarrow{\cong}\pit{i}{m},\
+(\beta,\gamma)\mapsto E\beta+\alpha\circ\gamma.\)\\
+\(0=\pit{2}{1}\to\pit{3}{2}
+\xrightarrow{H}{\cong}\pit{3}{3}
+\xrightarrow{\Delta}\pit{1}{1}
+\xrightarrow{E}\pit{2}{2}.\)
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(3.2).}\
+\(\Ex: \pis{i}{S^m} \longrightarrow \pis{i+1}{S^{m+1}}
+\quad\text{は, } i<2m-1 \text{で同型, } i=2m-1 \text{で全射である. }\)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{(1.15).}\
+\(\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n
+\ \subset\
+\bigl\{\alpha,\ \Ex^{m}(E^{n-m}\beta),\ E^{m}(E^{n-m}\gamma)\bigr\}_m .\)
+
+\noindent
+\textbf{Prop1.3.}\
+\(-E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+\subset \todai[n+1]{E\alpha, E^{n+1}\beta, E^{n+1}\gamma}\).
+
+\noindent
+\textbf{Lem5.5.}\
+$Lem 5.4$ の元 \(\nu_{4}\) に対し, 
+Toda bracket 
+\(\todai[3]{\eta_{m+2},\,E^{3}\beta,\,\eta_{t+5}}\) は,\\
+\(
+E^{2}\beta\circ E^{t}\nu_{4}\text{または,} -E^{2}\beta\circ E^{t}\nu_{4}
+\)
+を含む. \\
+ここで, \(\beta\in\pi_{t+2}(S^{m})\) は,
+\(\beta\circ \eta_{t+2}=0\), \(t>0\) を満たす元である. 
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \quad
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \quad
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\quad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\begin{lemma}\label{lemma:5.13}
+% Lem5.13.\
+\(\todai[t]{\nu_5,8\iota_8,\nu_8},\ (0\leq t\leq3)\) 
+は, ただ$1$つの元から成る. \\
+この元を \(\sigma'''\) と書くと, 
+\(H(\sigma''')=4\nu_9=\eta_9^3\) であり, \\
+\(\pi_{12}^5=\mathbb{Z}_2\gen{\sigma'''}\)
+である. 
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+この Toda bracket は,
+\(\nu_5\circ \pi_{12}(S^{8})+\pi_{9}(S^{5})\circ \nu_9\) の coset である. \\
+(3.2),(4.7), Prop \ref{prop:5.8} から 
+\[
+\nu_5\circ\pis{12}{S^{8}}
+=\nu_5\circ E\pis{11}{S^{7}}
+=\nu_5\circ \pit{11}{7}=0.
+\]
+(3.2), Prop5.8, (5.9) により, 
+\[
+\pi_{9}(S^{5})\circ\nu_9=\pi_9^5\circ\nu_9
+=\gen{\nu_5\circ \eta_8\circ \nu_9}=0 .
+\]
+よって, Toda bracket は単一元から成る. \\
+さらに, (1.15) より,
+\(\todai[t]{\nu_5,8\iota_8,\nu_8}
+\subset \toda{ \nu_5,8\iota_8,\nu_8}\) である. \\
+これから, \(\todai[t]{\nu_5,8\iota_8,\nu_8}\) も, 
+1つの元 \(\sigma'''\) だけから成り, 
+(4.7) により, \(\sigma'''\in\pi_{12}^5\) である. \\
+Prop 2.6 から, 
+\[
+H(\sigma''')
+= H\todai[1]{\nu_5, 8\iota_8, \nu_8}
+= \Delta^{-1}(\nu_4\circ 8\iota_7)\circ \nu_9 .
+\]
+(5.8) により, 
+\[
+\Delta(4\iota_9)=\pm4(2\nu_4-E\nu')
+=\pm(8\nu_4-E4\nu')
+=\pm8\nu_4
+=\pm(\nu_4\circ8\iota_7) .
+\]
+よって, 
+\[
+\Delta^{-1}(\nu_4\circ8\iota_7)\circ\nu_9
+\ni\pm(4\iota_9)\circ\nu_9
+=4\nu_9
+=\eta_9^3 .
+\]
+従って, \(H(\sigma''')=4\nu_9\) であり, \\
+同型 \(H:\pi^{5}_{12}
+\xrightarrow{\cong}4\pi^{9}_{12}
+\cong\mathbb Z_2\) により,
+Lemが全て証明される. 
+\qed
+
+次の列は完全列である.
+\begin{equation}\label{eq:5.14}
+% (5.14).\
+0\to \pi^{5}_{12}\xrightarrow{E}\pi^{6}_{13}\xrightarrow{H}\pi^{11}_{13}\to0,
+\qquad
+0\to \pi^{6}_{13}\xrightarrow{E}\pi^{7}_{14}\xrightarrow{H}\pi^{13}_{14}\to0.
+\end{equation}
+
+\noindent
+これを示すには, 
+\(\Delta(\pi_{14}^{11})=\Delta(\pi_{13}^{11})
+=\Delta(\pi_{15}^{13})=\Delta(\pi_{14}^{13})=0\)
+を証明すれば十分である. \\
+(5.13) により, \(\Delta(\pi_{13}^{11})=\Delta(\pi_{14}^{13})=0\) である. \\
+Prop2.5 と (5.13) により, 
+\(\Delta(\eta_{13}^2)=\Delta(\eta_{13})\circ\eta_{12}=0 .\)\\
+よって, \(\Delta(\pi_{15}^{13})=0\) である. \\
+また, Prop2.5, (5.10), (5.9) により, 
+\(\Delta(\nu_{11})=\Delta(\iota_{11})\circ\nu_9
+=\nu_5\circ\eta_8\circ\nu_9=0 .\)\\
+Prop5.6 により, \(\Delta(\pi_{14}^{11})=0 .\)\\
+以上で (5.14) の完全性が示された. 
+
+\switchcolumn
+
+\noindent
+\textbf{(3.2).}\
+\(\Ex: \pis{i}{S^m} \longrightarrow \pis{i+1}{S^{m+1}}
+\quad\text{は, } i<2m-1 \text{で同型, } i=2m-1 \text{で全射である. }\)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(1.15).}\
+\(\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n
+\ \subset\
+\bigl\{\alpha,\ \Ex^{m}(E^{n-m}\beta),\ E^{m}(E^{n-m}\gamma)\bigr\}_m .\)
+
+\noindent
+\textbf{Prop2.6.}\
+\(H\todai[1]{E\alpha, E\beta, E\gamma} 
+= -\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma.\)
+
+\noindent
+\textbf{(5.8).}\
+\(\Delta(\iota_9)=\pm(2\nu_4-E\nu')  \ (=\pm[\iota_4, \iota_4]) .\)
+
+\noindent
+\textbf{(5.13).}\
+\(\Delta(\nu_9)=\pm\,2(\nu_4^{2}),\
+\Delta(\eta^{2}_{11})=0,\
+\Delta(\eta_{13})=0.\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \quad
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \quad
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\quad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\begin{lemma}\label{lemma:5.14}
+% Lem5.14.\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\qquad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\qquad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\qquad 2\sigma''=E\sigma''' .\)
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\ 
+Th 3.6 を \(\alpha=\nu_{4}\) に適用し, \\
+Prop \ref{prop:5.11} により, 
+\(\nu_4\) は (3.1) の条件を満たす. 
+\[
+2E^{4-3}\nu_{4}\circ E^{7-3}\nu_{4}=2\nu_{5}^{2}=0,
+\quad (h=3).
+\]
+このとき, 
+\(\alpha^{\ast}\in\pi^{8}_{15}\) が存在し, 
+\(\beta\circ\nu_{t+4}=0\) を満たす任意の \(\beta\in\pi_{t+4}(S^m)\) に対して, 
+\[
+E^{4}\beta\circ E^t\alpha^{\ast}
+\in (-1)^{m}\todai[7]{\nu_{m+4},\,E^{7}\beta,\,\nu_{t+11}}
++(-1)^{t}\todai[t+3]{E^{4}\beta,\,\nu_{t+8},\,2\nu_{t+11}} .
+\]
+今, \(\beta=8\iota_{5}\) とする. 
+\(8\iota_5\circ\nu_5=8\nu_5=0\) なので, 
+\[
+8E\alpha^{\ast}=E^48\iota_5\circ E\alpha^{\ast}
+\in -\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+-\todai[4]{8\iota_9,\nu_9,2\nu_{12}} .  
+\]
+Toda bracket \(\todai[7]{\nu_{9},\,8\iota_{12},\,\nu_{12}}\) は, 
+(4.7) とProp5.8 により, 
+\[
+\nu_9\circ E^7\pi_9(S^5) + \pi_{13}^9\circ\nu_{13}
+=\nu_9\circ E^7\pi_9^5 + \pi_{13}^9\circ\nu_{13} = 0
+\]
+の coset なので, ただ1つの元である. 
+Prop 1.3, Lem 5.13 により, 
+\[
+E\sigma'''\in E^4\todai[3]{\nu_5,8\iota_8,\nu_8}
+\subset \todai[7]{\nu_9,8\iota_{12},\nu_{12}} .
+\]
+したがって, \(-\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+=-E^4\sigma'''=E^4\sigma'''\) である. 
+Prop1.2 により, 
+\begin{align*}
+\todai[4]{8\iota_9,\nu_9,2\nu_{12}}
+& \subset\todai[4]{2\iota_9,4\iota_9\circ\nu_9\circ2\iota_{12}, \nu_{12}} \\
+& =\todai[4]{2\iota_9,0,\nu_{12}}
+=2\iota_9\circ E^4\pi_{12}(S^5) + \pi_{13}(S^9)\circ\nu_{13} \\
+& =2E^4\pi_{12}(S^5) + \pi_{13}^9\circ\nu_{13}
+=2E^4\pi_{12}(S^5) .
+\end{align*}
+以上から, \(8E\alpha^{\ast} - E^4\sigma''' \in 2E^4\pi_{12}(S^5)\) である. \\
+\(\pi_{12}^5=\pi_{12}(S^5;2)\cong\mathbb{Z}_2\) なので, 
+\(2E^4\pi_{12}(S^5)\) は奇数位数の有限群である. 
+\[
+8x E\alpha^{\ast}=xE^{4}\sigma'''=E^4\sigma'''\ , \ (x:\text{odd}) .
+\]
+(5.14) とLem5.13 により, \(\pi_{13}^6\) と \(\pi_{14}^7\) 
+の位数は, それぞれ 4 と 8 であり, \\
+\(E^2:\pi_{12}^5\to\pi_{14}^7\) は単射である. \\
+また, (4.8) から, \(\pi_{16}^9\) の位数は 16 で, 
+\(E^4:\pi_{12}^5\to\pi_{16}^9\) は単射である. \\
+これから, \(8xE\alpha^{\ast}=E^4\sigma'''\ne0\) であり, 
+\(16xE\alpha^{\ast}=0\) である. \\
+これは, \(xE\alpha^{\ast}\) の位数が 16 で, 
+\(\pi_{16}^9\cong\mathbb{Z}_{16}\) を生成することを示している. 
+
+\switchcolumn
+
+\noindent
+\textbf{Th3.6.}\
+$\alpha\in\pis{n+k}{S^{n}}$, $h\ge0$ が (3.1) を満たすとする.\\ 
+さらに, $k\le 2n-2$ と仮定する.
+このとき,
+\(\alpha^{*}\in\pis{2n+2k+1}{S^{2n}}\)
+が存在して, \\
+\(\beta\circ \Ex^{\ell}\alpha=0\)
+を満たす任意の $\beta\in\pis{n+\ell}{S^{n}}$ に対して, \\
+\(\Ex^{n}\beta \circ \Ex^{t}\alpha^{*}
+\in (-1)^{km+kt+t}\,\todai[n+k]{\Ex^{m}\alpha,\ 
+  \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}\)\\
+\(+ (-1)^{kn+h+t+1}\,\todai[h+t]{\Ex^{n}\beta,\ 
+  \Ex^{n+t}\alpha,\ (1-(-1)^k)\Ex^{n+k+t}\alpha}\ .\)\\
+さらに,
+\((1-(-1)^k)\Ex^{n+h+1}\alpha=0\), 特に \(k\) が偶数のとき, \\
+\(
+\Ex^{n}\beta\circ \Ex^{t}\alpha^{*}\ \in\
+(-1)^{km+kt+t}\,\todai[n+k]{\Ex^{m}\alpha,\ \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}\ .
+\)
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{(3.1).}\
+\(\bigl(1-(-1)^k\bigr)\, \Ex^{\,n-h}\alpha \circ \Ex^{\,n+k-h}\alpha = 0.\)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Prop1.3.}\
+\(-E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+\subset \todai[n+1]{E\alpha, E^{n+1}\beta, E^{n+1}\gamma}\).
+
+\noindent
+\textbf{Lem5.13.}\
+\(\todai[t]{\nu_5,8\iota_8,\nu_8},\ (0\leq t\leq3)\) 
+は, ただ$1$つの元から成る. \\
+この元を \(\sigma'''\) と書くと, 
+\(H(\sigma''')=4\nu_9=\eta_9^3\) であり, \\
+\(\pi_{12}^5=\mathbb{Z}_2\gen{\sigma'''}\)
+である. 
+
+\noindent
+\textbf{Prop1.2.}\
+\textbf{0).}\ $\alpha$, $\beta$, $\gamma$ のうち, いずれかが $0$ なら,
+\(
+\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\equiv0.
+\)\\
+\textbf{i).}\ $\alpha\circ \Ex^n\beta=\beta\circ\gamma=0$ のとき,
+\(
+\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\circ\Ex^{n+1}\delta\ \subset\ \{\alpha,\Ex^n \beta, \Ex^n(\gamma\circ\delta)\}_n.
+\)\\
+\textbf{ii).}\ $\alpha\circ \Ex^n\beta=\beta\circ\gamma\circ\delta=0$ のとき,
+\(
+\{\alpha,\ \Ex^n\beta,\ \Ex^n(\gamma\circ\delta)\}_n\ \subset\ \{\alpha,\ \Ex^n(\beta\circ\gamma),\ \Ex^n\delta\}_n .
+\)\\
+\textbf{iii).}\ $\alpha\circ\Ex^n\beta\circ\Ex^n\gamma=\gamma\circ\delta=0$ なら,
+\(
+\{\alpha\circ\Ex^n\beta,\ \Ex^n\gamma,\ \Ex^n\delta)\}_n\ \subset\ \{\alpha,\ \Ex^n(\beta\circ\gamma),\ \Ex^n\delta\}_n .
+\)\\
+\textbf{iv).}\ $\beta\circ\Ex^n\gamma=\gamma\circ\delta=0$ のとき,
+\(
+\alpha\circ\{\beta,\ \Ex^n\gamma,\ \Ex^n\delta\}_n\ \subset\ \{\alpha\circ\beta,\ \Ex^n\gamma,\ \Ex^n\delta\}_n .
+\)
+
+\noindent
+\textbf{(5.14).}\
+次の列は完全列である.\\
+\(
+0\to \pi^{5}_{12}\xrightarrow{E}\pi^{6}_{13}\xrightarrow{H}\pi^{11}_{13}\to0,
+\quad
+0\to \pi^{6}_{13}\xrightarrow{E}\pi^{7}_{14}\xrightarrow{H}\pi^{13}_{14}\to0 .
+\)
+
+\noindent
+\textbf{(4.8).}\
+\( n \ \text{を偶数とする. } \)\\
+\(\Delta(\iota_{2n-1})=[\iota_{n-1},\iota_{n-1}]\ne0 \ \text{のとき, }\)\\
+\(\pit{2n-1}{n}
+=E\,\pit{2n-2}{\,n-1}\ \oplus\ \Delta\,\pit{2n+1}{\,2n+1}
+\cong E\,\pit{2n-2}{\,n-1}\ \oplus\ \mathbb{Z},\ \pit{2n}{\,n+1} = E^{2}\,\pit{2n-2}{\,n-1} 
+\cong E\,\pit{2n-2}{\,n}.\)\\
+\(\Delta(\iota_{2n-1})=0 \ \text{のとき, }\)\\
+\(E^{2}:\pit{2n-2}{\,n-1}\to\pit{2n}{\,n+1}\ \text{は単射で, }\
+\pit{2n}{\,n+1}/E^{2}\pit{2n-2}{\,n-1}\cong\mathbb{Z}_2 . \)\\
+\(\text{さらに,}\ \alpha\in\pit{2n-1}{n} \ \text{に対して, 次が成り立つ. }\)
+\(E\alpha\in E^{2}\pit{2n-2}{\,n-1} \ \Leftrightarrow \
+H(\alpha)\in 2\,\pit{2n-1}{\,2n-1} .\)
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+\(\sigma'\in\pi^{7}_{14}\ ,\ \sigma''\in\pi^{6}_{13}\) 
+が一意的に存在して,
+\(
+E^{2}\sigma'=2x\,E\alpha^{\ast},\ E^{3}\sigma''=4x\,E\alpha^{\ast} .
+\)\\
+したがって,
+\(\pi^{7}_{14}=\gen{\sigma'}\cong\mathbb Z_{8}\ , \
+\pi_{13}^6=\gen{\sigma''}\cong\mathbb{Z}_4\) である. \\
+また, 明らかに, \(2\sigma'=E\sigma'',\ 2\sigma''=E\sigma'''\) が成り立つ. \\
+(5.14) の完全性から, 
+\(H(\sigma')=\eta_{13}\), \(H(\sigma'')=\eta_{11}^{2} .\)\\
+さらに, \(xE\alpha^{\ast}\notin \im\{E^2:\pi_{10}^3\to\pi_{12}^5\}\) である. \\
+(4.8) より, \(x\alpha^{\ast}\) の Hopf invariant は奇数である. \\
+Prop2.7 により, 
+\(H(\Delta(\iota_{17}))=\pm 2\iota_{15}\) なので, \\
+ある整数 \(y\) が存在し, 
+\(H(x\alpha^{\ast})=H(y\Delta(\iota_{17}))+\iota_{15} .\)
+よって, 
+\[
+\sigma_{8}:=x\alpha^{\ast}-y\,\Delta(\iota_{17})
+\]
+と置けば, 
+\(H(\sigma_{8})=\iota_{15}\ , \ E\sigma_{8}=xE\alpha^{\ast}\)
+である. 
+\qed
+
+\(\sigma_n :=E^{n-8}\sigma_8\ , \ (n\geq8) \ , \ \sigma:=E^{\infty}\sigma_8\) と書く. \\
+(4.5) より, \(\pi_{n+7}^n \ (n\geq8)\),
+\((G_7;2)\) は,
+\(\pi_{16}^9\cong\mathbb{Z}_{16}\) に同型で, 
+それぞれ,
+\(\sigma_n,\ \sigma\) で生成される. \\
+これで, \(\pi_{n+7}^n\) は, 
+\(\pi_{15}^8\) 以外は全て計算された. \\
+\(\pi_{15}^8\) は, Prop4.4 から出る, 
+次の (5.15) により計算される. 
+\begin{equation}\label{eq:5.15}
+% \noindent
+% \textbf{(5.15).}\
+(\alpha,\beta)\ \longmapsto\ E\alpha+\sigma_{8}\circ\beta
+\quad\text{は,}\quad
+\pi^{7}_{i-1}\oplus\pi^{15}_{i}\xrightarrow{\cong}\pi^{8}_{i}
+\ \text{の同型を与える. }
+\end{equation}
+
+\(\pi_{n+7}^n\) に関する結果を, 以下にまとめる. 
+
+\begin{proposition}\label{prop:5.15}
+\ \\
+% \textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \\
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \\
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \\
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+\end{proposition}
+
+完全列 
+\(\pi^{17}_{17}\xrightarrow{\Delta}\pi^{8}_{15}\xrightarrow{E}\pi^{9}_{16}\)
+を考える. \\
+\(\Ker E\) は, \(2\sigma_{8}-E\sigma'\) で生成される. 
+したがって, 
+\begin{equation}\label{eq:5.16}
+% \noindent
+% \textbf{(5.16).}\
+\Delta(\iota_{17})=\pm\,(2\sigma_{8}-E\sigma').
+\end{equation}
+Lem5.14 の証明の最初と, \(\sigma_8\) の定義から, 次が成り立つ. 
+\begin{lemma}\label{lem:5.16}
+% \noindent
+% \textbf{Lem5.16.}\
+\(t>0\) とし, \(\beta\in\pi_{t+4}(S^{m})\) が 
+\(\beta\circ \nu_{t+4}=0\) を満たすとする. \\
+このとき, ある奇数 \(x\) が存在して,
+\[
+E^{4}\beta\circ \sigma_{t+8}\ \in\
+(-1)^{m}x\todai[7]{\nu_{m+4}, E^{n}\beta, \nu_{t+11}}
++ (-1)^{t}x \todai[t+3]{E^{4}\beta, \nu_{t+8}, 2\nu_{t+11}}.
+\]
+\end{lemma}
+
+\switchcolumn
+
+\noindent
+\textbf{(5.14).}\
+次の列は完全列である.\\
+\(
+0\to \pi^{5}_{12}\xrightarrow{E}\pi^{6}_{13}\xrightarrow{H}\pi^{11}_{13}\to0,
+\quad
+0\to \pi^{6}_{13}\xrightarrow{E}\pi^{7}_{14}\xrightarrow{H}\pi^{13}_{14}\to0 .
+\)
+
+\noindent
+\textbf{(4.8).}\
+\( n \ \text{を偶数とする. } \)\\
+\(\Delta(\iota_{2n-1})=[\iota_{n-1},\iota_{n-1}]\ne0 \ \text{のとき, }\)\\
+\(\pit{2n-1}{n}
+=E\,\pit{2n-2}{\,n-1}\ \oplus\ \Delta\,\pit{2n+1}{\,2n+1}
+\cong E\,\pit{2n-2}{\,n-1}\ \oplus\ \mathbb{Z},\ \pit{2n}{\,n+1} = E^{2}\,\pit{2n-2}{\,n-1} 
+\cong E\,\pit{2n-2}{\,n}.\)\\
+\(\Delta(\iota_{2n-1})=0 \ \text{のとき, }\)\\
+\(E^{2}:\pit{2n-2}{\,n-1}\to\pit{2n}{\,n+1}\ \text{は単射で, }\
+\pit{2n}{\,n+1}/E^{2}\pit{2n-2}{\,n-1}\cong\mathbb{Z}_2 . \)\\
+\(\text{さらに,}\ \alpha\in\pit{2n-1}{n} \ \text{に対して, 次が成り立つ. }\)\\
+\(E\alpha\in E^{2}\pit{2n-2}{\,n-1} \ \Leftrightarrow \
+H(\alpha)\in 2\,\pit{2n-1}{\,2n-1} .\)
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{Prop4.4.}\
+\(H(\alpha) = \pm 2\iota_{2m-1}\ \Longrightarrow\
+\pit{i-1}{m-1}\oplus\pit{i}{2m-1}\xrightarrow{\cong}\pit{i}{m},\
+(\beta,\gamma)\mapsto E\beta+\alpha\circ\gamma.\)\\
+\(0=\pit{2}{1}\to\pit{3}{2}
+\xrightarrow{H}{\cong}\pit{3}{3}
+\xrightarrow{\Delta}\pit{1}{1}
+\xrightarrow{E}\pit{2}{2}.\)
+
+
+\noindent
+Th 3.6 を \(\alpha=\nu_{4}\) に適用し, \\
+Prop \ref{prop:5.11} により, 
+\(\nu_4\) は (3.1) の条件を満たす. \\
+\(
+2E^{4-3}\nu_{4}\circ E^{7-3}\nu_{4}=2\nu_{5}^{2}=0,
+\quad (h=3).
+\)\\
+このとき, 
+\(\alpha^{\ast}\in\pi^{8}_{15}\) が存在し, 
+\(\beta\circ\nu_{t+4}=0\) を満たす任意の \(\beta\in\pi_{t+4}(S^m)\) に対して, \\
+\(
+E^{4}\beta\circ E^t\alpha^{\ast}
+\in (-1)^{m}\todai[7]{\nu_{m+4},\,E^{7}\beta,\,\nu_{t+11}}
++(-1)^{t}\todai[t+3]{E^{4}\beta,\,\nu_{t+8},\,2\nu_{t+11}} .
+\)
+
+
+
+
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+\renewcommand{\refname}{References}
+\begin{thebibliography}{99}
+
+\bibitem{Adams1960}
+J.~F.~Adams,
+\newblock On the non-existence of elements of Hopf invariant one,
+\newblock Ann. of Math., {\bf 72} (1960), 20--104.
+
+\bibitem{Adem}
+J.~Adem,
+\newblock The relations on Steenrod powers of cohomology classes,
+\newblock Algebraic geometry and topology, Princeton.
+
+\bibitem{Barratt1955}
+M.~G.~Barratt,
+\newblock Track groups I, II,
+\newblock Proc. London Math. Soc., {\bf 5} (1955), 71--106, 285--329.
+
+\bibitem{Barratt1961}
+M.~G.~Barratt,
+\newblock Note on a formula due to Toda,
+\newblock Jour. London Math. Soc., {\bf 36} (1961), 95--96.
+
+\bibitem{BarrattHilton1953}
+M.~G.~Barratt and P.~J.~Hilton,
+\newblock On join operations of homotopy groups,
+\newblock Proc. London Math. Soc., {\bf 3} (1953), 430--445.
+
+\bibitem{BlakersMassey1952}
+A.~L.~Blakers and W.~S.~Massey,
+\newblock The homotopy groups of a triad II,
+\newblock Ann. of Math., {\bf 55} (1952), 192--201.
+
+\bibitem{Freudenthal1937}
+H.~Freudenthal,
+\newblock Über die Klassen der Sphärenabbildungen,
+\newblock Compos. Math., {\bf 5} (1937).
+
+\bibitem{Hopf1935}
+H.~Hopf,
+\newblock Über die Abbildungen von Sphären auf Sphären niedriger Dimension,
+\newblock Fund. Math., {\bf 25} (1935).
+
+\bibitem{James1955}
+I.~M.~James,
+\newblock Reduced product spaces,
+\newblock Ann. of Math., {\bf 62} (1955), 170--197.
+
+\bibitem{James1956}
+I.~M.~James,
+\newblock Suspension triad of a sphere,
+\newblock Ann. of Math., {\bf 63} (1956), 407--429.
+
+\bibitem{James1958}
+I.~M.~James,
+\newblock The intrinsic join: A study of the homotopy groups of Stiefel manifold,
+\newblock Proc. London Math. Soc., {\bf 8} (1958), 507--535.
+
+\bibitem{Moore1953}
+J.~C.~Moore,
+\newblock Some applications of homology theory to homotopy problems,
+\newblock Ann. of Math., {\bf 58} (1953), 325--350.
+
+\bibitem{Serre1951}
+J.-P.~Serre,
+\newblock Homologie singulière des espaces fibrés,
+\newblock Ann. of Math., {\bf 54} (1951), 425--505.
+
+\bibitem{Serre1953a}
+J.-P.~Serre,
+\newblock Cohomologie modulo 2 des complexes d'Eilenberg-MacLane,
+\newblock Comm. Math. Helv., {\bf 27} (1953), 198--231.
+
+\bibitem{Serre1953b}
+J.-P.~Serre,
+\newblock Groups d'homotopie et classes groupes abéliens,
+\newblock Ann. of Math., {\bf 58} (1953), 258--294.
+
+\bibitem{Serre1953c}
+J.-P.~Serre,
+\newblock Quelques calculs de groupes d'homotopie,
+\newblock Comptes Rendus Paris, {\bf 236} (1953), 2475--2477.
+
+\bibitem{Steenrod1951}
+N.~E.~Steenrod,
+\newblock Topology of fibre bundles,
+\newblock Princeton.
+
+\bibitem{Steenrod1949}
+N.~E.~Steenrod,
+\newblock Cohomology invariants of mappings,
+\newblock Ann. of Math., {\bf 50} (1949), 954--988.
+
+\bibitem{Steenrod1953}
+N.~E.~Steenrod,
+\newblock Cyclic reduced powers of cohomology classes,
+\newblock Proc. Nat. Acad. Sci. U.S.A., {\bf 39} (1953), 217--223.
+
+\bibitem{Toda1952}
+H.~Toda,
+\newblock Generalized Whitehead products and homotopy groups of spheres,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 3} (1952), 43--82.
+
+\bibitem{Toda1956}
+H.~Toda,
+\newblock On double suspension $E^2$,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 7} (1956), 103--145.
+
+\bibitem{Toda1957}
+H.~Toda,
+\newblock Reduced join and Whitehead product,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 8} (1957), 15--30.
+
+\bibitem{Toda1958a}
+H.~Toda,
+\newblock On exact sequences in Steenrod algebra mod 2,
+\newblock Memoirs Univ. of Kyoto, {\bf 31} (1958), 33--64.
+
+\bibitem{Toda1958b}
+H.~Toda,
+\newblock $p$-primary components of homotopy groups II. mod $p$ Hopf invariant,
+\newblock Memoirs Univ. of Kyoto, {\bf 31} (1958), 143--160.
+
+\bibitem{Toda1959}
+H.~Toda,
+\newblock $p$-primary components of homotopy groups IV. Compositions and toric constructions,
+\newblock Memoirs Univ. of Kyoto, {\bf 32} (1959), 297--332.
+
+\bibitem{Whitehead1950a}
+G.~W.~Whitehead,
+\newblock A generalization of the Hopf invariant,
+\newblock Ann. of Math., {\bf 51} (1950), 192--237.
+
+\bibitem{Whitehead1950b}
+G.~W.~Whitehead,
+\newblock The $(n+2)$nd homotopy group of the $n$-sphere,
+\newblock Ann. of Math., {\bf 52} (1950), 245--247.
+
+\bibitem{Whitehead1941}
+J.~H.~C.~Whitehead,
+\newblock On adding relations to homotopy groups,
+\newblock Ann. of Math., {\bf 42} (1941), 409--428.
+
+\bibitem{Whitehead1944}
+J.~H.~C.~Whitehead,
+\newblock On the groups $\pi_n(V_{m,n})$ and sphere bundles,
+\newblock Proc. London Math. Soc., {\bf 48} (1944), 243--291.
+
+\end{thebibliography}
+
+\end{paracol}
+
+
+\end{document}

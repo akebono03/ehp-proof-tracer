@@ -1,0 +1,803 @@
+% !TEX program = lualatex
+\documentclass[10pt, leqno]{ltjsarticle}
+% \documentclass[10pt]{ltjsarticle} % 日本語をそのまま扱えるクラス
+% \usepackage[margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\usepackage[
+  top=15mm,     % 上余白
+  bottom=15mm,  % 下余白
+  left=10mm,    % 左余白
+  right=10mm,    % 右余白
+  landscape,
+  margin=10mm
+]{geometry}
+% \usepackage[landscape,margin=20mm]{geometry} % 余白はお好みで
+\usepackage{paracol}
+\columnratio{0.5,0.5}             % 左右を 1:1 に
+\setlength{\columnseprule}{0.4pt} % 真ん中の縦線
+
+% ---- 記号・マクロ ----
+\newcommand{\xto}{\mathrel{\xrightarrow{}}}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\epi}{\twoheadrightarrow}
+\newcommand{\pto}{\rightrightarrows}
+\newcommand{\cls}[1]{\bigl(#1\bigr)}
+\newcommand{\redjoin}{\wedge}
+\newcommand{\shrink}{\phi}
+\newcommand{\Ex}{E}        % suspension functor E
+\newcommand{\Ox}{\Omega}   % loop functor Omega
+\newcommand{\id}{\mathrm{id}}
+% --- Toda bracket helpers ---
+\newcommand{\toda}[1]{\{\,#1\,\}}              % {a,b,c}
+\newcommand{\todai}[2][]{\{\,#2\,\}_{#1}}      % {a,b,c}_i   (#1 は添字, 空なら無し) 
+\newcommand{\todas}[1]{\langle\,#1\,\rangle}
+\newcommand{\gen}[1]{\{\,#1\,\}}       % ⟨generator⟩ 表記を { } で統一
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\hs}[2]{\bigl[#1,#2\bigr]}   % 一般のホモトピー集合
+\newcommand{\pis}[2]{\pi_{#1}(#2)}       % 左が球面のときのホモトピー群
+\newcommand{\pit}[2]{\pi_{#1}^{#2}}
+\newcommand{\ext}[1]{\overline{#1}}     % extension
+\newcommand{\coext}[1]{\widetilde{#1}}  % coextension
+\newcommand{\z}{\mathbb{Z}}
+\newcommand{\sq}[1]{Sq^{#1}}
+\newcommand{\map}{\operatorname{Map}}
+
+% ---- theorem-like environments ----
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[]{Remark}
+
+% \title{PART 1 \quad CHAPTER I\\[2mm] General Composition and Secondary Composition}
+% \author{}
+% \date{}
+
+\begin{document}
+
+% ========== CHAPTER IV ==========
+\setcounter{section}{3}
+\section{Suspension Sequence mod.\ 2}
+
+\begin{paracol}{2}
+
+よく知られている事実として, 
+\begin{equation}\label{4.1}
+\pis{i}{S^1}=0\ (i>1),\qquad
+\pis{i}{S^n}=0\ (i<n),\qquad
+\pis{n}{S^n}\cong \mathbb{Z}\gen{\iota_n} .
+\end{equation}
+
+また, 次のことも知られている (Serre \cite{Serre1951}) :
+\begin{equation}\label{4.2}
+% (4.2).\
+\pis{i}{S^n}\ \text{は,} \ i=n \ \text{または} \ 
+i=2n-1 \ \text{のとき以外は, 有限群である. }
+\end{equation}
+
+\(\pis{i}{S^n}\) の $p$-成分を, $\pis{i}{S^n;p}$ と書き, 
+部分群 $\pi_i^n\subset\pis{i}{S^n}$ を, 次で定義する. 
+\begin{equation}\label{4.3}
+\pi_i^n :=
+\begin{cases}
+\pis{n}{S^n}, & i=n,\\[2pt]
+\Ex^{-1}\bigl(\pis{2n}{S^{n+1};2}\bigr), & i=2n-1,\\[2pt]
+\pis{i}{S^n;2}, & i\ne n,\,2n-1 .
+\end{cases}
+\end{equation}
+
+群 $\pi^n_{2n-1}$ は, 次で具体的に与えられる. 
+\begin{lemma}\label{lem:4.1}
+% Lem4.1.\
+$n$ が奇数のとき,  $\pi_{2n-1}^n=\pis{2n-1}{S^n;2} .$\\
+$n$ が偶数で, $[\,\iota_{n-1},\iota_{n-1}\,]\ne0$ のとき, 
+\(
+\pi_{2n-1}^n\ \cong\ \mathbb{Z}\gen{\Delta(\iota_{2n+1})}\ \oplus \ 
+\pis{2n-1}{S^n;2} .
+\)\\
+$n$ が偶数で, $[\,\iota_{n-1},\iota_{n-1}\,]=0$ のとき, 
+\(
+\pi_{2n-1}^n\ \cong\ \mathbb{Z}\gen{\alpha}\ \oplus \
+\pis{2n-1}{S^n;2} .
+\)\\
+ここで, \(\alpha\) は 
+\(H(\alpha)=\iota_{2n-1},\ E\alpha\in\pi_{2n}^{n+1}=\pi_{2n}(S^{n+1};2)\)
+を満たす元である. \\
+いずれの場合も, $[\,\iota_n,\iota_n\,]\in \pi_{2n-1}^n$ である. 
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\
+まず, $n$ を奇数とする. \\
+Whitehead product の anti-commutativity より,
+$2\Delta(\iota_{2n+1})=2[\,\iota_n,\iota_n\,]=0 .$\\
+(2.11) の完全性から,
+\(
+\Ker\bigl(\Ex:\pis{2n-1}{S^n}\to\pis{2n}{S^{n+1}}\bigr)
+\subset\pis{2n-1}{S^n;2}.
+\)\\
+(4.2) より, $\pis{2n-1}{S^n}$ は有限群なので, 
+\(
+\pi_{2n-1}^n=\Ex^{-1}\bigl(\pis{2n}{S^{n+1};2}\bigr)=\pis{2n-1}{S^n;2} .
+\)
+
+% --- CHAPTER IV p.35 ---
+
+次に, $n$ を偶数とし, (2.11) の完全列を考える. 
+\[
+\pis{2n-2}{S^{n-1}} \xrightarrow{\ \Ex\ } \pis{2n-1}{S^{n}}
+\xrightarrow{\ H\ } \pis{2n-1}{S^{2n-1}}
+\xrightarrow{\ \Delta\ } \pis{2n-3}{S^{n-1}}.
+\]
+$\Delta$ の象は $[\,\iota_{n-1},\iota_{n-1}\,]$ によって生成され, 
+また, $2[\,\iota_{n-1},\iota_{n-1}\,]=0$ であるから, 
+\[
+\pis{2n-1}{S^{n}} \cong
+\mathbb{Z}\gen{\beta}\ \oplus\ 
+E\pis{2n-2}{S^{n-1}} .
+\]
+ここで,
+\(E(\pis{2n-2}{n-1})\) は有限であり, \\
+$[\,\iota_{n-1},\iota_{n-1}\,]=0$ の場合, $H(\beta)=\iota_{2n-1}$,\\
+$[\,\iota_{n-1},\iota_{n-1}\,]\ne0$ の場合, $H(\beta)=2\iota_{2n-1}$ である. 
+
+\switchcolumn
+
+\noindent
+\textbf{\cite{Serre1951}
+J.-P.~Serre,}
+\newblock Homologie singulière des espaces fibrés,
+\newblock Ann. of Math., {\bf 54} (1951), 425--505.
+
+\noindent
+\([\beta, \alpha] = (-1)^{pq}[\alpha, \beta],\ 
+\alpha\in\pis{p}{X},\ \beta\in\pis{q}{X}\).\\
+\(n\) が奇数のとき,
+\([\iota_n, \iota_n] = -[\iota_n, \iota_n]\)
+なので, \(2[\iota_n, \iota_n] = 0.\)
+
+\noindent
+\textbf{(2.11).}\ 
+\(\cdots\ \longrightarrow\ 
+\pi_i(S^m)\xrightarrow{\,E\,}\pi_{i+1}(S^{m+1})\xrightarrow{\,H\,}
+\pi_{i+1}(S^{2m+1})\xrightarrow{\,\Delta\,}\pi_{i-1}(S^m)\xrightarrow{\,E\,}\cdots
+\)\\
+これは $m$ が奇数, あるいは $i<3m-1$ のとき完全列である. \\
+$m$ が偶数で, $i\ge 3m-1$ の場合には, (2.11) を
+2-成分に関する完全列として考える. \\
+\(\pis{2n+1}{S^{2n+1}}\xlongrightarrow{\Delta}
+\pis{2n-1}{S^{n}}\xlongrightarrow{E}
+\pis{2n}{S^{n+1}}\).\\
+\(\ker E = \im \Delta = \gen{\Delta(\iota_{2n+1})}
+\subset\pis{2n-1}{S^n; 2}\).
+
+\noindent
+\(2\)-成分に写る元は,
+\(2\)-成分の元と, 無限位数の元と, kernel の元である.
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+Prop2.7 により, 後者の場合には,
+$\beta=\pm[\,\iota_n,\iota_n\,]$ が取れる. \\
+さらに, $\Ker \Ex:\pis{2n-1}{S^{n}}\to\pis{2n}{S^{n+1}}$ は,
+\(\pm[\iota_n, \iota_n]=\Delta(\iota_{2n+1})\) で生成されるので, 
+\[
+\begin{align*}
+  \pit{2n-1}{n} = E^{-1}(\pis{2n}{S^{n+1}; 2})
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus (E \pis{2n-2}{n-1}; 2) \\
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus \pis{2n-1}{S^n;2} .
+\end{align*}
+\]
+以上で, $n$ が偶数 かつ, 
+$[\,\iota_{n-1},\iota_{n-1}\,]\ne0$ の場合のLem~\ref{lem:4.1} が示された. 
+
+次に, $n$ 偶数で,
+$[\,\iota_{n-1},\iota_{n-1}\,]=0$ の場合を考える. \\
+\eqref{4.2} より, $\pis{2n}{S^{n+1}}$ は有限なので, 
+ある整数 $t$ が存在して,
+\((2t+1)E\beta\in\pis{2n}{S^{n+1};2}\). \\
+ここで, 
+\(
+\alpha\ :=\ \beta- t \bigl(\pm[\,\iota_n,\iota_n\,]\bigr)
+\)
+と置く. 
+符号は, Prop2.7 の $H[\,\iota_n,\iota_n\,]=\pm2\iota_{2n-1}$ による. \\
+このとき, 
+$E\alpha\in \pis{2n}{S^{n+1};2}$ かつ $H(\alpha)=\iota_{2n-1}$ となる. \\
+上記の列の完全性により, 
+\(
+\pis{2n-1}{S^{n}}\ \cong\
+\mathbb{Z}\gen{\alpha} \oplus E\pis{2n-2}{S^{n-1}} .
+\)\\
+$\Ex(\pis{2n-1}{S^n;2} \oplus \gen{\alpha}) = \pis{2n}{S^{n+1};2}$ 
+であることも容易に分かる. 
+
+差 \([\iota_n, \iota_n]-2\alpha\) について考える. \\
+\(H([\iota_n, \iota_n] - 2\alpha) = 0\) なので, 
+\([\iota_n, \iota_n] - 2\alpha \in E \pis{2n-2}{S^n-1}\) である. \\
+\(E([\iota_n, \iota_n] - 2\alpha) = -2E\alpha \in \pis{2n}{S^{n+1}; 2}\)
+であり, \\
+\(E:\pis{2n-1}{S^n}\to\pis{2n}{S^{n+1}}\)
+は, 
+\(E\pis{2n-2}{S^{n-1}}\)
+を 
+\(\pis{2n}{S^{n+1}}\)
+に同型に写すので, 
+\[
+[\iota_n, \iota_n] \in E\pis{2n-2}{S^n; 2} \oplus \gen{\alpha}
+= \pis{2n-1}{S^n; 2} \oplus \gen{\alpha} .
+\]
+以上より, 
+\(
+\pit{2n-1}{n} = E\pis{2n}{S^{n+1}; 2}
+= \pis{2n-1}{S^n; 2} \oplus \gen{\alpha} .
+\)
+\qed
+
+次の完全列は, \(\pis{n+k}{S^n}\) の $2$-成分を計算するための主道具である. 
+\begin{proposition}[]\label{prop:4.2}
+% Prop4.2.\
+次の列は完全列である：
+\begin{equation}\label{4.4}
+% (4.4)
+\cdots \longrightarrow
+\pit{i}{n}\ \xrightarrow{\ \Ex\ }\ \pit{i+1}{n+1}\
+\xrightarrow{\ H\ }\ \pit{i+1}{2n+1}\
+\xrightarrow{\ \Delta\ }\ \pit{i-1}{n}\
+\xrightarrow{\ \Ex\ }\ \pit{i}{n+1}\ \xrightarrow{\ H\ }\ \cdots.
+\end{equation}
+\end{proposition}
+
+\noindent
+\textbf{Proof.}\
+Th2.4 と (2.11) の exactness により, \\
+(2.11) の列の適当な部分列は, 各項が有限群である限り
+$2$-成分について exact になる.\\
+% --- CHAPTER IV p.36 ---
+列 \eqref{4.4} の部分列で,
+\(\pit{n}{n},\ \pit{n+1}{n+1},\ \pit{2n+1}{2n+1},\ 
+\pit{2n+1}{n},\ \pit{2n-1}{n}\)
+が現れない箇所は, \\
+\eqref{4.1} と,
+$\Ex:\pis{n}{S^n}\xrightarrow{\cong}\pis{n+1}{S^{n+1}}$ が同型である事実から,
+\[
+\cdots\to\pit{n}{n}\xrightarrow{E}\pit{n+1}{n+1}\to\cdots
+\]
+の完全性を得る. 
+残る問題は,
+\[
+\pit{2n}{n}\ \xrightarrow{\ \Ex\ }\ \pit{2n+1}{n+1}\
+\xrightarrow{\ H\ }\ \pit{2n+1}{2n+1}\
+\xrightarrow{\ \Delta\ }\ \pit{2n-1}{n}\
+\xrightarrow{E} \ \pit{2n}{n+1}
+\]
+の exactness だが, これはLem\ref{lem:4.1} の証明中で本質的に示してある.\\ 
+したがって, \eqref{4.4} 全体が exact である. 
+\qed
+
+\switchcolumn
+
+\noindent
+前ページ:\ $n$ を偶数とし, (2.11) の完全列を考える. \\
+\(
+\pis{2n-2}{S^{n-1}} \xrightarrow{\ \Ex\ } \pis{2n-1}{S^{n}}
+\xrightarrow{\ H\ } \pis{2n-1}{S^{2n-1}}
+\xrightarrow{\ \Delta\ } \pis{2n-3}{S^{n-1}}.
+\)\\
+$\Delta$ の象は $[\,\iota_{n-1},\iota_{n-1}\,]$ によって生成され, 
+また, $2[\,\iota_{n-1},\iota_{n-1}\,]=0$ であるから, \\
+\(
+\pis{2n-1}{S^{n}} \cong
+\mathbb{Z}\gen{\beta}\ \oplus\ 
+E\pis{2n-2}{S^{n-1}} .
+\)\\
+ここで,
+\(E(\pis{2n-2}{n-1})\) は有限であり, \\
+$[\,\iota_{n-1},\iota_{n-1}\,]=0$ の場合, $H(\beta)=\iota_{2n-1}$,\\
+$[\,\iota_{n-1},\iota_{n-1}\,]\ne0$ の場合, $H(\beta)=2\iota_{2n-1}$ である. 
+
+\noindent
+\textbf{Prop2.7.}\
+$n$ が偶数のとき,
+\(
+H\!\bigl(\Delta(\iota_{2n+1})\bigr)\ =\ \pm\,2\,\iota_{2n-1}
+\qquad (\text{cf.} (11.14)).
+\)
+
+\noindent
+\textbf{Lem4.1.}\
+$n$ が奇数のとき,  $\pi_{2n-1}^n=\pis{2n-1}{S^n;2} .$\\
+$n$ が偶数で, $[\,\iota_{n-1},\iota_{n-1}\,]\ne0$ のとき, 
+\(
+\pi_{2n-1}^n\ \cong\ \mathbb{Z}\gen{\Delta(\iota_{2n+1})}\ \oplus \ 
+\pis{2n-1}{S^n;2} .
+\)\\
+$n$ が偶数で, $[\,\iota_{n-1},\iota_{n-1}\,]=0$ のとき, 
+\(
+\pi_{2n-1}^n\ \cong\ \mathbb{Z}\gen{\alpha}\ \oplus \
+\pis{2n-1}{S^n;2} .
+\)\\
+ここで, \(\alpha\) は 
+\(H(\alpha)=\iota_{2n-1},\ E\alpha\in\pi_{2n}^{n+1}=\pi_{2n}(S^{n+1};2)\)
+を満たす元である. \\
+いずれの場合も, $[\,\iota_n,\iota_n\,]\in \pi_{2n-1}^n$ である. 
+
+\noindent
+\textbf{Th2.4.}\
+$p$ を素数, $m>1$ とする. 
+連続写像
+\(
+h:\ ((S^m)_\infty,(S^m)_{p-1})\longrightarrow ((S^{pm})_\infty,e_0)
+\)\\
+であって, $e^{pm}$ を $S^{pm}-e_0$ へ同相に移すものをとる. \\
+i).\ $m$ が奇数で $p=2$ のとき, \\
+\(
+h_*:\ \pi_i\bigl((S^m)_\infty,S^m\bigr)\ \longrightarrow\ \pi_i\bigl((S^{2m})_\infty\bigr)
+\)
+は, 全ての $i$ に対して同型である. \\
+ii).\ $m$ が偶数のとき, \\
+\(
+h_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \longrightarrow\ 
+\pi_i\bigl((S^{pm})_\infty\bigr)
+\)
+は, $i<(p+1)m-1$ に対して同型であり, \\
+さらに, 全ての $i$ に対して $p$-成分についての同型を与える. 
+
+\noindent
+\textbf{(2.11).}\ 
+\(\cdots\ \longrightarrow\ 
+\pi_i(S^m)\xrightarrow{\,E\,}\pi_{i+1}(S^{m+1})\xrightarrow{\,H\,}
+\pi_{i+1}(S^{2m+1})\xrightarrow{\,\Delta\,}\pi_{i-1}(S^m)\xrightarrow{\,E\,}\cdots
+\)\\
+これは $m$ が奇数, あるいは $i<3m-1$ のとき完全列である. \\
+$m$ が偶数で, $i\ge 3m-1$ の場合には, (2.11) を
+2-成分に関する完全列として考える. \\
+\(\pis{2n+1}{S^{2n+1}}\xlongrightarrow{\Delta}
+\pis{2n-1}{S^{n}}\xlongrightarrow{E}
+\pis{2n}{S^{n+1}}\).\\
+\(\ker E = \im \Delta = \gen{\Delta(\iota_{2n+1})}
+\subset\pis{2n-1}{S^n; 2}\).
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+素数 $p$ に対し, 安定群 $G_k$ の $p$-成分を $(G_k;p)$ と書く. \\
+\eqref{4.4} の exactness と (3.2) より, 次の同型を得る：
+\begin{equation}\label{4.5}
+% (4.5)
+\Ex^{\,m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m}\quad(m\ge n),\ \ \
+\Ex^{\infty}:\pit{n+k}{n}\xrightarrow{\cong}(G_k;2)
+\quad(n\ge k+2).
+\end{equation}
+
+\begin{lemma}\label{lem:4.3}
+% Lem4.3
+$n\ge1$ とする. $\alpha,\gamma$ が $p$-成分に属するならば, \\
+$\alpha\circ \Ex^{n}\beta$ と $\beta\circ\gamma$ も, 
+$p$-成分に属する. \\
+さらに, $\alpha\circ \Ex^{n}\beta=\beta\circ\gamma=0$ のとき, 
+$\todai[n]{\alpha,\Ex^{n}\beta,\Ex^{n}\gamma}$ の各元は,
+$p$-成分に属する. 
+\end{lemma}
+
+この Lemma は, 球面のホモトピー群に対して述べたが, 一般の空間に対しても成り立つ：
+\begin{equation}\label{4.6}
+% (4.6).\
+\raisetag{3ex}
+\begin{aligned}[t]
+  &n\ge 1,\ p^r\alpha=0,\ p^s\gamma=0,\ r,s>0,\ 
+  \alpha\in[E^n Y, Z],\ \gamma\in[EW, X] \ \text{のとき, }\\
+  &\beta\in[X, Y]\ \text{に対して, } \ 
+  p^r(\alpha\circ E^r\beta) = 0,\ p^s(\beta\circ\gamma) = 0 \ \text{である. }\\
+  &\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }
+  p^{r+s}\todai[n]{\alpha, E^n\beta, E^n\gamma} = 0 \ \text{である. }\qquad
+\end{aligned}
+\end{equation}
+%
+\begin{equation}\label{4.7}
+% (4.7).\
+\raisetag{3ex}
+\begin{aligned}[t]
+  & n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\\
+  & \alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \\
+  &\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\\
+  & \todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\qquad\qquad\qquad\\
+  & \pit{i+n+1}{m} \ \text{の部分集合である. }
+\end{aligned}
+\end{equation}
+
+% (p=2 の特別化 4.7 は次頁で展開) 
+
+% --- CHAPTER IV p.37-38 ---
+
+\switchcolumn
+
+\noindent
+\textbf{(3.2).}\
+\(\Ex: \pis{i}{S^m} \longrightarrow \pis{i+1}{S^{m+1}}
+\quad\text{は, } i<2m-1 \text{で同型, } i=2m-1 \text{で全射である. }\)
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+$n=2,4,8$ のとき, Hopf fibration
+$S^n\hookrightarrow S^{2n-1}\xrightarrow{h} S^n$ が存在し, これに付随して,
+\[
+E+h_*:\ \pis{i-1}{S^{n-1}}\oplus\pis{i}{S^{2n-1}}
+\ \xrightarrow{\ \cong\ }\ \pis{i}{S^n}
+\]
+が, 任意の \(i\) で同型になることが知られている \cite{Steenrod1951}.\\
+これは, $h$ を Hopf 不変量 $\pm1$ を持つ写像に置き換えても成り立つ. \\
+なぜなら, これらの同型は, 次の写像
+\[
+i\cdot\Omega h: S^{n-1}\times\Ox S^{2n-1}\to\Ox S^n
+\]
+によって誘導されるからである. 
+ここで, "\(\cdot\)" は \(\Omega S^n\) の道の積を表す. \\
+この写像は, コホモロジーの同型を誘導するので,ホモロジーとホモトピーの同型を誘導する. \\
+証明の詳細は読者に任せる. 
+
+\begin{proposition}\label{prop:4.4}
+% Prop4.4.\
+$\alpha\in\pit{2n-1}{n}$ で $H(\alpha)=\pm\iota_{2n-1}$ とする. 
+このとき,\\
+\(
+\pit{i-1}{n-1}\oplus\pit{i}{2n-1}\to\pit{i}{n},\quad
+(\beta,\gamma) \longmapsto E\beta + \alpha\circ\gamma
+\)
+は, 任意の \(i\) で同型である. \\
+特に, 
+\(
+E:\pit{i-1}{n-1}\to \pit{i}{n}
+\)
+は, 任意の \(i\) で単射である. 
+\end{proposition}
+
+\switchcolumn
+
+\noindent
+\textbf{
+\cite{Steenrod1951}
+N.~E.~Steenrod,}
+\newblock Topology of fibre bundles,
+\newblock Princeton.
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\begin{lemma}\label{lem:4.5}
+% Lem4.5
+$n=2,4,8$ とする. \\
+\(
+E:\pis{i-1}{S^{n-1}}\to\pis{i}{S^n}
+\)
+は, 任意の $i$ で単射であり, \\
+任意の整数 $r$ と $\beta\in\pis{i-1}{S^{n-1}}$ に対して, 
+\[
+r\,\iota_{n-1}\circ \beta = r\beta \ .
+\]
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\
+前半は, \(\pis{i}{S^n}\) の Hopf 分解より明らかである. \\
+(2.1) により, $E(r\,\iota_{n-1}\circ\beta)=E(r\beta)$ なので, 後半も成り立つ. 
+\qed
+
+\medskip
+\noindent
+Lem4.1 の証明から, 次が分かる. 
+\begin{equation}\label{4.8}
+% (4.8).\
+\raisetag{3ex}
+\begin{aligned}[t]
+& n \ \text{を偶数とする. } \\
+& \Delta(\iota_{2n-1})=[\iota_{n-1},\iota_{n-1}]\ne0 \ \text{のとき, }\\
+& \pit{2n-1}{n}
+=E\,\pit{2n-2}{\,n-1}\ \oplus\ \Delta\,\pit{2n+1}{\,2n+1}
+\cong E\,\pit{2n-2}{\,n-1}\ \oplus\ \mathbb{Z},\ \pit{2n}{\,n+1} = E^{2}\,\pit{2n-2}{\,n-1} 
+\cong E\,\pit{2n-2}{\,n}.\\
+& \Delta(\iota_{2n-1})=0 \ \text{のとき, }\\
+& E^{2}:\pit{2n-2}{\,n-1}\to\pit{2n}{\,n+1}\ \text{は単射で, }\
+\pit{2n}{\,n+1}/E^{2}\pit{2n-2}{\,n-1}\cong\mathbb{Z}_2 . \\
+& \text{さらに,}\ \alpha\in\pit{2n-1}{n} \ \text{に対して, 次が成り立つ. }\\
+& E\alpha\in E^{2}\pit{2n-2}{\,n-1} \ \Leftrightarrow \
+H(\alpha)\in 2\,\pit{2n-1}{\,2n-1}\ .
+\end{aligned}
+\end{equation}
+
+\begin{equation}\label{4.9}
+% \noindent
+% \textbf{(4.9).}\
+\pit{m}{n}\circ\pit{k}{m}\ \subset\ \pit{k}{n}.
+\end{equation}
+
+\noindent
+\textbf{Proof.}\
+$k\ne m,\,2m-1$ のとき, $\pit{k}{m}=\pi_k(S^{m};2)$ なので, 
+\eqref{4.7} から, (4.9) が成り立つ. 
+
+$k=m$ のとき,  $\pit{m}{n}\circ\pit{m}{m} = \pit{m}{n}$ なので, 
+(4.9) が成り立つ. 
+
+$k=2m-1,\ m$ が奇数のとき, 
+Lem \ref{lem:4.1} より, 
+\(\pit{k}{m} = \pis{k}{S^m; 2}\)
+なので, \\
+(4.7) から, (4.9) が成り立つ. 
+
+$k=2m-1,\ m$ が偶数のとき, 
+$\alpha\in\pit{2m-1}{m}$ を考える. \\
+$H[\iota_m,\iota_m] = \pm 2\,\iota_{2m-1}$ なので, ある整数 $r$ に対し,
+$H(2\alpha)=H(r[\iota_m,\iota_m])$ である. \\
+(4.4) の完全性から, 
+\(2\alpha=r[\iota_m,\iota_m]+E\gamma\)
+となる $\gamma\in\pit{2m-2}{\,m-1}$ が存在する. \\
+任意の $\beta\in\pit{m}{n}$ をとり, 
+$\beta$ の位数を $2^{t}$ とする. \\
+このとき, \(2^{2t+1}(\beta\circ\alpha) = \) を示す. 
+(2.1) と, Whitehead 積の双線型性と自然性 \cite{Whitehead1941} から, 
+\[
+\begin{aligned}
+2^{2t+1}(\beta\circ\alpha)
+&=\beta\circ r 2^{2t}[\iota_m,\iota_m]
+\ +\ \beta\circ 2^{2t}E\gamma\\
+&=\beta\circ r\bigl[2^{t}\iota_m,\,2^{t}\iota_m\bigr]\ +\ 2^{2t}\beta\circ E\gamma\\
+&=\beta\circ 2^{t}\iota_m\circ r[\iota_m,\iota_m]\ +\ 0\\
+&= 2^{t}\beta\circ r[\iota_m,\iota_m]\;=\;0 .
+\end{aligned}
+\]
+よって, $\beta\circ\alpha$ は $2$-成分の元であり, 
+$\pit{m}{n}\circ\pit{2m-1}{m}\subset\pit{2m-1}{n}$ が成り立つ. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Lem4.1.}\
+$n$ が奇数のとき,  $\pi_{2n-1}^n=\pis{2n-1}{S^n;2} .$\\
+$n$ が偶数で, $[\,\iota_{n-1},\iota_{n-1}\,]\ne0$ のとき, 
+\(
+\pi_{2n-1}^n\ \cong\ \mathbb{Z}\gen{\Delta(\iota_{2n+1})}\ \oplus \ 
+\pis{2n-1}{S^n;2} .
+\)\\
+$n$ が偶数で, $[\,\iota_{n-1},\iota_{n-1}\,]=0$ のとき, 
+\(
+\pi_{2n-1}^n\ \cong\ \mathbb{Z}\gen{\alpha}\ \oplus \
+\pis{2n-1}{S^n;2} .
+\)\\
+ここで, \(\alpha\) は 
+\(H(\alpha)=\iota_{2n-1},\ E\alpha\in\pi_{2n}^{n+1}=\pi_{2n}(S^{n+1};2)\)
+を満たす元である. \\
+いずれの場合も, $[\,\iota_n,\iota_n\,]\in \pi_{2n-1}^n$ である. 
+
+\noindent
+\textbf{(4.4).}\
+\(\pit{2m-2}{m-1}\xlongrightarrow{E}
+\pit{2m-1}{m}\xlongrightarrow{H}
+\pit{2m-1}{2m-1}\)\\
+\qquad\qquad\(\gamma\longmapsto 2\alpha-[\iota_m, \iota_m]\longmapsto 0\)
+
+\noindent
+\textbf{\cite{Whitehead1941}
+J.~H.~C.~Whitehead,}
+\newblock On adding relations to homotopy groups,
+\newblock Ann. of Math., {\bf 42} (1941), 409--428.
+
+\noindent
+\([\alpha_1+\alpha_2, \beta] =
+[\alpha_1, \beta] + [\alpha_2, \beta],\)\\
+\([\alpha, \beta_1 + \beta_2] =
+[\alpha, \beta_1] + [\alpha, \beta_2],\)\\
+\([\gamma\circ\alpha, \gamma\circ\beta] = 
+\gamma\circ[\alpha, \beta].\)
+
+
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+\renewcommand{\refname}{References}
+\begin{thebibliography}{99}
+
+\bibitem{Adams1960}
+J.~F.~Adams,
+\newblock On the non-existence of elements of Hopf invariant one,
+\newblock Ann. of Math., {\bf 72} (1960), 20--104.
+
+\bibitem{Adem}
+J.~Adem,
+\newblock The relations on Steenrod powers of cohomology classes,
+\newblock Algebraic geometry and topology, Princeton.
+
+\bibitem{Barratt1955}
+M.~G.~Barratt,
+\newblock Track groups I, II,
+\newblock Proc. London Math. Soc., {\bf 5} (1955), 71--106, 285--329.
+
+\bibitem{Barratt1961}
+M.~G.~Barratt,
+\newblock Note on a formula due to Toda,
+\newblock Jour. London Math. Soc., {\bf 36} (1961), 95--96.
+
+% 5
+\bibitem{BarrattHilton1953}
+M.~G.~Barratt and P.~J.~Hilton,
+\newblock On join operations of homotopy groups,
+\newblock Proc. London Math. Soc., {\bf 3} (1953), 430--445.
+
+\bibitem{BlakersMassey1952}
+A.~L.~Blakers and W.~S.~Massey,
+\newblock The homotopy groups of a triad II,
+\newblock Ann. of Math., {\bf 55} (1952), 192--201.
+
+\bibitem{Freudenthal1937}
+H.~Freudenthal,
+\newblock Über die Klassen der Sphärenabbildungen,
+\newblock Compos. Math., {\bf 5} (1937).
+
+\bibitem{Hopf1935}
+H.~Hopf,
+\newblock Über die Abbildungen von Sphären auf Sphären niedriger Dimension,
+\newblock Fund. Math., {\bf 25} (1935).
+
+\bibitem{James1955}
+I.~M.~James,
+\newblock Reduced product spaces,
+\newblock Ann. of Math., {\bf 62} (1955), 170--197.
+
+% 10
+\bibitem{James1956}
+I.~M.~James,
+\newblock Suspension triad of a sphere,
+\newblock Ann. of Math., {\bf 63} (1956), 407--429.
+
+\bibitem{James1958}
+I.~M.~James,
+\newblock The intrinsic join: A study of the homotopy groups of Stiefel manifold,
+\newblock Proc. London Math. Soc., {\bf 8} (1958), 507--535.
+
+\bibitem{Moore1953}
+J.~C.~Moore,
+\newblock Some applications of homology theory to homotopy problems,
+\newblock Ann. of Math., {\bf 58} (1953), 325--350.
+
+\bibitem{Serre1951}
+J.-P.~Serre,
+\newblock Homologie singulière des espaces fibrés,
+\newblock Ann. of Math., {\bf 54} (1951), 425--505.
+
+\bibitem{Serre1953a}
+J.-P.~Serre,
+\newblock Cohomologie modulo 2 des complexes d'Eilenberg-MacLane,
+\newblock Comm. Math. Helv., {\bf 27} (1953), 198--231.
+
+% 15
+\bibitem{Serre1953b}
+J.-P.~Serre,
+\newblock Groups d'homotopie et classes groupes abéliens,
+\newblock Ann. of Math., {\bf 58} (1953), 258--294.
+
+\bibitem{Serre1953c}
+J.-P.~Serre,
+\newblock Quelques calculs de groupes d'homotopie,
+\newblock Comptes Rendus Paris, {\bf 236} (1953), 2475--2477.
+
+\bibitem{Steenrod1951}
+N.~E.~Steenrod,
+\newblock Topology of fibre bundles,
+\newblock Princeton.
+
+\bibitem{Steenrod1949}
+N.~E.~Steenrod,
+\newblock Cohomology invariants of mappings,
+\newblock Ann. of Math., {\bf 50} (1949), 954--988.
+
+\bibitem{Steenrod1953}
+N.~E.~Steenrod,
+\newblock Cyclic reduced powers of cohomology classes,
+\newblock Proc. Nat. Acad. Sci. U.S.A., {\bf 39} (1953), 217--223.
+
+% 20
+\bibitem{Toda1952}
+H.~Toda,
+\newblock Generalized Whitehead products and homotopy groups of spheres,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 3} (1952), 43--82.
+
+\bibitem{Toda1956}
+H.~Toda,
+\newblock On double suspension $E^2$,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 7} (1956), 103--145.
+
+\bibitem{Toda1957}
+H.~Toda,
+\newblock Reduced join and Whitehead product,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 8} (1957), 15--30.
+
+\bibitem{Toda1958a}
+H.~Toda,
+\newblock On exact sequences in Steenrod algebra mod 2,
+\newblock Memoirs Univ. of Kyoto, {\bf 31} (1958), 33--64.
+
+\bibitem{Toda1958b}
+H.~Toda,
+\newblock $p$-primary components of homotopy groups II. mod $p$ Hopf invariant,
+\newblock Memoirs Univ. of Kyoto, {\bf 31} (1958), 143--160.
+
+% 25
+\bibitem{Toda1959}
+H.~Toda,
+\newblock $p$-primary components of homotopy groups IV. Compositions and toric constructions,
+\newblock Memoirs Univ. of Kyoto, {\bf 32} (1959), 297--332.
+
+\bibitem{Whitehead1950a}
+G.~W.~Whitehead,
+\newblock A generalization of the Hopf invariant,
+\newblock Ann. of Math., {\bf 51} (1950), 192--237.
+
+\bibitem{Whitehead1950b}
+G.~W.~Whitehead,
+\newblock The $(n+2)$nd homotopy group of the $n$-sphere,
+\newblock Ann. of Math., {\bf 52} (1950), 245--247.
+
+\bibitem{Whitehead1941}
+J.~H.~C.~Whitehead,
+\newblock On adding relations to homotopy groups,
+\newblock Ann. of Math., {\bf 42} (1941), 409--428.
+
+\bibitem{Whitehead1944}
+J.~H.~C.~Whitehead,
+\newblock On the groups $\pi_n(V_{m,n})$ and sphere bundles,
+\newblock Proc. London Math. Soc., {\bf 48} (1944), 243--291.
+
+\end{thebibliography}
+
+
+\end{paracol}
+
+\end{document}
