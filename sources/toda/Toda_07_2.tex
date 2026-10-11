@@ -1,0 +1,4532 @@
+% !TEX program = lualatex
+\documentclass[10pt, leqno]{ltjsarticle}
+% \documentclass[10pt]{ltjsarticle} % 日本語をそのまま扱えるクラス
+% \usepackage[margin=28mm]{geometry}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+
+\usepackage[
+  top=15mm,     % 上余白
+  bottom=15mm,  % 下余白
+  left=10mm,    % 左余白
+  right=10mm,    % 右余白
+  landscape,
+  margin=10mm
+]{geometry}
+% \usepackage[landscape,margin=20mm]{geometry} % 余白はお好みで
+\usepackage{paracol}
+\columnratio{0.5,0.5}             % 左右を 1:1 に
+\setlength{\columnseprule}{0.4pt} % 真ん中の縦線
+
+\usepackage{titlesec}
+\titleformat{\paragraph}
+  {\normalfont\bfseries}
+  {}      % ← 番号を空に
+  {0pt}
+  {}
+
+  % 左揃えディスプレイ用ブロック
+\newcommand{\Tharray}[1]{%
+  \[
+  \begin{array}{@{}l@{}} % 余白なしで左端に揃える
+    #1
+  \end{array}
+  \]
+}
+
+% 上線を楽に:\ov{X} = \overline{X}
+\newcommand{\ov}[1]{\overline{#1}}
+% --- 左揃えの Thボディ用ヘルパ (プリアンブル or 本文先頭に一度だけ )---
+\newenvironment{Thleft}[1][]{%
+  % \begin{theorem}[#1]\mbox{}\\[-1.25ex]\begingroup
+  \begin{theorem}[#1]\mbox{}\\[0ex]\begingroup
+  \setlength{\arraycolsep}{0pt}% 式中の余白をタイトに
+  \renewcommand{\arraystretch}{1.0}% 行間
+  \noindent$\begin{array}{@{}l@{}}%
+}{%
+  \end{array}$\par\endgroup\end{theorem}%
+}
+
+
+% ---- 記号・マクロ ----
+\newcommand{\xto}{\mathrel{\xrightarrow{}}}
+\newcommand{\into}{\hookrightarrow}
+\newcommand{\epi}{\twoheadrightarrow}
+\newcommand{\pto}{\rightrightarrows}
+\newcommand{\cls}[1]{\bigl(#1\bigr)}
+\newcommand{\redjoin}{\wedge}
+\newcommand{\shrink}{\phi}
+\newcommand{\Ex}{E}        % suspension functor E
+\newcommand{\Ox}{\Omega}   % loop functor Omega
+\newcommand{\id}{\mathrm{id}}
+% --- Toda bracket helpers ---
+\newcommand{\toda}[1]{\{\,#1\,\}}              % {a,b,c}
+\newcommand{\todai}[2][]{\{\,#2\,\}_{#1}}      % {a,b,c}_i   (#1 は添字, 空なら無し) 
+\newcommand{\todas}[1]{\langle\,#1\,\rangle}
+\newcommand{\gen}[1]{\{#1\}}       % ⟨generator⟩ 表記を { } で統一
+\newcommand{\Ker}{\operatorname{Ker}}
+\newcommand{\im}{\operatorname{Im}}
+\newcommand{\hs}[2]{\bigl[#1,#2\bigr]}   % 一般のホモトピー集合
+\newcommand{\pis}[2]{\pi_{#1}(#2)}       % 左が球面のときのホモトピー群
+\newcommand{\pit}[2]{\pi_{#1}^{#2}}
+\newcommand{\ext}[1]{\overline{#1}}     % extension
+\newcommand{\coext}[1]{\widetilde{#1}}  % coextension
+\newcommand{\z}{\mathbb{Z}}
+
+% ---- theorem-like environments ----
+\numberwithin{equation}{section}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[]{Remark}
+
+% \title{PART 1 \quad CHAPTER I\\[2mm] General Composition and Secondary Composition}
+\author{}
+\date{}
+
+\begin{document}
+
+\setcounter{section}{6}
+\section{2-Primary Components of $\pi_{n+k}(S^{n})$ for $8\le k\le13$.}
+
+\begin{paracol}{2}
+
+
+\paragraph{i). The groups $\pit{n+8}{n}$ and $\pit{n+9}{n}$ .}
+\noindent
+$\pit{n+8}{n}$ と $\pit{n+9}{n}$ の結果は次のとおり. 
+
+\begin{Thleft}[]
+% \noindent
+% \textbf{Th7.1.}\
+\pit{10}{2}=0,\\
+\pit{n+8}{n}=\gen{\varepsilon_{n}}\cong\mathbb Z_{2}\quad (n=3,4,5),\\
+\pit{14}{6}=\gen{\ov\nu_{6}}\oplus\gen{\varepsilon_{6}}\cong\mathbb Z_{8}\oplus\mathbb Z_{2},\\
+\pit{15}{7}=\gen{\sigma'\circ\eta_{14}}\oplus\gen{\ov{\nu}_{7}}\oplus\gen{\varepsilon_{7}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{16}{8}=\gen{\sigma_{8}\circ\eta_{15}}\oplus\gen{E\sigma'\circ\eta_{15}}\oplus\gen{\ov{\nu}_{8}}\oplus\gen{\varepsilon_{8}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \\
+\pit{17}{9}=\gen{\sigma_{9}\circ\eta_{16}}\oplus\gen{\ov{\nu}_{9}}\oplus\gen{\varepsilon_{9}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{n+8}{n}=\gen{\ov{\nu}_{n}}\oplus\gen{\varepsilon_{n}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge10),\\
+(G_{8};2)=\gen{\ov{\nu}}\oplus\gen{\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\end{Thleft}
+
+\begin{Thleft}[]
+% \noindent
+% \textbf{Th7.2.}\
+\pit{11}{2}=\gen{\eta_{2}\circ\varepsilon_{3}}\cong\mathbb Z_{2},\qquad\\
+\pit{12}{3}=\gen{\mu_{3}}\oplus\gen{\eta_{3}\circ\varepsilon_{4}}\cong\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{n+9}{n}=\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n=4,5,6),\\
+\pit{16}{7}=\gen{\sigma'\circ\eta_{14}^{\,2}}\oplus\gen{\nu_{7}^{3}}\oplus\gen{\mu_{7}}\oplus\gen{\eta_{7}\circ\varepsilon_{8}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{17}{8}=\gen{\sigma_{8}\circ\eta_{15}^{\,2}}\oplus\gen{E\sigma'\circ\eta_{15}^{\,2}}\oplus\gen{\nu_{8}^{3}}\oplus\gen{\mu_{8}}\oplus\gen{\eta_{8}\circ\varepsilon_{9}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{18}{9}=\gen{\sigma_{9}\circ\eta_{16}^{\,2}}\oplus\gen{\nu_{9}^{3}}\oplus\gen{\mu_{9}}\oplus\gen{\eta_{9}\circ\varepsilon_{10}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{19}{10}=\gen{\Delta(\iota_{21})}\oplus\gen{\nu_{10}^{3}}\oplus\gen{\mu_{10}}\oplus\gen{\eta_{10}\circ\varepsilon_{11}}
+\cong\mathbb Z\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{n+9}{n}=\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge11),\\
+(G_{9};2)=\gen{\nu^{3}}\oplus\gen{\mu}\oplus\gen{\eta\circ\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\end{Thleft}
+
+% \paragraph{Proof (冒頭のみ).}
+まず, \(\pit{10}{2}=0\) は, (5.2) と Prop5.15 から成り立つ. 
+(4.4) の完全系列
+\[
+0\longrightarrow \pit{10}{2}
+\longrightarrow \pit{11}{3}
+\xrightarrow{\,H\,}\pit{11}{5}
+\]
+において,  Lem6.1 より,
+\(H(\varepsilon_{3})=\nu_{5}^{2}\) であり, 
+Prop5.11 により, 
+この像は \(\pit{11}{5}\) を生成する. \\
+ゆえに, \(\pit{11}{3}=\gen{\varepsilon_{3}}\cong\mathbb Z_{2}\) であり, 
+(5.2) から,
+\(\pit{11}{2}=\gen{\eta_{2}\circ\varepsilon_{3}}\cong\mathbb Z_{2}\) が成り立つ. \\
+% ==== CHAPTER VII p.62 (日本語版・\pit の引数修正済 )====
+(5.6) と Prop5.9 より, 
+\(\pit{12}{4}=\gen{\varepsilon_{4}}\cong\mathbb Z_{2}\) である.
+
+\switchcolumn
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+
+\noindent
+\textbf{Lem6.1.}\
+\(H(\varepsilon_3)=\nu_5^{\,2}\) , 
+\(2\varepsilon_n=2\varepsilon=0\ ,(n\ge3)\). 
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+
+
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+Prop5.8 と 5.9 により, (4.4) から, 次の完全系列を得る:
+\[
+0 = \pit{14}{9}\ \xrightarrow{}\ \pit{12}{4}
+\ \xrightarrow{\ E\ }\ \pit{13}{5}\ \longrightarrow\ \pit{13}{9} = 0 .
+\]
+したがって, \(E\) は同型であり, 
+\(\pit{13}{5}=\gen{\varepsilon_{5}}\cong\mathbb Z_{2}\) を得る. 
+次に, 完全系列
+\[
+\pit{13}{5}\ \xrightarrow{\ \Delta\ }\ \pit{11}{2}\ \xrightarrow{\ E\ }\ 
+\pit{12}{3}\ \xrightarrow{\ H\ }\ \pit{12}{5}\ \longrightarrow\ \pit{10}{2}=0
+\]
+を考える. 
+\(2\varepsilon_{3}=0\) なので, 
+Lem5.2 より,
+\(\Delta\pit{13}{5}
+=\gen{\Delta(\varepsilon_{5})}
+=\gen{\Delta(E^{2}\varepsilon_{3})}=0\)
+である. \\
+ゆえに, \(E\) は単射であり, 
+Prop5.15 と Lem6.5 より, \(H\) は全射, したがって,
+\[
+\pit{12}{3}=\gen{\mu_{3}}\ \oplus\ \gen{\eta_{3}\circ \varepsilon_{4}}
+\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+さらに, (5.6) と Prop5.11 から,
+\[
+\pit{13}{4}
+=\gen{\nu_{3}^{3}}\ \oplus\ \gen{\mu_{4}}\ \oplus\ \gen{\eta_{4}\circ \varepsilon_{5}}
+\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+Prop2.2,  Prop3.1,  Lem5.14 より,
+\[
+H(\nu_{5}\circ \sigma_{8})
+=E(\nu_{4}\ \wedge\ \nu_{4})\circ H(\sigma_{8})
+=E(\nu_{8}\circ \nu_{11})\circ \iota_{15}
+=\nu_{9}^{2}.
+\]
+したがって, 完全系列
+\[
+\pit{15}{5}\xrightarrow{\ H\ }\pit{15}{9}\xrightarrow{\ \Delta\ }\pit{13}{4}
+\xrightarrow{\ E\ }\pit{14}{5}\longrightarrow\pit{14}{9}=0
+\]
+において,  Prop5.11 より, \(H\) は全射である. \\
+ゆえに, \(E\) は単射であり, 
+Prop5.9 より, \(\pit{14}{9}=0\) なので, \(E\) は全射でもある. よって,
+\[
+\pit{14}{5}
+=\gen{\nu_{5}^{3}}\ \oplus\ \gen{\mu_{5}}\ \oplus\ \gen{\eta_{5}\circ \varepsilon_{6}}
+\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+Prop5.8, 5.9 より,  (4.4) から,
+\[
+0 = \pit{16}{11}\ \longrightarrow\ \pit{14}{5}\ 
+\xrightarrow{\ E\ }\ \pit{15}{6}\ \longrightarrow\ \pit{15}{11} = 0,
+\qquad
+0 = \pit{15}{11}\ \longrightarrow\ \pit{13}{5}\ 
+\xrightarrow{\ E\ }\ \pit{14}{6}\ \xrightarrow{\ H\ }\ \pit{14}{11}
+\]
+の2本の完全系列を得る. 前者から,
+\[
+\pit{15}{6} = \mathbb{Z}_2\gen{\nu_6^3}
+\oplus\mathbb{Z}_2\gen{\mu_6}
+\oplus\mathbb{Z}_2\gen{\eta_6\circ\varepsilon_7} .
+\]
+後者について,  Lem6.2 と Prop5.6 より,
+\(H\) は全射で, \\
+\(\pit{14}{6}\) は,
+\(\ov{\nu}_{6}\) と \(\varepsilon_{6}\) により生成される 16 元の群である. \\
+\(8\,\ov{\nu}_{6}=0\) なので,
+\[
+\pit{14}{6}=\gen{\ov{\nu}_{6}}\ \oplus\ \gen{\varepsilon_{6}}
+\ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2} .
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Lem5.2.}\
+\(\alpha\in\pi_{i}(S^{3})\) に対し,
+\(2\alpha=0\) と仮定する. \\
+このとき,
+\(\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\) 
+の任意の元 \(\beta\) に対して,\\
+\(
+H(\beta)=E^{2}\alpha,\
+2\beta=\eta_3\circ E\alpha\circ \eta_{i+1}
+\)
+が成り立つ. \\
+そのような \(\beta\) は,
+\(\pi^{3}_{i+2}\) に属し, \(\Delta(E^{2}\alpha)=0\) である. 
+
+\noindent
+\textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+
+\noindent
+\textbf{Lem6.5.}\
+\(H(\mu_{3})=\sigma'''\), \quad
+\(2\mu_{n}=2\mu=0\) (\(n\ge3\)) , \\
+\(
+\mu_{n}\ \in\ \todai[n-4]{\eta_{n},\ 2\iota_{n+1},\ E^{\,n-4}\sigma'''}
+\ +\ \gen{\nu^{3}_{n}},
+\quad (n\ge4).
+\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{Lem6.2.}\
+\(H(\overline{\nu}_6)\equiv\nu_{11},\ \mod 2\nu_{11}\text{}\), 
+\(\ \Delta(\nu_{13})=\pm 2\,\overline{\nu}_6\), 
+\(\ 8\,\overline{\nu}_6=0\) が成り立つ. \\
+\(n\ge7\) では,
+\(2\overline{\nu}_n=2\overline{\nu}=0\) である. さらに,\\
+\(
+\todai[t]{\nu_n,\ \eta_{n+3},\ \nu_{n+4}}\ \text{は }n\ge7,\ 
+0\le t\le n-2\text{ のとき, 単一元 }\overline{\nu}_n\text{ から成る. }
+\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+Prop5.8 より, \(\pit{13}{7}=0\) なので,  (4.4) から次の完全系列を得る:
+\[
+0=\pit{17}{13}\ \xrightarrow{}\ \pit{16}{7}\ \xrightarrow{\ H\ }\ \pit{16}{13}
+\ \xrightarrow{\ \Delta\ }\ \pit{14}{6}\ \xrightarrow{\ E\ }\ \pit{15}{7}
+\ \xrightarrow{\ H\ }\ \pit{15}{13}.
+\]
+Lem5.14 と Prop2.2 より,
+\[
+H(\sigma'\circ \eta_{14})=H(\sigma')\circ \eta_{14}=\eta_{13}^{2},
+\qquad
+H(\sigma'\circ 2)\circ \eta_{14}=H(\sigma')\circ \eta_{14}^{2}=\eta_{13}^{3}=4\nu_{13}.
+\]
+
+% ==== CHAPTER VII p.63 (日本語版・\pit の引数順は \pi_{下}^{上} )====
+
+\noindent
+\(\eta_{13}^{2}\) が \(\pit{15}{13}\cong\mathbb Z_{2}\) を生成し, かつ,
+\(2(\sigma'\circ\eta_{14})=\sigma'\circ 2\eta_{14}=0\) であるから, 
+\[
+\pit{15}{7}
+=\mathbb{Z}_2\gen{\sigma'\circ\eta_{14}}\ \oplus\ E\pit{14}{6}
+\cong \mathbb{Z}_2\oplus\pit{14}{6}/\Delta\pit{16}{13}.
+\]
+Lem6.2 と Prop5.6 より, 
+\(\Delta\pit{16}{13}\) は \(2\,\ov{\nu}_{6}\) により生成される. 
+したがって,
+\[
+E\pit{14}{6}=\gen{\ov{\nu}_{7}}\ \oplus\ \gen{\varepsilon_{7}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+なので, 
+\[
+\pit{15}{7} = \mathbb{Z}_2\gen{\sigma'\circ\eta_{14}}
+\oplus \mathbb{Z}_2\gen{\ov{\nu}_7}
+\oplus \mathbb{Z}_2\gen{\varepsilon_7} .
+\]
+\[
+\Ker\bigl(\Delta:\pit{16}{13}\to\pit{14}{6}\bigr)=\gen{\,4\nu_{13}\,}
+=\gen{\,H(\sigma'\circ\eta_{14}^2)\,}.
+\]
+よって, 上の完全性と, \(2(\sigma'\circ\eta_{14}^{2})=0\) から,
+\[
+\pit{16}{7}
+=\gen{\sigma'\circ\eta_{14}^{2}}\ \oplus\ E\pit{15}{6},
+\]
+ここで, \(E\) は単射である. よって,
+\[
+\pit{16}{7}=\gen{\sigma'\circ\eta_{14}^{\,2}}\oplus\gen{\nu_{7}^{3}}\oplus\gen{\mu_{7}}\oplus\gen{\eta_{7}\circ\varepsilon_{8}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\]
+さらに, \(\pit{16}{8}\) と \(\pit{17}{8}\) の結果は, \\
+\(\pit{15}{7}\) と \(\pit{16}{7}\) の結果, および, Prop5.1・5.3 と,
+(5.15) の対応から, 直接確認できる. 
+\[
+\pit{16}{8}=
+\gen{\sigma_{8}\circ\eta_{15}}\oplus\gen{E\sigma'\circ\eta_{15}}\oplus
+\gen{\ov{\nu}_{8}}\oplus\gen{\varepsilon_{8}}\cong 
+\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\]
+\[
+\pit{17}{8}=
+\gen{\sigma_{8}\circ\eta_{15}^{\,2}}\oplus\gen{E\sigma'\circ\eta_{15}^{\,2}}\oplus
+\gen{\nu_{8}^{3}}\oplus\gen{\mu_{8}}\oplus\gen{\eta_{8}\circ\varepsilon_{9}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus
+\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+
+\medskip
+\noindent
+次の完全系列を考える(4.4):
+\[
+\pit{19}{17}\xrightarrow{\ \Delta\ }\pit{17}{8}\xrightarrow{\ E\ }\pit{18}{9}
+\xrightarrow{\ H\ }\pit{18}{17}\xrightarrow{\ \Delta\ }\pit{16}{8}
+\xrightarrow{E}\pit{17}{9}\xrightarrow{H}\pit{17}{17}
+\xrightarrow{\Delta}\pit{15}{8}.
+\]
+Prop5.15 と (5.16) より,
+\(\Delta:\pit{17}{17}\to\pit{15}{8}\) は単射である. \\
+したがって, \(E:\pit{16}{8}\to\pit{17}{9}\) は全射である. 
+(5.16) と Prop2.5 から,
+次が容易に分かる. 
+\[
+\Delta(\eta_{17})=E\sigma'\circ\eta_{15},\qquad
+\Delta(\eta_{17}^{2})=E\sigma'\circ\eta_{15}^{2}.
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Lem6.2.}\
+\(H(\overline{\nu}_6)\equiv\nu_{11},\ \mod 2\nu_{11}\text{}\), 
+\(\ \Delta(\nu_{13})=\pm 2\,\overline{\nu}_6\), 
+\(\ 8\,\overline{\nu}_6=0\) が成り立つ. \\
+\(n\ge7\) では,
+\(2\overline{\nu}_n=2\overline{\nu}=0\) である. さらに,\\
+\(
+\todai[t]{\nu_n,\ \eta_{n+3},\ \nu_{n+4}}\ \text{は }n\ge7,\ 
+0\le t\le n-2\text{ のとき, 単一元 }\overline{\nu}_n\text{ から成る. }
+\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+\noindent
+\textbf{Prop5.1.}\
+\(\pi^{2}_{3}=\gen{\eta_2}\cong\mathbb Z,\quad
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2\ (n\ge3),\quad
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.\) \\
+ここで, 
+\(H(\eta_2)=\iota_3,\ \Delta(\iota_5)=\pm 2\,\eta_3\) が成り立つ. 
+
+\noindent
+\textbf{Prop5.3.}\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+
+\noindent
+\textbf{(5.15).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\sigma_{8}\circ\beta
+\quad\text{は,}\
+\pi^{7}_{i-1}\oplus\pi^{15}_{i}\xrightarrow{\cong}\pi^{8}_{i}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+
+\noindent
+\textbf{(5.16).}\
+\(\Delta(\iota_{17})=\pm\,(2\sigma_{8}-E\sigma').\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+よって, 上の系列の2つの \(\Delta\) は, 
+いずれも単射である.
+完全性から,
+\[
+\pit{17}{9}=E\pit{16}{8}
+\cong \pit{16}{8}\big/\gen{E\sigma'\circ\eta_{15}},
+\qquad
+\pit{18}{9}=E\pit{17}{8}
+\cong \pit{17}{8}\big/\gen{E(\sigma'\circ\eta_{15}^{2})}.
+\]
+これにより, \(\pit{17}{9}\) と \(\pit{18}{9}\) の結果が成り立つ. 
+\[
+\pit{17}{9}=
+\gen{\sigma_{9}\circ\eta_{16}}\oplus\gen{\ov{\nu}_{9}}\oplus\gen{\varepsilon_{9}}
+\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\]
+\[
+\pit{18}{9}=
+\gen{\sigma_{9}\circ\eta_{16}^{\,2}}\oplus\gen{\nu_{9}^{3}}\oplus
+\gen{\mu_{9}}\oplus\gen{\eta_{9}\circ\varepsilon_{10}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\]
+
+\medskip
+\noindent
+さらに, 完全系列
+\[
+\pit{20}{19}\xrightarrow{\ \Delta\ }\pit{18}{9}\xrightarrow{\ E\ }\pit{19}{10}
+\xrightarrow{\ H\ }\pit{19}{19}\xrightarrow{\ \Delta\ }\pit{17}{9}
+\xrightarrow{E}\pit{18}{10}\xrightarrow{}\pit{18}{19}= 0
+\]
+を考える. 
+\(\sigma_{9}\circ\eta_{16},\ \ov{\nu}_{9},\ \varepsilon_{9}\) は, 
+\(\pit{17}{9}\) の独立な生成元である. \\
+よって, \(\sigma_{9}\circ\eta_{16}+\ov{\nu}_{9}+\varepsilon_{9}\ne0\).
+Lem6.4 より, \(E(\sigma_{9}\circ\eta_{16}+\ov{\nu}_{9}+\varepsilon_{9})=0\).\\
+\(\Delta\pit{19}{19}\) は巡回群であり, \(\pit{17}{9}\) の任意の非自明巡回部分群の
+位数は 2 であるから,\\
+列の完全性より,
+\begin{equation}
+% \noindent
+% \textbf{(7.1).}\
+\Delta(\iota_{19})=\sigma_{9}\circ\eta_{16}\ +\ \ov{\nu}_{9}\ +\ \varepsilon_{9}.
+\end{equation}
+
+% ==== CHAPTER VII p.64 (日本語版 )====
+
+\noindent
+したがって,
+\[
+\pit{18}{10}=E\,\pit{17}{9}
+=\gen{\ov{\nu}_{10}}\ \oplus\ \gen{\varepsilon_{10}}
+\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+Prop2.5, (7.1),  Prop3.1,  Lem6.3 を用いると,
+\[
+\begin{align*}
+\Delta(\eta_{19})
+& = \Delta(\iota_{19})\circ\eta_{17}
+=\sigma_{9}\circ\eta_{16}^{2}\ +\ \ov{\nu}_{9}\circ\eta_{17}\ 
++\ \varepsilon_{9}\circ\eta_{17},\\
+& = \sigma_{9}\circ\eta_{16}^{2}\ +\ \nu_{9}^3\ 
++\ \eta_{9}\circ\varepsilon_{10}.
+\end{align*}
+\]
+ゆえに,
+\[
+E\,\pit{18}{9}
+=\gen{\nu_{10}^3}\ \oplus\ \gen{\mu_{10}}\ \oplus\ \gen{\eta_{10}\circ\varepsilon_{11}}
+\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+(7.1) より, 
+\(\Ker\bigl(\Delta:\pit{19}{10}\to\pit{14}{6}\bigr)\) は,
+\(2\iota_{19}\) によって生成され,  
+Prop2.7 により, \\
+これは 
+\(H(\pm\Delta(\iota_{21}))\) である. \\
+以上により, \(\pit{19}{10}\) の結果が得られる. 
+\[
+\pit{19}{10}=
+\gen{\Delta(\iota_{21})}\oplus\gen{\nu_{10}^{3}}\oplus
+\gen{\mu_{10}}\oplus\gen{\eta_{10}\circ\varepsilon_{11}}
+\cong\mathbb Z\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+また, 次の完全系列
+\[
+\pit{21}{21}\xrightarrow{\ \Delta\ }\pit{19}{10}
+\xrightarrow{\ E\ }\pit{20}{11}\longrightarrow \pit{20}{21} = 0
+\]
+の完全性から, \(\pit{20}{11}\) の結果も成り立つ. 
+\[
+\pit{20}{11}=\gen{\nu_{11}^{3}}\oplus\gen{\mu_{11}}\oplus
+\gen{\eta_{11}\circ\varepsilon_{12}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2} .
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{Lem6.4.}\
+\(
+\eta_9\circ \sigma_{10}\ =\ \overline\nu_9+\varepsilon_9,
+\quad \eta_n\circ \sigma_{n+1}\ =\ 
+\sigma_n \circ\eta_{n+7}\ =\
+\overline\nu_n+\varepsilon_n,\ \text{ for } n\ge10.
+\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{Lem6.3.}\
+\(n\ge6\) に対し,
+\(
+\overline\nu_n\circ \eta_{n+8}\ 
+=\ \eta_n\circ \overline\nu_{n+1}\ =\ \nu_n^{3},
+\ (\nu_n^{3}:=\nu_n\circ \nu_{n+3}\circ \nu_{n+6}).
+\)
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+最後に,  Th7.1 の残り 2 つと, Th7.2 の結論は, 
+(4.5) と, \(\pit{18}{10}\), \(\pit{20}{11}\) の結果から得られる. 
+\[
+\pit{n+8}{n}=\gen{\ov{\nu}_{n}}\oplus\gen{\varepsilon_{n}}\cong 
+\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge10),
+\]
+\[
+(G_{8};2)=
+\gen{\ov{\nu}}\oplus\gen{\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+\[
+\pit{n+9}{n}=
+\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge11),
+\]
+\[
+(G_{9};2)=
+\gen{\nu^{3}}\oplus\gen{\mu}\oplus\gen{\eta\circ\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+これで,  Th7.1 と Th7.2 の証明は完了した. 
+\qed
+
+以上の議論から, \(n=8,9,10\) に対して,
+\[
+\Delta:\ \pit{n+11}{\,2n+1}\ \longrightarrow\ \pit{n+9}{\,n}
+\]
+が単射であることが分かる. すると, (4.4) の完全性から,
+\begin{equation}\label{eq:72}
+% \noindent
+% \textbf{(7.2).}\
+E:\ \pit{n+10}{\,n}\ \longrightarrow\ \pit{n+11}{\,n+1}
+\quad\text{は, 全射である.}\qquad(n=8,9,10).
+\end{equation}
+
+次に, 合成に関して以下の関係式を確認する:
+\begin{align}
+% \noindent
+% \textbf{(7.3).}\
+& \eta_{5}\circ\ov{\nu}_{6}\ =\ \nu_{5}^{3}\qquad(\text{cf.\  Lem}6.3), \\
+% \noindent
+% \textbf{(7.4).}\
+& \eta_{7}\circ\sigma_{8}\ =\ \sigma'\circ\eta_{14}\ +\ \ov{\nu}_{7}\ +\ \varepsilon_{7}, \\
+& \eta_{6}\circ\sigma'\ =\ \sigma''\circ\eta_{13}\ =\ 4\,\ov{\nu}_{6}, \nonumber\\
+& \eta_5\circ\sigma'' \ =\ \sigma'''\circ\eta_{12}\ =\ \eta_4\circ\sigma''' = 0. \nonumber\\
+% \noindent
+% \textbf{(7.5).}\
+& \varepsilon_{n}\circ\eta_{n+8}\ =\ \eta_{n}\circ\varepsilon_{n+1}\qquad(n\ge3).
+\end{align}
+
+\noindent
+まず, これらの合成は (4.9) により 2-成分での等式であることに注意する. \\
+(7.3) は,  Lem6.3 の関係 \(\eta_{6}\circ\ov{\nu}_{7}=\nu_{6}^{3}\) と, 
+\(E:\pit{15}{5}\to\pit{15}{6}\) が同型である事実から成り立つ. \\
+最後の (7.5) は, Prop3.1 により, \(n\ge5\) の場合が成り立つ. \\
+\(n=3,4\) の場合は,
+\(
+E:\ \pit{11}{3}\to\pit{12}{4},\
+E:\ \pit{12}{4}\to\pit{13}{5}
+\)
+が, 同型であることから成り立つ. \\
+また,  Lem6.4 より, 
+\(E^{2}(\eta_{7}\circ\sigma_{8})=E^{2}(\ov{\nu}_{7}+\varepsilon_{7})\).\\
+\(\Ker\bigl(E^{2}:\pit{15}{7}\to\pit{17}{9}\bigr)\) は,
+\(\sigma'\circ\eta_{14}\) で生成されるので, 
+\[
+\eta_{7}\circ\sigma_{8}
+= x\,\sigma'\circ\eta_{14}\ +\ \ov{\nu}_{7}\ +\ \varepsilon_{7},\
+\ (x=0 \text{ or } 1).
+\]
+この等式の両辺に, \(H\) を適用すると,
+Prop2.2, 3.1,  Lem5.14 により, 
+\[
+H(\eta_{7}\circ\sigma_{8})
+=E(\eta_{6}\ \wedge\ \eta_{6})\circ H(\sigma_{8})
+=E\,\eta_{12}^{2}\circ\iota_{15}
+=\eta_{13}^{2},
+\]
+\[
+H(x\,\sigma'\circ\eta_{14}+\ov{\nu}_{7}+\varepsilon_{7})
+= x\,H(\sigma')\circ\eta_{14}+HE(\ov{\nu}_{6}+\varepsilon_{6})
+= x\,\eta_{13}\circ\eta_{14}
+= x\,\eta_{13}^{2}.
+\]
+
+% ==== CHAPTER VII p.65 (日本語版 )====
+
+\noindent
+\(\eta_{13}^{2}\neq0\) であるから, \(x=1\). 
+よって, (7.4) の第1式が示された.
+
+\switchcolumn
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\(\pit{18}{10}=E\,\pit{17}{9}
+=\gen{\ov{\nu}_{10}} \oplus \gen{\varepsilon_{10}}
+\cong \mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\(\pit{20}{11}=\gen{\nu_{11}^{3}}\oplus\gen{\mu_{11}}\oplus
+\gen{\eta_{11}\circ\varepsilon_{12}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2} .\)
+
+\noindent
+\textbf{(4.9).}\
+\(\pit{m}{n}\circ\pit{k}{m}\ \subset\ \pit{k}{n}.\)
+
+\noindent
+\textbf{Lem6.3.}\
+\(n\ge6\) に対し,
+\(
+\overline\nu_n\circ \eta_{n+8}\ 
+=\ \eta_n\circ \overline\nu_{n+1}\ =\ \nu_n^{3},
+\ (\nu_n^{3}:=\nu_n\circ \nu_{n+3}\circ \nu_{n+6}).
+\)
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{Lem6.4.}\
+\(
+\eta_9\circ \sigma_{10}\ =\ \overline\nu_9+\varepsilon_9,
+\quad \eta_n\circ \sigma_{n+1}\ =\ 
+\sigma_n \circ\eta_{n+7}\ =\
+\overline\nu_n+\varepsilon_n,\ \text{ for } n\ge10.
+\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+
+
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+Lem5.14 を用いると, 
+\(\eta_{6}\circ\sigma'\) と \(\sigma''\circ\eta_{13}\) は,
+\(E^{2}:\pit{14}{6}\to\pit{16}{8}\) の核の元であり, \\
+これは, \(2\ov{\nu}_{6}\) により生成される. \\
+さらに,  Lem5.14 と Prop2.2 より, 
+\[
+H(\eta_{6}\circ\sigma')=H(\sigma''\circ\eta_{13})
+=\pit{11}{3}=4\nu_{11}=H(\ov{\nu}_{6}).
+\]
+これで, (7.4) の第2式が示された. 
+\[
+E:\pit{12}{4}\xrightarrow{\ \cong\ }\pit{13}{5},\qquad
+E:\pit{13}{5}\xrightarrow{\ \cong\ }\pit{14}{6}
+\]
+が単射であることと,  Lem5.14 から, 
+\[
+E(\eta_{5}\circ\sigma'')=E(\sigma''\circ\eta_{12})=0
+\]
+を示せるので, (7.4) の最後の関係式が証明される. 
+%
+\begin{equation}
+% \noindent
+% \textbf{(7.6).}\
+  \toda{\nu', \nu_6, \eta_9} = \varepsilon_3,\qquad
+  \todai[1]{E\nu', \nu_7, \eta_{10}} = \varepsilon_4 .
+\end{equation}
+\qquad
+次の Toda bracket は, \(\varepsilon_{n}\) を含む:  
+\[
+\toda{2\nu_{n},\,\nu_{n+3},\,\eta_{n+6}}_{t},\qquad
+\toda{\nu_{n},\,2\nu_{n+3},\,\eta_{n+6}}_{t},\qquad
+\]
+\[
+\toda{\nu_{n}^{2},\,2\nu_{n+6},\,\eta_{n+6}}_{t},\qquad
+\todai[t]{2\iota_n, \nu_n^2, \eta_{n+6}} .
+\]
+\qquad 
+ここで, \(n\ge5\) かつ, \(t\) はこれらの Toda bracket が定義されるような範囲とする. 
+
+\noindent
+\textbf{Proof.}\
+まず, \(\toda{E\nu',\,\nu_{7},\,\eta_{10}}_{1}\) を考えると, \\
+(4.7),  Prop5.9,  Prop5.15 より, 
+\(E\nu'\circ E\pi_{11}^{6}+\pi_{11}^{4}\circ\eta_{11}=0\) 
+の coset である. \\
+よって, この Toda bracket は, 
+\(\pit{12}{4} = \gen{\varepsilon_{4}}\) 
+の1つだけの元から成る. \\
+\(\todai[1]{E\nu', \nu_7, \eta_{10}} = x\varepsilon_4,\ (x = 0 \text{ or } 1)\)
+とする. \\
+\(E^{\infty}:\pit{12}{4}\to(G_8; 2)\) を考えると, 
+\(E^{\infty} x\varepsilon_4 = x \varepsilon\)
+は, \(\todas{2\nu, \nu, \eta}\) の元であり, \\
+これは, \(G_7\circ \eta = \gen{\sigma\circ\eta} = \gen{\ov{\nu} + \varepsilon}\)
+の coset である. \\
+(3.9) の i) により, 
+\(x\varepsilon\in \todas{\eta, \nu, 2\nu} 
+= E^\infty\toda{\eta_n, \nu_{n+1}, 2\nu_{n+4}}\)
+であり, \\
+これは (6.1) により, \(E^\infty \varepsilon_n=\varepsilon\) を含んでいる. \\
+よって, \(x\varepsilon \equiv \varepsilon \mod \ov{\nu} + \varepsilon .\)\\
+これより, \(x = 1, \ \todai[1]{E\nu', \nu_7, \eta_{10}} = \varepsilon_{4}\) である. 
+Prop1.3 により, 
+\[
+E\toda{\nu', \nu_6, \eta_9}
+\subset \todai[1]{E\nu', \nu_7, \eta_{10}} .
+\]
+Lem4.5 により, \(E:\pi_{11}(S^{3})\to\pi_{12}(S^{4})\) は単射なので, \\
+\(\toda{\nu',\,\nu_6,\,\eta_{9}}\) は,
+\(E^{-1}\varepsilon_{4}=\varepsilon_{3}\) だけから成る. \\
+(7.6) の残りの部分は, (6.1) と同様に示せる.  
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{(7.4).}\
+\(\eta_{7}\circ\sigma_{8}\ =\ \sigma'\circ\eta_{14}\ +\ \ov{\nu}_{7}\ +\ \varepsilon_{7},\) \\
+\(\eta_{6}\circ\sigma'\ =\ \sigma''\circ\eta_{13}\ =\ 4\,\ov{\nu}_{6}, \)\\
+\(\eta_5\circ\sigma'' \ =\ \sigma'''\circ\eta_{12}\ =\ \eta_4\circ\sigma''' = 0. \)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+    \ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+  \subset \pit{j+n}{m},
+  \ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+  \alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+  \text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+
+\noindent
+\textbf{(3.9).}\
+\(\text{i).}\ \todas{\alpha,\beta,\gamma}\ \subset\
+(-1)^{hk+k\ell+\ell h+1}\ \todas{\gamma,\beta,\alpha},\)\\
+\(\text{ii).}\ (-1)^{k\ell}\ \todas{\alpha,\beta,\gamma}\ +\
+(-1)^{hk}\ \todas{\beta,\gamma,\alpha}\ +\
+(-1)^{\ell k}\ \todas{\gamma,\alpha,\beta}\ \ni\ 0 .\)
+
+\noindent
+\textbf{(6.1).}\ 
+\(\text{次の Toda bracket は } \varepsilon_n \text{ を含んでいる. }\quad\)\\
+\(n\ge4,\ 0\le t\le n-2\) に対して, 
+\(
+\todai[t]{\eta_n,\ 2\nu_{n+1},\ \nu_{n+4}},
+\)\\
+\(n\ge5,\ 0\le t\le n-5\) に対して, \\
+\(
+\todai[t]{\eta_n, \nu_{n+1}, 2\nu_{n+4}},\
+\todai[t]{\eta_n, 2\iota_{n+1}, \nu_{n+1}^2},\
+\todai[t]{\eta_n,\ \nu_{n+1}^{2},\ \iota_{n+7}} .
+\)
+
+\noindent
+\textbf{Prop1.3.}\
+\(-E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+\subset \todai[n+1]{E\alpha, E^{n+1}\beta, E^{n+1}\gamma}\).
+
+\noindent
+\textbf{Lem4.5.}\
+\(n=2,4,8\) のとき, 
+\(E:\pis{i-1}{S^n-1}\to\pis{i}{S^n}\) は単射.\\ 
+\(r\iota_{n-1}\circ\beta = r\beta,\ \beta\in\pis{i-1}{S^{n-1}}\).
+
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\paragraph{ii). The groups \(\pit{n+10}{n}\) and \(\pit{n+11}{n}\).}
+
+Lem5.2 を, \(\mu_{3}\in\pit{12}{3}\) に適用すると, 
+\(\toda{\eta_{3},\,2\iota_{4},\,\mu_{4}}_{1}\) の元
+\(\mu'\) が, 存在して, 次を満たす.
+\[
+H(\mu')=E^{2}\mu_{3}=\mu_{5},\qquad 2\mu' = \eta_3\circ\mu_4\circ\eta_{13}.
+\]
+Prop3.1 により, 
+\[
+\eta2\wedge\mu_3 = \eta_5\circ\mu_6 = \mu_5\circ\eta_{14},
+\]
+\[
+E(2\mu') = \eta_4\circ\mu_5\circ\eta_{14} 
+= \eta_4^2\circ\mu_6 = E(\eta_3^2\circ\mu_5) .
+\]
+Lem4.5 から, \(2\mu' = \eta_3^2\circ\mu_5\) .
+以上より, 
+\begin{equation}
+% \noindent
+% \textbf{(7.7).}\
+H(\mu')=\mu_{5},\qquad 2\mu'=\,\eta_{3}^{2}\circ \mu_{5} .
+\end{equation}
+
+% ---  Th7.3 ---
+\begin{Thleft}[]
+% \noindent
+% \textbf{Th7.3.}\
+\pit{12}{2} \;=\; \gen{\eta_{2}^{2}\circ \varepsilon_{4}} \;\oplus\; \gen{\eta_{2}\circ \mu_{3}}
+  \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{13}{3} \;=\; \gen{\varepsilon'} \;\oplus\; \gen{\eta_{3}\circ \mu_{4}}
+  \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\\
+\pit{14}{4} \;=\; \gen{\nu_{4}\circ \sigma'} \;\oplus\; \gen{E \varepsilon'} \;\oplus\; \gen{\eta_{4}\circ \mu_{5}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4}\oplus\mathbb Z_{2},\\
+\pit{n+10}{n} \;=\; \gen{\nu_{n}\circ \eta_{n+3}} \;\oplus\; \gen{\eta_{n}\circ \mu_{n+1}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=5,6,7),\\
+\pit{18}{8} \;=\; \gen{\sigma_{8}\circ \nu_{15}} \;\oplus\; \gen{\nu_{8}\circ \sigma_{11}} \;\oplus\; \gen{\eta_{8}\circ \mu_{9}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{8}\oplus\mathbb Z_{2},\\
+\pit{19}{9} \;=\; \gen{\sigma_{9}\circ \nu_{16}} \;\oplus\; \gen{\eta_{9}\circ \mu_{10}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2},\\
+\pit{20}{10} \;=\; \gen{\sigma_{10}\circ \nu_{17}} \;\oplus\; \gen{\eta_{10}\circ \mu_{11}}
+  \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\\
+\pit{21}{11} \;=\; \gen{\sigma_{11}\circ \nu_{18}} \;\oplus\; \gen{\eta_{11}\circ \mu_{12}}
+  \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{n+10}{n} \;=\; \gen{\eta_{n}\circ \mu_{n+1}}
+  \;\cong\; \mathbb Z_{2}\qquad (n\ge 12),\\
+(G_{10};2)=\gen{\eta\circ \mu}\ \cong\ \mathbb Z_{2}.
+\end{Thleft}
+
+% ---  Th7.4 ---
+\begin{Thleft}[]
+% \noindent
+% \textbf{Th7.4.}\
+\pit{13}{2} \;=\; \gen{\eta_{2}\circ \varepsilon'} \;\oplus\; \gen{\eta_{2}^{2}\circ \mu_{4}}
+  \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\\
+\pit{14}{3} \;=\; \gen{\mu'} \oplus \gen{\varepsilon_3\circ\nu_{11}} \oplus \gen{\nu'\circ\varepsilon_6}
+  \cong \mathbb{Z}_4 \oplus \mathbb{Z}_2 \oplus \mathbb{Z}_2,\\
+\pit{15}{4} = \gen{\nu_{4}\circ \sigma'\circ\eta_{14}} \oplus \gen{\nu_{4}\circ \overline{\nu}_{7}}
+  \oplus \gen{\nu_{4}\circ \varepsilon_{7}} \oplus \gen{E \mu'}
+  \oplus \gen{\varepsilon_4\circ\nu_{12}} \oplus \gen{E\nu'\circ\varepsilon_7}\\
+  \qquad \cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{4}
+  \oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{16}{5} \;=\; \gen{\zeta_{5}} \;\oplus\; \gen{\nu_{5}\circ \overline{\nu}_{8}}
+  \;\oplus\; \gen{\nu_{5}\circ \varepsilon_{8}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\
+\pit{17}{6} \;=\; \gen{\zeta_{6}} \;\oplus\; \gen{\overline{\nu}_{6}\circ \nu_{14}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4},\\
+\pit{n+11}{n} \;=\; \gen{\zeta_{n}} \;\oplus\; \gen{\overline{\nu}_{n}\circ \eta_{n+8}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=7,8,9),\\
+\pit{n+11}{n} \;=\; \gen{\zeta_{n}}\ \cong\ \mathbb Z_{8}\quad (n=10,11, \ n\ge13), \\
+\pit{23}{12} = \gen{\Delta(\iota_{25})}\oplus\gen{\zeta_{12}}\cong\mathbb Z\oplus\mathbb Z_{8},\\
+(G_{11};2)=\gen{\zeta}\ \cong\ \mathbb Z_{8}.
+\end{Thleft}
+
+\switchcolumn
+
+\noindent
+\textbf{Lem5.2.}\
+\(\alpha\in\pi_{i}(S^{3})\) に対し,
+\(2\alpha=0\) と仮定する. \\
+このとき,
+\(\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\) 
+の任意の元 \(\beta\) に対して,\\
+\(
+H(\beta)=E^{2}\alpha,\
+2\beta=\eta_3\circ E\alpha\circ \eta_{i+1}
+\)
+が成り立つ. \\
+そのような \(\beta\) は,
+\(\pi^{3}_{i+2}\) に属し, \(\Delta(E^{2}\alpha)=0\) である. 
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{Lem4.5.}\
+\(n=2,4,8\) のとき, 
+\(E:\pis{i-1}{S^n-1}\to\pis{i}{S^n}\) は単射.\\ 
+\(r\iota_{n-1}\circ\beta = r\beta,\ \beta\in\pis{i-1}{S^{n-1}}\).
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+まず, (5.2) と Th7.2 から,
+\[
+  \pit{12}{2} \;=\; \gen{\eta_{2}^{2}\circ \varepsilon_{4}} \;\oplus\; \gen{\eta_{2}\circ \mu_{3}}
+  \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+また,  Prop2.2, (5.3),  Lem6.1 により, 次を得る. 
+\[
+H(\nu'\circ\varepsilon_6) = H(\nu')\circ\varepsilon_6 = \eta_5\circ\varepsilon_6,
+\]
+\[
+H(\varepsilon_3\circ\nu_{11}) = H(\varepsilon_3)\circ\nu_{11}
+= \nu_5^2\circ\nu_{11} = \nu_5^3 .
+\]
+\begin{equation}\label{eq:78}
+% \noindent
+% \textbf{(7.8).}\
+H(\nu'\circ \varepsilon_{6})=\eta_{5}\circ \varepsilon_{6},\qquad
+H(\varepsilon_{3}\circ \nu_{11})=\nu_{5}^{3} .
+\end{equation}
+%  (この後の完全列へ接続 )
+
+% ==== CHAPTER VII p.67 ====
+
+% ここから本文
+
+\noindent
+Th7.2, (7.7), (7.8) により, 
+\(H\) の象が \(\pit{14}{5}\) を生成する. 
+よって, 完全列
+\[
+  \pit{14}{3}\xrightarrow{H}  
+  \pit{14}{5}\xrightarrow{\ \Delta\ }\pit{12}{2}\xrightarrow{\ E\ }\pit{13}{3}
+  \xrightarrow{\ H\ }\pit{13}{5}
+\]
+において, \(H:\pit{14}{3}\to\pit{14}{5}\) は全射である. 
+したがって, \(E\) は単射である. \\
+Lem6.6 と Th7.1 から, 
+\(H:\pit{13}{3}\to\pit{13}{5}\) は全射で, \\
+群 \(\pit{13}{3}\) は位数 8, 
+\(\gen{\varepsilon'}, \eta_3^2\circ\varepsilon_5 = 2\varepsilon',
+\eta_{3}\circ\mu_{4}\) で生成される. 
+よって, 
+\[
+  \pit{13}{3}=\gen{\varepsilon'}\oplus\gen{\eta_{3}\circ\mu_{4}}
+  \ \cong\ \mathbb Z_{4}\oplus\mathbb Z_{2}.
+\]
+また, (5.6) と Prop5.15 より, 
+\[
+  \pit{14}{4}
+   = \gen{\nu_{4}\circ\sigma'}\ \oplus\ \gen{E\,\varepsilon'}\ \oplus\ \gen{\eta_{4}\circ\mu_{5}}
+   \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{4}\oplus\mathbb Z_{2}.
+\]
+合成 \(H\circ\Delta:\pit{16}{9}\to\pit{14}{7}\) を考える. \\
+ここで,  Prop5.15 により, 
+\(\pit{16}{9}=\gen{\sigma_{9}}\cong\mathbb Z_{16}\), \(\pit{14}{7}=
+\gen{\sigma'}\cong\mathbb Z_{8}\).\\
+Lem5.14,  Prop2.5,  Prop2.7 により,
+\[
+\begin{align*}
+  (H\circ\Delta)(4\sigma_9)
+  & = H(\Delta(E^{3}\sigma'')) = H(\Delta(\iota_{9})\circ E\sigma'') \\
+  & = H(\Delta(\iota_{9}))\circ E\sigma''=\pm 2\iota_{7}\circ E\sigma''\\
+  & = \pm 2E\sigma'' = 4\sigma' .
+\end{align*}
+\]
+\(H\circ\Delta\) は準同型なので, これは \(H\circ\Delta\) が全射であることを導き, \\
+\(\Delta:\pit{16}{9}\to\pit{14}{4}\) の像は, 位数 8 または 16 の巡回群である. 
+\(\pit{14}{4}\) の結果から, 
+\[
+  \Delta(\sigma_{9}) 
+  = x\nu_{4}\circ\sigma' + y\,E\varepsilon' + z\,\eta_{4}\circ\mu_{5},\qquad
+  x:\text{odd},\ y,z\in\mathbb{Z} .
+\]
+と表わせる.
+次のことも確かめられる. 
+\[
+  \pit{14}{4}=E\pit{13}{3}\ \oplus\ \Delta\pit{16}{9}.
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Th7.2.}\
+% \(\pit{11}{2}=\gen{\eta_{2}\circ\varepsilon_{3}}\cong\mathbb Z_{2},\)\\
+\(\pit{12}{3}=\gen{\mu_{3}}\oplus\gen{\eta_{3}\circ\varepsilon_{4}}\cong\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{n+9}{n}=\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n=4,5,6),\)
+% \(\pit{16}{7}=\gen{\sigma'\circ\eta_{14}^{\,2}}\oplus\gen{\nu_{7}^{3}}\oplus\gen{\mu_{7}}\oplus\gen{\eta_{7}\circ\varepsilon_{8}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{17}{8}=\gen{\sigma_{8}\circ\eta_{15}^{\,2}}\oplus\gen{E\sigma'\circ\eta_{15}^{\,2}}\oplus\gen{\nu_{8}^{3}}\oplus\gen{\mu_{8}}\oplus\gen{\eta_{8}\circ\varepsilon_{9}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{18}{9}=\gen{\sigma_{9}\circ\eta_{16}^{\,2}}\oplus\gen{\nu_{9}^{3}}\oplus\gen{\mu_{9}}\oplus\gen{\eta_{9}\circ\varepsilon_{10}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{19}{10}=\gen{\Delta(\iota_{21})}\oplus\gen{\nu_{10}^{3}}\oplus\gen{\mu_{10}}\oplus\gen{\eta_{10}\circ\varepsilon_{11}}
+% \cong\mathbb Z\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+9}{n}=\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge11),\)\\
+% \((G_{9};2)=\gen{\nu^{3}}\oplus\gen{\mu}\oplus\gen{\eta\circ\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{(5.3).}\
+\(\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .\)
+
+\noindent
+\textbf{Lem6.1.}\
+\(H(\varepsilon_3)=\nu_5^{\,2}\) , 
+\(2\varepsilon_n=2\varepsilon=0\ ,(n\ge3)\). 
+
+\noindent
+\textbf{(7.7).}\
+\(H(\mu')=\mu_{5},\ 2\mu'=\,\eta_{3}^{2}\circ \mu_{5} .\)
+
+\noindent
+\textbf{(7.8).}\
+\(H(\nu'\circ \varepsilon_{6})=\eta_{5}\circ \varepsilon_{6},\
+H(\varepsilon_{3}\circ \nu_{11})=\nu_{5}^{3} .\)
+
+\noindent
+\textbf{Lem6.6.}\
+\(H(\varepsilon')=\varepsilon_{5}\), \
+\(2\varepsilon'=\eta_{3}^{\,2}\varepsilon_{5}\), \
+\(E^{2}\varepsilon'\) は $2$ で割れる. 
+
+\noindent
+\textbf{Th7.1.}\
+% \(\pit{10}{2}=0,\)\\
+\(\pit{n+8}{n}=\gen{\varepsilon_{n}}\cong\mathbb Z_{2}\quad (n=3,4,5),\)
+% \(\pit{14}{6}=\gen{\ov\nu_{6}}\oplus\gen{\varepsilon_{6}}\cong\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+% \(\pit{15}{7}=\gen{\sigma'\circ\eta_{14}}\oplus\gen{\ov{\nu}_{7}}\oplus\gen{\varepsilon_{7}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{16}{8}=\gen{\sigma_{8}\circ\eta_{15}}\oplus\gen{E\sigma'\circ\eta_{15}}\oplus\gen{\ov{\nu}_{8}}\oplus\gen{\varepsilon_{8}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{17}{9}=\gen{\sigma_{9}\circ\eta_{16}}\oplus\gen{\ov{\nu}_{9}}\oplus\gen{\varepsilon_{9}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+8}{n}=\gen{\ov{\nu}_{n}}\oplus\gen{\varepsilon_{n}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge10),\)\\
+% \((G_{8};2)=\gen{\ov{\nu}}\oplus\gen{\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\[
+  \pit{16}{9}\xrightarrow{\ \Delta\ }\pit{14}{4}\xrightarrow{\ E }\pit{15}{5}
+  \xrightarrow{\ H }\pit{15}{9}
+\]
+の完全性から, 次の列は完全列である. 
+\[
+0\rightarrow\pit{13}{3}
+\xrightarrow{E^2}\pit{15}{5}
+\xrightarrow{H}\pit{15}{9}\  ( = \mathbb{Z}_2\gen{\nu_9^2})
+\]
+Lem6.6 より, \(E^{2}\varepsilon'\) は 2 で割れる. 
+すなわち,
+\(\alpha\in\pit{15}{5}\) が存在して, 
+\(
+  2\alpha = E^{2}\varepsilon'.
+\)\\
+このとき, 上の完全性から, 
+\[
+  H(\alpha)=\nu_{9}^{2},\qquad
+  \pit{15}{5}=\gen{\alpha}\ \oplus\ \gen{\eta_{5}\circ\mu_{6}}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\]
+さらに, \(H(\alpha)=\nu_{9}^{2}\) を満たす任意の \(\alpha\) は,
+上の \(\pit{15}{5}\) の分割と, 
+\(2\alpha=\pm E^{2}\varepsilon'\) を満たす. \\
+特に,  Th7.2 の証明の中で示されたように, 
+\begin{equation}
+% \noindent
+% \textbf{(7.9).}\
+H(\nu_5\circ\sigma_8) = \nu_9^2 .
+\end{equation}
+よって, 
+\(\alpha\) として \(\nu_5\circ\sigma_8\) を取ることができる. 
+したがって, \\
+\(
+  \pit{15}{5}
+   = \gen{\nu_{5}\circ\sigma_{8}}\ \oplus\ \gen{\eta_{5}\circ\mu_{6}}
+   \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\)
+\begin{equation}\label{eq:710}
+% \noindent
+% \textbf{(7.10).}\
+2(\nu_{5}\circ\sigma_{8})=\pm E^{2}\varepsilon',
+\qquad
+4(\nu_{n}\circ\sigma_{n+3})=\eta_{n}^{2}\circ\varepsilon_{n+2}\quad(n\ge5).
+\end{equation}
+(5.2) により, 
+\[
+  \pit{13}{2}
+  =\gen{\eta_{2}^{2}\circ \varepsilon'}\ \oplus\ \gen{\eta_{2}^{2}\circ \mu_{4}}
+  \ \cong\ \mathbb Z_{4}\oplus\mathbb Z_{2}.
+\]
+
+% ==== CHAPTER VII p.68 ====
+
+% (5.2) より
+
+\noindent
+(4.4) の完全列
+\[
+  \pit{15}{5}\xrightarrow{\ \Delta\ }\pit{13}{2}\xrightarrow{\ E\ }\pit{14}{3}
+    \xrightarrow{\ H\ }\pit{14}{5}.
+\]
+において, \(H\) は全射であり, \(\pit{14}{3}/E\pit{13}{2}\) は,
+\(\mu'\), \(\nu'\circ \varepsilon_{6}\), 
+\(\varepsilon_{3}\circ \nu_{11}\) で生成される. \\
+Lem5.2 より, \(\Delta(\eta_{5}\circ\mu_{6})=0\). 
+よって, \(\ker E = \gen{\Delta(\nu_5\circ\sigma_8)}\).\\
+Prop2.5 と Prop5.1 より,
+\[
+\begin{align*}
+  2\,\Delta(\nu_{5}\circ\sigma_{8})
+  & = \Delta(\pm E^{2}\varepsilon')=\Delta(\iota_{5})\circ(\pm \varepsilon')\\
+  & = (\pm 2\eta_2) \circ (\pm\varepsilon')
+  = \eta_2\circ2\iota_3\circ\varepsilon'
+  = \eta_2\circ2\varepsilon'
+  = 2(\eta_{2}\circ \varepsilon') .
+\end{align*}
+\]
+したがって,
+\begin{align}
+% \noindent
+% \textbf{(7.11).}\
+& \Delta(\nu_{5}\circ\sigma_{8})\equiv\pm(\eta_{2}^{2}\circ \varepsilon'),\
+\mod\ \eta_{2}^{2}\circ\mu_{4}, \\
+& E\pit{13}{2}=\gen{\eta_{3}^{2}\circ\mu_{5}}\cong\mathbb Z_{2}. \nonumber
+\end{align}
+
+\(2(\nu'\circ \varepsilon_{6})
+=2(\varepsilon_{3}\circ \nu_{11})=0\) は容易に分かる. 
+(7.7) の \(2\mu'=\eta_{3}^{2}\circ\mu_{5}\) から,
+\[
+  \pit{14}{3}
+  =\gen{\mu'}\ \oplus\ \gen{\nu'\circ \varepsilon_{6}}\ \oplus\ \gen{\varepsilon_{3}\circ \nu_{11}}
+  \ \cong\ \mathbb Z_{4}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{Lem6.6.}\
+\(H(\varepsilon')=\varepsilon_{5}\), \
+\(2\varepsilon'=\eta_{3}^{\,2}\varepsilon_{5}\), \
+\(E^{2}\varepsilon'\) は $2$ で割れる. 
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+\noindent
+\textbf{Lem5.2.}\
+\(\alpha\in\pi_{i}(S^{3})\) に対し,
+\(2\alpha=0\) と仮定する. \\
+このとき,
+\(\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\) 
+の任意の元 \(\beta\) に対して,\\
+\(
+H(\beta)=E^{2}\alpha,\
+2\beta=\eta_3\circ E\alpha\circ \eta_{i+1}
+\)
+が成り立つ. \\
+そのような \(\beta\) は,
+\(\pi^{3}_{i+2}\) に属し, \(\Delta(E^{2}\alpha)=0\) である. 
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Prop5.1.}\
+\(\pi^{2}_{3}=\gen{\eta_2}\cong\mathbb Z,\quad
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2\ (n\ge3),\quad
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.\) \\
+ここで, 
+\(H(\eta_2)=\iota_3,\ \Delta(\iota_5)=\pm 2\,\eta_3\) が成り立つ. 
+
+\noindent
+\textbf{(7.7).}\
+\(H(\mu')=\mu_{5},\ 2\mu'=\,\eta_{3}^{2}\circ \mu_{5}.\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+Th7.4 における \(\pit{15}{4}\) の結果は, (5.6) と Th7.1 から成り立つ. 
+\[
+\begin{align*}
+  \pit{15}{4} 
+    & = \gen{\nu_{4}\circ \sigma'\circ\eta_{14}} \oplus \gen{\nu_{4}\circ \overline{\nu}_{7}}
+    \oplus \gen{\nu_{4}\circ \varepsilon_{7}} \oplus \gen{E \mu'}
+    \oplus \gen{\varepsilon_4\circ\nu_{12}} \oplus \gen{E\nu'\circ\varepsilon_7}\\
+    & \cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{4}
+    \oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\end{align*}
+\]
+%
+\begin{equation}
+% \noindent
+% \textbf{(7.12).}\
+\varepsilon_3\circ\nu_{11} = \nu'\circ\ov{\nu}_6,\qquad
+\varepsilon'\circ\eta_{13} = \nu'\circ\varepsilon_6 .
+\end{equation}
+(7.6) と Prop1.4 より,
+\[
+  E(\varepsilon_{3}\circ \nu_{11})
+  \in \toda{E\nu',\,\nu_{7},\,\eta_{10}} \circ \nu_{12}
+  = E\nu'\circ -\toda{\nu_{7}, \eta_{10}, \nu_{11}}.
+\]
+Lem6.2 により, 
+\(\toda{\nu_{7},\eta_{10},\nu_{11}} = \ov{\nu}_7\) なので, 
+\[
+E(\varepsilon_3\circ\nu_{11}) 
+= E\nu'\circ\ov{\nu}_7
+= E(\nu'\circ\ov{\nu}_6).
+\]
+よって,  Lem4.5 により,
+\(\varepsilon_{3}\circ \nu_{11}=\nu'\circ(-\overline{\nu}_{6})\) となる. 
+同様に,
+\[
+  \nu'\circ \varepsilon_{6}
+  \in E^{3}\toda{\nu',\,\nu_{6},\,\nu_{9}}
+  =\toda{\nu',\,2\nu_{6},\,\nu_{9}}\circ\eta_{13}.
+\]
+定義より, \(\todai[3]{\nu',\,2\nu_{6},\,\nu_{9}}\) 
+は, 単一元 \(\varepsilon'\) からなるので,
+\(\nu'\circ \varepsilon_{6}=\varepsilon'\circ\eta_{13}\). 
+\qed
+
+次の (4.4) の完全列を考える:
+\[
+  \pit{17}{9}\xrightarrow{\ \Delta\ }\pit{15}{4}\xrightarrow{\ E\ }\pit{16}{5}.
+\]
+ここで, Th7.1 より,
+\[
+  \pit{17}{9}=\gen{\sigma_{9}\circ\eta_{16}}\ \oplus\ \gen{\overline{\nu}_{9}}\ \oplus\ \gen{\varepsilon_{9}}
+  \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\]
+Prop2.5, (5.8),  Prop3.1, および (7.12) を用いると,
+\[
+\begin{aligned}
+  \Delta(\sigma_{9}\circ\eta_{16})
+    &=\Delta(\sigma_{9})\circ\eta_{14}
+      =x(\nu_{4}\circ\sigma')\circ\eta_{14}
+      +y\,E\varepsilon'\circ\eta_{14}
+      +z\,\eta_{14}\circ\mu_{5}\circ\eta_{14}\\
+    &=\nu_{4}\circ\sigma'\circ\eta_{14}
+    +y\,E\nu'\circ\varepsilon_{7}
+    +z\,\eta_{4}^2\circ\mu_{6}
+      \qquad(x:\text{odd}),\\[2pt]
+  \Delta(\overline{\nu}_{9})
+    &=\Delta(\iota_{9})\circ\overline{\nu}_{7}
+      =\pm\,(2\nu_{4} - E\nu')\circ\overline{\nu}_{7}\\
+    & = E\nu'\circ\ov{\nu}_7 = \varepsilon_4\circ\nu_{12},\\
+  \Delta(\varepsilon_{9})
+   & =\Delta(\iota_{9})\circ\overline{\nu}_{7}
+   = \pm(2\nu_{4}-E\nu')\circ \varepsilon_{7}
+   = E\nu'\circ \varepsilon_{7}.
+  \end{aligned}
+\]
+
+% ==== CHAPTER VII p.69 ====
+
+\noindent
+これらの元は独立である. よって,
+\begin{equation}\label{eq:713}
+% \noindent
+% \textbf{(7.13).}\
+\raisetag{2ex}
+\begin{aligned}[t]
+& \Delta:\pit{17}{9}\longrightarrow \pit{15}{4}
+\ \text{は単射}\quad
+\text{かつ,}\quad
+\Delta(\overline{\nu}_{9})=\varepsilon_{4}\circ \nu_{12},\ \
+\Delta(\varepsilon_{9})=E\nu'\circ \varepsilon_{7}.\\
+& E\pit{15}{4}
+= \gen{\,\nu_{5}\circ\overline{\nu}_{8}\,}\ \oplus\
+\gen{\,\nu_{5}\circ\varepsilon_{8}\,}\ \oplus\
+\gen{\,E^{2}\mu'\,}
+\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{4}.
+\end{aligned}
+\end{equation}
+
+\switchcolumn
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Th7.1.}\
+\(\pit{10}{2}=0,\)\\
+\(\pit{n+8}{n}=\gen{\varepsilon_{n}}\cong\mathbb Z_{2}\quad (n=3,4,5),\)\\
+\(\pit{14}{6}=\gen{\ov\nu_{6}}\oplus\gen{\varepsilon_{6}}\cong\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+\(\pit{15}{7}=\gen{\sigma'\circ\eta_{14}}\oplus\gen{\ov{\nu}_{7}}\oplus\gen{\varepsilon_{7}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{16}{8}=\gen{\sigma_{8}\circ\eta_{15}}\oplus\gen{E\sigma'\circ\eta_{15}}\oplus\gen{\ov{\nu}_{8}}\oplus\gen{\varepsilon_{8}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{17}{9}=\gen{\sigma_{9}\circ\eta_{16}}\oplus\gen{\ov{\nu}_{9}}\oplus\gen{\varepsilon_{9}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{n+8}{n}=\gen{\ov{\nu}_{n}}\oplus\gen{\varepsilon_{n}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge10),\)\\
+\((G_{8};2)=\gen{\ov{\nu}}\oplus\gen{\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\textbf{(7.6).}\
+\(\toda{\nu', \nu_6, \eta_9} = \varepsilon_3,\
+\todai[1]{E\nu', \nu_7, \eta_{10}} = \varepsilon_4 .\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{Lem6.2.}\
+\(H(\overline{\nu}_6)\equiv\nu_{11},\ \mod 2\nu_{11}\text{}\), 
+\(\ \Delta(\nu_{13})=\pm 2\,\overline{\nu}_6\), 
+\(\ 8\,\overline{\nu}_6=0\) が成り立つ. \\
+\(n\ge7\) では,
+\(2\overline{\nu}_n=2\overline{\nu}=0\) である. さらに,\\
+\(
+\todai[t]{\nu_n,\ \eta_{n+3},\ \nu_{n+4}}\ \text{は }n\ge7,\ 
+0\le t\le n-2\text{ のとき, 単一元 }\overline{\nu}_n\text{ から成る. }
+\)
+
+\noindent
+\textbf{Lem4.5.}\
+\(n=2,4,8\) のとき, 
+\(E:\pis{i-1}{S^n-1}\to\pis{i}{S^n}\) は単射.\\ 
+\(r\iota_{n-1}\circ\beta = r\beta,\ \beta\in\pis{i-1}{S^{n-1}}\).
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.8).}\
+\(\Delta(\iota_9)=\pm(2\nu_4-E\nu')  \ (=\pm[\iota_4, \iota_4]) .\)
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+次の完全列を考える:
+\[
+  0\ \longrightarrow\ E\pit{15}{4}\ \longrightarrow\ \pit{16}{4}
+   \xrightarrow{\ H\ }\pit{16}{9}\xrightarrow{\ \Delta\ }\pit{14}{4}.
+\]
+すでに, \(\Delta\) は \(\pit{16}{9}=\gen{\sigma_{9}}\cong\mathbb Z_{16}\) を,
+位数 \(8\) の巡回群へ写すことを見た.\\ 
+よって, \(\Ker \Delta\) は \(8\sigma_{9}\) により生成され, これは Lem6.7 より,
+\(\gen{H(\zeta_{5})}\) に等しい. \\
+Th7.1 から, \(2E\pit{15}{7}=0\). 
+Lem6.7 より, \(4\zeta_{5}=\eta_{5}^{2}\circ\mu_{7}\) であり, 
+\(\zeta_{5}\) の位数は \(8\) である. \\
+ゆえに, 完全性より,\\
+\(
+  \pit{16}{5}
+   = \gen{\zeta_{5}}\ \oplus\ \gen{\,\nu_{5}\circ\overline{\nu}_{8}\,}\ \oplus\ \gen{\,\nu_{5}\circ\varepsilon_{8}\,}
+   \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.
+\)\\
+また, \(\pit{16}{5}\) の位数 \(4\) の元は, \(\pm E^{2}\mu'\) のみである. したがって,
+\begin{equation}\label{eq:714}
+% \noindent
+% \textbf{(7.14).}\
+2\zeta_{5}=\pm E^{2}\mu',\qquad
+4\zeta_{n}=\eta_{n}^{2}\circ\mu_{n+2}\quad(n\ge5).
+\end{equation}
+
+次の完全列を考える:
+\[
+  \pit{17}{6}\xrightarrow{\ H\ }\pit{17}{11}\xrightarrow{\ \Delta\ }\pit{15}{5}
+   \xrightarrow{\ E\ }\pit{16}{6}\xrightarrow{\ H\ }\pit{16}{11} = 0.
+\]
+Prop5.9 より, \(\pit{16}{11}=0\). 
+よって, \(E\) は全射. 
+Prop2.2 と Lem6.2 から,
+\begin{equation}\label{eq:715}
+% \noindent
+% \textbf{(7.15).}\
+H(\ov{\nu}_{6}\circ \nu_{14})=\nu_{11}^{2},
+\qquad
+H:\pit{17}{6}\longrightarrow \pit{17}{11}\ \text{は全射}.
+\end{equation}
+したがって, 完全性により \(E\) は同型で, \\
+\(
+  \pit{16}{6}=\gen{\,\nu_{6}\circ\sigma_{9}\,}\ \oplus\ \gen{\,\eta_{6}\circ\mu_{7}\,}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\)\\
+% 次を示す:
+\begin{equation}\label{eq:716}
+% \noindent
+% \textbf{(7.16).}\
+\raisetag{2ex}
+\begin{aligned}[t]
+  &2\,(\nu_{5}\circ\sigma_{8}) = \nu_{5}\circ E\sigma',\quad
+  \Delta(\sigma_{9}) = x(\nu_{4}\circ\sigma') \pm E\sigma'
+    \quad(\text{$x$ は奇数}),\\
+  &\Delta(\sigma_{9}\circ\eta_{16}) 
+  = \nu_{4}\circ\sigma'\circ\eta_{14} + E\nu'\circ\varepsilon_{7},\\
+  & \Delta(\sigma_9\circ\eta_{16}^2) = \nu_4\circ\sigma'\circ\eta_{14}^2
+  + E\nu'\circ\eta_7\circ\varepsilon_8. 
+\end{aligned}
+\end{equation}
+実際,  Lem5.14 より,
+\(
+  E(2\,\nu_{5}\circ\sigma_{8})
+   = \nu_{6}\circ 2\sigma_{9}
+   = \nu_{6}\circ E^{2}\sigma'
+   = E(\nu_{5}\circ E\sigma')
+\). \\
+さらに, \(E:\pit{15}{5}\to\pit{16}{6}\) は同型であるから,
+\(2\nu_{5}\circ\sigma_{8}=\nu_{5}\circ E\sigma'\) が成り立つ. \\
+一方, \(\Delta(\sigma_{9})=x(\nu_{4}\circ\sigma')
++yE\varepsilon'+z\eta_{4}\circ\mu_{5}\) (\(x\) :odd )
+であり, \(E^{2}:\pit{14}{4}\to\pit{16}{6}\) に代入すると,
+\[
+\begin{align*}
+  0 & = E^2\Delta(\sigma_{9})
+    = x\,\nu_{6}\circ E^{2}\sigma'
+      + y\,E^{3}\varepsilon'
+      + z\,\eta_{6}\circ\mu_{7}\\
+    & = x\nu_6\circ 2\sigma_9\pm 2y\nu_6\circ\sigma_9 + z \eta_6\circ\mu_7 && \text{by  Lem5.14, (7.10)},\\
+    & = 2(x\pm y)\,\nu_{6}\circ\sigma_{9}
+      + 2z\,\eta_{6}\circ\mu_{7}.
+\end{align*}
+\]
+ここで, \(\nu_{6}\circ\sigma_{9}\) と \(\eta_{6}\circ\mu_{7}\) は,
+それぞれ位数 8 と 2 の
+独立な元なので, 
+\[
+x\pm y\equiv0\pmod4,\ z\equiv0\pmod2.
+\]
+したがって, 奇数 \(x\) について,
+\(
+  \Delta(\sigma_{9})=x(\nu_{4}\circ\sigma')\pm E\varepsilon' .
+\)\\
+残り 2 つの関係式は,  Prop2.5 と (7.12) から,
+ただちに成り立つ. 
+
+\switchcolumn
+
+\noindent
+\textbf{Lem6.7.}\
+\(H(\zeta_{5})=8\sigma_{9}\), \
+\(4\zeta_{5}\equiv \eta_{5}^{\,2}\circ \mu_{7}\ \ (\mathrm{mod}\ \nu_{5}\circ E\pi^{7}_{15})\).\\
+\(4E\pit{15}{7} = 0\) ならば, \(n\ge5\) に対して, \(8\zeta_n=8\zeta=0\).
+
+\noindent
+\textbf{Th7.1.}\
+\(\pit{10}{2}=0,\)\\
+\(\pit{n+8}{n}=\gen{\varepsilon_{n}}\cong\mathbb Z_{2}\quad (n=3,4,5),\)\\
+\(\pit{14}{6}=\gen{\ov\nu_{6}}\oplus\gen{\varepsilon_{6}}\cong\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+\(\pit{15}{7}=\gen{\sigma'\circ\eta_{14}}\oplus\gen{\ov{\nu}_{7}}\oplus\gen{\varepsilon_{7}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{16}{8}=\gen{\sigma_{8}\circ\eta_{15}}\oplus\gen{E\sigma'\circ\eta_{15}}\oplus\gen{\ov{\nu}_{8}}\oplus\gen{\varepsilon_{8}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{17}{9}=\gen{\sigma_{9}\circ\eta_{16}}\oplus\gen{\ov{\nu}_{9}}\oplus\gen{\varepsilon_{9}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{n+8}{n}=\gen{\ov{\nu}_{n}}\oplus\gen{\varepsilon_{n}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge10),\)\\
+\((G_{8};2)=\gen{\ov{\nu}}\oplus\gen{\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Lem6.2.}\
+\(H(\overline{\nu}_6)\equiv\nu_{11},\ \mod 2\nu_{11}\text{}\), 
+\(\ \Delta(\nu_{13})=\pm 2\,\overline{\nu}_6\), 
+\(\ 8\,\overline{\nu}_6=0\) が成り立つ. \\
+\(n\ge7\) では,
+\(2\overline{\nu}_n=2\overline{\nu}=0\) である. さらに,\\
+\(
+\todai[t]{\nu_n,\ \eta_{n+3},\ \nu_{n+4}}\ \text{は }n\ge7,\ 
+0\le t\le n-2\text{ のとき, 単一元 }\overline{\nu}_n\text{ から成る. }
+\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{(7.10).}\
+\(2(\nu_{5}\circ\sigma_{8})=\pm E^{2}\varepsilon',\
+4(\nu_{n}\circ\sigma_{n+3})=\eta_{n}^{2}\circ\varepsilon_{n+2}\quad(n\ge5).\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(7.12).}\
+\(\varepsilon_3\circ\nu_{11} = \nu'\circ\ov{\nu}_6,\
+\varepsilon'\circ\eta_{13} = \nu'\circ\varepsilon_6 .\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+群 \(\pit{17}{6}\) を計算するために, 次の完全列を考える:
+\[
+  \pit{18}{11}\xrightarrow{\ \Delta\ }\pit{16}{5}
+   \xrightarrow{\ E\ }\pit{17}{6}
+   \xrightarrow{\ H\ }\pit{17}{11}.
+\]
+Prop2.5, (5.10), (7.4) および (7.16) より,
+\[
+\begin{aligned}
+  \Delta(\sigma_{11})
+    &= \Delta(\iota_{11})\circ\sigma_{9}
+    = \nu_{5}\circ\eta_{8}\circ\sigma_{9}\\
+    & = \nu_{5}\circ E\sigma'\circ\eta_{15}
+        + \nu_{5}\circ\overline{\nu}_{8}
+        + \nu_{5}\circ\varepsilon_{8} \\
+    &= 2\,(\nu_{5}\circ\sigma_{8})\circ\eta_{15}
+      + \nu_{5}\circ\overline{\nu}_{8}
+      + \nu_{5}\circ\varepsilon_{8}\\
+    &= \nu_{5}\circ\overline{\nu}_{8}+\nu_{5}\circ\varepsilon_{8}.
+\end{aligned}
+\]
+よって, 次を得る.
+\begin{equation}
+% \noindent
+% \textbf{(7.17).}\
+\Delta(\sigma_{11}) = \nu_5\circ\ov{\nu}_8 + \nu_5\circ\varepsilon_8,\qquad
+\nu_6\ov{\nu}_9 = \nu_6\circ\varepsilon_9 .
+\end{equation}
+\(\sigma_{11}\) は \(\pit{18}{11}\) を生成するので, 完全性 から,
+\[
+  E\pit{16}{5}
+  = \gen{\zeta_{6}}\ \oplus\ \gen{\,\nu_{6}\circ\varepsilon_{9}\,}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\]
+(7.15) より, 
+\(\pit{17}{6}/E\pit{16}{5}\cong\mathbb Z_{2}\),
+であり, これは \(\gen{\,\overline{\nu}_{6}\circ \nu_{14}\,}\) で生成される. 
+\[
+  \pit{17}{6}
+  = \gen{\zeta_{6}}\ \oplus\ \gen{\,\overline{\nu}_{6}\circ \nu_{14}\,}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{4}
+\]
+は, 次の関係式から分かる:
+\begin{equation}\label{eq:718}
+% \noindent
+% \textbf{(7.18).}\
+2\,\overline{\nu}_{6}\circ \nu_{14}
+\ =\ \nu_{6}\circ\varepsilon_{9}
+\ =\ \Delta(\nu_{13}^{2}).
+\end{equation}
+(6.1) と Prop1.4 より,
+\[
+  \nu_{6}\circ\varepsilon_{9}\in
+  \nu_6\circ \toda{\,\eta_{9},\,\nu_{10},\,2\nu_{13}\,}
+  = \toda{\,\nu_{6},\,\eta_{9},\,\nu_{10}\,}\circ 2\nu_{14}.
+\]
+\(\overline{\nu}_{6}\) の定義により,
+\[
+  2\overline{\nu}_{6}\circ \nu_{14}
+   = \overline{\nu}_{6}\circ 2\nu_{14}
+   \in \toda{\,\nu_{6},\,\eta_{9},\,\nu_{10}\,}\circ 2\nu_{14} .
+\]
+さらに, (4.7) と Prop5.9 から, 
+\(\toda{\,\nu_{6},\,\eta_{9},\,\nu_{10}\,}\circ 2\nu_{14}\)
+は, \(\nu_6\circ\pit{14}{9}\circ2\nu_{14} = 0\) の coset.\\
+よって, これは単一元であり, 
+\(\nu_{6}\circ\varepsilon_{9} = 2\overline{\nu}_{6}\circ \nu_{14}\) である. \\
+Prop2.5 と Lem6.2 より,
+\[
+  \Delta(\nu_{13}^{2})\circ \nu_{14}
+   = \Delta(\nu_{13})\circ \nu_{14}
+   = \pm\,2\overline{\nu}_{6}\circ \nu_{14}
+   = \pm\nu_{6}\circ\varepsilon_{9} 
+   = \nu_{6}\circ\varepsilon_{9}.
+\]
+よって, (7.18) が示された. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{(7.4).}\
+\(\eta_{7}\circ\sigma_{8}\ =\ \sigma'\circ\eta_{14}\ +\ \ov{\nu}_{7}\ +\ \varepsilon_{7},\) \\
+\(\eta_{6}\circ\sigma'\ =\ \sigma''\circ\eta_{13}\ =\ 4\,\ov{\nu}_{6}, \)\\
+\(\eta_5\circ\sigma'' \ =\ \sigma'''\circ\eta_{12}\ =\ \eta_4\circ\sigma''' = 0. \)
+
+\noindent
+\textbf{(7.16).}\
+\(2\,(\nu_{5}\circ\sigma_{8}) = \nu_{5}\circ E\sigma',\
+\Delta(\sigma_{9}) = x(\nu_{4}\circ\sigma') \pm E\sigma'
+\ (\text{$x$ は奇数}),\)\\
+\(\Delta(\sigma_{9}\circ\eta_{16}) 
+= \nu_{4}\circ\sigma'\circ\eta_{14} + E\nu'\circ\varepsilon_{7},\)\\
+\(\Delta(\sigma_9\circ\eta_{16}^2) = \nu_4\circ\sigma'\circ\eta_{14}^2
++ E\nu'\circ\eta_7\circ\varepsilon_8. \)
+
+\noindent
+\textbf{(7.15).}\
+\(H(\ov{\nu}_{6}\circ \nu_{14})=\nu_{11}^{2},\
+H:\pit{17}{6}\longrightarrow \pit{17}{11}\ \text{は全射}.\)
+
+\noindent
+\textbf{(6.1).}\ 
+\(\text{次の Toda bracket は } \varepsilon_n \text{ を含んでいる. }\quad\)\\
+\(n\ge4,\ 0\le t\le n-2\) に対して, 
+\(
+\todai[t]{\eta_n,\ 2\nu_{n+1},\ \nu_{n+4}},
+\)\\
+\(n\ge5,\ 0\le t\le n-5\) に対して, \\
+\(
+\todai[t]{\eta_n, \nu_{n+1}, 2\nu_{n+4}},\
+\todai[t]{\eta_n, 2\iota_{n+1}, \nu_{n+1}^2},\
+\todai[t]{\eta_n,\ \nu_{n+1}^{2},\ \iota_{n+7}} .
+\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+\ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+\subset \pit{j+n}{m},
+\ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+\alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+\text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Lem6.2.}\
+\(H(\overline{\nu}_6)\equiv\nu_{11},\ \mod 2\nu_{11}\text{}\), 
+\(\ \Delta(\nu_{13})=\pm 2\,\overline{\nu}_6\), 
+\(\ 8\,\overline{\nu}_6=0\) が成り立つ. \\
+\(n\ge7\) では,
+\(2\overline{\nu}_n=2\overline{\nu}=0\) である. さらに,\\
+\(
+\todai[t]{\nu_n,\ \eta_{n+3},\ \nu_{n+4}}\ \text{は }n\ge7,\ 
+0\le t\le n-2\text{ のとき, 単一元 }\overline{\nu}_n\text{ から成る. }
+\)
+
+
+
+
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+% 次に完全列を考える
+\[
+  \pit{19}{13}\xrightarrow{\ \Delta\ }
+  \pit{17}{6}\xrightarrow{\ E\ }
+  \pit{18}{7}\xrightarrow{\ H\ }
+  \pit{18}{13}\xrightarrow{\ \Delta\ }
+  \pit{16}{6}\xrightarrow{\ E\ }
+  \pit{17}{7}\xrightarrow{\ H\ }
+  \pit{17}{13}
+\]
+において,  Prop5.8, 5.9, 5.11 から,
+\(\pit{17}{13}=\pit{18}{13}=0\), 
+\(\pit{19}{13}=\gen{\nu_{13}^{2}}\cong\mathbb Z_{2}\) である. \\
+したがって,
+\(E:\pit{16}{6}\to\pit{17}{7}\) は同型であり, 
+また, \(E:\pit{17}{6}\to\pit{18}{7}\) は全射で, \\
+その kernel は (7.18) より,
+\(\Delta(\nu_{13}^{2})
+=2\ov{\nu}_{6}\circ \nu_{14}\) によって生成される. 
+ゆえに,
+\[
+  \pit{17}{7}=\gen{\,\nu_{7}\circ\sigma_{10}\,}\ \oplus\ 
+              \gen{\,\eta_{7}\circ\mu_{8}\,}\ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2},
+\]
+\[
+\pit{18}{7}=\gen{\,\zeta_{7}\,}\ \oplus\ \gen{\,\overline{\nu}_{7}\circ \nu_{15}\,}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\]
+(5.15),  Prop5.6,  Prop5.8 より,
+\[
+  \pit{18}{8}=\gen{\,\sigma_{8}\circ \nu_{15}\,}\ \oplus\
+              \gen{\,\nu_{8}\circ\sigma_{11}\,}\ \oplus\
+              \gen{\,\eta_{8}\circ\mu_{9}\,}
+    \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{8}\oplus\mathbb Z_{2},
+\]
+\[
+  \pit{19}{8}=\gen{\,\zeta_{8}\,}\ \oplus\ \gen{\,\overline{\nu}_{8}\circ \nu_{15}\,}
+    \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\]
+\begin{equation}
+% \noindent
+% \textbf{(7.19).}\
+x \text{:odd が存在して, }
+\sigma'\circ \nu_{14}=x\,\nu_{7}\circ\sigma_{10},\ \
+\pm\,\Delta(\nu_{17})=2\sigma_{8}\circ \nu_{15}-x\,\nu_{8}\circ\sigma_{11} .
+\end{equation}
+
+\noindent
+\textbf{Proof.}\
+群 \(\pit{17}{7}\) は,
+\(\nu_{7}\circ\sigma_{10},\ \eta_{7}\circ\mu_{8}\) により生成されるので, \\
+ある整数 \(x,y\) が存在して,
+\[
+\sigma'\circ \nu_{14}=x\,\nu_{7}\circ\sigma_{10}+y\,\eta_{7}\circ\mu_{8}
+\]
+と書ける.
+\[
+\begin{align*}
+  0 & = \sigma''\circ\eta_{13}\circ \nu_{14} 
+    = \eta_{6}\circ\sigma'\circ \nu_{14} 
+    && \text{by (5.9), (7.4)}\\
+    & = \eta_{6}\circ(x\,\nu_{7}\circ\sigma_{10}+y\,\eta_{7}\circ\mu_{8}) \\
+    & = y\,\eta_{7}^{2}\circ\mu_{8} 
+    && \text{by (5.9)}.
+\end{align*}
+\]
+\(\eta_{6}^{2}\circ\mu_{8}\ne0\) なので,
+\(y\equiv0\pmod2\) で \(y\,\eta_{7}\circ\mu_{8}=0\) となる. 
+\[
+\begin{align*}
+E^{2}(\sigma'''\circ \nu_{12})
+  & = 4\,\sigma'\circ \nu_{14} 
+  && \text{by Lem5.14} \\
+  & = 4x\,\nu_{7}\circ\sigma_{10}=x\,\eta_{7}^{2}\circ\varepsilon_{9} 
+  && \text{by (7.10)}.
+\end{align*}
+\]
+(7.16) より,
+\[
+4(\nu_{5}\circ E\sigma')=8(\nu_{5}\circ\sigma_{8})=0.
+\]
+よって, (6.2) から, 
+\[
+\eta_{7}^{2}\circ\varepsilon_{9}
+=E^{2}(\sigma'''\circ \nu_{12})
+=x\,\eta_{7}^{2}\circ\varepsilon_{9}.
+\] 
+\(\eta_{7}^{2}\circ\varepsilon_{9}=4\,\nu_{7}\circ\sigma_{10}\) は位数 2 なので,
+\(x\not\equiv0\pmod2\), すなわち \(x\) は奇数である. \\
+よって, (7.19) の最初の関係式は証明された.\\
+第二式は, Prop2.5 と (5.16) から, 直ちに成り立つ. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{(7.18).}\
+\(2\,\overline{\nu}_{6}\circ \nu_{14}
+\ =\ \nu_{6}\circ\varepsilon_{9}
+\ =\ \Delta(\nu_{13}^{2}).\)
+
+\noindent
+\textbf{(5.15).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\sigma_{8}\circ\beta
+\quad\text{は,}\
+\pi^{7}_{i-1}\oplus\pi^{15}_{i}\xrightarrow{\cong}\pi^{8}_{i}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(7.4).}\
+\(\eta_{7}\circ\sigma_{8}\ =\ \sigma'\circ\eta_{14}\ +\ \ov{\nu}_{7}\ +\ \varepsilon_{7},\) \\
+\(\eta_{6}\circ\sigma'\ =\ \sigma''\circ\eta_{13}\ =\ 4\,\ov{\nu}_{6}, \)\\
+\(\eta_5\circ\sigma'' \ =\ \sigma'''\circ\eta_{12}\ =\ \eta_4\circ\sigma''' = 0. \)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{(7.16).}\
+\(2\,(\nu_{5}\circ\sigma_{8}) = \nu_{5}\circ E\sigma',\
+\Delta(\sigma_{9}) = x(\nu_{4}\circ\sigma') \pm E\sigma'
+\ (\text{$x$ は奇数}),\)\\
+\(\Delta(\sigma_{9}\circ\eta_{16}) 
+= \nu_{4}\circ\sigma'\circ\eta_{14} + E\nu'\circ\varepsilon_{7},\)\\
+\(\Delta(\sigma_9\circ\eta_{16}^2) = \nu_4\circ\sigma'\circ\eta_{14}^2
++ E\nu'\circ\eta_7\circ\varepsilon_8. \)
+
+\noindent
+\textbf{(6.2).}\ 
+\(\sigma'''\circ \nu_{12}\ \equiv\ \eta_5^{\,2}\circ \varepsilon_7
+\mod{4(\nu_5\circ E\sigma')} .\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.16).}\
+\(\Delta(\iota_{17})=\pm\,(2\sigma_{8}-E\sigma').\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\[
+  \pit{21}{17}\xrightarrow{\ \Delta\ }
+  \pit{19}{8}\xrightarrow{\ E\ }
+  \pit{20}{9}\xrightarrow{\ H\ }
+  \pit{20}{17}\xrightarrow{\ \Delta\ }
+  \pit{18}{8}\xrightarrow{\ E\ }
+  \pit{19}{9},
+\]
+において, Prop5.8 により, \(\pit{21}{17}=0\) . \\
+また, (7.2) により, \(E:\pit{18}{8}\to\pit{19}{9}\) は 全射.\\
+その kernel は,
+\(
+  \Delta(\nu_{17})=2\sigma_{8}\circ\nu_{15}-x\,\nu_{8}\circ\sigma_{11}
+\)
+で生成される. したがって,\\
+\(
+  \pit{19}{9}=\gen{\sigma_{9}\circ\nu_{16}}\ \oplus\ \gen{\eta_{9}\circ\mu_{10}}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\)\\
+\(
+\Delta:\ \pit{20}{17}\longrightarrow\pit{18}{8}
+\)
+は単射なので, 完全性から,
+\(
+  E:\ \pit{19}{8}\longrightarrow\pit{20}{9}
+\)
+は同型となり,\\
+\(
+\pit{20}{9}=\gen{\zeta_{9}}\ \oplus\ \gen{\overline{\nu}_{9}\circ\nu_{17}}
+  \ \cong\ \mathbb Z_{8}\oplus\mathbb Z_{2}.
+\)\\
+\( \nu'\wedge \sigma'\), \( \nu_4\wedge \sigma'\), \( \nu_4\wedge \sigma_8\) を考える. 
+Prop3.1,  Lem5.4, 5.14より,
+\[
+  4\nu_{10}\circ\sigma_{13}
+  =4\sigma_{10}\circ\nu_{17}, \qquad
+  2\nu_{11}\circ\sigma_{14}
+  = 2\sigma_{11}\circ\nu_{18}, \qquad
+  \nu_{12}\circ\sigma_{15}
+  = \sigma_{12}\circ\nu_{19}.
+\]
+\(E\Delta = 0\) なので, (7.19) から,
+ある奇数 \(x\) に対して,
+\(
+  2\sigma_{10}\circ\nu_{17} = x\,\nu_{10}\circ\sigma_{13}.
+\)
+よって,
+\[
+4\sigma_{10}\circ\nu_{17}
+= 4\nu_{10}\circ\sigma_{13}
+= 4x\nu_{10}\circ\sigma_{13}
+= 8\sigma_{10}\circ\nu_{17} = 0,
+\]
+\[
+  2\sigma_{11}\circ\nu_{18}=2\nu_{11}\circ\sigma_{14}
+  =2x\,\nu_{11}\circ\sigma_{14}
+  =4\sigma_{11}\circ\nu_{18}
+  =E(4\sigma_{10}\circ\nu_{17})=0,
+\]
+\[
+  \sigma_{12}\circ\nu_{19}=\nu_{12}\circ\sigma_{15}
+  =x\,\nu_{12}\circ\sigma_{15}
+  =2\sigma_{12}\circ\nu_{19}
+  =E(2\sigma_{11}\circ\nu_{18})=0.
+\]
+ゆえに, 次を得る:
+\begin{equation}\label{eq:7.20}
+% \noindent
+% \textbf{(7.20).}\
+\raisetag{2ex}
+\begin{aligned}[t]
+  & 4\sigma_{10}\circ\nu_{17}
+  =2\sigma_{11}\circ\nu_{18}
+  =\sigma_{12}\circ\nu_{19}=0,\\
+  & 4\nu_{9}\circ\sigma_{12}
+  =2\nu_{10}\circ\sigma_{13}
+  =\nu_{11}\circ\sigma_{14}=0.
+\end{aligned}
+\end{equation}
+
+% (4.4) の列と 7.3 への接続
+(4.4) の完全列
+\[
+  \pit{n+12}{2n+1}\xrightarrow{\ \Delta\ }
+  \pit{n+10}{n}\xrightarrow{\ E\ }
+  \pit{n+11}{n+1}\xrightarrow{\ H\ }
+  \pit{n+11}{2n+1}
+  \qquad (n=9,10,11)
+\]
+を考える. (7.2) により, \(E\) は \(n=9,10\) で全射. \\
+また, \(n=11\) では, \(\pit{22}{21}=0\) なので, \(E\) は全射である. \\
+\(2\Delta(\eta_{19}^{2})=2\Delta(\eta_{21})=0\) なので, 
+\(n=9,10\) に対して, \(\ker E\) は高々2個の元を持つ. \\
+Prop2.7 により, 
+\(
+\Delta(\iota_{23}^{2})=
+\Delta(\iota_{23}^{2})-\Delta\bigl(H(\Delta(\iota_{25}))\bigr)=0.
+\)\\
+なので, \(n=11\) に対しても正しい. \\ 
+一方, \eqref{eq:7.20} は, \(n=9,10,11\) で, 
+\(\ker E\) に少なくとも 2 元があることを示している. 
+
+\noindent
+以上より, Th7.3の
+\(\pit{20}{10},\pit{21}{11},\pit{22}{12}\) の結果を得る.\\
+\(
+  \pit{20}{10} \;=\; \gen{\sigma_{10}\circ \nu_{17}} \;\oplus\; \gen{\eta_{10}\circ \mu_{11}}
+    \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},
+\)\\
+\(
+\pit{21}{11} \;=\; \gen{\sigma_{11}\circ \nu_{18}} \;\oplus\; \gen{\eta_{11}\circ \mu_{12}}
+    \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},
+\)\\
+\(
+\pit{22}{12} \;=\; \gen{\eta_{12}\circ \mu_{13}}
+    \;\cong\; \mathbb Z_{2}.
+\)
+
+\switchcolumn
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{(7.2).}\
+\(E:\ \pit{n+10}{\,n}\ \longrightarrow\ \pit{n+11}{\,n+1}
+\ \text{は, 全射である.}\ (n=8,9,10).\)
+
+\noindent
+\textbf{Prop3.1.}\
+\(
+\alpha \wedge \beta
+= (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta
+= (-1)^{ph} E^{p}\beta \circ E^{q+h}\alpha .
+\)
+
+\noindent
+\textbf{Lem5.4.}\
+ある元 \(\nu_{4}\in \pi^{4}_{7}\) が存在して, 次を満たす. \\
+\(H(\nu_{4})=\iota_7,\ 2E \nu_{4}=E^{2}\nu' .\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{(7.19).}\
+\(x \text{:odd が存在して, }
+\sigma'\circ \nu_{14}=x\,\nu_{7}\circ\sigma_{10},\ \
+\pm\,\Delta(\nu_{17})=2\sigma_{8}\circ \nu_{15}-x\,\nu_{8}\circ\sigma_{11} .\)
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+安定群についての結果も, (4.5) から成り立つ. \\
+\(
+\pit{n+10}{n} = \gen{\eta_{12}\circ\mu_{n+1}} 
+\cong \mathbb{Z}_2, \qquad \text{for } n\ge12 .
+\)\\
+以上の議論から, 次を得る:
+\begin{equation}\label{eq:7.21}
+% \noindent
+% \textbf{(7.21).}\
+\Delta(\eta_{9}^{2})=4\sigma_{9}\circ\nu_{16},\qquad
+\Delta(\eta_{21})=2\sigma_{10}\circ\nu_{17},\qquad
+\Delta(\iota_{23})=\sigma_{11}\circ\nu_{18}.
+\end{equation}
+
+次の完全列を考える:
+\[
+  \pit{22}{19}\xrightarrow{\ \Delta\ }
+  \pit{20}{9}\xrightarrow{\ E\ }
+  \pit{21}{10}\xrightarrow{\ H\ }
+  \pit{21}{19}\xrightarrow{\ \Delta\ }
+  \pit{19}{9},
+\]
+(7.21) から,
+\(\Delta:\pit{21}{19}\to\pit{19}{9}\) は into, 
+したがって, \(E\) は onto. 
+このとき,
+\begin{equation}\label{eq:7.22}
+% \noindent
+% \textbf{(7.22).}\
+  \Delta(\nu_{19})=\overline{\nu}_{9}\circ\nu_{17}.
+\end{equation}
+% ==== CHAPTER VII p.73 ====
+% (7.22) の直後から
+\[
+\begin{align*}
+\because\ \Delta(\nu_{19}) 
+& = \Delta(\iota_{19})\circ\nu_{17} 
+&& \text{by Prop2.5}\\
+& = \sigma_9\circ\eta_{16}\circ\nu_{17} 
++ \ov{\nu}_9\circ\nu_{17} + \varepsilon_9\circ\nu_{17}
+&& \text{by (7.1)}\\
+& = 0 + \ov{\nu}_9\circ\nu_{17} + 2\nu_9\circ\ov{\nu}_{12}
+&& \text{by (5.9), (7.12)}\\
+& = \ov{\nu}_9\circ\nu_{17} .
+\end{align*}
+\]
+よって, 上の完全列から,
+\(
+  \pit{21}{10}=\gen{\zeta_{10}}\ \cong\ \mathbb Z_{8}.
+\)
+次の完全列を考える:
+\[
+  \pit{23}{21}\xrightarrow{\ \Delta\ }
+  \pit{21}{10}\xrightarrow{\ E\ }
+  \pit{22}{11}\xrightarrow{\ H\ }
+  \pit{22}{21}\xrightarrow{\ \Delta\ }
+  \pit{20}{10}.
+\]
+最後の \(\Delta\) は, (7.21) により単射である. さらに,
+Prop2.5 と (7.21) により, 
+\(\Delta(\pit{23}{21})\) は, 
+\[
+  \Delta(\eta_{21}^{2})
+  =\Delta(\eta_{21})\circ\eta_{20}
+  =2(\sigma_{10}\circ\nu_{17})\circ\eta_{20}
+  =0
+\]
+で生成される.
+完全性より, \(E\) は同型なので, 
+\(
+  \pit{22}{11}=\gen{\zeta_{11}}\ \cong\ \mathbb Z_{8}.
+\)
+さらに, 完全列
+\[
+  \pit{24}{23}\xrightarrow{\ \Delta\ }
+  \pit{22}{11}\xrightarrow{\ E\ }
+  \pit{23}{12}\xrightarrow{\ H\ }
+  \pit{23}{23}\xrightarrow{\ \Delta\ }
+  \pit{21}{11}
+\]
+をみると, 最後の \(\Delta\) の kernel は, (7.21) により,
+\(
+  2\iota_{23}=H(\pm\,\Delta(\iota_{25}))
+\)
+で生成される. \\
+したがって,\\
+\(
+  \pit{23}{12}
+  \;=\;
+  \Delta\pit{25}{25}\ \oplus\ E\pit{22}{11}
+  \;\cong\; \mathbb Z\ \oplus\ E\pit{22}{11}.
+\)\\
+Prop2.5, (7.21), (5.9) により, 
+\(
+\Delta(\eta_{23}) = \Delta(\iota_{23}) \circ \eta_{21}
+= \sigma_{11}\circ\nu_{18}\circ\eta_{21} = 0.
+\)\\
+このように, \(\Delta\pit{24}{23} = 0\) で, 
+\(E\) は into. よって, \\
+\(
+\pit{23}{12} 
+= \gen{\Delta(\iota_{25})} \oplus \gen{\zeta_{12}}
+\cong \mathbb{Z} \oplus \mathbb{Z}_8.
+\)
+また, 列 
+\[
+  \pit{25}{25}\xrightarrow{\ \Delta\ }
+  \pit{23}{12}\xrightarrow{\ E\ }
+  \pit{24}{13}\xrightarrow{\ H\ }
+  \pit{24}{25}=0
+\]
+の完全性と, (4.5) から, 
+\[
+  \pit{n+11}{n}=\gen{\zeta_{n}}\ \cong\ \mathbb Z_{8}\qquad(n\ge13),
+  \qquad
+  (G_{11};2)=\gen{\zeta}\ \cong\ \mathbb Z_{8}.
+\]
+以上により, Th7.3および Th7.4の, 全ての主張が示された. 
+
+\switchcolumn
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(7.1).}\
+\(\Delta(\iota_{19})=\sigma_{9}\circ\eta_{16}\ +\ \ov{\nu}_{9}\ +\ \varepsilon_{9}.\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(7.12).}\
+\(\varepsilon_3\circ\nu_{11} = \nu'\circ\ov{\nu}_6,\
+\varepsilon'\circ\eta_{13} = \nu'\circ\varepsilon_6 .\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\paragraph{iii) The groups \(\pit{n+12}{n}\) and \(\pit{n+13}{n}\).}
+
+次の Toda bracket を考える:
+\[
+  \todai[1]{\,\sigma_{12},\ \nu_{19},\ \zeta_{22}\,},\qquad
+  \todai[1]{\,\sigma_{11},\ 2\nu_{18},\ \eta_{21}\,}.
+\]
+それぞれ,
+\[
+  \sigma_{12}\circ \pit{29}{19}\ \oplus\ \pit{12}{23}\circ\eta_{23}
+  = \pit{23}{12}\circ\eta_{23} 
+  = \gen{\Delta(\iota_{25})\circ\eta_{23}} + \gen{\zeta_{12}\circ\eta_{23}},
+\]
+\[
+  \sigma_{11}\circ \pit{18}{11}\ \oplus\ \pit{11}{22}
+  = \pit{22}{11}\circ\eta_{22}
+  = \gen{\zeta_{11}\circ\eta_{22}} .
+\]
+の coset である.
+
+% ==== CHAPTER VII p.74 ====
+
+\begin{lemma}[]
+% \noindent
+% \textbf{Lem7.5.}\
+任意の \(\theta\in\todai[1]{\sigma_{12},\,\nu_{19},\,\eta_{22}}\) に対して,
+\[
+  H(\theta)=\eta_{23},\qquad 2\theta=0.
+\]
+任意の \(\theta'\in\todai[1]{\sigma_{11},\,2\nu_{18},\,\eta_{21}}\) に対して,
+\[
+  H(\theta')=\eta_{21}^{2},\qquad 2\theta'=0.
+\]
+\end{lemma}
+
+\noindent
+\textbf{Proof.}\
+(7.21) と Prop2.6から,
+\[
+\eta_{23}=\iota_{23}\circ\eta_{23}
+\in \Delta^{-1}(\sigma_{11}\circ\nu_{18})\circ\eta_{23}
+= H\todai[1]{\sigma_{12},\nu_{19},\eta_{22}}.
+\]
+\(H\todai[1]{\sigma_{12}, \nu_{19}, \eta_{22}}\) は,
+\(H(\pit{23}{12}\circ\eta_{23}) = 2\pit{23}{23}\circ\eta_{23} = 0\)
+の coset.\\
+よって, \(\eta_{23} = H(\theta)\) .
+同様に,
+\[
+\eta_{21}^{2} = \eta_{21}\circ\eta_{22} 
+\in\Delta^{-1}(\sigma_{10}\circ2\nu_{17})\circ\eta_{22}
+=H\todai[1]{\sigma_{11}, 2\nu_{18}, \eta_{21}},
+\] 
+で,
+\(H(\pit{22}{11}\circ\eta_{22}) = 0\) から, 
+\(H(\theta')=\eta_{21}^{2}\). 
+さらに, Prop1.4, (4.7),  Prop5.9より,
+\[
+  2\theta\in\todai[1]{\sigma_{12},\,\nu_{19},\,\eta_{22}}\circ 2\iota_{24}
+  = \sigma_{12}\circ E\toda{\nu_{18}, \eta_{21}, 2\iota_{22}}
+  \subset \sigma_{12}\circ \pit{24}{19}=0,
+\]
+\[
+2\theta'\in\todai[1]{\sigma_{11},\,2\nu_{18},\,\eta_{21}}\circ2\iota_{23}
+= \sigma_{11}\circ E\toda{2\nu_{17}, \eta_{20}, 2\iota_{21}}
+\subset \sigma_{11}\circ \pit{23}{18}=0. 
+\]
+これで, Lem7.5 が証明された. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{(7.21).}\
+\(\Delta(\eta_{9}^{2})=4\sigma_{9}\circ\nu_{16},\
+\Delta(\eta_{21})=2\sigma_{10}\circ\nu_{17},\
+\Delta(\iota_{23})=\sigma_{11}\circ\nu_{18}.\)
+
+\noindent
+\textbf{Prop2.6.}\
+\(H\todai[1]{E\alpha, E\beta, E\gamma} 
+= -\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma.\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+\ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+\subset \pit{j+n}{m},
+\ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+\alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+\text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+
+
+
+
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+\begin{Thleft}[]
+\pit{14}{2}
+ = \gen{\eta_{2}\circ\mu'}\ \oplus\ 
+   \gen{\eta_{2}\circ\nu'\circ \overline{\nu}_{6}}\ \oplus\
+   \gen{\eta_{2}\circ\nu'\circ\varepsilon_{6}}
+ \ \cong\ \mathbb Z_{4}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\[4pt]
+\pit{15}{3}
+ = \gen{\nu'\circ\mu_{6}}\ \oplus\ \gen{\nu'\circ\eta_{6}\circ\varepsilon_{7}}
+ \ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2},\\[4pt]
+\pit{16}{4}
+ = \gen{\nu_{4}\circ\sigma'\circ\eta_{14}^{2}}
+   \ \oplus\ \gen{\nu_{4}\circ\mu_{7}}
+   \ \oplus\ \gen{\nu_{4}\circ\eta_{7}\circ\varepsilon_{8}}
+   \ \oplus\ \gen{E\nu'\circ\mu_{7}}
+   \ \oplus\ \gen{E\nu'\circ\eta_{7}\circ\varepsilon_{8}}
+\\ \hspace{3.2em}
+ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\[4pt]
+\pit{17}{5}
+ = \gen{\nu_{5}^{4}}\ \oplus\ \gen{\nu_{5}\circ\mu_{8}}\ \oplus\ \gen{\nu_{5}\circ\eta_{8}\circ\varepsilon_{9}}
+ \ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\\[4pt]
+\pit{18}{6}=\gen{\Delta(\sigma_{13})}\ \cong\ \mathbb Z_{16},\\[4pt]
+\pit{n+12}{n}=0\quad (n=7,8,9),\\[4pt]
+\pit{22}{10}=\gen{\Delta(\nu_{21})}\ \cong\ \mathbb Z_{4},\\[4pt]
+\pit{23}{11}=\gen{\theta'}\ \cong\ \mathbb Z_{2},\\[4pt]
+\pit{24}{12}=\gen{\theta}\ \oplus\ \gen{E\theta'}\ \cong\ \mathbb Z_{2}\oplus\mathbb Z_{2},\\[4pt]
+\pit{25}{13}=\gen{E\theta}\ \cong\ \mathbb Z_{2},\\[4pt]
+\pit{n+12}{n}=(G_{12};2)=0\quad (n\ge14).
+\end{Thleft}
+
+% ==== CHAPTER VII p.75 ====
+
+\begin{Thleft}[]
+\pit{15}{2}
+ = \gen{\eta_2\circ\nu'\circ\mu_6}\ \oplus\ 
+   \gen{\eta_2\circ\nu'\circ\eta_6\circ\varepsilon_7}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2,\\[4pt]
+\pit{16}{3}
+ = \gen{\nu'\circ\eta_6\circ\mu_7}
+ \ \cong\ \mathbb{Z}_2,\\[4pt]
+\pit{17}{4}
+ = \gen{\nu_4^2\circ\sigma_8}\ \oplus\
+   \gen{\nu_4\circ\eta_7\circ\mu_8}\ \oplus\
+   \gen{E\nu'\circ\eta_7\circ\mu_8}
+ \ \cong\ \mathbb{Z}_8\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2,\\[4pt]
+\pit{18}{5}
+ = \gen{\nu_5\circ\sigma_8\circ\nu_{15}}\ \oplus\
+   \gen{\nu_5\circ\eta_8\circ\mu_9}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2,\\[6pt]
+\pit{n+13}{n}
+ = \gen{\nu_n\circ\sigma_{n+3}\circ\nu_{n+10}}
+ \ \cong\ \mathbb{Z}_2\quad (n=6,7),\\[4pt]
+\pit{21}{8}
+ = \gen{\sigma_8\circ\nu_{15}^2}\ \oplus\
+   \gen{\nu_8\circ\sigma_{11}\circ\nu_{18}}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2,\\[4pt]
+\pit{n+13}{n}
+ = \gen{\sigma_n\circ\nu_{n+7}^2}
+ \ \cong\ \mathbb{Z}_2\quad (n=9,10),\\[4pt]
+\pit{24}{11}
+ = \gen{\theta'\circ\eta_{23}}\ \oplus\ \gen{\sigma_{11}\circ\nu_{18}^{2}}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2,\\[4pt]
+\pit{25}{12}
+ = \gen{\theta\circ\eta_{24}}\ \oplus\ \gen{E\theta'\circ\eta_{24}}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2,\\[4pt]
+\pit{26}{13}
+ = \gen{E\theta\circ\eta_{25}}
+ \ \cong\ \mathbb{Z}_2,\\[4pt]
+\pit{27}{14}=\gen{\Delta(\iota_{29})}\cong\mathbb{Z},\\[4pt]
+\pit{n+13}{n}=(G_{13};2)=0\quad (n\ge15).
+\end{Thleft}
+
+\switchcolumn
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+(5.2),  Th7.4, (7.12) より, 
+\[
+\begin{align*}
+\pit{14}{2}
+& = \mathbb{Z}_4\gen{\eta_2\circ\mu'}
+\oplus \mathbb{Z}_2\gen{\eta_2\circ\varepsilon_{3}\circ\nu_{11}}
+\oplus \mathbb{Z}_2\gen{\eta_2\circ\nu'\circ\varepsilon_6} \\
+& = \mathbb{Z}_4\gen{\eta_2\circ\mu'}
+\oplus \mathbb{Z}_2\gen{\eta_2\circ\nu'\circ\ov{\nu}_{6}}
+\oplus \mathbb{Z}_2\gen{\eta_2\circ\nu'\circ\varepsilon_6}.
+\end{align*}
+\]
+であり,  Lem5.7 から,
+\(E(\eta_2\circ\nu'\circ\ov{\nu}_6) 
+= E(\eta_{2}\circ\nu'\circ\varepsilon_6) = 0.\)\\
+Prop2.5, Prop5.1 により, 
+\(
+\Delta(2\zeta_5)
+= \Delta(\pm E^2\mu')
+= \Delta(\iota_5)\circ(\pm\mu')
+= 2(\eta_2\circ\mu') .
+\)\\
+よって,
+\(
+\Delta(\zeta_5)\equiv \pm(\eta_2\circ\mu')
+\mod \gen{\eta_2\circ\nu'\circ\overline{\nu}_6} 
++ \gen{\eta_2\circ\nu'\circ\varepsilon_6}
+\)
+であり, \\
+\(E(\eta_2\circ\mu') = 0 .\) 
+よって, \(E\pit{14}{2} = 0\) となり, 
+次の完全列を得る.
+\[
+0\to \pit{15}{3}\xrightarrow{H}\pit{15}{5}\xrightarrow{\Delta}\pit{13}{2},
+\]
+\[
+\pit{17}{5}\xrightarrow{\Delta}\pit{15}{2}
+\xrightarrow{E}\pit{16}{3}
+\xrightarrow{H}\pit{16}{5}
+\xrightarrow{\Delta}\pit{14}{2}
+\to 0 .
+\]
+(7.11), Th7.4 により, 
+\(\Delta(\nu_5\circ\sigma_8)\) は
+\(\pit{13}{2}\) の位数 4 の元である. \\
+Th7.3 により, 
+\(\pit{15}{5} = \mathbb{Z}_8\gen{\nu_5\circ\sigma_8}
+\oplus\mathbb{Z}_2\gen{\eta_5\circ\mu_6}\) 
+なので,\\
+\(\ker(\Delta:\pit{15}{5}\to\pit{13}{2})\) 
+は, 高々4個の元からなる.\\
+Prop2.2, (5.3), (7.10) から, 
+\[
+H(\nu'\circ\mu_6) = \eta_5\circ\mu_6,\qquad
+H(\nu'\circ\eta_6\circ\varepsilon_7)
+= \eta_5^2\circ\varepsilon_7
+= 4(\nu_5\circ\sigma_8).
+\]
+これらの元は, 
+\(\ker\Delta\)
+を生成するので, 完全性から, 
+\[
+\pit{15}{3}
+ = \gen{\nu'\circ\mu_6}\oplus\gen{\nu'\circ\eta_6\circ\varepsilon_7}
+ \cong \mathbb{Z}_2\oplus\mathbb{Z}_2.
+\]
+% ==== CHAPTER VII p.76 ====
+%  (前ページからの続き )
+(5.2) より,
+\[
+\pit{15}{2}
+ = \gen{\eta_2\circ\nu'\circ\mu_6}\ \oplus\
+   \gen{\eta_2\circ\nu'\circ\eta_6\circ\varepsilon_7}
+ \cong \mathbb{Z}_2\oplus\mathbb{Z}_2 .
+\]
+Lem5.7より,
+\[
+E\pi_{15}^2
+ = \gen{E(\eta_2\circ\nu')\circ\mu_7}\ \oplus\
+   \gen{E(\eta_2\circ\nu')\circ\eta_7\circ\varepsilon_8}
+ = 0 .
+\]
+\begin{equation}\label{eq:723}
+% (7.23)
+\Delta:\ \pit{17}{5}\longrightarrow\pit{15}{2}\ \text{は全射} .
+\end{equation}
+完全性から,
+\(\Delta:\pit{16}{5}\to\pit{14}{2}\) は全射であり,
+\(\pit{16}{3} \cong \ker(\Delta:\ \pit{16}{5}\to\pit{14}{2})\).\\
+Th7.4より, \(\pit{16}{5}\cong\mathbb{Z}_8\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2\) 
+なので, 
+\(\ker\Delta = \mathbb{Z}_2 \gen{4 \zeta_5}\) .\\ 
+ Prop2.2, (5.3) および (7.14) により,
+\[
+H(\nu'\circ\eta_6\circ\mu_7)=\eta_5^{2}\circ\mu_7=4\zeta_5 .
+\]
+ゆえに
+\[
+\pi_{16}^3=\gen{\nu'\circ\eta_6\circ\mu_7}\cong\mathbb{Z}_2 .
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{(5.2).}\
+\(\text{合成 } \alpha\longmapsto \eta_2\circ \alpha \text{ は, 同型 } 
+\pi^{3}_{i}\xrightarrow{\cong}\pi^{2}_{i}\ (i\ge3) 
+\text{ を定める. }\)
+
+% ---  Th7.4 ---
+\noindent
+\textbf{Th7.4.}\
+\(\pit{13}{2} \;=\; \gen{\eta_{2}\circ \varepsilon'} \;\oplus\; \gen{\eta_{2}^{2}\circ \mu_{4}}
+  \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+\(\pit{14}{3} \;=\; \gen{\mu'} \oplus \gen{\varepsilon_3\circ\nu_{11}} \oplus \gen{\nu'\circ\varepsilon_6}
+  \cong \mathbb{Z}_4 \oplus \mathbb{Z}_2 \oplus \mathbb{Z}_2,\)\\
+% \(\pit{15}{4} = \gen{\nu_{4}\circ \sigma'\circ\eta_{14}} \oplus \gen{\nu_{4}\circ \overline{\nu}_{7}}
+%   \oplus \gen{\nu_{4}\circ \varepsilon_{7}} \oplus \gen{E \mu'}
+%   \oplus \gen{\varepsilon_4\circ\nu_{12}} \oplus \gen{E\nu'\circ\varepsilon_7}\)\\
+% \(\qquad \cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{4}
+%   \oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{16}{5} \;=\; \gen{\zeta_{5}} \;\oplus\; \gen{\nu_{5}\circ \overline{\nu}_{8}}
+  \;\oplus\; \gen{\nu_{5}\circ \varepsilon_{8}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)
+% \(\pit{17}{6} \;=\; \gen{\zeta_{6}} \;\oplus\; \gen{\overline{\nu}_{6}\circ \nu_{14}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4},\)\\
+% \(\pit{n+11}{n} \;=\; \gen{\zeta_{n}} \;\oplus\; \gen{\overline{\nu}_{n}\circ \eta_{n+8}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=7,8,9),\)\\
+% \(\pit{n+11}{n} \;=\; \gen{\zeta_{n}}\ \cong\ \mathbb Z_{8}\quad (n=10,11, \ n\ge13),\) \\
+% \(\pit{23}{12} = \gen{\Delta(\iota_{25})}\oplus\gen{\zeta_{12}}\cong\mathbb Z\oplus\mathbb Z_{8},\)\\
+% \((G_{11};2)=\gen{\zeta}\ \cong\ \mathbb Z_{8}.\)
+
+\noindent
+\textbf{(7.12).}\
+\(\varepsilon_3\circ\nu_{11} = \nu'\circ\ov{\nu}_6,\
+\varepsilon'\circ\eta_{13} = \nu'\circ\varepsilon_6 .\)
+
+\noindent
+\textbf{Lem5.7.}\
+\(\alpha\in\pi_i(S^3)\) に対して,
+\(E^2\alpha\in2\iota_5\circ\pi_{i+2}(S^5)\) ならば, 
+\(E(\eta_2\circ\alpha)=0\) である. \\
+特に, \(E(\eta_2\circ\nu')=0, \ \Delta(\nu_5)=\pm(\eta_2\circ\nu')\) である. 
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Prop5.1.}\
+\(\pi^{2}_{3}=\gen{\eta_2}\cong\mathbb Z,\quad
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2\ (n\ge3),\quad
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.\) \\
+ここで, 
+\(H(\eta_2)=\iota_3,\ \Delta(\iota_5)=\pm 2\,\eta_3\) が成り立つ. 
+
+\noindent
+\textbf{(7.11).}\
+\(\Delta(\nu_{5}\circ\sigma_{8})\equiv\pm(\eta_{2}^{2}\circ \varepsilon'),\
+\mod\ \eta_{2}^{2}\circ\mu_{4},\) \\
+\(E\pit{13}{2}=\gen{\eta_{3}^{2}\circ\mu_{5}}\cong\mathbb Z_{2}. \)
+
+\noindent
+\textbf{Th7.3.}\
+% \(\pit{12}{2} \;=\; \gen{\eta_{2}^{2}\circ \varepsilon_{4}} \;\oplus\; \gen{\eta_{2}\circ \mu_{3}}
+%   \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{13}{3} \;=\; \gen{\varepsilon'} \;\oplus\; \gen{\eta_{3}\circ \mu_{4}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{14}{4} \;=\; \gen{\nu_{4}\circ \sigma'} \;\oplus\; \gen{E \varepsilon'} \;\oplus\; \gen{\eta_{4}\circ \mu_{5}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+\(\pit{n+10}{n} \;=\; \gen{\nu_{n}\circ \eta_{n+3}} \;\oplus\; \gen{\eta_{n}\circ \mu_{n+1}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=5,6,7),\)
+% \(\pit{18}{8} \;=\; \gen{\sigma_{8}\circ \nu_{15}} \;\oplus\; \gen{\nu_{8}\circ \sigma_{11}} \;\oplus\; \gen{\eta_{8}\circ \mu_{9}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+% \(\pit{19}{9} \;=\; \gen{\sigma_{9}\circ \nu_{16}} \;\oplus\; \gen{\eta_{9}\circ \mu_{10}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+% \(\pit{20}{10} \;=\; \gen{\sigma_{10}\circ \nu_{17}} \;\oplus\; \gen{\eta_{10}\circ \mu_{11}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{21}{11} \;=\; \gen{\sigma_{11}\circ \nu_{18}} \;\oplus\; \gen{\eta_{11}\circ \mu_{12}}
+%   \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+10}{n} \;=\; \gen{\eta_{n}\circ \mu_{n+1}}
+%   \;\cong\; \mathbb Z_{2}\qquad (n\ge 12),\)\\
+% \((G_{10};2)=\gen{\eta\circ \mu}\ \cong\ \mathbb Z_{2}.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{(5.3).}\
+\(\nu'\in\pi_6^3,\ H(\nu')=\eta_5,\ 2\nu'=\eta_3\circ\eta_4\circ\eta_5 .\)
+
+\noindent
+\textbf{(7.10).}\
+\(2(\nu_{5}\circ\sigma_{8})=\pm E^{2}\varepsilon',\
+4(\nu_{n}\circ\sigma_{n+3})=\eta_{n}^{2}\circ\varepsilon_{n+2}\quad(n\ge5).\)
+
+\noindent
+\textbf{(7.14).}\
+\(2\zeta_{5}=\pm E^{2}\mu',\
+4\zeta_{n}=\eta_{n}^{2}\circ\mu_{n+2}\quad(n\ge5).\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+\(\pit{16}{4},\ \pit{17}{4}\) の結果は, 
+(5.6), Th7.2, Th7.3 から得られる.
+\[
+\begin{align*}
+\pit{16}{4}
+& = \gen{\nu_{4}\circ\sigma'\circ\eta_{14}^{2}}
+   \oplus\gen{\nu_4^4}
+   \oplus\gen{\nu_{4}\circ\mu_{7}}
+   \oplus\gen{\nu_{4}\circ\eta_{7}\circ\varepsilon_{8}}
+   \oplus\gen{E\nu'\circ\mu_{7}}
+   \oplus\gen{E\nu'\circ\eta_{7}\circ\varepsilon_{8}} \\
+& \cong \mathbb{Z}_2 \oplus\mathbb{Z}_2\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2
+\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2, \\
+\pit{17}{4}
+& = \gen{\nu_4^2\circ\sigma_8}\oplus
+   \gen{\nu_4\circ\eta_7\circ\mu_8}\oplus
+   \gen{E\nu'\circ\eta_7\circ\mu_8}
+ \ \cong\ \mathbb{Z}_8\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2.
+\end{align*}
+\]
+
+次に, 準同型
+\[
+\Delta:\ \pit{18}{9}\longrightarrow\pit{16}{4},\qquad
+\Delta:\ \pit{19}{9}\longrightarrow\pit{17}{4}
+\]
+を考える.  Prop2.5を用いると,
+\[
+\begin{aligned}
+\Delta(\sigma_9\circ 2\eta_{16}^2)
+  &=\nu_4\circ\sigma'\circ \eta_{14}^2
+    +E\nu'\circ\eta_7\circ\varepsilon_8
+   &&\text{by (7.16)},\\
+\Delta(\nu_9^{3})
+  &=\Delta(\nu_9^{2})\circ\nu_{13}
+   =\Delta H(\nu_5\circ\sigma_8)\circ\nu_{13}
+   =0
+   &&\text{by (7.9)},\\
+\Delta(\mu_9)
+  &=\Delta(\iota_9)\circ\mu_7=E\nu'\circ\mu_7
+   &&\text{by (5.8)},\\
+\Delta(\eta_9\circ\varepsilon_{10})
+  &=\Delta(\iota_9)\circ\eta_7\circ\varepsilon_8
+   =E\nu'\circ\eta_7\circ\varepsilon_8
+   &&\text{by (5.8)},\\
+\Delta(\sigma_9\circ\nu_{16})
+  &=\Delta(\sigma_9)\circ\nu_{14}\\
+  &=x(\nu_4\circ\sigma'\circ\nu_{14}) \pm E\varepsilon'\circ\nu_{14}
+   &&\text{by (7.16)},\\
+  &=x'(\nu_4^2\circ\sigma_{10}) \pm E(\varepsilon'\circ\nu_{13})
+   &&\text{by (7.19)},\\
+\Delta(\eta_9\circ\mu_{10})
+  &=\Delta(\iota_9)\circ\eta_7\circ\mu_8
+   =E\nu'\circ\eta_7\circ\mu_8
+   &&\text{by (5.8)}.
+\end{aligned}
+\]
+ここで, \(x,x'\) は奇数.
+(4.4) の完全列より,
+\[
+E\pi_{16}^4
+ = \gen{\nu_5^4}\ \oplus\ \gen{\nu_5\circ\mu_8}\ \oplus\
+   \gen{\nu_5\circ\eta_8\circ\varepsilon_9}
+ \cong \mathbb{Z}_2\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2,
+\]
+\[
+E\pi_{17}^4
+ = \gen{\nu_5\circ\eta_8\circ\mu_9}
+ \cong \mathbb{Z}_2 .
+\]
+よって, 群 \(\pi_{18}^9\), \(\pi_{19}^9\) の群構造から,
+\[
+\ker(\Delta:\pit{18}{9}\to\pit{16}{4}) = \gen{\nu_9^{3}},\qquad
+\Delta: \pit{19}{9}\to\pit{17}{4}\ \text{は単射}.
+\]
+さらに, 完全性より,
+\begin{equation}
+% (7.24)
+E:\ \pit{18}{4}\longrightarrow\pit{19}{5}\ \text{は全射}.  
+\end{equation}
+
+% ==== CHAPTER VII p.77 ====
+
+% 完全列 ((4.4) の帰結 )
+次の完全列を考える.
+\[
+0\longrightarrow E\pi_{16}^{4}\xrightarrow{\ \ } \pi_{17}^{5}
+ \xrightarrow{\,H\,} \pi_{17}^{9}\xrightarrow{\,\Delta\,} \pi_{15}^{4},
+\]
+\[
+0\longrightarrow E\pi_{17}^{4}\xrightarrow{\ \ } \pi_{18}^{5}
+ \xrightarrow{\,H\,} \gen{\nu_5^{3}}\longrightarrow 0 .
+\]
+(7.13) より, \(\Delta:\pi_{17}^{9}\to\pi_{15}^{4}\) は単射であるから, 
+\[
+\pi_{17}^{5}
+ = E\pi_{16}^{4}
+ = \gen{\nu_5^{4}}\ \oplus\ \gen{\nu_5\circ\mu_8}\ \oplus\ \gen{\nu_5\circ\eta_8\circ\varepsilon_9}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2\oplus\mathbb{Z}_2 .
+\]
+
+\switchcolumn
+
+\noindent
+\(\pit{15}{3}
+= \gen{\nu'\circ\mu_6}\oplus\gen{\nu'\circ\eta_6\circ\varepsilon_7}
+\cong \mathbb{Z}_2\oplus\mathbb{Z}_2.\)
+
+\noindent
+\(\pi_{16}^3=\gen{\nu'\circ\eta_6\circ\mu_7}\cong\mathbb{Z}_2 .\)
+
+\noindent
+\textbf{(5.6).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\nu_{4}\circ\beta
+\quad\text{は,}\quad
+\pi^{\,3}_{i-1}\oplus \pi^{\,7}_{i}\ \xrightarrow{\ \cong\ }\ \pi_{\,i}^{4}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Th7.2.}\
+% \(\pit{11}{2}=\gen{\eta_{2}\circ\varepsilon_{3}}\cong\mathbb Z_{2},\)\\
+% \(\pit{12}{3}=\gen{\mu_{3}}\oplus\gen{\eta_{3}\circ\varepsilon_{4}}\cong\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+9}{n}=\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n=4,5,6),\)\\
+\(\pit{16}{7}=\gen{\sigma'\circ\eta_{14}^{\,2}}\oplus\gen{\nu_{7}^{3}}\oplus\gen{\mu_{7}}\oplus\gen{\eta_{7}\circ\varepsilon_{8}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{17}{8}=\gen{\sigma_{8}\circ\eta_{15}^{\,2}}\oplus\gen{E\sigma'\circ\eta_{15}^{\,2}}\oplus\gen{\nu_{8}^{3}}\oplus\gen{\mu_{8}}\oplus\gen{\eta_{8}\circ\varepsilon_{9}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{18}{9}=\gen{\sigma_{9}\circ\eta_{16}^{\,2}}\oplus\gen{\nu_{9}^{3}}\oplus\gen{\mu_{9}}\oplus\gen{\eta_{9}\circ\varepsilon_{10}}
+\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)
+% \(\pit{19}{10}=\gen{\Delta(\iota_{21})}\oplus\gen{\nu_{10}^{3}}\oplus\gen{\mu_{10}}\oplus\gen{\eta_{10}\circ\varepsilon_{11}}
+% \cong\mathbb Z\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+9}{n}=\gen{\nu_{n}^{3}}\oplus\gen{\mu_{n}}\oplus\gen{\eta_{n}\circ\varepsilon_{n+1}}
+% \cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge11),\)\\
+% \((G_{9};2)=\gen{\nu^{3}}\oplus\gen{\mu}\oplus\gen{\eta\circ\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\textbf{Th7.3.}\
+% \(\pit{12}{2} \;=\; \gen{\eta_{2}^{2}\circ \varepsilon_{4}} \;\oplus\; \gen{\eta_{2}\circ \mu_{3}}
+%   \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{13}{3} \;=\; \gen{\varepsilon'} \;\oplus\; \gen{\eta_{3}\circ \mu_{4}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{14}{4} \;=\; \gen{\nu_{4}\circ \sigma'} \;\oplus\; \gen{E \varepsilon'} \;\oplus\; \gen{\eta_{4}\circ \mu_{5}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+\(\pit{n+10}{n} \;=\; \gen{\nu_{n}\circ \eta_{n+3}} \;\oplus\; \gen{\eta_{n}\circ \mu_{n+1}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=5,6,7),\)\\
+% \(\pit{18}{8} \;=\; \gen{\sigma_{8}\circ \nu_{15}} \;\oplus\; \gen{\nu_{8}\circ \sigma_{11}} \;\oplus\; \gen{\eta_{8}\circ \mu_{9}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+\(\pit{19}{9} \;=\; \gen{\sigma_{9}\circ \nu_{16}} \;\oplus\; \gen{\eta_{9}\circ \mu_{10}}
+  \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2},\)
+% \(\pit{20}{10} \;=\; \gen{\sigma_{10}\circ \nu_{17}} \;\oplus\; \gen{\eta_{10}\circ \mu_{11}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{21}{11} \;=\; \gen{\sigma_{11}\circ \nu_{18}} \;\oplus\; \gen{\eta_{11}\circ \mu_{12}}
+%   \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+10}{n} \;=\; \gen{\eta_{n}\circ \mu_{n+1}}
+%   \;\cong\; \mathbb Z_{2}\qquad (n\ge 12),\)\\
+% \((G_{10};2)=\gen{\eta\circ \mu}\ \cong\ \mathbb Z_{2}.\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(7.16).}\
+\(2\,(\nu_{5}\circ\sigma_{8}) = \nu_{5}\circ E\sigma',\
+\Delta(\sigma_{9}) = x(\nu_{4}\circ\sigma') \pm E\sigma'
+\ (\text{$x$ は奇数}),\)\\
+\(\Delta(\sigma_{9}\circ\eta_{16}) 
+= \nu_{4}\circ\sigma'\circ\eta_{14} + E\nu'\circ\varepsilon_{7},\)\\
+\(\Delta(\sigma_9\circ\eta_{16}^2) = \nu_4\circ\sigma'\circ\eta_{14}^2
++ E\nu'\circ\eta_7\circ\varepsilon_8. \)
+
+\noindent
+\textbf{(7.9).}\
+\(H(\nu_5\circ\sigma_8) = \nu_9^2 .\)
+
+\noindent
+\textbf{(5.8).}\
+\(\Delta(\iota_9)=\pm(2\nu_4-E\nu')  \ (=\pm[\iota_4, \iota_4]) .\)
+
+\noindent
+\textbf{(7.19).}\
+\(x \text{:odd が存在して, }
+\sigma'\circ \nu_{14}=x\,\nu_{7}\circ\sigma_{10},\ \
+\pm\,\Delta(\nu_{17})=2\sigma_{8}\circ \nu_{15}-x\,\nu_{8}\circ\sigma_{11} .\)
+
+
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+Prop2.2 と (7.9) より, 
+\[
+H(\nu_5\circ\sigma_8\circ\nu_{15})=H(\nu_5\circ\sigma_8)\circ\nu_{15}=\nu_9^{3}.
+\]
+さらに (7.10) から,
+\[
+2(\nu_5\circ\sigma_8\circ\nu_{15})
+= \pm\,E^{2}\varepsilon'\circ\nu_{15} \in E^{2}\pi_{16}^{3}
+= \gen{E^2\nu'\circ\eta_7\circ\mu_8}
+= E\Delta(\eta_9\circ\mu_{10})=0 .
+\]
+したがって, 上の後段の完全列より,
+\[
+\pi_{18}^{5}
+ = \gen{\nu_5\circ\sigma_8\circ\nu_{15}}\ \oplus\ \gen{\nu_5\circ\eta_8\circ\mu_9}
+ \ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2 .
+\]
+
+次の完全列を考える:
+\[
+\pi_{19}^{11}\xrightarrow{\ \Delta\ }\pi_{17}^{5}\xrightarrow{\ E\ }\pi_{18}^{6}
+\xrightarrow{\ H\ }\pi_{18}^{11}\xrightarrow{\ \Delta\ }\pi_{16}^{5}.
+\]
+(7.17) と Prop5.15より, 
+\(\ker(\Delta:\pi_{18}^{11}\to\pi_{16}^{5}) = \gen{2\sigma_{11}}\) 
+で, \\
+Prop2.2・2.7 から,
+\(\,2\sigma_{11}=H(\Delta(\sigma_{13}))\) .\\
+Prop2.5, (5.10), Lem6.3より,
+\[
+\Delta(\overline{\nu}_{11})
+=\nu_5\circ\eta_8\circ\overline{\nu}_9
+= \nu_5\circ\nu_8^{3}=\nu_5^4,
+\qquad
+\Delta(\varepsilon_{11})=\nu_5\circ\eta_8\circ\varepsilon_9 .
+\]
+したがって,
+\[
+\pi_{18}^{6}=\gen{\Delta(\sigma_{13})}\cong\mathbb{Z}_{16}
+\]
+となることは, 完全列と, 次の関係式から分かる.
+\begin{equation}\label{eq:725}
+% (7.25)
+8\,\Delta(\sigma_{13})=\nu_6\circ\mu_9 .
+\end{equation}
+% 11/22
+\noindent \because
+\[
+\begin{align*}
+8\Delta(\sigma_{13})
+& = \Delta(\iota_{13})\circ 8\sigma_{11},
+&& \text{by Prop2.5}\\
+& \in \toda{\nu_6, \eta_9, 2\iota_{10}}\circ8\sigma_{11}
+&& \text{by Lem5.10}.  \\
+\nu_6\circ\mu_9
+& = \nu_6\circ(-\mu_9)\\
+& \in \nu_6\circ(-E^4\toda{\eta_5,2\iota_6,E\sigma'''})\\
+& = \todai[4]{\nu_6,\nu_9,2\iota_{10}}\circ E^6\sigma''',
+&& \text{by Prop1.4}\\
+& \subset \toda{\nu_6, \eta_9, 2\iota_{10}} \circ 8\sigma_{11}
+&& \text{by (1.15), Lem5.14.}
+\end{align*}
+\]
+(4.7) より,
+\(\gen{\nu_6,\nu_9,2\iota_{10}}\circ 8\sigma_{11}\) は, 
+\[
+\nu_6\circ\pit{11}{9} \circ8\sigma_{11}
+= \gen{\nu_6 \circ \eta^{2} \circ 8\sigma_{11}}=0
+\]
+の coset である. 
+よって, 等式 \eqref{eq:725} が得られる. 
+\qed
+
+\switchcolumn
+
+\noindent
+\(
+0\longrightarrow E\pi_{17}^{4}\xrightarrow{\ \ } \pi_{18}^{5}
+ \xrightarrow{\,H\,} \gen{\nu_5^{3}}\longrightarrow 0 .
+\)\\
+\(E\pi_{17}^4
+= \gen{\nu_5\circ\eta_8\circ\mu_9}
+\cong \mathbb{Z}_2 .\)
+
+\noindent
+\textbf{(7.17).}\
+\(\Delta(\sigma_{11}) = \nu_5\circ\ov{\nu}_8 + \nu_5\circ\varepsilon_8,\
+\nu_6\ov{\nu}_9 = \nu_6\circ\varepsilon_9 .\)
+
+\noindent
+\textbf{Prop5.15.}\
+\(\pi_9^2=\pi_{10}^3=\pi_{11}^4=0,\) \\
+\(\pi^{5}_{12}=\mathbb Z_2\gen{\sigma'''},\) \
+\(\pi^{6}_{13}=\mathbb Z_4\gen{\sigma''},\) \
+\(\pi^{7}_{14}=\mathbb Z_8\gen{\sigma'},\) \
+\(\pi^{8}_{15}=\mathbb Z\gen{\sigma_8}\oplus\mathbb Z\gen{E\sigma'},\) \\
+\(\pi^{n}_{n+7}=\mathbb Z_{16}\gen{\sigma_n}\ (n\ge9),\) \
+\((G_{7};2)=\mathbb Z_{16}\gen{\sigma}.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{Lem6.3.}\
+\(n\ge6\) に対し,
+\(
+\overline\nu_n\circ \eta_{n+8}\ 
+=\ \eta_n\circ \overline\nu_{n+1}\ =\ \nu_n^{3},
+\ (\nu_n^{3}:=\nu_n\circ \nu_{n+3}\circ \nu_{n+6}).
+\)
+
+\noindent
+\textbf{Lem5.10.}\
+\(
+\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}}\in\pi_{11}(S^6)/2\pi_{11}(S^6) .
+\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{(1.15).}\
+\(\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n
+\ \subset\
+\bigl\{\alpha,\ \Ex^{m}(E^{n-m}\beta),\ E^{m}(E^{n-m}\gamma)\bigr\}_m .\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+\ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+\subset \pit{j+n}{m},
+\ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+\alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+\text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+完全列
+\[
+\pi_{20}^{11}\xrightarrow{\ \Delta\ }\pi_{18}^{5}\xrightarrow{\ E\ }\pi_{19}^{6}
+\xrightarrow{\ H\ }\pi_{19}^{11}\xrightarrow{\ \Delta\ }\pi_{17}^{5}
+\]
+を考える. 
+% ==== CHAPTER VII p.78 ====
+% 直前の exact 列から E が onto
+上の完全列の議論より, \(\Delta\) は単射.
+完全性から, \(E\) は全射. \\
+Prop2.5, (5.10), (5.9), (7.10), Prop5.11より,
+\begin{align*}
+& \Delta(\nu_{11}^{3})=\nu_5\circ\eta_8\circ\nu_9^{3}=0,\\
+& \Delta(\mu_{11})=\nu_5\circ\eta_8\circ\mu_9,\\
+& \Delta(\eta_{11}\circ\varepsilon_{12})=\nu_5\circ\eta_8^{2}\circ\varepsilon_{10}
+=\nu_5\circ 4\nu_8\circ\sigma_{11}
+=\nu_5^{2}\circ\sigma_{11}=0.
+\end{align*}
+したがって,
+\(
+\pi_{19}^{6}=\gen{\nu_6\circ\sigma_9\circ\nu_{16}}\cong\mathbb{Z}_2.
+\)
+\begin{equation}
+% (7.26) 
+\Ker\bigl(\Delta:\pi_{20}^{11}\to\pi_{18}^{5}\bigr)
+=\mathbb{Z}_2 \gen{\nu_{11}^{3}} 
+\oplus \mathbb{Z}_2\gen{\eta_{11}\circ\varepsilon_{12}} . 
+\end{equation}
+
+\(\pit{20}{13} = \mathbb{Z}_{16}\gen{\sigma_{13}},\ 
+\pit{18}{6} = \mathbb{Z}_{16}\gen{\Delta(\sigma_{13})}\)
+なので, 
+\(\Delta:\pi_{20}^{13}\to\pi_{18}^{6}\) は同型.\\ 
+したがって, 次の完全列を得る. 
+\[
+0\longrightarrow \pi_{19}^{7}\xrightarrow{\,H\,}\pi_{19}^{13}\xrightarrow{\,\Delta\,}\pi_{17}^{6},
+\qquad
+\pi_{21}^{13}\xrightarrow{\,\Delta\,}\pi_{19}^{6}\xrightarrow{\,E\,}\pi_{20}^{7}\longrightarrow 0 .
+\]
+(7.18) より, 
+\(\Delta(\nu_{13}^2) = 2\overline{\nu}_6\circ\nu_{14}\ne0\) .
+よって, \(\Delta\) は単射であり, \(\pi_{19}^{7}=0\) となる. \\
+Th7.1により, 
+ \(\pit{21}{13} = 
+ \mathbb{Z}_2\gen{\ov{\nu}_{13}}\oplus
+ \mathbb{Z}_2\gen{\varepsilon_{13}}\).\\
+したがって, Th7.7の結果
+\(
+\pi_{20}^{7}=\gen{\nu_{7}\circ\sigma_{10}\circ\nu_{17}}\cong\mathbb{Z}_2
+\)
+は, 次の事実の帰結である:
+\begin{equation}
+% (7.27)
+\Delta(\overline{\nu}_{13})=\Delta(\varepsilon_{13})=0.
+\end{equation}
+\because
+\[
+\begin{align*}
+\Delta(\varepsilon_{13})
+& = \Delta(-\varepsilon_{13})
+=\Delta(\iota_{13})\circ(-\varepsilon_{11})
+&& \text{by Prop2.5}\\
+& \in \toda{\nu_6,\eta_9,2\iota_{10}}\circ(-\varepsilon_{11})
+&& \text{by Lem5.10}\\
+& = \todai[6]{\nu_6, \eta_9, 2\iota_{10}} \circ (-\varepsilon_{11})
+&& \text{since } E^6\pit{5}{3} = \pit{11}{9}\\
+& = \nu_6\circ E^6\toda{\eta_3,2\iota_4,\varepsilon_4}
+&& \text{by Prop1.4}\\
+& \subset \nu_6\circ E^6\pit{13}{3}
+&& \text{by (4.7)}\\
+& = \gen{\nu_6\circ\eta_9\circ\mu_{10}} + \gen{\nu_6\circ E^6\varepsilon'}
+&& \text{by Th7.3}\\
+& = \gen{E\Delta(\mu_{11})} + \gen{\nu_6\circ2\nu_9 \circ\sigma_{12}}
+&& \text{by (7.10)}\\
+& = 0 + \gen{2\nu_6^2\circ\sigma_{12}} = 0.\\
+\Delta(\ov{\nu}_{13} + \varepsilon_{13})
+& = \Delta(\eta_{13}\circ\sigma_{14}) 
+&& \text{by Lem6.4}\\
+& = \Delta(\eta_{13}\circ\sigma_{12})
+&& \text{by Prop2.5}\\
+& = \Delta(H(\sigma')) \circ \sigma_{12} = 0
+&& \text{by Lem5.14.}
+\end{align*}
+\]
+% ==== CHAPTER VII p.79 ====
+以上より, 
+\(
+\Delta(\varepsilon_{13}) 
+= \Delta(\overline{\nu}_{13}+\varepsilon_{13})-\Delta(\overline{\nu}_{13})=0
+\)
+であり, (7.27)は示された. 
+\qed
+
+\switchcolumn
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(5.10).}\
+\(\Delta(\iota_{11})=\nu_5\circ\eta_8 .\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(7.10).}\
+\(2(\nu_{5}\circ\sigma_{8})=\pm E^{2}\varepsilon',\
+4(\nu_{n}\circ\sigma_{n+3})=\eta_{n}^{2}\circ\varepsilon_{n+2}\quad(n\ge5).\)
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{(7.18).}\
+\(2\,\overline{\nu}_{6}\circ \nu_{14}
+\ =\ \nu_{6}\circ\varepsilon_{9}
+\ =\ \Delta(\nu_{13}^{2}).\)
+
+\noindent
+\textbf{Th7.1.}\
+% \(\pit{10}{2}=0,\)\\
+% \(\pit{n+8}{n}=\gen{\varepsilon_{n}}\cong\mathbb Z_{2}\quad (n=3,4,5),\)\\
+% \(\pit{14}{6}=\gen{\ov\nu_{6}}\oplus\gen{\varepsilon_{6}}\cong\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+% \(\pit{15}{7}=\gen{\sigma'\circ\eta_{14}}\oplus\gen{\ov{\nu}_{7}}\oplus\gen{\varepsilon_{7}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{16}{8}=\gen{\sigma_{8}\circ\eta_{15}}\oplus\gen{E\sigma'\circ\eta_{15}}\oplus\gen{\ov{\nu}_{8}}\oplus\gen{\varepsilon_{8}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{17}{9}=\gen{\sigma_{9}\circ\eta_{16}}\oplus\gen{\ov{\nu}_{9}}\oplus\gen{\varepsilon_{9}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{n+8}{n}=\gen{\ov{\nu}_{n}}\oplus\gen{\varepsilon_{n}}\cong \mathbb Z_{2}\oplus\mathbb Z_{2}\quad (n\ge10),\)
+% \((G_{8};2)=\gen{\ov{\nu}}\oplus\gen{\varepsilon}\cong\mathbb Z_{2}\oplus\mathbb Z_{2}.\)
+
+\noindent
+\textbf{Lem5.10.}\
+\(
+\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}}\in\pi_{11}(S^6)/2\pi_{11}(S^6) .
+\)
+
+\noindent
+\textbf{Prop5.3.}\
+\(\pi^{n}_{n+2}=\gen{\eta_n^{2}}\cong \mathbb Z_2\ (n\ge2).\) \
+\((G_2;2)=\gen{\eta^{2}}\cong \mathbb Z_2 .\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+\ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+\subset \pit{j+n}{m},
+\ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+\alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+\text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Th7.3.}\
+% \(\pit{12}{2} \;=\; \gen{\eta_{2}^{2}\circ \varepsilon_{4}} \;\oplus\; \gen{\eta_{2}\circ \mu_{3}}
+%   \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+\(\pit{13}{3} \;=\; \gen{\varepsilon'} \;\oplus\; \gen{\eta_{3}\circ \mu_{4}}
+  \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)
+% \(\pit{14}{4} \;=\; \gen{\nu_{4}\circ \sigma'} \;\oplus\; \gen{E \varepsilon'} \;\oplus\; \gen{\eta_{4}\circ \mu_{5}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+10}{n} \;=\; \gen{\nu_{n}\circ \eta_{n+3}} \;\oplus\; \gen{\eta_{n}\circ \mu_{n+1}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=5,6,7),\)
+% \(\pit{18}{8} \;=\; \gen{\sigma_{8}\circ \nu_{15}} \;\oplus\; \gen{\nu_{8}\circ \sigma_{11}} \;\oplus\; \gen{\eta_{8}\circ \mu_{9}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+% \(\pit{19}{9} \;=\; \gen{\sigma_{9}\circ \nu_{16}} \;\oplus\; \gen{\eta_{9}\circ \mu_{10}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2},\)\\
+% \(\pit{20}{10} \;=\; \gen{\sigma_{10}\circ \nu_{17}} \;\oplus\; \gen{\eta_{10}\circ \mu_{11}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{21}{11} \;=\; \gen{\sigma_{11}\circ \nu_{18}} \;\oplus\; \gen{\eta_{11}\circ \mu_{12}}
+%   \;\cong\; \mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{n+10}{n} \;=\; \gen{\eta_{n}\circ \mu_{n+1}}
+%   \;\cong\; \mathbb Z_{2}\qquad (n\ge 12),\)\\
+% \((G_{10};2)=\gen{\eta\circ \mu}\ \cong\ \mathbb Z_{2}.\)
+
+\noindent
+\textbf{(7.10).}\
+\(2(\nu_{5}\circ\sigma_{8})=\pm E^{2}\varepsilon',\
+4(\nu_{n}\circ\sigma_{n+3})=\eta_{n}^{2}\circ\varepsilon_{n+2}\quad(n\ge5).\)
+
+\noindent
+\textbf{Lem6.4.}\
+\(
+\eta_9\circ \sigma_{10}\ =\ \overline\nu_9+\varepsilon_9,
+\quad \eta_n\circ \sigma_{n+1}\ =\ 
+\sigma_n \circ\eta_{n+7}\ =\
+\overline\nu_n+\varepsilon_n,\ \text{ for } n\ge10.
+\)
+
+\noindent
+\textbf{Lem5.14.}\
+\(\sigma_{8}\in\pi^{8}_{15}\ , \ \sigma'\in\pi^{7}_{14}\ , \ \sigma''\in\pi^{6}_{13}\) 
+が存在して, 次を満たす. \\
+\(H(\sigma_{8})=\iota_{15} \ ,\quad 2E\sigma_{8}=E^{2}\sigma',\)\\
+\(H(\sigma')=\eta_{13} \ ,\quad 2\sigma'=E\sigma'',\)\\
+\(H(\sigma'')=\eta_{11}^2 \ ,\quad 2\sigma''=E\sigma''' .\)
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+(5.15), Prop5.9, Prop5.11より,
+\[
+\pi_{20}^{8}=0,\qquad
+\pi_{21}^{8}=\gen{\ \sigma_{8}\circ\nu_{15}^{2}\ }\oplus\gen{\ \nu_{8}\circ\sigma_{11}\circ\nu_{18}\ }\cong\mathbb{Z}_2\oplus\mathbb{Z}_2.
+\]
+完全列
+\[
+0=\pi_{20}^{8}\xrightarrow{\,E\,}\pi_{21}^{9}\xrightarrow{\,H\,}\pi_{21}^{17}
+\]
+において,  Prop5.8より, \(\pi_{21}^{17}=0\) なので,
+\(\pi_{21}^{9}=0\) を得る. 
+次に, 完全列
+\[
+\pi_{22}^{8}\xrightarrow{\,E\,}\pi_{23}^{9}\xrightarrow{\,H\,}\pi_{23}^{17}
+\xrightarrow{\Delta}\pit{21}{8}\xrightarrow{E}\pit{22}{9}
+\xrightarrow{H}\pit{22}{17} = 0
+\]
+を考える. ここで, Prop5.9, 5.11より,
+\(\pi_{22}^{17}=0\),
+\(\pi_{23}^{17}=\gen{\nu_{17}^{2}}\cong\mathbb{Z}_2\) である. \\
+ Prop2.5と(7.19)により, ある奇数 \(x\) について,
+\[
+\begin{align*}
+\Delta(\nu_{17}^{2})
+& = \Delta(\nu_{17})\circ\nu_{18}
+= 2\sigma_{8}\circ\nu_{15}^{2}-x\,\nu_{8}\circ\sigma_{11}\circ\nu_{18}\\
+& = \nu_{8}\circ\sigma_{11}\circ\nu_{18}.  
+\end{align*}
+\]
+したがって, 完全性から,
+\(
+\pi_{22}^{9}=\gen{\ \sigma_{9}\circ\nu_{16}^{2}\ }\cong\mathbb{Z}_2.
+\)
+\begin{equation}
+% (7.28)
+E:\pi_{22}^{8}\longrightarrow\pi_{23}^{9}\ \text{は全射}.
+\end{equation}
+さらに, Prop5.6, 5.9より,
+\[
+\pi_{22}^{19}=\gen{\nu_{19}}\cong\mathbb{Z}_8,\qquad
+\pi_{24}^{19} = \pit{23}{19} = 0.
+\]
+\[
+E:\ \pi_{22}^{9}\ \cong\ \pi_{23}^{10}
+=\gen{\ \sigma_{10}\circ\nu_{17}^{2}\ }\cong\mathbb{Z}_2.
+\]
+\[
+0 = \pi_{21}^{9}\xrightarrow{\,E\,}\pi_{22}^{10}
+\xrightarrow{\,H\,}\pi_{22}^{19}\xrightarrow{\,\Delta\,}\pi_{20}^{9}
+\]
+において, 式(7.22)より, 
+\(
+\Ker \Delta = \gen{2\nu_{19}} = \gen{\pm H(\Delta(\nu_{21}))}.
+\)\\
+したがって,
+\(
+\pi_{22}^{10}=\gen{\ \Delta(\nu_{21})\ }\cong\mathbb{Z}_4 .
+\)\\
+明らかに, \(\Delta:\pi_{24}^{21}\to\pi_{22}^{10}\) は全射で, 
+\(\Ker\Delta = \gen{\,4\nu_{21}^{3}\,}=\gen{\,\nu_{21}^{3}\,}\). 
+\[
+0\longrightarrow\pi_{23}^{11}\xrightarrow{\,H\,}\pi_{23}^{21}
+\xrightarrow{\,\Delta\,}\gen{\nu_{21}^{2}},
+\]
+\[
+0 = \pi_{25}^{21}\xrightarrow{\,\Delta\,}\pi_{23}^{10}\xrightarrow{\,E\,}\pi_{24}^{11}
+\xrightarrow{\,H\,}\gen{\eta_{21}^3}.
+\]
+ここで, Prop5.8より, \(\pi_{25}^{21}=0\) . \\
+Lem7.5と Prop2.2より, 
+\(H(\theta') = \pi_{21}^{2},\ H(\theta'\circ \eta_{23})\pi_{21}^{3}\) で, 
+\(\theta',\ \theta'\circ\eta_{23}\) の位数は2である. \\
+したがって,
+\[
+\pi_{23}^{11}=\gen{\theta'}\cong\mathbb{Z}_2 .
+\]
+% ==== CHAPTER VII p.80 ====
+\[
+\pi_{24}^{11}=\gen{\theta'\circ\eta_{23}}\ \oplus\ \gen{\sigma_{11}\circ\nu_{18}^{\,2}}
+\ \cong\ \mathbb{Z}_2\oplus\mathbb{Z}_2 .
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{(5.15).}\
+\((\alpha,\beta)\ \longmapsto\ E\alpha+\sigma_{8}\circ\beta
+\quad\text{は,}\
+\pi^{7}_{i-1}\oplus\pi^{15}_{i}\xrightarrow{\cong}\pi^{8}_{i}
+\ \text{の同型を与える. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Prop5.11.}\
+\(\pi^{2}_{8}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6^2},\)\quad 
+\(\pi^{3}_{9}=0,\)\quad \(\pi^{4}_{10}=\mathbb Z_8\gen{\nu_{4}^2},\) \\
+\(\pi^{n}_{n+6}=\mathbb Z_2\gen{\nu_n^2}\ (n\ge5),\) \
+\((G_{6};2)=\mathbb Z_2\gen{\nu^2}.\)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(7.19).}\
+\(x \text{:odd が存在して, }
+\sigma'\circ \nu_{14}=x\,\nu_{7}\circ\sigma_{10},\ \
+\pm\,\Delta(\nu_{17})=2\sigma_{8}\circ \nu_{15}-x\,\nu_{8}\circ\sigma_{11} .\)
+
+\noindent
+\textbf{Prop5.6.}\
+\(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong \mathbb Z_{2},\) \\
+\(\pi^{3}_{6}=\gen{\nu'}\cong \mathbb Z_{4},\) \\
+\(\pi^{4}_{7}=\gen{\nu_{4}}\oplus \gen{E\nu'}\cong \mathbb Z\oplus\mathbb Z_{4},\) \\
+\(\pi^{n}_{n+3}=\gen{\nu_{n}}\cong \mathbb Z_{8}\ (n\ge5),\)\qquad
+\((G_{3};2)=\gen{\nu}\cong \mathbb Z_{8}.\)
+
+\noindent
+\textbf{(7.22).}\
+\(\Delta(\nu_{19})=\overline{\nu}_{9}\circ\nu_{17}.\)
+
+\noindent
+\textbf{Lem7.5.}\
+任意の \(\theta\in\todai[1]{\sigma_{12},\,\nu_{19},\,\eta_{22}}\) に対して,
+\(H(\theta)=\eta_{23},\ 2\theta=0.\)\\
+任意の \(\theta'\in\todai[1]{\sigma_{11},\,2\nu_{18},\,\eta_{21}}\) に対して,
+\(H(\theta')=\eta_{21}^{2},\ 2\theta'=0.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+次の完全列を考える:
+\[
+\pi_{26}^{23}\xrightarrow{\ \Delta\ }\pi_{24}^{11}\xrightarrow{\ \Ex\ }\pi_{25}^{12}
+\xrightarrow{\ H\ }\pi_{25}^{23}\xrightarrow{\ \Delta\ }\pi_{23}^{11}
+\xrightarrow{\ \Ex\ }\pi_{24}^{12}\xrightarrow{\ H\ }\pi_{24}^{23}.
+\]
+ Prop2.5と(7.21)より, 
+\[
+\Delta(\nu_{23}^{\,2})=\Delta(\iota_{23})\circ\nu_{21}=\sigma_{11}\circ\nu_{18}^{\,2}.
+\]
+したがって,
+\(
+\Ex\pi_{24}^{11}=\gen{\Ex\theta'\circ\eta_{24}}\cong\mathbb{Z}_2,
+\)
+\begin{equation}
+% (7.29)
+\ker(\Delta:\pi_{26}^{23}\to\pi_{24}^{11})
+= \gen{2\nu_{23}}.
+\end{equation}
+Lem7.5と Prop2.2より, \(\theta\) と \(\theta'\circ\eta_{24}\) はそれぞれ,
+ \(H\) によって,
+\(\pi_{24}^{23}\) と \(\pi_{25}^{23}\) の生成元へ写り, \\
+いずれも位数2である. 
+よって, 上の完全性から,
+\[
+\pi_{24}^{12}=\gen{\theta}\oplus\gen{\Ex\theta'}\cong\mathbb{Z}_2\oplus\mathbb{Z}_2,
+\]
+\[
+\pi_{25}^{12}=\gen{\theta\circ\eta_{24}}\oplus\gen{\Ex\theta'\circ\eta_{24}}
+\cong\mathbb{Z}_2\oplus\mathbb{Z}_2.
+\]
+
+ Prop1.2と Prop1.4を用いると,
+\[
+\Ex^{2}\theta'\ \in\ \Ex^{2}\toda{\sigma_{11},\,2\nu_{18},\,\eta_{21}}
+\ \subset\ \toda{\sigma_{13},\,2\nu_{20},\,\eta_{23}},
+\]
+\[
+0\in\toda{\sigma_{13},\,\nu_{20},\,0}
+=\todai[3]{\sigma_{13},\,\nu_{20},\,2\eta_{23}}
+\subset\todai[3]{\sigma_{13}, 2\nu_{20}, \eta_{23}}.
+\]
+Toda bracket  \(\todai[3]{\sigma_{13},\,2\nu_{20},\,\eta_{23}}\) は,
+次の群の coset である.
+\[
+\begin{align*}
+& \sigma_{13}\circ \Ex^{3}\eta_{22}\ +\ \pi_{24}^{13}\circ\eta_{24}
+&& \text{by (4.7)} \\
+& = 0 + \gen{\zeta_{13}\circ\eta_{24}}
+&& \text{by Prop5.9, Th7.4}\\
+& \subset E^6\pit{19}{7} = 0.
+\end{align*}
+\]
+したがって,
+\[
+\Ex^{2}\theta'=0,\qquad
+\Ex\theta'\in\ker\!\bigl(\Ex:\pi_{24}^{12}\to\pi_{25}^{13}\bigr).
+\]
+完全性より,
+\[
+\Ex\theta'=\Delta(\eta_{25}).
+\]
+Prop2.5より, \(\Ex\theta'\circ\eta_{24}=\Delta(\eta_{25}^{2})\) . 
+ゆえに, 次の準同型はいずれも単射である.
+\[
+\Delta:\ \pi_{27}^{25}\ \longrightarrow\ \pi_{25}^{12},\qquad
+\Delta:\ \pi_{26}^{25}\ \longrightarrow\ \pi_{24}^{12}.
+\]
+また, Th7.4 の証明の最後の部分から,
+\(\Delta:\pi_{25}^{25}\to\pi_{23}^{12}\) も単射であることがわかる. \\
+したがって, 完全性より,
+\[
+\pi_{25}^{13}=\gen{\Ex\theta}\cong\mathbb{Z}_2,
+\]
+\[
+\pi_{26}^{13}=\gen{\Ex\theta\circ\eta_{25}}\cong\mathbb{Z}_2.
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{(7.21).}\
+\(\Delta(\eta_{9}^{2})=4\sigma_{9}\circ\nu_{16},\
+\Delta(\eta_{21})=2\sigma_{10}\circ\nu_{17},\
+\Delta(\iota_{23})=\sigma_{11}\circ\nu_{18}.\)
+
+\noindent
+\textbf{Lem7.5.}\
+任意の \(\theta\in\todai[1]{\sigma_{12},\,\nu_{19},\,\eta_{22}}\) に対して,
+\(H(\theta)=\eta_{23},\ 2\theta=0.\)\\
+任意の \(\theta'\in\todai[1]{\sigma_{11},\,2\nu_{18},\,\eta_{21}}\) に対して,
+\(H(\theta')=\eta_{21}^{2},\ 2\theta'=0.\)
+
+\noindent
+\textbf{Prop2.2.}\
+$K,L$ を有限 cell complex とする. \\
+$\alpha\in[EK, S^{m+1}], \ \beta\in[L,K], \ \gamma\in\pi_r(S^r)$ 
+に対して, 次が成り立つ：\\
+\(
+H(\alpha\circ E\beta)\ =\ H(\alpha)\circ E\beta,
+\)\\
+\(
+H(E\gamma\circ\alpha)\ =\ E(\gamma\wedge\gamma)\circ H(\alpha).
+\)
+
+\noindent
+\textbf{Prop1.2.}\
+\textbf{0).}\ $\alpha$, $\beta$, $\gamma$ のうち, いずれかが $0$ なら,
+\(
+\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\equiv0.
+\)\\
+\textbf{i).}\ $\alpha\circ \Ex^n\beta=\beta\circ\gamma=0$ のとき,
+\(
+\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\circ\Ex^{n+1}\delta\ \subset\ \{\alpha,\Ex^n \beta, \Ex^n(\gamma\circ\delta)\}_n.
+\)\\
+\textbf{ii).}\ $\alpha\circ \Ex^n\beta=\beta\circ\gamma\circ\delta=0$ のとき,
+\(
+\{\alpha,\ \Ex^n\beta,\ \Ex^n(\gamma\circ\delta)\}_n\ \subset\ \{\alpha,\ \Ex^n(\beta\circ\gamma),\ \Ex^n\delta\}_n .
+\)\\
+\textbf{iii).}\ $\alpha\circ\Ex^n\beta\circ\Ex^n\gamma=\gamma\circ\delta=0$ なら,
+\(
+\{\alpha\circ\Ex^n\beta,\ \Ex^n\gamma,\ \Ex^n\delta)\}_n\ \subset\ \{\alpha,\ \Ex^n(\beta\circ\gamma),\ \Ex^n\delta\}_n .
+\)\\
+\textbf{iv).}\ $\beta\circ\Ex^n\gamma=\gamma\circ\delta=0$ のとき,
+\(
+\alpha\circ\{\beta,\ \Ex^n\gamma,\ \Ex^n\delta\}_n\ \subset\ \{\alpha\circ\beta,\ \Ex^n\gamma,\ \Ex^n\delta\}_n .
+\)
+
+\noindent
+\textbf{Prop1.4.}\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+= (-1)^{n+1}(\alpha\circ E^n\toda{\beta, \gamma, \delta})\).
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+\ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+\subset \pit{j+n}{m},
+\ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+\alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+\text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.9.}\
+\(\pi^{2}_{7}=\mathbb Z_2\gen{\eta_{2}\circ\nu'\circ\eta_6},\) \quad
+\(\pi^{3}_{8}=\mathbb Z_2\gen{\nu'\circ\eta_6^2},\) \quad
+\(\pi^{4}_{9}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7^2}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7^2},\) \\
+\(\pi^{5}_{10}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8^2},\) \quad
+\(\pi^{6}_{11}=\mathbb Z_2\gen{\Delta(\iota_{13})},\) \quad
+\(\pi^{n}_{n+5}=0\ (n\ge7),\) \
+\((G_{5};2)=0.\)
+
+\noindent
+\textbf{Th7.4.}\
+% \(\pit{13}{2} \;=\; \gen{\eta_{2}\circ \varepsilon'} \;\oplus\; \gen{\eta_{2}^{2}\circ \mu_{4}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{14}{3} \;=\; \gen{\mu'} \oplus \gen{\varepsilon_3\circ\nu_{11}} \oplus \gen{\nu'\circ\varepsilon_6}
+%   \cong \mathbb{Z}_4 \oplus \mathbb{Z}_2 \oplus \mathbb{Z}_2,\)\\
+% \(\pit{15}{4} = \gen{\nu_{4}\circ \sigma'\circ\eta_{14}} \oplus \gen{\nu_{4}\circ \overline{\nu}_{7}}
+%   \oplus \gen{\nu_{4}\circ \varepsilon_{7}} \oplus \gen{E \mu'}
+%   \oplus \gen{\varepsilon_4\circ\nu_{12}} \oplus \gen{E\nu'\circ\varepsilon_7}\)\\
+% \(\qquad \cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{4}
+%   \oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{16}{5} \;=\; \gen{\zeta_{5}} \;\oplus\; \gen{\nu_{5}\circ \overline{\nu}_{8}}
+%   \;\oplus\; \gen{\nu_{5}\circ \varepsilon_{8}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{17}{6} \;=\; \gen{\zeta_{6}} \;\oplus\; \gen{\overline{\nu}_{6}\circ \nu_{14}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4},\)\\
+% \(\pit{n+11}{n} \;=\; \gen{\zeta_{n}} \;\oplus\; \gen{\overline{\nu}_{n}\circ \eta_{n+8}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=7,8,9),\)\\
+\(\pit{n+11}{n} \;=\; \gen{\zeta_{n}}\ \cong\ \mathbb Z_{8}\quad (n=10,11, \ n\ge13),\)
+% \(\pit{23}{12} = \gen{\Delta(\iota_{25})}\oplus\gen{\zeta_{12}}\cong\mathbb Z\oplus\mathbb Z_{8},\)\\
+% \((G_{11};2)=\gen{\zeta}\ \cong\ \mathbb Z_{8}.\)
+
+
+
+
+
+
+\end{paracol}
+
+\begin{paracol}{2}
+
+\noindent
+最後に, 安定元 \(\Ex^\infty\ \theta\in G_{12}\) を考える. 
+これは Toda bracket 
+\[
+\langle\,\sigma,\nu,\eta\,\rangle\ \in\
+G_{12} / (\sigma\circ G_{5}\ +\ G_{11}\circ\eta)
+\]
+の元である. 
+% ==== CHAPTER VII p.81 ====
+(4.7),  Prop5.8,  Th7.4 より, 
+\[
+\sigma\circ G_5\ +\ G_{11}\circ\eta
+\ =\ 0+\{\zeta\circ\eta\}
+\ =\ \Ex^\infty(\zeta_7\circ\eta_{18})\ =\ 0 .
+\]
+したがって, Toda bracket 
+\(\langle \sigma,\nu,\eta\rangle\) 
+は, \(E^\infty\ \theta\) だけから成る. 
+(3.9) の i) より,  
+\[
+\langle \sigma,\nu,\eta\rangle=\langle \eta,\nu,\sigma\rangle.
+\]
+(5.9)より, 
+\(\eta_{11}\circ\nu_{12}=0\), また (7.19),(7.20) より,
+\(\nu_{11}\circ\sigma_{14}=2\sigma_{11}\circ\nu_{18}=0\) なので,\\
+Toda bracket \(\todai[1]{\eta_{11},\,\nu_{12},\,\sigma_{15}}\) が定義され, 
+その \(\Ex^\infty\) の像は \(\langle \eta,\nu,\sigma\rangle\) である.\\ 
+(4.7) により, \(\pit{23}{11} = \gen{\theta'}\) の元が存在して, 
+\(\todai[1]{\eta_{11},\,\nu_{12},\,\sigma_{15}}\) に属する. \\
+\(E^2\pit{23}{11} = \gen{\Ex^{2}\theta'} = 0\) なので,
+\(0 \in \langle \eta,\nu,\sigma\rangle\) . 
+したがって, \(\Ex^\infty\ \theta = 0\) である.\\
+さらに, (4.5) より, 
+\(\Ex^\infty:\pit{26}{14}\to(G_{12};2)\) は同型であるから, 
+\(\Ex^{2}\theta=0\) が成り立つ. \\
+よって, 完全性から,
+\[
+\Delta:\pit{27}{27}\longrightarrow\pit{25}{13}=\gen{\Ex\theta}\ \text{は全射},\qquad
+\Delta(\iota_{27})=\Ex\theta,
+\]
+\[
+\pit{26}{14} = \pit{n+12}{n}
+= (G_{12}; 2) = 0 \qquad \text{for } n \ge 14.
+\]
+Prop2.5より,
+\[
+\Delta(\eta_{27})=\Delta(\iota_{27})\circ\eta_{25}=\Ex\theta\circ\eta_{25}.
+\]
+ゆえに, 完全性から, \(\Ex\pit{26}{13}=0\) であり, 
+\[
+0\ \longrightarrow\ \pit{27}{14}\xrightarrow{\,H\,}\pit{27}{27}
+\xrightarrow{\,\Delta\,}\pit{25}{13}
+\]
+は完全. Prop2.7 により,
+\(\Ker \Delta = \gen{2\iota_{27}} 
+= \gen{\pm H(\Delta(\iota_{29}))}\). よって,
+\[
+\pit{27}{14}=\gen{\Delta(\iota_{29})}\ \cong\ \mathbb{Z}.
+\]
+最後に, (4.5) と (4.4) の完全列から,
+\[
+\pit{n+13}{n}=(G_{13};2)=0\qquad (n\ge15).
+\]
+以上の議論から,
+\begin{equation}
+% (7.30)
+\Delta(\iota_{27})=\Ex\theta,\qquad
+\Delta(\eta_{25})=\Ex\theta',
+\end{equation}
+\[
+\Delta:\ \pit{n+15}{2n+1}\ \longrightarrow\ \pit{n+13}{n}
+\quad\text{は}\ n=12,13,14\ \text{で単射. }
+\]
+
+\switchcolumn
+
+\noindent
+\textbf{(4.7).}\
+\(n\ge1, \ \alpha\in\pis{k+n}{S^m; 2},\ \gamma\in\pis{i}{S^j; 2}
+\ \text{のとき, }\)\\
+\(\alpha\circ E^n\pis{j}{S^k} = \alpha\circ E^n \pit{j}{k}
+\subset \pit{j+n}{m},
+\ \pis{j}{S^k}\circ\gamma = \pit{j}{k}\circ\gamma \subset\pit{i}{k}\ . \)\\
+\(\text{さらに, }\ \alpha\circ E^n\beta=0,\ \beta\circ\gamma = 0 \ \text{のとき, }\)\\
+\(\todai[n]{\alpha, E^n\beta, E^n\gamma}\ \text{は,}\
+\alpha\circ E^n\pit{i+1}{k} + \pit{j+n+1}{m}\circ E^{n+1}\gamma\
+\text{の coset で, }\pit{i+n+1}{m} \ \text{の部分集合である. }\)
+
+\noindent
+\textbf{Prop5.8.}\
+\(\pi^{2}_{6}=\mathbb Z_4\gen{\eta_{2}\circ\nu'},\) \quad
+\(\pi^{3}_{7}=\mathbb Z_2\gen{\nu'\circ\eta_6},\) \quad
+\(\pi^{4}_{8}=\mathbb Z_2\gen{\nu_{4}\circ\eta_7}\oplus \mathbb Z_2\gen{E\nu'\circ\eta_7},\) \\
+\(\pi^{5}_{9}=\mathbb Z_2\gen{\nu_{5}\circ\eta_8},\) \quad
+\(\pi^{n}_{n+4}=0\ (n\ge6),\) \
+\((G_{4};2)=0.\)
+
+\noindent
+\textbf{Th7.4.}\
+% \(\pit{13}{2} \;=\; \gen{\eta_{2}\circ \varepsilon'} \;\oplus\; \gen{\eta_{2}^{2}\circ \mu_{4}}
+%   \;\cong\; \mathbb Z_{4}\oplus\mathbb Z_{2},\)\\
+% \(\pit{14}{3} \;=\; \gen{\mu'} \oplus \gen{\varepsilon_3\circ\nu_{11}} \oplus \gen{\nu'\circ\varepsilon_6}
+%   \cong \mathbb{Z}_4 \oplus \mathbb{Z}_2 \oplus \mathbb{Z}_2,\)\\
+% \(\pit{15}{4} = \gen{\nu_{4}\circ \sigma'\circ\eta_{14}} \oplus \gen{\nu_{4}\circ \overline{\nu}_{7}}
+%   \oplus \gen{\nu_{4}\circ \varepsilon_{7}} \oplus \gen{E \mu'}
+%   \oplus \gen{\varepsilon_4\circ\nu_{12}} \oplus \gen{E\nu'\circ\varepsilon_7}\)\\
+% \(\qquad \cong \mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2}\oplus\mathbb Z_{4}
+%   \oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{16}{5} \;=\; \gen{\zeta_{5}} \;\oplus\; \gen{\nu_{5}\circ \overline{\nu}_{8}}
+%   \;\oplus\; \gen{\nu_{5}\circ \varepsilon_{8}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\oplus\mathbb Z_{2},\)\\
+% \(\pit{17}{6} \;=\; \gen{\zeta_{6}} \;\oplus\; \gen{\overline{\nu}_{6}\circ \nu_{14}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{4},\)\\
+% \(\pit{n+11}{n} \;=\; \gen{\zeta_{n}} \;\oplus\; \gen{\overline{\nu}_{n}\circ \eta_{n+8}}
+%   \;\cong\; \mathbb Z_{8}\oplus\mathbb Z_{2}\quad (n=7,8,9),\)\\
+% \(\pit{n+11}{n} \;=\; \gen{\zeta_{n}}\ \cong\ \mathbb Z_{8}\quad (n=10,11, \ n\ge13),\) \\
+% \(\pit{23}{12} = \gen{\Delta(\iota_{25})}\oplus\gen{\zeta_{12}}\cong\mathbb Z\oplus\mathbb Z_{8},\)\\
+\((G_{11};2)=\gen{\zeta}\ \cong\ \mathbb Z_{8}.\)
+
+\noindent
+\textbf{(3.9).}\
+\(\text{i).}\ \todas{\alpha,\beta,\gamma}\ \subset\
+(-1)^{hk+k\ell+\ell h+1}\ \todas{\gamma,\beta,\alpha},\)\\
+\(\text{ii).}\ (-1)^{k\ell}\ \todas{\alpha,\beta,\gamma}\ +\
+(-1)^{hk}\ \todas{\beta,\gamma,\alpha}\ +\
+(-1)^{\ell k}\ \todas{\gamma,\alpha,\beta}\ \ni\ 0 .\)
+
+\noindent
+\textbf{(5.9).}\
+\(\eta_3\circ \nu_4= \nu'\circ \eta_6,\
+\eta_n\circ \nu_{n+1}=0\ (n\ge5),\
+\nu_n\circ \eta_{n+3}=0\ (n\ge6)\)
+
+\noindent
+\textbf{(7.19).}\
+\(x \text{:odd が存在して, }
+\sigma'\circ \nu_{14}=x\,\nu_{7}\circ\sigma_{10},\ \
+\pm\,\Delta(\nu_{17})=2\sigma_{8}\circ \nu_{15}-x\,\nu_{8}\circ\sigma_{11} .\)
+
+\noindent
+\textbf{(7.20).}\
+\(4\sigma_{10}\circ\nu_{17}
+=2\sigma_{11}\circ\nu_{18}
+=\sigma_{12}\circ\nu_{19}=0,\)\\
+\(4\nu_{9}\circ\sigma_{12}
+=2\nu_{10}\circ\sigma_{13}
+=\nu_{11}\circ\sigma_{14}=0.\)
+
+\noindent
+\textbf{(4.5).}\
+\(E^{m-n}:\pit{n+k}{n}\xrightarrow{\cong}\pit{m+k}{m},\
+(n\ge k+2). \)
+
+\noindent
+\textbf{Prop2.5.}\
+$\alpha\in\pi_{i+1}(S^{2m+1}), \ \beta\in \pi_{j-1}(S^{i-1})$ 対して, 
+\(
+\Delta\alpha\ \circ\ \beta\ \subset\ \Delta(\alpha\circ E^2\beta).
+\)\\
+特に, 任意の $\gamma$ に対し,
+\(
+\Delta(E^2\gamma)\ \ni\ \pm\,[\,\iota_m,\ \iota_m\,]\circ\gamma
+\)
+が成り立つ. \\
+ここで $[\, ,\,]$ は Whitehead product を表す. \\
+上の「$\subset$」および「$\ni$」は, $m$ が奇数, 
+あるいは $j<3m-1$, \\
+または, 関係する元が \(2\)-primary 成分にあるときには, 
+等号「$=$」に置き換えられる. 
+
+\noindent
+\textbf{Prop2.7.}\
+\(H\Delta(\iota_{2n+1}) = \pm2\iota_{2m-1},\ (n:\text{even})\).
+
+
+
+
+
+
+
+\end{paracol}
+
+\newpage
+
+\begin{paracol}{2}
+
+\renewcommand{\refname}{References}
+\begin{thebibliography}{99}
+
+\bibitem{Adams1960}
+J.~F.~Adams,
+\newblock On the non-existence of elements of Hopf invariant one,
+\newblock Ann. of Math., {\bf 72} (1960), 20--104.
+
+\bibitem{Adem}
+J.~Adem,
+\newblock The relations on Steenrod powers of cohomology classes,
+\newblock Algebraic geometry and topology, Princeton.
+
+\bibitem{Barratt1955}
+M.~G.~Barratt,
+\newblock Track groups I, II,
+\newblock Proc. London Math. Soc., {\bf 5} (1955), 71--106, 285--329.
+
+\bibitem{Barratt1961}
+M.~G.~Barratt,
+\newblock Note on a formula due to Toda,
+\newblock Jour. London Math. Soc., {\bf 36} (1961), 95--96.
+
+\bibitem{BarrattHilton1953}
+M.~G.~Barratt and P.~J.~Hilton,
+\newblock On join operations of homotopy groups,
+\newblock Proc. London Math. Soc., {\bf 3} (1953), 430--445.
+
+\bibitem{BlakersMassey1952}
+A.~L.~Blakers and W.~S.~Massey,
+\newblock The homotopy groups of a triad II,
+\newblock Ann. of Math., {\bf 55} (1952), 192--201.
+
+\bibitem{Freudenthal1937}
+H.~Freudenthal,
+\newblock Über die Klassen der Sphärenabbildungen,
+\newblock Compos. Math., {\bf 5} (1937).
+
+\bibitem{Hopf1935}
+H.~Hopf,
+\newblock Über die Abbildungen von Sphären auf Sphären niedriger Dimension,
+\newblock Fund. Math., {\bf 25} (1935).
+
+\bibitem{James1955}
+I.~M.~James,
+\newblock Reduced product spaces,
+\newblock Ann. of Math., {\bf 62} (1955), 170--197.
+
+\bibitem{James1956}
+I.~M.~James,
+\newblock Suspension triad of a sphere,
+\newblock Ann. of Math., {\bf 63} (1956), 407--429.
+
+\bibitem{James1958}
+I.~M.~James,
+\newblock The intrinsic join: A study of the homotopy groups of Stiefel manifold,
+\newblock Proc. London Math. Soc., {\bf 8} (1958), 507--535.
+
+\bibitem{Moore1953}
+J.~C.~Moore,
+\newblock Some applications of homology theory to homotopy problems,
+\newblock Ann. of Math., {\bf 58} (1953), 325--350.
+
+\bibitem{Serre1951}
+J.-P.~Serre,
+\newblock Homologie singulière des espaces fibrés,
+\newblock Ann. of Math., {\bf 54} (1951), 425--505.
+
+\bibitem{Serre1953a}
+J.-P.~Serre,
+\newblock Cohomologie modulo 2 des complexes d'Eilenberg-MacLane,
+\newblock Comm. Math. Helv., {\bf 27} (1953), 198--231.
+
+\bibitem{Serre1953b}
+J.-P.~Serre,
+\newblock Groups d'homotopie et classes groupes abéliens,
+\newblock Ann. of Math., {\bf 58} (1953), 258--294.
+
+\bibitem{Serre1953c}
+J.-P.~Serre,
+\newblock Quelques calculs de groupes d'homotopie,
+\newblock Comptes Rendus Paris, {\bf 236} (1953), 2475--2477.
+
+\bibitem{Steenrod1951}
+N.~E.~Steenrod,
+\newblock Topology of fibre bundles,
+\newblock Princeton.
+
+\bibitem{Steenrod1949}
+N.~E.~Steenrod,
+\newblock Cohomology invariants of mappings,
+\newblock Ann. of Math., {\bf 50} (1949), 954--988.
+
+\bibitem{Steenrod1953}
+N.~E.~Steenrod,
+\newblock Cyclic reduced powers of cohomology classes,
+\newblock Proc. Nat. Acad. Sci. U.S.A., {\bf 39} (1953), 217--223.
+
+\bibitem{Toda1952}
+H.~Toda,
+\newblock Generalized Whitehead products and homotopy groups of spheres,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 3} (1952), 43--82.
+
+\bibitem{Toda1956}
+H.~Toda,
+\newblock On double suspension $E^2$,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 7} (1956), 103--145.
+
+\bibitem{Toda1957}
+H.~Toda,
+\newblock Reduced join and Whitehead product,
+\newblock Jour. of Inst. Poly. Osaka City Univ., {\bf 8} (1957), 15--30.
+
+\bibitem{Toda1958a}
+H.~Toda,
+\newblock On exact sequences in Steenrod algebra mod 2,
+\newblock Memoirs Univ. of Kyoto, {\bf 31} (1958), 33--64.
+
+\bibitem{Toda1958b}
+H.~Toda,
+\newblock $p$-primary components of homotopy groups II. mod $p$ Hopf invariant,
+\newblock Memoirs Univ. of Kyoto, {\bf 31} (1958), 143--160.
+
+\bibitem{Toda1959}
+H.~Toda,
+\newblock $p$-primary components of homotopy groups IV. Compositions and toric constructions,
+\newblock Memoirs Univ. of Kyoto, {\bf 32} (1959), 297--332.
+
+\bibitem{Whitehead1950a}
+G.~W.~Whitehead,
+\newblock A generalization of the Hopf invariant,
+\newblock Ann. of Math., {\bf 51} (1950), 192--237.
+
+\bibitem{Whitehead1950b}
+G.~W.~Whitehead,
+\newblock The $(n+2)$nd homotopy group of the $n$-sphere,
+\newblock Ann. of Math., {\bf 52} (1950), 245--247.
+
+\bibitem{Whitehead1941}
+J.~H.~C.~Whitehead,
+\newblock On adding relations to homotopy groups,
+\newblock Ann. of Math., {\bf 42} (1941), 409--428.
+
+\bibitem{Whitehead1944}
+J.~H.~C.~Whitehead,
+\newblock On the groups $\pi_n(V_{m,n})$ and sphere bundles,
+\newblock Proc. London Math. Soc., {\bf 48} (1944), 243--291.
+
+\end{thebibliography}
+
+\end{paracol}
+
+
+\end{document}
