@@ -1,0 +1,1893 @@
+{
+  "phase": "163 R4-R42",
+  "mode": "READ_ONLY_EXTRACTION",
+  "chapters": [
+    {
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "sha256": "92cbfbb9b3ea9ba59a07450a5a8f16ec6b80715bb8b7d8f6eab442dd1a402605",
+      "items": [
+        {
+          "chapter": 1,
+          "order": 1,
+          "kind": "equation",
+          "line": 87,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\\psi_n:I^n\\longrightarrow S^n\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 2,
+          "kind": "equation",
+          "line": 107,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n  \\psi_n(\\partial I^n) = e_0,\\quad\r\n  \\psi_n \\text{ は, } I^n - \\partial I^n \\text{ を }\r\n  S^n - e_0 \\text{ の上に同相に写す.}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 3,
+          "kind": "equation",
+          "line": 213,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\\shrink_{m,n}:S^m\\times S^n\\longrightarrow S^{m+n}\r\n\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 4,
+          "kind": "equation",
+          "line": 242,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n\\text{0).}\\ & f\\simeq f':(A,a_0)\\to(A',a'_0),\\quad\r\n g\\simeq g':(B,b_0)\\to(B',b'_0)\\ \\Rightarrow\\\\\r\n& f\\wedge g\\simeq f'\\wedge g':\r\n(A\\wedge B,a_0\\wedge b_0)\\to(A'\\wedge B',a'_0\\wedge b'_0),\r\n\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\\\\r\n\\text{i).}\\ & (f\\wedge g)\\wedge h = f\\wedge (g\\wedge h),\\\\\r\n\\text{ii).}\\ & (f_2\\circ f_1)\\ \\wedge\\ (g_2\\circ g_1)\\ \r\n= \\ (f_2\\ \\wedge\\ g_2)\\circ(f_1\\ \\wedge\\ g_1).\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 5,
+          "kind": "equation",
+          "line": 270,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n  \\text{i).}\\ & (\\alpha\\wedge\\beta)\\wedge\\gamma \r\n  = \\alpha\\wedge(\\beta\\wedge\\gamma).\\\\\r\n  \\text{ii).}\\ & (\\alpha'\\circ\\alpha)\\wedge(\\beta'\\circ\\beta)\r\n  = (\\alpha'\\wedge\\beta')\\circ(\\alpha\\wedge\\beta).\r\n  \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 6,
+          "kind": "equation",
+          "line": 304,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n  \\text{0).}\\ \r\n  & f\\simeq g:X\\to Y \\text{ は, }\r\n  E^n f\\simeq E^n g \\text{ を導く.}\\\\\r\n  & [f]\\mapsto [E^n f] \\text{ は, } \r\n  E^n : [X,Y] \\to [E^n X, E^n Y] \\text{ を定める.}\\\\\r\n  \\text{i).}\\ \r\n  & E^n(E^m\\alpha) = E^{n+m}\\alpha,\r\n  \\text{ for } \\alpha\\in [X,Y].\\\\\r\n  \\text{ii).}\\\r\n  & E^n(g\\circ f) = E^n g\\circ E^n f,\\quad\r\n  E^n(\\beta\\circ\\alpha) = E^n\\beta\\circ E^n\\alpha.  \r\n  \\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\\qquad\r\n\\end{aligned}  \r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 7,
+          "kind": "equation",
+          "line": 369,
+          "labels": [
+            "eq:toda-1-7"
+          ],
+          "tags": [],
+          "locator_candidate": "(1.7)",
+          "tex": "\\begin{equation}\r\n\\label{eq:toda-1-7}\r\nf_*:[EX,Y]\\longrightarrow[EX,Z],\\qquad\r\n(Eg)^*:[EX,Y]\\longrightarrow[EW,Y].\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 8,
+          "kind": "equation",
+          "line": 387,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\nd_n:S^n\\times I\\longrightarrow S^{n+1},\\qquad\r\nd_n\\bigl(\\psi_n(t_1,\\ldots,t_n),t\\bigr)=\\psi_{n+1}(t_1,\\ldots,t_n,t).\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 9,
+          "kind": "equation",
+          "line": 431,
+          "labels": [
+            "eq:loop-susp-comm"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{eq:loop-susp-comm}\r\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n\\node (X) at (0,0) {$X$};\r\n\\node (Y) at (3,0) {$Y$};\r\n\\node (OX) at (0,-1.4) {$\\Ox EX$};\r\n\\node (OY) at (3,-1.4) {$\\Ox EY$};\r\n\\draw[->] (X)--node[above] {$f$} (Y);\r\n\\draw[->] (X)--node[left] {$i$} (OX);\r\n\\draw[->] (Y)--node[right] {$i$} (OY);\r\n\\draw[->] (OX)--node[below] {$\\Ox Ef$} (OY);\r\n\\end{tikzpicture}\r\n\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 10,
+          "kind": "equation",
+          "line": 459,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\Omega_0:\\ [EX,Y]\\xrightarrow{\\ \\cong\\ }[X, \\Ox Y].\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 11,
+          "kind": "equation",
+          "line": 467,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n\\node (PX) at (-3,0) {$[X, Y]$};\r\n\\node (P1) at (3,0) {$[EX, EY]$};\r\n\\node (P2) at (0,-1.4) {$[X, \\Ox EY].$};\r\n\\draw[->] (PX)--node[above] {$E$} (P1);\r\n\\draw[->] (PX)--node[below left] {$i_*$} (P2);\r\n\\draw[->] (P1)--node[below right] {$\\Omega_0$} (P2);\r\n\\end{tikzpicture}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 12,
+          "kind": "equation",
+          "line": 482,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\begin{aligned}\r\n\\Omega_0(g\\circ Ef)&=\\Omega_0 g\\circ f, &\r\n\\Omega_0(h\\circ g)&=\\Ox h\\circ \\Omega_0 g,\\\\\r\n\\Omega_0(\\beta\\circ E\\alpha)&=\\Omega_0 \\beta\\circ \\alpha, &\r\n\\Omega_0(\\gamma\\circ \\beta)&=\\Ox\\gamma\\circ \\Omega_0\\beta .\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 13,
+          "kind": "equation",
+          "line": 497,
+          "labels": [],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\r\n\n\\alpha\\circ \\Ex^n\\beta=0,\\qquad \\beta\\circ \\gamma=0\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 14,
+          "kind": "equation",
+          "line": 519,
+          "labels": [
+            "eq:H-def"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{eq:H-def}\r\n\nH(d(w,t))=\r\n\\begin{cases}\r\na\\bigl(\\Ex^n B_{2t-1}(w)\\bigr), & \\tfrac12\\le t\\le 1,\\\\[2mm]\r\nA_{1-2t}\\bigl(\\Ex^n c(w)\\bigr), & 0\\le t\\le \\tfrac12.\r\n\\end{cases}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 15,
+          "kind": "lemma",
+          "line": 554,
+          "labels": [
+            "lem:double-coset"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{lemma}\\label{lem:double-coset}\r\n\n$\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n$ は,\r\n$[\\Ex^{n+1}W, Z]$ の中で,\r\n次の部分群の double coset である.\r\n\\[\r\n[\\Ex^{n+1}X, Z]\\circ \\Ex^{n+1}\\gamma, \\qquad\r\n\\alpha\\circ \\Ex^n\\!\\bigl([\\Ex W, Y]\\bigr).\r\n\\]\r\n$[\\Ex^{n+1}W, Z]$ が可換,\r\n特に, $n>0$ あるいは, $W=\\Ex W'$ または, $Z=\\Omega Z'$ のとき, \\\\\r\n\\(\r\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\r\n\\)\r\nは, 次の部分群の coset である.\r\n\\[\r\n[\\Ex^{n+1}X, Z]\\circ \\Ex^{n+1}\\gamma \\ +\\ \r\n\\alpha\\circ \\Ex^n\\!\\bigl([\\Ex W, Y]\\bigr).\r\n\\]\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 16,
+          "kind": "equation",
+          "line": 684,
+          "labels": [
+            "eq:split-m"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{eq:split-m}\r\n\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\r\n\\ \\subset\\\r\n\\bigl\\{\\alpha,\\ \\Ex^{m}(E^{n-m}\\beta),\\ E^{m}(E^{n-m}\\gamma)\\bigr\\}_m .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 17,
+          "kind": "proposition",
+          "line": 696,
+          "labels": [
+            "prop:1-2"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.2",
+          "tex": "\\begin{proposition}[]\\label{prop:1-2}\r\n\\leavevmode\r\n\\begin{enumerate}\r\n\\item[$0).$] $\\alpha$, $\\beta$, $\\gamma$ のうち, いずれかが $0$ なら,\r\n\\[\r\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\equiv0.\r\n\\]\r\n\\item[$i).$] $\\alpha\\circ \\Ex^n\\beta=\\beta\\circ\\gamma=0$ のとき,\r\n\\[\r\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\circ\\Ex^{n+1}\\delta\\ \\subset\\ \\{\\alpha,\\Ex^n \\beta, \\Ex^n(\\gamma\\circ\\delta)\\}_n.\r\n\\]\r\n\\item[$ii).$] $\\alpha\\circ \\Ex^n\\beta=\\beta\\circ\\gamma\\circ\\delta=0$ のとき,\r\n\\[\r\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n(\\gamma\\circ\\delta)\\}_n\\ \\subset\\ \\{\\alpha,\\ \\Ex^n(\\beta\\circ\\gamma),\\ \\Ex^n\\delta\\}_n .\r\n\\]\r\n\\item[$iii).$] $\\alpha\\circ\\Ex^n\\beta\\circ\\Ex^n\\gamma=\\gamma\\circ\\delta=0$ なら,\r\n\\[\r\n\\{\\alpha\\circ\\Ex^n\\beta,\\ \\Ex^n\\gamma,\\ \\Ex^n\\delta\\}_n\\ \\subset\\ \\{\\alpha,\\ \\Ex^n(\\beta\\circ\\gamma),\\ \\Ex^n\\delta\\}_n .\r\n\\]\r\n\\item[$iv).$] $\\beta\\circ\\Ex^n\\gamma=\\gamma\\circ\\delta=0$ のとき,\r\n\\[\r\n\\alpha\\circ\\{\\beta,\\ \\Ex^n\\gamma,\\ \\Ex^n\\delta\\}_n\\ \\subset\\ \\{\\alpha\\circ\\beta,\\ \\Ex^n\\gamma,\\ \\Ex^n\\delta\\}_n .\r\n\\]\r\n\\end{enumerate}\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 18,
+          "kind": "proposition",
+          "line": 749,
+          "labels": [
+            "prop:1-3"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.3",
+          "tex": "\\begin{proposition}\\label{prop:1-3}\r\n任意の $n\\ge 0$ に対し,\r\n\\[\r\n-\\Omega_0\\bigl\\{\\alpha,\\ \\Ex^{n+1}\\beta,\\ \\Ex^{n+1}\\gamma\\bigr\\}_{n+1}\r\n=\r\n\\bigl\\{\\Omega_0\\alpha,\\ \\Ex^{n}\\beta,\\ \\Ex^{n}\\gamma\\bigr\\}_n \\ ,\r\n\\]\r\n\\[\r\n-\\Ex\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\r\n\\subset\r\n\\bigl\\{E\\alpha,\\ \\Ex^{n+1}\\beta,\\ \\Ex^{n+1}\\gamma\\bigr\\}_{n+1}.\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 19,
+          "kind": "proposition",
+          "line": 835,
+          "labels": [
+            "prop:1-4"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.4",
+          "tex": "\\begin{proposition}\\label{prop:1-4}\r\n$\\alpha\\circ \\Ex^n\\beta=\\beta\\circ\\gamma=\\gamma\\circ\\delta=0$ のとき, \r\n次が成り立つ.\r\n\\[\r\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\circ\\Ex^{n+1}\\delta\r\n=\r\n(-1)^{n+1}\\bigl(\\alpha\\circ \\Ex^n\\{\\beta,\\ \\gamma,\\ \\delta\\}\\bigr).\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 20,
+          "kind": "proposition",
+          "line": 926,
+          "labels": [
+            "prop:1-5"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.5",
+          "tex": "\\begin{proposition}[]\\label{prop:1-5}\r\n$\\alpha,\\beta,\\gamma,\\delta,\\varepsilon$ を,\r\n\\[\r\n\\alpha\\circ \\beta=\\beta\\circ\\gamma=\\gamma\\circ\\delta=\\delta\\circ\\varepsilon=0\r\n\\]\r\n\\[\r\n0\\in \\alpha\\circ\\{\\beta,\\ \\gamma,\\ \\delta\\}, \\ \\ 0\\in\\{\\beta,\\ \\gamma,\\ \\delta\\}\\circ\\Ex\\varepsilon\r\n\\]\r\nを満たす元とする. このとき,\r\n\\[\r\n\\lambda\\in\\{\\alpha,\\beta,\\gamma\\},\\quad\r\n\\mu\\in\\{\\beta,\\gamma,\\delta\\},\\quad\r\n\\nu\\in\\{\\gamma,\\delta,\\varepsilon\\}\r\n\\]\r\nを適当に選ぶことができ, それらは,\r\n\\[\r\n\\lambda\\circ \\Ex\\delta=\\alpha\\circ \\mu=0,\\qquad\r\n\\beta\\circ \\nu=\\mu\\circ \\Ex\\varepsilon=0\r\n\\]\r\nを満たし, 次の和は $0$ を含む. \r\n\\[\r\n\\{\\lambda,\\ \\Ex\\delta,\\ \\Ex\\varepsilon\\}\r\n\\ +\\\r\n\\{\\alpha,\\ \\mu,\\ \\Ex\\varepsilon\\}\r\n\\ +\\\r\n\\{\\alpha,\\ \\beta,\\ \\nu\\}.\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 21,
+          "kind": "proposition",
+          "line": 965,
+          "labels": [
+            "prop:1-6"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.6",
+          "tex": "\\begin{proposition}[]\\label{prop:1-6}\r\n\n$\\alpha,\\alpha'\\in[\\Ex^n Y, Z]$, $\\beta,\\beta'\\in[X, Y]$, \r\n$\\gamma,\\gamma'\\in[W, X]$ とする. \\\\\r\n$n\\ge 1$ \\emph{または} $W=\\Ex W'$ の場合には,\r\n\\[\r\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\r\n+\r\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma'\\}_n\r\n\\ \\supset\\\r\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n(\\gamma+\\gamma')\\}_n\r\n\\]\r\nが成り立つ. \r\n$n\\ge 1$ \\emph{または} $\\gamma=\\Ex\\gamma' \\ (X=\\Ex X',\\ W=\\Ex W')$ の場合には,\r\n\\[\r\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\r\n+\r\n\\{\\alpha,\\Ex^n\\beta',\\Ex^n\\gamma\\}_n\r\n\\ =\\\r\n\\{\\alpha,\\Ex^n(\\beta+\\beta'),\\Ex^n\\gamma\\}_n,\r\n\\]\r\nが成り立つ. $n\\ge 1$ \\emph{または} $\\beta=\\Ex\\beta',\\ \\gamma=\\Ex\\gamma' \\ (Y=\\Ex Y',\\ X=\\Ex X',\\ W=\\Ex W')$ の場合には\r\n\\[\r\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\r\n+\r\n\\{\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\r\n\\ \\supset\\\r\n\\{\\alpha+\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\r\n\\]\r\nが成り立つ. \r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 22,
+          "kind": "equation",
+          "line": 1124,
+          "labels": [
+            "eq:cone-susp"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{eq:cone-susp}\r\n\n\\Ex^n(Y\\cup_\\beta CX)\\ =\\ \r\n\\Ex^nY\\ \\cup_{\\beta'}\\ C\\Ex^n X,\\quad \\beta'=\\Ex^n \\beta.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 23,
+          "kind": "proposition",
+          "line": 1138,
+          "labels": [
+            "prop:1-7"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.7",
+          "tex": "\\begin{proposition}[]\\label{prop:1-7}\r\n\\(\\alpha\\in[E^nY, Z],\\ \\beta\\in[X,Y],\\ \\gamma\\in[W,X]\\) に対して,\r\n  $\\alpha\\circ \\Ex^n\\beta=\\beta\\circ\\gamma=0$ を仮定する. \\\\\r\n$\\alpha$ の extension $\\overline\\alpha\\in[\\Ex^n(Y\\cup_\\beta CX), Z]$ と,\r\n$\\gamma$ の coextension $\\widetilde\\gamma\\in[EW, Y\\cup_\\beta CX]$ を考える. \r\nこのとき,\r\n\\[\r\n\\{\\ \\overline\\alpha\\circ \\Ex^n\\widetilde\\gamma\\ \\}\r\n= (-1)^n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n.\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 24,
+          "kind": "proposition",
+          "line": 1183,
+          "labels": [
+            "prop:1-8"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.8",
+          "tex": "\\begin{proposition}\\label{prop:1-8}\r\n$\\alpha,\\beta,\\gamma$ は, Prop$1.7$ と同様とする. \\\\\r\n$\\widetilde{\\beta}\\in[\\Ex^{n+1}X, Z\\cup_\\alpha C\\Ex^nY]$ を,\r\n$E^n\\beta$ の \\emph{coextension} とするとき,\r\n次が成り立つ.\r\n\\[\r\n\\bigl\\{\\ \\widetilde{\\beta}\\circ\\Ex^{n+1}\\gamma\\ \\bigr\\}\r\n\\ =\\\r\n-\\,i_*\\bigl\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\bigr\\}_n.\r\n\\]\r\nここで, $i:Z\\hookrightarrow Z\\cup_\\alpha C\\Ex^nY$ は,\r\n自然な包含写像である. \r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 25,
+          "kind": "equation",
+          "line": 1225,
+          "labels": [
+            "eq:p-def"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{eq:p-def}\r\n\np:X\\cup_\\gamma CW\\to EW\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 26,
+          "kind": "equation",
+          "line": 1236,
+          "labels": [
+            "eq:p-star"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{eq:p-star}\r\n\np_*(\\widetilde{\\delta})=E\\delta,\r\n\\quad\\text{for a coextension }\\ \r\n\\widetilde{\\delta}\\in[EV, X\\cup_\\gamma CW]\r\n\\text{ of }\\delta\\in[V, W].\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 1,
+          "order": 27,
+          "kind": "proposition",
+          "line": 1244,
+          "labels": [
+            "prop:1-9"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 1.9",
+          "tex": "\\begin{proposition}\\label{prop:1-9}\r\n\n$\\alpha,\\beta,\\gamma$ は, Prop$1.7$ と同様とする. \\\\\r\n$\\overline\\beta\\in[X\\cup_\\gamma CW, Y]$ を $\\beta$ の \\emph{extension} とする. \r\nこのとき,\r\nある $\\lambda\\in[\\Ex^{n+1}W, Z]$ が存在して, 次を満たす.\r\n\\[\r\n(\\Ex^n p)^*\\lambda=\\alpha\\circ \\Ex^n\\overline\\beta.\r\n\\]\r\nこのような $\\lambda$ 全体の集合は,\r\n\\(\r\n[\\Ex^{n+1}X, Z]\\circ \\Ex^{n+1}\\gamma\r\n\\)\r\nの coset であり, 特に次が成り立つ.\r\n\\[\r\n\\{\\lambda\\}\\ \\subset\\ \\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n .\r\n\\]\r\n逆に, $\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n$ の任意の元 $\\lambda$ に対し, \r\n適当な extension $\\overline\\beta$ が存在して,\r\n次が成り立つ.\r\n\\[\r\n(\\Ex^n p)^*\\lambda=\\alpha\\circ \\Ex^n\\overline\\beta.\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        }
+      ]
+    },
+    {
+      "chapter": 2,
+      "source_file": "Toda_02_2(2).tex",
+      "sha256": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+      "items": [
+        {
+          "chapter": 2,
+          "order": 1,
+          "kind": "equation",
+          "line": 81,
+          "labels": [
+            "eq:2.1"
+          ],
+          "tags": [],
+          "locator_candidate": "(2.1)",
+          "tex": "\\begin{equation}\\label{eq:2.1}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n\\alpha\\circ(\\beta_1\\pm\\beta_2)\r\n&=\\alpha\\circ\\beta_1\\ \\pm\\ \\alpha\\circ\\beta_2,\\\\\r\n(\\alpha_1\\pm\\alpha_2)\\circ E\\beta\r\n&=\\alpha_1\\circ E\\beta\\ \\pm\\ \\alpha_2\\circ E\\beta,\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 2,
+          "kind": "equation",
+          "line": 217,
+          "labels": [
+            "eq:2.2"
+          ],
+          "tags": [
+            "2.2"
+          ],
+          "locator_candidate": "(2.2)",
+          "tex": "\\begin{equation}\\label{eq:2.2}\r\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n  \\node (A) at (0,1.2) {$\\ (S^q)_\\infty\\ $};\r\n  \\node (B) at (3,1.2) {$\\ \\Omega S^{q+1}\\ $};\r\n  \\node (C) at (0,0)   {$\\ (S^m)_\\infty\\ $};\r\n  \\node (D) at (3,0)   {$\\ \\Omega S^{m+1}.\\ $};\r\n  \\draw[->] (A) -- node[above] {$i$} (B);\r\n  \\draw[->] (C) -- node[above] {$i$} (D);\r\n  \\draw[->] (A) -- node[left] {$(f)_\\infty$} (C);\r\n  \\draw[->] (B) -- node[right] {$\\Omega Ef$} (D);\r\n\\end{tikzpicture}\r\n\\tag{2.2}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 3,
+          "kind": "lemma",
+          "line": 241,
+          "labels": [
+            "lemma:2.1"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 2.1",
+          "tex": "\\begin{lemma}\\label{lemma:2.1}\r\n任意の有限 \\textnormal{cell complex (より一般には CW-complex)} $K$ に対して,\r\n\\[\r\ni_*:\\ [K, (S^m)_\\infty]\\ \\longrightarrow\\\r\n[K, \\Omega S^{m+1}]\r\n\\]\r\nは全単射である. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 4,
+          "kind": "equation",
+          "line": 255,
+          "labels": [
+            "eq:2.3"
+          ],
+          "tags": [
+            "2.3"
+          ],
+          "locator_candidate": "(2.3)",
+          "tex": "\\begin{equation}\\label{eq:2.3}\r\n\\Omega_1\\ :=\\ i_*^{-1}\\circ \\Omega_0:\\ \r\n[EK, S^{m+1}] \\xrightarrow{}\\ \r\n[K, (S^m)_\\infty].\r\n\\tag{2.3}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 5,
+          "kind": "equation",
+          "line": 279,
+          "labels": [
+            "eq:2.4"
+          ],
+          "tags": [
+            "2.4"
+          ],
+          "locator_candidate": "(2.4)",
+          "tex": "\\begin{equation}\\label{eq:2.4}\r\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n  \\node (A) at (0,1.2) {$\\ [K, S^m]\\ $};\r\n  \\node (B) at (3,1.2) {$\\ [EK, S^{m+1}]\\ $};\r\n  \\node (C) at (3,0)   {$\\ [K, (S^m)_\\infty]\\ $};\r\n  \\draw[->] (A) -- node[above] {$E$} (B);\r\n  \\draw[->] (A) -- node[left] {$i'_*\\,\\,$} (C);\r\n  \\draw[->] (B) -- node[right] {$\\,\\Omega_1$} (C);\r\n\\end{tikzpicture}\r\n\\tag{2.4}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 6,
+          "kind": "equation",
+          "line": 299,
+          "labels": [
+            "eq:2.5"
+          ],
+          "tags": [
+            "2.5"
+          ],
+          "locator_candidate": "(2.5)",
+          "tex": "\\begin{equation}\\label{eq:2.5}\r\nh_m:\\ \\bigl((S^m)_\\infty,\\ S^m\\bigr)\\ \\longrightarrow\\\r\n\\bigl((S^{2m})_\\infty,\\ e_0\\bigr)\r\n\\tag{2.5}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 7,
+          "kind": "equation",
+          "line": 306,
+          "labels": [
+            "eq:2.6"
+          ],
+          "tags": [
+            "2.6"
+          ],
+          "locator_candidate": "(2.6)",
+          "tex": "\\begin{equation}\\label{eq:2.6}\r\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n  \\node (A) at (0,1.2) {$\\ (S^q)_\\infty\\ $};\r\n  \\node (B) at (3,1.2) {$\\ (S^{2q})_\\infty\\ $};\r\n  \\node (C) at (0,0)   {$\\ (S^m)_\\infty\\ $};\r\n  \\node (D) at (3,0)   {$\\ (S^{2m})_\\infty\\ $};\r\n  \\draw[->] (A) -- node[above] {$h_q$} (B);\r\n  \\draw[->] (C) -- node[above] {$h_m$} (D);\r\n  \\draw[->] (A) -- node[left] {$(f)_\\infty$} (C);\r\n  \\draw[->] (B) -- node[right] {$(f\\wedge f)_\\infty$} (D);\r\n\\end{tikzpicture}\r\n\\tag{2.6}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 8,
+          "kind": "equation",
+          "line": 341,
+          "labels": [
+            "eq:2.7"
+          ],
+          "tags": [
+            "2.7"
+          ],
+          "locator_candidate": "(2.7)",
+          "tex": "\\begin{equation}\\label{eq:2.7}\r\nH\\ :=\\ \\Omega_1^{-1}\\circ h_{m*}\\circ \\Omega_1:\\ \r\n[EK, S^{m+1}]\\ \\longrightarrow\\ [EK, S^{2m+1}]\r\n\\tag{2.7}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 9,
+          "kind": "proposition",
+          "line": 353,
+          "labels": [
+            "prop:2.2"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 2.2",
+          "tex": "\\begin{proposition}\\label{prop:2.2}\r\n\n$K,L$ を有限 cell complex とする. \\\\\r\n$\\alpha\\in[EK, S^{m+1}], \\ \\beta\\in[L,K], \\ \\gamma\\in\\pi_r(S^r)$ \r\nに対して, 次が成り立つ：\\\\\r\n\\[\r\nH(\\alpha\\circ E\\beta)\\ =\\ H(\\alpha)\\circ E\\beta,\r\n\\]\r\n\\[\r\nH(E\\gamma\\circ\\alpha)\\ =\\ E(\\gamma\\wedge\\gamma)\\circ H(\\alpha).\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 2.2",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 10,
+          "kind": "proposition",
+          "line": 411,
+          "labels": [
+            "prop:2.3"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 2.3",
+          "tex": "\\begin{proposition}\\label{prop:2.3}\r\n\n\n$n\\ge1$ とし, 元\r\n\\[\r\n\\alpha\\in[E^nK, S^{m+1}],\\quad\r\n\\beta\\in[L, K],\\quad\r\n\\gamma\\in[M, L]\r\n\\]\r\nが条件\r\n\\[\r\n\\alpha\\circ E^n\\beta=0,\\qquad \\beta\\circ\\gamma=0\r\n\\]\r\nを満たすと仮定する. このとき,\r\n\\[\r\nH\\!\\bigl(\\,\\{\\,\\alpha,\\ E^n\\beta,\\ E^n\\gamma\\,\\}_n\\bigr)\\ \\subset\\\r\n\\{\\,H(\\alpha),\\ E^n\\beta,\\ E^n\\gamma\\,\\}_n .\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 11,
+          "kind": "theorem",
+          "line": 483,
+          "labels": [
+            "thm:2.4"
+          ],
+          "tags": [],
+          "locator_candidate": "Theorem 2.4",
+          "tex": "\\begin{theorem}[James {[10]}; Toda {[21]}]\\label{thm:2.4}\r\n\n$p$ を素数, $m>1$ とする. \r\n連続写像\r\n\\[\r\nh:\\ ((S^m)_\\infty,(S^m)_{p-1})\\longrightarrow ((S^{pm})_\\infty,e_0)\r\n\\]\r\nであって, $e^{pm}$ を $S^{pm}-e_0$ へ同相に移すものをとる. \r\n\\begin{enumerate}\r\n\\item $m$ が奇数で $p=2$ のとき, 次は全ての $i$ に対して同型である. \r\n\\[\r\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,S^m\\bigr)\\ \\longrightarrow\\ \r\n\\pi_i\\bigl((S^{2m})_\\infty\\bigr).\r\n\\]\r\n\\item $m$ が偶数のとき, 次は $i<(p+1)m-1$ に対して同型である.\r\n\\[\r\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \r\n\\pi_i\\bigl((S^{pm})_\\infty\\bigr).\r\n\\]\r\nさらに, 全ての $i$ に対して $p$-成分についての同型を与える. \r\n\\end{enumerate}\r\n\\end{theorem}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 12,
+          "kind": "equation",
+          "line": 915,
+          "labels": [
+            "2.8"
+          ],
+          "tags": [
+            "2.8"
+          ],
+          "locator_candidate": "(2.8)",
+          "tex": "\\begin{equation}\\label{2.8}\r\n\\cdots\\ \\to\\ \\pi_i(S^m)\\ \\to\\ \\pi_i\\bigl((S^m)_\\infty\\bigr)\\ \\to\\\r\n\\pi_i\\bigl((S^m)_\\infty,\\ S^m\\bigr)\\ \\xrightarrow{\\ \\partial\\ }\\ \\pi_{i-1}(S^m)\\ \\to\\ \\cdots\r\n\\tag{2.8}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 13,
+          "kind": "equation",
+          "line": 927,
+          "labels": [
+            "2.9"
+          ],
+          "tags": [
+            "2.9"
+          ],
+          "locator_candidate": "(2.9)",
+          "tex": "\\begin{equation}\\label{2.9}\r\n\\Delta\\ :=\\ \\partial\\ \\circ\\ (h_{m*})^{-1}\\ \\circ\\ \\Omega_1:\\ \r\n\\pi_{i+1}(S^{2m+1})\\ \\longrightarrow\\ \\pi_{i-1}(S^m)\\big/\\partial\\Ker(h_{m*})\r\n\\tag{2.9}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 14,
+          "kind": "equation",
+          "line": 936,
+          "labels": [
+            "2.10"
+          ],
+          "tags": [
+            "2.10"
+          ],
+          "locator_candidate": "(2.10)",
+          "tex": "\\begin{equation}\\label{2.10}\r\n\\Delta^{-1}\\ :=\\ \\Omega_1^{-1}\\ \\circ\\ h_{m*}\\ \\circ\\ \\partial^{-1}:\\ \r\n\\pi_{i-1}(S^m)\\ \\longrightarrow\\ \r\n\\pi_{i+1}(S^{2m+1})\\big/ H\\pi_{i+1}(S^{m+1})\r\n\\tag{2.10}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 15,
+          "kind": "equation",
+          "line": 949,
+          "labels": [
+            "2.11"
+          ],
+          "tags": [
+            "2.11"
+          ],
+          "locator_candidate": "(2.11)",
+          "tex": "\\begin{equation}\\label{2.11}\r\n\n\\cdots\\ \\longrightarrow\\ \r\n\\pi_i(S^m)\\xrightarrow{\\,E\\,}\\pi_{i+1}(S^{m+1})\\xrightarrow{\\,H\\,}\r\n\\pi_{i+1}(S^{2m+1})\\xrightarrow{\\,\\Delta\\,}\\pi_{i-1}(S^m)\\xrightarrow{\\,E\\,}\\cdots\r\n\\tag{2.11}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 16,
+          "kind": "proposition",
+          "line": 960,
+          "labels": [
+            "prop:2.5"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 2.5",
+          "tex": "\\begin{proposition}\\label{prop:2.5}\r\n\n$\\alpha\\in\\pi_{i+1}(S^{2m+1}), \\ \\beta\\in \\pi_{j-1}(S^{i-1})$ 対して, \r\n\\[\r\n\\Delta\\alpha\\ \\circ\\ \\beta\\ \\subset\\ \\Delta(\\alpha\\circ E^2\\beta).\r\n\\]\r\n特に, 任意の $\\gamma$ に対し,\r\n\\[\r\n\\Delta(E^2\\gamma)\\ \\ni\\ \\pm\\,[\\,\\iota_m,\\ \\iota_m\\,]\\circ\\gamma\r\n\\]\r\nが成り立つ. ここで $[\\, ,\\,]$ は Whitehead product を表す. \\\\\r\n上の「$\\subset$」および「$\\ni$」は, $m$ が奇数, \r\nあるいは $j<3m-1$, \\\\\r\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \r\n等号「$=$」に置き換えられる. \r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 2.5",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 17,
+          "kind": "proposition",
+          "line": 1093,
+          "labels": [
+            "prop:2.6"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 2.6",
+          "tex": "\\begin{proposition}\\label{prop:2.6}\r\n$\\alpha\\in[K, S^m], \\ \\beta\\in\\pi_k(K), \\ \\gamma\\in\\pi_i(S^k)$ が,\r\n\\[\r\nE(\\alpha\\circ\\beta)=\\beta\\circ\\gamma=0\r\n\\]\r\nを満たすとする. このとき, \r\n\\[\r\nH\\todai[1]{E\\alpha,E\\beta,E\\gamma}\\ =\\ -\\,\\Delta^{-1}(\\alpha\\circ\\beta)\\ \\circ\\ E^2\\gamma .\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 2,
+          "order": 18,
+          "kind": "proposition",
+          "line": 1302,
+          "labels": [
+            "prop:2.7"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 2.7",
+          "tex": "\\begin{proposition}\\label{prop:2.7}\r\n\n$n$ が偶数のとき,\r\n\\[\r\nH\\!\\bigl(\\Delta(\\iota_{2n+1})\\bigr)\\ =\\ \\pm\\,2\\,\\iota_{2n-1}\r\n\\qquad (\\text{cf.} (11.14)).\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        }
+      ]
+    },
+    {
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "sha256": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+      "items": [
+        {
+          "chapter": 3,
+          "order": 1,
+          "kind": "proposition",
+          "line": 83,
+          "labels": [
+            "prop:3.1"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 3.1",
+          "tex": "\\begin{proposition}[Barratt-Hilton \\cite{BarrattHilton1953}]\\label{prop:3.1}\r\n\n\\[\r\n\\alpha \\wedge \\beta\r\n= (-1)^{(p+k)h} E^{q}\\alpha \\circ E^{p+k}\\beta\r\n= (-1)^{ph} E^{p}\\beta \\circ E^{q+h}\\alpha .\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 3.1",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 2,
+          "kind": "proposition",
+          "line": 138,
+          "labels": [
+            "prop:3.2"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 3.2",
+          "tex": "\\begin{proposition}\\label{prop:3.2}\r\n\n$\\alpha\\in\\pi_{p+k}(S^p)$, $\\beta\\in\\pi_{q+h}(S^q)$ とし, \\\\\r\n\\(k\\le \\min\\{\\,p+q-3,\\ 2p-4\\,\\},\\\r\nh\\le \\min\\{\\,p+q-3,\\ 2q-4\\,\\}\\)\r\nを仮定する. このとき,\r\n\\[\r\n\\begin{align*}\r\n& E^{q-1}\\alpha \\circ E^{p+k-1}\\beta\r\n - (-1)^{kh}E^{p-1}\\beta\\circ E^{q+h-1}\\alpha  \\\\\r\n& = [\\iota_{p+q-1}, \\iota_{p+q-1}]\\circ \r\nE^{2q-2}H(\\alpha)\\circ E^{p+k-1}H(\\beta) .\\\\\r\n& 2([\\iota_{p+q-1}, \\iota_{p+q-1}]\\circ \r\nE^{2q-2}H(\\alpha)\\circ E^{p+k-1}H(\\beta)) = 0.\r\n\\end{align*}\r\n\\]\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 3,
+          "kind": "corollary",
+          "line": 195,
+          "labels": [
+            "cor:3.3"
+          ],
+          "tags": [],
+          "locator_candidate": "Corollary 3.3",
+          "tex": "\\begin{corollary}\\label{cor:3.3}\r\n\nProp$3.2$ と同じ仮定のもとで,\r\n\\[\r\nE^{q-1}\\alpha\\circ E^{p+k-1}\\beta\r\n - (-1)^{kh} E^{p-1}\\beta\\circ E^{q+h-1}\\alpha\r\n = \\Delta(E^{2q}H(\\alpha)\\circ E^{p+k-1}H(\\beta)).\r\n\\]\r\n\\end{corollary}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 4,
+          "kind": "proposition",
+          "line": 207,
+          "labels": [
+            "prop:3.4"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 3.4",
+          "tex": "\\begin{proposition}[\\cite{Toda1959} Prop4.6]\\label{prop:3.4}\r\n\n\\begin{enumerate}\r\n  \n\\item[\\textup{i)}]\r\n$\\alpha\\in\\pi_{p+h}(S^p)$, \r\n$\\beta\\in\\pi_{q+k}(S^q)$, \r\n$\\gamma\\in\\pi_{r+\\ell}(S^r)$ が,\\\\\r\n\\(\\alpha \\wedge \\beta = 0,\\ \\beta \\wedge \\gamma = 0\\)\r\nを満たすとする. \\\\\r\nこのとき, 次の $2$ つの Toda bracket は, 共通元を持つ.\r\n\\[\r\n\\toda{E^{q+r}\\alpha,\\ E^{p+h+r}\\beta,\\ E^{p+h+q+k}\\gamma}, \r\n\\]\r\n\\[\r\n(-1)^{hk+k\\ell+\\ell h+1}\\,\\toda{E^{p+q}\\gamma,\\ E^{p+r+\\ell}\\beta,\\ \r\nE^{q+k+r+\\ell}\\alpha}.\r\n\\]\r\n\\item[\\textup{ii)}]\r\nさらに, $\\alpha \\wedge \\gamma=0$ も満たすとき, 次の和は \\(0\\) を含む. \r\n\\[\r\n\\begin{aligned}\r\n&\\ (-1)^{h\\ell} \\toda{E^{q+r}\\alpha,\\ E^{p+h+r}\\beta,\\ E^{p+h+q+k}\\gamma}\\\\\r\n&+\\;(-1)^{kh}\\toda{E^{p+r}\\beta,\\ E^{p+q+k}\\gamma,\\ E^{q+k+r+\\ell}\\alpha}\\\\\r\n&+\\;(-1)^{\\ell k}\\toda{E^{p+q}\\gamma,\\ E^{q+r+\\ell}\\alpha,\\ E^{p+h+r+\\ell}\\beta} .\r\n\\end{aligned}\r\n\\]\r\n\\end{enumerate}\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 5,
+          "kind": "equation",
+          "line": 442,
+          "labels": [
+            "3.1"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.1)",
+          "tex": "\\begin{equation}\\label{3.1}\r\n\n\\bigl(1-(-1)^k\\bigr)\\, \\Ex^{\\,n-h}\\alpha \\circ \\Ex^{\\,n+k-h}\\alpha = 0.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 6,
+          "kind": "lemma",
+          "line": 578,
+          "labels": [
+            "lem:3.5"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 3.5",
+          "tex": "\\begin{lemma}\\label{lem:3.5}\r\n\n$\\alpha\\in\\pis{n+k}{S^n}$, 整数 $h\\ge0$ が, \r\n条件 \\eqref{3.1} を満たすとする. \\\\\r\n$\\iota_K$ を $K$ の恒等写像のホモトピー類とし, \r\nさらに, $k\\le 2n-2$ と仮定する. \\\\\r\n\\((1-(-1)^k)\\,\\Ex^{\\,n+k-h}\\alpha\\) の任意の coextension\r\n\\(\\gamma\\ \\in\\ \\pis{2n+2k-h+1}{\\Ex^{n}K}\\)\r\nに対し, \\\\\r\nある元 $\\alpha^{*}\\in\\pis{2n+2k+1}{S^{2n}}$ が存在して,\r\n次が成り立つ.\r\n\\[\r\n\\iota_K \\wedge \\alpha\r\n\\;=\\; (\\Ex^{n+k}p)^{*}\\!\\Bigl(\\, i_*\\alpha^{*}\\ +\\ (-1)^{nk}\\,\\Ex^{h}\\gamma \\Bigr)\r\n\\in\\ [\\Ex^{n+k}K, Ex^{n}K]\r\n\\]\r\nここで, $i:S^{2n}\\into\\Ex^{n}K$ は 包含写像である. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 7,
+          "kind": "theorem",
+          "line": 810,
+          "labels": [
+            "thm:3.6"
+          ],
+          "tags": [],
+          "locator_candidate": "Theorem 3.6",
+          "tex": "\\begin{theorem}\\label{thm:3.6}\r\n\n$\\alpha\\in\\pis{n+k}{S^{n}}$, $h\\ge0$ が \\eqref{3.1} を満たすとする.\\\\ \r\nさらに, $k\\le 2n-2$ と仮定する.\r\nこのとき,\r\n\\(\\alpha^{*}\\in\\pis{2n+2k+1}{S^{2n}}\\)\r\nが存在して, \\\\\r\n\\(\\beta\\circ \\Ex^{\\ell}\\alpha=0\\)\r\nを満たす任意の $\\beta\\in\\pis{n+\\ell}{S^{n}}$ に対して, \r\n\\[\r\n\\begin{align*}\r\n  \\Ex^{n}\\beta \\circ \\Ex^{t}\\alpha^{*} \r\n  & \\in (-1)^{km+kt+t}\\,\\todai[n+k]{\\Ex^{m}\\alpha,\\ \r\n  \\Ex^{n+k}\\beta,\\ \\Ex^{n+k+t}\\alpha}\\\\\r\n  & + (-1)^{kn+h+t+1}\\,\\todai[h+t]{\\Ex^{n}\\beta,\\ \r\n  \\Ex^{n+t}\\alpha,\\ (1-(-1)^k)\\Ex^{n+k+t}\\alpha}\\ .\r\n\\end{align*}\r\n\\]\r\nさらに,\r\n\\((1-(-1)^k)\\Ex^{n+h+1}\\alpha=0\\), 特に \\(k\\) が偶数のとき, \r\n\\[\r\n\\Ex^{n}\\beta\\circ \\Ex^{t}\\alpha^{*}\\ \\in\\\r\n(-1)^{km+kt+t}\\,\\todai[n+k]{\\Ex^{m}\\alpha,\\ \\Ex^{n+k}\\beta,\\ \\Ex^{n+k+t}\\alpha}\\ .\r\n\\]\r\n\\end{theorem}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 8,
+          "kind": "corollary",
+          "line": 1058,
+          "labels": [
+            "cor:3.7"
+          ],
+          "tags": [],
+          "locator_candidate": "Corollary 3.7",
+          "tex": "\\begin{corollary}\\label{cor:3.7}\r\n\n整数 $r$ をとる. $\\beta\\in\\pis{m+k}{S^m}$, $(k>0)$ が $r\\beta=0$ を満たすとき,\r\n\\[\r\n\\todai[1]{\\,r\\,\\iota_{m+1},\\ \\Ex\\beta,\\ r\\,\\iota_{m+k+1}\\,}\r\n\\begin{cases}\r\n\\equiv 0, & r\\not\\equiv 2 \\pmod 4,\\\\[4pt]\r\n\\ni\\Ex\\beta\\circ \\eta_{m+k+1}, & r\\equiv 2 \\pmod 4 .\r\n\\end{cases}\r\n\\]\r\nここで, $\\eta_{m+k+1}$ は $\\pis{m+k+2}{S^{m+k+1}}\\cong\\mathbb{Z}_2$ の生成元とする. \r\n\\end{corollary}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 9,
+          "kind": "equation",
+          "line": 1193,
+          "labels": [
+            "3.2"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.2)",
+          "tex": "\\begin{equation}\\label{3.2}\r\n\n\\Ex: \\pis{i}{S^m} \\longrightarrow \\pis{i+1}{S^{m+1}}\r\n\\quad\\text{は, } i<2m-1 \\text{で同型, } i=2m-1 \\text{で全射である. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 10,
+          "kind": "equation",
+          "line": 1208,
+          "labels": [
+            "3.3"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.3)",
+          "tex": "\\begin{equation}\\label{3.3}\r\n\n\\Ex^\\infty:\\ \\pis{n+k}{S^n}\\ \\xrightarrow{\\;\\;}\\ G_k\r\n\\quad\\text{は, } n>k+1 \\text{で同型, } n=k+1 \\text{で全射である. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 11,
+          "kind": "equation",
+          "line": 1228,
+          "labels": [
+            "3.4"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.4)",
+          "tex": "\\begin{equation}\\label{3.4}\r\n\n\\alpha\\circ\\beta=(-1)^{kh}\\,\\beta\\circ\\alpha,\r\n\\qquad(\\alpha\\in G_k,\\ \\beta\\in G_h) .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 12,
+          "kind": "equation",
+          "line": 1343,
+          "labels": [
+            "3.prop-zero"
+          ],
+          "tags": [],
+          "locator_candidate": null,
+          "tex": "\\begin{equation}\\label{3.prop-zero}\r\n\n\\raisetag{3ex}\r\n  \\begin{aligned}[t]\r\n    \\text{0).}\\ & \\todas{\\alpha, \\beta, \\gamma}\\equiv 0,\r\n    \\qquad\\text{ ($\\alpha,\\beta,\\gamma$ のいずれかが $0$ のとき) }.\r\n    \\qquad\\qquad\\qquad\\qquad\\qquad\\\\\r\n    \\text{i).}\\ & \\todas{\\alpha, \\beta, \\gamma}\\circ\\delta\r\n    \\subset \\todas{\\alpha, \\beta, \\gamma\\circ\\delta}\\\\\r\n    \\text{ii).}\\ & \\todas{\\alpha, \\beta, \\gamma\\circ\\delta}\r\n    \\subset \\todas{\\alpha, \\beta\\circ\\gamma, \\delta}\\\\\r\n    \\text{iii).}\\ & \\todas{\\alpha\\circ\\beta, \\gamma, \\delta}\r\n    \\subset \\todas{\\alpha, \\beta\\circ\\gamma, \\delta}\\\\\r\n    \\text{iv).}\\ & \\alpha\\circ\\todas{\\beta, \\gamma, \\delta}\r\n    \\subset (-1)^k\\todas{\\alpha\\circ\\beta, \\gamma, \\delta},\\ \\alpha\\in G_k .\r\n  \\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 13,
+          "kind": "equation",
+          "line": 1363,
+          "labels": [
+            "3.6-stable"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.6)",
+          "tex": "\\begin{equation}\\label{3.6-stable}\r\n\\todas{\\alpha,\\beta,\\gamma}\\circ\\delta\r\n = (-1)^{k+1}\\,\\alpha\\circ\\todas{\\beta,\\gamma,\\delta},\r\n\\qquad \\alpha\\in G_k.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 14,
+          "kind": "equation",
+          "line": 1372,
+          "labels": [
+            "3.7-stable"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.7)",
+          "tex": "\\begin{equation}\\label{3.7-stable}\r\n\n0\\ \\in\\\r\n\\todas{\\todas{\\alpha,\\beta,\\gamma},\\,\\delta,\\,\\varepsilon}\r\n\\ +\\ (-1)^{k}\\,\\todas{\\alpha,\\,\\todas{\\beta,\\gamma,\\delta},\\,\\varepsilon}\r\n\\ +\\ (-1)^{k+h}\\,\\todas{\\alpha,\\,\\beta,\\,\\todas{\\gamma,\\delta,\\varepsilon}}.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 15,
+          "kind": "equation",
+          "line": 1382,
+          "labels": [
+            "3.8-stable"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.8)",
+          "tex": "\\begin{equation}\\label{3.8-stable}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n\\todas{\\alpha,\\beta,\\gamma}\\ +\\ \\todas{\\alpha,\\beta,\\gamma'}\\ &\\supset\\\r\n\\todas{\\alpha,\\beta,\\,\\gamma+\\gamma'},\\\\\r\n\\todas{\\alpha,\\beta,\\gamma}\\ +\\ \\todas{\\alpha,\\beta',\\gamma}\\ &=\\\r\n\\todas{\\alpha,\\,\\beta+\\beta',\\,\\gamma},\\\\\r\n\\todas{\\alpha,\\beta,\\gamma}\\ +\\ \\todas{\\alpha',\\beta,\\gamma}\\ &\\supset\\\r\n\\todas{\\,\\alpha+\\alpha',\\,\\beta,\\,\\gamma}.\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 16,
+          "kind": "equation",
+          "line": 1398,
+          "labels": [
+            "3.9-stable"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.9)",
+          "tex": "\\begin{equation}\\label{3.9-stable}\r\n\n\n\\raisetag{3ex}\r\n  \\begin{aligned}[t]\r\n    \\text{i).}\\ & \\todas{\\alpha,\\beta,\\gamma}\\ \\subset\\\r\n    (-1)^{hk+k\\ell+\\ell h+1}\\ \\todas{\\gamma,\\beta,\\alpha},\\\\\r\n    \\text{ii).}\\ & (-1)^{k\\ell}\\ \\todas{\\alpha,\\beta,\\gamma}\\ +\\\r\n    (-1)^{hk}\\ \\todas{\\beta,\\gamma,\\alpha}\\ +\\\r\n    (-1)^{\\ell k}\\ \\todas{\\gamma,\\alpha,\\beta}\\ \\ni\\ 0 .\r\n    \\qquad\\qquad\\qquad\r\n  \\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 3,
+          "order": 17,
+          "kind": "equation",
+          "line": 1415,
+          "labels": [
+            "prop:3.10"
+          ],
+          "tags": [],
+          "locator_candidate": "(3.10)",
+          "tex": "\\begin{equation}\\label{prop:3.10}\r\n\n\\raisetag{3ex}\r\n  \\begin{aligned}[t]\r\n    & k \\text{ が奇数のとき, } \\todas{\\alpha,\\beta,\\alpha} \\text{ と }\r\n    (-1)^{h}\\,\\todas{\\beta,\\alpha,2\\alpha} \\text{ は共通元を持つ. }\\\\\r\n    & k \\text{ が偶数のとき, } \\todas{\\alpha,\\beta,\\alpha} \\text{ と }\r\n    \\beta\\circ G_{2k+1} \\text{ は共通元を持つ. }\r\n    \\qquad\\qquad\\qquad\\qquad\\qquad\\\\\r\n  \\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        }
+      ]
+    },
+    {
+      "chapter": 4,
+      "source_file": "Toda_04_2(2).tex",
+      "sha256": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+      "items": [
+        {
+          "chapter": 4,
+          "order": 1,
+          "kind": "equation",
+          "line": 78,
+          "labels": [
+            "4.1"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.1)",
+          "tex": "\\begin{equation}\\label{4.1}\r\n\\pis{i}{S^1}=0\\ (i>1),\\qquad\r\n\\pis{i}{S^n}=0\\ (i<n),\\qquad\r\n\\pis{n}{S^n}\\cong \\mathbb{Z}\\gen{\\iota_n} .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 2,
+          "kind": "equation",
+          "line": 85,
+          "labels": [
+            "4.2"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.2)",
+          "tex": "\\begin{equation}\\label{4.2}\r\n\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \r\ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 3,
+          "kind": "equation",
+          "line": 93,
+          "labels": [
+            "4.3"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.3)",
+          "tex": "\\begin{equation}\\label{4.3}\r\n\\pi_i^n :=\r\n\\begin{cases}\r\n\\pis{n}{S^n}, & i=n,\\\\[2pt]\r\n\\Ex^{-1}\\bigl(\\pis{2n}{S^{n+1};2}\\bigr), & i=2n-1,\\\\[2pt]\r\n\\pis{i}{S^n;2}, & i\\ne n,\\,2n-1 .\r\n\\end{cases}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 4,
+          "kind": "lemma",
+          "line": 103,
+          "labels": [
+            "lem:4.1"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 4.1",
+          "tex": "\\begin{lemma}\\label{lem:4.1}\r\n\n$n$ が奇数のとき,  $\\pi_{2n-1}^n=\\pis{2n-1}{S^n;2} .$\\\\\r\n$n$ が偶数で, $[\\,\\iota_{n-1},\\iota_{n-1}\\,]\\ne0$ のとき, \r\n\\(\r\n\\pi_{2n-1}^n\\ \\cong\\ \\mathbb{Z}\\gen{\\Delta(\\iota_{2n+1})}\\ \\oplus \\ \r\n\\pis{2n-1}{S^n;2} .\r\n\\)\\\\\r\n$n$ が偶数で, $[\\,\\iota_{n-1},\\iota_{n-1}\\,]=0$ のとき, \r\n\\(\r\n\\pi_{2n-1}^n\\ \\cong\\ \\mathbb{Z}\\gen{\\alpha}\\ \\oplus \\\r\n\\pis{2n-1}{S^n;2} .\r\n\\)\\\\\r\nここで, \\(\\alpha\\) は \r\n\\(H(\\alpha)=\\iota_{2n-1},\\ E\\alpha\\in\\pi_{2n}^{n+1}=\\pi_{2n}(S^{n+1};2)\\)\r\nを満たす元である. \\\\\r\nいずれの場合も, $[\\,\\iota_n,\\iota_n\\,]\\in \\pi_{2n-1}^n$ である. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 5,
+          "kind": "proposition",
+          "line": 256,
+          "labels": [
+            "prop:4.2",
+            "4.4"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 4.2",
+          "tex": "\\begin{proposition}[]\\label{prop:4.2}\r\n\n次の列は完全列である：\r\n\\begin{equation}\\label{4.4}\r\n\n\\cdots \\longrightarrow\r\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\r\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\r\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\r\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\r\n\\end{equation}\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 6,
+          "kind": "equation",
+          "line": 259,
+          "labels": [
+            "4.4"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.4)",
+          "tex": "\\begin{equation}\\label{4.4}\r\n\n\\cdots \\longrightarrow\r\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\r\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\r\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\r\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 7,
+          "kind": "equation",
+          "line": 386,
+          "labels": [
+            "4.5"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.5)",
+          "tex": "\\begin{equation}\\label{4.5}\r\n\n\\Ex^{\\,m-n}:\\pit{n+k}{n}\\xrightarrow{\\cong}\\pit{m+k}{m}\\quad(m\\ge n),\\ \\ \\\r\n\\Ex^{\\infty}:\\pit{n+k}{n}\\xrightarrow{\\cong}(G_k;2)\r\n\\quad(n\\ge k+2).\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(4.5)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 8,
+          "kind": "lemma",
+          "line": 393,
+          "labels": [
+            "lem:4.3"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 4.3",
+          "tex": "\\begin{lemma}\\label{lem:4.3}\r\n\n$n\\ge1$ とする. $\\alpha,\\gamma$ が $p$-成分に属するならば, \\\\\r\n$\\alpha\\circ \\Ex^{n}\\beta$ と $\\beta\\circ\\gamma$ も, \r\n$p$-成分に属する. \\\\\r\nさらに, $\\alpha\\circ \\Ex^{n}\\beta=\\beta\\circ\\gamma=0$ のとき, \r\n$\\todai[n]{\\alpha,\\Ex^{n}\\beta,\\Ex^{n}\\gamma}$ の各元は,\r\n$p$-成分に属する. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 9,
+          "kind": "equation",
+          "line": 404,
+          "labels": [
+            "4.6"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.6)",
+          "tex": "\\begin{equation}\\label{4.6}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n  &n\\ge 1,\\ p^r\\alpha=0,\\ p^s\\gamma=0,\\ r,s>0,\\ \r\n  \\alpha\\in[E^n Y, Z],\\ \\gamma\\in[EW, X] \\ \\text{のとき, }\\\\\r\n  &\\beta\\in[X, Y]\\ \\text{に対して, } \\ \r\n  p^r(\\alpha\\circ E^r\\beta) = 0,\\ p^s(\\beta\\circ\\gamma) = 0 \\ \\text{である. }\\\\\r\n  &\\text{さらに, }\\ \\alpha\\circ E^n\\beta=0,\\ \\beta\\circ\\gamma = 0 \\ \\text{のとき, }\r\n  p^{r+s}\\todai[n]{\\alpha, E^n\\beta, E^n\\gamma} = 0 \\ \\text{である. }\\qquad\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 10,
+          "kind": "equation",
+          "line": 417,
+          "labels": [
+            "4.7"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.7)",
+          "tex": "\\begin{equation}\\label{4.7}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n  & n\\ge1, \\ \\alpha\\in\\pis{k+n}{S^m; 2},\\ \\gamma\\in\\pis{i}{S^j; 2}\r\n    \\ \\text{のとき, }\\\\\r\n  & \\alpha\\circ E^n\\pis{j}{S^k} = \\alpha\\circ E^n \\pit{j}{k}\r\n  \\subset \\pit{j+n}{m},\r\n  \\ \\pis{j}{S^k}\\circ\\gamma = \\pit{j}{k}\\circ\\gamma \\subset\\pit{i}{k}\\ . \\\\\r\n  &\\text{さらに, }\\ \\alpha\\circ E^n\\beta=0,\\ \\beta\\circ\\gamma = 0 \\ \\text{のとき, }\\\\\r\n  & \\todai[n]{\\alpha, E^n\\beta, E^n\\gamma}\\ \\text{は,}\\\r\n  \\alpha\\circ E^n\\pit{i+1}{k} + \\pit{j+n+1}{m}\\circ E^{n+1}\\gamma\\\r\n  \\text{の coset で, }\\qquad\\qquad\\qquad\\\\\r\n  & \\pit{i+n+1}{m} \\ \\text{の部分集合である. }\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 11,
+          "kind": "proposition",
+          "line": 469,
+          "labels": [
+            "prop:4.4"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 4.4",
+          "tex": "\\begin{proposition}\\label{prop:4.4}\r\n\n$\\alpha\\in\\pit{2n-1}{n}$ で $H(\\alpha)=\\pm\\iota_{2n-1}$ とする. \r\nこのとき,\\\\\r\n\\(\r\n\\pit{i-1}{n-1}\\oplus\\pit{i}{2n-1}\\to\\pit{i}{n},\\quad\r\n(\\beta,\\gamma) \\longmapsto E\\beta + \\alpha\\circ\\gamma\r\n\\)\r\nは, 任意の \\(i\\) で同型である. \\\\\r\n特に, \r\n\\(\r\nE:\\pit{i-1}{n-1}\\to \\pit{i}{n}\r\n\\)\r\nは, 任意の \\(i\\) で単射である. \r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 4.4",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 12,
+          "kind": "lemma",
+          "line": 498,
+          "labels": [
+            "lem:4.5"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 4.5",
+          "tex": "\\begin{lemma}\\label{lem:4.5}\r\n\n$n=2,4,8$ とする. \\\\\r\n\\(\r\nE:\\pis{i-1}{S^{n-1}}\\to\\pis{i}{S^n}\r\n\\)\r\nは, 任意の $i$ で単射であり, \\\\\r\n任意の整数 $r$ と $\\beta\\in\\pis{i-1}{S^{n-1}}$ に対して, \r\n\\[\r\nr\\,\\iota_{n-1}\\circ \\beta = r\\beta \\ .\r\n\\]\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 13,
+          "kind": "equation",
+          "line": 520,
+          "labels": [
+            "4.8"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.8)",
+          "tex": "\\begin{equation}\\label{4.8}\r\n\n\\raisetag{3ex}\r\n\\begin{aligned}[t]\r\n& n \\ \\text{を偶数とする. } \\\\\r\n& \\Delta(\\iota_{2n-1})=[\\iota_{n-1},\\iota_{n-1}]\\ne0 \\ \\text{のとき, }\\\\\r\n& \\pit{2n-1}{n}\r\n=E\\,\\pit{2n-2}{\\,n-1}\\ \\oplus\\ \\Delta\\,\\pit{2n+1}{\\,2n+1}\r\n\\cong E\\,\\pit{2n-2}{\\,n-1}\\ \\oplus\\ \\mathbb{Z},\\ \\pit{2n}{\\,n+1} = E^{2}\\,\\pit{2n-2}{\\,n-1} \r\n\\cong E\\,\\pit{2n-2}{\\,n}.\\\\\r\n& \\Delta(\\iota_{2n-1})=0 \\ \\text{のとき, }\\\\\r\n& E^{2}:\\pit{2n-2}{\\,n-1}\\to\\pit{2n}{\\,n+1}\\ \\text{は単射で, }\\\r\n\\pit{2n}{\\,n+1}/E^{2}\\pit{2n-2}{\\,n-1}\\cong\\mathbb{Z}_2 . \\\\\r\n& \\text{さらに,}\\ \\alpha\\in\\pit{2n-1}{n} \\ \\text{に対して, 次が成り立つ. }\\\\\r\n& E\\alpha\\in E^{2}\\pit{2n-2}{\\,n-1} \\ \\Leftrightarrow \\\r\nH(\\alpha)\\in 2\\,\\pit{2n-1}{\\,2n-1}\\ .\r\n\\end{aligned}\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 4,
+          "order": 14,
+          "kind": "equation",
+          "line": 539,
+          "labels": [
+            "4.9"
+          ],
+          "tags": [],
+          "locator_candidate": "(4.9)",
+          "tex": "\\begin{equation}\\label{4.9}\r\n\n\n\\pit{m}{n}\\circ\\pit{k}{m}\\ \\subset\\ \\pit{k}{n}.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        }
+      ]
+    },
+    {
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "sha256": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374",
+      "items": [
+        {
+          "chapter": 5,
+          "order": 1,
+          "kind": "equation",
+          "line": 90,
+          "labels": [
+            "5.1"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.1)",
+          "tex": "\\begin{equation}\\label{5.1}\r\n\\pi^{1}_{i}=0\\ (i>1),\\qquad\r\n\\pi^{n}_{i}=0\\ (i<n),\\qquad\r\nG_k=(G_k;2)=0\\ (k<0).\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.1)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 2,
+          "kind": "proposition",
+          "line": 193,
+          "labels": [
+            "prop:5.1"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.1",
+          "tex": "\\begin{proposition}\\label{prop:5.1}\r\n\n\\(\\pi^{2}_{3}=\\gen{\\eta_2}\\cong\\mathbb Z,\\quad\r\n\\pi^{n}_{n+1}=\\gen{\\eta_n}\\cong\\mathbb Z_2\\ (n\\ge3),\\quad\r\n(G_1;2)=\\gen{\\eta}\\cong\\mathbb Z_2.\\) \\\\\r\nここで, \r\n\\(H(\\eta_2)=\\iota_3,\\ \\Delta(\\iota_5)=\\pm 2\\,\\eta_2\\) が成り立つ. \r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.1",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 3,
+          "kind": "equation",
+          "line": 204,
+          "labels": [
+            "eq:5.2"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.2)",
+          "tex": "\\begin{equation}\\label{eq:5.2}\r\n\n\\text{合成 } \\alpha\\longmapsto \\eta_2\\circ \\alpha \\text{ は, 同型 } \r\n\\pi^{3}_{i}\\xrightarrow{\\cong}\\pi^{2}_{i}\\ (i\\ge3) \r\n\\text{ を定める. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.2)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 4,
+          "kind": "lemma",
+          "line": 213,
+          "labels": [
+            "lem:5.2"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.2",
+          "tex": "\\begin{lemma}\\label{lem:5.2}\r\n\n\n\\(\\alpha\\in\\pi_{i}(S^{3})\\) に対し,\r\n\\(2\\alpha=0\\) と仮定する. \\\\\r\nこのとき,\r\n\\(\\todai[1]{\\eta_3,\\,2\\iota_4,\\,E\\alpha}\\) \r\nの任意の元 \\(\\beta\\) に対して,\r\n\\[\r\nH(\\beta)=E^{2}\\alpha,\\qquad\r\n2\\beta=\\eta_3\\circ E\\alpha\\circ \\eta_{i+1}\r\n\\]\r\nが成り立つ. そのような \\(\\beta\\) は,\r\n\\(\\pi^{3}_{i+2}\\) に属し, \\(\\Delta(E^{2}\\alpha)=0\\) である. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 5,
+          "kind": "equation",
+          "line": 349,
+          "labels": [
+            "eq:5.3"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.3)",
+          "tex": "\\begin{equation}\\label{eq:5.3}\r\n\n\\nu'\\in\\pi_6^3,\\ H(\\nu')=\\eta_5,\\ 2\\nu'=\\eta_3\\circ\\eta_4\\circ\\eta_5 .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.3)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 6,
+          "kind": "proposition",
+          "line": 368,
+          "labels": [
+            "prop:5.3"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.3",
+          "tex": "\\begin{proposition}\\label{prop:5.3}\r\n\n\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\\r\n\\((G_2;2)=\\gen{\\eta^{2}}\\cong \\mathbb Z_2 .\\)\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.3",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 7,
+          "kind": "lemma",
+          "line": 444,
+          "labels": [
+            "lem:5.4"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.4",
+          "tex": "\\begin{lemma}[]\r\n\\label{lem:5.4}\r\n\nある元 \\(\\nu_{4}\\in \\pi^{4}_{7}\\) が存在して, 次を満たす. \r\n\\[\r\nH(\\nu_{4})=\\iota_7,\\qquad 2E \\nu_{4}=E^{2}\\nu' .\r\n\\]\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Lemma 5.4",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 8,
+          "kind": "equation",
+          "line": 473,
+          "labels": [
+            "eq:5.4"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.4)",
+          "tex": "\\begin{equation}\\label{eq:5.4}\r\n\n\\todai[t]{\\eta_{n},\\,2\\iota_{n+1},\\,\\eta_{n+1}} = \\{E^{\\,n-3}\\nu',-E^{\\,n-3}\\nu'\\}.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 9,
+          "kind": "lemma",
+          "line": 582,
+          "labels": [
+            "lem:5.5"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.5",
+          "tex": "\\begin{lemma}\\label{lem:5.5}\r\n\n$Lem 5.4$ の元 \\(\\nu_{4}\\) に対し, \r\nToda bracket \r\n\\(\\todai[3]{\\eta_{m+2},\\,E^{3}\\beta,\\,\\eta_{t+5}}\\) は,\\\\\r\n\\(\r\nE^{2}\\beta\\circ E^{t}\\nu_{4}\\text{または,} -E^{2}\\beta\\circ E^{t}\\nu_{4}\r\n\\)\r\nを含む. \\\\\r\nここで, \\(\\beta\\in\\pi_{t+2}(S^{m})\\) は,\r\n\\(\\beta\\circ \\eta_{t+2}=0\\), \\(t>0\\) を満たす元である. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 10,
+          "kind": "equation",
+          "line": 614,
+          "labels": [
+            "eq:5.5"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.5)",
+          "tex": "\\begin{equation}\\label{eq:5.5}\r\n\nn\\ge5\\ \\text{に対して, } 2\\nu_n=E^{\\,n-3}\\nu',\\qquad\r\n4\\nu_{n}=\\eta_n^{3},\\quad 4\\nu=\\eta^{3}.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.5)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 11,
+          "kind": "equation",
+          "line": 621,
+          "labels": [
+            "eq:5.6"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.6)",
+          "tex": "\\begin{equation}\\label{eq:5.6}\r\n\n(\\alpha,\\beta)\\ \\longmapsto\\ E\\alpha+\\nu_{4}\\circ\\beta\r\n\\quad\\text{は,}\\quad\r\n\\pi^{\\,3}_{i-1}\\oplus \\pi^{\\,7}_{i}\\ \\xrightarrow{\\ \\cong\\ }\\ \\pi_{\\,i}^{4}\r\n\\ \\text{の同型を与える. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 12,
+          "kind": "proposition",
+          "line": 695,
+          "labels": [
+            "prop:5.6"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.6",
+          "tex": "\\begin{proposition}\\label{prop:5.6}\r\n\n\\ \\\\\r\n\\(\\pi^{2}_{5}=\\gen{\\eta_{2}^{3}}\\cong \\mathbb Z_{2},\\) \\\\\r\n\\(\\pi^{3}_{6}=\\gen{\\nu'}\\cong \\mathbb Z_{4},\\) \\\\\r\n\\(\\pi^{4}_{7}=\\gen{\\nu_{4}}\\oplus \\gen{E\\nu'}\\cong \\mathbb Z\\oplus\\mathbb Z_{4},\\) \\\\\r\n\\(\\pi^{n}_{n+3}=\\gen{\\nu_{n}}\\cong \\mathbb Z_{8}\\ (n\\ge5),\\)\\qquad\r\n\\((G_{3};2)=\\gen{\\nu}\\cong \\mathbb Z_{8}.\\)\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.6",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 13,
+          "kind": "equation",
+          "line": 740,
+          "labels": [
+            "eq:5.7"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.7)",
+          "tex": "\\begin{equation}\\label{eq:5.7}\r\n\nH(\\nu'\\circ\\eta_6)=\\eta_5^2 .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.7)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 14,
+          "kind": "equation",
+          "line": 748,
+          "labels": [
+            "eq:5.8"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.8)",
+          "tex": "\\begin{equation}\\label{eq:5.8}\r\n\n\\Delta(\\iota_9)=\\pm(2\\nu_4-E\\nu')  \\ (=\\pm[\\iota_4, \\iota_4]) .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.8)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 15,
+          "kind": "lemma",
+          "line": 758,
+          "labels": [
+            "lemma:5.7"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.7",
+          "tex": "\\begin{lemma}\\label{lemma:5.7}\r\n\n\\(\\alpha\\in\\pi_i(S^3)\\) に対して,\r\n\\(E^2\\alpha\\in2\\iota_5\\circ\\pi_{i+2}(S^5)\\) ならば, \r\n\\(E(\\eta_2\\circ\\alpha)=0\\) である. \\\\\r\n特に, \\(E(\\eta_2\\circ\\nu')=0, \\ \\Delta(\\nu_5)=\\pm(\\eta_2\\circ\\nu')\\) である. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Lemma 5.7",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 16,
+          "kind": "proposition",
+          "line": 852,
+          "labels": [
+            "prop:5.8"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.8",
+          "tex": "\\begin{proposition}\\label{prop:5.8}\r\n\\ \\\\\r\n\n\\(\\pi^{2}_{6}=\\mathbb Z_4\\gen{\\eta_{2}\\circ\\nu'},\\) \\\\\r\n\\(\\pi^{3}_{7}=\\mathbb Z_2\\gen{\\nu'\\circ\\eta_6},\\) \\\\\r\n\\(\\pi^{4}_{8}=\\mathbb Z_2\\gen{\\nu_{4}\\circ\\eta_7}\\oplus \\mathbb Z_2\\gen{E\\nu'\\circ\\eta_7},\\) \\\\\r\n\\(\\pi^{5}_{9}=\\mathbb Z_2\\gen{\\nu_{5}\\circ\\eta_8},\\) \\\\\r\n\\(\\pi^{n}_{n+4}=0\\ (n\\ge6),\\) \\\r\n\\((G_{4};2)=0.\\)\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.8",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 17,
+          "kind": "equation",
+          "line": 894,
+          "labels": [
+            "eq:5.9"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.9)",
+          "tex": "\\begin{equation}\\label{eq:5.9}\r\n\n\\eta_3\\circ \\nu_4= \\nu'\\circ \\eta_6,\\qquad\r\n\\eta_n\\circ \\nu_{n+1}=0\\ (n\\ge5),\\qquad\r\n\\nu_n\\circ \\eta_{n+3}=0\\ (n\\ge6)\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 18,
+          "kind": "equation",
+          "line": 1047,
+          "labels": [
+            "eq:5.10"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.10)",
+          "tex": "\\begin{equation}\\label{eq:5.10}\r\n\n\\Delta(\\iota_{11})=\\nu_5\\circ\\eta_8 .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 19,
+          "kind": "equation",
+          "line": 1053,
+          "labels": [
+            "eq:5.11"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.11)",
+          "tex": "\\begin{equation}\\label{eq:5.11}\r\n\n\\Delta(\\eta_9)=E\\nu'\\circ\\eta_7 .\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 20,
+          "kind": "proposition",
+          "line": 1060,
+          "labels": [
+            "prop:5.9"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.9",
+          "tex": "\\begin{proposition}\\label{prop:5.9}\r\n\\ \\\\\r\n\n\\(\\pi^{2}_{7}=\\mathbb Z_2\\gen{\\eta_{2}\\circ\\nu'\\circ\\eta_6},\\) \\\\\r\n\\(\\pi^{3}_{8}=\\mathbb Z_2\\gen{\\nu'\\circ\\eta_6^2},\\) \\\\\r\n\\(\\pi^{4}_{9}=\\mathbb Z_2\\gen{\\nu_{4}\\circ\\eta_7^2}\\oplus \\mathbb Z_2\\gen{E\\nu'\\circ\\eta_7^2},\\) \\\\\r\n\\(\\pi^{5}_{10}=\\mathbb Z_2\\gen{\\nu_{5}\\circ\\eta_8^2},\\) \\\\\r\n\\(\\pi^{6}_{11}=\\mathbb Z\\gen{\\Delta(\\iota_{13})},\\) \\\\\r\n\\(\\pi^{n}_{n+5}=0\\ (n\\ge7),\\) \\\r\n\\((G_{5};2)=0.\\)\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.9",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 21,
+          "kind": "equation",
+          "line": 1209,
+          "labels": [
+            "eq:5.12"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.12)",
+          "tex": "\\begin{equation}\\label{eq:5.12}\r\n\n\\Delta:\\ \\pi^{2n+1}_{n+7}\\ \\longrightarrow\\ \\pi^{n}_{n+5}\r\n\\quad\\text{は, }n=4,5,6\\text{ で単射である. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 22,
+          "kind": "lemma",
+          "line": 1216,
+          "labels": [
+            "lemma:5.10"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.10",
+          "tex": "\\begin{lemma}\\label{lemma:5.10}\r\n\n\\[\r\n\\Delta(\\iota_{13})\\in\\toda{\\nu_6,\\eta_9,2\\iota_{10}}\\in\\pi_{11}(S^6)/2\\pi_{11}(S^6) .\r\n\\]\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 23,
+          "kind": "proposition",
+          "line": 1325,
+          "labels": [
+            "prop:5.11"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.11",
+          "tex": "\\begin{proposition}\\label{prop:5.11}\r\n\\ \\\\\r\n\n\\(\\pi^{2}_{8}=\\mathbb Z_2\\gen{\\eta_{2}\\circ\\nu'\\circ\\eta_6^2},\\) \\\\\r\n\\(\\pi^{3}_{9}=0,\\) \\\\\r\n\\(\\pi^{4}_{10}=\\mathbb Z_8\\gen{\\nu_{4}^2},\\) \\\\\r\n\\(\\pi^{n}_{n+6}=\\mathbb Z_2\\gen{\\nu_n^2}\\ (n\\ge5),\\) \\\r\n\\((G_{6};2)=\\mathbb Z_2\\gen{\\nu^2}.\\)\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.11",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 24,
+          "kind": "equation",
+          "line": 1359,
+          "labels": [
+            "eq:5.13"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.13)",
+          "tex": "\\begin{equation}\\label{eq:5.13}\r\n\n\\Delta(\\nu_9)=\\pm\\,2(\\nu_4^{2}),\\qquad\r\n\\Delta(\\eta^{2}_{11})=0,\\qquad\r\n\\Delta(\\eta_{13})=0.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:(5.13)",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 25,
+          "kind": "lemma",
+          "line": 1517,
+          "labels": [
+            "lemma:5.12"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.12",
+          "tex": "\\begin{lemma}\\label{lemma:5.12}\r\n\n\n\\(\\toda{\\eta_n,\\nu_{n+1},\\eta_{n+4}} = \\gen{\\nu_n^2},\\ (n\\geq6) .\\)\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 26,
+          "kind": "lemma",
+          "line": 1717,
+          "labels": [
+            "lemma:5.13"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.13",
+          "tex": "\\begin{lemma}\\label{lemma:5.13}\r\n\n\\(\\todai[t]{\\nu_5,8\\iota_8,\\nu_8},\\ (0\\leq t\\leq3)\\) \r\nは, ただ$1$つの元から成る. \\\\\r\nこの元を \\(\\sigma'''\\) と書くと, \r\n\\(H(\\sigma''')=4\\nu_9=\\eta_9^3\\) であり, \\\\\r\n\\(\\pi_{12}^5=\\mathbb{Z}_2\\gen{\\sigma'''}\\)\r\nである. \r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Lemma 5.13",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 27,
+          "kind": "equation",
+          "line": 1777,
+          "labels": [
+            "eq:5.14"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.14)",
+          "tex": "\\begin{equation}\\label{eq:5.14}\r\n\n0\\to \\pi^{5}_{12}\\xrightarrow{E}\\pi^{6}_{13}\\xrightarrow{H}\\pi^{11}_{13}\\to0,\r\n\\qquad\r\n0\\to \\pi^{6}_{13}\\xrightarrow{E}\\pi^{7}_{14}\\xrightarrow{H}\\pi^{13}_{14}\\to0.\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 28,
+          "kind": "lemma",
+          "line": 1890,
+          "labels": [
+            "lemma:5.14"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.14",
+          "tex": "\\begin{lemma}\\label{lemma:5.14}\r\n\n\\(\\sigma_{8}\\in\\pi^{8}_{15}\\ , \\ \\sigma'\\in\\pi^{7}_{14}\\ , \\ \\sigma''\\in\\pi^{6}_{13}\\) \r\nが存在して, 次を満たす. \\\\\r\n\\(H(\\sigma_{8})=\\iota_{15} \\ ,\\qquad 2E\\sigma_{8}=E^{2}\\sigma',\\)\\\\\r\n\\(H(\\sigma')=\\eta_{13} \\ ,\\qquad 2\\sigma'=E\\sigma'',\\)\\\\\r\n\\(H(\\sigma'')=\\eta_{11}^2 \\ ,\\qquad 2\\sigma''=E\\sigma''' .\\)\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Lemma 5.14",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 29,
+          "kind": "equation",
+          "line": 2121,
+          "labels": [
+            "eq:5.15"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.15)",
+          "tex": "\\begin{equation}\\label{eq:5.15}\r\n\n\n(\\alpha,\\beta)\\ \\longmapsto\\ E\\alpha+\\sigma_{8}\\circ\\beta\r\n\\quad\\text{は,}\\quad\r\n\\pi^{7}_{i-1}\\oplus\\pi^{15}_{i}\\xrightarrow{\\cong}\\pi^{8}_{i}\r\n\\ \\text{の同型を与える. }\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 30,
+          "kind": "proposition",
+          "line": 2132,
+          "labels": [
+            "prop:5.15"
+          ],
+          "tags": [],
+          "locator_candidate": "Proposition 5.15",
+          "tex": "\\begin{proposition}\\label{prop:5.15}\r\n\\ \\\\\r\n\n\\(\\pi_9^2=\\pi_{10}^3=\\pi_{11}^4=0,\\) \\\\\r\n\\(\\pi^{5}_{12}=\\mathbb Z_2\\gen{\\sigma'''},\\) \\\\\r\n\\(\\pi^{6}_{13}=\\mathbb Z_4\\gen{\\sigma''},\\) \\\\\r\n\\(\\pi^{7}_{14}=\\mathbb Z_8\\gen{\\sigma'},\\) \\\\\r\n\\(\\pi^{8}_{15}=\\mathbb Z\\gen{\\sigma_8}\\oplus\\mathbb Z\\gen{E\\sigma'},\\) \\\\\r\n\\(\\pi^{n}_{n+7}=\\mathbb Z_{16}\\gen{\\sigma_n}\\ (n\\ge9),\\) \\\r\n\\((G_{7};2)=\\mathbb Z_{16}\\gen{\\sigma}.\\)\r\n\\end{proposition}",
+          "unclosed": false,
+          "existing_reference_id_candidate": "toda:Proposition 5.15",
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 31,
+          "kind": "equation",
+          "line": 2149,
+          "labels": [
+            "eq:5.16"
+          ],
+          "tags": [],
+          "locator_candidate": "(5.16)",
+          "tex": "\\begin{equation}\\label{eq:5.16}\r\n\n\n\\Delta(\\iota_{17})=\\pm\\,(2\\sigma_{8}-E\\sigma').\r\n\\end{equation}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        },
+        {
+          "chapter": 5,
+          "order": 32,
+          "kind": "lemma",
+          "line": 2155,
+          "labels": [
+            "lem:5.16"
+          ],
+          "tags": [],
+          "locator_candidate": "Lemma 5.16",
+          "tex": "\\begin{lemma}\\label{lem:5.16}\r\n\n\n\\(t>0\\) とし, \\(\\beta\\in\\pi_{t+4}(S^{m})\\) が \r\n\\(\\beta\\circ \\nu_{t+4}=0\\) を満たすとする. \\\\\r\nこのとき, ある奇数 \\(x\\) が存在して,\r\n\\[\r\nE^{4}\\beta\\circ \\sigma_{t+8}\\ \\in\\\r\n(-1)^{m}x\\todai[7]{\\nu_{m+4}, E^{n}\\beta, \\nu_{t+11}}\r\n+ (-1)^{t}x \\todai[t+3]{E^{4}\\beta, \\nu_{t+8}, 2\\nu_{t+11}}.\r\n\\]\r\n\\end{lemma}",
+          "unclosed": false,
+          "existing_reference_id_candidate": null,
+          "registration_status": "NOT_REGISTERED",
+          "structured": false,
+          "source_verified": false
+        }
+      ]
+    }
+  ],
+  "missing_sources": [],
+  "item_count": 108,
+  "kind_counts": {
+    "theorem": 2,
+    "proposition": 25,
+    "lemma": 15,
+    "corollary": 2,
+    "definition": 0,
+    "remark": 0,
+    "equation": 64
+  },
+  "unresolved_locator_count": 19,
+  "duplicate_locator_candidates": {},
+  "existing_registry_lookup": "AVAILABLE",
+  "matched_existing_reference_count": 23,
+  "registration_applied": false,
+  "proof_search_connected": false
+}
