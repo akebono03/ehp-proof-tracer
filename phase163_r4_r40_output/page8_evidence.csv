@@ -1,0 +1,11 @@
+﻿evidence_id,subject,assessment,original_pdf_basis
+p8-01,group-operation continuation,MATCH,Printed p.8 opening continues the p.7 assertion: operations on pi(EX->Y) and pi_(n+1)(Y) coincide.
+p8-02,loop-space definition,MATCH,"Omega Y is based loops (I^1, boundary I^1)->(Y,y0); Omega f acts by composition."
+p8-03,loop functor composition,MATCH,"Original Omega(g o f)=Omega g o Omega f and class-level composition, corresponding to TeX."
+p8-04,canonical injection (1.9),MATCH,"i(x)(t)=d_X(x,t); commuting square X->Y / Omega EX->Omega EY checked by domains and arrows."
+p8-05,adjunction (1.10),MATCH,"Omega_0 F=Omega F o i, Omega_0 F(x)(t)=F(d_X(x,t)); induced bijection of homotopy classes."
+p8-06,mapping-space compact subsets,MATCH_WITH_SOURCE_CAVEAT,"Both original and TeX assert a homeomorphism between compact subsets of mapping spaces. Claim is transcribed, not independently validated or strengthened to a homeomorphism of full mapping spaces."
+p8-07,isomorphism and diagram (1.11),MATCH,"Loop multiplication gives group isomorphism; if X is a suspension EX', multiplication matches +; E, i_*, Omega_0 triangle matches."
+p8-08,naturality (1.12),MATCH,"Mappings f:X->Y, g:EY->Z, h:Z->W and four relations, including two homotopy-class equations, checked."
+p8-09,zero map and (1.13),MATCH,"Zero homotopy class and conditions alpha o E^n beta=0, beta o gamma=0 with n>=0 correspond."
+p8-10,representatives and page boundary,MATCH_WITH_BOUNDARY,"Printed p.8 defines a:E^nY->Z, b:X->Y, c:W->X as representatives; null homotopies begin on p.9 and are outside page-8 certification."
