@@ -1,0 +1,29 @@
+{
+  "phase": "164 R4-R3",
+  "mode": "READ_ONLY_INDEPENDENT_TYPED_CLAUSE_AUDIT",
+  "status": "TYPED_CLAUSE_CONSISTENCY_CONFIRMED_AUTHORIZATION_BLOCKED",
+  "source_statement_ids": [
+    "toda:tex:ch5:0002",
+    "toda:tex:ch5:0005"
+  ],
+  "typed_checks": {
+    "pi3_2_free_cyclic_eta2": true,
+    "eta2_hopf_iota3": true,
+    "delta_iota5_up_to_sign_twice_eta2": true,
+    "higher_eta_symbolic_family_structure": true,
+    "nu_prime_hopf_eta5": true
+  },
+  "typed_checks_passed": 5,
+  "proposition_5_1_universal_range_verified": false,
+  "proposition_5_1_stable_clause_covered": false,
+  "equation_5_3_double_nu_clause_covered": false,
+  "translated_source_clauses_structurally_consistent": true,
+  "independent_original_edition_verified": false,
+  "independent_mathematical_truth_verified": false,
+  "publication_and_availability_verified": false,
+  "typed_registry_binding_written": false,
+  "citation_eligible": false,
+  "proof_search_connected": false,
+  "production_modified": false,
+  "full_pytest_run": false
+}
