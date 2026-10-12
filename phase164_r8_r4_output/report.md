@@ -1,0 +1,239 @@
+# Phase 164 R8-R4 — ProofStep 生成経路の一括移行計画
+
+- 判定: **CLASSIFIED_NOT_YET_MIGRATED**
+- 解析ファイル: 275
+- 除外ファイル: 70
+- 構文エラー: 0
+- 本番コード変更: なし
+- 全体 pytest: 未実施
+
+## 分類件数
+
+- `core_engine_keep_or_internal_refactor`: 10
+- `dataclass_replace_type_review`: 66
+- `given_source_boundary_review`: 128
+- `inference_constructor_provenance_review`: 18
+- `inference_factory_migrate`: 23
+- `other_constructor_review`: 1
+
+## 移行原則
+
+- GIVEN: 文献・原本・trusted roots の確認境界を維持し、無条件生成を禁止する。
+- INFERENCE: `apply_inference_match()` の規則検証を共通 Factory 経由にする。
+- Relation / Kernel / Image / Cokernel / Exactness: 型固有の検証を保つ。
+- `proof.py`: 循環 import を避けるため中核エンジンは直接逆依存させない。
+- Replay: 既存 ProofStep の identity を保持し、新たに生成しない。
+- `replace()`: 対象の型が ProofStep と確認できたものだけ移行候補。
+
+## 本番移行候補ファイル
+
+- `hopf_rules.py`
+- `map_facts.py`
+- `phase161_r7_premise_provenance_validation.py`
+- `phase162_group_structure_backward.py`
+- `phase162_pi5_3_backward_selection.py`
+- `phase162_pi5_3_web_replay.py`
+- `phase162_r2_existing_proof_connection.py`
+- `phase162_r3j_inference_rule_audit.py`
+- `phase162_reference_boundary.py`
+- `phase162_web_narrative_integration.py`
+- `phase164_r5_web_registry_connection.py`
+- `phase164_r8_proofstep_factory.py`
+- `repository_foundational_group_specialization.py`
+- `repository_nu5_eta8_suspension_zero_specialization.py`
+- `repository_nu5_stable_bridge_specialization.py`
+- `repository_nu_prime_suspension_membership_specialization.py`
+- `repository_sigma11_suspension_specialization.py`
+- `repository_symbolic_sigma_specialization.py`
+- `repository_symbolic_stable_group_specialization.py`
+- `toda_group_proof_narrative_contribution_renderer.py`
+- `toda_midstream_bootstrap.py`
+- `toda_phase65_bootstrap.py`
+- `toda_proof_builders.py`
+- `toda_prop511_zero_bootstrap.py`
+- `toda_prop515_low_bootstrap.py`
+- `toda_prop515_sigma_chain_bootstrap.py`
+- `toda_prop515_upper_bootstrap.py`
+- `toda_prop56_zero_bootstrap.py`
+- `toda_prop58_zero_bootstrap.py`
+- `toda_rules.py`
+- `toda_stable_eta_generator_normalization.py`
+- `toda_stable_transport.py`
+- `toda_upstream_bootstrap.py`
+
+## 移行候補一覧（行番号付き）
+
+- `hopf_rules.py:51` — `ehp_h_homomorphism_proof_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `hopf_rules.py:161` — `hopf_invariant_proof_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `map_facts.py:27` — `MapIsomorphismFact.to_proof_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase161_r7_premise_provenance_validation.py:86` — `validate_phase161_r7_provenance.visit` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_group_structure_backward.py:148` — `reconstruct_group_structure_goal` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_pi5_3_backward_selection.py:62` — `_canonical_goals` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase162_pi5_3_backward_selection.py:73` — `_canonical_goals` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_pi5_3_backward_selection.py:108` — `_apply_unique` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_pi5_3_web_replay.py:36` — `build_phase162_pi5_3_web_replay` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_pi5_3_web_replay.py:38` — `build_phase162_pi5_3_web_replay` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase162_r2_existing_proof_connection.py:99` — `reconstruct_phase162_r2_from_existing_proofs` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_r3j_inference_rule_audit.py:71` — `classify_r3j_inference_rule` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_reference_boundary.py:72` — `cite_verified_fixed_statement` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase162_reference_boundary.py:96` — `cite_verified_fixed_statement` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_web_narrative_integration.py:119` — `_build_phase162_legacy_validated_isomorphism_markdown` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase162_web_narrative_integration.py:173` — `_build_phase162_existing_group_connection` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_web_narrative_integration.py:182` — `_build_phase162_existing_group_connection` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase162_web_narrative_integration.py:194` — `_build_phase162_existing_group_connection` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase162_web_narrative_integration.py:265` — `_phase162_ehp_leaves` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `phase164_r5_web_registry_connection.py:69` — `build_phase164_r5_web_pi5_3_proof` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `phase164_r8_proofstep_factory.py:31` — `derive_inference_proof_step` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `repository_foundational_group_specialization.py:43` — `_build_identity_group_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `repository_foundational_group_specialization.py:66` — `_build_connectivity_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `repository_foundational_group_specialization.py:158` — `_specialize_circle_higher_zero_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_nu5_eta8_suspension_zero_specialization.py:233` — `specialize_nu5_eta8_suspension_zero_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_nu5_stable_bridge_specialization.py:127` — `specialize_nu5_stable_bridge_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_nu_prime_suspension_membership_specialization.py:187` — `specialize_nu_prime_suspension_membership_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_sigma11_suspension_specialization.py:124` — `specialize_sigma11_suspension_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_sigma_specialization.py:236` — `specialize_toda_prop515_sigma_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_stable_group_specialization.py:347` — `specialize_toda_prop51_eta_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_stable_group_specialization.py:421` — `specialize_toda_prop53_eta_squared_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_stable_group_specialization.py:493` — `specialize_toda_prop56_nu_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_stable_group_specialization.py:556` — `specialize_toda_prop58_four_stem_zero_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_stable_group_specialization.py:614` — `specialize_toda_prop59_five_stem_zero_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `repository_symbolic_stable_group_specialization.py:683` — `specialize_toda_prop511_nu_squared_index_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_group_proof_narrative_contribution_renderer.py:1591` — `_phase153_r6_render_reference_statement` / `ProofStep` / `DYNAMIC` / `other_constructor_review`
+- `toda_midstream_bootstrap.py:81` — `build_phase59_pi5_3_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_midstream_bootstrap.py:89` — `build_phase59_pi5_3_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_midstream_bootstrap.py:189` — `build_phase59_hopf_surjective_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_midstream_bootstrap.py:202` — `build_phase59_hopf_surjective_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_midstream_bootstrap.py:215` — `build_phase59_hopf_surjective_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_midstream_bootstrap.py:228` — `build_phase59_hopf_surjective_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_midstream_bootstrap.py:282` — `build_phase59_prop53_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:132` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:142` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:172` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:188` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:231` — `build_toda_prop56_bootstrap_step` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_phase65_bootstrap.py:286` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:336` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:405` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:455` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_phase65_bootstrap.py:466` — `build_toda_prop56_bootstrap_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_proof_builders.py:46` — `build_toda_prop56_proof_step` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_proof_builders.py:83` — `build_toda_prop58_proof_step` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_proof_builders.py:116` — `build_toda_prop511_proof_step` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_proof_builders.py:159` — `build_toda_prop515_proof_step` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_prop511_zero_bootstrap.py:224` — `_apply` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_prop511_zero_bootstrap.py:270` — `_given` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop511_zero_bootstrap.py:407` — `_build_phase68_generator_bridge` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_prop511_zero_bootstrap.py:2446` — `_build_pi14_8_suspension_isomorphism_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_prop515_low_bootstrap.py:305` — `build_toda_prop515_low_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_low_bootstrap.py:317` — `build_toda_prop515_low_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_low_bootstrap.py:329` — `build_toda_prop515_low_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_low_bootstrap.py:446` — `build_toda_prop515_low_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_low_bootstrap.py:461` — `build_toda_prop515_low_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_sigma_chain_bootstrap.py:399` — `build_toda_prop515_sigma_chain_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_sigma_chain_bootstrap.py:411` — `build_toda_prop515_sigma_chain_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_sigma_chain_bootstrap.py:423` — `build_toda_prop515_sigma_chain_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_sigma_chain_bootstrap.py:628` — `build_toda_prop515_sigma_chain_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_sigma_chain_bootstrap.py:640` — `build_toda_prop515_sigma_chain_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_sigma_chain_bootstrap.py:652` — `build_toda_prop515_sigma_chain_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_upper_bootstrap.py:177` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_upper_bootstrap.py:206` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_upper_bootstrap.py:262` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_upper_bootstrap.py:294` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_prop515_upper_bootstrap.py:359` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_upper_bootstrap.py:371` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop515_upper_bootstrap.py:408` — `build_toda_prop515_upper_bootstrap` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:183` — `_require_match` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_prop56_zero_bootstrap.py:236` — `_build_pi4_3_prop51_specialization_link_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_prop56_zero_bootstrap.py:263` — `_build_pi4_3_prop51_specialization_link_step` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_prop56_zero_bootstrap.py:481` — `_build_prop51_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:489` — `_build_prop51_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:620` — `_build_n3_suspension_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:633` — `_build_n3_suspension_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:646` — `_build_n3_suspension_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:659` — `_build_n3_suspension_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:786` — `_build_phase48_injectivity_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:797` — `_build_phase48_injectivity_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:809` — `_build_phase48_injectivity_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:814` — `_build_phase48_injectivity_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:862` — `_build_n4_suspension_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:867` — `_build_n4_suspension_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:944` — `_build_pi6_4_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:951` — `_build_pi6_4_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:984` — `_build_higher_eta_transport` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1132` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1140` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1199` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1228` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1236` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1244` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1283` — `_build_phase60_toda54` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1466` — `_build_lemma54_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1644` — `_build_toda55_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1652` — `_build_toda55_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1818` — `_build_toda56_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1952` — `build_toda_prop56_zero_argument_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop56_zero_bootstrap.py:1960` — `build_toda_prop56_zero_argument_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:293` — `_build_support` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:301` — `_build_support` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:381` — `_build_equation57_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:389` — `_build_equation57_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:443` — `_build_equation57_steps` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_prop58_zero_bootstrap.py:465` — `_build_equation57_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:478` — `_build_equation57_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:534` — `_build_eta2_nu_prime_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:712` — `_build_pi7_3_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1029` — `_build_pi9_5_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1036` — `_build_pi9_5_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1047` — `_build_pi9_5_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1058` — `_build_pi9_5_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1180` — `_build_double_nu5_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1252` — `_build_higher_eta_nu_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1262` — `_build_higher_eta_nu_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1360` — `_build_nu6_eta9_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1367` — `_build_nu6_eta9_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1374` — `_build_nu6_eta9_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1383` — `_build_nu6_eta9_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1392` — `_build_nu6_eta9_zero_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1457` — `_build_higher_zero_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1476` — `_build_higher_zero_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_prop58_zero_bootstrap.py:1487` — `_build_higher_zero_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_rules.py:62738` — `toda_bracket_membership_proof_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_rules.py:63759` — `toda_bracket_membership_theorem_proof_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_stable_eta_generator_normalization.py:121` — `build_toda_stable_eta_normalized_proof` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_stable_eta_generator_normalization.py:126` — `build_toda_stable_eta_normalized_proof` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_stable_transport.py:96` — `build_canonical_toda_45_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_stable_transport.py:108` — `build_canonical_toda_45_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_stable_transport.py:117` — `build_canonical_toda_45_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:143` — `build_toda_45_stable_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:155` — `build_toda_45_stable_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:164` — `build_toda_45_stable_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:259` — `_build_phase49_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:273` — `_build_phase49_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:287` — `_build_phase49_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:302` — `_build_phase49_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:315` — `_build_phase49_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:328` — `_build_phase49_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:443` — `_build_phase50_result` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_upstream_bootstrap.py:481` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:489` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:498` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:510` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:517` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:528` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:539` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:545` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:558` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:571` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:588` — `_build_phase50_result` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:710` — `build_toda_52_composition_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:718` — `build_toda_52_composition_isomorphism_step` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:809` — `build_toda_53_nu_prime_steps` / `ProofStep` / `INFERENCE` / `inference_constructor_provenance_review`
+- `toda_upstream_bootstrap.py:961` — `build_toda_53_nu_prime_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:968` — `build_toda_53_nu_prime_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:975` — `build_toda_53_nu_prime_steps` / `ProofStep` / `GIVEN` / `given_source_boundary_review`
+- `toda_upstream_bootstrap.py:1077` — `build_toda_53_nu_prime_steps` / `apply_inference_match` / `None` / `inference_factory_migrate`
+- `toda_upstream_bootstrap.py:1098` — `build_toda_53_nu_prime_steps` / `apply_inference_match` / `None` / `inference_factory_migrate`
+
+## 次段階との境界
+
+R8-R4 では全対象を一括分類する。以後は同一カテゴリー単位で Factory と呼び出し元をまとめて移行し、最後に残存箇所を再監査する。数学的根拠のない GIVEN の自動生成と ProofStep の再作成は行わない。
