@@ -1,0 +1,84 @@
+{
+  "phase": "164 R4-R2",
+  "mode": "READ_ONLY_COMPONENT_STRUCTURE_AUDIT",
+  "status": "STRUCTURAL_CANDIDATES_ONLY_PENDING_INDEPENDENT_EVIDENCE",
+  "source_archive_proof_eligible_count": 0,
+  "source_publication_position_scope": "SOURCE_TEX_ORDER_NOT_ORIGINAL_EDITION",
+  "prop51": {
+    "statement_id": "toda:tex:ch5:0002",
+    "conclusion_type": "TodaProp51FiniteDimensionalStatement",
+    "components": [
+      {
+        "name": "pi3_2_group_relation",
+        "structured_type": "Relation",
+        "structured_value_present": true,
+        "source_tokens": {
+          "\\pi^{2}_{3}": true,
+          "\\eta_2": true,
+          "\\mathbb Z": true
+        },
+        "source_tokens_all_present": true,
+        "semantic_equivalence_verified": false
+      },
+      {
+        "name": "eta2_hopf_relation",
+        "structured_type": "Relation",
+        "structured_value_present": true,
+        "source_tokens": {
+          "H(\\eta_2)=\\iota_3": true
+        },
+        "source_tokens_all_present": true,
+        "semantic_equivalence_verified": false
+      },
+      {
+        "name": "delta_iota5_relation",
+        "structured_type": "TodaDeltaImageUpToSignStatement",
+        "structured_value_present": true,
+        "source_tokens": {
+          "\\Delta(\\iota_5)=\\pm 2": true,
+          "\\eta_2": true
+        },
+        "source_tokens_all_present": true,
+        "semantic_equivalence_verified": false
+      },
+      {
+        "name": "higher_eta_group_relation",
+        "structured_type": "Relation",
+        "structured_value_present": true,
+        "source_tokens": {
+          "\\pi^{n}_{n+1}": true,
+          "\\eta_n": true,
+          "n\\ge3": true
+        },
+        "source_tokens_all_present": true,
+        "semantic_equivalence_verified": false
+      }
+    ],
+    "all_four_components_structurally_present": true,
+    "additional_stable_clause_in_source": true,
+    "semantic_equivalence_verified": false
+  },
+  "nu_prime_hopf": {
+    "statement_id": "toda:tex:ch5:0005",
+    "conclusion_type": "Relation",
+    "relation_type": "EQUALITY",
+    "lhs_type": "MapApplication",
+    "map_is_ehp_h": true,
+    "nu_prime_type": "HomotopyElement",
+    "rhs_type": "HomotopyElement",
+    "source_tokens": {
+      "\\nu'\\in\\pi_6^3": true,
+      "H(\\nu')=\\eta_5": true,
+      "2\\nu'=\\eta_3": true
+    },
+    "source_tokens_all_present": true,
+    "semantic_equivalence_verified": false
+  },
+  "original_edition_verified": false,
+  "independent_mathematical_verification": false,
+  "typed_registry_binding_written": false,
+  "citation_eligible": false,
+  "proof_search_connected": false,
+  "production_modified": false,
+  "full_pytest_run": false
+}

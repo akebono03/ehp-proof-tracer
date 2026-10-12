@@ -1,0 +1,26 @@
+{
+  "phase": "164 R4-R6",
+  "mode": "ISOLATED_TYPED_BINDING_USER_SOURCE_CONFIRMATION",
+  "status": "TWO_TYPED_BINDINGS_REGISTERED_CITATION_AVAILABILITY_PENDING",
+  "typed_binding_count": 2,
+  "source_statement_ids": [
+    "toda:tex:ch5:0002",
+    "toda:tex:ch5:0005"
+  ],
+  "typed_assertion_ids": [
+    "toda:typed:ch5:prop5.1:finite_dimensional_subset",
+    "toda:typed:ch5:eq5.3:hopf"
+  ],
+  "coverage": [
+    "Four typed components only; excludes stable (G_1;2) clause.",
+    "H(nu-prime)=eta_5 only; excludes membership and twice-nu relation."
+  ],
+  "user_original_confirmation_recorded": true,
+  "independent_edition_check_claimed": false,
+  "availability_position_established": false,
+  "citation_eligible": false,
+  "proof_search_connected": false,
+  "source_archive_promoted": false,
+  "production_registry_modified": false,
+  "full_pytest_run": false
+}

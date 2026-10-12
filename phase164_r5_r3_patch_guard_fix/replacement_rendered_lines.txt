@@ -1,0 +1,71 @@
+def _build_group_proof_rendered_lines(
+  markdown: str,
+) -> tuple[
+  WebGroupProofRenderedLineView,
+  ...,
+]:
+  if not isinstance(markdown, str):
+    raise TypeError("markdown must be a str")
+
+  lines = []
+  display_math_lines = None
+  display_math_indent_level = 0
+  for raw_line in markdown.splitlines():
+    stripped = raw_line.lstrip(" ")
+    indent_level = (len(raw_line) - len(stripped)) // 2
+
+    if stripped == "---":
+      lines.append(WebGroupProofRenderedLineView(
+        kind="separator", indent_level=0, prefix="",
+        statement_latex=None, suffix="",
+      ))
+      continue
+
+    if display_math_lines is not None:
+      if stripped == r"\]":
+        statement_latex = "\n".join(display_math_lines)
+        lines.append(WebGroupProofRenderedLineView(
+          kind="text", indent_level=display_math_indent_level,
+          prefix="", statement_latex=statement_latex, suffix="",
+          segments=(WebGroupProofInlineSegmentView(
+            kind="display_math", value=statement_latex,
+          ),),
+        ))
+        display_math_lines = None
+        display_math_indent_level = 0
+        continue
+      if stripped:
+        display_math_lines.append(stripped)
+      continue
+
+    if not raw_line:
+      continue
+    if raw_line.startswith("# "):
+      continue
+    if stripped.startswith("### "):
+      lines.append(WebGroupProofRenderedLineView(
+        kind="heading", indent_level=indent_level,
+        prefix=stripped[4:], statement_latex=None, suffix="",
+      ))
+      continue
+    if stripped.startswith("## "):
+      lines.append(WebGroupProofRenderedLineView(
+        kind="heading", indent_level=0,
+        prefix=stripped[3:], statement_latex=None, suffix="",
+      ))
+      continue
+    if stripped == r"\[":
+      display_math_lines = []
+      display_math_indent_level = indent_level
+      continue
+
+    prefix, statement_latex, suffix = _split_group_proof_rendered_line(stripped)
+    lines.append(WebGroupProofRenderedLineView(
+      kind="text", indent_level=indent_level, prefix=prefix,
+      statement_latex=statement_latex, suffix=suffix,
+      segments=_build_group_proof_inline_segments(stripped),
+    ))
+
+  if display_math_lines is not None:
+    raise ValueError("unterminated display-math block in rendered group proof")
+  return tuple(lines)

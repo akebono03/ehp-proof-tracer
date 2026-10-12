@@ -1,0 +1,86 @@
+def _build_group_proof_inline_segments(
+  line: str,
+) -> tuple[
+  WebGroupProofInlineSegmentView,
+  ...,
+]:
+  if not isinstance(line, str):
+    raise TypeError("line must be a str")
+
+  segments = []
+  cursor = 0
+  while cursor < len(line):
+    next_math = line.find("$", cursor)
+    next_strong = line.find("**", cursor)
+    delimiters = tuple(
+      (position, kind)
+      for position, kind in (
+        (next_math, "inline_math"),
+        (next_strong, "strong"),
+      )
+      if position >= 0
+    )
+    if not delimiters:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="text", value=line[cursor:]
+      ))
+      break
+
+    position, kind = min(delimiters, key=lambda item: item[0])
+    if position > cursor:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="text", value=line[cursor:position]
+      ))
+
+    if kind == "inline_math":
+      closing = line.find("$", position + 1)
+      if closing < 0:
+        segments.append(WebGroupProofInlineSegmentView(
+          kind="text", value=line[position:]
+        ))
+        break
+      math_value = line[position + 1:closing]
+      if not math_value:
+        segments.append(WebGroupProofInlineSegmentView(
+          kind="text", value="$$"
+        ))
+        cursor = closing + 1
+        continue
+
+      is_tagged = r"\tag{" in math_value
+      cursor = closing + 1
+      if is_tagged:
+        # A tagged equation renders as a display block.  A standalone
+        # punctuation suffix otherwise becomes an orphaned HTML text span.
+        # Keep the punctuation with the equation, before its equation tag.
+        suffix = line[cursor:]
+        if suffix.strip() in (".", "。", ",", "、"):
+          mark = "." if suffix.strip() in (".", "。") else ","
+          tag_position = math_value.rfind(r"\tag{")
+          math_value = (
+            math_value[:tag_position]
+            + r"\text{" + mark + "}"
+            + math_value[tag_position:]
+          )
+          cursor = len(line)
+
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="display_math" if is_tagged else "inline_math",
+        value=math_value,
+      ))
+      continue
+
+    closing = line.find("**", position + 2)
+    if closing < 0:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="text", value=line[position:]
+      ))
+      break
+    strong_value = line[position + 2:closing]
+    segments.append(WebGroupProofInlineSegmentView(
+      kind="strong" if strong_value else "text",
+      value=strong_value if strong_value else "****",
+    ))
+    cursor = closing + 2
+
+  return tuple(segments)

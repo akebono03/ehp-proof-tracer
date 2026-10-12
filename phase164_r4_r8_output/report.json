@@ -1,0 +1,24 @@
+{
+  "phase": "164 R4-R8",
+  "status": "REGISTERED_FIXED_LITERATURE_PI5_3_RECONSTRUCTED",
+  "typed_assertion_ids": [
+    "toda:typed:ch5:prop5.1:finite_dimensional_subset",
+    "toda:typed:ch5:eq5.3:hopf"
+  ],
+  "source_statement_ids": [
+    "toda:tex:ch5:0002",
+    "toda:tex:ch5:0005"
+  ],
+  "registry_backed_reconstruction_success": true,
+  "derived_step_count": 7,
+  "exactness_leaf_count": 4,
+  "provenance_verified_inferences": 44,
+  "narrative_rendered": true,
+  "citation_mode": "confirmed_fixed_literature",
+  "r2_same_document_order_approval_claimed": false,
+  "user_original_confirmation_recorded": true,
+  "independent_edition_check_claimed": false,
+  "source_archive_promoted": false,
+  "production_modified": false,
+  "full_pytest_run": false
+}

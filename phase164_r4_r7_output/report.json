@@ -1,0 +1,28 @@
+{
+  "phase": "164 R4-R7",
+  "status": "REAL_BINDINGS_SCREENED_R3_BLOCKED_EXTERNAL_CITATION_POLICY_PENDING",
+  "source_statement_count": 2,
+  "typed_assertion_ids": [
+    "toda:typed:ch5:prop5.1:finite_dimensional_subset",
+    "toda:typed:ch5:eq5.3:hopf"
+  ],
+  "citation_reasons": [
+    "independent_verification_not_recorded",
+    "independent_verification_not_recorded"
+  ],
+  "accepted_assertion_ids": [],
+  "r2_allowed_count": 0,
+  "r3_rejected": true,
+  "legacy_reconstruction_success": true,
+  "legacy_derived_step_count": 7,
+  "exactness_leaf_count": 4,
+  "legacy_provenance_verified_inferences": 44,
+  "external_citation_order_supported": false,
+  "user_original_confirmation_recorded": true,
+  "availability_position_fabricated": false,
+  "citation_eligible": false,
+  "proof_search_connected": false,
+  "production_modified": false,
+  "source_archive_promoted": false,
+  "full_pytest_run": false
+}
