@@ -859,108 +859,39 @@ def build_standard_web_group_proof_view(
       n=n, k=k, max_depth=max_depth,
     )
 
-  query = TodaGroupQuery(
-    n=n,
-    k=k,
-  )
-
-  domain = (
-    classify_toda_group_query_domain(
-      query
-    )
-  )
-
-  if (
-    domain.kind
-    is not (
-      TodaGroupQueryDomainKind
-      .POSITIVE_DIMENSION
-    )
-  ):
-    raise ValueError(
-      "group proof is available only for "
-      "repository-backed group results"
-    )
-
-  if (
-    isinstance(
-      max_depth,
-      bool,
-    )
-    or not isinstance(
-      max_depth,
-      int,
-    )
-  ):
-    raise TypeError(
-      "max_depth must be an int"
-    )
-
+  query = TodaGroupQuery(n=n, k=k)
+  domain = classify_toda_group_query_domain(query)
+  if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
+    raise ValueError("group proof is available only for repository-backed group results")
+  if isinstance(max_depth, bool) or not isinstance(max_depth, int):
+    raise TypeError("max_depth must be an int")
   if max_depth < 0:
-    raise ValueError(
-      "max_depth must be nonnegative"
-    )
+    raise ValueError("max_depth must be nonnegative")
+  if mode not in ("trace", "outline", "narrative"):
+    raise ValueError("mode must be trace, outline, or narrative")
 
-  if mode not in (
-    "trace",
-    "outline",
-    "narrative",
-  ):
-    raise ValueError(
-      "mode must be trace, outline, or narrative"
-    )
-
-  report = (
-    build_standard_toda_report(
-      n=n,
-      k=k,
-    )
-  )
-
-  if (
-    report.status
-    is TodaCalculationStatus.NOT_FOUND
-  ):
-    raise ValueError(
-      "no proof-backed group result found"
-    )
-
-  if (
-    report.status
-    is TodaCalculationStatus.MULTIPLE_RESULTS
-  ):
-    raise ValueError(
-      "group proof requires exactly one result"
-    )
-
-  group_result = (
-    report.candidates[
-      0
-    ].source_candidate.group_result
-  )
-
+  report = build_standard_toda_report(n=n, k=k)
+  if report.status is TodaCalculationStatus.NOT_FOUND:
+    raise ValueError("no proof-backed group result found")
+  if report.status is TodaCalculationStatus.MULTIPLE_RESULTS:
+    raise ValueError("group proof requires exactly one result")
+  group_result = report.candidates[0].source_candidate.group_result
+  registry_narrative = None
   if n == 3 and k == 2 and mode == "narrative":
-    from phase162_pi5_3_web_replay import (
-      build_phase162_pi5_3_web_replay,
+    from phase164_r5_web_registry_connection import (
+      build_phase164_r5_web_pi5_3_proof,
     )
-    replay = build_phase162_pi5_3_web_replay(
-      max_depth=max(max_depth, 40),
+    replay, registry_narrative = build_phase164_r5_web_pi5_3_proof(
+      max_depth=max_depth,
     )
   else:
-    replay = (
-      build_toda_group_result_proof_replay(
-        group_result,
-        max_depth=max_depth,
-      )
+    replay = build_toda_group_result_proof_replay(
+      group_result, max_depth=max_depth,
     )
 
-  (
-    conclusion_latex,
-    conclusion_fallback,
-  ) = _group_proof_statement_latex(
+  conclusion_latex, conclusion_fallback = _group_proof_statement_latex(
     replay.root_step.conclusion
   )
-
   if conclusion_latex is None:
     raise ValueError(
       "group conclusion is not renderable as LaTeX: "
@@ -968,56 +899,29 @@ def build_standard_web_group_proof_view(
     )
 
   steps = []
-
   for replay_step in replay.steps:
-    (
-      statement_latex,
-      fallback_type_name,
-    ) = _group_proof_statement_latex(
+    statement_latex, fallback_type_name = _group_proof_statement_latex(
       replay_step.proof_step.conclusion
     )
-
-    steps.append(
-      WebGroupProofStepView(
-        depth=replay_step.depth,
-        statement_latex=statement_latex,
-        fallback_type_name=fallback_type_name,
-        rule_name=(
-          _group_proof_rule_name(
-            replay_step.proof_step
-          )
-        ),
-        role_name=replay_step.role.value,
-      )
-    )
+    steps.append(WebGroupProofStepView(
+      depth=replay_step.depth,
+      statement_latex=statement_latex,
+      fallback_type_name=fallback_type_name,
+      rule_name=_group_proof_rule_name(replay_step.proof_step),
+      role_name=replay_step.role.value,
+    ))
 
   rendered_lines = ()
-
   if mode != "trace":
-    presentation = (
-      build_toda_group_proof_presentation(
-        replay
-      )
-    )
-
     if mode == "outline":
-      markdown = (
-        render_toda_group_proof_outline_markdown(
-          presentation
-        )
-      )
+      presentation = build_toda_group_proof_presentation(replay)
+      markdown = render_toda_group_proof_outline_markdown(presentation)
+    elif registry_narrative is not None:
+      markdown = registry_narrative
     else:
-      markdown = (
-        render_toda_group_proof_narrative_markdown(
-          presentation
-        )
-      )
-
-    rendered_lines = (
-      _build_group_proof_rendered_lines(
-        markdown
-      )
-    )
+      presentation = build_toda_group_proof_presentation(replay)
+      markdown = render_toda_group_proof_narrative_markdown(presentation)
+    rendered_lines = _build_group_proof_rendered_lines(markdown)
 
   return WebGroupProofView(
     n=n,
@@ -1026,9 +930,7 @@ def build_standard_web_group_proof_view(
     theorem=replay.source_entry.theorem,
     phase=replay.source_entry.phase,
     key=replay.source_entry.key,
-    steps=tuple(
-      steps
-    ),
+    steps=tuple(steps),
     max_depth=replay.max_depth,
     mode=mode,
     rendered_lines=rendered_lines,

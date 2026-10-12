@@ -121,5 +121,12 @@
   "tests/test_phase164_r4_real_registry_audit.py::test_r4_manifest_remains_archival_only",
   "tests/test_phase164_r4_real_registry_audit.py::test_r4_real_bridge_does_not_fabricate_r3_evidence",
   "tests/test_phase164_r4_real_registry_audit.py::test_r4_reports_are_written_without_modifying_sources",
-  "tests/test_phase164_r4_real_registry_audit.py::test_r4_structural_equality_rejects_unverified_equivalence"
+  "tests/test_phase164_r4_real_registry_audit.py::test_r4_structural_equality_rejects_unverified_equivalence",
+  "tests/test_phase164_r5_web_registry_connection.py::test_group_query_web_narrative_is_phase164",
+  "tests/test_phase164_r5_web_registry_connection.py::test_invalid_depth_rejected",
+  "tests/test_phase164_r5_web_registry_connection.py::test_manifest_must_exist",
+  "tests/test_phase164_r5_web_registry_connection.py::test_non_target_web_path_does_not_load_r5",
+  "tests/test_phase164_r5_web_registry_connection.py::test_proof_markdown_cites_toda_and_ends_in_group_relation",
+  "tests/test_phase164_r5_web_registry_connection.py::test_registry_isomorphism_is_an_actual_group_premise",
+  "tests/test_phase164_r5_web_registry_connection.py::test_registry_web_proof_has_inferred_group_root"
 ]
