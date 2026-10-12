@@ -1,0 +1,22 @@
+﻿chapter,editorial_key,source_file,start_line,end_line,editorial_reference_key,component_position_proposal,editorial_subject_unverified,source_marker,external_context_review_required
+1,unit_sphere,Toda_01_corrected.tex,80,83,source-span:Toda_01_corrected.tex:80:83:unit_sphere,1,S^n,S^n=,False
+1,pointed_homotopy_classes,Toda_01_corrected.tex,155,159,source-span:Toda_01_corrected.tex:155:159:pointed_homotopy_classes,1,"[X,Y]","[X,Y]=",False
+1,composition_homotopy_classes,Toda_01_corrected.tex,163,170,source-span:Toda_01_corrected.tex:163:170:composition_homotopy_classes,1,beta circ alpha,\beta\circ \alpha,True
+1,iterated_suspension,Toda_01_corrected.tex,283,288,source-span:Toda_01_corrected.tex:283:288:iterated_suspension,1,E^n X,\Ex^n X,False
+1,addition_inverse_suspension,Toda_01_corrected.tex,341,354,source-span:Toda_01_corrected.tex:341:354:addition_inverse_suspension,1,f+g,(f+g)(,False
+1,addition_inverse_suspension,Toda_01_corrected.tex,341,354,source-span:Toda_01_corrected.tex:341:354:addition_inverse_suspension,2,-f,(-f)(,False
+1,secondary_composition,Toda_01_corrected.tex,535,540,source-span:Toda_01_corrected.tex:535:540:secondary_composition,1,secondary composition,"\{\alpha,",True
+1,reduced_cone,Toda_01_corrected.tex,1084,1087,source-span:Toda_01_corrected.tex:1084:1087:reduced_cone,1,CX,CX=,False
+1,extension,Toda_01_corrected.tex,1099,1103,source-span:Toda_01_corrected.tex:1099:1103:extension,1,extension alpha,\emph{extension},True
+1,coextension,Toda_01_corrected.tex,1105,1117,source-span:Toda_01_corrected.tex:1105:1117:coextension,1,coextension gamma,\emph{coextension},True
+3,stable_homotopy_group,Toda_03_2(2).tex,1199,1206,source-span:Toda_03_2(2).tex:1199:1206:stable_homotopy_group,1,G_k,G_k\ :=,False
+3,stable_homotopy_group,Toda_03_2(2).tex,1199,1206,source-span:Toda_03_2(2).tex:1199:1206:stable_homotopy_group,2,E^infty,\Ex^\infty:,False
+3,stable_composition,Toda_03_2(2).tex,1214,1221,source-span:Toda_03_2(2).tex:1214:1221:stable_composition,1,composition on G,\circ:G_k,False
+3,stable_toda_bracket,Toda_03_2(2).tex,1236,1266,source-span:Toda_03_2(2).tex:1236:1266:stable_toda_bracket,1,stable Toda bracket,"\langle \alpha,\beta,\gamma\rangle",True
+5,nu4_generator_notation,Toda_05_2(6).tex,567,579,source-span:Toda_05_2(6).tex:567:579:nu4_generator_notation,1,nu_4,\nu_{4}:=,False
+5,nu_n_notation,Toda_05_2(6).tex,605,607,source-span:Toda_05_2(6).tex:605:607:nu_n_notation,1,nu_n,\nu_n:=,False
+5,nu_n_notation,Toda_05_2(6).tex,605,607,source-span:Toda_05_2(6).tex:605:607:nu_n_notation,2,nu,\nu:=E,False
+5,eta_n_cubed_notation,Toda_05_2(6).tex,608,612,source-span:Toda_05_2(6).tex:608:612:eta_n_cubed_notation,1,eta_n^3,\eta^{3}_{n}:=,False
+5,eta_n_cubed_notation,Toda_05_2(6).tex,608,612,source-span:Toda_05_2(6).tex:608:612:eta_n_cubed_notation,2,eta^3,\eta^{3}:=,False
+5,nu_n_squared_notation,Toda_05_2(6).tex,1320,1323,source-span:Toda_05_2(6).tex:1320:1323:nu_n_squared_notation,1,nu_n^2,\nu_n^2:=,False
+5,nu_n_squared_notation,Toda_05_2(6).tex,1320,1323,source-span:Toda_05_2(6).tex:1320:1323:nu_n_squared_notation,2,nu^2,\nu^2:=,False
