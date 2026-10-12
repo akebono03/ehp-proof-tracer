@@ -1,0 +1,26 @@
+{
+  "phase": "Repository Cleanup R4",
+  "mode": "FINAL_CHECK_TARGETED_ONLY",
+  "required_paths_present": true,
+  "missing_required_paths": [],
+  "r3_log_consistent": true,
+  "cache_reappeared_count": 0,
+  "cache_reappeared_examples": [],
+  "invalid_log_entries": [],
+  "logged_deleted_files": 3276,
+  "logged_deleted_bytes": 28630540,
+  "git_tracked_status_unchanged": true,
+  "tracked_changes_before": [],
+  "tracked_changes_after": [],
+  "targeted_pytest_returncode": 0,
+  "targeted_test_paths": [
+    "phase163_r4_r95_phase_closure/tests/test_r95_phase_closure.py",
+    "phase163_r4_r94_registry_finalization/tests/test_r94_registry_finalization.py",
+    "tests/test_phase163_r2_unified_registry.py",
+    "tests/test_phase163_r4_registry_bridge.py",
+    "repository_cleanup_r4/test_r4_verify.py"
+  ],
+  "full_pytest_run": false,
+  "files_deleted": 0,
+  "phase164_ready": true
+}
