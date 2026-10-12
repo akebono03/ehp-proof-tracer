@@ -1,0 +1,46 @@
+{
+  "group": "pi_5^3",
+  "depth": 2,
+  "sequence_math_span_count": 1,
+  "remaining_duplicate_subwindows": [],
+  "text_contains_repeated_connector": false,
+  "proof_heading_present": true,
+  "proof_goal_present": true,
+  "first_sequences": [
+    {
+      "terms": [
+        [
+          "6",
+          "3"
+        ],
+        [
+          "6",
+          "5"
+        ],
+        [
+          "4",
+          "2"
+        ],
+        [
+          "5",
+          "3"
+        ],
+        [
+          "5",
+          "5"
+        ],
+        [
+          "3",
+          "2"
+        ]
+      ],
+      "maps": [
+        "H",
+        "\\Delta",
+        "E",
+        "H",
+        "\\Delta"
+      ]
+    }
+  ]
+}
