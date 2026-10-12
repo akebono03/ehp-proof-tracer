@@ -1,0 +1,270 @@
+{
+  "phase": "163 R4-R86",
+  "mode": "PERSISTED_SOURCE_GROUNDED_CLAIM_REVIEW",
+  "source_record_count": 8,
+  "review_unit_count": 9,
+  "review_counts_by_owner": {
+    "prop:1-6": 3,
+    "thm:2.4": 3,
+    "prop:2.5": 2,
+    "prop:4.2": 1
+  },
+  "split_item_count": 1,
+  "mathematical_semantics_verified_count": 0,
+  "original_edition_verified": false,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "review_unit_id": "review:r86:prop:1-6:last_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_owner": "prop:1-6",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        967,
+        977
+      ],
+      "source_excerpt_sha256": "ba5e1cb5283bbf513bc4928fb029ee2026e8aea830a811d44e8d384af396eff1",
+      "claim_text": "$\\alpha,\\alpha'\\in[\\Ex^n Y, Z]$, $\\beta,\\beta'\\in[X, Y]$, \n$\\gamma,\\gamma'\\in[W, X]$ とする. \\\\\n$n\\ge 1$ \\emph{または} $W=\\Ex W'$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma'\\}_n\n\\ \\supset\\\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n(\\gamma+\\gamma')\\}_n\n\\]\nが成り立つ. ",
+      "claim_sha256": "ba5e1cb5283bbf513bc4928fb029ee2026e8aea830a811d44e8d384af396eff1",
+      "shared_scope_note": "Variables and mapping spaces are introduced on source lines 967-968 and apply to all three cases; each case has its own alternative conditions.",
+      "inherited_constraints": [
+        "source lines 967-968 define all typed variables"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:1-6:middle_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_owner": "prop:1-6",
+      "component_position": 2,
+      "subposition": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        978,
+        985
+      ],
+      "source_excerpt_sha256": "ad74a19e15f6b54291ddff52bf9466e0b96821cf8f0bbba85b914e2e508bcd67",
+      "claim_text": "$n\\ge 1$ \\emph{または} $\\gamma=\\Ex\\gamma' \\ (X=\\Ex X',\\ W=\\Ex W')$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta',\\Ex^n\\gamma\\}_n\n\\ =\\\n\\{\\alpha,\\Ex^n(\\beta+\\beta'),\\Ex^n\\gamma\\}_n,\n\\]",
+      "claim_sha256": "ad74a19e15f6b54291ddff52bf9466e0b96821cf8f0bbba85b914e2e508bcd67",
+      "shared_scope_note": "Variables and mapping spaces are introduced on source lines 967-968 and apply to all three cases; each case has its own alternative conditions.",
+      "inherited_constraints": [
+        "source lines 967-968 define all typed variables"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [
+        "The initial variable declarations are inherited from the first item; include shared variable types in scope."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:1-6:first_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_owner": "prop:1-6",
+      "component_position": 3,
+      "subposition": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        986,
+        994
+      ],
+      "source_excerpt_sha256": "ce11025be96d8198d39ff038f9e0afc4dfe4aaec26f930dd32850f6edc8ff70e",
+      "claim_text": "$n\\ge 1$ \\emph{または} $\\beta=\\Ex\\beta',\\ \\gamma=\\Ex\\gamma' \\ (Y=\\Ex Y',\\ X=\\Ex X',\\ W=\\Ex W')$ の場合には\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\ \\supset\\\n\\{\\alpha+\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\]\nが成り立つ. ",
+      "claim_sha256": "51f264008493490525c714e9c06514cc2b2b519cdbb7e060d12a31e4135eca44",
+      "shared_scope_note": "Variables and mapping spaces are introduced on source lines 967-968 and apply to all three cases; each case has its own alternative conditions.",
+      "inherited_constraints": [
+        "source lines 967-968 define all typed variables"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [
+        "The initial variable declarations are inherited from the first item; include shared variable types in scope.",
+        "Extracted snippet starts with the previous item’s trailing 「が成り立つ。」; a semantic boundary adjustment is needed."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:odd_dimension_case",
+      "reference_locator": "Theorem 2.4",
+      "source_owner": "thm:2.4",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        492,
+        496
+      ],
+      "source_excerpt_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "claim_text": "\\item $m$ が奇数で $p=2$ のとき, 次は全ての $i$ に対して同型である. \n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,S^m\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{2m})_\\infty\\bigr).\n\\]",
+      "claim_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "shared_scope_note": "Prime p, m>1, and chosen continuous map h with cell-homeomorphism property on source lines 485-490 apply to both cases.",
+      "inherited_constraints": [
+        "source lines 485-490 define prime p, m>1 and map h"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_range_isomorphism",
+      "reference_locator": "Theorem 2.4",
+      "source_owner": "thm:2.4",
+      "component_position": 2,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        497,
+        502
+      ],
+      "source_excerpt_sha256": "bc0fb416a7558854fd8078d41c48b1ca16a678acfceaa25c5886e5d83db3bc8e",
+      "claim_text": "\\item $m$ が偶数のとき, 次は $i<(p+1)m-1$ に対して同型である.\n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{pm})_\\infty\\bigr).\n\\]",
+      "claim_sha256": "a814339614a622e6ed248de2afc31cf4008f98a6eeb1f82221feff0cf77db6cf",
+      "shared_scope_note": "Prime p, m>1, and chosen continuous map h with cell-homeomorphism property on source lines 485-490 apply to both cases.",
+      "inherited_constraints": [
+        "source lines 485-490 define prime p, m>1 and map h"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [
+        "The even-dimensional item contains both the range-limited isomorphism and the all-degree p-component isomorphism. Consider two Assertions under the same Reference."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_p_primary_isomorphism",
+      "reference_locator": "Theorem 2.4",
+      "source_owner": "thm:2.4",
+      "component_position": 2,
+      "subposition": 2,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        497,
+        502
+      ],
+      "source_excerpt_sha256": "bc0fb416a7558854fd8078d41c48b1ca16a678acfceaa25c5886e5d83db3bc8e",
+      "claim_text": "さらに, 全ての $i$ に対して $p$-成分についての同型を与える.",
+      "claim_sha256": "d349ea7b5a3cebe01b020e35ede35ec2244b515d0c6cdb49ae713d2fa354b5fb",
+      "shared_scope_note": "Prime p, m>1, and chosen continuous map h with cell-homeomorphism property on source lines 485-490 apply to both cases.",
+      "inherited_constraints": [
+        "source lines 485-490 define prime p, m>1 and map h"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [
+        "The even-dimensional item contains both the range-limited isomorphism and the all-degree p-component isomorphism. Consider two Assertions under the same Reference."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:2.5:delta_composition",
+      "reference_locator": "Proposition 2.5",
+      "source_owner": "prop:2.5",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        962,
+        965
+      ],
+      "source_excerpt_sha256": "12fbda8e7fe2d40c649adbf7d41c85db9faf71b7fde4d5eab9f832ceb20a8bac",
+      "claim_text": "$\\alpha\\in\\pi_{i+1}(S^{2m+1}), \\ \\beta\\in \\pi_{j-1}(S^{i-1})$ 対して, \n\\[\n\\Delta\\alpha\\ \\circ\\ \\beta\\ \\subset\\ \\Delta(\\alpha\\circ E^2\\beta).\n\\]",
+      "claim_sha256": "12fbda8e7fe2d40c649adbf7d41c85db9faf71b7fde4d5eab9f832ceb20a8bac",
+      "shared_scope_note": "Conditions replacing inclusions by equalities occur on source lines 971-974 and govern both displayed relations.",
+      "inherited_constraints": [
+        "both inclusion relations share equality conditions from lines 971-974"
+      ],
+      "inherited_equality_conditions": ", $m$ が奇数, \nあるいは $j<3m-1$, \\\\\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \n等号「$=$」に置き換えられる. ",
+      "boundary_issues": [
+        "The equalities replacing inclusion relations have shared conditions (odd m, j<3m-1, or 2-primary components); do not omit them."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:2.5:whitehead_product_case",
+      "reference_locator": "Proposition 2.5",
+      "source_owner": "prop:2.5",
+      "component_position": 2,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        966,
+        974
+      ],
+      "source_excerpt_sha256": "b0da66ee4eb0899bebc5915142158d7f0fec0f9bcc1547ae924266e2cd2f1838",
+      "claim_text": "特に, 任意の $\\gamma$ に対し,\n\\[\n\\Delta(E^2\\gamma)\\ \\ni\\ \\pm\\,[\\,\\iota_m,\\ \\iota_m\\,]\\circ\\gamma\n\\]\nが成り立つ. ここで $[\\, ,\\,]$ は Whitehead product を表す. \\\\\n上の「$\\subset$」および「$\\ni$」は, $m$ が奇数, \nあるいは $j<3m-1$, \\\\\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \n等号「$=$」に置き換えられる. ",
+      "claim_sha256": "b0da66ee4eb0899bebc5915142158d7f0fec0f9bcc1547ae924266e2cd2f1838",
+      "shared_scope_note": "Conditions replacing inclusions by equalities occur on source lines 971-974 and govern both displayed relations.",
+      "inherited_constraints": [
+        "both inclusion relations share equality conditions from lines 971-974"
+      ],
+      "inherited_equality_conditions": ", $m$ が奇数, \nあるいは $j<3m-1$, \\\\\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \n等号「$=$」に置き換えられる. ",
+      "boundary_issues": [
+        "The equalities replacing inclusion relations have shared conditions (odd m, j<3m-1, or 2-primary components); do not omit them."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:4.2:ehp_exact_sequence",
+      "reference_locator": "Proposition 4.2",
+      "source_owner": "prop:4.2",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_04_2(2).tex",
+      "source_lines": [
+        258,
+        266
+      ],
+      "source_excerpt_sha256": "8cea79a06773a5138ac34942e47ace5eb138ec099f29c74b2f3f4d28f0ae098b",
+      "claim_text": "次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}",
+      "claim_sha256": "8cea79a06773a5138ac34942e47ace5eb138ec099f29c74b2f3f4d28f0ae098b",
+      "shared_scope_note": "The exact sequence is displayed as equation (4.4) inside Proposition 4.2; retain the equation label as an alias, not a duplicate assertion.",
+      "inherited_constraints": [
+        "equation (4.4) is an alias of the equation in Proposition 4.2"
+      ],
+      "inherited_equality_conditions": null,
+      "boundary_issues": [
+        "Equation (4.4) is embedded in Proposition 4.2. Detect duplicate Reference registration before allocating a permanent ID."
+      ],
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "permanent_id_allocated": false
+    }
+  ]
+}

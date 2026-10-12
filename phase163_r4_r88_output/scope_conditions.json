@@ -1,0 +1,271 @@
+{
+  "phase": "163 R4-R88",
+  "mode": "SOURCE_SCOPE_TOKENS_VERIFIED_NOT_MATHEMATICAL_CERTIFICATION",
+  "review_unit_count": 9,
+  "source_scope_token_verified_count": 9,
+  "shared_equality_condition_count": 2,
+  "original_edition_verified": false,
+  "mathematical_semantics_verified_count": 0,
+  "semantic_registration_allowed_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "review_unit_id": "review:r86:prop:1-6:last_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_lines": [
+        967,
+        977
+      ],
+      "component_position": 1,
+      "subposition": 1,
+      "description_jp": "Toda bracket の第3変数に関する包含関係",
+      "required_scope_conditions_jp": [
+        "共有変数の型指定",
+        "n>=1 または W=E W'",
+        "包含関係（等号としない）"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT",
+        "SHARED_VARIABLE_TYPES_PRESERVED"
+      ],
+      "remaining_mathematical_review_jp": "共通の変数型と各場合の懸垂条件について原著との照合が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:1-6:middle_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_lines": [
+        978,
+        985
+      ],
+      "component_position": 2,
+      "subposition": 1,
+      "description_jp": "Toda bracket の第2変数に関する加法等式",
+      "required_scope_conditions_jp": [
+        "共有変数の型指定",
+        "n>=1 または gamma=E gamma'（空間の懸垂条件を含む）"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT",
+        "SHARED_VARIABLE_TYPES_PRESERVED"
+      ],
+      "remaining_mathematical_review_jp": "共通の変数型と各場合の懸垂条件について原著との照合が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:1-6:first_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_lines": [
+        986,
+        994
+      ],
+      "component_position": 3,
+      "subposition": 1,
+      "description_jp": "Toda bracket の第1変数に関する包含関係",
+      "required_scope_conditions_jp": [
+        "共有変数の型指定",
+        "n>=1 または beta=E beta' かつ gamma=E gamma'",
+        "包含関係（等号としない）"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT",
+        "SHARED_VARIABLE_TYPES_PRESERVED"
+      ],
+      "remaining_mathematical_review_jp": "共通の変数型と各場合の懸垂条件について原著との照合が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:odd_dimension_case",
+      "reference_locator": "Theorem 2.4",
+      "source_lines": [
+        492,
+        496
+      ],
+      "component_position": 1,
+      "subposition": 1,
+      "description_jp": "m が奇数かつ p=2 の場合の h_* の全次数同型",
+      "required_scope_conditions_jp": [
+        "p は素数",
+        "m>1",
+        "指定された写像 h",
+        "m は奇数",
+        "p=2",
+        "全ての i"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT"
+      ],
+      "remaining_mathematical_review_jp": "h の選択、p-primary 成分の意味、次数制限について文献確認が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_range_isomorphism",
+      "reference_locator": "Theorem 2.4",
+      "source_lines": [
+        497,
+        502
+      ],
+      "component_position": 2,
+      "subposition": 1,
+      "description_jp": "m が偶数の場合の指定次数範囲での h_* の同型",
+      "required_scope_conditions_jp": [
+        "p は素数",
+        "m>1",
+        "指定された写像 h",
+        "m は偶数",
+        "i<(p+1)m-1"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT"
+      ],
+      "remaining_mathematical_review_jp": "h の選択、p-primary 成分の意味、次数制限について文献確認が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_p_primary_isomorphism",
+      "reference_locator": "Theorem 2.4",
+      "source_lines": [
+        497,
+        502
+      ],
+      "component_position": 2,
+      "subposition": 2,
+      "description_jp": "m が偶数の場合の h_* による全次数の p-成分の同型",
+      "required_scope_conditions_jp": [
+        "p は素数",
+        "m>1",
+        "指定された写像 h",
+        "m は偶数",
+        "全ての i",
+        "p-成分に限定"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT"
+      ],
+      "remaining_mathematical_review_jp": "h の選択、p-primary 成分の意味、次数制限について文献確認が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:2.5:delta_composition",
+      "reference_locator": "Proposition 2.5",
+      "source_lines": [
+        962,
+        965
+      ],
+      "component_position": 1,
+      "subposition": 1,
+      "description_jp": "Delta と合成の包含関係、および追加条件下の等号",
+      "required_scope_conditions_jp": [
+        "alpha, beta の型",
+        "通常は包含",
+        "m が奇数または j<3m-1 または関係する元が 2-primary のとき等号"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT",
+        "BOTH_FORMULAS_INHERIT_EQUALITY_CASES"
+      ],
+      "remaining_mathematical_review_jp": "二つの包含関係に適用する等号条件と符号・次元の確認が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:2.5:whitehead_product_case",
+      "reference_locator": "Proposition 2.5",
+      "source_lines": [
+        966,
+        974
+      ],
+      "component_position": 2,
+      "subposition": 1,
+      "description_jp": "二重懸垂に対する Delta と Whitehead product の関係、および追加条件下の等号",
+      "required_scope_conditions_jp": [
+        "gamma の型と Whitehead product の定義",
+        "通常は包含",
+        "m が奇数または j<3m-1 または関係する元が 2-primary のとき等号"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT",
+        "BOTH_FORMULAS_INHERIT_EQUALITY_CASES"
+      ],
+      "remaining_mathematical_review_jp": "二つの包含関係に適用する等号条件と符号・次元の確認が残る",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    },
+    {
+      "review_unit_id": "review:r86:prop:4.2:ehp_exact_sequence",
+      "reference_locator": "Proposition 4.2",
+      "source_lines": [
+        258,
+        266
+      ],
+      "component_position": 1,
+      "subposition": 1,
+      "description_jp": "EHP 完全列 (4.4) の完全性",
+      "required_scope_conditions_jp": [
+        "E, H, Delta の定義と添字",
+        "(4.4) は Proposition 4.2 内の式のラベルであり重複 Reference を生成しない"
+      ],
+      "verified_source_checks": [
+        "CLAIM_TEX_MATCH",
+        "R86_R87_IDENTICAL_SOURCE",
+        "CONDITION_TOKENS_PRESENT",
+        "EQUATION_44_IS_ALIAS_NOT_NEW_REFERENCE"
+      ],
+      "remaining_mathematical_review_jp": "EHP 完全列の定義域・次元条件と (4.4) の別名を確認する必要がある",
+      "source_scope_token_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false
+    }
+  ]
+}

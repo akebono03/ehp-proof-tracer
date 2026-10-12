@@ -1,0 +1,139 @@
+﻿r48_index,chapter,source_file,source_line,proposed_ownership,provisional_group,reason,evidence_anchor,excerpt,context,registration_allowed
+133,2,Toda_02_2(2).tex,741,PROOF_SPECTRAL_SEQUENCE_STEP,ch2:spectral-sequence:705-818,スペクトル列の計算中の分解式。番号付き命題との境界は未確認。,E_\infty,"\[
+H^{*}(X;\Lambda)\ \cong\ p^{*}H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G
+\]","738: \]
+739: $E_\infty^{*}$ における $B^{*}\otimes G_0$ の極限を考えると, 
+740: それは,
+741: \[
+742: H^{*}(X;\Lambda)\ \cong\ p^{*}H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G
+743: \]
+744: に付随する graded module である. \\
+745: よって, $B^{*}\otimes G_0 \cong E_\infty^{*}$ かつ,
+746: $H^{*}(X;\Lambda)\otimes G_0$ に module として同型である. \\",False
+66,1,Toda_01_corrected.tex,956,PARAPHRASE_OF_PRECEDING_PROPOSITION,ch1:preceding-proposition:at-953,直前の proposition 終了後の『要するに』による言い換え。独立 Reference の新設を保留。,\end{proposition},"\[
+\{\{\alpha,\beta,\gamma\},\ E\delta,\ E\varepsilon\}
++\{\alpha,\ \{\beta,\gamma,\delta\},\ E\varepsilon\}
++\{\alpha,\ \beta,\ \{\gamma,\delta,\varepsilon\}\}
+\equiv0 .
+\]","953: \end{proposition}
+954: 
+955: \noindent (要するに) 
+956: \[
+957: \{\{\alpha,\beta,\gamma\},\ E\delta,\ E\varepsilon\}
+958: +\{\alpha,\ \{\beta,\gamma,\delta\},\ E\varepsilon\}
+959: +\{\alpha,\ \beta,\ \{\gamma,\delta,\varepsilon\}\}
+960: \equiv0 .
+961: \]",False
+67,1,Toda_01_corrected.tex,1007,PROOF_COSET_EXPRESSION,ch1:coset-comparison:1004-1027,"coset 比較の一方の部分群を記述。関連する #68, #69 と同じ議論に属する候補。",coset,"\[
+(\alpha+\alpha')\circ \Ex^{n+1}\!\bigl([W, Y]\bigr) 
++ [\Ex^{n+1}X, Z]\circ \Ex^{n+1}\gamma.
+\]","1004: \{\alpha+\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+1005: \)
+1006: は, 次の部分群の coset である. 
+1007: \[
+1008: (\alpha+\alpha')\circ \Ex^{n+1}\!\bigl([W, Y]\bigr) 
+1009: + [\Ex^{n+1}X, Z]\circ \Ex^{n+1}\gamma.
+1010: \]
+1011: 他方, 
+1012: \(",False
+68,1,Toda_01_corrected.tex,1016,PROOF_COSET_EXPRESSION,ch1:coset-comparison:1004-1027,"同じ coset 比較の他方の部分群。#67, #69 と独立に登録しない。",coset,"\[
+\alpha\circ E^{n+1}[W,X]
++ \alpha'\circ E^{n+1}[W,X]
++ [E^{n+1}X,Z].
+\]","1013: \{\alpha,\Ex^n\beta,\Ex^n\gamma\}_n + \{\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+1014: \)
+1015: は, 次の部分群の coset である.
+1016: \[
+1017: \alpha\circ E^{n+1}[W,X]
+1018: + \alpha'\circ E^{n+1}[W,X]
+1019: + [E^{n+1}X,Z].
+1020: \]
+1021: この群は, 次の元を含んでいる.",False
+69,1,Toda_01_corrected.tex,1022,PROOF_COSET_EXPRESSION,ch1:coset-comparison:1004-1027,前の二つの部分群を比較する包含部分。TeX 誤記候補 E^[n+1] を要確認。,この群は,"\[
+(\alpha + \alpha') \circ E^{n+1}[W,X]
++ [E^[n+1]X,Z] \circ E^{n+1}\gamma.
+\]","1019: + [E^{n+1}X,Z].
+1020: \]
+1021: この群は, 次の元を含んでいる.
+1022: \[
+1023: (\alpha + \alpha') \circ E^{n+1}[W,X]
+1024: + [E^[n+1]X,Z] \circ E^{n+1}\gamma.
+1025: \]
+1026: よって,
+1027: \(",False
+120,2,Toda_02_2(2).tex,557,UNNUMBERED_ASSERTION_CASE,ch2:cup-product-by-parity:549-559,m 偶数の積の公式。直前の m 奇数の場合との一体的登録を要確認。,m$ が偶数,"\[
+u_k\,u_h=\binom{k+h}{k}\,u_{k+h}.
+\]","554: u_{2k}\,u_{2h}=\binom{k+h}{k}\,u_{2(k+h)}.
+555: \]
+556: $m$ が偶数のとき, 
+557: \[
+558: u_k\,u_h=\binom{k+h}{k}\,u_{k+h}.
+559: \]
+560: 係数体を,
+561: \[
+562: \Lambda=",False
+122,2,Toda_02_2(2).tex,569,UNNUMBERED_ASSERTION_CASE,ch2:cohomology-maps:560-578,条件付き i* 同型。#123 と同じ周辺段落でも Assertion は別にする案。,i<pm,"\[
+i^*:H^i\bigl((S^m)_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{p-1};\Lambda\bigr)
+\ \ \text{は} \ 
+i<pm \ \text{で同型 .}
+\]","566: \end{cases}
+567: \]
+568: とする. このとき, 次のことが簡単に確かめられる. 
+569: \[
+570: i^*:H^i\bigl((S^m)_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{p-1};\Lambda\bigr)
+571: \ \ \text{は} \ 
+572: i<pm \ \text{で同型 .}
+573: \]
+574: \[",False
+123,2,Toda_02_2(2).tex,574,UNNUMBERED_ASSERTION_CASE,ch2:cohomology-maps:560-578,h* の単射性に関する式。#122 と同じ Reference 内の別 Assertion 候補。,単射同型,"\[
+h^*:H^i\bigl((S^{pm})_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{\infty};\Lambda\bigr)
+\ \ \text{は} \ 
+\text{任意の } i \ \text{で単射同型 .}
+\]","571: \ \ \text{は} \ 
+572: i<pm \ \text{で同型 .}
+573: \]
+574: \[
+575: h^*:H^i\bigl((S^{pm})_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{\infty};\Lambda\bigr)
+576: \ \ \text{は} \ 
+577: \text{任意の } i \ \text{で単射同型 .}
+578: \]
+579: ",False
+140,2,Toda_02_2(2).tex,994,UNNUMBERED_ASSERTION_CASE,ch2:relative-composition:991-999,境界写像と h_m* の合成に関する二つの関係。1つの出典段落に2 Assertion の可能性。,相対ホモトピー群,"\[
+\partial(\alpha'\circ\partial_0^{-1}\beta) = \partial(\alpha')\circ \beta,\quad
+
+
+h_{m*}(\alpha'\circ\partial_0^{-1}\beta) = h_{m*}(\alpha')\circ E\beta .
+\]","991: 相対ホモトピー群の中での合成とみなすことにより, 
+992: \(\alpha'\in\pi_i((S^m)_\infty, S^m)\)
+993: に対して, 
+994: \[
+995: \partial(\alpha'\circ\partial_0^{-1}\beta) = \partial(\alpha')\circ \beta,\quad
+996: 
+997: 
+998: h_{m*}(\alpha'\circ\partial_0^{-1}\beta) = h_{m*}(\alpha')\circ E\beta .
+999: \]",False
+142,2,Toda_02_2(2).tex,1024,CONCLUSION_OF_NUMBERED_PROOF,ch2:delta-proof:1021-1026,\qed と同じ式中にある証明の結論。既存番号付き主張との一致を確認する。,\qed,"\[
+\Delta(E^2\gamma)=\pm[\,\iota_m,\iota_m\,]\circ\gamma.\qquad \qed
+\]","1021: \Delta(\iota_{2m+1})=\pm[\,\iota_m,\iota_m\,]
+1022: \)
+1023: が直ちに従い, 特に,
+1024: \[
+1025: \Delta(E^2\gamma)=\pm[\,\iota_m,\iota_m\,]\circ\gamma.\qquad \qed
+1026: \]
+1027: 
+1028: \switchcolumn
+1029: ",False
+256,4,Toda_04_2(2).tex,286,EHP_EXACTNESS_PROOF_FRAGMENT,ch4:ehp-proof:283-291,『残る問題は』に続く完全列の一部分。完全性を証明する文脈に帰属。,残る問題は,"\[
+\pit{2n}{n}\ \xrightarrow{\ \Ex\ }\ \pit{2n+1}{n+1}\
+\xrightarrow{\ H\ }\ \pit{2n+1}{2n+1}\
+\xrightarrow{\ \Delta\ }\ \pit{2n-1}{n}\
+\xrightarrow{E} \ \pit{2n}{n+1}
+\]","283: \]
+284: の完全性を得る. 
+285: 残る問題は,
+286: \[
+287: \pit{2n}{n}\ \xrightarrow{\ \Ex\ }\ \pit{2n+1}{n+1}\
+288: \xrightarrow{\ H\ }\ \pit{2n+1}{2n+1}\
+289: \xrightarrow{\ \Delta\ }\ \pit{2n-1}{n}\
+290: \xrightarrow{E} \ \pit{2n}{n+1}
+291: \]",False

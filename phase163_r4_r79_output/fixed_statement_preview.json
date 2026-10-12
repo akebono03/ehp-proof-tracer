@@ -1,0 +1,122 @@
+{
+  "phase": "163 R4-R79",
+  "mode": "TRANSIENT_EXACT_TEX_FIXED_AND_INTERNAL_PREVIEW",
+  "source_phase": "163 R4-R78",
+  "preview_reference_count": 4,
+  "preview_fixed_statement_count": 8,
+  "preview_proof_internal_count": 10,
+  "fixed_counts_by_owner": {
+    "prop:1-6": 3,
+    "thm:2.4": 2,
+    "prop:2.5": 2,
+    "prop:4.2": 1
+  },
+  "paraphrase_hold_count": 1,
+  "tex_boundary_checked": true,
+  "original_edition_verified": false,
+  "formal_source_boundary_verified_count": 0,
+  "mathematical_role_verified_count": 0,
+  "semantic_registration_allowed_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "fixed_statement_previews": [
+    {
+      "owner": "prop:1-6",
+      "assertion_id": "preview:fixed:prop:1-6:last_argument_additivity",
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 967,
+      "end_line": 977,
+      "claim_text": "$\\alpha,\\alpha'\\in[\\Ex^n Y, Z]$, $\\beta,\\beta'\\in[X, Y]$, \n$\\gamma,\\gamma'\\in[W, X]$ とする. \\\\\n$n\\ge 1$ \\emph{または} $W=\\Ex W'$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma'\\}_n\n\\ \\supset\\\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n(\\gamma+\\gamma')\\}_n\n\\]\nが成り立つ. ",
+      "full_statement_text": "\\begin{proposition}[]\\label{prop:1-6}\n% Prop1.6\n$\\alpha,\\alpha'\\in[\\Ex^n Y, Z]$, $\\beta,\\beta'\\in[X, Y]$, \n$\\gamma,\\gamma'\\in[W, X]$ とする. \\\\\n$n\\ge 1$ \\emph{または} $W=\\Ex W'$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma'\\}_n\n\\ \\supset\\\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n(\\gamma+\\gamma')\\}_n\n\\]\nが成り立つ. \n$n\\ge 1$ \\emph{または} $\\gamma=\\Ex\\gamma' \\ (X=\\Ex X',\\ W=\\Ex W')$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta',\\Ex^n\\gamma\\}_n\n\\ =\\\n\\{\\alpha,\\Ex^n(\\beta+\\beta'),\\Ex^n\\gamma\\}_n,\n\\]\nが成り立つ. $n\\ge 1$ \\emph{または} $\\beta=\\Ex\\beta',\\ \\gamma=\\Ex\\gamma' \\ (Y=\\Ex Y',\\ X=\\Ex X',\\ W=\\Ex W')$ の場合には\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\ \\supset\\\n\\{\\alpha+\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\]\nが成り立つ. \n\\end{proposition}",
+      "claim_sha256": "ba5e1cb5283bbf513bc4928fb029ee2026e8aea830a811d44e8d384af396eff1",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "prop:1-6",
+      "assertion_id": "preview:fixed:prop:1-6:middle_argument_additivity",
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 978,
+      "end_line": 985,
+      "claim_text": "$n\\ge 1$ \\emph{または} $\\gamma=\\Ex\\gamma' \\ (X=\\Ex X',\\ W=\\Ex W')$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta',\\Ex^n\\gamma\\}_n\n\\ =\\\n\\{\\alpha,\\Ex^n(\\beta+\\beta'),\\Ex^n\\gamma\\}_n,\n\\]",
+      "full_statement_text": "\\begin{proposition}[]\\label{prop:1-6}\n% Prop1.6\n$\\alpha,\\alpha'\\in[\\Ex^n Y, Z]$, $\\beta,\\beta'\\in[X, Y]$, \n$\\gamma,\\gamma'\\in[W, X]$ とする. \\\\\n$n\\ge 1$ \\emph{または} $W=\\Ex W'$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma'\\}_n\n\\ \\supset\\\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n(\\gamma+\\gamma')\\}_n\n\\]\nが成り立つ. \n$n\\ge 1$ \\emph{または} $\\gamma=\\Ex\\gamma' \\ (X=\\Ex X',\\ W=\\Ex W')$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta',\\Ex^n\\gamma\\}_n\n\\ =\\\n\\{\\alpha,\\Ex^n(\\beta+\\beta'),\\Ex^n\\gamma\\}_n,\n\\]\nが成り立つ. $n\\ge 1$ \\emph{または} $\\beta=\\Ex\\beta',\\ \\gamma=\\Ex\\gamma' \\ (Y=\\Ex Y',\\ X=\\Ex X',\\ W=\\Ex W')$ の場合には\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\ \\supset\\\n\\{\\alpha+\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\]\nが成り立つ. \n\\end{proposition}",
+      "claim_sha256": "ad74a19e15f6b54291ddff52bf9466e0b96821cf8f0bbba85b914e2e508bcd67",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "prop:1-6",
+      "assertion_id": "preview:fixed:prop:1-6:first_argument_additivity",
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 986,
+      "end_line": 994,
+      "claim_text": "が成り立つ. $n\\ge 1$ \\emph{または} $\\beta=\\Ex\\beta',\\ \\gamma=\\Ex\\gamma' \\ (Y=\\Ex Y',\\ X=\\Ex X',\\ W=\\Ex W')$ の場合には\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\ \\supset\\\n\\{\\alpha+\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\]\nが成り立つ. ",
+      "full_statement_text": "\\begin{proposition}[]\\label{prop:1-6}\n% Prop1.6\n$\\alpha,\\alpha'\\in[\\Ex^n Y, Z]$, $\\beta,\\beta'\\in[X, Y]$, \n$\\gamma,\\gamma'\\in[W, X]$ とする. \\\\\n$n\\ge 1$ \\emph{または} $W=\\Ex W'$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma'\\}_n\n\\ \\supset\\\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n(\\gamma+\\gamma')\\}_n\n\\]\nが成り立つ. \n$n\\ge 1$ \\emph{または} $\\gamma=\\Ex\\gamma' \\ (X=\\Ex X',\\ W=\\Ex W')$ の場合には,\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha,\\Ex^n\\beta',\\Ex^n\\gamma\\}_n\n\\ =\\\n\\{\\alpha,\\Ex^n(\\beta+\\beta'),\\Ex^n\\gamma\\}_n,\n\\]\nが成り立つ. $n\\ge 1$ \\emph{または} $\\beta=\\Ex\\beta',\\ \\gamma=\\Ex\\gamma' \\ (Y=\\Ex Y',\\ X=\\Ex X',\\ W=\\Ex W')$ の場合には\n\\[\n\\{\\alpha,\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n+\n\\{\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\ \\supset\\\n\\{\\alpha+\\alpha',\\Ex^n\\beta,\\Ex^n\\gamma\\}_n\n\\]\nが成り立つ. \n\\end{proposition}",
+      "claim_sha256": "ce11025be96d8198d39ff038f9e0afc4dfe4aaec26f930dd32850f6edc8ff70e",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "thm:2.4",
+      "assertion_id": "preview:fixed:thm:2.4:odd_dimension_case",
+      "source_file": "Toda_02_2(2).tex",
+      "start_line": 492,
+      "end_line": 496,
+      "claim_text": "\\item $m$ が奇数で $p=2$ のとき, 次は全ての $i$ に対して同型である. \n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,S^m\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{2m})_\\infty\\bigr).\n\\]",
+      "full_statement_text": "\\begin{theorem}[James {[10]}; Toda {[21]}]\\label{thm:2.4}\n% Th2.4.\\\n$p$ を素数, $m>1$ とする. \n連続写像\n\\[\nh:\\ ((S^m)_\\infty,(S^m)_{p-1})\\longrightarrow ((S^{pm})_\\infty,e_0)\n\\]\nであって, $e^{pm}$ を $S^{pm}-e_0$ へ同相に移すものをとる. \n\\begin{enumerate}\n\\item $m$ が奇数で $p=2$ のとき, 次は全ての $i$ に対して同型である. \n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,S^m\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{2m})_\\infty\\bigr).\n\\]\n\\item $m$ が偶数のとき, 次は $i<(p+1)m-1$ に対して同型である.\n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{pm})_\\infty\\bigr).\n\\]\nさらに, 全ての $i$ に対して $p$-成分についての同型を与える. \n\\end{enumerate}\n\\end{theorem}",
+      "claim_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "thm:2.4",
+      "assertion_id": "preview:fixed:thm:2.4:even_dimension_case",
+      "source_file": "Toda_02_2(2).tex",
+      "start_line": 497,
+      "end_line": 502,
+      "claim_text": "\\item $m$ が偶数のとき, 次は $i<(p+1)m-1$ に対して同型である.\n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{pm})_\\infty\\bigr).\n\\]\nさらに, 全ての $i$ に対して $p$-成分についての同型を与える. ",
+      "full_statement_text": "\\begin{theorem}[James {[10]}; Toda {[21]}]\\label{thm:2.4}\n% Th2.4.\\\n$p$ を素数, $m>1$ とする. \n連続写像\n\\[\nh:\\ ((S^m)_\\infty,(S^m)_{p-1})\\longrightarrow ((S^{pm})_\\infty,e_0)\n\\]\nであって, $e^{pm}$ を $S^{pm}-e_0$ へ同相に移すものをとる. \n\\begin{enumerate}\n\\item $m$ が奇数で $p=2$ のとき, 次は全ての $i$ に対して同型である. \n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,S^m\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{2m})_\\infty\\bigr).\n\\]\n\\item $m$ が偶数のとき, 次は $i<(p+1)m-1$ に対して同型である.\n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{pm})_\\infty\\bigr).\n\\]\nさらに, 全ての $i$ に対して $p$-成分についての同型を与える. \n\\end{enumerate}\n\\end{theorem}",
+      "claim_sha256": "bc0fb416a7558854fd8078d41c48b1ca16a678acfceaa25c5886e5d83db3bc8e",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "prop:2.5",
+      "assertion_id": "preview:fixed:prop:2.5:delta_composition",
+      "source_file": "Toda_02_2(2).tex",
+      "start_line": 962,
+      "end_line": 965,
+      "claim_text": "$\\alpha\\in\\pi_{i+1}(S^{2m+1}), \\ \\beta\\in \\pi_{j-1}(S^{i-1})$ 対して, \n\\[\n\\Delta\\alpha\\ \\circ\\ \\beta\\ \\subset\\ \\Delta(\\alpha\\circ E^2\\beta).\n\\]",
+      "full_statement_text": "\\begin{proposition}\\label{prop:2.5}\n% Prop2.5\\\n$\\alpha\\in\\pi_{i+1}(S^{2m+1}), \\ \\beta\\in \\pi_{j-1}(S^{i-1})$ 対して, \n\\[\n\\Delta\\alpha\\ \\circ\\ \\beta\\ \\subset\\ \\Delta(\\alpha\\circ E^2\\beta).\n\\]\n特に, 任意の $\\gamma$ に対し,\n\\[\n\\Delta(E^2\\gamma)\\ \\ni\\ \\pm\\,[\\,\\iota_m,\\ \\iota_m\\,]\\circ\\gamma\n\\]\nが成り立つ. ここで $[\\, ,\\,]$ は Whitehead product を表す. \\\\\n上の「$\\subset$」および「$\\ni$」は, $m$ が奇数, \nあるいは $j<3m-1$, \\\\\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \n等号「$=$」に置き換えられる. \n\\end{proposition}",
+      "claim_sha256": "12fbda8e7fe2d40c649adbf7d41c85db9faf71b7fde4d5eab9f832ceb20a8bac",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "prop:2.5",
+      "assertion_id": "preview:fixed:prop:2.5:whitehead_product_case",
+      "source_file": "Toda_02_2(2).tex",
+      "start_line": 966,
+      "end_line": 974,
+      "claim_text": "特に, 任意の $\\gamma$ に対し,\n\\[\n\\Delta(E^2\\gamma)\\ \\ni\\ \\pm\\,[\\,\\iota_m,\\ \\iota_m\\,]\\circ\\gamma\n\\]\nが成り立つ. ここで $[\\, ,\\,]$ は Whitehead product を表す. \\\\\n上の「$\\subset$」および「$\\ni$」は, $m$ が奇数, \nあるいは $j<3m-1$, \\\\\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \n等号「$=$」に置き換えられる. ",
+      "full_statement_text": "\\begin{proposition}\\label{prop:2.5}\n% Prop2.5\\\n$\\alpha\\in\\pi_{i+1}(S^{2m+1}), \\ \\beta\\in \\pi_{j-1}(S^{i-1})$ 対して, \n\\[\n\\Delta\\alpha\\ \\circ\\ \\beta\\ \\subset\\ \\Delta(\\alpha\\circ E^2\\beta).\n\\]\n特に, 任意の $\\gamma$ に対し,\n\\[\n\\Delta(E^2\\gamma)\\ \\ni\\ \\pm\\,[\\,\\iota_m,\\ \\iota_m\\,]\\circ\\gamma\n\\]\nが成り立つ. ここで $[\\, ,\\,]$ は Whitehead product を表す. \\\\\n上の「$\\subset$」および「$\\ni$」は, $m$ が奇数, \nあるいは $j<3m-1$, \\\\\nまたは, 関係する元が \\(2\\)-primary 成分にあるときには, \n等号「$=$」に置き換えられる. \n\\end{proposition}",
+      "claim_sha256": "b0da66ee4eb0899bebc5915142158d7f0fec0f9bcc1547ae924266e2cd2f1838",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    },
+    {
+      "owner": "prop:4.2",
+      "assertion_id": "preview:fixed:prop:4.2:ehp_exact_sequence",
+      "source_file": "Toda_04_2(2).tex",
+      "start_line": 258,
+      "end_line": 266,
+      "claim_text": "次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}",
+      "full_statement_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}",
+      "claim_sha256": "8cea79a06773a5138ac34942e47ace5eb138ec099f29c74b2f3f4d28f0ae098b",
+      "registration_allowed": false,
+      "original_edition_verified": false
+    }
+  ]
+}

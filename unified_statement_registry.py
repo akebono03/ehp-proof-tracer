@@ -22,6 +22,7 @@ class AssertionKind(str, Enum):
 class AssertionOrigin(str, Enum):
     FIXED_STATEMENT = "fixed_statement"
     PROOF_INTERNAL = "proof_internal"
+    SOURCE_ARCHIVE = "source_archive"
 
 
 @dataclass(frozen=True)

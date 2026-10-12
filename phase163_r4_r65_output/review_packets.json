@@ -1,0 +1,348 @@
+{
+  "phase": "163 R4-R65",
+  "mode": "READ_ONLY_BOUNDARY_REVIEW_PACKET",
+  "candidate_count": 16,
+  "assertion_proposal_count": 21,
+  "category_counts": {
+    "SOURCE_LOCAL_REVIEW": 9,
+    "CONTEXT_REVIEW": 5,
+    "ADJACENT_NOTATION_REVIEW": 2,
+    "CONTEXT_AND_ADJACENCY_REVIEW": 0
+  },
+  "mathematical_boundary_verified_count": 0,
+  "semantic_registration_allowed_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "editorial_key": "unit_sphere",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 80,
+      "end_line": 83,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "$(n+1)$ 次元ユークリッド空間内の単位 $n$–球面を, 次で表す.\n\\[\nS^n=\\{(t_1,\\ldots,t_{n+1})\\mid t_1^2+\\cdots+t_{n+1}^2=1\\}.\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "S^n",
+          "source_marker": "S^n="
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "pointed_homotopy_classes",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 155,
+      "end_line": 159,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "写像 $f:(X,x_0)\\to (Y,y_0)$ の (基点付き) ホモトピー類の集合を,\n\\[\n[X,Y]=\\{\\, [f]\\ \\mid\\ f:(X,x_0)\\to (Y,y_0)\\,\\}\n\\]\nで表す. 特に, $X=S^n$ のとき,",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "[X,Y]",
+          "source_marker": "[X,Y]="
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "composition_homotopy_classes",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 163,
+      "end_line": 170,
+      "review_category": "CONTEXT_REVIEW",
+      "source_span_text": "$\\alpha\\in[X,Y]$, $\\beta\\in[Y,Z]$ に対して,\nそれぞれの代表写像を $f:X\\to Y$, $g:Y\\to Z$ とするとき, \\\\\n合成\n\\(g\\circ f\\) は \\([X,Z]\\) の元を表し,\n\\(f, g\\) の選び方によらない.\\\\\n\\(g\\circ f\\) の類を\n\\(\\beta\\circ \\alpha \\in [X,Z]\\)\nと書き, \\(\\alpha\\) と \\(\\beta\\) の合成 (composition) という.\\\\",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "beta circ alpha",
+          "source_marker": "\\beta\\circ \\alpha"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "iterated_suspension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 283,
+      "end_line": 288,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "空間 $X$ と $S^n$ の reduced join を,\n\\[\n\\Ex^n X\\ :=\\ X\\ \\wedge\\ S^n\n\\]\nと書き, $X$ の $n$-重 suspension と呼ぶ. \n特に, $n=1$ のときは, 単に $\\Ex X=X\\ \\wedge\\ S^1$ と書く. \\\\",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "E^n X",
+          "source_marker": "\\Ex^n X"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "addition_inverse_suspension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 341,
+      "end_line": 354,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "ホモトピー集合 \\([EX, Y]\\) を考える.\\\\\n写像 $f,g:(\\Ex X,x_0)\\to(Y,y_0)$ に対し, \n\\(f+g,\\ -f: (EX,x_0)\\to (Y,y_0)\\) を, 次で定義する.\n\\[\n(f+g)(d_X(x,t)) :=\n\\begin{cases}\nf(d_X(x,2t)), & 0\\le t\\le \\tfrac12,\\\\[2mm]\ng(d_X(x,2t-1)), & \\tfrac12\\le t\\le 1,\n\\end{cases}\n\\]\n\\[\n(-f)(d_X(x, t)) := \nf(d_X(x, 1-t)).\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "f+g",
+          "source_marker": "(f+g)("
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "-f",
+          "source_marker": "(-f)("
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "secondary_composition",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 535,
+      "end_line": 540,
+      "review_category": "CONTEXT_REVIEW",
+      "source_span_text": "\\emph{secondary composition}\n\\[\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\ \\subset\\ [\\Ex^{n+1}W, Z]\n\\]\nを, 上の方法で得られる写像 $H$ の, \nホモトピー類全体の集合として定める. ",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "secondary composition",
+          "source_marker": "\\{\\alpha,"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "reduced_cone",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 1084,
+      "end_line": 1087,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "基空間 $X$ 上の \\emph{cone} \\(CX\\) を, 次で定義する.\n\\[\nCX=(X\\times I)/\\bigl(X\\times\\{1\\}\\ \\cup\\ x_0\\times I\\bigr).\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "CX",
+          "source_marker": "CX="
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "extension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 1099,
+      "end_line": 1103,
+      "review_category": "CONTEXT_REVIEW",
+      "source_span_text": "\\(\\overline{\\alpha}\\in[Y\\cup_\\beta CX, Z]\\)\nは, \\(\\overline{\\alpha}\\) を表す写像 \\(g\\)\nに対して, \n制限 \\(g|_{Y}\\) が \\(\\alpha\\in[Y,Z]\\) を表すとき,\\\\\n$\\alpha$ の \\emph{extension} と呼ぶ.",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "extension alpha",
+          "source_marker": "\\emph{extension}"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "coextension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 1105,
+      "end_line": 1117,
+      "review_category": "CONTEXT_REVIEW",
+      "source_span_text": "\\(\\widetilde{\\gamma}\\in[EW,Y\\cup_\\beta CX]\\)\nに対して, \\(\\widetilde{\\gamma}\\) を表す写像 \n\\(h:EW\\to Y\\cup_\\beta CX\\)\nが, 次の条件を満たすとする.\n\\[\nh(d_W(w, t)) \\left\\{\n\\begin{array}{ll}\n= d'_X(c(w), 1-2t), & 0 \\leq t \\leq \\frac{1}{2}, \\\\\n\\in Y, & \\frac{1}{2} \\leq t \\leq 1. \\\\\n\\end{array}\\right.\n\\]\nここで, \\(c:W\\to X\\) は \\(\\gamma\\in[W,X]\\) を表す写像とする.\nこのとき, \\(\\widetilde{\\gamma}\\) を \\(\\gamma\\) の \\emph{coextension} と呼ぶ.\\\\",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "coextension gamma",
+          "source_marker": "\\emph{coextension}"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "stable_homotopy_group",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "start_line": 1199,
+      "end_line": 1206,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "球面の $k$ 次安定ホモトピー群を\n\\[\nG_k\\ :=\\ \\lim_{n\\to\\infty}\\ \\pis{n+k}{S^n}\n\\]\nと書き, 射影を\n\\[\n\\Ex^\\infty:\\ \\pis{n+k}{S^n}\\ \\longrightarrow\\ G_k\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "G_k",
+          "source_marker": "G_k\\ :="
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "E^infty",
+          "source_marker": "\\Ex^\\infty:"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "stable_composition",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "start_line": 1214,
+      "end_line": 1221,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "(1.6) より,\n\\(\\Ex^{m}(\\alpha\\circ\\beta)=\\Ex^{m}\\alpha\\circ\\Ex^{m}\\beta\\)\nなので, 合成\n\\[\n\\circ:G_k\\times G_h \\rightarrow G_{k+h}\n\\]\nが, \\(E^\\infty(\\alpha\\circ\\beta)=E^\\infty\\alpha\\circ E^\\infty\\beta\\) \nにより定義される. \\\\",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "composition on G",
+          "source_marker": "\\circ:G_k"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "stable_toda_bracket",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "start_line": 1236,
+      "end_line": 1266,
+      "review_category": "CONTEXT_REVIEW",
+      "source_span_text": "\\[\n\\alpha\\in G_k,\\quad \\beta\\in G_h,\\quad \\gamma\\in G_\\ell,\\qquad\n\\alpha\\circ\\beta=\\beta\\circ\\gamma=0\n\\]\nに対する, stable Toda bracket \n\\[\n\\langle \\alpha,\\beta,\\gamma\\rangle \n\\in G_{k+h+\\ell+1}(\\alpha\\circ G_{h+\\ell+1} + \\gamma\\circ G_{k+h+1}) .\n\\]\nを以下の様に定義する. \n十分大きな $n$ をとれば, \n\\[\n\\alpha'\\in\\pis{n+k}{S^n},\\ \n\\beta'\\in\\pis{n+k+h}{S^{n+k}},\\\n\\gamma'\\in\\pis{n+k+h+\\ell}{S^{n+k+h}}\n\\]\nが存在して, \n\\(\n\\alpha=\\Ex^\\infty\\alpha',\\\n\\beta=\\Ex^\\infty\\beta',\\\n\\gamma=\\Ex^\\infty\\gamma'\n\\)\nと書ける. \\\\\nこのとき, \n\\(\\langle \\alpha,\\beta,\\gamma\\rangle\\)\nを, 次で定義する.\n\\[\n\\langle \\alpha,\\beta,\\gamma\\rangle\n\\ :=\\ \\Ex^\\infty (-1)^{\\,n-1}\\ \\toda{\\alpha',\\beta',\\gamma'}.\n\\]\nProp1.3 により, この定義は $n$ によらず well-defined である. ",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "stable Toda bracket",
+          "source_marker": "\\langle \\alpha,\\beta,\\gamma\\rangle"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "nu4_generator_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 567,
+      "end_line": 579,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "そこで,\n\\(H[\\iota_4,\\iota_4]=(-1)^u 2\\iota_7\\) とし, \n\\(\\nu_4\\) を次で定義する. \n(\\([\\iota_4,\\iota_4]\\) は Whitehead product)\n\\[\n\\nu_{4}:=\n\\begin{cases}\n\\alpha^{\\ast}-(-1)^{u}\\,s[\\iota_4,\\iota_4] \n& (\\text{if } 2E\\alpha^{\\ast}=E^{2}\\nu'),\\\\[1mm]\n-\\alpha^{\\ast}+(-1)^{u}(s+1)[\\iota_4,\\iota_4] \n& (\\text{if } 2E\\alpha^{\\ast}=-E^{2}\\nu').\n\\end{cases}\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_4",
+          "source_marker": "\\nu_{4}:="
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "nu_n_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 605,
+      "end_line": 607,
+      "review_category": "ADJACENT_NOTATION_REVIEW",
+      "source_span_text": "\\[\n\\nu_n:=E^{\\,n-4}\\nu_{4},\\ (n\\ge 4),\\qquad \\nu:=E^{\\infty}\\nu_{4}\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_n",
+          "source_marker": "\\nu_n:="
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "nu",
+          "source_marker": "\\nu:=E"
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "eta_n_cubed_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 608,
+      "end_line": 612,
+      "review_category": "ADJACENT_NOTATION_REVIEW",
+      "source_span_text": "\\[\n\\eta^{3}_{n}:=\\eta_{n}\\circ\\eta_{n+1}\\circ\\eta_{n+2},\\ (n\\ge2),\\qquad\n\\eta^{3}:=\\eta\\circ\\eta\\circ\\eta .\n\\]\nと記す.",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "eta_n^3",
+          "source_marker": "\\eta^{3}_{n}:="
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "eta^3",
+          "source_marker": "\\eta^{3}:="
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    },
+    {
+      "editorial_key": "nu_n_squared_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 1320,
+      "end_line": 1323,
+      "review_category": "SOURCE_LOCAL_REVIEW",
+      "source_span_text": "\\[\n\\nu_n^2:=\\nu_n\\circ\\nu_{n+3},(n\\ge4)\\qquad\n\\nu^2:=\\nu\\circ\\nu.\n\\]",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_n^2",
+          "source_marker": "\\nu_n^2:="
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "nu^2",
+          "source_marker": "\\nu^2:="
+        }
+      ],
+      "mathematical_verification": "PENDING",
+      "original_edition_verification": "PENDING",
+      "decision": "NEEDS_REVIEW"
+    }
+  ]
+}

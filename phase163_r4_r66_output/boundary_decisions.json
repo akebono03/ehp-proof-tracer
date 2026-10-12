@@ -1,0 +1,517 @@
+{
+  "phase": "163 R4-R66",
+  "mode": "READ_ONLY_MULTI_ASSERTION_BOUNDARY_DECISIONS",
+  "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+  "reference_proposal_count": 16,
+  "assertion_proposal_count": 21,
+  "multi_assertion_reference_count": 5,
+  "context_or_span_review_count": 10,
+  "local_editorial_proposal_count": 6,
+  "mathematical_boundary_verified_count": 0,
+  "original_edition_verified": false,
+  "semantic_registration_allowed_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "editorial_key": "unit_sphere",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 80,
+      "end_line": 83,
+      "source_text_sha256": "766bde7c741549e6b42342174fa9a561e0bd617564b45a1fe34a13352d3ee650",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "S^n",
+          "source_marker": "S^n=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [],
+      "boundary_status": "LOCAL_EDITORIAL_PROPOSAL",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "pointed_homotopy_classes",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 155,
+      "end_line": 159,
+      "source_text_sha256": "17a276bbb264136d1427edbf5375c53315d55c72a2cd486a1891b6144cad14f9",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "[X,Y]",
+          "source_marker": "[X,Y]=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "TRAILING_SENTENCE_OUTSIDE_SPAN"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "composition_homotopy_classes",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 163,
+      "end_line": 170,
+      "source_text_sha256": "0ef57545c1ca19ab4e1f0e14cdafde804776c4dfbb0fa608b5b82569f8f78577",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "beta circ alpha",
+          "source_marker": "\\beta\\circ \\alpha",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "CONTEXT_FOR_COMPOSITION"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "iterated_suspension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 283,
+      "end_line": 288,
+      "source_text_sha256": "9cbf7e2bd4f7278fcb7e318f0027c3862b43888ae40120f9e65a39b1d539816b",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "E^n X",
+          "source_marker": "\\Ex^n X",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [],
+      "boundary_status": "LOCAL_EDITORIAL_PROPOSAL",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "addition_inverse_suspension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 341,
+      "end_line": 354,
+      "source_text_sha256": "924045e5885cd3b4e974683e6b8327dcfe69300b47bc415c24996f62e9700d9c",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 2,
+      "split_rationale": "TWO_DEFINITIONS_IN_ONE_BLOCK",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "f+g",
+          "source_marker": "(f+g)(",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "-f",
+          "source_marker": "(-f)(",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [],
+      "boundary_status": "LOCAL_EDITORIAL_PROPOSAL",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "secondary_composition",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 535,
+      "end_line": 540,
+      "source_text_sha256": "8d58136d9fa72896bca724d45e8e9a9e482520d777b5576b0f9e7362c3a94f36",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "secondary composition",
+          "source_marker": "\\{\\alpha,",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "PRECEDING_CONSTRUCTION_REQUIRED"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "reduced_cone",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 1084,
+      "end_line": 1087,
+      "source_text_sha256": "3c617351c361b3edbd4e47937bc9e2afc29ed69a04bf5523c78ca4bf8df18216",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "CX",
+          "source_marker": "CX=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [],
+      "boundary_status": "LOCAL_EDITORIAL_PROPOSAL",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "extension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 1099,
+      "end_line": 1103,
+      "source_text_sha256": "b054882f2c1f063f829d640187c79424fb14b04e7e9df5bc8a081cf798187b97",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "extension alpha",
+          "source_marker": "\\emph{extension}",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "ATTACHING_SPACE_CONTEXT_REQUIRED"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "coextension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "start_line": 1105,
+      "end_line": 1117,
+      "source_text_sha256": "0bf8e9fb91302447596465fdb772eb67920fc6b6d809600d084c69fed40fa7d3",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "coextension gamma",
+          "source_marker": "\\emph{coextension}",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "ATTACHING_SPACE_CONTEXT_REQUIRED"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "stable_homotopy_group",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "start_line": 1199,
+      "end_line": 1206,
+      "source_text_sha256": "61522223365dbe45f4d0176c2c6ecae2c7ac4cd57d435ee99e807b7c31c6c055",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 2,
+      "split_rationale": "GROUP_AND_MAP_IN_ONE_BLOCK",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "G_k",
+          "source_marker": "G_k\\ :=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "E^infty",
+          "source_marker": "\\Ex^\\infty:",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "SOURCE_ENDS_AT_DISPLAY"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "stable_composition",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "start_line": 1214,
+      "end_line": 1221,
+      "source_text_sha256": "7eb0c4dcbca393b4a27cc18c0a2fcdb5e62d1dde7ba6d9c26618933d242f7689",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "composition on G",
+          "source_marker": "\\circ:G_k",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [],
+      "boundary_status": "LOCAL_EDITORIAL_PROPOSAL",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "stable_toda_bracket",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "start_line": 1236,
+      "end_line": 1266,
+      "source_text_sha256": "d677e8abc8d1c1a5d4cf56d2887b72d392868f43a004f41107e1b1f34960548f",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "stable Toda bracket",
+          "source_marker": "\\langle \\alpha,\\beta,\\gamma\\rangle",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "DEFINITION_HYPOTHESES_AND_INDETERMINACY"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "nu4_generator_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 567,
+      "end_line": 579,
+      "source_text_sha256": "c5aade4a96ac02b54449bfa4a404e89c837ff3808af8c08c6efdbf28c01623a7",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 1,
+      "split_rationale": "SINGLE_ASSERTION",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_4",
+          "source_marker": "\\nu_{4}:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "PRIOR_CHOICES_ALPHA_STAR_U_S"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "nu_n_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 605,
+      "end_line": 607,
+      "source_text_sha256": "9b72706a316f4d9b7c4673ecba09eca3fd94f9b8bf555dbd6fdcf7d8dda95844",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 2,
+      "split_rationale": "UNSTABLE_AND_STABLE_SYMBOLS",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_n",
+          "source_marker": "\\nu_n:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "nu",
+          "source_marker": "\\nu:=E",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "ADJACENT_NOTATION_BLOCK"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "eta_n_cubed_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 608,
+      "end_line": 612,
+      "source_text_sha256": "3f9a9d62f08506904759ff5f5ab974a1241dfed5bf024683b960384fd3ee20e7",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 2,
+      "split_rationale": "UNSTABLE_AND_STABLE_SYMBOLS",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "eta_n^3",
+          "source_marker": "\\eta^{3}_{n}:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "eta^3",
+          "source_marker": "\\eta^{3}:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [
+        "ADJACENT_NOTATION_BLOCK"
+      ],
+      "boundary_status": "REQUIRES_CONTEXT_OR_SPAN_REVIEW",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "nu_n_squared_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "start_line": 1320,
+      "end_line": 1323,
+      "source_text_sha256": "93e3e36a0c076c7b16f0c4699f6eaa6873ca2b500fb60fb41c1582ed3d6fec1f",
+      "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+      "reference_count_proposed": 1,
+      "assertion_count_proposed": 2,
+      "split_rationale": "UNSTABLE_AND_STABLE_SYMBOLS",
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_n^2",
+          "source_marker": "\\nu_n^2:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "nu^2",
+          "source_marker": "\\nu^2:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "review_flags": [],
+      "boundary_status": "LOCAL_EDITORIAL_PROPOSAL",
+      "original_edition_verified": false,
+      "mathematical_boundary_verified": false,
+      "publication_position": null,
+      "production_reference_id": null,
+      "production_assertion_ids": [],
+      "registration_action": "NONE"
+    }
+  ]
+}
