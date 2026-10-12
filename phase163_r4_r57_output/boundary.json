@@ -1,0 +1,146 @@
+{
+  "phase": "163 R4-R57",
+  "mode": "READ_ONLY_EXPLICIT_CONTEXTUAL_UNVERIFIED_BOUNDARY",
+  "r56_input_sha256": "b61bf51aa2115451735121f6d10424322332c0b8f17d07f6cecad68de1b844c7",
+  "definition_count": 3,
+  "explicit_case_count": 3,
+  "contextual_evidence_count": 3,
+  "unverified_assumption_count": 9,
+  "global_preconditions_verified_count": 0,
+  "mathematical_ast_count": 0,
+  "untouched_definition_candidate_count": 16,
+  "pending_other_candidates_count": 237,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "original_edition_verified": false,
+  "items": [
+    {
+      "locator": "(2.9)",
+      "source_file": "Toda_02_2(2).tex",
+      "source_unit_id": "tex-unit:toda:ch02:0013",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0013:definition",
+      "defined_symbol": "\\Delta",
+      "publication_position": 40,
+      "equation_source_line": 927,
+      "variables": [
+        "m",
+        "i"
+      ],
+      "explicit_domain_tex": "\\pi_{i+1}(S^{2m+1})",
+      "explicit_codomain_tex": "\\pi_{i-1}(S^m)\\big/\\partial\\Ker(h_{m*})",
+      "explicit_cases": [],
+      "contextual_evidence": [
+        {
+          "kind": "DENOMINATOR_PROPERTY",
+          "note": "商の分母の自明性に関する場合分け。Delta 全体の適用条件ではない。",
+          "source_line": 933,
+          "source_text": "\\(m\\) が奇数または \\(i<3m-1\\) のとき自明であり, \\\\",
+          "status": "CONTEXTUAL_NOT_GLOBAL_PRECONDITION"
+        }
+      ],
+      "unverified_assumptions": [
+        "m,i の量化と値域",
+        "Delta の全域的な定義可能範囲",
+        "記号 (h_{m*})^{-1} の意味・存在・一意性"
+      ],
+      "global_preconditions_verified": false,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "source_sha256": "d2b5e667c5417a2a691e9e8a67f9684f1fb6f94e855159015d55a21921f997a0",
+      "registration_applied": false
+    },
+    {
+      "locator": "(2.10)",
+      "source_file": "Toda_02_2(2).tex",
+      "source_unit_id": "tex-unit:toda:ch02:0014",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0014:definition",
+      "defined_symbol": "\\Delta^{-1}",
+      "publication_position": 41,
+      "equation_source_line": 936,
+      "variables": [
+        "m",
+        "i"
+      ],
+      "explicit_domain_tex": "\\pi_{i-1}(S^m)",
+      "explicit_codomain_tex": "\\pi_{i+1}(S^{2m+1})\\big/ H\\pi_{i+1}(S^{m+1})",
+      "explicit_cases": [],
+      "contextual_evidence": [
+        {
+          "kind": "KERNEL_STATEMENT",
+          "note": "核の説明であって、Delta^{-1} の全域的可逆性の証明ではない。",
+          "source_line": 942,
+          "source_text": "を定める. ここで \\(H\\pi_{i+1}(S^{m+1})\\) は, \\(\\Delta\\) の kernel であることに注意する.",
+          "status": "CONTEXTUAL_NOT_GLOBAL_PRECONDITION"
+        }
+      ],
+      "unverified_assumptions": [
+        "m,i の量化と値域",
+        "Delta^{-1} の逆写像としての存在・一意性",
+        "記号 Omega_1^{-1} と partial^{-1} の意味"
+      ],
+      "global_preconditions_verified": false,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "source_sha256": "d2b5e667c5417a2a691e9e8a67f9684f1fb6f94e855159015d55a21921f997a0",
+      "registration_applied": false
+    },
+    {
+      "locator": "(4.3)",
+      "source_file": "Toda_04_2(2).tex",
+      "source_unit_id": "tex-unit:toda:ch04:0003",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch04:0003:definition",
+      "defined_symbol": "\\pi_i^n",
+      "publication_position": 65,
+      "equation_source_line": 93,
+      "variables": [
+        "i",
+        "n"
+      ],
+      "explicit_domain_tex": null,
+      "explicit_codomain_tex": null,
+      "explicit_cases": [
+        {
+          "condition_tex": "i=n",
+          "value_tex": "\\pis{n}{S^n}",
+          "source_line": 96,
+          "source_text": "\\pis{n}{S^n}, & i=n,\\\\[2pt]",
+          "status": "EXPLICIT_CASE_IN_EQUATION"
+        },
+        {
+          "condition_tex": "i=2n-1",
+          "value_tex": "\\Ex^{-1}\\bigl(\\pis{2n}{S^{n+1};2}\\bigr)",
+          "source_line": 97,
+          "source_text": "\\Ex^{-1}\\bigl(\\pis{2n}{S^{n+1};2}\\bigr), & i=2n-1,\\\\[2pt]",
+          "status": "EXPLICIT_CASE_IN_EQUATION"
+        },
+        {
+          "condition_tex": "i\\ne n,\\,2n-1",
+          "value_tex": "\\pis{i}{S^n;2}",
+          "source_line": 98,
+          "source_text": "\\pis{i}{S^n;2}, & i\\ne n,\\,2n-1 .",
+          "status": "EXPLICIT_CASE_IN_EQUATION"
+        }
+      ],
+      "contextual_evidence": [
+        {
+          "kind": "SURROUNDING_NOTATION",
+          "note": "周辺の p-成分の記法説明。式 (4.3) の場合分けとは別に保持する。",
+          "source_line": 91,
+          "source_text": "\\(\\pis{i}{S^n}\\) の $p$-成分を, $\\pis{i}{S^n;p}$ と書き,",
+          "status": "CONTEXTUAL_NOT_GLOBAL_PRECONDITION"
+        }
+      ],
+      "unverified_assumptions": [
+        "i,n の量化と値域",
+        "E^{-1} の逆像／逆写像としての厳密な意味",
+        "3場合の重複・網羅性の形式的検証"
+      ],
+      "global_preconditions_verified": false,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "source_sha256": "716c3a6b256b00aa7bf38f81183030d3ded456e5d60ced4847c55fead431a8be",
+      "registration_applied": false
+    }
+  ]
+}
