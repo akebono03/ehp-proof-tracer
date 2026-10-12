@@ -1,0 +1,41 @@
+{
+  "phase": "164 R10 documentation only",
+  "state": "DOCUMENTS_UPDATED_WITHOUT_TESTS",
+  "files": [
+    {
+      "file": "README.md",
+      "before_lines": 1618,
+      "after_lines": 1636,
+      "sha256": "d1807ee0aeda444de48e6e2a9fb2e011f14a1b785cc3761888e8a8beec7fcde2"
+    },
+    {
+      "file": "docs/design.md",
+      "before_lines": 3372,
+      "after_lines": 3402,
+      "sha256": "8f3d44700d1bce093d822eed2440483650171907d2ea1abcc0a2c9cae63e4bb7"
+    },
+    {
+      "file": "docs/development_log.md",
+      "before_lines": 3879,
+      "after_lines": 3906,
+      "sha256": "39b662eef20bb54beedd11cb8a4532cefc52bc35d4eac658a6639894c52b1e75"
+    },
+    {
+      "file": "docs/roadmap.md",
+      "before_lines": 1839,
+      "after_lines": 1859,
+      "sha256": "8f08c6a88ee0ccc11983214637f374f93c3e4dd995574b20df2fb7f8c5473a30"
+    },
+    {
+      "file": "docs/proof_records.md",
+      "before_lines": 3677,
+      "after_lines": 3694,
+      "sha256": "ee54716114654bcc2d4416f056bc1bd09805e660c180e22f4a01a98317e315a5"
+    }
+  ],
+  "backup_dir": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r10_docs_backup_20261013_004543",
+  "full_document_dir": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r10_docs_output\\full_documents",
+  "pytest_run": false,
+  "full_pytest_run": false,
+  "scope": "architecture unification closure; neither mathematical certification nor presentation-quality completion"
+}
