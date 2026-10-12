@@ -1,0 +1,34 @@
+{
+  "phase": "163 R4-R90",
+  "mode": "OPT_IN_R89_NINE_TO_UNIFIED_BRIDGE_SOURCE_ONLY",
+  "reference_added_count": 3,
+  "reference_reused_count": 1,
+  "assertion_added_count": 9,
+  "metadata_only_record_count": 9,
+  "mathematical_semantics_verified_count": 0,
+  "original_edition_verified": false,
+  "proof_eligible_count": 0,
+  "production_auto_connected": false,
+  "production_registry_modified": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "assertion_ids": [
+    "archive:prop:1-6:last_argument_additivity",
+    "archive:prop:1-6:middle_argument_additivity",
+    "archive:prop:1-6:first_argument_additivity",
+    "archive:thm:2.4:odd_dimension_case",
+    "archive:thm:2.4:even_dimension_range_isomorphism",
+    "archive:thm:2.4:even_dimension_p_primary_isomorphism",
+    "archive:prop:2.5:delta_composition",
+    "archive:prop:2.5:whitehead_product_case",
+    "archive:prop:4.2:ehp_exact_sequence"
+  ],
+  "reference_ids_added": [
+    "toda:Proposition 1.6",
+    "toda:Theorem 2.4",
+    "toda:Proposition 4.2"
+  ],
+  "reference_ids_reused": [
+    "toda:Proposition 2.5"
+  ]
+}
