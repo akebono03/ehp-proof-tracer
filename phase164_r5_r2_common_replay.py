@@ -27,4 +27,10 @@ def build_phase164_r5_r2_common_replay(n: int, k: int, group_result, max_depth: 
         )
         return derived.replay
 
+    if n == 2 and k == 1:
+        raise ValueError(
+            "Phase 165: pi_3^2 has no certified typed-statement proof; "
+            "legacy repository replay is prohibited for this goal"
+        )
+
     return build_toda_group_result_proof_replay(group_result, max_depth=max_depth)

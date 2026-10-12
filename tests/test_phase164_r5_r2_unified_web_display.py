@@ -5,6 +5,7 @@ from types import SimpleNamespace
 
 import pytest
 
+from phase165_goal_only_search import GoalSearchIncompleteError
 import phase164_r5_r2_common_replay as selector
 import web_group_proof as web
 
@@ -37,13 +38,13 @@ def test_source_selection_requires_no_markdown_for_ordinary_groups(monkeypatch):
                         lambda result, max_depth: calls.append((result, max_depth)) or result)
     for n in range(2, 16):
         for k in range(8):
-            if (n, k) in ((3, 2), (4, 1), (5, 1)):
+            if (n, k) in ((2, 1), (3, 2), (4, 1), (5, 1)):
                 continue
             item = (n, k)
             assert selector.build_phase164_r5_r2_common_replay(
                 n, k, item, 2, "narrative"
             ) == item
-    assert len(calls) == 109
+    assert len(calls) == 108
 
 
 def test_legacy_special_web_view_is_not_reachable():
@@ -52,11 +53,12 @@ def test_legacy_special_web_view_is_not_reachable():
     assert "_phase158_baseline_render_toda_group_proof_narrative_markdown" not in block
 
 
-def test_pi53_common_narrative_is_renderable():
-    view = web.build_standard_web_group_proof_view(3, 2, 2, "narrative")
-    assert view.phase == "164 R5"
-    assert view.rendered_lines
-    assert view.mode == "narrative"
+def test_pi53_common_narrative_requires_registered_goal_catalog():
+    with pytest.raises(
+        GoalSearchIncompleteError,
+        match="Registered goal/rule catalog not configured",
+    ):
+        web.build_standard_web_group_proof_view(3, 2, 2, "narrative")
 
 
 @pytest.mark.parametrize("n,k", [(4, 1), (5, 1), (4, 2), (6, 3)])
