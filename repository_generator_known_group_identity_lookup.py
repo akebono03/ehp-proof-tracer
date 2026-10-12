@@ -19,6 +19,9 @@ from proof import (
 from proof_repository import (
   ProofRepository,
 )
+from phase164_r7_r3_generator_registry import (
+  validate_generator_repository_registry_links,
+)
 from repository_proof_scope import (
   RepositoryProofScopeNode,
   RepositoryProofScopeResult,
@@ -340,6 +343,10 @@ def find_standard_repository_generator_known_group_identity_nodes(
 
   repository = (
     build_standard_production_proof_repository()
+  )
+
+  validate_generator_repository_registry_links(
+    repository
   )
 
   return (

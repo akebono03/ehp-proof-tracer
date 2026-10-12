@@ -25,6 +25,10 @@ from proof import (
   RelationType,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class HopfInvariantStatement:
@@ -48,7 +52,7 @@ class HopfLeftCompositionLawStatement:
 
 
 def ehp_h_homomorphism_proof_step():
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=HomomorphismStatement(
       map=EHP_H_MAP,
     ),
@@ -158,7 +162,7 @@ def hopf_invariant_proof_step(
       "HopfInvariantStatement"
     )
 
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=statement,
     premises=(),
     rule=ProofRule.GIVEN,

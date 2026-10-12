@@ -7,6 +7,10 @@ from proof import (
   ProofStep,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class MapTypingFact:
@@ -24,7 +28,7 @@ class MapIsomorphismFact:
   def to_proof_step(
     self,
   ) -> ProofStep:
-    return ProofStep(
+    return create_legacy_given_proof_step(
       conclusion=IsomorphismStatement(
         map=self.typing.map,
       ),

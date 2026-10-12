@@ -12257,7 +12257,10 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     )
   )
-  return suppress_toda_group_proof_narrative_dangling_connectors(
-    rendered
+  from phase164_r9_narrative_contract import normalize_public_narrative_contract
+  return normalize_public_narrative_contract(
+    suppress_toda_group_proof_narrative_dangling_connectors(
+      rendered
+    )
   )
 

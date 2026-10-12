@@ -3370,3 +3370,33 @@ Phase 162 の $\pi_5^3$ 監査では、既存の `ProofStep` を利用した証�
 ### Phase 境界
 
 Phase 162 は問題の特定と監査記録で区切る。Phase 163 は全登録 Statement の棚卸し・共通 ID・来歴・順序と利用資格のデータ整備および共通検索までとし、一般証明探索の成功を主張しない。一般 Backward Search の規則選択・候補評価への統合は後続 Phase とする。既存 API と数学的推論規則の変更は必要最小限とする。
+
+## Phase 164 — 証明生成・表示経路の共通化（2026-10-13 確定）
+
+### Phase の目的と設計境界
+
+Phase 164 は、個別の証明文章や数学的導出を完成させる Phase ではない。既存の Statement Registry（命題台帳）、Proof Repository（証明保管庫）、Backward Search（逆向き探索）、ProofStep Factory（証明ステップ生成）、Presentation（表示用データ）、Renderer（文章表示）および Web 入口の接続を共通化することを目的とする。
+
+主要経路は次のとおりである。
+
+`Statement Registry / 引用資格境界 → Proof Repository / Backward Search → ProofStep Factory → Presentation → Common Renderer → Web`
+
+Generator・Group・Operation の Resolver も既存の対象経路に共通に接続する。ただし、すべての照会が必ず Backward Search を実行するとは限らない。用途別の正当な経路差分まで統一を理由に消さない。
+
+### ProofStep の生成責務
+
+- アプリケーション層の直接生成と既存の GIVEN / INFERENCE は共通 Factory 経由に移行する。
+- `proof.py` は依存関係の根であり、中核コンストラクタ8箇所と中核推論委譲2箇所は内部処理として維持する。Factory から逆方向に `proof.py` を参照させる循環 import は作らない。
+- 表示専用の ProofStep projection は実証済みの推論とは扱わない。既存の rule と provenance（来歴）状態を保持し、数学的認証に昇格させない。
+- R8-R7 の既定 AST（構文木）監査範囲で、未移行の本番直接生成呼び出しは0件。`replace()` 65箇所は文字列置換38、対象外 dataclass 25、ScalarSum 専用1、ProofStep 分岐保護1に分類した。
+
+### 表示経路の責務
+
+- Web の Group proof は共通 Presentation / Renderer を経由する。Trace・Outline・Narrative という表示方式の差異は保持する。
+- Narrative の重複する EHP 部分完全列と接続句は、共通の表示正規化で扱う。証明木、推論、引用境界に変更を加えない。
+- R9-R2 の代表例 $\pi_5^3$（depth 2）では EHP 完全列1本、重複部分列0件、接続句重複なしを実行時に確認した。
+- 数学的根拠、生成元の対応の説明、各群ごとの Narrative 品質は後続 Phase で改善する。表示の文章品質を Phase 164 の完了条件へ混入しない。
+
+### 検証上の制約
+
+限定テストの実績として R8-R7 は77 PASS、R9-R2 は17 PASS。いずれも全体 pytest の成功を意味しない。Phase 164 の文書区切りに際して全体 pytest および追加 pytest は実施しない（ユーザー指定）。静的監査の除外対象や動的別名経路について完全網羅を主張しない。未検証の GIVEN / INFERENCE と Toda 原典掲載位置は未検証のまま維持する。

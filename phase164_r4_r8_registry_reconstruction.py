@@ -22,6 +22,7 @@ from phase163_r3_registry_validation import audit_dependencies
 from phase163_r4_registry_bridge import MigrationStatus
 from phase164_r4_r1_source_crosswalk import audit_current_repository
 from phase164_r4_r6_typed_binding import register_phase164_r4_r6_typed_bindings
+from phase164_r7_statement_resolution import resolve_registered_statement
 from proof import ProofRule, ProofStep
 from toda_rules import TodaProp42ExactnessStatement
 from unified_statement_registry import AssertionOrigin
@@ -101,16 +102,19 @@ def reconstruct_phase164_r4_r8_pi5_3(
                 or binding.step is not literature[index]
                 or link.step is not literature[index]):
             raise ValueError("unexpected or altered registered proof binding")
-        assertion = registration.bridge.registry.assertion(expected_id)
-        reference = registration.bridge.registry.reference(assertion.reference_id)
-        if (assertion.origin is not AssertionOrigin.FIXED_STATEMENT
-                or assertion.content is not binding.step.conclusion
-                or assertion.dependencies
-                or reference.locator != binding.locator
-                or reference.publication_position is not None
-                or assertion.available_after_position is not None):
+        resolved = resolve_registered_statement(
+            registration.bridge,
+            expected_id,
+            expected_conclusion=binding.step.conclusion,
+            confirmed_fixed_step=binding.step,
+            confirmed_source_locator=binding.locator,
+            source_confirmation_recorded=registration.user_source_confirmation_recorded,
+        )
+        if (resolved.assertion.origin is not AssertionOrigin.FIXED_STATEMENT
+                or resolved.proof_link is not link
+                or resolved.reference.locator != binding.locator):
             raise ValueError("typed reference content or boundary changed")
-        selected.append(link.step)
+        selected.append(resolved.proof_link.step)
 
     # Existing R7 validates the very same concrete INFERENCE ancestry and
     # separately supplied GIVEN trust boundary, rather than inventing roots.

@@ -22,6 +22,10 @@ from toda_rules import (
   toda_sigma_family_definition_statement,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_specialization_proof_step,
+)
+
 
 def is_toda_prop515_generic_sigma_specialization_generator(
   generator: GeneratorSymbol,
@@ -233,7 +237,7 @@ def specialize_toda_prop515_sigma_index_step(
     relation_type=RelationType.EQUALITY,
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=conclusion,
     premises=(
       symbolic_step,

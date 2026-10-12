@@ -1,0 +1,2053 @@
+{
+  "phase": "164 R8-R4",
+  "mode": "READ_ONLY_PRODUCTION_FACTORY_BATCH_PLANNING",
+  "scope": "root-level Python with named tooling/backup files excluded",
+  "scanned_files": 275,
+  "skipped_count": 70,
+  "skipped_examples": [
+    "audit_phase144_6_r5_17a.py",
+    "audit_phase144_6_r5_17a_r2.py",
+    "audit_phase144_6_r5_17a_r3.py",
+    "audit_phase144_6_r5_17b.py",
+    "audit_phase144_6_r5_17c.py",
+    "audit_phase144_6_r5_17d.py",
+    "audit_phase144_6_r5_17d_r1.py",
+    "audit_phase144_6_r5_17e.py",
+    "audit_phase144_6_r5_20.py",
+    "audit_phase144_6_r5_21.py",
+    "audit_phase144_6_r5_22.py",
+    "audit_phase144_6_r5_23.py",
+    "audit_phase144_6_r5_24.py",
+    "audit_phase144_6_r5_25.py",
+    "audit_phase144_6_r5_26.py",
+    "audit_phase144_6_r5_27.py",
+    "audit_phase144_6_r5_28.py",
+    "audit_phase144_6_r5_29.py",
+    "audit_phase144_6_r5_30.py",
+    "audit_phase144_6_r5_31.py"
+  ],
+  "parse_errors": [],
+  "category_counts": {
+    "core_engine_keep_or_internal_refactor": 10,
+    "dataclass_replace_type_review": 66,
+    "given_source_boundary_review": 128,
+    "inference_constructor_provenance_review": 18,
+    "inference_factory_migrate": 23,
+    "other_constructor_review": 1
+  },
+  "migration_candidate_files": [
+    "hopf_rules.py",
+    "map_facts.py",
+    "phase161_r7_premise_provenance_validation.py",
+    "phase162_group_structure_backward.py",
+    "phase162_pi5_3_backward_selection.py",
+    "phase162_pi5_3_web_replay.py",
+    "phase162_r2_existing_proof_connection.py",
+    "phase162_r3j_inference_rule_audit.py",
+    "phase162_reference_boundary.py",
+    "phase162_web_narrative_integration.py",
+    "phase164_r5_web_registry_connection.py",
+    "phase164_r8_proofstep_factory.py",
+    "repository_foundational_group_specialization.py",
+    "repository_nu5_eta8_suspension_zero_specialization.py",
+    "repository_nu5_stable_bridge_specialization.py",
+    "repository_nu_prime_suspension_membership_specialization.py",
+    "repository_sigma11_suspension_specialization.py",
+    "repository_symbolic_sigma_specialization.py",
+    "repository_symbolic_stable_group_specialization.py",
+    "toda_group_proof_narrative_contribution_renderer.py",
+    "toda_midstream_bootstrap.py",
+    "toda_phase65_bootstrap.py",
+    "toda_proof_builders.py",
+    "toda_prop511_zero_bootstrap.py",
+    "toda_prop515_low_bootstrap.py",
+    "toda_prop515_sigma_chain_bootstrap.py",
+    "toda_prop515_upper_bootstrap.py",
+    "toda_prop56_zero_bootstrap.py",
+    "toda_prop58_zero_bootstrap.py",
+    "toda_rules.py",
+    "toda_stable_eta_generator_normalization.py",
+    "toda_stable_transport.py",
+    "toda_upstream_bootstrap.py"
+  ],
+  "sites": [
+    {
+      "file": "formatter.py",
+      "line": 183,
+      "function": "format_proof_step",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "generator_facts.py",
+      "line": 141,
+      "function": "GeneratorFactRepository.materialize_typed_element",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "hopf_rules.py",
+      "line": 51,
+      "function": "ehp_h_homomorphism_proof_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "hopf_rules.py",
+      "line": 161,
+      "function": "hopf_invariant_proof_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "map_facts.py",
+      "line": 27,
+      "function": "MapIsomorphismFact.to_proof_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase161_r7_premise_provenance_validation.py",
+      "line": 86,
+      "function": "validate_phase161_r7_provenance.visit",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_group_structure_backward.py",
+      "line": 148,
+      "function": "reconstruct_group_structure_goal",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "line": 48,
+      "function": "_canonical_goals",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "line": 62,
+      "function": "_canonical_goals",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "line": 73,
+      "function": "_canonical_goals",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "line": 108,
+      "function": "_apply_unique",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_pi5_3_web_replay.py",
+      "line": 36,
+      "function": "build_phase162_pi5_3_web_replay",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_pi5_3_web_replay.py",
+      "line": 38,
+      "function": "build_phase162_pi5_3_web_replay",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase162_r2_existing_proof_connection.py",
+      "line": 99,
+      "function": "reconstruct_phase162_r2_from_existing_proofs",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_r3g_existing_reason_bridge.py",
+      "line": 78,
+      "function": "build_phase162_r3g_existing_reason_trace",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase162_r3j_inference_rule_audit.py",
+      "line": 71,
+      "function": "classify_r3j_inference_rule",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_reference_boundary.py",
+      "line": 72,
+      "function": "cite_verified_fixed_statement",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase162_reference_boundary.py",
+      "line": 96,
+      "function": "cite_verified_fixed_statement",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_reference_boundary.py",
+      "line": 97,
+      "function": "cite_verified_fixed_statement",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 53,
+      "function": "_format_phase162_proof_sentences",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 81,
+      "function": "_compose_phase162_group_conclusion",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 119,
+      "function": "_build_phase162_legacy_validated_isomorphism_markdown",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 173,
+      "function": "_build_phase162_existing_group_connection",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 182,
+      "function": "_build_phase162_existing_group_connection",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 194,
+      "function": "_build_phase162_existing_group_connection",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase162_web_narrative_integration.py",
+      "line": 265,
+      "function": "_phase162_ehp_leaves",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "phase163_r4_r11_literature_registration.py",
+      "line": 133,
+      "function": "_copy_snapshot",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r11_literature_registration.py",
+      "line": 142,
+      "function": "_copy_snapshot",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r12_literature_registration.py",
+      "line": 192,
+      "function": "register_prop51_prop53_literature_statements",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r12_literature_registration.py",
+      "line": 195,
+      "function": "register_prop51_prop53_literature_statements",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r6_structured_binding.py",
+      "line": 96,
+      "function": "bind_verified_fixed_statements",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r6_structured_binding.py",
+      "line": 107,
+      "function": "bind_verified_fixed_statements",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r7_representative_bindings.py",
+      "line": 172,
+      "function": "run_audit",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r84_apply.py",
+      "line": 23,
+      "function": "transformed_registry",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r84_apply.py",
+      "line": 29,
+      "function": "transformed_archive",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r84_apply.py",
+      "line": 45,
+      "function": "apply",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase163_r4_r84_apply.py",
+      "line": 45,
+      "function": "apply",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "phase164_r5_web_registry_connection.py",
+      "line": 69,
+      "function": "build_phase164_r5_web_pi5_3_proof",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "phase164_r8_proofstep_factory.py",
+      "line": 31,
+      "function": "derive_inference_proof_step",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "proof.py",
+      "line": 1061,
+      "function": "apply_inference_match",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1079,
+      "function": "apply_inference_matches",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1102,
+      "function": "apply_inference_matches_with_results",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1127,
+      "function": "relation_proof_step",
+      "call": "ProofStep",
+      "rule": "RELATION",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1158,
+      "function": "kernel_proof_step",
+      "call": "ProofStep",
+      "rule": "KERNEL_COMPUTATION",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1171,
+      "function": "image_proof_step",
+      "call": "ProofStep",
+      "rule": "IMAGE_COMPUTATION",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1184,
+      "function": "cokernel_proof_step",
+      "call": "ProofStep",
+      "rule": "COKERNEL_COMPUTATION",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1243,
+      "function": "exactness_proof_step",
+      "call": "ProofStep",
+      "rule": "EXACTNESS",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1264,
+      "function": "ehp_exactness_proof_step",
+      "call": "ProofStep",
+      "rule": "EHP_EXACTNESS",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "proof.py",
+      "line": 1589,
+      "function": "relation_inference_proof_step",
+      "call": "ProofStep",
+      "rule": "RELATION",
+      "category": "core_engine_keep_or_internal_refactor"
+    },
+    {
+      "file": "repair_phase115_4_encoding.py",
+      "line": 71,
+      "function": "<module>",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "repair_phase115_4_tests_ascii.py",
+      "line": 35,
+      "function": "add_resolver_import",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "repository_foundational_group_specialization.py",
+      "line": 43,
+      "function": "_build_identity_group_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "repository_foundational_group_specialization.py",
+      "line": 66,
+      "function": "_build_connectivity_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "repository_foundational_group_specialization.py",
+      "line": 158,
+      "function": "_specialize_circle_higher_zero_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_nu5_eta8_suspension_zero_specialization.py",
+      "line": 233,
+      "function": "specialize_nu5_eta8_suspension_zero_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_nu5_stable_bridge_specialization.py",
+      "line": 127,
+      "function": "specialize_nu5_stable_bridge_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_nu_prime_suspension_membership_specialization.py",
+      "line": 187,
+      "function": "specialize_nu_prime_suspension_membership_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_proof_scope_facade.py",
+      "line": 203,
+      "function": "explore_repository_generator_proof_scope",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "repository_proof_scope_facade.py",
+      "line": 222,
+      "function": "explore_repository_generator_proof_scope",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "repository_sigma11_suspension_specialization.py",
+      "line": 124,
+      "function": "specialize_sigma11_suspension_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_sigma_specialization.py",
+      "line": 236,
+      "function": "specialize_toda_prop515_sigma_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_stable_group_specialization.py",
+      "line": 347,
+      "function": "specialize_toda_prop51_eta_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_stable_group_specialization.py",
+      "line": 421,
+      "function": "specialize_toda_prop53_eta_squared_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_stable_group_specialization.py",
+      "line": 493,
+      "function": "specialize_toda_prop56_nu_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_stable_group_specialization.py",
+      "line": 556,
+      "function": "specialize_toda_prop58_four_stem_zero_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_stable_group_specialization.py",
+      "line": 614,
+      "function": "specialize_toda_prop59_five_stem_zero_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "repository_symbolic_stable_group_specialization.py",
+      "line": 683,
+      "function": "specialize_toda_prop511_nu_squared_index_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "theorem_facts.py",
+      "line": 27,
+      "function": "TheoremFactEntry.materialize_statement",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_argument_single_renderer.py",
+      "line": 41,
+      "function": "_normalize_toda_group_proof_narrative_argument_header_spacing",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 1037,
+      "function": "_phase157_r20_specialize_reference_value",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 1117,
+      "function": "_phase157_r20_specialize_reference_value",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 1591,
+      "function": "_phase153_r6_render_reference_statement",
+      "call": "ProofStep",
+      "rule": "DYNAMIC",
+      "category": "other_constructor_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 1965,
+      "function": "_select_toda_group_proof_narrative_reference_entries_and_statement_lines",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 2873,
+      "function": "suppress_toda_group_proof_narrative_reference_body_restatements",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 3223,
+      "function": "suppress_toda_group_proof_narrative_reference_body_duplicates",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 4216,
+      "function": "normalize_toda_group_proof_narrative_connectors",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_contribution_renderer.py",
+      "line": 9691,
+      "function": "prune_toda_group_proof_narrative_root_zero_direct_premise_references",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 142,
+      "function": "extract_toda_group_proof_step_literature_reference",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 380,
+      "function": "exclude_toda_group_proof_narrative_root_reference",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 436,
+      "function": "exclude_toda_group_proof_narrative_root_reference",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 457,
+      "function": "exclude_toda_group_proof_narrative_root_reference",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 768,
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 790,
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 936,
+      "function": "filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 1072,
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_step_usage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 1195,
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_body_usage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 1576,
+      "function": "restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 1698,
+      "function": "restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 1917,
+      "function": "restore_phase157_r4_representative_fixed_reference_entries_after_body_usage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 2018,
+      "function": "restore_phase157_r4_representative_fixed_reference_entries_after_body_usage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 2162,
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 2162,
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 2218,
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_references.py",
+      "line": 2218,
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 1431,
+      "function": "_phase136_compact_eta_powers",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 4104,
+      "function": "_phase153_r3_10_connect_public_reference_section",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 4124,
+      "function": "_phase153_r3_10_connect_public_reference_section",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 5391,
+      "function": "_phase158_normalize_public_equation_numbers",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 5400,
+      "function": "_phase158_normalize_public_equation_numbers",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 5439,
+      "function": "_phase158_normalize_public_equation_numbers",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 5638,
+      "function": "_phase159_restore_isomorphism_to_injective_dependency_visibility",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 5651,
+      "function": "_phase159_restore_isomorphism_to_injective_dependency_visibility",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 5999,
+      "function": "_phase159_public_exactness_latex",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 6253,
+      "function": "_phase159_project_generic_semantics_to_public_proof",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 6258,
+      "function": "_phase159_project_generic_semantics_to_public_proof",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 6767,
+      "function": "_phase159_r1_7b_normalize_public_exact_sequences.canonical_exactness",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 7413,
+      "function": "_phase159_normalize_public_map_property_wording",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 8192,
+      "function": "_phase159_r1_6c_remove_redundant_exactness_sentence",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 8693,
+      "function": "_phase159_r1_6d_finalize_reference_and_linkage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 8736,
+      "function": "_phase159_r1_6d_finalize_reference_and_linkage",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 9177,
+      "function": "_phase159_r1_7c_inline_math_content",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "line": 9905,
+      "function": "_phase159_r1_7c_r4_normalize_public_map_property_prose",
+      "call": "replace",
+      "rule": null,
+      "category": "dataclass_replace_type_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 81,
+      "function": "build_phase59_pi5_3_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 89,
+      "function": "build_phase59_pi5_3_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 189,
+      "function": "build_phase59_hopf_surjective_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 202,
+      "function": "build_phase59_hopf_surjective_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 215,
+      "function": "build_phase59_hopf_surjective_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 228,
+      "function": "build_phase59_hopf_surjective_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_midstream_bootstrap.py",
+      "line": 282,
+      "function": "build_phase59_prop53_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 132,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 142,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 172,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 188,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 231,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 286,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 336,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 405,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 455,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_phase65_bootstrap.py",
+      "line": 466,
+      "function": "build_toda_prop56_bootstrap_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "line": 46,
+      "function": "build_toda_prop56_proof_step",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "line": 83,
+      "function": "build_toda_prop58_proof_step",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "line": 116,
+      "function": "build_toda_prop511_proof_step",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "line": 159,
+      "function": "build_toda_prop515_proof_step",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_prop511_zero_bootstrap.py",
+      "line": 224,
+      "function": "_apply",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_prop511_zero_bootstrap.py",
+      "line": 270,
+      "function": "_given",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop511_zero_bootstrap.py",
+      "line": 407,
+      "function": "_build_phase68_generator_bridge",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_prop511_zero_bootstrap.py",
+      "line": 2446,
+      "function": "_build_pi14_8_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "toda_prop515_low_bootstrap.py",
+      "line": 305,
+      "function": "build_toda_prop515_low_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_low_bootstrap.py",
+      "line": 317,
+      "function": "build_toda_prop515_low_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_low_bootstrap.py",
+      "line": 329,
+      "function": "build_toda_prop515_low_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_low_bootstrap.py",
+      "line": 446,
+      "function": "build_toda_prop515_low_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_low_bootstrap.py",
+      "line": 461,
+      "function": "build_toda_prop515_low_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_sigma_chain_bootstrap.py",
+      "line": 399,
+      "function": "build_toda_prop515_sigma_chain_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_sigma_chain_bootstrap.py",
+      "line": 411,
+      "function": "build_toda_prop515_sigma_chain_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_sigma_chain_bootstrap.py",
+      "line": 423,
+      "function": "build_toda_prop515_sigma_chain_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_sigma_chain_bootstrap.py",
+      "line": 628,
+      "function": "build_toda_prop515_sigma_chain_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_sigma_chain_bootstrap.py",
+      "line": 640,
+      "function": "build_toda_prop515_sigma_chain_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_sigma_chain_bootstrap.py",
+      "line": 652,
+      "function": "build_toda_prop515_sigma_chain_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 177,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 206,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 262,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 294,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 359,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 371,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop515_upper_bootstrap.py",
+      "line": 408,
+      "function": "build_toda_prop515_upper_bootstrap",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 183,
+      "function": "_require_match",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 236,
+      "function": "_build_pi4_3_prop51_specialization_link_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 263,
+      "function": "_build_pi4_3_prop51_specialization_link_step",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 481,
+      "function": "_build_prop51_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 489,
+      "function": "_build_prop51_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 620,
+      "function": "_build_n3_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 633,
+      "function": "_build_n3_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 646,
+      "function": "_build_n3_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 659,
+      "function": "_build_n3_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 786,
+      "function": "_build_phase48_injectivity_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 797,
+      "function": "_build_phase48_injectivity_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 809,
+      "function": "_build_phase48_injectivity_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 814,
+      "function": "_build_phase48_injectivity_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 862,
+      "function": "_build_n4_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 867,
+      "function": "_build_n4_suspension_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 944,
+      "function": "_build_pi6_4_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 951,
+      "function": "_build_pi6_4_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 984,
+      "function": "_build_higher_eta_transport",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1132,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1140,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1199,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1228,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1236,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1244,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1283,
+      "function": "_build_phase60_toda54",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1466,
+      "function": "_build_lemma54_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1644,
+      "function": "_build_toda55_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1652,
+      "function": "_build_toda55_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1818,
+      "function": "_build_toda56_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1952,
+      "function": "build_toda_prop56_zero_argument_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop56_zero_bootstrap.py",
+      "line": 1960,
+      "function": "build_toda_prop56_zero_argument_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 293,
+      "function": "_build_support",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 301,
+      "function": "_build_support",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 381,
+      "function": "_build_equation57_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 389,
+      "function": "_build_equation57_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 443,
+      "function": "_build_equation57_steps",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 465,
+      "function": "_build_equation57_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 478,
+      "function": "_build_equation57_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 534,
+      "function": "_build_eta2_nu_prime_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 712,
+      "function": "_build_pi7_3_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1029,
+      "function": "_build_pi9_5_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1036,
+      "function": "_build_pi9_5_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1047,
+      "function": "_build_pi9_5_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1058,
+      "function": "_build_pi9_5_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1180,
+      "function": "_build_double_nu5_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1252,
+      "function": "_build_higher_eta_nu_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1262,
+      "function": "_build_higher_eta_nu_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1360,
+      "function": "_build_nu6_eta9_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1367,
+      "function": "_build_nu6_eta9_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1374,
+      "function": "_build_nu6_eta9_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1383,
+      "function": "_build_nu6_eta9_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1392,
+      "function": "_build_nu6_eta9_zero_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1457,
+      "function": "_build_higher_zero_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1476,
+      "function": "_build_higher_zero_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_prop58_zero_bootstrap.py",
+      "line": 1487,
+      "function": "_build_higher_zero_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_rules.py",
+      "line": 62738,
+      "function": "toda_bracket_membership_proof_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_rules.py",
+      "line": 63759,
+      "function": "toda_bracket_membership_theorem_proof_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_stable_eta_generator_normalization.py",
+      "line": 121,
+      "function": "build_toda_stable_eta_normalized_proof",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_stable_eta_generator_normalization.py",
+      "line": 126,
+      "function": "build_toda_stable_eta_normalized_proof",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_stable_transport.py",
+      "line": 96,
+      "function": "build_canonical_toda_45_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_stable_transport.py",
+      "line": 108,
+      "function": "build_canonical_toda_45_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_stable_transport.py",
+      "line": 117,
+      "function": "build_canonical_toda_45_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 143,
+      "function": "build_toda_45_stable_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 155,
+      "function": "build_toda_45_stable_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 164,
+      "function": "build_toda_45_stable_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 259,
+      "function": "_build_phase49_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 273,
+      "function": "_build_phase49_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 287,
+      "function": "_build_phase49_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 302,
+      "function": "_build_phase49_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 315,
+      "function": "_build_phase49_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 328,
+      "function": "_build_phase49_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 443,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 481,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 489,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 498,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 510,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 517,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 528,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 539,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 545,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 558,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 571,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 588,
+      "function": "_build_phase50_result",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 710,
+      "function": "build_toda_52_composition_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 718,
+      "function": "build_toda_52_composition_isomorphism_step",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 809,
+      "function": "build_toda_53_nu_prime_steps",
+      "call": "ProofStep",
+      "rule": "INFERENCE",
+      "category": "inference_constructor_provenance_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 961,
+      "function": "build_toda_53_nu_prime_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 968,
+      "function": "build_toda_53_nu_prime_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 975,
+      "function": "build_toda_53_nu_prime_steps",
+      "call": "ProofStep",
+      "rule": "GIVEN",
+      "category": "given_source_boundary_review"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 1077,
+      "function": "build_toda_53_nu_prime_steps",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    },
+    {
+      "file": "toda_upstream_bootstrap.py",
+      "line": 1098,
+      "function": "build_toda_53_nu_prime_steps",
+      "call": "apply_inference_match",
+      "rule": null,
+      "category": "inference_factory_migrate"
+    }
+  ],
+  "production_modified": false,
+  "full_pytest_run": false,
+  "r8_closed": false,
+  "limitations": [
+    "AST sites are not runtime reachability evidence",
+    "replace() is not necessarily a ProofStep mutation",
+    "GIVEN constructors require source trust assessment",
+    "proof.py must not import a factory importing proof.py",
+    "replay reuse is not construction"
+  ]
+}

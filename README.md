@@ -1616,3 +1616,21 @@ Phase 163 will inventory **all existing registered statements** (not just the $\
 ### Later phase — General backward-search integration (planned)
 
 Only after the registry and eligibility rules are audited should general backward rule discovery and source-constrained premise selection be connected to proof reconstruction. A complete registry is not equivalent to a complete theorem prover.
+
+## Phase 164 — Unified Proof Construction and Rendering (documentation closure, 2026-10-13)
+
+Phase 164 has established a shared architectural route for the audited production scope:
+
+1. Unified Statement Registry and qualified external literature boundaries.
+2. Proof Repository and backward reconstruction where supported.
+3. Common ProofStep factory for application-level construction and legacy projections.
+4. Common presentation and renderer for Web group-proof views (trace, outline, narrative).
+5. Shared generator, group, and operation resolution in the implemented routes.
+
+**Construction and rendering architecture are the deliverables of Phase 164.** Completion does not mean that the mathematical proof text for every group has been perfected, that all registered literature statements are source-certified, or that every possible reflective/dynamically aliased call was proven absent.
+
+R8-R7 reported zero un-migrated direct production ProofStep-construction calls within its established static audit scope. Ten `proof.py` core construction/delegation sites intentionally remain inside the dependency-root engine; this avoids a circular dependency on its importing factory. The last 65 `replace()` calls were classified, including a guarded generic projection. R8-R7 focused pytest: 77 passed. A shared narrative normalization was attached to the public renderer; R9-R2 focused pytest: 17 passed. A live `pi_5^3` proof rendering at depth 2 reported one complete EHP sequence, zero duplicate subwindows, and no repeated exactness connector. The proof tree and its mathematical certification were not modified by this display normalization.
+
+**Verification boundary:** Repository-wide pytest was deliberately NOT run for Phase 164, per the project owner's instruction. No repository-wide compatibility or complete runtime coverage claim is made. The remaining tasks of mathematical justification, generator-mapping prose, full group-by-group display quality, and source verification are outside this phase and are reserved for subsequent phases.
+
+This documentation closure records the implementation and available targeted evidence; it does not silently upgrade legacy GIVEN or INFERENCE provenance or treat unknown publication order as verified.

@@ -1,0 +1,17 @@
+{
+  "status": "MIGRATED_LEGACY_STATUS_PRESERVED",
+  "files_modified": 32,
+  "site_counts": {
+    "given_source_boundary_review": 128,
+    "inference_factory_migrate": 22,
+    "inference_constructor_provenance_review": 18
+  },
+  "backup_dir": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r8_r5_backup_20261012_234601",
+  "full_pytest_run": false,
+  "unresolved_categories": {
+    "dataclass_replace_type_review": 66,
+    "core_engine_keep_or_internal_refactor": 10,
+    "other_constructor_review": 1
+  },
+  "limitation": "Legacy GIVEN / INFERENCE construction is centralized but not mathematical validation or statement-registry certification."
+}

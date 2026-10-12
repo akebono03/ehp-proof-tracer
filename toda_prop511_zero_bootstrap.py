@@ -205,6 +205,12 @@ from toda_upstream_bootstrap import (
   build_toda_45_stable_isomorphism_step,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    create_legacy_specialization_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def _apply(
   rule,
@@ -221,7 +227,7 @@ def _apply(
       f"expected {description} inference match"
     )
 
-  return apply_inference_match(
+  return derive_inference_proof_step(
     match
   )
 
@@ -267,7 +273,7 @@ def _find_unique_step(
 def _given(
   conclusion,
 ) -> ProofStep:
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=conclusion,
     premises=(),
     rule=ProofRule.GIVEN,
@@ -404,7 +410,7 @@ def _build_phase68_generator_bridge(
   )
 
   if match is not None:
-    return apply_inference_match(
+    return derive_inference_proof_step(
       match
     )
 
@@ -2443,7 +2449,7 @@ def _build_pi14_8_suspension_isomorphism_step() -> ProofStep:
     )
   )
 
-  prop44_step = ProofStep(
+  prop44_step = create_legacy_specialization_proof_step(
     conclusion=TodaProp44IsomorphismStatement(
       map=decomposition_map,
     ),

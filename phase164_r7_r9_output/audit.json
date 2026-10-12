@@ -1,0 +1,203 @@
+{
+  "phase": "164 R7-R9",
+  "mode": "READ_ONLY_SCOPED_CLOSURE",
+  "missing_files": [],
+  "entrypoints": [
+    {
+      "label": "generator",
+      "file": "repository_generator_known_group_identity_lookup.py",
+      "function": "find_standard_repository_generator_known_group_identity_nodes",
+      "guard": "validate_generator_repository_registry_links",
+      "guard_calls": [
+        {
+          "name": "validate_generator_repository_registry_links",
+          "receiver": null,
+          "line": 348
+        }
+      ],
+      "repository_calls": [
+        {
+          "name": "build_standard_production_proof_repository",
+          "receiver": null,
+          "line": 345
+        }
+      ],
+      "status": "GUARDED"
+    },
+    {
+      "label": "operation",
+      "file": "repository_operation_query_facade.py",
+      "function": "query_standard_repository_operation_input",
+      "guard": "validate_repository_internal_proof_roots",
+      "guard_calls": [
+        {
+          "name": "validate_repository_internal_proof_roots",
+          "receiver": null,
+          "line": 91
+        }
+      ],
+      "repository_calls": [
+        {
+          "name": "build_standard_production_proof_repository",
+          "receiver": null,
+          "line": 88
+        }
+      ],
+      "status": "GUARDED"
+    },
+    {
+      "label": "group",
+      "file": "toda_calculation_facade.py",
+      "function": "build_standard_toda_report",
+      "guard": "validate_repository_internal_proof_roots",
+      "guard_calls": [
+        {
+          "name": "validate_repository_internal_proof_roots",
+          "receiver": null,
+          "line": 41
+        }
+      ],
+      "repository_calls": [
+        {
+          "name": "build_standard_production_proof_repository",
+          "receiver": null,
+          "line": 38
+        }
+      ],
+      "status": "GUARDED"
+    }
+  ],
+  "candidate_sites": [
+    {
+      "file": "phase164_r3_registry_search_connection.py",
+      "call": "resolve_registered_statement",
+      "locations": [
+        {
+          "name": "resolve_registered_statement",
+          "receiver": null,
+          "line": 79
+        }
+      ],
+      "present": true
+    },
+    {
+      "file": "phase164_r4_r8_registry_reconstruction.py",
+      "call": "resolve_registered_statement",
+      "locations": [
+        {
+          "name": "resolve_registered_statement",
+          "receiver": null,
+          "line": 105
+        }
+      ],
+      "present": true
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "call": "reference",
+      "locations": [
+        {
+          "name": "reference",
+          "receiver": "registry",
+          "line": 92
+        }
+      ],
+      "present": true
+    },
+    {
+      "file": "phase164_r7_repository_root_resolution.py",
+      "call": "resolve_registered_statement",
+      "locations": [
+        {
+          "name": "resolve_registered_statement",
+          "receiver": null,
+          "line": 27
+        }
+      ],
+      "present": true
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "call": "assertion",
+      "locations": [
+        {
+          "name": "assertion",
+          "receiver": "bridge.registry",
+          "line": 54
+        }
+      ],
+      "present": true
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "call": "reference",
+      "locations": [
+        {
+          "name": "reference",
+          "receiver": "bridge.registry",
+          "line": 55
+        }
+      ],
+      "present": true
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "call": "assess_phase164_r2_citation",
+      "locations": [
+        {
+          "name": "assess_phase164_r2_citation",
+          "receiver": null,
+          "line": 110
+        }
+      ],
+      "present": true
+    }
+  ],
+  "classification": [
+    {
+      "file": "phase164_r3_registry_search_connection.py",
+      "role": "regular_citation_shared_resolver"
+    },
+    {
+      "file": "phase164_r4_r8_registry_reconstruction.py",
+      "role": "confirmed_fixed_literature_shared_resolver"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "role": "source_archive_registration_only"
+    },
+    {
+      "file": "phase164_r7_repository_root_resolution.py",
+      "role": "internal_proof_root_shared_resolver"
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "role": "common_resolver_and_citation_delegate"
+    }
+  ],
+  "boundaries": {
+    "special_direct_registry_getters": [],
+    "special_resolver_calls": [
+      {
+        "name": "resolve_registered_statement",
+        "receiver": null,
+        "line": 105
+      }
+    ],
+    "shared_resolver_has_fixed_statement_origin_check": true,
+    "shared_resolver_has_structured_migration_check": true,
+    "citation_policy_keeps_archive_denial": true,
+    "citation_policy_keeps_internal_denial": true,
+    "citation_policy_keeps_review_allowlist": true
+  },
+  "blockers": [],
+  "scope_closed": true,
+  "status": "STATIC_SCOPE_CLEAR_PENDING_TARGETED_PYTEST",
+  "production_modified": false,
+  "full_pytest_run": false,
+  "limitations": [
+    "AST cannot prove exhaustive runtime reachability",
+    "source confirmation is not independent edition or mathematical certification",
+    "publication ordering and citation eligibility remain separately governed"
+  ]
+}

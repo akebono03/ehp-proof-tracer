@@ -1,0 +1,522 @@
+[
+  {
+    "file": "formatter.py",
+    "original_line": 183,
+    "current_line": 183,
+    "function": "format_proof_step",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'_'"
+  },
+  {
+    "file": "generator_facts.py",
+    "original_line": 141,
+    "current_line": 141,
+    "function": "GeneratorFactRepository.materialize_typed_element",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "element"
+  },
+  {
+    "file": "phase162_pi5_3_backward_selection.py",
+    "original_line": 48,
+    "current_line": 53,
+    "function": "_canonical_goals",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "toda_eta_family_definition_statement(4).element"
+  },
+  {
+    "file": "phase162_r3g_existing_reason_bridge.py",
+    "original_line": 78,
+    "current_line": 78,
+    "function": "build_phase162_r3g_existing_reason_trace",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "record"
+  },
+  {
+    "file": "phase162_web_narrative_integration.py",
+    "original_line": 53,
+    "current_line": 58,
+    "function": "_format_phase162_proof_sentences",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'、'"
+  },
+  {
+    "file": "phase162_web_narrative_integration.py",
+    "original_line": 81,
+    "current_line": 86,
+    "function": "_compose_phase162_group_conclusion",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'## 証明\\n\\n'"
+  },
+  {
+    "file": "phase163_r4_r11_literature_registration.py",
+    "original_line": 133,
+    "current_line": 133,
+    "function": "_copy_snapshot",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "current"
+  },
+  {
+    "file": "phase163_r4_r11_literature_registration.py",
+    "original_line": 142,
+    "current_line": 142,
+    "function": "_copy_snapshot",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "record"
+  },
+  {
+    "file": "phase163_r4_r12_literature_registration.py",
+    "original_line": 192,
+    "current_line": 192,
+    "function": "register_prop51_prop53_literature_statements",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "assertion"
+  },
+  {
+    "file": "phase163_r4_r12_literature_registration.py",
+    "original_line": 195,
+    "current_line": 195,
+    "function": "register_prop51_prop53_literature_statements",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "record"
+  },
+  {
+    "file": "phase163_r4_r6_structured_binding.py",
+    "original_line": 96,
+    "current_line": 96,
+    "function": "bind_verified_fixed_statements",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "assertion"
+  },
+  {
+    "file": "phase163_r4_r6_structured_binding.py",
+    "original_line": 107,
+    "current_line": 107,
+    "function": "bind_verified_fixed_statements",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "record"
+  },
+  {
+    "file": "phase163_r4_r7_representative_bindings.py",
+    "original_line": 172,
+    "current_line": 172,
+    "function": "run_audit",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'|'"
+  },
+  {
+    "file": "phase163_r4_r84_apply.py",
+    "original_line": 23,
+    "current_line": 23,
+    "function": "transformed_registry",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "OLD_ENUM"
+  },
+  {
+    "file": "phase163_r4_r84_apply.py",
+    "original_line": 29,
+    "current_line": 29,
+    "function": "transformed_archive",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "OLD_ENTRY"
+  },
+  {
+    "file": "phase163_r4_r84_apply.py",
+    "original_line": 45,
+    "current_line": 45,
+    "function": "apply",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'\\r\\n'"
+  },
+  {
+    "file": "phase163_r4_r84_apply.py",
+    "original_line": 45,
+    "current_line": 45,
+    "function": "apply",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'\\r\\n'"
+  },
+  {
+    "file": "repair_phase115_4_encoding.py",
+    "original_line": 71,
+    "current_line": 71,
+    "function": "<module>",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "anchor"
+  },
+  {
+    "file": "repair_phase115_4_tests_ascii.py",
+    "original_line": 35,
+    "current_line": 35,
+    "function": "add_resolver_import",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "anchor"
+  },
+  {
+    "file": "repository_proof_scope_facade.py",
+    "original_line": 203,
+    "current_line": 203,
+    "function": "explore_repository_generator_proof_scope",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "membership"
+  },
+  {
+    "file": "repository_proof_scope_facade.py",
+    "original_line": 222,
+    "current_line": 222,
+    "function": "explore_repository_generator_proof_scope",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "map_relation"
+  },
+  {
+    "file": "theorem_facts.py",
+    "original_line": 27,
+    "current_line": 27,
+    "function": "TheoremFactEntry.materialize_statement",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "self.statement"
+  },
+  {
+    "file": "toda_group_proof_narrative_argument_single_renderer.py",
+    "original_line": 41,
+    "current_line": 41,
+    "function": "_normalize_toda_group_proof_narrative_argument_header_spacing",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'.そのために, '"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 1037,
+    "current_line": 1041,
+    "function": "_phase157_r20_specialize_reference_value",
+    "category": "SCALARSUM_TYPE_GUARDED",
+    "argument": "value"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 1117,
+    "current_line": 1121,
+    "function": "_phase157_r20_specialize_reference_value",
+    "category": "GENERIC_REPLACE_GUARDED_PROOFSTEP_BRANCH",
+    "argument": "value"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 1965,
+    "current_line": 1965,
+    "function": "_select_toda_group_proof_narrative_reference_entries_and_statement_lines",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 2873,
+    "current_line": 2873,
+    "function": "suppress_toda_group_proof_narrative_reference_body_restatements",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "statement_line"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 3223,
+    "current_line": 3223,
+    "function": "suppress_toda_group_proof_narrative_reference_body_duplicates",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "statement_line"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 4216,
+    "current_line": 4216,
+    "function": "normalize_toda_group_proof_narrative_connectors",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'次に, '"
+  },
+  {
+    "file": "toda_group_proof_narrative_contribution_renderer.py",
+    "original_line": 9691,
+    "current_line": 9691,
+    "function": "prune_toda_group_proof_narrative_root_zero_direct_premise_references",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 142,
+    "current_line": 142,
+    "function": "extract_toda_group_proof_step_literature_reference",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "existing_reference"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 380,
+    "current_line": 380,
+    "function": "exclude_toda_group_proof_narrative_root_reference",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 436,
+    "current_line": 436,
+    "function": "exclude_toda_group_proof_narrative_root_reference",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 457,
+    "current_line": 457,
+    "function": "exclude_toda_group_proof_narrative_root_reference",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 768,
+    "current_line": 768,
+    "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 790,
+    "current_line": 790,
+    "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 936,
+    "current_line": 936,
+    "function": "filter_phase157_r4_representative_reference_entries_by_fixed_statement_boundary",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 1072,
+    "current_line": 1072,
+    "function": "filter_toda_group_proof_narrative_reference_entries_by_step_usage",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 1195,
+    "current_line": 1195,
+    "function": "filter_toda_group_proof_narrative_reference_entries_by_body_usage",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 1576,
+    "current_line": 1576,
+    "function": "restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 1698,
+    "current_line": 1698,
+    "function": "restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "placeholder"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 1917,
+    "current_line": 1917,
+    "function": "restore_phase157_r4_representative_fixed_reference_entries_after_body_usage",
+    "category": "NON_PROOFSTEP_DOMAIN_DATACLASS",
+    "argument": "entry"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 2018,
+    "current_line": 2018,
+    "function": "restore_phase157_r4_representative_fixed_reference_entries_after_body_usage",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "placeholder"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 2162,
+    "current_line": 2162,
+    "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'<='"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 2162,
+    "current_line": 2162,
+    "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'>='"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 2218,
+    "current_line": 2218,
+    "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'<='"
+  },
+  {
+    "file": "toda_group_proof_narrative_references.py",
+    "original_line": 2218,
+    "current_line": 2218,
+    "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'>='"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 1431,
+    "current_line": 1431,
+    "function": "_phase136_compact_eta_powers",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "old"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 4104,
+    "current_line": 4104,
+    "function": "_phase153_r3_10_connect_public_reference_section",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "legacy_pi14_7_block"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 4124,
+    "current_line": 4124,
+    "function": "_phase153_r3_10_connect_public_reference_section",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'[R1] より, これらの生成元はそれぞれ'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 5391,
+    "current_line": 5391,
+    "function": "_phase158_normalize_public_equation_numbers",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "old_marker"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 5400,
+    "current_line": 5400,
+    "function": "_phase158_normalize_public_equation_numbers",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "old_marker"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 5439,
+    "current_line": 5439,
+    "function": "_phase158_normalize_public_equation_numbers",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'は零写像である.'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 5638,
+    "current_line": 5638,
+    "function": "_phase159_restore_isomorphism_to_injective_dependency_visibility",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "injective_prose"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 5651,
+    "current_line": 5651,
+    "function": "_phase159_restore_isomorphism_to_injective_dependency_visibility",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "isomorphism_prose"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 5999,
+    "current_line": 5999,
+    "function": "_phase159_public_exactness_latex",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'Δ'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 6253,
+    "current_line": 6253,
+    "function": "_phase159_project_generic_semantics_to_public_proof",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "injective_rendered"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 6258,
+    "current_line": 6258,
+    "function": "_phase159_project_generic_semantics_to_public_proof",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "surjective_rendered"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 6767,
+    "current_line": 6767,
+    "function": "_phase159_r1_7b_normalize_public_exact_sequences.canonical_exactness",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'\\\\xrightarrow{Δ}'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 7413,
+    "current_line": 7413,
+    "function": "_phase159_normalize_public_map_property_wording",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "original"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 8192,
+    "current_line": 8192,
+    "function": "_phase159_r1_6c_remove_redundant_exactness_sentence",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'$ は完全である.'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 8693,
+    "current_line": 8693,
+    "function": "_phase159_r1_6d_finalize_reference_and_linkage",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'$\\\\pi_{n}^{n} = \\\\langle \\\\iota_{n} \\\\rangle \\\\cong \\\\mathbb{Z}$.'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 8736,
+    "current_line": 8736,
+    "function": "_phase159_r1_6d_finalize_reference_and_linkage",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "normalized_old_line"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 9177,
+    "current_line": 9177,
+    "function": "_phase159_r1_7c_inline_math_content",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "'\\\\tag{' + str(tag_number) + '}'"
+  },
+  {
+    "file": "toda_group_proof_narrative_renderer.py",
+    "original_line": 9905,
+    "current_line": 9905,
+    "function": "_phase159_r1_7c_r4_normalize_public_map_property_prose",
+    "category": "METHOD_REPLACE_NOT_DATACLASS",
+    "argument": "old"
+  }
+]

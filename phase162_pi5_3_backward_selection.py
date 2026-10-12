@@ -30,6 +30,11 @@ from toda_rules import (
     toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    derive_inference_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class Pi53BackwardResult:
@@ -59,7 +64,7 @@ def _canonical_goals():
     # Derive the intermediate goal using the existing production, not a
     # separately assembled expression that might use different normalization.
     definition_steps = tuple(
-        ProofStep(
+        create_legacy_given_proof_step(
             conclusion=toda_eta_family_definition_statement(i),
             premises=(),
             rule=ProofRule.GIVEN,
@@ -70,7 +75,7 @@ def _canonical_goals():
     candidates = tuple(find_inference_matches_for_rule(rule, definition_steps))
     if len(candidates) != 1:
         raise ValueError("Unable to derive unique canonical eta-square bridge")
-    bridge_step = apply_inference_match(candidates[0])
+    bridge_step = derive_inference_proof_step(candidates[0])
     bridge = bridge_step.conclusion
     if bridge_step.rule is not ProofRule.INFERENCE or not isinstance(bridge, Relation):
         raise ValueError("Canonical bridge production returned an invalid conclusion")
@@ -105,7 +110,7 @@ def _apply_unique(rule, premises, goal):
     )
     if len(matches) != 1:
         raise ValueError(f"Exactly one inference match required for {goal!r}: {len(matches)}")
-    step = apply_inference_match(matches[0])
+    step = derive_inference_proof_step(matches[0])
     if step.rule is not ProofRule.INFERENCE or step.conclusion != goal:
         raise ValueError("Existing production did not prove the requested goal")
     return step

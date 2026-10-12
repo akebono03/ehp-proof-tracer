@@ -31,6 +31,10 @@ from repository_proof_scope import (
   build_repository_proof_scope,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_specialization_proof_step,
+)
+
 
 def is_nu5_eta8_suspension_zero_operation_query(
   query,
@@ -230,7 +234,7 @@ def specialize_nu5_eta8_suspension_zero_step(
     .generator
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=Relation(
       lhs=Suspension(
         expression=nu5_eta8,

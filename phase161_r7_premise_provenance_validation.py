@@ -17,6 +17,10 @@ from proof import (
     find_inference_matches_for_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    derive_inference_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class PremiseProvenanceReport:
@@ -83,7 +87,7 @@ def validate_phase161_r7_provenance(
                     and all(a is b for a, b in zip(candidate.premises, step.premises))
                 )
                 if not any(
-                    apply_inference_match(match).conclusion == step.conclusion
+                    derive_inference_proof_step(match).conclusion == step.conclusion
                     for match in matches
                 ):
                     raise ValueError("Inference does not follow from recorded premises")

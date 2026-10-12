@@ -19,6 +19,10 @@ from toda_group_result import TodaGroupResult
 from toda_group_result_proof_replay import build_toda_group_result_proof_replay
 from toda_rules import toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule
 
+from phase164_r8_proofstep_factory import (
+    derive_inference_proof_step,
+)
+
 
 def build_phase164_r5_web_pi5_3_proof(*, max_depth: int = 2):
     """Build the group root using an R4-R8-validated, registry-backed map proof.
@@ -66,7 +70,7 @@ def build_phase164_r5_web_pi5_3_proof(*, max_depth: int = 2):
     )
     if len(matches) != 1:
         raise ValueError("registry-backed group transport has no unique match")
-    group_step = apply_inference_match(matches[0])
+    group_step = derive_inference_proof_step(matches[0])
     if group_step.rule is not ProofRule.INFERENCE or group_step.conclusion != previous_root.conclusion:
         raise ValueError("group conclusion did not match the original group result")
     if tuple(group_step.premises) != premises:

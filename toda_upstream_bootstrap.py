@@ -108,6 +108,12 @@ from toda_rules import (
   toda_suspension_isomorphism_implies_injective_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    create_legacy_specialization_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def _find_unique_step(
   steps: tuple[ProofStep, ...],
@@ -140,7 +146,7 @@ def build_toda_45_stable_isomorphism_step(
       name="n",
     )
 
-  stable_range_step = ProofStep(
+  stable_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=n,
       right=ScalarSum(
@@ -152,7 +158,7 @@ def build_toda_45_stable_isomorphism_step(
     rule=ProofRule.GIVEN,
   )
 
-  suspension_range_step = ProofStep(
+  suspension_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=m,
       right=n,
@@ -161,7 +167,7 @@ def build_toda_45_stable_isomorphism_step(
     rule=ProofRule.GIVEN,
   )
 
-  suspension_map_step = ProofStep(
+  suspension_map_step = create_legacy_given_proof_step(
     conclusion=TodaIteratedSuspensionMap(
       exponent=ScalarSum(
         left=m,
@@ -256,7 +262,7 @@ def _build_phase49_result():
   )
 
   premise_steps = (
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=pi_2_1_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
@@ -270,7 +276,7 @@ def _build_phase49_result():
         ),
       ),
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=pi_3_3_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
@@ -284,7 +290,7 @@ def _build_phase49_result():
         ),
       ),
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=e_pi_1_1_to_pi_2_2_isomorphism_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
@@ -299,7 +305,7 @@ def _build_phase49_result():
         ),
       ),
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_2_1,
@@ -312,7 +318,7 @@ def _build_phase49_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_3_2,
@@ -325,7 +331,7 @@ def _build_phase49_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_3_3,
@@ -440,7 +446,7 @@ def _build_phase50_result():
     target_group=pi_3_2,
   )
 
-  prop51_delta_step = ProofStep(
+  prop51_delta_step = create_legacy_specialization_proof_step(
     conclusion=(
       TodaDeltaImageUpToSignStatement(
         map=delta_map,
@@ -478,7 +484,7 @@ def _build_phase50_result():
   )
 
   premise_steps = (
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=WhiteheadProduct(
         left=iota_2,
         right=iota_2,
@@ -486,7 +492,7 @@ def _build_phase50_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaPi32Eta2DefinitionStatement(
         map=hopf_map,
         element=eta_2,
@@ -495,7 +501,7 @@ def _build_phase50_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=Relation(
         lhs=MapApplication(
           map=EHP_H_MAP,
@@ -507,14 +513,14 @@ def _build_phase50_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaHopfInvariantInjectiveStatement(
         map=hopf_map,
       ),
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=pi_5_5_free_cyclic_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
@@ -525,7 +531,7 @@ def _build_phase50_result():
         )
       ),
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=pi_4_5_zero_fact(),
       premises=(),
       rule=ProofRule.GIVEN,
@@ -536,13 +542,13 @@ def _build_phase50_result():
         )
       ),
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=delta_map,
       premises=(),
       rule=ProofRule.GIVEN,
     ),
     prop51_delta_step,
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_5_5,
@@ -555,7 +561,7 @@ def _build_phase50_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_3_2,
@@ -568,7 +574,7 @@ def _build_phase50_result():
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=Relation(
         lhs=pi_3_2,
         rhs=FreeCyclicGroup(
@@ -585,7 +591,7 @@ def _build_phase50_result():
         )
       ),
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=toda_eta_family_definition_statement(
         3
       ),
@@ -707,7 +713,7 @@ def build_toda_52_composition_isomorphism_step() -> ProofStep:
       "premise_steps"
     ]
     + (
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=ScalarGreaterEqualStatement(
           left=i,
           right=3,
@@ -715,7 +721,7 @@ def build_toda_52_composition_isomorphism_step() -> ProofStep:
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=decomposition_map,
         premises=(),
         rule=ProofRule.GIVEN,
@@ -806,7 +812,7 @@ def build_toda_53_nu_prime_steps() -> tuple[
     ),
   )
 
-  bracket_membership_step = ProofStep(
+  bracket_membership_step = create_legacy_specialization_proof_step(
     conclusion=TodaBracketMembershipStatement(
       element=nu_prime,
       bracket=TodaBracket(
@@ -958,21 +964,21 @@ def build_toda_53_nu_prime_steps() -> tuple[
     "nu-prime membership",
   )
 
-  eta3_definition_step = ProofStep(
+  eta3_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       3
     ),
     premises=(),
     rule=ProofRule.GIVEN,
   )
-  eta4_definition_step = ProofStep(
+  eta4_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       4
     ),
     premises=(),
     rule=ProofRule.GIVEN,
   )
-  eta5_definition_step = ProofStep(
+  eta5_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       5
     ),
@@ -1074,7 +1080,7 @@ def build_toda_53_nu_prime_steps() -> tuple[
       "eta_4 bridge right-composition did not match"
     )
 
-  right_step = apply_inference_match(
+  right_step = derive_inference_proof_step(
     right_match
   )
 
@@ -1095,7 +1101,7 @@ def build_toda_53_nu_prime_steps() -> tuple[
       "eta_4 bridge left-composition did not match"
     )
 
-  composition_step = apply_inference_match(
+  composition_step = derive_inference_proof_step(
     left_match
   )
 

@@ -25,6 +25,10 @@ from toda_rules import (
   toda_nu_family_definition_statement,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_specialization_proof_step,
+)
+
 
 def _is_symbolic_group_relation(
   step: ProofStep,
@@ -344,7 +348,7 @@ def specialize_toda_prop51_eta_index_step(
     )
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=Relation(
       lhs=TodaPrimaryGroup(
         group_dimension=index + 1,
@@ -418,7 +422,7 @@ def specialize_toda_prop53_eta_squared_index_step(
     ).element
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=Relation(
       lhs=TodaPrimaryGroup(
         group_dimension=index + 2,
@@ -490,7 +494,7 @@ def specialize_toda_prop56_nu_index_step(
     )
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=Relation(
       lhs=TodaPrimaryGroup(
         group_dimension=index + 3,
@@ -553,7 +557,7 @@ def specialize_toda_prop58_four_stem_zero_index_step(
       "Toda Proposition 5.8 four-stem zero group"
     )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=TodaPrimaryGroupZeroStatement(
       group=TodaPrimaryGroup(
         group_dimension=index + 4,
@@ -611,7 +615,7 @@ def specialize_toda_prop59_five_stem_zero_index_step(
       "Toda Proposition 5.9 five-stem zero group"
     )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=TodaPrimaryGroupZeroStatement(
       group=TodaPrimaryGroup(
         group_dimension=index + 5,
@@ -680,7 +684,7 @@ def specialize_toda_prop511_nu_squared_index_step(
     ).element
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=Relation(
       lhs=TodaPrimaryGroup(
         group_dimension=index + 6,

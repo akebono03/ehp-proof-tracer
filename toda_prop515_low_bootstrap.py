@@ -49,6 +49,10 @@ from toda_rules import (
   toda_prop515_pi12_5_hopf_isomorphism_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class TodaProp515LowBootstrapResult:
@@ -302,7 +306,7 @@ def build_toda_prop515_low_bootstrap():
     sphere_dimension=3,
   )
 
-  pi10_e_h_window_step = ProofStep(
+  pi10_e_h_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi9_2,
       middle_term=pi10_3,
@@ -314,7 +318,7 @@ def build_toda_prop515_low_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  pi10_h_delta_window_step = ProofStep(
+  pi10_h_delta_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi10_3,
       middle_term=pi10_5,
@@ -326,7 +330,7 @@ def build_toda_prop515_low_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  pi10_delta_e_window_step = ProofStep(
+  pi10_delta_e_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi10_5,
       middle_term=pi8_2,
@@ -443,7 +447,7 @@ def build_toda_prop515_low_bootstrap():
     sphere_dimension=4,
   )
 
-  pi12_e_h_window_step = ProofStep(
+  pi12_e_h_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=TodaPrimaryGroup(
         group_dimension=11,
@@ -458,7 +462,7 @@ def build_toda_prop515_low_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  pi12_h_delta_window_step = ProofStep(
+  pi12_h_delta_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi12_5,
       middle_term=pi12_9,

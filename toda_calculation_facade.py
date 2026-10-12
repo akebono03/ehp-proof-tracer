@@ -1,4 +1,7 @@
 from proof_repository import ProofRepository
+from phase164_r7_repository_root_resolution import (
+  validate_repository_internal_proof_roots,
+)
 from standard_production_repository import (
   build_standard_production_proof_repository,
 )
@@ -33,6 +36,10 @@ def build_standard_toda_report(
 ) -> TodaCalculationReportResult:
   repository = (
     build_standard_production_proof_repository()
+  )
+
+  validate_repository_internal_proof_roots(
+    repository
   )
 
   return build_toda_report(

@@ -59,6 +59,11 @@ from toda_rules import (
   toda_sigma_family_definition_statement,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    create_legacy_specialization_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class TodaProp515UpperBootstrapResult:
@@ -174,7 +179,7 @@ def build_toda_prop515_upper_bootstrap():
     )
   )
 
-  decomposition_map_step = ProofStep(
+  decomposition_map_step = create_legacy_given_proof_step(
     conclusion=decomposition_map,
     premises=(),
     rule=ProofRule.GIVEN,
@@ -203,7 +208,7 @@ def build_toda_prop515_upper_bootstrap():
     )
   )
 
-  pi15_15_step = ProofStep(
+  pi15_15_step = create_legacy_given_proof_step(
     conclusion=pi_15_15_free_cyclic_fact(),
     premises=(),
     rule=ProofRule.GIVEN,
@@ -259,7 +264,7 @@ def build_toda_prop515_upper_bootstrap():
     name="n",
   )
 
-  sigma_family_range_step = ProofStep(
+  sigma_family_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=n,
       right=8,
@@ -291,7 +296,7 @@ def build_toda_prop515_upper_bootstrap():
     == n
   )
 
-  sigma9_definition_step = ProofStep(
+  sigma9_definition_step = create_legacy_specialization_proof_step(
     conclusion=(
       toda_sigma_family_definition_statement(
         9,
@@ -356,7 +361,7 @@ def build_toda_prop515_upper_bootstrap():
     )
   )
 
-  stable_range_step = ProofStep(
+  stable_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=9,
       right=ScalarSum(
@@ -368,7 +373,7 @@ def build_toda_prop515_upper_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  higher_range_step = ProofStep(
+  higher_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=n,
       right=9,
@@ -405,7 +410,7 @@ def build_toda_prop515_upper_bootstrap():
     )
   )
 
-  stable_suspension_map_step = ProofStep(
+  stable_suspension_map_step = create_legacy_given_proof_step(
     conclusion=stable_suspension_map,
     premises=(),
     rule=ProofRule.GIVEN,

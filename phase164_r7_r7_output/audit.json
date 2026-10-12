@@ -1,0 +1,133 @@
+{
+  "phase": "164 R7-R7",
+  "mode": "READ_ONLY_EIGHT_SITE_BOUNDARY_CLASSIFICATION",
+  "site_count": 8,
+  "sites": [
+    {
+      "file": "phase164_r3_registry_search_connection.py",
+      "call": "resolve_registered_statement",
+      "category": "shared_resolver_caller",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 79,
+          "receiver": null
+        }
+      ]
+    },
+    {
+      "file": "phase164_r4_r8_registry_reconstruction.py",
+      "call": "assertion",
+      "category": "fixed_literature_special_path_exception",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 104,
+          "receiver": null
+        }
+      ]
+    },
+    {
+      "file": "phase164_r4_r8_registry_reconstruction.py",
+      "call": "reference",
+      "category": "fixed_literature_special_path_exception",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 105,
+          "receiver": null
+        }
+      ]
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "call": "reference",
+      "category": "source_archive_registration_only",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 92,
+          "receiver": "registry"
+        }
+      ]
+    },
+    {
+      "file": "phase164_r7_repository_root_resolution.py",
+      "call": "resolve_registered_statement",
+      "category": "shared_internal_root_caller",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 27,
+          "receiver": null
+        }
+      ]
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "call": "assertion",
+      "category": "shared_resolver_implementation",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 41,
+          "receiver": null
+        }
+      ]
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "call": "reference",
+      "category": "shared_resolver_implementation",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 42,
+          "receiver": null
+        }
+      ]
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "call": "assess_phase164_r2_citation",
+      "category": "citation_policy_delegate",
+      "status": "PRESENT",
+      "lines": [
+        {
+          "line": 80,
+          "receiver": null
+        }
+      ]
+    }
+  ],
+  "entrypoints": [
+    {
+      "file": "repository_generator_known_group_identity_lookup.py",
+      "function": "find_standard_repository_generator_known_group_identity_nodes",
+      "status": "GUARDED"
+    },
+    {
+      "file": "repository_operation_query_facade.py",
+      "function": "query_standard_repository_operation_input",
+      "status": "GUARDED"
+    },
+    {
+      "file": "toda_calculation_facade.py",
+      "function": "build_standard_toda_report",
+      "status": "GUARDED"
+    }
+  ],
+  "special_boundary_evidence": {
+    "special_citation_mode": true,
+    "special_user_confirmation": true,
+    "special_requires_root_validation": true,
+    "special_does_not_claim_r2": true
+  },
+  "known_exception_count": 2,
+  "blockers": [
+    "special_fixed_literature_path_not_migrated_to_shared_resolver"
+  ],
+  "r7_status": "NOT_CLOSED",
+  "production_modified": false,
+  "full_pytest_run": false
+}

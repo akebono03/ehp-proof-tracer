@@ -21,6 +21,10 @@ from proof import (
     find_inference_matches_for_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    derive_inference_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class GroupStructureBackwardPlan:
@@ -145,7 +149,7 @@ def reconstruct_group_structure_goal(
     matches = tuple(m for m in find_inference_matches_for_rule(plan.expansion.inference_rule, tuple(resolved)) if all(a is b for a, b in zip(m.premises, resolved)))
     if len(matches) != 1:
         raise ValueError("Group structure transport inference rejected its premises")
-    final = apply_inference_match(matches[0])
+    final = derive_inference_proof_step(matches[0])
     if final.conclusion != goal or final.rule is not ProofRule.INFERENCE:
         raise ValueError("Group structure transport did not prove requested goal")
     return GroupStructureBackwardResult(

@@ -24,6 +24,10 @@ from toda_rules import (
   toda_45_isomorphism_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 def build_canonical_toda_stable_transport_map(
   target: TodaPrimaryGroup,
@@ -93,7 +97,7 @@ def build_canonical_toda_45_isomorphism_step(
     target.sphere_dimension
   )
 
-  stable_range_step = ProofStep(
+  stable_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=base_sphere_dimension,
       right=ScalarSum(
@@ -105,7 +109,7 @@ def build_canonical_toda_45_isomorphism_step(
     rule=ProofRule.GIVEN,
   )
 
-  suspension_range_step = ProofStep(
+  suspension_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=target_sphere_dimension,
       right=base_sphere_dimension,
@@ -114,7 +118,7 @@ def build_canonical_toda_45_isomorphism_step(
     rule=ProofRule.GIVEN,
   )
 
-  suspension_map_step = ProofStep(
+  suspension_map_step = create_legacy_given_proof_step(
     conclusion=transport_map,
     premises=(),
     rule=ProofRule.GIVEN,

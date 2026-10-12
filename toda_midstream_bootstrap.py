@@ -52,6 +52,10 @@ from toda_rules import (
   toda_53_n3_hopf_zero_suspension_surjective_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 def _find_unique_step(
   steps: tuple[ProofStep, ...],
@@ -78,7 +82,7 @@ def build_phase59_pi5_3_step(
   pi4_2_step: ProofStep,
   suspension_isomorphism_step: ProofStep,
 ) -> ProofStep:
-  eta3_definition_step = ProofStep(
+  eta3_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       3
     ),
@@ -86,7 +90,7 @@ def build_phase59_pi5_3_step(
     rule=ProofRule.GIVEN,
   )
 
-  eta4_definition_step = ProofStep(
+  eta4_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       4
     ),
@@ -186,7 +190,7 @@ def build_phase59_hopf_surjective_step(
   premise_steps = (
     prop51_step,
     hopf_eta5_step,
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_5_3,
@@ -199,7 +203,7 @@ def build_phase59_hopf_surjective_step(
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_4_2,
@@ -212,7 +216,7 @@ def build_phase59_hopf_surjective_step(
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_6_3,
@@ -225,7 +229,7 @@ def build_phase59_hopf_surjective_step(
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_6_5,
@@ -279,7 +283,7 @@ def build_phase59_prop53_step(
 ) -> ProofStep:
   n = higher_range_step.conclusion.left
 
-  eta_n_definition_step = ProofStep(
+  eta_n_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       n
     ),
