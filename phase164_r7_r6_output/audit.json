@@ -1,0 +1,363 @@
+{
+  "phase": "164 R7-R6",
+  "mode": "READ_ONLY_POST_CONNECTION_AUDIT",
+  "missing_files": [],
+  "entrypoints": {
+    "generator": {
+      "status": "GUARD_CALL_PRESENT",
+      "function": "find_standard_repository_generator_known_group_identity_nodes",
+      "guard_calls": [
+        {
+          "line": 348,
+          "name": "validate_generator_repository_registry_links",
+          "receiver": null
+        }
+      ],
+      "repository_builder_calls": [
+        {
+          "line": 345,
+          "name": "build_standard_production_proof_repository",
+          "receiver": null
+        }
+      ],
+      "imports": [
+        "DirectSumGroup",
+        "FiniteCyclicGroup",
+        "FreeCyclicGroup",
+        "GENERATOR_FACT_REPOSITORY",
+        "GeneratorFactRepository",
+        "GeneratorSymbol",
+        "ProofRepository",
+        "Relation",
+        "RelationType",
+        "RepositoryProofScopeNode",
+        "RepositoryProofScopeResult",
+        "TodaPrimaryGroup",
+        "build_repository_proof_scope",
+        "build_standard_production_proof_repository",
+        "contains_generator_symbol",
+        "is_toda_group_result_for_target",
+        "is_toda_prop515_generic_sigma_specialization_generator",
+        "resolve_generator_input",
+        "specialize_repository_proof_scope_for_generator",
+        "validate_generator_repository_registry_links"
+      ]
+    },
+    "operation": {
+      "status": "GUARD_CALL_PRESENT",
+      "function": "query_standard_repository_operation_input",
+      "guard_calls": [
+        {
+          "line": 91,
+          "name": "validate_repository_internal_proof_roots",
+          "receiver": null
+        }
+      ],
+      "repository_builder_calls": [
+        {
+          "line": 88,
+          "name": "build_standard_production_proof_repository",
+          "receiver": null
+        }
+      ],
+      "imports": [
+        "ProofRepository",
+        "RepositoryOperationQueryResult",
+        "build_standard_production_proof_repository",
+        "is_nu5_eta8_suspension_zero_operation_query",
+        "is_nu5_stable_bridge_operation_query",
+        "is_nu_prime_suspension_membership_operation_query",
+        "is_sigma11_suspension_operation_query",
+        "parse_repository_operation_query",
+        "query_nu5_eta8_suspension_zero_handoff",
+        "query_nu5_stable_bridge_handoff",
+        "query_nu_prime_suspension_membership_handoff",
+        "query_repository_operation",
+        "query_sigma11_suspension_handoff",
+        "validate_repository_internal_proof_roots"
+      ]
+    },
+    "group": {
+      "status": "GUARD_CALL_PRESENT",
+      "function": "build_standard_toda_report",
+      "guard_calls": [
+        {
+          "line": 41,
+          "name": "validate_repository_internal_proof_roots",
+          "receiver": null
+        }
+      ],
+      "repository_builder_calls": [
+        {
+          "line": 38,
+          "name": "build_standard_production_proof_repository",
+          "receiver": null
+        }
+      ],
+      "imports": [
+        "ProofRepository",
+        "TodaCalculationReportResult",
+        "TodaGroupQuery",
+        "build_standard_production_proof_repository",
+        "build_toda_calculation_report_result",
+        "validate_repository_internal_proof_roots"
+      ]
+    }
+  },
+  "residual_candidates": [
+    {
+      "file": "phase164_r3_registry_search_connection.py",
+      "line": 79,
+      "name": "resolve_registered_statement",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "phase164_r4_r8_registry_reconstruction.py",
+      "line": 104,
+      "name": "assertion",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "phase164_r4_r8_registry_reconstruction.py",
+      "line": 105,
+      "name": "reference",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "repository_proof_scope.py",
+      "line": 102,
+      "name": "entries",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "repository_proof_scope.py",
+      "line": 237,
+      "name": "entries",
+      "receiver": "repository",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "repository_element_lookup.py",
+      "line": 140,
+      "name": "entries",
+      "receiver": "repository",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "repository_element_lookup.py",
+      "line": 173,
+      "name": "entries",
+      "receiver": "repository",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "repository_operation_query_lookup.py",
+      "line": 687,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_group_lookup.py",
+      "line": 95,
+      "name": "entries",
+      "receiver": "repository",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 300,
+      "name": "get",
+      "receiver": "_LOW_DIMENSIONAL_TODA_GROUP_SOURCES",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 311,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 373,
+      "name": "get",
+      "receiver": "_PROP59_CONCRETE_BRANCHES",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 381,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 571,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 660,
+      "name": "get",
+      "receiver": "_STABLE_TODA_GROUP_SOURCES",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 668,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 741,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_calculation.py",
+      "line": 820,
+      "name": "build_repository_proof_scope",
+      "receiver": null,
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_literature_statement_boundary.py",
+      "line": 1004,
+      "name": "get",
+      "receiver": "_FIXED_COMPONENTS_BY_REFERENCE",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_literature_statement_boundary.py",
+      "line": 1050,
+      "name": "get",
+      "receiver": "_PHASE157_R5_R3_INTERNAL_RULE_LOCATORS",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "toda_literature_statement_boundary.py",
+      "line": 1118,
+      "name": "get",
+      "receiver": "_REFERENCE_LOCATOR_BY_FIXED_RULE_NAME",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "line": 29,
+      "name": "get",
+      "receiver": "document",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "line": 30,
+      "name": "get",
+      "receiver": "document",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "line": 31,
+      "name": "get",
+      "receiver": "document",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "line": 33,
+      "name": "get",
+      "receiver": "document",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "line": 34,
+      "name": "get",
+      "receiver": "document",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase163_source_archive_registry.py",
+      "line": 92,
+      "name": "reference",
+      "receiver": "registry",
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "phase164_r7_repository_root_resolution.py",
+      "line": 26,
+      "name": "entries",
+      "receiver": "repository",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase164_r7_repository_root_resolution.py",
+      "line": 27,
+      "name": "resolve_registered_statement",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "line": 41,
+      "name": "assertion",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "line": 42,
+      "name": "reference",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "line": 68,
+      "name": "get",
+      "receiver": "proof_repository",
+      "classification": "repository_proof_graph_not_automatically_a_defect"
+    },
+    {
+      "file": "phase164_r7_statement_resolution.py",
+      "line": 80,
+      "name": "assess_phase164_r2_citation",
+      "receiver": null,
+      "classification": "citation_or_registry_review"
+    }
+  ],
+  "citation_boundaries": {
+    "SOURCE_ARCHIVE": true,
+    "PROOF_INTERNAL": true,
+    "METADATA_ONLY": true,
+    "verified_assertion_ids": true,
+    "assess_citation": true
+  },
+  "findings": [],
+  "production_modified": false,
+  "full_pytest_run": false,
+  "fixed_literature_special_route": {
+    "exists": true,
+    "separate_source_confirmation": true,
+    "not_equivalent_to_r2_document_order": true
+  },
+  "summary": {
+    "guarded_entrypoints": 3,
+    "entrypoints_total": 3,
+    "residual_candidates": 33,
+    "reference_candidates": 8,
+    "finding_count": 0
+  },
+  "r7_closure_status": "NOT_CERTIFIED_BY_STATIC_AUDIT"
+}
