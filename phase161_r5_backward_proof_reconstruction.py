@@ -16,10 +16,10 @@ from phase161_r4_literature_premise_matching import (
     expand_phase161_r4_literature_goal,
     match_phase161_r4_existing_premises,
 )
+from phase164_r8_proofstep_factory import derive_inference_proof_step
 from proof import (
     ProofRule,
     ProofStep,
-    apply_inference_match,
     find_inference_matches_for_rule,
 )
 from toda_rules import TodaProp42ExactnessStatement
@@ -95,7 +95,7 @@ def reconstruct_phase161_r5_goal(
                 )
                 if len(matches) != 1:
                     raise ValueError(f"Production rule does not accept exact subgoals: {current_goal!r}")
-                result = apply_inference_match(matches[0])
+                result = derive_inference_proof_step(matches[0])
                 if result.conclusion != current_goal or result.rule is not ProofRule.INFERENCE:
                     raise ValueError("Production conclusion does not match backward goal")
                 created.append(result)
@@ -116,7 +116,7 @@ def reconstruct_phase161_r5_goal(
                 )
                 if len(inference_matches) != 1:
                     raise ValueError("Production matcher rejected literature evidence")
-                result = apply_inference_match(inference_matches[0])
+                result = derive_inference_proof_step(inference_matches[0])
                 if result.conclusion != current_goal:
                     raise ValueError("Literature production conclusion mismatch")
                 used.extend(match.premises)
