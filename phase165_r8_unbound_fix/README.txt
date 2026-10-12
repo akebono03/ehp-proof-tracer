@@ -1,0 +1,1 @@
+Phase 165 R8 correction: reject premise variables absent from conclusion match bindings. Replaces whole module, preserves original imports, adds nested-variable regression test. Does not change R3, repository, or citation eligibility.
