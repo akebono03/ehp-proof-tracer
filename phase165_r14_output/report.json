@@ -1,0 +1,13 @@
+{
+  "phase": "165 R14-R1",
+  "target": "pi_3^2 = Z{eta_2}",
+  "typed_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "source_assertions": 117,
+  "newly_mathematically_typed": 0,
+  "newly_proof_eligible": 0,
+  "exact_registered_goal_matches": 0,
+  "status": "UNRESOLVED",
+  "blocker": "Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=3, sphere_dimension=2); legacy proof selection remains disabled",
+  "legacy_proof_used": false,
+  "full_pytest_run": false
+}
