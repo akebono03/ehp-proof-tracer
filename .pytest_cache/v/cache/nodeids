@@ -62,5 +62,10 @@
   "tests/test_phase164_r3_registry_search_connection.py::test_r3_rejects_unreviewed_citation",
   "tests/test_phase164_r3_registry_search_connection.py::test_r3_rejects_untrusted_given_root",
   "tests/test_phase164_r3_registry_search_connection.py::test_r3_rejects_wrong_statement_binding",
-  "tests/test_phase164_r3_registry_search_connection.py::test_r3_selects_same_existing_six_leaf_objects"
+  "tests/test_phase164_r3_registry_search_connection.py::test_r3_selects_same_existing_six_leaf_objects",
+  "tests/test_phase164_r4_real_registry_audit.py::test_r4_existing_proof_and_narrative_regression",
+  "tests/test_phase164_r4_real_registry_audit.py::test_r4_manifest_remains_archival_only",
+  "tests/test_phase164_r4_real_registry_audit.py::test_r4_real_bridge_does_not_fabricate_r3_evidence",
+  "tests/test_phase164_r4_real_registry_audit.py::test_r4_reports_are_written_without_modifying_sources",
+  "tests/test_phase164_r4_real_registry_audit.py::test_r4_structural_equality_rejects_unverified_equivalence"
 ]

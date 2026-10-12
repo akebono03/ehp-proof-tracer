@@ -1,0 +1,39 @@
+{
+  "phase": "164 R4",
+  "mode": "READ_ONLY_REAL_REGISTRY_AND_LEGACY_PROOF_AUDIT",
+  "source_manifest": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase163_r4_r94_output\\manifest.json",
+  "source_manifest_verified": true,
+  "source_archive_reference_count": 108,
+  "source_archive_assertion_count": 117,
+  "source_archive_proof_eligible_count": 0,
+  "source_archive_promoted": false,
+  "bridge_record_count": 68,
+  "bridge_status_counts": {
+    "structured": 0,
+    "metadata_only": 67,
+    "unresolved_source": 1
+  },
+  "literature_leaves": [
+    {
+      "leaf_index": 0,
+      "candidate_count": 0,
+      "candidates": []
+    },
+    {
+      "leaf_index": 1,
+      "candidate_count": 0,
+      "candidates": []
+    }
+  ],
+  "exactness_given_leaf_count": 4,
+  "trusted_given_root_count": 35,
+  "legacy_reconstruction_success": true,
+  "legacy_derived_step_count": 7,
+  "legacy_provenance_verified_inferences": 44,
+  "legacy_narrative_rendered": true,
+  "real_registry_r3_reconstruction_attempted": false,
+  "real_registry_r3_status": "BLOCKED_PENDING_INDEPENDENT_CITATION_EVIDENCE",
+  "mathematical_certification_claimed": false,
+  "production_modified": false,
+  "full_pytest_run": false
+}
