@@ -1,0 +1,2616 @@
+{
+  "phase": "163 R4-R48",
+  "mode": "READ_ONLY_COVERAGE_AUDIT",
+  "registered_count": 108,
+  "existing_reference_count": 23,
+  "existing_assertion_count": 67,
+  "source_sha256": {
+    "1": "92cbfbb9b3ea9ba59a07450a5a8f16ec6b80715bb8b7d8f6eab442dd1a402605",
+    "2": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+    "3": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+    "4": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+    "5": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374"
+  },
+  "candidate_count": 316,
+  "candidate_counts": {
+    "OUTSIDE_DISPLAY": 296,
+    "PROSE_DEFINITION_CUE": 20
+  },
+  "nested_registered_environment_count": 1,
+  "chapters": [
+    {
+      "chapter": 1,
+      "registered_count": 27,
+      "nested_count": 0,
+      "nested": [],
+      "candidate_counts": {
+        "OUTSIDE_DISPLAY": 80,
+        "PROSE_DEFINITION_CUE": 12
+      }
+    },
+    {
+      "chapter": 2,
+      "registered_count": 18,
+      "nested_count": 0,
+      "nested": [],
+      "candidate_counts": {
+        "OUTSIDE_DISPLAY": 57,
+        "PROSE_DEFINITION_CUE": 4
+      }
+    },
+    {
+      "chapter": 3,
+      "registered_count": 17,
+      "nested_count": 0,
+      "nested": [],
+      "candidate_counts": {
+        "OUTSIDE_DISPLAY": 92,
+        "PROSE_DEFINITION_CUE": 2
+      }
+    },
+    {
+      "chapter": 4,
+      "registered_count": 14,
+      "nested_count": 1,
+      "nested": [
+        {
+          "chapter": 4,
+          "source_line": 259,
+          "kind": "equation",
+          "parent_kind": "proposition",
+          "parent_line": 256,
+          "action": "RETAIN_EXISTING_SOURCE_UNIT"
+        }
+      ],
+      "candidate_counts": {
+        "OUTSIDE_DISPLAY": 12,
+        "PROSE_DEFINITION_CUE": 1
+      }
+    },
+    {
+      "chapter": 5,
+      "registered_count": 32,
+      "nested_count": 0,
+      "nested": [],
+      "candidate_counts": {
+        "OUTSIDE_DISPLAY": 55,
+        "PROSE_DEFINITION_CUE": 1
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "chapter": 1,
+      "source_line": 81,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nS^n=\\{(t_1,\\ldots,t_{n+1})\\mid t_1^2+\\cdots+t_{n+1}^2=1\\}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 112,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\psi_1(t) = (\\cos 2\\pi t,\\ \\sin 2\\pi t).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 119,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\psi_{n+1}(t_{1},\\cdots,t_{n},\\frac{1}{2})=\r\ni(\\psi_{n}(t_{1},\\cdots,t_{n})).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 156,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[X,Y]=\\{\\, [f]\\ \\mid\\ f:(X,x_0)\\to (Y,y_0)\\,\\}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 173,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nf^*:[Y,Z]\\to[X,Z],\\quad g_*:[X,Y]\\to[X,Z].\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 176,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nf^*(\\beta)=[g\\circ f],\\qquad g_*(\\alpha)=[g\\circ f]\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 180,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\gamma\\circ \\beta)\\circ\\alpha=\\gamma\\circ(\\beta\\circ\\alpha).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 183,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(f_2\\circ f_1)^*=f_1^*\\circ f_2^*,\\quad \r\n(g_2\\circ g_1)_*=g_{2*}\\circ g_{1*}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 191,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA\\vee B=\\bigl(A\\times\\{b_0\\}\\bigr)\\cup\\bigl(\\{a_0\\}\\times B\\bigr)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 196,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\shrink_{A,B}:A\\times B\\longrightarrow\r\nA\\times B/A\\vee B = A\\ \\wedge\\ B\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 201,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(A\\ \\wedge\\ B)\\ \\wedge\\ C\\ \\cong\\ A\\ \\wedge\\ (B\\ \\wedge\\ C),\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 204,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\phi_{A\\wedge B, C}(\\phi_{A,B}(a,b),c)\\longleftrightarrow\r\n\\phi_{A,B\\wedge C}(a, \\phi_{B,C}(b,c)).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 218,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\shrink_{m,n}\\bigl(\\psi_m(x),\\,\\psi_n(y)\\bigr)=\\psi_{m+n}(x,y)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 223,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\shrink_{m+n,p}\\bigl(\\shrink_{m,n}(a,b),c\\bigr)\r\n=\\shrink_{m,n+p}\\bigl(a,\\shrink_{n,p}(b,c)\\bigr),\r\n\\quad (a,b,c)\\in S^m\\times S^n\\times S^p.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 229,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nf:A\\to A',\\quad g:B\\to B'\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 234,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nf\\ \\wedge \\ g:\\ A\\ \\wedge\\ B\\ \\longrightarrow\\ A'\\ \\wedge\\ B'\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 238,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(f\\wedge g)\\circ \\phi_{A,B} = \\phi_{A',B'}\\circ (f\\times g).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 284,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex^n X\\ :=\\ X\\ \\wedge\\ S^n\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 294,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex^n f:\\ \\Ex^n X\\longrightarrow \\Ex^n Y,\\quad\r\n(Ef = E^1 f)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 325,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd_X:X\\times I \\to EX,\\qquad\r\nd_X = \\phi_{X,S^1}\\circ (1_X\\times \\psi_1).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 336,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex f(d_X(x, t)) = \r\nd_Y(f(x), t),\\quad x\\in X,\\quad t \\in I.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 344,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(f+g)(d_X(x,t)) :=\r\n\\begin{cases}\r\nf(d_X(x,2t)), & 0\\le t\\le \\tfrac12,\\\\[2mm]\r\ng(d_X(x,2t-1)), & \\tfrac12\\le t\\le 1,\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 347,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2mm]\r\ng(d_X(x,2t-1)), & \\tfrac12\\le t\\le 1,\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 351,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(-f)(d_X(x, t)) := \r\nf(d_X(x, 1-t)).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 364,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[\\Ex X,Y]\\cong \\pi_1\\bigl(Y^X_{0}\\bigr).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 375,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[f]\\circ(\\alpha + \\alpha') = [f]\\circ\\alpha + [f]\\circ\\alpha',\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 378,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\alpha + \\alpha')\\circ E[g] = \\alpha\\circ E[g] + \\alpha'\\circ E[g].\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 404,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ox f:\\ \\Ox X\\longrightarrow \\Ox Y,\\qquad\r\n(\\Ox f(\\ell))(t)=f(\\ell(t)),\\ \\ \\ell\\in\\Ox X,\\ t\\in I\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 409,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ox:\\ [X,Y]\\longrightarrow [\\Ox X,\\Ox Y],\\qquad\r\n\\Omega [f] = [\\Ox f]\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 415,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ox(\\beta\\circ\\alpha)=\\Ox\\beta\\circ \\Ox\\alpha\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 422,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni(x)(t) = d_X(x,t)\\qquad (t\\in I).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 426,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni:X\\to \\Ox EX.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 446,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Omega_0F=\r\n\\Ox F\\circ i:\\ X\\xrightarrow{\\ i\\ }\\Ox EX\\xrightarrow{\\ \\Ox F\\ }\\Ox Y\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 451,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Omega_0F(x)(t) = F(d_X(x,t))\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 502,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\na:(\\Ex^n Y,y_0)\\to (Z,z_0),\\quad\r\nb:(X,x_0)\\to (Y,y_0),\\quad\r\nc:(W,w_0)\\to (X,x_0)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 509,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA_t:(\\Ex^n X,x_0)\\to (Z,z_0),\\qquad\r\nB_t:(W,w_0)\\to (Y,y_0),\\qquad (0\\le t\\le 1)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 514,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA_0=a\\circ \\Ex^n b,\\quad A_1(\\Ex^n X)=z_0,\\qquad\r\nB_0=b\\circ c,\\quad B_1(W)=y_0.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 523,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2mm]\r\nA_{1-2t}\\bigl(\\Ex^n c(w)\\bigr), & 0\\le t\\le \\tfrac12.\r\n\\end{cases}\r\n\\end{equation}\r\nここで,\r\n$d:\\Ex^n W\\times I\\to \\Ex^{n+1}W$ は,\r\n\\(E^{n+1}W= E(E^n W)\\) を定める等化写像で, \r\n$w\\in \\Ex^n W$ とする.\\\\\r\n$H$ は well-defined で, 連続で",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 536,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\ \\subset\\ [\\Ex^{n+1}W, Z]\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 545,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA\\circ B=\\{\\ \\alpha\\circ\\beta\\mid \\alpha\\in A,\\ \\beta\\in B\\ \\}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 549,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA_1+A_2=\\{\\ \\alpha_1+\\alpha_2\\mid \\alpha_i\\in A_i\\ \\}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 585,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nF:(\\Ex^{n+1}X,x_0)\\to (Z,z_0), \\quad\r\nG:(\\Ex W,w_0)\\to (Y,y_0)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 590,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nF(d_{E^{n}Z}(x,t))\\equiv\\left\\{\r\n\\begin{array}{ll}\r\nA_{2t-1}(x), & \\frac{1}{2} \\leq t \\leq 1, \\\\\r\nA'_{1-2t}(x), & 0 \\leq t \\leq \\frac{1}{2}, \\\\\r\n\\end{array}\\right.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 597,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG(d_{W}(w,t))\\equiv\\left\\{\r\n\\begin{array}{ll}\r\nB'_{2t-1}(w), & \\frac{1}{2} \\leq t \\leq 1, \\\\\r\nB_{1-2t}(w), & 0 \\leq t \\leq \\frac{1}{2}. \\\\\r\n\\end{array}\\right.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 607,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH'\\ \\simeq\\ F\\circ \\Ex^{n+1}c\\ +\\ \\bigl(H\\ +\\ a\\circ \\Ex^n G\\circ \\sigma\\bigr)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 613,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\sigma\\bigl(\\phi(w,\\psi_{n+1}(t_1,\\ldots,t_n,t))\\bigr)=\\phi(w, \\psi_{n+1}(t, t_1,\\ldots,t_n))\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 617,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\psi_{n+1}(t_1,\\cdots,t_n, t) \\longleftrightarrow\r\n\\psi_{n+1}(t,t_1,\\cdots,t_n)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 626,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[H'] = [F]\\circ E^{n+1}\\gamma + \r\n([H] \\pm \\alpha \\circ E^n [G])\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 635,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nF':(E^{n+1}X,x_0)\\to(Z,z_0),\\qquad\r\nG':(EW, w_0)\\to (Y,y_0)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 640,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nF'\\circ E^{n+1}c + (H + a\\circ E^n G'\\circ \\sigma).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 644,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA'_t(x)=\r\n\\begin{cases}\r\nF'(d_{E^n X}(x,2-2t)),& \\tfrac12\\le t\\le 1,\\\\\r\nA_{2t}(x),& 0\\le t\\le \\tfrac12,\r\n\\end{cases}\r\n\\qquad\r\nB'_t(w)=\r\n\\begin{cases}\r\nG'(d_W(w,2t-1)),& \\tfrac12\\le t\\le 1,\\\\\r\nB_{2t}(w),& 0\\le t\\le \\t",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 661,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH'\\ \\simeq\\ F'\\circ \\Ex^{n+1}c\\ +\\ (H+a\\circ \\Ex^n G').\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 768,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(d_{ER}(d_R(w,s),t))=\r\n\\begin{cases}\r\na(\\Ex^{n+1}B_{2t-1}(d_R(w,s))), \r\n& \\tfrac12\\le t\\le 1,\\\\[2mm]\r\nA_{1-2t}(\\Ex^{n+1}c(d_R(w,s))), \r\n& 0\\le t\\le \\tfrac12,\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 772,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2mm]\r\nA_{1-2t}(\\Ex^{n+1}c(d_R(w,s))), \r\n& 0\\le t\\le \\tfrac12,\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 787,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd_{ER}(d_R(w,s),t) = \\phi(w, \\psi_2(s, t)).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 792,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\sigma(d_{ER}(d_R(w,s),t))\r\n= d_{ER}(d_R(w,t), s).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 799,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Omega_0(H\\circ \\sigma)(d_R(w,t))=\r\n\\begin{cases}\r\n\\Omega_0 a(\\Ex^{n}B_{2t-1}(w)), \r\n& \\tfrac12\\le t\\le 1,\\\\[2mm]\r\n\\Omega_0 A_{1-2t}(\\Ex^{n}c(w)), \r\n& 0\\le t\\le \\tfrac12.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 803,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2mm]\r\n\\Omega_0 A_{1-2t}(\\Ex^{n}c(w)), \r\n& 0\\le t\\le \\tfrac12.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 823,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n  -E\\todai[n]{\\alpha, E^n\\beta, E^n\\gamma}\r\n  & = -\\Omega_0^{-1}(\\iota \\circ \\todai[n]{\\alpha, E^n\\beta, E^n\\gamma})\r\n  \\subset -\\Omega_0^{-1}\\todai[n]{\\iota\\circ\\alpha, E^n\\beta, E^n\\gamma}\\\\\r\n  & =",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 824,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n  -E\\todai[n]{\\alpha, E^n\\beta, E^n\\gamma}\r\n  & = -\\Omega_0^{-1}(\\iota \\circ \\todai[n]{\\alpha, E^n\\beta, E^n\\gamma})\r\n  \\subset -\\Omega_0^{-1}\\todai[n]{\\iota\\circ\\alpha, E^n\\beta, E^n\\gamma}\\\\\r\n  & = \\tod",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 854,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(d_{E^n V}(s, t)) = \\left\\{\r\n\\begin{array}{ll}\r\n  A_{1-2t}(E^n c(E^n d(s))),\r\n  & 0\\leq t \\leq \\frac{1}{2},\\\\\r\n  a(E^n B_{2t-1}(E^n d(s))), \r\n  & \\frac{1}{2} \\leq t \\leq 1.  \r\n\\end{array}\r\n\\right.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 871,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH_{u}(d_{\\Ex^{n}V}(s,t))\\equiv\\left\\{\r\n\\begin{array}{ll}\r\nA_{1-2t}(\\Ex^{n}C_{2u(1-2t)}(s)), &\r\n0\\leq t \\leq \\frac{1}{2},\\ 0\\leq u \\leq \\frac{1}{2}, \\\\\r\nA_{(2-2u)(1-2t)}(\\Ex^{n}C_{1-2t}(s)), &\r\n0\\leq t \\leq \\frac{1}{2",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 884,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\sigma(\\phi_{V,S^{n+1}}(v,\\psi_{n+1}(t_{1},\\cdots,t_{n},t))) :=\r\n\\phi_{V,S^{n+1}}(v,\\psi_{n+1}(1-t,t_{1},\\cdots,t_{n})).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 889,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nK(d_{V}(v, t)) = \\left\\{\r\n\\begin{array}{ll}\r\n  B_{1-2t}(d(v)),\r\n  & 0\\leq t \\leq \\frac{1}{2},\\\\\r\n  b(C_{2t-1}(v)), \r\n  & \\frac{1}{2} \\leq t \\leq 1.  \r\n\\end{array}\r\n\\right.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 916,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[a\\circ E^n K\\circ\\sigma]\r\n\\in \\todai[n]{\\alpha, E^n\\beta, E^n\\gamma}\\circ E^{n+1}\\delta\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 956,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\{\\{\\alpha,\\beta,\\gamma\\},\\ E\\delta,\\ E\\varepsilon\\}\r\n+\\{\\alpha,\\ \\{\\beta,\\gamma,\\delta\\},\\ E\\varepsilon\\}\r\n+\\{\\alpha,\\ \\beta,\\ \\{\\gamma,\\delta,\\varepsilon\\}\\}\r\n\\equiv0 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1007,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\alpha+\\alpha')\\circ \\Ex^{n+1}\\!\\bigl([W, Y]\\bigr) \r\n+ [\\Ex^{n+1}X, Z]\\circ \\Ex^{n+1}\\gamma.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1016,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha\\circ E^{n+1}[W,X]\r\n+ \\alpha'\\circ E^{n+1}[W,X]\r\n+ [E^{n+1}X,Z].\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1022,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\alpha + \\alpha') \\circ E^{n+1}[W,X]\r\n+ [E^[n+1]X,Z] \\circ E^{n+1}\\gamma.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1056,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH''(\\phi(w,\\psi_2(s, t))) :=\r\n\\begin{cases}\r\nH(\\phi(w, \\psi_2(2s, t))), & 0\\le s\\le \\tfrac12,\\\\\r\nH'(\\phi(w, \\psi_2(2s-1, t))), & \\tfrac12\\le s\\le 1.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1071,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[H] + [H'] = [H''] \\in \r\n\\todai[n]{\\alpha + \\alpha', E^n\\beta, E^n\\gamma}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1085,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nCX=(X\\times I)/\\bigl(X\\times\\{1\\}\\ \\cup\\ x_0\\times I\\bigr).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1109,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh(d_W(w, t)) \\left\\{\r\n\\begin{array}{ll}\r\n= d'_X(c(w), 1-2t), & 0 \\leq t \\leq \\frac{1}{2}, \\\\\r\n\\in Y, & \\frac{1}{2} \\leq t \\leq 1. \\\\\r\n\\end{array}\\right.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1130,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\phi(d'_X(x,t),\\psi_n(t_1,\\ldots,t_n))\\longleftrightarrow d'_Z(\\phi'(x,\\psi_n(t_1,\\ldots,t_n)),t)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1155,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh\\bigl(d_W(w,t)\\bigr)=\r\n\\begin{cases}\r\nd'_X(c(w),1-2t), & 0\\le t\\le \\tfrac12,\\\\\r\nB_{2t-1}(w), & \\tfrac12\\le t\\le 1.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1201,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH_s\\bigl(d(w,t)\\bigr)=\r\n\\begin{cases}\r\nd'_V\\!\\left(E^nB_{s(1-2t)}(w),\\ (1-s)(1-2t)\\right), & 0\\le t\\le \\tfrac12,\\\\\r\nA_{2t-1}\\!\\left(E^n c(w)\\right), & \\tfrac12\\le t\\le 1.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1230,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\np(d'_W(w, t)) = d_W(w, t),\\qquad\r\np(X) = x_0.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1273,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{cases}\r\n  G(x) = a(E^n b(x)), & x \\in E^n X,\\\\\r\n  G(d'_V(w, t)) = a(E^n B_t(w)), & w \\in E^n W = V,\\ t \\in I.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1287,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_0 = G,\\qquad \r\nG_1(E^n X) = z_0.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1307,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH_s\\bigl(d_V(w,t)\\bigr)=\r\n\\begin{cases}\r\nA_{1-2t}\\!\\left(E^n c(w)\\right), \r\n& 0\\le t\\le \\dfrac{1-s}{2},\\\\\r\nG_s\\!\\left(d'_V\\!\\left(w,\\dfrac{2t-1+s}{1+s}\\right)\\right), \r\n& \\dfrac{1-s}{2}\\le t\\le 1.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 170,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "と書き, \\(\\alpha\\) と \\(\\beta\\) の合成 (composition) という.\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 287,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "と書き, $X$ の $n$-重 suspension と呼ぶ.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 343,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "\\(f+g,\\ -f: (EX,x_0)\\to (Y,y_0)\\) を, 次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 784,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "\\(E^2 R\\) を定義する等化写像",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 888,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "また, 写像 \\(K:EV\\to Y\\) を次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1044,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "を, \\(E^{n+1}W = E^2 E^{n-1}W\\) を定義する写像とする.\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1055,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "$H'':(E^{n+1}W,w_0)\\to(Z,z_0)$ を, 次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1084,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "基空間 $X$ 上の \\emph{cone} \\(CX\\) を, 次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1088,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "$d'_X:X\\times I\\to CX$ を, \\(CX\\) を定義する等化写像とする.\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1103,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "$\\alpha$ の \\emph{extension} と呼ぶ.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1117,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "このとき, \\(\\widetilde{\\gamma}\\) を \\(\\gamma\\) の \\emph{coextension} と呼ぶ.\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 1,
+      "source_line": 1136,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "$\\Ex^n X=X\\wedge S^n$ を定義する写像である.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 73,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pis{p}{S^m} \\quad(=\\hs{S^p}{S^m})\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 92,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nk(\\alpha\\circ\\beta)=\\alpha\\circ(k\\beta),\\qquad\r\nk(\\alpha\\circ E\\beta)=(k\\alpha)\\circ E\\beta\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 98,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha\\ \\redjoin\\ \\beta\\ \\in\\ \\pis{p+q}{S^{m+n}}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 104,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE^n\\alpha=\\alpha\\ \\redjoin\\ \\iota_n\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 108,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\todai[n]{\\alpha,\\ E^n\\beta,\\ E^n\\gamma}\r\n\\in\\pi_{i+n+1}(S^m) / \r\n(\\alpha\\circ E^n\\pi_{i+1}(S^k) + \\pi_{j+n+1}(S^m)\\circ E^{n+1}\\gamma)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 114,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha\\in\\pis{k+n}{S^m},\\qquad\r\n\\beta\\in\\pis{j}{S^k},\\qquad\r\n\\gamma\\in\\pis{i}{S^j}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 143,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2mm]\r\nA_{1-2t}\\bigl(\\Ex^n c(w)\\bigr), & 0\\le t\\le \\tfrac12.\r\n\\end{cases}\r\n\\)\r\n\r\n\\noindent\r\n\\textbf{(1.8).}\\\r\n\\(d_n:S^n\\times I\\longrightarrow S^{n+1},\\quad\r\nd_n\\bigl(\\psi_n(t_1,\\ldots,t_n),t\\bigr)=\\psi_{n+1}(t_1,\\ldots",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 183,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nS^m\\times\\cdots\\times S^m \\ \\longrightarrow\\ (S^m)_t,\\qquad\r\n(x_1,\\ldots,x_t)\\ \\longmapsto\\ x_1\\cdots x_t\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 194,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(f)_t:\\ (S^q)_t\\longrightarrow(S^m)_t,\\qquad (t=1,2,\\ldots,\\infty)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 198,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(f)_t(y_1\\ldots y_t):=f(y_1)\\ldots f(y_t)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 211,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni:\\ (S^m)_\\infty\\longrightarrow\\Omega S^{m+1}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 233,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni_*:\\ \\pi_q\\bigl((S^m)_\\infty\\bigr)\\ \\xrightarrow{\\;\\cong\\;}\\ \r\n\\pi_q\\bigl(\\Omega S^{m+1}\\bigr),\\qquad(\\forall\\,q).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 262,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Omega_1:\\ \\pi_{k+1}(S^{m+1})\\ \r\n\\xrightarrow{\\cong}\\ \\pi_k\\bigl((S^m)_\\infty\\bigr).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 292,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh'_m:\\ \\bigl((S^m)_2, S^m\\bigr)\\ \\to\\ (S^{2m},e_0),\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 295,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh'_m(xy)=\\phi_{m,m}(x,y)\\qquad(x,y\\in S^m).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 325,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh:\\ (S^m)_\\infty\\ \\longrightarrow\\ (S^{km})_\\infty\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 329,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh(x_1\\ldots x_t)\\ \r\n:=\\ \\prod_{\\sigma}\\ h'\\!\\bigl(x_{\\sigma(1)}\\cdots x_{\\sigma(k)}\\bigr),\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 348,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH:\\ \\pi_{i+1}(S^{m+1})\\ \\longrightarrow\\ \\pi_{i+1}(S^{2m+1})\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 374,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\nH(\\alpha\\circ E\\beta) \r\n& = (\\Omega_0^{-1}\\circ i_{*}\\circ h_{m*}\\circ i_{*}^{-1}\\circ \\Omega_0)(\\alpha\\circ E\\beta)\r\n&& \\text{by (2.7)},\\\\\r\n& = \\Omega_0^{-1}\\!\\bigl((i_*\\circ h_{m*}\\circ i_*^{-1})(\\Omega",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 397,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(E\\gamma\\circ\\alpha)\r\n= \\Omega_0^{-1}\\!\\bigl((i_*\\circ h_{m*}\\circ i_*^{-1})(\\Omega E\\gamma)\\bigr)\\circ \\Omega_0(\\alpha)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 402,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Omega_1^{-1}\\!\\bigl(\\Omega^{-1}E(\\gamma\\wedge\\iota_m)\\bigr)\\circ (\\Omega_1^{-1}\\circ h_{m*}\\circ \\Omega_1)(\\alpha)\r\n= E(\\gamma\\wedge\\gamma)\\circ H(\\alpha)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 441,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(-1)^n\\,\\overline{\\alpha}\\circ E^n\\widetilde{\\gamma}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 445,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH((-1)^n\\overline\\alpha\\circ E^n\\widetilde\\gamma)\r\n=(-1)^n H(\\overline\\alpha)\\circ E^n\\widetilde\\gamma .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 452,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(\\alpha)=H(\\overline\\alpha\\circ\\iota)=H(\\overline{\\alpha})\\circ\\iota\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 457,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(-1)^n H(\\ext{\\alpha})\\circ E^n\\coext{\\gamma}\\ \\in\\\r\n\\{\\,H(\\alpha),\\ E^n\\beta,\\ E^n\\gamma\\,\\}_n\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 509,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \\pi_i\\bigl((S^{pm})_\\infty\\bigr)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 552,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nu_1\\,u_{2k}=u_{2k+1},\\qquad\r\nu_{2k}\\,u_{2h}=\\binom{k+h}{k}\\,u_{2(k+h)}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 557,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nu_k\\,u_h=\\binom{k+h}{k}\\,u_{k+h}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 561,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Lambda=\r\n\\begin{cases}\r\n\\mathbb{Z}, & m\\ \\text{奇数かつ } p=2,\\\\\r\n\\mathbb{Z}_p, & m\\ \\text{偶数}.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 569,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni^*:H^i\\bigl((S^m)_\\infty;\\Lambda\\bigr)\\to H^i\\bigl((S^m)_{p-1};\\Lambda\\bigr)\r\n\\ \\ \\text{は} \\ \r\ni<pm \\ \\text{で同型 .}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 574,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh^*:H^i\\bigl((S^{pm})_\\infty;\\Lambda\\bigr)\\to H^i\\bigl((S^m)_{\\infty};\\Lambda\\bigr)\r\n\\ \\ \\text{は} \\ \r\n\\text{任意の } i \\ \\text{で単射同型 .}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 629,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh^*H^*\\!\\bigl((S^{pm})_\\infty;\\Lambda\\bigr)\\ \\otimes\\ G\\ \\cong\\\r\nH^*\\!\\bigl((S^{m})_\\infty;\\Lambda\\bigr)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 649,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nX := \\gen{(\\ell, x)\\in Map(I, (S^{pm})_{\\infty})\\times (S^m)_{\\infty}\\ \r\n|\\ \\ell(1) = h(x)};\\\r\nh \\text{ の mapping track} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 654,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\np:X\\longrightarrow (S^{pm})_\\infty,\\qquad \r\np(\\ell,x):=\\ell(1)=h(x),\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 661,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE_2^{*}\\ \\cong\\ H^{*}\\!\\bigl((S^{pm})_\\infty;\\Lambda\\bigr)\r\n\\ \\otimes\\ H^{*}(F;\\Lambda).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 706,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni_0^*:H^{*}(F;\\Lambda)\\ \\xrightarrow{\\;\\cong\\;}\\ H^{*}\\!\\bigl((S^m)_{p-1};\\Lambda\\bigr) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 711,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni_1^*:H^{i}(X;\\Lambda)\\ \\longrightarrow\\ H^{i}(F;\\Lambda)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 726,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH^{*}(X;\\Lambda)\\ \\longrightarrow\\ E_{\\infty}^{0,*}\r\n\\longrightarrow\\ E_{2}^{0,*}\\ \\cong\\ 1\\otimes H^{*}(F;\\Lambda) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 731,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd_r(1\\otimes G_0)=0,\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 736,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd_r(B^{*}\\otimes G_0)=0\\qquad(r\\ge2).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 741,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH^{*}(X;\\Lambda)\\ \\cong\\ p^{*}H^{*}\\!\\bigl((S^{pm})_\\infty;\\Lambda\\bigr)\\ \\otimes\\ G\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 805,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd_r(1\\otimes f_0)=0\\qquad(r\\ge2).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 813,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH^{*}(F;\\Lambda)=G_0,\\qquad\r\ni_0^{*}:H^{*}(F;\\Lambda)\\xrightarrow{\\;\\cong\\;}\r\nH^{*}\\!\\bigl((S^{m})_{p-1};\\Lambda\\bigr).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 834,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni_{0*}:\\ \\pi_i\\bigl((S^m)_{p-1}\\bigr)\\ \\xrightarrow{}\\ \\pi_i(F)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 843,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\xrightarrow{\\;\\cong\\;}\\ \\pi_i(X,F)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 903,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh_m:\\ \\bigl((S^m)_\\infty,\\ S^m\\bigr)\\ \\longrightarrow\\ \\bigl((S^{2m})_\\infty,\\ e_0\\bigr)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 907,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nh_{m*}:\\ \\pi_i\\bigl((S^m)_\\infty,\\ S^m\\bigr)\\ \\longrightarrow\\ \\pi_i\\bigl((S^{2m})_\\infty\\bigr)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 994,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\partial(\\alpha'\\circ\\partial_0^{-1}\\beta) = \\partial(\\alpha')\\circ \\beta,\\quad\r\n\n\nh_{m*}(\\alpha'\\circ\\partial_0^{-1}\\beta) = h_{m*}(\\alpha')\\circ E\\beta .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1005,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\Delta\\alpha\\circ\\beta\r\n& =\\partial\\,(h_{m*}^{-1}\\Omega_1\\alpha)\\circ\\beta\r\n=\\partial(h_{m*}^{-1}(\\Omega_1\\alpha)\\circ \\partial_0^{-1}\\beta)\\\\\r\n& \\subset \\partial(h_{m*}^{-1}(\\Omega_1(\\alpha)\\circ E\\beta)",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1024,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Delta(E^2\\gamma)=\\pm[\\,\\iota_m,\\iota_m\\,]\\circ\\gamma.\\qquad \\qed\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1114,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\overline{a}:\\ (K\\cup_{b}CS^k,\\ K)\\ \\longrightarrow\\ ((S^m)_\\infty,\\ S^m)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1119,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n  \\node (A) at (0,1.4) {$(CS^k,S^k)$};\r\n  \\node (B) at (3.3,1.4) {$(K\\cup_{b}CS^k,\\ K)$};\r\n  \\node (C) at (6.6,1.4) {$((S^m)_\\infty,S^m)$};\r\n  \\node (D) at",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1144,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[h_m\\circ \\ext{a}\\circ\\widetilde{c}]=[\\,a'\\circ p\\circ\\widetilde{c}\\,]\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1150,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\nH\\todai[1]{E\\alpha,E\\beta,E\\gamma}\r\n& = H\\todai[1]{\\Omega_1^{-1}i_*\\alpha,E\\beta,E\\gamma}\r\n&& \\text{by (2.4)},\\\\\r\n& = -H(\\Omega_1^{-1}\\toda{i_*\\alpha,\\beta,\\gamma})\r\n&& \\text{by Prop1.3},\\\\\r\n& = -\\Omega_1",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1281,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n& H(E\\alpha\\circ E\\pi_{i+1}(K) + \\pi_{j+1}(S^{m+1})\\circ E^2\\gamma)\\\\\r\n& = H(E\\alpha)\\circ E\\pi_{i+1}(K) + H\\pi_{j+1}(S^{m+1})\\circ E^2\\gamma\r\n&& \\text{Prop2.2,}\\\\\r\n& = H\\pi_{j+1}(S^{m+1})\\circ E^2\\gamma",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1289,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH\\todai[1]{E\\alpha,E\\beta,E\\gamma}\\ \r\n=\\ -\\,\\Delta^{-1}(\\alpha\\circ\\beta)\\circ E^2\\gamma\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 1297,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH[\\,\\iota_n,\\ \\iota_n\\,]\\ =\\ \\pm\\,2\\,\\iota_{2n-1}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 164,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "$x_1\\cdots x_t$ ($x_1,\\ldots,x_t\\in S^m$) という積で表される. \\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 658,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "と定義すると, $(X,p,(S^{pm})_\\infty)$ は Serre の意味での fibration になる [13]. \\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 926,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "準同型 \\(\\Delta\\) を次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 2,
+      "source_line": 935,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "さらに, 準同型 \\(\\Delta^{-1}\\) を次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 78,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha \\wedge \\beta\\ \\in\\ \\pi_{p+q+k+h}(S^{p+q})\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 100,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\iota_n \\wedge \\alpha\r\n= [\\sigma_{p,n}] \\circ (\\alpha \\wedge \\iota_n) \\circ [\\sigma_{n,p+k}]\r\n= (-1)^{pn}\\iota_{p+n}\\circ E^n\\alpha\\circ (-1)^{(p+k)n}\\iota_{p+k+n}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 110,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\alpha \\wedge \\beta\r\n& = (\\alpha\\circ\\iota_{p+k}) \\wedge (\\iota_q\\circ\\beta)\r\n= (\\alpha \\wedge \\iota_q) \\circ (\\iota_{p+k} \\wedge \\beta)\\\\\r\n& = (-1)^{(p+k)h} E^{q}\\alpha \\circ E^{p+k}\\beta,\r\n\\end{alig",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 111,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\alpha \\wedge \\beta\r\n& = (\\alpha\\circ\\iota_{p+k}) \\wedge (\\iota_q\\circ\\beta)\r\n= (\\alpha \\wedge \\iota_q) \\circ (\\iota_{p+k} \\wedge \\beta)\\\\\r\n& = (-1)^{(p+k)h} E^{q}\\alpha \\circ E^{p+k}\\beta,\r\n\\end{align*}",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 118,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\alpha \\wedge \\beta\r\n& = (\\iota_p\\circ \\alpha) \\wedge (\\beta\\circ \\iota_{q+h})\r\n= (\\iota_p\\wedge \\beta) \\circ (\\alpha\\wedge\\iota_{q+h})\\\\\r\n& = (-1)^{ph} E^{p}\\beta\\circ E^{q+h}\\alpha.\r\n\\end{align*}\r\n\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 119,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\alpha \\wedge \\beta\r\n& = (\\iota_p\\circ \\alpha) \\wedge (\\beta\\circ \\iota_{q+h})\r\n= (\\iota_p\\wedge \\beta) \\circ (\\alpha\\wedge\\iota_{q+h})\\\\\r\n& = (-1)^{ph} E^{p}\\beta\\circ E^{q+h}\\alpha.\r\n\\end{align*}",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 185,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[\\iota_{p+q-1}, \\iota_{p+q-1}]\\circ E^{2q-2}H(\\alpha)\\circ E^{p+k-1}H(\\beta)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 188,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\in \\Delta(E^{2q}H(\\alpha)\\circ E^{p+k+1}H(\\beta))\r\n\\subset\\pi_{p+q+k+h-1}(S^{p+q-1}).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 244,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(d_s(x,t))=\r\n\\begin{cases}\r\n\\bigl(a \\wedge i_{q+r}\\bigr)\\bigl(1_{p+h} \\wedge B_{2t-1}\\bigr)(x), & \\tfrac12\\le t\\le1,\\\\[2pt]\r\n\\bigl(A_{1-2t} \\wedge 1_r\\bigr)\\bigl(1_{p+h+q+k} \\wedge c\\bigr)(x), & 0\\le t\\le\\tfrac12,\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 247,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\bigl(A_{1-2t} \\wedge 1_r\\bigr)\\bigl(1_{p+h+q+k} \\wedge c\\bigr)(x), & 0\\le t\\le\\tfrac12,\\\\[2pt]\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 248,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 251,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH'(d_s(x,t))=\r\n\\begin{cases}\r\n\\bigl(1_{p+q} \\wedge c\\bigr)\\bigl(A_{2t-1} \\wedge 1_{r+\\ell}\\bigr)(x), & \\tfrac12\\le t\\le1,\\\\[2pt]\r\n\\bigl(1_p \\wedge B_{1-2t}\\bigr)\\bigl(a \\wedge 1_{q+k+r+\\ell}\\bigr)(x), & 0\\le t\\le\\tfr",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 254,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\bigl(1_p \\wedge B_{1-2t}\\bigr)\\bigl(a \\wedge 1_{q+k+r+\\ell}\\bigr)(x), & 0\\le t\\le\\tfrac12.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 259,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n& \\toda{\\alpha \\wedge \\iota_{q+r},\r\n\\iota_{p+h} \\wedge \\beta, \r\n\\iota_{p+h+q+k} \\wedge \\gamma}\\\\\r\n& = \\toda{E^{q+r}\\alpha, \r\n(-1)^{(p+h)k}E^{p+h+r}\\beta, \r\n(-1)^{(p+h+q+k)\\ell}E^{p+h+q+k}\\gamma}\\\\\r\n&",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 260,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n& \\toda{\\alpha \\wedge \\iota_{q+r},\r\n\\iota_{p+h} \\wedge \\beta, \r\n\\iota_{p+h+q+k} \\wedge \\gamma}\\\\\r\n& = \\toda{E^{q+r}\\alpha, \r\n(-1)^{(p+h)k}E^{p+h+r}\\beta, \r\n(-1)^{(p+h+q+k)\\ell}E^{p+h+q+k}\\gamma}\\\\\r\n& =(-1",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 329,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n& \\toda{\\iota_{p+q}\\wedge \\gamma, \r\n\\iota_p\\wedge \\beta\\wedge \\iota_{r+\\ell}, \r\n\\alpha\\wedge\\iota_{q+k+r+\\ell}}\\\\\r\n& =\\toda{(-1)^{(p+q)\\ell}E^{p+q}\\gamma, \r\n(-1)^{pk}E^{p+r+\\ell}\\beta, \r\nE^{q+k+r+\\ell",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 330,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n& \\toda{\\iota_{p+q}\\wedge \\gamma, \r\n\\iota_p\\wedge \\beta\\wedge \\iota_{r+\\ell}, \r\n\\alpha\\wedge\\iota_{q+k+r+\\ell}}\\\\\r\n& =\\toda{(-1)^{(p+q)\\ell}E^{p+q}\\gamma, \r\n(-1)^{pk}E^{p+r+\\ell}\\beta, \r\nE^{q+k+r+\\ell}\\al",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 348,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{aligned}\r\nC'_{t}\r\n& = \\bigl(1_p \\wedge \\sigma_{r,q}\\bigr)\\circ \r\n(C_t \\wedge 1_{q})\\circ\r\n\\bigl(1_{p+h} \\wedge \\sigma_{q,r+\\ell}\\bigr),\\\\\r\nC''_{t}\r\n& = \\bigl(1_q \\wedge \\sigma_{r,q+k}\\bigr)\\circ \r\n(C_t \\wedge",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 361,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\na \\wedge 1_{q} \\wedge c\r\n& = (1_{p+q} \\wedge c) \\circ (a \\wedge 1_{q+r+\\ell}),\\\\\r\na \\wedge 1_{q+k} \\wedge c\r\n& = (1_{p+q+k} \\wedge c) \\circ (a \\wedge 1_{q+k+r+\\ell}),\r\n\\end{align*}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 362,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\na \\wedge 1_{q} \\wedge c\r\n& = (1_{p+q} \\wedge c) \\circ (a \\wedge 1_{q+r+\\ell}),\\\\\r\na \\wedge 1_{q+k} \\wedge c\r\n& = (1_{p+q+k} \\wedge c) \\circ (a \\wedge 1_{q+k+r+\\ell}),\r\n\\end{align*}",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 371,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nC'_t\\circ(1_{p+h} \\wedge b \\wedge 1_{r+\\ell})\r\n= (1_p \\wedge \\sigma_{r,q})\\circ(C_t \\wedge b)\\circ (1_{p+h} \\wedge \\sigma_{q+k,r+\\ell})\r\n= (1_p \\wedge b \\wedge 1_r) \\circ C''_t.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 376,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH,\\ H',\\ H'':S^{s+1}\\longrightarrow S^{p+q+r},\\qquad\r\ns=p+h+q+k+r+\\ell\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 381,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(d_s(x,t))=\r\n\\begin{cases}\r\n\\bigl(a \\wedge 1_{q+r}\\bigr)\\bigl(1_{p+h} \\wedge B_{2t-1}\\bigr)(x), & \\frac12\\le t\\le1,\\\\[2pt]\r\n\\bigl(A_{1-2t} \\wedge 1_r\\bigr)\\bigl(1_{p+h+q+k} \\wedge c\\bigr)(x), & 0\\le t\\le\\frac12,\r\n\\e",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 384,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\bigl(A_{1-2t} \\wedge 1_r\\bigr)\\bigl(1_{p+h+q+k} \\wedge c\\bigr)(x), & 0\\le t\\le\\frac12,\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 388,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH'(d_s(x,t))=\r\n\\begin{cases}\r\nC'_{2t-1}\\bigl(1_{p+h} \\wedge b \\wedge 1_{r+\\ell}\\bigr)(x), & \\frac12\\le t\\le1,\\\\[2pt]\r\n\\bigl(a \\wedge 1_{q+r}\\bigr)\\bigl(1_{p+h} \\wedge B_{1-2t}\\bigr)(x), & 0\\le t\\le\\frac12,\r\n\\end{case",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 391,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\bigl(a \\wedge 1_{q+r}\\bigr)\\bigl(1_{p+h} \\wedge B_{1-2t}\\bigr)(x), & 0\\le t\\le\\frac12,\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 395,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH''(d_s(x,t))=\r\n\\begin{cases}\r\n\\bigl(A_{2t-1} \\wedge 1_r\\bigr)\\bigl(1_{p+q+h+k} \\wedge c\\bigr)(x), & \\frac12\\le t\\le1,\\\\[2pt]\r\n\\bigl(1_p \\wedge b \\wedge 1_{r}\\bigr)\\, C''_t(x), & 0\\le t\\le\\frac12 .\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 398,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\bigl(1_p \\wedge b \\wedge 1_{r}\\bigr)\\, C''_t(x), & 0\\le t\\le\\frac12 .\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 404,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{aligned}\r\n\\toda{\\alpha\\wedge\\iota_{q+r},\\ \\iota_{p+h}\\wedge\\beta\\wedge\\iota_r,\\ \\iota_{p+h+q+k}\\wedge\\gamma}\r\n& = (-1)^{\\delta+h\\ell}\\toda{E^{q+r}\\alpha,\\ E^{p+h+r}\\beta,\\ E^{p+h+q+k}\\gamma},\\\\\r\n\\toda{\\iota_{p",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 416,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\nH(d_s(x,t)) &= H'(d_s(x,1-t)),\\\\\r\nH'(d_s(x,t)) & = H''(d_s(x,1-t)),\\\\\r\nH''(d_s(x,t)) & = H(d_s(x,1-t)).\r\n\\end{align*}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 417,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\nH(d_s(x,t)) &= H'(d_s(x,1-t)),\\\\\r\nH'(d_s(x,t)) & = H''(d_s(x,1-t)),\\\\\r\nH''(d_s(x,t)) & = H(d_s(x,1-t)).\r\n\\end{align*}",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 452,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nK = S^n\\ \\cup_{\\,f}\\ CS^{n+k}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 456,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd'_{n+k}:S^{n+k}\\times I\\longrightarrow CS^{n+k}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 460,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nd':S^{n+k}\\times I\\ \\xrightarrow{d'}\\ CS^{n+k}\\ \\rightarrow\\ K\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 464,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\np\\bigl(d'_{n+k}(x,t)\\bigr)=d_{n+k}(x,t),\\qquad \r\np(S^n) = e_0.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 472,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n1_K \\wedge f:\\ \\Ex^{n+k}K \\;=\\; K \\wedge S^{n+k}\\ \\longrightarrow\\ K \\wedge S^{n}\\;=\\;\\Ex^{n}K.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 482,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_s:\\ \\Ex^{n+k}K\\ \\longrightarrow\\ \\Ex^{n}K, \\qquad (0\\le s\\le1)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 486,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_1:\\ \\Ex^{n+k}K\\ \\longrightarrow\\ \\Ex^{n}K\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 491,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nF:\\ S^{2n+2k+1}\\ \\longrightarrow\\ \\Ex^{n}K\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 495,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_1\\;=\\;F\\circ \\Ex^{n}p\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 602,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\iota_n \\wedge \\alpha \\;=\\;(-1)^{nk}\\,\\Ex^n\\alpha\r\n= \\alpha \\wedge\\ (-1)^{kn} \\iota_n .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 609,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nA_0=1_n \\wedge f,\\qquad A_1=f \\wedge \\tau.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 618,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_s\\bigl(\\theta_{n+k,n}(x,y)\\bigr)=\r\n\\begin{cases}\r\nA_{2s}\\!\\bigl(\\phi_{n+k,n}(x,y)\\bigr), & 0\\le s\\le \\tfrac12,\\\\[2pt]\r\n\\phi_{n}\\!\\bigl(d'(x,2s-1),\\,\\tau(y)\\bigr), & \\tfrac12\\le s\\le1.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 621,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\phi_{n}\\!\\bigl(d'(x,2s-1),\\,\\tau(y)\\bigr), & \\tfrac12\\le s\\le1.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 626,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_s\\bigl(\\phi_{n+k}(d'(u,t),v)\\bigr)=\r\n\\begin{cases}\r\n\\phi_{n}\\!\\Bigl(d'\\!\\bigl(u,\\,(2t-s)/(2-s)\\bigr),\\ f(v)\\Bigr), & \\tfrac{s}{2}\\le t\\le1,\\\\[3pt]\r\nG_{s-2t}\\!\\bigl(\\phi_{n,n+k}(f(u),v)\\bigr), & 0\\le t\\le \\tfrac{s}{",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 629,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[3pt]\r\nG_{s-2t}\\!\\bigl(\\phi_{n,n+k}(f(u),v)\\bigr), & 0\\le t\\le \\tfrac{s}{2}.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 639,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nF:\\ S^{2n+2k+1}\\longrightarrow \\Ex^{n}K\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 644,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex^{n}p \\circ F:\\ S^{2n+2k+1}\\longrightarrow S^{2n+k+1}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 670,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(E^n p\\circ F)(\\phi_{n+k+1, n+k}(d_{n+k}(u, t), v))=\r\n\\begin{cases}\r\n\\phi_{n+k+1, n}(d_{n+k}(u, 2t-1), f(v)), & \\frac{1}{2}\\le t\\le1,\\\\[3pt]\r\ne_0, & \\frac{1}{4}\\le t\\le \\frac{1}{2},\\\\[3pt]\r\n\\phi_{n+k+1, n+k}(d_{n+k}(",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 673,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[3pt]\r\ne_0, & \\frac{1}{4}\\le t\\le \\frac{1}{2},\\\\[3pt]\r\n\\phi_{n+k+1, n+k}(d_{n+k}(x, 1-4t), \\tau(y)), & 0\\le t\\le \\frac{1}{4}.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 674,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[3pt]\r\n\\phi_{n+k+1, n+k}(d_{n+k}(x, 1-4t), \\tau(y)), & 0\\le t\\le \\frac{1}{4}.\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 686,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{aligned}\r\nH_1\\bigl(\\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\\bigr)\r\n&=\\phi_{n+k+1,n}\\bigl(d_{n+k}(u,t),\\,f(v)\\bigr),\\\\\r\nH_2\\bigl(\\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\\bigr)\r\n&=\\phi_{n+k+1,n}\\bigl(d_{n+k}(u,t),\\,\\tau(y)\\bigr",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 695,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[H_1] = [\\,1_{n+k+1} \\wedge f\\,]\\ \r\n=\\ \\iota_{n+k+1} \\wedge \\alpha\r\n = (-1)^{(n+k+1)k}\\Ex^{n+k+1}\\alpha\\\r\n=\\ (-1)^{kn}E^{n+k+1}\\alpha .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 703,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\sigma(\\psi(x_1,\\ldots,x_{n+k}, t, y_1,\\ldots,y_n))\r\n= \\psi(x_1,\\ldots, x_n, t, x_{n+1},\\ldots,x_{n+k} y_1,\\ldots,y_n)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 708,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[H_2] = (\\iota_{n+k+1} \\wedge (-1)^{kn} \\iota_n) \\circ (-1)^{k}\\iota_{2n+k+1}\r\n\\circ (E\\alpha \\wedge \\iota_{n+k})\r\n = (-1)^{kn+k}E^{n+k+1}\\alpha .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 714,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\Ex^{n}p)_*\\,[F] = (-1)^{kn}\\bigl(1-(-1)^k\\bigr)\\,\\Ex^{n+k+1}\\alpha .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 718,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\Ex^{n-h}p)_*(\\gamma) = \\bigl(1-(-1)^k\\bigr)\\,\\Ex^{n+k-h+1}\\alpha .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 722,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\Ex^{n}p)_*\\,\\Ex^{h}\\gamma\r\n=\\Ex^{h}\\!\\bigl((\\Ex^{n-h}p)_*\\gamma\\bigr)\r\n=\\bigl(1-(-1)^k\\bigr)\\,\\Ex^{n+k+1}\\alpha,\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 727,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\Ex^{n}p)_*\\bigl(\\,[F]\\ -\\ (-1)^{kn}\\Ex^{h}\\gamma\\,\\bigr) = 0 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 735,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(\\Ex^{n}p)_*\\ :\\ \r\n\\pi_{2n+2k+1}\\bigl(\\Ex^{n}K,S^{2n}\\bigr)\\\r\n\\longrightarrow\\\r\n\\pi_{2n+k+1}\\bigl(S^{2n+k+1}\\bigr).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 780,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{tikzpicture}[baseline=(current bounding box.center)]\r\n  \\node (A) at (0,1.2) {$\\pis{2n+2k+1}{S^{2n}}$};\r\n  \\node (B) at (4.3,1.2) {$\\pis{2n+2k+1}{\\Ex^{n}K}$};\r\n  \\node (C) at (8.6,1.2) {$\\pis{2n+2k+1}{\\Ex^{n}K",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 796,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\iota_K \\wedge \\alpha \\;=\\; [G_0]\r\n = [G_1]\\;=\\; (\\Ex^{n+k}p)^* [F]\r\n\\;=\\;(\\Ex^{n+k}p)^{*}\\!\\Bigl(\\iota_*\\alpha^{*}+(-1)^{kn}\\Ex^{h}\\gamma\\Bigr) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 845,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\sigma(\\psi_{n+k+t+1}(t_1,\\cdots,t_{n+k+t},t))\r\n=\\psi_{n+k+t+1}(t_1,\\cdots,t_{n+k},t,t_{n+k+1},\\cdots,t_{n+k+t})\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 852,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\np'=\\sigma\\circ \\Ex^{t}p\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 857,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\ext{\\beta} \\wedge \\alpha\\ \\in\\ [\\Ex^{n+k+t}K, S^{m+n}]\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 880,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\ext{\\beta} \\wedge \\alpha\r\n&= (\\ext{\\beta} \\circ E^t \\iota_K)\\ \\wedge (\\iota_n \\circ \\alpha) \\\\\r\n&= (\\ext{\\beta} \\wedge \\iota_n) \\circ ((\\iota_K \\wedge \\iota_t) \\wedge \\alpha)\r\n&&\\text{by (1.5)}\\\\\r\n&=",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 881,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\ext{\\beta} \\wedge \\alpha\r\n&= (\\ext{\\beta} \\circ E^t \\iota_K)\\ \\wedge (\\iota_n \\circ \\alpha) \\\\\r\n&= (\\ext{\\beta} \\wedge \\iota_n) \\circ ((\\iota_K \\wedge \\iota_t) \\wedge \\alpha)\r\n&&\\text{by (1.5)}\\\\\r\n&= \\Ex",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 901,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE^n\\ext{\\beta}\\circ E^{t+h}\\gamma\r\n\\in (-1)^{h+t}\\todai[h+t]{E^n\\beta, E^{n+t}\\alpha, (1-(-1)^k)E^{n+t+k}\\alpha} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 907,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\ext{\\beta} \\wedge \\alpha\r\n&= (\\iota_m \\circ \\ext{\\beta}) \\wedge (\\alpha \\circ \\iota_{n+k})\\\\\r\n&= (\\iota_m \\wedge \\alpha) \\circ (\\ext{\\beta} \\wedge \\iota_{n+k}) && \\text{by (1.5)}\\\\\r\n&= (-1)^{km}\\Ex^{",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 908,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\ext{\\beta} \\wedge \\alpha\r\n&= (\\iota_m \\circ \\ext{\\beta}) \\wedge (\\alpha \\circ \\iota_{n+k})\\\\\r\n&= (\\iota_m \\wedge \\alpha) \\circ (\\ext{\\beta} \\wedge \\iota_{n+k}) && \\text{by (1.5)}\\\\\r\n&= (-1)^{km}\\Ex^{m}\\a",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 917,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(E^{n+k}p')^{*}\\lambda = E^m\\alpha\\circ E^{n+k}\\ext{\\beta}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 924,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\lambda = (-1)^{km+(k+1)t} (\\Ex^{n}\\beta\\circ \\Ex^{t}\\alpha^* \r\n+ (-1)^{kn}\\Ex^{n}\\ext{\\beta}\\circ \\Ex^{h+t}\\gamma)\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 930,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n(-1)^{km+(k+1)t}\\Ex^{n}\\beta\\circ \\Ex^{t}\\alpha^{*}\r\n+(-1)^{kn}\\Ex^{n}\\ext{\\beta}\\circ \\Ex^{h+t}\\gamma\r\n\\ \\in\\\r\n\\todai[n+k]{\\Ex^{m}\\alpha,\\ \\Ex^{n+k}\\beta,\\ \\Ex^{n+k+t}\\alpha}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 938,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\Ex^{n}\\ext{\\beta}\\circ \\Ex^{t}\\alpha^{*}\r\n&\\in (-1)^{km+(k+1)t}\\todai[n+k]{\\Ex^{m}\\alpha, \\Ex^{n+k}\\beta, E^{n+k+t}\\alpha}\\\\\r\n&+ (-1)^{kn+h+t+1}\\todai[h+t]{E^n\\beta, E^{n+t}\\alpha, (1-(-1)^k)E^{n+k+t",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 939,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\Ex^{n}\\ext{\\beta}\\circ \\Ex^{t}\\alpha^{*}\r\n&\\in (-1)^{km+(k+1)t}\\todai[n+k]{\\Ex^{m}\\alpha, \\Ex^{n+k}\\beta, E^{n+k+t}\\alpha}\\\\\r\n&+ (-1)^{kn+h+t+1}\\todai[h+t]{E^n\\beta, E^{n+t}\\alpha, (1-(-1)^k)E^{n+k+t}\\al",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 951,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE^n\\beta\\circ E^t\\alpha^{*}\r\n\\in (-1)^{km+(k+1)t}\\todai[n+k]{E^m\\alpha, E^{n+k}\\beta, E^{n+k+t}\\alpha}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1073,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pis{n+1}{S^n}\\cong\\mathbb{Z}_2,\\ (n\\ge3) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1079,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\toda{\\,2\\iota_n,\\ \\eta_n,\\ 2\\iota_{n+1}\\,}\r\n=\\{\\eta_n\\circ\\eta_{n+1}\\}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1086,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex\\beta\\circ t\\eta_{m+k+1}\r\n\\ \\in\\ \\todai[1]{\\,r\\iota_{m+1},\\ \\Ex\\beta,\\ r\\iota_{m+k+1}\\,}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1091,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE\\beta\\circ\\eta_{m+k+1}\r\n= r(E\\beta\\circ\\eta_{m+k+1})\r\n\\in r (\\pis{m+k+2}{S^{m+1}}) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1099,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\todai[1]{r\\iota_{m+1}, E\\beta, r\\iota_{m+k}} \\equiv 0.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1107,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ns^2(\\eta_n\\circ\\eta_{n+1})\r\n\\in s\\iota_n\\circ\\toda{2\\iota_n, \\eta_n, 2\\iota_{n+1}}\\circ s\\iota_{n+2}\r\n\\subset \\toda{r\\iota_n, \\eta_n, r\\iota_{n+1}} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1121,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex\\beta\\circ t\\,\\eta_{m+k+1}=0 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1125,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex\\beta\\circ t\\,\\eta_{m+k+1}=\\Ex\\beta\\circ \\eta_{m+k+1} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1200,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nG_k\\ :=\\ \\lim_{n\\to\\infty}\\ \\pis{n+k}{S^n}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1204,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Ex^\\infty:\\ \\pis{n+k}{S^n}\\ \\longrightarrow\\ G_k\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1217,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\circ:G_k\\times G_h \\rightarrow G_{k+h}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1223,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha\\circ(\\beta_1\\pm\\beta_2)=\\alpha\\circ\\beta_1\\pm\\alpha\\circ\\beta_2,\\qquad\r\n(\\alpha_1\\pm\\alpha_2)\\circ\\beta=\\alpha_1\\circ\\beta\\pm\\alpha_2\\circ\\beta .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1236,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha\\in G_k,\\quad \\beta\\in G_h,\\quad \\gamma\\in G_\\ell,\\qquad\r\n\\alpha\\circ\\beta=\\beta\\circ\\gamma=0\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1241,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\langle \\alpha,\\beta,\\gamma\\rangle \r\n\\in G_{k+h+\\ell+1}(\\alpha\\circ G_{h+\\ell+1} + \\gamma\\circ G_{k+h+1}) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1247,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\alpha'\\in\\pis{n+k}{S^n},\\ \r\n\\beta'\\in\\pis{n+k+h}{S^{n+k}},\\\r\n\\gamma'\\in\\pis{n+k+h+\\ell}{S^{n+k+h}}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1262,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\langle \\alpha,\\beta,\\gamma\\rangle\r\n\\ :=\\ \\Ex^\\infty (-1)^{\\,n-1}\\ \\toda{\\alpha',\\beta',\\gamma'}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1084,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "Th3.6 において, $\\alpha=r\\,\\iota_{m+1}$ と置くと,",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 3,
+      "source_line": 1105,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "次に, $r$ を偶数とし, $r=2s$ と置く.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 96,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\Ex^{-1}\\bigl(\\pis{2n}{S^{n+1};2}\\bigr), & i=2n-1,\\\\[2pt]\r\n\\pis{i}{S^n;2}, & i\\ne n,\\,2n-1 .\r\n\\end{cases}\r\n\\end{equation}\r\n\r\n群 $\\pi^n_{2n-1}$ は, 次で具体的に与えられる. \r\n\\begin{lemma}\\label{lem:4.1}\r\n\n$n$ が奇数のとき,  $\\pi_{2n",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 97,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[2pt]\r\n\\pis{i}{S^n;2}, & i\\ne n,\\,2n-1 .\r\n\\end{cases}\r\n\\end{equation}\r\n\r\n群 $\\pi^n_{2n-1}$ は, 次で具体的に与えられる. \r\n\\begin{lemma}\\label{lem:4.1}\r\n\n$n$ が奇数のとき,  $\\pi_{2n-1}^n=\\pis{2n-1}{S^n;2} .$\\\\\r\n$n$ が偶数で, $[\\,\\iota_{n-1},\\io",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 140,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pis{2n-2}{S^{n-1}} \\xrightarrow{\\ \\Ex\\ } \\pis{2n-1}{S^{n}}\r\n\\xrightarrow{\\ H\\ } \\pis{2n-1}{S^{2n-1}}\r\n\\xrightarrow{\\ \\Delta\\ } \\pis{2n-3}{S^{n-1}}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 147,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pis{2n-1}{S^{n}} \\cong\r\n\\mathbb{Z}\\gen{\\beta}\\ \\oplus\\ \r\nE\\pis{2n-2}{S^{n-1}} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 202,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n  \\pit{2n-1}{n} = E^{-1}(\\pis{2n}{S^{n+1}; 2})\r\n  &= \\Delta(\\pis{2n+1}{S^{2n+1}}) \\oplus (E \\pis{2n-2}{n-1}; 2) \\\\\r\n  &= \\Delta(\\pis{2n+1}{S^{2n+1}}) \\oplus \\pis{2n-1}{S^n;2} .\r\n\\end{align*}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 203,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n  \\pit{2n-1}{n} = E^{-1}(\\pis{2n}{S^{n+1}; 2})\r\n  &= \\Delta(\\pis{2n+1}{S^{2n+1}}) \\oplus (E \\pis{2n-2}{n-1}; 2) \\\\\r\n  &= \\Delta(\\pis{2n+1}{S^{2n+1}}) \\oplus \\pis{2n-1}{S^n;2} .\r\n\\end{align*}",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 244,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n[\\iota_n, \\iota_n] \\in E\\pis{2n-2}{S^n; 2} \\oplus \\gen{\\alpha}\r\n= \\pis{2n-1}{S^n; 2} \\oplus \\gen{\\alpha} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 281,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\cdots\\to\\pit{n}{n}\\xrightarrow{E}\\pit{n+1}{n+1}\\to\\cdots\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 286,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pit{2n}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{2n+1}{n+1}\\\r\n\\xrightarrow{\\ H\\ }\\ \\pit{2n+1}{2n+1}\\\r\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{2n-1}{n}\\\r\n\\xrightarrow{E} \\ \\pit{2n}{n+1}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 454,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE+h_*:\\ \\pis{i-1}{S^{n-1}}\\oplus\\pis{i}{S^{2n-1}}\r\n\\ \\xrightarrow{\\ \\cong\\ }\\ \\pis{i}{S^n}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 461,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\ni\\cdot\\Omega h: S^{n-1}\\times\\Ox S^{2n-1}\\to\\Ox S^n\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 570,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{aligned}\r\n2^{2t+1}(\\beta\\circ\\alpha)\r\n&=\\beta\\circ r 2^{2t}[\\iota_m,\\iota_m]\r\n\\ +\\ \\beta\\circ 2^{2t}E\\gamma\\\\\r\n&=\\beta\\circ r\\bigl[2^{t}\\iota_m,\\,2^{t}\\iota_m\\bigr]\\ +\\ 2^{2t}\\beta\\circ E\\gamma\\\\\r\n&=\\beta\\circ",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 4,
+      "source_line": 92,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "部分群 $\\pi_i^n\\subset\\pis{i}{S^n}$ を, 次で定義する.",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 95,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{n}_{n}=\\gen{\\iota_n}\\cong \\mathbb Z,\\qquad\r\nG_0=\\gen{\\iota}\\cong \\mathbb Z. \\quad \r\n\\iota=E^{\\infty}\\iota_n.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 114,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Delta(\\iota_5)=\\pm 2\\,\\eta_2 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 118,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{5}_{5}\\xrightarrow{\\ \\Delta\\ }\\pi^{2}_{3}\\xrightarrow{\\ E\\ }\\pi^{3}_{4}\\xrightarrow{\\ \\ }\\pi_{4}^{5}=0\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 125,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{n}_{n+1}=\\gen{\\eta_n}\\cong\\mathbb Z_2, \\ (n\\ge3), \\\r\n(G_1;2)=\\gen{\\eta}\\cong\\mathbb Z_2.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 249,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(\\beta)\\in \\Delta^{-1}(\\eta_2\\circ 2\\iota_3)\\circ E^{2}\\alpha\r\n= \\Delta^{-1}(2\\eta_2)\\circ E^{2}\\alpha\r\n= \\pm \\iota_5\\circ E^{2}\\alpha\r\n= E^{2}\\alpha.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 256,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n2\\beta\r\n& \\in  2\\todai[1]{\\eta_3,\\,2\\iota_4,\\,E\\alpha}\\\\\r\n& =  \r\n\\todai[1]{\\eta_3,\\,2\\iota_4,\\,E\\alpha}\\circ 2\\iota_{i+2}\\\\\r\n& =  \r\n\\eta_3\\circ E\\toda{2\\iota_3,\\alpha,2\\iota_{i}} \r\n&& \\text{by Prop1.4",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 257,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n2\\beta\r\n& \\in  2\\todai[1]{\\eta_3,\\,2\\iota_4,\\,E\\alpha}\\\\\r\n& =  \r\n\\todai[1]{\\eta_3,\\,2\\iota_4,\\,E\\alpha}\\circ 2\\iota_{i+2}\\\\\r\n& =  \r\n\\eta_3\\circ E\\toda{2\\iota_3,\\alpha,2\\iota_{i}} \r\n&& \\text{by Prop1.4}\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 276,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\eta_3\\circ \\pi_{i+2}(S^{4})\\circ 2\\iota_{i+2} + \\eta_3\\circ2\\iota_4\\circ E\\pi_{i+2}(S^4) = \\eta_3\\circ\\pi_{i+2}(S^4)\\circ2\\iota_{i+2}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 358,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE\\,\\eta_n^{2}=\\eta_{n+1}^{2},\\qquad E^{\\infty}\\eta_n^{2}=\\eta^{2}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 378,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi_{6}^{3}\\xrightarrow{\\ H}\\pi_{6}^{5}\\xrightarrow{\\ \\Delta\\ }\\pi_{4}^{2}\r\n\\xrightarrow{\\ E\\ }\\pi_{5}^{3}\\xrightarrow{\\ H\\ }\\pi^{5}_{5}\r\n\\xrightarrow{\\ \\Delta\\ }\\pi_{3}^{2}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 460,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE^{2}\\beta\\circ E^t\\alpha^{\\ast}\\in (-1)^m \\toda{E^{m}\\eta_{2},\\,E^{3}\\beta,\\,E^{t+3}\\eta_{2}}_{3}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 467,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE^{2}(2\\iota_{3})\\circ E\\alpha^{\\ast}=2E\\alpha^{\\ast}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 482,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\eta_n\\circ \\pi^{n+1}_{n+3} + \\pi^{n}_{n+2}\\circ \\eta_{n+2} \r\n= \\gen{\\eta_n\\circ\\eta_{n+1}\\circ\\eta_{n+2}}\r\n= \\gen{2E^{n-3}\\nu'}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 542,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\nE^{\\,n-3}\\nu'\\in E^{\\,n-3}\\todai[1]{\\eta_3,\\,2\\iota_{4},\\,\\eta_4}\r\n& \\subset(-1)^{n-3}\\todai[n-2]{\\eta_n, 2\\iota_{n+1}, \\eta_{n+1}}\\\\\r\n& \\subset(-1)^{n-3}\\todai[t]{\\eta_n, 2\\iota_{n+1}, \\eta_{n+1}}\r\n\\end{",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 571,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\nu_{4}:=\r\n\\begin{cases}\r\n\\alpha^{\\ast}-(-1)^{u}\\,s[\\iota_4,\\iota_4] \r\n& (\\text{if } 2E\\alpha^{\\ast}=E^{2}\\nu'),\\\\[1mm]\r\n-\\alpha^{\\ast}+(-1)^{u}(s+1)[\\iota_4,\\iota_4] \r\n& (\\text{if } 2E\\alpha^{\\ast}=-E^{2}\\nu').\r\n\\en",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 575,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[1mm]\r\n-\\alpha^{\\ast}+(-1)^{u}(s+1)[\\iota_4,\\iota_4] \r\n& (\\text{if } 2E\\alpha^{\\ast}=-E^{2}\\nu').\r\n\\end{cases}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 605,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\nu_n:=E^{\\,n-4}\\nu_{4},\\ (n\\ge 4),\\qquad \\nu:=E^{\\infty}\\nu_{4}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 608,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\eta^{3}_{n}:=\\eta_{n}\\circ\\eta_{n+1}\\circ\\eta_{n+2},\\ (n\\ge2),\\qquad\r\n\\eta^{3}:=\\eta\\circ\\eta\\circ\\eta .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 710,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{3}_{7}\\xrightarrow{H}\\pi^{5}_{7}\\xrightarrow{\\Delta}\\pi^{2}_{5}\r\n\\xrightarrow{E}\\pi^{3}_{6}\\xrightarrow{H}\\pi^{5}_{6}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 867,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{9}_{10}\\xrightarrow{\\ \\Delta\\ }\\pi^{9}_{8}\\xrightarrow{\\ E\\ }\\pi^{5}_{9}\r\n\\xrightarrow{\\ H }\\pi^{9}_{9}\\xrightarrow{\\ \\Delta\\ }\\pi^{4}_{7}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 874,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\Delta(\\eta_9)\r\n& =  \\Delta(\\iota_9)\\circ \\eta_7\r\n&& \\text{by Prop2.5}\\\\\r\n& =  (2\\nu_4-E\\nu')\\circ \\eta_7\r\n&& \\text{by (5.8)}\\\\\r\n& =  \\nu_4\\circ (2\\eta_7)-E\\nu'\\circ \\eta_7\r\n =  E\\nu'\\circ \\eta_7.\r\n\\e",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 875,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\Delta(\\eta_9)\r\n& =  \\Delta(\\iota_9)\\circ \\eta_7\r\n&& \\text{by Prop2.5}\\\\\r\n& =  (2\\nu_4-E\\nu')\\circ \\eta_7\r\n&& \\text{by (5.8)}\\\\\r\n& =  \\nu_4\\circ (2\\eta_7)-E\\nu'\\circ \\eta_7\r\n =  E\\nu'\\circ \\eta_7.\r\n\\end{a",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 887,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{11}_{11}\\xrightarrow{\\ \\Delta\\ }\\pi^{5}_{9}\\xrightarrow{\\ E } \\pi^{6}_{10}\r\n\\xrightarrow{\\ H } \\pi^{11}_{10}=0\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 912,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\nH(\\eta_3\\circ \\nu_4)\r\n& =  E(\\eta_2\\wedge\\eta_2)\\circ H(\\nu_4)\r\n&& \\text{by Prop2.2}\\\\\r\n& =  \\pm (\\eta_5\\circ \\eta_6)\\circ \\iota_7\r\n&& \\text{by Prop3.1, Lem5.4}\\\\\r\n& =  \\eta_5^{2}\r\n&& \\text{by Prop5.3",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 913,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\nH(\\eta_3\\circ \\nu_4)\r\n& =  E(\\eta_2\\wedge\\eta_2)\\circ H(\\nu_4)\r\n&& \\text{by Prop2.2}\\\\\r\n& =  \\pm (\\eta_5\\circ \\eta_6)\\circ \\iota_7\r\n&& \\text{by Prop3.1, Lem5.4}\\\\\r\n& =  \\eta_5^{2}\r\n&& \\text{by Prop5.3}\\\\",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1077,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n0\\to \\pi^{3}_{8}\\xrightarrow{H}\\pi^{5}_{8}\\xrightarrow{\\Delta}\\pi^{2}_{6}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1083,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(\\nu'\\circ \\eta_6^2)=H(\\nu')\\circ \\eta_6^2=\\eta_5\\circ \\eta_6^2=\\eta_5^{3}.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1180,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{9}_{11}\\xrightarrow{\\ \\Delta\\ }\\pi^{4}_{9}\\xrightarrow{\\ E }\\pi^{5}_{10}\r\n\\xrightarrow{\\ H }\\pi^{9}_{10}\\xrightarrow{\\ \\Delta\\ }\\pi^{4}_{8}\\xrightarrow{E}\\pi_9^5 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1194,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n0\\to \\pi^{6}_{11}\\xrightarrow{H}\\pi^{11}_{11}\\xrightarrow{\\ \\Delta\\ }\\pi^{5}_{9}\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1201,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{13}_{13}\\xrightarrow[\\cong]{\\Delta}\\pi^{6}_{11}\\xrightarrow{E}\\pi^{7}_{12}\\xrightarrow{}\\pi_{12}^{13}=0\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1226,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\nu_6\\circ \\pi_{11}(S^9)+\\pi_{11}(S^6)\\circ2\\iota_{11}\r\n= \\nu_6\\circ\\pi_{11}^9+2\\pi_{11}(S^6)=2\\pi_{11}(S^6) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1233,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi_{10}(S^5)\\xrightarrow{E}\\pi_{11}(S^6)\\xrightarrow{H}\\pi_{11}(S^{11})\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1320,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\nu_n^2:=\\nu_n\\circ\\nu_{n+3},(n\\ge4)\\qquad\r\n\\nu^2:=\\nu\\circ\\nu.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1341,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n0\\to \\pi^{3}_{9}\\xrightarrow{H}\\pi^{5}_{9}\\xrightarrow{\\Delta}\\pi^{2}_{7}\\to 0\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1351,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi^{2n+1}_{n+8}\\xrightarrow{\\Delta}\\pi^{n}_{n+6}\r\n\\xrightarrow{E}\\pi^{n+1}_{n+7}\\xrightarrow{H}\\pi^{2n+1}_{n+7}\r\n\\xrightarrow{P}\\pi_{n+5}^n, \r\n\\qquad(n=4,5,6) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1367,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Delta(\\nu_9)=\\Delta(\\iota_9)\\circ \\nu_7=\\pm\\,(2\\nu_4-E\\nu')\\circ \\nu_7\r\n=\\pm\\big(2\\,\\nu_4^{2}-E(\\nu'\\circ \\nu_6)\\big).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1373,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\Delta(\\eta^{2}_{11})\r\n& =  \\Delta(\\iota_{11})\\circ \\eta_9^2\r\n&& \\text{by Prop2.5}\\\\\r\n& =  \\nu_5\\circ \\eta_8\\circ \\eta_9^2\r\n= \\nu_5\\circ \\eta_8^{3}\r\n&& \\text{by (5.10)}\\\\\r\n& =  4(\\nu_5\\circ\\nu_8)\r\n= 4",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1374,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\Delta(\\eta^{2}_{11})\r\n& =  \\Delta(\\iota_{11})\\circ \\eta_9^2\r\n&& \\text{by Prop2.5}\\\\\r\n& =  \\nu_5\\circ \\eta_8\\circ \\eta_9^2\r\n= \\nu_5\\circ \\eta_8^{3}\r\n&& \\text{by (5.10)}\\\\\r\n& =  4(\\nu_5\\circ\\nu_8)\r\n= 4E(\\n",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1388,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\begin{align*}\r\n\\Delta(\\eta_{13})\r\n& =  \\Delta(\\iota_{13})\\circ \\eta_{11}\r\n&& \\text{by Prop2.5}\\\\\r\n& \\in \\toda{ \\nu_6,\\ \\eta_9,\\ 2\\iota_{10} }\\circ \\eta_{11}\r\n&& \\text{by Lem5.10}\\\\\r\n& =  \\nu_6\\circ\\toda{\\eta_9,2\\iot",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1389,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\Delta(\\eta_{13})\r\n& =  \\Delta(\\iota_{13})\\circ \\eta_{11}\r\n&& \\text{by Prop2.5}\\\\\r\n& \\in \\toda{ \\nu_6,\\ \\eta_9,\\ 2\\iota_{10} }\\circ \\eta_{11}\r\n&& \\text{by Lem5.10}\\\\\r\n& =  \\nu_6\\circ\\toda{\\eta_9,2\\iota_{1",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1563,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n0=\\pi^{2}_{9}\\xto\r\n\\pi^{3}_{10}\\xrightarrow{H}\r\n\\pi_{10}^5\\xrightarrow{\\Delta}\r\n\\pi^{2}_{8}\\xrightarrow{E}\\pi^{3}_{9}=0 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1575,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n0=\\pi^{4}_{11}\\xto\\pi^{5}_{12}\\xrightarrow{H}\r\n\\pi^{9}_{12}\\xrightarrow{\\Delta}\\pi^{4}_{10} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1732,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\nu_5\\circ\\pis{12}{S^{8}}\r\n=\\nu_5\\circ E\\pis{11}{S^{7}}\r\n=\\nu_5\\circ \\pit{11}{7}=0.\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1738,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\pi_{9}(S^{5})\\circ\\nu_9=\\pi_9^5\\circ\\nu_9\r\n=\\gen{\\nu_5\\circ \\eta_8\\circ \\nu_9}=0 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1750,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nH(\\sigma''')\r\n= H\\todai[1]{\\nu_5, 8\\iota_8, \\nu_8}\r\n= \\Delta^{-1}(\\nu_4\\circ 8\\iota_7)\\circ \\nu_9 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1756,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Delta(4\\iota_9)=\\pm4(2\\nu_4-E\\nu')\r\n=\\pm(8\\nu_4-E4\\nu')\r\n=\\pm8\\nu_4\r\n=\\pm(\\nu_4\\circ8\\iota_7) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1763,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\Delta^{-1}(\\nu_4\\circ8\\iota_7)\\circ\\nu_9\r\n\\ni\\pm(4\\iota_9)\\circ\\nu_9\r\n=4\\nu_9\r\n=\\eta_9^3 .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1904,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n2E^{4-3}\\nu_{4}\\circ E^{7-3}\\nu_{4}=2\\nu_{5}^{2}=0,\r\n\\quad (h=3).\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1911,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE^{4}\\beta\\circ E^t\\alpha^{\\ast}\r\n\\in (-1)^{m}\\todai[7]{\\nu_{m+4},\\,E^{7}\\beta,\\,\\nu_{t+11}}\r\n+(-1)^{t}\\todai[t+3]{E^{4}\\beta,\\,\\nu_{t+8},\\,2\\nu_{t+11}} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1918,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n8E\\alpha^{\\ast}=E^48\\iota_5\\circ E\\alpha^{\\ast}\r\n\\in -\\todai[7]{\\nu_9,8\\iota_{12},\\nu_{12}}\r\n-\\todai[4]{8\\iota_9,\\nu_9,2\\nu_{12}} .  \r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1925,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\nu_9\\circ E^7\\pi_9(S^5) + \\pi_{13}^9\\circ\\nu_{13}\r\n=\\nu_9\\circ E^7\\pi_9^5 + \\pi_{13}^9\\circ\\nu_{13} = 0\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1931,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\nE\\sigma'''\\in E^4\\todai[3]{\\nu_5,8\\iota_8,\\nu_8}\r\n\\subset \\todai[7]{\\nu_9,8\\iota_{12},\\nu_{12}} .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1938,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\begin{align*}\r\n\\todai[4]{8\\iota_9,\\nu_9,2\\nu_{12}}\r\n& \\subset\\todai[4]{2\\iota_9,4\\iota_9\\circ\\nu_9\\circ2\\iota_{12}, \\nu_{12}} \\\\\r\n& =\\todai[4]{2\\iota_9,0,\\nu_{12}}\r\n=2\\iota_9\\circ E^4\\pi_{12}(S^5) + \\pi_{13}(S^9)\\circ\\n",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 1949,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n8x E\\alpha^{\\ast}=xE^{4}\\sigma'''=E^4\\sigma'''\\ , \\ (x:\\text{odd}) .\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 2103,
+      "category": "OUTSIDE_DISPLAY",
+      "reason": "DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT",
+      "excerpt": "\\[\r\n\\sigma_{8}:=x\\alpha^{\\ast}-y\\,\\Delta(\\iota_{17})\r\n\\]",
+      "review_status": "UNREVIEWED"
+    },
+    {
+      "chapter": 5,
+      "source_line": 569,
+      "category": "PROSE_DEFINITION_CUE",
+      "reason": "DEFINITION_WORD_AND_MATH",
+      "excerpt": "\\(\\nu_4\\) を次で定義する.",
+      "review_status": "UNREVIEWED"
+    }
+  ],
+  "candidate_semantics_verified": false,
+  "registration_applied": false,
+  "registry_modified": false,
+  "ids_allocated": false,
+  "proof_search_connected": false
+}

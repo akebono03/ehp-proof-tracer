@@ -1,0 +1,4 @@
+﻿locator,source_unit_id,trial_reference_id,trial_assertion_id,reference_id_collision,assertion_id_collision,existing_locator_reference_ids,locator_overlap_requires_review,trial_ids_promoted,registration_action,audit_decision
+(2.9),tex-unit:toda:ch02:0013,trial:r55:tex-unit:toda:ch02:0013,trial:r55:tex-unit:toda:ch02:0013:definition,False,False,[],False,False,NONE,NO_ID_COLLISION_NOT_REGISTRATION_APPROVAL
+(2.10),tex-unit:toda:ch02:0014,trial:r55:tex-unit:toda:ch02:0014,trial:r55:tex-unit:toda:ch02:0014:definition,False,False,[],False,False,NONE,NO_ID_COLLISION_NOT_REGISTRATION_APPROVAL
+(4.3),tex-unit:toda:ch04:0003,trial:r55:tex-unit:toda:ch04:0003,trial:r55:tex-unit:toda:ch04:0003:definition,False,False,[],False,False,NONE,NO_ID_COLLISION_NOT_REGISTRATION_APPROVAL

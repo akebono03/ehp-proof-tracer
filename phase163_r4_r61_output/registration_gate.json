@@ -1,0 +1,96 @@
+{
+  "phase": "163 R4-R61",
+  "mode": "READ_ONLY_PRE_REGISTRATION_GATE",
+  "candidate_count": 3,
+  "identity_consistent_count": 3,
+  "id_collision_count": 0,
+  "locator_overlap_count": 0,
+  "archive_staging_ready_count": 3,
+  "semantic_registration_allowed_count": 0,
+  "proof_eligible_count": 0,
+  "unresolved_semantics_count": 9,
+  "gate_blocked_count": 3,
+  "trial_ids_promoted_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "original_edition_verified": false,
+  "untouched_definition_candidate_count": 16,
+  "pending_other_candidates_count": 237,
+  "records": [
+    {
+      "locator": "(2.9)",
+      "source_unit_id": "tex-unit:toda:ch02:0013",
+      "original_publication_position": 40,
+      "simulated_publication_position": 40,
+      "trial_reference_id": "trial:r55:tex-unit:toda:ch02:0013",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0013:definition",
+      "source_tex_sha256": "828a7c8a65fd176f3d232b4f40843058d575e23ec6e42343d885b4ff3a09ad2f",
+      "archive_staging_ready": true,
+      "identity_consistent": true,
+      "id_collision_found": false,
+      "locator_overlap_found": false,
+      "id_stable_under_insertion": true,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false,
+      "original_edition_verified": false,
+      "unresolved_semantics": [
+        "m,i の量化と値域",
+        "Delta の全域的な定義可能範囲",
+        "記号 (h_{m*})^{-1} の意味・存在・一意性"
+      ],
+      "registration_gate": "BLOCKED_SEMANTIC_AND_SOURCE_VERIFICATION"
+    },
+    {
+      "locator": "(2.10)",
+      "source_unit_id": "tex-unit:toda:ch02:0014",
+      "original_publication_position": 41,
+      "simulated_publication_position": 42,
+      "trial_reference_id": "trial:r55:tex-unit:toda:ch02:0014",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0014:definition",
+      "source_tex_sha256": "d10a8df3050eeb4c8ad6c1629eba370a44736606e11392b49cec721652097d4a",
+      "archive_staging_ready": true,
+      "identity_consistent": true,
+      "id_collision_found": false,
+      "locator_overlap_found": false,
+      "id_stable_under_insertion": true,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false,
+      "original_edition_verified": false,
+      "unresolved_semantics": [
+        "m,i の量化と値域",
+        "Delta^{-1} の逆写像としての存在・一意性",
+        "記号 Omega_1^{-1} と partial^{-1} の意味"
+      ],
+      "registration_gate": "BLOCKED_SEMANTIC_AND_SOURCE_VERIFICATION"
+    },
+    {
+      "locator": "(4.3)",
+      "source_unit_id": "tex-unit:toda:ch04:0003",
+      "original_publication_position": 65,
+      "simulated_publication_position": 66,
+      "trial_reference_id": "trial:r55:tex-unit:toda:ch04:0003",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch04:0003:definition",
+      "source_tex_sha256": "91ca9daba0cff445d676bd482e82d42077701bcec1ca7ec23dde808789bb94e6",
+      "archive_staging_ready": true,
+      "identity_consistent": true,
+      "id_collision_found": false,
+      "locator_overlap_found": false,
+      "id_stable_under_insertion": true,
+      "semantic_registration_allowed": false,
+      "proof_eligible": false,
+      "original_edition_verified": false,
+      "unresolved_semantics": [
+        "i,n の量化と値域",
+        "E^{-1} の逆像／逆写像としての厳密な意味",
+        "3場合の重複・網羅性の形式的検証"
+      ],
+      "registration_gate": "BLOCKED_SEMANTIC_AND_SOURCE_VERIFICATION"
+    }
+  ],
+  "input_sha256": {
+    "readiness": "018259ffcfa1b5ac9bc0ad058cecd913903e6898c6fe985273135a7fbf6cc0ae",
+    "order": "6e912f39a52a8c7a7e29d747cd99c1fc781579a24f8e1c9c810d30854bd00400",
+    "collision": "2b0b38a8618979432337fbe0a4c1fa7aa0eaf40dd94b293941c45110d9ac492d"
+  }
+}

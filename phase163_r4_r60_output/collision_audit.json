@@ -1,0 +1,88 @@
+{
+  "phase": "163 R4-R60",
+  "mode": "READ_ONLY_LIVE_ID_COLLISION_AUDIT",
+  "candidate_count": 3,
+  "live_reference_count": 23,
+  "live_assertion_count": 67,
+  "candidate_reference_id_collision_count": 0,
+  "candidate_assertion_id_collision_count": 0,
+  "candidate_locator_overlap_review_count": 0,
+  "probe_count": 4,
+  "all_applicable_collision_probes_rejected": true,
+  "id_and_publication_position_independent": true,
+  "semantic_equivalence_verified": false,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "untouched_definition_candidate_count": 16,
+  "pending_other_candidates_count": 237,
+  "records": [
+    {
+      "locator": "(2.9)",
+      "source_unit_id": "tex-unit:toda:ch02:0013",
+      "trial_reference_id": "trial:r55:tex-unit:toda:ch02:0013",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0013:definition",
+      "reference_id_collision": false,
+      "assertion_id_collision": false,
+      "existing_locator_reference_ids": [],
+      "locator_overlap_requires_review": false,
+      "trial_ids_promoted": false,
+      "registration_action": "NONE",
+      "audit_decision": "NO_ID_COLLISION_NOT_REGISTRATION_APPROVAL"
+    },
+    {
+      "locator": "(2.10)",
+      "source_unit_id": "tex-unit:toda:ch02:0014",
+      "trial_reference_id": "trial:r55:tex-unit:toda:ch02:0014",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0014:definition",
+      "reference_id_collision": false,
+      "assertion_id_collision": false,
+      "existing_locator_reference_ids": [],
+      "locator_overlap_requires_review": false,
+      "trial_ids_promoted": false,
+      "registration_action": "NONE",
+      "audit_decision": "NO_ID_COLLISION_NOT_REGISTRATION_APPROVAL"
+    },
+    {
+      "locator": "(4.3)",
+      "source_unit_id": "tex-unit:toda:ch04:0003",
+      "trial_reference_id": "trial:r55:tex-unit:toda:ch04:0003",
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch04:0003:definition",
+      "reference_id_collision": false,
+      "assertion_id_collision": false,
+      "existing_locator_reference_ids": [],
+      "locator_overlap_requires_review": false,
+      "trial_ids_promoted": false,
+      "registration_action": "NONE",
+      "audit_decision": "NO_ID_COLLISION_NOT_REGISTRATION_APPROVAL"
+    }
+  ],
+  "collision_probes": [
+    {
+      "probe": "SAME_REFERENCE_ID",
+      "example_id": "toda:(4.5)",
+      "rejected": true,
+      "applicable": true
+    },
+    {
+      "probe": "SAME_ASSERTION_ID",
+      "example_id": "boundary:(4.5):stable_range_suspension_isomorphism",
+      "rejected": true,
+      "applicable": true
+    },
+    {
+      "probe": "REFERENCE_ID_AS_ASSERTION",
+      "example_id": "toda:(4.5)",
+      "rejected": true,
+      "applicable": true
+    },
+    {
+      "probe": "ASSERTION_ID_AS_REFERENCE",
+      "example_id": "boundary:(4.5):stable_range_suspension_isomorphism",
+      "rejected": true,
+      "applicable": true
+    }
+  ],
+  "input_sha256": "6e912f39a52a8c7a7e29d747cd99c1fc781579a24f8e1c9c810d30854bd00400",
+  "live_registry_bridge_constructed": true
+}

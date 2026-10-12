@@ -1,0 +1,1381 @@
+﻿chapter,source_line,category,reason,excerpt,review_status
+1,81,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+S^n=\{(t_1,\ldots,t_{n+1})\mid t_1^2+\cdots+t_{n+1}^2=1\}.
+\]",UNREVIEWED
+1,112,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\psi_1(t) = (\cos 2\pi t,\ \sin 2\pi t).
+\]",UNREVIEWED
+1,119,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\psi_{n+1}(t_{1},\cdots,t_{n},\frac{1}{2})=
+i(\psi_{n}(t_{1},\cdots,t_{n})).
+\]",UNREVIEWED
+1,156,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[X,Y]=\{\, [f]\ \mid\ f:(X,x_0)\to (Y,y_0)\,\}
+\]",UNREVIEWED
+1,173,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+f^*:[Y,Z]\to[X,Z],\quad g_*:[X,Y]\to[X,Z].
+\]",UNREVIEWED
+1,176,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+f^*(\beta)=[g\circ f],\qquad g_*(\alpha)=[g\circ f]
+\]",UNREVIEWED
+1,180,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\gamma\circ \beta)\circ\alpha=\gamma\circ(\beta\circ\alpha).
+\]",UNREVIEWED
+1,183,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(f_2\circ f_1)^*=f_1^*\circ f_2^*,\quad 
+(g_2\circ g_1)_*=g_{2*}\circ g_{1*}.
+\]",UNREVIEWED
+1,191,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A\vee B=\bigl(A\times\{b_0\}\bigr)\cup\bigl(\{a_0\}\times B\bigr)
+\]",UNREVIEWED
+1,196,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\shrink_{A,B}:A\times B\longrightarrow
+A\times B/A\vee B = A\ \wedge\ B
+\]",UNREVIEWED
+1,201,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(A\ \wedge\ B)\ \wedge\ C\ \cong\ A\ \wedge\ (B\ \wedge\ C),
+\]",UNREVIEWED
+1,204,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\phi_{A\wedge B, C}(\phi_{A,B}(a,b),c)\longleftrightarrow
+\phi_{A,B\wedge C}(a, \phi_{B,C}(b,c)).
+\]",UNREVIEWED
+1,218,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\shrink_{m,n}\bigl(\psi_m(x),\,\psi_n(y)\bigr)=\psi_{m+n}(x,y)
+\]",UNREVIEWED
+1,223,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\shrink_{m+n,p}\bigl(\shrink_{m,n}(a,b),c\bigr)
+=\shrink_{m,n+p}\bigl(a,\shrink_{n,p}(b,c)\bigr),
+\quad (a,b,c)\in S^m\times S^n\times S^p.
+\]",UNREVIEWED
+1,229,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+f:A\to A',\quad g:B\to B'
+\]",UNREVIEWED
+1,234,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B'
+\]",UNREVIEWED
+1,238,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(f\wedge g)\circ \phi_{A,B} = \phi_{A',B'}\circ (f\times g).
+\]",UNREVIEWED
+1,284,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex^n X\ :=\ X\ \wedge\ S^n
+\]",UNREVIEWED
+1,294,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex^n f:\ \Ex^n X\longrightarrow \Ex^n Y,\quad
+(Ef = E^1 f)
+\]",UNREVIEWED
+1,325,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d_X:X\times I \to EX,\qquad
+d_X = \phi_{X,S^1}\circ (1_X\times \psi_1).
+\]",UNREVIEWED
+1,336,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex f(d_X(x, t)) = 
+d_Y(f(x), t),\quad x\in X,\quad t \in I.
+\]",UNREVIEWED
+1,344,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(f+g)(d_X(x,t)) :=
+\begin{cases}
+f(d_X(x,2t)), & 0\le t\le \tfrac12,\\[2mm]
+g(d_X(x,2t-1)), & \tfrac12\le t\le 1,
+\end{cases}
+\]",UNREVIEWED
+1,347,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2mm]
+g(d_X(x,2t-1)), & \tfrac12\le t\le 1,
+\end{cases}
+\]",UNREVIEWED
+1,351,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(-f)(d_X(x, t)) := 
+f(d_X(x, 1-t)).
+\]",UNREVIEWED
+1,364,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[\Ex X,Y]\cong \pi_1\bigl(Y^X_{0}\bigr).
+\]",UNREVIEWED
+1,375,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[f]\circ(\alpha + \alpha') = [f]\circ\alpha + [f]\circ\alpha',
+\]",UNREVIEWED
+1,378,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\alpha + \alpha')\circ E[g] = \alpha\circ E[g] + \alpha'\circ E[g].
+\]",UNREVIEWED
+1,404,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ox f:\ \Ox X\longrightarrow \Ox Y,\qquad
+(\Ox f(\ell))(t)=f(\ell(t)),\ \ \ell\in\Ox X,\ t\in I
+\]",UNREVIEWED
+1,409,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ox:\ [X,Y]\longrightarrow [\Ox X,\Ox Y],\qquad
+\Omega [f] = [\Ox f]
+\]",UNREVIEWED
+1,415,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ox(\beta\circ\alpha)=\Ox\beta\circ \Ox\alpha
+\]",UNREVIEWED
+1,422,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i(x)(t) = d_X(x,t)\qquad (t\in I).
+\]",UNREVIEWED
+1,426,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i:X\to \Ox EX.
+\]",UNREVIEWED
+1,446,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Omega_0F=
+\Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y
+\]",UNREVIEWED
+1,451,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Omega_0F(x)(t) = F(d_X(x,t))
+\]",UNREVIEWED
+1,502,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+a:(\Ex^n Y,y_0)\to (Z,z_0),\quad
+b:(X,x_0)\to (Y,y_0),\quad
+c:(W,w_0)\to (X,x_0)
+\]",UNREVIEWED
+1,509,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A_t:(\Ex^n X,x_0)\to (Z,z_0),\qquad
+B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1)
+\]",UNREVIEWED
+1,514,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A_0=a\circ \Ex^n b,\quad A_1(\Ex^n X)=z_0,\qquad
+B_0=b\circ c,\quad B_1(W)=y_0.
+\]",UNREVIEWED
+1,523,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2mm]
+A_{1-2t}\bigl(\Ex^n c(w)\bigr), & 0\le t\le \tfrac12.
+\end{cases}
+\end{equation}
+ここで,
+$d:\Ex^n W\times I\to \Ex^{n+1}W$ は,
+\(E^{n+1}W= E(E^n W)\) を定める等化写像で, 
+$w\in \Ex^n W$ とする.\\
+$H$ は well-defined で, 連続で",UNREVIEWED
+1,536,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\ \subset\ [\Ex^{n+1}W, Z]
+\]",UNREVIEWED
+1,545,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A\circ B=\{\ \alpha\circ\beta\mid \alpha\in A,\ \beta\in B\ \}
+\]",UNREVIEWED
+1,549,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A_1+A_2=\{\ \alpha_1+\alpha_2\mid \alpha_i\in A_i\ \}
+\]",UNREVIEWED
+1,585,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+F:(\Ex^{n+1}X,x_0)\to (Z,z_0), \quad
+G:(\Ex W,w_0)\to (Y,y_0)
+\]",UNREVIEWED
+1,590,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+F(d_{E^{n}Z}(x,t))\equiv\left\{
+\begin{array}{ll}
+A_{2t-1}(x), & \frac{1}{2} \leq t \leq 1, \\
+A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\
+\end{array}\right.
+\]",UNREVIEWED
+1,597,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G(d_{W}(w,t))\equiv\left\{
+\begin{array}{ll}
+B'_{2t-1}(w), & \frac{1}{2} \leq t \leq 1, \\
+B_{1-2t}(w), & 0 \leq t \leq \frac{1}{2}. \\
+\end{array}\right.
+\]",UNREVIEWED
+1,607,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H'\ \simeq\ F\circ \Ex^{n+1}c\ +\ \bigl(H\ +\ a\circ \Ex^n G\circ \sigma\bigr)
+\]",UNREVIEWED
+1,613,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n))
+\]",UNREVIEWED
+1,617,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\psi_{n+1}(t_1,\cdots,t_n, t) \longleftrightarrow
+\psi_{n+1}(t,t_1,\cdots,t_n)
+\]",UNREVIEWED
+1,626,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[H'] = [F]\circ E^{n+1}\gamma + 
+([H] \pm \alpha \circ E^n [G])
+\]",UNREVIEWED
+1,635,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+F':(E^{n+1}X,x_0)\to(Z,z_0),\qquad
+G':(EW, w_0)\to (Y,y_0)
+\]",UNREVIEWED
+1,640,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma).
+\]",UNREVIEWED
+1,644,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A'_t(x)=
+\begin{cases}
+F'(d_{E^n X}(x,2-2t)),& \tfrac12\le t\le 1,\\
+A_{2t}(x),& 0\le t\le \tfrac12,
+\end{cases}
+\qquad
+B'_t(w)=
+\begin{cases}
+G'(d_W(w,2t-1)),& \tfrac12\le t\le 1,\\
+B_{2t}(w),& 0\le t\le \t",UNREVIEWED
+1,661,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H'\ \simeq\ F'\circ \Ex^{n+1}c\ +\ (H+a\circ \Ex^n G').
+\]",UNREVIEWED
+1,768,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(d_{ER}(d_R(w,s),t))=
+\begin{cases}
+a(\Ex^{n+1}B_{2t-1}(d_R(w,s))), 
+& \tfrac12\le t\le 1,\\[2mm]
+A_{1-2t}(\Ex^{n+1}c(d_R(w,s))), 
+& 0\le t\le \tfrac12,
+\end{cases}
+\]",UNREVIEWED
+1,772,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2mm]
+A_{1-2t}(\Ex^{n+1}c(d_R(w,s))), 
+& 0\le t\le \tfrac12,
+\end{cases}
+\]",UNREVIEWED
+1,787,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d_{ER}(d_R(w,s),t) = \phi(w, \psi_2(s, t)).
+\]",UNREVIEWED
+1,792,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\sigma(d_{ER}(d_R(w,s),t))
+= d_{ER}(d_R(w,t), s).
+\]",UNREVIEWED
+1,799,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Omega_0(H\circ \sigma)(d_R(w,t))=
+\begin{cases}
+\Omega_0 a(\Ex^{n}B_{2t-1}(w)), 
+& \tfrac12\le t\le 1,\\[2mm]
+\Omega_0 A_{1-2t}(\Ex^{n}c(w)), 
+& 0\le t\le \tfrac12.
+\end{cases}
+\]",UNREVIEWED
+1,803,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2mm]
+\Omega_0 A_{1-2t}(\Ex^{n}c(w)), 
+& 0\le t\le \tfrac12.
+\end{cases}
+\]",UNREVIEWED
+1,823,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+  -E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+  & = -\Omega_0^{-1}(\iota \circ \todai[n]{\alpha, E^n\beta, E^n\gamma})
+  \subset -\Omega_0^{-1}\todai[n]{\iota\circ\alpha, E^n\beta, E^n\gamma}\\
+  & =",UNREVIEWED
+1,824,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+  -E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+  & = -\Omega_0^{-1}(\iota \circ \todai[n]{\alpha, E^n\beta, E^n\gamma})
+  \subset -\Omega_0^{-1}\todai[n]{\iota\circ\alpha, E^n\beta, E^n\gamma}\\
+  & = \tod",UNREVIEWED
+1,854,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(d_{E^n V}(s, t)) = \left\{
+\begin{array}{ll}
+  A_{1-2t}(E^n c(E^n d(s))),
+  & 0\leq t \leq \frac{1}{2},\\
+  a(E^n B_{2t-1}(E^n d(s))), 
+  & \frac{1}{2} \leq t \leq 1.  
+\end{array}
+\right.
+\]",UNREVIEWED
+1,871,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H_{u}(d_{\Ex^{n}V}(s,t))\equiv\left\{
+\begin{array}{ll}
+A_{1-2t}(\Ex^{n}C_{2u(1-2t)}(s)), &
+0\leq t \leq \frac{1}{2},\ 0\leq u \leq \frac{1}{2}, \\
+A_{(2-2u)(1-2t)}(\Ex^{n}C_{1-2t}(s)), &
+0\leq t \leq \frac{1}{2",UNREVIEWED
+1,884,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\sigma(\phi_{V,S^{n+1}}(v,\psi_{n+1}(t_{1},\cdots,t_{n},t))) :=
+\phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})).
+\]",UNREVIEWED
+1,889,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+K(d_{V}(v, t)) = \left\{
+\begin{array}{ll}
+  B_{1-2t}(d(v)),
+  & 0\leq t \leq \frac{1}{2},\\
+  b(C_{2t-1}(v)), 
+  & \frac{1}{2} \leq t \leq 1.  
+\end{array}
+\right.
+\]",UNREVIEWED
+1,916,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[a\circ E^n K\circ\sigma]
+\in \todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+\]",UNREVIEWED
+1,956,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\{\{\alpha,\beta,\gamma\},\ E\delta,\ E\varepsilon\}
++\{\alpha,\ \{\beta,\gamma,\delta\},\ E\varepsilon\}
++\{\alpha,\ \beta,\ \{\gamma,\delta,\varepsilon\}\}
+\equiv0 .
+\]",UNREVIEWED
+1,1007,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\alpha+\alpha')\circ \Ex^{n+1}\!\bigl([W, Y]\bigr) 
++ [\Ex^{n+1}X, Z]\circ \Ex^{n+1}\gamma.
+\]",UNREVIEWED
+1,1016,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha\circ E^{n+1}[W,X]
++ \alpha'\circ E^{n+1}[W,X]
++ [E^{n+1}X,Z].
+\]",UNREVIEWED
+1,1022,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\alpha + \alpha') \circ E^{n+1}[W,X]
++ [E^[n+1]X,Z] \circ E^{n+1}\gamma.
+\]",UNREVIEWED
+1,1056,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H''(\phi(w,\psi_2(s, t))) :=
+\begin{cases}
+H(\phi(w, \psi_2(2s, t))), & 0\le s\le \tfrac12,\\
+H'(\phi(w, \psi_2(2s-1, t))), & \tfrac12\le s\le 1.
+\end{cases}
+\]",UNREVIEWED
+1,1071,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[H] + [H'] = [H''] \in 
+\todai[n]{\alpha + \alpha', E^n\beta, E^n\gamma}
+\]",UNREVIEWED
+1,1085,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+CX=(X\times I)/\bigl(X\times\{1\}\ \cup\ x_0\times I\bigr).
+\]",UNREVIEWED
+1,1109,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h(d_W(w, t)) \left\{
+\begin{array}{ll}
+= d'_X(c(w), 1-2t), & 0 \leq t \leq \frac{1}{2}, \\
+\in Y, & \frac{1}{2} \leq t \leq 1. \\
+\end{array}\right.
+\]",UNREVIEWED
+1,1130,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\phi(d'_X(x,t),\psi_n(t_1,\ldots,t_n))\longleftrightarrow d'_Z(\phi'(x,\psi_n(t_1,\ldots,t_n)),t)
+\]",UNREVIEWED
+1,1155,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h\bigl(d_W(w,t)\bigr)=
+\begin{cases}
+d'_X(c(w),1-2t), & 0\le t\le \tfrac12,\\
+B_{2t-1}(w), & \tfrac12\le t\le 1.
+\end{cases}
+\]",UNREVIEWED
+1,1201,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H_s\bigl(d(w,t)\bigr)=
+\begin{cases}
+d'_V\!\left(E^nB_{s(1-2t)}(w),\ (1-s)(1-2t)\right), & 0\le t\le \tfrac12,\\
+A_{2t-1}\!\left(E^n c(w)\right), & \tfrac12\le t\le 1.
+\end{cases}
+\]",UNREVIEWED
+1,1230,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+p(d'_W(w, t)) = d_W(w, t),\qquad
+p(X) = x_0.
+\]",UNREVIEWED
+1,1273,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{cases}
+  G(x) = a(E^n b(x)), & x \in E^n X,\\
+  G(d'_V(w, t)) = a(E^n B_t(w)), & w \in E^n W = V,\ t \in I.
+\end{cases}
+\]",UNREVIEWED
+1,1287,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_0 = G,\qquad 
+G_1(E^n X) = z_0.
+\]",UNREVIEWED
+1,1307,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H_s\bigl(d_V(w,t)\bigr)=
+\begin{cases}
+A_{1-2t}\!\left(E^n c(w)\right), 
+& 0\le t\le \dfrac{1-s}{2},\\
+G_s\!\left(d'_V\!\left(w,\dfrac{2t-1+s}{1+s}\right)\right), 
+& \dfrac{1-s}{2}\le t\le 1.
+\end{cases}
+\]",UNREVIEWED
+1,170,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"と書き, \(\alpha\) と \(\beta\) の合成 (composition) という.\\",UNREVIEWED
+1,287,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"と書き, $X$ の $n$-重 suspension と呼ぶ.",UNREVIEWED
+1,343,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"\(f+g,\ -f: (EX,x_0)\to (Y,y_0)\) を, 次で定義する.",UNREVIEWED
+1,784,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,\(E^2 R\) を定義する等化写像,UNREVIEWED
+1,888,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"また, 写像 \(K:EV\to Y\) を次で定義する.",UNREVIEWED
+1,1044,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"を, \(E^{n+1}W = E^2 E^{n-1}W\) を定義する写像とする.\\",UNREVIEWED
+1,1055,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"$H'':(E^{n+1}W,w_0)\to(Z,z_0)$ を, 次で定義する.",UNREVIEWED
+1,1084,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"基空間 $X$ 上の \emph{cone} \(CX\) を, 次で定義する.",UNREVIEWED
+1,1088,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"$d'_X:X\times I\to CX$ を, \(CX\) を定義する等化写像とする.\\",UNREVIEWED
+1,1103,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,$\alpha$ の \emph{extension} と呼ぶ.,UNREVIEWED
+1,1117,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"このとき, \(\widetilde{\gamma}\) を \(\gamma\) の \emph{coextension} と呼ぶ.\\",UNREVIEWED
+1,1136,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,$\Ex^n X=X\wedge S^n$ を定義する写像である.,UNREVIEWED
+2,73,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pis{p}{S^m} \quad(=\hs{S^p}{S^m})
+\]",UNREVIEWED
+2,92,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+k(\alpha\circ\beta)=\alpha\circ(k\beta),\qquad
+k(\alpha\circ E\beta)=(k\alpha)\circ E\beta
+\]",UNREVIEWED
+2,98,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha\ \redjoin\ \beta\ \in\ \pis{p+q}{S^{m+n}}
+\]",UNREVIEWED
+2,104,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E^n\alpha=\alpha\ \redjoin\ \iota_n
+\]",UNREVIEWED
+2,108,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\todai[n]{\alpha,\ E^n\beta,\ E^n\gamma}
+\in\pi_{i+n+1}(S^m) / 
+(\alpha\circ E^n\pi_{i+1}(S^k) + \pi_{j+n+1}(S^m)\circ E^{n+1}\gamma)
+\]",UNREVIEWED
+2,114,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha\in\pis{k+n}{S^m},\qquad
+\beta\in\pis{j}{S^k},\qquad
+\gamma\in\pis{i}{S^j}
+\]",UNREVIEWED
+2,143,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2mm]
+A_{1-2t}\bigl(\Ex^n c(w)\bigr), & 0\le t\le \tfrac12.
+\end{cases}
+\)
+
+\noindent
+\textbf{(1.8).}\
+\(d_n:S^n\times I\longrightarrow S^{n+1},\quad
+d_n\bigl(\psi_n(t_1,\ldots,t_n),t\bigr)=\psi_{n+1}(t_1,\ldots",UNREVIEWED
+2,183,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+S^m\times\cdots\times S^m \ \longrightarrow\ (S^m)_t,\qquad
+(x_1,\ldots,x_t)\ \longmapsto\ x_1\cdots x_t
+\]",UNREVIEWED
+2,194,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(f)_t:\ (S^q)_t\longrightarrow(S^m)_t,\qquad (t=1,2,\ldots,\infty)
+\]",UNREVIEWED
+2,198,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(f)_t(y_1\ldots y_t):=f(y_1)\ldots f(y_t)
+\]",UNREVIEWED
+2,211,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i:\ (S^m)_\infty\longrightarrow\Omega S^{m+1}
+\]",UNREVIEWED
+2,233,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i_*:\ \pi_q\bigl((S^m)_\infty\bigr)\ \xrightarrow{\;\cong\;}\ 
+\pi_q\bigl(\Omega S^{m+1}\bigr),\qquad(\forall\,q).
+\]",UNREVIEWED
+2,262,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Omega_1:\ \pi_{k+1}(S^{m+1})\ 
+\xrightarrow{\cong}\ \pi_k\bigl((S^m)_\infty\bigr).
+\]",UNREVIEWED
+2,292,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h'_m:\ \bigl((S^m)_2, S^m\bigr)\ \to\ (S^{2m},e_0),
+\]",UNREVIEWED
+2,295,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h'_m(xy)=\phi_{m,m}(x,y)\qquad(x,y\in S^m).
+\]",UNREVIEWED
+2,325,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h:\ (S^m)_\infty\ \longrightarrow\ (S^{km})_\infty
+\]",UNREVIEWED
+2,329,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h(x_1\ldots x_t)\ 
+:=\ \prod_{\sigma}\ h'\!\bigl(x_{\sigma(1)}\cdots x_{\sigma(k)}\bigr),
+\]",UNREVIEWED
+2,348,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H:\ \pi_{i+1}(S^{m+1})\ \longrightarrow\ \pi_{i+1}(S^{2m+1})
+\]",UNREVIEWED
+2,374,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+H(\alpha\circ E\beta) 
+& = (\Omega_0^{-1}\circ i_{*}\circ h_{m*}\circ i_{*}^{-1}\circ \Omega_0)(\alpha\circ E\beta)
+&& \text{by (2.7)},\\
+& = \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega",UNREVIEWED
+2,397,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(E\gamma\circ\alpha)
+= \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega E\gamma)\bigr)\circ \Omega_0(\alpha)
+\]",UNREVIEWED
+2,402,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Omega_1^{-1}\!\bigl(\Omega^{-1}E(\gamma\wedge\iota_m)\bigr)\circ (\Omega_1^{-1}\circ h_{m*}\circ \Omega_1)(\alpha)
+= E(\gamma\wedge\gamma)\circ H(\alpha)
+\]",UNREVIEWED
+2,441,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(-1)^n\,\overline{\alpha}\circ E^n\widetilde{\gamma}
+\]",UNREVIEWED
+2,445,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H((-1)^n\overline\alpha\circ E^n\widetilde\gamma)
+=(-1)^n H(\overline\alpha)\circ E^n\widetilde\gamma .
+\]",UNREVIEWED
+2,452,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(\alpha)=H(\overline\alpha\circ\iota)=H(\overline{\alpha})\circ\iota
+\]",UNREVIEWED
+2,457,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(-1)^n H(\ext{\alpha})\circ E^n\coext{\gamma}\ \in\
+\{\,H(\alpha),\ E^n\beta,\ E^n\gamma\,\}_n
+\]",UNREVIEWED
+2,509,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \longrightarrow\ \pi_i\bigl((S^{pm})_\infty\bigr)
+\]",UNREVIEWED
+2,552,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+u_1\,u_{2k}=u_{2k+1},\qquad
+u_{2k}\,u_{2h}=\binom{k+h}{k}\,u_{2(k+h)}.
+\]",UNREVIEWED
+2,557,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+u_k\,u_h=\binom{k+h}{k}\,u_{k+h}.
+\]",UNREVIEWED
+2,561,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Lambda=
+\begin{cases}
+\mathbb{Z}, & m\ \text{奇数かつ } p=2,\\
+\mathbb{Z}_p, & m\ \text{偶数}.
+\end{cases}
+\]",UNREVIEWED
+2,569,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i^*:H^i\bigl((S^m)_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{p-1};\Lambda\bigr)
+\ \ \text{は} \ 
+i<pm \ \text{で同型 .}
+\]",UNREVIEWED
+2,574,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h^*:H^i\bigl((S^{pm})_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{\infty};\Lambda\bigr)
+\ \ \text{は} \ 
+\text{任意の } i \ \text{で単射同型 .}
+\]",UNREVIEWED
+2,629,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h^*H^*\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G\ \cong\
+H^*\!\bigl((S^{m})_\infty;\Lambda\bigr)
+\]",UNREVIEWED
+2,649,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+X := \gen{(\ell, x)\in Map(I, (S^{pm})_{\infty})\times (S^m)_{\infty}\ 
+|\ \ell(1) = h(x)};\
+h \text{ の mapping track} .
+\]",UNREVIEWED
+2,654,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+p:X\longrightarrow (S^{pm})_\infty,\qquad 
+p(\ell,x):=\ell(1)=h(x),
+\]",UNREVIEWED
+2,661,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E_2^{*}\ \cong\ H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)
+\ \otimes\ H^{*}(F;\Lambda).
+\]",UNREVIEWED
+2,706,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i_0^*:H^{*}(F;\Lambda)\ \xrightarrow{\;\cong\;}\ H^{*}\!\bigl((S^m)_{p-1};\Lambda\bigr) .
+\]",UNREVIEWED
+2,711,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i_1^*:H^{i}(X;\Lambda)\ \longrightarrow\ H^{i}(F;\Lambda)
+\]",UNREVIEWED
+2,726,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H^{*}(X;\Lambda)\ \longrightarrow\ E_{\infty}^{0,*}
+\longrightarrow\ E_{2}^{0,*}\ \cong\ 1\otimes H^{*}(F;\Lambda) .
+\]",UNREVIEWED
+2,731,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d_r(1\otimes G_0)=0,
+\]",UNREVIEWED
+2,736,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d_r(B^{*}\otimes G_0)=0\qquad(r\ge2).
+\]",UNREVIEWED
+2,741,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H^{*}(X;\Lambda)\ \cong\ p^{*}H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G
+\]",UNREVIEWED
+2,805,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d_r(1\otimes f_0)=0\qquad(r\ge2).
+\]",UNREVIEWED
+2,813,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H^{*}(F;\Lambda)=G_0,\qquad
+i_0^{*}:H^{*}(F;\Lambda)\xrightarrow{\;\cong\;}
+H^{*}\!\bigl((S^{m})_{p-1};\Lambda\bigr).
+\]",UNREVIEWED
+2,834,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i_{0*}:\ \pi_i\bigl((S^m)_{p-1}\bigr)\ \xrightarrow{}\ \pi_i(F)
+\]",UNREVIEWED
+2,843,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \xrightarrow{\;\cong\;}\ \pi_i(X,F)
+\]",UNREVIEWED
+2,903,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h_m:\ \bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \bigl((S^{2m})_\infty,\ e_0\bigr)
+\]",UNREVIEWED
+2,907,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+h_{m*}:\ \pi_i\bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \pi_i\bigl((S^{2m})_\infty\bigr)
+\]",UNREVIEWED
+2,994,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\partial(\alpha'\circ\partial_0^{-1}\beta) = \partial(\alpha')\circ \beta,\quad
+
+
+h_{m*}(\alpha'\circ\partial_0^{-1}\beta) = h_{m*}(\alpha')\circ E\beta .
+\]",UNREVIEWED
+2,1005,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\Delta\alpha\circ\beta
+& =\partial\,(h_{m*}^{-1}\Omega_1\alpha)\circ\beta
+=\partial(h_{m*}^{-1}(\Omega_1\alpha)\circ \partial_0^{-1}\beta)\\
+& \subset \partial(h_{m*}^{-1}(\Omega_1(\alpha)\circ E\beta)",UNREVIEWED
+2,1024,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Delta(E^2\gamma)=\pm[\,\iota_m,\iota_m\,]\circ\gamma.\qquad \qed
+\]",UNREVIEWED
+2,1114,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\overline{a}:\ (K\cup_{b}CS^k,\ K)\ \longrightarrow\ ((S^m)_\infty,\ S^m)
+\]",UNREVIEWED
+2,1119,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+  \node (A) at (0,1.4) {$(CS^k,S^k)$};
+  \node (B) at (3.3,1.4) {$(K\cup_{b}CS^k,\ K)$};
+  \node (C) at (6.6,1.4) {$((S^m)_\infty,S^m)$};
+  \node (D) at",UNREVIEWED
+2,1144,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[h_m\circ \ext{a}\circ\widetilde{c}]=[\,a'\circ p\circ\widetilde{c}\,]
+\]",UNREVIEWED
+2,1150,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+H\todai[1]{E\alpha,E\beta,E\gamma}
+& = H\todai[1]{\Omega_1^{-1}i_*\alpha,E\beta,E\gamma}
+&& \text{by (2.4)},\\
+& = -H(\Omega_1^{-1}\toda{i_*\alpha,\beta,\gamma})
+&& \text{by Prop1.3},\\
+& = -\Omega_1",UNREVIEWED
+2,1281,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+& H(E\alpha\circ E\pi_{i+1}(K) + \pi_{j+1}(S^{m+1})\circ E^2\gamma)\\
+& = H(E\alpha)\circ E\pi_{i+1}(K) + H\pi_{j+1}(S^{m+1})\circ E^2\gamma
+&& \text{Prop2.2,}\\
+& = H\pi_{j+1}(S^{m+1})\circ E^2\gamma",UNREVIEWED
+2,1289,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H\todai[1]{E\alpha,E\beta,E\gamma}\ 
+=\ -\,\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma
+\]",UNREVIEWED
+2,1297,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H[\,\iota_n,\ \iota_n\,]\ =\ \pm\,2\,\iota_{2n-1}
+\]",UNREVIEWED
+2,164,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"$x_1\cdots x_t$ ($x_1,\ldots,x_t\in S^m$) という積で表される. \\",UNREVIEWED
+2,658,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"と定義すると, $(X,p,(S^{pm})_\infty)$ は Serre の意味での fibration になる [13]. \\",UNREVIEWED
+2,926,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,準同型 \(\Delta\) を次で定義する.,UNREVIEWED
+2,935,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"さらに, 準同型 \(\Delta^{-1}\) を次で定義する.",UNREVIEWED
+3,78,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha \wedge \beta\ \in\ \pi_{p+q+k+h}(S^{p+q})
+\]",UNREVIEWED
+3,100,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\iota_n \wedge \alpha
+= [\sigma_{p,n}] \circ (\alpha \wedge \iota_n) \circ [\sigma_{n,p+k}]
+= (-1)^{pn}\iota_{p+n}\circ E^n\alpha\circ (-1)^{(p+k)n}\iota_{p+k+n}.
+\]",UNREVIEWED
+3,110,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\alpha \wedge \beta
+& = (\alpha\circ\iota_{p+k}) \wedge (\iota_q\circ\beta)
+= (\alpha \wedge \iota_q) \circ (\iota_{p+k} \wedge \beta)\\
+& = (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta,
+\end{alig",UNREVIEWED
+3,111,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\alpha \wedge \beta
+& = (\alpha\circ\iota_{p+k}) \wedge (\iota_q\circ\beta)
+= (\alpha \wedge \iota_q) \circ (\iota_{p+k} \wedge \beta)\\
+& = (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta,
+\end{align*}",UNREVIEWED
+3,118,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\alpha \wedge \beta
+& = (\iota_p\circ \alpha) \wedge (\beta\circ \iota_{q+h})
+= (\iota_p\wedge \beta) \circ (\alpha\wedge\iota_{q+h})\\
+& = (-1)^{ph} E^{p}\beta\circ E^{q+h}\alpha.
+\end{align*}
+\",UNREVIEWED
+3,119,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\alpha \wedge \beta
+& = (\iota_p\circ \alpha) \wedge (\beta\circ \iota_{q+h})
+= (\iota_p\wedge \beta) \circ (\alpha\wedge\iota_{q+h})\\
+& = (-1)^{ph} E^{p}\beta\circ E^{q+h}\alpha.
+\end{align*}",UNREVIEWED
+3,185,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[\iota_{p+q-1}, \iota_{p+q-1}]\circ E^{2q-2}H(\alpha)\circ E^{p+k-1}H(\beta)
+\]",UNREVIEWED
+3,188,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\in \Delta(E^{2q}H(\alpha)\circ E^{p+k+1}H(\beta))
+\subset\pi_{p+q+k+h-1}(S^{p+q-1}).
+\]",UNREVIEWED
+3,244,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(d_s(x,t))=
+\begin{cases}
+\bigl(a \wedge i_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{2t-1}\bigr)(x), & \tfrac12\le t\le1,\\[2pt]
+\bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\tfrac12,\\",UNREVIEWED
+3,247,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\tfrac12,\\[2pt]
+\end{cases}
+\]",UNREVIEWED
+3,248,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\end{cases}
+\]",UNREVIEWED
+3,251,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H'(d_s(x,t))=
+\begin{cases}
+\bigl(1_{p+q} \wedge c\bigr)\bigl(A_{2t-1} \wedge 1_{r+\ell}\bigr)(x), & \tfrac12\le t\le1,\\[2pt]
+\bigl(1_p \wedge B_{1-2t}\bigr)\bigl(a \wedge 1_{q+k+r+\ell}\bigr)(x), & 0\le t\le\tfr",UNREVIEWED
+3,254,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\bigl(1_p \wedge B_{1-2t}\bigr)\bigl(a \wedge 1_{q+k+r+\ell}\bigr)(x), & 0\le t\le\tfrac12.
+\end{cases}
+\]",UNREVIEWED
+3,259,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+& \toda{\alpha \wedge \iota_{q+r},
+\iota_{p+h} \wedge \beta, 
+\iota_{p+h+q+k} \wedge \gamma}\\
+& = \toda{E^{q+r}\alpha, 
+(-1)^{(p+h)k}E^{p+h+r}\beta, 
+(-1)^{(p+h+q+k)\ell}E^{p+h+q+k}\gamma}\\
+&",UNREVIEWED
+3,260,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+& \toda{\alpha \wedge \iota_{q+r},
+\iota_{p+h} \wedge \beta, 
+\iota_{p+h+q+k} \wedge \gamma}\\
+& = \toda{E^{q+r}\alpha, 
+(-1)^{(p+h)k}E^{p+h+r}\beta, 
+(-1)^{(p+h+q+k)\ell}E^{p+h+q+k}\gamma}\\
+& =(-1",UNREVIEWED
+3,329,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+& \toda{\iota_{p+q}\wedge \gamma, 
+\iota_p\wedge \beta\wedge \iota_{r+\ell}, 
+\alpha\wedge\iota_{q+k+r+\ell}}\\
+& =\toda{(-1)^{(p+q)\ell}E^{p+q}\gamma, 
+(-1)^{pk}E^{p+r+\ell}\beta, 
+E^{q+k+r+\ell",UNREVIEWED
+3,330,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+& \toda{\iota_{p+q}\wedge \gamma, 
+\iota_p\wedge \beta\wedge \iota_{r+\ell}, 
+\alpha\wedge\iota_{q+k+r+\ell}}\\
+& =\toda{(-1)^{(p+q)\ell}E^{p+q}\gamma, 
+(-1)^{pk}E^{p+r+\ell}\beta, 
+E^{q+k+r+\ell}\al",UNREVIEWED
+3,348,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{aligned}
+C'_{t}
+& = \bigl(1_p \wedge \sigma_{r,q}\bigr)\circ 
+(C_t \wedge 1_{q})\circ
+\bigl(1_{p+h} \wedge \sigma_{q,r+\ell}\bigr),\\
+C''_{t}
+& = \bigl(1_q \wedge \sigma_{r,q+k}\bigr)\circ 
+(C_t \wedge",UNREVIEWED
+3,361,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+a \wedge 1_{q} \wedge c
+& = (1_{p+q} \wedge c) \circ (a \wedge 1_{q+r+\ell}),\\
+a \wedge 1_{q+k} \wedge c
+& = (1_{p+q+k} \wedge c) \circ (a \wedge 1_{q+k+r+\ell}),
+\end{align*}
+\]",UNREVIEWED
+3,362,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+a \wedge 1_{q} \wedge c
+& = (1_{p+q} \wedge c) \circ (a \wedge 1_{q+r+\ell}),\\
+a \wedge 1_{q+k} \wedge c
+& = (1_{p+q+k} \wedge c) \circ (a \wedge 1_{q+k+r+\ell}),
+\end{align*}",UNREVIEWED
+3,371,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+C'_t\circ(1_{p+h} \wedge b \wedge 1_{r+\ell})
+= (1_p \wedge \sigma_{r,q})\circ(C_t \wedge b)\circ (1_{p+h} \wedge \sigma_{q+k,r+\ell})
+= (1_p \wedge b \wedge 1_r) \circ C''_t.
+\]",UNREVIEWED
+3,376,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H,\ H',\ H'':S^{s+1}\longrightarrow S^{p+q+r},\qquad
+s=p+h+q+k+r+\ell
+\]",UNREVIEWED
+3,381,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(d_s(x,t))=
+\begin{cases}
+\bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{2t-1}\bigr)(x), & \frac12\le t\le1,\\[2pt]
+\bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\frac12,
+\e",UNREVIEWED
+3,384,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\frac12,
+\end{cases}
+\]",UNREVIEWED
+3,388,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H'(d_s(x,t))=
+\begin{cases}
+C'_{2t-1}\bigl(1_{p+h} \wedge b \wedge 1_{r+\ell}\bigr)(x), & \frac12\le t\le1,\\[2pt]
+\bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{1-2t}\bigr)(x), & 0\le t\le\frac12,
+\end{case",UNREVIEWED
+3,391,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{1-2t}\bigr)(x), & 0\le t\le\frac12,
+\end{cases}
+\]",UNREVIEWED
+3,395,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H''(d_s(x,t))=
+\begin{cases}
+\bigl(A_{2t-1} \wedge 1_r\bigr)\bigl(1_{p+q+h+k} \wedge c\bigr)(x), & \frac12\le t\le1,\\[2pt]
+\bigl(1_p \wedge b \wedge 1_{r}\bigr)\, C''_t(x), & 0\le t\le\frac12 .
+\end{cases}
+\]",UNREVIEWED
+3,398,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\bigl(1_p \wedge b \wedge 1_{r}\bigr)\, C''_t(x), & 0\le t\le\frac12 .
+\end{cases}
+\]",UNREVIEWED
+3,404,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{aligned}
+\toda{\alpha\wedge\iota_{q+r},\ \iota_{p+h}\wedge\beta\wedge\iota_r,\ \iota_{p+h+q+k}\wedge\gamma}
+& = (-1)^{\delta+h\ell}\toda{E^{q+r}\alpha,\ E^{p+h+r}\beta,\ E^{p+h+q+k}\gamma},\\
+\toda{\iota_{p",UNREVIEWED
+3,416,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+H(d_s(x,t)) &= H'(d_s(x,1-t)),\\
+H'(d_s(x,t)) & = H''(d_s(x,1-t)),\\
+H''(d_s(x,t)) & = H(d_s(x,1-t)).
+\end{align*}
+\]",UNREVIEWED
+3,417,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+H(d_s(x,t)) &= H'(d_s(x,1-t)),\\
+H'(d_s(x,t)) & = H''(d_s(x,1-t)),\\
+H''(d_s(x,t)) & = H(d_s(x,1-t)).
+\end{align*}",UNREVIEWED
+3,452,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+K = S^n\ \cup_{\,f}\ CS^{n+k}
+\]",UNREVIEWED
+3,456,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d'_{n+k}:S^{n+k}\times I\longrightarrow CS^{n+k}
+\]",UNREVIEWED
+3,460,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+d':S^{n+k}\times I\ \xrightarrow{d'}\ CS^{n+k}\ \rightarrow\ K
+\]",UNREVIEWED
+3,464,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+p\bigl(d'_{n+k}(x,t)\bigr)=d_{n+k}(x,t),\qquad 
+p(S^n) = e_0.
+\]",UNREVIEWED
+3,472,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+1_K \wedge f:\ \Ex^{n+k}K \;=\; K \wedge S^{n+k}\ \longrightarrow\ K \wedge S^{n}\;=\;\Ex^{n}K.
+\]",UNREVIEWED
+3,482,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_s:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K, \qquad (0\le s\le1)
+\]",UNREVIEWED
+3,486,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_1:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K
+\]",UNREVIEWED
+3,491,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+F:\ S^{2n+2k+1}\ \longrightarrow\ \Ex^{n}K
+\]",UNREVIEWED
+3,495,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_1\;=\;F\circ \Ex^{n}p
+\]",UNREVIEWED
+3,602,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\iota_n \wedge \alpha \;=\;(-1)^{nk}\,\Ex^n\alpha
+= \alpha \wedge\ (-1)^{kn} \iota_n .
+\]",UNREVIEWED
+3,609,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+A_0=1_n \wedge f,\qquad A_1=f \wedge \tau.
+\]",UNREVIEWED
+3,618,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_s\bigl(\theta_{n+k,n}(x,y)\bigr)=
+\begin{cases}
+A_{2s}\!\bigl(\phi_{n+k,n}(x,y)\bigr), & 0\le s\le \tfrac12,\\[2pt]
+\phi_{n}\!\bigl(d'(x,2s-1),\,\tau(y)\bigr), & \tfrac12\le s\le1.
+\end{cases}
+\]",UNREVIEWED
+3,621,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\phi_{n}\!\bigl(d'(x,2s-1),\,\tau(y)\bigr), & \tfrac12\le s\le1.
+\end{cases}
+\]",UNREVIEWED
+3,626,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_s\bigl(\phi_{n+k}(d'(u,t),v)\bigr)=
+\begin{cases}
+\phi_{n}\!\Bigl(d'\!\bigl(u,\,(2t-s)/(2-s)\bigr),\ f(v)\Bigr), & \tfrac{s}{2}\le t\le1,\\[3pt]
+G_{s-2t}\!\bigl(\phi_{n,n+k}(f(u),v)\bigr), & 0\le t\le \tfrac{s}{",UNREVIEWED
+3,629,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[3pt]
+G_{s-2t}\!\bigl(\phi_{n,n+k}(f(u),v)\bigr), & 0\le t\le \tfrac{s}{2}.
+\end{cases}
+\]",UNREVIEWED
+3,639,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+F:\ S^{2n+2k+1}\longrightarrow \Ex^{n}K
+\]",UNREVIEWED
+3,644,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex^{n}p \circ F:\ S^{2n+2k+1}\longrightarrow S^{2n+k+1}
+\]",UNREVIEWED
+3,670,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(E^n p\circ F)(\phi_{n+k+1, n+k}(d_{n+k}(u, t), v))=
+\begin{cases}
+\phi_{n+k+1, n}(d_{n+k}(u, 2t-1), f(v)), & \frac{1}{2}\le t\le1,\\[3pt]
+e_0, & \frac{1}{4}\le t\le \frac{1}{2},\\[3pt]
+\phi_{n+k+1, n+k}(d_{n+k}(",UNREVIEWED
+3,673,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[3pt]
+e_0, & \frac{1}{4}\le t\le \frac{1}{2},\\[3pt]
+\phi_{n+k+1, n+k}(d_{n+k}(x, 1-4t), \tau(y)), & 0\le t\le \frac{1}{4}.
+\end{cases}
+\]",UNREVIEWED
+3,674,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[3pt]
+\phi_{n+k+1, n+k}(d_{n+k}(x, 1-4t), \tau(y)), & 0\le t\le \frac{1}{4}.
+\end{cases}
+\]",UNREVIEWED
+3,686,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{aligned}
+H_1\bigl(\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\bigr)
+&=\phi_{n+k+1,n}\bigl(d_{n+k}(u,t),\,f(v)\bigr),\\
+H_2\bigl(\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\bigr)
+&=\phi_{n+k+1,n}\bigl(d_{n+k}(u,t),\,\tau(y)\bigr",UNREVIEWED
+3,695,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[H_1] = [\,1_{n+k+1} \wedge f\,]\ 
+=\ \iota_{n+k+1} \wedge \alpha
+ = (-1)^{(n+k+1)k}\Ex^{n+k+1}\alpha\
+=\ (-1)^{kn}E^{n+k+1}\alpha .
+\]",UNREVIEWED
+3,703,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\sigma(\psi(x_1,\ldots,x_{n+k}, t, y_1,\ldots,y_n))
+= \psi(x_1,\ldots, x_n, t, x_{n+1},\ldots,x_{n+k} y_1,\ldots,y_n)
+\]",UNREVIEWED
+3,708,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[H_2] = (\iota_{n+k+1} \wedge (-1)^{kn} \iota_n) \circ (-1)^{k}\iota_{2n+k+1}
+\circ (E\alpha \wedge \iota_{n+k})
+ = (-1)^{kn+k}E^{n+k+1}\alpha .
+\]",UNREVIEWED
+3,714,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\Ex^{n}p)_*\,[F] = (-1)^{kn}\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha .
+\]",UNREVIEWED
+3,718,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\Ex^{n-h}p)_*(\gamma) = \bigl(1-(-1)^k\bigr)\,\Ex^{n+k-h+1}\alpha .
+\]",UNREVIEWED
+3,722,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\Ex^{n}p)_*\,\Ex^{h}\gamma
+=\Ex^{h}\!\bigl((\Ex^{n-h}p)_*\gamma\bigr)
+=\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha,
+\]",UNREVIEWED
+3,727,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\Ex^{n}p)_*\bigl(\,[F]\ -\ (-1)^{kn}\Ex^{h}\gamma\,\bigr) = 0 .
+\]",UNREVIEWED
+3,735,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(\Ex^{n}p)_*\ :\ 
+\pi_{2n+2k+1}\bigl(\Ex^{n}K,S^{2n}\bigr)\
+\longrightarrow\
+\pi_{2n+k+1}\bigl(S^{2n+k+1}\bigr).
+\]",UNREVIEWED
+3,780,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+  \node (A) at (0,1.2) {$\pis{2n+2k+1}{S^{2n}}$};
+  \node (B) at (4.3,1.2) {$\pis{2n+2k+1}{\Ex^{n}K}$};
+  \node (C) at (8.6,1.2) {$\pis{2n+2k+1}{\Ex^{n}K",UNREVIEWED
+3,796,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\iota_K \wedge \alpha \;=\; [G_0]
+ = [G_1]\;=\; (\Ex^{n+k}p)^* [F]
+\;=\;(\Ex^{n+k}p)^{*}\!\Bigl(\iota_*\alpha^{*}+(-1)^{kn}\Ex^{h}\gamma\Bigr) .
+\]",UNREVIEWED
+3,845,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\sigma(\psi_{n+k+t+1}(t_1,\cdots,t_{n+k+t},t))
+=\psi_{n+k+t+1}(t_1,\cdots,t_{n+k},t,t_{n+k+1},\cdots,t_{n+k+t})
+\]",UNREVIEWED
+3,852,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+p'=\sigma\circ \Ex^{t}p
+\]",UNREVIEWED
+3,857,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\ext{\beta} \wedge \alpha\ \in\ [\Ex^{n+k+t}K, S^{m+n}]
+\]",UNREVIEWED
+3,880,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\ext{\beta} \wedge \alpha
+&= (\ext{\beta} \circ E^t \iota_K)\ \wedge (\iota_n \circ \alpha) \\
+&= (\ext{\beta} \wedge \iota_n) \circ ((\iota_K \wedge \iota_t) \wedge \alpha)
+&&\text{by (1.5)}\\
+&=",UNREVIEWED
+3,881,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\ext{\beta} \wedge \alpha
+&= (\ext{\beta} \circ E^t \iota_K)\ \wedge (\iota_n \circ \alpha) \\
+&= (\ext{\beta} \wedge \iota_n) \circ ((\iota_K \wedge \iota_t) \wedge \alpha)
+&&\text{by (1.5)}\\
+&= \Ex",UNREVIEWED
+3,901,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E^n\ext{\beta}\circ E^{t+h}\gamma
+\in (-1)^{h+t}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+t+k}\alpha} .
+\]",UNREVIEWED
+3,907,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\ext{\beta} \wedge \alpha
+&= (\iota_m \circ \ext{\beta}) \wedge (\alpha \circ \iota_{n+k})\\
+&= (\iota_m \wedge \alpha) \circ (\ext{\beta} \wedge \iota_{n+k}) && \text{by (1.5)}\\
+&= (-1)^{km}\Ex^{",UNREVIEWED
+3,908,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\ext{\beta} \wedge \alpha
+&= (\iota_m \circ \ext{\beta}) \wedge (\alpha \circ \iota_{n+k})\\
+&= (\iota_m \wedge \alpha) \circ (\ext{\beta} \wedge \iota_{n+k}) && \text{by (1.5)}\\
+&= (-1)^{km}\Ex^{m}\a",UNREVIEWED
+3,917,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(E^{n+k}p')^{*}\lambda = E^m\alpha\circ E^{n+k}\ext{\beta}
+\]",UNREVIEWED
+3,924,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\lambda = (-1)^{km+(k+1)t} (\Ex^{n}\beta\circ \Ex^{t}\alpha^* 
++ (-1)^{kn}\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma)
+\]",UNREVIEWED
+3,930,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+(-1)^{km+(k+1)t}\Ex^{n}\beta\circ \Ex^{t}\alpha^{*}
++(-1)^{kn}\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma
+\ \in\
+\todai[n+k]{\Ex^{m}\alpha,\ \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}.
+\]",UNREVIEWED
+3,938,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\Ex^{n}\ext{\beta}\circ \Ex^{t}\alpha^{*}
+&\in (-1)^{km+(k+1)t}\todai[n+k]{\Ex^{m}\alpha, \Ex^{n+k}\beta, E^{n+k+t}\alpha}\\
+&+ (-1)^{kn+h+t+1}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+k+t",UNREVIEWED
+3,939,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\Ex^{n}\ext{\beta}\circ \Ex^{t}\alpha^{*}
+&\in (-1)^{km+(k+1)t}\todai[n+k]{\Ex^{m}\alpha, \Ex^{n+k}\beta, E^{n+k+t}\alpha}\\
+&+ (-1)^{kn+h+t+1}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+k+t}\al",UNREVIEWED
+3,951,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E^n\beta\circ E^t\alpha^{*}
+\in (-1)^{km+(k+1)t}\todai[n+k]{E^m\alpha, E^{n+k}\beta, E^{n+k+t}\alpha}
+\]",UNREVIEWED
+3,1073,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pis{n+1}{S^n}\cong\mathbb{Z}_2,\ (n\ge3) .
+\]",UNREVIEWED
+3,1079,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\toda{\,2\iota_n,\ \eta_n,\ 2\iota_{n+1}\,}
+=\{\eta_n\circ\eta_{n+1}\}.
+\]",UNREVIEWED
+3,1086,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex\beta\circ t\eta_{m+k+1}
+\ \in\ \todai[1]{\,r\iota_{m+1},\ \Ex\beta,\ r\iota_{m+k+1}\,}.
+\]",UNREVIEWED
+3,1091,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E\beta\circ\eta_{m+k+1}
+= r(E\beta\circ\eta_{m+k+1})
+\in r (\pis{m+k+2}{S^{m+1}}) .
+\]",UNREVIEWED
+3,1099,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\todai[1]{r\iota_{m+1}, E\beta, r\iota_{m+k}} \equiv 0.
+\]",UNREVIEWED
+3,1107,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+s^2(\eta_n\circ\eta_{n+1})
+\in s\iota_n\circ\toda{2\iota_n, \eta_n, 2\iota_{n+1}}\circ s\iota_{n+2}
+\subset \toda{r\iota_n, \eta_n, r\iota_{n+1}} .
+\]",UNREVIEWED
+3,1121,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex\beta\circ t\,\eta_{m+k+1}=0 .
+\]",UNREVIEWED
+3,1125,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex\beta\circ t\,\eta_{m+k+1}=\Ex\beta\circ \eta_{m+k+1} .
+\]",UNREVIEWED
+3,1200,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+G_k\ :=\ \lim_{n\to\infty}\ \pis{n+k}{S^n}
+\]",UNREVIEWED
+3,1204,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Ex^\infty:\ \pis{n+k}{S^n}\ \longrightarrow\ G_k
+\]",UNREVIEWED
+3,1217,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\circ:G_k\times G_h \rightarrow G_{k+h}
+\]",UNREVIEWED
+3,1223,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha\circ(\beta_1\pm\beta_2)=\alpha\circ\beta_1\pm\alpha\circ\beta_2,\qquad
+(\alpha_1\pm\alpha_2)\circ\beta=\alpha_1\circ\beta\pm\alpha_2\circ\beta .
+\]",UNREVIEWED
+3,1236,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha\in G_k,\quad \beta\in G_h,\quad \gamma\in G_\ell,\qquad
+\alpha\circ\beta=\beta\circ\gamma=0
+\]",UNREVIEWED
+3,1241,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\langle \alpha,\beta,\gamma\rangle 
+\in G_{k+h+\ell+1}(\alpha\circ G_{h+\ell+1} + \gamma\circ G_{k+h+1}) .
+\]",UNREVIEWED
+3,1247,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\alpha'\in\pis{n+k}{S^n},\ 
+\beta'\in\pis{n+k+h}{S^{n+k}},\
+\gamma'\in\pis{n+k+h+\ell}{S^{n+k+h}}
+\]",UNREVIEWED
+3,1262,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\langle \alpha,\beta,\gamma\rangle
+\ :=\ \Ex^\infty (-1)^{\,n-1}\ \toda{\alpha',\beta',\gamma'}.
+\]",UNREVIEWED
+3,1084,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"Th3.6 において, $\alpha=r\,\iota_{m+1}$ と置くと,",UNREVIEWED
+3,1105,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"次に, $r$ を偶数とし, $r=2s$ と置く.",UNREVIEWED
+4,96,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\Ex^{-1}\bigl(\pis{2n}{S^{n+1};2}\bigr), & i=2n-1,\\[2pt]
+\pis{i}{S^n;2}, & i\ne n,\,2n-1 .
+\end{cases}
+\end{equation}
+
+群 $\pi^n_{2n-1}$ は, 次で具体的に与えられる. 
+\begin{lemma}\label{lem:4.1}
+
+$n$ が奇数のとき,  $\pi_{2n",UNREVIEWED
+4,97,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[2pt]
+\pis{i}{S^n;2}, & i\ne n,\,2n-1 .
+\end{cases}
+\end{equation}
+
+群 $\pi^n_{2n-1}$ は, 次で具体的に与えられる. 
+\begin{lemma}\label{lem:4.1}
+
+$n$ が奇数のとき,  $\pi_{2n-1}^n=\pis{2n-1}{S^n;2} .$\\
+$n$ が偶数で, $[\,\iota_{n-1},\io",UNREVIEWED
+4,140,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pis{2n-2}{S^{n-1}} \xrightarrow{\ \Ex\ } \pis{2n-1}{S^{n}}
+\xrightarrow{\ H\ } \pis{2n-1}{S^{2n-1}}
+\xrightarrow{\ \Delta\ } \pis{2n-3}{S^{n-1}}.
+\]",UNREVIEWED
+4,147,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pis{2n-1}{S^{n}} \cong
+\mathbb{Z}\gen{\beta}\ \oplus\ 
+E\pis{2n-2}{S^{n-1}} .
+\]",UNREVIEWED
+4,202,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+  \pit{2n-1}{n} = E^{-1}(\pis{2n}{S^{n+1}; 2})
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus (E \pis{2n-2}{n-1}; 2) \\
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus \pis{2n-1}{S^n;2} .
+\end{align*}
+\]",UNREVIEWED
+4,203,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+  \pit{2n-1}{n} = E^{-1}(\pis{2n}{S^{n+1}; 2})
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus (E \pis{2n-2}{n-1}; 2) \\
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus \pis{2n-1}{S^n;2} .
+\end{align*}",UNREVIEWED
+4,244,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+[\iota_n, \iota_n] \in E\pis{2n-2}{S^n; 2} \oplus \gen{\alpha}
+= \pis{2n-1}{S^n; 2} \oplus \gen{\alpha} .
+\]",UNREVIEWED
+4,281,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\cdots\to\pit{n}{n}\xrightarrow{E}\pit{n+1}{n+1}\to\cdots
+\]",UNREVIEWED
+4,286,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pit{2n}{n}\ \xrightarrow{\ \Ex\ }\ \pit{2n+1}{n+1}\
+\xrightarrow{\ H\ }\ \pit{2n+1}{2n+1}\
+\xrightarrow{\ \Delta\ }\ \pit{2n-1}{n}\
+\xrightarrow{E} \ \pit{2n}{n+1}
+\]",UNREVIEWED
+4,454,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E+h_*:\ \pis{i-1}{S^{n-1}}\oplus\pis{i}{S^{2n-1}}
+\ \xrightarrow{\ \cong\ }\ \pis{i}{S^n}
+\]",UNREVIEWED
+4,461,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+i\cdot\Omega h: S^{n-1}\times\Ox S^{2n-1}\to\Ox S^n
+\]",UNREVIEWED
+4,570,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{aligned}
+2^{2t+1}(\beta\circ\alpha)
+&=\beta\circ r 2^{2t}[\iota_m,\iota_m]
+\ +\ \beta\circ 2^{2t}E\gamma\\
+&=\beta\circ r\bigl[2^{t}\iota_m,\,2^{t}\iota_m\bigr]\ +\ 2^{2t}\beta\circ E\gamma\\
+&=\beta\circ",UNREVIEWED
+4,92,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,"部分群 $\pi_i^n\subset\pis{i}{S^n}$ を, 次で定義する.",UNREVIEWED
+5,95,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{n}_{n}=\gen{\iota_n}\cong \mathbb Z,\qquad
+G_0=\gen{\iota}\cong \mathbb Z. \quad 
+\iota=E^{\infty}\iota_n.
+\]",UNREVIEWED
+5,114,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Delta(\iota_5)=\pm 2\,\eta_2 .
+\]",UNREVIEWED
+5,118,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{5}_{5}\xrightarrow{\ \Delta\ }\pi^{2}_{3}\xrightarrow{\ E\ }\pi^{3}_{4}\xrightarrow{\ \ }\pi_{4}^{5}=0
+\]",UNREVIEWED
+5,125,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{n}_{n+1}=\gen{\eta_n}\cong\mathbb Z_2, \ (n\ge3), \
+(G_1;2)=\gen{\eta}\cong\mathbb Z_2.
+\]",UNREVIEWED
+5,249,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(\beta)\in \Delta^{-1}(\eta_2\circ 2\iota_3)\circ E^{2}\alpha
+= \Delta^{-1}(2\eta_2)\circ E^{2}\alpha
+= \pm \iota_5\circ E^{2}\alpha
+= E^{2}\alpha.
+\]",UNREVIEWED
+5,256,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+2\beta
+& \in  2\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\\
+& =  
+\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\circ 2\iota_{i+2}\\
+& =  
+\eta_3\circ E\toda{2\iota_3,\alpha,2\iota_{i}} 
+&& \text{by Prop1.4",UNREVIEWED
+5,257,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+2\beta
+& \in  2\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\\
+& =  
+\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\circ 2\iota_{i+2}\\
+& =  
+\eta_3\circ E\toda{2\iota_3,\alpha,2\iota_{i}} 
+&& \text{by Prop1.4}\\",UNREVIEWED
+5,276,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\eta_3\circ \pi_{i+2}(S^{4})\circ 2\iota_{i+2} + \eta_3\circ2\iota_4\circ E\pi_{i+2}(S^4) = \eta_3\circ\pi_{i+2}(S^4)\circ2\iota_{i+2}
+\]",UNREVIEWED
+5,358,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E\,\eta_n^{2}=\eta_{n+1}^{2},\qquad E^{\infty}\eta_n^{2}=\eta^{2}.
+\]",UNREVIEWED
+5,378,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi_{6}^{3}\xrightarrow{\ H}\pi_{6}^{5}\xrightarrow{\ \Delta\ }\pi_{4}^{2}
+\xrightarrow{\ E\ }\pi_{5}^{3}\xrightarrow{\ H\ }\pi^{5}_{5}
+\xrightarrow{\ \Delta\ }\pi_{3}^{2}
+\]",UNREVIEWED
+5,460,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E^{2}\beta\circ E^t\alpha^{\ast}\in (-1)^m \toda{E^{m}\eta_{2},\,E^{3}\beta,\,E^{t+3}\eta_{2}}_{3}
+\]",UNREVIEWED
+5,467,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E^{2}(2\iota_{3})\circ E\alpha^{\ast}=2E\alpha^{\ast}
+\]",UNREVIEWED
+5,482,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\eta_n\circ \pi^{n+1}_{n+3} + \pi^{n}_{n+2}\circ \eta_{n+2} 
+= \gen{\eta_n\circ\eta_{n+1}\circ\eta_{n+2}}
+= \gen{2E^{n-3}\nu'}
+\]",UNREVIEWED
+5,542,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+E^{\,n-3}\nu'\in E^{\,n-3}\todai[1]{\eta_3,\,2\iota_{4},\,\eta_4}
+& \subset(-1)^{n-3}\todai[n-2]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}\\
+& \subset(-1)^{n-3}\todai[t]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}
+\end{",UNREVIEWED
+5,571,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\nu_{4}:=
+\begin{cases}
+\alpha^{\ast}-(-1)^{u}\,s[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=E^{2}\nu'),\\[1mm]
+-\alpha^{\ast}+(-1)^{u}(s+1)[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=-E^{2}\nu').
+\en",UNREVIEWED
+5,575,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[1mm]
+-\alpha^{\ast}+(-1)^{u}(s+1)[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=-E^{2}\nu').
+\end{cases}
+\]",UNREVIEWED
+5,605,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\nu_n:=E^{\,n-4}\nu_{4},\ (n\ge 4),\qquad \nu:=E^{\infty}\nu_{4}
+\]",UNREVIEWED
+5,608,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\eta^{3}_{n}:=\eta_{n}\circ\eta_{n+1}\circ\eta_{n+2},\ (n\ge2),\qquad
+\eta^{3}:=\eta\circ\eta\circ\eta .
+\]",UNREVIEWED
+5,710,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{3}_{7}\xrightarrow{H}\pi^{5}_{7}\xrightarrow{\Delta}\pi^{2}_{5}
+\xrightarrow{E}\pi^{3}_{6}\xrightarrow{H}\pi^{5}_{6}
+\]",UNREVIEWED
+5,867,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{9}_{8}\xrightarrow{\ E\ }\pi^{5}_{9}
+\xrightarrow{\ H }\pi^{9}_{9}\xrightarrow{\ \Delta\ }\pi^{4}_{7}
+\]",UNREVIEWED
+5,874,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\Delta(\eta_9)
+& =  \Delta(\iota_9)\circ \eta_7
+&& \text{by Prop2.5}\\
+& =  (2\nu_4-E\nu')\circ \eta_7
+&& \text{by (5.8)}\\
+& =  \nu_4\circ (2\eta_7)-E\nu'\circ \eta_7
+ =  E\nu'\circ \eta_7.
+\e",UNREVIEWED
+5,875,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\Delta(\eta_9)
+& =  \Delta(\iota_9)\circ \eta_7
+&& \text{by Prop2.5}\\
+& =  (2\nu_4-E\nu')\circ \eta_7
+&& \text{by (5.8)}\\
+& =  \nu_4\circ (2\eta_7)-E\nu'\circ \eta_7
+ =  E\nu'\circ \eta_7.
+\end{a",UNREVIEWED
+5,887,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}\xrightarrow{\ E } \pi^{6}_{10}
+\xrightarrow{\ H } \pi^{11}_{10}=0
+\]",UNREVIEWED
+5,912,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+H(\eta_3\circ \nu_4)
+& =  E(\eta_2\wedge\eta_2)\circ H(\nu_4)
+&& \text{by Prop2.2}\\
+& =  \pm (\eta_5\circ \eta_6)\circ \iota_7
+&& \text{by Prop3.1, Lem5.4}\\
+& =  \eta_5^{2}
+&& \text{by Prop5.3",UNREVIEWED
+5,913,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+H(\eta_3\circ \nu_4)
+& =  E(\eta_2\wedge\eta_2)\circ H(\nu_4)
+&& \text{by Prop2.2}\\
+& =  \pm (\eta_5\circ \eta_6)\circ \iota_7
+&& \text{by Prop3.1, Lem5.4}\\
+& =  \eta_5^{2}
+&& \text{by Prop5.3}\\",UNREVIEWED
+5,1077,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+0\to \pi^{3}_{8}\xrightarrow{H}\pi^{5}_{8}\xrightarrow{\Delta}\pi^{2}_{6}
+\]",UNREVIEWED
+5,1083,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(\nu'\circ \eta_6^2)=H(\nu')\circ \eta_6^2=\eta_5\circ \eta_6^2=\eta_5^{3}.
+\]",UNREVIEWED
+5,1180,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{9}_{11}\xrightarrow{\ \Delta\ }\pi^{4}_{9}\xrightarrow{\ E }\pi^{5}_{10}
+\xrightarrow{\ H }\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{4}_{8}\xrightarrow{E}\pi_9^5 .
+\]",UNREVIEWED
+5,1194,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+0\to \pi^{6}_{11}\xrightarrow{H}\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}
+\]",UNREVIEWED
+5,1201,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{13}_{13}\xrightarrow[\cong]{\Delta}\pi^{6}_{11}\xrightarrow{E}\pi^{7}_{12}\xrightarrow{}\pi_{12}^{13}=0
+\]",UNREVIEWED
+5,1226,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\nu_6\circ \pi_{11}(S^9)+\pi_{11}(S^6)\circ2\iota_{11}
+= \nu_6\circ\pi_{11}^9+2\pi_{11}(S^6)=2\pi_{11}(S^6) .
+\]",UNREVIEWED
+5,1233,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi_{10}(S^5)\xrightarrow{E}\pi_{11}(S^6)\xrightarrow{H}\pi_{11}(S^{11})
+\]",UNREVIEWED
+5,1320,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\nu_n^2:=\nu_n\circ\nu_{n+3},(n\ge4)\qquad
+\nu^2:=\nu\circ\nu.
+\]",UNREVIEWED
+5,1341,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+0\to \pi^{3}_{9}\xrightarrow{H}\pi^{5}_{9}\xrightarrow{\Delta}\pi^{2}_{7}\to 0
+\]",UNREVIEWED
+5,1351,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi^{2n+1}_{n+8}\xrightarrow{\Delta}\pi^{n}_{n+6}
+\xrightarrow{E}\pi^{n+1}_{n+7}\xrightarrow{H}\pi^{2n+1}_{n+7}
+\xrightarrow{P}\pi_{n+5}^n, 
+\qquad(n=4,5,6) .
+\]",UNREVIEWED
+5,1367,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Delta(\nu_9)=\Delta(\iota_9)\circ \nu_7=\pm\,(2\nu_4-E\nu')\circ \nu_7
+=\pm\big(2\,\nu_4^{2}-E(\nu'\circ \nu_6)\big).
+\]",UNREVIEWED
+5,1373,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\Delta(\eta^{2}_{11})
+& =  \Delta(\iota_{11})\circ \eta_9^2
+&& \text{by Prop2.5}\\
+& =  \nu_5\circ \eta_8\circ \eta_9^2
+= \nu_5\circ \eta_8^{3}
+&& \text{by (5.10)}\\
+& =  4(\nu_5\circ\nu_8)
+= 4",UNREVIEWED
+5,1374,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\Delta(\eta^{2}_{11})
+& =  \Delta(\iota_{11})\circ \eta_9^2
+&& \text{by Prop2.5}\\
+& =  \nu_5\circ \eta_8\circ \eta_9^2
+= \nu_5\circ \eta_8^{3}
+&& \text{by (5.10)}\\
+& =  4(\nu_5\circ\nu_8)
+= 4E(\n",UNREVIEWED
+5,1388,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\begin{align*}
+\Delta(\eta_{13})
+& =  \Delta(\iota_{13})\circ \eta_{11}
+&& \text{by Prop2.5}\\
+& \in \toda{ \nu_6,\ \eta_9,\ 2\iota_{10} }\circ \eta_{11}
+&& \text{by Lem5.10}\\
+& =  \nu_6\circ\toda{\eta_9,2\iot",UNREVIEWED
+5,1389,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\Delta(\eta_{13})
+& =  \Delta(\iota_{13})\circ \eta_{11}
+&& \text{by Prop2.5}\\
+& \in \toda{ \nu_6,\ \eta_9,\ 2\iota_{10} }\circ \eta_{11}
+&& \text{by Lem5.10}\\
+& =  \nu_6\circ\toda{\eta_9,2\iota_{1",UNREVIEWED
+5,1563,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+0=\pi^{2}_{9}\xto
+\pi^{3}_{10}\xrightarrow{H}
+\pi_{10}^5\xrightarrow{\Delta}
+\pi^{2}_{8}\xrightarrow{E}\pi^{3}_{9}=0 .
+\]",UNREVIEWED
+5,1575,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+0=\pi^{4}_{11}\xto\pi^{5}_{12}\xrightarrow{H}
+\pi^{9}_{12}\xrightarrow{\Delta}\pi^{4}_{10} .
+\]",UNREVIEWED
+5,1732,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\nu_5\circ\pis{12}{S^{8}}
+=\nu_5\circ E\pis{11}{S^{7}}
+=\nu_5\circ \pit{11}{7}=0.
+\]",UNREVIEWED
+5,1738,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\pi_{9}(S^{5})\circ\nu_9=\pi_9^5\circ\nu_9
+=\gen{\nu_5\circ \eta_8\circ \nu_9}=0 .
+\]",UNREVIEWED
+5,1750,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+H(\sigma''')
+= H\todai[1]{\nu_5, 8\iota_8, \nu_8}
+= \Delta^{-1}(\nu_4\circ 8\iota_7)\circ \nu_9 .
+\]",UNREVIEWED
+5,1756,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Delta(4\iota_9)=\pm4(2\nu_4-E\nu')
+=\pm(8\nu_4-E4\nu')
+=\pm8\nu_4
+=\pm(\nu_4\circ8\iota_7) .
+\]",UNREVIEWED
+5,1763,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\Delta^{-1}(\nu_4\circ8\iota_7)\circ\nu_9
+\ni\pm(4\iota_9)\circ\nu_9
+=4\nu_9
+=\eta_9^3 .
+\]",UNREVIEWED
+5,1904,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+2E^{4-3}\nu_{4}\circ E^{7-3}\nu_{4}=2\nu_{5}^{2}=0,
+\quad (h=3).
+\]",UNREVIEWED
+5,1911,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E^{4}\beta\circ E^t\alpha^{\ast}
+\in (-1)^{m}\todai[7]{\nu_{m+4},\,E^{7}\beta,\,\nu_{t+11}}
++(-1)^{t}\todai[t+3]{E^{4}\beta,\,\nu_{t+8},\,2\nu_{t+11}} .
+\]",UNREVIEWED
+5,1918,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+8E\alpha^{\ast}=E^48\iota_5\circ E\alpha^{\ast}
+\in -\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+-\todai[4]{8\iota_9,\nu_9,2\nu_{12}} .  
+\]",UNREVIEWED
+5,1925,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\nu_9\circ E^7\pi_9(S^5) + \pi_{13}^9\circ\nu_{13}
+=\nu_9\circ E^7\pi_9^5 + \pi_{13}^9\circ\nu_{13} = 0
+\]",UNREVIEWED
+5,1931,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+E\sigma'''\in E^4\todai[3]{\nu_5,8\iota_8,\nu_8}
+\subset \todai[7]{\nu_9,8\iota_{12},\nu_{12}} .
+\]",UNREVIEWED
+5,1938,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\begin{align*}
+\todai[4]{8\iota_9,\nu_9,2\nu_{12}}
+& \subset\todai[4]{2\iota_9,4\iota_9\circ\nu_9\circ2\iota_{12}, \nu_{12}} \\
+& =\todai[4]{2\iota_9,0,\nu_{12}}
+=2\iota_9\circ E^4\pi_{12}(S^5) + \pi_{13}(S^9)\circ\n",UNREVIEWED
+5,1949,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+8x E\alpha^{\ast}=xE^{4}\sigma'''=E^4\sigma'''\ , \ (x:\text{odd}) .
+\]",UNREVIEWED
+5,2103,OUTSIDE_DISPLAY,DISPLAY_OUTSIDE_REGISTERED_ENVIRONMENT,"\[
+\sigma_{8}:=x\alpha^{\ast}-y\,\Delta(\iota_{17})
+\]",UNREVIEWED
+5,569,PROSE_DEFINITION_CUE,DEFINITION_WORD_AND_MATH,\(\nu_4\) を次で定義する.,UNREVIEWED
