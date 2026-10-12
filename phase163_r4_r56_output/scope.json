@@ -1,0 +1,106 @@
+{
+  "phase": "163 R4-R56",
+  "mode": "ISOLATED_EXPLICIT_SCOPE_EVIDENCE_TRIAL",
+  "catalog_input_sha256": "49f6d624b63ded04d448f6eed0ff463da8412ff4eddcd713c8272b3c0565c5c7",
+  "r55_input_sha256": "973552ebd448001149bb873d6917f12208f3c1cf80a60733facf949f4aab976c",
+  "scope_record_count": 3,
+  "domain_codomain_record_count": 2,
+  "piecewise_record_count": 1,
+  "case_count": 3,
+  "conditions_inferred_count": 0,
+  "formal_mathematical_ast_count": 0,
+  "candidate_total": 19,
+  "untouched_candidate_count": 16,
+  "pending_other_candidates_count": 237,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "original_edition_verified": false,
+  "scope_items": [
+    {
+      "locator": "(2.9)",
+      "r48_index": 152,
+      "publication_position": 40,
+      "source_unit_id": "tex-unit:toda:ch02:0013",
+      "source_file": "Toda_02_2(2).tex",
+      "equation_source_line": 927,
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0013:definition",
+      "defined_symbol": "\\Delta",
+      "variables": [
+        "m",
+        "i"
+      ],
+      "domain_tex": "\\pi_{i+1}(S^{2m+1})",
+      "codomain_tex": "\\pi_{i-1}(S^m)\\big/\\partial\\Ker(h_{m*})",
+      "cases": [],
+      "condition_status": "NONE_EXPLICIT_IN_DEFINITION_EQUATION",
+      "context_boundary_note": "The adjacent statement about odd m or i<3m-1 describes the quotient denominator, not a verified global map condition.",
+      "scope_status": "SOURCE_TEX_EXPLICIT_NOT_FORMAL_AST",
+      "source_tex_sha256": "828a7c8a65fd176f3d232b4f40843058d575e23ec6e42343d885b4ff3a09ad2f",
+      "formal_mathematical_ast_parsed": false,
+      "original_edition_verified": false,
+      "production_registration_applied": false
+    },
+    {
+      "locator": "(2.10)",
+      "r48_index": 153,
+      "publication_position": 41,
+      "source_unit_id": "tex-unit:toda:ch02:0014",
+      "source_file": "Toda_02_2(2).tex",
+      "equation_source_line": 936,
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch02:0014:definition",
+      "defined_symbol": "\\Delta^{-1}",
+      "variables": [
+        "m",
+        "i"
+      ],
+      "domain_tex": "\\pi_{i-1}(S^m)",
+      "codomain_tex": "\\pi_{i+1}(S^{2m+1})\\big/ H\\pi_{i+1}(S^{m+1})",
+      "cases": [],
+      "condition_status": "NONE_EXPLICIT_IN_DEFINITION_EQUATION",
+      "context_boundary_note": "No additional range or invertibility assumption is inferred from the superscript -1 notation.",
+      "scope_status": "SOURCE_TEX_EXPLICIT_NOT_FORMAL_AST",
+      "source_tex_sha256": "d10a8df3050eeb4c8ad6c1629eba370a44736606e11392b49cec721652097d4a",
+      "formal_mathematical_ast_parsed": false,
+      "original_edition_verified": false,
+      "production_registration_applied": false
+    },
+    {
+      "locator": "(4.3)",
+      "r48_index": 260,
+      "publication_position": 65,
+      "source_unit_id": "tex-unit:toda:ch04:0003",
+      "source_file": "Toda_04_2(2).tex",
+      "equation_source_line": 93,
+      "trial_assertion_id": "trial:r55:tex-unit:toda:ch04:0003:definition",
+      "defined_symbol": "\\pi_i^n",
+      "variables": [
+        "i",
+        "n"
+      ],
+      "domain_tex": null,
+      "codomain_tex": null,
+      "cases": [
+        {
+          "condition_tex": "i=n",
+          "value_tex": "\\pis{n}{S^n}"
+        },
+        {
+          "condition_tex": "i=2n-1",
+          "value_tex": "\\Ex^{-1}\\bigl(\\pis{2n}{S^{n+1};2}\\bigr)"
+        },
+        {
+          "condition_tex": "i\\ne n,\\,2n-1",
+          "value_tex": "\\pis{i}{S^n;2}"
+        }
+      ],
+      "condition_status": "THREE_CASES_EXPLICIT",
+      "context_boundary_note": "This is a piecewise subgroup definition, not a map with a domain and codomain.",
+      "scope_status": "SOURCE_TEX_EXPLICIT_NOT_FORMAL_AST",
+      "source_tex_sha256": "91ca9daba0cff445d676bd482e82d42077701bcec1ca7ec23dde808789bb94e6",
+      "formal_mathematical_ast_parsed": false,
+      "original_edition_verified": false,
+      "production_registration_applied": false
+    }
+  ]
+}
