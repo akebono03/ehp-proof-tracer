@@ -1,0 +1,18 @@
+{
+  "phase": "165 R4",
+  "mode": "LIVE_PRODUCTION_REGISTRY_DISCOVERY",
+  "fixed_assertions": 67,
+  "internal_assertions": 0,
+  "source_archive_assertions": 0,
+  "fixed_with_both_order_fields": 0,
+  "proof_links": 0,
+  "automatically_verified_assertions": 0,
+  "blockers": [
+    "NO_ORDERED_FIXED_ASSERTIONS_IN_CURRENT_BRIDGE",
+    "NO_INDEPENDENTLY_VERIFIED_ASSERTION_IDS",
+    "NO_LINKED_PROOF_STEPS",
+    "NO_GLOBAL_RULE_EXPANSION_PROVIDER_CONNECTED"
+  ],
+  "pi5_3_goal_only_proved": false,
+  "full_pytest_run": false
+}
