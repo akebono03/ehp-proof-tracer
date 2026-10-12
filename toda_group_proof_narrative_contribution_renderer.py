@@ -108,6 +108,10 @@ from phase164_r8_proofstep_factory import (
     project_reference_component_step,
 )
 
+from phase164_r8_proofstep_factory import (
+    replace_legacy_proof_step_fields,
+)
+
 
 def _provider_anchor_index(
   markdown: str,
@@ -1117,6 +1121,9 @@ def _phase157_r20_specialize_reference_value(
 
   if not changes:
     return value
+
+  if isinstance(value, ProofStep):
+    return replace_legacy_proof_step_fields(value, **changes)
 
   return replace(
     value,

@@ -1,0 +1,31 @@
+{
+  "phase": "164 R8-R7",
+  "status": "R8_FACTORY_ROUTING_CLOSED_WITH_LEGACY_PROVENANCE_LIMITATION",
+  "r8_factory_routing_closed": true,
+  "mathematical_certification_closed": false,
+  "changed_files": [
+    "phase164_r8_proofstep_factory.py",
+    "toda_group_proof_narrative_contribution_renderer.py"
+  ],
+  "backup_dir": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r8_r7_backup_20261013_000643",
+  "replace_site_count": 65,
+  "replace_classification": {
+    "METHOD_REPLACE_NOT_DATACLASS": 38,
+    "NON_PROOFSTEP_DOMAIN_DATACLASS": 25,
+    "SCALARSUM_TYPE_GUARDED": 1,
+    "GENERIC_REPLACE_GUARDED_PROOFSTEP_BRANCH": 1
+  },
+  "core_engine": {
+    "typed_core_constructors": 8,
+    "core_inference_delegations": 2,
+    "core_total": 10,
+    "core_exemption_reason": "proof.py is the dependency root; its validated constructors and inference runners cannot depend on an importing factory"
+  },
+  "unmigrated_direct_production_calls": 0,
+  "full_pytest_run": false,
+  "limitations": [
+    "Legacy GIVEN/INFERENCE centralization is not proof certification",
+    "This AST scan covers root production files with the established exclusions; indirect/dynamic aliases require separate runtime checks",
+    "Generic projection of a ProofStep retains legacy status and is not derivation"
+  ]
+}

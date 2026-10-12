@@ -113,3 +113,20 @@ def project_reference_component_step(source_step: ProofStep, component) -> Proof
         note=source_step.note,
         inference_rule=source_step.inference_rule,
     )
+
+
+def replace_legacy_proof_step_fields(step: ProofStep, **changes) -> ProofStep:
+    """Route a legacy dataclass projection through the common factory.
+
+    This retains the old rule and provenance status. It does not validate a
+    substituted conclusion and must not be used to claim a new inference.
+    """
+    from dataclasses import fields, replace
+    if not isinstance(step, ProofStep):
+        raise TypeError("step must be a ProofStep")
+    allowed = {field.name for field in fields(ProofStep)}
+    if not set(changes).issubset(allowed):
+        raise TypeError("unknown ProofStep field")
+    if "rule" in changes and changes["rule"] is not step.rule:
+        raise ValueError("legacy projection must preserve proof rule")
+    return replace(step, **changes)
