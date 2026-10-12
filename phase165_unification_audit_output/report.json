@@ -1,0 +1,656 @@
+{
+  "phase": "165 unification and cleanup audit",
+  "mode": "READ_ONLY",
+  "production_root_python_count": 346,
+  "parse_errors": [],
+  "legacy_module_references": {
+    "phase162_pi5_3_backward_selection": {
+      "exists": true,
+      "imported_by": [
+        {
+          "file": "phase162_pi5_3_web_replay.py",
+          "line": 4,
+          "imported": [
+            "_canonical_goals",
+            "reconstruct_phase162_pi5_3_group_goal"
+          ]
+        }
+      ]
+    },
+    "phase162_pi5_3_web_replay": {
+      "exists": true,
+      "imported_by": [
+        {
+          "file": "phase164_r5_web_registry_connection.phase164_r5_r1_backup.py",
+          "line": 7,
+          "imported": [
+            "build_phase162_pi5_3_web_replay"
+          ]
+        },
+        {
+          "file": "phase164_r5_web_registry_connection.py",
+          "line": 7,
+          "imported": [
+            "build_phase162_pi5_3_web_replay"
+          ]
+        },
+        {
+          "file": "web_group_proof.phase164_r5_backup.py",
+          "line": 943,
+          "imported": [
+            "build_phase162_pi5_3_web_replay"
+          ]
+        }
+      ]
+    },
+    "phase162_web_narrative_integration": {
+      "exists": true,
+      "imported_by": [
+        {
+          "file": "phase162_pi5_3_web_replay.py",
+          "line": 8,
+          "imported": [
+            "_phase162_ehp_leaves"
+          ]
+        },
+        {
+          "file": "phase164_r5_web_registry_connection.phase164_r5_r1_backup.py",
+          "line": 12,
+          "imported": [
+            "_phase162_ehp_leaves"
+          ]
+        },
+        {
+          "file": "phase164_r5_web_registry_connection.py",
+          "line": 10,
+          "imported": [
+            "_phase162_ehp_leaves"
+          ]
+        }
+      ]
+    },
+    "phase164_r5_web_registry_connection": {
+      "exists": true,
+      "imported_by": [
+        {
+          "file": "phase164_r5_r2_common_replay.py",
+          "line": 12,
+          "imported": [
+            "build_phase164_r5_web_pi5_3_proof"
+          ]
+        },
+        {
+          "file": "web_group_proof.phase164_r5_r1_backup.py",
+          "line": 881,
+          "imported": [
+            "build_phase164_r5_web_pi5_3_proof"
+          ]
+        },
+        {
+          "file": "web_group_proof.phase164_r5_r2_backup.py",
+          "line": 880,
+          "imported": [
+            "build_phase164_r5_web_pi5_3_proof"
+          ]
+        }
+      ]
+    }
+  },
+  "prerequisite_selector_calls": {
+    "_phase162_ehp_leaves": [
+      {
+        "file": "phase162_pi5_3_web_replay.py",
+        "line": 50
+      },
+      {
+        "file": "phase162_web_narrative_integration.py",
+        "line": 221
+      },
+      {
+        "file": "phase164_r5_web_registry_connection.phase164_r5_r1_backup.py",
+        "line": 41
+      },
+      {
+        "file": "phase164_r5_web_registry_connection.py",
+        "line": 42
+      }
+    ],
+    "build_phase50_representative_result": [
+      {
+        "file": "phase162_pi5_3_web_replay.py",
+        "line": 28
+      },
+      {
+        "file": "phase162_web_narrative_integration.py",
+        "line": 168
+      }
+    ],
+    "build_phase56_representative_result": [
+      {
+        "file": "phase162_pi5_3_web_replay.py",
+        "line": 29
+      },
+      {
+        "file": "phase162_web_narrative_integration.py",
+        "line": 169
+      }
+    ],
+    "create_legacy_given_proof_step": [
+      {
+        "file": "hopf_rules.py",
+        "line": 55
+      },
+      {
+        "file": "hopf_rules.py",
+        "line": 165
+      },
+      {
+        "file": "map_facts.py",
+        "line": 31
+      },
+      {
+        "file": "phase162_pi5_3_backward_selection.py",
+        "line": 67
+      },
+      {
+        "file": "phase162_pi5_3_web_replay.py",
+        "line": 43
+      },
+      {
+        "file": "phase162_reference_boundary.py",
+        "line": 81
+      },
+      {
+        "file": "phase162_web_narrative_integration.py",
+        "line": 124
+      },
+      {
+        "file": "phase162_web_narrative_integration.py",
+        "line": 187
+      },
+      {
+        "file": "phase162_web_narrative_integration.py",
+        "line": 270
+      },
+      {
+        "file": "repository_foundational_group_specialization.py",
+        "line": 48
+      },
+      {
+        "file": "repository_foundational_group_specialization.py",
+        "line": 71
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 85
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 93
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 286
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 193
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 206
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 219
+      },
+      {
+        "file": "toda_midstream_bootstrap.py",
+        "line": 232
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 137
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 147
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 177
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 193
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 291
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 341
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 410
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 460
+      },
+      {
+        "file": "toda_phase65_bootstrap.py",
+        "line": 471
+      },
+      {
+        "file": "toda_prop511_zero_bootstrap.py",
+        "line": 276
+      },
+      {
+        "file": "toda_prop515_low_bootstrap.py",
+        "line": 309
+      },
+      {
+        "file": "toda_prop515_low_bootstrap.py",
+        "line": 321
+      },
+      {
+        "file": "toda_prop515_low_bootstrap.py",
+        "line": 333
+      },
+      {
+        "file": "toda_prop515_low_bootstrap.py",
+        "line": 450
+      },
+      {
+        "file": "toda_prop515_low_bootstrap.py",
+        "line": 465
+      },
+      {
+        "file": "toda_prop515_sigma_chain_bootstrap.py",
+        "line": 403
+      },
+      {
+        "file": "toda_prop515_sigma_chain_bootstrap.py",
+        "line": 415
+      },
+      {
+        "file": "toda_prop515_sigma_chain_bootstrap.py",
+        "line": 427
+      },
+      {
+        "file": "toda_prop515_sigma_chain_bootstrap.py",
+        "line": 632
+      },
+      {
+        "file": "toda_prop515_sigma_chain_bootstrap.py",
+        "line": 644
+      },
+      {
+        "file": "toda_prop515_sigma_chain_bootstrap.py",
+        "line": 656
+      },
+      {
+        "file": "toda_prop515_upper_bootstrap.py",
+        "line": 182
+      },
+      {
+        "file": "toda_prop515_upper_bootstrap.py",
+        "line": 211
+      },
+      {
+        "file": "toda_prop515_upper_bootstrap.py",
+        "line": 267
+      },
+      {
+        "file": "toda_prop515_upper_bootstrap.py",
+        "line": 364
+      },
+      {
+        "file": "toda_prop515_upper_bootstrap.py",
+        "line": 376
+      },
+      {
+        "file": "toda_prop515_upper_bootstrap.py",
+        "line": 413
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 487
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 495
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 990
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1205
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1472
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1650
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1658
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 626
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 639
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 652
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 665
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 792
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 803
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 815
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 820
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 868
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 873
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 950
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 957
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1138
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1146
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1234
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1242
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1250
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1289
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1824
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1958
+      },
+      {
+        "file": "toda_prop56_zero_bootstrap.py",
+        "line": 1966
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 386
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 394
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 539
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1185
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1462
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 298
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 306
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 470
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 483
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 717
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1034
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1041
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1052
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1063
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1257
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1267
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1365
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1372
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1379
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1388
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1397
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1481
+      },
+      {
+        "file": "toda_prop58_zero_bootstrap.py",
+        "line": 1492
+      },
+      {
+        "file": "toda_rules.py",
+        "line": 62742
+      },
+      {
+        "file": "toda_rules.py",
+        "line": 63763
+      },
+      {
+        "file": "toda_stable_eta_generator_normalization.py",
+        "line": 125
+      },
+      {
+        "file": "toda_stable_eta_generator_normalization.py",
+        "line": 130
+      },
+      {
+        "file": "toda_stable_transport.py",
+        "line": 100
+      },
+      {
+        "file": "toda_stable_transport.py",
+        "line": 112
+      },
+      {
+        "file": "toda_stable_transport.py",
+        "line": 121
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 149
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 161
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 170
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 967
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 974
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 981
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 265
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 279
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 293
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 308
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 321
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 334
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 487
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 495
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 504
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 516
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 523
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 534
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 545
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 551
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 564
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 577
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 594
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 716
+      },
+      {
+        "file": "toda_upstream_bootstrap.py",
+        "line": 724
+      }
+    ]
+  },
+  "safe_to_delete_production_modules": [],
+  "reason": "Static AST references alone cannot establish complete runtime reachability or reflection-based imports.",
+  "full_pytest_run": false
+}

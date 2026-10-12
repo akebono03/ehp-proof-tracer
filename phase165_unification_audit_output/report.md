@@ -1,0 +1,168 @@
+# Phase 165: 統一・旧実装の監査
+
+本監査は読み取り専用で、既存ファイルを削除しません。
+
+本番ルート Python: 346 件
+構文解析エラー: 0 件
+
+## 旧モジュールへの参照
+- `phase162_pi5_3_backward_selection`: 存在=True, 静的 import=1
+  - `phase162_pi5_3_web_replay.py:4`
+- `phase162_pi5_3_web_replay`: 存在=True, 静的 import=3
+  - `phase164_r5_web_registry_connection.phase164_r5_r1_backup.py:7`
+  - `phase164_r5_web_registry_connection.py:7`
+  - `web_group_proof.phase164_r5_backup.py:943`
+- `phase162_web_narrative_integration`: 存在=True, 静的 import=3
+  - `phase162_pi5_3_web_replay.py:8`
+  - `phase164_r5_web_registry_connection.phase164_r5_r1_backup.py:12`
+  - `phase164_r5_web_registry_connection.py:10`
+- `phase164_r5_web_registry_connection`: 存在=True, 静的 import=3
+  - `phase164_r5_r2_common_replay.py:12`
+  - `web_group_proof.phase164_r5_r1_backup.py:881`
+  - `web_group_proof.phase164_r5_r2_backup.py:880`
+
+## 前提選択・GIVEN 生成の呼び出し
+- `_phase162_ehp_leaves`: 4 件
+  - `phase162_pi5_3_web_replay.py:50`
+  - `phase162_web_narrative_integration.py:221`
+  - `phase164_r5_web_registry_connection.phase164_r5_r1_backup.py:41`
+  - `phase164_r5_web_registry_connection.py:42`
+- `build_phase50_representative_result`: 2 件
+  - `phase162_pi5_3_web_replay.py:28`
+  - `phase162_web_narrative_integration.py:168`
+- `build_phase56_representative_result`: 2 件
+  - `phase162_pi5_3_web_replay.py:29`
+  - `phase162_web_narrative_integration.py:169`
+- `create_legacy_given_proof_step`: 128 件
+  - `hopf_rules.py:55`
+  - `hopf_rules.py:165`
+  - `map_facts.py:31`
+  - `phase162_pi5_3_backward_selection.py:67`
+  - `phase162_pi5_3_web_replay.py:43`
+  - `phase162_reference_boundary.py:81`
+  - `phase162_web_narrative_integration.py:124`
+  - `phase162_web_narrative_integration.py:187`
+  - `phase162_web_narrative_integration.py:270`
+  - `repository_foundational_group_specialization.py:48`
+  - `repository_foundational_group_specialization.py:71`
+  - `toda_midstream_bootstrap.py:85`
+  - `toda_midstream_bootstrap.py:93`
+  - `toda_midstream_bootstrap.py:286`
+  - `toda_midstream_bootstrap.py:193`
+  - `toda_midstream_bootstrap.py:206`
+  - `toda_midstream_bootstrap.py:219`
+  - `toda_midstream_bootstrap.py:232`
+  - `toda_phase65_bootstrap.py:137`
+  - `toda_phase65_bootstrap.py:147`
+  - `toda_phase65_bootstrap.py:177`
+  - `toda_phase65_bootstrap.py:193`
+  - `toda_phase65_bootstrap.py:291`
+  - `toda_phase65_bootstrap.py:341`
+  - `toda_phase65_bootstrap.py:410`
+  - `toda_phase65_bootstrap.py:460`
+  - `toda_phase65_bootstrap.py:471`
+  - `toda_prop511_zero_bootstrap.py:276`
+  - `toda_prop515_low_bootstrap.py:309`
+  - `toda_prop515_low_bootstrap.py:321`
+  - `toda_prop515_low_bootstrap.py:333`
+  - `toda_prop515_low_bootstrap.py:450`
+  - `toda_prop515_low_bootstrap.py:465`
+  - `toda_prop515_sigma_chain_bootstrap.py:403`
+  - `toda_prop515_sigma_chain_bootstrap.py:415`
+  - `toda_prop515_sigma_chain_bootstrap.py:427`
+  - `toda_prop515_sigma_chain_bootstrap.py:632`
+  - `toda_prop515_sigma_chain_bootstrap.py:644`
+  - `toda_prop515_sigma_chain_bootstrap.py:656`
+  - `toda_prop515_upper_bootstrap.py:182`
+  - `toda_prop515_upper_bootstrap.py:211`
+  - `toda_prop515_upper_bootstrap.py:267`
+  - `toda_prop515_upper_bootstrap.py:364`
+  - `toda_prop515_upper_bootstrap.py:376`
+  - `toda_prop515_upper_bootstrap.py:413`
+  - `toda_prop56_zero_bootstrap.py:487`
+  - `toda_prop56_zero_bootstrap.py:495`
+  - `toda_prop56_zero_bootstrap.py:990`
+  - `toda_prop56_zero_bootstrap.py:1205`
+  - `toda_prop56_zero_bootstrap.py:1472`
+  - `toda_prop56_zero_bootstrap.py:1650`
+  - `toda_prop56_zero_bootstrap.py:1658`
+  - `toda_prop56_zero_bootstrap.py:626`
+  - `toda_prop56_zero_bootstrap.py:639`
+  - `toda_prop56_zero_bootstrap.py:652`
+  - `toda_prop56_zero_bootstrap.py:665`
+  - `toda_prop56_zero_bootstrap.py:792`
+  - `toda_prop56_zero_bootstrap.py:803`
+  - `toda_prop56_zero_bootstrap.py:815`
+  - `toda_prop56_zero_bootstrap.py:820`
+  - `toda_prop56_zero_bootstrap.py:868`
+  - `toda_prop56_zero_bootstrap.py:873`
+  - `toda_prop56_zero_bootstrap.py:950`
+  - `toda_prop56_zero_bootstrap.py:957`
+  - `toda_prop56_zero_bootstrap.py:1138`
+  - `toda_prop56_zero_bootstrap.py:1146`
+  - `toda_prop56_zero_bootstrap.py:1234`
+  - `toda_prop56_zero_bootstrap.py:1242`
+  - `toda_prop56_zero_bootstrap.py:1250`
+  - `toda_prop56_zero_bootstrap.py:1289`
+  - `toda_prop56_zero_bootstrap.py:1824`
+  - `toda_prop56_zero_bootstrap.py:1958`
+  - `toda_prop56_zero_bootstrap.py:1966`
+  - `toda_prop58_zero_bootstrap.py:386`
+  - `toda_prop58_zero_bootstrap.py:394`
+  - `toda_prop58_zero_bootstrap.py:539`
+  - `toda_prop58_zero_bootstrap.py:1185`
+  - `toda_prop58_zero_bootstrap.py:1462`
+  - `toda_prop58_zero_bootstrap.py:298`
+  - `toda_prop58_zero_bootstrap.py:306`
+  - `toda_prop58_zero_bootstrap.py:470`
+  - `toda_prop58_zero_bootstrap.py:483`
+  - `toda_prop58_zero_bootstrap.py:717`
+  - `toda_prop58_zero_bootstrap.py:1034`
+  - `toda_prop58_zero_bootstrap.py:1041`
+  - `toda_prop58_zero_bootstrap.py:1052`
+  - `toda_prop58_zero_bootstrap.py:1063`
+  - `toda_prop58_zero_bootstrap.py:1257`
+  - `toda_prop58_zero_bootstrap.py:1267`
+  - `toda_prop58_zero_bootstrap.py:1365`
+  - `toda_prop58_zero_bootstrap.py:1372`
+  - `toda_prop58_zero_bootstrap.py:1379`
+  - `toda_prop58_zero_bootstrap.py:1388`
+  - `toda_prop58_zero_bootstrap.py:1397`
+  - `toda_prop58_zero_bootstrap.py:1481`
+  - `toda_prop58_zero_bootstrap.py:1492`
+  - `toda_rules.py:62742`
+  - `toda_rules.py:63763`
+  - `toda_stable_eta_generator_normalization.py:125`
+  - `toda_stable_eta_generator_normalization.py:130`
+  - `toda_stable_transport.py:100`
+  - `toda_stable_transport.py:112`
+  - `toda_stable_transport.py:121`
+  - `toda_upstream_bootstrap.py:149`
+  - `toda_upstream_bootstrap.py:161`
+  - `toda_upstream_bootstrap.py:170`
+  - `toda_upstream_bootstrap.py:967`
+  - `toda_upstream_bootstrap.py:974`
+  - `toda_upstream_bootstrap.py:981`
+  - `toda_upstream_bootstrap.py:265`
+  - `toda_upstream_bootstrap.py:279`
+  - `toda_upstream_bootstrap.py:293`
+  - `toda_upstream_bootstrap.py:308`
+  - `toda_upstream_bootstrap.py:321`
+  - `toda_upstream_bootstrap.py:334`
+  - `toda_upstream_bootstrap.py:487`
+  - `toda_upstream_bootstrap.py:495`
+  - `toda_upstream_bootstrap.py:504`
+  - `toda_upstream_bootstrap.py:516`
+  - `toda_upstream_bootstrap.py:523`
+  - `toda_upstream_bootstrap.py:534`
+  - `toda_upstream_bootstrap.py:545`
+  - `toda_upstream_bootstrap.py:551`
+  - `toda_upstream_bootstrap.py:564`
+  - `toda_upstream_bootstrap.py:577`
+  - `toda_upstream_bootstrap.py:594`
+  - `toda_upstream_bootstrap.py:716`
+  - `toda_upstream_bootstrap.py:724`
+
+## 判定
+削除確定ファイル: 0 件。動的 import・既存 API・テスト依存の確認前には自動削除しません。
+全体 pytest は実行していません。
