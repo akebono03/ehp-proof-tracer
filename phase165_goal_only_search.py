@@ -1,7 +1,8 @@
-"""Production Goal-only boundary with common R3 and R8 engines.
+"""Goal-only boundary using the registered recursive proof engine.
 
-Registry/rule discovery is automatic; no target-specific premise pool or replay.
-Citation eligibility remains fail-closed and no source statement is approved.
+No historical replay or per-group premise pool may be supplied. The default
+production invocation remains fail-closed until a vetted registry and a
+rule-expansion catalog are connected.
 """
 from homotopy_groups import TodaPrimaryGroup
 from phase165_r3_recursive_search import (
@@ -24,24 +25,22 @@ def construct_registered_group_proof(
     expansion_provider=None,
     verified_assertion_ids=(),
 ):
-    """Discover common production inputs unless an explicit input is provided.
+    """Use registered recursive search, refusing any missing input.
 
-    Missing goal/citation context is not inferred from the target dimensions;
-    such inference would amount to assuming the desired result. The existing
-    explicit-input API is preserved for independently reviewed citations.
+    Legacy callers with only n and k fail closed. Supplying a goal, a genuine
+    registry, a citing assertion and a common expansion catalog enables the
+    recursive engine, without preselected ProofSteps or a fallback.
     """
     group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
-    if bridge is None or expansion_provider is None:
-        from phase165_r9_production_wiring import discover_goal_search_inputs
-        inputs = discover_goal_search_inputs()
-        if bridge is None:
-            bridge = inputs.bridge
-        if expansion_provider is None:
-            expansion_provider = inputs.expansion_provider
-    if goal is None or citing_assertion_id is None:
+    if (
+        goal is None
+        or bridge is None
+        or citing_assertion_id is None
+        or expansion_provider is None
+    ):
         raise GoalSearchIncompleteError(
-            f"Registered goal/citation context not configured for {group!r}; "
-            "legacy proof selection is disabled"
+            f"Registered goal/rule catalog not configured for {group!r}; "
+            "legacy proof selection remains disabled"
         )
     try:
         step = reconstruct_registered_goal(
