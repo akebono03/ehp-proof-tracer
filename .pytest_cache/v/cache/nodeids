@@ -30,5 +30,20 @@
   "tests/test_phase163_r4_registry_bridge.py::test_empty_sources_yield_empty_registry",
   "tests/test_phase163_r4_registry_bridge.py::test_explicit_proof_repository_preserves_step",
   "tests/test_phase163_r4_registry_bridge.py::test_missing_theorem_locator_is_explicitly_unresolved",
-  "tests/test_phase163_r4_registry_bridge.py::test_theorem_fact_preserves_concrete_statement"
+  "tests/test_phase163_r4_registry_bridge.py::test_theorem_fact_preserves_concrete_statement",
+  "tests/test_phase164_r2_citation_eligibility.py::test_back_reference_dependency_denied",
+  "tests/test_phase164_r2_citation_eligibility.py::test_boundary_metadata_denied_even_when_allowlisted",
+  "tests/test_phase164_r2_citation_eligibility.py::test_invalid_parameters_rejected",
+  "tests/test_phase164_r2_citation_eligibility.py::test_later_or_simultaneous_completion_denied",
+  "tests/test_phase164_r2_citation_eligibility.py::test_missing_dependency_fails_closed",
+  "tests/test_phase164_r2_citation_eligibility.py::test_missing_migration_record_fails_closed",
+  "tests/test_phase164_r2_citation_eligibility.py::test_non_external_origins_denied_even_when_allowlisted[proof_internal-proof_internal_not_external_reference]",
+  "tests/test_phase164_r2_citation_eligibility.py::test_non_external_origins_denied_even_when_allowlisted[source_archive-source_archive_not_verified]",
+  "tests/test_phase164_r2_citation_eligibility.py::test_registration_is_not_verification",
+  "tests/test_phase164_r2_citation_eligibility.py::test_reviewed_structured_earlier_statement_is_allowed",
+  "tests/test_phase164_r2_citation_eligibility.py::test_self_citation_denied",
+  "tests/test_phase164_r2_citation_eligibility.py::test_unknown_order_fails_closed",
+  "tests/test_phase164_r2_citation_eligibility.py::test_unresolved_record_fails_closed",
+  "tests/test_phase164_r2_citation_eligibility.py::test_unreviewed_dependency_fails_closed",
+  "tests/test_phase164_r2_citation_eligibility.py::test_unstructured_dependency_fails_closed_even_when_reviewed"
 ]
