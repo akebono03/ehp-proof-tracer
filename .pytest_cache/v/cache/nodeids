@@ -122,11 +122,17 @@
   "tests/test_phase164_r4_real_registry_audit.py::test_r4_real_bridge_does_not_fabricate_r3_evidence",
   "tests/test_phase164_r4_real_registry_audit.py::test_r4_reports_are_written_without_modifying_sources",
   "tests/test_phase164_r4_real_registry_audit.py::test_r4_structural_equality_rejects_unverified_equivalence",
+  "tests/test_phase164_r5_r1_common_renderer.py::test_exact_common_renderer_output_without_pi53_appended_text",
+  "tests/test_phase164_r5_r1_common_renderer.py::test_group_root_still_derived_from_registry_isomorphism",
+  "tests/test_phase164_r5_r1_common_renderer.py::test_invalid_depth_rejected",
+  "tests/test_phase164_r5_r1_common_renderer.py::test_web_narrative_uses_shared_presentation",
+  "tests/test_phase164_r5_r1_common_renderer.py::test_web_trace_and_other_group_unaffected",
   "tests/test_phase164_r5_web_registry_connection.py::test_group_query_web_narrative_is_phase164",
   "tests/test_phase164_r5_web_registry_connection.py::test_invalid_depth_rejected",
   "tests/test_phase164_r5_web_registry_connection.py::test_manifest_must_exist",
   "tests/test_phase164_r5_web_registry_connection.py::test_non_target_web_path_does_not_load_r5",
   "tests/test_phase164_r5_web_registry_connection.py::test_proof_markdown_cites_toda_and_ends_in_group_relation",
+  "tests/test_phase164_r5_web_registry_connection.py::test_proof_markdown_comes_from_shared_renderer",
   "tests/test_phase164_r5_web_registry_connection.py::test_registry_isomorphism_is_an_actual_group_premise",
   "tests/test_phase164_r5_web_registry_connection.py::test_registry_web_proof_has_inferred_group_root"
 ]

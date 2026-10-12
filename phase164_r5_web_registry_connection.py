@@ -5,10 +5,8 @@ from pathlib import Path
 
 from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
 from phase162_pi5_3_web_replay import build_phase162_pi5_3_web_replay
-from phase162_validated_proof_presentation import (
-    build_validated_backward_proof_presentation,
-    render_validated_backward_proof_markdown,
-)
+from toda_group_proof_presentation import build_toda_group_proof_presentation
+from toda_group_proof_narrative_renderer import render_toda_group_proof_narrative_markdown
 from phase162_web_narrative_integration import _phase162_ehp_leaves
 from phase164_r4_r1_source_crosswalk import audit_current_repository
 from phase164_r4_r8_registry_reconstruction import (
@@ -19,7 +17,6 @@ from proof import ProofRule, apply_inference_match, find_inference_matches_for_r
 from proof_repository import ProofRepositoryEntry
 from toda_group_result import TodaGroupResult
 from toda_group_result_proof_replay import build_toda_group_result_proof_replay
-from toda_human_readable_renderer import render_toda_public_group_relation_latex
 from toda_rules import toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule
 
 
@@ -96,24 +93,10 @@ def build_phase164_r5_web_pi5_3_proof(*, max_depth: int = 2):
     if replay.root_step is not group_step:
         raise ValueError("replay did not preserve the registry-backed group root")
 
-    presentation = build_validated_backward_proof_presentation(fixed.validated)
-    narrative = render_validated_backward_proof_markdown(presentation)
-    if not narrative or "## 証明" not in narrative or "□" not in narrative:
-        raise ValueError("R4-R8 narrative unavailable")
-    conclusion = render_toda_public_group_relation_latex(goal)
-    if not conclusion:
-        raise ValueError("group relation cannot be rendered")
-    head, marker, tail = narrative.rpartition("□")
-    if not marker or tail.strip():
-        raise ValueError("unexpected end of validated map proof")
-    narrative = (
-        head.rstrip()
-        + "\n\n### 群構造\n\n"
-        + "既存の (5.2) に基づく $\\pi_{4}^{2}$ の群構造と, "
-        + "生成元の Suspension（懸垂）に関する内部導出を用いる.\n\n"
-        + "同型 $E$ と生成元の対応から,\n\n"
-        + f"${conclusion}$.\n\n□\n"
-    )
-    if narrative.count("## 証明") != 1 or narrative.count("□") != 1:
-        raise ValueError("invalid final group narrative")
+    # Render the actual group-root proof through the shared pipeline.
+    # No pi_5^3-specific sentences or concatenated markdown are permitted.
+    presentation = build_toda_group_proof_presentation(replay)
+    narrative = render_toda_group_proof_narrative_markdown(presentation)
+    if not narrative or "## 証明" not in narrative:
+        raise ValueError("common group narrative unavailable")
     return replay, narrative

@@ -876,12 +876,11 @@ def build_standard_web_group_proof_view(
   if report.status is TodaCalculationStatus.MULTIPLE_RESULTS:
     raise ValueError("group proof requires exactly one result")
   group_result = report.candidates[0].source_candidate.group_result
-  registry_narrative = None
   if n == 3 and k == 2 and mode == "narrative":
     from phase164_r5_web_registry_connection import (
       build_phase164_r5_web_pi5_3_proof,
     )
-    replay, registry_narrative = build_phase164_r5_web_pi5_3_proof(
+    replay, _common_markdown = build_phase164_r5_web_pi5_3_proof(
       max_depth=max_depth,
     )
   else:
@@ -913,13 +912,10 @@ def build_standard_web_group_proof_view(
 
   rendered_lines = ()
   if mode != "trace":
+    presentation = build_toda_group_proof_presentation(replay)
     if mode == "outline":
-      presentation = build_toda_group_proof_presentation(replay)
       markdown = render_toda_group_proof_outline_markdown(presentation)
-    elif registry_narrative is not None:
-      markdown = registry_narrative
     else:
-      presentation = build_toda_group_proof_presentation(replay)
       markdown = render_toda_group_proof_narrative_markdown(presentation)
     rendered_lines = _build_group_proof_rendered_lines(markdown)
 
