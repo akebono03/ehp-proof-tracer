@@ -1,0 +1,1 @@
+Runner-only fix2: restores full tests/test_phase165_r9_production_wiring.py path in Copy-Item, py_compile, pytest. Validates source paths before installing. The R9 original ZIP must already be extracted. No Python changes.
