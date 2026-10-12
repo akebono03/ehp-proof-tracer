@@ -1,0 +1,2962 @@
+﻿r48_index,chapter,source_file,source_line,proposed_role,r73_individually_reviewed,proposed_owner_context,proposal_rationale,excerpt_sha256,excerpt,context
+73,1,Toda_01_corrected.tex,1109,EXISTING_REFERENCE_COMPONENT,False,,coextension の代表写像に課した条件式。既存 Reference の本文に含める。,19ff022ebcd21935afa9cbf6534a0433a105ee2a548a2eb632787322aeb65aea,"\[
+h(d_W(w, t)) \left\{
+\begin{array}{ll}
+= d'_X(c(w), 1-2t), & 0 \leq t \leq \frac{1}{2}, \\
+\in Y, & \frac{1}{2} \leq t \leq 1. \\
+\end{array}\right.
+\]","1106: に対して, \(\widetilde{\gamma}\) を表す写像 
+1107: \(h:EW\to Y\cup_\beta CX\)
+1108: が, 次の条件を満たすとする.
+1109: \[
+1110: h(d_W(w, t)) \left\{
+1111: \begin{array}{ll}
+1112: = d'_X(c(w), 1-2t), & 0 \leq t \leq \frac{1}{2}, \\
+1113: \in Y, & \frac{1}{2} \leq t \leq 1. \\
+1114: \end{array}\right."
+275,5,Toda_05_2(6).tex,571,EXISTING_REFERENCE_COMPONENT,False,,ν₄ の場合分けによる定義式。既存 Reference の本文に含める。,a8079bf1e5a958012e36b4c7c3bf0c2cb447b1830d78e88d2eb69426c8888174,"\[
+\nu_{4}:=
+\begin{cases}
+\alpha^{\ast}-(-1)^{u}\,s[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=E^{2}\nu'),\\[1mm]
+-\alpha^{\ast}+(-1)^{u}(s+1)[\iota_4,\iota_4] 
+& (\text{if } 2E\alpha^{\ast}=-E^{2}\nu').
+\en","568: \(H[\iota_4,\iota_4]=(-1)^u 2\iota_7\) とし, 
+569: \(\nu_4\) を次で定義する. 
+570: (\([\iota_4,\iota_4]\) は Whitehead product)
+571: \[
+572: \nu_{4}:=
+573: \begin{cases}
+574: \alpha^{\ast}-(-1)^{u}\,s[\iota_4,\iota_4] 
+575: & (\text{if } 2E\alpha^{\ast}=E^{2}\nu'),\\[1mm]
+576: -\alpha^{\ast}+(-1)^{u}(s+1)[\iota_4,\iota_4] "
+5,1,Toda_01_corrected.tex,173,ADJACENT_DEFINITION_EXTENSION,False,,f* と g* の定義。合成の定義の直後に連続し、出典境界の拡張を確認する。,fad044faff1f7471e8b2602d2745df33f7a573ea781535f6375a2acbdc2d05fa,"\[
+f^*:[Y,Z]\to[X,Z],\quad g_*:[X,Y]\to[X,Z].
+\]","170: と書き, \(\alpha\) と \(\beta\) の合成 (composition) という.\\
+171: 式 \(\beta\circ \alpha = f^*(\beta) = g_*(\alpha)\)
+172: は, 次の写像を定義する.
+173: \[
+174: f^*:[Y,Z]\to[X,Z],\quad g_*:[X,Y]\to[X,Z].
+175: \]
+176: \[
+177: f^*(\beta)=[g\circ f],\qquad g_*(\alpha)=[g\circ f]
+178: \]"
+21,1,Toda_01_corrected.tex,336,SEPARATE_DEFINITION_CANDIDATE,False,,懸垂写像 Ef の作用式。次の加法・逆元の定義と混同しない。,ee94720f7df4d578cbfce9758da5a0fbe20bf642fe184c2d82a1823de3d061f4,"\[
+\Ex f(d_X(x, t)) = 
+d_Y(f(x), t),\quad x\in X,\quad t \in I.
+\]","333: 写像 $f:(X,x_0)\to(Y,y_0)$ に対し, 
+334: その suspension $\Ex f:\Ex X\to \Ex Y$ はまた,
+335: 次によっても定められる.
+336: \[
+337: \Ex f(d_X(x, t)) = 
+338: d_Y(f(x), t),\quad x\in X,\quad t \in I.
+339: \]
+340: 
+341: ホモトピー集合 \([EX, Y]\) を考える.\\"
+40,1,Toda_01_corrected.tex,545,SEPARATE_DEFINITION_CANDIDATE,False,,集合の合成 A∘B の記法の導入。secondary composition の定義とは別の概念。,d38564efce06cf725d6b3173d547d80a8dfb53e423416f5d5016a35d802d52e4,"\[
+A\circ B=\{\ \alpha\circ\beta\mid \alpha\in A,\ \beta\in B\ \}
+\]","542: 
+543: ここで, 以下の記法を用いる. 
+544: $A\subset[Y, Z]$, $B\subset[X, Y]$ に対し,
+545: \[
+546: A\circ B=\{\ \alpha\circ\beta\mid \alpha\in A,\ \beta\in B\ \}
+547: \]
+548: と書く. また, $A_1,A_2\subset[\Ex X, Y]$ に対し,
+549: \[
+550: A_1+A_2=\{\ \alpha_1+\alpha_2\mid \alpha_i\in A_i\ \}"
+63,1,Toda_01_corrected.tex,884,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,False,,証明途中で使う自己同相 σ の具体式。恒久的定義としての独立登録は保留。,9a8ae53e684efeb61f76101f76cd61b70a05560c8e36e010b5d35aad3f709b6a,"\[
+\sigma(\phi_{V,S^{n+1}}(v,\psi_{n+1}(t_{1},\cdots,t_{n},t))) :=
+\phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})).
+\]","881: \]
+882: \(\sigma:\Ex^{n+1}V\to\Ex^{n+1}V \notag\)
+883: を, 次で定義される同相写像とする.
+884: \[
+885: \sigma(\phi_{V,S^{n+1}}(v,\psi_{n+1}(t_{1},\cdots,t_{n},t))) :=
+886: \phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})).
+887: \]
+888: また, 写像 \(K:EV\to Y\) を次で定義する.
+889: \["
+70,1,Toda_01_corrected.tex,1056,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,False,,H と H′ から証明中に構成する H′′。一般 Definition にしない。,4e489fba1c816726386e17531747ab1a002c55f1fb16eafb7de30ed0a0329754,"\[
+H''(\phi(w,\psi_2(s, t))) :=
+\begin{cases}
+H(\phi(w, \psi_2(2s, t))), & 0\le s\le \tfrac12,\\
+H'(\phi(w, \psi_2(2s-1, t))), & \tfrac12\le s\le 1.
+\end{cases}
+\]","1053: 任意の \(H_0:(E^{n+1}W,w_0)\to(Z,z_0)\) に対して,
+1054: \([H_0\circ\sigma] = -[H_0]\) である.\\
+1055: $H'':(E^{n+1}W,w_0)\to(Z,z_0)$ を, 次で定義する.
+1056: \[
+1057: H''(\phi(w,\psi_2(s, t))) :=
+1058: \begin{cases}
+1059: H(\phi(w, \psi_2(2s, t))), & 0\le s\le \tfrac12,\\
+1060: H'(\phi(w, \psi_2(2s-1, t))), & \tfrac12\le s\le 1.
+1061: \end{cases}"
+102,2,Toda_02_2(2).tex,198,SEPARATE_DEFINITION_CANDIDATE,False,,(f)_t の点ごとの定義式。直前の写像の域・値域と合わせて扱う。,119618733b091665eb437992f1427f175f3abde25d66d0f9ec1d94057f9e17e8,"\[
+(f)_t(y_1\ldots y_t):=f(y_1)\ldots f(y_t)
+\]","195: (f)_t:\ (S^q)_t\longrightarrow(S^m)_t,\qquad (t=1,2,\ldots,\infty)
+196: \]
+197: を
+198: \[
+199: (f)_t(y_1\ldots y_t):=f(y_1)\ldots f(y_t)
+200: \]
+201: で定める. 明らかに $s\le t$ ならば $(f)_s=(f)_t\ |_{(S^q)_s}$ が成り立つ. 
+202: 
+203: 標準的な埋め込み $i:S^m\into\Omega S^{m+1}$ は,"
+109,2,Toda_02_2(2).tex,329,SEPARATE_DEFINITION_CANDIDATE,False,,combinatorial extension h の定義式。写像と係数の条件を一体で扱う。,3bfd845aed4fcd7fff736442ce26401b05c5745974cb7d62de4ff68a8c9cb3a4,"\[
+h(x_1\ldots x_t)\ 
+:=\ \prod_{\sigma}\ h'\!\bigl(x_{\sigma(1)}\cdots x_{\sigma(k)}\bigr),
+\]","326: h:\ (S^m)_\infty\ \longrightarrow\ (S^{km})_\infty
+327: \]
+328: は, 次式で定義される：
+329: \[
+330: h(x_1\ldots x_t)\ 
+331: :=\ \prod_{\sigma}\ h'\!\bigl(x_{\sigma(1)}\cdots x_{\sigma(k)}\bigr),
+332: \]
+333: ここで, $\sigma$ は, 
+334: $\{1,2,\ldots,k\}$ を, $\{1,2,\ldots,t\}$ へ, "
+125,2,Toda_02_2(2).tex,649,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,False,,mapping track X の具体的構成。後続の Serre fibration の議論に依存する。,43190e9c7cb502d144a190955c675e4dffdd01fabd47f84069154bd455224992,"\[
+X := \gen{(\ell, x)\in Map(I, (S^{pm})_{\infty})\times (S^m)_{\infty}\ 
+|\ \ell(1) = h(x)};\
+h \text{ の mapping track} .
+\]","646: \end{paracol}
+647: 
+648: \begin{paracol}{2}
+649: \[
+650: X := \gen{(\ell, x)\in Map(I, (S^{pm})_{\infty})\times (S^m)_{\infty}\ 
+651: |\ \ell(1) = h(x)};\
+652: h \text{ の mapping track} .
+653: \]
+654: \["
+126,2,Toda_02_2(2).tex,654,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,False,,mapping track の射影 p の具体的構成。後続の fibration 性質とは別。,563297fca1916e175c2b857a63dd5e61ad1911a6cdfd319c3f05218669091636,"\[
+p:X\longrightarrow (S^{pm})_\infty,\qquad 
+p(\ell,x):=\ell(1)=h(x),
+\]","651: |\ \ell(1) = h(x)};\
+652: h \text{ の mapping track} .
+653: \]
+654: \[
+655: p:X\longrightarrow (S^{pm})_\infty,\qquad 
+656: p(\ell,x):=\ell(1)=h(x),
+657: \]
+658: と定義すると, $(X,p,(S^{pm})_\infty)$ は Serre の意味での fibration になる [13]. \\
+659: この fibration に付随するスペクトル列 $\{E_r^{s,t}\}$ を考える. "
+3,1,Toda_01_corrected.tex,119,DEFINITION_COMPONENT,True,Chapter 1 sphere parametrization,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,93e8df5be0e3147f1e3156d1c0de9e835c961ebb175972db29c49503848c68e7,"\[
+\psi_{n+1}(t_{1},\cdots,t_{n},\frac{1}{2})=
+i(\psi_{n}(t_{1},\cdots,t_{n})).
+\]","116: を,
+117: \(i(s_{0},\cdots,s_{n}) := (s_{0},\cdots,s_{n},0)\)
+118: で定義するとき,
+119: \[
+120: \psi_{n+1}(t_{1},\cdots,t_{n},\frac{1}{2})=
+121: i(\psi_{n}(t_{1},\cdots,t_{n})).
+122: \]
+123: \(\psi_{n}(t_{1},\cdots,t_{n})=(s_{0},\cdots,s_{n})\)
+124: と置く.\\"
+9,1,Toda_01_corrected.tex,191,DEFINITION_COMPONENT,True,smash product definition,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,e31cb80bda1acdf14ca1b277d4afff69f923df3ca45c4c5fe5d2d85d2ff04b5f,"\[
+A\vee B=\bigl(A\times\{b_0\}\bigr)\cup\bigl(\{a_0\}\times B\bigr)
+\]","188: 
+189: 二つの基点付き空間 $(A,a_0)$ と $(B,b_0)$ の \emph{reduced join} を, 
+190: $A\ \wedge\ B$ と書き, 積 $A\times B$ の部分集合
+191: \[
+192: A\vee B=\bigl(A\times\{b_0\}\bigr)\cup\bigl(\{a_0\}\times B\bigr)
+193: \]
+194: を, 一点につぶす (shrinking) ことにより得られる空間とする. 
+195: 縮約写像 (shrinking map) を,
+196: \["
+10,1,Toda_01_corrected.tex,196,DEFINITION_COMPONENT,True,smash product definition,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,26ed08108325647343d65c50c261c88d3c294bafe64d859fa037038991dd6c02,"\[
+\shrink_{A,B}:A\times B\longrightarrow
+A\times B/A\vee B = A\ \wedge\ B
+\]","193: \]
+194: を, 一点につぶす (shrinking) ことにより得られる空間とする. 
+195: 縮約写像 (shrinking map) を,
+196: \[
+197: \shrink_{A,B}:A\times B\longrightarrow
+198: A\times B/A\vee B = A\ \wedge\ B
+199: \]
+200: で表す. 3つの空間 $A,B,C$ に対して, 次の自然な同相がある.
+201: \["
+11,1,Toda_01_corrected.tex,201,UNNUMBERED_ASSERTION_CANDIDATE,False,,smash product の結合性を表す自然同相。,0ed55ac7335c64b94dcb275bed17edfce7998ed7291af5456513efe24f1402b8,"\[
+(A\ \wedge\ B)\ \wedge\ C\ \cong\ A\ \wedge\ (B\ \wedge\ C),
+\]","198: A\times B/A\vee B = A\ \wedge\ B
+199: \]
+200: で表す. 3つの空間 $A,B,C$ に対して, 次の自然な同相がある.
+201: \[
+202: (A\ \wedge\ B)\ \wedge\ C\ \cong\ A\ \wedge\ (B\ \wedge\ C),
+203: \]
+204: \[
+205: \phi_{A\wedge B, C}(\phi_{A,B}(a,b),c)\longleftrightarrow
+206: \phi_{A,B\wedge C}(a, \phi_{B,C}(b,c))."
+13,1,Toda_01_corrected.tex,218,DEFINITION_COMPONENT,True,sphere smash identification,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,d0c63b11f8c4ff7a98235b31f9e0d43ba7c49c03207cf6ed6eb5e90ff88700d7,"\[
+\shrink_{m,n}\bigl(\psi_m(x),\,\psi_n(y)\bigr)=\psi_{m+n}(x,y)
+\]","215: 
+216: \end{equation}
+217: と書く. $(x,y)\in I^m\times I^n=I^{m+n}$ に対して,
+218: \[
+219: \shrink_{m,n}\bigl(\psi_m(x),\,\psi_n(y)\bigr)=\psi_{m+n}(x,y)
+220: \]
+221: で定める.
+222: さらに原本の球面の reduced join の同一視に関して, 次の関係が成り立つ.
+223: \["
+14,1,Toda_01_corrected.tex,223,UNNUMBERED_ASSERTION_CANDIDATE,True,smash identification associativity,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,9b8928ea5e97c6ddd8841e1d102e5c4942ebda40acf74b94acd08617f57a482a,"\[
+\shrink_{m+n,p}\bigl(\shrink_{m,n}(a,b),c\bigr)
+=\shrink_{m,n+p}\bigl(a,\shrink_{n,p}(b,c)\bigr),
+\quad (a,b,c)\in S^m\times S^n\times S^p.
+\]","220: \]
+221: で定める.
+222: さらに原本の球面の reduced join の同一視に関して, 次の関係が成り立つ.
+223: \[
+224: \shrink_{m+n,p}\bigl(\shrink_{m,n}(a,b),c\bigr)
+225: =\shrink_{m,n+p}\bigl(a,\shrink_{n,p}(b,c)\bigr),
+226: \quad (a,b,c)\in S^m\times S^n\times S^p.
+227: \]
+228: 写像"
+16,1,Toda_01_corrected.tex,234,DEFINITION_COMPONENT,True,smash product on maps,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,d020195443c285e0fadd524f28325d9da9c2329ad276245f54bec30f28e0c0bf,"\[
+f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B'
+\]","231: \]
+232: は基点を保存し, $f(a_0)=a'_0$, $g(b_0)=b'_0$ を満たすものとする.
+233: このとき, reduced join
+234: \[
+235: f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B'
+236: \]
+237: を, 次により自然に定める.
+238: \[
+239: (f\wedge g)\circ \phi_{A,B} = \phi_{A',B'}\circ (f\times g)."
+17,1,Toda_01_corrected.tex,238,DEFINITION_COMPONENT,True,smash product on maps,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,8547d3dca5220f9caf30cce198c8d12527bba3e5ad39f6f2d7cf867b1d7cfdef,"\[
+(f\wedge g)\circ \phi_{A,B} = \phi_{A',B'}\circ (f\times g).
+\]","235: f\ \wedge \ g:\ A\ \wedge\ B\ \longrightarrow\ A'\ \wedge\ B'
+236: \]
+237: を, 次により自然に定める.
+238: \[
+239: (f\wedge g)\circ \phi_{A,B} = \phi_{A',B'}\circ (f\times g).
+240: \]
+241: 次が成り立つ：
+242: \begin{equation}
+243: "
+19,1,Toda_01_corrected.tex,294,DEFINITION_COMPONENT,True,iterated suspension of a map,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,b9c7ec306556b6be9bfa348e56710eb10f9d32093d158b657802659fa823f1be,"\[
+\Ex^n f:\ \Ex^n X\longrightarrow \Ex^n Y,\quad
+(Ef = E^1 f)
+\]","291: \(E^n(E^m X) = E^{m+n} X\) を得る.
+292: 
+293: 写像 $f:X\to Y$ に対し, その $n$–重 suspension
+294: \[
+295: \Ex^n f:\ \Ex^n X\longrightarrow \Ex^n Y,\quad
+296: (Ef = E^1 f)
+297: \]
+298: を, $f\ \wedge\ \id_{S^n}$ により定める. これにより,
+299: \("
+25,1,Toda_01_corrected.tex,364,UNNUMBERED_ASSERTION_CANDIDATE,False,,X が局所コンパクトなときの自然同型。適用条件の保持が必要。,7e35d7e64d48e9b8db36c66fe5f1b4f265bbc1467fb38da33150204d17fcdfde,"\[
+[\Ex X,Y]\cong \pi_1\bigl(Y^X_{0}\bigr).
+\]","361: 実際, 
+362: \(X\) が locally compact のとき,
+363: これらは自然に同型となる.
+364: \[
+365: [\Ex X,Y]\cong \pi_1\bigl(Y^X_{0}\bigr).
+366: \]
+367: 次の事は容易に得られる.
+368: 写像 $f:Y\to Z$ と $g:W\to X$ に対して, 次は準同型である.
+369: \begin{equation}"
+28,1,Toda_01_corrected.tex,404,DEFINITION_COMPONENT,True,loop space induced map,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,6490cf82ed2aaa09e69fd5240dc2a762488ca1d14fb04f311dae71a85a131bc1,"\[
+\Ox f:\ \Ox X\longrightarrow \Ox Y,\qquad
+(\Ox f(\ell))(t)=f(\ell(t)),\ \ \ell\in\Ox X,\ t\in I
+\]","401: 
+402: $\Ox Y=\{\ \ell:(I,\partial I)\to (Y,y_0)\ \}$ を, 
+403: $Y$ の loop 空間とする. 写像 $f:X\to Y$ に対し,
+404: \[
+405: \Ox f:\ \Ox X\longrightarrow \Ox Y,\qquad
+406: (\Ox f(\ell))(t)=f(\ell(t)),\ \ \ell\in\Ox X,\ t\in I
+407: \]
+408: で定める. もし, $f\simeq g$ なら, $\Ox f\simeq \Ox g$ であり, したがって,
+409: \["
+29,1,Toda_01_corrected.tex,409,DEFINITION_COMPONENT,True,loop space induced map,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,e2bff64a2829326302ba25e732a0980bfa45ad0a3ce645321b7ac01a5c4aa3d9,"\[
+\Ox:\ [X,Y]\longrightarrow [\Ox X,\Ox Y],\qquad
+\Omega [f] = [\Ox f]
+\]","406: (\Ox f(\ell))(t)=f(\ell(t)),\ \ \ell\in\Ox X,\ t\in I
+407: \]
+408: で定める. もし, $f\simeq g$ なら, $\Ox f\simeq \Ox g$ であり, したがって,
+409: \[
+410: \Ox:\ [X,Y]\longrightarrow [\Ox X,\Ox Y],\qquad
+411: \Omega [f] = [\Ox f]
+412: \]
+413: が得られる. 明らかに, 
+414: $\Ox(g\circ f)=\Ox g\circ \Ox f$, および,"
+30,1,Toda_01_corrected.tex,415,UNNUMBERED_ASSERTION_CANDIDATE,False,,ループ空間の操作が合成を保つという一般的関係。,582a54e28264019d479aab7eee6b6fb18fadeb3461f322451353f16bc83d041b,"\[
+\Ox(\beta\circ\alpha)=\Ox\beta\circ \Ox\alpha
+\]","412: \]
+413: が得られる. 明らかに, 
+414: $\Ox(g\circ f)=\Ox g\circ \Ox f$, および,
+415: \[
+416: \Ox(\beta\circ\alpha)=\Ox\beta\circ \Ox\alpha
+417: \]
+418: が成り立つ. 
+419: 
+420: $EX$ の loop 空間 $\Ox EX$ を考える. 各 $x\in X$ に対し,"
+31,1,Toda_01_corrected.tex,422,DEFINITION_COMPONENT,True,canonical inclusion,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,44608491c43326814b555dcf54b33f6921c4211ac964f63a3e5779436a8fb6e9,"\[
+i(x)(t) = d_X(x,t)\qquad (t\in I).
+\]","419: 
+420: $EX$ の loop 空間 $\Ox EX$ を考える. 各 $x\in X$ に対し,
+421: \(EX\) の loop \(i(x)\) を次で定める.
+422: \[
+423: i(x)(t) = d_X(x,t)\qquad (t\in I).
+424: \]
+425: このとき, 次の包含写像が得られる.
+426: \[
+427: i:X\to \Ox EX."
+32,1,Toda_01_corrected.tex,426,DEFINITION_COMPONENT,True,canonical inclusion,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,710e205133b2afea4fe7fd38d4173f83d618a21d75418379755616b8f32e0549,"\[
+i:X\to \Ox EX.
+\]","423: i(x)(t) = d_X(x,t)\qquad (t\in I).
+424: \]
+425: このとき, 次の包含写像が得られる.
+426: \[
+427: i:X\to \Ox EX.
+428: \]
+429: これを, \emph{canonical injection} と呼ぶ. 
+430: 任意の $f:X\to Y$ に対して, 次の図式は可換である：
+431: \begin{equation}\label{eq:loop-susp-comm}"
+33,1,Toda_01_corrected.tex,446,DEFINITION_COMPONENT,True,loop-suspension adjunction,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,c372a853e3a37a0fdf7b6fb8ecff7823c8d9a6aa34166c3835ffee7e1188af8a,"\[
+\Omega_0F=
+\Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y
+\]","443: \end{equation}
+444: 
+445: $F:EX\to Y$ に対して,
+446: \[
+447: \Omega_0F=
+448: \Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y
+449: \]
+450: と書く. これは
+451: \["
+34,1,Toda_01_corrected.tex,451,DEFINITION_COMPONENT,True,loop-suspension adjunction,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,a295b863a4f8eb52766217b67c8768bea03ff50079f5480ed9439a65a073bef1,"\[
+\Omega_0F(x)(t) = F(d_X(x,t))
+\]","448: \Ox F\circ i:\ X\xrightarrow{\ i\ }\Ox EX\xrightarrow{\ \Ox F\ }\Ox Y
+449: \]
+450: と書く. これは
+451: \[
+452: \Omega_0F(x)(t) = F(d_X(x,t))
+453: \]
+454: で直接に与えられる. \\
+455: 対応 $F\longmapsto \Omega_0F$ は,
+456: $\map(EX,Y), \map(X,\Omega Y)$ のコンパクト部分集合"
+37,1,Toda_01_corrected.tex,514,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,707af62474b005ee5a2631f9f6b866787af2a46e082b43917de41752b9d92073,"\[
+A_0=a\circ \Ex^n b,\quad A_1(\Ex^n X)=z_0,\qquad
+B_0=b\circ c,\quad B_1(W)=y_0.
+\]","511: B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1)
+512: \]
+513: で, 次を満たすものが存在する. 
+514: \[
+515: A_0=a\circ \Ex^n b,\quad A_1(\Ex^n X)=z_0,\qquad
+516: B_0=b\circ c,\quad B_1(W)=y_0.
+517: \]
+518: 写像 $H:\ (\Ex^{n+1}W,w_0)\to (Z,z_0)$ を, 次で定める. 
+519: \begin{equation}\label{eq:H-def}"
+41,1,Toda_01_corrected.tex,549,SEPARATE_DEFINITION_CANDIDATE,False,,部分集合の和 A₁+A₂ の記法。A∘B と同一 Reference とするか出典文脈要確認。,6503016f0d7bc5c4bbeb1785a4829cf91a39eda74faacc27336bed5fe75dfeb4,"\[
+A_1+A_2=\{\ \alpha_1+\alpha_2\mid \alpha_i\in A_i\ \}
+\]","546: A\circ B=\{\ \alpha\circ\beta\mid \alpha\in A,\ \beta\in B\ \}
+547: \]
+548: と書く. また, $A_1,A_2\subset[\Ex X, Y]$ に対し,
+549: \[
+550: A_1+A_2=\{\ \alpha_1+\alpha_2\mid \alpha_i\in A_i\ \}
+551: \]
+552: とする. 
+553: 
+554: \begin{lemma}\label{lem:double-coset}"
+42,1,Toda_01_corrected.tex,585,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,f7b608daed3bbab62b9767c1bc2ee36a83e166260f3009ca804c86fb3a932f85,"\[
+F:(\Ex^{n+1}X,x_0)\to (Z,z_0), \quad
+G:(\Ex W,w_0)\to (Y,y_0)
+\]","582: 別の null-homotopy $A'_t,\ B'_t$ を用いて定義されたものとする.
+583: \newpage
+584: 
+585: \[
+586: F:(\Ex^{n+1}X,x_0)\to (Z,z_0), \quad
+587: G:(\Ex W,w_0)\to (Y,y_0)
+588: \]
+589: を, 次で定義する.
+590: \["
+43,1,Toda_01_corrected.tex,590,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,679f78c281685f5a59891eaffeae571318d5bbe711f47d30768730c7ca669159,"\[
+F(d_{E^{n}Z}(x,t))\equiv\left\{
+\begin{array}{ll}
+A_{2t-1}(x), & \frac{1}{2} \leq t \leq 1, \\
+A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\
+\end{array}\right.
+\]","587: G:(\Ex W,w_0)\to (Y,y_0)
+588: \]
+589: を, 次で定義する.
+590: \[
+591: F(d_{E^{n}Z}(x,t))\equiv\left\{
+592: \begin{array}{ll}
+593: A_{2t-1}(x), & \frac{1}{2} \leq t \leq 1, \\
+594: A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\
+595: \end{array}\right."
+52,1,Toda_01_corrected.tex,661,PROOF_INTERNAL_CANDIDATE,False,,異なる null-homotopy による H と H′ の比較に現れる証明内関係式。,ee8805d89b3510ff4346d16ad5a14af49b83d39e802f2be512d5798dce0884c3,"\[
+H'\ \simeq\ F'\circ \Ex^{n+1}c\ +\ (H+a\circ \Ex^n G').
+\]","658: \(a\circ E^n b,\ b\circ c\) の null homotopy が得られる.\\
+659: この \(A'_t,\ B'_t\) を用いて, $H'$ を作ると,
+660: 次が成り立つ.
+661: \[
+662: H'\ \simeq\ F'\circ \Ex^{n+1}c\ +\ (H+a\circ \Ex^n G').
+663: \]
+664: よって,
+665: \([H]\)
+666: の同じ double coset に属する任意の元は,"
+55,1,Toda_01_corrected.tex,787,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,6eca124b0a268c3f1de2a8caee38501d2c248b3c0c8b950aba4453b83778abac,"\[
+d_{ER}(d_R(w,s),t) = \phi(w, \psi_2(s, t)).
+\]","784: \(E^2 R\) を定義する等化写像
+785: \(\phi:R\times S^2\to R\wedge S^2 = E^2 R\)
+786: に対して,
+787: \[
+788: d_{ER}(d_R(w,s),t) = \phi(w, \psi_2(s, t)).
+789: \]
+790: \(\sigma:E^{n+2}W\to E^{n+2}W\)
+791: を, 次で与えられる同相写像とする.
+792: \["
+62,1,Toda_01_corrected.tex,871,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,17429999bf3b6bc6aefa35522d1512452e96a22e9edbc7c090e3bf6857f0f509,"\[
+H_{u}(d_{\Ex^{n}V}(s,t))\equiv\left\{
+\begin{array}{ll}
+A_{1-2t}(\Ex^{n}C_{2u(1-2t)}(s)), &
+0\leq t \leq \frac{1}{2},\ 0\leq u \leq \frac{1}{2}, \\
+A_{(2-2u)(1-2t)}(\Ex^{n}C_{1-2t}(s)), &
+0\leq t \leq \frac{1}{2","868: homotopy
+869: \(H_{u}:(\Ex^{n+1}V,v_0) \longrightarrow (Z,z_0)\)
+870: を, 次で定義する.
+871: \[
+872: H_{u}(d_{\Ex^{n}V}(s,t))\equiv\left\{
+873: \begin{array}{ll}
+874: A_{1-2t}(\Ex^{n}C_{2u(1-2t)}(s)), &
+875: 0\leq t \leq \frac{1}{2},\ 0\leq u \leq \frac{1}{2}, \\
+876: A_{(2-2u)(1-2t)}(\Ex^{n}C_{1-2t}(s)), &"
+64,1,Toda_01_corrected.tex,889,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,6336fedb06e126f1b04636b3dafffecc92314453293d78201f5d57e39403fcc3,"\[
+K(d_{V}(v, t)) = \left\{
+\begin{array}{ll}
+  B_{1-2t}(d(v)),
+  & 0\leq t \leq \frac{1}{2},\\
+  b(C_{2t-1}(v)), 
+  & \frac{1}{2} \leq t \leq 1.  
+\end{array}
+\right.
+\]","886: \phi_{V,S^{n+1}}(v,\psi_{n+1}(1-t,t_{1},\cdots,t_{n})).
+887: \]
+888: また, 写像 \(K:EV\to Y\) を次で定義する.
+889: \[
+890: K(d_{V}(v, t)) = \left\{
+891: \begin{array}{ll}
+892:   B_{1-2t}(d(v)),
+893:   & 0\leq t \leq \frac{1}{2},\\
+894:   b(C_{2t-1}(v)), "
+65,1,Toda_01_corrected.tex,916,PROOF_INTERNAL_CANDIDATE,False,,Prop1.4 の証明を閉じる包含式。既存命題の証明に属する。,57bfb673ca73615c1757b9cf9fda82228176c063095f891a8d357c11b7574412,"\[
+[a\circ E^n K\circ\sigma]
+\in \todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+\]","913: 上のような合成 \(a\circ E^n K\circ \sigma\)
+914: で表される.\\
+915: homotopy \(H_{1-u}\) を使うことにより,
+916: \[
+917: [a\circ E^n K\circ\sigma]
+918: \in \todai[n]{\alpha, E^n\beta, E^n\gamma}\circ E^{n+1}\delta
+919: \]
+920: が示される.
+921: 以上で, Prop1.4 の証明が完了した."
+75,1,Toda_01_corrected.tex,1155,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,d77366cf4995d0d71cccabd35c33a7c0ea0c99e55463234590fb48975c54264b,"\[
+h\bigl(d_W(w,t)\bigr)=
+\begin{cases}
+d'_X(c(w),1-2t), & 0\le t\le \tfrac12,\\
+B_{2t-1}(w), & \tfrac12\le t\le 1.
+\end{cases}
+\]","1152: \(B_t\) を \(b\circ c\) の null-homotopy とする.\\
+1153: $h:EW\to Y\cup_f CX$ を,
+1154: 次で定める.
+1155: \[
+1156: h\bigl(d_W(w,t)\bigr)=
+1157: \begin{cases}
+1158: d'_X(c(w),1-2t), & 0\le t\le \tfrac12,\\
+1159: B_{2t-1}(w), & \tfrac12\le t\le 1.
+1160: \end{cases}"
+77,1,Toda_01_corrected.tex,1230,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,ab7d4c89f23997a5de0da21e5c2e3b3e6750bc70dc6a059c71d61e280c494676,"\[
+p(d'_W(w, t)) = d_W(w, t),\qquad
+p(X) = x_0.
+\]","1227: p:X\cup_\gamma CW\to EW
+1228: \end{equation}
+1229: を, 次で与えらえる写像とする.
+1230: \[
+1231: p(d'_W(w, t)) = d_W(w, t),\qquad
+1232: p(X) = x_0.
+1233: \]
+1234: このとき,
+1235: \(p\) は \(X\) を一点につぶす写像であり, 次が成り立つ."
+94,2,Toda_02_2(2).tex,92,UNNUMBERED_ASSERTION_CANDIDATE,False,,任意の整数 k に対する合成と倍数の関係式。,82a5a8dda69b4062746b7f96866cbe06340e4d2bc59bc911b9203162bbc021e4,"\[
+k(\alpha\circ\beta)=\alpha\circ(k\beta),\qquad
+k(\alpha\circ E\beta)=(k\alpha)\circ E\beta
+\]","89: \end{aligned}
+90: \end{equation}
+91: 特に, 任意の整数 $k$ に対して,
+92: \[
+93: k(\alpha\circ\beta)=\alpha\circ(k\beta),\qquad
+94: k(\alpha\circ E\beta)=(k\alpha)\circ E\beta
+95: \]
+96: が成り立つ. \\
+97: $\alpha\in\pis{p}{S^m}$ と $\beta\in\pis{q}{S^n}$ の \emph{reduced join}"
+95,2,Toda_02_2(2).tex,98,DEFINITION_COMPONENT,True,reduced join definition,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,94570a88e41b3b1ee3b7a8f1403bbdbb0502470001f1f11379fd77f9fc5dd14e,"\[
+\alpha\ \redjoin\ \beta\ \in\ \pis{p+q}{S^{m+n}}
+\]","95: \]
+96: が成り立つ. \\
+97: $\alpha\in\pis{p}{S^m}$ と $\beta\in\pis{q}{S^n}$ の \emph{reduced join}
+98: \[
+99: \alpha\ \redjoin\ \beta\ \in\ \pis{p+q}{S^{m+n}}
+100: \]
+101: は, 第1章で導入した (1.3) の特別な写像 
+102: $\phi_{p,q}$ と $\phi_{m,n}$ を用いて定義される. \\
+103: 特に, $E^n$ の定義から次が成り立つ. "
+96,2,Toda_02_2(2).tex,104,UNNUMBERED_ASSERTION_CANDIDATE,False,,Eⁿα と reduced join の一般的な関係式。,3a3e88a876f5a758046ef15f54bb4d3420780fc721aebce073e18f68ab1582c4,"\[
+E^n\alpha=\alpha\ \redjoin\ \iota_n
+\]","101: は, 第1章で導入した (1.3) の特別な写像 
+102: $\phi_{p,q}$ と $\phi_{m,n}$ を用いて定義される. \\
+103: 特に, $E^n$ の定義から次が成り立つ. 
+104: \[
+105: E^n\alpha=\alpha\ \redjoin\ \iota_n
+106: \]
+107: また \emph{secondary composition}
+108: \[
+109: \todai[n]{\alpha,\ E^n\beta,\ E^n\gamma}"
+103,2,Toda_02_2(2).tex,211,DEFINITION_COMPONENT,True,canonical embedding,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,433a793f5c8b9d8e7abb935b1e7b0ca93897054b5f2e4e8239406405d7937697,"\[
+i:\ (S^m)_\infty\longrightarrow\Omega S^{m+1}
+\]","208: \(t\) 個の loop $i(x_1),\ldots,i(x_t)$ の適切に重み付けした和で表される\\
+209: \(S^{m+1}\) の loop を対応させる.
+210: 得られる写像は単射であり, 
+211: \[
+212: i:\ (S^m)_\infty\longrightarrow\Omega S^{m+1}
+213: \]
+214: と書き, これも「標準 (canonical) 埋め込み」と呼ぶ. 
+215: 
+216: 次の図式は homotopy 的に可換である："
+106,2,Toda_02_2(2).tex,292,DEFINITION_COMPONENT,True,James-Hopf map,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,3aad21d3939c09921f92e4718590ec917ca004f875063f9f56e9324fee3c1ee1,"\[
+h'_m:\ \bigl((S^m)_2, S^m\bigr)\ \to\ (S^{2m},e_0),
+\]","289: \end{equation}
+290: 
+291: 写像 \(h'_m\) を, 次で定める.
+292: \[
+293: h'_m:\ \bigl((S^m)_2, S^m\bigr)\ \to\ (S^{2m},e_0),
+294: \]
+295: \[
+296: h'_m(xy)=\phi_{m,m}(x,y)\qquad(x,y\in S^m).
+297: \]"
+110,2,Toda_02_2(2).tex,348,DEPENDENCY_CONTEXT_CANDIDATE,False,,Hopf 準同型の域と値域の表示。直前の定義と合わせる。,0cd7044ba8b23bce2774424d991774ffa22179c007dde2deaeea1d77587c5ef2,"\[
+H:\ \pi_{i+1}(S^{m+1})\ \longrightarrow\ \pi_{i+1}(S^{2m+1})
+\]","345: \end{equation}
+346: で定める. 
+347: 特に, すべての $i$ について準同型,
+348: \[
+349: H:\ \pi_{i+1}(S^{m+1})\ \longrightarrow\ \pi_{i+1}(S^{2m+1})
+350: \]
+351: を得る. 
+352: 
+353: \begin{proposition}\label{prop:2.2}"
+117,2,Toda_02_2(2).tex,457,PROOF_INTERNAL_CANDIDATE,False,,Prop1.7 の適用から得る証明内包含式。,2cf5a7906681e845c8734c0328f8da8991b5c6ef44b576a951b6bd73ed12cd32,"\[
+(-1)^n H(\ext{\alpha})\circ E^n\coext{\gamma}\ \in\
+\{\,H(\alpha),\ E^n\beta,\ E^n\gamma\,\}_n
+\]","454: \]
+455: が従い, $H(\overline\alpha)$ は $H(\alpha)$ の extension である. 
+456: よってProp1.7 を再び用いると,
+457: \[
+458: (-1)^n H(\ext{\alpha})\circ E^n\coext{\gamma}\ \in\
+459: \{\,H(\alpha),\ E^n\beta,\ E^n\gamma\,\}_n
+460: \]
+461: となり, 主張が従う. 
+462: \qed"
+118,2,Toda_02_2(2).tex,509,PROOF_INTERNAL_CANDIDATE,False,,外部定理 [6] を引用する証明中での h* の表示。,033737d325169d3f9e949d82ff32bc09a193a016f0a84b43a9576c1ee87c547d,"\[
+h_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \longrightarrow\ \pi_i\bigl((S^{pm})_\infty\bigr)
+\]","506: \noindent
+507: \textbf{Proof.}\
+508: [6]のTh2 を用いれば, 
+509: \[
+510: h_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \longrightarrow\ \pi_i\bigl((S^{pm})_\infty\bigr)
+511: \]
+512: が, $i<(p+1)m-1$ に対して同型であることが従う. 
+513: 
+514: \switchcolumn"
+119,2,Toda_02_2(2).tex,552,UNNUMBERED_ASSERTION_CANDIDATE,False,,m が奇数の場合のコホモロジー積の関係式。偶数の場合も別 Assertion として確認。,4a27e5f9fb8b548a2abe50e0d037a0344c94c3da75e1eb0e131a9566fa117a1e,"\[
+u_1\,u_{2k}=u_{2k+1},\qquad
+u_{2k}\,u_{2h}=\binom{k+h}{k}\,u_{2(k+h)}.
+\]","549: $H^{km}\bigl((S^m)_\infty\bigr)$ の生成元 $u_k$ を, 
+550: $km$-cell $e^{km}$ に双対な元としてとると, 次が成り立つ：\\
+551: $m$ が奇数のとき, 
+552: \[
+553: u_1\,u_{2k}=u_{2k+1},\qquad
+554: u_{2k}\,u_{2h}=\binom{k+h}{k}\,u_{2(k+h)}.
+555: \]
+556: $m$ が偶数のとき, 
+557: \["
+124,2,Toda_02_2(2).tex,629,UNNUMBERED_ASSERTION_CANDIDATE,True,cohomology decomposition,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,990929a55c85c42c0ad1dd9993e5bd5fa4713a4e3a19714cbe4c6a296268610c,"\[
+h^*H^*\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G\ \cong\
+H^*\!\bigl((S^{m})_\infty;\Lambda\bigr)
+\]","626: 
+627: \noindent
+628: さらに, cup-product に関して,
+629: \[
+630: h^*H^*\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G\ \cong\
+631: H^*\!\bigl((S^{m})_\infty;\Lambda\bigr)
+632: \]
+633: が成り立つ. ここで, $G\subset H^*\!\bigl((S^{m})_\infty;\Lambda\bigr)$ は,\\
+634: 包含 $i:(S^m)_{p-1}\hookrightarrow(S^m)_\infty$ による制限"
+127,2,Toda_02_2(2).tex,661,UNNUMBERED_ASSERTION_CANDIDATE,True,Serre spectral sequence E2,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,2829e0126b4a748ab2ac643eb29dd123c1cfbfe41c0c0b7bfa065560b9a2bfe2,"\[
+E_2^{*}\ \cong\ H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)
+\ \otimes\ H^{*}(F;\Lambda).
+\]","658: と定義すると, $(X,p,(S^{pm})_\infty)$ は Serre の意味での fibration になる [13]. \\
+659: この fibration に付随するスペクトル列 $\{E_r^{s,t}\}$ を考える. 
+660: [13] の主定理により,
+661: \[
+662: E_2^{*}\ \cong\ H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)
+663: \ \otimes\ H^{*}(F;\Lambda).
+664: \]
+665: 
+666: $\ell(I)=h(x)$ となる constant path の組 $(\ell,x)$ は, "
+129,2,Toda_02_2(2).tex,711,PROOF_INTERNAL_CANDIDATE,False,,スペクトル列を用いる推論中の i₁* 同型性。,78bb4e3a4ec9659fa3f7241758961a0464dd91bdec1f52b5b99da6699f886687,"\[
+i_1^*:H^{i}(X;\Lambda)\ \longrightarrow\ H^{i}(F;\Lambda)
+\]","708: \]
+709: $\,i_1:F\hookrightarrow X$ を包含とする. このとき $i_0^*\circ i_1^*$ は $i^*$ に同値である. 
+710: ゆえに,
+711: \[
+712: i_1^*:H^{i}(X;\Lambda)\ \longrightarrow\ H^{i}(F;\Lambda)
+713: \]
+714: は $i<pm$ に対して単射同型である. 
+715: 
+716: "
+133,2,Toda_02_2(2).tex,741,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,03cf2504c22489549fd516686547898b901ce0cbde2941ff810325ac3e56d7fe,"\[
+H^{*}(X;\Lambda)\ \cong\ p^{*}H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G
+\]","738: \]
+739: $E_\infty^{*}$ における $B^{*}\otimes G_0$ の極限を考えると, 
+740: それは,
+741: \[
+742: H^{*}(X;\Lambda)\ \cong\ p^{*}H^{*}\!\bigl((S^{pm})_\infty;\Lambda\bigr)\ \otimes\ G
+743: \]
+744: に付随する graded module である. \\
+745: よって, $B^{*}\otimes G_0 \cong E_\infty^{*}$ かつ,
+746: $H^{*}(X;\Lambda)\otimes G_0$ に module として同型である. \\"
+136,2,Toda_02_2(2).tex,834,UNNUMBERED_ASSERTION_CANDIDATE,True,Whitehead theorem application,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,d6ef49e165ca0a4e831fc1087ba1a8523b3eb2f3b688e187de4f358394f168d8,"\[
+i_{0*}:\ \pi_i\bigl((S^m)_{p-1}\bigr)\ \xrightarrow{}\ \pi_i(F)
+\]","831: \noindent
+832: 一般化された Whitehead の定理 (Serre \cite{Serre1953b}) を, 
+833: 包含 $i_0:(S^m)_{p-1}\hookrightarrow F$ に適用すると, 
+834: \[
+835: i_{0*}:\ \pi_i\bigl((S^m)_{p-1}\bigr)\ \xrightarrow{}\ \pi_i(F)
+836: \]
+837: は, $m$ が奇数, かつ $p=2$ のとき同型であり, 
+838: $m$ が偶数のとき, $p$-primary 成分の同型である. \\
+839: 対 \(((S^m)_\infty,(S^m)_{p-1})\) と \((X,F)\) に付随する"
+137,2,Toda_02_2(2).tex,843,UNNUMBERED_ASSERTION_CANDIDATE,True,five lemma application,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,a6f3d45738fb616f7a317005ba1bf208d712167c3756d1ca2e4e697bdf5ceb2a,"\[
+i_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \xrightarrow{\;\cong\;}\ \pi_i(X,F)
+\]","840: homotopy 群の完全列を, \\
+841: homotopy 同値な包含写像 $(S^m)_\infty\hookrightarrow X$ 
+842: により比較すると, five lemma から, 
+843: \[
+844: i_*:\ \pi_i\bigl((S^m)_\infty,(S^m)_{p-1}\bigr)\ \xrightarrow{\;\cong\;}\ \pi_i(X,F)
+845: \]
+846: は, $m$ が奇数, かつ $p=2$ のとき同型であり, 
+847: $m$ が偶数のとき, $p$-primary 成分の同型である. \\
+848: よって, 図式"
+139,2,Toda_02_2(2).tex,907,DEPENDENCY_CONTEXT_CANDIDATE,False,,直前の Theorem の帰結。既存 Reference への接続を優先確認する。,5378e43bb40f382f8bbfbfc94068aa808855a18ee11f1048724f9d888fc440c4,"\[
+h_{m*}:\ \pi_i\bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \pi_i\bigl((S^{2m})_\infty\bigr)
+\]","904: h_m:\ \bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \bigl((S^{2m})_\infty,\ e_0\bigr)
+905: \]
+906: は, 上のTh の条件を満たす. したがって,
+907: \[
+908: h_{m*}:\ \pi_i\bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \pi_i\bigl((S^{2m})_\infty\bigr)
+909: \]
+910: は, $m$ が奇数なら全ての $i$ で同型, $m$ が偶数なら
+911: 2-primary 成分について全ての $i$ で同型. \\
+912: また, $m$ が偶数で \(i<(3m-1)\) のとき同型である."
+141,2,Toda_02_2(2).tex,1005,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,e139825fb1779eb13bf34c23a736ae0529c7a42890da11817e176029a067a3b0,"\begin{align*}
+\Delta\alpha\circ\beta
+& =\partial\,(h_{m*}^{-1}\Omega_1\alpha)\circ\beta
+=\partial(h_{m*}^{-1}(\Omega_1\alpha)\circ \partial_0^{-1}\beta)\\
+& \subset \partial(h_{m*}^{-1}(\Omega_1(\alpha)\circ E\beta)","1002: \partial_0:\pi_j(CS^{i-1},S^{i-1})\rightarrow \pi_{j-1}(S^{i-1})
+1003: \)
+1004: は同型である. よって,
+1005: \begin{align*}
+1006: \Delta\alpha\circ\beta
+1007: & =\partial\,(h_{m*}^{-1}\Omega_1\alpha)\circ\beta
+1008: =\partial(h_{m*}^{-1}(\Omega_1\alpha)\circ \partial_0^{-1}\beta)\\
+1009: & \subset \partial(h_{m*}^{-1}(\Omega_1(\alpha)\circ E\beta))
+1010: =\partial(h_{m*}^{-1}(\Omega_1(\alpha\circ E^2\beta)))\\"
+148,2,Toda_02_2(2).tex,1289,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,a6508c815250e1df619fd8126094cc4d486c24bc1bbd9cab8bf261a991ee6a9b,"\[
+H\todai[1]{E\alpha,E\beta,E\gamma}\ 
+=\ -\,\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma
+\]","1286: && \text{by (2.11).}
+1287: \end{align*}
+1288: 以上より, 
+1289: \[
+1290: H\todai[1]{E\alpha,E\beta,E\gamma}\ 
+1291: =\ -\,\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma
+1292: \]
+1293: が成り立つ. 
+1294: \qed"
+149,2,Toda_02_2(2).tex,1297,UNNUMBERED_ASSERTION_CANDIDATE,False,,偶数 n における Whitehead square の Hopf 不変量の既知事実。,e8ce57c37140ae707f1440603cd25bf33ca6309ef4040497a5b714efa21f69e6,"\[
+H[\,\iota_n,\ \iota_n\,]\ =\ \pm\,2\,\iota_{2n-1}
+\]","1294: \qed
+1295: 
+1296: 最後に, よく知られている事実として, $n$ が偶数のとき, 
+1297: \[
+1298: H[\,\iota_n,\ \iota_n\,]\ =\ \pm\,2\,\iota_{2n-1}
+1299: \]
+1300: が成り立つ. これとProp \ref{prop:2.5} から直ちに次が成り立つ. 
+1301: 
+1302: \begin{proposition}\label{prop:2.7}"
+155,3,Toda_03_2(2).tex,100,UNNUMBERED_ASSERTION_CANDIDATE,True,permutation sign of suspension,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,0ddb443e2057b02e2ce7904c50326d36a460ff91b63f411d86110c776c454b02,"\[
+\iota_n \wedge \alpha
+= [\sigma_{p,n}] \circ (\alpha \wedge \iota_n) \circ [\sigma_{n,p+k}]
+= (-1)^{pn}\iota_{p+n}\circ E^n\alpha\circ (-1)^{(p+k)n}\iota_{p+k+n}.
+\]","97: \(\sigma_{r,s}\) は, 
+98: $\deg(\sigma_{r,s})=(-1)^{rs}$ の同相写像である. 
+99: 次の関係式が成り立つ.
+100: \[
+101: \iota_n \wedge \alpha
+102: = [\sigma_{p,n}] \circ (\alpha \wedge \iota_n) \circ [\sigma_{n,p+k}]
+103: = (-1)^{pn}\iota_{p+n}\circ E^n\alpha\circ (-1)^{(p+k)n}\iota_{p+k+n}.
+104: \]
+105: (2.1) から,"
+160,3,Toda_03_2(2).tex,185,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,0544679ddd607e418cae6a99078b77ca7ec3667bd1c1225bab171e85791fc41d,"\[
+[\iota_{p+q-1}, \iota_{p+q-1}]\circ E^{2q-2}H(\alpha)\circ E^{p+k-1}H(\beta)
+\]","182: \begin{paracol}{2}
+183: 
+184: Prop2.5 により, 次が成り立つ. 
+185: \[
+186: [\iota_{p+q-1}, \iota_{p+q-1}]\circ E^{2q-2}H(\alpha)\circ E^{p+k-1}H(\beta)
+187: \]
+188: \[
+189: \in \Delta(E^{2q}H(\alpha)\circ E^{p+k+1}H(\beta))
+190: \subset\pi_{p+q+k+h-1}(S^{p+q-1})."
+174,3,Toda_03_2(2).tex,371,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,68fe3d28c6a8b39412d7f2af9a8a94ccf1510185b4c4b794fb82c427fa83798c,"\[
+C'_t\circ(1_{p+h} \wedge b \wedge 1_{r+\ell})
+= (1_p \wedge \sigma_{r,q})\circ(C_t \wedge b)\circ (1_{p+h} \wedge \sigma_{q+k,r+\ell})
+= (1_p \wedge b \wedge 1_r) \circ C''_t.
+\]","368: \]
+369: の null-homotopy である. 
+370: ここで, 次の関係式が成り立つ. 
+371: \[
+372: C'_t\circ(1_{p+h} \wedge b \wedge 1_{r+\ell})
+373: = (1_p \wedge \sigma_{r,q})\circ(C_t \wedge b)\circ (1_{p+h} \wedge \sigma_{q+k,r+\ell})
+374: = (1_p \wedge b \wedge 1_r) \circ C''_t.
+375: \]
+376: \["
+182,3,Toda_03_2(2).tex,404,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,c584909eccc0853bddbfe9970f91c2e47e8ff9b32a8ec7f264e44c13f75128ae,"\[
+\begin{aligned}
+\toda{\alpha\wedge\iota_{q+r},\ \iota_{p+h}\wedge\beta\wedge\iota_r,\ \iota_{p+h+q+k}\wedge\gamma}
+& = (-1)^{\delta+h\ell}\toda{E^{q+r}\alpha,\ E^{p+h+r}\beta,\ E^{p+h+q+k}\gamma},\\
+\toda{\iota_{p","401: \]
+402: と定義する.
+403: このとき, $H,H',H''$ はそれぞれ, 次の Toda brackt の元を表す：
+404: \[
+405: \begin{aligned}
+406: \toda{\alpha\wedge\iota_{q+r},\ \iota_{p+h}\wedge\beta\wedge\iota_r,\ \iota_{p+h+q+k}\wedge\gamma}
+407: & = (-1)^{\delta+h\ell}\toda{E^{q+r}\alpha,\ E^{p+h+r}\beta,\ E^{p+h+q+k}\gamma},\\
+408: \toda{\iota_{p+q}\wedge\gamma,\ \alpha\wedge\iota_{q+h+r+\ell},\ \iota_{p+h}\wedge\beta\wedge\iota_{r+\ell}}
+409: & = (-1)^{\delta+ \ell k}\toda{E^{p+q}\gamma,\ E^{q+r+\ell}\beta,\ E^{q+h+r+\ell}\alpha},\\"
+187,3,Toda_03_2(2).tex,460,DEFINITION_COMPONENT,True,mapping cone K,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,ce7a26af6cb8a9ec93a9bf6efdca7048f2889f14ed5fbdcc0904310cbc2f2c82,"\[
+d':S^{n+k}\times I\ \xrightarrow{d'}\ CS^{n+k}\ \rightarrow\ K
+\]","457: d'_{n+k}:S^{n+k}\times I\longrightarrow CS^{n+k}
+458: \]
+459: とし, 合成を
+460: \[
+461: d':S^{n+k}\times I\ \xrightarrow{d'}\ CS^{n+k}\ \rightarrow\ K
+462: \]
+463: と書く. 写像 $p:K\to S^{n+k+1}$ を, 次で定める.
+464: \[
+465: p\bigl(d'_{n+k}(x,t)\bigr)=d_{n+k}(x,t),\qquad "
+188,3,Toda_03_2(2).tex,464,DEFINITION_COMPONENT,True,mapping cone quotient,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,5956fef88ab2d1cb76b948c4b397c4d12ffff456bfaab1eb9a1b3abb8fb145d8,"\[
+p\bigl(d'_{n+k}(x,t)\bigr)=d_{n+k}(x,t),\qquad 
+p(S^n) = e_0.
+\]","461: d':S^{n+k}\times I\ \xrightarrow{d'}\ CS^{n+k}\ \rightarrow\ K
+462: \]
+463: と書く. 写像 $p:K\to S^{n+k+1}$ を, 次で定める.
+464: \[
+465: p\bigl(d'_{n+k}(x,t)\bigr)=d_{n+k}(x,t),\qquad 
+466: p(S^n) = e_0.
+467: \]
+468: 
+469: このとき, $p$ は $K$ に含まれる $S^n$ を一点につぶす写像である."
+193,3,Toda_03_2(2).tex,495,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,fb82d80a0f7412b9acab4cfad8dfa48478a23bbdba27fe280e857d2605285289,"\[
+G_1\;=\;F\circ \Ex^{n}p
+\]","492: F:\ S^{2n+2k+1}\ \longrightarrow\ \Ex^{n}K
+493: \]
+494: が存在して,
+495: \[
+496: G_1\;=\;F\circ \Ex^{n}p
+497: \]
+498: が成り立つ. このような $F$ の類について次を得る. 
+499: 
+500: \switchcolumn"
+196,3,Toda_03_2(2).tex,618,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,29c6c7d46d762270391f79bf5e30399dcf2c006787e154628eb200f66055122b,"\[
+G_s\bigl(\theta_{n+k,n}(x,y)\bigr)=
+\begin{cases}
+A_{2s}\!\bigl(\phi_{n+k,n}(x,y)\bigr), & 0\le s\le \tfrac12,\\[2pt]
+\phi_{n}\!\bigl(d'(x,2s-1),\,\tau(y)\bigr), & \tfrac12\le s\le1.
+\end{cases}
+\]","615: \(G_s:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K\)
+616: を, 次の式で定める. \\
+617: $S^{2n+k}$ の点 $\phi_{n+k,n}(x,y)$ に対して,
+618: \[
+619: G_s\bigl(\theta_{n+k,n}(x,y)\bigr)=
+620: \begin{cases}
+621: A_{2s}\!\bigl(\phi_{n+k,n}(x,y)\bigr), & 0\le s\le \tfrac12,\\[2pt]
+622: \phi_{n}\!\bigl(d'(x,2s-1),\,\tau(y)\bigr), & \tfrac12\le s\le1.
+623: \end{cases}"
+207,3,Toda_03_2(2).tex,703,DEFINITION_COMPONENT,True,proof-local self-homeomorphism,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,407ebf6264604a181b992b6564ba2641496f5f684d2ba947b5d04f095ac4ca3b,"\[
+\sigma(\psi(x_1,\ldots,x_{n+k}, t, y_1,\ldots,y_n))
+= \psi(x_1,\ldots, x_n, t, x_{n+1},\ldots,x_{n+k} y_1,\ldots,y_n)
+\]","700: \]
+701: また, degree \((-1)^k\) の自己同相写像 
+702: \(\sigma:S^{2n+k+1}\to S^{2n+k+1}\) を, \\
+703: \[
+704: \sigma(\psi(x_1,\ldots,x_{n+k}, t, y_1,\ldots,y_n))
+705: = \psi(x_1,\ldots, x_n, t, x_{n+1},\ldots,x_{n+k} y_1,\ldots,y_n)
+706: \]
+707: で与えるとき, $H_2$ に対して次が成り立つことが, 直接的に確かめられる.
+708: \["
+208,3,Toda_03_2(2).tex,708,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,a79d1da450c09887299c10de428b95bfceb3ea9e0ac2cce889cee5d31ca5a7a4,"\[
+[H_2] = (\iota_{n+k+1} \wedge (-1)^{kn} \iota_n) \circ (-1)^{k}\iota_{2n+k+1}
+\circ (E\alpha \wedge \iota_{n+k})
+ = (-1)^{kn+k}E^{n+k+1}\alpha .
+\]","705: = \psi(x_1,\ldots, x_n, t, x_{n+1},\ldots,x_{n+k} y_1,\ldots,y_n)
+706: \]
+707: で与えるとき, $H_2$ に対して次が成り立つことが, 直接的に確かめられる.
+708: \[
+709: [H_2] = (\iota_{n+k+1} \wedge (-1)^{kn} \iota_n) \circ (-1)^{k}\iota_{2n+k+1}
+710: \circ (E\alpha \wedge \iota_{n+k})
+711:  = (-1)^{kn+k}E^{n+k+1}\alpha .
+712: \]
+713: よって, "
+212,3,Toda_03_2(2).tex,727,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,730a05bc6fde0412f5739b569f222c99df8c888b7bbc592c6f4b51e0c41ae051,"\[
+(\Ex^{n}p)_*\bigl(\,[F]\ -\ (-1)^{kn}\Ex^{h}\gamma\,\bigr) = 0 .
+\]","724: =\Ex^{h}\!\bigl((\Ex^{n-h}p)_*\gamma\bigr)
+725: =\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha,
+726: \]
+727: \[
+728: (\Ex^{n}p)_*\bigl(\,[F]\ -\ (-1)^{kn}\Ex^{h}\gamma\,\bigr) = 0 .
+729: \]
+730: 仮定 $k\le 2n-2$ から, 
+731: $2n+2k+1\le (2n+k)+(2n-1)$ が成り立つ. \\
+732: 対 $(\Ex^{n}K, S^{2n})$ は, $(2n+k)$-connected であり, "
+213,3,Toda_03_2(2).tex,735,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,b049e1292e28075dbade3025a5dca4151c98db5f80fdfadc0fd4425e2244ab53,"\[
+(\Ex^{n}p)_*\ :\ 
+\pi_{2n+2k+1}\bigl(\Ex^{n}K,S^{2n}\bigr)\
+\longrightarrow\
+\pi_{2n+k+1}\bigl(S^{2n+k+1}\bigr).
+\]","732: 対 $(\Ex^{n}K, S^{2n})$ は, $(2n+k)$-connected であり, 
+733: $S^{2n}$ は $(2n-1)$-connected である. \\
+734: したがって, \cite{BlakersMassey1952} Theorem2 より, 次の誘導準同型は同型である.
+735: \[
+736: (\Ex^{n}p)_*\ :\ 
+737: \pi_{2n+2k+1}\bigl(\Ex^{n}K,S^{2n}\bigr)\
+738: \longrightarrow\
+739: \pi_{2n+k+1}\bigl(S^{2n+k+1}\bigr).
+740: \]"
+217,3,Toda_03_2(2).tex,852,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,8f9136dae88142a77d30ab0bac8c378686f40acb72ef244ec5f7fae9a43ff071,"\[
+p'=\sigma\circ \Ex^{t}p
+\]","849: により与えられる, 次数 \((-1)^{t}\) の自己同相写像
+850: $\sigma:S^{n+k+t+1}\to S^{n+k+t+1}$
+851: に対して, 
+852: \[
+853: p'=\sigma\circ \Ex^{t}p
+854: \]
+855: が成り立つ. 
+856: 次に, reduced join 
+857: \["
+218,3,Toda_03_2(2).tex,857,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,687f3433cd11286e403f39d22d83575f283d369d3244d977660b2e7fc35afb55,"\[
+\ext{\beta} \wedge \alpha\ \in\ [\Ex^{n+k+t}K, S^{m+n}]
+\]","854: \]
+855: が成り立つ. 
+856: 次に, reduced join 
+857: \[
+858: \ext{\beta} \wedge \alpha\ \in\ [\Ex^{n+k+t}K, S^{m+n}]
+859: \]
+860: について考える. \\
+861: 
+862: \switchcolumn"
+232,3,Toda_03_2(2).tex,1086,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,c356c0dcf6bb9febfcc33bc19cb0760c0c19734d85567c6c70d8e66b3f47579b,"\[
+\Ex\beta\circ t\eta_{m+k+1}
+\ \in\ \todai[1]{\,r\iota_{m+1},\ \Ex\beta,\ r\iota_{m+k+1}\,}.
+\]","1083: (\cite{Toda1952}, Chapter VIII 例2 を見よ. )\\
+1084: Th3.6 において, $\alpha=r\,\iota_{m+1}$ と置くと, 
+1085: ある \(r\) のみによって決まる整数 $t=t(r)$ が存在し, 
+1086: \[
+1087: \Ex\beta\circ t\eta_{m+k+1}
+1088: \ \in\ \todai[1]{\,r\iota_{m+1},\ \Ex\beta,\ r\iota_{m+k+1}\,}.
+1089: \]
+1090: $r$ が奇数のとき, 
+1091: \["
+235,3,Toda_03_2(2).tex,1107,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,d918a6be6239a3027593a1368a2a243621681fb7349ed730e05d810241971a7d,"\[
+s^2(\eta_n\circ\eta_{n+1})
+\in s\iota_n\circ\toda{2\iota_n, \eta_n, 2\iota_{n+1}}\circ s\iota_{n+2}
+\subset \toda{r\iota_n, \eta_n, r\iota_{n+1}} .
+\]","1104: 
+1105: 次に, $r$ を偶数とし, $r=2s$ と置く. 
+1106: Prop1.2 により, 
+1107: \[
+1108: s^2(\eta_n\circ\eta_{n+1})
+1109: \in s\iota_n\circ\toda{2\iota_n, \eta_n, 2\iota_{n+1}}\circ s\iota_{n+2}
+1110: \subset \toda{r\iota_n, \eta_n, r\iota_{n+1}} .
+1111: \]
+1112: また, "
+255,4,Toda_04_2(2).tex,281,PROOF_INTERNAL_CANDIDATE,False,,EHP 完全列の証明で提示した列の一部。,919a24fb1fe6a69434de396d17111fe6084e006d263b55ed8c621fcc743a5a37,"\[
+\cdots\to\pit{n}{n}\xrightarrow{E}\pit{n+1}{n+1}\to\cdots
+\]","278: が現れない箇所は, \\
+279: \eqref{4.1} と,
+280: $\Ex:\pis{n}{S^n}\xrightarrow{\cong}\pis{n+1}{S^{n+1}}$ が同型である事実から,
+281: \[
+282: \cdots\to\pit{n}{n}\xrightarrow{E}\pit{n+1}{n+1}\to\cdots
+283: \]
+284: の完全性を得る. 
+285: 残る問題は,
+286: \["
+257,4,Toda_04_2(2).tex,454,EXTERNALLY_SOURCED_ASSERTION_CANDIDATE,False,,"n=2,4,8 と任意の i の Hopf fibration 由来の同型。Steenrod を出典とする。",6d056a219ef0f3fd94b4a4b897ab04e944ec22b504686aa80d1141b56ae9eea8,"\[
+E+h_*:\ \pis{i-1}{S^{n-1}}\oplus\pis{i}{S^{2n-1}}
+\ \xrightarrow{\ \cong\ }\ \pis{i}{S^n}
+\]","451: \noindent
+452: $n=2,4,8$ のとき, Hopf fibration
+453: $S^n\hookrightarrow S^{2n-1}\xrightarrow{h} S^n$ が存在し, これに付随して,
+454: \[
+455: E+h_*:\ \pis{i-1}{S^{n-1}}\oplus\pis{i}{S^{2n-1}}
+456: \ \xrightarrow{\ \cong\ }\ \pis{i}{S^n}
+457: \]
+458: が, 任意の \(i\) で同型になることが知られている \cite{Steenrod1951}.\\
+459: これは, $h$ を Hopf 不変量 $\pm1$ を持つ写像に置き換えても成り立つ. \\"
+258,4,Toda_04_2(2).tex,461,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,778e79c45a7282dcfd8bafb08bb182d25891de6192b6cd9e9b635d045b9c12a8,"\[
+i\cdot\Omega h: S^{n-1}\times\Ox S^{2n-1}\to\Ox S^n
+\]","458: が, 任意の \(i\) で同型になることが知られている \cite{Steenrod1951}.\\
+459: これは, $h$ を Hopf 不変量 $\pm1$ を持つ写像に置き換えても成り立つ. \\
+460: なぜなら, これらの同型は, 次の写像
+461: \[
+462: i\cdot\Omega h: S^{n-1}\times\Ox S^{2n-1}\to\Ox S^n
+463: \]
+464: によって誘導されるからである. 
+465: ここで, ""\(\cdot\)"" は \(\Omega S^n\) の道の積を表す. \\
+466: この写像は, コホモロジーの同型を誘導するので,ホモロジーとホモトピーの同型を誘導する. \\"
+274,5,Toda_05_2(6).tex,542,PROOF_INTERNAL_CANDIDATE,False,,(5.4) の証明中に Prop1.3 と (1.15) を用いる包含計算。,23f388fbbd576bd4a3541e33e94760e4c16dec19d89d87fb85057bf0e79481c3,"\begin{align*}
+E^{\,n-3}\nu'\in E^{\,n-3}\todai[1]{\eta_3,\,2\iota_{4},\,\eta_4}
+& \subset(-1)^{n-3}\todai[n-2]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}\\
+& \subset(-1)^{n-3}\todai[t]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}
+\end{","539: 
+540: \noindent
+541: \(\nu'\) の定義, Prop 1.3, (1.15) から, 
+542: \begin{align*}
+543: E^{\,n-3}\nu'\in E^{\,n-3}\todai[1]{\eta_3,\,2\iota_{4},\,\eta_4}
+544: & \subset(-1)^{n-3}\todai[n-2]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}\\
+545: & \subset(-1)^{n-3}\todai[t]{\eta_n, 2\iota_{n+1}, \eta_{n+1}}
+546: \end{align*}
+547: が従うので, \(t\ge1\) で (5.4) が成立する. \\"
+280,5,Toda_05_2(6).tex,867,PROOF_INTERNAL_CANDIDATE,False,,特定のホモトピー群に対する Prop の証明に現れる EHP 列。,f9672905eb90181f446a144b433d559e1399ab9766c8590d199cee6f5b34617d,"\[
+\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{9}_{8}\xrightarrow{\ E\ }\pi^{5}_{9}
+\xrightarrow{\ H }\pi^{9}_{9}\xrightarrow{\ \Delta\ }\pi^{4}_{7}
+\]","864: \textbf{Proof.}\ 
+865: \(\pi_8^4\) に対する結果は, (5.6) とProp5.1 から従う. 
+866: (4.4) の完全列
+867: \[
+868: \pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{9}_{8}\xrightarrow{\ E\ }\pi^{5}_{9}
+869: \xrightarrow{\ H }\pi^{9}_{9}\xrightarrow{\ \Delta\ }\pi^{4}_{7}
+870: \]
+871: を考える. (5.8) とProp5.6 により, \(\Delta:\pi_9^9\to\pi_7^4\) は単射である. \\
+872: よって, 完全性から, \(E\) は全射となることが分かる. \\"
+287,5,Toda_05_2(6).tex,1083,PROOF_INTERNAL_CANDIDATE,False,,Prop の証明中に Prop2.2 と (5.3) を適用する計算。,3934eaf35e19d782dad80af0936af1c550f14f69bf586a8e690f4b1587466ba9,"\[
+H(\nu'\circ \eta_6^2)=H(\nu')\circ \eta_6^2=\eta_5\circ \eta_6^2=\eta_5^{3}.
+\]","1080: は完全列である. 
+1081: Lem5.7, Prop 5.6, (5.5) により, \(\ker\Delta\) は \(4\nu_5=\eta_5^3\) で生成される. \\
+1082: Prop2.2 と (5.3) により, 次を得る. 
+1083: \[
+1084: H(\nu'\circ \eta_6^2)=H(\nu')\circ \eta_6^2=\eta_5\circ \eta_6^2=\eta_5^{3}.
+1085: \]
+1086: よって, 完全性から, Propの2番目が成り立つ. \\
+1087: (5.6) により, \(\pi_9^4\) の結果を得る. 
+1088: "
+290,5,Toda_05_2(6).tex,1201,PROOF_INTERNAL_CANDIDATE,False,,Prop の証明末尾の完全列と消滅の帰結。,56b1e8a3857a6586db3621d1bd5ba7b23bf400ef6dda2227214a8724be97837c,"\[
+\pi^{13}_{13}\xrightarrow[\cong]{\Delta}\pi^{6}_{11}\xrightarrow{E}\pi^{7}_{12}\xrightarrow{}\pi_{12}^{13}=0
+\]","1198: Prop5.8 と (5.10) により, \(\Delta\) は全射で, \(\ker\Delta=\gen{2\iota_{11}}\) である. \\
+1199: Prop2.7 により, \(H(\Delta(\iota_{13}))=\pm2\iota_{11}\) なので, 
+1200: \(\pi_{11}^6=\mathbb Z \gen{\Delta(\iota_{13})}\) である. 
+1201: \[
+1202: \pi^{13}_{13}\xrightarrow[\cong]{\Delta}\pi^{6}_{11}\xrightarrow{E}\pi^{7}_{12}\xrightarrow{}\pi_{12}^{13}=0
+1203: \]
+1204: の完全性により, \(\pi_{12}^7=0\) である. 
+1205: (4.5) により, Propの最後の結果が得られる. 
+1206: \qed"
+2,1,Toda_01_corrected.tex,112,DEFINITION_COMPONENT,True,Chapter 1 sphere parametrization,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,5ef9ca49906738284f6be54447dff8f23102d51c014d1fdfd9a22bccdedc750b,"\[
+\psi_1(t) = (\cos 2\pi t,\ \sin 2\pi t).
+\]","109:   \psi_n \text{ は, } I^n - \partial I^n \text{ を }
+110:   S^n - e_0 \text{ の上に同相に写す.}
+111: \end{equation}
+112: \[
+113: \psi_1(t) = (\cos 2\pi t,\ \sin 2\pi t).
+114: \]
+115: \(i:S^{n}\hookrightarrow S^{n+1}\)
+116: を,
+117: \(i(s_{0},\cdots,s_{n}) := (s_{0},\cdots,s_{n},0)\)"
+6,1,Toda_01_corrected.tex,176,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,83281676efdc8229f043ed1f06ba2849437a86a58f7991b25a3479b2b4f9661c,"\[
+f^*(\beta)=[g\circ f],\qquad g_*(\alpha)=[g\circ f]
+\]","173: \[
+174: f^*:[Y,Z]\to[X,Z],\quad g_*:[X,Y]\to[X,Z].
+175: \]
+176: \[
+177: f^*(\beta)=[g\circ f],\qquad g_*(\alpha)=[g\circ f]
+178: \]
+179: 明らかに, 合成は結合的である. 
+180: \[
+181: (\gamma\circ \beta)\circ\alpha=\gamma\circ(\beta\circ\alpha)."
+7,1,Toda_01_corrected.tex,180,UNNUMBERED_ASSERTION_CANDIDATE,False,,合成の結合律を述べる番号なしの一般的関係式。,d64a2b2d0aba8370de576bf4261dfeec85f550be9222a03a174de5be458611bc,"\[
+(\gamma\circ \beta)\circ\alpha=\gamma\circ(\beta\circ\alpha).
+\]","177: f^*(\beta)=[g\circ f],\qquad g_*(\alpha)=[g\circ f]
+178: \]
+179: 明らかに, 合成は結合的である. 
+180: \[
+181: (\gamma\circ \beta)\circ\alpha=\gamma\circ(\beta\circ\alpha).
+182: \]
+183: \[
+184: (f_2\circ f_1)^*=f_1^*\circ f_2^*,\quad 
+185: (g_2\circ g_1)_*=g_{2*}\circ g_{1*}."
+8,1,Toda_01_corrected.tex,183,UNNUMBERED_ASSERTION_CANDIDATE,False,,誘導写像の合成に関する関手性の関係式。,6ed9c8de1f1623627bf5d7f2d85b976bbbf0f7e639b6b7dc64edbf889d7ed781,"\[
+(f_2\circ f_1)^*=f_1^*\circ f_2^*,\quad 
+(g_2\circ g_1)_*=g_{2*}\circ g_{1*}.
+\]","180: \[
+181: (\gamma\circ \beta)\circ\alpha=\gamma\circ(\beta\circ\alpha).
+182: \]
+183: \[
+184: (f_2\circ f_1)^*=f_1^*\circ f_2^*,\quad 
+185: (g_2\circ g_1)_*=g_{2*}\circ g_{1*}.
+186: \]
+187: 
+188: "
+12,1,Toda_01_corrected.tex,204,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,cd3f4ad5b19a4d0b3e23ed9139c654f942bf25ecea1e791c3db6637bd9e097a2,"\[
+\phi_{A\wedge B, C}(\phi_{A,B}(a,b),c)\longleftrightarrow
+\phi_{A,B\wedge C}(a, \phi_{B,C}(b,c)).
+\]","201: \[
+202: (A\ \wedge\ B)\ \wedge\ C\ \cong\ A\ \wedge\ (B\ \wedge\ C),
+203: \]
+204: \[
+205: \phi_{A\wedge B, C}(\phi_{A,B}(a,b),c)\longleftrightarrow
+206: \phi_{A,B\wedge C}(a, \phi_{B,C}(b,c)).
+207: \]
+208: これにより, $A\ \wedge\ B\ \wedge\ C$ と略記する. 
+209: "
+15,1,Toda_01_corrected.tex,229,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,f9910ce887d2fc373c4f74176f1ee6f9a81ecc014c3e22797b04b7b41c9cbf2b,"\[
+f:A\to A',\quad g:B\to B'
+\]","226: \quad (a,b,c)\in S^m\times S^n\times S^p.
+227: \]
+228: 写像
+229: \[
+230: f:A\to A',\quad g:B\to B'
+231: \]
+232: は基点を保存し, $f(a_0)=a'_0$, $g(b_0)=b'_0$ を満たすものとする.
+233: このとき, reduced join
+234: \["
+20,1,Toda_01_corrected.tex,325,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,6e080ff38f8cf0425563fc1118f953900a59c73ceda38bfc9cdc9273512e22db,"\[
+d_X:X\times I \to EX,\qquad
+d_X = \phi_{X,S^1}\circ (1_X\times \psi_1).
+\]","322: 
+323: また, \(X\) の suspension \(EX\) は, 
+324: 次の写像によっても定義される.
+325: \[
+326: d_X:X\times I \to EX,\qquad
+327: d_X = \phi_{X,S^1}\circ (1_X\times \psi_1).
+328: \]
+329: ここで, \(1_X\) は \(X\) の恒等写像である.\\
+330: \(d_X\) は, \(X\times \partial{I} \cup x_0 \times I\)"
+26,1,Toda_01_corrected.tex,375,UNNUMBERED_ASSERTION_CANDIDATE,True,homomorphism property of composition,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,2f4ae08a097ccf43069504f7c95c5ed6ecd98b7b0d1f08a81a48f273658d84ae,"\[
+[f]\circ(\alpha + \alpha') = [f]\circ\alpha + [f]\circ\alpha',
+\]","372: (Eg)^*:[EX,Y]\longrightarrow[EW,Y].
+373: \end{equation}
+374: すなわち,
+375: \[
+376: [f]\circ(\alpha + \alpha') = [f]\circ\alpha + [f]\circ\alpha',
+377: \]
+378: \[
+379: (\alpha + \alpha')\circ E[g] = \alpha\circ E[g] + \alpha'\circ E[g].
+380: \]"
+27,1,Toda_01_corrected.tex,378,UNNUMBERED_ASSERTION_CANDIDATE,True,homomorphism property of composition,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,8cf5c836f7a80936863eedf26db3a2c1dbf0328a4b943f506cadaa11349de7a5,"\[
+(\alpha + \alpha')\circ E[g] = \alpha\circ E[g] + \alpha'\circ E[g].
+\]","375: \[
+376: [f]\circ(\alpha + \alpha') = [f]\circ\alpha + [f]\circ\alpha',
+377: \]
+378: \[
+379: (\alpha + \alpha')\circ E[g] = \alpha\circ E[g] + \alpha'\circ E[g].
+380: \]
+381: 特に, $n\ge 2$ のとき,
+382: \([\Ex^n X,Y]\) はアーベル群である.
+383: "
+35,1,Toda_01_corrected.tex,502,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,c44b88379197564b4a84d590bcb6ceaf3741a51f2dcbed3c72544e793d5d406c,"\[
+a:(\Ex^n Y,y_0)\to (Z,z_0),\quad
+b:(X,x_0)\to (Y,y_0),\quad
+c:(W,w_0)\to (X,x_0)
+\]","499: \alpha\circ \Ex^n\beta=0,\qquad \beta\circ \gamma=0
+500: \end{equation}
+501: を満たすものとする. 代表写像を, それぞれ,
+502: \[
+503: a:(\Ex^n Y,y_0)\to (Z,z_0),\quad
+504: b:(X,x_0)\to (Y,y_0),\quad
+505: c:(W,w_0)\to (X,x_0)
+506: \]
+507: とする. "
+36,1,Toda_01_corrected.tex,509,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,bde37b6e7e0b47c3afdaa904cad55b9dfb103a56267d0a4924b9a46c8159787f,"\[
+A_t:(\Ex^n X,x_0)\to (Z,z_0),\qquad
+B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1)
+\]","506: \]
+507: とする. 
+508: このとき, (1.13) の仮定から, それぞれの null homotopy
+509: \[
+510: A_t:(\Ex^n X,x_0)\to (Z,z_0),\qquad
+511: B_t:(W,w_0)\to (Y,y_0),\qquad (0\le t\le 1)
+512: \]
+513: で, 次を満たすものが存在する. 
+514: \["
+44,1,Toda_01_corrected.tex,597,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,cd2cb455f54e0bd406997a18e308a0d4f14ef3f128f256afd24899f85db81cd3,"\[
+G(d_{W}(w,t))\equiv\left\{
+\begin{array}{ll}
+B'_{2t-1}(w), & \frac{1}{2} \leq t \leq 1, \\
+B_{1-2t}(w), & 0 \leq t \leq \frac{1}{2}. \\
+\end{array}\right.
+\]","594: A'_{1-2t}(x), & 0 \leq t \leq \frac{1}{2}, \\
+595: \end{array}\right.
+596: \]
+597: \[
+598: G(d_{W}(w,t))\equiv\left\{
+599: \begin{array}{ll}
+600: B'_{2t-1}(w), & \frac{1}{2} \leq t \leq 1, \\
+601: B_{1-2t}(w), & 0 \leq t \leq \frac{1}{2}. \\
+602: \end{array}\right."
+45,1,Toda_01_corrected.tex,607,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,16d6946b932f56cfb5c619f2c223fc08a25e72e330bab1e1e1522ffb30496b83,"\[
+H'\ \simeq\ F\circ \Ex^{n+1}c\ +\ \bigl(H\ +\ a\circ \Ex^n G\circ \sigma\bigr)
+\]","604: ここで,
+605: \(x\in E^n X,\ w\in W\).
+606: このとき,
+607: \[
+608: H'\ \simeq\ F\circ \Ex^{n+1}c\ +\ \bigl(H\ +\ a\circ \Ex^n G\circ \sigma\bigr)
+609: \]
+610: が確かめられる. 
+611: ここで, 
+612: $\sigma:\Ex^{n+1}W=W\ \wedge\ S^{n+1}\to \Ex^{n+1}W$ は,"
+46,1,Toda_01_corrected.tex,613,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,509915e76b42f92a51ce7c7eaf92990ad3881cacaabc8cbf442f88c7077c4297,"\[
+\sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n))
+\]","610: が確かめられる. 
+611: ここで, 
+612: $\sigma:\Ex^{n+1}W=W\ \wedge\ S^{n+1}\to \Ex^{n+1}W$ は,
+613: \[
+614: \sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n))
+615: \]
+616: で与えられる自己同相である. 対応
+617: \[
+618: \psi_{n+1}(t_1,\cdots,t_n, t) \longleftrightarrow"
+47,1,Toda_01_corrected.tex,617,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,db0d62df5a6cdc5275d1bbcc84c0b60d3b0bd2ec991c79637567f49272de3223,"\[
+\psi_{n+1}(t_1,\cdots,t_n, t) \longleftrightarrow
+\psi_{n+1}(t,t_1,\cdots,t_n)
+\]","614: \sigma\bigl(\phi(w,\psi_{n+1}(t_1,\ldots,t_n,t))\bigr)=\phi(w, \psi_{n+1}(t, t_1,\ldots,t_n))
+615: \]
+616: で与えられる自己同相である. 対応
+617: \[
+618: \psi_{n+1}(t_1,\cdots,t_n, t) \longleftrightarrow
+619: \psi_{n+1}(t,t_1,\cdots,t_n)
+620: \]
+621: は, $S^{n}$ 上の次数 $(-1)^n$ の同相写像なので,
+622: \(\sigma\) は,"
+48,1,Toda_01_corrected.tex,626,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,aec96519a492be80bb6c932f34329d08bd51cbd7dc03b9d84a6bf11e3bd18967,"\[
+[H'] = [F]\circ E^{n+1}\gamma + 
+([H] \pm \alpha \circ E^n [G])
+\]","623: \(E^{n+1}W\) の恒等写像か,
+624: 反転写像に homotopic である.\\
+625: よって,
+626: \[
+627: [H'] = [F]\circ E^{n+1}\gamma + 
+628: ([H] \pm \alpha \circ E^n [G])
+629: \]
+630: であり,
+631: 従って $H$ と $H'$ は, "
+49,1,Toda_01_corrected.tex,635,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,203fe006c88eeddecd2d59668d22d70e6c430239c494bcea793d240f8abecf65,"\[
+F':(E^{n+1}X,x_0)\to(Z,z_0),\qquad
+G':(EW, w_0)\to (Y,y_0)
+\]","632: 同じ double coset に属する. \\
+633: 逆に, \([H]\) と同じ double coset に属する \([E^{n+1}W,Z]\) の任意の元は,
+634: ある写像
+635: \[
+636: F':(E^{n+1}X,x_0)\to(Z,z_0),\qquad
+637: G':(EW, w_0)\to (Y,y_0)
+638: \]
+639: によって, 次の写像で表される.
+640: \["
+50,1,Toda_01_corrected.tex,640,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,ca771b49d8cfdcfd3b4b909af1a3ca9dd76897d01dc66d1df455874e093a9797,"\[
+F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma).
+\]","637: G':(EW, w_0)\to (Y,y_0)
+638: \]
+639: によって, 次の写像で表される.
+640: \[
+641: F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma).
+642: \]
+643: ここで,
+644: \[
+645: A'_t(x)="
+51,1,Toda_01_corrected.tex,644,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,3327f4e9045a1948d1915a24086c93964c47ddf41047d3ab50b4a347fd9bff9c,"\[
+A'_t(x)=
+\begin{cases}
+F'(d_{E^n X}(x,2-2t)),& \tfrac12\le t\le 1,\\
+A_{2t}(x),& 0\le t\le \tfrac12,
+\end{cases}
+\qquad
+B'_t(w)=
+\begin{cases}
+G'(d_W(w,2t-1)),& \tfrac12\le t\le 1,\\
+B_{2t}(w),& 0\le t\le \t","641: F'\circ E^{n+1}c + (H + a\circ E^n G'\circ \sigma).
+642: \]
+643: ここで,
+644: \[
+645: A'_t(x)=
+646: \begin{cases}
+647: F'(d_{E^n X}(x,2-2t)),& \tfrac12\le t\le 1,\\
+648: A_{2t}(x),& 0\le t\le \tfrac12,
+649: \end{cases}"
+53,1,Toda_01_corrected.tex,768,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,316fc648d010dbf5d1310c6dd1589ccabf758096abc6c80eb622645c228c523a,"\[
+H(d_{ER}(d_R(w,s),t))=
+\begin{cases}
+a(\Ex^{n+1}B_{2t-1}(d_R(w,s))), 
+& \tfrac12\le t\le 1,\\[2mm]
+A_{1-2t}(\Ex^{n+1}c(d_R(w,s))), 
+& 0\le t\le \tfrac12,
+\end{cases}
+\]","765: \(\todai[n+1]{\alpha, E^{n+1}\beta, E^{n+1}\gamma}\) 
+766: の任意の元は, 次の写像 \(H:E^{n+2}W\to Z\)
+767: で表される.
+768: \[
+769: H(d_{ER}(d_R(w,s),t))=
+770: \begin{cases}
+771: a(\Ex^{n+1}B_{2t-1}(d_R(w,s))), 
+772: & \tfrac12\le t\le 1,\\[2mm]
+773: A_{1-2t}(\Ex^{n+1}c(d_R(w,s))), "
+56,1,Toda_01_corrected.tex,792,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,7cb17967ef0266cbb6a1af15cc55bf768cd74f7b29743a00a72736e50c5fdea0,"\[
+\sigma(d_{ER}(d_R(w,s),t))
+= d_{ER}(d_R(w,t), s).
+\]","789: \]
+790: \(\sigma:E^{n+2}W\to E^{n+2}W\)
+791: を, 次で与えられる同相写像とする.
+792: \[
+793: \sigma(d_{ER}(d_R(w,s),t))
+794: = d_{ER}(d_R(w,t), s).
+795: \]
+796: このとき, Lem1.1の証明で見たように,
+797: \([H\circ \sigma] = -[H]\) である.\\"
+57,1,Toda_01_corrected.tex,799,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,1ede268ec180e016f6ca99cdd75b3fa8056ead49a596c4416ff951aadcad250a,"\[
+\Omega_0(H\circ \sigma)(d_R(w,t))=
+\begin{cases}
+\Omega_0 a(\Ex^{n}B_{2t-1}(w)), 
+& \tfrac12\le t\le 1,\\[2mm]
+\Omega_0 A_{1-2t}(\Ex^{n}c(w)), 
+& 0\le t\le \tfrac12.
+\end{cases}
+\]","796: このとき, Lem1.1の証明で見たように,
+797: \([H\circ \sigma] = -[H]\) である.\\
+798: (1.12) と \(\Omega_0\) の定義により,
+799: \[
+800: \Omega_0(H\circ \sigma)(d_R(w,t))=
+801: \begin{cases}
+802: \Omega_0 a(\Ex^{n}B_{2t-1}(w)), 
+803: & \tfrac12\le t\le 1,\\[2mm]
+804: \Omega_0 A_{1-2t}(\Ex^{n}c(w)), "
+59,1,Toda_01_corrected.tex,823,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,183c3beba3d5a5bae2bccf2614109c78a7a202363abb67bae6f8a22125a3d6b6,"\[
+\begin{align*}
+  -E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+  & = -\Omega_0^{-1}(\iota \circ \todai[n]{\alpha, E^n\beta, E^n\gamma})
+  \subset -\Omega_0^{-1}\todai[n]{\iota\circ\alpha, E^n\beta, E^n\gamma}\\
+  & =","820: \(\iota\) を, canonical injection \(i:Z\to \Omega EZ\)
+821: の類とする.
+822: (1.11), Prop1.2 iv) により,
+823: \[
+824: \begin{align*}
+825:   -E\todai[n]{\alpha, E^n\beta, E^n\gamma}
+826:   & = -\Omega_0^{-1}(\iota \circ \todai[n]{\alpha, E^n\beta, E^n\gamma})
+827:   \subset -\Omega_0^{-1}\todai[n]{\iota\circ\alpha, E^n\beta, E^n\gamma}\\
+828:   & = \todai[n+1]{\Omega_0^{-1}\circ\iota\circ\alpha, E^{n+1}\beta, E^{n+1}\gamma}"
+61,1,Toda_01_corrected.tex,854,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,b382880633268692743acb63bba5227c7a21b527d89144f87a7690338544d62e,"\[
+H(d_{E^n V}(s, t)) = \left\{
+\begin{array}{ll}
+  A_{1-2t}(E^n c(E^n d(s))),
+  & 0\leq t \leq \frac{1}{2},\\
+  a(E^n B_{2t-1}(E^n d(s))), 
+  & \frac{1}{2} \leq t \leq 1.  
+\end{array}
+\right.
+\]","851: のnull homotopyとする.\\
+852: このとき, 
+853: \(H:E^{n+1}V\to Z\) を 
+854: \[
+855: H(d_{E^n V}(s, t)) = \left\{
+856: \begin{array}{ll}
+857:   A_{1-2t}(E^n c(E^n d(s))),
+858:   & 0\leq t \leq \frac{1}{2},\\
+859:   a(E^n B_{2t-1}(E^n d(s))), "
+66,1,Toda_01_corrected.tex,956,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,54fb8debcfe3375abbd4e32d431f5b7d1ccef0bbe27d44f6f4ad538922f7d871,"\[
+\{\{\alpha,\beta,\gamma\},\ E\delta,\ E\varepsilon\}
++\{\alpha,\ \{\beta,\gamma,\delta\},\ E\varepsilon\}
++\{\alpha,\ \beta,\ \{\gamma,\delta,\varepsilon\}\}
+\equiv0 .
+\]","953: \end{proposition}
+954: 
+955: \noindent (要するに) 
+956: \[
+957: \{\{\alpha,\beta,\gamma\},\ E\delta,\ E\varepsilon\}
+958: +\{\alpha,\ \{\beta,\gamma,\delta\},\ E\varepsilon\}
+959: +\{\alpha,\ \beta,\ \{\gamma,\delta,\varepsilon\}\}
+960: \equiv0 .
+961: \]"
+67,1,Toda_01_corrected.tex,1007,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,d55c05ddbc4356bdef572c60663bf2c81b760c797787612bfe49f8c8aad3912c,"\[
+(\alpha+\alpha')\circ \Ex^{n+1}\!\bigl([W, Y]\bigr) 
++ [\Ex^{n+1}X, Z]\circ \Ex^{n+1}\gamma.
+\]","1004: \{\alpha+\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+1005: \)
+1006: は, 次の部分群の coset である. 
+1007: \[
+1008: (\alpha+\alpha')\circ \Ex^{n+1}\!\bigl([W, Y]\bigr) 
+1009: + [\Ex^{n+1}X, Z]\circ \Ex^{n+1}\gamma.
+1010: \]
+1011: 他方, 
+1012: \("
+68,1,Toda_01_corrected.tex,1016,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,7743b6d61c827647f6ce02dad7407383481aa91b564debc0b1db60b8e92db65d,"\[
+\alpha\circ E^{n+1}[W,X]
++ \alpha'\circ E^{n+1}[W,X]
++ [E^{n+1}X,Z].
+\]","1013: \{\alpha,\Ex^n\beta,\Ex^n\gamma\}_n + \{\alpha',\Ex^n\beta,\Ex^n\gamma\}_n
+1014: \)
+1015: は, 次の部分群の coset である.
+1016: \[
+1017: \alpha\circ E^{n+1}[W,X]
+1018: + \alpha'\circ E^{n+1}[W,X]
+1019: + [E^{n+1}X,Z].
+1020: \]
+1021: この群は, 次の元を含んでいる."
+69,1,Toda_01_corrected.tex,1022,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,f415f30064c65637d2f6b04bce25611bd33c8f4c33e3ce0ff832c2e089d0d302,"\[
+(\alpha + \alpha') \circ E^{n+1}[W,X]
++ [E^[n+1]X,Z] \circ E^{n+1}\gamma.
+\]","1019: + [E^{n+1}X,Z].
+1020: \]
+1021: この群は, 次の元を含んでいる.
+1022: \[
+1023: (\alpha + \alpha') \circ E^{n+1}[W,X]
+1024: + [E^[n+1]X,Z] \circ E^{n+1}\gamma.
+1025: \]
+1026: よって,
+1027: \("
+71,1,Toda_01_corrected.tex,1071,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,d6a320e1919d66bfdf51aedb2a7e7cb9a4be50f4fb91f1d0d0e6b89325c47b95,"\[
+[H] + [H'] = [H''] \in 
+\todai[n]{\alpha + \alpha', E^n\beta, E^n\gamma}
+\]","1068: \(a+a',\ b,\ c\) と, homotopy \(A_t + A'_t,\ B_t\) 
+1069: から, (1.14) により構成されることが, 直接的に確かめられる.\\
+1070: したがって,
+1071: \[
+1072: [H] + [H'] = [H''] \in 
+1073: \todai[n]{\alpha + \alpha', E^n\beta, E^n\gamma}
+1074: \]
+1075: であり, 
+1076: \([H'']\) は求める共通元である."
+74,1,Toda_01_corrected.tex,1130,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,a3c0cb7601dbb741704b87c688fd51feb953774a1cdfa4c488f85056941fe25a,"\[
+\phi(d'_X(x,t),\psi_n(t_1,\ldots,t_n))\longleftrightarrow d'_Z(\phi'(x,\psi_n(t_1,\ldots,t_n)),t)
+\]","1127: \Ex^nY\ \cup_{\beta'}\ C\Ex^n X,\quad \beta'=\Ex^n \beta.
+1128: \end{equation}
+1129: ここで, 対応は
+1130: \[
+1131: \phi(d'_X(x,t),\psi_n(t_1,\ldots,t_n))\longleftrightarrow d'_Z(\phi'(x,\psi_n(t_1,\ldots,t_n)),t)
+1132: \]
+1133: により与えられ, $Z=\Ex^n X$ であり, \\
+1134: $\phi, \ \phi'$ は, それぞれ, 
+1135: $\Ex^n(Y\cup_\beta CX)=(Y\cup_\beta CX)\wedge S^n$ と,"
+76,1,Toda_01_corrected.tex,1201,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,d335f10a61238b3cf23571c9234bc04edda86b10a775bb8615926cea6257c431,"\[
+H_s\bigl(d(w,t)\bigr)=
+\begin{cases}
+d'_V\!\left(E^nB_{s(1-2t)}(w),\ (1-s)(1-2t)\right), & 0\le t\le \tfrac12,\\
+A_{2t-1}\!\left(E^n c(w)\right), & \tfrac12\le t\le 1.
+\end{cases}
+\]","1198: 次の式で与えられる homotopy  
+1199: \(H_s:(E^{n+1}W,w_0)\to (Z\cup_\alpha CE^n Y, z_0)\)
+1200: を考える.
+1201: \[
+1202: H_s\bigl(d(w,t)\bigr)=
+1203: \begin{cases}
+1204: d'_V\!\left(E^nB_{s(1-2t)}(w),\ (1-s)(1-2t)\right), & 0\le t\le \tfrac12,\\
+1205: A_{2t-1}\!\left(E^n c(w)\right), & \tfrac12\le t\le 1.
+1206: \end{cases}"
+78,1,Toda_01_corrected.tex,1273,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,f4f59ef4fa4feda055a175bb0d20c4b615d73dd69a88df7e336b1ac93871e913,"\[
+\begin{cases}
+  G(x) = a(E^n b(x)), & x \in E^n X,\\
+  G(d'_V(w, t)) = a(E^n B_t(w)), & w \in E^n W = V,\ t \in I.
+\end{cases}
+\]","1270: \(\alpha\circ E^n\overline{\beta}\) を表す写像 
+1271: \(G:E^n(X\cup_\gamma CW)\to Z\) は,
+1272: 次の形で与えられる.
+1273: \[
+1274: \begin{cases}
+1275:   G(x) = a(E^n b(x)), & x \in E^n X,\\
+1276:   G(d'_V(w, t)) = a(E^n B_t(w)), & w \in E^n W = V,\ t \in I.
+1277: \end{cases}
+1278: \]"
+79,1,Toda_01_corrected.tex,1287,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,4b532ff0db249266d9de674c5c1117e354d5a1c89be563ce181f6b3771f0ac7c,"\[
+G_0 = G,\qquad 
+G_1(E^n X) = z_0.
+\]","1284: homotopy extension theorem により, 
+1285: homotopy \(G_s:E^n(X\cup_\gamma CW) \to Z\)
+1286: が存在し, 次を満たす.
+1287: \[
+1288: G_0 = G,\qquad 
+1289: G_1(E^n X) = z_0.
+1290: \]
+1291: このとき,
+1292: \(H_1\circ E^n p = G_1\) を満たす写像 "
+80,1,Toda_01_corrected.tex,1307,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,9c605ea0227a7113ad0606c2329069016bb46a193284eb9173c24933b1dfd2a5,"\[
+H_s\bigl(d_V(w,t)\bigr)=
+\begin{cases}
+A_{1-2t}\!\left(E^n c(w)\right), 
+& 0\le t\le \dfrac{1-s}{2},\\
+G_s\!\left(d'_V\!\left(w,\dfrac{2t-1+s}{1+s}\right)\right), 
+& \dfrac{1-s}{2}\le t\le 1.
+\end{cases}
+\]","1304: \(A_t\) は \(a\circ E^n b\) の null-homotopy である.\\
+1305: 次で与えられる homotopy 
+1306: $H_s:E^{n+1}W\to Z$ を考える.
+1307: \[
+1308: H_s\bigl(d_V(w,t)\bigr)=
+1309: \begin{cases}
+1310: A_{1-2t}\!\left(E^n c(w)\right), 
+1311: & 0\le t\le \dfrac{1-s}{2},\\
+1312: G_s\!\left(d'_V\!\left(w,\dfrac{2t-1+s}{1+s}\right)\right), "
+93,2,Toda_02_2(2).tex,73,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,d2b1a8707073f8c0276e23f9b7158cb2f2b168e2a9abe17a9129bf4f8aa9ddc0,"\[
+\pis{p}{S^m} \quad(=\hs{S^p}{S^m})
+\]","70: \begin{paracol}{2}
+71: 
+72: 以下では, 球面の homotopy 群
+73: \[
+74: \pis{p}{S^m} \quad(=\hs{S^p}{S^m})
+75: \]
+76: について考察を進める. \\
+77: $\iota_n\in\pis{n}{S^n}$ を $S^n$ の恒等写像の homotopy クラスとする. \\
+78: 明らかに, "
+97,2,Toda_02_2(2).tex,108,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,57f5200b8891f7931971e5a27ee082c7f4e249dcbabe08559f76c09caaf71255,"\[
+\todai[n]{\alpha,\ E^n\beta,\ E^n\gamma}
+\in\pi_{i+n+1}(S^m) / 
+(\alpha\circ E^n\pi_{i+1}(S^k) + \pi_{j+n+1}(S^m)\circ E^{n+1}\gamma)
+\]","105: E^n\alpha=\alpha\ \redjoin\ \iota_n
+106: \]
+107: また \emph{secondary composition}
+108: \[
+109: \todai[n]{\alpha,\ E^n\beta,\ E^n\gamma}
+110: \in\pi_{i+n+1}(S^m) / 
+111: (\alpha\circ E^n\pi_{i+1}(S^k) + \pi_{j+n+1}(S^m)\circ E^{n+1}\gamma)
+112: \]
+113: は, "
+98,2,Toda_02_2(2).tex,114,DEPENDENCY_CONTEXT_CANDIDATE,True,,周辺の定義・前提・同一視の文脈。隣接した Reference と一体で再確認。,f72e1756abfd2af7f80bfe4fa01469ca3a937f225205c125206b5d1b5c4b542e,"\[
+\alpha\in\pis{k+n}{S^m},\qquad
+\beta\in\pis{j}{S^k},\qquad
+\gamma\in\pis{i}{S^j}
+\]","111: (\alpha\circ E^n\pi_{i+1}(S^k) + \pi_{j+n+1}(S^m)\circ E^{n+1}\gamma)
+112: \]
+113: は, 
+114: \[
+115: \alpha\in\pis{k+n}{S^m},\qquad
+116: \beta\in\pis{j}{S^k},\qquad
+117: \gamma\in\pis{i}{S^j}
+118: \]
+119: が, (1.13) の条件が満たされるときに定義される. \\"
+100,2,Toda_02_2(2).tex,183,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,3973af757b0cb247c6f1ada7202471443af52668d5c482128db483bb80819cc0,"\[
+S^m\times\cdots\times S^m \ \longrightarrow\ (S^m)_t,\qquad
+(x_1,\ldots,x_t)\ \longmapsto\ x_1\cdots x_t
+\]","180: $(S^m)_t$ の位相は,
+181: 積空間 $S^m\times\cdots\times S^m$ ($t$ 回) 
+182: からの等化写像
+183: \[
+184: S^m\times\cdots\times S^m \ \longrightarrow\ (S^m)_t,\qquad
+185: (x_1,\ldots,x_t)\ \longmapsto\ x_1\cdots x_t
+186: \]
+187: のもとで与える. 
+188: $(S^m)_t-(S^m)_{t-1}$ は開な $tm$-cell になる .\\ "
+101,2,Toda_02_2(2).tex,194,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,59871c1c12f34ebde7ed342cc32d913e840e56d91c6fa850e7f7be72b54f6d57,"\[
+(f)_t:\ (S^q)_t\longrightarrow(S^m)_t,\qquad (t=1,2,\ldots,\infty)
+\]","191: 自然な方法で $(S^m)_1$ を $S^m$ と同一視する. 
+192: 
+193: $f:(S^q,e_0)\to(S^m,e_0)$ に対して, 写像
+194: \[
+195: (f)_t:\ (S^q)_t\longrightarrow(S^m)_t,\qquad (t=1,2,\ldots,\infty)
+196: \]
+197: を
+198: \[
+199: (f)_t(y_1\ldots y_t):=f(y_1)\ldots f(y_t)"
+107,2,Toda_02_2(2).tex,295,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,31c1805624c392500450404f8e539551c247eb0502851f9fe922f601b5713be2,"\[
+h'_m(xy)=\phi_{m,m}(x,y)\qquad(x,y\in S^m).
+\]","292: \[
+293: h'_m:\ \bigl((S^m)_2, S^m\bigr)\ \to\ (S^{2m},e_0),
+294: \]
+295: \[
+296: h'_m(xy)=\phi_{m,m}(x,y)\qquad(x,y\in S^m).
+297: \]
+298: さらに,
+299: \begin{equation}\label{eq:2.5}
+300: h_m:\ \bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\"
+108,2,Toda_02_2(2).tex,325,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,71730005e007e6e9e08443de3b1682991ac475b95562aaa43dd04fb2daf81e5e,"\[
+h:\ (S^m)_\infty\ \longrightarrow\ (S^{km})_\infty
+\]","322: h':\ \bigl((S^m)_k,\ (S^m)_{k-1}\bigr)\ \longrightarrow\ (S^{km},e_0)
+323: \)
+324: の combinatorial extension,
+325: \[
+326: h:\ (S^m)_\infty\ \longrightarrow\ (S^{km})_\infty
+327: \]
+328: は, 次式で定義される：
+329: \[
+330: h(x_1\ldots x_t)\ "
+111,2,Toda_02_2(2).tex,374,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,303680a091ec2a2a6d73937600df748a86c04b8601ceef480ba224ade7b86e16,"\begin{align*}
+H(\alpha\circ E\beta) 
+& = (\Omega_0^{-1}\circ i_{*}\circ h_{m*}\circ i_{*}^{-1}\circ \Omega_0)(\alpha\circ E\beta)
+&& \text{by (2.7)},\\
+& = \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega","371: 
+372: \noindent
+373: \textbf{Proof.}\
+374: \begin{align*}
+375: H(\alpha\circ E\beta) 
+376: & = (\Omega_0^{-1}\circ i_{*}\circ h_{m*}\circ i_{*}^{-1}\circ \Omega_0)(\alpha\circ E\beta)
+377: && \text{by (2.7)},\\
+378: & = \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega_0\alpha)\bigr)\circ E\beta
+379: && \text{by (1.12)},\\"
+112,2,Toda_02_2(2).tex,397,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,5e8c670896273cbb48463bc1fc3bbb14afa954961e1264c80f1461383a88a88b,"\[
+H(E\gamma\circ\alpha)
+= \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega E\gamma)\bigr)\circ \Omega_0(\alpha)
+\]","394: \begin{paracol}{2}
+395: 
+396: 次に,
+397: \[
+398: H(E\gamma\circ\alpha)
+399: = \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega E\gamma)\bigr)\circ \Omega_0(\alpha)
+400: \]
+401: に対し, 図式 (2.6) と (2.2) , および (1.12) を用いると
+402: \["
+113,2,Toda_02_2(2).tex,402,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,0dbb8489c8cf673634efe2f2ec9f9ffeeb06577db68df1a625a20d239a4df033,"\[
+\Omega_1^{-1}\!\bigl(\Omega^{-1}E(\gamma\wedge\iota_m)\bigr)\circ (\Omega_1^{-1}\circ h_{m*}\circ \Omega_1)(\alpha)
+= E(\gamma\wedge\gamma)\circ H(\alpha)
+\]","399: = \Omega_0^{-1}\!\bigl((i_*\circ h_{m*}\circ i_*^{-1})(\Omega E\gamma)\bigr)\circ \Omega_0(\alpha)
+400: \]
+401: に対し, 図式 (2.6) と (2.2) , および (1.12) を用いると
+402: \[
+403: \Omega_1^{-1}\!\bigl(\Omega^{-1}E(\gamma\wedge\iota_m)\bigr)\circ (\Omega_1^{-1}\circ h_{m*}\circ \Omega_1)(\alpha)
+404: = E(\gamma\wedge\gamma)\circ H(\alpha)
+405: \]
+406: を得る. 
+407: \qed"
+114,2,Toda_02_2(2).tex,441,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,ae36629a3619918cd52dbf149f7e0ad7a60f06a6437ad4fbd6d353dd3f358bed,"\[
+(-1)^n\,\overline{\alpha}\circ E^n\widetilde{\gamma}
+\]","438: $\alpha$ の extension $\overline\alpha\in[E^n(K\cup_\beta CL), S^{m+1}]$
+439: と, $\gamma$ の coextension 
+440: $\widetilde\gamma$ の $n$-懸垂 $E^n\tilde\gamma$ を用いて,
+441: \[
+442: (-1)^n\,\overline{\alpha}\circ E^n\widetilde{\gamma}
+443: \]
+444: と書ける. Prop \ref{prop:2.2} により,
+445: \[
+446: H((-1)^n\overline\alpha\circ E^n\widetilde\gamma)"
+115,2,Toda_02_2(2).tex,445,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,8c69f932c978b2adeba66f57585b878f5a8573fd90cbeb733a6aece2ae746303,"\[
+H((-1)^n\overline\alpha\circ E^n\widetilde\gamma)
+=(-1)^n H(\overline\alpha)\circ E^n\widetilde\gamma .
+\]","442: (-1)^n\,\overline{\alpha}\circ E^n\widetilde{\gamma}
+443: \]
+444: と書ける. Prop \ref{prop:2.2} により,
+445: \[
+446: H((-1)^n\overline\alpha\circ E^n\widetilde\gamma)
+447: =(-1)^n H(\overline\alpha)\circ E^n\widetilde\gamma .
+448: \]
+449: 包含の類 $\iota\in[E^nK, E^n(K\cup_\beta CL)]$ をとると, 
+450: $\iota$ は懸垂元であり $\overline\alpha\circ\iota=\alpha$. "
+116,2,Toda_02_2(2).tex,452,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,44f45a68d15d502834918ddedf6851550b1d0b88d9950bc4031a9ad0e3b6e513,"\[
+H(\alpha)=H(\overline\alpha\circ\iota)=H(\overline{\alpha})\circ\iota
+\]","449: 包含の類 $\iota\in[E^nK, E^n(K\cup_\beta CL)]$ をとると, 
+450: $\iota$ は懸垂元であり $\overline\alpha\circ\iota=\alpha$. 
+451: Prop \ref{prop:2.2} から,
+452: \[
+453: H(\alpha)=H(\overline\alpha\circ\iota)=H(\overline{\alpha})\circ\iota
+454: \]
+455: が従い, $H(\overline\alpha)$ は $H(\alpha)$ の extension である. 
+456: よってProp1.7 を再び用いると,
+457: \["
+120,2,Toda_02_2(2).tex,557,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,ec01a2aa798487ec3ebb04cfd34792575fbd15a39bbfc300c92da8ba233547c6,"\[
+u_k\,u_h=\binom{k+h}{k}\,u_{k+h}.
+\]","554: u_{2k}\,u_{2h}=\binom{k+h}{k}\,u_{2(k+h)}.
+555: \]
+556: $m$ が偶数のとき, 
+557: \[
+558: u_k\,u_h=\binom{k+h}{k}\,u_{k+h}.
+559: \]
+560: 係数体を,
+561: \[
+562: \Lambda="
+121,2,Toda_02_2(2).tex,561,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,7098fc9fc54dbf2e31a143970289b131a0e40454bd512f4ed48904a5e1f1a601,"\[
+\Lambda=
+\begin{cases}
+\mathbb{Z}, & m\ \text{奇数かつ } p=2,\\
+\mathbb{Z}_p, & m\ \text{偶数}.
+\end{cases}
+\]","558: u_k\,u_h=\binom{k+h}{k}\,u_{k+h}.
+559: \]
+560: 係数体を,
+561: \[
+562: \Lambda=
+563: \begin{cases}
+564: \mathbb{Z}, & m\ \text{奇数かつ } p=2,\\
+565: \mathbb{Z}_p, & m\ \text{偶数}.
+566: \end{cases}"
+122,2,Toda_02_2(2).tex,569,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,f03626b304a6aceb9c563924569fac162673dc671f0ab463e2cd3357548f7361,"\[
+i^*:H^i\bigl((S^m)_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{p-1};\Lambda\bigr)
+\ \ \text{は} \ 
+i<pm \ \text{で同型 .}
+\]","566: \end{cases}
+567: \]
+568: とする. このとき, 次のことが簡単に確かめられる. 
+569: \[
+570: i^*:H^i\bigl((S^m)_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{p-1};\Lambda\bigr)
+571: \ \ \text{は} \ 
+572: i<pm \ \text{で同型 .}
+573: \]
+574: \["
+123,2,Toda_02_2(2).tex,574,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,e06f438b7e819a75fb0023237af2e76964796a6a4bcb93a4e032b9595993937a,"\[
+h^*:H^i\bigl((S^{pm})_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{\infty};\Lambda\bigr)
+\ \ \text{は} \ 
+\text{任意の } i \ \text{で単射同型 .}
+\]","571: \ \ \text{は} \ 
+572: i<pm \ \text{で同型 .}
+573: \]
+574: \[
+575: h^*:H^i\bigl((S^{pm})_\infty;\Lambda\bigr)\to H^i\bigl((S^m)_{\infty};\Lambda\bigr)
+576: \ \ \text{は} \ 
+577: \text{任意の } i \ \text{で単射同型 .}
+578: \]
+579: "
+128,2,Toda_02_2(2).tex,706,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,32821782b36e6c5ba05e02588960ea3b7809b291aeb0e55a9e317389c57fbb8d,"\[
+i_0^*:H^{*}(F;\Lambda)\ \xrightarrow{\;\cong\;}\ H^{*}\!\bigl((S^m)_{p-1};\Lambda\bigr) .
+\]","703: 
+704: \noindent
+705: ここで, 包含 $i_0:(S^m)_{p-1}\hookrightarrow F$ が次の同型を誘導することを示す. 
+706: \[
+707: i_0^*:H^{*}(F;\Lambda)\ \xrightarrow{\;\cong\;}\ H^{*}\!\bigl((S^m)_{p-1};\Lambda\bigr) .
+708: \]
+709: $\,i_1:F\hookrightarrow X$ を包含とする. このとき $i_0^*\circ i_1^*$ は $i^*$ に同値である. 
+710: ゆえに,
+711: \["
+130,2,Toda_02_2(2).tex,726,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,29a0e6c98dbda1a0832c5fe3f8fce30752179a8fd5cb80af309c54aec6c6cb0a,"\[
+H^{*}(X;\Lambda)\ \longrightarrow\ E_{\infty}^{0,*}
+\longrightarrow\ E_{2}^{0,*}\ \cong\ 1\otimes H^{*}(F;\Lambda) .
+\]","723: $G_0$ は $i_1^*$ の像に含まれ, $i_0^*$ は $G_0$ を,
+724: $H^{*}\!\bigl((S^m)_{p-1};\Lambda\bigr)$ へ同型で移す. \\
+725: injection homomorphism $i_1^*$ は, 次の写像に一致する. 
+726: \[
+727: H^{*}(X;\Lambda)\ \longrightarrow\ E_{\infty}^{0,*}
+728: \longrightarrow\ E_{2}^{0,*}\ \cong\ 1\otimes H^{*}(F;\Lambda) .
+729: \]
+730: したがって, $r\ge2$ に対し,
+731: \["
+131,2,Toda_02_2(2).tex,731,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,aeb0ae0a96d9f6691f38af2b74462b5527504db46942bf242f664dc430b2ed45,"\[
+d_r(1\otimes G_0)=0,
+\]","728: \longrightarrow\ E_{2}^{0,*}\ \cong\ 1\otimes H^{*}(F;\Lambda) .
+729: \]
+730: したがって, $r\ge2$ に対し,
+731: \[
+732: d_r(1\otimes G_0)=0,
+733: \]
+734: その極限は, $E_\infty^{*}$ において $G$ に一致する. 
+735: また $r\ge2$ で $d_r(B^{*}\otimes 1)=0$ だから, 
+736: \["
+132,2,Toda_02_2(2).tex,736,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,7d440c900efaf10d6504c14cadbe1ff5ffbba874d2f1bd09a7ead9b76ecbfe7a,"\[
+d_r(B^{*}\otimes G_0)=0\qquad(r\ge2).
+\]","733: \]
+734: その極限は, $E_\infty^{*}$ において $G$ に一致する. 
+735: また $r\ge2$ で $d_r(B^{*}\otimes 1)=0$ だから, 
+736: \[
+737: d_r(B^{*}\otimes G_0)=0\qquad(r\ge2).
+738: \]
+739: $E_\infty^{*}$ における $B^{*}\otimes G_0$ の極限を考えると, 
+740: それは,
+741: \["
+134,2,Toda_02_2(2).tex,805,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,575db31ad1fb8827fb6f3b1a1ca2a70f81a46ac886ebea8deb98e187e41d2ac2,"\[
+d_r(1\otimes f_0)=0\qquad(r\ge2).
+\]","802: \noindent
+803: $G_0$ に含まれない $H^{*}(F;\Lambda)$ の最小次数の元を $f_0$ と仮定する. \\
+804: このとき, $d_r(1\otimes f_0)$ は $B^{*}\otimes G_0$ に属するので,
+805: \[
+806: d_r(1\otimes f_0)=0\qquad(r\ge2).
+807: \]
+808: 
+809: 以上より, $r\ge2$ に対し $1\otimes f_0$ は $d_r$-像ではないから, 
+810: $1\otimes f_0\ne0$ が $E_\infty^{*}$ に残る. \\"
+135,2,Toda_02_2(2).tex,813,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,68f530b0dc12a17e0821fcb9eecac23078df72e818624d1408ddf1d05b56690a,"\[
+H^{*}(F;\Lambda)=G_0,\qquad
+i_0^{*}:H^{*}(F;\Lambda)\xrightarrow{\;\cong\;}
+H^{*}\!\bigl((S^{m})_{p-1};\Lambda\bigr).
+\]","810: $1\otimes f_0\ne0$ が $E_\infty^{*}$ に残る. \\
+811: しかし, これは $B^{*}\otimes G_0\cong E_\infty^{*}$ と矛盾する. \\
+812: したがって, そのような $f_0$ は存在しない. ゆえに, 次が示された.
+813: \[
+814: H^{*}(F;\Lambda)=G_0,\qquad
+815: i_0^{*}:H^{*}(F;\Lambda)\xrightarrow{\;\cong\;}
+816: H^{*}\!\bigl((S^{m})_{p-1};\Lambda\bigr).
+817: \]
+818: "
+138,2,Toda_02_2(2).tex,903,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,dc85a149b918df268e0ef60fe841ab3eaaf37d6a753bd5ed78f30393a0ff913d,"\[
+h_m:\ \bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \bigl((S^{2m})_\infty,\ e_0\bigr)
+\]","900: \begin{paracol}{2}
+901: 
+902: 以上から, $m>1$ のとき写像
+903: \[
+904: h_m:\ \bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \bigl((S^{2m})_\infty,\ e_0\bigr)
+905: \]
+906: は, 上のTh の条件を満たす. したがって,
+907: \[
+908: h_{m*}:\ \pi_i\bigl((S^m)_\infty,\ S^m\bigr)\ \longrightarrow\ \pi_i\bigl((S^{2m})_\infty\bigr)"
+140,2,Toda_02_2(2).tex,994,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,1a9d6328735f1b9e536e44c33e63e5d27405456bd572d920475b9da95ee69edb,"\[
+\partial(\alpha'\circ\partial_0^{-1}\beta) = \partial(\alpha')\circ \beta,\quad
+
+
+h_{m*}(\alpha'\circ\partial_0^{-1}\beta) = h_{m*}(\alpha')\circ E\beta .
+\]","991: 相対ホモトピー群の中での合成とみなすことにより, 
+992: \(\alpha'\in\pi_i((S^m)_\infty, S^m)\)
+993: に対して, 
+994: \[
+995: \partial(\alpha'\circ\partial_0^{-1}\beta) = \partial(\alpha')\circ \beta,\quad
+996: 
+997: 
+998: h_{m*}(\alpha'\circ\partial_0^{-1}\beta) = h_{m*}(\alpha')\circ E\beta .
+999: \]"
+142,2,Toda_02_2(2).tex,1024,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,502faeab13a6c9751a8264ab5be06bdd435553c727bfde580118763bf19cd3bd,"\[
+\Delta(E^2\gamma)=\pm[\,\iota_m,\iota_m\,]\circ\gamma.\qquad \qed
+\]","1021: \Delta(\iota_{2m+1})=\pm[\,\iota_m,\iota_m\,]
+1022: \)
+1023: が直ちに従い, 特に,
+1024: \[
+1025: \Delta(E^2\gamma)=\pm[\,\iota_m,\iota_m\,]\circ\gamma.\qquad \qed
+1026: \]
+1027: 
+1028: \switchcolumn
+1029: "
+143,2,Toda_02_2(2).tex,1114,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,7a5326ab0d6670bfa73fcd8227de497dbe72bd9b91999ad944a59b628576384d,"\[
+\overline{a}:\ (K\cup_{b}CS^k,\ K)\ \longrightarrow\ ((S^m)_\infty,\ S^m)
+\]","1111: (2.3),(2.4) から $E(\alpha\circ\beta)=0$ は $i_*\alpha\circ\beta=0$ を導く. \\
+1112: したがって, $a\circ b$ は $(S^m)_\infty$ で null-homotopic であり, 
+1113: $a:(K,x_0)\to(S^m,e_0)$ は,
+1114: \[
+1115: \overline{a}:\ (K\cup_{b}CS^k,\ K)\ \longrightarrow\ ((S^m)_\infty,\ S^m)
+1116: \]
+1117: へ拡張することができる. 
+1118: このとき, 下図を可換にする写像 $a'$ が存在する：
+1119: \["
+144,2,Toda_02_2(2).tex,1119,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,82fbbd27d0b84ed2f4f4da75fb696404402bb1e5443e73e916e5cf3abcbe5100,"\[
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+  \node (A) at (0,1.4) {$(CS^k,S^k)$};
+  \node (B) at (3.3,1.4) {$(K\cup_{b}CS^k,\ K)$};
+  \node (C) at (6.6,1.4) {$((S^m)_\infty,S^m)$};
+  \node (D) at","1116: \]
+1117: へ拡張することができる. 
+1118: このとき, 下図を可換にする写像 $a'$ が存在する：
+1119: \[
+1120: \begin{tikzpicture}[baseline=(current bounding box.center)]
+1121:   \node (A) at (0,1.4) {$(CS^k,S^k)$};
+1122:   \node (B) at (3.3,1.4) {$(K\cup_{b}CS^k,\ K)$};
+1123:   \node (C) at (6.6,1.4) {$((S^m)_\infty,S^m)$};
+1124:   \node (D) at (3.3,0)   {$(S^{k+1},e_0)$};"
+145,2,Toda_02_2(2).tex,1144,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,9e8460b0877fff6476b54619345cda7642762300b40e1ba8cc43fe7c0de135c7,"\[
+[h_m\circ \ext{a}\circ\widetilde{c}]=[\,a'\circ p\circ\widetilde{c}\,]
+\]","1141: (1.18) より, $p\circ\widetilde{c}$ は $E\gamma$ を表す. \\
+1142: Prop 1.7 から, $\overline{a}\circ\widetilde{c}:S^{i+1}\to(S^m)_\infty$ は,
+1143: Toda bracket $\toda{i_*\alpha,\beta,\gamma}$ の元を表すので,
+1144: \[
+1145: [h_m\circ \ext{a}\circ\widetilde{c}]=[\,a'\circ p\circ\widetilde{c}\,]
+1146: \]
+1147: は, $h_{m*}\{\,i_*\alpha,\beta,\gamma\,\}$ と,
+1148: $h_{m*}\!\bigl(\partial^{-1}(\alpha\circ\beta)\bigr)\circ E\gamma$ 
+1149: の共通元である. "
+146,2,Toda_02_2(2).tex,1150,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,a316a3ec0c85b559a79109cb79275a1876b63387d7f6a610df0233f0745b924f,"\begin{align*}
+H\todai[1]{E\alpha,E\beta,E\gamma}
+& = H\todai[1]{\Omega_1^{-1}i_*\alpha,E\beta,E\gamma}
+&& \text{by (2.4)},\\
+& = -H(\Omega_1^{-1}\toda{i_*\alpha,\beta,\gamma})
+&& \text{by Prop1.3},\\
+& = -\Omega_1","1147: は, $h_{m*}\{\,i_*\alpha,\beta,\gamma\,\}$ と,
+1148: $h_{m*}\!\bigl(\partial^{-1}(\alpha\circ\beta)\bigr)\circ E\gamma$ 
+1149: の共通元である. 
+1150: \begin{align*}
+1151: H\todai[1]{E\alpha,E\beta,E\gamma}
+1152: & = H\todai[1]{\Omega_1^{-1}i_*\alpha,E\beta,E\gamma}
+1153: && \text{by (2.4)},\\
+1154: & = -H(\Omega_1^{-1}\toda{i_*\alpha,\beta,\gamma})
+1155: && \text{by Prop1.3},\\"
+147,2,Toda_02_2(2).tex,1281,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,c55d7b3e13de578afd311aa72f0dff20b93bc32044f8d447f7f5fd44ffe4eb79,"\begin{align*}
+& H(E\alpha\circ E\pi_{i+1}(K) + \pi_{j+1}(S^{m+1})\circ E^2\gamma)\\
+& = H(E\alpha)\circ E\pi_{i+1}(K) + H\pi_{j+1}(S^{m+1})\circ E^2\gamma
+&& \text{Prop2.2,}\\
+& = H\pi_{j+1}(S^{m+1})\circ E^2\gamma","1278: \(-\Delta^{-1}(\alpha\circ\beta)\circ E^2\gamma\) は, \\
+1279: 共通元 $\Omega_1^{-1}[a'\circ p\circ\widetilde{c}\,]$ を持つことが分かる. \\
+1280: また, これら2つの集合は, どちらも同じ次の部分群の coset である.
+1281: \begin{align*}
+1282: & H(E\alpha\circ E\pi_{i+1}(K) + \pi_{j+1}(S^{m+1})\circ E^2\gamma)\\
+1283: & = H(E\alpha)\circ E\pi_{i+1}(K) + H\pi_{j+1}(S^{m+1})\circ E^2\gamma
+1284: && \text{Prop2.2,}\\
+1285: & = H\pi_{j+1}(S^{m+1})\circ E^2\gamma .
+1286: && \text{by (2.11).}"
+154,3,Toda_03_2(2).tex,78,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,373d9105e12ac08ac308835fa3541477a42cc9c6518e67f92a12df0efec6869c,"\[
+\alpha \wedge \beta\ \in\ \pi_{p+q+k+h}(S^{p+q})
+\]","75: 
+76: $\alpha\in\pi_{p+k}(S^p)$, $\beta\in\pi_{q+h}(S^q)$ に対し, 
+77: reduced join
+78: \[
+79: \alpha \wedge \beta\ \in\ \pi_{p+q+k+h}(S^{p+q})
+80: \]
+81: を考える. 
+82: 
+83: \begin{proposition}[Barratt-Hilton \cite{BarrattHilton1953}]\label{prop:3.1}"
+156,3,Toda_03_2(2).tex,110,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,23925e37f319ff8c75d1c4ecd3bbe3e20b01b86075065fe76447bcb2379b35be,"\[
+\begin{align*}
+\alpha \wedge \beta
+& = (\alpha\circ\iota_{p+k}) \wedge (\iota_q\circ\beta)
+= (\alpha \wedge \iota_q) \circ (\iota_{p+k} \wedge \beta)\\
+& = (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta,
+\end{alig","107: \iota_n \wedge \alpha = (-1)^{kn} E^{n}\alpha
+108: \)
+109: を得る. さらに, (1.5) から,
+110: \[
+111: \begin{align*}
+112: \alpha \wedge \beta
+113: & = (\alpha\circ\iota_{p+k}) \wedge (\iota_q\circ\beta)
+114: = (\alpha \wedge \iota_q) \circ (\iota_{p+k} \wedge \beta)\\
+115: & = (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta,"
+158,3,Toda_03_2(2).tex,118,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,f132307ad72f443806eeb61cb84eac405463a5ee096adac13c70f98010ca22df,"\[
+\begin{align*}
+\alpha \wedge \beta
+& = (\iota_p\circ \alpha) \wedge (\beta\circ \iota_{q+h})
+= (\iota_p\wedge \beta) \circ (\alpha\wedge\iota_{q+h})\\
+& = (-1)^{ph} E^{p}\beta\circ E^{q+h}\alpha.
+\end{align*}
+\","115: & = (-1)^{(p+k)h} E^{q}\alpha \circ E^{p+k}\beta,
+116: \end{align*}
+117: \]
+118: \[
+119: \begin{align*}
+120: \alpha \wedge \beta
+121: & = (\iota_p\circ \alpha) \wedge (\beta\circ \iota_{q+h})
+122: = (\iota_p\wedge \beta) \circ (\alpha\wedge\iota_{q+h})\\
+123: & = (-1)^{ph} E^{p}\beta\circ E^{q+h}\alpha."
+161,3,Toda_03_2(2).tex,188,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,8fd6c234974457ba8398480dc9a3acb4dfd36842bcccc92fa0f1d43c3c65997c,"\[
+\in \Delta(E^{2q}H(\alpha)\circ E^{p+k+1}H(\beta))
+\subset\pi_{p+q+k+h-1}(S^{p+q-1}).
+\]","185: \[
+186: [\iota_{p+q-1}, \iota_{p+q-1}]\circ E^{2q-2}H(\alpha)\circ E^{p+k-1}H(\beta)
+187: \]
+188: \[
+189: \in \Delta(E^{2q}H(\alpha)\circ E^{p+k+1}H(\beta))
+190: \subset\pi_{p+q+k+h-1}(S^{p+q-1}).
+191: \]
+192: Prop3.2 の仮定から, \(p+q+k+h\le 3(p+q-1)-3\) である. \\
+193: このとき, \(\Delta\) は1つの値を取る. よって, 次の Cor を得る. "
+162,3,Toda_03_2(2).tex,244,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,c0c92e2c07afdf3e0994144c549894afd7be9d33240c3dfdc6261711c3856c1a,"\[
+H(d_s(x,t))=
+\begin{cases}
+\bigl(a \wedge i_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{2t-1}\bigr)(x), & \tfrac12\le t\le1,\\[2pt]
+\bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\tfrac12,\\","241: $A_t$, $B_t$ とする. \\
+242: また, $S^n$ の恒等写像を $i_n$ と記す. \\
+243: $H,\ H':S^{s+1}\to S^{p+q+r}$ ($s=p+h+q+k+r+\ell$) を, 次で与える：
+244: \[
+245: H(d_s(x,t))=
+246: \begin{cases}
+247: \bigl(a \wedge i_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{2t-1}\bigr)(x), & \tfrac12\le t\le1,\\[2pt]
+248: \bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\tfrac12,\\[2pt]
+249: \end{cases}"
+165,3,Toda_03_2(2).tex,251,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,26b79fc1868b5fc5eb5dc65737cce52ddac65e513c0a9cd70c8607178fd33282,"\[
+H'(d_s(x,t))=
+\begin{cases}
+\bigl(1_{p+q} \wedge c\bigr)\bigl(A_{2t-1} \wedge 1_{r+\ell}\bigr)(x), & \tfrac12\le t\le1,\\[2pt]
+\bigl(1_p \wedge B_{1-2t}\bigr)\bigl(a \wedge 1_{q+k+r+\ell}\bigr)(x), & 0\le t\le\tfr","248: \bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\tfrac12,\\[2pt]
+249: \end{cases}
+250: \]
+251: \[
+252: H'(d_s(x,t))=
+253: \begin{cases}
+254: \bigl(1_{p+q} \wedge c\bigr)\bigl(A_{2t-1} \wedge 1_{r+\ell}\bigr)(x), & \tfrac12\le t\le1,\\[2pt]
+255: \bigl(1_p \wedge B_{1-2t}\bigr)\bigl(a \wedge 1_{q+k+r+\ell}\bigr)(x), & 0\le t\le\tfrac12.
+256: \end{cases}"
+167,3,Toda_03_2(2).tex,259,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,50c573279f841d505c04f2b68d0a1aaf44196357436ac41ea0e1ad77fb9870fb,"\[
+\begin{align*}
+& \toda{\alpha \wedge \iota_{q+r},
+\iota_{p+h} \wedge \beta, 
+\iota_{p+h+q+k} \wedge \gamma}\\
+& = \toda{E^{q+r}\alpha, 
+(-1)^{(p+h)k}E^{p+h+r}\beta, 
+(-1)^{(p+h+q+k)\ell}E^{p+h+q+k}\gamma}\\
+&","256: \end{cases}
+257: \]
+258: このとき, $H$ は次の元を表す. 
+259: \[
+260: \begin{align*}
+261: & \toda{\alpha \wedge \iota_{q+r},
+262: \iota_{p+h} \wedge \beta, 
+263: \iota_{p+h+q+k} \wedge \gamma}\\
+264: & = \toda{E^{q+r}\alpha, "
+169,3,Toda_03_2(2).tex,329,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,2921243735ff1076aae4cfeba43a2d39cc57016a969f957e1eef9e4f5da221ba,"\[
+\begin{align*}
+& \toda{\iota_{p+q}\wedge \gamma, 
+\iota_p\wedge \beta\wedge \iota_{r+\ell}, 
+\alpha\wedge\iota_{q+k+r+\ell}}\\
+& =\toda{(-1)^{(p+q)\ell}E^{p+q}\gamma, 
+(-1)^{pk}E^{p+r+\ell}\beta, 
+E^{q+k+r+\ell","326: 
+327: \noindent
+328: \(H'\) は次の元を表す.
+329: \[
+330: \begin{align*}
+331: & \toda{\iota_{p+q}\wedge \gamma, 
+332: \iota_p\wedge \beta\wedge \iota_{r+\ell}, 
+333: \alpha\wedge\iota_{q+k+r+\ell}}\\
+334: & =\toda{(-1)^{(p+q)\ell}E^{p+q}\gamma, "
+171,3,Toda_03_2(2).tex,348,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,7687aba1be3467770921371915cdd7a13eb314331432cab97ff8bb88206b2c05,"\[
+\begin{aligned}
+C'_{t}
+& = \bigl(1_p \wedge \sigma_{r,q}\bigr)\circ 
+(C_t \wedge 1_{q})\circ
+\bigl(1_{p+h} \wedge \sigma_{q,r+\ell}\bigr),\\
+C''_{t}
+& = \bigl(1_q \wedge \sigma_{r,q+k}\bigr)\circ 
+(C_t \wedge","345: 
+346: ii)\
+347: $a \wedge c$ の null-homotopy を $C_t$ とする. このとき,
+348: \[
+349: \begin{aligned}
+350: C'_{t}
+351: & = \bigl(1_p \wedge \sigma_{r,q}\bigr)\circ 
+352: (C_t \wedge 1_{q})\circ
+353: \bigl(1_{p+h} \wedge \sigma_{q,r+\ell}\bigr),\\"
+172,3,Toda_03_2(2).tex,361,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,0d5592e527d51646ef684d750b12edc72f30a5139620a18d67d1eb822d1d8a1c,"\[
+\begin{align*}
+a \wedge 1_{q} \wedge c
+& = (1_{p+q} \wedge c) \circ (a \wedge 1_{q+r+\ell}),\\
+a \wedge 1_{q+k} \wedge c
+& = (1_{p+q+k} \wedge c) \circ (a \wedge 1_{q+k+r+\ell}),
+\end{align*}
+\]","358: \end{aligned}
+359: \]
+360: とおくと, これらはそれぞれ, 
+361: \[
+362: \begin{align*}
+363: a \wedge 1_{q} \wedge c
+364: & = (1_{p+q} \wedge c) \circ (a \wedge 1_{q+r+\ell}),\\
+365: a \wedge 1_{q+k} \wedge c
+366: & = (1_{p+q+k} \wedge c) \circ (a \wedge 1_{q+k+r+\ell}),"
+175,3,Toda_03_2(2).tex,376,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,338dd680010dede0ea008e0bdebe5495c8930dbcbd49128eacdfeedec8e6643b,"\[
+H,\ H',\ H'':S^{s+1}\longrightarrow S^{p+q+r},\qquad
+s=p+h+q+k+r+\ell
+\]","373: = (1_p \wedge \sigma_{r,q})\circ(C_t \wedge b)\circ (1_{p+h} \wedge \sigma_{q+k,r+\ell})
+374: = (1_p \wedge b \wedge 1_r) \circ C''_t.
+375: \]
+376: \[
+377: H,\ H',\ H'':S^{s+1}\longrightarrow S^{p+q+r},\qquad
+378: s=p+h+q+k+r+\ell
+379: \]
+380: 
+381: \["
+176,3,Toda_03_2(2).tex,381,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,7cf9984926f6cf2568904d069ba64a3bdf8a6087241b9bbd321c237119eda93a,"\[
+H(d_s(x,t))=
+\begin{cases}
+\bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{2t-1}\bigr)(x), & \frac12\le t\le1,\\[2pt]
+\bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\frac12,
+\e","378: s=p+h+q+k+r+\ell
+379: \]
+380: 
+381: \[
+382: H(d_s(x,t))=
+383: \begin{cases}
+384: \bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{2t-1}\bigr)(x), & \frac12\le t\le1,\\[2pt]
+385: \bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\frac12,
+386: \end{cases}"
+178,3,Toda_03_2(2).tex,388,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,80997382e0df26d35e29afaff6ec480faa0f8e9ec92e0c687791284d6ae95ba9,"\[
+H'(d_s(x,t))=
+\begin{cases}
+C'_{2t-1}\bigl(1_{p+h} \wedge b \wedge 1_{r+\ell}\bigr)(x), & \frac12\le t\le1,\\[2pt]
+\bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{1-2t}\bigr)(x), & 0\le t\le\frac12,
+\end{case","385: \bigl(A_{1-2t} \wedge 1_r\bigr)\bigl(1_{p+h+q+k} \wedge c\bigr)(x), & 0\le t\le\frac12,
+386: \end{cases}
+387: \]
+388: \[
+389: H'(d_s(x,t))=
+390: \begin{cases}
+391: C'_{2t-1}\bigl(1_{p+h} \wedge b \wedge 1_{r+\ell}\bigr)(x), & \frac12\le t\le1,\\[2pt]
+392: \bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{1-2t}\bigr)(x), & 0\le t\le\frac12,
+393: \end{cases}"
+180,3,Toda_03_2(2).tex,395,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,92716cc69684609d2dda200a046cce3e931702413c8f1172ef7a8ade2e100ebb,"\[
+H''(d_s(x,t))=
+\begin{cases}
+\bigl(A_{2t-1} \wedge 1_r\bigr)\bigl(1_{p+q+h+k} \wedge c\bigr)(x), & \frac12\le t\le1,\\[2pt]
+\bigl(1_p \wedge b \wedge 1_{r}\bigr)\, C''_t(x), & 0\le t\le\frac12 .
+\end{cases}
+\]","392: \bigl(a \wedge 1_{q+r}\bigr)\bigl(1_{p+h} \wedge B_{1-2t}\bigr)(x), & 0\le t\le\frac12,
+393: \end{cases}
+394: \]
+395: \[
+396: H''(d_s(x,t))=
+397: \begin{cases}
+398: \bigl(A_{2t-1} \wedge 1_r\bigr)\bigl(1_{p+q+h+k} \wedge c\bigr)(x), & \frac12\le t\le1,\\[2pt]
+399: \bigl(1_p \wedge b \wedge 1_{r}\bigr)\, C''_t(x), & 0\le t\le\frac12 .
+400: \end{cases}"
+183,3,Toda_03_2(2).tex,416,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,32956293f524f954f7073caf099a71f169d3c35918370cb95d563074c855bb79,"\[
+\begin{align*}
+H(d_s(x,t)) &= H'(d_s(x,1-t)),\\
+H'(d_s(x,t)) & = H''(d_s(x,1-t)),\\
+H''(d_s(x,t)) & = H(d_s(x,1-t)).
+\end{align*}
+\]","413: \]
+414: ここで, $\delta=(p+h)k+(p+q+k)\ell$ である.
+415: さらに, \(\frac{1}{2}\le t\le 1\) に対して, 
+416: \[
+417: \begin{align*}
+418: H(d_s(x,t)) &= H'(d_s(x,1-t)),\\
+419: H'(d_s(x,t)) & = H''(d_s(x,1-t)),\\
+420: H''(d_s(x,t)) & = H(d_s(x,1-t)).
+421: \end{align*}"
+185,3,Toda_03_2(2).tex,452,DEFINITION_COMPONENT,True,mapping cone K,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,f73f06dfcf2140bba9f6b704362d5c9711fd5339b28a1a7b0153d6d0b051c55b,"\[
+K = S^n\ \cup_{\,f}\ CS^{n+k}
+\]","449: \medskip
+450: $\alpha$ の代表 $f:S^{n+k}\to S^n$ をとり, Chapter I と同様に,
+451: cell complex
+452: \[
+453: K = S^n\ \cup_{\,f}\ CS^{n+k}
+454: \]
+455: を考える. $CS^{n+k}$ の等化写像を
+456: \[
+457: d'_{n+k}:S^{n+k}\times I\longrightarrow CS^{n+k}"
+186,3,Toda_03_2(2).tex,456,DEFINITION_COMPONENT,True,mapping cone K,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,4c803710f54fd1f3af965ba773b9127fc8308a4129531b1ebfa93ab750765734,"\[
+d'_{n+k}:S^{n+k}\times I\longrightarrow CS^{n+k}
+\]","453: K = S^n\ \cup_{\,f}\ CS^{n+k}
+454: \]
+455: を考える. $CS^{n+k}$ の等化写像を
+456: \[
+457: d'_{n+k}:S^{n+k}\times I\longrightarrow CS^{n+k}
+458: \]
+459: とし, 合成を
+460: \[
+461: d':S^{n+k}\times I\ \xrightarrow{d'}\ CS^{n+k}\ \rightarrow\ K"
+189,3,Toda_03_2(2).tex,472,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,9ca5d6835c24baa40ec399feef53dd1f277836946df1944de6ba2c6f9372ff96,"\[
+1_K \wedge f:\ \Ex^{n+k}K \;=\; K \wedge S^{n+k}\ \longrightarrow\ K \wedge S^{n}\;=\;\Ex^{n}K.
+\]","469: このとき, $p$ は $K$ に含まれる $S^n$ を一点につぶす写像である.
+470: 
+471: $K$ の恒等写像を $1_K$ とし, 次の reduced join を考える.
+472: \[
+473: 1_K \wedge f:\ \Ex^{n+k}K \;=\; K \wedge S^{n+k}\ \longrightarrow\ K \wedge S^{n}\;=\;\Ex^{n}K.
+474: \]
+475: 制限
+476: \((1_K \wedge f) \big|_{S^{2n+k}}\) は, 
+477: $\iota_n \wedge \alpha = (-1)^{kn}E^n \alpha$ を表す. \\"
+190,3,Toda_03_2(2).tex,482,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,2fb4a57cd4c367008551eae1fd6e609d5f13842f62996700796ec4efb8b3ed22,"\[
+G_s:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K, \qquad (0\le s\le1)
+\]","479: $(2n+k+1)$-cell であるから, \\
+480: 上の制限は, $\Ex^{n}K$ の中で null-homotopic である. 
+481: ホモトピー拡張定理により, ホモトピー
+482: \[
+483: G_s:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K, \qquad (0\le s\le1)
+484: \]
+485: が存在して, $G_0=1_K \wedge f$, で, 
+486: \[
+487: G_1:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K"
+191,3,Toda_03_2(2).tex,486,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,fa0bd5143c6e8e2c85c20a92cf2cffe11f2c703eda14326584a1bed9c85dc29f,"\[
+G_1:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K
+\]","483: G_s:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K, \qquad (0\le s\le1)
+484: \]
+485: が存在して, $G_0=1_K \wedge f$, で, 
+486: \[
+487: G_1:\ \Ex^{n+k}K\ \longrightarrow\ \Ex^{n}K
+488: \]
+489: は, $G_1$ は $S^{2n+k}$ を一点に写す. 
+490: 上記の写像 $p:K\to S^{n+k+1}$ に対して, ある写像
+491: \["
+192,3,Toda_03_2(2).tex,491,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,94c79749291c73da6c94f2485b5abf863365b8a115011526f71949e880c3739e,"\[
+F:\ S^{2n+2k+1}\ \longrightarrow\ \Ex^{n}K
+\]","488: \]
+489: は, $G_1$ は $S^{2n+k}$ を一点に写す. 
+490: 上記の写像 $p:K\to S^{n+k+1}$ に対して, ある写像
+491: \[
+492: F:\ S^{2n+2k+1}\ \longrightarrow\ \Ex^{n}K
+493: \]
+494: が存在して,
+495: \[
+496: G_1\;=\;F\circ \Ex^{n}p"
+194,3,Toda_03_2(2).tex,602,UNNUMBERED_ASSERTION_CANDIDATE,True,suspension sign relation,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,bfeceec32f8b2c7ee6ae469c52c1d6d21d05d847482434ae13480974b43ca435,"\[
+\iota_n \wedge \alpha \;=\;(-1)^{nk}\,\Ex^n\alpha
+= \alpha \wedge\ (-1)^{kn} \iota_n .
+\]","599: $\phi_m:K\times S^m\to \Ex^{m}K$ ($m=n$ または $n+k$) を,
+600: $\Ex^{m}K=K \wedge S^{m}$ の等化写像とする. \\
+601: Prop3.1 により,
+602: \[
+603: \iota_n \wedge \alpha \;=\;(-1)^{nk}\,\Ex^n\alpha
+604: = \alpha \wedge\ (-1)^{kn} \iota_n .
+605: \]
+606: このとき, ホモトピー
+607: $A_s:(S^{2n+k},e_0)\to (S^{2n+k},e_0)$ で, "
+195,3,Toda_03_2(2).tex,609,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,60b059369c8260ea5c8810fc24dd09bcb65b99aa14fcc55283c3c12aad4334d6,"\[
+A_0=1_n \wedge f,\qquad A_1=f \wedge \tau.
+\]","606: このとき, ホモトピー
+607: $A_s:(S^{2n+k},e_0)\to (S^{2n+k},e_0)$ で, 
+608: 次を満たすものが存在する.
+609: \[
+610: A_0=1_n \wedge f,\qquad A_1=f \wedge \tau.
+611: \]
+612: ここで,  $1_n$ は $S^n$ の恒等写像, $\tau:S^n\to S^n$ は
+613: degree が $(-1)^{kn}$ の写像である. \\
+614: 次に, ホモトピー"
+198,3,Toda_03_2(2).tex,626,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,a65d2808ce4fab0f7858f8033f957f368207c520e63659873353852e8cf6e786,"\[
+G_s\bigl(\phi_{n+k}(d'(u,t),v)\bigr)=
+\begin{cases}
+\phi_{n}\!\Bigl(d'\!\bigl(u,\,(2t-s)/(2-s)\bigr),\ f(v)\Bigr), & \tfrac{s}{2}\le t\le1,\\[3pt]
+G_{s-2t}\!\bigl(\phi_{n,n+k}(f(u),v)\bigr), & 0\le t\le \tfrac{s}{","623: \end{cases}
+624: \]
+625: また, $\Ex^{n+k}K$ の点 $\phi_{n+k}\!\bigl(d'(u,t),v\bigr)$ に対して,
+626: \[
+627: G_s\bigl(\phi_{n+k}(d'(u,t),v)\bigr)=
+628: \begin{cases}
+629: \phi_{n}\!\Bigl(d'\!\bigl(u,\,(2t-s)/(2-s)\bigr),\ f(v)\Bigr), & \tfrac{s}{2}\le t\le1,\\[3pt]
+630: G_{s-2t}\!\bigl(\phi_{n,n+k}(f(u),v)\bigr), & 0\le t\le \tfrac{s}{2}.
+631: \end{cases}"
+200,3,Toda_03_2(2).tex,639,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,8cc65abf3e9f3f72d648d0a48ffe9034952ef1bfdabb804c26a9faf48d989e3e,"\[
+F:\ S^{2n+2k+1}\longrightarrow \Ex^{n}K
+\]","636: また, $\Ex^{n+k}p$ は $S^{2n+k}$ をつぶす写像なので, 
+637: 
+638: $G_1=F\circ \Ex^{n+k}p$ を満たす写像
+639: \[
+640: F:\ S^{2n+2k+1}\longrightarrow \Ex^{n}K
+641: \]
+642: が一意に存在する. 
+643: 次の合成を考える. 
+644: \["
+201,3,Toda_03_2(2).tex,644,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,e69b4842a3bb0773a3ec7ff64a5f1446f25500cd59471f108cc4769f20650a08,"\[
+\Ex^{n}p \circ F:\ S^{2n+2k+1}\longrightarrow S^{2n+k+1}
+\]","641: \]
+642: が一意に存在する. 
+643: 次の合成を考える. 
+644: \[
+645: \Ex^{n}p \circ F:\ S^{2n+2k+1}\longrightarrow S^{2n+k+1}
+646: \]
+647: 
+648: \switchcolumn
+649: "
+202,3,Toda_03_2(2).tex,670,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,c01c68cd42f538e16f8f930f5859e248e30d35de916ecf6bf7dde6002e5548b5,"\[
+(E^n p\circ F)(\phi_{n+k+1, n+k}(d_{n+k}(u, t), v))=
+\begin{cases}
+\phi_{n+k+1, n}(d_{n+k}(u, 2t-1), f(v)), & \frac{1}{2}\le t\le1,\\[3pt]
+e_0, & \frac{1}{4}\le t\le \frac{1}{2},\\[3pt]
+\phi_{n+k+1, n+k}(d_{n+k}(","667: \noindent
+668: 上記の定義式を用いた直接計算から, 
+669: \(E^n p\circ F\) は, 次の式で与えられる. 
+670: \[
+671: (E^n p\circ F)(\phi_{n+k+1, n+k}(d_{n+k}(u, t), v))=
+672: \begin{cases}
+673: \phi_{n+k+1, n}(d_{n+k}(u, 2t-1), f(v)), & \frac{1}{2}\le t\le1,\\[3pt]
+674: e_0, & \frac{1}{4}\le t\le \frac{1}{2},\\[3pt]
+675: \phi_{n+k+1, n+k}(d_{n+k}(x, 1-4t), \tau(y)), & 0\le t\le \frac{1}{4}."
+205,3,Toda_03_2(2).tex,686,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,c484a1cf3cbe34dbff0a69e31e3d0571b7790e6118ed3bd4153b917be4bd96e9,"\[
+\begin{aligned}
+H_1\bigl(\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\bigr)
+&=\phi_{n+k+1,n}\bigl(d_{n+k}(u,t),\,f(v)\bigr),\\
+H_2\bigl(\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\bigr)
+&=\phi_{n+k+1,n}\bigl(d_{n+k}(u,t),\,\tau(y)\bigr","683: \([E^n p\circ F] = [H_1] + [H_0] - [H_2]\) 
+684: となるものと考えることができる. \\
+685: ここで, \(H_0\) は自明な写像で, $H_1,H_2$ は次で与えられる. 
+686: \[
+687: \begin{aligned}
+688: H_1\bigl(\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\bigr)
+689: &=\phi_{n+k+1,n}\bigl(d_{n+k}(u,t),\,f(v)\bigr),\\
+690: H_2\bigl(\phi_{n+k+1,n+k}(d_{n+k}(u,t),v)\bigr)
+691: &=\phi_{n+k+1,n}\bigl(d_{n+k}(u,t),\,\tau(y)\bigr)."
+206,3,Toda_03_2(2).tex,695,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,70559efbbf44b473dc0c1969b49735849a7102c50e89f59ac877c3985cb2cfab,"\[
+[H_1] = [\,1_{n+k+1} \wedge f\,]\ 
+=\ \iota_{n+k+1} \wedge \alpha
+ = (-1)^{(n+k+1)k}\Ex^{n+k+1}\alpha\
+=\ (-1)^{kn}E^{n+k+1}\alpha .
+\]","692: \end{aligned}
+693: \]
+694: 明らかに, $[H_0]=0$ であり, 
+695: \[
+696: [H_1] = [\,1_{n+k+1} \wedge f\,]\ 
+697: =\ \iota_{n+k+1} \wedge \alpha
+698:  = (-1)^{(n+k+1)k}\Ex^{n+k+1}\alpha\
+699: =\ (-1)^{kn}E^{n+k+1}\alpha .
+700: \]"
+209,3,Toda_03_2(2).tex,714,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,502f13305e61853681b013f71369c6d19b08f16ba4273f09238a55328b053cb8,"\[
+(\Ex^{n}p)_*\,[F] = (-1)^{kn}\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha .
+\]","711:  = (-1)^{kn+k}E^{n+k+1}\alpha .
+712: \]
+713: よって, 
+714: \[
+715: (\Ex^{n}p)_*\,[F] = (-1)^{kn}\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha .
+716: \]
+717: 一方, coextension の定義から,
+718: \[
+719: (\Ex^{n-h}p)_*(\gamma) = \bigl(1-(-1)^k\bigr)\,\Ex^{n+k-h+1}\alpha ."
+210,3,Toda_03_2(2).tex,718,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,49ebfca52d5ff11bd1f0e44edf3f5159a0f0590e0cd54b2dbce6188f6734581d,"\[
+(\Ex^{n-h}p)_*(\gamma) = \bigl(1-(-1)^k\bigr)\,\Ex^{n+k-h+1}\alpha .
+\]","715: (\Ex^{n}p)_*\,[F] = (-1)^{kn}\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha .
+716: \]
+717: 一方, coextension の定義から,
+718: \[
+719: (\Ex^{n-h}p)_*(\gamma) = \bigl(1-(-1)^k\bigr)\,\Ex^{n+k-h+1}\alpha .
+720: \]
+721: (1.6) を用いれば,
+722: \[
+723: (\Ex^{n}p)_*\,\Ex^{h}\gamma"
+211,3,Toda_03_2(2).tex,722,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,cf2c78987adf2de58b1fa0490bcdc0380e616e323ed5e97f10dfeee981adaf56,"\[
+(\Ex^{n}p)_*\,\Ex^{h}\gamma
+=\Ex^{h}\!\bigl((\Ex^{n-h}p)_*\gamma\bigr)
+=\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha,
+\]","719: (\Ex^{n-h}p)_*(\gamma) = \bigl(1-(-1)^k\bigr)\,\Ex^{n+k-h+1}\alpha .
+720: \]
+721: (1.6) を用いれば,
+722: \[
+723: (\Ex^{n}p)_*\,\Ex^{h}\gamma
+724: =\Ex^{h}\!\bigl((\Ex^{n-h}p)_*\gamma\bigr)
+725: =\bigl(1-(-1)^k\bigr)\,\Ex^{n+k+1}\alpha,
+726: \]
+727: \["
+214,3,Toda_03_2(2).tex,780,PROOF_LOCAL_CONSTRUCTION_CANDIDATE,True,,証明のための補助写像・ホモトピー・具体構成。独立 Reference は保留。,710c108dacb998076cf0e13cceb20741bfe5a9f86822cd6e64a3a236d5aee572,"\[
+\begin{tikzpicture}[baseline=(current bounding box.center)]
+  \node (A) at (0,1.2) {$\pis{2n+2k+1}{S^{2n}}$};
+  \node (B) at (4.3,1.2) {$\pis{2n+2k+1}{\Ex^{n}K}$};
+  \node (C) at (8.6,1.2) {$\pis{2n+2k+1}{\Ex^{n}K","777: 
+778: 次の図式において, 横の列は完全列である. 
+779: 
+780: \[
+781: \begin{tikzpicture}[baseline=(current bounding box.center)]
+782:   \node (A) at (0,1.2) {$\pis{2n+2k+1}{S^{2n}}$};
+783:   \node (B) at (4.3,1.2) {$\pis{2n+2k+1}{\Ex^{n}K}$};
+784:   \node (C) at (8.6,1.2) {$\pis{2n+2k+1}{\Ex^{n}K,S^{2n}}$};
+785:   \node (D) at (8.6,0)   {$\pis{2n+k+1}{S^{2n+k+1}} .$};"
+215,3,Toda_03_2(2).tex,796,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,0f8552d37bea6856b490747e10c26c2a305255800b4fbff7b7602912bda5805d,"\[
+\iota_K \wedge \alpha \;=\; [G_0]
+ = [G_1]\;=\; (\Ex^{n+k}p)^* [F]
+\;=\;(\Ex^{n+k}p)^{*}\!\Bigl(\iota_*\alpha^{*}+(-1)^{kn}\Ex^{h}\gamma\Bigr) .
+\]","793: であることから, \\
+794: \([F]-(-1)^{kn}\Ex^{h}\gamma=\iota_*\,\alpha^{*}\)
+795: となる $\alpha^{*}\in\pis{2n+2k+1}{S^{2n}}$ が存在する. ゆえに,
+796: \[
+797: \iota_K \wedge \alpha \;=\; [G_0]
+798:  = [G_1]\;=\; (\Ex^{n+k}p)^* [F]
+799: \;=\;(\Ex^{n+k}p)^{*}\!\Bigl(\iota_*\alpha^{*}+(-1)^{kn}\Ex^{h}\gamma\Bigr) .
+800: \]
+801: 以上で, Lemma が示された. "
+216,3,Toda_03_2(2).tex,845,DEFINITION_COMPONENT,True,proof-local self-homeomorphism,周辺文脈で導入された写像・空間・記法の構成要素。独立 Reference の新設は未決定。,85234beb62e6987781171787ffa272f3463d48e86298f9e51cb9f3bdc524709b,"\[
+\sigma(\psi_{n+k+t+1}(t_1,\cdots,t_{n+k+t},t))
+=\psi_{n+k+t+1}(t_1,\cdots,t_{n+k},t,t_{n+k+1},\cdots,t_{n+k+t})
+\]","842: を同一視する. \\
+843: \(p':\Ex^{n}K = S^{n+t}\cup_{\alpha'}CS^{n+k+t} \to S^{n+k+t+1}\)
+844: を (1.17) の中で定義された写像とすると, 
+845: \[
+846: \sigma(\psi_{n+k+t+1}(t_1,\cdots,t_{n+k+t},t))
+847: =\psi_{n+k+t+1}(t_1,\cdots,t_{n+k},t,t_{n+k+1},\cdots,t_{n+k+t})
+848: \]
+849: により与えられる, 次数 \((-1)^{t}\) の自己同相写像
+850: $\sigma:S^{n+k+t+1}\to S^{n+k+t+1}$"
+219,3,Toda_03_2(2).tex,880,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,6841d338ff449366a619ad6cb622ff462995a57aafd6c95a7863466730df4f2f,"\[
+\begin{align*}
+\ext{\beta} \wedge \alpha
+&= (\ext{\beta} \circ E^t \iota_K)\ \wedge (\iota_n \circ \alpha) \\
+&= (\ext{\beta} \wedge \iota_n) \circ ((\iota_K \wedge \iota_t) \wedge \alpha)
+&&\text{by (1.5)}\\
+&=","877: 
+878: \noindent
+879: まず, 次を得る. 
+880: \[
+881: \begin{align*}
+882: \ext{\beta} \wedge \alpha
+883: &= (\ext{\beta} \circ E^t \iota_K)\ \wedge (\iota_n \circ \alpha) \\
+884: &= (\ext{\beta} \wedge \iota_n) \circ ((\iota_K \wedge \iota_t) \wedge \alpha)
+885: &&\text{by (1.5)}\\"
+221,3,Toda_03_2(2).tex,901,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,797867ae0acacf0bc286814fc1512885201f34c787794727a2b676da456af068,"\[
+E^n\ext{\beta}\circ E^{t+h}\gamma
+\in (-1)^{h+t}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+t+k}\alpha} .
+\]","898: \end{align*}
+899: \]
+900: Prop1.7 により, 
+901: \[
+902: E^n\ext{\beta}\circ E^{t+h}\gamma
+903: \in (-1)^{h+t}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+t+k}\alpha} .
+904: \]
+905: 
+906: また, "
+222,3,Toda_03_2(2).tex,907,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,40553d27cfc6fc6748a4a4dceddc22ac839d6b2691c8031a5deb2cd86e34a27f,"\[
+\begin{align*}
+\ext{\beta} \wedge \alpha
+&= (\iota_m \circ \ext{\beta}) \wedge (\alpha \circ \iota_{n+k})\\
+&= (\iota_m \wedge \alpha) \circ (\ext{\beta} \wedge \iota_{n+k}) && \text{by (1.5)}\\
+&= (-1)^{km}\Ex^{","904: \]
+905: 
+906: また, 
+907: \[
+908: \begin{align*}
+909: \ext{\beta} \wedge \alpha
+910: &= (\iota_m \circ \ext{\beta}) \wedge (\alpha \circ \iota_{n+k})\\
+911: &= (\iota_m \wedge \alpha) \circ (\ext{\beta} \wedge \iota_{n+k}) && \text{by (1.5)}\\
+912: &= (-1)^{km}\Ex^{m}\alpha \circ \Ex^{n+k}\ext{\beta} && \text{by Prop3.1}\\"
+224,3,Toda_03_2(2).tex,917,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,9d9964fb34f4e4ec8be37e2d48245884f9d88b3f5a4dfdf3fe4d1fbdb2486724,"\[
+(E^{n+k}p')^{*}\lambda = E^m\alpha\circ E^{n+k}\ext{\beta}
+\]","914: \end{align*}
+915: \]
+916: Prop1.9 より, 
+917: \[
+918: (E^{n+k}p')^{*}\lambda = E^m\alpha\circ E^{n+k}\ext{\beta}
+919: \]
+920: を満たす任意の元 \(\lambda\) は, 
+921: \(\todai[n+k]{E^m\alpha, E^{n+k}\beta, E^{n+k+t}\alpha}\)
+922: に属する. "
+225,3,Toda_03_2(2).tex,924,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,2d7a77d6a8c7d61764306cb6fab40a3b835581a6319d911664b643a65ce5df75,"\[
+\lambda = (-1)^{km+(k+1)t} (\Ex^{n}\beta\circ \Ex^{t}\alpha^* 
++ (-1)^{kn}\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma)
+\]","921: \(\todai[n+k]{E^m\alpha, E^{n+k}\beta, E^{n+k+t}\alpha}\)
+922: に属する. 
+923: 特に, 最初の計算により,
+924: \[
+925: \lambda = (-1)^{km+(k+1)t} (\Ex^{n}\beta\circ \Ex^{t}\alpha^* 
+926: + (-1)^{kn}\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma)
+927: \]
+928: は, この条件を満たしている. 
+929: したがって, "
+226,3,Toda_03_2(2).tex,930,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,3f261f66f9eb270c7fa23919fdd851fc615f5fe17724f3f7bd4decde59d7bdf0,"\[
+(-1)^{km+(k+1)t}\Ex^{n}\beta\circ \Ex^{t}\alpha^{*}
++(-1)^{kn}\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma
+\ \in\
+\todai[n+k]{\Ex^{m}\alpha,\ \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}.
+\]","927: \]
+928: は, この条件を満たしている. 
+929: したがって, 
+930: \[
+931: (-1)^{km+(k+1)t}\Ex^{n}\beta\circ \Ex^{t}\alpha^{*}
+932: +(-1)^{kn}\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma
+933: \ \in\
+934: \todai[n+k]{\Ex^{m}\alpha,\ \Ex^{n+k}\beta,\ \Ex^{n+k+t}\alpha}.
+935: \]"
+227,3,Toda_03_2(2).tex,938,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,ea0cd3e6578ea0c4f881928668733b05d0d5edd6251f82338ee673fe0fa5c58c,"\[
+\begin{align*}
+\Ex^{n}\ext{\beta}\circ \Ex^{t}\alpha^{*}
+&\in (-1)^{km+(k+1)t}\todai[n+k]{\Ex^{m}\alpha, \Ex^{n+k}\beta, E^{n+k+t}\alpha}\\
+&+ (-1)^{kn+h+t+1}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+k+t","935: \]
+936: \(\Ex^{n}\ext{\beta}\circ \Ex^{h+t}\gamma\)
+937: に関する上の結果と合わせると, 
+938: \[
+939: \begin{align*}
+940: \Ex^{n}\ext{\beta}\circ \Ex^{t}\alpha^{*}
+941: &\in (-1)^{km+(k+1)t}\todai[n+k]{\Ex^{m}\alpha, \Ex^{n+k}\beta, E^{n+k+t}\alpha}\\
+942: &+ (-1)^{kn+h+t+1}\todai[h+t]{E^n\beta, E^{n+t}\alpha, (1-(-1)^k)E^{n+k+t}\alpha} .
+943: \end{align*}"
+229,3,Toda_03_2(2).tex,951,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,de964fa66a81cf420bcd419938d4a3ec8689a68dbce67c27d56a2a631f0e2b39,"\[
+E^n\beta\circ E^t\alpha^{*}
+\in (-1)^{km+(k+1)t}\todai[n+k]{E^m\alpha, E^{n+k}\beta, E^{n+k+t}\alpha}
+\]","948: として, \(0\) を選ぶことができる. \\ 
+949: このとき, 上の議論の中で, \(E^n\ext{\beta}\circ E^{h+t}\gamma\) の項は消える. 
+950: よって, 
+951: \[
+952: E^n\beta\circ E^t\alpha^{*}
+953: \in (-1)^{km+(k+1)t}\todai[n+k]{E^m\alpha, E^{n+k}\beta, E^{n+k+t}\alpha}
+954: \]
+955: であり, Th3.6 が証明された. 
+956: \qed"
+233,3,Toda_03_2(2).tex,1091,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,d9eff8f66490908ce171353534028a7778d81cea62fe166876f8504cae7b09f0,"\[
+E\beta\circ\eta_{m+k+1}
+= r(E\beta\circ\eta_{m+k+1})
+\in r (\pis{m+k+2}{S^{m+1}}) .
+\]","1088: \ \in\ \todai[1]{\,r\iota_{m+1},\ \Ex\beta,\ r\iota_{m+k+1}\,}.
+1089: \]
+1090: $r$ が奇数のとき, 
+1091: \[
+1092: E\beta\circ\eta_{m+k+1}
+1093: = r(E\beta\circ\eta_{m+k+1})
+1094: \in r (\pis{m+k+2}{S^{m+1}}) .
+1095: \]
+1096: よって, \(E\beta\circ\eta_{m+k+1}\) は, "
+234,3,Toda_03_2(2).tex,1099,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,b08896ca0c8580c0d67cb6e158dc89b1a1d4c588c0157bfa9a8cd418575b045e,"\[
+\todai[1]{r\iota_{m+1}, E\beta, r\iota_{m+k}} \equiv 0.
+\]","1096: よって, \(E\beta\circ\eta_{m+k+1}\) は, 
+1097: \(\todai[1]{r\iota_{m+1}, E\beta, r\iota_{m+k}}\) 
+1098: の coset に含まれるので, 
+1099: \[
+1100: \todai[1]{r\iota_{m+1}, E\beta, r\iota_{m+k}} \equiv 0.
+1101: \]
+1102: 
+1103: 
+1104: "
+236,3,Toda_03_2(2).tex,1121,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,1473de12045761da00abd497a7893504769b11a6cdfa4612f75501e95ad71ddf,"\[
+\Ex\beta\circ t\,\eta_{m+k+1}=0 .
+\]","1118: \)
+1119: なので, \(s^2\equiv t\mod 2\) である. \\
+1120: $s$ が偶数 (すなわち $r\equiv0\pmod4$) のとき, 
+1121: \[
+1122: \Ex\beta\circ t\,\eta_{m+k+1}=0 .
+1123: \]
+1124: $s$ が奇数 ($r\equiv2\pmod4$) のとき, 
+1125: \[
+1126: \Ex\beta\circ t\,\eta_{m+k+1}=\Ex\beta\circ \eta_{m+k+1} ."
+237,3,Toda_03_2(2).tex,1125,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,f3be6210ed1b5ed51e2f2bed605bd470230916f41d5f6cbd6efc771ace296fa6,"\[
+\Ex\beta\circ t\,\eta_{m+k+1}=\Ex\beta\circ \eta_{m+k+1} .
+\]","1122: \Ex\beta\circ t\,\eta_{m+k+1}=0 .
+1123: \]
+1124: $s$ が奇数 ($r\equiv2\pmod4$) のとき, 
+1125: \[
+1126: \Ex\beta\circ t\,\eta_{m+k+1}=\Ex\beta\circ \eta_{m+k+1} .
+1127: \]
+1128: 以上より, Cor3.7 が示された. 
+1129: \qed
+1130: "
+250,4,Toda_04_2(2).tex,140,UNNUMBERED_ASSERTION_CANDIDATE,True,Chapter 4 homotopy group calculation,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,2b3459d088b7c192ace1ec3c59dac40ad55faf07106b5a76bf8611f2c668d614,"\[
+\pis{2n-2}{S^{n-1}} \xrightarrow{\ \Ex\ } \pis{2n-1}{S^{n}}
+\xrightarrow{\ H\ } \pis{2n-1}{S^{2n-1}}
+\xrightarrow{\ \Delta\ } \pis{2n-3}{S^{n-1}}.
+\]","137: 
+138: 
+139: 次に, $n$ を偶数とし, (2.11) の完全列を考える. 
+140: \[
+141: \pis{2n-2}{S^{n-1}} \xrightarrow{\ \Ex\ } \pis{2n-1}{S^{n}}
+142: \xrightarrow{\ H\ } \pis{2n-1}{S^{2n-1}}
+143: \xrightarrow{\ \Delta\ } \pis{2n-3}{S^{n-1}}.
+144: \]
+145: $\Delta$ の象は $[\,\iota_{n-1},\iota_{n-1}\,]$ によって生成され, "
+251,4,Toda_04_2(2).tex,147,UNNUMBERED_ASSERTION_CANDIDATE,True,Chapter 4 homotopy group calculation,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,6570ebf2dd703a92ffb8173d17a95508effee5edfb3e7e15c1fd82585d15aaff,"\[
+\pis{2n-1}{S^{n}} \cong
+\mathbb{Z}\gen{\beta}\ \oplus\ 
+E\pis{2n-2}{S^{n-1}} .
+\]","144: \]
+145: $\Delta$ の象は $[\,\iota_{n-1},\iota_{n-1}\,]$ によって生成され, 
+146: また, $2[\,\iota_{n-1},\iota_{n-1}\,]=0$ であるから, 
+147: \[
+148: \pis{2n-1}{S^{n}} \cong
+149: \mathbb{Z}\gen{\beta}\ \oplus\ 
+150: E\pis{2n-2}{S^{n-1}} .
+151: \]
+152: ここで,"
+252,4,Toda_04_2(2).tex,202,UNNUMBERED_ASSERTION_CANDIDATE,True,Chapter 4 homotopy group calculation,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,e4f5529367a70cd049ae12c85aa30dae4f1518b70ca5a7f1c3ed2fe33dfaeae8,"\[
+\begin{align*}
+  \pit{2n-1}{n} = E^{-1}(\pis{2n}{S^{n+1}; 2})
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus (E \pis{2n-2}{n-1}; 2) \\
+  &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus \pis{2n-1}{S^n;2} .
+\end{align*}
+\]","199: $\beta=\pm[\,\iota_n,\iota_n\,]$ が取れる. \\
+200: さらに, $\Ker \Ex:\pis{2n-1}{S^{n}}\to\pis{2n}{S^{n+1}}$ は,
+201: \(\pm[\iota_n, \iota_n]=\Delta(\iota_{2n+1})\) で生成されるので, 
+202: \[
+203: \begin{align*}
+204:   \pit{2n-1}{n} = E^{-1}(\pis{2n}{S^{n+1}; 2})
+205:   &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus (E \pis{2n-2}{n-1}; 2) \\
+206:   &= \Delta(\pis{2n+1}{S^{2n+1}}) \oplus \pis{2n-1}{S^n;2} .
+207: \end{align*}"
+254,4,Toda_04_2(2).tex,244,UNNUMBERED_ASSERTION_CANDIDATE,True,Chapter 4 homotopy group calculation,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,21146d63edcffbed1af8f9d329a6754c6b3f455c6ffb7135e5905ebb6e579291,"\[
+[\iota_n, \iota_n] \in E\pis{2n-2}{S^n; 2} \oplus \gen{\alpha}
+= \pis{2n-1}{S^n; 2} \oplus \gen{\alpha} .
+\]","241: を 
+242: \(\pis{2n}{S^{n+1}}\)
+243: に同型に写すので, 
+244: \[
+245: [\iota_n, \iota_n] \in E\pis{2n-2}{S^n; 2} \oplus \gen{\alpha}
+246: = \pis{2n-1}{S^n; 2} \oplus \gen{\alpha} .
+247: \]
+248: 以上より, 
+249: \("
+256,4,Toda_04_2(2).tex,286,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,41167d172d6299920c457c3b1dce83232354f1cad257ce9c1c125bb4c461427b,"\[
+\pit{2n}{n}\ \xrightarrow{\ \Ex\ }\ \pit{2n+1}{n+1}\
+\xrightarrow{\ H\ }\ \pit{2n+1}{2n+1}\
+\xrightarrow{\ \Delta\ }\ \pit{2n-1}{n}\
+\xrightarrow{E} \ \pit{2n}{n+1}
+\]","283: \]
+284: の完全性を得る. 
+285: 残る問題は,
+286: \[
+287: \pit{2n}{n}\ \xrightarrow{\ \Ex\ }\ \pit{2n+1}{n+1}\
+288: \xrightarrow{\ H\ }\ \pit{2n+1}{2n+1}\
+289: \xrightarrow{\ \Delta\ }\ \pit{2n-1}{n}\
+290: \xrightarrow{E} \ \pit{2n}{n+1}
+291: \]"
+259,4,Toda_04_2(2).tex,570,UNNUMBERED_ASSERTION_CANDIDATE,True,multiplication order relation,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,b52e95f21d1dba9440e767fc9117eda3cd9378ec22ab65194347a053c648b200,"\[
+\begin{aligned}
+2^{2t+1}(\beta\circ\alpha)
+&=\beta\circ r 2^{2t}[\iota_m,\iota_m]
+\ +\ \beta\circ 2^{2t}E\gamma\\
+&=\beta\circ r\bigl[2^{t}\iota_m,\,2^{t}\iota_m\bigr]\ +\ 2^{2t}\beta\circ E\gamma\\
+&=\beta\circ","567: $\beta$ の位数を $2^{t}$ とする. \\
+568: このとき, \(2^{2t+1}(\beta\circ\alpha) = \) を示す. 
+569: (2.1) と, Whitehead 積の双線型性と自然性 \cite{Whitehead1941} から, 
+570: \[
+571: \begin{aligned}
+572: 2^{2t+1}(\beta\circ\alpha)
+573: &=\beta\circ r 2^{2t}[\iota_m,\iota_m]
+574: \ +\ \beta\circ 2^{2t}E\gamma\\
+575: &=\beta\circ r\bigl[2^{t}\iota_m,\,2^{t}\iota_m\bigr]\ +\ 2^{2t}\beta\circ E\gamma\\"
+262,5,Toda_05_2(6).tex,114,UNNUMBERED_ASSERTION_CANDIDATE,True,Delta iota5 special case,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,4459188afd863545501619f887393fb0e99af316b6fc9c88a8ba5d89a991130b,"\[
+\Delta(\iota_5)=\pm 2\,\eta_2 .
+\]","111: Prop 2.7 により,
+112: \(H(\Delta(\iota_5))=\pm H[\iota_2,\iota_2]=\pm 2\iota_3\) である. \\
+113: \(H:\pi^{2}_{3}\to\pi^{3}_{3}\) が同型なので, 
+114: \[
+115: \Delta(\iota_5)=\pm 2\,\eta_2 .
+116: \]
+117: 完全列 (4.4)
+118: \[
+119: \pi^{5}_{5}\xrightarrow{\ \Delta\ }\pi^{2}_{3}\xrightarrow{\ E\ }\pi^{3}_{4}\xrightarrow{\ \ }\pi_{4}^{5}=0"
+263,5,Toda_05_2(6).tex,118,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,bb1ba3a5454945777e61ea2cc076b63fd2db8286b7d3d0871800e36b0fc09c8c,"\[
+\pi^{5}_{5}\xrightarrow{\ \Delta\ }\pi^{2}_{3}\xrightarrow{\ E\ }\pi^{3}_{4}\xrightarrow{\ \ }\pi_{4}^{5}=0
+\]","115: \Delta(\iota_5)=\pm 2\,\eta_2 .
+116: \]
+117: 完全列 (4.4)
+118: \[
+119: \pi^{5}_{5}\xrightarrow{\ \Delta\ }\pi^{2}_{3}\xrightarrow{\ E\ }\pi^{3}_{4}\xrightarrow{\ \ }\pi_{4}^{5}=0
+120: \]
+121: を考える. ここで, \(E\) は全射であり, 
+122: その kernel は \(2\eta_2\) により生成される. \\
+123: したがって,"
+265,5,Toda_05_2(6).tex,249,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,a223f59a801f015b61ca79444fe95da95ff0ceb27194cf750bd231a7dc2bd884,"\[
+H(\beta)\in \Delta^{-1}(\eta_2\circ 2\iota_3)\circ E^{2}\alpha
+= \Delta^{-1}(2\eta_2)\circ E^{2}\alpha
+= \pm \iota_5\circ E^{2}\alpha
+= E^{2}\alpha.
+\]","246: Toda bracket 
+247: \(\todai[1]{\eta_3,\,2E\iota_3,\,E\alpha}\) に, 
+248: Prop 2.6 を適用すると, 
+249: \[
+250: H(\beta)\in \Delta^{-1}(\eta_2\circ 2\iota_3)\circ E^{2}\alpha
+251: = \Delta^{-1}(2\eta_2)\circ E^{2}\alpha
+252: = \pm \iota_5\circ E^{2}\alpha
+253: = E^{2}\alpha.
+254: \]"
+266,5,Toda_05_2(6).tex,256,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,d18b9834aaf1932b76bbf690f0caae585e9b17aa9d9e164ae8625662824fabff,"\[
+\begin{align*}
+2\beta
+& \in  2\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\\
+& =  
+\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\circ 2\iota_{i+2}\\
+& =  
+\eta_3\circ E\toda{2\iota_3,\alpha,2\iota_{i}} 
+&& \text{by Prop1.4","253: = E^{2}\alpha.
+254: \]
+255: また,
+256: \[
+257: \begin{align*}
+258: 2\beta
+259: & \in  2\todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\\
+260: & =  
+261: \todai[1]{\eta_3,\,2\iota_4,\,E\alpha}\circ 2\iota_{i+2}\\"
+268,5,Toda_05_2(6).tex,276,UNREVIEWED,False,,この段階では個別の数学的判定を行わない。,075e54958d5bbeecf9a976742236f866f18642f47c30bdd7426036e5ddac271b,"\[
+\eta_3\circ \pi_{i+2}(S^{4})\circ 2\iota_{i+2} + \eta_3\circ2\iota_4\circ E\pi_{i+2}(S^4) = \eta_3\circ\pi_{i+2}(S^4)\circ2\iota_{i+2}
+\]","273: \]
+274: さらに, 
+275: \(\eta_3\circ -\todai[1]{2\,\iota_{4},E\alpha,2\,\iota_{i+1}}\) は,
+276: \[
+277: \eta_3\circ \pi_{i+2}(S^{4})\circ 2\iota_{i+2} + \eta_3\circ2\iota_4\circ E\pi_{i+2}(S^4) = \eta_3\circ\pi_{i+2}(S^4)\circ2\iota_{i+2}
+278: \] 
+279: の coset である. \\
+280: \(\gamma\in\pi_{i+2}(S^4)\) に対して, (2.1) により, 
+281: \(E(\eta_3\circ\gamma\circ2\iota_{i+2})=\eta_4\circ2E\gamma"
+269,5,Toda_05_2(6).tex,358,UNNUMBERED_ASSERTION_CANDIDATE,True,eta square suspension,表示された数学的関係を主張候補として保持。ただし既存の番号付き命題内かは未確定。,6a5bca5506af1aca838e1615be7aa41d80e8af3fc6b2a86589114adfe2a35828,"\[
+E\,\eta_n^{2}=\eta_{n+1}^{2},\qquad E^{\infty}\eta_n^{2}=\eta^{2}.
+\]","355: \paragraph*{ii) The Group \(\pi^{n}_{n+2}\).}
+356: \(\eta_n^{2}:=\eta_n\circ \eta_{n+1}\) および,
+357: \(\eta^{2}:=\eta\circ\eta\) と記す. このとき,
+358: \[
+359: E\,\eta_n^{2}=\eta_{n+1}^{2},\qquad E^{\infty}\eta_n^{2}=\eta^{2}.
+360: \]
+361: 
+362: \switchcolumn
+363: "
+270,5,Toda_05_2(6).tex,378,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,ffbdba32005fd396077a799267339dc785e6a52a20c9017e1617438be600177b,"\[
+\pi_{6}^{3}\xrightarrow{\ H}\pi_{6}^{5}\xrightarrow{\ \Delta\ }\pi_{4}^{2}
+\xrightarrow{\ E\ }\pi_{5}^{3}\xrightarrow{\ H\ }\pi^{5}_{5}
+\xrightarrow{\ \Delta\ }\pi_{3}^{2}
+\]","375: \textbf{Proof.}\ 
+376:  (5.2) より, \(\pi_{4}^{2}=\gen{\eta_2^{2}}\cong \mathbb Z_2 .\)
+377: 完全列 (4.4)
+378: \[
+379: \pi_{6}^{3}\xrightarrow{\ H}\pi_{6}^{5}\xrightarrow{\ \Delta\ }\pi_{4}^{2}
+380: \xrightarrow{\ E\ }\pi_{5}^{3}\xrightarrow{\ H\ }\pi^{5}_{5}
+381: \xrightarrow{\ \Delta\ }\pi_{3}^{2}
+382: \]
+383: を考える. Prop 5.1 から,"
+271,5,Toda_05_2(6).tex,460,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,479bcbfa05d3c42a3cc141281b7528de63adaa25805b6bb7152f310df427f89a,"\[
+E^{2}\beta\circ E^t\alpha^{\ast}\in (-1)^m \toda{E^{m}\eta_{2},\,E^{3}\beta,\,E^{t+3}\eta_{2}}_{3}
+\]","457: よって, ある元 \(\alpha^{\ast}\in\pis{7}{S^4}\) が存在し, \\
+458: \(\beta\circ E^{t}\eta_{2}=0\) を満たす
+459: 任意の \(\beta\in\pi_{\,t+2}(S^{\,m})\) に対して,
+460: \[
+461: E^{2}\beta\circ E^t\alpha^{\ast}\in (-1)^m \toda{E^{m}\eta_{2},\,E^{3}\beta,\,E^{t+3}\eta_{2}}_{3}
+462: \]
+463: となる. 
+464: とくに, \(\beta=2\iota_{3}\) とし, \(t=1\) の場合,  (2.1) より
+465: \(2\iota_3\circ E\eta_{2}=2E\eta_{2}=2\eta_3=0\). \\"
+272,5,Toda_05_2(6).tex,467,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,e731f08e404bfd25d79ab728cee1e6d3fbd289e5c727b743cc1090c53aa22b4b,"\[
+E^{2}(2\iota_{3})\circ E\alpha^{\ast}=2E\alpha^{\ast}
+\]","464: とくに, \(\beta=2\iota_{3}\) とし, \(t=1\) の場合,  (2.1) より
+465: \(2\iota_3\circ E\eta_{2}=2E\eta_{2}=2\eta_3=0\). \\
+466: したがって,
+467: \[
+468: E^{2}(2\iota_{3})\circ E\alpha^{\ast}=2E\alpha^{\ast}
+469: \]
+470: は, \(-\todai[3]{\eta_{5},\,2\iota_{6},\,\eta_{6}}\) に含まれる. 
+471: ここで,
+472: \(n\ge3,\ t\le n-2\) のとき, "
+273,5,Toda_05_2(6).tex,482,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,dacffa7f37c0ffe3f970342af4970176c09dc8c922240d8856979d7725072390,"\[
+\eta_n\circ \pi^{n+1}_{n+3} + \pi^{n}_{n+2}\circ \eta_{n+2} 
+= \gen{\eta_n\circ\eta_{n+1}\circ\eta_{n+2}}
+= \gen{2E^{n-3}\nu'}
+\]","479: まず, \(t\ge1\) の場合を考える.  
+480: (4.7) , Prop 5.3 と (5.3) より, 
+481: 上の Toda bracket は,
+482: \[
+483: \eta_n\circ \pi^{n+1}_{n+3} + \pi^{n}_{n+2}\circ \eta_{n+2} 
+484: = \gen{\eta_n\circ\eta_{n+1}\circ\eta_{n+2}}
+485: = \gen{2E^{n-3}\nu'}
+486: \]
+487: の coset である. "
+279,5,Toda_05_2(6).tex,710,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,d19f84444f7c873a2ea51521ec00bdce1a6a6f9213216e6dd7e0046ddc20e81d,"\[
+\pi^{3}_{7}\xrightarrow{H}\pi^{5}_{7}\xrightarrow{\Delta}\pi^{2}_{5}
+\xrightarrow{E}\pi^{3}_{6}\xrightarrow{H}\pi^{5}_{6}
+\]","707: (5.2), Prop 5.3 より,
+708: \(\pi^{2}_{5}=\gen{\eta_{2}^{3}}\cong\mathbb Z_{2}\). 
+709: 完全列 (4.4)
+710: \[
+711: \pi^{3}_{7}\xrightarrow{H}\pi^{5}_{7}\xrightarrow{\Delta}\pi^{2}_{5}
+712: \xrightarrow{E}\pi^{3}_{6}\xrightarrow{H}\pi^{5}_{6}
+713: \]
+714: を考える. Prop 2.2 とProp 5.3 から,
+715: \("
+281,5,Toda_05_2(6).tex,874,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,e47a1d95f585f6adbe0309902d58ed4016a4002c4708b52ce2f914e676ca48d3,"\[
+\begin{align*}
+\Delta(\eta_9)
+& =  \Delta(\iota_9)\circ \eta_7
+&& \text{by Prop2.5}\\
+& =  (2\nu_4-E\nu')\circ \eta_7
+&& \text{by (5.8)}\\
+& =  \nu_4\circ (2\eta_7)-E\nu'\circ \eta_7
+ =  E\nu'\circ \eta_7.
+\e","871: を考える. (5.8) とProp5.6 により, \(\Delta:\pi_9^9\to\pi_7^4\) は単射である. \\
+872: よって, 完全性から, \(E\) は全射となることが分かる. \\
+873: \(E\) の kernel は次で生成される. 
+874: \[
+875: \begin{align*}
+876: \Delta(\eta_9)
+877: & =  \Delta(\iota_9)\circ \eta_7
+878: && \text{by Prop2.5}\\
+879: & =  (2\nu_4-E\nu')\circ \eta_7"
+283,5,Toda_05_2(6).tex,887,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,be3d4ff71dac9191ce706dc0e054ee27be05c0eaae3836eba6ebbfdbcdd207c5,"\[
+\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}\xrightarrow{\ E } \pi^{6}_{10}
+\xrightarrow{\ H } \pi^{11}_{10}=0
+\]","884: \]
+885: これから, \(\pi_9^5=E\pi_8^4=\mathbb Z_2\gen{\nu_5\circ\eta_8}\) である. 
+886: 次に, (4.4) の完全列
+887: \[
+888: \pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}\xrightarrow{\ E } \pi^{6}_{10}
+889: \xrightarrow{\ H } \pi^{11}_{10}=0
+890: \]
+891: を考える. 
+892: \(E\) は全射で, \(\pi_{10}^6\) は \(\nu_6\circ\eta_9\) で生成される. "
+284,5,Toda_05_2(6).tex,912,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,bec38ec9ece04361c57245f9f42fc5b83ba3476d0d548825d4e290cf3d23346f,"\[
+\begin{align*}
+H(\eta_3\circ \nu_4)
+& =  E(\eta_2\wedge\eta_2)\circ H(\nu_4)
+&& \text{by Prop2.2}\\
+& =  \pm (\eta_5\circ \eta_6)\circ \iota_7
+&& \text{by Prop3.1, Lem5.4}\\
+& =  \eta_5^{2}
+&& \text{by Prop5.3","909: よって, \(\eta_3\circ\nu_4\in\pi_7^3 .\)\\
+910: \(\pi_7^3\) は \(\nu'\circ\eta_6\) で生成されるので, 
+911: \(\eta_3\circ\nu_4=x\nu'\circ\eta_6 \ (x = 0 \text{ or } 1) .\)
+912: \[
+913: \begin{align*}
+914: H(\eta_3\circ \nu_4)
+915: & =  E(\eta_2\wedge\eta_2)\circ H(\nu_4)
+916: && \text{by Prop2.2}\\
+917: & =  \pm (\eta_5\circ \eta_6)\circ \iota_7"
+286,5,Toda_05_2(6).tex,1077,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,11ebbc9ee11222d954575ddcf40a795e7d82ece38604878485518ea82c3ee735,"\[
+0\to \pi^{3}_{8}\xrightarrow{H}\pi^{5}_{8}\xrightarrow{\Delta}\pi^{2}_{6}
+\]","1074: (5.2) とProp5.8 から, 最初の結果を得る. \\
+1075: Lem5.7 により, \(E\pi_7^2=\gen{E(\eta_2\circ\nu')\circ\eta_7}=0 .\)
+1076: よって, (4.4) から, 
+1077: \[
+1078: 0\to \pi^{3}_{8}\xrightarrow{H}\pi^{5}_{8}\xrightarrow{\Delta}\pi^{2}_{6}
+1079: \]
+1080: は完全列である. 
+1081: Lem5.7, Prop 5.6, (5.5) により, \(\ker\Delta\) は \(4\nu_5=\eta_5^3\) で生成される. \\
+1082: Prop2.2 と (5.3) により, 次を得る. "
+288,5,Toda_05_2(6).tex,1180,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,6833589d7943ea5eb94fb8754162b2b62d841cb2da71797840efd991e75305e1,"\[
+\pi^{9}_{11}\xrightarrow{\ \Delta\ }\pi^{4}_{9}\xrightarrow{\ E }\pi^{5}_{10}
+\xrightarrow{\ H }\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{4}_{8}\xrightarrow{E}\pi_9^5 .
+\]","1177: \begin{paracol}{2}
+1178: 
+1179: (4.4) の次の完全列を考える. 
+1180: \[
+1181: \pi^{9}_{11}\xrightarrow{\ \Delta\ }\pi^{4}_{9}\xrightarrow{\ E }\pi^{5}_{10}
+1182: \xrightarrow{\ H }\pi^{9}_{10}\xrightarrow{\ \Delta\ }\pi^{4}_{8}\xrightarrow{E}\pi_9^5 .
+1183: \]
+1184: Prop5.8 と (5.11) により, \(\ker(E:\pi_8^4\to\pi_9^5)\cong\mathbb Z_2\) である. \\
+1185: \(\pi_{10}^9\cong\mathbb Z_2\) は, \(\Delta\) により, \(\pi_8^4\) に単射で写る. "
+289,5,Toda_05_2(6).tex,1194,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,a7dc491a7147082f3b4434bf2d4315a3628facf7613575c1d0d2d892bf38687e,"\[
+0\to \pi^{6}_{11}\xrightarrow{H}\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}
+\]","1191: \(E\pi_{10}^5=0 .\)\\
+1192: また, Prop2.5 と (5.10) により, \(\Delta(\eta_{11})=\nu_5\circ\eta_8^2\) である. 
+1193: よって, (4.4) から, 
+1194: \[
+1195: 0\to \pi^{6}_{11}\xrightarrow{H}\pi^{11}_{11}\xrightarrow{\ \Delta\ }\pi^{5}_{9}
+1196: \]
+1197: が完全列である. 
+1198: Prop5.8 と (5.10) により, \(\Delta\) は全射で, \(\ker\Delta=\gen{2\iota_{11}}\) である. \\
+1199: Prop2.7 により, \(H(\Delta(\iota_{13}))=\pm2\iota_{11}\) なので, "
+291,5,Toda_05_2(6).tex,1226,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,1feb1d3e7efecafa00e4cb48df8378a17e1f6a5b6d0d48c6b1d54949d2294c13,"\[
+\nu_6\circ \pi_{11}(S^9)+\pi_{11}(S^6)\circ2\iota_{11}
+= \nu_6\circ\pi_{11}^9+2\pi_{11}(S^6)=2\pi_{11}(S^6) .
+\]","1223: \noindent
+1224: \textbf{Proof.}\ 
+1225: この Toda bracket は, 次の群の coset である. (cf. (4.7), (5.9)).
+1226: \[
+1227: \nu_6\circ \pi_{11}(S^9)+\pi_{11}(S^6)\circ2\iota_{11}
+1228: = \nu_6\circ\pi_{11}^9+2\pi_{11}(S^6)=2\pi_{11}(S^6) .
+1229: \]
+1230: (5.10) とProp2.6 により, 
+1231: \(H\toda{\nu_6,\eta_9,2\iota_{10}}\ni\iota_{11}\circ E(2\iota_{10})=2\iota_{11} .\)\\"
+292,5,Toda_05_2(6).tex,1233,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,29c4b20ea30217409c2f3b6c3c4d91304cb389e79cee423f43f4cdc271bd379e,"\[
+\pi_{10}(S^5)\xrightarrow{E}\pi_{11}(S^6)\xrightarrow{H}\pi_{11}(S^{11})
+\]","1230: (5.10) とProp2.6 により, 
+1231: \(H\toda{\nu_6,\eta_9,2\iota_{10}}\ni\iota_{11}\circ E(2\iota_{10})=2\iota_{11} .\)\\
+1232: また, \(H(\Delta(\iota_{13}))=\pm2\iota_{11}\) なので, (2.11) の完全列
+1233: \[
+1234: \pi_{10}(S^5)\xrightarrow{E}\pi_{11}(S^6)\xrightarrow{H}\pi_{11}(S^{11})
+1235: \]
+1236: から, 
+1237: \(\Delta(\iota_{13})\in\toda{\nu_6,\eta_9,2\iota_{10}} + E\pi_{10}(S^5)\) である. \\
+1238: \(E\pi_{10}(S^5)\) は有限で, \(E\pi_{10}^5=0\) なので, "
+294,5,Toda_05_2(6).tex,1341,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,f9f1753e12fc84abaab81509df941fab984e2025ffc97b0cfc3bfc3302884e41,"\[
+0\to \pi^{3}_{9}\xrightarrow{H}\pi^{5}_{9}\xrightarrow{\Delta}\pi^{2}_{7}\to 0
+\]","1338: Lem5.7 により, \(E\pi_8^2=\gen{E(\eta_2\circ\nu')\circ\eta_6^2}=0 .\)\\
+1339: 同様に, \(E\pi_7^2=0\) である. 
+1340: (4.4) により, 
+1341: \[
+1342: 0\to \pi^{3}_{9}\xrightarrow{H}\pi^{5}_{9}\xrightarrow{\Delta}\pi^{2}_{7}\to 0
+1343: \]
+1344: は完全である. 
+1345: Prop \ref{prop:5.8}, \ref{prop:5.9} より,
+1346: \(\Delta\) は同型で, "
+295,5,Toda_05_2(6).tex,1351,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,da66e6726843075c80c83fe094cb70e86f0d94a4dba4dd9d7d62864dc633c2bc,"\[
+\pi^{2n+1}_{n+8}\xrightarrow{\Delta}\pi^{n}_{n+6}
+\xrightarrow{E}\pi^{n+1}_{n+7}\xrightarrow{H}\pi^{2n+1}_{n+7}
+\xrightarrow{P}\pi_{n+5}^n, 
+\qquad(n=4,5,6) .
+\]","1348: さらに, Prop \ref{prop:5.6} と (\ref{eq:5.6}) により,
+1349: \(\pi^{4}_{10}=\gen{\nu_4^{2}}\cong \mathbb Z_8 .\)\\
+1350: 次の完全列を考える. 
+1351: \[
+1352: \pi^{2n+1}_{n+8}\xrightarrow{\Delta}\pi^{n}_{n+6}
+1353: \xrightarrow{E}\pi^{n+1}_{n+7}\xrightarrow{H}\pi^{2n+1}_{n+7}
+1354: \xrightarrow{P}\pi_{n+5}^n, 
+1355: \qquad(n=4,5,6) .
+1356: \]"
+296,5,Toda_05_2(6).tex,1367,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,695833e7f970468d26261f67c0cd081def1313ef9dce9f0c6bdfe3d6fb70a48c,"\[
+\Delta(\nu_9)=\Delta(\iota_9)\circ \nu_7=\pm\,(2\nu_4-E\nu')\circ \nu_7
+=\pm\big(2\,\nu_4^{2}-E(\nu'\circ \nu_6)\big).
+\]","1364: \end{equation}
+1365: 
+1366: Prop 2.5 と (\ref{eq:5.8}) より,
+1367: \[
+1368: \Delta(\nu_9)=\Delta(\iota_9)\circ \nu_7=\pm\,(2\nu_4-E\nu')\circ \nu_7
+1369: =\pm\big(2\,\nu_4^{2}-E(\nu'\circ \nu_6)\big).
+1370: \]
+1371: \(\nu'\circ \nu_6\in \pi^{3}_{9}=0\) なので, 
+1372: \(\Delta(\nu_9)=\pm 2(\nu_4^{2}) .\) また,"
+297,5,Toda_05_2(6).tex,1373,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,2b2f597fa62cf6d59c6f566fed33e19d4b2258d55b7ce444067261e60875ceff,"\[
+\begin{align*}
+\Delta(\eta^{2}_{11})
+& =  \Delta(\iota_{11})\circ \eta_9^2
+&& \text{by Prop2.5}\\
+& =  \nu_5\circ \eta_8\circ \eta_9^2
+= \nu_5\circ \eta_8^{3}
+&& \text{by (5.10)}\\
+& =  4(\nu_5\circ\nu_8)
+= 4","1370: \]
+1371: \(\nu'\circ \nu_6\in \pi^{3}_{9}=0\) なので, 
+1372: \(\Delta(\nu_9)=\pm 2(\nu_4^{2}) .\) また,
+1373: \[
+1374: \begin{align*}
+1375: \Delta(\eta^{2}_{11})
+1376: & =  \Delta(\iota_{11})\circ \eta_9^2
+1377: && \text{by Prop2.5}\\
+1378: & =  \nu_5\circ \eta_8\circ \eta_9^2"
+299,5,Toda_05_2(6).tex,1388,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,99c67779446b1c349f06ef3ef58f6d1bd0dccfb85b415c675842787dc163850d,"\[
+\begin{align*}
+\Delta(\eta_{13})
+& =  \Delta(\iota_{13})\circ \eta_{11}
+&& \text{by Prop2.5}\\
+& \in \toda{ \nu_6,\ \eta_9,\ 2\iota_{10} }\circ \eta_{11}
+&& \text{by Lem5.10}\\
+& =  \nu_6\circ\toda{\eta_9,2\iot","1385: =0 .
+1386: \end{align*}
+1387: \]
+1388: \[
+1389: \begin{align*}
+1390: \Delta(\eta_{13})
+1391: & =  \Delta(\iota_{13})\circ \eta_{11}
+1392: && \text{by Prop2.5}\\
+1393: & \in \toda{ \nu_6,\ \eta_9,\ 2\iota_{10} }\circ \eta_{11}"
+301,5,Toda_05_2(6).tex,1563,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,94236bbf6f0e2b9d4cc5d5e2304e2fa45222d40492a994344a19693b99d57b44,"\[
+0=\pi^{2}_{9}\xto
+\pi^{3}_{10}\xrightarrow{H}
+\pi_{10}^5\xrightarrow{\Delta}
+\pi^{2}_{8}\xrightarrow{E}\pi^{3}_{9}=0 .
+\]","1560: (\ref{eq:5.2}) とProp \ref{prop:5.11} より,
+1561: \(\pi^{2}_{9}=0\). 
+1562: (4.4) から, 次の列は完全である. 
+1563: \[
+1564: 0=\pi^{2}_{9}\xto
+1565: \pi^{3}_{10}\xrightarrow{H}
+1566: \pi_{10}^5\xrightarrow{\Delta}
+1567: \pi^{2}_{8}\xrightarrow{E}\pi^{3}_{9}=0 .
+1568: \]"
+302,5,Toda_05_2(6).tex,1575,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,890b1c457ce33134cf99c0b112fa03a9c4e478314174d5efd57d1baf30b1e15e,"\[
+0=\pi^{4}_{11}\xto\pi^{5}_{12}\xrightarrow{H}
+\pi^{9}_{12}\xrightarrow{\Delta}\pi^{4}_{10} .
+\]","1572: さらに (\ref{eq:5.6}) とProp \ref{prop:5.8} から, 
+1573: \(\pi^{4}_{11}\cong \pi^{3}_{10}\oplus \pi^{7}_{11}=0\). \\
+1574: ここで, 次の完全列を考える. 
+1575: \[
+1576: 0=\pi^{4}_{11}\xto\pi^{5}_{12}\xrightarrow{H}
+1577: \pi^{9}_{12}\xrightarrow{\Delta}\pi^{4}_{10} .
+1578: \]
+1579: (\ref{eq:5.13}), Prop \ref{prop:5.11}, Prop \ref{prop:5.6} から, 
+1580: \(\Delta\) は 次数 2 の準同型 で, \\"
+303,5,Toda_05_2(6).tex,1732,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,35a2340befcf89b700eba5cb377dc815c578fb6805250fb093192118ce2913d6,"\[
+\nu_5\circ\pis{12}{S^{8}}
+=\nu_5\circ E\pis{11}{S^{7}}
+=\nu_5\circ \pit{11}{7}=0.
+\]","1729: この Toda bracket は,
+1730: \(\nu_5\circ \pi_{12}(S^{8})+\pi_{9}(S^{5})\circ \nu_9\) の coset である. \\
+1731: (3.2),(4.7), Prop \ref{prop:5.8} から 
+1732: \[
+1733: \nu_5\circ\pis{12}{S^{8}}
+1734: =\nu_5\circ E\pis{11}{S^{7}}
+1735: =\nu_5\circ \pit{11}{7}=0.
+1736: \]
+1737: (3.2), Prop5.8, (5.9) により, "
+304,5,Toda_05_2(6).tex,1738,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,f9343431d6b629786b6663510692b3cea7168e376a17a1146968c89b46910c05,"\[
+\pi_{9}(S^{5})\circ\nu_9=\pi_9^5\circ\nu_9
+=\gen{\nu_5\circ \eta_8\circ \nu_9}=0 .
+\]","1735: =\nu_5\circ \pit{11}{7}=0.
+1736: \]
+1737: (3.2), Prop5.8, (5.9) により, 
+1738: \[
+1739: \pi_{9}(S^{5})\circ\nu_9=\pi_9^5\circ\nu_9
+1740: =\gen{\nu_5\circ \eta_8\circ \nu_9}=0 .
+1741: \]
+1742: よって, Toda bracket は単一元から成る. \\
+1743: さらに, (1.15) より,"
+305,5,Toda_05_2(6).tex,1750,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,387526dda97e7754edbfdbb832aa84628bcaf0ab93bf96b9fe9be502b4f1585a,"\[
+H(\sigma''')
+= H\todai[1]{\nu_5, 8\iota_8, \nu_8}
+= \Delta^{-1}(\nu_4\circ 8\iota_7)\circ \nu_9 .
+\]","1747: 1つの元 \(\sigma'''\) だけから成り, 
+1748: (4.7) により, \(\sigma'''\in\pi_{12}^5\) である. \\
+1749: Prop 2.6 から, 
+1750: \[
+1751: H(\sigma''')
+1752: = H\todai[1]{\nu_5, 8\iota_8, \nu_8}
+1753: = \Delta^{-1}(\nu_4\circ 8\iota_7)\circ \nu_9 .
+1754: \]
+1755: (5.8) により, "
+306,5,Toda_05_2(6).tex,1756,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,096bc858e122a4a445a22658342016b71498b6e511957a25a5ab517c269a68a0,"\[
+\Delta(4\iota_9)=\pm4(2\nu_4-E\nu')
+=\pm(8\nu_4-E4\nu')
+=\pm8\nu_4
+=\pm(\nu_4\circ8\iota_7) .
+\]","1753: = \Delta^{-1}(\nu_4\circ 8\iota_7)\circ \nu_9 .
+1754: \]
+1755: (5.8) により, 
+1756: \[
+1757: \Delta(4\iota_9)=\pm4(2\nu_4-E\nu')
+1758: =\pm(8\nu_4-E4\nu')
+1759: =\pm8\nu_4
+1760: =\pm(\nu_4\circ8\iota_7) .
+1761: \]"
+307,5,Toda_05_2(6).tex,1763,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,f1a9b302c41e584937ee4be82d0bf6aec00b8dc0ebd6d16cbb1af2e6a233d64d,"\[
+\Delta^{-1}(\nu_4\circ8\iota_7)\circ\nu_9
+\ni\pm(4\iota_9)\circ\nu_9
+=4\nu_9
+=\eta_9^3 .
+\]","1760: =\pm(\nu_4\circ8\iota_7) .
+1761: \]
+1762: よって, 
+1763: \[
+1764: \Delta^{-1}(\nu_4\circ8\iota_7)\circ\nu_9
+1765: \ni\pm(4\iota_9)\circ\nu_9
+1766: =4\nu_9
+1767: =\eta_9^3 .
+1768: \]"
+308,5,Toda_05_2(6).tex,1904,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,fc0c1e2daaac5349dedcb73bec58af74a64b91ee7f592f27a0bfa268ae5f8b79,"\[
+2E^{4-3}\nu_{4}\circ E^{7-3}\nu_{4}=2\nu_{5}^{2}=0,
+\quad (h=3).
+\]","1901: Th 3.6 を \(\alpha=\nu_{4}\) に適用し, \\
+1902: Prop \ref{prop:5.11} により, 
+1903: \(\nu_4\) は (3.1) の条件を満たす. 
+1904: \[
+1905: 2E^{4-3}\nu_{4}\circ E^{7-3}\nu_{4}=2\nu_{5}^{2}=0,
+1906: \quad (h=3).
+1907: \]
+1908: このとき, 
+1909: \(\alpha^{\ast}\in\pi^{8}_{15}\) が存在し, "
+309,5,Toda_05_2(6).tex,1911,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,c190dcb3fbd813d703768745d7087c7ba889e4a1542e96be3d00d134036bac5a,"\[
+E^{4}\beta\circ E^t\alpha^{\ast}
+\in (-1)^{m}\todai[7]{\nu_{m+4},\,E^{7}\beta,\,\nu_{t+11}}
++(-1)^{t}\todai[t+3]{E^{4}\beta,\,\nu_{t+8},\,2\nu_{t+11}} .
+\]","1908: このとき, 
+1909: \(\alpha^{\ast}\in\pi^{8}_{15}\) が存在し, 
+1910: \(\beta\circ\nu_{t+4}=0\) を満たす任意の \(\beta\in\pi_{t+4}(S^m)\) に対して, 
+1911: \[
+1912: E^{4}\beta\circ E^t\alpha^{\ast}
+1913: \in (-1)^{m}\todai[7]{\nu_{m+4},\,E^{7}\beta,\,\nu_{t+11}}
+1914: +(-1)^{t}\todai[t+3]{E^{4}\beta,\,\nu_{t+8},\,2\nu_{t+11}} .
+1915: \]
+1916: 今, \(\beta=8\iota_{5}\) とする. "
+310,5,Toda_05_2(6).tex,1918,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,63c95e458c6cd3e097f6c00d8eef97c276c39c11b3113fa64a03eee028337ea3,"\[
+8E\alpha^{\ast}=E^48\iota_5\circ E\alpha^{\ast}
+\in -\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+-\todai[4]{8\iota_9,\nu_9,2\nu_{12}} .  
+\]","1915: \]
+1916: 今, \(\beta=8\iota_{5}\) とする. 
+1917: \(8\iota_5\circ\nu_5=8\nu_5=0\) なので, 
+1918: \[
+1919: 8E\alpha^{\ast}=E^48\iota_5\circ E\alpha^{\ast}
+1920: \in -\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+1921: -\todai[4]{8\iota_9,\nu_9,2\nu_{12}} .  
+1922: \]
+1923: Toda bracket \(\todai[7]{\nu_{9},\,8\iota_{12},\,\nu_{12}}\) は, "
+311,5,Toda_05_2(6).tex,1925,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,8c74f84dea84601e8942bfb90cab7e8027286b0788c359a2d162065277d8dfab,"\[
+\nu_9\circ E^7\pi_9(S^5) + \pi_{13}^9\circ\nu_{13}
+=\nu_9\circ E^7\pi_9^5 + \pi_{13}^9\circ\nu_{13} = 0
+\]","1922: \]
+1923: Toda bracket \(\todai[7]{\nu_{9},\,8\iota_{12},\,\nu_{12}}\) は, 
+1924: (4.7) とProp5.8 により, 
+1925: \[
+1926: \nu_9\circ E^7\pi_9(S^5) + \pi_{13}^9\circ\nu_{13}
+1927: =\nu_9\circ E^7\pi_9^5 + \pi_{13}^9\circ\nu_{13} = 0
+1928: \]
+1929: の coset なので, ただ1つの元である. 
+1930: Prop 1.3, Lem 5.13 により, "
+312,5,Toda_05_2(6).tex,1931,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,2b97cf8b1b07429ae0ec349463342801ac15cccd2ebba46c539143c0d50c0612,"\[
+E\sigma'''\in E^4\todai[3]{\nu_5,8\iota_8,\nu_8}
+\subset \todai[7]{\nu_9,8\iota_{12},\nu_{12}} .
+\]","1928: \]
+1929: の coset なので, ただ1つの元である. 
+1930: Prop 1.3, Lem 5.13 により, 
+1931: \[
+1932: E\sigma'''\in E^4\todai[3]{\nu_5,8\iota_8,\nu_8}
+1933: \subset \todai[7]{\nu_9,8\iota_{12},\nu_{12}} .
+1934: \]
+1935: したがって, \(-\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+1936: =-E^4\sigma'''=E^4\sigma'''\) である. "
+313,5,Toda_05_2(6).tex,1938,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,d118401d7ad0f6c6de38234023ce46f59dad6c47127076771aca902d1ca5d389,"\begin{align*}
+\todai[4]{8\iota_9,\nu_9,2\nu_{12}}
+& \subset\todai[4]{2\iota_9,4\iota_9\circ\nu_9\circ2\iota_{12}, \nu_{12}} \\
+& =\todai[4]{2\iota_9,0,\nu_{12}}
+=2\iota_9\circ E^4\pi_{12}(S^5) + \pi_{13}(S^9)\circ\n","1935: したがって, \(-\todai[7]{\nu_9,8\iota_{12},\nu_{12}}
+1936: =-E^4\sigma'''=E^4\sigma'''\) である. 
+1937: Prop1.2 により, 
+1938: \begin{align*}
+1939: \todai[4]{8\iota_9,\nu_9,2\nu_{12}}
+1940: & \subset\todai[4]{2\iota_9,4\iota_9\circ\nu_9\circ2\iota_{12}, \nu_{12}} \\
+1941: & =\todai[4]{2\iota_9,0,\nu_{12}}
+1942: =2\iota_9\circ E^4\pi_{12}(S^5) + \pi_{13}(S^9)\circ\nu_{13} \\
+1943: & =2E^4\pi_{12}(S^5) + \pi_{13}^9\circ\nu_{13}"
+314,5,Toda_05_2(6).tex,1949,PROOF_INTERNAL_CANDIDATE,True,,証明の推論・計算・特殊化に属する可能性が高く、独立 Reference は保留。,ef1edef03da397417e103853139783c21c75e2fba92c88f492400bc6c950db75,"\[
+8x E\alpha^{\ast}=xE^{4}\sigma'''=E^4\sigma'''\ , \ (x:\text{odd}) .
+\]","1946: 以上から, \(8E\alpha^{\ast} - E^4\sigma''' \in 2E^4\pi_{12}(S^5)\) である. \\
+1947: \(\pi_{12}^5=\pi_{12}(S^5;2)\cong\mathbb{Z}_2\) なので, 
+1948: \(2E^4\pi_{12}(S^5)\) は奇数位数の有限群である. 
+1949: \[
+1950: 8x E\alpha^{\ast}=xE^{4}\sigma'''=E^4\sigma'''\ , \ (x:\text{odd}) .
+1951: \]
+1952: (5.14) とLem5.13 により, \(\pi_{13}^6\) と \(\pi_{14}^7\) 
+1953: の位数は, それぞれ 4 と 8 であり, \\
+1954: \(E^2:\pi_{12}^5\to\pi_{14}^7\) は単射である. \\"
