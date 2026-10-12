@@ -847,18 +847,7 @@ def build_standard_web_group_proof_view(
   max_depth: int = 2,
   mode: str = "narrative",
 ) -> WebGroupProofView:
-  if (
-    mode == "narrative"
-    and k == 1
-    and n in (4, 5)
-  ):
-    from phase162_r4_b3_web_common_display import (
-      build_phase162_r4_b3_web_common_display_view,
-    )
-    return build_phase162_r4_b3_web_common_display_view(
-      n=n, k=k, max_depth=max_depth,
-    )
-
+  """Render every group through the same presentation and narrative pipeline."""
   query = TodaGroupQuery(n=n, k=k)
   domain = classify_toda_group_query_domain(query)
   if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
@@ -876,17 +865,11 @@ def build_standard_web_group_proof_view(
   if report.status is TodaCalculationStatus.MULTIPLE_RESULTS:
     raise ValueError("group proof requires exactly one result")
   group_result = report.candidates[0].source_candidate.group_result
-  if n == 3 and k == 2 and mode == "narrative":
-    from phase164_r5_web_registry_connection import (
-      build_phase164_r5_web_pi5_3_proof,
-    )
-    replay, _common_markdown = build_phase164_r5_web_pi5_3_proof(
-      max_depth=max_depth,
-    )
-  else:
-    replay = build_toda_group_result_proof_replay(
-      group_result, max_depth=max_depth,
-    )
+
+  from phase164_r5_r2_common_replay import build_phase164_r5_r2_common_replay
+  replay = build_phase164_r5_r2_common_replay(
+    n=n, k=k, group_result=group_result, max_depth=max_depth, mode=mode,
+  )
 
   conclusion_latex, conclusion_fallback = _group_proof_statement_latex(
     replay.root_step.conclusion
