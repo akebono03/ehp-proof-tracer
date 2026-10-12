@@ -1,0 +1,2197 @@
+{
+  "phase": "163 R4-R67",
+  "mode": "READ_ONLY_CONTEXT_EXPANSION",
+  "reference_policy": "ONE_REFERENCE_MULTIPLE_ASSERTIONS_ALLOWED",
+  "reviewed_reference_count": 10,
+  "reviewed_assertion_count": 13,
+  "mathematical_boundary_verified_count": 0,
+  "semantic_registration_allowed_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "editorial_key": "pointed_homotopy_classes",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "original_start_line": 155,
+      "original_end_line": 159,
+      "display_start_line": 141,
+      "display_end_line": 173,
+      "review_flags": [
+        "TRAILING_SENTENCE_OUTSIDE_SPAN"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "[X,Y]",
+          "source_marker": "[X,Y]=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 141,
+          "region": "BEFORE",
+          "text": "と"
+        },
+        {
+          "line": 142,
+          "region": "BEFORE",
+          "text": "\\(s_{j+1}\\)"
+        },
+        {
+          "line": 143,
+          "region": "BEFORE",
+          "text": "が置き換わる."
+        },
+        {
+          "line": 144,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 145,
+          "region": "BEFORE",
+          "text": "以後, 本書では各位相空間 $X$ に対し, "
+        },
+        {
+          "line": 146,
+          "region": "BEFORE",
+          "text": "基点 $x_0\\in X$ を固定しておき, 球面の場合は $e_0\\in S^n$ を基点にとる. \\\\"
+        },
+        {
+          "line": 147,
+          "region": "BEFORE",
+          "text": "全ての写像と homotopy は基点を保つものとする.\\\\"
+        },
+        {
+          "line": 148,
+          "region": "BEFORE",
+          "text": "i.e."
+        },
+        {
+          "line": 149,
+          "region": "BEFORE",
+          "text": "写像 \\(f:X\\to Y\\),"
+        },
+        {
+          "line": 150,
+          "region": "BEFORE",
+          "text": " homotopy  \\(H:X\\times I\\to Y\\)"
+        },
+        {
+          "line": 151,
+          "region": "BEFORE",
+          "text": "は, 条件 "
+        },
+        {
+          "line": 152,
+          "region": "BEFORE",
+          "text": "\\(f(x_0) = y_0\\), "
+        },
+        {
+          "line": 153,
+          "region": "BEFORE",
+          "text": "\\(H(x_0, t) = y_0,\\ (t\\in I)\\)"
+        },
+        {
+          "line": 154,
+          "region": "BEFORE",
+          "text": "を満たす.\\\\"
+        },
+        {
+          "line": 155,
+          "region": "ORIGINAL",
+          "text": "写像 $f:(X,x_0)\\to (Y,y_0)$ の (基点付き) ホモトピー類の集合を,"
+        },
+        {
+          "line": 156,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 157,
+          "region": "ORIGINAL",
+          "text": "[X,Y]=\\{\\, [f]\\ \\mid\\ f:(X,x_0)\\to (Y,y_0)\\,\\}"
+        },
+        {
+          "line": 158,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 159,
+          "region": "ORIGINAL",
+          "text": "で表す. 特に, $X=S^n$ のとき,"
+        },
+        {
+          "line": 160,
+          "region": "AFTER",
+          "text": "$[X,Y]$ は通常の $n$ 次ホモトピー群 $\\pi_n(Y)$ と一致する. "
+        },
+        {
+          "line": 161,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 162,
+          "region": "AFTER",
+          "text": "% \\subsection*{合成 (composition) }"
+        },
+        {
+          "line": 163,
+          "region": "AFTER",
+          "text": "$\\alpha\\in[X,Y]$, $\\beta\\in[Y,Z]$ に対して,"
+        },
+        {
+          "line": 164,
+          "region": "AFTER",
+          "text": "それぞれの代表写像を $f:X\\to Y$, $g:Y\\to Z$ とするとき, \\\\"
+        },
+        {
+          "line": 165,
+          "region": "AFTER",
+          "text": "合成"
+        },
+        {
+          "line": 166,
+          "region": "AFTER",
+          "text": "\\(g\\circ f\\) は \\([X,Z]\\) の元を表し,"
+        },
+        {
+          "line": 167,
+          "region": "AFTER",
+          "text": "\\(f, g\\) の選び方によらない.\\\\"
+        },
+        {
+          "line": 168,
+          "region": "AFTER",
+          "text": "\\(g\\circ f\\) の類を"
+        },
+        {
+          "line": 169,
+          "region": "AFTER",
+          "text": "\\(\\beta\\circ \\alpha \\in [X,Z]\\)"
+        },
+        {
+          "line": 170,
+          "region": "AFTER",
+          "text": "と書き, \\(\\alpha\\) と \\(\\beta\\) の合成 (composition) という.\\\\"
+        },
+        {
+          "line": 171,
+          "region": "AFTER",
+          "text": "式 \\(\\beta\\circ \\alpha = f^*(\\beta) = g_*(\\alpha)\\)"
+        },
+        {
+          "line": 172,
+          "region": "AFTER",
+          "text": "は, 次の写像を定義する."
+        },
+        {
+          "line": 173,
+          "region": "AFTER",
+          "text": "\\["
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "composition_homotopy_classes",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "original_start_line": 163,
+      "original_end_line": 170,
+      "display_start_line": 149,
+      "display_end_line": 184,
+      "review_flags": [
+        "CONTEXT_FOR_COMPOSITION"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "beta circ alpha",
+          "source_marker": "\\beta\\circ \\alpha",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 149,
+          "region": "BEFORE",
+          "text": "写像 \\(f:X\\to Y\\),"
+        },
+        {
+          "line": 150,
+          "region": "BEFORE",
+          "text": " homotopy  \\(H:X\\times I\\to Y\\)"
+        },
+        {
+          "line": 151,
+          "region": "BEFORE",
+          "text": "は, 条件 "
+        },
+        {
+          "line": 152,
+          "region": "BEFORE",
+          "text": "\\(f(x_0) = y_0\\), "
+        },
+        {
+          "line": 153,
+          "region": "BEFORE",
+          "text": "\\(H(x_0, t) = y_0,\\ (t\\in I)\\)"
+        },
+        {
+          "line": 154,
+          "region": "BEFORE",
+          "text": "を満たす.\\\\"
+        },
+        {
+          "line": 155,
+          "region": "BEFORE",
+          "text": "写像 $f:(X,x_0)\\to (Y,y_0)$ の (基点付き) ホモトピー類の集合を,"
+        },
+        {
+          "line": 156,
+          "region": "BEFORE",
+          "text": "\\["
+        },
+        {
+          "line": 157,
+          "region": "BEFORE",
+          "text": "[X,Y]=\\{\\, [f]\\ \\mid\\ f:(X,x_0)\\to (Y,y_0)\\,\\}"
+        },
+        {
+          "line": 158,
+          "region": "BEFORE",
+          "text": "\\]"
+        },
+        {
+          "line": 159,
+          "region": "BEFORE",
+          "text": "で表す. 特に, $X=S^n$ のとき,"
+        },
+        {
+          "line": 160,
+          "region": "BEFORE",
+          "text": "$[X,Y]$ は通常の $n$ 次ホモトピー群 $\\pi_n(Y)$ と一致する. "
+        },
+        {
+          "line": 161,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 162,
+          "region": "BEFORE",
+          "text": "% \\subsection*{合成 (composition) }"
+        },
+        {
+          "line": 163,
+          "region": "ORIGINAL",
+          "text": "$\\alpha\\in[X,Y]$, $\\beta\\in[Y,Z]$ に対して,"
+        },
+        {
+          "line": 164,
+          "region": "ORIGINAL",
+          "text": "それぞれの代表写像を $f:X\\to Y$, $g:Y\\to Z$ とするとき, \\\\"
+        },
+        {
+          "line": 165,
+          "region": "ORIGINAL",
+          "text": "合成"
+        },
+        {
+          "line": 166,
+          "region": "ORIGINAL",
+          "text": "\\(g\\circ f\\) は \\([X,Z]\\) の元を表し,"
+        },
+        {
+          "line": 167,
+          "region": "ORIGINAL",
+          "text": "\\(f, g\\) の選び方によらない.\\\\"
+        },
+        {
+          "line": 168,
+          "region": "ORIGINAL",
+          "text": "\\(g\\circ f\\) の類を"
+        },
+        {
+          "line": 169,
+          "region": "ORIGINAL",
+          "text": "\\(\\beta\\circ \\alpha \\in [X,Z]\\)"
+        },
+        {
+          "line": 170,
+          "region": "ORIGINAL",
+          "text": "と書き, \\(\\alpha\\) と \\(\\beta\\) の合成 (composition) という.\\\\"
+        },
+        {
+          "line": 171,
+          "region": "AFTER",
+          "text": "式 \\(\\beta\\circ \\alpha = f^*(\\beta) = g_*(\\alpha)\\)"
+        },
+        {
+          "line": 172,
+          "region": "AFTER",
+          "text": "は, 次の写像を定義する."
+        },
+        {
+          "line": 173,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 174,
+          "region": "AFTER",
+          "text": "f^*:[Y,Z]\\to[X,Z],\\quad g_*:[X,Y]\\to[X,Z]."
+        },
+        {
+          "line": 175,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 176,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 177,
+          "region": "AFTER",
+          "text": "f^*(\\beta)=[g\\circ f],\\qquad g_*(\\alpha)=[g\\circ f]"
+        },
+        {
+          "line": 178,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 179,
+          "region": "AFTER",
+          "text": "明らかに, 合成は結合的である. "
+        },
+        {
+          "line": 180,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 181,
+          "region": "AFTER",
+          "text": "(\\gamma\\circ \\beta)\\circ\\alpha=\\gamma\\circ(\\beta\\circ\\alpha)."
+        },
+        {
+          "line": 182,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 183,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 184,
+          "region": "AFTER",
+          "text": "(f_2\\circ f_1)^*=f_1^*\\circ f_2^*,\\quad "
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "secondary_composition",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "original_start_line": 535,
+      "original_end_line": 540,
+      "display_start_line": 521,
+      "display_end_line": 554,
+      "review_flags": [
+        "PRECEDING_CONSTRUCTION_REQUIRED"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "secondary composition",
+          "source_marker": "\\{\\alpha,",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 521,
+          "region": "BEFORE",
+          "text": "H(d(w,t))="
+        },
+        {
+          "line": 522,
+          "region": "BEFORE",
+          "text": "\\begin{cases}"
+        },
+        {
+          "line": 523,
+          "region": "BEFORE",
+          "text": "a\\bigl(\\Ex^n B_{2t-1}(w)\\bigr), & \\tfrac12\\le t\\le 1,\\\\[2mm]"
+        },
+        {
+          "line": 524,
+          "region": "BEFORE",
+          "text": "A_{1-2t}\\bigl(\\Ex^n c(w)\\bigr), & 0\\le t\\le \\tfrac12."
+        },
+        {
+          "line": 525,
+          "region": "BEFORE",
+          "text": "\\end{cases}"
+        },
+        {
+          "line": 526,
+          "region": "BEFORE",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 527,
+          "region": "BEFORE",
+          "text": "ここで,"
+        },
+        {
+          "line": 528,
+          "region": "BEFORE",
+          "text": "$d:\\Ex^n W\\times I\\to \\Ex^{n+1}W$ は,"
+        },
+        {
+          "line": 529,
+          "region": "BEFORE",
+          "text": "\\(E^{n+1}W= E(E^n W)\\) を定める等化写像で, "
+        },
+        {
+          "line": 530,
+          "region": "BEFORE",
+          "text": "$w\\in \\Ex^n W$ とする.\\\\"
+        },
+        {
+          "line": 531,
+          "region": "BEFORE",
+          "text": "$H$ は well-defined で, 連続であり, "
+        },
+        {
+          "line": 532,
+          "region": "BEFORE",
+          "text": "$A_t,B_t$ の取り方と, $a,b,c$ に依存する. "
+        },
+        {
+          "line": 533,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 534,
+          "region": "BEFORE",
+          "text": "%\\begin{definition}"
+        },
+        {
+          "line": 535,
+          "region": "ORIGINAL",
+          "text": "\\emph{secondary composition}"
+        },
+        {
+          "line": 536,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 537,
+          "region": "ORIGINAL",
+          "text": "\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\ \\subset\\ [\\Ex^{n+1}W, Z]"
+        },
+        {
+          "line": 538,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 539,
+          "region": "ORIGINAL",
+          "text": "を, 上の方法で得られる写像 $H$ の, "
+        },
+        {
+          "line": 540,
+          "region": "ORIGINAL",
+          "text": "ホモトピー類全体の集合として定める. "
+        },
+        {
+          "line": 541,
+          "region": "AFTER",
+          "text": "%\\end{definition}"
+        },
+        {
+          "line": 542,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 543,
+          "region": "AFTER",
+          "text": "ここで, 以下の記法を用いる. "
+        },
+        {
+          "line": 544,
+          "region": "AFTER",
+          "text": "$A\\subset[Y, Z]$, $B\\subset[X, Y]$ に対し,"
+        },
+        {
+          "line": 545,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 546,
+          "region": "AFTER",
+          "text": "A\\circ B=\\{\\ \\alpha\\circ\\beta\\mid \\alpha\\in A,\\ \\beta\\in B\\ \\}"
+        },
+        {
+          "line": 547,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 548,
+          "region": "AFTER",
+          "text": "と書く. また, $A_1,A_2\\subset[\\Ex X, Y]$ に対し,"
+        },
+        {
+          "line": 549,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 550,
+          "region": "AFTER",
+          "text": "A_1+A_2=\\{\\ \\alpha_1+\\alpha_2\\mid \\alpha_i\\in A_i\\ \\}"
+        },
+        {
+          "line": 551,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 552,
+          "region": "AFTER",
+          "text": "とする. "
+        },
+        {
+          "line": 553,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 554,
+          "region": "AFTER",
+          "text": "\\begin{lemma}\\label{lem:double-coset}"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "extension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "original_start_line": 1099,
+      "original_end_line": 1103,
+      "display_start_line": 1085,
+      "display_end_line": 1117,
+      "review_flags": [
+        "ATTACHING_SPACE_CONTEXT_REQUIRED"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "extension alpha",
+          "source_marker": "\\emph{extension}",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 1085,
+          "region": "BEFORE",
+          "text": "\\["
+        },
+        {
+          "line": 1086,
+          "region": "BEFORE",
+          "text": "CX=(X\\times I)/\\bigl(X\\times\\{1\\}\\ \\cup\\ x_0\\times I\\bigr)."
+        },
+        {
+          "line": 1087,
+          "region": "BEFORE",
+          "text": "\\]"
+        },
+        {
+          "line": 1088,
+          "region": "BEFORE",
+          "text": "$d'_X:X\\times I\\to CX$ を, \\(CX\\) を定義する等化写像とする.\\\\"
+        },
+        {
+          "line": 1089,
+          "region": "BEFORE",
+          "text": "対応 $x\\longleftrightarrow d'_X(x,0)$ により, "
+        },
+        {
+          "line": 1090,
+          "region": "BEFORE",
+          "text": "$X$ と $d'_X(X\\times {0})$ を同一視する. "
+        },
+        {
+          "line": 1091,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1092,
+          "region": "BEFORE",
+          "text": "$\\beta\\in[X, Y]$ と, その代表 $f:(X,x_0)\\to(Y,y_0)$ を考える.\\\\"
+        },
+        {
+          "line": 1093,
+          "region": "BEFORE",
+          "text": "\\(CX\\) と \\(Y\\) の disjoint union \\(Y \\sqcup CX\\)"
+        },
+        {
+          "line": 1094,
+          "region": "BEFORE",
+          "text": "において, \\\\"
+        },
+        {
+          "line": 1095,
+          "region": "BEFORE",
+          "text": "\\(X\\) と \\(f\\) による像を同一視した空間を,"
+        },
+        {
+          "line": 1096,
+          "region": "BEFORE",
+          "text": "\\(Y\\cup_f CX\\) または, \\(Y\\cup_\\beta CX\\) で表す.\\\\"
+        },
+        {
+          "line": 1097,
+          "region": "BEFORE",
+          "text": "$Y\\cup_f CX$ のホモトピー型は, \\(\\beta\\) の代表 $f$ の選び方によらない. "
+        },
+        {
+          "line": 1098,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1099,
+          "region": "ORIGINAL",
+          "text": "\\(\\overline{\\alpha}\\in[Y\\cup_\\beta CX, Z]\\)"
+        },
+        {
+          "line": 1100,
+          "region": "ORIGINAL",
+          "text": "は, \\(\\overline{\\alpha}\\) を表す写像 \\(g\\)"
+        },
+        {
+          "line": 1101,
+          "region": "ORIGINAL",
+          "text": "に対して, "
+        },
+        {
+          "line": 1102,
+          "region": "ORIGINAL",
+          "text": "制限 \\(g|_{Y}\\) が \\(\\alpha\\in[Y,Z]\\) を表すとき,\\\\"
+        },
+        {
+          "line": 1103,
+          "region": "ORIGINAL",
+          "text": "$\\alpha$ の \\emph{extension} と呼ぶ."
+        },
+        {
+          "line": 1104,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 1105,
+          "region": "AFTER",
+          "text": "\\(\\widetilde{\\gamma}\\in[EW,Y\\cup_\\beta CX]\\)"
+        },
+        {
+          "line": 1106,
+          "region": "AFTER",
+          "text": "に対して, \\(\\widetilde{\\gamma}\\) を表す写像 "
+        },
+        {
+          "line": 1107,
+          "region": "AFTER",
+          "text": "\\(h:EW\\to Y\\cup_\\beta CX\\)"
+        },
+        {
+          "line": 1108,
+          "region": "AFTER",
+          "text": "が, 次の条件を満たすとする."
+        },
+        {
+          "line": 1109,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 1110,
+          "region": "AFTER",
+          "text": "h(d_W(w, t)) \\left\\{"
+        },
+        {
+          "line": 1111,
+          "region": "AFTER",
+          "text": "\\begin{array}{ll}"
+        },
+        {
+          "line": 1112,
+          "region": "AFTER",
+          "text": "= d'_X(c(w), 1-2t), & 0 \\leq t \\leq \\frac{1}{2}, \\\\"
+        },
+        {
+          "line": 1113,
+          "region": "AFTER",
+          "text": "\\in Y, & \\frac{1}{2} \\leq t \\leq 1. \\\\"
+        },
+        {
+          "line": 1114,
+          "region": "AFTER",
+          "text": "\\end{array}\\right."
+        },
+        {
+          "line": 1115,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 1116,
+          "region": "AFTER",
+          "text": "ここで, \\(c:W\\to X\\) は \\(\\gamma\\in[W,X]\\) を表す写像とする."
+        },
+        {
+          "line": 1117,
+          "region": "AFTER",
+          "text": "このとき, \\(\\widetilde{\\gamma}\\) を \\(\\gamma\\) の \\emph{coextension} と呼ぶ.\\\\"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "coextension",
+      "chapter": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "original_start_line": 1105,
+      "original_end_line": 1117,
+      "display_start_line": 1091,
+      "display_end_line": 1131,
+      "review_flags": [
+        "ATTACHING_SPACE_CONTEXT_REQUIRED"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "coextension gamma",
+          "source_marker": "\\emph{coextension}",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 1091,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1092,
+          "region": "BEFORE",
+          "text": "$\\beta\\in[X, Y]$ と, その代表 $f:(X,x_0)\\to(Y,y_0)$ を考える.\\\\"
+        },
+        {
+          "line": 1093,
+          "region": "BEFORE",
+          "text": "\\(CX\\) と \\(Y\\) の disjoint union \\(Y \\sqcup CX\\)"
+        },
+        {
+          "line": 1094,
+          "region": "BEFORE",
+          "text": "において, \\\\"
+        },
+        {
+          "line": 1095,
+          "region": "BEFORE",
+          "text": "\\(X\\) と \\(f\\) による像を同一視した空間を,"
+        },
+        {
+          "line": 1096,
+          "region": "BEFORE",
+          "text": "\\(Y\\cup_f CX\\) または, \\(Y\\cup_\\beta CX\\) で表す.\\\\"
+        },
+        {
+          "line": 1097,
+          "region": "BEFORE",
+          "text": "$Y\\cup_f CX$ のホモトピー型は, \\(\\beta\\) の代表 $f$ の選び方によらない. "
+        },
+        {
+          "line": 1098,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1099,
+          "region": "BEFORE",
+          "text": "\\(\\overline{\\alpha}\\in[Y\\cup_\\beta CX, Z]\\)"
+        },
+        {
+          "line": 1100,
+          "region": "BEFORE",
+          "text": "は, \\(\\overline{\\alpha}\\) を表す写像 \\(g\\)"
+        },
+        {
+          "line": 1101,
+          "region": "BEFORE",
+          "text": "に対して, "
+        },
+        {
+          "line": 1102,
+          "region": "BEFORE",
+          "text": "制限 \\(g|_{Y}\\) が \\(\\alpha\\in[Y,Z]\\) を表すとき,\\\\"
+        },
+        {
+          "line": 1103,
+          "region": "BEFORE",
+          "text": "$\\alpha$ の \\emph{extension} と呼ぶ."
+        },
+        {
+          "line": 1104,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1105,
+          "region": "ORIGINAL",
+          "text": "\\(\\widetilde{\\gamma}\\in[EW,Y\\cup_\\beta CX]\\)"
+        },
+        {
+          "line": 1106,
+          "region": "ORIGINAL",
+          "text": "に対して, \\(\\widetilde{\\gamma}\\) を表す写像 "
+        },
+        {
+          "line": 1107,
+          "region": "ORIGINAL",
+          "text": "\\(h:EW\\to Y\\cup_\\beta CX\\)"
+        },
+        {
+          "line": 1108,
+          "region": "ORIGINAL",
+          "text": "が, 次の条件を満たすとする."
+        },
+        {
+          "line": 1109,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1110,
+          "region": "ORIGINAL",
+          "text": "h(d_W(w, t)) \\left\\{"
+        },
+        {
+          "line": 1111,
+          "region": "ORIGINAL",
+          "text": "\\begin{array}{ll}"
+        },
+        {
+          "line": 1112,
+          "region": "ORIGINAL",
+          "text": "= d'_X(c(w), 1-2t), & 0 \\leq t \\leq \\frac{1}{2}, \\\\"
+        },
+        {
+          "line": 1113,
+          "region": "ORIGINAL",
+          "text": "\\in Y, & \\frac{1}{2} \\leq t \\leq 1. \\\\"
+        },
+        {
+          "line": 1114,
+          "region": "ORIGINAL",
+          "text": "\\end{array}\\right."
+        },
+        {
+          "line": 1115,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1116,
+          "region": "ORIGINAL",
+          "text": "ここで, \\(c:W\\to X\\) は \\(\\gamma\\in[W,X]\\) を表す写像とする."
+        },
+        {
+          "line": 1117,
+          "region": "ORIGINAL",
+          "text": "このとき, \\(\\widetilde{\\gamma}\\) を \\(\\gamma\\) の \\emph{coextension} と呼ぶ.\\\\"
+        },
+        {
+          "line": 1118,
+          "region": "AFTER",
+          "text": "extension $\\overline\\alpha$ が存在するための必要十分条件は,"
+        },
+        {
+          "line": 1119,
+          "region": "AFTER",
+          "text": "$\\alpha\\circ \\beta=0$ であり,\\\\"
+        },
+        {
+          "line": 1120,
+          "region": "AFTER",
+          "text": "coextension $\\widetilde{\\gamma}$ が存在するための必要十分条件は,"
+        },
+        {
+          "line": 1121,
+          "region": "AFTER",
+          "text": "$\\beta\\circ\\gamma=0$ である. "
+        },
+        {
+          "line": 1122,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 1123,
+          "region": "AFTER",
+          "text": "次の同一視を使用する."
+        },
+        {
+          "line": 1124,
+          "region": "AFTER",
+          "text": "\\begin{equation}\\label{eq:cone-susp}"
+        },
+        {
+          "line": 1125,
+          "region": "AFTER",
+          "text": "% (1.16)"
+        },
+        {
+          "line": 1126,
+          "region": "AFTER",
+          "text": "\\Ex^n(Y\\cup_\\beta CX)\\ =\\ "
+        },
+        {
+          "line": 1127,
+          "region": "AFTER",
+          "text": "\\Ex^nY\\ \\cup_{\\beta'}\\ C\\Ex^n X,\\quad \\beta'=\\Ex^n \\beta."
+        },
+        {
+          "line": 1128,
+          "region": "AFTER",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 1129,
+          "region": "AFTER",
+          "text": "ここで, 対応は"
+        },
+        {
+          "line": 1130,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 1131,
+          "region": "AFTER",
+          "text": "\\phi(d'_X(x,t),\\psi_n(t_1,\\ldots,t_n))\\longleftrightarrow d'_Z(\\phi'(x,\\psi_n(t_1,\\ldots,t_n)),t)"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "stable_homotopy_group",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "original_start_line": 1199,
+      "original_end_line": 1206,
+      "display_start_line": 1185,
+      "display_end_line": 1220,
+      "review_flags": [
+        "SOURCE_ENDS_AT_DISPLAY"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "G_k",
+          "source_marker": "G_k\\ :=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "E^infty",
+          "source_marker": "\\Ex^\\infty:",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 1185,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1186,
+          "region": "BEFORE",
+          "text": "\\end{paracol}"
+        },
+        {
+          "line": 1187,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1188,
+          "region": "BEFORE",
+          "text": "\\begin{paracol}{2}"
+        },
+        {
+          "line": 1189,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1190,
+          "region": "BEFORE",
+          "text": "\\medskip"
+        },
+        {
+          "line": 1191,
+          "region": "BEFORE",
+          "text": "\\noindent"
+        },
+        {
+          "line": 1192,
+          "region": "BEFORE",
+          "text": "(2.11) の完全列の結果として Freudenthal の懸垂定理を得る："
+        },
+        {
+          "line": 1193,
+          "region": "BEFORE",
+          "text": "\\begin{equation}\\label{3.2}"
+        },
+        {
+          "line": 1194,
+          "region": "BEFORE",
+          "text": "% (3.2)"
+        },
+        {
+          "line": 1195,
+          "region": "BEFORE",
+          "text": "\\Ex: \\pis{i}{S^m} \\longrightarrow \\pis{i+1}{S^{m+1}}"
+        },
+        {
+          "line": 1196,
+          "region": "BEFORE",
+          "text": "\\quad\\text{は, } i<2m-1 \\text{で同型, } i=2m-1 \\text{で全射である. }"
+        },
+        {
+          "line": 1197,
+          "region": "BEFORE",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 1198,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1199,
+          "region": "ORIGINAL",
+          "text": "球面の $k$ 次安定ホモトピー群を"
+        },
+        {
+          "line": 1200,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1201,
+          "region": "ORIGINAL",
+          "text": "G_k\\ :=\\ \\lim_{n\\to\\infty}\\ \\pis{n+k}{S^n}"
+        },
+        {
+          "line": 1202,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1203,
+          "region": "ORIGINAL",
+          "text": "と書き, 射影を"
+        },
+        {
+          "line": 1204,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1205,
+          "region": "ORIGINAL",
+          "text": "\\Ex^\\infty:\\ \\pis{n+k}{S^n}\\ \\longrightarrow\\ G_k"
+        },
+        {
+          "line": 1206,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1207,
+          "region": "AFTER",
+          "text": "で表す. (3.2) から,"
+        },
+        {
+          "line": 1208,
+          "region": "AFTER",
+          "text": "\\begin{equation}\\label{3.3}"
+        },
+        {
+          "line": 1209,
+          "region": "AFTER",
+          "text": "% (3.3)"
+        },
+        {
+          "line": 1210,
+          "region": "AFTER",
+          "text": "\\Ex^\\infty:\\ \\pis{n+k}{S^n}\\ \\xrightarrow{\\;\\;}\\ G_k"
+        },
+        {
+          "line": 1211,
+          "region": "AFTER",
+          "text": "\\quad\\text{は, } n>k+1 \\text{で同型, } n=k+1 \\text{で全射である. }"
+        },
+        {
+          "line": 1212,
+          "region": "AFTER",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 1213,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 1214,
+          "region": "AFTER",
+          "text": "(1.6) より,"
+        },
+        {
+          "line": 1215,
+          "region": "AFTER",
+          "text": "\\(\\Ex^{m}(\\alpha\\circ\\beta)=\\Ex^{m}\\alpha\\circ\\Ex^{m}\\beta\\)"
+        },
+        {
+          "line": 1216,
+          "region": "AFTER",
+          "text": "なので, 合成"
+        },
+        {
+          "line": 1217,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 1218,
+          "region": "AFTER",
+          "text": "\\circ:G_k\\times G_h \\rightarrow G_{k+h}"
+        },
+        {
+          "line": 1219,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 1220,
+          "region": "AFTER",
+          "text": "が, \\(E^\\infty(\\alpha\\circ\\beta)=E^\\infty\\alpha\\circ E^\\infty\\beta\\) "
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "stable_toda_bracket",
+      "chapter": 3,
+      "source_file": "Toda_03_2(2).tex",
+      "original_start_line": 1236,
+      "original_end_line": 1266,
+      "display_start_line": 1222,
+      "display_end_line": 1280,
+      "review_flags": [
+        "DEFINITION_HYPOTHESES_AND_INDETERMINACY"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "stable Toda bracket",
+          "source_marker": "\\langle \\alpha,\\beta,\\gamma\\rangle",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 1222,
+          "region": "BEFORE",
+          "text": "(1.7) または (2.1) は, 合成が stable の範囲では bilinear であることを示している. "
+        },
+        {
+          "line": 1223,
+          "region": "BEFORE",
+          "text": "\\["
+        },
+        {
+          "line": 1224,
+          "region": "BEFORE",
+          "text": "\\alpha\\circ(\\beta_1\\pm\\beta_2)=\\alpha\\circ\\beta_1\\pm\\alpha\\circ\\beta_2,\\qquad"
+        },
+        {
+          "line": 1225,
+          "region": "BEFORE",
+          "text": "(\\alpha_1\\pm\\alpha_2)\\circ\\beta=\\alpha_1\\circ\\beta\\pm\\alpha_2\\circ\\beta ."
+        },
+        {
+          "line": 1226,
+          "region": "BEFORE",
+          "text": "\\]"
+        },
+        {
+          "line": 1227,
+          "region": "BEFORE",
+          "text": "Prop3.1 は, anti-commutativity を示している. "
+        },
+        {
+          "line": 1228,
+          "region": "BEFORE",
+          "text": "\\begin{equation}\\label{3.4}"
+        },
+        {
+          "line": 1229,
+          "region": "BEFORE",
+          "text": "% (3.4)"
+        },
+        {
+          "line": 1230,
+          "region": "BEFORE",
+          "text": "\\alpha\\circ\\beta=(-1)^{kh}\\,\\beta\\circ\\alpha,"
+        },
+        {
+          "line": 1231,
+          "region": "BEFORE",
+          "text": "\\qquad(\\alpha\\in G_k,\\ \\beta\\in G_h) ."
+        },
+        {
+          "line": 1232,
+          "region": "BEFORE",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 1233,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 1234,
+          "region": "BEFORE",
+          "text": "\\medskip"
+        },
+        {
+          "line": 1235,
+          "region": "BEFORE",
+          "text": "\\noindent"
+        },
+        {
+          "line": 1236,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1237,
+          "region": "ORIGINAL",
+          "text": "\\alpha\\in G_k,\\quad \\beta\\in G_h,\\quad \\gamma\\in G_\\ell,\\qquad"
+        },
+        {
+          "line": 1238,
+          "region": "ORIGINAL",
+          "text": "\\alpha\\circ\\beta=\\beta\\circ\\gamma=0"
+        },
+        {
+          "line": 1239,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1240,
+          "region": "ORIGINAL",
+          "text": "に対する, stable Toda bracket "
+        },
+        {
+          "line": 1241,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1242,
+          "region": "ORIGINAL",
+          "text": "\\langle \\alpha,\\beta,\\gamma\\rangle "
+        },
+        {
+          "line": 1243,
+          "region": "ORIGINAL",
+          "text": "\\in G_{k+h+\\ell+1}(\\alpha\\circ G_{h+\\ell+1} + \\gamma\\circ G_{k+h+1}) ."
+        },
+        {
+          "line": 1244,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1245,
+          "region": "ORIGINAL",
+          "text": "を以下の様に定義する. "
+        },
+        {
+          "line": 1246,
+          "region": "ORIGINAL",
+          "text": "十分大きな $n$ をとれば, "
+        },
+        {
+          "line": 1247,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1248,
+          "region": "ORIGINAL",
+          "text": "\\alpha'\\in\\pis{n+k}{S^n},\\ "
+        },
+        {
+          "line": 1249,
+          "region": "ORIGINAL",
+          "text": "\\beta'\\in\\pis{n+k+h}{S^{n+k}},\\"
+        },
+        {
+          "line": 1250,
+          "region": "ORIGINAL",
+          "text": "\\gamma'\\in\\pis{n+k+h+\\ell}{S^{n+k+h}}"
+        },
+        {
+          "line": 1251,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1252,
+          "region": "ORIGINAL",
+          "text": "が存在して, "
+        },
+        {
+          "line": 1253,
+          "region": "ORIGINAL",
+          "text": "\\("
+        },
+        {
+          "line": 1254,
+          "region": "ORIGINAL",
+          "text": "\\alpha=\\Ex^\\infty\\alpha',\\"
+        },
+        {
+          "line": 1255,
+          "region": "ORIGINAL",
+          "text": "\\beta=\\Ex^\\infty\\beta',\\"
+        },
+        {
+          "line": 1256,
+          "region": "ORIGINAL",
+          "text": "\\gamma=\\Ex^\\infty\\gamma'"
+        },
+        {
+          "line": 1257,
+          "region": "ORIGINAL",
+          "text": "\\)"
+        },
+        {
+          "line": 1258,
+          "region": "ORIGINAL",
+          "text": "と書ける. \\\\"
+        },
+        {
+          "line": 1259,
+          "region": "ORIGINAL",
+          "text": "このとき, "
+        },
+        {
+          "line": 1260,
+          "region": "ORIGINAL",
+          "text": "\\(\\langle \\alpha,\\beta,\\gamma\\rangle\\)"
+        },
+        {
+          "line": 1261,
+          "region": "ORIGINAL",
+          "text": "を, 次で定義する."
+        },
+        {
+          "line": 1262,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 1263,
+          "region": "ORIGINAL",
+          "text": "\\langle \\alpha,\\beta,\\gamma\\rangle"
+        },
+        {
+          "line": 1264,
+          "region": "ORIGINAL",
+          "text": "\\ :=\\ \\Ex^\\infty (-1)^{\\,n-1}\\ \\toda{\\alpha',\\beta',\\gamma'}."
+        },
+        {
+          "line": 1265,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 1266,
+          "region": "ORIGINAL",
+          "text": "Prop1.3 により, この定義は $n$ によらず well-defined である. "
+        },
+        {
+          "line": 1267,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 1268,
+          "region": "AFTER",
+          "text": "\\switchcolumn"
+        },
+        {
+          "line": 1269,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 1270,
+          "region": "AFTER",
+          "text": "\\noindent"
+        },
+        {
+          "line": 1271,
+          "region": "AFTER",
+          "text": "\\textbf{(2.11).}\\"
+        },
+        {
+          "line": 1272,
+          "region": "AFTER",
+          "text": "\\(\\cdots\\ \\longrightarrow\\ "
+        },
+        {
+          "line": 1273,
+          "region": "AFTER",
+          "text": "\\pi_i(S^m)\\xrightarrow{\\,E\\,}\\pi_{i+1}(S^{m+1})\\xrightarrow{\\,H\\,}"
+        },
+        {
+          "line": 1274,
+          "region": "AFTER",
+          "text": "\\pi_{i+1}(S^{2m+1})\\xrightarrow{\\,\\Delta\\,}\\pi_{i-1}(S^m)\\xrightarrow{\\,E\\,}\\cdots.\\)"
+        },
+        {
+          "line": 1275,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 1276,
+          "region": "AFTER",
+          "text": "\\noindent"
+        },
+        {
+          "line": 1277,
+          "region": "AFTER",
+          "text": "\\textbf{(1.6).}\\"
+        },
+        {
+          "line": 1278,
+          "region": "AFTER",
+          "text": "\\(\\textbf{0).}\\ "
+        },
+        {
+          "line": 1279,
+          "region": "AFTER",
+          "text": "f\\simeq g:X\\to Y \\text{ は, }"
+        },
+        {
+          "line": 1280,
+          "region": "AFTER",
+          "text": "E^n f\\simeq E^n g \\text{ を導く.}\\)\\\\"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "nu4_generator_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "original_start_line": 567,
+      "original_end_line": 579,
+      "display_start_line": 553,
+      "display_end_line": 593,
+      "review_flags": [
+        "PRIOR_CHOICES_ALPHA_STAR_U_S"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_4",
+          "source_marker": "\\nu_{4}:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 553,
+          "region": "BEFORE",
+          "text": "\\("
+        },
+        {
+          "line": 554,
+          "region": "BEFORE",
+          "text": "\\eta_n\\circ E\\pi_{n+2}(S^n) + \\pi_{n+2}(S^n)\\circ\\eta_{n+2} ."
+        },
+        {
+          "line": 555,
+          "region": "BEFORE",
+          "text": "\\)\\\\"
+        },
+        {
+          "line": 556,
+          "region": "BEFORE",
+          "text": "(1.15) から, これらの Toda bracket は一致する. \\\\"
+        },
+        {
+          "line": 557,
+          "region": "BEFORE",
+          "text": "これから, \\(t=0\\) のとき, (5.4) が成り立つことが分かる. "
+        },
+        {
+          "line": 558,
+          "region": "BEFORE",
+          "text": "\\qed"
+        },
+        {
+          "line": 559,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 560,
+          "region": "BEFORE",
+          "text": "今, \\(2E\\alpha^{\\ast}=\\pm E^{2}\\nu'\\) である. \\\\"
+        },
+        {
+          "line": 561,
+          "region": "BEFORE",
+          "text": "\\(H:\\pi^{3}_{6}\\to \\pi^{5}_{6}\\) は,"
+        },
+        {
+          "line": 562,
+          "region": "BEFORE",
+          "text": "\\(\\nu'\\) を \\(\\pi_6^5\\) の生成元 \\(\\eta_{5}\\) に写すので, \\(\\nu'\\) は 2 で割れない. \\\\"
+        },
+        {
+          "line": 563,
+          "region": "BEFORE",
+          "text": "一方, \\(2E\\alpha^{\\ast}=\\pm E^{2}\\nu'\\) より,"
+        },
+        {
+          "line": 564,
+          "region": "BEFORE",
+          "text": "\\(E^{2}\\nu'\\) は 2 で割れる. \\\\"
+        },
+        {
+          "line": 565,
+          "region": "BEFORE",
+          "text": "(4.8) より,"
+        },
+        {
+          "line": 566,
+          "region": "BEFORE",
+          "text": "\\(H(\\alpha^{\\ast})=(2s+1)\\iota_{7}\\), (\\(s\\in\\mathbb Z\\)). \\\\"
+        },
+        {
+          "line": 567,
+          "region": "ORIGINAL",
+          "text": "そこで,"
+        },
+        {
+          "line": 568,
+          "region": "ORIGINAL",
+          "text": "\\(H[\\iota_4,\\iota_4]=(-1)^u 2\\iota_7\\) とし, "
+        },
+        {
+          "line": 569,
+          "region": "ORIGINAL",
+          "text": "\\(\\nu_4\\) を次で定義する. "
+        },
+        {
+          "line": 570,
+          "region": "ORIGINAL",
+          "text": "(\\([\\iota_4,\\iota_4]\\) は Whitehead product)"
+        },
+        {
+          "line": 571,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 572,
+          "region": "ORIGINAL",
+          "text": "\\nu_{4}:="
+        },
+        {
+          "line": 573,
+          "region": "ORIGINAL",
+          "text": "\\begin{cases}"
+        },
+        {
+          "line": 574,
+          "region": "ORIGINAL",
+          "text": "\\alpha^{\\ast}-(-1)^{u}\\,s[\\iota_4,\\iota_4] "
+        },
+        {
+          "line": 575,
+          "region": "ORIGINAL",
+          "text": "& (\\text{if } 2E\\alpha^{\\ast}=E^{2}\\nu'),\\\\[1mm]"
+        },
+        {
+          "line": 576,
+          "region": "ORIGINAL",
+          "text": "-\\alpha^{\\ast}+(-1)^{u}(s+1)[\\iota_4,\\iota_4] "
+        },
+        {
+          "line": 577,
+          "region": "ORIGINAL",
+          "text": "& (\\text{if } 2E\\alpha^{\\ast}=-E^{2}\\nu')."
+        },
+        {
+          "line": 578,
+          "region": "ORIGINAL",
+          "text": "\\end{cases}"
+        },
+        {
+          "line": 579,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 580,
+          "region": "AFTER",
+          "text": "このとき, \\(\\nu_4\\) がLem5.4 の条件を満たすことは簡単に確かめられる. "
+        },
+        {
+          "line": 581,
+          "region": "AFTER",
+          "text": ""
+        },
+        {
+          "line": 582,
+          "region": "AFTER",
+          "text": "\\begin{lemma}\\label{lem:5.5}"
+        },
+        {
+          "line": 583,
+          "region": "AFTER",
+          "text": "% Lem5.5.\\"
+        },
+        {
+          "line": 584,
+          "region": "AFTER",
+          "text": "$Lem 5.4$ の元 \\(\\nu_{4}\\) に対し, "
+        },
+        {
+          "line": 585,
+          "region": "AFTER",
+          "text": "Toda bracket "
+        },
+        {
+          "line": 586,
+          "region": "AFTER",
+          "text": "\\(\\todai[3]{\\eta_{m+2},\\,E^{3}\\beta,\\,\\eta_{t+5}}\\) は,\\\\"
+        },
+        {
+          "line": 587,
+          "region": "AFTER",
+          "text": "\\("
+        },
+        {
+          "line": 588,
+          "region": "AFTER",
+          "text": "E^{2}\\beta\\circ E^{t}\\nu_{4}\\text{または,} -E^{2}\\beta\\circ E^{t}\\nu_{4}"
+        },
+        {
+          "line": 589,
+          "region": "AFTER",
+          "text": "\\)"
+        },
+        {
+          "line": 590,
+          "region": "AFTER",
+          "text": "を含む. \\\\"
+        },
+        {
+          "line": 591,
+          "region": "AFTER",
+          "text": "ここで, \\(\\beta\\in\\pi_{t+2}(S^{m})\\) は,"
+        },
+        {
+          "line": 592,
+          "region": "AFTER",
+          "text": "\\(\\beta\\circ \\eta_{t+2}=0\\), \\(t>0\\) を満たす元である. "
+        },
+        {
+          "line": 593,
+          "region": "AFTER",
+          "text": "\\end{lemma}"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "nu_n_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "original_start_line": 605,
+      "original_end_line": 607,
+      "display_start_line": 591,
+      "display_end_line": 621,
+      "review_flags": [
+        "ADJACENT_NOTATION_BLOCK"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "nu_n",
+          "source_marker": "\\nu_n:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "nu",
+          "source_marker": "\\nu:=E",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 591,
+          "region": "BEFORE",
+          "text": "ここで, \\(\\beta\\in\\pi_{t+2}(S^{m})\\) は,"
+        },
+        {
+          "line": 592,
+          "region": "BEFORE",
+          "text": "\\(\\beta\\circ \\eta_{t+2}=0\\), \\(t>0\\) を満たす元である. "
+        },
+        {
+          "line": 593,
+          "region": "BEFORE",
+          "text": "\\end{lemma}"
+        },
+        {
+          "line": 594,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 595,
+          "region": "BEFORE",
+          "text": "\\noindent"
+        },
+        {
+          "line": 596,
+          "region": "BEFORE",
+          "text": "\\textbf{Proof.}\\ "
+        },
+        {
+          "line": 597,
+          "region": "BEFORE",
+          "text": "前Lemの証明より, \\\\"
+        },
+        {
+          "line": 598,
+          "region": "BEFORE",
+          "text": "\\(E^{2}\\beta\\circ E^{t}\\alpha^{\\ast}\\) あるいは,"
+        },
+        {
+          "line": 599,
+          "region": "BEFORE",
+          "text": "\\(-E^{2}\\beta\\circ E^{t}\\alpha^{\\ast}\\) "
+        },
+        {
+          "line": 600,
+          "region": "BEFORE",
+          "text": "が, 当該 Toda bracket に含まれる. \\\\"
+        },
+        {
+          "line": 601,
+          "region": "BEFORE",
+          "text": "\\(E[\\iota_4,\\iota_4]=0\\) なので, 定義より,"
+        },
+        {
+          "line": 602,
+          "region": "BEFORE",
+          "text": "\\(E^{t}\\nu_{4}=\\pm E^{t}\\alpha^{\\ast}\\) である. "
+        },
+        {
+          "line": 603,
+          "region": "BEFORE",
+          "text": "\\qed"
+        },
+        {
+          "line": 604,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 605,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 606,
+          "region": "ORIGINAL",
+          "text": "\\nu_n:=E^{\\,n-4}\\nu_{4},\\ (n\\ge 4),\\qquad \\nu:=E^{\\infty}\\nu_{4}"
+        },
+        {
+          "line": 607,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 608,
+          "region": "AFTER",
+          "text": "\\["
+        },
+        {
+          "line": 609,
+          "region": "AFTER",
+          "text": "\\eta^{3}_{n}:=\\eta_{n}\\circ\\eta_{n+1}\\circ\\eta_{n+2},\\ (n\\ge2),\\qquad"
+        },
+        {
+          "line": 610,
+          "region": "AFTER",
+          "text": "\\eta^{3}:=\\eta\\circ\\eta\\circ\\eta ."
+        },
+        {
+          "line": 611,
+          "region": "AFTER",
+          "text": "\\]"
+        },
+        {
+          "line": 612,
+          "region": "AFTER",
+          "text": "と記す."
+        },
+        {
+          "line": 613,
+          "region": "AFTER",
+          "text": "Lem 5.4 とProp 5.3 より,"
+        },
+        {
+          "line": 614,
+          "region": "AFTER",
+          "text": "\\begin{equation}\\label{eq:5.5}"
+        },
+        {
+          "line": 615,
+          "region": "AFTER",
+          "text": "% (5.5).\\"
+        },
+        {
+          "line": 616,
+          "region": "AFTER",
+          "text": "n\\ge5\\ \\text{に対して, } 2\\nu_n=E^{\\,n-3}\\nu',\\qquad"
+        },
+        {
+          "line": 617,
+          "region": "AFTER",
+          "text": "4\\nu_{n}=\\eta_n^{3},\\quad 4\\nu=\\eta^{3}."
+        },
+        {
+          "line": 618,
+          "region": "AFTER",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 619,
+          "region": "AFTER",
+          "text": "\\noindent"
+        },
+        {
+          "line": 620,
+          "region": "AFTER",
+          "text": "Prop 4.4 とLem 5.4 から,"
+        },
+        {
+          "line": 621,
+          "region": "AFTER",
+          "text": "\\begin{equation}\\label{eq:5.6}"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    },
+    {
+      "editorial_key": "eta_n_cubed_notation",
+      "chapter": 5,
+      "source_file": "Toda_05_2(6).tex",
+      "original_start_line": 608,
+      "original_end_line": 612,
+      "display_start_line": 594,
+      "display_end_line": 626,
+      "review_flags": [
+        "ADJACENT_NOTATION_BLOCK"
+      ],
+      "assertions": [
+        {
+          "component_position_proposal": 1,
+          "editorial_subject_unverified": "eta_n^3",
+          "source_marker": "\\eta^{3}_{n}:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        },
+        {
+          "component_position_proposal": 2,
+          "editorial_subject_unverified": "eta^3",
+          "source_marker": "\\eta^{3}:=",
+          "mathematical_verification": "NOT_VERIFIED"
+        }
+      ],
+      "source_span_sha256_verified": true,
+      "surrounding_lines": [
+        {
+          "line": 594,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 595,
+          "region": "BEFORE",
+          "text": "\\noindent"
+        },
+        {
+          "line": 596,
+          "region": "BEFORE",
+          "text": "\\textbf{Proof.}\\ "
+        },
+        {
+          "line": 597,
+          "region": "BEFORE",
+          "text": "前Lemの証明より, \\\\"
+        },
+        {
+          "line": 598,
+          "region": "BEFORE",
+          "text": "\\(E^{2}\\beta\\circ E^{t}\\alpha^{\\ast}\\) あるいは,"
+        },
+        {
+          "line": 599,
+          "region": "BEFORE",
+          "text": "\\(-E^{2}\\beta\\circ E^{t}\\alpha^{\\ast}\\) "
+        },
+        {
+          "line": 600,
+          "region": "BEFORE",
+          "text": "が, 当該 Toda bracket に含まれる. \\\\"
+        },
+        {
+          "line": 601,
+          "region": "BEFORE",
+          "text": "\\(E[\\iota_4,\\iota_4]=0\\) なので, 定義より,"
+        },
+        {
+          "line": 602,
+          "region": "BEFORE",
+          "text": "\\(E^{t}\\nu_{4}=\\pm E^{t}\\alpha^{\\ast}\\) である. "
+        },
+        {
+          "line": 603,
+          "region": "BEFORE",
+          "text": "\\qed"
+        },
+        {
+          "line": 604,
+          "region": "BEFORE",
+          "text": ""
+        },
+        {
+          "line": 605,
+          "region": "BEFORE",
+          "text": "\\["
+        },
+        {
+          "line": 606,
+          "region": "BEFORE",
+          "text": "\\nu_n:=E^{\\,n-4}\\nu_{4},\\ (n\\ge 4),\\qquad \\nu:=E^{\\infty}\\nu_{4}"
+        },
+        {
+          "line": 607,
+          "region": "BEFORE",
+          "text": "\\]"
+        },
+        {
+          "line": 608,
+          "region": "ORIGINAL",
+          "text": "\\["
+        },
+        {
+          "line": 609,
+          "region": "ORIGINAL",
+          "text": "\\eta^{3}_{n}:=\\eta_{n}\\circ\\eta_{n+1}\\circ\\eta_{n+2},\\ (n\\ge2),\\qquad"
+        },
+        {
+          "line": 610,
+          "region": "ORIGINAL",
+          "text": "\\eta^{3}:=\\eta\\circ\\eta\\circ\\eta ."
+        },
+        {
+          "line": 611,
+          "region": "ORIGINAL",
+          "text": "\\]"
+        },
+        {
+          "line": 612,
+          "region": "ORIGINAL",
+          "text": "と記す."
+        },
+        {
+          "line": 613,
+          "region": "AFTER",
+          "text": "Lem 5.4 とProp 5.3 より,"
+        },
+        {
+          "line": 614,
+          "region": "AFTER",
+          "text": "\\begin{equation}\\label{eq:5.5}"
+        },
+        {
+          "line": 615,
+          "region": "AFTER",
+          "text": "% (5.5).\\"
+        },
+        {
+          "line": 616,
+          "region": "AFTER",
+          "text": "n\\ge5\\ \\text{に対して, } 2\\nu_n=E^{\\,n-3}\\nu',\\qquad"
+        },
+        {
+          "line": 617,
+          "region": "AFTER",
+          "text": "4\\nu_{n}=\\eta_n^{3},\\quad 4\\nu=\\eta^{3}."
+        },
+        {
+          "line": 618,
+          "region": "AFTER",
+          "text": "\\end{equation}"
+        },
+        {
+          "line": 619,
+          "region": "AFTER",
+          "text": "\\noindent"
+        },
+        {
+          "line": 620,
+          "region": "AFTER",
+          "text": "Prop 4.4 とLem 5.4 から,"
+        },
+        {
+          "line": 621,
+          "region": "AFTER",
+          "text": "\\begin{equation}\\label{eq:5.6}"
+        },
+        {
+          "line": 622,
+          "region": "AFTER",
+          "text": "% (5.6).\\"
+        },
+        {
+          "line": 623,
+          "region": "AFTER",
+          "text": "(\\alpha,\\beta)\\ \\longmapsto\\ E\\alpha+\\nu_{4}\\circ\\beta"
+        },
+        {
+          "line": 624,
+          "region": "AFTER",
+          "text": "\\quad\\text{は,}\\quad"
+        },
+        {
+          "line": 625,
+          "region": "AFTER",
+          "text": "\\pi^{\\,3}_{i-1}\\oplus \\pi^{\\,7}_{i}\\ \\xrightarrow{\\ \\cong\\ }\\ \\pi_{\\,i}^{4}"
+        },
+        {
+          "line": 626,
+          "region": "AFTER",
+          "text": "\\ \\text{の同型を与える. }"
+        }
+      ],
+      "proposed_new_reference_start_line": null,
+      "proposed_new_reference_end_line": null,
+      "context_adequacy": "REQUIRES_HUMAN_REVIEW",
+      "mathematical_boundary_verified": false,
+      "registration_action": "NONE"
+    }
+  ]
+}
