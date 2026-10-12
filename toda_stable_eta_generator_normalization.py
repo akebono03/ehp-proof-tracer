@@ -25,6 +25,10 @@ from toda_stable_concrete_transport_proof import (
     TodaStableConcreteTransportProof,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class TodaStableEtaNormalizedProof:
@@ -118,12 +122,12 @@ def build_toda_stable_eta_normalized_proof(
         raise ValueError("only concrete transported eta-family targets are supported")
     if transport_proof.target.group_dimension != n + 1:
         raise ValueError("only the eta-family 1-stem is supported")
-    base_definition = ProofStep(
+    base_definition = create_legacy_given_proof_step(
         conclusion=toda_eta_family_definition_statement(3),
         premises=(),
         rule=ProofRule.GIVEN,
     )
-    target_definition = ProofStep(
+    target_definition = create_legacy_given_proof_step(
         conclusion=toda_eta_family_definition_statement(n),
         premises=(),
         rule=ProofRule.GIVEN,

@@ -56,6 +56,10 @@ from toda_rules import (
   toda_prop515_pi14_7_finite_cyclic_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class TodaProp515SigmaChainBootstrapResult:
@@ -396,7 +400,7 @@ def build_toda_prop515_sigma_chain_bootstrap():
     sphere_dimension=5,
   )
 
-  first_delta_e_window_step = ProofStep(
+  first_delta_e_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi14_11,
       middle_term=pi12_5,
@@ -408,7 +412,7 @@ def build_toda_prop515_sigma_chain_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  first_e_h_window_step = ProofStep(
+  first_e_h_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi12_5,
       middle_term=pi13_6,
@@ -420,7 +424,7 @@ def build_toda_prop515_sigma_chain_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  first_h_delta_window_step = ProofStep(
+  first_h_delta_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi13_6,
       middle_term=pi13_11,
@@ -625,7 +629,7 @@ def build_toda_prop515_sigma_chain_bootstrap():
     sphere_dimension=6,
   )
 
-  second_delta_e_window_step = ProofStep(
+  second_delta_e_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi15_13,
       middle_term=pi13_6,
@@ -637,7 +641,7 @@ def build_toda_prop515_sigma_chain_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  second_e_h_window_step = ProofStep(
+  second_e_h_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi13_6,
       middle_term=pi14_7,
@@ -649,7 +653,7 @@ def build_toda_prop515_sigma_chain_bootstrap():
     rule=ProofRule.GIVEN,
   )
 
-  second_h_delta_window_step = ProofStep(
+  second_h_delta_window_step = create_legacy_given_proof_step(
     conclusion=TodaEHPExactnessWindow(
       source_term=pi14_7,
       middle_term=pi14_13,

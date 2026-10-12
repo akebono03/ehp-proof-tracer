@@ -27,6 +27,10 @@ from proof import (
 )
 from toda_rules import toda_prop53_n3_eta_square_suspension_bridge_inference_rule
 
+from phase164_r8_proofstep_factory import (
+    derive_inference_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class ExistingProofConnectionResult:
@@ -96,7 +100,7 @@ def reconstruct_phase162_r2_from_existing_proofs(
     )
     if len(bridge_matches) != 1:
         raise ValueError("Missing or ambiguous eta-family definition bridge")
-    bridge_step = apply_inference_match(bridge_matches[0])
+    bridge_step = derive_inference_proof_step(bridge_matches[0])
     if bridge_step.conclusion != plan.generator_image_goal:
         raise ValueError("Derived generator image does not match backward goal")
 

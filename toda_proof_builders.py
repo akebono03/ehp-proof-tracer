@@ -10,6 +10,10 @@ from toda_rules import (
   toda_prop515_finite_dimensional_integration_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    derive_inference_proof_step,
+)
+
 
 def build_toda_prop56_proof_step(
   pi5_2_step: ProofStep,
@@ -43,7 +47,7 @@ def build_toda_prop56_proof_step(
       "Toda Proposition 5.6"
     )
 
-  return apply_inference_match(
+  return derive_inference_proof_step(
     match
   )
 
@@ -80,7 +84,7 @@ def build_toda_prop58_proof_step(
       "Toda Proposition 5.8"
     )
 
-  return apply_inference_match(
+  return derive_inference_proof_step(
     match
   )
 
@@ -113,7 +117,7 @@ def build_toda_prop511_proof_step(
       "Toda Proposition 5.11"
     )
 
-  return apply_inference_match(
+  return derive_inference_proof_step(
     match
   )
 
@@ -156,6 +160,6 @@ def build_toda_prop515_proof_step(
       "Toda Proposition 5.15"
     )
 
-  return apply_inference_match(
+  return derive_inference_proof_step(
     match
   )

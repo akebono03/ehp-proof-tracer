@@ -32,6 +32,10 @@ from repository_proof_scope import (
   build_repository_proof_scope,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_specialization_proof_step,
+)
+
 
 def is_nu_prime_suspension_membership_operation_query(
   query,
@@ -184,7 +188,7 @@ def specialize_nu_prime_suspension_membership_step(
     .generator
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=HomotopyGroupMembershipStatement(
       element=e_nu_prime,
       group_dimension=7,

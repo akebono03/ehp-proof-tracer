@@ -1,0 +1,803 @@
+from dataclasses import dataclass
+from functools import lru_cache
+
+from expression import (
+  Composition,
+  MapApplication,
+  ScalarSum,
+  ScalarSymbol,
+)
+from homotopy_groups import (
+  FiniteCyclicGroup,
+  TodaEHPExactnessWindow,
+  TodaPrimaryGroup,
+)
+from map_facts import (
+  EHP_DELTA_MAP,
+  EHP_E_MAP,
+  EHP_H_MAP,
+)
+from proof import (
+  ProofRule,
+  ProofStep,
+  Relation,
+  RelationType,
+  run_inference_until_stable_with_history,
+)
+from toda_prop515_low_bootstrap import (
+  _proof_step_closure,
+  _require_unique_inference_step,
+  build_toda_prop515_low_bootstrap,
+)
+from toda_rules import (
+  Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+  Toda514FirstShortExactStatement,
+  Toda514SecondShortExactStatement,
+  TodaLemma514SigmaDoublePrimeStatement,
+  TodaLemma514SigmaPrimeStatement,
+  TodaLemma514Sigma8Statement,
+  TodaLemma54Statement,
+  TodaProp51FiniteDimensionalStatement,
+  TodaProp53FiniteDimensionalStatement,
+  toda_36_lemma514_sigma_double_prime_bridge_inference_rule,
+  toda_514_delta_eta13_squared_zero_inference_rule,
+  toda_514_delta_nu11_zero_inference_rule,
+  toda_514_first_short_exact_concrete_exactness_inference_rule,
+  toda_514_first_short_exact_inference_rule,
+  toda_514_second_short_exact_concrete_exactness_inference_rule,
+  toda_514_second_short_exact_inference_rule,
+  toda_lemma514_sigma_double_prime_inference_rule,
+  toda_lemma514_sigma_prime_inference_rule,
+  toda_lemma514_sigma8_inference_rule,
+  toda_prop511_513_delta_eta11_squared_zero_inference_rule,
+  toda_prop511_pi13_11_eta11_squared_inference_rule,
+  toda_prop511_pi14_13_eta13_inference_rule,
+  toda_prop515_pi13_6_finite_cyclic_inference_rule,
+  toda_prop515_pi14_7_finite_cyclic_inference_rule,
+)
+
+
+@dataclass(frozen=True)
+class TodaProp515SigmaChainBootstrapResult:
+  low_result: object
+  prop51_step: ProofStep
+  prop53_step: ProofStep
+  lemma54_step: ProofStep
+  eta_n_nu_n_plus_one_zero_step: ProofStep
+  delta_iota11_step: ProofStep
+  delta_eta13_step: ProofStep
+  pi13_11_step: ProofStep
+  first_short_exact_step: ProofStep
+  bridge_step: ProofStep
+  sigma_double_prime_step: ProofStep
+  pi13_6_step: ProofStep
+  pi14_13_step: ProofStep
+  second_short_exact_step: ProofStep
+  sigma_prime_step: ProofStep
+  pi14_7_step: ProofStep
+  sigma8_step: ProofStep
+
+
+def _is_eta_n_nu_n_plus_one_zero(
+  statement,
+):
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  if (
+    statement.relation_type
+    != RelationType.ZERO
+  ):
+    return False
+
+  if not isinstance(
+    statement.lhs,
+    Composition,
+  ):
+    return False
+
+  left_generator = getattr(
+    statement.lhs.left,
+    "generator",
+    None,
+  )
+
+  right_generator = getattr(
+    statement.lhs.right,
+    "generator",
+    None,
+  )
+
+  n = ScalarSymbol(
+    name="n",
+  )
+
+  return (
+    getattr(
+      left_generator,
+      "family",
+      None,
+    )
+    == "η"
+    and getattr(
+      left_generator,
+      "index",
+      None,
+    )
+    == n
+    and getattr(
+      right_generator,
+      "family",
+      None,
+    )
+    == "ν"
+    and getattr(
+      right_generator,
+      "index",
+      None,
+    )
+    == ScalarSum(
+      left=n,
+      right=1,
+    )
+  )
+
+
+def _is_delta_iota11_relation(
+  statement,
+):
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  lhs = statement.lhs
+
+  if not isinstance(
+    lhs,
+    MapApplication,
+  ):
+    return False
+
+  generator = getattr(
+    lhs.expression,
+    "generator",
+    None,
+  )
+
+  return (
+    lhs.map
+    == EHP_DELTA_MAP
+    and getattr(
+      generator,
+      "family",
+      None,
+    )
+    == "ι"
+    and getattr(
+      generator,
+      "index",
+      None,
+    )
+    == 11
+  )
+
+
+def _is_delta_eta13_zero(
+  statement,
+):
+  if not isinstance(
+    statement,
+    Relation,
+  ):
+    return False
+
+  if (
+    statement.relation_type
+    != RelationType.ZERO
+  ):
+    return False
+
+  lhs = statement.lhs
+
+  if not isinstance(
+    lhs,
+    MapApplication,
+  ):
+    return False
+
+  generator = getattr(
+    lhs.expression,
+    "generator",
+    None,
+  )
+
+  return (
+    lhs.map
+    == EHP_DELTA_MAP
+    and getattr(
+      generator,
+      "family",
+      None,
+    )
+    == "η"
+    and getattr(
+      generator,
+      "index",
+      None,
+    )
+    == 13
+  )
+
+
+@lru_cache(maxsize=1)
+def build_toda_prop515_sigma_chain_bootstrap():
+  low_result = (
+    build_toda_prop515_low_bootstrap()
+  )
+
+  upstream_steps = (
+    _proof_step_closure(
+      (
+        low_result.prop56_step,
+        low_result.prop58_step,
+        low_result.prop511_step,
+        low_result.pi12_5_step,
+      )
+    )
+  )
+
+  prop51_step = (
+    _require_unique_inference_step(
+      upstream_steps,
+      TodaProp51FiniteDimensionalStatement,
+    )
+  )
+
+  prop53_step = (
+    _require_unique_inference_step(
+      upstream_steps,
+      TodaProp53FiniteDimensionalStatement,
+    )
+  )
+
+  lemma54_step = (
+    _require_unique_inference_step(
+      upstream_steps,
+      TodaLemma54Statement,
+    )
+  )
+
+  eta_n_nu_n_plus_one_zero_step = (
+    _require_unique_inference_step(
+      upstream_steps,
+      Relation,
+      _is_eta_n_nu_n_plus_one_zero,
+    )
+  )
+
+  delta_iota11_step = (
+    _require_unique_inference_step(
+      upstream_steps,
+      Relation,
+      _is_delta_iota11_relation,
+    )
+  )
+
+  delta_eta13_step = (
+    _require_unique_inference_step(
+      upstream_steps,
+      Relation,
+      _is_delta_eta13_zero,
+    )
+  )
+
+  delta_eta11_squared_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop511_513_delta_eta11_squared_zero_inference_rule(),
+      ),
+      (
+        delta_iota11_step,
+        low_result.toda55_step,
+        low_result.delta_nu9_step,
+      ),
+    )
+  )
+
+  delta_eta11_squared_step = next(
+    step
+    for step in delta_eta11_squared_result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.ZERO
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      == EHP_DELTA_MAP
+      and isinstance(
+        step.conclusion.lhs.expression,
+        Composition,
+      )
+      and getattr(
+        getattr(
+          step.conclusion
+          .lhs
+          .expression
+          .left,
+          "generator",
+          None,
+        ),
+        "index",
+        None,
+      )
+      == 11
+    )
+  )
+
+  pi13_11_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop511_pi13_11_eta11_squared_inference_rule(),
+      ),
+      (
+        prop53_step,
+      ),
+    )
+  )
+
+  pi13_11 = TodaPrimaryGroup(
+    group_dimension=13,
+    sphere_dimension=11,
+  )
+
+  pi13_11_step = next(
+    step
+    for step in pi13_11_result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == pi13_11
+    )
+  )
+
+  pi14_11 = TodaPrimaryGroup(
+    group_dimension=14,
+    sphere_dimension=11,
+  )
+
+  pi12_5 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=5,
+  )
+
+  pi13_6 = TodaPrimaryGroup(
+    group_dimension=13,
+    sphere_dimension=6,
+  )
+
+  pi11_5 = TodaPrimaryGroup(
+    group_dimension=11,
+    sphere_dimension=5,
+  )
+
+  first_delta_e_window_step = ProofStep(
+    conclusion=TodaEHPExactnessWindow(
+      source_term=pi14_11,
+      middle_term=pi12_5,
+      target_term=pi13_6,
+      first_map=EHP_DELTA_MAP,
+      second_map=EHP_E_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_e_h_window_step = ProofStep(
+    conclusion=TodaEHPExactnessWindow(
+      source_term=pi12_5,
+      middle_term=pi13_6,
+      target_term=pi13_11,
+      first_map=EHP_E_MAP,
+      second_map=EHP_H_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_h_delta_window_step = ProofStep(
+    conclusion=TodaEHPExactnessWindow(
+      source_term=pi13_6,
+      middle_term=pi13_11,
+      target_term=pi11_5,
+      first_map=EHP_H_MAP,
+      second_map=EHP_DELTA_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  first_short_exact_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_514_delta_nu11_zero_inference_rule(),
+        toda_514_first_short_exact_concrete_exactness_inference_rule(),
+        toda_514_first_short_exact_inference_rule(),
+      ),
+      (
+        delta_iota11_step,
+        eta_n_nu_n_plus_one_zero_step,
+        low_result.toda55_step,
+        low_result.prop56_step,
+        delta_eta11_squared_step,
+        pi13_11_step,
+        first_delta_e_window_step,
+        first_e_h_window_step,
+        first_h_delta_window_step,
+      ),
+    )
+  )
+
+  first_short_exact_step = next(
+    step
+    for step in first_short_exact_result.steps
+    if isinstance(
+      step.conclusion,
+      Toda514FirstShortExactStatement,
+    )
+  )
+
+  sigma_double_prime_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_36_lemma514_sigma_double_prime_bridge_inference_rule(),
+        toda_lemma514_sigma_double_prime_inference_rule(),
+      ),
+      (
+        lemma54_step,
+        low_result.prop511_step,
+        low_result.prop58_step,
+        low_result.lemma513_step,
+        low_result.pi12_5_step,
+        first_short_exact_step,
+        pi13_11_step,
+      ),
+    )
+  )
+
+  bridge_step = next(
+    step
+    for step in sigma_double_prime_result.steps
+    if isinstance(
+      step.conclusion,
+      Toda36Lemma514SigmaDoublePrimeBridgeStatement,
+    )
+  )
+
+  sigma_double_prime_step = next(
+    step
+    for step in sigma_double_prime_result.steps
+    if isinstance(
+      step.conclusion,
+      TodaLemma514SigmaDoublePrimeStatement,
+    )
+  )
+
+  pi13_6_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop515_pi13_6_finite_cyclic_inference_rule(),
+      ),
+      (
+        sigma_double_prime_step,
+        first_short_exact_step,
+        low_result.pi12_5_step,
+        pi13_11_step,
+      ),
+    )
+  )
+
+  pi13_6_step = next(
+    step
+    for step in pi13_6_result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == pi13_6
+      and isinstance(
+        step.conclusion.rhs,
+        FiniteCyclicGroup,
+      )
+      and step.conclusion.rhs.order
+      == 4
+    )
+  )
+
+  pi14_13_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop511_pi14_13_eta13_inference_rule(),
+      ),
+      (
+        prop51_step,
+      ),
+    )
+  )
+
+  pi14_13 = TodaPrimaryGroup(
+    group_dimension=14,
+    sphere_dimension=13,
+  )
+
+  pi14_13_step = next(
+    step
+    for step in pi14_13_result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == pi14_13
+    )
+  )
+
+  delta_eta13_squared_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_514_delta_eta13_squared_zero_inference_rule(),
+      ),
+      (
+        delta_eta13_step,
+        prop53_step,
+      ),
+    )
+  )
+
+  delta_eta13_squared_step = next(
+    step
+    for step in delta_eta13_squared_result.steps
+    if (
+      step.rule
+      == ProofRule.INFERENCE
+      and isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.relation_type
+      == RelationType.ZERO
+      and isinstance(
+        step.conclusion.lhs,
+        MapApplication,
+      )
+      and step.conclusion.lhs.map
+      == EHP_DELTA_MAP
+      and isinstance(
+        step.conclusion.lhs.expression,
+        Composition,
+      )
+      and getattr(
+        getattr(
+          step.conclusion
+          .lhs
+          .expression
+          .left,
+          "generator",
+          None,
+        ),
+        "index",
+        None,
+      )
+      == 13
+    )
+  )
+
+  pi15_13 = TodaPrimaryGroup(
+    group_dimension=15,
+    sphere_dimension=13,
+  )
+
+  pi14_7 = TodaPrimaryGroup(
+    group_dimension=14,
+    sphere_dimension=7,
+  )
+
+  pi12_6 = TodaPrimaryGroup(
+    group_dimension=12,
+    sphere_dimension=6,
+  )
+
+  second_delta_e_window_step = ProofStep(
+    conclusion=TodaEHPExactnessWindow(
+      source_term=pi15_13,
+      middle_term=pi13_6,
+      target_term=pi14_7,
+      first_map=EHP_DELTA_MAP,
+      second_map=EHP_E_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_e_h_window_step = ProofStep(
+    conclusion=TodaEHPExactnessWindow(
+      source_term=pi13_6,
+      middle_term=pi14_7,
+      target_term=pi14_13,
+      first_map=EHP_E_MAP,
+      second_map=EHP_H_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_h_delta_window_step = ProofStep(
+    conclusion=TodaEHPExactnessWindow(
+      source_term=pi14_7,
+      middle_term=pi14_13,
+      target_term=pi12_6,
+      first_map=EHP_H_MAP,
+      second_map=EHP_DELTA_MAP,
+    ),
+    premises=(),
+    rule=ProofRule.GIVEN,
+  )
+
+  second_short_exact_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_514_second_short_exact_concrete_exactness_inference_rule(),
+        toda_514_second_short_exact_inference_rule(),
+      ),
+      (
+        delta_eta13_squared_step,
+        delta_eta13_step,
+        prop53_step,
+        pi14_13_step,
+        second_delta_e_window_step,
+        second_e_h_window_step,
+        second_h_delta_window_step,
+      ),
+    )
+  )
+
+  second_short_exact_step = next(
+    step
+    for step in second_short_exact_result.steps
+    if isinstance(
+      step.conclusion,
+      Toda514SecondShortExactStatement,
+    )
+  )
+
+  sigma_prime_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_lemma514_sigma_prime_inference_rule(),
+      ),
+      (
+        sigma_double_prime_step,
+        second_short_exact_step,
+        pi13_6_step,
+        pi14_13_step,
+      ),
+    )
+  )
+
+  sigma_prime_step = next(
+    step
+    for step in sigma_prime_result.steps
+    if isinstance(
+      step.conclusion,
+      TodaLemma514SigmaPrimeStatement,
+    )
+  )
+
+  pi14_7_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_prop515_pi14_7_finite_cyclic_inference_rule(),
+      ),
+      (
+        sigma_prime_step,
+        second_short_exact_step,
+        pi13_6_step,
+        pi14_13_step,
+      ),
+    )
+  )
+
+  pi14_7_step = next(
+    step
+    for step in pi14_7_result.steps
+    if (
+      isinstance(
+        step.conclusion,
+        Relation,
+      )
+      and step.conclusion.lhs
+      == pi14_7
+      and isinstance(
+        step.conclusion.rhs,
+        FiniteCyclicGroup,
+      )
+      and step.conclusion.rhs.order
+      == 8
+    )
+  )
+
+  sigma8_result = (
+    run_inference_until_stable_with_history(
+      (
+        toda_lemma514_sigma8_inference_rule(),
+      ),
+      (
+        bridge_step,
+        sigma_prime_step,
+        pi14_7_step,
+      ),
+    )
+  )
+
+  sigma8_step = next(
+    step
+    for step in sigma8_result.steps
+    if isinstance(
+      step.conclusion,
+      TodaLemma514Sigma8Statement,
+    )
+  )
+
+  return (
+    TodaProp515SigmaChainBootstrapResult(
+      low_result=low_result,
+      prop51_step=prop51_step,
+      prop53_step=prop53_step,
+      lemma54_step=lemma54_step,
+      eta_n_nu_n_plus_one_zero_step=(
+        eta_n_nu_n_plus_one_zero_step
+      ),
+      delta_iota11_step=(
+        delta_iota11_step
+      ),
+      delta_eta13_step=(
+        delta_eta13_step
+      ),
+      pi13_11_step=pi13_11_step,
+      first_short_exact_step=(
+        first_short_exact_step
+      ),
+      bridge_step=bridge_step,
+      sigma_double_prime_step=(
+        sigma_double_prime_step
+      ),
+      pi13_6_step=pi13_6_step,
+      pi14_13_step=pi14_13_step,
+      second_short_exact_step=(
+        second_short_exact_step
+      ),
+      sigma_prime_step=(
+        sigma_prime_step
+      ),
+      pi14_7_step=pi14_7_step,
+      sigma8_step=sigma8_step,
+    )
+  )

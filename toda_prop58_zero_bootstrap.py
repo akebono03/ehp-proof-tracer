@@ -137,6 +137,11 @@ from toda_upstream_bootstrap import (
   build_toda_prop56_upstream_core,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def _find_unique_step(
   steps: tuple[ProofStep, ...],
@@ -290,7 +295,7 @@ def _build_support() -> dict[
         core[
           "double_step"
         ],
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=n,
             right=3,
@@ -298,7 +303,7 @@ def _build_support() -> dict[
           premises=(),
           rule=ProofRule.GIVEN,
         ),
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=t,
             right=1,
@@ -378,7 +383,7 @@ def _build_equation57_steps(
   ProofStep,
   ProofStep,
 ]:
-  eta5_definition_step = ProofStep(
+  eta5_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       5
     ),
@@ -386,7 +391,7 @@ def _build_equation57_steps(
     rule=ProofRule.GIVEN,
   )
 
-  eta6_definition_step = ProofStep(
+  eta6_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       6
     ),
@@ -440,7 +445,7 @@ def _build_equation57_steps(
     )
 
   prop22_step = (
-    apply_inference_match(
+    derive_inference_proof_step(
       prop22_match
     )
   )
@@ -462,7 +467,7 @@ def _build_equation57_steps(
       eta5_definition_step,
       eta6_definition_step,
       prop22_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaProp42ExactnessStatement(
           window=TodaEHPExactnessWindow(
             source_term=pi_7_3,
@@ -475,7 +480,7 @@ def _build_equation57_steps(
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaProp42ExactnessStatement(
           window=TodaEHPExactnessWindow(
             source_term=pi_7_5,
@@ -531,7 +536,7 @@ def _build_eta2_nu_prime_zero_step(
     ProofStep,
   ],
 ) -> ProofStep:
-  nu5_definition_step = ProofStep(
+  nu5_definition_step = create_legacy_given_proof_step(
     conclusion=toda_nu_family_definition_statement(
       5
     ),
@@ -709,7 +714,7 @@ def _build_pi7_3_steps(
       ],
       eta2_nu_prime_zero_step,
       pi6_2_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=window,
         premises=(),
         rule=ProofRule.GIVEN,
@@ -1026,14 +1031,14 @@ def _build_pi9_5_step(
         "prop51_step"
       ],
       delta_eta9_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_nu_family_definition_statement(
           5
         ),
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaEHPExactnessWindow(
           source_term=pi10_9,
           middle_term=pi8_4,
@@ -1044,7 +1049,7 @@ def _build_pi9_5_step(
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaEHPExactnessWindow(
           source_term=pi8_4,
           middle_term=pi9_5,
@@ -1055,7 +1060,7 @@ def _build_pi9_5_step(
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaEHPExactnessWindow(
           source_term=pi9_5,
           middle_term=pi9_9,
@@ -1177,7 +1182,7 @@ def _build_toda59_step(
 def _build_double_nu5_step(
   toda55_step: ProofStep,
 ) -> ProofStep:
-  nu5_definition_step = ProofStep(
+  nu5_definition_step = create_legacy_given_proof_step(
     conclusion=toda_nu_family_definition_statement(
       5
     ),
@@ -1249,7 +1254,7 @@ def _build_higher_eta_nu_zero_step(
     ),
     (
       toda59_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_nu_family_definition_statement(
           6
         ),
@@ -1259,7 +1264,7 @@ def _build_higher_eta_nu_zero_step(
       double_nu5_step,
       pi9_5_step,
       toda55_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_eta_family_definition_statement(
           n
         ),
@@ -1357,21 +1362,21 @@ def _build_nu6_eta9_zero_step(
     (
       toda55_step,
       higher_eta_nu_zero_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_eta_family_definition_statement(
           6
         ),
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_nu_family_definition_statement(
           7
         ),
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=HomotopyGroupMembershipStatement(
           element=eta_2,
           group_dimension=3,
@@ -1380,7 +1385,7 @@ def _build_nu6_eta9_zero_step(
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=HomotopyGroupMembershipStatement(
           element=nu_4,
           group_dimension=7,
@@ -1389,7 +1394,7 @@ def _build_nu6_eta9_zero_step(
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=ScalarGreaterEqualStatement(
           left=n,
           right=6,
@@ -1454,7 +1459,7 @@ def _build_higher_zero_steps(
     name="n",
   )
 
-  n_ge_6_step = ProofStep(
+  n_ge_6_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=n,
       right=6,
@@ -1473,7 +1478,7 @@ def _build_higher_zero_steps(
     (
       pi9_5_step,
       nu6_eta9_zero_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaEHPExactnessWindow(
           source_term=pi9_5,
           middle_term=pi10_6,
@@ -1484,7 +1489,7 @@ def _build_higher_zero_steps(
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaPrimaryGroupZeroStatement(
           group=pi10_11,
         ),

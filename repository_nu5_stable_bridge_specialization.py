@@ -30,6 +30,10 @@ from toda_rules import (
   toda_nu_family_definition_statement,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_specialization_proof_step,
+)
+
 
 def is_nu5_stable_bridge_operation_query(
   query,
@@ -124,7 +128,7 @@ def specialize_nu5_stable_bridge_step(
     ).element
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=Relation(
       lhs=Suspension(
         expression=nu_5,

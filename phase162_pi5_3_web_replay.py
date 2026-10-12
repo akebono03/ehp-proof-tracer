@@ -17,6 +17,11 @@ from toda_rules import (
     toda_eta_family_definition_statement,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def build_phase162_pi5_3_web_replay(max_depth: int = 40):
     """Construct a new, inference-backed root, then reuse the standard replay API."""
@@ -33,9 +38,9 @@ def build_phase162_pi5_3_web_replay(max_depth: int = 40):
     )
     if match is None:
         raise ValueError("Could not prove source pi_4^2 group structure")
-    source_step = apply_inference_match(match)
+    source_step = derive_inference_proof_step(match)
     eta_steps = tuple(
-        ProofStep(
+        create_legacy_given_proof_step(
             conclusion=toda_eta_family_definition_statement(index),
             premises=(),
             rule=ProofRule.GIVEN,

@@ -27,6 +27,11 @@ from toda_group_result import (
   normalize_toda_group_result,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    create_legacy_specialization_proof_step,
+)
+
 
 def _build_identity_group_step(
   n: int,
@@ -40,7 +45,7 @@ def _build_identity_group_step(
     ),
   )
 
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=Relation(
       lhs=TodaPrimaryGroup(
         group_dimension=n,
@@ -63,7 +68,7 @@ def _build_identity_group_step(
 def _build_connectivity_zero_step(
   query: TodaGroupQuery,
 ) -> ProofStep:
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=TodaPrimaryGroupZeroStatement(
       group=query.target,
     ),
@@ -155,7 +160,7 @@ def _specialize_circle_higher_zero_step(
       "symbolic circle higher-homotopy zero"
     )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=TodaPrimaryGroupZeroStatement(
       group=query.target,
     ),

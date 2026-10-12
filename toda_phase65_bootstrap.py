@@ -64,6 +64,11 @@ from toda_rules import (
   toda_prop56_pi8_5_quotient_inference_rule,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def _find_unique_step(
   steps: tuple[ProofStep, ...],
@@ -129,7 +134,7 @@ def build_toda_prop56_bootstrap_step(
     "pi_5^2",
   )
 
-  eta5_definition_step = ProofStep(
+  eta5_definition_step = create_legacy_given_proof_step(
     conclusion=(
       toda_eta_family_definition_statement(
         5
@@ -139,7 +144,7 @@ def build_toda_prop56_bootstrap_step(
     rule=ProofRule.GIVEN,
   )
 
-  eta6_definition_step = ProofStep(
+  eta6_definition_step = create_legacy_given_proof_step(
     conclusion=(
       toda_eta_family_definition_statement(
         6
@@ -169,7 +174,7 @@ def build_toda_prop56_bootstrap_step(
     sphere_dimension=3,
   )
 
-  h_delta_exactness_step = ProofStep(
+  h_delta_exactness_step = create_legacy_given_proof_step(
     conclusion=(
       TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
@@ -185,7 +190,7 @@ def build_toda_prop56_bootstrap_step(
     rule=ProofRule.GIVEN,
   )
 
-  delta_e_exactness_step = ProofStep(
+  delta_e_exactness_step = create_legacy_given_proof_step(
     conclusion=(
       TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
@@ -228,7 +233,7 @@ def build_toda_prop56_bootstrap_step(
     )
 
   prop22_step = (
-    apply_inference_match(
+    derive_inference_proof_step(
       prop22_match
     )
   )
@@ -283,7 +288,7 @@ def build_toda_prop56_bootstrap_step(
     sphere_dimension=5,
   )
 
-  e_h_exactness_step = ProofStep(
+  e_h_exactness_step = create_legacy_given_proof_step(
     conclusion=(
       TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
@@ -333,7 +338,7 @@ def build_toda_prop56_bootstrap_step(
     "pi_6^3",
   )
 
-  pi7_7_step = ProofStep(
+  pi7_7_step = create_legacy_given_proof_step(
     conclusion=(
       pi_7_7_free_cyclic_fact()
     ),
@@ -402,7 +407,7 @@ def build_toda_prop56_bootstrap_step(
     "E^2 injective",
   )
 
-  nu5_definition_step = ProofStep(
+  nu5_definition_step = create_legacy_given_proof_step(
     conclusion=(
       toda_nu_family_definition_statement(
         5
@@ -452,7 +457,7 @@ def build_toda_prop56_bootstrap_step(
     name="n",
   )
 
-  higher_range_step = ProofStep(
+  higher_range_step = create_legacy_given_proof_step(
     conclusion=(
       ScalarGreaterEqualStatement(
         left=n,
@@ -463,7 +468,7 @@ def build_toda_prop56_bootstrap_step(
     rule=ProofRule.GIVEN,
   )
 
-  nu_n_definition_step = ProofStep(
+  nu_n_definition_step = create_legacy_given_proof_step(
     conclusion=(
       toda_nu_family_definition_statement(
         n

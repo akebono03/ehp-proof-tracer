@@ -15,6 +15,11 @@ from proof import (
 from phase161_r7_premise_provenance_validation import validate_phase161_r7_provenance
 from toda_literature_statement_boundary import get_toda_fixed_statement_component
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def _trusted_given_ancestors(root: ProofStep) -> tuple[ProofStep, ...]:
     roots = {}
@@ -69,7 +74,7 @@ def cite_verified_fixed_statement(
         key=f"literature:{reference_locator}:{component_key}",
         label=reference_locator,
     )
-    citation_leaf = ProofStep(
+    citation_leaf = create_legacy_given_proof_step(
         conclusion=witness.conclusion,
         premises=(),
         rule=ProofRule.GIVEN,
@@ -93,7 +98,7 @@ def cite_verified_fixed_statement(
     match = find_inference_match(citation_rule, (citation_leaf,))
     if match is None:
         raise ValueError("Citation inference failed to match the trusted leaf")
-    result = apply_inference_match(match)
+    result = derive_inference_proof_step(match)
     return replace(result, foundational_reference=citation_identity)
 
 

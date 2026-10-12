@@ -1,4 +1,9 @@
 from phase162_reference_boundary import cite_verified_fixed_statement
+
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    derive_inference_proof_step,
+)
 """Phase 162 R5: add a separately validated map-isomorphism proof to web narrative."""
 
 from homotopy_groups import TodaEHPExactnessWindow, TodaPrimaryGroup
@@ -116,7 +121,7 @@ def _build_phase162_legacy_validated_isomorphism_markdown() -> str:
         (pi_6_5, pi_4_2, pi_5_3, EHP_DELTA_MAP, EHP_E_MAP),
     )
     exactness = tuple(
-        ProofStep(
+        create_legacy_given_proof_step(
             conclusion=TodaProp42ExactnessStatement(
                 window=TodaEHPExactnessWindow(
                     source_term=source,
@@ -170,7 +175,7 @@ def _build_phase162_existing_group_connection():
     match = find_inference_match(transport, (pi4_3_steps[0], toda52_steps[0]))
     if match is None:
         raise ValueError("Could not derive pi_4^2 from the existing Toda (5.2) evidence")
-    source_step = apply_inference_match(match)
+    source_step = derive_inference_proof_step(match)
     if source_step.rule is not ProofRule.INFERENCE:
         raise ValueError("Source group must be derived")
 
@@ -179,7 +184,7 @@ def _build_phase162_existing_group_connection():
     if source_step.conclusion.lhs != pi4_2 or not isinstance(source_step.conclusion.rhs, FiniteCyclicGroup):
         raise ValueError("Existing source proof does not establish expected cyclic group")
     eta_definitions = tuple(
-        ProofStep(
+        create_legacy_given_proof_step(
             conclusion=toda_eta_family_definition_statement(index),
             premises=(),
             rule=ProofRule.GIVEN,
@@ -191,7 +196,7 @@ def _build_phase162_existing_group_connection():
     bridge_match = find_inference_match(bridge_rule, eta_definitions)
     if bridge_match is None:
         raise ValueError("Existing eta-family definitions do not derive the image")
-    bridge_step = apply_inference_match(bridge_match)
+    bridge_step = derive_inference_proof_step(bridge_match)
     from expression import Composition, Suspension
     if (
         not isinstance(bridge_step.conclusion, Relation)
@@ -262,7 +267,7 @@ def _phase162_ehp_leaves():
         (pi_6_5, pi_4_2, pi_5_3, EHP_DELTA_MAP, EHP_E_MAP),
     )
     exactness = tuple(
-        ProofStep(
+        create_legacy_given_proof_step(
             conclusion=TodaProp42ExactnessStatement(
                 window=TodaEHPExactnessWindow(
                     source_term=source,

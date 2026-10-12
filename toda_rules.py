@@ -67,6 +67,10 @@ from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class Toda211OrdinaryEHPApplicabilityStatement:
@@ -62735,7 +62739,7 @@ def toda_bracket_membership_proof_step(
       "TodaBracketMembershipStatement"
     )
 
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=statement,
     premises=(),
     rule=ProofRule.GIVEN,
@@ -63756,7 +63760,7 @@ def toda_bracket_membership_theorem_proof_step(
       "TodaBracketMembershipTheoremStatement"
     )
 
-  return ProofStep(
+  return create_legacy_given_proof_step(
     conclusion=statement,
     premises=(),
     rule=ProofRule.GIVEN,

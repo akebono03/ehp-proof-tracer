@@ -144,6 +144,12 @@ from toda_upstream_bootstrap import (
   build_toda_prop56_upstream_core,
 )
 
+from phase164_r8_proofstep_factory import (
+    create_legacy_given_proof_step,
+    create_legacy_specialization_proof_step,
+    derive_inference_proof_step,
+)
+
 
 def _find_unique_step(
   steps: tuple[ProofStep, ...],
@@ -180,7 +186,7 @@ def _require_match(
       "expected inference rule to match"
     )
 
-  return apply_inference_match(
+  return derive_inference_proof_step(
     match
   )
 
@@ -233,7 +239,7 @@ def _build_pi4_3_prop51_specialization_link_step(
       "TodaProp51FiniteDimensionalStatement"
     )
 
-  general_step = ProofStep(
+  general_step = create_legacy_specialization_proof_step(
     conclusion=(
       prop51_step
       .conclusion
@@ -260,7 +266,7 @@ def _build_pi4_3_prop51_specialization_link_step(
     ),
   )
 
-  return ProofStep(
+  return create_legacy_specialization_proof_step(
     conclusion=pi4_3_step.conclusion,
     premises=(
       pi4_3_step,
@@ -478,7 +484,7 @@ def _build_prop51_step() -> ProofStep:
     "higher eta transported group",
   )
 
-  eta_n_definition_step = ProofStep(
+  eta_n_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       n
     ),
@@ -486,7 +492,7 @@ def _build_prop51_step() -> ProofStep:
     rule=ProofRule.GIVEN,
   )
 
-  eta3_definition_step = ProofStep(
+  eta3_definition_step = create_legacy_given_proof_step(
     conclusion=toda_eta_family_definition_statement(
       3
     ),
@@ -617,7 +623,7 @@ def _build_n3_suspension_isomorphism_step(
   )
 
   exactness_steps = (
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_5_3,
@@ -630,7 +636,7 @@ def _build_n3_suspension_isomorphism_step(
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_4_2,
@@ -643,7 +649,7 @@ def _build_n3_suspension_isomorphism_step(
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_6_3,
@@ -656,7 +662,7 @@ def _build_n3_suspension_isomorphism_step(
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaProp42ExactnessStatement(
         window=TodaEHPExactnessWindow(
           source_term=pi_6_5,
@@ -783,7 +789,7 @@ def _build_phase48_injectivity_step() -> ProofStep:
   )
 
   premise_steps = (
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=TodaPrimaryGroupMembershipStatement(
         element=alpha,
         group=TodaPrimaryGroup(
@@ -794,7 +800,7 @@ def _build_phase48_injectivity_step() -> ProofStep:
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=Relation(
         lhs=MapApplication(
           map=EHP_H_MAP,
@@ -806,12 +812,12 @@ def _build_phase48_injectivity_step() -> ProofStep:
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=decomposition_map,
       premises=(),
       rule=ProofRule.GIVEN,
     ),
-    ProofStep(
+    create_legacy_given_proof_step(
       conclusion=suspension_map,
       premises=(),
       rule=ProofRule.GIVEN,
@@ -859,12 +865,12 @@ def _build_n4_suspension_isomorphism_step() -> ProofStep:
     ),
     (
       _build_phase48_injectivity_step(),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=pi_6_7_zero_fact(),
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=TodaProp42ExactnessStatement(
           window=TodaEHPExactnessWindow(
             source_term=pi_5_3,
@@ -941,14 +947,14 @@ def _build_pi6_4_step(
     (
       pi5_3_step,
       _build_n4_suspension_isomorphism_step(),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_eta_family_definition_statement(
           4
         ),
         premises=(),
         rule=ProofRule.GIVEN,
       ),
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=toda_eta_family_definition_statement(
           5
         ),
@@ -981,7 +987,7 @@ def _build_higher_eta_transport(
     m=n,
   )
 
-  higher_range_step = ProofStep(
+  higher_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=n,
       right=5,
@@ -1129,7 +1135,7 @@ def _build_phase60_toda54(
       (
         prop53_step,
         nu_prime_double_step,
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=n,
             right=3,
@@ -1137,7 +1143,7 @@ def _build_phase60_toda54(
           premises=(),
           rule=ProofRule.GIVEN,
         ),
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=t,
             right=1,
@@ -1196,7 +1202,7 @@ def _build_phase60_toda54(
     ),
   )
 
-  source_membership_step = ProofStep(
+  source_membership_step = create_legacy_given_proof_step(
     conclusion=TodaBracketMembershipStatement(
       element=nu_prime,
       bracket=TodaBracket(
@@ -1225,7 +1231,7 @@ def _build_phase60_toda54(
       ),
       (
         source_membership_step,
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=n,
             right=3,
@@ -1233,7 +1239,7 @@ def _build_phase60_toda54(
           premises=(),
           rule=ProofRule.GIVEN,
         ),
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=t,
             right=1,
@@ -1241,7 +1247,7 @@ def _build_phase60_toda54(
           premises=(),
           rule=ProofRule.GIVEN,
         ),
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=ScalarSum(
               left=n,
@@ -1280,7 +1286,7 @@ def _build_phase60_toda54(
     (
       indeterminacy_step,
       membership_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=ScalarGreaterEqualStatement(
           left=n,
           right=3,
@@ -1463,7 +1469,7 @@ def _build_lemma54_step(
     left=iota_4,
     right=iota_4,
   )
-  whitehead_step = ProofStep(
+  whitehead_step = create_legacy_given_proof_step(
     conclusion=whitehead_square,
     premises=(),
     rule=ProofRule.GIVEN,
@@ -1641,7 +1647,7 @@ def _build_toda55_step(
     name="n",
   )
 
-  definition_step = ProofStep(
+  definition_step = create_legacy_given_proof_step(
     conclusion=toda_nu_family_definition_statement(
       n
     ),
@@ -1649,7 +1655,7 @@ def _build_toda55_step(
     rule=ProofRule.GIVEN,
   )
 
-  n_range_step = ProofStep(
+  n_range_step = create_legacy_given_proof_step(
     conclusion=ScalarGreaterEqualStatement(
       left=n,
       right=5,
@@ -1815,7 +1821,7 @@ def _build_toda56_step(
     toda_56_nu4_prop44_isomorphism_inference_rule(),
     (
       specialization_step,
-      ProofStep(
+      create_legacy_given_proof_step(
         conclusion=decomposition_map,
         premises=(),
         rule=ProofRule.GIVEN,
@@ -1949,7 +1955,7 @@ def build_toda_prop56_zero_argument_step() -> ProofStep:
         core[
           "double_step"
         ],
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=n,
             right=3,
@@ -1957,7 +1963,7 @@ def build_toda_prop56_zero_argument_step() -> ProofStep:
           premises=(),
           rule=ProofRule.GIVEN,
         ),
-        ProofStep(
+        create_legacy_given_proof_step(
           conclusion=ScalarGreaterEqualStatement(
             left=t,
             right=1,

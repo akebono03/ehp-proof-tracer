@@ -17,6 +17,10 @@ from proof import (
 )
 from toda_group_proof_presentation import TodaGroupProofPresentation
 
+from phase164_r8_proofstep_factory import (
+    derive_inference_proof_step,
+)
+
 
 @dataclass(frozen=True)
 class R3JRuleEntry:
@@ -68,7 +72,7 @@ def classify_r3j_inference_rule(record) -> R3JRuleEntry:
                     continue
                 exact_count += 1
                 try:
-                    derived = apply_inference_match(match)
+                    derived = derive_inference_proof_step(match)
                 except (TypeError, ValueError, AttributeError) as exc:
                     details.append('apply_error:' + type(exc).__name__ + ':' + str(exc))
                     continue
