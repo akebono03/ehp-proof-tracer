@@ -1,0 +1,96 @@
+{
+  "phase": "163 R4-R81",
+  "mode": "READ_ONLY_LIVE_BOUNDARY_BRIDGE_DUPLICATE_AUDIT",
+  "reference_candidate_count": 4,
+  "fixed_statement_candidate_count": 8,
+  "exact_locator_overlap_count": 1,
+  "embedded_equation_alias_review_count": 1,
+  "semantic_duplicate_verification_count": 0,
+  "semantic_registration_allowed_count": 0,
+  "original_edition_verified": false,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "owner": "prop:1-6",
+      "locator": "Proposition 1.6",
+      "kind": "proposition",
+      "proposed_assertion_count": 3,
+      "proposed_component_positions": [
+        1,
+        2,
+        3
+      ],
+      "existing_boundary_component_count": 0,
+      "live_bridge_reference_found": false,
+      "existing_bridge_assertion_count": 0,
+      "alias_review": [],
+      "scope_or_boundary_issue_count": 3,
+      "duplicate_conclusion": "NO_EXACT_LOCATOR_IN_BOUNDARY_BRIDGE",
+      "semantic_nonduplication_verified": false,
+      "registration_allowed": false
+    },
+    {
+      "owner": "thm:2.4",
+      "locator": "Theorem 2.4",
+      "kind": "theorem",
+      "proposed_assertion_count": 2,
+      "proposed_component_positions": [
+        1,
+        2
+      ],
+      "existing_boundary_component_count": 0,
+      "live_bridge_reference_found": false,
+      "existing_bridge_assertion_count": 0,
+      "alias_review": [],
+      "scope_or_boundary_issue_count": 1,
+      "duplicate_conclusion": "NO_EXACT_LOCATOR_IN_BOUNDARY_BRIDGE",
+      "semantic_nonduplication_verified": false,
+      "registration_allowed": false
+    },
+    {
+      "owner": "prop:2.5",
+      "locator": "Proposition 2.5",
+      "kind": "proposition",
+      "proposed_assertion_count": 2,
+      "proposed_component_positions": [
+        1,
+        2
+      ],
+      "existing_boundary_component_count": 1,
+      "live_bridge_reference_found": true,
+      "existing_bridge_assertion_count": 1,
+      "alias_review": [],
+      "scope_or_boundary_issue_count": 2,
+      "duplicate_conclusion": "LOCATOR_ALREADY_PRESENT",
+      "semantic_nonduplication_verified": false,
+      "registration_allowed": false
+    },
+    {
+      "owner": "prop:4.2",
+      "locator": "Proposition 4.2",
+      "kind": "proposition",
+      "proposed_assertion_count": 1,
+      "proposed_component_positions": [
+        1
+      ],
+      "existing_boundary_component_count": 0,
+      "live_bridge_reference_found": false,
+      "existing_bridge_assertion_count": 0,
+      "alias_review": [
+        {
+          "locator": "(4.4)",
+          "existing_boundary_component_count": 0,
+          "embedded_in_reference": "Proposition 4.2",
+          "requires_alias_reconciliation": true
+        }
+      ],
+      "scope_or_boundary_issue_count": 1,
+      "duplicate_conclusion": "NO_EXACT_LOCATOR_IN_BOUNDARY_BRIDGE",
+      "semantic_nonduplication_verified": false,
+      "registration_allowed": false
+    }
+  ]
+}
