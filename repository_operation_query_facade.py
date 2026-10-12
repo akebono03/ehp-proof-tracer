@@ -1,4 +1,7 @@
 from proof_repository import ProofRepository
+from phase164_r7_repository_root_resolution import (
+  validate_repository_internal_proof_roots,
+)
 from repository_nu5_eta8_suspension_zero_specialization import (
   is_nu5_eta8_suspension_zero_operation_query,
   query_nu5_eta8_suspension_zero_handoff,
@@ -83,6 +86,10 @@ def query_standard_repository_operation_input(
 ) -> RepositoryOperationQueryResult:
   repository = (
     build_standard_production_proof_repository()
+  )
+
+  validate_repository_internal_proof_roots(
+    repository
   )
 
   return query_repository_operation_input(
