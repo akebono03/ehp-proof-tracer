@@ -1,0 +1,157 @@
+{
+  "phase": "163 R4-R89",
+  "mode": "OPT_IN_SOURCE_ONLY_NINE_ASSERTIONS",
+  "reference_count": 4,
+  "assertion_count": 9,
+  "mathematical_semantics_verified_count": 0,
+  "semantic_registration_allowed_count": 0,
+  "production_registry_modified": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "reference_id": "toda:Proposition 1.6",
+      "assertion_id": "archive:prop:1-6:last_argument_additivity",
+      "review_unit_id": "review:r86:prop:1-6:last_argument_additivity",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        967,
+        977
+      ],
+      "source_sha256": "ba5e1cb5283bbf513bc4928fb029ee2026e8aea830a811d44e8d384af396eff1",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Proposition 1.6",
+      "assertion_id": "archive:prop:1-6:middle_argument_additivity",
+      "review_unit_id": "review:r86:prop:1-6:middle_argument_additivity",
+      "component_position": 2,
+      "subposition": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        978,
+        985
+      ],
+      "source_sha256": "ad74a19e15f6b54291ddff52bf9466e0b96821cf8f0bbba85b914e2e508bcd67",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Proposition 1.6",
+      "assertion_id": "archive:prop:1-6:first_argument_additivity",
+      "review_unit_id": "review:r86:prop:1-6:first_argument_additivity",
+      "component_position": 3,
+      "subposition": 1,
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        986,
+        994
+      ],
+      "source_sha256": "51f264008493490525c714e9c06514cc2b2b519cdbb7e060d12a31e4135eca44",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Theorem 2.4",
+      "assertion_id": "archive:thm:2.4:odd_dimension_case",
+      "review_unit_id": "review:r86:thm:2.4:odd_dimension_case",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        492,
+        496
+      ],
+      "source_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Theorem 2.4",
+      "assertion_id": "archive:thm:2.4:even_dimension_range_isomorphism",
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_range_isomorphism",
+      "component_position": 2,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        497,
+        502
+      ],
+      "source_sha256": "a814339614a622e6ed248de2afc31cf4008f98a6eeb1f82221feff0cf77db6cf",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Theorem 2.4",
+      "assertion_id": "archive:thm:2.4:even_dimension_p_primary_isomorphism",
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_p_primary_isomorphism",
+      "component_position": 2,
+      "subposition": 2,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        497,
+        502
+      ],
+      "source_sha256": "d349ea7b5a3cebe01b020e35ede35ec2244b515d0c6cdb49ae713d2fa354b5fb",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Proposition 2.5",
+      "assertion_id": "archive:prop:2.5:delta_composition",
+      "review_unit_id": "review:r86:prop:2.5:delta_composition",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        962,
+        965
+      ],
+      "source_sha256": "12fbda8e7fe2d40c649adbf7d41c85db9faf71b7fde4d5eab9f832ceb20a8bac",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Proposition 2.5",
+      "assertion_id": "archive:prop:2.5:whitehead_product_case",
+      "review_unit_id": "review:r86:prop:2.5:whitehead_product_case",
+      "component_position": 2,
+      "subposition": 1,
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        966,
+        974
+      ],
+      "source_sha256": "b0da66ee4eb0899bebc5915142158d7f0fec0f9bcc1547ae924266e2cd2f1838",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "reference_id": "toda:Proposition 4.2",
+      "assertion_id": "archive:prop:4.2:ehp_exact_sequence",
+      "review_unit_id": "review:r86:prop:4.2:ehp_exact_sequence",
+      "component_position": 1,
+      "subposition": 1,
+      "source_file": "Toda_04_2(2).tex",
+      "source_lines": [
+        258,
+        266
+      ],
+      "source_sha256": "8cea79a06773a5138ac34942e47ace5eb138ec099f29c74b2f3f4d28f0ae098b",
+      "registration_status": "SOURCE_ONLY",
+      "mathematics_verified": false,
+      "proof_eligible": false
+    }
+  ]
+}

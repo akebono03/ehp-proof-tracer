@@ -1,0 +1,309 @@
+{
+  "phase": "163 R4-R92",
+  "mode": "R91_COVERAGE_AND_SOURCE_ONLY_SUBITEMS",
+  "r91_parent_record_count": 96,
+  "source_subitem_count": 9,
+  "r91_review_count": 8,
+  "label_collision_count": 0,
+  "gap_candidate_count": 14,
+  "production_registry_modified": false,
+  "mathematical_semantics_verified_count": 0,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "source_subitems": [
+    {
+      "source_id": "toda:tex:ch1:0006:item:01",
+      "parent_source_id": "toda:tex:ch1:0006",
+      "parent_locator": "Proposition 1.2",
+      "chapter": 1,
+      "component_position": 1,
+      "source_text": "\\item[$0).$] $\\alpha$, $\\beta$, $\\gamma$ のうち, いずれかが $0$ なら,\n\\[\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\equiv0.\n\\]",
+      "source_sha256": "18f2aa6d4ce9a23424caa0c3478731c3927ea41ed8758144674a72503a0de0e7",
+      "source_file": "Toda_01_corrected.tex",
+      "parent_source_sha256": "03107202dd6e3d7c14ba27acd48752a9154bf996efe40808df5566f3390d6c92",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch1:0006:item:02",
+      "parent_source_id": "toda:tex:ch1:0006",
+      "parent_locator": "Proposition 1.2",
+      "chapter": 1,
+      "component_position": 2,
+      "source_text": "\\item[$i).$] $\\alpha\\circ \\Ex^n\\beta=\\beta\\circ\\gamma=0$ のとき,\n\\[\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n\\gamma\\}_n\\circ\\Ex^{n+1}\\delta\\ \\subset\\ \\{\\alpha,\\Ex^n \\beta, \\Ex^n(\\gamma\\circ\\delta)\\}_n.\n\\]",
+      "source_sha256": "1b9ed8760f08d99741ef780b568a9eb1032376c4c7f33ab32662b69c63dd4894",
+      "source_file": "Toda_01_corrected.tex",
+      "parent_source_sha256": "03107202dd6e3d7c14ba27acd48752a9154bf996efe40808df5566f3390d6c92",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch1:0006:item:03",
+      "parent_source_id": "toda:tex:ch1:0006",
+      "parent_locator": "Proposition 1.2",
+      "chapter": 1,
+      "component_position": 3,
+      "source_text": "\\item[$ii).$] $\\alpha\\circ \\Ex^n\\beta=\\beta\\circ\\gamma\\circ\\delta=0$ のとき,\n\\[\n\\{\\alpha,\\ \\Ex^n\\beta,\\ \\Ex^n(\\gamma\\circ\\delta)\\}_n\\ \\subset\\ \\{\\alpha,\\ \\Ex^n(\\beta\\circ\\gamma),\\ \\Ex^n\\delta\\}_n .\n\\]",
+      "source_sha256": "801a0bade006ba2f9957bc8bb7cc7165df30ccfe00e2035caee2b59d656b4488",
+      "source_file": "Toda_01_corrected.tex",
+      "parent_source_sha256": "03107202dd6e3d7c14ba27acd48752a9154bf996efe40808df5566f3390d6c92",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch1:0006:item:04",
+      "parent_source_id": "toda:tex:ch1:0006",
+      "parent_locator": "Proposition 1.2",
+      "chapter": 1,
+      "component_position": 4,
+      "source_text": "\\item[$iii).$] $\\alpha\\circ\\Ex^n\\beta\\circ\\Ex^n\\gamma=\\gamma\\circ\\delta=0$ なら,\n\\[\n\\{\\alpha\\circ\\Ex^n\\beta,\\ \\Ex^n\\gamma,\\ \\Ex^n\\delta\\}_n\\ \\subset\\ \\{\\alpha,\\ \\Ex^n(\\beta\\circ\\gamma),\\ \\Ex^n\\delta\\}_n .\n\\]",
+      "source_sha256": "acb95d702a56cfb49b552c8f1db97c51427ce0c88fa80ce5f582242ac420939f",
+      "source_file": "Toda_01_corrected.tex",
+      "parent_source_sha256": "03107202dd6e3d7c14ba27acd48752a9154bf996efe40808df5566f3390d6c92",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch1:0006:item:05",
+      "parent_source_id": "toda:tex:ch1:0006",
+      "parent_locator": "Proposition 1.2",
+      "chapter": 1,
+      "component_position": 5,
+      "source_text": "\\item[$iv).$] $\\beta\\circ\\Ex^n\\gamma=\\gamma\\circ\\delta=0$ のとき,\n\\[\n\\alpha\\circ\\{\\beta,\\ \\Ex^n\\gamma,\\ \\Ex^n\\delta\\}_n\\ \\subset\\ \\{\\alpha\\circ\\beta,\\ \\Ex^n\\gamma,\\ \\Ex^n\\delta\\}_n .\n\\]",
+      "source_sha256": "68e14f56bc7b6fcb36e3953aef48f0e10cb82a8f72aa0a6346047f745cf0b9d2",
+      "source_file": "Toda_01_corrected.tex",
+      "parent_source_sha256": "03107202dd6e3d7c14ba27acd48752a9154bf996efe40808df5566f3390d6c92",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch2:0011:item:01",
+      "parent_source_id": "toda:tex:ch2:0011",
+      "parent_locator": "Theorem 2.4",
+      "chapter": 2,
+      "component_position": 1,
+      "source_text": "\\item $m$ が奇数で $p=2$ のとき, 次は全ての $i$ に対して同型である. \n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,S^m\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{2m})_\\infty\\bigr).\n\\]",
+      "source_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "source_file": "Toda_02_2.tex",
+      "parent_source_sha256": "b3d1bf49c5a034d65d1cb11cc3df01f1444a98d91ecfadad01da5044101ae9d3",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch2:0011:item:02",
+      "parent_source_id": "toda:tex:ch2:0011",
+      "parent_locator": "Theorem 2.4",
+      "chapter": 2,
+      "component_position": 2,
+      "source_text": "\\item $m$ が偶数のとき, 次は $i<(p+1)m-1$ に対して同型である.\n\\[\nh_*:\\ \\pi_i\\bigl((S^m)_\\infty,(S^m)_{p-1}\\bigr)\\ \\longrightarrow\\ \n\\pi_i\\bigl((S^{pm})_\\infty\\bigr).\n\\]\nさらに, 全ての $i$ に対して $p$-成分についての同型を与える.",
+      "source_sha256": "60034af9dea68f0d53768320e94826ed3cd14af832c3182d6e9d117acefcea29",
+      "source_file": "Toda_02_2.tex",
+      "parent_source_sha256": "b3d1bf49c5a034d65d1cb11cc3df01f1444a98d91ecfadad01da5044101ae9d3",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch3:0004:item:01",
+      "parent_source_id": "toda:tex:ch3:0004",
+      "parent_locator": "Proposition 3.4",
+      "chapter": 3,
+      "component_position": 1,
+      "source_text": "\\item[\\textup{i)}]\n$\\alpha\\in\\pi_{p+h}(S^p)$, \n$\\beta\\in\\pi_{q+k}(S^q)$, \n$\\gamma\\in\\pi_{r+\\ell}(S^r)$ が,\\\\\n\\(\\alpha \\wedge \\beta = 0,\\ \\beta \\wedge \\gamma = 0\\)\nを満たすとする. \\\\\nこのとき, 次の $2$ つの Toda bracket は, 共通元を持つ.\n\\[\n\\toda{E^{q+r}\\alpha,\\ E^{p+h+r}\\beta,\\ E^{p+h+q+k}\\gamma}, \n\\]\n\\[\n(-1)^{hk+k\\ell+\\ell h+1}\\,\\toda{E^{p+q}\\gamma,\\ E^{p+r+\\ell}\\beta,\\ \nE^{q+k+r+\\ell}\\alpha}.\n\\]",
+      "source_sha256": "f99c80a19203a770fe5a809aa9257afcfdab443505528134fa172d038d37de8b",
+      "source_file": "Toda_03_2.tex",
+      "parent_source_sha256": "97676c9bb553f2c5cc9c7c7a3dfe3897d8099bf4ed2f6958d9574ec154800c0c",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    },
+    {
+      "source_id": "toda:tex:ch3:0004:item:02",
+      "parent_source_id": "toda:tex:ch3:0004",
+      "parent_locator": "Proposition 3.4",
+      "chapter": 3,
+      "component_position": 2,
+      "source_text": "\\item[\\textup{ii)}]\nさらに, $\\alpha \\wedge \\gamma=0$ も満たすとき, 次の和は \\(0\\) を含む. \n\\[\n\\begin{aligned}\n&\\ (-1)^{h\\ell} \\toda{E^{q+r}\\alpha,\\ E^{p+h+r}\\beta,\\ E^{p+h+q+k}\\gamma}\\\\\n&+\\;(-1)^{kh}\\toda{E^{p+r}\\beta,\\ E^{p+q+k}\\gamma,\\ E^{q+k+r+\\ell}\\alpha}\\\\\n&+\\;(-1)^{\\ell k}\\toda{E^{p+q}\\gamma,\\ E^{q+r+\\ell}\\alpha,\\ E^{p+h+r+\\ell}\\beta} .\n\\end{aligned}\n\\]",
+      "source_sha256": "f4d473762f596fa19cc4d3011f242b7270e5d6df08adf12e21dae579525e0f89",
+      "source_file": "Toda_03_2.tex",
+      "parent_source_sha256": "97676c9bb553f2c5cc9c7c7a3dfe3897d8099bf4ed2f6958d9574ec154800c0c",
+      "inherited_context": "Parent TeX block retained; conditions may precede list items",
+      "mathematical_semantics_verified": false,
+      "proof_eligible": false,
+      "status": "SOURCE_ONLY_SUBITEM"
+    }
+  ],
+  "label_reviews": [
+    {
+      "source_id": "toda:tex:ch1:0002",
+      "locator": "LABEL eq:loop-susp-comm",
+      "label": "eq:loop-susp-comm",
+      "number_hints": [],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch1:0003",
+      "locator": "LABEL eq:H-def",
+      "label": "eq:H-def",
+      "number_hints": [
+        "1.14"
+      ],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch1:0004",
+      "locator": "LABEL lem:double-coset",
+      "label": "lem:double-coset",
+      "number_hints": [],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch1:0005",
+      "locator": "LABEL eq:split-m",
+      "label": "eq:split-m",
+      "number_hints": [
+        "1.15"
+      ],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch1:0011",
+      "locator": "LABEL eq:cone-susp",
+      "label": "eq:cone-susp",
+      "number_hints": [
+        "1.16"
+      ],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch1:0014",
+      "locator": "LABEL eq:p-def",
+      "label": "eq:p-def",
+      "number_hints": [
+        "1.17"
+      ],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch1:0015",
+      "locator": "LABEL eq:p-star",
+      "label": "eq:p-star",
+      "number_hints": [
+        "1.18"
+      ],
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "source_id": "toda:tex:ch3:0012",
+      "locator": "LABEL 3.prop-zero",
+      "label": "3.prop-zero",
+      "number_hints": [
+        "3.5"
+      ],
+      "status": "REVIEW_ONLY"
+    }
+  ],
+  "label_collisions": [],
+  "gap_candidates": [
+    {
+      "chapter": 1,
+      "line": 87,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 107,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 213,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 242,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 270,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 304,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 387,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 459,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 467,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 482,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 497,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 1,
+      "line": 535,
+      "kind": "INLINE_DEFINITION_CANDIDATE",
+      "term": "secondary composition",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 2,
+      "line": 107,
+      "kind": "INLINE_DEFINITION_CANDIDATE",
+      "term": "secondary composition",
+      "status": "REVIEW_ONLY"
+    },
+    {
+      "chapter": 4,
+      "line": 259,
+      "kind": "UNREGISTERED_EQUATION_OR_NESTED_ALIAS",
+      "status": "REVIEW_ONLY"
+    }
+  ]
+}

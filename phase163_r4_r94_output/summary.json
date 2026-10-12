@@ -1,0 +1,14 @@
+{
+  "phase": "163 R4-R94",
+  "reference_count": 108,
+  "assertion_count": 117,
+  "number_review_count": 8,
+  "mathematical_semantics_verified_count": 0,
+  "production_registry_modified": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "bridge_reference_reused_count": 23,
+  "bridge_reference_new_count": 85,
+  "bridge_proof_link_count_unchanged": 0,
+  "source_only_proof_link_count": 0
+}

@@ -1,0 +1,12 @@
+{
+  "phase": "163 R4-R93",
+  "source_only_assertion_count": 117,
+  "additional_source_only_assertion_count": 12,
+  "nested_alias_count": 1,
+  "duplicate_mention_count": 1,
+  "number_review_count": 8,
+  "mathematical_semantics_verified_count": 0,
+  "production_registry_modified": false,
+  "proof_search_connected": false,
+  "full_suite_run": false
+}
