@@ -81,3 +81,35 @@ def create_legacy_specialization_proof_step(
         inference_rule=inference_rule,
         foundational_reference=foundational_reference,
     )
+
+
+def annotate_derived_reference_step(step: ProofStep, reference) -> ProofStep:
+    """Preserve an inferred step's ancestry while attaching known citation identity.
+
+    A reference label alone does not certify a statement's mathematical truth.
+    """
+    from dataclasses import replace
+    from proof import FoundationalReferenceIdentity
+    if not isinstance(step, ProofStep) or step.rule is not ProofRule.INFERENCE:
+        raise TypeError("step must be an inferred ProofStep")
+    if not isinstance(reference, FoundationalReferenceIdentity):
+        raise TypeError("reference must be a FoundationalReferenceIdentity")
+    if step.foundational_reference is not None and step.foundational_reference != reference:
+        raise ValueError("cannot overwrite another foundational reference")
+    return replace(step, foundational_reference=reference)
+
+
+def project_reference_component_step(source_step: ProofStep, component) -> ProofStep:
+    """Create a display-only projection without promoting its evidence status.
+
+    This is NOT an inference and must never be inserted as a proof-tree node.
+    """
+    if not isinstance(source_step, ProofStep):
+        raise TypeError("source_step must be a ProofStep")
+    return ProofStep(
+        conclusion=component,
+        premises=(),
+        rule=source_step.rule,
+        note=source_step.note,
+        inference_rule=source_step.inference_rule,
+    )

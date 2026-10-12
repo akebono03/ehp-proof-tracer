@@ -20,6 +20,10 @@ from phase164_r8_proofstep_factory import (
     derive_inference_proof_step,
 )
 
+from phase164_r8_proofstep_factory import (
+    annotate_derived_reference_step,
+)
+
 
 def _trusted_given_ancestors(root: ProofStep) -> tuple[ProofStep, ...]:
     roots = {}
@@ -99,7 +103,7 @@ def cite_verified_fixed_statement(
     if match is None:
         raise ValueError("Citation inference failed to match the trusted leaf")
     result = derive_inference_proof_step(match)
-    return replace(result, foundational_reference=citation_identity)
+    return annotate_derived_reference_step(result, citation_identity)
 
 
 

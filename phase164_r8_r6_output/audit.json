@@ -1,0 +1,18 @@
+{
+  "phase": "164 R8-R6",
+  "status": "DYNAMIC_AND_PROOFSTEP_REPLACE_CENTRALIZED_WITH_REVIEW_REMAINDER",
+  "changed_files": [
+    "phase164_r8_proofstep_factory.py",
+    "phase162_reference_boundary.py",
+    "toda_group_proof_narrative_contribution_renderer.py"
+  ],
+  "backup_dir": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r8_r6_backup_20261012_235703",
+  "replace_review_count": 66,
+  "proofstep_replace_migrated": 1,
+  "other_replace_sites": 65,
+  "core_engine_sites": 10,
+  "dynamic_projection_migrated": 1,
+  "full_pytest_run": false,
+  "r8_closed": false,
+  "limitation": "R8-R5 legacy GIVEN and direct INFERENCE remain noncertifying; 65 remaining replace sites are not all proven non-ProofStep by static analysis."
+}

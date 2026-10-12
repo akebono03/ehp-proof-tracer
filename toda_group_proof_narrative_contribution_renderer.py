@@ -104,6 +104,10 @@ from toda_literature_statement_boundary import (
   get_toda_fixed_statement_component,
 )
 
+from phase164_r8_proofstep_factory import (
+    project_reference_component_step,
+)
+
 
 def _provider_anchor_index(
   markdown: str,
@@ -1588,12 +1592,8 @@ def _phase153_r6_render_reference_statement(
   if component is None:
     return rendered_statement
 
-  component_step = ProofStep(
-    conclusion=component,
-    premises=(),
-    rule=proof_step.rule,
-    note=proof_step.note,
-    inference_rule=proof_step.inference_rule,
+  component_step = project_reference_component_step(
+    proof_step, component
   )
 
   return _render_generic_narrative_step(
