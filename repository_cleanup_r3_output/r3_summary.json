@@ -1,0 +1,15 @@
+{
+  "phase": "Repository Cleanup R3",
+  "mode": "APPLY_CACHE_ONLY",
+  "r2_candidates": 3276,
+  "approved_at_preflight": 3276,
+  "missing_at_preflight": 0,
+  "blocked_at_preflight": 0,
+  "deleted_files": 3276,
+  "deleted_bytes": 28630540,
+  "deletion_failures": 0,
+  "tracked_status_unchanged": true,
+  "tracked_files_modified_by_cleanup": false,
+  "backups_deleted": 0,
+  "pytest_run": false
+}
