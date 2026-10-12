@@ -1,0 +1,4 @@
+﻿locator,source_unit_id,reference_id,assertion_id,position_before,position_after,component_position_before,component_position_after,id_preserved,id_is_trial_only
+(2.9),tex-unit:toda:ch02:0013,trial:r55:tex-unit:toda:ch02:0013,trial:r55:tex-unit:toda:ch02:0013:definition,40,40,1,1,True,True
+(2.10),tex-unit:toda:ch02:0014,trial:r55:tex-unit:toda:ch02:0014,trial:r55:tex-unit:toda:ch02:0014:definition,41,42,1,1,True,True
+(4.3),tex-unit:toda:ch04:0003,trial:r55:tex-unit:toda:ch04:0003,trial:r55:tex-unit:toda:ch04:0003:definition,65,66,1,1,True,True
