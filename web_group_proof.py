@@ -534,166 +534,86 @@ def _build_group_proof_inline_segments(
   WebGroupProofInlineSegmentView,
   ...,
 ]:
-  if not isinstance(
-    line,
-    str,
-  ):
-    raise TypeError(
-      "line must be a str"
-    )
+  if not isinstance(line, str):
+    raise TypeError("line must be a str")
 
   segments = []
   cursor = 0
-
-  while cursor < len(
-    line
-  ):
-    next_math = line.find(
-      "$",
-      cursor,
-    )
-    next_strong = line.find(
-      "**",
-      cursor,
-    )
-
-    delimiter_positions = tuple(
-      (
-        position,
-        kind,
-      )
+  while cursor < len(line):
+    next_math = line.find("$", cursor)
+    next_strong = line.find("**", cursor)
+    delimiters = tuple(
+      (position, kind)
       for position, kind in (
-        (
-          next_math,
-          "inline_math",
-        ),
-        (
-          next_strong,
-          "strong",
-        ),
+        (next_math, "inline_math"),
+        (next_strong, "strong"),
       )
       if position >= 0
     )
-
-    if not delimiter_positions:
-      segments.append(
-        WebGroupProofInlineSegmentView(
-          kind="text",
-          value=line[
-            cursor:
-          ],
-        )
-      )
+    if not delimiters:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="text", value=line[cursor:]
+      ))
       break
 
-    delimiter_position, delimiter_kind = min(
-      delimiter_positions,
-      key=lambda item: item[
-        0
-      ],
-    )
+    position, kind = min(delimiters, key=lambda item: item[0])
+    if position > cursor:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="text", value=line[cursor:position]
+      ))
 
-    if delimiter_position > cursor:
-      segments.append(
-        WebGroupProofInlineSegmentView(
-          kind="text",
-          value=line[
-            cursor:
-            delimiter_position
-          ],
-        )
-      )
-
-    if delimiter_kind == "inline_math":
-      closing_position = line.find(
-        "$",
-        delimiter_position + 1,
-      )
-
-      if closing_position < 0:
-        segments.append(
-          WebGroupProofInlineSegmentView(
-            kind="text",
-            value=line[
-              delimiter_position:
-            ],
-          )
-        )
+    if kind == "inline_math":
+      closing = line.find("$", position + 1)
+      if closing < 0:
+        segments.append(WebGroupProofInlineSegmentView(
+          kind="text", value=line[position:]
+        ))
         break
+      math_value = line[position + 1:closing]
+      if not math_value:
+        segments.append(WebGroupProofInlineSegmentView(
+          kind="text", value="$$"
+        ))
+        cursor = closing + 1
+        continue
 
-      math_value = line[
-        delimiter_position + 1:
-        closing_position
-      ]
-
-      if math_value:
-        segment_kind = (
-          "display_math"
-          if r"\tag{" in math_value
-          else "inline_math"
-        )
-        segments.append(
-          WebGroupProofInlineSegmentView(
-            kind=segment_kind,
-            value=math_value,
+      is_tagged = r"\tag{" in math_value
+      cursor = closing + 1
+      if is_tagged:
+        # A tagged equation renders as a display block.  A standalone
+        # punctuation suffix otherwise becomes an orphaned HTML text span.
+        # Keep the punctuation with the equation, before its equation tag.
+        suffix = line[cursor:]
+        if suffix.strip() in (".", "。", ",", "、"):
+          mark = "." if suffix.strip() in (".", "。") else ","
+          tag_position = math_value.rfind(r"\tag{")
+          math_value = (
+            math_value[:tag_position]
+            + r"\text{" + mark + "}"
+            + math_value[tag_position:]
           )
-        )
-      else:
-        segments.append(
-          WebGroupProofInlineSegmentView(
-            kind="text",
-            value="$$",
-          )
-        )
+          cursor = len(line)
 
-      cursor = (
-        closing_position + 1
-      )
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="display_math" if is_tagged else "inline_math",
+        value=math_value,
+      ))
       continue
 
-    closing_position = line.find(
-      "**",
-      delimiter_position + 2,
-    )
-
-    if closing_position < 0:
-      segments.append(
-        WebGroupProofInlineSegmentView(
-          kind="text",
-          value=line[
-            delimiter_position:
-          ],
-        )
-      )
+    closing = line.find("**", position + 2)
+    if closing < 0:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="text", value=line[position:]
+      ))
       break
+    strong_value = line[position + 2:closing]
+    segments.append(WebGroupProofInlineSegmentView(
+      kind="strong" if strong_value else "text",
+      value=strong_value if strong_value else "****",
+    ))
+    cursor = closing + 2
 
-    strong_value = line[
-      delimiter_position + 2:
-      closing_position
-    ]
-
-    if strong_value:
-      segments.append(
-        WebGroupProofInlineSegmentView(
-          kind="strong",
-          value=strong_value,
-        )
-      )
-    else:
-      segments.append(
-        WebGroupProofInlineSegmentView(
-          kind="text",
-          value="****",
-        )
-      )
-
-    cursor = (
-      closing_position + 2
-    )
-
-  return tuple(
-    segments
-  )
+  return tuple(segments)
 
 
 def _build_group_proof_rendered_lines(
@@ -702,143 +622,71 @@ def _build_group_proof_rendered_lines(
   WebGroupProofRenderedLineView,
   ...,
 ]:
-  if not isinstance(
-    markdown,
-    str,
-  ):
-    raise TypeError(
-      "markdown must be a str"
-    )
+  if not isinstance(markdown, str):
+    raise TypeError("markdown must be a str")
 
   lines = []
   display_math_lines = None
   display_math_indent_level = 0
-
   for raw_line in markdown.splitlines():
-    stripped = raw_line.lstrip(
-      " "
-    )
-    leading_spaces = (
-      len(
-        raw_line
-      )
-      - len(
-        stripped
-      )
-    )
-    indent_level = (
-      leading_spaces // 2
-    )
+    stripped = raw_line.lstrip(" ")
+    indent_level = (len(raw_line) - len(stripped)) // 2
 
     if stripped == "---":
-      lines.append(
-        WebGroupProofRenderedLineView(
-          kind="separator",
-          indent_level=0,
-          prefix="",
-          statement_latex=None,
-          suffix="",
-        )
-      )
+      lines.append(WebGroupProofRenderedLineView(
+        kind="separator", indent_level=0, prefix="",
+        statement_latex=None, suffix="",
+      ))
       continue
 
     if display_math_lines is not None:
       if stripped == r"\]":
-        statement_latex = "\n".join(
-          display_math_lines
-        )
-
-        lines.append(
-          WebGroupProofRenderedLineView(
-            kind="text",
-            indent_level=(
-              display_math_indent_level
-            ),
-            prefix="",
-            statement_latex=statement_latex,
-            suffix="",
-            segments=(
-              WebGroupProofInlineSegmentView(
-                kind="display_math",
-                value=statement_latex,
-              ),
-            ),
-          )
-        )
+        statement_latex = "\n".join(display_math_lines)
+        lines.append(WebGroupProofRenderedLineView(
+          kind="text", indent_level=display_math_indent_level,
+          prefix="", statement_latex=statement_latex, suffix="",
+          segments=(WebGroupProofInlineSegmentView(
+            kind="display_math", value=statement_latex,
+          ),),
+        ))
         display_math_lines = None
         display_math_indent_level = 0
         continue
-
       if stripped:
-        display_math_lines.append(
-          stripped
-        )
-
+        display_math_lines.append(stripped)
       continue
 
     if not raw_line:
       continue
-
-    if raw_line.startswith(
-      "# "
-    ):
+    if raw_line.startswith("# "):
       continue
-
-    if stripped.startswith(
-      "## "
-    ):
-      lines.append(
-        WebGroupProofRenderedLineView(
-          kind="heading",
-          indent_level=0,
-          prefix=stripped[
-            3:
-          ],
-          statement_latex=None,
-          suffix="",
-        )
-      )
+    if stripped.startswith("### "):
+      lines.append(WebGroupProofRenderedLineView(
+        kind="heading", indent_level=indent_level,
+        prefix=stripped[4:], statement_latex=None, suffix="",
+      ))
       continue
-
+    if stripped.startswith("## "):
+      lines.append(WebGroupProofRenderedLineView(
+        kind="heading", indent_level=0,
+        prefix=stripped[3:], statement_latex=None, suffix="",
+      ))
+      continue
     if stripped == r"\[":
       display_math_lines = []
-      display_math_indent_level = (
-        indent_level
-      )
+      display_math_indent_level = indent_level
       continue
 
-    (
-      prefix,
-      statement_latex,
-      suffix,
-    ) = _split_group_proof_rendered_line(
-      stripped
-    )
-
-    lines.append(
-      WebGroupProofRenderedLineView(
-        kind="text",
-        indent_level=indent_level,
-        prefix=prefix,
-        statement_latex=statement_latex,
-        suffix=suffix,
-        segments=(
-          _build_group_proof_inline_segments(
-            stripped
-          )
-        ),
-      )
-    )
+    prefix, statement_latex, suffix = _split_group_proof_rendered_line(stripped)
+    lines.append(WebGroupProofRenderedLineView(
+      kind="text", indent_level=indent_level, prefix=prefix,
+      statement_latex=statement_latex, suffix=suffix,
+      segments=_build_group_proof_inline_segments(stripped),
+    ))
 
   if display_math_lines is not None:
-    raise ValueError(
-      "unterminated display-math block "
-      "in rendered group proof"
-    )
-
-  return tuple(
-    lines
-  )
+    raise ValueError("unterminated display-math block in rendered group proof")
+  return tuple(lines)
 
 
 def build_standard_web_group_proof_view(
