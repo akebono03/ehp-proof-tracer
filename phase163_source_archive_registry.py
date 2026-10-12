@@ -114,7 +114,7 @@ def build_registry_with_source_archive(catalog_path: Path = CATALOG_PATH):
             registry.add_assertion(AssertionEntry(
                 assertion_id=entry_id, reference_id=key,
                 kind=AssertionKind.STATEMENT, content=content,
-                origin=AssertionOrigin.FIXED_STATEMENT,
+                origin=AssertionOrigin.SOURCE_ARCHIVE,
                 component_position=item["component_position"],
                 scope=item["shared_scope_note"],
                 available_after_position=None,
