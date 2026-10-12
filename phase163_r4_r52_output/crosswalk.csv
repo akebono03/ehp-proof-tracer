@@ -1,0 +1,193 @@
+﻿r48_index,chapter,source_line,editorial_key,source_file,direct_match_status,semantic_overlap_status,new_registration_status,component_indices,excerpt,context
+1,1,81,unit_sphere,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+S^n=\{(t_1,\ldots,t_{n+1})\mid t_1^2+\cdots+t_{n+1}^2=1\}.
+\]","78: \)
+79: とし, \\
+80: $(n+1)$ 次元ユークリッド空間内の単位 $n$–球面を, 次で表す.
+81: \[
+82: S^n=\{(t_1,\ldots,t_{n+1})\mid t_1^2+\cdots+t_{n+1}^2=1\}.
+83: \]
+84: 
+85: 
+86: 連続写像"
+4,1,156,pointed_homotopy_classes,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+[X,Y]=\{\, [f]\ \mid\ f:(X,x_0)\to (Y,y_0)\,\}
+\]","153: \(H(x_0, t) = y_0,\ (t\in I)\)
+154: を満たす.\\
+155: 写像 $f:(X,x_0)\to (Y,y_0)$ の (基点付き) ホモトピー類の集合を,
+156: \[
+157: [X,Y]=\{\, [f]\ \mid\ f:(X,x_0)\to (Y,y_0)\,\}
+158: \]
+159: で表す. 特に, $X=S^n$ のとき,
+160: $[X,Y]$ は通常の $n$ 次ホモトピー群 $\pi_n(Y)$ と一致する. 
+161: "
+81,1,170,composition_homotopy_classes,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"と書き, \(\alpha\) と \(\beta\) の合成 (composition) という.\\","167: \(f, g\) の選び方によらない.\\
+168: \(g\circ f\) の類を
+169: \(\beta\circ \alpha \in [X,Z]\)
+170: と書き, \(\alpha\) と \(\beta\) の合成 (composition) という.\\
+171: 式 \(\beta\circ \alpha = f^*(\beta) = g_*(\alpha)\)
+172: は, 次の写像を定義する.
+173: \[
+174: f^*:[Y,Z]\to[X,Z],\quad g_*:[X,Y]\to[X,Z].
+175: \]"
+82,1,287,iterated_suspension,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,18,"と書き, $X$ の $n$-重 suspension と呼ぶ.","284: \[
+285: \Ex^n X\ :=\ X\ \wedge\ S^n
+286: \]
+287: と書き, $X$ の $n$-重 suspension と呼ぶ. 
+288: 特に, $n=1$ のときは, 単に $\Ex X=X\ \wedge\ S^1$ と書く. \\
+289: 同一視 \(X\wedge S^{m+n} = X\wedge S^m\wedge S^n\)
+290: により, 
+291: \(E^n(E^m X) = E^{m+n} X\) を得る.
+292: "
+83,1,343,addition_inverse_suspension,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,"22,24","\(f+g,\ -f: (EX,x_0)\to (Y,y_0)\) を, 次で定義する.","340: 
+341: ホモトピー集合 \([EX, Y]\) を考える.\\
+342: 写像 $f,g:(\Ex X,x_0)\to(Y,y_0)$ に対し, 
+343: \(f+g,\ -f: (EX,x_0)\to (Y,y_0)\) を, 次で定義する.
+344: \[
+345: (f+g)(d_X(x,t)) :=
+346: \begin{cases}
+347: f(d_X(x,2t)), & 0\le t\le \tfrac12,\\[2mm]
+348: g(d_X(x,2t-1)), & \tfrac12\le t\le 1,"
+39,1,536,secondary_composition,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+\{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\ \subset\ [\Ex^{n+1}W, Z]
+\]","533: 
+534: 
+535: \emph{secondary composition}
+536: \[
+537: \{\alpha,\ \Ex^n\beta,\ \Ex^n\gamma\}_n\ \subset\ [\Ex^{n+1}W, Z]
+538: \]
+539: を, 上の方法で得られる写像 $H$ の, 
+540: ホモトピー類全体の集合として定める. 
+541: "
+88,1,1084,reduced_cone,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,72,"基空間 $X$ 上の \emph{cone} \(CX\) を, 次で定義する.","1081: 
+1082: 
+1083: 
+1084: 基空間 $X$ 上の \emph{cone} \(CX\) を, 次で定義する.
+1085: \[
+1086: CX=(X\times I)/\bigl(X\times\{1\}\ \cup\ x_0\times I\bigr).
+1087: \]
+1088: $d'_X:X\times I\to CX$ を, \(CX\) を定義する等化写像とする.\\
+1089: 対応 $x\longleftrightarrow d'_X(x,0)$ により, "
+90,1,1103,extension,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,$\alpha$ の \emph{extension} と呼ぶ.,"1100: は, \(\overline{\alpha}\) を表す写像 \(g\)
+1101: に対して, 
+1102: 制限 \(g|_{Y}\) が \(\alpha\in[Y,Z]\) を表すとき,\\
+1103: $\alpha$ の \emph{extension} と呼ぶ.
+1104: 
+1105: \(\widetilde{\gamma}\in[EW,Y\cup_\beta CX]\)
+1106: に対して, \(\widetilde{\gamma}\) を表す写像 
+1107: \(h:EW\to Y\cup_\beta CX\)
+1108: が, 次の条件を満たすとする."
+91,1,1117,coextension,Toda_01_corrected.tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"このとき, \(\widetilde{\gamma}\) を \(\gamma\) の \emph{coextension} と呼ぶ.\\","1114: \end{array}\right.
+1115: \]
+1116: ここで, \(c:W\to X\) は \(\gamma\in[W,X]\) を表す写像とする.
+1117: このとき, \(\widetilde{\gamma}\) を \(\gamma\) の \emph{coextension} と呼ぶ.\\
+1118: extension $\overline\alpha$ が存在するための必要十分条件は,
+1119: $\alpha\circ \beta=0$ であり,\\
+1120: coextension $\widetilde{\gamma}$ が存在するための必要十分条件は,
+1121: $\beta\circ\gamma=0$ である. 
+1122: "
+152,2,926,delta_homomorphism,Toda_02_2(2).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,準同型 \(\Delta\) を次で定義する.,"923: \begin{paracol}{2}
+924: 
+925: \noindent
+926: 準同型 \(\Delta\) を次で定義する. 
+927: \begin{equation}\label{2.9}
+928: \Delta\ :=\ \partial\ \circ\ (h_{m*})^{-1}\ \circ\ \Omega_1:\ 
+929: \pi_{i+1}(S^{2m+1})\ \longrightarrow\ \pi_{i-1}(S^m)\big/\partial\Ker(h_{m*})
+930: \tag{2.9}
+931: \end{equation}"
+153,2,935,inverse_delta,Toda_02_2(2).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"さらに, 準同型 \(\Delta^{-1}\) を次で定義する.","932: ここで, \(\partial\Ker(h_{m*})\) は, 
+933: \(m\) が奇数または \(i<3m-1\) のとき自明であり, \\
+934: \(m\) が偶数のとき有限群で, 2-torsion を含まない. \\
+935: さらに, 準同型 \(\Delta^{-1}\) を次で定義する. 
+936: \begin{equation}\label{2.10}
+937: \Delta^{-1}\ :=\ \Omega_1^{-1}\ \circ\ h_{m*}\ \circ\ \partial^{-1}:\ 
+938: \pi_{i-1}(S^m)\ \longrightarrow\ 
+939: \pi_{i+1}(S^{2m+1})\big/ H\pi_{i+1}(S^{m+1})
+940: \tag{2.10}"
+238,3,1200,stable_homotopy_group,Toda_03_2(2).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,239,"\[
+G_k\ :=\ \lim_{n\to\infty}\ \pis{n+k}{S^n}
+\]","1197: \end{equation}
+1198: 
+1199: 球面の $k$ 次安定ホモトピー群を
+1200: \[
+1201: G_k\ :=\ \lim_{n\to\infty}\ \pis{n+k}{S^n}
+1202: \]
+1203: と書き, 射影を
+1204: \[
+1205: \Ex^\infty:\ \pis{n+k}{S^n}\ \longrightarrow\ G_k"
+240,3,1217,stable_composition,Toda_03_2(2).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+\circ:G_k\times G_h \rightarrow G_{k+h}
+\]","1214: (1.6) より,
+1215: \(\Ex^{m}(\alpha\circ\beta)=\Ex^{m}\alpha\circ\Ex^{m}\beta\)
+1216: なので, 合成
+1217: \[
+1218: \circ:G_k\times G_h \rightarrow G_{k+h}
+1219: \]
+1220: が, \(E^\infty(\alpha\circ\beta)=E^\infty\alpha\circ E^\infty\beta\) 
+1221: により定義される. \\
+1222: (1.7) または (2.1) は, 合成が stable の範囲では bilinear であることを示している. "
+243,3,1241,stable_toda_bracket,Toda_03_2(2).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,"242,244,245","\[
+\langle \alpha,\beta,\gamma\rangle 
+\in G_{k+h+\ell+1}(\alpha\circ G_{h+\ell+1} + \gamma\circ G_{k+h+1}) .
+\]","1238: \alpha\circ\beta=\beta\circ\gamma=0
+1239: \]
+1240: に対する, stable Toda bracket 
+1241: \[
+1242: \langle \alpha,\beta,\gamma\rangle 
+1243: \in G_{k+h+\ell+1}(\alpha\circ G_{h+\ell+1} + \gamma\circ G_{k+h+1}) .
+1244: \]
+1245: を以下の様に定義する. 
+1246: 十分大きな $n$ をとれば, "
+260,4,92,pi_i_n_subgroup,Toda_04_2(2).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"部分群 $\pi_i^n\subset\pis{i}{S^n}$ を, 次で定義する.","89: \end{equation}
+90: 
+91: \(\pis{i}{S^n}\) の $p$-成分を, $\pis{i}{S^n;p}$ と書き, 
+92: 部分群 $\pi_i^n\subset\pis{i}{S^n}$ を, 次で定義する. 
+93: \begin{equation}\label{4.3}
+94: \pi_i^n :=
+95: \begin{cases}
+96: \pis{n}{S^n}, & i=n,\\[2pt]
+97: \Ex^{-1}\bigl(\pis{2n}{S^{n+1};2}\bigr), & i=2n-1,\\[2pt]"
+316,5,569,nu4_generator_notation,Toda_05_2(6).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,\(\nu_4\) を次で定義する.,"566: \(H(\alpha^{\ast})=(2s+1)\iota_{7}\), (\(s\in\mathbb Z\)). \\
+567: そこで,
+568: \(H[\iota_4,\iota_4]=(-1)^u 2\iota_7\) とし, 
+569: \(\nu_4\) を次で定義する. 
+570: (\([\iota_4,\iota_4]\) は Whitehead product)
+571: \[
+572: \nu_{4}:=
+573: \begin{cases}
+574: \alpha^{\ast}-(-1)^{u}\,s[\iota_4,\iota_4] "
+277,5,605,nu_n_notation,Toda_05_2(6).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+\nu_n:=E^{\,n-4}\nu_{4},\ (n\ge 4),\qquad \nu:=E^{\infty}\nu_{4}
+\]","602: \(E^{t}\nu_{4}=\pm E^{t}\alpha^{\ast}\) である. 
+603: \qed
+604: 
+605: \[
+606: \nu_n:=E^{\,n-4}\nu_{4},\ (n\ge 4),\qquad \nu:=E^{\infty}\nu_{4}
+607: \]
+608: \[
+609: \eta^{3}_{n}:=\eta_{n}\circ\eta_{n+1}\circ\eta_{n+2},\ (n\ge2),\qquad
+610: \eta^{3}:=\eta\circ\eta\circ\eta ."
+278,5,608,eta_n_cubed_notation,Toda_05_2(6).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+\eta^{3}_{n}:=\eta_{n}\circ\eta_{n+1}\circ\eta_{n+2},\ (n\ge2),\qquad
+\eta^{3}:=\eta\circ\eta\circ\eta .
+\]","605: \[
+606: \nu_n:=E^{\,n-4}\nu_{4},\ (n\ge 4),\qquad \nu:=E^{\infty}\nu_{4}
+607: \]
+608: \[
+609: \eta^{3}_{n}:=\eta_{n}\circ\eta_{n+1}\circ\eta_{n+2},\ (n\ge2),\qquad
+610: \eta^{3}:=\eta\circ\eta\circ\eta .
+611: \]
+612: と記す.
+613: Lem 5.4 とProp 5.3 より,"
+293,5,1320,nu_n_squared_notation,Toda_05_2(6).tex,NO_REGISTERED_DEFINITION_ENTRY_IN_R47_SNAPSHOT,UNRESOLVED_REVIEW_REQUIRED,NOT_DECIDED,,"\[
+\nu_n^2:=\nu_n\circ\nu_{n+3},(n\ge4)\qquad
+\nu^2:=\nu\circ\nu.
+\]","1317: 
+1318: 
+1319: \paragraph*{vi). The Group \(\pi^{n}_{n+6}\).}
+1320: \[
+1321: \nu_n^2:=\nu_n\circ\nu_{n+3},(n\ge4)\qquad
+1322: \nu^2:=\nu\circ\nu.
+1323: \]
+1324: 
+1325: \begin{proposition}\label{prop:5.11}"
