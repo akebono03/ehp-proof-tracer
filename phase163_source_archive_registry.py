@@ -72,7 +72,7 @@ def load_source_archive_catalog(path: Path = CATALOG_PATH) -> dict:
     return document
 
 
-def build_registry_with_source_archive(catalog_path: Path = CATALOG_PATH):
+def build_registry_with_source_archive(catalog_path: Path = CATALOG_PATH, *, bridge=None):
     """Return a NEW registry plus an audit summary; never change proof/search catalogs.
 
     Exact transcribed TeX is archival metadata. `AssertionKind.STATEMENT`
@@ -80,7 +80,8 @@ def build_registry_with_source_archive(catalog_path: Path = CATALOG_PATH):
     ProofStepLink or theorem eligibility decision here.
     """
     document = load_source_archive_catalog(catalog_path)
-    bridge = build_registry_bridge()
+    if bridge is None:
+        bridge = build_registry_bridge()
     registry = bridge.registry
     refs_added = []
     refs_reused = []
