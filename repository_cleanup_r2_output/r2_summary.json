@@ -1,0 +1,22 @@
+{
+  "phase": "Repository Cleanup R2",
+  "mode": "READ_ONLY",
+  "r1_files": 15044,
+  "git_status": "git ls-files succeeded",
+  "decisions": {
+    "CACHE_DELETE_CANDIDATE": 3276,
+    "HOLD": 11450,
+    "PRESERVE": 265,
+    "REVIEW_BACKUP": 53
+  },
+  "backup_exact_duplicate_groups": 1,
+  "production_files_modified": false,
+  "deletions": 0,
+  "pytest_run": false,
+  "limitations": [
+    "R2 does not prove all runtime, dynamic import, test, or script dependencies.",
+    "Backup identity alone is never a deletion authorization.",
+    "Phase source catalogs, manifests, audit JSON and proof evidence remain protected.",
+    "Git tracking unknown means no cache file is approved for deletion."
+  ]
+}
