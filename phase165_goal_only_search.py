@@ -1,24 +1,57 @@
-"""Goal-only search boundary; never substitute historical proof replays.
+"""Goal-only boundary using the registered recursive proof engine.
 
-This phase deliberately refuses unimplemented registry-to-goal search instead
-of silently importing specialized, preselected ProofStep trees.
+No historical replay or per-group premise pool may be supplied. The default
+production invocation remains fail-closed until a vetted registry and a
+rule-expansion catalog are connected.
 """
 from homotopy_groups import TodaPrimaryGroup
+from phase165_r3_recursive_search import (
+    RegisteredGoalUnresolved,
+    reconstruct_registered_goal,
+)
 
 
 class GoalSearchIncompleteError(RuntimeError):
-    """The registered rules do not yet establish the requested goal."""
+    """A goal cannot be established by the configured common search."""
 
 
-def construct_registered_group_proof(*, n: int, k: int):
-    """Require the common registry-backed goal-only backend.
+def construct_registered_group_proof(
+    *,
+    n: int,
+    k: int,
+    goal=None,
+    bridge=None,
+    citing_assertion_id=None,
+    expansion_provider=None,
+    verified_assertion_ids=(),
+):
+    """Use registered recursive search, refusing any missing input.
 
-    No preselected premise pool, existing group result, or historical replay
-    is accepted. The current repository has only leaf-supplied reconstruction
-    for pi_5^3; refusing that path is intentional.
+    Legacy callers with only n and k fail closed. Supplying a goal, a genuine
+    registry, a citing assertion and a common expansion catalog enables the
+    recursive engine, without preselected ProofSteps or a fallback.
     """
-    goal_group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
-    raise GoalSearchIncompleteError(
-        "Goal-only registered premise discovery is not implemented for "
-        f"{goal_group!r}; legacy proof selection is disabled"
-    )
+    group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+    if (
+        goal is None
+        or bridge is None
+        or citing_assertion_id is None
+        or expansion_provider is None
+    ):
+        raise GoalSearchIncompleteError(
+            f"Registered goal/rule catalog not configured for {group!r}; "
+            "legacy proof selection remains disabled"
+        )
+    try:
+        step = reconstruct_registered_goal(
+            goal,
+            bridge,
+            citing_assertion_id,
+            expansion_provider,
+            verified_assertion_ids=verified_assertion_ids,
+        )
+    except RegisteredGoalUnresolved as exc:
+        raise GoalSearchIncompleteError(str(exc)) from exc
+    if getattr(getattr(step, "conclusion", None), "lhs", None) != group:
+        raise GoalSearchIncompleteError("derived proof targets a different group")
+    return step
