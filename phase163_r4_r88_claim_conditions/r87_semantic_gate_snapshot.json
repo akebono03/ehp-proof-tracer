@@ -1,0 +1,266 @@
+{
+  "phase": "163 R4-R87",
+  "mode": "SOURCE_GROUNDED_SEMANTIC_REGISTRATION_GATE",
+  "review_unit_count": 9,
+  "source_fragment_verified_count": 9,
+  "description_proposal_count": 9,
+  "mathematical_semantics_verified_count": 0,
+  "original_edition_verified": false,
+  "semantic_registration_allowed_count": 0,
+  "proof_eligible_count": 0,
+  "production_registry_modified": false,
+  "production_ids_allocated": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "records": [
+    {
+      "review_unit_id": "review:r86:prop:1-6:last_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_owner": "prop:1-6",
+      "component_position": 1,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "Toda bracket の第3変数に関する包含関係",
+      "required_scope_conditions_jp": [
+        "共有変数の型指定",
+        "n>=1 または W=E W'",
+        "包含関係（等号としない）"
+      ],
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        967,
+        977
+      ],
+      "claim_sha256": "ba5e1cb5283bbf513bc4928fb029ee2026e8aea830a811d44e8d384af396eff1",
+      "source_excerpt_sha256": "ba5e1cb5283bbf513bc4928fb029ee2026e8aea830a811d44e8d384af396eff1",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "第1章訂正TeXと原本の突合が必要"
+    },
+    {
+      "review_unit_id": "review:r86:prop:1-6:middle_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_owner": "prop:1-6",
+      "component_position": 2,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "Toda bracket の第2変数に関する加法等式",
+      "required_scope_conditions_jp": [
+        "共有変数の型指定",
+        "n>=1 または gamma=E gamma'（空間の懸垂条件を含む）"
+      ],
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        978,
+        985
+      ],
+      "claim_sha256": "ad74a19e15f6b54291ddff52bf9466e0b96821cf8f0bbba85b914e2e508bcd67",
+      "source_excerpt_sha256": "ad74a19e15f6b54291ddff52bf9466e0b96821cf8f0bbba85b914e2e508bcd67",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "共通の変数定義の継承と原本照合が必要"
+    },
+    {
+      "review_unit_id": "review:r86:prop:1-6:first_argument_additivity",
+      "reference_locator": "Proposition 1.6",
+      "source_owner": "prop:1-6",
+      "component_position": 3,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "Toda bracket の第1変数に関する包含関係",
+      "required_scope_conditions_jp": [
+        "共有変数の型指定",
+        "n>=1 または beta=E beta' かつ gamma=E gamma'",
+        "包含関係（等号としない）"
+      ],
+      "source_file": "Toda_01_corrected.tex",
+      "source_lines": [
+        986,
+        994
+      ],
+      "claim_sha256": "51f264008493490525c714e9c06514cc2b2b519cdbb7e060d12a31e4135eca44",
+      "source_excerpt_sha256": "ce11025be96d8198d39ff038f9e0afc4dfe4aaec26f930dd32850f6edc8ff70e",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "第三項の開始境界と原本照合が必要"
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:odd_dimension_case",
+      "reference_locator": "Theorem 2.4",
+      "source_owner": "thm:2.4",
+      "component_position": 1,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "m が奇数かつ p=2 の場合の h_* の全次数同型",
+      "required_scope_conditions_jp": [
+        "p は素数",
+        "m>1",
+        "指定された写像 h",
+        "m は奇数",
+        "p=2",
+        "全ての i"
+      ],
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        492,
+        496
+      ],
+      "claim_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "source_excerpt_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "参照文献との対応と写像の仮定の数学的確認が必要"
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_range_isomorphism",
+      "reference_locator": "Theorem 2.4",
+      "source_owner": "thm:2.4",
+      "component_position": 2,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "m が偶数の場合の指定次数範囲での h_* の同型",
+      "required_scope_conditions_jp": [
+        "p は素数",
+        "m>1",
+        "指定された写像 h",
+        "m は偶数",
+        "i<(p+1)m-1"
+      ],
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        497,
+        502
+      ],
+      "claim_sha256": "a814339614a622e6ed248de2afc31cf4008f98a6eeb1f82221feff0cf77db6cf",
+      "source_excerpt_sha256": "bc0fb416a7558854fd8078d41c48b1ca16a678acfceaa25c5886e5d83db3bc8e",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "写像の仮定と次数範囲の数学的確認が必要"
+    },
+    {
+      "review_unit_id": "review:r86:thm:2.4:even_dimension_p_primary_isomorphism",
+      "reference_locator": "Theorem 2.4",
+      "source_owner": "thm:2.4",
+      "component_position": 2,
+      "subposition": 2,
+      "mathematical_description_proposal_jp": "m が偶数の場合の h_* による全次数の p-成分の同型",
+      "required_scope_conditions_jp": [
+        "p は素数",
+        "m>1",
+        "指定された写像 h",
+        "m は偶数",
+        "全ての i",
+        "p-成分に限定"
+      ],
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        497,
+        502
+      ],
+      "claim_sha256": "d349ea7b5a3cebe01b020e35ede35ec2244b515d0c6cdb49ae713d2fa354b5fb",
+      "source_excerpt_sha256": "bc0fb416a7558854fd8078d41c48b1ca16a678acfceaa25c5886e5d83db3bc8e",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "参照先写像と p-成分の数学的意味の確認が必要"
+    },
+    {
+      "review_unit_id": "review:r86:prop:2.5:delta_composition",
+      "reference_locator": "Proposition 2.5",
+      "source_owner": "prop:2.5",
+      "component_position": 1,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "Delta と合成の包含関係、および追加条件下の等号",
+      "required_scope_conditions_jp": [
+        "alpha, beta の型",
+        "通常は包含",
+        "m が奇数または j<3m-1 または関係する元が 2-primary のとき等号"
+      ],
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        962,
+        965
+      ],
+      "claim_sha256": "12fbda8e7fe2d40c649adbf7d41c85db9faf71b7fde4d5eab9f832ceb20a8bac",
+      "source_excerpt_sha256": "12fbda8e7fe2d40c649adbf7d41c85db9faf71b7fde4d5eab9f832ceb20a8bac",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "共通の等号成立条件と型の確認が必要"
+    },
+    {
+      "review_unit_id": "review:r86:prop:2.5:whitehead_product_case",
+      "reference_locator": "Proposition 2.5",
+      "source_owner": "prop:2.5",
+      "component_position": 2,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "二重懸垂に対する Delta と Whitehead product の関係、および追加条件下の等号",
+      "required_scope_conditions_jp": [
+        "gamma の型と Whitehead product の定義",
+        "通常は包含",
+        "m が奇数または j<3m-1 または関係する元が 2-primary のとき等号"
+      ],
+      "source_file": "Toda_02_2(2).tex",
+      "source_lines": [
+        966,
+        974
+      ],
+      "claim_sha256": "b0da66ee4eb0899bebc5915142158d7f0fec0f9bcc1547ae924266e2cd2f1838",
+      "source_excerpt_sha256": "b0da66ee4eb0899bebc5915142158d7f0fec0f9bcc1547ae924266e2cd2f1838",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "共通の等号成立条件と符号・型の確認が必要"
+    },
+    {
+      "review_unit_id": "review:r86:prop:4.2:ehp_exact_sequence",
+      "reference_locator": "Proposition 4.2",
+      "source_owner": "prop:4.2",
+      "component_position": 1,
+      "subposition": 1,
+      "mathematical_description_proposal_jp": "EHP 完全列 (4.4) の完全性",
+      "required_scope_conditions_jp": [
+        "E, H, Delta の定義と添字",
+        "(4.4) は Proposition 4.2 内の式のラベルであり重複 Reference を生成しない"
+      ],
+      "source_file": "Toda_04_2(2).tex",
+      "source_lines": [
+        258,
+        266
+      ],
+      "claim_sha256": "8cea79a06773a5138ac34942e47ace5eb138ec099f29c74b2f3f4d28f0ae098b",
+      "source_excerpt_sha256": "8cea79a06773a5138ac34942e47ace5eb138ec099f29c74b2f3f4d28f0ae098b",
+      "origin": "SOURCE_ARCHIVE",
+      "source_fragment_verified": true,
+      "mathematical_semantics_verified": false,
+      "original_edition_verified": false,
+      "proof_eligible": false,
+      "semantic_registration_allowed": false,
+      "blocking_reason_jp": "適用次元の範囲と式 (4.4) の別名関係を確定する必要がある"
+    }
+  ]
+}
