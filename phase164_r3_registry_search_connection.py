@@ -13,7 +13,7 @@ from phase161_r7_premise_provenance_validation import (
     validate_phase161_r7_provenance,
 )
 from phase163_r4_registry_bridge import RegistryBridgeResult
-from phase164_r2_citation_eligibility import assess_phase164_r2_citation
+from phase164_r7_statement_resolution import resolve_registered_statement
 from proof import ProofRule, ProofStep
 from toda_rules import TodaProp42ExactnessStatement
 
@@ -76,23 +76,13 @@ def select_phase164_r3_pi5_3_leaves(
         raise ValueError("duplicate assertion binding")
 
     for item in literature_premises:
-        entry = bridge.registry.assertion(item.assertion_id)
-        # Identity of the mathematical statement is checked structurally; the
-        # Assertion ID by itself cannot authorize an unrelated ProofStep.
-        if type(entry.content) is not type(item.step.conclusion):
-            raise ValueError("registered conclusion type mismatch")
-        equality = entry.content == item.step.conclusion
-        if type(equality) is not bool or not equality:
-            raise ValueError("registered conclusion mismatch")
-        decision = assess_phase164_r2_citation(
-            bridge, item.assertion_id, citing_assertion_id,
+        resolve_registered_statement(
+            bridge,
+            item.assertion_id,
+            expected_conclusion=item.step.conclusion,
+            citing_assertion_id=citing_assertion_id,
             verified_assertion_ids=verified_assertion_ids,
         )
-        if not decision.usable:
-            raise ValueError(
-                f"citation not eligible: {item.assertion_id}: "
-                f"{decision.status.value}/{decision.reason}"
-            )
 
     leaves = steps + exactness_steps
     validate_phase161_r7_provenance(leaves, trusted_given_roots)
