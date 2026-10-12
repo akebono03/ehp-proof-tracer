@@ -1,0 +1,12 @@
+﻿r48_index,chapter,source_file,source_line,source_owner_label,prior_relation,structural_attachment,proof_start_line,proof_end_line,next_statement_start_line,evidence
+133,2,Toda_02_2(2).tex,741,thm:2.4,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,507,,960,Explicit Proof marker after numbered statement and before candidate
+66,1,Toda_01_corrected.tex,956,prop:1-5,AFTER_PRECEDING_STATEMENT_UNRESOLVED,EXPLICIT_POST_STATEMENT_PARAPHRASE,,,965,A 「要するに」 sentence directly follows the numbered statement
+67,1,Toda_01_corrected.tex,1007,prop:1-6,AFTER_PRECEDING_STATEMENT_UNRESOLVED,WITHIN_EXPLICIT_PROOF_SEGMENT,997,,1138,Explicit Proof marker after numbered statement and before candidate
+68,1,Toda_01_corrected.tex,1016,prop:1-6,AFTER_PRECEDING_STATEMENT_UNRESOLVED,WITHIN_EXPLICIT_PROOF_SEGMENT,997,,1138,Explicit Proof marker after numbered statement and before candidate
+69,1,Toda_01_corrected.tex,1022,prop:1-6,AFTER_PRECEDING_STATEMENT_UNRESOLVED,WITHIN_EXPLICIT_PROOF_SEGMENT,997,,1138,Explicit Proof marker after numbered statement and before candidate
+120,2,Toda_02_2(2).tex,557,thm:2.4,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,507,,960,Explicit Proof marker after numbered statement and before candidate
+122,2,Toda_02_2(2).tex,569,thm:2.4,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,507,,960,Explicit Proof marker after numbered statement and before candidate
+123,2,Toda_02_2(2).tex,574,thm:2.4,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,507,,960,Explicit Proof marker after numbered statement and before candidate
+140,2,Toda_02_2(2).tex,994,prop:2.5,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,982,,1093,Explicit Proof marker after numbered statement and before candidate
+142,2,Toda_02_2(2).tex,1024,prop:2.5,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,982,,1093,Explicit Proof marker after numbered statement and before candidate
+256,4,Toda_04_2(2).tex,286,prop:4.2,POSSIBLE_PROOF_OF_PRECEDING,WITHIN_EXPLICIT_PROOF_SEGMENT,270,,393,Explicit Proof marker after numbered statement and before candidate
