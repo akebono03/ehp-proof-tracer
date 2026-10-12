@@ -1,0 +1,34 @@
+{
+  "phase": "163 R4-R95",
+  "status": "PHASE163_CLOSED_SOURCE_ARCHIVE_ONLY",
+  "reference_count": 108,
+  "assertion_count": 117,
+  "source_origin_counts": {
+    "R91": 96,
+    "R92": 9,
+    "R93": 12
+  },
+  "number_review_count": 8,
+  "nested_alias_count": 1,
+  "duplicate_mention_count": 1,
+  "bridge_reference_reused_count": 23,
+  "bridge_reference_new_count": 85,
+  "bridge_proof_link_count_unchanged": 0,
+  "source_only_proof_link_count": 0,
+  "reproducible_manifest": true,
+  "original_edition_verified": false,
+  "mathematical_semantics_verified_count": 0,
+  "proof_eligible_count": 0,
+  "production_registry_modified": false,
+  "proof_search_connected": false,
+  "full_suite_run": false,
+  "test_scope": "TARGETED_ONLY_NO_FULL_PYTEST",
+  "deferred": [
+    "8 uncertain number mappings",
+    "Toda original-edition comparison",
+    "claim-by-claim mathematical certification",
+    "production proof-search connection",
+    "full pytest not requested"
+  ],
+  "next_phase": "164: pi_5^3 goal-driven ProofStep narrative"
+}
