@@ -1,0 +1,2190 @@
+{
+  "phase": "164 R7-R2",
+  "mode": "READ_ONLY_STATIC_CALL_PATH_INVENTORY",
+  "root": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof",
+  "module_count": 277,
+  "parse_errors": [],
+  "branches": {
+    "group": {
+      "entry_files": [
+        "web_group_proof.py",
+        "toda_group_proof_presentation.py",
+        "toda_group_result_proof_replay.py"
+      ],
+      "reachable_module_count": 146,
+      "candidates": [
+        {
+          "module": "toda_group_proof_presentation.py",
+          "import_depth": 0,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_result_proof_replay.py",
+          "import_depth": 0,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "proof_repository.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "toda_calculation_facade.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository",
+            "standard_production_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 35,
+              "name": "build_standard_production_proof_repository",
+              "receiver": null,
+              "import_origin": "standard_production_repository",
+              "certainty": "import_bound"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_renderer.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 1150,
+              "name": "get",
+              "receiver": "reference_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1164,
+              "name": "get",
+              "receiver": "number_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1644,
+              "name": "get",
+              "receiver": "reasons",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 2808,
+              "name": "get",
+              "receiver": "reference_marker_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 2821,
+              "name": "get",
+              "receiver": "reference_reuse_marker_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 5410,
+              "name": "get",
+              "receiver": "connector_numbers_by_index",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 6065,
+              "name": "get",
+              "receiver": "exactness_by_index",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 7496,
+              "name": "get",
+              "receiver": "index_by_key",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 10115,
+              "name": "get",
+              "receiver": "injective_by_map",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 10120,
+              "name": "get",
+              "receiver": "surjective_by_map",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 10502,
+              "name": "get",
+              "receiver": "numbered_by_index",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 10535,
+              "name": "get",
+              "receiver": "isomorphism_by_index",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 10960,
+              "name": "get",
+              "receiver": "tag_paragraph_by_number",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_result.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_human_readable_renderer.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 168,
+              "name": "get",
+              "receiver": "_GREEK_LATEX",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase164_r5_web_registry_connection.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_element_exploration.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_element_lookup.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 140,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 173,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "standard_production_repository.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository",
+            "standard_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 24,
+              "name": "build_standard_proof_repository",
+              "receiver": null,
+              "import_origin": "standard_repository",
+              "certainty": "import_bound"
+            }
+          ],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "toda_calculation_goal.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_calculation_report.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 50,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 88,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_end_to_end_presentation.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_argument_multi_renderer.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 332,
+              "name": "get",
+              "receiver": "exactness_exposure_by_block_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 443,
+              "name": "get",
+              "receiver": "transition_by_conclusion_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 600,
+              "name": "get",
+              "receiver": "exactness_exposure_by_block_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_arguments.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 657,
+              "name": "get",
+              "receiver": "_ARGUMENT_ROLE_BY_CONCLUSION_BLOCK_ROLE",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 684,
+              "name": "get",
+              "receiver": "argument_index_by_conclusion_block_index",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_classifier.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 117,
+              "name": "get",
+              "receiver": "REFERENCE_STATEMENT_TYPES_BY_ROOT",
+              "import_origin": "toda_group_proof_narrative_catalog",
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_contribution_renderer.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 129,
+              "name": "get",
+              "receiver": "block_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 457,
+              "name": "get",
+              "receiver": "children",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 537,
+              "name": "get",
+              "receiver": "semantic_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 710,
+              "name": "get",
+              "receiver": "connector_by_target_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1225,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1257,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1968,
+              "name": "get",
+              "receiver": "replacement_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 2108,
+              "name": "get",
+              "receiver": "children_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 2479,
+              "name": "get",
+              "receiver": "visited_distance_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 2493,
+              "name": "get",
+              "receiver": "children_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 3456,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 3616,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 4074,
+              "name": "get",
+              "receiver": "children_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 4801,
+              "name": "get",
+              "receiver": "step_ids_by_key",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 4911,
+              "name": "get",
+              "receiver": "owner_argument_indices_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 4917,
+              "name": "get",
+              "receiver": "owner_argument_indices_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 6199,
+              "name": "get",
+              "receiver": "statement_lines_by_reference_number",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 8429,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 9654,
+              "name": "get",
+              "receiver": "required_by_reference",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 9709,
+              "name": "get",
+              "receiver": "required_by_reference",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_reasons.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 1023,
+              "name": "get",
+              "receiver": "reference_applications_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1086,
+              "name": "get",
+              "receiver": "aggregate_kind_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_references.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 1222,
+              "name": "get",
+              "receiver": "number_map",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1457,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1505,
+              "name": "get",
+              "receiver": "consumers_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1650,
+              "name": "get",
+              "receiver": "filtered_original_number_by_new_number",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1660,
+              "name": "get",
+              "receiver": "number_map",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1972,
+              "name": "get",
+              "receiver": "filtered_original_number_by_new_number",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1982,
+              "name": "get",
+              "receiver": "number_map",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 2179,
+              "name": "get",
+              "receiver": "statement_lines_by_reference_number",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_semantics.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 570,
+              "name": "get",
+              "receiver": "edges_by_parent_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 597,
+              "name": "get",
+              "receiver": "edges_by_parent_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 632,
+              "name": "get",
+              "receiver": "edges_by_parent_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 659,
+              "name": "get",
+              "receiver": "edges_by_parent_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 728,
+              "name": "get",
+              "receiver": "edges_by_parent_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1026,
+              "name": "get",
+              "receiver": "_PREMISE_ROLE_BY_RULE_NAME_AND_INDEX",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1041,
+              "name": "get",
+              "receiver": "_STEP_ROLE_BY_CONSUMER_RULE_NAME_AND_INDEX",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1055,
+              "name": "get",
+              "receiver": "step_roles_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1083,
+              "name": "get",
+              "receiver": "step_roles_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_proof_presentation.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_stable_eta_proof_replay.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase162_pi5_3_web_replay.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase164_r4_r1_source_crosswalk.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 64,
+              "name": "get",
+              "receiver": "row",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 65,
+              "name": "get",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase164_r4_r8_registry_reconstruction.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "phase163_r4_registry_bridge",
+            "unified_statement_registry"
+          ],
+          "candidate_calls": [
+            {
+              "line": 104,
+              "name": "assertion",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 105,
+              "name": "reference",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "standard_repository.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "toda_calculation.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 300,
+              "name": "get",
+              "receiver": "_LOW_DIMENSIONAL_TODA_GROUP_SOURCES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 373,
+              "name": "get",
+              "receiver": "_PROP59_CONCRETE_BRANCHES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 660,
+              "name": "get",
+              "receiver": "_STABLE_TODA_GROUP_SOURCES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_lookup.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 95,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_aggregate_semantics.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 132,
+              "name": "get",
+              "receiver": "_AGGREGATE_SEMANTIC_KIND_BY_STATEMENT_TYPE",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_argument_body_renderer.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 278,
+              "name": "get",
+              "receiver": "sources_by_target_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 320,
+              "name": "get",
+              "receiver": "sources_by_target_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 420,
+              "name": "get",
+              "receiver": "sources_by_target_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 484,
+              "name": "get",
+              "receiver": "sources_by_target_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1136,
+              "name": "get",
+              "receiver": "exactness_exposure_by_block_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1218,
+              "name": "get",
+              "receiver": "exactness_exposure_by_block_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1267,
+              "name": "get",
+              "receiver": "exactness_exposure_by_block_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_argument_local_body.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 94,
+              "name": "get",
+              "receiver": "block_index_by_identity",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_contribution_ordering.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 201,
+              "name": "get",
+              "receiver": "premises",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 280,
+              "name": "get",
+              "receiver": "parents",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 335,
+              "name": "get",
+              "receiver": "premises",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 397,
+              "name": "get",
+              "receiver": "parents",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 667,
+              "name": "get",
+              "receiver": "children",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 676,
+              "name": "get",
+              "receiver": "children",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 754,
+              "name": "get",
+              "receiver": "necessity",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 756,
+              "name": "get",
+              "receiver": "step_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 770,
+              "name": "get",
+              "receiver": "distances",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 771,
+              "name": "get",
+              "receiver": "provider_keys_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 833,
+              "name": "get",
+              "receiver": "supporting_block_rank",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1084,
+              "name": "get",
+              "receiver": "selected_by_argument",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_equation_numbering.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 97,
+              "name": "get",
+              "receiver": "sources_by_target",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 134,
+              "name": "get",
+              "receiver": "plain_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 177,
+              "name": "get",
+              "receiver": "plain_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 203,
+              "name": "get",
+              "receiver": "line_index_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 252,
+              "name": "get",
+              "receiver": "step_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_method_evidence.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 95,
+              "name": "get",
+              "receiver": "block_index_by_identity",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_proof_narrative_reason_renderer.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 1211,
+              "name": "get",
+              "receiver": "children_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1237,
+              "name": "get",
+              "receiver": "children_by_step_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_literature_statement_boundary.py",
+          "import_depth": 3,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 1004,
+              "name": "get",
+              "receiver": "_FIXED_COMPONENTS_BY_REFERENCE",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1050,
+              "name": "get",
+              "receiver": "_PHASE157_R5_R3_INTERNAL_RULE_LOCATORS",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 1118,
+              "name": "get",
+              "receiver": "_REFERENCE_LOCATOR_BY_FIXED_RULE_NAME",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_proof_flow_presentation.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 377,
+              "name": "get",
+              "receiver": "outgoing_edges_by_parent_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase162_r3_narrative_connection.py",
+          "import_depth": 4,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 36,
+              "name": "get",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase162_validated_proof_presentation.py",
+          "import_depth": 4,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 175,
+              "name": "get",
+              "receiver": "locator_to_index",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 299,
+              "name": "get",
+              "receiver": "reference_locator_by_number",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 571,
+              "name": "get",
+              "receiver": "reference_number_by_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase163_r3_registry_validation.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "unified_statement_registry"
+          ],
+          "candidate_calls": [
+            {
+              "line": 63,
+              "name": "assertions_for",
+              "receiver": "registry",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 101,
+              "name": "assertion",
+              "receiver": "registry",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 102,
+              "name": "assertion",
+              "receiver": "registry",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 110,
+              "name": "reference",
+              "receiver": "registry",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 111,
+              "name": "reference",
+              "receiver": "registry",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase163_r4_registry_bridge.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "theorem_facts",
+            "unified_statement_registry"
+          ],
+          "candidate_calls": [
+            {
+              "line": 90,
+              "name": "reference",
+              "receiver": "registry",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 149,
+              "name": "entries",
+              "receiver": "proof_repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "bridge-provider"
+        },
+        {
+          "module": "phase164_r4_r6_typed_binding.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "phase163_r4_registry_bridge",
+            "unified_statement_registry"
+          ],
+          "candidate_calls": [
+            {
+              "line": 83,
+              "name": "get",
+              "receiver": "crosswalk",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 84,
+              "name": "get",
+              "receiver": "crosswalk",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 90,
+              "name": "get",
+              "receiver": "typed",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 91,
+              "name": "get",
+              "receiver": "typed",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 92,
+              "name": "get",
+              "receiver": "typed",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 94,
+              "name": "get",
+              "receiver": "crosswalk",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 103,
+              "name": "get",
+              "receiver": "source",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 104,
+              "name": "get",
+              "receiver": "source",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 105,
+              "name": "get",
+              "receiver": "source",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 106,
+              "name": "get",
+              "receiver": "source",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 107,
+              "name": "get",
+              "receiver": "source",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_foundational_group_specialization.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_proof_scope.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 102,
+              "name": "entries",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 237,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_calculation_goal_discovery.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 33,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_calculation_goal_normalization.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "unified_statement_registry.py",
+          "import_depth": 4,
+          "direct_provider_imports": [],
+          "candidate_calls": [],
+          "classification": "registry-provider"
+        },
+        {
+          "module": "phase164_r4_r3_independent_semantic_audit.py",
+          "import_depth": 5,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 41,
+              "name": "get",
+              "receiver": "crosswalk",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 41,
+              "name": "get",
+              "receiver": "row",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 46,
+              "name": "get",
+              "receiver": "row",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 47,
+              "name": "get",
+              "receiver": "row",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 48,
+              "name": "get",
+              "receiver": "row",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 49,
+              "name": "get",
+              "receiver": "row",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_calculation_goal_extraction.py",
+          "import_depth": 5,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "phase164_r4_r2_semantic_structure.py",
+          "import_depth": 6,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 52,
+              "name": "get",
+              "receiver": "crosswalk",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        }
+      ]
+    },
+    "generator": {
+      "entry_files": [
+        "web_generator_proof.py",
+        "repository_generator_known_group_proof_replay.py",
+        "repository_generator_known_group_identity_lookup.py"
+      ],
+      "reachable_module_count": 59,
+      "candidates": [
+        {
+          "module": "repository_generator_known_group_identity_lookup.py",
+          "import_depth": 0,
+          "direct_provider_imports": [
+            "proof_repository",
+            "standard_production_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 342,
+              "name": "build_standard_production_proof_repository",
+              "receiver": null,
+              "import_origin": "standard_production_repository",
+              "certainty": "import_bound"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "generator_input.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 79,
+              "name": "get",
+              "receiver": "_DECORATED_GENERATOR_ALIASES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 87,
+              "name": "get",
+              "receiver": "_FAMILY_ALIASES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 108,
+              "name": "get",
+              "receiver": "_FAMILY_ALIASES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "proof_repository.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "repository_proof_scope.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 102,
+              "name": "entries",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 237,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "standard_production_repository.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository",
+            "standard_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 24,
+              "name": "build_standard_proof_repository",
+              "receiver": null,
+              "import_origin": "standard_repository",
+              "certainty": "import_bound"
+            }
+          ],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "toda_group_lookup.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 95,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_human_readable_renderer.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 168,
+              "name": "get",
+              "receiver": "_GREEK_LATEX",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_element_exploration.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_element_lookup.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 140,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 173,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "standard_repository.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "toda_end_to_end_presentation.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_result.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_proof_presentation.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_calculation_goal.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_proof_flow_presentation.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 377,
+              "name": "get",
+              "receiver": "outgoing_edges_by_parent_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        }
+      ]
+    },
+    "operation": {
+      "entry_files": [
+        "web_operation_query_proof.py",
+        "repository_operation_query_facade.py",
+        "repository_operation_query_lookup.py",
+        "repository_operation_query_proof_replay.py"
+      ],
+      "reachable_module_count": 66,
+      "candidates": [
+        {
+          "module": "repository_operation_query_facade.py",
+          "import_depth": 0,
+          "direct_provider_imports": [
+            "proof_repository",
+            "standard_production_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 85,
+              "name": "build_standard_production_proof_repository",
+              "receiver": null,
+              "import_origin": "standard_production_repository",
+              "certainty": "import_bound"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_operation_query_lookup.py",
+          "import_depth": 0,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "proof_repository.py",
+          "import_depth": 1,
+          "direct_provider_imports": [],
+          "candidate_calls": [],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "repository_nu5_eta8_suspension_zero_specialization.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_nu5_stable_bridge_specialization.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_nu_prime_suspension_membership_specialization.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_proof_scope.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 102,
+              "name": "entries",
+              "receiver": null,
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 237,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_sigma11_suspension_specialization.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "standard_production_repository.py",
+          "import_depth": 1,
+          "direct_provider_imports": [
+            "proof_repository",
+            "standard_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 24,
+              "name": "build_standard_proof_repository",
+              "receiver": null,
+              "import_origin": "standard_repository",
+              "certainty": "import_bound"
+            }
+          ],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "generator_input.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 79,
+              "name": "get",
+              "receiver": "_DECORATED_GENERATOR_ALIASES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 87,
+              "name": "get",
+              "receiver": "_FAMILY_ALIASES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 108,
+              "name": "get",
+              "receiver": "_FAMILY_ALIASES",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "standard_repository.py",
+          "import_depth": 2,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "repository-provider"
+        },
+        {
+          "module": "toda_human_readable_renderer.py",
+          "import_depth": 2,
+          "direct_provider_imports": [],
+          "candidate_calls": [
+            {
+              "line": 168,
+              "name": "get",
+              "receiver": "_GREEK_LATEX",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_element_exploration.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "repository_element_lookup.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 140,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            },
+            {
+              "line": 173,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_calculation_goal.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_end_to_end_presentation.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_result.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_proof_presentation.py",
+          "import_depth": 3,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_group_lookup.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 95,
+              "name": "entries",
+              "receiver": "repository",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        },
+        {
+          "module": "toda_proof_flow_presentation.py",
+          "import_depth": 4,
+          "direct_provider_imports": [
+            "proof_repository"
+          ],
+          "candidate_calls": [
+            {
+              "line": 377,
+              "name": "get",
+              "receiver": "outgoing_edges_by_parent_id",
+              "import_origin": null,
+              "certainty": "candidate_unresolved_receiver"
+            }
+          ],
+          "classification": "candidate-needs-manual-review"
+        }
+      ]
+    }
+  },
+  "related_tests": {
+    "group": [
+      "tests/test_phase131_3_group_result_proof_replay.py",
+      "tests/test_phase131_5_web_group_proof.py",
+      "tests/test_phase132_4_group_proof_presentation.py",
+      "tests/test_phase132_5_group_proof_outline_renderer.py",
+      "tests/test_phase132_6_group_proof_narrative_renderer.py",
+      "tests/test_phase132_8_group_proof_narrative_dedup.py",
+      "tests/test_phase132_9_web_group_proof_modes.py",
+      "tests/test_phase134_11_classifier.py",
+      "tests/test_phase134_14_presentation_helpers.py",
+      "tests/test_phase134_16_classifier_regression.py",
+      "tests/test_phase134_20_classifier_audit_scope.py",
+      "tests/test_phase134_21_pi15_8_roles.py",
+      "tests/test_phase134_24_pi15_8_narrative.py",
+      "tests/test_phase134_24_v2_raw_group_renderer.py",
+      "tests/test_phase134_9_group_proof_narrative_classifier.py",
+      "tests/test_phase135_1_web_narrative_display_math.py",
+      "tests/test_phase135_2_web_narrative_inline_formatting.py",
+      "tests/test_phase141_4_narrative_semantics.py",
+      "tests/test_phase141_5_narrative_blocks_semantics.py",
+      "tests/test_phase141_6_block_audit.py",
+      "tests/test_phase141_8_general_roles.py",
+      "tests/test_phase141_9_final_audit.py",
+      "tests/test_phase141_narrative_blocks.py",
+      "tests/test_phase142_2_generic_narrative_renderer.py",
+      "tests/test_phase142_3_generic_proof_text.py",
+      "tests/test_phase143_10_fix1_compatibility.py",
+      "tests/test_phase143_10_local_argument_boundaries.py",
+      "tests/test_phase143_12_purpose_subject.py",
+      "tests/test_phase143_19_method_evidence.py",
+      "tests/test_phase143_1_generic_proof_order.py",
+      "tests/test_phase143_1a_semantic_dependency.py",
+      "tests/test_phase143_1b_semantic_proof_order.py",
+      "tests/test_phase143_2_generic_short_exact_sequence.py",
+      "tests/test_phase143_3_generic_eta_normalization.py",
+      "tests/test_phase143_75c_generic_semantic_rendering.py",
+      "tests/test_phase143_75f_ehp_semantic_rendering.py",
+      "tests/test_phase143_75i_whitehead_hopf_semantic_rendering.py",
+      "tests/test_phase143_75m_finite_dimensional_semantic_rendering.py",
+      "tests/test_phase143_75p_prop44_suspension_injective_semantic_rendering.py",
+      "tests/test_phase143_75s_toda58_whitehead_square_semantic_rendering.py",
+      "tests/test_phase143_7_narrative_arguments.py",
+      "tests/test_phase143_8_argument_audit.py",
+      "tests/test_phase144_2_sigma_triple_prime_definition.py",
+      "tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py",
+      "tests/test_phase144_6_r25_9b_nu_prime_definition_depth2.py",
+      "tests/test_phase144_6_r3_production_references.py",
+      "tests/test_phase144_6_r5_15m_evidence_contributions.py",
+      "tests/test_phase144_6_r5_15p_evidence_contribution_vocabulary.py",
+      "tests/test_phase144_6_r5_15t_aggregate_semantics.py",
+      "tests/test_phase144_6_r5_15u_evidence_integration.py",
+      "tests/test_phase144_6_r5_15u_r1_evidence_integration.py",
+      "tests/test_phase144_6_r5_18_production_generic_proof_chain_foundation.py",
+      "tests/test_phase145_group_proof_defaults.py",
+      "tests/test_phase148_rc2_4_repair_r3_web_unit_parity_audit.py",
+      "tests/test_phase148_rc2_4_repair_r4_1_numbered_equation_dependency_audit.py",
+      "tests/test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py",
+      "tests/test_phase148_rc2_4_repair_r4_web_narrative_depth_parity.py",
+      "tests/test_phase148_rc2_5_semantic_closure_scope.py",
+      "tests/test_phase150_rc4_7a_cross_group_reference_normalization.py",
+      "tests/test_phase150_rc4_7d_3_public_narrative_generic_route.py",
+      "tests/test_phase153_closure_repair_r13.py",
+      "tests/test_phase153_closure_repair_r13_syntax_repair_r1.py",
+      "tests/test_phase153_r10_used_reference_filtering.py",
+      "tests/test_phase153_r11_generic_reference_attribution_filtering.py",
+      "tests/test_phase153_r12_root_reference_exclusion.py",
+      "tests/test_phase153_r2_public_reference_semantic_fact.py",
+      "tests/test_phase153_r2_toda45_map_property_semantic.py",
+      "tests/test_phase153_r3_10_public_reference_connection_repair.py",
+      "tests/test_phase153_r3_11_reference_body_ownership_repair.py",
+      "tests/test_phase153_r3_4_reference_statement_rendering_connection.py",
+      "tests/test_phase153_r3_5_reference_body_duplicate_suppression.py",
+      "tests/test_phase153_r3_6_unresolved_reference_statement_rendering.py",
+      "tests/test_phase153_r3_9_remaining_reference_renderer_coverage.py",
+      "tests/test_phase153_r6_aggregate_component_granularity.py",
+      "tests/test_phase153_r6_reference_granularity.py",
+      "tests/test_phase153_r7_independent_root_path.py",
+      "tests/test_phase153_r7_proof_body_relevance.py",
+      "tests/test_phase153_r7_sibling_boundary.py",
+      "tests/test_phase153_r8_reference_use_prose_normalization.py",
+      "tests/test_phase153_r9_reference_reuse_derivation_suppression.py",
+      "tests/test_phase153_scalar_order_narrative_classification.py",
+      "tests/test_phase154_r2_fix2_semantic_sentence_composition.py",
+      "tests/test_phase154_r2_fix3_reference_marker_completion.py",
+      "tests/test_phase154_r2_fixed1_nu4_decomposition_semantic_prose.py",
+      "tests/test_phase154_r2_internal_prose_fallback_leakage.py",
+      "tests/test_phase154_r4_semantic_duplication_transition_refinement.py",
+      "tests/test_phase154_r5_fix1_graph_backed_reference_linkage.py",
+      "tests/test_phase154_r5_fix1_repair1_reference_entry_frontier_linkage.py",
+      "tests/test_phase154_r5_fix1_repair2_legacy_route_linkage.py",
+      "tests/test_phase154_r6_1_repair3_ascii_period_policy.py",
+      "tests/test_phase154_r6_2_ascii_comma_normalization.py",
+      "tests/test_phase154_r6_2_repair1_missing_shared_sources.py",
+      "tests/test_phase154_r6_2_repair2_equation_numbering.py",
+      "tests/test_phase156_r5_reference_attribution_separation.py",
+      "tests/test_phase156_r5_repair10_owned_step_line_suppression.py",
+      "tests/test_phase156_r5_repair11_reference_dependency_pruning.py",
+      "tests/test_phase156_r5_repair12_reference_frontier.py",
+      "tests/test_phase156_r5_repair13_root_reference_frontier.py",
+      "tests/test_phase156_r5_repair2_lemma52_specialization_attribution.py",
+      "tests/test_phase156_r5_repair3_eta3_zero_attribution.py",
+      "tests/test_phase156_r5_repair6_reference_boundary_collapse.py",
+      "tests/test_phase156_r5_repair7_reference_boundary_filter_order.py",
+      "tests/test_phase156_r5_repair8_reference_owned_ancestor_closure.py",
+      "tests/test_phase156_r5_repair9_test_contract_after_boundary_collapse.py",
+      "tests/test_phase156_r6_canonical_connector_local_ordering.py",
+      "tests/test_phase156_r6_repair1_relation_side_normalization.py",
+      "tests/test_phase156_r6_repair2_independent_relation_side_normalization.py",
+      "tests/test_phase157_r11_proof_body_relevance.py",
+      "tests/test_phase157_r11_r17_residual_narrative_defects.py",
+      "tests/test_phase157_r11_reference_reason_punctuation.py",
+      "tests/test_phase157_r19_pi6_3_reference_dependency_restoration.py",
+      "tests/test_phase157_r20_generic_dependency_rendering.py",
+      "tests/test_phase157_r20_repair10_reference_local_specialization.py",
+      "tests/test_phase157_r20_repair12_map_property_reference_support.py",
+      "tests/test_phase157_r20_repair14_late_surjectivity_reference_support.py",
+      "tests/test_phase157_r20_repair16_proof_order_and_cleanup.py",
+      "tests/test_phase157_r20_repair18_eta_bridge_consumer_anchor.py",
+      "tests/test_phase157_r20_repair22_hide_rendered_reflexive_steps.py",
+      "tests/test_phase157_r20_repair24_robust_reflexive_filter_placement.py",
+      "tests/test_phase157_r20_repair26_reflexive_helper_and_relocated_filter.py",
+      "tests/test_phase157_r20_repair28_match_step_level_eta_normalization.py",
+      "tests/test_phase157_r20_repair30_final_reflexive_suppression.py",
+      "tests/test_phase157_r20_repair31_reference_period_and_stale_frontier_tests.py",
+      "tests/test_phase157_r20_repair32_exactness_intro_anchor.py",
+      "tests/test_phase157_r20_repair33_eta_bridge_before_visible_premises.py",
+      "tests/test_phase157_r20_repair35_reference_aware_eta_bridge_anchor.py",
+      "tests/test_phase157_r20_repair37_short_exact_after_map_support.py",
+      "tests/test_phase157_r20_repair39_map_type_name_fallback.py",
+      "tests/test_phase157_r20_repair42_repeated_reference_restatements.py",
+      "tests/test_phase157_r20_repair43_dangling_connector_cleanup.py",
+      "tests/test_phase157_r20_repair45_relation_dependency_and_unique_step_dedup.py",
+      "tests/test_phase157_r20_repair47_injective_image_order_reason.py",
+      "tests/test_phase157_r20_repair48_injective_image_reason_ordering.py",
+      "tests/test_phase157_r20_repair53_display_closing_fragment_normalization.py",
+      "tests/test_phase157_r20_repair53_r3_fixed_reference_attribution.py",
+      "tests/test_phase157_r20_repair53_r3c_legacy_reference_marker_remapping.py",
+      "tests/test_phase157_r20_repair6_descendant_reference_usage.py",
+      "tests/test_phase157_r20_repair7_fixed_aggregate_carriers.py",
+      "tests/test_phase157_r20_repair8_reference_alias_descendants.py",
+      "tests/test_phase157_r3_pi6_3_reference_boundary.py",
+      "tests/test_phase157_r3_repair3_recursive_internal_recovery.py",
+      "tests/test_phase157_r5_r10_reference_proof_boundary_qed.py",
+      "tests/test_phase157_r5_r6_53_bracket_definition_reference.py",
+      "tests/test_phase157_r5_r7_reference_definition_consequence_rendering.py",
+      "tests/test_phase157_r5_r9_fixed_definition_body_suppression.py",
+      "tests/test_phase158_r4_equation_numbering_and_prose.py",
+      "tests/test_phase158_r5_3_public_narrative_single_route.py",
+      "tests/test_phase158_r5_5b_public_generic_order_route.py",
+      "tests/test_phase159_exactness_map_property_public_dedup.py",
+      "tests/test_phase159_pi3_2_exactness_reason_locality.py",
+      "tests/test_phase159_pi3_2_semantic_numbered_map_property_reasoning_repair25.py",
+      "tests/test_phase159_pi3_2_visible_dependency_topological_order.py",
+      "tests/test_phase159_pi4_3_repair2g_reference_policy.py",
+      "tests/test_phase159_pi4_3_repair3c_provider_ancestry_contributions.py",
+      "tests/test_phase159_r1_2_hopf_injective_dependency_role.py",
+      "tests/test_phase159_r1_2_hopf_isomorphism_dependency_role.py",
+      "tests/test_phase159_r1_2_pi3_2_closure.py",
+      "tests/test_phase159_r1_2_pi3_2_narrative_repair.py",
+      "tests/test_phase159_r1_6a_foundational_reference_identity.py",
+      "tests/test_phase159_r1_6b_toda51_attribution.py",
+      "tests/test_phase159_r1_6c_source_faithful_reference_linkage.py",
+      "tests/test_phase159_r1_6d_specialization_reference_linkage_finalization.py",
+      "tests/test_phase159_r1_6d_target_group_fact_order.py",
+      "tests/test_phase159_r1_7b_exact_sequence_display_order.py",
+      "tests/test_phase159_r1_7b_repair14_map_property_anchor.py",
+      "tests/test_phase159_r1_7b_repair15_subsumed_exactness.py",
+      "tests/test_phase159_r1_7c_r2_equality_transitivity_collapse.py",
+      "tests/test_phase159_r1_7c_r2_repair2_restore_pipeline.py",
+      "tests/test_phase159_r1_7c_r2_repair3_projected_chain_match.py",
+      "tests/test_phase159_r1_7c_r2_repair6_semantic_rendered_equality_chain.py",
+      "tests/test_phase159_r1_7c_r3_known_result_direct_premise_specialization.py",
+      "tests/test_phase159_r1_7c_r3_repair4_reference_component_pruning.py",
+      "tests/test_phase159_r1_7c_r4_equation_reference_order_repair1.py",
+      "tests/test_phase159_r1_7c_r4_exact_sequence_subsequence_suppression_repair1.py",
+      "tests/test_phase159_r1_7c_r4_generator_canonicalization_repair1.py",
+      "tests/test_phase159_r1_7c_r4_map_property_dearu_public_normalization.py",
+      "tests/test_phase159_r1_7c_r4_map_property_numbered_reasoning_repair1.py",
+      "tests/test_phase159_r1_7c_r4_repair6_residual_proof_prose_normalization.py",
+      "tests/test_phase161_pi4_2_restored_reference_relink.py",
+      "tests/test_phase161_r4_pi4_2_specialization_frontier.py",
+      "tests/test_phase161_r4_r3_fixed_frontier_internal_ancestry.py",
+      "tests/test_phase161_r4_r4_restore_global_frontier.py",
+      "tests/test_phase161_r4_r5_pi4_3_prop51_reference_linkage.py",
+      "tests/test_phase161_r4_r5_repair11_effective_reference_source_component.py",
+      "tests/test_phase161_r4_r5_repair12_fixed_component_source_resolution.py",
+      "tests/test_phase161_r4_r5_repair13_reference_selection_source_binding.py",
+      "tests/test_phase161_r4_r5_repair14_reference_locator_dedup.py",
+      "tests/test_phase161_r4_r5_repair16_prop51_higher_eta_fixed_boundary.py",
+      "tests/test_phase161_r4_r5_repair3_reference_self_marker_relink.py",
+      "tests/test_phase161_r4_r5_repair4_zero_marker_consumer_linkage.py",
+      "tests/test_phase161_r4_r5_repair6_backward_self_marker_relink.py",
+      "tests/test_phase161_r4_r5_repair9a_final_public_reference_relink.py",
+      "tests/test_phase161_r4_repair1_pi4_2_semantic_frontier.py",
+      "tests/test_phase162_r4_b3_web_common_display.py",
+      "tests/test_phase162_r5_web_integration.py",
+      "tests/test_phase164_r5_r1_common_renderer.py",
+      "tests/test_phase164_r5_r2_unified_web_display.py",
+      "tests/test_phase164_r5_web_registry_connection.py"
+    ],
+    "generator": [
+      "tests/test_phase109_10_existing_fact_known_group_identity_validation.py",
+      "tests/test_phase109_12_nu5_proof_derived_ambient_fallback.py",
+      "tests/test_phase109_14_decorated_sigma_finite_cyclic_fallback.py",
+      "tests/test_phase109_16_sigma8_direct_sum_fallback.py",
+      "tests/test_phase109_18_sigma9_indexed_finite_cyclic_fallback.py",
+      "tests/test_phase109_20_sigma10_concrete_specialization.py",
+      "tests/test_phase109_22_generic_indexed_sigma_specialization.py",
+      "tests/test_phase109_24_generic_indexed_sigma_proof_scope_integration.py",
+      "tests/test_phase109_29_known_group_proof_replay_cli.py",
+      "tests/test_phase109_31_known_group_replay_narrow_rendering.py",
+      "tests/test_phase109_3_recursive_known_group_identity_lookup.py",
+      "tests/test_phase109_4_known_group_identity_presentation_renderer.py",
+      "tests/test_phase111_10_proof_replay_depth_cli.py",
+      "tests/test_phase111_12_deep_show_proof_safe_fallback.py",
+      "tests/test_phase120_2_web_generator_proof.py",
+      "tests/test_phase122_4_web_generator_proof_scope.py"
+    ],
+    "operation": [
+      "tests/test_phase110_10_operation_query_proof_replay.py",
+      "tests/test_phase110_10_operation_query_proof_replay_cli.py",
+      "tests/test_phase110_12_operation_query_proof_replay_statement_presentation.py",
+      "tests/test_phase110_5_minimal_operation_query_core.py",
+      "tests/test_phase110_8_operation_query_result_presentation.py",
+      "tests/test_phase111_10_proof_replay_depth_cli.py",
+      "tests/test_phase111_9_three_term_composition_query.py",
+      "tests/test_phase114_3_nu5_operation_query_handoff.py",
+      "tests/test_phase115_sigma11_operation_query_handoff.py",
+      "tests/test_phase118_4_depth_browser_usability.py",
+      "tests/test_phase118_web_operation_query_proof.py",
+      "tests/test_phase128_nu5_eta8_operation_query_handoff.py",
+      "tests/test_phase129_nu_prime_operation_query_handoff.py"
+    ]
+  },
+  "local_r7_files": [
+    "phase164_r7_statement_resolution",
+    "tests/test_phase164_r7_statement_resolution"
+  ],
+  "full_pytest_run": false,
+  "production_modified": false,
+  "deletion_authorized": false
+}
