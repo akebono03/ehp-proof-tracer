@@ -1,0 +1,87 @@
+{
+  "phase": "164 R4-R4",
+  "mode": "READ_ONLY_CITATION_EVIDENCE_GAPS",
+  "status": "BLOCKED_PENDING_ORIGINAL_SCOPE_AND_AVAILABILITY_EVIDENCE",
+  "source_archive_proof_eligible_count": 0,
+  "typed_checks_passed": 5,
+  "source_locator_candidates": 2,
+  "evidence_authenticated_count": 0,
+  "original_edition_verified": false,
+  "publication_and_availability_verified": false,
+  "typed_binding_written": false,
+  "citation_eligible": false,
+  "proof_search_connected": false,
+  "production_modified": false,
+  "full_pytest_run": false,
+  "leaves": [
+    {
+      "leaf": "prop51_finite_dimensional",
+      "source_statement_id": "toda:tex:ch5:0002",
+      "source_locator": "Proposition 5.1",
+      "source_file": "Toda_05_2.tex",
+      "source_start_line": 193,
+      "source_sha256": "b942edc5b1ea65b61e27588210505933055b341ef42260e4a2ce398d44f5b772",
+      "translated_source_position": 78,
+      "translated_position_scope": "SOURCE_TEX_ORDER_NOT_ORIGINAL_EDITION",
+      "typed_clause_checks": {
+        "pi3_2_free_cyclic_eta2": true,
+        "eta2_hopf_iota3": true,
+        "delta_iota5_up_to_sign_twice_eta2": true,
+        "higher_eta_symbolic_family_structure": true
+      },
+      "typed_structure_consistent": true,
+      "recorded_external_evidence_not_authenticated": {
+        "original_edition_statement_checked": false,
+        "typed_clause_semantics_independently_reviewed": false,
+        "application_scope_reviewed": false,
+        "reference_availability_independently_established": false,
+        "citing_context_position_established": false,
+        "proof_root_trust_boundary_reviewed": false
+      },
+      "unverified_prerequisites": [
+        "original_edition_statement_checked",
+        "typed_clause_semantics_independently_reviewed",
+        "application_scope_reviewed",
+        "reference_availability_independently_established",
+        "citing_context_position_established",
+        "proof_root_trust_boundary_reviewed"
+      ],
+      "citing_context": "pi_5^3 backward reconstruction; not a verified literature publication position",
+      "reference_available_after_position": null,
+      "citation_status": "BLOCKED_PENDING_INDEPENDENT_EVIDENCE"
+    },
+    {
+      "leaf": "nu_prime_hopf",
+      "source_statement_id": "toda:tex:ch5:0005",
+      "source_locator": "(5.3)",
+      "source_file": "Toda_05_2.tex",
+      "source_start_line": 349,
+      "source_sha256": "f949b19909fdd4f60f562b1daa4b121a621a4e7a32b5461f770e1e80ada6d3f2",
+      "translated_source_position": 81,
+      "translated_position_scope": "SOURCE_TEX_ORDER_NOT_ORIGINAL_EDITION",
+      "typed_clause_checks": {
+        "nu_prime_hopf_eta5": true
+      },
+      "typed_structure_consistent": true,
+      "recorded_external_evidence_not_authenticated": {
+        "original_edition_statement_checked": false,
+        "typed_clause_semantics_independently_reviewed": false,
+        "application_scope_reviewed": false,
+        "reference_availability_independently_established": false,
+        "citing_context_position_established": false,
+        "proof_root_trust_boundary_reviewed": false
+      },
+      "unverified_prerequisites": [
+        "original_edition_statement_checked",
+        "typed_clause_semantics_independently_reviewed",
+        "application_scope_reviewed",
+        "reference_availability_independently_established",
+        "citing_context_position_established",
+        "proof_root_trust_boundary_reviewed"
+      ],
+      "citing_context": "pi_5^3 backward reconstruction; not a verified literature publication position",
+      "reference_available_after_position": null,
+      "citation_status": "BLOCKED_PENDING_INDEPENDENT_EVIDENCE"
+    }
+  ]
+}
