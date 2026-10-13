@@ -12248,7 +12248,6 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     )
   )
-
   if stable_transport_narrative is not None:
     return stable_transport_narrative
 
@@ -12258,9 +12257,12 @@ def render_toda_group_proof_narrative_markdown(
     )
   )
   from phase164_r9_narrative_contract import normalize_public_narrative_contract
-  return normalize_public_narrative_contract(
+  rendered = normalize_public_narrative_contract(
     suppress_toda_group_proof_narrative_dangling_connectors(
       rendered
     )
   )
+  # phase165_r43_shared_narrative_enrichment
+  from phase165_r14_r43_reference_reason import enrich_common_narrative
+  return enrich_common_narrative(presentation, rendered)
 

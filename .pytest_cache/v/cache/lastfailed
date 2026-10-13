@@ -332,5 +332,6 @@
   "phase165_r14_r41_proof_transfer/test_phase165_r14_r41_proof_transfer.py::test_narrative_depth_expands_past_user_depth_when_needed": true,
   "phase165_r14_r41_proof_transfer/test_phase165_r14_r41_proof_transfer.py::test_same_proof_goal_and_real_common_presentation": true,
   "phase165_r14_r41_proof_transfer/test_phase165_r14_r41_proof_transfer.py::test_common_renderer_handles_complete_replay": true,
-  "phase165_r14_r41_proof_transfer/test_phase165_r14_r41_proof_transfer.py::test_transfer_audit_has_no_false_reference_display_claim": true
+  "phase165_r14_r41_proof_transfer/test_phase165_r14_r41_proof_transfer.py::test_transfer_audit_has_no_false_reference_display_claim": true,
+  "phase165_r14_r43_installer_fix/test_phase165_r14_r43_reference_reason.py::test_public_narrative_has_nonempty_references": true
 }
