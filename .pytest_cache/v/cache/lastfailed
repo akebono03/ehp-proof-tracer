@@ -1,5 +1,6 @@
 {
   "tests/test_phase164_r5_r2_unified_web_display.py::test_pi53_common_narrative_is_renderable": true,
   "phase165_r14_r6_generic_iso/test_phase165_r14_r6_generic_iso.py::test_generic_mono_epi_is_iso": true,
-  "phase165_r14_r6_generic_iso/test_phase165_r14_r6_generic_iso.py::test_generic_cyclic_transport": true
+  "phase165_r14_r6_generic_iso/test_phase165_r14_r6_generic_iso.py::test_generic_cyclic_transport": true,
+  "phase165_r14_r7_map_discovery/test_phase165_r14_r7_map_discovery.py::test_inverse_transport_uses_verified_steps_only_when_provided": true
 }

@@ -1,0 +1,14 @@
+{
+  "phase": "165 R14-R7",
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "hopf_structural_candidate_count": 1,
+  "candidate_maps": [
+    "TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3))"
+  ],
+  "candidate_status": "NOT_CERTIFIED",
+  "root_expansions_without_registered_premises": 0,
+  "proof_steps_created": 0,
+  "verified_generator_images": 0,
+  "full_pytest_run": false,
+  "status": "HOPF_MAP_CANDIDATE_FOUND_PREMISES_MISSING"
+}
