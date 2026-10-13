@@ -4,5 +4,7 @@
   "phase165_r14_r6_generic_iso/test_phase165_r14_r6_generic_iso.py::test_generic_cyclic_transport": true,
   "phase165_r14_r7_map_discovery/test_phase165_r14_r7_map_discovery.py::test_inverse_transport_uses_verified_steps_only_when_provided": true,
   "phase165_r14_r8_source_link/test_phase165_r14_r8_source_link.py::test_diagonal_uses_toda51_adjacent_clause": true,
-  "phase165_r14_r8_source_link/test_phase165_r14_r8_source_link.py::test_root_expansion_has_three_unverified_obligations": true
+  "phase165_r14_r8_source_link/test_phase165_r14_r8_source_link.py::test_root_expansion_has_three_unverified_obligations": true,
+  "phase165_r14_r27_scope_delta/test_phase165_r14_r27_scope_delta.py::test_detect_explicit_exclusion_in_context": true,
+  "phase165_r14_r27_scope_delta/test_phase165_r14_r27_scope_delta.py::test_production_remains_fail_closed": true
 }
