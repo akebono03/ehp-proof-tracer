@@ -1,0 +1,80 @@
+{
+  "phase": "165 R46 READ_ONLY",
+  "stages": {
+    "baseline": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": false,
+      "has_reference_section": false,
+      "has_proof_section": false
+    },
+    "contract": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    },
+    "wording": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    },
+    "reduced": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    },
+    "linked": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    },
+    "final": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    },
+    "final_relinked": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    },
+    "final_relinked_normalized": {
+      "exactness_connector_count": 0,
+      "changed_from_baseline": true,
+      "has_reference_section": true,
+      "has_proof_section": true
+    }
+  },
+  "exactness_proofsteps": [
+    {
+      "statement_type": "MapInjective",
+      "inference_rule": "EHP: preceding zero group and exactness imply Hopf injectivity",
+      "generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.",
+      "expected_match_key": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.",
+      "matching_lines_before_linker": []
+    },
+    {
+      "statement_type": "MapSurjective",
+      "inference_rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射である.",
+      "expected_match_key": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射.",
+      "matching_lines_before_linker": []
+    },
+    {
+      "statement_type": "TodaDeltaZeroStatement",
+      "inference_rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+      "generic": "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+      "expected_match_key": "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像.",
+      "matching_lines_before_linker": []
+    }
+  ],
+  "linker_changes_final_output": false,
+  "public_normalizer_removes_relinked_connector": false,
+  "sources_modified": false,
+  "full_pytest_run": false
+}
