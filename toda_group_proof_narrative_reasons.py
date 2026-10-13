@@ -343,14 +343,16 @@ def _exactness_to_map_property_reason(
       None,
     )
 
-  if isinstance(
-    conclusion,
-    injective_types,
+  # Phase 165 R48: the generic statement variants share the same
+  # map and exactness prerequisites as the established Toda variants.
+  if (
+    isinstance(conclusion, injective_types)
+    or type(conclusion).__name__ == "MapInjective"
   ):
     conclusion_kind = "injective"
-  elif isinstance(
-    conclusion,
-    surjective_types,
+  elif (
+    isinstance(conclusion, surjective_types)
+    or type(conclusion).__name__ == "MapSurjective"
   ):
     conclusion_kind = "surjective"
   else:
