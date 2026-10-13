@@ -1,0 +1,98 @@
+{
+  "phase": "165 R14-R37",
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "frontier_leaf_count": 9,
+  "adopted_backward_proof_created": true,
+  "strict_registry_proof_created": false,
+  "strict_unresolved_reason": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+  "uncertified_leaf_count": 9,
+  "exact_source_id_unresolved_count": 1,
+  "registry_assertions_promoted": 0,
+  "existing_completed_proof_replay_used": false,
+  "phase165_closed": false,
+  "full_pytest_run": false,
+  "status": "PHASE165_CLOSURE_BLOCKED_ON_SOURCE_CERTIFICATION",
+  "leaves": [
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "locator": "(5.1)",
+      "source_id": "phase163:archive:toda:(5.1)",
+      "source_archive_present": false,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "locator": "Proposition 5.1",
+      "source_id": "UNRESOLVED_EXACT_REGISTRY_ID",
+      "source_archive_present": false,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "EXACT_SOURCE_ID_UNRESOLVED"
+    },
+    {
+      "goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "locator": "(5.1)",
+      "source_id": "phase163:archive:toda:(5.1)",
+      "source_archive_present": false,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "locator": "Proposition 4.2",
+      "source_id": "phase163:archive:toda:tex:ch4:0005",
+      "source_archive_present": true,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+      "locator": "Proposition 4.2",
+      "source_id": "phase163:archive:toda:tex:ch4:0005",
+      "source_archive_present": true,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "locator": "Proposition 4.2",
+      "source_id": "phase163:archive:toda:tex:ch4:0005",
+      "source_archive_present": true,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "locator": "(5.1)",
+      "source_id": null,
+      "source_archive_present": false,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "locator": "(5.1)",
+      "source_id": null,
+      "source_archive_present": false,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "SOURCE_ARCHIVE_NOT_VERIFIED"
+    },
+    {
+      "goal": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+      "locator": "Foundational",
+      "source_id": null,
+      "source_archive_present": false,
+      "adopted_step_available": true,
+      "strict_eligible": false,
+      "blocker": "FOUNDATIONAL_REVIEW"
+    }
+  ]
+}
