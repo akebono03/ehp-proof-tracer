@@ -69,6 +69,15 @@ def search_group_structure_automatically(
     make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
     group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
     if discovery is None:
+        from toda_calculation_facade import build_standard_toda_report
+        from toda_calculation_result import TodaCalculationStatus
+        from phase165_r52_r9_shared_math import search_shared_group_goal
+        report = build_standard_toda_report(n=n, k=k)
+        if report.status is TodaCalculationStatus.FOUND and len(report.candidates) == 1:
+            group_result = report.candidates[0].source_candidate.group_result
+            return search_shared_group_goal(
+                n=n, k=k, group_structure=group_result.group_structure,
+            )
         from phase165_r9_production_wiring import discover_goal_search_inputs
         discovery = discover_goal_search_inputs()
     bridge = discovery.bridge

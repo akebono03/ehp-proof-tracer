@@ -58,7 +58,39 @@ def build_registered_common_replay(
     if mode not in ("trace", "outline", "narrative"):
         raise ValueError("mode must be trace, outline, or narrative")
     if providers is None:
-        providers = registered_proof_providers()
+        from phase165_r52_r9_shared_math import search_shared_group_goal
+        from phase165_goal_only_search import GoalSearchIncompleteError
+        generated = search_shared_group_goal(
+            n=group_result.target.sphere_dimension,
+            k=(group_result.target.group_dimension - group_result.target.sphere_dimension),
+            group_structure=group_result.group_structure,
+        )
+        from phase165_r52_partial_proof import ProofSearchStatus
+        if generated.status is not ProofSearchStatus.COMPLETE:
+            raise GoalSearchIncompleteError(
+                "; ".join(generated.diagnostics) or "typed proof is incomplete"
+            )
+        root = next(
+            (step for step in generated.proven_steps
+             if step.conclusion == generated.conclusion), None
+        )
+        if root is None or root.rule is not ProofRule.INFERENCE:
+            raise GoalSearchIncompleteError("completed proof is not an inference")
+        group = group_result.target
+        key = f"phase165:registered:pi{group.group_dimension}_{group.sphere_dimension}"
+        source_entry = replace(
+            group_result.source_entry,
+            key=key, step=root, phase="165",
+            theorem="Toda (5.1); Proposition 4.2; Proposition 5.1",
+        )
+        adapted = replace(group_result, source_entry=source_entry, proof_step=root)
+        if mode == "narrative":
+            provenance = extract_toda_recursive_proof_provenance(adapted)
+            full_depth = max(node.shortest_depth for node in provenance.nodes)
+            depth = max(max_depth, full_depth)
+        else:
+            depth = max_depth
+        return build_toda_group_result_proof_replay(adapted, max_depth=depth)
     if not isinstance(providers, tuple) or not all(
         isinstance(candidate, RegisteredProofProvider) for candidate in providers
     ):
