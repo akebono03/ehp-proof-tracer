@@ -12,8 +12,8 @@ def build_phase164_r5_r2_common_replay(n: int, k: int, group_result, max_depth: 
     replay is an acceptable proof source in the unified Web proof route.
     """
     if n == 2 and k == 1:
-        from phase165_r14_r40_replay import build_phase165_r40_pi32_common_replay
-        return build_phase165_r40_pi32_common_replay(group_result, max_depth)
+        from phase165_r14_r41_proof_transfer import build_phase165_r41_pi32_common_replay
+        return build_phase165_r41_pi32_common_replay(group_result, max_depth, mode)
 
     from phase165_goal_only_search import GoalSearchIncompleteError
 
