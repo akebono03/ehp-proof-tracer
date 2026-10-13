@@ -1,0 +1,1 @@
+R52-R3 test-install repair. Original ZIP contained the test, but original installer did not copy it to repository root. This repair installs only that test and reruns selected tests. No production source is modified.

@@ -271,6 +271,7 @@ class WebGroupProofView:
     WebGroupProofRenderedLineView,
     ...,
   ] = ()
+  partial_result: bool = False
 
   def __post_init__(
     self,
@@ -349,7 +350,10 @@ class WebGroupProofView:
         "steps must be a tuple"
       )
 
-    if not self.steps:
+    if not isinstance(self.partial_result, bool):
+      raise TypeError("partial_result must be a bool")
+
+    if not self.steps and not self.partial_result:
       raise ValueError(
         "steps must not be empty"
       )
@@ -762,3 +766,14 @@ def build_standard_web_group_proof_view(
     mode=mode,
     rendered_lines=rendered_lines,
   )
+
+# Phase 165 R52-R3 explicit partial-result Web entry
+def build_web_partial_group_proof_view(
+    result, *, max_depth: int = 2, mode: str = "narrative",
+) -> WebGroupProofView:
+    """Render typed partial evidence through the shared WebGroupProofView."""
+    from phase165_r52_r3_web_adapter import build_partial_web_group_proof_view
+
+    return build_partial_web_group_proof_view(
+        result, max_depth=max_depth, mode=mode,
+    )
