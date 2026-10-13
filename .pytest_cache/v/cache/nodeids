@@ -698,6 +698,7 @@
   "tests/test_phase165_r3_recursive_search.py::test_expansion_provider_requires_tuple",
   "tests/test_phase165_r3_recursive_search.py::test_unproved_registered_assertion_is_not_a_proof_step",
   "tests/test_phase165_r3_recursive_search.py::test_unverified_assertion_is_not_a_proof_step",
+  "tests/test_phase165_r49_typed_reasons.py::test_phase165_r49_real_pi32_typed_reason_chain",
   "tests/test_phase165_r4_production_connection.py::test_live_registry_has_no_automatic_approval",
   "tests/test_phase165_r4_production_connection.py::test_no_global_catalog_is_reported",
   "tests/test_phase165_r4_production_connection.py::test_search_does_not_invent_citing_statement",

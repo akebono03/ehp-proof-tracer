@@ -13,6 +13,7 @@ from homotopy_groups import (
   TodaDeltaMap,
   TodaHopfInvariantMap,
   TodaSuspensionMap,
+  TodaSuspensionIsomorphismStatement,
 )
 from proof import (
   ProofStep,
@@ -59,6 +60,8 @@ class TodaGroupProofNarrativeReasonKind(
   EXACTNESS_TO_KERNEL = (
     "exactness_to_kernel"
   )
+  EXACTNESS_TO_DELTA_ZERO = "exactness_to_delta_zero"
+  INJECTIVE_SURJECTIVE_TO_ISOMORPHISM = "injective_surjective_to_isomorphism"
   INJECTIVE_IMAGE_ORDER = (
     "injective_image_order"
   )
@@ -494,6 +497,72 @@ def _exactness_to_map_property_reason(
       zero_premise,
       exactness_premise,
     ),
+    conclusion_step=proof_step,
+  )
+
+
+def _exactness_to_delta_zero_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  """Recognize a typed Delta-zero inference, not its rendered prose."""
+  conclusion = proof_step.conclusion
+  if not isinstance(conclusion, TodaDeltaZeroStatement):
+    return None
+  iso_steps = tuple(
+    premise for premise in proof_step.premises
+    if isinstance(premise.conclusion, TodaSuspensionIsomorphismStatement)
+  )
+  exact_steps = tuple(
+    premise for premise in proof_step.premises
+    if isinstance(premise.conclusion, TodaProp42ExactnessStatement)
+  )
+  matches = []
+  for iso in iso_steps:
+    suspension = iso.conclusion.map
+    for exact in exact_steps:
+      window = exact.conclusion.window
+      if (
+        isinstance(suspension, TodaSuspensionMap)
+        and window.first_map.name == "Δ"
+        and window.second_map.name == "E"
+        and window.source_term == conclusion.map.source_group
+        and window.middle_term == conclusion.map.target_group
+        and suspension.source_group == window.middle_term
+        and suspension.target_group == window.target_term
+      ):
+        matches.append((iso, exact))
+  if len(matches) != 1:
+    return None
+  return TodaGroupProofNarrativeReason(
+    kind=TodaGroupProofNarrativeReasonKind.EXACTNESS_TO_DELTA_ZERO,
+    premise_steps=matches[0],
+    conclusion_step=proof_step,
+  )
+
+
+def _injective_surjective_to_isomorphism_reason(
+  proof_step: ProofStep,
+) -> TodaGroupProofNarrativeReason | None:
+  """Require exactly matching, explicit generic map property premises."""
+  from phase165_r14_r6_generic_iso import MapInjective, MapSurjective, MapIsomorphism
+  conclusion = proof_step.conclusion
+  if not isinstance(conclusion, MapIsomorphism):
+    return None
+  inj = tuple(
+    p for p in proof_step.premises
+    if isinstance(p.conclusion, MapInjective)
+    and p.conclusion.map == conclusion.map
+  )
+  surj = tuple(
+    p for p in proof_step.premises
+    if isinstance(p.conclusion, MapSurjective)
+    and p.conclusion.map == conclusion.map
+  )
+  if len(inj) != 1 or len(surj) != 1:
+    return None
+  return TodaGroupProofNarrativeReason(
+    kind=TodaGroupProofNarrativeReasonKind.INJECTIVE_SURJECTIVE_TO_ISOMORPHISM,
+    premise_steps=(inj[0], surj[0]),
     conclusion_step=proof_step,
   )
 
@@ -1050,6 +1119,14 @@ def build_toda_group_proof_narrative_reason_sidecar(
     )
     if exactness_reason is not None:
       append_if_visible(exactness_reason)
+
+    delta_zero_reason = _exactness_to_delta_zero_reason(node.proof_step)
+    if delta_zero_reason is not None:
+      append_if_visible(delta_zero_reason)
+
+    isomorphism_reason = _injective_surjective_to_isomorphism_reason(node.proof_step)
+    if isomorphism_reason is not None:
+      append_if_visible(isomorphism_reason)
 
     exactness_kernel_reason = (
       _exactness_to_kernel_reason(
