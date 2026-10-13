@@ -160,7 +160,24 @@
     </section>
 
     <section
-      id="operation-query"
+      id="group-proof-progress-query"
+      aria-labelledby="group-proof-progress-heading"
+    >
+      <h2 id="group-proof-progress-heading">Group proof progress</h2>
+      <p>Show current typed proof-search status for any valid n and k.
+         Without a registered typed goal this is NOT_SEARCHED, not a proof.</p>
+      <form method="post">
+        <input type="hidden" name="form_kind" value="group_proof_progress">
+        <label for="progress-n">n</label>
+        <input id="progress-n" name="n" type="number" step="1" required value="{{ n_value }}">
+        <label for="progress-k">k</label>
+        <input id="progress-k" name="k" type="number" step="1" required value="{{ k_value }}">
+        <button type="submit">Show proof progress</button>
+      </form>
+    </section>
+
+    <section
+      id="operation-query
       aria-labelledby="operation-query-heading"
     >
       <h2 id="operation-query-heading">
@@ -566,7 +583,7 @@
         </p>
 
         <h3>
-          Conclusion
+          {% if group_proof_view.partial_result %}Proof target{% else %}Conclusion{% endif %}
         </h3>
 
         <div
