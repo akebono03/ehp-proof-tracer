@@ -66,7 +66,7 @@ def test_r8_unconfigured_proof_calls_partial_search(monkeypatch):
     response = _post(3, 1)
     assert response.status_code == 200
     assert called == [{"n": 3, "k": 1, "max_depth": 2}]
-    assert b"search_failed" in response.data
+    assert "証明未完成".encode("utf-8") in response.data
 
 
 def test_r8_registered_proof_does_not_fall_back(monkeypatch):

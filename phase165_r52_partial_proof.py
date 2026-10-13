@@ -88,33 +88,8 @@ def make_partial_proof_result(
 
 
 def render_partial_proof_markdown(result: PartialProofResult) -> str:
-    """Render proof progress without promoting unresolved goals to evidence."""
-    if not isinstance(result, PartialProofResult):
-        raise TypeError("result must be PartialProofResult")
-    group = result.target
-    lines = [
-        f"## 証明対象: $\\pi_{{{group.group_dimension}}}^{{{group.sphere_dimension}}}$",
-        f"証明探索状態: {result.status.value}",
-        f"群構造: {result.structure_status.value}",
-    ]
-    if result.references:
-        lines += ["", "### Reference"]
-        lines.extend(f"- {ref}" for ref in result.references)
-    if result.proven_steps:
-        lines += ["", "### Proof（導出済み）"]
-        for index, step in enumerate(result.proven_steps, 1):
-            # repr is deliberately explicit: no unsupported mathematical TeX guess.
-            lines.append(f"{index}. `{step.rule.value}`: `{step.conclusion!r}`")
-    if result.open_goals:
-        lines += ["", "### 未解決 Goal"]
-        lines.extend(f"- `{goal!r}`" for goal in result.open_goals)
-    if result.diagnostics:
-        lines += ["", "### 探索診断"]
-        lines.extend(f"- {diagnostic}" for diagnostic in result.diagnostics)
-    if result.status is ProofSearchStatus.NOT_SEARCHED:
-        lines += ["", "証明探索はまだ実行されていません。"]
-    if result.status is ProofSearchStatus.COMPLETE:
-        lines += ["", f"以上より、`{result.conclusion!r}`。 □"]
-    else:
-        lines += ["", "未証明の Goal は結論に含めません。"]
-    return "\n".join(lines)
+    """Compatibility API: delegate to the one shared Toda narrative renderer."""
+    from toda_group_proof_generic_narrative_renderer import (
+        render_toda_partial_proof_narrative_markdown,
+    )
+    return render_toda_partial_proof_narrative_markdown(result)
