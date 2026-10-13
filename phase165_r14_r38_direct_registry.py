@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 from pathlib import Path
+from dataclasses import replace
+from proof import InferenceRule, LiteratureReference
 
 from phase163_r4_registry_bridge import MigrationRecord, MigrationStatus, RegistryBridgeResult
 from phase165_r14_r34_backward_search import pi32_goal, phase165_r34_expansions
@@ -68,7 +70,21 @@ def build_adopted_typed_reference_registry(tex_path: Path) -> RegistryBridgeResu
             assertion_id, ref_id, AssertionKind.STATEMENT, goal,
             origin=AssertionOrigin.FIXED_STATEMENT,
         ))
-        links.append(ProofStepLink(assertion_id, step=matches[0]))
+        # phase165_r42_source_inference: keep the existing GIVEN statement,
+        # and attach its source locator to the ProofStep used by the renderer.
+        # Foundational references retain their separate provenance mechanism.
+        source_step = matches[0]
+        if locator.startswith("Proposition ") or locator.startswith("("):
+            source_step = replace(
+                source_step,
+                inference_rule=InferenceRule(
+                    name="Toda " + locator,
+                    literature_reference=LiteratureReference(
+                        label="Toda " + locator, locator=locator,
+                    ),
+                ),
+            )
+        links.append(ProofStepLink(assertion_id, step=source_step))
         records.append(MigrationRecord(
             "adopted_typed_reference", locator, assertion_id,
             MigrationStatus.STRUCTURED, "adopted TeX; original edition unverified",
