@@ -27,6 +27,15 @@
     defer
     src="{{ url_for('static', filename='web_math.js') }}"
   ></script>
+    <!-- R52-R6: group proof only; presentation-layer switch -->
+    <style id="phase165-group-proof-only-layout">
+      /* Keep group input, its result, and the existing group proof visible. */
+      main > nav,
+      main > section:not(#group-query):not([aria-labelledby="result-heading"]):not([aria-labelledby="group-proof-heading"]) {
+        display: none !important;
+      }
+    </style>
+    <!-- /R52-R6: group proof only -->
 </head>
 <body>
   <main>
