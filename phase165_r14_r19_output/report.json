@@ -1,0 +1,13 @@
+{
+  "phase": "165 R14-R19",
+  "source_locator": "(5.1)",
+  "typed_diagonal_claims": 2,
+  "review_status": "REVIEW_REQUIRED",
+  "reviewed_assertions_added": 0,
+  "new_proof_steps": 0,
+  "base_registry_unchanged": true,
+  "fail_closed_unreviewed": true,
+  "pi32_proved": false,
+  "status": "REVIEW_GATE_READY_PRODUCTION_LEAVES_NOT_ADMITTED",
+  "full_pytest_run": false
+}
