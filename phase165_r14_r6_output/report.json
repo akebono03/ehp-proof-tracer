@@ -1,0 +1,12 @@
+{
+  "phase": "165 R14-R6",
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "generic_rules_defined": 2,
+  "root_expansions": 0,
+  "root_status": "UNRESOLVED_NEEDS_REGISTERED_MAP_AND_PREMISES",
+  "ehp_exactness_evidence_added": false,
+  "new_certified_statements": 0,
+  "proof_steps_created_for_toda": 0,
+  "legacy_proof_used": false,
+  "full_pytest_run": false
+}
