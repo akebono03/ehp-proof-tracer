@@ -1,4 +1,3 @@
-from phase165_r49_display_order import finalize_phase165_r49_typed_reason_order
 from collections import deque
 import re
 from dataclasses import (
@@ -69,6 +68,7 @@ from toda_group_proof_narrative_proof_chains import (
   build_toda_group_proof_narrative_proof_chains,
 )
 from toda_group_proof_narrative_reason_renderer import (
+  finalize_phase165_r49_typed_reason_order,
   insert_toda_group_proof_narrative_reason_prose,
   order_toda_group_proof_narrative_injective_image_order_reason,
 )

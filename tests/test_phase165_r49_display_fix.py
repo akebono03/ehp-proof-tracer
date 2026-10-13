@@ -1,4 +1,4 @@
-from phase165_r49_display_order import finalize_phase165_r49_typed_reason_order
+from toda_group_proof_narrative_reason_renderer import finalize_phase165_r49_typed_reason_order
 
 
 def test_phase165_r49_display_order_on_real_pi32_reasons():
