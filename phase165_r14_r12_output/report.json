@@ -1,0 +1,30 @@
+{
+  "phase": "165 R14-R12",
+  "status": "TYPED_OBLIGATIONS_BOUND_BUT_NOT_CERTIFIED",
+  "obligation_count": 2,
+  "obligations": [
+    {
+      "label": "E_pi11_pi22_isomorphism",
+      "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+      "source_locator": null,
+      "source_assertion_ids": [],
+      "origin": "DERIVED_GOAL_REQUIRES_INDEPENDENT_SUSPENSION_THEOREM",
+      "status": "NOT_PROOF_ELIGIBLE"
+    },
+    {
+      "label": "Delta_E_exactness",
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "source_locator": "Proposition 4.2",
+      "source_assertion_ids": [
+        "phase163:archive:toda:tex:ch4:0002",
+        "phase163:archive:toda:tex:ch4:0005"
+      ],
+      "origin": "TODA_ARCHIVE_SOURCE_ONLY",
+      "status": "NOT_PROOF_ELIGIBLE"
+    }
+  ],
+  "registered_proof_eligible": 0,
+  "toda_proof_steps_created": 0,
+  "pi32_proved": false,
+  "full_pytest_run": false
+}
