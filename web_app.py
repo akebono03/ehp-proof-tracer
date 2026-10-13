@@ -331,6 +331,10 @@ def create_app(
               k=k,
             )
           )
+          if n >= 2 and k >= 0:
+            group_proof_view = build_group_proof_progress_view(
+              n=n, k=k,
+            )
       except (
         TypeError,
         ValueError,

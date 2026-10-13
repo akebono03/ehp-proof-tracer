@@ -13,12 +13,18 @@ def test_progress_form_available_for_arbitrary_group():
     assert b'value="group_proof_progress"' in response.data
 
 
-def test_unconfigured_search_is_explicitly_not_searched_outside_112():
+def test_group_progress_runs_automatic_search_outside_112(monkeypatch):
+    import phase165_r52_r4_flask_bridge as bridge
+    monkeypatch.setattr(bridge, "search_group_structure_automatically", lambda n, k: make_partial_proof_result(
+        n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
+        open_goals=("unresolved group structure",),
+        diagnostics=("typed group statement unavailable",),
+    ))
     response = create_app().test_client().post("/", data={
         "form_kind": "group_proof_progress", "n": "100", "k": "20",
     })
     assert response.status_code == 200
-    assert b"not_searched" in response.data
+    assert b"search_failed" in response.data
     assert b"\\pi_{120}^{100}" in response.data
     assert b"Proof target" in response.data
     assert b"<h3>\n          Conclusion" not in response.data
@@ -42,7 +48,7 @@ def test_failed_search_state_is_not_presented_as_conclusion(monkeypatch):
             open_goals=("unproved",),
             diagnostics=("No registered rule",),
         )
-    monkeypatch.setattr(bridge, "search_registered_partial_proof", failed)
+    monkeypatch.setattr(bridge, "search_group_structure_automatically", failed)
     response = create_app().test_client().post("/", data={
         "form_kind": "group_proof_progress", "n": "17", "k": "4",
     })
