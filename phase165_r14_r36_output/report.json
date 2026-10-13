@@ -1,0 +1,14 @@
+{
+  "phase": "165 R14-R36",
+  "frontier_leaf_count": 9,
+  "adopted_tex_leaf_count": 8,
+  "foundational_leaf_count": 1,
+  "all_leaf_goals_resolved_for_adopted_search": true,
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "adopted_backward_proof_created": true,
+  "existing_completed_proof_replay_used": false,
+  "registry_assertions_promoted_to_strict": 0,
+  "strict_registry_proof_created": false,
+  "status": "ADOPTED_TEX_BACKWARD_DERIVED_STRICT_REGISTRY_PENDING",
+  "full_pytest_run": false
+}
