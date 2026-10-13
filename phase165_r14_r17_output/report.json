@@ -1,0 +1,13 @@
+{
+  "phase": "165 R14-R17",
+  "foundational_identity_step_created": 1,
+  "foundational_rule": "given",
+  "foundational_reference": "foundational:suspension-identity",
+  "toda_literature_leaf_created": 0,
+  "registered_proof_eligible_added": 0,
+  "proposition42_semantics_certified": false,
+  "proposition42_application_approved": false,
+  "pi32_proved": false,
+  "full_pytest_run": false,
+  "status": "FOUNDATIONAL_STEP_WITH_EXPLICIT_PROVENANCE_NOT_REGISTERED_TODA_PROOF"
+}
