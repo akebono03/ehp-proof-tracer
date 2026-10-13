@@ -715,6 +715,23 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
         )
       )
 
+      # An explicitly cited, premise-free GIVEN is an adopted source
+      # assertion, not a proof-internal derived statement. Phase 165
+      # registers these leaves without legacy fixed-rule aliases.
+      from proof import ProofRule
+      explicitly_cited_source = (
+        proof_step is not root_step
+        and proof_step.rule is ProofRule.GIVEN
+        and not proof_step.premises
+        and proof_step.inference_rule is not None
+        and proof_step.inference_rule.literature_reference is not None
+        and proof_step.inference_rule.literature_reference.locator
+        == entry.reference.locator
+      )
+      if explicitly_cited_source:
+        retained_steps.append(proof_step)
+        continue
+
       if (
         boundary is None
         or boundary.classification
@@ -2128,6 +2145,41 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
         )
       }
 
+      # Adopted typed GIVEN leaves carry the citation locator but not
+      # the legacy fixed-rule component key. Recognize only the two
+      # structurally identifiable (5.1) components, without hardcoded n.
+      for proof_step in entry.proof_steps:
+        inference = proof_step.inference_rule
+        if (
+          proof_step.premises
+          or inference is None
+          or inference.literature_reference is None
+          or inference.literature_reference.locator != "(5.1)"
+          or getattr(proof_step.rule, "name", None) != "GIVEN"
+        ):
+          continue
+        conclusion = proof_step.conclusion
+        if type(conclusion).__name__ == "TodaPrimaryGroupZeroStatement":
+          group = getattr(conclusion, "group", None)
+          if group is None:
+            group = getattr(conclusion, "target_group", None)
+          if (
+            getattr(group, "sphere_dimension", None) == 1
+            and isinstance(getattr(group, "group_dimension", None), int)
+            and group.group_dimension > 1
+          ):
+            component_keys.add("circle_higher_homotopy_zero")
+        elif type(conclusion).__name__ == "Relation":
+          lhs = getattr(conclusion, "lhs", None)
+          rhs = getattr(conclusion, "rhs", None)
+          if (
+            isinstance(getattr(lhs, "group_dimension", None), int)
+            and lhs.group_dimension >= 1
+            and lhs.group_dimension == getattr(lhs, "sphere_dimension", None)
+            and type(rhs).__name__ == "FreeCyclicGroup"
+          ):
+            component_keys.add("diagonal_identity_group")
+
       if "circle_higher_homotopy_zero" in component_keys:
         lines.append(
           r"$\pi_{i}^{1} = 0\ (i > 1)$."
@@ -2171,6 +2223,16 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
           )
         )
 
+      continue
+
+    if entry.reference.locator == "Proposition 4.2":
+      lines.append(
+        r"$\cdots \to \pi_{i-1}^{n} \xrightarrow{E} "
+        r"\pi_{i}^{n+1} \xrightarrow{H} "
+        r"\pi_{i}^{2n+1} \xrightarrow{\Delta} "
+        r"\pi_{i-2}^{n} \xrightarrow{E} "
+        r"\pi_{i-1}^{n+1} \to \cdots$ は完全である."
+      )
       continue
 
     statement_lines = (

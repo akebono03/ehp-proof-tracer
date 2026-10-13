@@ -1,0 +1,200 @@
+{
+  "phase": "165 R50 downstream exact-loss audit",
+  "mode": "READ_ONLY",
+  "status": "ok",
+  "events": [
+    {
+      "stage": "contrib.link_toda_group_proof_narrative_reference_body_consumers",
+      "result": {
+        "Im": true,
+        "ker": true,
+        "length": 897,
+        "relevant_lines": [
+          "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ]
+      }
+    },
+    {
+      "stage": "contrib.link_toda_group_proof_narrative_unmarked_reference_consumers",
+      "result": {
+        "Im": true,
+        "ker": true,
+        "length": 980,
+        "relevant_lines": [
+          "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "[R3]より, $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ]
+      }
+    },
+    {
+      "stage": "contrib.filter_toda_group_proof_narrative_reference_entries_by_body_usage",
+      "result": {
+        "tuple_len": 3,
+        "str_items": [
+          {
+            "Im": true,
+            "ker": true,
+            "length": 896,
+            "relevant_lines": [
+              "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+              "[R3]より, $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.",
+              "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage",
+      "result": {
+        "tuple_len": 3,
+        "str_items": [
+          {
+            "Im": true,
+            "ker": true,
+            "length": 896,
+            "relevant_lines": [
+              "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+              "[R3]より, $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.",
+              "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.link_toda_group_proof_narrative_unmarked_reference_consumers",
+      "result": {
+        "Im": true,
+        "ker": true,
+        "length": 896,
+        "relevant_lines": [
+          "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "[R3]より, $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ]
+      }
+    },
+    {
+      "stage": "contrib.filter_toda_group_proof_narrative_reference_entries_by_body_usage",
+      "result": {
+        "tuple_len": 3,
+        "str_items": [
+          {
+            "Im": true,
+            "ker": true,
+            "length": 896,
+            "relevant_lines": [
+              "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+              "[R3]より, $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である.",
+              "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.prune_toda_group_proof_narrative_root_zero_direct_premise_references",
+      "result": {
+        "tuple_len": 2,
+        "str_items": []
+      }
+    },
+    {
+      "stage": "contrib.finalize_phase165_r49_typed_reason_order",
+      "result": {
+        "Im": true,
+        "ker": true,
+        "length": 804,
+        "relevant_lines": [
+          "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "[R3]より, $\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である."
+        ]
+      }
+    },
+    {
+      "stage": "contrib.link_toda_group_proof_narrative_reference_body_consumers",
+      "result": {
+        "Im": false,
+        "ker": false,
+        "length": 683,
+        "relevant_lines": [
+          "[R3]より, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ]
+      }
+    },
+    {
+      "stage": "narrative._phase158_baseline_render_toda_group_proof_narrative_markdown",
+      "result": {
+        "Im": false,
+        "ker": false,
+        "length": 1075,
+        "relevant_lines": [
+          "**[R3] Proposition 4.2.**",
+          "[R3]より, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ]
+      }
+    },
+    {
+      "stage": "narrative._phase158_normalize_public_narrative_contract",
+      "result": {
+        "Im": false,
+        "ker": false,
+        "length": 1122,
+        "relevant_lines": [
+          "**[R3] Proposition 4.2.**",
+          "[R3]より, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ]
+      }
+    },
+    {
+      "stage": "narrative._phase159_r1_7c_r4_normalize_public_map_property_prose",
+      "result": {
+        "Im": false,
+        "ker": false,
+        "length": 1112,
+        "relevant_lines": [
+          "**[R3] Proposition 4.2.**",
+          "[R3]より, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ]
+      }
+    },
+    {
+      "stage": "narrative._phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning",
+      "result": {
+        "Im": false,
+        "ker": false,
+        "length": 1112,
+        "relevant_lines": [
+          "**[R3] Proposition 4.2.**",
+          "[R3]より, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ]
+      }
+    },
+    {
+      "stage": "narrative._phase159_r1_7c_r4_reorder_public_equation_reference_conclusions",
+      "result": {
+        "Im": false,
+        "ker": false,
+        "length": 1112,
+        "relevant_lines": [
+          "**[R3] Proposition 4.2.**",
+          "[R3]より, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ]
+      }
+    }
+  ],
+  "production_files_modified": false,
+  "pytest_run": false,
+  "final_web": {
+    "Im": false,
+    "ker": false,
+    "length": 1011,
+    "relevant_lines": [
+      "**[R3] Proposition 4.2.**",
+      "[R3]より, \\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1} は零写像."
+    ]
+  }
+}

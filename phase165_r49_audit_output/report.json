@@ -1,0 +1,358 @@
+{
+  "phase": "165 R49",
+  "mode": "READ_ONLY_STRUCTURAL_AUDIT",
+  "files": {
+    "toda_group_proof_narrative_reasons.py": {
+      "present": true,
+      "syntax_error": null,
+      "definitions": [
+        {
+          "name": "TodaGroupProofNarrativeReasonKind",
+          "line": 50,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "TodaGroupProofNarrativeReason",
+          "line": 83,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "TodaGroupProofNarrativeReasonSidecar",
+          "line": 205,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_exactness_to_map_property_reason",
+          "line": 298,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_exactness_to_kernel_reason",
+          "line": 501,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_injective_image_order_reason",
+          "line": 593,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_multiple_relation_to_order_reason",
+          "line": 688,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_final_group_structure_reason",
+          "line": 752,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_aggregate_derivation_reason",
+          "line": 919,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_final_result_derivation_reason",
+          "line": 938,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "build_toda_group_proof_narrative_reason_sidecar",
+          "line": 956,
+          "kind": "FunctionDef"
+        }
+      ],
+      "matches": [
+        {
+          "line": 24,
+          "text": "TodaDeltaZeroStatement,"
+        },
+        {
+          "line": 30,
+          "text": "TodaDeltaInjectiveStatement,"
+        },
+        {
+          "line": 56,
+          "text": "EXACTNESS_TO_MAP_PROPERTY = ("
+        },
+        {
+          "line": 205,
+          "text": "class TodaGroupProofNarrativeReasonSidecar:"
+        },
+        {
+          "line": 304,
+          "text": "TodaDeltaInjectiveStatement,"
+        },
+        {
+          "line": 314,
+          "text": "TodaDeltaZeroStatement,"
+        },
+        {
+          "line": 350,
+          "text": "or type(conclusion).__name__ == \"MapInjective\""
+        },
+        {
+          "line": 355,
+          "text": "or type(conclusion).__name__ == \"MapSurjective\""
+        },
+        {
+          "line": 491,
+          "text": ".EXACTNESS_TO_MAP_PROPERTY"
+        },
+        {
+          "line": 956,
+          "text": "def build_toda_group_proof_narrative_reason_sidecar("
+        },
+        {
+          "line": 959,
+          "text": ") -> TodaGroupProofNarrativeReasonSidecar:"
+        },
+        {
+          "line": 1098,
+          "text": "return TodaGroupProofNarrativeReasonSidecar("
+        }
+      ]
+    },
+    "toda_group_proof_narrative_reason_renderer.py": {
+      "present": true,
+      "syntax_error": null,
+      "definitions": [
+        {
+          "name": "render_toda_group_proof_narrative_reason_sentence",
+          "line": 23,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "order_toda_group_proof_narrative_injective_image_order_reason",
+          "line": 292,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_toda_group_proof_narrative_reason_insertion_index",
+          "line": 1190,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_normalize_exactness_to_map_property_reason_prose",
+          "line": 1249,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_normalize_exactness_to_kernel_reason_prose",
+          "line": 1509,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "insert_toda_group_proof_narrative_reason_prose",
+          "line": 1617,
+          "kind": "FunctionDef"
+        }
+      ],
+      "matches": [
+        {
+          "line": 15,
+          "text": "TodaGroupProofNarrativeReasonSidecar,"
+        },
+        {
+          "line": 68,
+          "text": ".EXACTNESS_TO_MAP_PROPERTY"
+        },
+        {
+          "line": 294,
+          "text": "reason_sidecar: TodaGroupProofNarrativeReasonSidecar,"
+        },
+        {
+          "line": 305,
+          "text": "reason_sidecar,"
+        },
+        {
+          "line": 306,
+          "text": "TodaGroupProofNarrativeReasonSidecar,"
+        },
+        {
+          "line": 309,
+          "text": "\"reason_sidecar must be a \""
+        },
+        {
+          "line": 310,
+          "text": "\"TodaGroupProofNarrativeReasonSidecar\""
+        },
+        {
+          "line": 483,
+          "text": "for reason in reason_sidecar.reasons:"
+        },
+        {
+          "line": 634,
+          "text": "for node in reason_sidecar.presentation.nodes:"
+        },
+        {
+          "line": 659,
+          "text": "for reason in reason_sidecar.reasons:"
+        },
+        {
+          "line": 743,
+          "text": "for reason in reason_sidecar.reasons:"
+        },
+        {
+          "line": 919,
+          "text": "for reason in reason_sidecar.reasons:"
+        },
+        {
+          "line": 923,
+          "text": ".EXACTNESS_TO_MAP_PROPERTY"
+        },
+        {
+          "line": 1037,
+          "text": "for node in reason_sidecar.presentation.nodes:"
+        },
+        {
+          "line": 1193,
+          "text": "reason_sidecar: TodaGroupProofNarrativeReasonSidecar,"
+        },
+        {
+          "line": 1204,
+          "text": "for edge in reason_sidecar.presentation.edges:"
+        },
+        {
+          "line": 1256,
+          "text": ".EXACTNESS_TO_MAP_PROPERTY"
+        },
+        {
+          "line": 1619,
+          "text": "reason_sidecar: TodaGroupProofNarrativeReasonSidecar,"
+        },
+        {
+          "line": 1624,
+          "text": "reason_sidecar,"
+        },
+        {
+          "line": 1625,
+          "text": "TodaGroupProofNarrativeReasonSidecar,"
+        },
+        {
+          "line": 1628,
+          "text": "\"reason_sidecar must be a \""
+        },
+        {
+          "line": 1629,
+          "text": "\"TodaGroupProofNarrativeReasonSidecar\""
+        },
+        {
+          "line": 1635,
+          "text": "for reason in reason_sidecar.reasons:"
+        },
+        {
+          "line": 1658,
+          "text": "reason_sidecar,"
+        },
+        {
+          "line": 1677,
+          "text": "for reason in reason_sidecar.reasons:"
+        },
+        {
+          "line": 1685,
+          "text": "for reason in reason_sidecar.reasons:"
+        }
+      ]
+    },
+    "web_group_proof.py": {
+      "present": true,
+      "syntax_error": null,
+      "definitions": [
+        {
+          "name": "WebGroupProofStepView",
+          "line": 38,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "WebGroupProofInlineSegmentView",
+          "line": 135,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "WebGroupProofRenderedLineView",
+          "line": 168,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "WebGroupProofView",
+          "line": 257,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "_group_proof_rule_name",
+          "line": 431,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_group_proof_statement_latex",
+          "line": 440,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_split_group_proof_rendered_line",
+          "line": 487,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_build_group_proof_inline_segments",
+          "line": 531,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "_build_group_proof_rendered_lines",
+          "line": 619,
+          "kind": "FunctionDef"
+        },
+        {
+          "name": "build_standard_web_group_proof_view",
+          "line": 692,
+          "kind": "FunctionDef"
+        }
+      ],
+      "matches": []
+    },
+    "phase165_goal_only_search.py": {
+      "present": true,
+      "syntax_error": null,
+      "definitions": [
+        {
+          "name": "GoalSearchIncompleteError",
+          "line": 14,
+          "kind": "ClassDef"
+        },
+        {
+          "name": "construct_registered_group_proof",
+          "line": 18,
+          "kind": "FunctionDef"
+        }
+      ],
+      "matches": []
+    }
+  },
+  "tests": [
+    "tests\\test_phase150_rc4_4_reasons.py",
+    "tests\\test_phase150_rc4_5_visible_reasons.py",
+    "tests\\test_phase150_rc4_5e_2_short_exact_derivation_reason.py",
+    "tests\\test_phase150_rc4_5f_2_final_group_structure_reason.py",
+    "tests\\test_phase150_rc4_7d_generic_reason_vocabulary.py",
+    "tests\\test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py",
+    "tests\\test_phase150_rc4_closure_reason_visibility.py",
+    "tests\\test_phase156_r6_3_reason_prose_canonicalization.py",
+    "tests\\test_phase157_r11_reference_reason_punctuation.py",
+    "tests\\test_phase157_r20_repair47_injective_image_order_reason.py",
+    "tests\\test_phase157_r20_repair48_injective_image_reason_ordering.py",
+    "tests\\test_phase159_pi3_2_exactness_reason_locality.py",
+    "tests\\test_phase159_pi3_2_semantic_numbered_map_property_reasoning_repair25.py",
+    "tests\\test_phase159_pi4_3_exactness_reason_unification.py",
+    "tests\\test_phase159_pi6_3_zero_map_reason_order.py",
+    "tests\\test_phase159_r1_7c_r4_map_property_numbered_reasoning_repair1.py",
+    "tests\\test_phase159_r1_7c_r4_repair8_final_group_reason_and_stale_expectations.py",
+    "tests\\test_phase162_r3c_root_reason.py",
+    "tests\\test_phase162_r3d_root_reason_audit.py",
+    "tests\\test_phase162_r3g_existing_reason_bridge.py",
+    "tests\\test_phase162_r3h_reason_inventory.py"
+  ],
+  "production_files_modified": false,
+  "full_pytest_run": false
+}

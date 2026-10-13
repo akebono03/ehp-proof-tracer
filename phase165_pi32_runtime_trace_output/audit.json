@@ -1,0 +1,973 @@
+{
+  "phase": "165 pi3^2 renderer runtime trace",
+  "mode": "READ_ONLY_RUNTIME_STAGE_TRACE",
+  "production_files_modified": false,
+  "pytest_run": false,
+  "status": "ok",
+  "events": [
+    {
+      "stage": "narrative.phase164_contract",
+      "status": "NOT_FOUND"
+    },
+    {
+      "stage": "web.presentation",
+      "status": "ok",
+      "result": {
+        "type": "TodaGroupProofPresentation",
+        "nodes": 15,
+        "edges": 14,
+        "selected_steps": [
+          {
+            "step_id": 2696681189056,
+            "type": "MapIsomorphism",
+            "conclusion": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+            "rule": "INFERENCE",
+            "inference_rule": "generic injective and surjective imply isomorphism",
+            "premise_ids": [
+              2696681179264,
+              2696681188192
+            ],
+            "premise_types": [
+              "MapInjective",
+              "MapSurjective"
+            ]
+          },
+          {
+            "step_id": 2696681179264,
+            "type": "MapInjective",
+            "conclusion": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+            "rule": "INFERENCE",
+            "inference_rule": "EHP: preceding zero group and exactness imply Hopf injectivity",
+            "premise_ids": [
+              2696681192320,
+              2696681189584
+            ],
+            "premise_types": [
+              "TodaPrimaryGroupZeroStatement",
+              "TodaProp42ExactnessStatement"
+            ]
+          },
+          {
+            "step_id": 2696681188192,
+            "type": "MapSurjective",
+            "conclusion": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+            "rule": "INFERENCE",
+            "inference_rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+            "premise_ids": [
+              2696681186368,
+              2696681182384
+            ],
+            "premise_types": [
+              "TodaDeltaZeroStatement",
+              "TodaProp42ExactnessStatement"
+            ]
+          },
+          {
+            "step_id": 2696681186368,
+            "type": "TodaDeltaZeroStatement",
+            "conclusion": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+            "rule": "INFERENCE",
+            "inference_rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+            "premise_ids": [
+              2696681185072,
+              2696681184256
+            ],
+            "premise_types": [
+              "TodaSuspensionIsomorphismStatement",
+              "TodaProp42ExactnessStatement"
+            ]
+          },
+          {
+            "step_id": 2696681185072,
+            "type": "TodaSuspensionIsomorphismStatement",
+            "conclusion": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+            "rule": "INFERENCE",
+            "inference_rule": "diagonal free cyclic suspension on generators implies isomorphism",
+            "premise_ids": [
+              2696681180992,
+              2696681180800,
+              2696680712624
+            ],
+            "premise_types": [
+              "Relation",
+              "Relation",
+              "GeneratorSuspension"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "stage": "web.narrative",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 728,
+        "delta_zero": [
+          "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 1,
+          "[R": 0
+        },
+        "reference_section_excerpt": "\n\n---\n\n",
+        "excerpt": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n$\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_"
+      }
+    },
+    {
+      "stage": "narrative.stable_shortcut",
+      "status": "ok",
+      "result": {
+        "type": "NoneType",
+        "repr": "None"
+      }
+    },
+    {
+      "stage": "narrative.baseline",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 717,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\n$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarr"
+      }
+    },
+    {
+      "stage": "narrative.contributions",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 705,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\n$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarr"
+      }
+    },
+    {
+      "stage": "contrib.base_argument_markdown",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 331,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$"
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 0,
+          "これより": 0,
+          "単射": 0,
+          "全射": 0,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$\n\n$H(\\eta_{2}) = \\iota_{3}$.\n\n以上より, \n\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$"
+      }
+    },
+    {
+      "stage": "contrib.insert_contributions",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 640,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 0,
+          "これより": 4,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\nこれより, \n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, \n\n$E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\nこ"
+      }
+    },
+    {
+      "stage": "contrib.references_initial",
+      "status": "ok",
+      "result": {
+        "type": "tuple",
+        "count": 3,
+        "items": [
+          {
+            "type": "TodaGroupProofNarrativeReferenceEntry",
+            "number": 1,
+            "locator": "(5.1)",
+            "steps": 4
+          },
+          {
+            "type": "TodaGroupProofNarrativeReferenceEntry",
+            "number": 2,
+            "locator": "Proposition 5.1",
+            "steps": 1
+          },
+          {
+            "type": "TodaGroupProofNarrativeReferenceEntry",
+            "number": 3,
+            "locator": "Proposition 4.2",
+            "steps": 3
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.references_fixed_boundary",
+      "status": "ok",
+      "result": {
+        "type": "tuple",
+        "count": 0,
+        "items": []
+      }
+    },
+    {
+      "stage": "contrib.references_statement_selection",
+      "status": "ok",
+      "result": {
+        "type": "tuple",
+        "count": 2,
+        "items": [
+          {
+            "type": "tuple",
+            "count": 0,
+            "items": []
+          },
+          {
+            "type": "dict",
+            "count": 0,
+            "keys": []
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.references_exclude_root",
+      "status": "ok",
+      "result": {
+        "type": "tuple",
+        "count": 2,
+        "items": [
+          {
+            "type": "tuple",
+            "count": 0,
+            "items": []
+          },
+          {
+            "type": "dict",
+            "count": 0,
+            "keys": []
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.build_reason_sidecar",
+      "status": "ok",
+      "result": {
+        "type": "TodaGroupProofNarrativeReasonSidecar",
+        "count": 2,
+        "kinds": {
+          "EXACTNESS_TO_MAP_PROPERTY": 2
+        },
+        "selected": [
+          {
+            "kind": "EXACTNESS_TO_MAP_PROPERTY",
+            "conclusion": {
+              "step_id": 2696681179264,
+              "type": "MapInjective",
+              "conclusion": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+              "rule": "INFERENCE",
+              "inference_rule": "EHP: preceding zero group and exactness imply Hopf injectivity",
+              "premise_ids": [
+                2696681192320,
+                2696681189584
+              ],
+              "premise_types": [
+                "TodaPrimaryGroupZeroStatement",
+                "TodaProp42ExactnessStatement"
+              ]
+            },
+            "premises": [
+              {
+                "step_id": 2696681192320,
+                "type": "TodaPrimaryGroupZeroStatement",
+                "conclusion": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+                "rule": "GIVEN",
+                "inference_rule": "Toda (5.1)",
+                "premise_ids": [],
+                "premise_types": []
+              },
+              {
+                "step_id": 2696681189584,
+                "type": "TodaProp42ExactnessStatement",
+                "conclusion": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+                "rule": "GIVEN",
+                "inference_rule": "Toda Proposition 4.2",
+                "premise_ids": [],
+                "premise_types": []
+              }
+            ]
+          },
+          {
+            "kind": "EXACTNESS_TO_MAP_PROPERTY",
+            "conclusion": {
+              "step_id": 2696681188192,
+              "type": "MapSurjective",
+              "conclusion": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+              "rule": "INFERENCE",
+              "inference_rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+              "premise_ids": [
+                2696681186368,
+                2696681182384
+              ],
+              "premise_types": [
+                "TodaDeltaZeroStatement",
+                "TodaProp42ExactnessStatement"
+              ]
+            },
+            "premises": [
+              {
+                "step_id": 2696681186368,
+                "type": "TodaDeltaZeroStatement",
+                "conclusion": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+                "rule": "INFERENCE",
+                "inference_rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+                "premise_ids": [
+                  2696681185072,
+                  2696681184256
+                ],
+                "premise_types": [
+                  "TodaSuspensionIsomorphismStatement",
+                  "TodaProp42ExactnessStatement"
+                ]
+              },
+              {
+                "step_id": 2696681182384,
+                "type": "TodaProp42ExactnessStatement",
+                "conclusion": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+                "rule": "GIVEN",
+                "inference_rule": "Toda Proposition 4.2",
+                "premise_ids": [],
+                "premise_types": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "stage": "contrib.insert_reasons",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 716,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, \n\n$E: \\pi"
+      }
+    },
+    {
+      "stage": "contrib.suppress_reference_internal",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 716,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, \n\n$E: \\pi"
+      }
+    },
+    {
+      "stage": "contrib.suppress_reference_duplicates",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 716,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, \n\n$E: \\pi"
+      }
+    },
+    {
+      "stage": "contrib.link_body_consumers",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 716,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, \n\n$E: \\pi"
+      }
+    },
+    {
+      "stage": "contrib.normalize_connectors",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 710,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{"
+      }
+    },
+    {
+      "stage": "contrib.merge_exactness",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 837,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{"
+      }
+    },
+    {
+      "stage": "contrib.normalize_connectors",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 837,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{"
+      }
+    },
+    {
+      "stage": "contrib.dangling_connectors",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 837,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である.",
+          "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 2,
+          "全射": 2,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である.\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{"
+      }
+    },
+    {
+      "stage": "contrib.order_reason",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 705,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\n$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarr"
+      }
+    },
+    {
+      "stage": "contrib.order_reason",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 705,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\n$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarr"
+      }
+    },
+    {
+      "stage": "contrib.order_reason",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 705,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\n$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarr"
+      }
+    },
+    {
+      "stage": "contrib.link_body_consumers",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 705,
+        "delta_zero": [
+          "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": "$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$\n\n$\\pi_{2}^{1} = 0$\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である.\n\n$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarr"
+      }
+    },
+    {
+      "stage": "contrib.reference_section",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 0,
+        "delta_zero": [],
+        "hopf_iso": [],
+        "reason_markers": {
+          "完全性より": 0,
+          "これより": 0,
+          "単射": 0,
+          "全射": 0,
+          "使用する結果": 0,
+          "[R": 0
+        },
+        "reference_section_excerpt": null,
+        "excerpt": ""
+      }
+    },
+    {
+      "stage": "contrib.references_statement_selection",
+      "status": "ok",
+      "result": {
+        "type": "tuple",
+        "count": 2,
+        "items": [
+          {
+            "type": "tuple",
+            "count": 0,
+            "items": []
+          },
+          {
+            "type": "dict",
+            "count": 0,
+            "keys": []
+          }
+        ]
+      }
+    },
+    {
+      "stage": "narrative.phase158_contract",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 739,
+        "delta_zero": [
+          "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 1,
+          "[R": 0
+        },
+        "reference_section_excerpt": "\n\n---\n\n",
+        "excerpt": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n$\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_"
+      }
+    },
+    {
+      "stage": "narrative.phase159_map_property",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 729,
+        "delta_zero": [
+          "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 1,
+          "[R": 0
+        },
+        "reference_section_excerpt": "\n\n---\n\n",
+        "excerpt": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n$\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_"
+      }
+    },
+    {
+      "stage": "narrative.phase159_numbered_reason",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 729,
+        "delta_zero": [
+          "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 1,
+          "[R": 0
+        },
+        "reference_section_excerpt": "\n\n---\n\n",
+        "excerpt": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n$\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_"
+      }
+    },
+    {
+      "stage": "narrative.phase159_reorder",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 729,
+        "delta_zero": [
+          "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 1,
+          "[R": 0
+        },
+        "reference_section_excerpt": "\n\n---\n\n",
+        "excerpt": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n$\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_"
+      }
+    },
+    {
+      "stage": "narrative.final_connector_cleanup",
+      "status": "ok",
+      "result": {
+        "type": "str",
+        "length": 728,
+        "delta_zero": [
+          "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "これより, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+        ],
+        "hopf_iso": [
+          "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型."
+        ],
+        "reason_markers": {
+          "完全性より": 2,
+          "これより": 2,
+          "単射": 1,
+          "全射": 1,
+          "使用する結果": 1,
+          "[R": 0
+        },
+        "reference_section_excerpt": "\n\n---\n\n",
+        "excerpt": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n$\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_"
+      }
+    }
+  ],
+  "web": {
+    "rendered_lines": 19,
+    "steps": 15,
+    "markdown_line_sample": [
+      "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='証明対象', statement_latex=None, suffix='', segments=())",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{3}^{2} = \\\\mathbb{Z}\\\\{\\\\eta_{2}\\\\}.', suffix='', segments=(WebGroupProofInlineSegmentView(kind='display_math', value='\\\\pi_{3}^{2} = \\\\mathbb{Z}\\\\{\\\\eta_{2}\\\\}.'),))",
+      "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='使用する結果', statement_latex=None, suffix='', segments=())",
+      "WebGroupProofRenderedLineView(kind='separator', indent_level=0, prefix='', statement_latex=None, suffix='', segments=())",
+      "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='証明', statement_latex=None, suffix='', segments=())",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{3}^{2}', suffix=' の群構造を決定するために, 次の完全列を考える.', segments=(WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{3}^{2}'), WebGroupProofInlineSegmentView(kind='text', value=' の群構造を決定するために, 次の完全列を考える.')))",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{2}^{1} \\\\xrightarrow{E} \\\\pi_{3}^{2} \\\\xrightarrow{H} \\\\pi_{3}^{3} \\\\xrightarrow{\\\\Delta} \\\\pi_{1}^{1} \\\\xrightarrow{E} \\\\pi_{2}^{2}.', suffix='', segments=(WebGroupProofInlineSegmentView(kind='display_math', value='\\\\pi_{2}^{1} \\\\xrightarrow{E} \\\\pi_{3}^{2",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{2}^{1} = 0', suffix='.', segments=(WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{2}^{1} = 0'), WebGroupProofInlineSegmentView(kind='text', value='.')))",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='完全性より, ', statement_latex='H: \\\\pi_{3}^{2} \\\\to \\\\pi_{3}^{3}', suffix=' は単射.', segments=(WebGroupProofInlineSegmentView(kind='text', value='完全性より, '), WebGroupProofInlineSegmentView(kind='inline_math', value='H: \\\\pi_{3}^{2} \\\\to \\\\pi_{3}^{3}'), WebGroupProofInlineSegmentView(kind='",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{1}^{1} = \\\\mathbb{Z}\\\\{\\\\iota_{1}\\\\}', suffix='.', segments=(WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{1}^{1} = \\\\mathbb{Z}\\\\{\\\\iota_{1}\\\\}'), WebGroupProofInlineSegmentView(kind='text', value='.')))",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{2}^{2} = \\\\mathbb{Z}\\\\{\\\\iota_{2}\\\\}', suffix='.', segments=(WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{2}^{2} = \\\\mathbb{Z}\\\\{\\\\iota_{2}\\\\}'), WebGroupProofInlineSegmentView(kind='text', value='.')))",
+      "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='これより, ', statement_latex='E: \\\\pi_{1}^{1} \\\\to \\\\pi_{2}^{2}', suffix=' は同型.', segments=(WebGroupProofInlineSegmentView(kind='text', value='これより, '), WebGroupProofInlineSegmentView(kind='inline_math', value='E: \\\\pi_{1}^{1} \\\\to \\\\pi_{2}^{2}'), WebGroupProofInlineSegmentView(kind='te"
+    ]
+  },
+  "proof": {
+    "total_unique_steps": 15,
+    "selected": [
+      {
+        "step_id": 2696681260176,
+        "type": "MapIsomorphism",
+        "conclusion": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "rule": "INFERENCE",
+        "inference_rule": "generic injective and surjective imply isomorphism",
+        "premise_ids": [
+          2696681177968,
+          2696681269440
+        ],
+        "premise_types": [
+          "MapInjective",
+          "MapSurjective"
+        ]
+      },
+      {
+        "step_id": 2696681177968,
+        "type": "MapInjective",
+        "conclusion": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "rule": "INFERENCE",
+        "inference_rule": "EHP: preceding zero group and exactness imply Hopf injectivity",
+        "premise_ids": [
+          2696681298032,
+          2696681296112
+        ],
+        "premise_types": [
+          "TodaPrimaryGroupZeroStatement",
+          "TodaProp42ExactnessStatement"
+        ]
+      },
+      {
+        "step_id": 2696681269440,
+        "type": "MapSurjective",
+        "conclusion": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "rule": "INFERENCE",
+        "inference_rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+        "premise_ids": [
+          2696681272896,
+          2696681296256
+        ],
+        "premise_types": [
+          "TodaDeltaZeroStatement",
+          "TodaProp42ExactnessStatement"
+        ]
+      },
+      {
+        "step_id": 2696681272896,
+        "type": "TodaDeltaZeroStatement",
+        "conclusion": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+        "rule": "INFERENCE",
+        "inference_rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+        "premise_ids": [
+          2696681260224,
+          2696681299856
+        ],
+        "premise_types": [
+          "TodaSuspensionIsomorphismStatement",
+          "TodaProp42ExactnessStatement"
+        ]
+      },
+      {
+        "step_id": 2696681260224,
+        "type": "TodaSuspensionIsomorphismStatement",
+        "conclusion": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+        "rule": "INFERENCE",
+        "inference_rule": "diagonal free cyclic suspension on generators implies isomorphism",
+        "premise_ids": [
+          2696681296496,
+          2696681305424,
+          2696680413776
+        ],
+        "premise_types": [
+          "Relation",
+          "Relation",
+          "GeneratorSuspension"
+        ]
+      }
+    ]
+  }
+}

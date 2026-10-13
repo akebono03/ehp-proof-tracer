@@ -101,6 +101,27 @@ def render_toda_group_proof_narrative_reason_sentence(
     )
 
 
+  if reason.kind is TodaGroupProofNarrativeReasonKind.EXACTNESS_TO_DELTA_ZERO:
+    if len(reason.premise_steps) != 2:
+      return None
+    exactness = reason.premise_steps[1].conclusion
+    window = exactness.window
+    first = window.first_map.name
+    second = window.second_map.name
+    return (
+      "完全性より, "
+      f"$\\operatorname{{Im}}{first}=\\ker {second}=0$ なので, "
+      + _render_generic_narrative_step(reason.conclusion_step)
+    )
+
+  if reason.kind is TodaGroupProofNarrativeReasonKind.INJECTIVE_SURJECTIVE_TO_ISOMORPHISM:
+    if len(reason.premise_steps) != 2:
+      return None
+    return (
+      "単射性と全射性より, "
+      + _render_generic_narrative_step(reason.conclusion_step)
+    )
+
   if (
     reason.kind
     is TodaGroupProofNarrativeReasonKind
@@ -1614,6 +1635,29 @@ def _normalize_exactness_to_kernel_reason_prose(
   )
 
 
+def _normalize_phase165_r49_reason_prose(
+  markdown: str,
+  reason: TodaGroupProofNarrativeReason,
+) -> str:
+  if reason.kind not in (
+    TodaGroupProofNarrativeReasonKind.EXACTNESS_TO_DELTA_ZERO,
+    TodaGroupProofNarrativeReasonKind.INJECTIVE_SURJECTIVE_TO_ISOMORPHISM,
+  ):
+    return markdown
+  sentence = render_toda_group_proof_narrative_reason_sentence(reason)
+  if sentence is None:
+    return markdown
+  paragraphs = markdown.split("\n\n")
+  hits = [i for i, paragraph in enumerate(paragraphs) if paragraph.strip() == sentence]
+  if len(hits) != 1:
+    return markdown
+  index = hits[0]
+  # A pre-existing generic connector is redundant after the typed reason.
+  if index > 0 and paragraphs[index - 1].strip() == "これより,":
+    paragraphs.pop(index - 1)
+  return "\n\n".join(paragraphs)
+
+
 def insert_toda_group_proof_narrative_reason_prose(
   markdown: str,
   reason_sidecar: TodaGroupProofNarrativeReasonSidecar,
@@ -1689,6 +1733,9 @@ def insert_toda_group_proof_narrative_reason_prose(
         reason,
       )
     )
+
+  for reason in reason_sidecar.reasons:
+    rendered = _normalize_phase165_r49_reason_prose(rendered, reason)
 
   return rendered
 
