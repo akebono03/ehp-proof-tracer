@@ -25,13 +25,24 @@ def construct_registered_group_proof(
     expansion_provider=None,
     verified_assertion_ids=(),
 ):
-    """Use registered recursive search, refusing any missing input.
+    """Use the common registered search with production input discovery.
 
-    Legacy callers with only n and k fail closed. Supplying a goal, a genuine
-    registry, a citing assertion and a common expansion catalog enables the
-    recursive engine, without preselected ProofSteps or a fallback.
+    Missing proof goals or citation context remain fail-closed. Discovery never
+    turns an untyped source assertion into a verified premise, and existing
+    callers may continue supplying their own bridge and expansion provider.
     """
     group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+    if bridge is None or expansion_provider is None:
+        from phase165_r9_production_wiring import discover_goal_search_inputs
+
+        discovered = discover_goal_search_inputs()
+        if bridge is None:
+            bridge = discovered.bridge
+        if expansion_provider is None:
+            expansion_provider = discovered.expansion_provider
+        if verified_assertion_ids == ():
+            verified_assertion_ids = discovered.verified_assertion_ids
+
     if (
         goal is None
         or bridge is None
@@ -40,7 +51,7 @@ def construct_registered_group_proof(
     ):
         raise GoalSearchIncompleteError(
             f"Registered goal/rule catalog not configured for {group!r}; "
-            "legacy proof selection remains disabled"
+            "legacy proof selection is disabled"
         )
     try:
         step = reconstruct_registered_goal(

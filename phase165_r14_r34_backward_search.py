@@ -30,16 +30,30 @@ def _hopf_map() -> TodaHopfInvariantMap:
 
 
 def phase165_r34_expansions(goal: object) -> tuple[GoalExpansion, ...]:
-    """Only backward inference proposals, not proofs or uncertified leaves."""
-    if goal == pi32_goal():
-        return (GoalExpansion(
-            reverse_free_cyclic_transport_rule(),
-            (
-                MapIsomorphism(_hopf_map()),
-                Relation(TodaPrimaryGroup(3, 3), FreeCyclicGroup(IOTA_3)),
-                GeneratorImage(_hopf_map(), ETA_2, IOTA_3),
-            ),
-        ),)
+    """Derive backward candidates from a sourced generator image and common rules.
+
+    The source library currently contains eta2's Proposition 5.1 image;
+    the mechanism has no special group-number/goal equality branch.
+    """
+    from hopf_facts import ETA_2_HOPF_INVARIANT_FACT
+    if (isinstance(goal, Relation)
+            and isinstance(goal.lhs, TodaPrimaryGroup)
+            and isinstance(goal.rhs, FreeCyclicGroup)):
+        source = ETA_2_HOPF_INVARIANT_FACT
+        if source.source.locator == "Proposition 5.1" and goal.rhs.generator == source.expression:
+            sphere = goal.lhs.sphere_dimension
+            group_dim = goal.lhs.group_dimension
+            if sphere >= 2 and group_dim == sphere + 1:
+                hopf = TodaHopfInvariantMap(
+                    goal.lhs,
+                    TodaPrimaryGroup(group_dim, 2 * sphere - 1),
+                )
+                return (GoalExpansion(
+                    reverse_free_cyclic_transport_rule(),
+                    (MapIsomorphism(hopf),
+                     Relation(hopf.target_group, FreeCyclicGroup(source.value)),
+                     GeneratorImage(hopf, source.expression, source.value)),
+                ),)
     for provider in (
         expand_generic_iso_goal,
         expand_generic_ehp_hopf_goal,

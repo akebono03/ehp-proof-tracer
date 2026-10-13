@@ -1,0 +1,176 @@
+class WebGroupProofView:
+  n: int
+  k: int
+  conclusion_latex: str
+  theorem: str | None
+  phase: str | None
+  key: str
+  steps: tuple[
+    WebGroupProofStepView,
+    ...,
+  ]
+  max_depth: int
+  mode: str = "trace"
+  rendered_lines: tuple[
+    WebGroupProofRenderedLineView,
+    ...,
+  ] = ()
+  partial_result: bool = False
+
+  def __post_init__(
+    self,
+  ) -> None:
+    for name, value in (
+      ("n", self.n),
+      ("k", self.k),
+    ):
+      if (
+        isinstance(
+          value,
+          bool,
+        )
+        or not isinstance(
+          value,
+          int,
+        )
+      ):
+        raise TypeError(
+          f"{name} must be an int"
+        )
+
+    if not isinstance(
+      self.conclusion_latex,
+      str,
+    ):
+      raise TypeError(
+        "conclusion_latex must be a str"
+      )
+
+    if not self.conclusion_latex:
+      raise ValueError(
+        "conclusion_latex must not be empty"
+      )
+
+    if (
+      self.theorem is not None
+      and not isinstance(
+        self.theorem,
+        str,
+      )
+    ):
+      raise TypeError(
+        "theorem must be a str or None"
+      )
+
+    if (
+      self.phase is not None
+      and not isinstance(
+        self.phase,
+        str,
+      )
+    ):
+      raise TypeError(
+        "phase must be a str or None"
+      )
+
+    if not isinstance(
+      self.key,
+      str,
+    ):
+      raise TypeError(
+        "key must be a str"
+      )
+
+    if not self.key:
+      raise ValueError(
+        "key must not be empty"
+      )
+
+    if not isinstance(
+      self.steps,
+      tuple,
+    ):
+      raise TypeError(
+        "steps must be a tuple"
+      )
+
+    if not isinstance(self.partial_result, bool):
+      raise TypeError("partial_result must be a bool")
+
+    if not self.steps and not self.partial_result:
+      raise ValueError(
+        "steps must not be empty"
+      )
+
+    for step in self.steps:
+      if not isinstance(
+        step,
+        WebGroupProofStepView,
+      ):
+        raise TypeError(
+          "steps must contain only "
+          "WebGroupProofStepView values"
+        )
+
+    if (
+      isinstance(
+        self.max_depth,
+        bool,
+      )
+      or not isinstance(
+        self.max_depth,
+        int,
+      )
+    ):
+      raise TypeError(
+        "max_depth must be an int"
+      )
+
+    if self.max_depth < 0:
+      raise ValueError(
+        "max_depth must be nonnegative"
+      )
+
+    if self.mode not in (
+      "trace",
+      "outline",
+      "narrative",
+    ):
+      raise ValueError(
+        "mode must be trace, outline, or narrative"
+      )
+
+    if not isinstance(
+      self.rendered_lines,
+      tuple,
+    ):
+      raise TypeError(
+        "rendered_lines must be a tuple"
+      )
+
+    for line in self.rendered_lines:
+      if not isinstance(
+        line,
+        WebGroupProofRenderedLineView,
+      ):
+        raise TypeError(
+          "rendered_lines must contain only "
+          "WebGroupProofRenderedLineView values"
+        )
+
+    if (
+      self.mode == "trace"
+      and self.rendered_lines
+    ):
+      raise ValueError(
+        "trace mode must not have rendered_lines"
+      )
+
+    if (
+      self.mode != "trace"
+      and not self.rendered_lines
+    ):
+      raise ValueError(
+        "outline and narrative modes require "
+        "rendered_lines"
+      )

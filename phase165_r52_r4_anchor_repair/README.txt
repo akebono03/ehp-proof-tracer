@@ -1,0 +1,1 @@
+R52-R4 targeted installer repair: scope the Conclusion heading replacement to the Group proof block. Reuses original R4 bridge and tests; retains atomic pre-validation and existing backups. No broad changes.

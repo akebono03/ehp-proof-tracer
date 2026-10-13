@@ -1,0 +1,66 @@
+from flask import (
+  Flask,
+  render_template,
+  request,
+)
+
+from web_generator_applicability import (
+  WebGeneratorApplicabilityView,
+  build_standard_web_generator_applicability_view,
+)
+from web_generator_execution import (
+  WebGeneratorExecutionView,
+  build_standard_web_generator_execution_view,
+)
+from web_generator_exploration import (
+  WebGeneratorExplorationView,
+  build_standard_web_generator_exploration_view,
+)
+from web_generator_proof import (
+  WebGeneratorProofView,
+  build_standard_web_generator_proof_view,
+)
+from web_generator_proof_scope import (
+  WebGeneratorProofScopeView,
+  build_standard_web_generator_proof_scope_view,
+)
+from phase165_r52_r4_flask_bridge import (
+  build_group_proof_progress_view,
+)
+from web_group_proof import (
+  WebGroupProofView,
+  build_standard_web_group_proof_view,
+)
+from web_group_query import (
+  WebGroupQueryView,
+  build_standard_web_group_query_view,
+)
+from web_operation_query import (
+  WebOperationQueryView,
+  build_standard_web_operation_query_view,
+)
+from web_operation_query_proof import (
+  WebOperationQueryProofView,
+  build_standard_web_operation_query_proof_view,
+)
+
+
+def _parse_integer_form_value(
+  value: str | None,
+  field_name: str,
+) -> int:
+  if value is None or not value.strip():
+    raise ValueError(
+      f"{field_name} is required"
+    )
+
+  try:
+    return int(
+      value
+    )
+  except ValueError as error:
+    raise ValueError(
+      f"{field_name} must be an integer"
+    ) from error
+
+

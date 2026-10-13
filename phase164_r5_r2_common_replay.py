@@ -1,23 +1,19 @@
-"""Phase 164 R5-R2: select a proof replay, never render text here.
+"""Phase 164 R5-R2: select dynamically reconstructed registered proofs.
 
-All selected replays must pass through the same presentation and renderer.
-Legacy proof construction is explicitly disabled by Phase 165.
+No legacy replay fallback, and no group-specific proof-selection branch.
+All supported proofs go through the common presentation and renderer.
 """
+from __future__ import annotations
+
+from phase165_r52_r7_registered_common_proof import build_registered_common_replay
 
 
-def build_phase164_r5_r2_common_replay(n: int, k: int, group_result, max_depth: int, mode: str):
-    """Fail closed until a verified typed registry and common rule catalog are connected.
-
-    No old repository replay, group-specific reconstruction, or stable-eta
-    replay is an acceptable proof source in the unified Web proof route.
-    """
-    if n == 2 and k == 1:
-        from phase165_r14_r41_proof_transfer import build_phase165_r41_pi32_common_replay
-        return build_phase165_r41_pi32_common_replay(group_result, max_depth, mode)
-
-    from phase165_goal_only_search import GoalSearchIncompleteError
-
-    raise GoalSearchIncompleteError(
-        "Registered goal/rule catalog not configured for "
-        f"group (n={n}, k={k}); legacy proof selection remains disabled"
+def build_phase164_r5_r2_common_replay(
+    n: int, k: int, group_result, max_depth: int, mode: str,
+):
+    """Dispatch by matching a typed mathematical Goal, never by n/k cases."""
+    if group_result.target.group_dimension != n + k or group_result.target.sphere_dimension != n:
+        raise ValueError("group result does not match requested n, k")
+    return build_registered_common_replay(
+        group_result=group_result, max_depth=max_depth, mode=mode,
     )

@@ -24,6 +24,11 @@ from web_generator_proof_scope import (
   WebGeneratorProofScopeView,
   build_standard_web_generator_proof_scope_view,
 )
+from phase165_r52_r4_flask_bridge import (
+  build_group_proof_progress_view,
+)
+from phase165_goal_only_search import GoalSearchIncompleteError
+
 from web_group_proof import (
   WebGroupProofView,
   build_standard_web_group_proof_view,
@@ -200,13 +205,26 @@ def create_app(
               k=k,
             )
           )
-          group_proof_view = (
-            build_standard_web_group_proof_view(
-              n,
-              k,
-              max_depth=group_proof_depth,
-              mode=group_proof_mode_value,
+          try:
+            group_proof_view = (
+              build_standard_web_group_proof_view(
+                n,
+                k,
+                max_depth=group_proof_depth,
+                mode=group_proof_mode_value,
+              )
             )
+          except GoalSearchIncompleteError:
+            group_proof_view = build_group_proof_progress_view(
+              n=n,
+              k=k,
+              max_depth=group_proof_depth,
+            )
+        elif form_kind == "group_proof_progress":
+          n = _parse_integer_form_value(n_value, "n")
+          k = _parse_integer_form_value(k_value, "k")
+          group_proof_view = build_group_proof_progress_view(
+            n=n, k=k,
           )
         elif form_kind == "operation":
           operation_query_view = (
@@ -322,6 +340,10 @@ def create_app(
               k=k,
             )
           )
+          if n >= 2 and k >= 0:
+            group_proof_view = build_group_proof_progress_view(
+              n=n, k=k,
+            )
       except (
         TypeError,
         ValueError,

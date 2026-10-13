@@ -56,11 +56,13 @@ def reconstruct_registered_goal(
     *,
     verified_assertion_ids: tuple[str, ...] = (),
     lookup_mode: str = "legacy",
+    progress_observer: Callable[[str, object, ProofStep | None], None] | None = None,
 ) -> ProofStep:
-    """Derive recursively using typed References or legacy candidates.
+    """Derive a goal with optional read-only progress reporting.
 
-    lookup_mode='typed_reference' does not impose a separate citation-approval
-    gate. It still requires exact typed equality and provenance-linked steps.
+    The observer receives ('proved', goal, step) only after an accepted unique
+    derivation and ('unresolved', goal, None) for a failed search branch.
+    Supplying no observer preserves the existing API and search semantics.
     """
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -70,15 +72,22 @@ def reconstruct_registered_goal(
         raise TypeError("verified_assertion_ids must be a tuple")
     if lookup_mode not in ("legacy", "typed_reference"):
         raise ValueError("unknown lookup mode")
+    if progress_observer is not None and not callable(progress_observer):
+        raise TypeError("progress_observer must be callable or None")
     bridge.registry.assertion(citing_assertion_id)
     active: list[object] = []
     solved: list[tuple[object, ProofStep]] = []
+
+    def report(kind: str, target: object, step: ProofStep | None = None) -> None:
+        if progress_observer is not None:
+            progress_observer(kind, target, step)
 
     def resolve(target: object) -> ProofStep:
         for earlier, step in solved:
             if type(earlier) is type(target) and earlier == target:
                 return step
         if any(type(earlier) is type(target) and earlier == target for earlier in active):
+            report("unresolved", target)
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
@@ -110,11 +119,13 @@ def reconstruct_registered_goal(
                     if type(step.conclusion) is type(target) and step.conclusion == target:
                         options.append(step)
             if len(options) != 1:
+                report("unresolved", target)
                 raise RegisteredGoalUnresolved(
                     f"expected one registered derivation for {target!r}, found {len(options)}"
                 )
             step = options[0]
             solved.append((target, step))
+            report("proved", target, step)
             return step
         finally:
             active.pop()

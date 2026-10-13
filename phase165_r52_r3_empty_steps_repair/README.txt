@@ -1,0 +1,1 @@
+R52-R3 empty-step repair: explicitly partial views may have zero steps. Legacy completed views still reject zero steps. Installer writes the full replacement WebGroupProofView class to WebGroupProofView_REPLACEMENT.py.txt. Run from repository root.
