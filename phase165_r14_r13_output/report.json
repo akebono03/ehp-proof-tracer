@@ -1,0 +1,40 @@
+{
+  "phase": "165 R14-R13",
+  "mode": "READ_ONLY_SOURCE_TEXT_AND_DIAGONAL_SUSPENSION_REVIEW",
+  "source_review_count": 2,
+  "source_reviews": [
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0002",
+      "locator": "(4.2)",
+      "source_text": "\\begin{equation}\\label{4.2}\n% (4.2).\\\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\n\\end{equation}",
+      "exactness_words_found": false,
+      "typed_specialization_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0005",
+      "locator": "Proposition 4.2",
+      "source_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}",
+      "exactness_words_found": true,
+      "typed_specialization_verified": false,
+      "proof_eligible": false
+    }
+  ],
+  "diagonal_suspension": {
+    "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+    "method": "DIAGONAL_GENERATOR_TRANSPORT",
+    "requirements": [
+      "pi_1^1 = Z{iota_1}",
+      "pi_2^2 = Z{iota_2}",
+      "E(iota_1) = iota_2",
+      "free_cyclic_generator_map_implies_isomorphism"
+    ],
+    "certified": false
+  },
+  "proposition42_single_clause_selected": false,
+  "mathematical_semantics_certified": false,
+  "proof_steps_created": 0,
+  "pi32_proved": false,
+  "full_pytest_run": false,
+  "status": "SOURCE_CANDIDATES_VISIBLE_SPECIALIZATION_PENDING"
+}

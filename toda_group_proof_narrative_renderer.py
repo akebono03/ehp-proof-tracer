@@ -8201,252 +8201,6 @@ def _phase159_r1_6c_remove_redundant_exactness_sentence(
   )
 
 
-def _phase159_r1_6c_link_proof_reasons(
-  presentation: TodaGroupProofPresentation,
-  rendered: str,
-) -> str:
-  if not isinstance(
-    presentation,
-    TodaGroupProofPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "TodaGroupProofPresentation"
-    )
-
-  if not isinstance(
-    rendered,
-    str,
-  ):
-    raise TypeError(
-      "rendered must be a str"
-    )
-
-  proof_marker = (
-    "## 証明\n\n"
-  )
-  proof_start = rendered.find(
-    proof_marker
-  )
-
-  if proof_start < 0:
-    return rendered
-
-  body_start = (
-    proof_start
-    + len(
-      proof_marker
-    )
-  )
-  body = rendered[
-    body_start:
-  ]
-  body_lines = body.splitlines()
-
-  all_steps = (
-    _phase159_r1_6c_recursive_proof_steps(
-      presentation.root_step
-    )
-  )
-
-  exactness_derived_keys = set()
-
-  for proof_step in all_steps:
-    if not any(
-      (
-        isinstance(
-          premise,
-          ProofStep,
-        )
-        and isinstance(
-          premise.conclusion,
-          TodaProp42ExactnessStatement,
-        )
-      )
-      for premise in proof_step.premises
-    ):
-      continue
-
-    rendered_step = (
-      _phase159_r1_6c_compact_map_property_line(
-        _render_generic_narrative_step(
-          proof_step
-        )
-      )
-    )
-
-    exactness_derived_keys.add(
-      _phase159_r1_6c_statement_match_key(
-        rendered_step
-      )
-    )
-
-  suspension_pairs = []
-
-  for proof_step in all_steps:
-    if not isinstance(
-      proof_step.conclusion,
-      TodaSuspensionInjectiveStatement,
-    ):
-      continue
-
-    source_step = next(
-      (
-        premise
-        for premise in proof_step.premises
-        if (
-          isinstance(
-            premise,
-            ProofStep,
-          )
-          and isinstance(
-            premise.conclusion,
-            TodaSuspensionIsomorphismStatement,
-          )
-          and (
-            _phase159_r1_6c_step_reference_locator(
-              premise
-            )
-            == "(5.1)"
-          )
-        )
-      ),
-      None,
-    )
-
-    if source_step is None:
-      continue
-
-    source_line = (
-      _phase159_r1_6c_compact_map_property_line(
-        _render_generic_narrative_step(
-          source_step
-        )
-      )
-    )
-    target_line = (
-      _phase159_r1_6c_compact_map_property_line(
-        _render_generic_narrative_step(
-          proof_step
-        )
-      )
-    )
-
-    suspension_pairs.append(
-      (
-        _phase159_r1_6c_statement_match_key(
-          target_line
-        ),
-        source_line,
-      )
-    )
-
-  reference_number = (
-    _phase159_r1_6c_reference_number(
-      rendered,
-      "(5.1)",
-    )
-  )
-
-  linked_lines = []
-  inserted_source_keys = set()
-
-  for line in body_lines:
-    stripped = line.strip()
-    key = (
-      _phase159_r1_6c_statement_match_key(
-        stripped
-      )
-    )
-
-    suspension_pair = next(
-      (
-        pair
-        for pair in suspension_pairs
-        if pair[
-          0
-        ] == key
-      ),
-      None,
-    )
-
-    if (
-      suspension_pair is not None
-      and reference_number is not None
-    ):
-      source_line = (
-        suspension_pair[
-          1
-        ]
-      )
-      source_key = (
-        _phase159_r1_6c_statement_match_key(
-          source_line
-        )
-      )
-
-      if source_key not in inserted_source_keys:
-        if (
-          linked_lines
-          and linked_lines[
-            -1
-          ].strip()
-        ):
-          linked_lines.append(
-            ""
-          )
-
-        linked_lines.append(
-          (
-            "[R"
-            + str(
-              reference_number
-            )
-            + "]より, "
-            + source_line
-          )
-        )
-        linked_lines.append(
-          ""
-        )
-        inserted_source_keys.add(
-          source_key
-        )
-
-      linked_lines.append(
-        (
-          "したがって, "
-          + stripped
-        )
-      )
-      continue
-
-    if (
-      key in exactness_derived_keys
-      and not stripped.startswith(
-        "完全性より,"
-      )
-    ):
-      linked_lines.append(
-        (
-          "完全性より, "
-          + stripped
-        )
-      )
-      continue
-
-    linked_lines.append(
-      line
-    )
-
-  return (
-    rendered[
-      :body_start
-    ]
-    + "\n".join(
-      linked_lines
-    )
-  )
 
 
 def _phase159_r1_6c_render_statement_numbers(
@@ -9102,12 +8856,6 @@ def _phase159_r1_7c_preexisting_render_toda_group_proof_narrative_markdown(
   rendered = (
     _phase159_r1_6c_remove_redundant_exactness_sentence(
       rendered
-    )
-  )
-  rendered = (
-    _phase159_r1_6c_link_proof_reasons(
-      presentation,
-      rendered,
     )
   )
   rendered = (
@@ -12248,7 +11996,6 @@ def render_toda_group_proof_narrative_markdown(
       presentation
     )
   )
-
   if stable_transport_narrative is not None:
     return stable_transport_narrative
 
@@ -12258,9 +12005,10 @@ def render_toda_group_proof_narrative_markdown(
     )
   )
   from phase164_r9_narrative_contract import normalize_public_narrative_contract
-  return normalize_public_narrative_contract(
+  rendered = normalize_public_narrative_contract(
     suppress_toda_group_proof_narrative_dangling_connectors(
       rendered
     )
   )
+  return rendered
 

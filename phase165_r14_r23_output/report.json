@@ -1,0 +1,16 @@
+{
+  "phase": "165 R14-R23",
+  "reference_id": "phase163:archive:toda:(5.1)",
+  "original_manifest_assertions": 117,
+  "six_source_components_preserved": true,
+  "typed_fixed_diagonal_claims": 2,
+  "reviewed_toda_leaf_proofsteps": 2,
+  "derived_suspension_iso_steps": 1,
+  "derived_iso": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+  "derived_rule": "inference",
+  "strict_citation_eligible_count": 0,
+  "original_edition_verified": false,
+  "production_pi32_proved": false,
+  "status": "ADOPTED_TEX_DIAGONAL_ISO_DERIVED_STRICT_CITATION_PENDING",
+  "full_pytest_run": false
+}

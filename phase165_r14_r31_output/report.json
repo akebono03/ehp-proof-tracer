@@ -1,0 +1,13 @@
+{
+  "phase": "165 R14-R31",
+  "toda51_zero_goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+  "prop42_e_h_exactness": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+  "hopf_injective_goal": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+  "hopf_injective_proof_step_created": true,
+  "hopf_injective_rule": "inference",
+  "hopf_injective_premises": 2,
+  "strict_registry_citation_approved": false,
+  "pi32_proved": false,
+  "status": "ADOPTED_TEX_HOPF_INJECTIVE_DERIVED_STRICT_CITATION_PENDING",
+  "full_pytest_run": false
+}

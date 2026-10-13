@@ -1,0 +1,13 @@
+{
+  "phase": "165 R14-R32",
+  "hopf_injective_step_reused": true,
+  "hopf_surjective_step_reused": true,
+  "hopf_isomorphism": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+  "hopf_isomorphism_proof_step_created": true,
+  "hopf_isomorphism_rule": "inference",
+  "hopf_isomorphism_premises": 2,
+  "strict_registry_citation_approved": false,
+  "pi32_proved": false,
+  "status": "ADOPTED_TEX_HOPF_ISOMORPHISM_DERIVED_STRICT_CITATION_PENDING",
+  "full_pytest_run": false
+}

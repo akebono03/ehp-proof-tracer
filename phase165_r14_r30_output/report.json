@@ -1,0 +1,15 @@
+{
+  "phase": "165 R14-R30",
+  "prop42_source": "phase163:archive:toda:tex:ch4:0005",
+  "scope_policy": "GENERAL_STATEMENT_AS_WRITTEN_N1_WITH_NO_KNOWN_EXCLUSION",
+  "r29_delta_zero_reused": true,
+  "h_delta_exactness": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+  "h_surjective_goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+  "h_surjective_proof_step_created": true,
+  "h_surjective_rule": "inference",
+  "h_surjective_premises": 2,
+  "strict_registry_citation_approved": false,
+  "pi32_proved": false,
+  "full_pytest_run": false,
+  "status": "ADOPTED_TEX_HOPF_SURJECTIVE_DERIVED_STRICT_CITATION_PENDING"
+}

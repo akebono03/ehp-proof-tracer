@@ -1,0 +1,47 @@
+{
+  "phase": "165 R14-R10",
+  "goal": "pi_3^2 = Z{eta_2}",
+  "obligations": [
+    {
+      "label": "pi2_1_zero",
+      "statement": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "reference_candidate": "(5.1)",
+      "source_text_found": true,
+      "exact_registry_matches": 0,
+      "proof_eligible": false,
+      "reason": "Typed specialization i=2>1 is available only as source candidate; no certified ProofStepLink"
+    },
+    {
+      "label": "ehp_e_h_exactness",
+      "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "reference_candidate": "Proposition 4.2",
+      "source_text_found": false,
+      "exact_registry_matches": 0,
+      "proof_eligible": false,
+      "reason": "E-H exactness window not certified or connected to reviewed source"
+    },
+    {
+      "label": "delta_zero",
+      "statement": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+      "reference_candidate": "UNRESOLVED",
+      "source_text_found": false,
+      "exact_registry_matches": 0,
+      "proof_eligible": false,
+      "reason": "Delta=0 is NOT implied by pi_1^1=Z; requires independent argument"
+    },
+    {
+      "label": "ehp_h_delta_exactness",
+      "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+      "reference_candidate": "Proposition 4.2",
+      "source_text_found": false,
+      "exact_registry_matches": 0,
+      "proof_eligible": false,
+      "reason": "H-Delta exactness window not certified or connected to reviewed source"
+    }
+  ],
+  "certified_new_leaves": 0,
+  "proof_steps_created": 0,
+  "legacy_proof_used": false,
+  "full_pytest_run": false,
+  "status": "FOUR_PREMISES_AUDITED_NOT_CERTIFIED"
+}

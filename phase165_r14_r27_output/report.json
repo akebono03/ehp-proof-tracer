@@ -1,0 +1,15 @@
+{
+  "phase": "165 R14-R27",
+  "r24_iso_connected": null,
+  "exactness_source": "phase163:archive:toda:tex:ch4:0005",
+  "scope_file": null,
+  "context_excerpt": "",
+  "n1_scope_confirmed": false,
+  "n1_exclusion_detected": false,
+  "conditional_exactness_step_possible": true,
+  "production_exactness_step": false,
+  "production_delta_zero_proved": false,
+  "pi32_proved": false,
+  "status": "PROP42_TYPED_SCOPE_NOT_ESTABLISHED_DELTA_BLOCKED",
+  "full_pytest_run": false
+}

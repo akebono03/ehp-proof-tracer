@@ -1,0 +1,23 @@
+{
+  "phase": "165 R14-R22",
+  "source_locator": "(5.1)",
+  "existing_reference_id_reused": "phase163:archive:toda:(5.1)",
+  "new_references": 0,
+  "new_source_only_components": 6,
+  "phase163_original_source_assertions": 117,
+  "source_assertion_total": 123,
+  "component_keys": [
+    "pi1_zero",
+    "below_diagonal_zero",
+    "negative_stem_zero",
+    "diagonal_cyclic",
+    "stable_zero_stem_cyclic",
+    "stable_identity"
+  ],
+  "typed_diagonal_instances": 2,
+  "new_proof_links": 0,
+  "new_proof_eligible": 0,
+  "pi32_proved": false,
+  "status": "SAME_REFERENCE_SIX_CLAUSES_INTEGRATED_SOURCE_ONLY",
+  "full_pytest_run": false
+}

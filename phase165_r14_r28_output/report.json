@@ -1,0 +1,17 @@
+{
+  "phase": "165 R14-R28",
+  "prop42_source": "phase163:archive:toda:tex:ch4:0005",
+  "typed_exactness_goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+  "source_tex_path": null,
+  "prop42_found_in_local_tex": false,
+  "n_ge_2_text_detected": false,
+  "n_ge_1_text_detected": false,
+  "n1_applicability_certified": false,
+  "n1_scope_evidence_excerpt": "",
+  "source_archive_count": 117,
+  "r23_iso_step_assumed_verified": false,
+  "production_delta_zero_proved": false,
+  "production_pi32_proved": false,
+  "status": "PROP42_LOCAL_TEX_NOT_FOUND",
+  "full_pytest_run": false
+}

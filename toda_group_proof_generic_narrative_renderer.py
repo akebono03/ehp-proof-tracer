@@ -1215,6 +1215,29 @@ def _render_phase153_r3_6_reference_statement_prose(
 def _render_generic_narrative_statement_prose(
   statement,
 ) -> str | None:
+  # phase165_r42_generic_typed_prose: these are shared typed map and
+  # generator-image statements; never use target-specific prose.
+  kind = type(statement).__name__
+  if kind == "GeneratorImage":
+    map_name = _generic_group_map_name(statement.map)
+    if map_name is not None:
+      return (
+        "$" + map_name + "("
+        + render_toda_expression_latex(statement.source_generator)
+        + ") = "
+        + render_toda_expression_latex(statement.target_generator)
+        + "$."
+      )
+  if kind in ("MapIsomorphism", "MapInjective", "MapSurjective"):
+    map_latex = _render_generic_narrative_group_map_latex(statement.map)
+    if map_latex is not None:
+      meaning = {
+        "MapIsomorphism": "同型写像",
+        "MapInjective": "単射",
+        "MapSurjective": "全射",
+      }[kind]
+      return "$" + map_latex + "$ は" + meaning + "である."
+
   reference_prose = (
     _render_phase153_r3_9_reference_statement_prose(
       statement

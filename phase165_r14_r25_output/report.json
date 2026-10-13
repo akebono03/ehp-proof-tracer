@@ -1,0 +1,36 @@
+{
+  "phase": "165 R14-R25",
+  "candidate_count": 2,
+  "target_window": "pi_3^3 --Delta--> pi_1^1 --E--> pi_2^2",
+  "source_reviews": [
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0002",
+      "locator": "(4.2)",
+      "source_text": "\\begin{equation}\\label{4.2}\n% (4.2).\\\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\n\\end{equation}",
+      "has_exactness_keyword": false,
+      "has_delta": false,
+      "has_suspension": false,
+      "has_index_range": false,
+      "source_text_present": true,
+      "certified": false
+    },
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0005",
+      "locator": "Proposition 4.2",
+      "source_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}",
+      "has_exactness_keyword": true,
+      "has_delta": false,
+      "has_suspension": false,
+      "has_index_range": false,
+      "source_text_present": true,
+      "certified": false
+    }
+  ],
+  "source_assertions_preserved": 117,
+  "semantic_application_certified": false,
+  "proof_eligible_new": 0,
+  "new_proof_steps": 0,
+  "pi32_proved": false,
+  "status": "PROP42_FULL_SOURCE_EXPORTED_MATHEMATICAL_SCOPE_REVIEW_PENDING",
+  "full_pytest_run": false
+}
