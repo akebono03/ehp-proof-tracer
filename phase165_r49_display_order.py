@@ -44,6 +44,46 @@ def finalize_phase165_r49_typed_reason_order(markdown: str, reason_sidecar) -> s
                     and "\\operatorname{Im}" in paragraph
                     and "\\ker" in paragraph
                     and "は零写像" in paragraph]
+        if not detailed:
+            from toda_group_proof_narrative_reason_renderer import (
+                render_toda_group_proof_narrative_reason_sentence,
+            )
+            explanation = render_toda_group_proof_narrative_reason_sentence(reason)
+            conclusion = _render_generic_narrative_step(reason.conclusion_step)
+            if not explanation or not conclusion:
+                continue
+            # Only a proven Delta-zero typed reason may restore this text.
+            # Reference linkage may prefix or replace the old bare paragraph.
+            delta_mentions = [
+                i for i, paragraph in enumerate(paragraphs)
+                if "は零写像" in paragraph
+                and "\\Delta" in paragraph
+                and "\\operatorname{Im}" not in paragraph
+            ]
+            if len(delta_mentions) == 1:
+                index = delta_mentions[0]
+                paragraph = paragraphs[index]
+                # Preserve a pre-existing citation prefix, when present.
+                prefix = ""
+                if paragraph.startswith("[R") and "]" in paragraph:
+                    prefix = paragraph.split("]", 1)[0] + "]より, "
+                paragraphs[index] = prefix + explanation
+                detailed = [index]
+            elif not delta_mentions:
+                # When body suppression removed the conclusion as well,
+                # anchor the exactness explanation immediately before the
+                # matching Hopf-surjectivity conclusion. Never insert if the
+                # proof did not expose that dependent statement.
+                surjectivity = [
+                    i for i, paragraph in enumerate(paragraphs)
+                    if "は全射" in paragraph
+                    and "H:" in paragraph
+                    and "\\pi_{3}^{2}" in paragraph
+                    and "\\pi_{3}^{3}" in paragraph
+                ]
+                if len(surjectivity) == 1:
+                    paragraphs.insert(surjectivity[0], explanation)
+                    detailed = [surjectivity[0]]
         if len(detailed) != 1:
             continue
         rendered = _render_generic_narrative_step(reason.conclusion_step)

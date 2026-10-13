@@ -715,6 +715,23 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
         )
       )
 
+      # An explicitly cited, premise-free GIVEN is an adopted source
+      # assertion, not a proof-internal derived statement. Phase 165
+      # registers these leaves without legacy fixed-rule aliases.
+      from proof import ProofRule
+      explicitly_cited_source = (
+        proof_step is not root_step
+        and proof_step.rule is ProofRule.GIVEN
+        and not proof_step.premises
+        and proof_step.inference_rule is not None
+        and proof_step.inference_rule.literature_reference is not None
+        and proof_step.inference_rule.literature_reference.locator
+        == entry.reference.locator
+      )
+      if explicitly_cited_source:
+        retained_steps.append(proof_step)
+        continue
+
       if (
         boundary is None
         or boundary.classification

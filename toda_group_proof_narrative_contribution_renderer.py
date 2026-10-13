@@ -2662,6 +2662,13 @@ def link_toda_group_proof_narrative_reference_body_consumers(
       0
     ]
 
+    # A reference marker may be moved only onto an unadorned
+    # conclusion.  The substring match above can find a conclusion
+    # embedded in an independently derived explanation; replacing
+    # that paragraph would discard its mathematical justification.
+    if lines[consumer_index].strip() != consumer_line.strip():
+      continue
+
     legacy_marker_only = (
       marker_line
       .rstrip()
