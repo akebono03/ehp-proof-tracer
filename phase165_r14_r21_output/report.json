@@ -1,0 +1,23 @@
+{
+  "phase": "165 R14-R21",
+  "locator": "(5.1)",
+  "registered_source_clause_count": 6,
+  "clause_keys": [
+    "pi1_zero",
+    "below_diagonal_zero",
+    "negative_stem_zero",
+    "diagonal_cyclic",
+    "stable_zero_stem_cyclic",
+    "stable_identity"
+  ],
+  "adjacent_display_included": true,
+  "diagonal_typed_specializations": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "adopted_tex_sha256": "7b9bd51c7209d40a831bc78251f4b16e62da3e51731cee3cafbd02ca1c1bcf00",
+  "toda51_production_proof_steps": 0,
+  "pi32_proved": false,
+  "status": "TODA51_SIX_CLAUSE_SOURCE_COMPLETED_TYPED_SPECIALIZATIONS_NOT_CERTIFIED",
+  "full_pytest_run": false
+}
