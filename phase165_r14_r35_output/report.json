@@ -1,0 +1,103 @@
+{
+  "phase": "165 R14-R35",
+  "total_unresolved_leaves": 9,
+  "source_candidate_match_count": 6,
+  "remaining_review_count": 3,
+  "leaf_bindings": [
+    {
+      "number": 1,
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "type": "Relation",
+      "status": "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED",
+      "candidate_locator": "(5.1)",
+      "candidate_source_id": "phase163:archive:toda:(5.1)",
+      "evidence": "diagonal group",
+      "strict_eligible": false
+    },
+    {
+      "number": 2,
+      "goal": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "type": "GeneratorImage",
+      "status": "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED",
+      "candidate_locator": "Proposition 5.1",
+      "candidate_source_id": "UNRESOLVED_EXACT_REGISTRY_ID",
+      "evidence": "Hopf generator image",
+      "strict_eligible": false
+    },
+    {
+      "number": 3,
+      "goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "type": "TodaPrimaryGroupZeroStatement",
+      "status": "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED",
+      "candidate_locator": "(5.1)",
+      "candidate_source_id": "phase163:archive:toda:(5.1)",
+      "evidence": "pi_2(S^1)=0",
+      "strict_eligible": false
+    },
+    {
+      "number": 4,
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "type": "TodaProp42ExactnessStatement",
+      "status": "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED",
+      "candidate_locator": "Proposition 4.2",
+      "candidate_source_id": "phase163:archive:toda:tex:ch4:0005",
+      "evidence": "E to H exactness",
+      "strict_eligible": false
+    },
+    {
+      "number": 5,
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+      "type": "TodaProp42ExactnessStatement",
+      "status": "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED",
+      "candidate_locator": "Proposition 4.2",
+      "candidate_source_id": "phase163:archive:toda:tex:ch4:0005",
+      "evidence": "H to Delta exactness",
+      "strict_eligible": false
+    },
+    {
+      "number": 6,
+      "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "type": "TodaProp42ExactnessStatement",
+      "status": "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED",
+      "candidate_locator": "Proposition 4.2",
+      "candidate_source_id": "phase163:archive:toda:tex:ch4:0005",
+      "evidence": "Delta to E exactness",
+      "strict_eligible": false
+    },
+    {
+      "number": 7,
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "type": "Relation",
+      "status": "NEEDS_RULE_OR_SOURCE_REVIEW",
+      "candidate_locator": null,
+      "candidate_source_id": null,
+      "evidence": null,
+      "strict_eligible": false
+    },
+    {
+      "number": 8,
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "type": "Relation",
+      "status": "NEEDS_RULE_OR_SOURCE_REVIEW",
+      "candidate_locator": null,
+      "candidate_source_id": null,
+      "evidence": null,
+      "strict_eligible": false
+    },
+    {
+      "number": 9,
+      "goal": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+      "type": "GeneratorSuspension",
+      "status": "NEEDS_RULE_OR_SOURCE_REVIEW",
+      "candidate_locator": null,
+      "candidate_source_id": null,
+      "evidence": null,
+      "strict_eligible": false
+    }
+  ],
+  "registry_assertions_promoted": 0,
+  "existing_proof_replay_used": false,
+  "strict_registry_proof_created": false,
+  "status": "SOURCE_LEAVES_MAPPED_CERTIFICATION_PENDING",
+  "full_pytest_run": false
+}
