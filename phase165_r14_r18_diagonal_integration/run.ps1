@@ -1,0 +1,14 @@
+$ErrorActionPreference = "Stop"
+$Root = Split-Path -Parent $PSScriptRoot
+Set-Location $Root
+Copy-Item "$PSScriptRoot\phase165_r14_r18_diagonal_integration.py" ".\phase165_r14_r18_diagonal_integration.py" -Force
+$Prior = $env:PYTHONPATH
+try {
+  $env:PYTHONPATH = if ($Prior) { "$Root$([IO.Path]::PathSeparator)$Prior" } else { $Root }
+  python -m pytest -q "$PSScriptRoot\test_phase165_r14_r18_diagonal_integration.py"
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+  python "$PSScriptRoot\audit.py"
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+}
+finally { $env:PYTHONPATH = $Prior }
+Write-Host "R14-R18 targeted verification complete. Full pytest NOT run."

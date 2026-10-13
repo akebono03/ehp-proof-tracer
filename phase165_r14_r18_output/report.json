@@ -1,0 +1,28 @@
+{
+  "phase": "165 R14-R18",
+  "diagonal_obligations": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))"
+  ],
+  "foundational_step_available": true,
+  "verified_toda_group_steps_supplied": 0,
+  "diagonal_iso_in_production": false,
+  "fail_closed_on_missing_group_steps": true,
+  "prop42_candidate_count": 2,
+  "prop42_source_texts": [
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0002",
+      "source_text": "\\begin{equation}\\label{4.2}\n% (4.2).\\\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\n\\end{equation}"
+    },
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0005",
+      "source_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}"
+    }
+  ],
+  "prop42_semantics_certified": false,
+  "new_toda_proof_steps": 0,
+  "pi32_proved": false,
+  "full_pytest_run": false,
+  "status": "FOUNDATIONAL_STEP_CONNECTED_CONDITIONALLY_TODA_LEAVES_MISSING"
+}
