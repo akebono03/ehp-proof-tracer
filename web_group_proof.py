@@ -696,6 +696,9 @@ def build_standard_web_group_proof_view(
   mode: str = "narrative",
 ) -> WebGroupProofView:
   """Render every group through the same presentation and narrative pipeline."""
+  if n == 2 and k == 1:
+    from phase165_r14_r39_web_connection import build_phase165_pi32_web_view
+    return build_phase165_pi32_web_view(max_depth=max_depth, mode=mode)
   query = TodaGroupQuery(n=n, k=k)
   domain = classify_toda_group_query_domain(query)
   if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
