@@ -1,0 +1,24 @@
+{
+  "phase": "165 R14-R34",
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "visited_count": 15,
+  "derived_goal_count": 6,
+  "unresolved_leaf_count": 9,
+  "unresolved_leaves": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+    "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+    "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+    "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+    "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))"
+  ],
+  "source_manifest_assertions": 117,
+  "existing_proof_replay_used": false,
+  "strict_registry_proof_created": false,
+  "strict_unresolved_reason": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+  "status": "STRICT_BACKWARD_SEARCH_BLOCKED_ON_UNVERIFIED_LEAVES",
+  "full_pytest_run": false
+}
