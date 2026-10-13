@@ -1,0 +1,71 @@
+{
+  "phase": "165 R14-R3",
+  "reference_id": "phase163:archive:toda:(5.1)",
+  "source_statement_id": "toda:tex:ch5:0001",
+  "archive_source_sha256": "7f22530bf7ad332c903104712c58e5e1640a77dbdc1945852683ef2fe5a08005",
+  "numbered_source": "\\begin{equation}\\label{5.1}\n\\pi^{1}_{i}=0\\ (i>1),\\qquad\n\\pi^{n}_{i}=0\\ (i<n),\\qquad\nG_k=(G_k;2)=0\\ (k<0).\n\\end{equation}",
+  "adjacent_source": "\\[\n\\pi^{n}_{n}=\\gen{\\iota_n}\\cong \\mathbb Z,\\qquad\nG_0=\\gen{\\iota}\\cong \\mathbb Z. \\quad \n\\iota=E^{\\infty}\\iota_n.\n\\]",
+  "adjacent_source_status": "USER_SUPPLIED_NOT_ARCHIVE_VERIFIED",
+  "reference_scope": "NUMBERED_EQUATION_PLUS_ADJACENT_DISPLAY",
+  "source_clause_count": 6,
+  "typed_schema_count": 2,
+  "clauses": [
+    {
+      "key": "pi_i_1_zero",
+      "source_part": "numbered_equation",
+      "tex": "\\pi^{1}_{i}=0\\ (i>1)",
+      "typed_schema": "sphere_one_zero",
+      "semantics_certified": false,
+      "proof_eligible": false
+    },
+    {
+      "key": "pi_i_n_zero",
+      "source_part": "numbered_equation",
+      "tex": "\\pi^{n}_{i}=0\\ (i<n)",
+      "typed_schema": null,
+      "semantics_certified": false,
+      "proof_eligible": false
+    },
+    {
+      "key": "negative_stem_zero",
+      "source_part": "numbered_equation",
+      "tex": "G_k=(G_k;2)=0\\ (k<0)",
+      "typed_schema": null,
+      "semantics_certified": false,
+      "proof_eligible": false
+    },
+    {
+      "key": "pi_n_n_cyclic",
+      "source_part": "adjacent_display",
+      "tex": "\\pi^{n}_{n}=\\gen{\\iota_n}\\cong \\mathbb Z",
+      "typed_schema": "diagonal_infinite_cyclic",
+      "semantics_certified": false,
+      "proof_eligible": false
+    },
+    {
+      "key": "stable_zero_stem_cyclic",
+      "source_part": "adjacent_display",
+      "tex": "G_0=\\gen{\\iota}\\cong \\mathbb Z",
+      "typed_schema": null,
+      "semantics_certified": false,
+      "proof_eligible": false
+    },
+    {
+      "key": "stable_identity",
+      "source_part": "adjacent_display",
+      "tex": "\\iota=E^{\\infty}\\iota_n",
+      "typed_schema": null,
+      "semantics_certified": false,
+      "proof_eligible": false
+    }
+  ],
+  "typed_examples": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), rhs=0, relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_3', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "registry_modified": false,
+  "new_proof_eligible": 0,
+  "proof_steps_created": 0,
+  "status": "SOURCE_SCOPE_RECORDED_PROVENANCE_NOT_CERTIFIED",
+  "full_pytest_run": false
+}
