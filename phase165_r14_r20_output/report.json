@@ -1,0 +1,24 @@
+{
+  "phase": "165 R14-R20",
+  "source_scope_review_gate": "SOURCE_SCOPE_MISSING",
+  "reviewed_diagonal_entries_added": 0,
+  "prop42_candidates": [
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0002",
+      "source_text": "\\begin{equation}\\label{4.2}\n% (4.2).\\\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\n\\end{equation}",
+      "scope_certified": false,
+      "proof_eligible": false
+    },
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0005",
+      "source_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}",
+      "scope_certified": false,
+      "proof_eligible": false
+    }
+  ],
+  "prop42_certified": false,
+  "new_proof_steps": 0,
+  "pi32_proved": false,
+  "full_pytest_run": false,
+  "status": "SOURCE_SCOPE_GATE_IMPLEMENTED_REVIEW_STILL_REQUIRED"
+}
