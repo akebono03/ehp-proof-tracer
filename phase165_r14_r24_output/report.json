@@ -1,0 +1,26 @@
+{
+  "phase": "165 R14-R24",
+  "r23_iso_step_connected": true,
+  "iso_inference_rule": "inference",
+  "delta_goal": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+  "exactness_goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+  "prop42_source_candidates": [
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0002",
+      "locator": "(4.2)",
+      "source_text": "\\begin{equation}\\label{4.2}\n% (4.2).\\\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\n\\end{equation}"
+    },
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0005",
+      "locator": "Proposition 4.2",
+      "source_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}"
+    }
+  ],
+  "prop42_candidate_count": 2,
+  "prop42_application_certified": false,
+  "matching_exactness_proofsteps": 0,
+  "production_delta_zero_proved": false,
+  "pi32_proved": false,
+  "status": "R23_ISO_CONNECTED_TO_R11_PROP42_EXACTNESS_PENDING",
+  "full_pytest_run": false
+}
