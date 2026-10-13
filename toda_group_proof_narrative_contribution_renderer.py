@@ -1,3 +1,4 @@
+from phase165_r49_display_order import finalize_phase165_r49_typed_reason_order
 from collections import deque
 from dataclasses import (
   fields,
@@ -10644,6 +10645,12 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
+  rendered = (
+    finalize_phase165_r49_typed_reason_order(
+      rendered,
+      reason_sidecar,
+    )
+  )
   rendered = (
     link_toda_group_proof_narrative_reference_body_consumers(
       presentation,
