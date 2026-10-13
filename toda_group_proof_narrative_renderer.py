@@ -12262,7 +12262,5 @@ def render_toda_group_proof_narrative_markdown(
       rendered
     )
   )
-  # phase165_r43_shared_narrative_enrichment
-  from phase165_r14_r43_reference_reason import enrich_common_narrative
-  return enrich_common_narrative(presentation, rendered)
+  return rendered
 

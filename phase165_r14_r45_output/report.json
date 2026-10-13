@@ -1,0 +1,471 @@
+{
+  "phase": "165 R45",
+  "mode": "READ_ONLY_PROOFSTEP_RULE_AUDIT",
+  "root": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "total_steps": 15,
+  "reference_leaf_count": 9,
+  "exactness_evidence_steps": [
+    {
+      "depth": 2,
+      "statement_type": "MapInjective",
+      "conclusion_repr": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: preceding zero group and exactness imply Hopf injectivity",
+      "rule_description": null,
+      "premise_types": [
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である."
+    },
+    {
+      "depth": 2,
+      "statement_type": "MapSurjective",
+      "conclusion_repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "rule_description": null,
+      "premise_types": [
+        "TodaDeltaZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射である."
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaDeltaZeroStatement",
+      "conclusion_repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+      "rule_description": null,
+      "premise_types": [
+        "TodaSuspensionIsomorphismStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+    }
+  ],
+  "map_and_delta_steps": [
+    {
+      "depth": 1,
+      "statement_type": "MapIsomorphism",
+      "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "generic injective and surjective imply isomorphism",
+      "rule_description": null,
+      "premise_types": [
+        "MapInjective",
+        "MapSurjective"
+      ],
+      "premise_reprs": [
+        "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+    },
+    {
+      "depth": 2,
+      "statement_type": "MapInjective",
+      "conclusion_repr": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: preceding zero group and exactness imply Hopf injectivity",
+      "rule_description": null,
+      "premise_types": [
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である."
+    },
+    {
+      "depth": 2,
+      "statement_type": "MapSurjective",
+      "conclusion_repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "rule_description": null,
+      "premise_types": [
+        "TodaDeltaZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射である."
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaDeltaZeroStatement",
+      "conclusion_repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+      "rule_description": null,
+      "premise_types": [
+        "TodaSuspensionIsomorphismStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+    }
+  ],
+  "leaf_sources": [
+    {
+      "depth": 3,
+      "statement_type": "TodaPrimaryGroupZeroStatement",
+      "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{2}^{1} = 0$"
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 4.2",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 4.2",
+      "rendered_generic": "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3}$ は完全である."
+    },
+    {
+      "depth": 5,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$"
+    },
+    {
+      "depth": 5,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$"
+    },
+    {
+      "depth": 5,
+      "statement_type": "GeneratorSuspension",
+      "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+      "rule_kind": "GIVEN",
+      "rule_name": null,
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": null,
+      "rendered_generic": "`GeneratorSuspension`"
+    },
+    {
+      "depth": 4,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 4.2",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 4.2",
+      "rendered_generic": "$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である."
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 4.2",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 4.2",
+      "rendered_generic": "$\\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1}$ は完全である."
+    },
+    {
+      "depth": 1,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$"
+    },
+    {
+      "depth": 1,
+      "statement_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 5.1",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 5.1",
+      "rendered_generic": "$H(\\eta_{2}) = \\iota_{3}$."
+    }
+  ],
+  "all_steps": [
+    {
+      "depth": 0,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "INFERENCE",
+      "rule_name": "generic reverse free cyclic structure transport along isomorphism",
+      "rule_description": null,
+      "premise_types": [
+        "MapIsomorphism",
+        "Relation",
+        "GeneratorImage"
+      ],
+      "premise_reprs": [
+        "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=No",
+        "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$"
+    },
+    {
+      "depth": 1,
+      "statement_type": "MapIsomorphism",
+      "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "generic injective and surjective imply isomorphism",
+      "rule_description": null,
+      "premise_types": [
+        "MapInjective",
+        "MapSurjective"
+      ],
+      "premise_reprs": [
+        "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型写像である."
+    },
+    {
+      "depth": 2,
+      "statement_type": "MapInjective",
+      "conclusion_repr": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: preceding zero group and exactness imply Hopf injectivity",
+      "rule_description": null,
+      "premise_types": [
+        "TodaPrimaryGroupZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射である."
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaPrimaryGroupZeroStatement",
+      "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{2}^{1} = 0$"
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 4.2",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 4.2",
+      "rendered_generic": "$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3}$ は完全である."
+    },
+    {
+      "depth": 2,
+      "statement_type": "MapSurjective",
+      "conclusion_repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "rule_description": null,
+      "premise_types": [
+        "TodaDeltaZeroStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射である."
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaDeltaZeroStatement",
+      "conclusion_repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+      "rule_description": null,
+      "premise_types": [
+        "TodaSuspensionIsomorphismStatement",
+        "TodaProp42ExactnessStatement"
+      ],
+      "premise_reprs": [
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimary"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像である."
+    },
+    {
+      "depth": 4,
+      "statement_type": "TodaSuspensionIsomorphismStatement",
+      "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+      "rule_kind": "INFERENCE",
+      "rule_name": "diagonal free cyclic suspension on generators implies isomorphism",
+      "rule_description": null,
+      "premise_types": [
+        "Relation",
+        "Relation",
+        "GeneratorSuspension"
+      ],
+      "premise_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=No",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=No",
+        "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name"
+      ],
+      "reference_locator": null,
+      "rendered_generic": "$E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型写像である."
+    },
+    {
+      "depth": 5,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$"
+    },
+    {
+      "depth": 5,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$"
+    },
+    {
+      "depth": 5,
+      "statement_type": "GeneratorSuspension",
+      "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+      "rule_kind": "GIVEN",
+      "rule_name": null,
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": null,
+      "rendered_generic": "`GeneratorSuspension`"
+    },
+    {
+      "depth": 4,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 4.2",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 4.2",
+      "rendered_generic": "$\\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$ は完全である."
+    },
+    {
+      "depth": 3,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 4.2",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 4.2",
+      "rendered_generic": "$\\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{Δ} \\pi_{1}^{1}$ は完全である."
+    },
+    {
+      "depth": 1,
+      "statement_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda (5.1)",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "(5.1)",
+      "rendered_generic": "$\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$"
+    },
+    {
+      "depth": 1,
+      "statement_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "rule_kind": "GIVEN",
+      "rule_name": "Toda Proposition 5.1",
+      "rule_description": null,
+      "premise_types": [],
+      "premise_reprs": [],
+      "reference_locator": "Proposition 5.1",
+      "rendered_generic": "$H(\\eta_{2}) = \\iota_{3}$."
+    }
+  ],
+  "production_sources_modified": false,
+  "full_pytest_run": false
+}
