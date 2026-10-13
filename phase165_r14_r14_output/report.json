@@ -1,0 +1,37 @@
+{
+  "phase": "165 R14-R14",
+  "prop42_source_candidates": [
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0002",
+      "locator": "(4.2)",
+      "source_text": "\\begin{equation}\\label{4.2}\n% (4.2).\\\n\\pis{i}{S^n}\\ \\text{は,} \\ i=n \\ \\text{または} \\ \ni=2n-1 \\ \\text{のとき以外は, 有限群である. }\n\\end{equation}",
+      "exactness_words_found": false,
+      "mathematical_clause_selected": false,
+      "applicability_verified": false,
+      "proof_eligible": false
+    },
+    {
+      "assertion_id": "phase163:archive:toda:tex:ch4:0005",
+      "locator": "Proposition 4.2",
+      "source_text": "\\begin{proposition}[]\\label{prop:4.2}\n% Prop4.2.\\\n次の列は完全列である：\n\\begin{equation}\\label{4.4}\n% (4.4)\n\\cdots \\longrightarrow\n\\pit{i}{n}\\ \\xrightarrow{\\ \\Ex\\ }\\ \\pit{i+1}{n+1}\\\n\\xrightarrow{\\ H\\ }\\ \\pit{i+1}{2n+1}\\\n\\xrightarrow{\\ \\Delta\\ }\\ \\pit{i-1}{n}\\\n\\xrightarrow{\\ \\Ex\\ }\\ \\pit{i}{n+1}\\ \\xrightarrow{\\ H\\ }\\ \\cdots.\n\\end{equation}\n\\end{proposition}",
+      "exactness_words_found": true,
+      "mathematical_clause_selected": false,
+      "applicability_verified": false,
+      "proof_eligible": false
+    }
+  ],
+  "prop42_single_clause_selected": false,
+  "prop42_applicability_certified": false,
+  "diagonal_goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+  "diagonal_expansions": 1,
+  "diagonal_subgoals": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))"
+  ],
+  "certified_new_leaves": 0,
+  "toda_proof_steps_created": 0,
+  "pi32_proved": false,
+  "status": "DIAGONAL_INFERENCE_READY_PROP42_SOURCE_REVIEW_UNRESOLVED",
+  "full_pytest_run": false
+}
