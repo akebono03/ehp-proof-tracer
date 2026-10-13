@@ -1,0 +1,15 @@
+# Phase 165 R14-R15
+
+- phase: 165 R14-R15
+- diagonal_goal: TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))
+- typed_premise_count: 3
+- toda51_bound: 2
+- generator_suspension_source_confirmed: False
+- premises: [{'goal': "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)", 'locator': '(5.1)', 'kind': 'TODA51_DIAGONAL_TYPED_SOURCE_ONLY', 'verified': False, 'proof_eligible': False}, {'goal': "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)", 'locator': '(5.1)', 'kind': 'TODA51_DIAGONAL_TYPED_SOURCE_ONLY', 'verified': False, 'proof_eligible': False}, {'goal': "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))", 'locator': None, 'kind': 'GENERATOR_SUSPENSION_NEEDS_SOURCE', 'verified': False, 'proof_eligible': False}]
+- prop42_source_candidate_count: 2
+- prop42_selected: False
+- prop42_application_verified: False
+- eligible_new_leaves: 0
+- proof_steps_created: 0
+- status: DIAGONAL_TODA51_SCHEMAS_BOUND_UNVERIFIED
+- full_pytest_run: False
