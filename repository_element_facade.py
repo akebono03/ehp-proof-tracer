@@ -16,9 +16,6 @@ from repository_element_presentation import (
 from repository_element_renderer import (
   render_repository_generator_exploration_markdown,
 )
-from standard_production_repository import (
-  build_standard_production_proof_repository,
-)
 
 
 @dataclass(frozen=True)
@@ -99,17 +96,10 @@ def explore_repository_generator(
 def explore_standard_repository_generator_input(
   generator_input: str,
 ) -> RepositoryGeneratorExplorationReport:
-  generator = (
-    resolve_generator_input(
-      generator_input
-    )
-  )
+  """Explore currently admissible occurrences without legacy bootstrap evidence.
 
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  return explore_repository_generator(
-    repository,
-    generator,
-  )
+  An empty report is not a mathematical nonexistence assertion.
+  """
+  generator = resolve_generator_input(generator_input)
+  repository = ProofRepository()
+  return explore_repository_generator(repository, generator)
