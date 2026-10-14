@@ -3,14 +3,7 @@ from dataclasses import dataclass
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
-from repository_generator_applicability_facade import (
-  explore_standard_repository_generator_applicability_input,
-)
-from repository_generator_applicability_presentation import (
-  ApplicabilityRuleFamilyPresentation,
-  ApplicabilitySourceGroupPresentation,
-  build_repository_generator_applicability_presentation,
-)
+from repository_generator_applicability_presentation import ApplicabilityRuleFamilyPresentation, ApplicabilitySourceGroupPresentation
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )

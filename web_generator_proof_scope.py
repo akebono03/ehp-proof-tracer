@@ -3,9 +3,6 @@ from dataclasses import dataclass
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
-from repository_proof_scope_facade import (
-  explore_standard_repository_generator_proof_scope_input,
-)
 from repository_proof_scope_exploration import (
   RepositoryProofScopeMapRelationOccurrence,
   RepositoryProofScopeTodaMembershipOccurrence,

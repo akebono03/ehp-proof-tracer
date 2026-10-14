@@ -3,12 +3,6 @@ from dataclasses import dataclass
 from repository_element_presentation import (
   render_repository_conclusion_latex,
 )
-from repository_generator_known_group_proof_replay import (
-  build_standard_repository_generator_known_group_proof_replay_input,
-)
-from repository_generator_known_group_proof_replay_presentation import (
-  build_repository_generator_known_group_proof_replay_presentation,
-)
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
