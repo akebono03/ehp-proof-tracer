@@ -36,14 +36,15 @@ def build_standard_toda_report(
   )
 
 def build_toda_partial_result(query: TodaGroupQuery):
-    """Search a group using the registry-backed prover, never legacy calculation."""
-    if not isinstance(query, TodaGroupQuery):
-        raise TypeError("query must be a TodaGroupQuery")
-    from phase165_r52_r5_auto_search import search_group_structure_automatically
-    return search_group_structure_automatically(n=query.n, k=query.k)
+    """Legacy-compatible entry; implementation lives in the independent typed facade."""
+    from toda_typed_group_facade import build_toda_partial_result as run_typed_search
+    return run_typed_search(query)
+
 
 
 def build_standard_toda_partial_result(n: int, k: int):
-    """Canonical partial-proof entry for public group-calculation callers."""
-    return build_toda_partial_result(TodaGroupQuery(n=n, k=k))
+    """Legacy-compatible entry; implementation lives in the independent typed facade."""
+    from toda_typed_group_facade import build_standard_toda_partial_result as run_typed_search
+    return run_typed_search(n, k)
+
 

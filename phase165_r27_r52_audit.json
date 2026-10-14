@@ -1,0 +1,13 @@
+{
+  "phase": "165 R27-R52",
+  "status": "CHANGED",
+  "modified_files": [
+    "toda_typed_group_facade.py",
+    "toda_calculation_facade.py"
+  ],
+  "typed_group_facade_without_legacy_imports": true,
+  "compatibility_entry_preserved": true,
+  "legacy_calculation_unchanged": true,
+  "remaining_legacy_repository_modules": 4,
+  "full_pytest_run": false
+}
