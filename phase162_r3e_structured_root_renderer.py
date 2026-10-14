@@ -7,7 +7,7 @@ renderer. The existing full recursive presentation remains available separately.
 
 from homotopy_groups import TodaSuspensionIsomorphismStatement
 from proof import ProofStep, Relation
-from repository_element_presentation import render_repository_conclusion_latex
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_group_proof_presentation import TodaGroupProofPresentation
 from toda_group_structure_transport_reason import (
     _render_transport_relation_latex,

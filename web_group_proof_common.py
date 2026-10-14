@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from repository_element_presentation import render_repository_conclusion_latex
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_human_readable_renderer import render_toda_public_group_relation_latex
 from toda_proof_narrative_renderer import render_toda_proof_statement_latex
 

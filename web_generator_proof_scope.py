@@ -1,8 +1,6 @@
 from dataclasses import dataclass
 
-from repository_element_presentation import (
-  render_repository_conclusion_latex,
-)
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from repository_proof_scope_exploration import (
   RepositoryProofScopeMapRelationOccurrence,
   RepositoryProofScopeTodaMembershipOccurrence,

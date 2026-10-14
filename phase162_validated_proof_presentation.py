@@ -14,7 +14,7 @@ from phase161_r7_premise_provenance_validation import (
     validate_phase161_r7_provenance,
 )
 from proof import ProofRule, ProofStep, Relation, RelationType
-from repository_element_presentation import render_repository_conclusion_latex
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_literature_statement_boundary import (
     TodaLiteratureStatementClassification,
     classify_toda_literature_statement_step,
