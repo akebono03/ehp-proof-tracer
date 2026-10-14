@@ -389,15 +389,67 @@ def build_standard_web_generator_execution_view(generator_input: str, candidate_
     raise ValueError("candidate_number must be a positive integer")
   from generator_input import resolve_generator_input
   from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_typed_execution import execute_typed_applicable_rules, TypedExecutionOutcome
+  from toda_typed_execution_status import TypedGeneratorExecutionStatus
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
   symbol = resolve_generator_input(generator_input)
-  result = search_typed_generator_statements(generator_input)
-  return WebGeneratorExecutionView(
+  search = search_typed_generator_statements(generator_input)
+  execution = execute_typed_applicable_rules(search.proven_steps, candidate_number=candidate_number)
+  base = dict(
     generator_input=generator_input,
     generator_latex=_render_generator_symbol_latex(symbol),
-    status=TypedGeneratorExecutionStatus.NONE,
-    candidates=(), selected_candidate_number=None,
-    conclusion_latex=None, premises=(), rule_name=None, provenance=None,
-    search_status="not_executed",
-    diagnostics=result.diagnostics + ("推論規則の選択と実行は未実施。検索結果を実行成功に昇格しない",),
-    open_goal_count=len(result.open_goals),
+    diagnostics=search.diagnostics,
+    open_goal_count=len(search.open_goals),
+  )
+  if execution.status is TypedExecutionOutcome.NONE:
+    return WebGeneratorExecutionView(
+      **base, status=TypedGeneratorExecutionStatus.NONE,
+      candidates=(), selected_candidate_number=None,
+      conclusion_latex=None, premises=(), rule_name=None, provenance=None,
+      search_status="not_executed",
+    )
+  if execution.status is TypedExecutionOutcome.AMBIGUOUS:
+    candidates = []
+    for index, match in enumerate(execution.matches, start=1):
+      try:
+        statement = render_toda_proof_statement_latex(match.inference_rule.conclusion_pattern)
+      except (TypeError, ValueError, AttributeError):
+        statement = None
+      candidates.append(WebGeneratorExecutionCandidateView(
+        candidate_number=index,
+        statement_latex=statement,
+        fallback_type_name=None if statement else type(match.inference_rule.conclusion_pattern).__name__,
+      ))
+    return WebGeneratorExecutionView(
+      **base, status=TypedGeneratorExecutionStatus.AMBIGUOUS,
+      candidates=tuple(candidates), selected_candidate_number=None,
+      conclusion_latex=None, premises=(), rule_name=None, provenance=None,
+      search_status="ambiguous",
+    )
+  step = execution.proof_step
+  assert step is not None
+  try:
+    conclusion_latex = render_toda_proof_statement_latex(step.conclusion)
+  except (TypeError, ValueError, AttributeError):
+    conclusion_latex = r"\text{導出された命題（表示未対応）}"
+  premises = []
+  for index, premise in enumerate(step.premises, start=1):
+    try:
+      statement_latex = render_toda_proof_statement_latex(premise.conclusion)
+    except (TypeError, ValueError, AttributeError):
+      statement_latex = None
+    premises.append(WebGeneratorExecutionPremiseView(
+      premise_number=index,
+      statement_latex=statement_latex,
+      fallback_type_name=None if statement_latex else type(premise.conclusion).__name__,
+    ))
+  return WebGeneratorExecutionView(
+    **base, status=TypedGeneratorExecutionStatus.EXECUTED,
+    candidates=(), selected_candidate_number=execution.selected_candidate_number,
+    conclusion_latex=conclusion_latex, premises=tuple(premises),
+    rule_name=step.inference_rule.name,
+    provenance=WebGeneratorExecutionProvenanceView(
+      key="typed-inference:" + step.inference_rule.name, theorem=None, phase=None,
+    ),
+    search_status="executed",
   )
