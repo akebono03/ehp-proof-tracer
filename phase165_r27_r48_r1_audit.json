@@ -1,0 +1,17 @@
+{
+  "phase": "165 R27-R48-R1",
+  "status": "CHANGED",
+  "modified_files": [
+    "standard_production_applicability_catalog.py"
+  ],
+  "base_catalog_source": "typed_inference_rule_provider",
+  "classification_wrappers_preserved": true,
+  "group_calculation_unchanged": true,
+  "remaining_legacy_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "full_pytest_run": false
+}
