@@ -1,0 +1,49 @@
+{
+  "phase": "165 R57-R6",
+  "mode": "READ_ONLY_STABLE_TRANSPORT_CONNECTION_AUDIT",
+  "production_modified": false,
+  "case": {
+    "n": 4,
+    "k": 1,
+    "target": "pi_5^4",
+    "stable_base": "pi_4^3"
+  },
+  "old_toda45_transport_rules": [
+    "toda_45_generic_finite_cyclic_transport_inference_rule",
+    "toda_45_generic_zero_group_transport_inference_rule"
+  ],
+  "shared_search_provider_calls_transport_rule": false,
+  "shared_search_provider_calls": [
+    "FreeCyclicGroup",
+    "GoalExpansion",
+    "MapIsomorphism",
+    "Relation",
+    "TypeError",
+    "all",
+    "append",
+    "assertion",
+    "extend",
+    "getattr",
+    "isinstance",
+    "provider",
+    "reverse_free_cyclic_transport_rule",
+    "tuple"
+  ],
+  "registry_goal_selector_calls": [
+    "TodaPrimaryGroup",
+    "build_shared_typed_bridge",
+    "len",
+    "make_partial_proof_result",
+    "registered_group_goal_candidates",
+    "replace",
+    "search_shared_group_goal"
+  ],
+  "public_renderer_stable_branches": [
+    "_phase160_r7_render_stable_finite_cyclic_transport_narrative"
+  ],
+  "proof_for_pi5_4_established": false,
+  "source_given_promoted": false,
+  "delete_live_transport_renderer_allowed": false,
+  "next_gate": "Register and type Toda (4.5) isomorphism, base group, and generator correspondence; connect backward expansion; prove pi_5^4 before removing live stable display branch",
+  "full_pytest_run": false
+}
