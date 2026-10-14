@@ -1,0 +1,12 @@
+{
+  "phase": "165 R27-R43",
+  "status": "CHANGED",
+  "created_files": [
+    "toda_typed_applicability.py"
+  ],
+  "sha256": "e04c900183e35a434a67443efebd1ec9bb58d877887299acff41033f54e66e18",
+  "legacy_catalog_unchanged": true,
+  "legacy_group_calculation_unchanged": true,
+  "legacy_repository_modules_deleted": [],
+  "full_pytest_run": false
+}
