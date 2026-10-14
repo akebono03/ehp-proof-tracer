@@ -362,10 +362,28 @@ def _build_prop51_step() -> ProofStep:
   phase49 = _build_phase49_result()
   phase50 = _build_phase50_result()
 
+  # phase165_r52_r26_r1_shared_pi32_lookup
+  # The pi3^2 proof is regenerated using common typed inference rules.
+  # This does not reintroduce any pi3^2-specific rule or GIVEN result.
+  from pathlib import Path
+  from hopf_facts import ETA_2
+  from phase165_r14_r38_direct_registry import build_adopted_typed_reference_registry
+  from phase165_r52_r9_shared_math import build_shared_typed_bridge, search_shared_group_goal
+  from phase165_r52_partial_proof import ProofSearchStatus
+  adopted_path = Path(__file__).resolve().with_name("phase165_r14_r39_toda51.tex")
+  adopted_bridge = build_shared_typed_bridge(
+    sources=(build_adopted_typed_reference_registry(adopted_path),),
+  )
+  pi32_search = search_shared_group_goal(
+    n=2, k=1, group_structure=FreeCyclicGroup(ETA_2), bridge=adopted_bridge,
+  )
+  if pi32_search.status is not ProofSearchStatus.COMPLETE:
+    raise ValueError("shared pi_3^2 proof is incomplete")
+  if not any(step.rule is ProofRule.INFERENCE for step in pi32_search.proven_steps):
+    raise ValueError("shared pi_3^2 result has no inferred ProofStep")
+
   pi3_2_step = _find_unique_step(
-    phase49[
-      "result"
-    ].steps,
+    pi32_search.proven_steps,
     lambda step: (
       isinstance(
         step.conclusion,

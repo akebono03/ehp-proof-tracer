@@ -95,7 +95,6 @@ from toda_rules import (
   toda_hopf_injective_surjective_implies_isomorphism_inference_rule,
   toda_pi3_2_define_eta2_inference_rule,
   toda_pi3_2_eta2_hopf_relation_inference_rule,
-  toda_pi3_2_free_cyclic_generator_inference_rule,
   toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
   toda_pi4_3_eta3_generator_inference_rule,
   toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
@@ -354,7 +353,6 @@ def _build_phase49_result():
     toda_hopf_injective_surjective_implies_isomorphism_inference_rule(),
     toda_pi3_2_define_eta2_inference_rule(),
     toda_pi3_2_eta2_hopf_relation_inference_rule(),
-    toda_pi3_2_free_cyclic_generator_inference_rule(),
   )
 
   result = run_inference_until_stable_with_history(

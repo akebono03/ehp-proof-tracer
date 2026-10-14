@@ -1,0 +1,8 @@
+{
+  "phase": "165 R52-R26",
+  "status": "REMOVED",
+  "removed_definition_count": 1,
+  "removed_bootstrap_items": 2,
+  "removed_probe_items": 2,
+  "full_pytest_run": false
+}
