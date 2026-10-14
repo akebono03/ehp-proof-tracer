@@ -1,0 +1,22 @@
+{
+  "phase": "165 R27-R30",
+  "status": "REMOVED",
+  "deleted": [
+    "toda_upstream_bootstrap.py"
+  ],
+  "retained_bootstraps": [],
+  "protected_core": [
+    "phase164_r8_proofstep_factory.py",
+    "phase165_r52_r5_auto_search.py",
+    "phase165_r9_production_wiring.py",
+    "proof_repository.py",
+    "toda_rules.py",
+    "unified_statement_registry.py"
+  ],
+  "registration_helpers_changed": [
+    "phase163_r4_r12_stable_bases.py",
+    "phase163_r4_r13_inventory.py"
+  ],
+  "blocking_imports": [],
+  "full_pytest_run": false
+}

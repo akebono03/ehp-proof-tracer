@@ -135,37 +135,5 @@ def inventory_registry_snapshot(
 
 
 def existing_phase163_r4_r13_inventory() -> InventoryReport:
-    """Read R4-R11, R4-R12 and stable minimum snapshots; do not traverse proofs."""
-    from phase163_r4_registry_bridge import build_registry_bridge
-    from phase163_r4_r11_literature_registration import (
-        existing_prop56_candidates,
-        register_prop56_literature_statements,
-    )
-    from phase163_r4_r12_literature_registration import (
-        existing_prop51_prop53_candidates,
-        register_prop51_prop53_literature_statements,
-    )
-    from phase163_r4_r12_stable_bases import register_stable_minimal_dimensions, BASE_ID_1
-    from toda_upstream_bootstrap import _build_phase50_result
-
-    prop56_inputs = existing_prop56_candidates()
-    prop56 = register_prop56_literature_statements(build_registry_bridge(), prop56_inputs)
-    prop53_inputs = existing_prop51_prop53_candidates()
-    prop53 = register_prop51_prop53_literature_statements(prop56.snapshot, prop53_inputs)
-    minimal = register_stable_minimal_dimensions(
-        prop53, _build_phase50_result()["final_group_step"].conclusion
-    )
-    typed_ids = frozenset(
-        [e.assertion_id for e in prop56.evidence]
-        + [e.assertion_id for e in prop53.evidence]
-    )
-    scope_ids = frozenset(
-        ["boundary:Proposition 5.6:higher_nu_group_relation"]
-        + ["boundary:Proposition 5.1:higher_eta_group_relation"]
-        + ["boundary:Proposition 5.3:higher_eta_squared_group_relation"]
-    )
-    report = inventory_registry_snapshot(minimal.snapshot, typed_ids, scope_ids)
-    stable = minimal.snapshot.registry.assertion(BASE_ID_1)
-    if stable.origin.value != "proof_internal":
-        raise ValueError("stable pi4_3 minimum must remain proof_internal")
-    return report
+    """Retired: historical proof-builder extraction is not typed inventory."""
+    raise RuntimeError("Legacy Bootstrap-derived inventory extraction retired; use registered typed assertion snapshots")

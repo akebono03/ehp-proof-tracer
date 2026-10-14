@@ -126,12 +126,5 @@ def register_stable_minimal_dimensions(
 
 
 def existing_stable_minimal_registration() -> StableBaseRegistration:
-    """Construct candidate values from existing builders, without traversing ancestry."""
-    from phase163_r4_registry_bridge import build_registry_bridge
-    from toda_upstream_bootstrap import _build_phase50_result
-
-    previous = register_prop51_prop53_literature_statements(
-        build_registry_bridge(), existing_prop51_prop53_candidates()
-    )
-    pi4_3 = _build_phase50_result()["final_group_step"].conclusion
-    return register_stable_minimal_dimensions(previous, pi4_3)
+    """Retired: historical proof-builder extraction is not typed registration."""
+    raise RuntimeError("Legacy Bootstrap-derived stable-base extraction retired; supply typed source assertions explicitly")
