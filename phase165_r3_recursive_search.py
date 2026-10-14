@@ -70,7 +70,7 @@ def reconstruct_registered_goal(
         raise TypeError("expansion_provider must be callable")
     if not isinstance(verified_assertion_ids, tuple):
         raise TypeError("verified_assertion_ids must be a tuple")
-    if lookup_mode not in ("legacy", "typed_reference"):
+    if lookup_mode not in ("legacy", "typed_reference", "typed_reference_ordered"):
         raise ValueError("unknown lookup mode")
     if progress_observer is not None and not callable(progress_observer):
         raise TypeError("progress_observer must be callable or None")
@@ -91,7 +91,13 @@ def reconstruct_registered_goal(
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
-            if lookup_mode == "typed_reference":
+            if lookup_mode == "typed_reference_ordered":
+                from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
+                options = list(ordered_typed_reference_steps(
+                    bridge, target, citing_assertion_id,
+                    verified_assertion_ids=verified_assertion_ids,
+                ))
+            elif lookup_mode == "typed_reference":
                 options = list(_typed_reference_steps(bridge, target))
             else:
                 candidates = find_eligible_goal_candidates(
@@ -102,7 +108,7 @@ def reconstruct_registered_goal(
             # A uniquely registered fixed Reference is a complete proof leaf.
             # Do not count a second derivation of the same statement as ambiguity.
             # Multiple direct references remain ambiguous and are rejected below.
-            if lookup_mode == "typed_reference" and len(options) == 1:
+            if lookup_mode in ("typed_reference", "typed_reference_ordered") and len(options) == 1:
                 step = options[0]
                 solved.append((target, step))
                 report("proved", target, step)
