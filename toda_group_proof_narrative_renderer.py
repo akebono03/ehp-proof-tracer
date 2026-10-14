@@ -11279,54 +11279,6 @@ def _phase159_render_pi_n_plus_1_n_stable_transport_narrative(
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
-  stable_transport_narrative = (
-    _phase159_render_pi_n_plus_1_n_stable_transport_narrative(
-      presentation
-    )
-  )
-
-  if stable_transport_narrative is not None:
-    return stable_transport_narrative
-
-  rendered = (
-    _phase158_baseline_render_toda_group_proof_narrative_markdown(
-      presentation
-    )
-  )
-  rendered = (
-    _phase158_normalize_public_narrative_contract(
-      presentation,
-      rendered,
-    )
-  )
-  rendered = (
-    _phase159_r1_7c_r4_normalize_public_map_property_prose(
-      rendered
-    )
-  )
-  rendered = (
-    _phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning(
-      rendered
-    )
-  )
-  rendered = (
-    _phase159_r1_7c_r4_reorder_public_equation_reference_conclusions(
-      rendered
-    )
-  )
-
-  return (
-    _phase159_r1_6d_finalize_reference_and_linkage(
-      presentation,
-      _phase159_order_public_unique_preimage_definition_premises(
-        presentation,
-        rendered,
-      ),
-    )
-  )
-def render_toda_group_proof_narrative_markdown(
-  presentation: TodaGroupProofPresentation,
-) -> str:
   rendered = (
     _phase158_baseline_render_toda_group_proof_narrative_markdown(
       presentation
