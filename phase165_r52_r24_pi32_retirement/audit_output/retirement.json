@@ -1,0 +1,54 @@
+{
+  "phase": "165 R52-R24",
+  "mode": "READ_ONLY_PI32_LEGACY_RULE_RETIREMENT_GATE",
+  "paths": {
+    "legacy_definition": "toda_rules.py",
+    "legacy_bootstrap": "toda_upstream_bootstrap.py",
+    "generic_rule": "phase165_r14_r33_final_group.py",
+    "shared_search": "phase165_r52_r9_shared_math.py",
+    "generic_test": "test_phase165_r52_r9_shared_math.py",
+    "legacy_probe": "probes\\probe_phase49_capabilities.py"
+  },
+  "legacy_reference_occurrences": {
+    "legacy_definition": [],
+    "legacy_bootstrap": [
+      {
+        "line": 357,
+        "kind": "Load"
+      }
+    ],
+    "generic_rule": [],
+    "shared_search": [],
+    "generic_test": [],
+    "legacy_probe": [
+      {
+        "line": 296,
+        "kind": "Load"
+      }
+    ]
+  },
+  "generic_rule_references": [
+    {
+      "line": 67,
+      "kind": "Load"
+    }
+  ],
+  "shared_provider_references": [
+    {
+      "line": 108,
+      "kind": "Load"
+    }
+  ],
+  "generic_pi32_test_present": true,
+  "active_legacy_bootstrap_reference": true,
+  "legacy_probe_reference": true,
+  "status": "DELETION_BLOCKED_BY_LEGACY_CONSUMERS",
+  "missing_obligations": [
+    "replace legacy bootstrap consumer and validate old public APIs",
+    "replace legacy probe consumer or explicitly retire it",
+    "compare old typed premises/conclusion with generic rule: not certified by static AST",
+    "pass targeted legacy and shared proof tests before deleting definition"
+  ],
+  "production_modified": false,
+  "full_pytest_run": false
+}
