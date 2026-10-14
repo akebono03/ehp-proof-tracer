@@ -24,7 +24,7 @@ def test_group_progress_runs_automatic_search_outside_112(monkeypatch):
         "form_kind": "group_proof_progress", "n": "100", "k": "20",
     })
     assert response.status_code == 200
-    assert b"search_failed" in response.data
+    assert "証明未完成".encode("utf-8") in response.data
     assert b"\\pi_{120}^{100}" in response.data
     assert b"Proof target" in response.data
     assert b"<h3>\n          Conclusion" not in response.data
@@ -53,7 +53,7 @@ def test_failed_search_state_is_not_presented_as_conclusion(monkeypatch):
         "form_kind": "group_proof_progress", "n": "17", "k": "4",
     })
     assert response.status_code == 200
-    assert b"search_failed" in response.data
+    assert "証明未完成".encode("utf-8") in response.data
     assert b"No registered rule" in response.data
     assert b"Proof target" in response.data
     assert "□".encode("utf-8") not in response.data
