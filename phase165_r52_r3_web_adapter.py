@@ -22,9 +22,10 @@ def build_partial_web_group_proof_view(
     max_depth: int = 2,
     mode: str = "narrative",
 ) -> WebGroupProofView:
-    """Adapt an already observed proof state to the existing Web view contract.
+    """Adapt a verified search state to the shared Web view contract.
 
-    No range restriction is used and there is no per-group rendering branch.
+    Trace mode uses ProofStep entries only, while outline and narrative
+    modes show the shared rendered text. Neither mode certifies open goals.
     """
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
@@ -38,7 +39,6 @@ def build_partial_web_group_proof_view(
     n = result.target.sphere_dimension
     dimension = result.target.group_dimension
     k = dimension - n
-    # A target expression is not a proof of its group structure.
     target_latex = rf"\pi_{{{dimension}}}^{{{n}}}"
 
     steps = []
@@ -54,8 +54,12 @@ def build_partial_web_group_proof_view(
             role_name="derived",
         ))
 
-    markdown = render_partial_proof_markdown(result)
-    rendered_lines = _build_group_proof_rendered_lines(markdown)
+    if mode == "trace":
+        rendered_lines = ()
+    else:
+        markdown = render_partial_proof_markdown(result)
+        rendered_lines = _build_group_proof_rendered_lines(markdown)
+
     return WebGroupProofView(
         n=n,
         k=k,
