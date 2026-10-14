@@ -1,0 +1,54 @@
+{
+  "phase": "165 R27-R54",
+  "status": "AUDITED_NO_PRODUCTION_REWRITE",
+  "remaining_legacy_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "active_legacy_imports": {
+    "toda_calculation": [
+      "repository_foundational_group_specialization",
+      "repository_proof_scope",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization"
+    ]
+  },
+  "legacy_module_importers": {
+    "repository_foundational_group_specialization": [
+      "toda_calculation"
+    ],
+    "repository_proof_scope": [
+      "repository_foundational_group_specialization",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization",
+      "toda_calculation"
+    ],
+    "repository_symbolic_sigma_specialization": [
+      "toda_calculation"
+    ],
+    "repository_symbolic_stable_group_specialization": [
+      "toda_calculation"
+    ]
+  },
+  "non_legacy_importers": {
+    "repository_foundational_group_specialization": [
+      "toda_calculation"
+    ],
+    "repository_proof_scope": [
+      "toda_calculation"
+    ],
+    "repository_symbolic_sigma_specialization": [
+      "toda_calculation"
+    ],
+    "repository_symbolic_stable_group_specialization": [
+      "toda_calculation"
+    ]
+  },
+  "unreferenced_legacy_candidates": [],
+  "typed_facade_direct_legacy_imports": [],
+  "legacy_group_calculation_replaced": false,
+  "legacy_report_api_removed": false,
+  "full_pytest_run": false
+}
