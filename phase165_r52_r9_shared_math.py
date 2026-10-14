@@ -129,7 +129,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               bridge: RegistryBridgeResult | None = None,
                               expansion_provider=None,
                               citing_assertion_id: str | None = None,
-                              verified_assertion_ids: tuple[str, ...] = ()):
+                              verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = ()):
     """Run canonical search under a screened Reference context.
 
     Older calls retain their signature. R15 ordering is applied to sources
@@ -156,4 +156,5 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         expansion_provider=expansion_provider,
         lookup_mode="typed_reference",
         structure_status=GroupStructureStatus.UNKNOWN,
+        completed_internal_proofs=completed_internal_proofs,
     )

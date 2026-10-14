@@ -57,6 +57,7 @@ def reconstruct_registered_goal(
     verified_assertion_ids: tuple[str, ...] = (),
     lookup_mode: str = "legacy",
     progress_observer: Callable[[str, object, ProofStep | None], None] | None = None,
+    completed_internal_proofs: tuple = (),
 ) -> ProofStep:
     """Derive a goal with optional read-only progress reporting.
 
@@ -91,6 +92,13 @@ def reconstruct_registered_goal(
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
+            if completed_internal_proofs:
+                from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
+                internal = find_reusable_internal_proof(target, goal, completed_internal_proofs)
+                if internal is not None:
+                    solved.append((target, internal))
+                    report("proved", target, internal)
+                    return internal
             if lookup_mode == "typed_reference_ordered":
                 from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
                 options = list(ordered_typed_reference_steps(

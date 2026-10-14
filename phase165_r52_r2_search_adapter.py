@@ -25,6 +25,7 @@ def search_registered_partial_proof(
     lookup_mode: str = "legacy",
     structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
     references: tuple[str, ...] = (),
+    completed_internal_proofs: tuple = (),
 ):
     """Return observed results; never replay or manufacture missing premises."""
     # Validate the public domain even for a not-searched result.
@@ -64,6 +65,7 @@ def search_registered_partial_proof(
             verified_assertion_ids=verified_assertion_ids,
             lookup_mode=lookup_mode,
             progress_observer=observer,
+            completed_internal_proofs=completed_internal_proofs,
         )
     except RegisteredGoalUnresolved as exc:
         root_step = None
