@@ -129,7 +129,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               bridge: RegistryBridgeResult | None = None,
                               expansion_provider=None,
                               citing_assertion_id: str | None = None,
-                              verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = ()):
+                              verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None):
     """Run canonical search under a screened Reference context.
 
     Older calls retain their signature. R15 ordering is applied to sources
@@ -148,6 +148,11 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         bridge, goal=goal, citing_assertion_id=context_id,
         verified_assertion_ids=verified_assertion_ids,
     )
+    if proof_use_order is not None:
+        from phase165_r52_r18_proof_order import restrict_by_proof_use_order
+        proof_context = restrict_by_proof_use_order(
+            proof_context, goal=goal, policy=proof_use_order,
+        )
     if expansion_provider is None:
         expansion_provider = shared_expansion_provider(proof_context)
     return search_registered_partial_proof(
