@@ -99,6 +99,14 @@ def reconstruct_registered_goal(
                     verified_assertion_ids=verified_assertion_ids,
                 )
                 options = [x.proof_step for x in candidates if x.proof_step is not None]
+            # A uniquely registered fixed Reference is a complete proof leaf.
+            # Do not count a second derivation of the same statement as ambiguity.
+            # Multiple direct references remain ambiguous and are rejected below.
+            if lookup_mode == "typed_reference" and len(options) == 1:
+                step = options[0]
+                solved.append((target, step))
+                report("proved", target, step)
+                return step
             expansions = expansion_provider(target)
             if not isinstance(expansions, tuple):
                 raise TypeError("expansion provider must return a tuple")

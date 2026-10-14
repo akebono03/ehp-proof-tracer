@@ -74,8 +74,8 @@ def build_registered_common_replay(
             (step for step in generated.proven_steps
              if step.conclusion == generated.conclusion), None
         )
-        if root is None or root.rule is not ProofRule.INFERENCE:
-            raise GoalSearchIncompleteError("completed proof is not an inference")
+        if root is None or root.rule not in (ProofRule.GIVEN, ProofRule.INFERENCE):
+            raise GoalSearchIncompleteError("completed proof is not a typed proof step")
         group = group_result.target
         key = f"phase165:registered:pi{group.group_dimension}_{group.sphere_dimension}"
         source_entry = replace(

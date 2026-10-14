@@ -30,8 +30,25 @@ def index_typed_components(registry: UnifiedStatementRegistry) -> tuple[TypedCom
         if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
             continue
         value = assertion.content
-        if (is_dataclass(value) and not isinstance(value, type)
-                and type(value).__name__ in ("TodaProp51FiniteDimensionalStatement", "CompositeFact")):
+        component_fields = (
+            tuple(field.name for field in fields(value))
+            if is_dataclass(value) and not isinstance(value, type) else ()
+        )
+        legacy_prop51_fields = (
+            "pi3_2_group_relation",
+            "eta2_hopf_relation",
+            "delta_iota5_relation",
+            "higher_eta_group_relation",
+        )
+        explicitly_declared = (
+            isinstance(assertion.scope, tuple)
+            and len(assertion.scope) == 2
+            and assertion.scope[0] == "typed_composite_fields"
+            and assertion.scope[1] == component_fields
+        )
+        if component_fields and (
+            explicitly_declared or component_fields == legacy_prop51_fields
+        ):
             components = tuple((field.name, getattr(value, field.name)) for field in fields(value))
         else:
             components = (("__self__", value),)
