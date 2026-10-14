@@ -7,7 +7,7 @@ preserved for legacy complete proofs.
 from __future__ import annotations
 
 from phase165_r52_partial_proof import PartialProofResult, render_partial_proof_markdown
-from web_group_proof import (
+from web_group_proof_common import (
     WebGroupProofStepView,
     WebGroupProofView,
     _build_group_proof_rendered_lines,
