@@ -339,5 +339,8 @@
   "phase165_r27_r22_r1_import_fix/test_patch.py::test_r22_unproved_group_does_not_claim_found": true,
   "phase165_r27_r22_r1_import_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
   "phase165_r27_r22_r2_state_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
-  "phase165_r27_r22_r3_complete_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true
+  "phase165_r27_r22_r3_complete_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
+  "phase165_r27_r33/test_patch.py::test_r33_incomplete_proof_is_presentable": true,
+  "phase165_r27_r33/test_patch.py::test_r33_modes_preserved": true,
+  "phase165_r27_r33/test_patch.py::test_r33_rejects_invalid_depth_before_search": true
 }
