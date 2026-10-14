@@ -208,32 +208,5 @@ def register_prop51_prop53_literature_statements(
 
 
 def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
-    """Use existing aggregate Statement objects, not their derivation ancestry."""
-    tests_dir = Path(__file__).resolve().parent / "tests"
-    if str(tests_dir) not in sys.path:
-        sys.path.insert(0, str(tests_dir))
-    from toda_prop56_zero_bootstrap import _build_prop51_step
-    from test_phase59_prop53_integration import build_phase59_8_data
-
-    prop51 = _build_prop51_step().conclusion
-    prop53_fixture = build_phase59_8_data()
-    prop53 = prop53_fixture["integration_step"].conclusion
-    if not isinstance(prop51, TodaProp51FiniteDimensionalStatement):
-        raise ValueError("unexpected Proposition 5.1 aggregate Statement")
-    if not isinstance(prop53, TodaProp53FiniteDimensionalStatement):
-        raise ValueError("unexpected Proposition 5.3 aggregate Statement")
-    inputs: list[LiteratureComponentInput] = []
-    for locator, aggregate in (("Proposition 5.1", prop51), ("Proposition 5.3", prop53)):
-        for key in COMPONENTS[locator]:
-            inputs.append(LiteratureComponentInput(
-                locator=locator,
-                component_key=key,
-                statement=getattr(aggregate, key),
-                source_description=f"Existing typed aggregate {type(aggregate).__name__}.{key}",
-                scope_statement=(
-                    prop53_fixture["higher_range_step"].conclusion
-                    if locator == "Proposition 5.3"
-                    else ScalarGreaterEqualStatement(left=ScalarSymbol(name="n"), right=3)
-                ) if key == COMPONENTS[locator][-1] else None,
-            ))
-    return tuple(inputs)
+    """Retired historical proof-step extraction, not a registration API."""
+    raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
