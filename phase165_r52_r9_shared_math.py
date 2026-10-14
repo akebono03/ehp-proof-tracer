@@ -98,6 +98,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase165_r57_r7_stable_expansion import (
         expand_registered_toda45_finite_cyclic_goal,
     )
+    from phase165_r57_r8_eta_specialization import (
+        expand_registered_eta_specialization,
+    )
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
@@ -119,6 +122,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                      image),
                 ))
         options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available)))
+        options.extend(expand_registered_eta_specialization(goal, tuple(available)))
         for provider in (
             expand_generic_iso_goal,
             expand_generic_ehp_hopf_goal,
