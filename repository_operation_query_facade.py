@@ -1,7 +1,4 @@
 from proof_repository import ProofRepository
-from phase164_r7_repository_root_resolution import (
-  validate_repository_internal_proof_roots,
-)
 from repository_nu5_eta8_suspension_zero_specialization import (
   is_nu5_eta8_suspension_zero_operation_query,
   query_nu5_eta8_suspension_zero_handoff,
@@ -24,9 +21,6 @@ from repository_operation_query_lookup import (
 from repository_sigma11_suspension_specialization import (
   is_sigma11_suspension_operation_query,
   query_sigma11_suspension_handoff,
-)
-from standard_production_repository import (
-  build_standard_production_proof_repository,
 )
 
 
@@ -84,15 +78,11 @@ def query_repository_operation_input(
 def query_standard_repository_operation_input(
   query_input: str,
 ) -> RepositoryOperationQueryResult:
-  repository = (
-    build_standard_production_proof_repository()
-  )
+  """Parse the query, without treating legacy bootstrap steps as proof.
 
-  validate_repository_internal_proof_roots(
-    repository
-  )
-
-  return query_repository_operation_input(
-    repository,
-    query_input,
-  )
+  Until a certified typed-operation result is available from the common
+  proof pipeline, the public operation query reports no proven matches.
+  The repository-accepting API remains available for explicit callers.
+  """
+  query = parse_repository_operation_query(query_input)
+  return RepositoryOperationQueryResult(query=query, matches=())
