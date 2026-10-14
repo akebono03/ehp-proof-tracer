@@ -13,7 +13,7 @@ from generator_input import resolve_generator_input
 from phase165_r3_recursive_search import RegisteredGoalUnresolved, reconstruct_registered_goal
 from phase165_r9_production_wiring import discover_goal_search_inputs
 from proof import Relation, ProofStep
-from repository_operation_query import (
+from toda_operation_query import (
     RepositoryCompositionQuery,
     RepositoryGeneratorQuery,
     RepositoryMapOperationQuery,

@@ -13,9 +13,6 @@ from generator_input import (
   resolve_generator_input,
 )
 from proof_repository import ProofRepository
-from repository_element_facade import (
-  explore_repository_generator,
-)
 from toda_calculation_facade import (
   build_toda_report,
 )
@@ -142,34 +139,29 @@ def _run_element_command(
   stdout: TextIO,
   stderr: TextIO,
 ) -> int:
+  """Explore typed generator statements without replaying the old repository."""
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+
   try:
-    generator = (
-      resolve_generator_input(
-        generator_input
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    print(
-      f"error: {error}",
-      file=stderr,
-    )
+    generator = resolve_generator_input(generator_input)
+    result = search_typed_generator_statements(generator_input)
+  except (TypeError, ValueError) as error:
+    print(f"error: {error}", file=stderr)
     return 2
 
-  report = (
-    explore_repository_generator(
-      repository,
-      generator,
-    )
-  )
-
-  _write_markdown(
-    stdout,
-    report.markdown,
-  )
-
+  _write_markdown(stdout, f"## Generator: {generator_input.strip()}")
+  _write_markdown(stdout, f"Search status: {result.status.value}")
+  for step in result.proven_steps:
+    try:
+      statement = render_toda_proof_statement_latex(step.conclusion)
+    except (TypeError, ValueError):
+      statement = repr(step.conclusion)
+    _write_markdown(stdout, f"- ${statement}$")
+  for diagnostic in result.diagnostics:
+    _write_markdown(stdout, f"- {diagnostic}")
+  if result.open_goals:
+    _write_markdown(stdout, f"Open goals: {len(result.open_goals)}")
   return 0
 
 
