@@ -88,14 +88,8 @@ def make_partial_proof_result(
 
 
 def render_partial_proof_markdown(result: PartialProofResult) -> str:
-    """Use the existing whole-proof renderer for complete typed searches.
-
-    Partial and failed searches retain their original fail-closed presentation.
-    """
-    from toda_group_proof_generic_narrative_renderer import (
-        render_toda_partial_proof_narrative_markdown,
+    """Compatibility API: use the one public Toda narrative renderer."""
+    from toda_group_proof_narrative_renderer import (
+        render_toda_group_proof_narrative_markdown,
     )
-    if result.status is ProofSearchStatus.COMPLETE:
-        from phase165_r56_presentation_adapter import render_completed_shared_narrative
-        return render_completed_shared_narrative(result)
-    return render_toda_partial_proof_narrative_markdown(result)
+    return render_toda_group_proof_narrative_markdown(result)

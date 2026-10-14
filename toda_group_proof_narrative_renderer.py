@@ -11989,6 +11989,15 @@ def _phase160_r7_render_stable_finite_cyclic_transport_narrative(
 def render_toda_group_proof_narrative_markdown(
   presentation: TodaGroupProofPresentation,
 ) -> str:
+  """The single public Narrative entry for complete and incomplete searches."""
+  from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
+  if isinstance(presentation, PartialProofResult):
+    if presentation.status is ProofSearchStatus.COMPLETE:
+      from phase165_r56_presentation_adapter import render_completed_shared_narrative
+      return render_completed_shared_narrative(presentation)
+    from phase165_r57_r2_partial_narrative import render_incomplete_public_narrative
+    return render_incomplete_public_narrative(presentation)
+
   stable_transport_narrative = (
     _phase160_r7_render_stable_finite_cyclic_transport_narrative(
       presentation
