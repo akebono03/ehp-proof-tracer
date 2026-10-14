@@ -68,7 +68,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
                 raise ValueError("source link is not a typed fixed Reference")
             links.append(replace(link, assertion_id=prefix + link.assertion_id))
         records.extend(source.records)
-    return RegistryBridgeResult(registry, tuple(records), tuple(links))
+    from phase165_r52_r12_component_bridge import expand_cited_given_components
+    return expand_cited_given_components(
+        RegistryBridgeResult(registry, tuple(records), tuple(links))
+    )
 
 
 def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = ()):
