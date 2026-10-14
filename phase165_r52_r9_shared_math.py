@@ -124,18 +124,37 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               bridge: RegistryBridgeResult | None = None,
                               expansion_provider=None):
-    """Regenerate a typed relation from scratch; never treat result as premise."""
-    from proof import Relation
+    """Derive group structure without citing the exact conclusion being proved.
+
+    Fixed references remain registered. Only the *proof-context* link for an
+    assertion identical to the root goal is hidden; other group queries can
+    continue to cite the same statement. The expansion provider is built from
+    this filtered proof context, so the excluded root cannot re-enter as a
+    direct or provider-discovered source leaf.
+    """
     if bridge is None:
         bridge = build_shared_typed_bridge()
-    if expansion_provider is None:
-        expansion_provider = shared_expansion_provider(bridge)
     goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
     assertions = tuple(bridge.registry._assertions.values())
     if not assertions:
         raise ValueError("shared typed registry is empty")
+    excluded_ids = {
+        assertion.assertion_id
+        for assertion in assertions
+        if assertion.origin is AssertionOrigin.FIXED_STATEMENT
+        and type(assertion.content) is type(goal)
+        and assertion.content == goal
+    }
+    proof_context = RegistryBridgeResult(
+        bridge.registry,
+        bridge.records,
+        tuple(link for link in bridge.proof_links
+              if link.assertion_id not in excluded_ids),
+    )
+    if expansion_provider is None:
+        expansion_provider = shared_expansion_provider(proof_context)
     return search_registered_partial_proof(
-        n=n, k=k, goal=goal, bridge=bridge,
+        n=n, k=k, goal=goal, bridge=proof_context,
         citing_assertion_id=assertions[0].assertion_id,
         expansion_provider=expansion_provider,
         lookup_mode="typed_reference",
