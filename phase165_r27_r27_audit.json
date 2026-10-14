@@ -1,0 +1,10 @@
+{
+  "phase": "165 R27-R27",
+  "status": "REMOVED",
+  "references": [],
+  "deleted": [
+    "toda_prop515_sigma_chain_bootstrap.py",
+    "toda_prop515_low_bootstrap.py"
+  ],
+  "full_pytest_run": false
+}
