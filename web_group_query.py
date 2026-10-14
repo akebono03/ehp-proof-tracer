@@ -1,8 +1,5 @@
 from dataclasses import dataclass
 
-from toda_calculation_facade import (
-  build_standard_toda_report,
-)
 from toda_calculation_result import (
   TodaCalculationStatus,
 )
@@ -11,9 +8,6 @@ from toda_group_query_semantics import (
   TodaGroupQueryDomainKind,
   classify_toda_group_query_domain,
   render_toda_group_query_domain_latex,
-)
-from toda_human_readable_renderer import (
-  render_toda_group_result_latex,
 )
 
 
@@ -97,6 +91,14 @@ class WebGroupQueryView:
       )
 
 
+from phase165_r52_partial_proof import GroupStructureStatus
+from phase165_r52_partial_proof import ProofSearchStatus
+from phase165_r52_r5_auto_search import search_group_structure_automatically
+from proof import Relation
+from proof import RelationType
+from toda_presentation import build_toda_group_structure_presentation
+from toda_human_readable_renderer import render_toda_group_structure_latex
+
 def build_standard_web_group_query_view(
   n: int,
   k: int,
@@ -106,57 +108,45 @@ def build_standard_web_group_query_view(
     k=k,
   )
 
-  domain = (
-    classify_toda_group_query_domain(
-      query
-    )
+  domain = classify_toda_group_query_domain(
+    query
   )
 
-  if (
-    domain.kind
-    is not (
-      TodaGroupQueryDomainKind
-      .POSITIVE_DIMENSION
-    )
-  ):
+  if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
     return WebGroupQueryView(
       n=n,
       k=k,
       status=TodaCalculationStatus.FOUND,
-      result_latex=(
-        render_toda_group_query_domain_latex(
-          domain
-        )
-      ),
+      result_latex=render_toda_group_query_domain_latex(domain),
       proof_available=False,
     )
 
-  report = build_standard_toda_report(
-    n=n,
-    k=k,
-  )
-
-  result_latex = None
-
+  result = search_group_structure_automatically(n=n, k=k)
+  conclusion = result.conclusion
   if (
-    report.status
-    is TodaCalculationStatus.FOUND
+    result.status is ProofSearchStatus.COMPLETE
+    and result.structure_status is GroupStructureStatus.KNOWN
+    and isinstance(conclusion, Relation)
+    and conclusion.relation_type is RelationType.EQUALITY
+    and conclusion.lhs == query.target
   ):
-    result_latex = (
-      render_toda_group_result_latex(
-        report.candidates[
-          0
-        ].presentation.group
-      )
+    structure_latex = render_toda_group_structure_latex(
+      build_toda_group_structure_presentation(conclusion.rhs)
+    )
+    return WebGroupQueryView(
+      n=n,
+      k=k,
+      status=TodaCalculationStatus.FOUND,
+      result_latex=structure_latex,
+      proof_available=True,
     )
 
   return WebGroupQueryView(
     n=n,
     k=k,
-    status=report.status,
-    result_latex=result_latex,
-    proof_available=(
-      report.status
-      is TodaCalculationStatus.FOUND
-    ),
+    status=TodaCalculationStatus.NOT_FOUND,
+    result_latex=None,
+    proof_available=False,
   )
+
+

@@ -1,0 +1,23 @@
+{
+  "phase": "165 R27-R39",
+  "status": "CHANGED",
+  "modified_files": [
+    "phase162_r3e_structured_root_renderer.py",
+    "phase162_validated_proof_presentation.py",
+    "toda_group_proof_generic_narrative_renderer.py",
+    "toda_group_proof_narrative_renderer.py",
+    "toda_group_proof_outline_renderer.py",
+    "toda_group_result_proof_replay_renderer.py",
+    "toda_group_structure_transport_reason.py",
+    "web_generator_applicability.py",
+    "web_generator_execution.py",
+    "web_generator_proof.py",
+    "web_generator_proof_scope.py",
+    "web_group_proof_common.py"
+  ],
+  "new_shared_renderer": "toda_conclusion_latex_renderer",
+  "legacy_renderer_preserved": true,
+  "skipped_missing_optional_files": [],
+  "deleted_repository_modules": [],
+  "full_pytest_run": false
+}

@@ -130,7 +130,7 @@ def test_r5_flask_progress_form_starts_actual_search(monkeypatch):
     })
     assert response.status_code == 200
     assert seen == [(3, 1)]
-    assert b"search_failed" in response.data
+    assert "証明未完成".encode("utf-8") in response.data
     assert b"not_searched" not in response.data
 
 
@@ -165,4 +165,4 @@ def test_r5_group_query_also_starts_search(monkeypatch):
     })
     assert response.status_code == 200
     assert called == [(3, 1)]
-    assert b"search_failed" in response.data
+    assert "証明未完成".encode("utf-8") in response.data

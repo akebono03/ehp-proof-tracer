@@ -1,15 +1,6 @@
 from dataclasses import dataclass
 
-from repository_element_presentation import (
-  render_repository_conclusion_latex,
-)
-from repository_proof_scope_facade import (
-  explore_standard_repository_generator_proof_scope_input,
-)
-from repository_proof_scope_exploration import (
-  RepositoryProofScopeMapRelationOccurrence,
-  RepositoryProofScopeTodaMembershipOccurrence,
-)
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -172,6 +163,10 @@ class WebGeneratorProofScopeView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -293,157 +288,31 @@ class WebGeneratorProofScopeView:
       )
 
 
-def _toda_membership_match_labels(
-  membership: RepositoryProofScopeTodaMembershipOccurrence,
-) -> tuple[
-  str,
-  ...,
-]:
-  if not isinstance(
-    membership,
-    RepositoryProofScopeTodaMembershipOccurrence,
-  ):
-    raise TypeError(
-      "membership must be a "
-      "RepositoryProofScopeTodaMembershipOccurrence"
-    )
-
-  labels = []
-
-  if membership.is_membership_element:
-    labels.append(
-      "membership element"
-    )
-
-  labels.extend(
-    "Toda bracket " + position
-    for position in membership.bracket_positions
-  )
-
-  return tuple(
-    labels
-  )
 
 
-def _build_toda_membership_view(
-  membership: RepositoryProofScopeTodaMembershipOccurrence,
-) -> WebGeneratorProofScopeTodaMembershipView:
-  if not isinstance(
-    membership,
-    RepositoryProofScopeTodaMembershipOccurrence,
-  ):
-    raise TypeError(
-      "membership must be a "
-      "RepositoryProofScopeTodaMembershipOccurrence"
-    )
-
-  node = (
-    membership
-    .source_occurrence
-    .scope_node
-  )
-
-  return WebGeneratorProofScopeTodaMembershipView(
-    statement_latex=(
-      render_repository_conclusion_latex(
-        membership.statement
-      )
-    ),
-    root_key=node.root_entry.key,
-    depth=node.shortest_depth,
-    match_labels=(
-      _toda_membership_match_labels(
-        membership
-      )
-    ),
-  )
 
 
-def _build_map_relation_view(
-  map_relation: RepositoryProofScopeMapRelationOccurrence,
-) -> WebGeneratorProofScopeMapRelationView:
-  if not isinstance(
-    map_relation,
-    RepositoryProofScopeMapRelationOccurrence,
-  ):
-    raise TypeError(
-      "map_relation must be a "
-      "RepositoryProofScopeMapRelationOccurrence"
-    )
-
-  node = (
-    map_relation
-    .source_occurrence
-    .scope_node
-  )
-
-  return WebGeneratorProofScopeMapRelationView(
-    statement_latex=(
-      render_repository_conclusion_latex(
-        map_relation.relation
-      )
-    ),
-    root_key=node.root_entry.key,
-    depth=node.shortest_depth,
-  )
 
 
-def build_standard_web_generator_proof_scope_view(
-  generator_input: str,
-) -> WebGeneratorProofScopeView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_proof_scope_view(generator_input: str) -> WebGeneratorProofScopeView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  result = (
-    explore_standard_repository_generator_proof_scope_input(
-      generator_input
-    )
-  )
-
-  toda_memberships = tuple(
-    _build_toda_membership_view(
-      membership
-    )
-    for membership in result.toda_memberships
-  )
-
-  map_relations = tuple(
-    _build_map_relation_view(
-      map_relation
-    )
-    for map_relation in result.map_relations
-  )
-
+    raise ValueError("generator is required")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  symbol = resolve_generator_input(generator_input)
+  result = search_typed_generator_statements(generator_input)
   return WebGeneratorProofScopeView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        result.generator
-      )
-    ),
-    occurrence_count=len(
-      result.occurrences
-    ),
-    toda_membership_count=len(
-      toda_memberships
-    ),
-    map_relation_count=len(
-      map_relations
-    ),
-    toda_memberships=toda_memberships,
-    map_relations=map_relations,
+    generator_latex=_render_generator_symbol_latex(symbol),
+    occurrence_count=len(result.proven_steps),
+    toda_membership_count=0,
+    map_relation_count=0,
+    toda_memberships=(),
+    map_relations=(),
+    search_status=result.status.value,
+    diagnostics=result.diagnostics,
+    open_goal_count=len(result.open_goals),
   )

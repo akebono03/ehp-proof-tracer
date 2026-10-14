@@ -1,0 +1,1101 @@
+{
+  "phase": "165 R27-R14",
+  "mode": "READ_ONLY_LIVE_CONSUMER_TRIAGE",
+  "production_files_modified": false,
+  "full_pytest_run": false,
+  "deletion_authorized": false,
+  "upstream_reference_events": 387,
+  "candidate_root_files": 71,
+  "candidate_counts_by_category": {
+    "BACKUP_ROOT_FALSE_POSITIVE": 13,
+    "GENERATOR_CONSUMER_REVIEW": 10,
+    "LEGACY_BUILDER_REVIEW": 5,
+    "OPERATION_CONSUMER_REVIEW": 2,
+    "OTHER_ROOT_CONSUMER_REVIEW": 31,
+    "PHASE_BRIDGE_REVIEW": 7,
+    "PUBLIC_ENTRY_REVIEW": 3
+  },
+  "public_entry_static_imports": [
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_element_facade",
+      "symbol": "explore_standard_repository_generator_input",
+      "line": 5,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_applicability_facade",
+      "symbol": "explore_standard_repository_generator_applicability_input",
+      "line": 8,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_applicability_renderer",
+      "symbol": "render_repository_generator_applicability_compact_markdown",
+      "line": 11,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_applicability_renderer",
+      "symbol": "render_repository_generator_applicability_detailed_markdown",
+      "line": 11,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_known_group_identity_presentation",
+      "symbol": "build_standard_repository_generator_known_group_identity_presentation_input",
+      "line": 15,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_known_group_identity_renderer",
+      "symbol": "render_repository_generator_known_group_identity_markdown",
+      "line": 18,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_known_group_proof_replay",
+      "symbol": "build_standard_repository_generator_known_group_proof_replay_input",
+      "line": 21,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_known_group_proof_replay_presentation",
+      "symbol": "build_repository_generator_known_group_proof_replay_presentation",
+      "line": 24,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_known_group_proof_replay_renderer",
+      "symbol": "render_repository_generator_known_group_proof_replay_markdown",
+      "line": 27,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_user_execution_candidate_presentation",
+      "symbol": "build_repository_generator_user_execution_candidate_list_presentation",
+      "line": 30,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_user_execution_candidate_renderer",
+      "symbol": "render_repository_generator_user_execution_candidate_list_markdown",
+      "line": 33,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_user_execution_facade",
+      "symbol": "RepositoryGeneratorUserExecutionWorkflowStatus",
+      "line": 36,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_generator_user_execution_facade",
+      "symbol": "run_standard_repository_generator_user_execution_workflow",
+      "line": 36,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_operation_query_facade",
+      "symbol": "query_standard_repository_operation_input",
+      "line": 40,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_operation_query_presentation",
+      "symbol": "build_repository_operation_query_presentation",
+      "line": 43,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_operation_query_renderer",
+      "symbol": "render_repository_operation_query_markdown",
+      "line": 46,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_operation_query_proof_replay",
+      "symbol": "build_repository_operation_query_proof_replay",
+      "line": 49,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_operation_query_proof_replay_presentation",
+      "symbol": "build_repository_operation_query_proof_replay_presentation",
+      "line": 52,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_operation_query_proof_replay_renderer",
+      "symbol": "render_repository_operation_query_proof_replay_markdown",
+      "line": 55,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_proof_scope_facade",
+      "symbol": "explore_standard_repository_generator_proof_scope_input",
+      "line": 62,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "repository_proof_scope_renderer",
+      "symbol": "render_repository_proof_scope_exploration_markdown",
+      "line": 65,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "toda_calculation_facade",
+      "symbol": "build_standard_toda_report",
+      "line": 68,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "main.py",
+      "dependency_module": "toda_group_result_proof_replay",
+      "symbol": "build_toda_group_result_proof_replay",
+      "line": 80,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "cli.py",
+      "dependency_module": "proof_repository",
+      "symbol": "ProofRepository",
+      "line": 15,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "cli.py",
+      "dependency_module": "repository_element_facade",
+      "symbol": "explore_repository_generator",
+      "line": 16,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "cli.py",
+      "dependency_module": "toda_calculation_facade",
+      "symbol": "build_toda_report",
+      "line": 19,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_proof.py",
+      "dependency_module": "repository_element_presentation",
+      "symbol": "render_repository_conclusion_latex",
+      "line": 3,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_proof.py",
+      "dependency_module": "repository_generator_known_group_proof_replay",
+      "symbol": "build_standard_repository_generator_known_group_proof_replay_input",
+      "line": 6,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_proof.py",
+      "dependency_module": "repository_generator_known_group_proof_replay_presentation",
+      "symbol": "build_repository_generator_known_group_proof_replay_presentation",
+      "line": 9,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_exploration.py",
+      "dependency_module": "repository_element_facade",
+      "symbol": "explore_standard_repository_generator_input",
+      "line": 3,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_exploration.py",
+      "dependency_module": "repository_element_presentation",
+      "symbol": "RepositoryGeneratorExplorationPresentation",
+      "line": 6,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_exploration.py",
+      "dependency_module": "repository_element_presentation",
+      "symbol": "RepositoryGeneratorOccurrencePresentation",
+      "line": 6,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_exploration.py",
+      "dependency_module": "repository_element_renderer",
+      "symbol": "render_generator_occurrence_role_label",
+      "line": 10,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_applicability.py",
+      "dependency_module": "repository_element_presentation",
+      "symbol": "render_repository_conclusion_latex",
+      "line": 3,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_applicability.py",
+      "dependency_module": "repository_generator_applicability_facade",
+      "symbol": "explore_standard_repository_generator_applicability_input",
+      "line": 6,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_applicability.py",
+      "dependency_module": "repository_generator_applicability_presentation",
+      "symbol": "ApplicabilityRuleFamilyPresentation",
+      "line": 9,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_applicability.py",
+      "dependency_module": "repository_generator_applicability_presentation",
+      "symbol": "ApplicabilitySourceGroupPresentation",
+      "line": 9,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_generator_applicability.py",
+      "dependency_module": "repository_generator_applicability_presentation",
+      "symbol": "build_repository_generator_applicability_presentation",
+      "line": 9,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_operation_query.py",
+      "dependency_module": "repository_operation_query_facade",
+      "symbol": "query_standard_repository_operation_input",
+      "line": 3,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_operation_query.py",
+      "dependency_module": "repository_operation_query_presentation",
+      "symbol": "build_repository_operation_query_presentation",
+      "line": 6,
+      "verification": "STATIC_IMPORT_ONLY"
+    },
+    {
+      "entry": "web_group_proof.py",
+      "dependency_module": "repository_element_presentation",
+      "symbol": "render_repository_conclusion_latex",
+      "line": 15,
+      "verification": "STATIC_IMPORT_ONLY"
+    }
+  ],
+  "review_rows": [
+    {
+      "path": "cli.py",
+      "category": "PUBLIC_ENTRY_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 5,
+      "functions_declared": "_run_element_command;_run_group_command;_write_markdown;build_cli_parser;run_cli",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "main.py",
+      "category": "PUBLIC_ENTRY_REVIEW",
+      "scopes": "PUBLIC_ENTRY_OR_BRIDGE",
+      "symbols": "build_standard_toda_report;build_toda_group_result_proof_replay",
+      "reference_events": 2,
+      "functions_declared": "_configure_cli_utf8_streams;_parse_nonnegative_int;_parse_positive_int;_run_execute_command;_run_explore_applicable_command;_run_explore_command;_run_explore_proof_command;_run_group_proof_command;_run_query_command;_run_query_proof_command;_run_show_proof_command;build_argument_parser;build_execute_argument_parser;build_explore_applicable_argument_parser;build_explore_argument_parser;build_explore_proof_argument_parser;build_group_proof_argument_parser;build_query_argument_parser;build_query_proof_argument_parser;build_show_proof_argument_parser;main",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase162_pi5_3_web_replay.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry;build_toda_group_result_proof_replay",
+      "reference_events": 6,
+      "functions_declared": "build_phase162_pi5_3_web_replay",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase162_r4_b3_web_common_display.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view",
+      "reference_events": 8,
+      "functions_declared": "build_phase162_r4_b3_web_common_display_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase164_r5_web_registry_connection.phase164_r5_r1_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry;build_toda_group_result_proof_replay",
+      "reference_events": 6,
+      "functions_declared": "build_phase164_r5_web_pi5_3_proof",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase164_r5_web_registry_connection.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry;build_toda_group_result_proof_replay",
+      "reference_events": 6,
+      "functions_declared": "build_phase164_r5_web_pi5_3_proof",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase164_r7_r3_generator_registry.phase164_r7_r4_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 4,
+      "functions_declared": "validate_generator_repository_registry_links",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase164_r7_r3_generator_registry.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "validate_generator_repository_registry_links",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase164_r7_repository_root_resolution.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 4,
+      "functions_declared": "validate_repository_internal_proof_roots",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase165_r14_r40_replay.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_toda_group_result_proof_replay",
+      "reference_events": 3,
+      "functions_declared": "build_phase165_r40_pi32_common_replay",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase165_r14_r41_proof_transfer.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_toda_group_result_proof_replay",
+      "reference_events": 3,
+      "functions_declared": "_registered_reference_leaves;audit_r41;build_phase165_r41_pi32_common_replay;visit",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "phase165_r52_r7_registered_common_proof.py",
+      "category": "PHASE_BRIDGE_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_toda_group_result_proof_replay",
+      "reference_events": 5,
+      "functions_declared": "build_registered_common_replay;registered_proof_providers",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "proof_repository.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 13,
+      "functions_declared": "__init__;__post_init__;dependencies;entries;find_by_conclusion;find_by_phase;find_by_statement_type;find_by_theorem;get;register",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_element_exploration.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;_has_any_role;build_repository_generator_exploration",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_element_facade.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;explore_repository_generator;explore_standard_repository_generator_input",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_element_lookup.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 11,
+      "functions_declared": "__post_init__;_value_at_structural_path;find_repository_entries_by_conclusion_generator;find_repository_generator_occurrences;find_repository_generator_occurrences_by_role",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_foundational_group_specialization.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 11,
+      "functions_declared": "_build_connectivity_zero_step;_build_identity_group_step;_find_circle_higher_zero_step;_is_symbolic_circle_higher_zero_step;_specialize_circle_higher_zero_step;find_foundational_toda_group_results",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_applicability_execution_orchestration.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;execute_first_qualified_production_applicability_candidate;execute_second_qualified_production_applicability_candidate",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_applicability_execution_seed.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 7,
+      "functions_declared": "build_repository_generator_applicability_execution_seed_repository",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_applicability_facade.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 2,
+      "functions_declared": "__post_init__;_build_generator_applicability_result;explore_repository_generator_applicability;explore_standard_repository_generator_applicability_input;generator;scope",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_applicability_handoff.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;build_repository_generator_applicability_handoff_search_report;execute_repository_generator_applicability_handoff_search_report;validate_repository_generator_applicability_handoff",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_known_group_identity_lookup.phase164_r7_r3_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository",
+      "reference_events": 6,
+      "functions_declared": "_cyclic_group_has_direct_generator;_find_proof_derived_ambient_group_targets;_group_structure_has_direct_generator;_supports_proof_derived_ambient_group;find_repository_generator_known_group_identity_nodes;find_standard_repository_generator_known_group_identity_input;find_standard_repository_generator_known_group_identity_nodes",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_known_group_identity_lookup.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository",
+      "reference_events": 6,
+      "functions_declared": "_cyclic_group_has_direct_generator;_find_proof_derived_ambient_group_targets;_group_structure_has_direct_generator;_supports_proof_derived_ambient_group;find_repository_generator_known_group_identity_nodes;find_standard_repository_generator_known_group_identity_input;find_standard_repository_generator_known_group_identity_nodes",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_production_application_execution_seed.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 7,
+      "functions_declared": "build_repository_generator_production_application_execution_seed_repository",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_qualified_execution_family_selection.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;representative;select_qualified_repository_generator_execution_family_by_root_and_source;select_qualified_repository_generator_execution_family_by_root_source_and_family;selected_group",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_standard_qualified_execution_facade.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;execute_standard_repository_generator_applicability_result_by_root_and_source;execute_standard_repository_generator_applicability_result_by_root_source_and_family;executed;representative;selected_group",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_generator_two_premise_execution_integration.py",
+      "category": "GENERATOR_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;execute_two_premise_repository_generator_production_application_candidate",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_inference.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 20,
+      "functions_declared": "__post_init__;_build_bounded_producer_search_report_for_final_rule;_concrete_requested_statement;_diagnose_bounded_producer_search_failure_for_final_rule;_diagnose_direct_producer_failure_for_final_rule;_execute_bounded_producer_search_report;_pattern_value_is_fully_bound;_select_bounded_producer_chain_for_final_rule;_validate_bounded_search_selection_max_depth;_validate_depth_two_max_depth;all_missing_premises_uniquely_producible;analyze_producer_premise_availabilities;append_dependency_first;build_depth_two_producer_search_report;build_node;candidate_rules_for_lookup;derive_goal_from_repository;derive_goal_from_repository_with_catalog;derive_goal_from_repository_with_depth_two_producers;derive_goal_from_repository_with_one_level_producers;detect_goal_rule_missing_premises;detect_missing_premises;diagnose_depth_two_producer_execution_failure;diagnose_depth_two_producer_search_failure;diagnose_direct_producer_failure;diagnose_lookup;execute_depth_two_producer_search;failure_for_lookup;find_missing_premise_producer_lookups;is_complete;is_shared;is_within_depth_limit;maximum_depth;minimum_depth;missing_patterns;register_node_spec;register_producer_candidate;register_producer_lookup;repository_available_steps;restore_selection_state;search;select_unique_depth_two_producer_chain;snapshot_selection_state",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_map_relation_exploration.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;find_repository_map_relation_occurrences",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_nu5_eta8_suspension_zero_specialization.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "_find_pi9_5_nu5_eta8_premise;_is_derived_pi10_6_zero_step;_is_pi9_5_nu5_eta8_group_relation;_matches_generator;is_nu5_eta8_suspension_zero_operation_query;query_nu5_eta8_suspension_zero_handoff;specialize_nu5_eta8_suspension_zero_step",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_nu5_stable_bridge_specialization.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "_symbolic_nu5_stable_bridge_relation;is_nu5_stable_bridge_operation_query;query_nu5_stable_bridge_handoff;specialize_nu5_stable_bridge_step",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_nu_prime_suspension_membership_specialization.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "_is_prop56_pi7_4_decomposition_step;is_nu_prime_suspension_membership_operation_query;query_nu_prime_suspension_membership_handoff;specialize_nu_prime_suspension_membership_step",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_operation_query_facade.phase164_r7_r4_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository",
+      "reference_events": 5,
+      "functions_declared": "query_repository_operation_input;query_standard_repository_operation_input",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_operation_query_facade.py",
+      "category": "OPERATION_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository",
+      "reference_events": 5,
+      "functions_declared": "query_repository_operation_input;query_standard_repository_operation_input",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_operation_query_lookup.py",
+      "category": "OPERATION_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;_contains_composition_query;_contains_three_term_composition_query;_direct_generator_symbol;_find_composition_matches;_find_delta_matches;_find_e_matches;_find_h_matches;_find_three_term_composition_matches;_matches_composition_query;_matches_generator_query;_matches_operand;_matches_three_term_composition_query;found;query_repository_operation",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_proof_scope.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 10,
+      "functions_declared": "__post_init__;build_repository_entry_proof_scope;build_repository_proof_scope",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_proof_scope_facade.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository",
+      "reference_events": 6,
+      "functions_declared": "__post_init__;_scope_occurrence_key;explore_repository_generator_proof_scope;explore_standard_repository_generator_proof_scope_input",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_sigma11_suspension_specialization.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "_is_symbolic_sigma_family_definition_step;is_sigma11_suspension_operation_query;query_sigma11_suspension_handoff;specialize_sigma11_suspension_step",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_theorem_pattern_exploration.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;build_repository_theorem_pattern_occurrences;statement_type",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "repository_toda_membership_exploration.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;_bracket_positions;_membership_kind;find_repository_toda_bracket_membership_occurrences",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "standard_production_applicability_catalog.py",
+      "category": "LEGACY_BUILDER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_production_proof_repository",
+      "reference_events": 3,
+      "functions_declared": "_barratt_hilton_representative_rules;_inference_rule_factory_name;_is_barratt_hilton_theorem_specific_rule;_is_equality_preserved_under_left_composition_rule;_is_equality_preserved_under_multiple_rule;_is_equality_preserved_under_right_composition_rule;_is_first_iterated_suspension_bridge_rule;_is_generic_relation_representative_rule;_is_injective_map_reflection_rule;_is_nested_integer_multiple_rule;_phase103_6d101_apply_theorem_specific_classification;_phase103_6d101_classify_entry;_phase103_6d106_apply_theorem_specific_classification;_phase103_6d106_classify_entry;_phase103_6d108_apply_grouped_relevance_classification;_phase103_6d108_classify_entry;_phase103_6d15_apply_structural_classification;_phase103_6d15_classify_entry;_phase103_6d15_premise_signature;_phase103_6d15_relevance_shape;_phase103_6d15_type_names;_phase103_6d18_apply_map_property_classification;_phase103_6d18_classify_entry;_phase103_6d20_apply_structural_classification;_phase103_6d20_classify_entry;_phase103_6d24_apply_structural_classification;_phase103_6d24_classify_entry;_phase103_6d27_apply_structural_classification;_phase103_6d27_classify_entry;_phase103_6d30_apply_map_property_classification;_phase103_6d30_classify_entry;_phase103_6d32_apply_theorem_specific_classification;_phase103_6d32_classify_entry;_phase103_6d35_apply_structural_classification;_phase103_6d35_classify_entry;_phase103_6d38_apply_structural_classification;_phase103_6d38_classify_entry;_phase103_6d41_apply_theorem_specific_classification;_phase103_6d41_classify_entry;_phase103_6d44_apply_theorem_specific_classification;_phase103_6d44_classify_entry;_phase103_6d47_apply_structural_classification;_phase103_6d47_classify_entry;_phase103_6d50_apply_theorem_specific_classification;_phase103_6d50_classify_entry;_phase103_6d53_apply_theorem_specific_classification;_phase103_6d53_classify_entry;_phase103_6d56_apply_theorem_specific_classification;_phase103_6d56_classify_entry;_phase103_6d59_apply_bridge_classification;_phase103_6d59_classify_entry;_phase103_6d62_apply_theorem_specific_classification;_phase103_6d62_classify_entry;_phase103_6d65_apply_theorem_specific_classification;_phase103_6d65_classify_entry;_phase103_6d68_apply_theorem_specific_classification;_phase103_6d68_classify_entry;_phase103_6d71_apply_theorem_specific_classification;_phase103_6d71_classify_entry;_phase103_6d73_apply_theorem_specific_classification;_phase103_6d73_classify_entry;_phase103_6d76_apply_theorem_specific_classification;_phase103_6d76_classify_entry;_phase103_6d79_apply_theorem_specific_classification;_phase103_6d79_classify_entry;_phase103_6d82_apply_theorem_specific_classification;_phase103_6d82_classify_entry;_phase103_6d85_apply_theorem_specific_classification;_phase103_6d85_classify_entry;_phase103_6d88_apply_theorem_specific_classification;_phase103_6d88_classify_entry;_phase103_6d91_apply_theorem_specific_classification;_phase103_6d91_classify_entry;_phase103_6d94_apply_bridge_classification;_phase103_6d94_classify_entry;_phase103_6d98_apply_theorem_specific_classification;_phase103_6d98_classify_entry;_representative_relevance_category;_same_nested_rule_factory;_second_wave_relevance_category;_single_equality_premise_pattern;build_standard_production_applicability_catalog",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "standard_production_repository.py",
+      "category": "LEGACY_BUILDER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository;build_standard_proof_repository;build_toda_prop515_upper_bootstrap",
+      "reference_events": 9,
+      "functions_declared": "build_standard_production_proof_repository",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "standard_repository.py",
+      "category": "LEGACY_BUILDER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry;build_standard_proof_repository",
+      "reference_events": 14,
+      "functions_declared": "_validate_standard_step;build_standard_proof_repository",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 22,
+      "functions_declared": "_find_concrete_sigma9_toda_group_results;_find_existing_concrete_proof_scope_group_results;_find_low_dimensional_toda_group_results;_find_prop59_concrete_toda_group_results;_find_specialized_sigma_toda_group_results;_find_specialized_stable_toda_group_results;_generator_family_and_index;_is_canonical_low_dimensional_group_result;_proof_step_repeats_conclusion_in_ancestry;_resolve_existing_concrete_toda_step_source_metadata;build_known_toda_calculation_result;build_toda_calculation_result",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_facade.phase164_r7_r5_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;build_standard_production_proof_repository;build_standard_toda_report",
+      "reference_events": 6,
+      "functions_declared": "build_standard_toda_report;build_toda_report",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_facade.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "PUBLIC_ENTRY_OR_BRIDGE",
+      "symbols": "ProofRepository;build_standard_production_proof_repository;build_standard_toda_report",
+      "reference_events": 6,
+      "functions_declared": "build_standard_toda_report;build_toda_report",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_goal.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;status;target",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_goal_discovery.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "discover_concrete_toda_calculation_goal_candidates",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_goal_extraction.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 6,
+      "functions_declared": "_candidate_for_branch;_extract_direct_branches;_extract_prop511_nu_squared_branches;extract_concrete_toda_calculation_goal_candidates",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_goal_normalization.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 3,
+      "functions_declared": "normalize_recovered_toda_calculation_goal_candidate",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_calculation_report.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "build_toda_calculation_report_result;build_toda_found_calculation_report_result",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_ehp_group_enrichment.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository",
+      "reference_events": 3,
+      "functions_declared": "__post_init__;_toda_group_query_for_term;connect_known_toda_group_results",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_end_to_end_presentation.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 4,
+      "functions_declared": "__post_init__;_validate_repository_entries;build_toda_end_to_end_candidate_presentation",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_group_lookup.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepository;ProofRepositoryEntry",
+      "reference_events": 6,
+      "functions_declared": "find_known_toda_group_results;find_normalized_toda_group_results;is_toda_group_result_for_target",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_group_proof_presentation.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 2,
+      "functions_declared": "__post_init__;build_toda_group_proof_presentation;max_depth;nodes;root_step;source_entry",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_group_result.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;_extract_toda_group_generators_and_orders;normalize_toda_group_result",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_group_result_proof_replay.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry;build_toda_group_result_proof_replay",
+      "reference_events": 6,
+      "functions_declared": "__post_init__;_validate_max_depth;build_complete_toda_group_result_proof_replay;build_toda_group_result_proof_replay",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_proof_flow_presentation.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 4,
+      "functions_declared": "__post_init__;_dependency_first_source_nodes;_validate_repository_entries;build_toda_readable_proof_flow_presentation;is_shared_dependency;premise_index;root;shortest_depth;visit",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_proof_presentation.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry",
+      "reference_events": 10,
+      "functions_declared": "__post_init__;_repository_presentations_for_step;branch_name;build_toda_calculation_candidate_source_presentation;build_toda_calculation_goal_source_presentation;build_toda_literature_source_presentation;build_toda_proof_dependency_presentation;build_toda_proof_dependency_presentation_result;build_toda_proof_step_presentation;build_toda_repository_entry_presentation;conclusion;depth;extract_toda_proof_step_literature_source;is_direct;key;phase;proof_rule;theorem",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_prop515_sigma_chain_bootstrap.py",
+      "category": "LEGACY_BUILDER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_toda_prop515_sigma_chain_bootstrap",
+      "reference_events": 1,
+      "functions_declared": "_is_delta_eta13_zero;_is_delta_iota11_relation;_is_eta_n_nu_n_plus_one_zero;build_toda_prop515_sigma_chain_bootstrap",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_prop515_upper_bootstrap.py",
+      "category": "LEGACY_BUILDER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_toda_prop515_sigma_chain_bootstrap;build_toda_prop515_upper_bootstrap",
+      "reference_events": 4,
+      "functions_declared": "build_toda_prop515_upper_bootstrap",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "toda_stable_eta_proof_replay.py",
+      "category": "OTHER_ROOT_CONSUMER_REVIEW",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "ProofRepositoryEntry;build_toda_group_result_proof_replay",
+      "reference_events": 6,
+      "functions_declared": "build_toda_stable_eta_proof_replay",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 7,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_r1_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 7,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_r2_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 7,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_r3_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase165_r39_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase165_r40_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase165_r52_r3_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.phase165_r52_r3_empty_steps_backup.py",
+      "category": "BACKUP_ROOT_FALSE_POSITIVE",
+      "scopes": "ROOT_PRODUCTION_OR_UNCLASSIFIED",
+      "symbols": "build_standard_toda_report;build_standard_web_group_proof_view;build_toda_group_result_proof_replay",
+      "reference_events": 5,
+      "functions_declared": "__post_init__;_build_group_proof_inline_segments;_build_group_proof_rendered_lines;_group_proof_rule_name;_group_proof_statement_latex;_split_group_proof_rendered_line;build_standard_web_group_proof_view;build_web_partial_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    },
+    {
+      "path": "web_group_proof.py",
+      "category": "PUBLIC_ENTRY_REVIEW",
+      "scopes": "PUBLIC_ENTRY_OR_BRIDGE",
+      "symbols": "build_standard_web_group_proof_view",
+      "reference_events": 1,
+      "functions_declared": "build_standard_web_group_proof_view;build_web_partial_group_proof_view",
+      "exists": true,
+      "parses": true,
+      "classification": "CANDIDATE_NOT_RUNTIME_VERIFIED"
+    }
+  ],
+  "protected_files": [
+    "phase163_r4_registry_bridge.py",
+    "phase165_r52_r2_search_adapter.py",
+    "proof.py",
+    "theorem_facts.py",
+    "toda_rules.py",
+    "unified_statement_registry.py"
+  ],
+  "dynamic_imports_and_runtime_use_verified": false,
+  "reachable_from_public_entry_certified": false,
+  "next_action": "Inspect Generator/Operation public call chains function-by-function before migrating consumers or deleting builders"
+}

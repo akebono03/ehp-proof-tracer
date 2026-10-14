@@ -1,0 +1,23 @@
+{
+  "phase": "165 R27-R56",
+  "status": "ALREADY_INSTALLED_OR_IMPORTS_STILL_USED",
+  "modified_files": [],
+  "removed_unused_imports": {
+    "web_group_query.py": [],
+    "web_group_proof.py": []
+  },
+  "retained_used_imports": {
+    "web_group_query.py": [
+      "toda_human_readable_renderer"
+    ],
+    "web_group_proof.py": []
+  },
+  "legacy_group_calculation_removed": false,
+  "remaining_legacy_repository_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "full_pytest_run": false
+}

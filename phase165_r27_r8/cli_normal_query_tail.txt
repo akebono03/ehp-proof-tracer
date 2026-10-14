@@ -1,0 +1,9 @@
+  from phase165_r52_r5_auto_search import search_group_structure_automatically
+  from phase165_r52_partial_proof import ProofSearchStatus, render_partial_proof_markdown
+
+  if args.n < 2 or args.k < 0:
+    print(f"No typed group proof search is available for pi_{{{args.n + args.k}}}^{{{args.n}}}.")
+    return 1
+  result = search_group_structure_automatically(n=args.n, k=args.k)
+  print(render_partial_proof_markdown(result))
+  return 0 if result.status is ProofSearchStatus.COMPLETE else 1

@@ -1,0 +1,31 @@
+{
+  "phase": "165 R27-R58",
+  "status": "CHANGED",
+  "modified_files": [
+    "cli.py"
+  ],
+  "cli_group_uses_typed_partial_search": true,
+  "legacy_group_calculation_removed": false,
+  "remaining_legacy_repository_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "audit_imports": {
+    "cli.py": [],
+    "toda_calculation.py": [
+      "repository_foundational_group_specialization",
+      "repository_proof_scope",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization"
+    ],
+    "toda_calculation_report.py": [
+      "toda_calculation"
+    ],
+    "toda_calculation_facade.py": [
+      "toda_calculation_report"
+    ]
+  },
+  "full_pytest_run": false
+}

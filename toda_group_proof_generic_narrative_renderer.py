@@ -19,9 +19,7 @@ from proof import (
 from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
-from repository_element_presentation import (
-  render_repository_conclusion_latex,
-)
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_group_proof_aggregate_statement_renderer import (
   render_toda_group_proof_aggregate_statement_prose,
 )

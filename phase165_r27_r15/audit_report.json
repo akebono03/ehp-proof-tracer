@@ -1,0 +1,621 @@
+{
+  "phase": "165 R27-R15",
+  "mode": "READ_ONLY_PUBLIC_CONSUMER_FUNCTION_BOUNDARY",
+  "production_files_modified": false,
+  "full_pytest_run": false,
+  "deletion_authorized": false,
+  "next_phase_deletion_start": "165 R27-R16",
+  "public_function_boundaries": [
+    {
+      "path": "repository_operation_query_facade.py",
+      "function": "query_standard_repository_operation_input",
+      "calls": [
+        "build_standard_production_proof_repository",
+        "query_repository_operation_input",
+        "validate_repository_internal_proof_roots"
+      ],
+      "legacy_calls": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "repository_element_facade.py",
+      "function": "explore_standard_repository_generator_input",
+      "calls": [
+        "build_standard_production_proof_repository",
+        "explore_repository_generator",
+        "resolve_generator_input"
+      ],
+      "legacy_calls": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "standard_production_repository.py",
+      "function": "build_standard_production_proof_repository",
+      "calls": [
+        "build_standard_proof_repository",
+        "build_toda_prop515_upper_bootstrap"
+      ],
+      "legacy_calls": [
+        "build_standard_proof_repository",
+        "build_toda_prop515_upper_bootstrap"
+      ]
+    }
+  ],
+  "entry_files": [
+    "main.py",
+    "cli.py",
+    "web_operation_query.py",
+    "web_generator_exploration.py",
+    "web_operation_query_proof.py"
+  ],
+  "test_samples": [
+    "tests/test_phase100_12b_standard_repository_integration.py",
+    "tests/test_phase100_standard_repository.py",
+    "tests/test_phase79_cross_phase_repository.py",
+    "tests/test_phase79_repository_regression.py",
+    "tests/test_phase80_repository_available_steps.py",
+    "tests/test_phase80_repository_inference_runner.py",
+    "tests/test_phase81_repository_rule_selection.py",
+    "tests/test_phase95_repository_wide_goal_candidate_discovery.py",
+    "tests/test_phase99_actual_repository_element_lookup_validation.py",
+    "tests/test_phase99_repository_conclusion_element_lookup.py",
+    "tests/test_phase99_repository_generator_occurrence_result.py",
+    "tests/test_phase99_repository_occurrence_role_integration.py",
+    "tests/test_phase99_role_filtered_repository_lookup.py",
+    "tests/test_proof_repository.py",
+    "tests/test_repository.py"
+  ],
+  "protected_files": [
+    "proof.py",
+    "theorem_facts.py",
+    "toda_rules.py",
+    "unified_statement_registry.py",
+    "phase163_r4_registry_bridge.py",
+    "phase165_r52_r2_search_adapter.py"
+  ],
+  "records": [
+    {
+      "path": "repository_operation_query_facade.py",
+      "legacy_imports": [
+        {
+          "module": "standard_production_repository",
+          "symbol": "build_standard_production_proof_repository"
+        }
+      ],
+      "functions": [
+        {
+          "function": "query_repository_operation_input",
+          "line": 33,
+          "calls": [
+            "is_nu5_eta8_suspension_zero_operation_query",
+            "is_nu5_stable_bridge_operation_query",
+            "is_nu_prime_suspension_membership_operation_query",
+            "is_sigma11_suspension_operation_query",
+            "parse_repository_operation_query",
+            "query_nu5_eta8_suspension_zero_handoff",
+            "query_nu5_stable_bridge_handoff",
+            "query_nu_prime_suspension_membership_handoff",
+            "query_repository_operation",
+            "query_sigma11_suspension_handoff"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "query_standard_repository_operation_input",
+          "line": 84,
+          "calls": [
+            "build_standard_production_proof_repository",
+            "query_repository_operation_input",
+            "validate_repository_internal_proof_roots"
+          ],
+          "legacy_calls": [
+            "build_standard_production_proof_repository"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "repository_element_facade.py",
+      "legacy_imports": [
+        {
+          "module": "standard_production_repository",
+          "symbol": "build_standard_production_proof_repository"
+        }
+      ],
+      "functions": [
+        {
+          "function": "explore_repository_generator",
+          "line": 69,
+          "calls": [
+            "RepositoryGeneratorExplorationReport",
+            "build_repository_generator_exploration",
+            "build_repository_generator_exploration_presentation",
+            "render_repository_generator_exploration_markdown"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "explore_standard_repository_generator_input",
+          "line": 99,
+          "calls": [
+            "build_standard_production_proof_repository",
+            "explore_repository_generator",
+            "resolve_generator_input"
+          ],
+          "legacy_calls": [
+            "build_standard_production_proof_repository"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "standard_production_repository.py",
+      "legacy_imports": [
+        {
+          "module": "standard_repository",
+          "symbol": "build_standard_proof_repository"
+        },
+        {
+          "module": "toda_prop515_upper_bootstrap",
+          "symbol": "build_toda_prop515_upper_bootstrap"
+        }
+      ],
+      "functions": [
+        {
+          "function": "build_standard_production_proof_repository",
+          "line": 12,
+          "calls": [
+            "build_standard_proof_repository",
+            "build_toda_prop515_upper_bootstrap"
+          ],
+          "legacy_calls": [
+            "build_standard_proof_repository",
+            "build_toda_prop515_upper_bootstrap"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "main.py",
+      "legacy_imports": [],
+      "functions": [
+        {
+          "function": "_configure_cli_utf8_streams",
+          "line": 98,
+          "calls": [
+            "getattr",
+            "reconfigure"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_parse_positive_int",
+          "line": 118,
+          "calls": [
+            "ArgumentTypeError",
+            "int"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_parse_nonnegative_int",
+          "line": 133,
+          "calls": [
+            "ArgumentTypeError",
+            "int"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_argument_parser",
+          "line": 148,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_explore_argument_parser",
+          "line": 204,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_explore_proof_argument_parser",
+          "line": 225,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_explore_applicable_argument_parser",
+          "line": 247,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_show_proof_argument_parser",
+          "line": 279,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_group_proof_argument_parser",
+          "line": 310,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_execute_argument_parser",
+          "line": 365,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_query_argument_parser",
+          "line": 396,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_query_proof_argument_parser",
+          "line": 419,
+          "calls": [
+            "ArgumentParser",
+            "add_argument"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_explore_command",
+          "line": 460,
+          "calls": [
+            "build_explore_argument_parser",
+            "error",
+            "explore_standard_repository_generator_input",
+            "print",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_explore_proof_command",
+          "line": 490,
+          "calls": [
+            "build_explore_proof_argument_parser",
+            "error",
+            "explore_standard_repository_generator_proof_scope_input",
+            "print",
+            "render_repository_proof_scope_exploration_markdown",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_explore_applicable_command",
+          "line": 526,
+          "calls": [
+            "build_explore_applicable_argument_parser",
+            "error",
+            "explore_standard_repository_generator_applicability_input",
+            "print",
+            "renderer",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_show_proof_command",
+          "line": 567,
+          "calls": [
+            "build_repository_generator_known_group_proof_replay_presentation",
+            "build_show_proof_argument_parser",
+            "build_standard_repository_generator_known_group_proof_replay_input",
+            "error",
+            "print",
+            "render_repository_generator_known_group_proof_replay_markdown",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_group_proof_command",
+          "line": 618,
+          "calls": [
+            "TodaGroupQuery",
+            "ValueError",
+            "classify_toda_group_query_domain",
+            "isinstance",
+            "print",
+            "render_partial_proof_markdown",
+            "search_group_structure_automatically"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_execute_command",
+          "line": 647,
+          "calls": [
+            "RuntimeError",
+            "build_execute_argument_parser",
+            "build_repository_generator_user_execution_candidate_list_presentation",
+            "build_standard_repository_generator_known_group_identity_presentation_input",
+            "error",
+            "print",
+            "render_repository_generator_known_group_identity_markdown",
+            "render_repository_generator_user_execution_candidate_list_markdown",
+            "run_standard_repository_generator_user_execution_workflow",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_query_command",
+          "line": 739,
+          "calls": [
+            "build_query_argument_parser",
+            "build_repository_operation_query_presentation",
+            "error",
+            "print",
+            "query_standard_repository_operation_input",
+            "render_repository_operation_query_markdown",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_query_proof_command",
+          "line": 795,
+          "calls": [
+            "build_query_proof_argument_parser",
+            "build_repository_operation_query_presentation",
+            "build_repository_operation_query_proof_replay",
+            "build_repository_operation_query_proof_replay_presentation",
+            "error",
+            "len",
+            "print",
+            "query_standard_repository_operation_input",
+            "render_repository_operation_query_markdown",
+            "render_repository_operation_query_proof_replay_markdown",
+            "str"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "main",
+          "line": 905,
+          "calls": [
+            "TodaGroupQuery",
+            "_run_execute_command",
+            "_run_explore_applicable_command",
+            "_run_explore_command",
+            "_run_explore_proof_command",
+            "_run_group_proof_command",
+            "_run_query_command",
+            "_run_query_proof_command",
+            "_run_show_proof_command",
+            "build_argument_parser",
+            "build_execute_argument_parser",
+            "build_explore_applicable_argument_parser",
+            "build_explore_argument_parser",
+            "build_explore_proof_argument_parser",
+            "build_group_proof_argument_parser",
+            "build_query_argument_parser",
+            "build_query_proof_argument_parser",
+            "build_show_proof_argument_parser",
+            "classify_toda_group_query_domain",
+            "list",
+            "parse_args",
+            "print",
+            "render_partial_proof_markdown",
+            "render_toda_group_query_domain_cli_message",
+            "search_group_structure_automatically"
+          ],
+          "legacy_calls": []
+        }
+      ]
+    },
+    {
+      "path": "cli.py",
+      "legacy_imports": [],
+      "functions": [
+        {
+          "function": "build_cli_parser",
+          "line": 27,
+          "calls": [
+            "ArgumentParser",
+            "add_argument",
+            "add_parser",
+            "add_subparsers"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_write_markdown",
+          "line": 67,
+          "calls": [
+            "endswith",
+            "write"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_group_command",
+          "line": 83,
+          "calls": [
+            "_write_markdown",
+            "build_toda_report",
+            "enumerate",
+            "print",
+            "write"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_run_element_command",
+          "line": 139,
+          "calls": [
+            "_write_markdown",
+            "explore_repository_generator",
+            "print",
+            "resolve_generator_input"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "run_cli",
+          "line": 176,
+          "calls": [
+            "RuntimeError",
+            "TypeError",
+            "_run_element_command",
+            "_run_group_command",
+            "build_cli_parser",
+            "int",
+            "isinstance",
+            "parse_args",
+            "redirect_stderr",
+            "redirect_stdout"
+          ],
+          "legacy_calls": []
+        }
+      ]
+    },
+    {
+      "path": "web_operation_query.py",
+      "legacy_imports": [],
+      "functions": [
+        {
+          "function": "build_standard_web_operation_query_view",
+          "line": 112,
+          "calls": [
+            "TypeError",
+            "ValueError",
+            "WebOperationQueryItemView",
+            "WebOperationQueryView",
+            "build_repository_operation_query_presentation",
+            "isinstance",
+            "query_standard_repository_operation_input",
+            "strip",
+            "tuple"
+          ],
+          "legacy_calls": []
+        }
+      ]
+    },
+    {
+      "path": "web_generator_exploration.py",
+      "legacy_imports": [],
+      "functions": [
+        {
+          "function": "_build_web_occurrence_view",
+          "line": 200,
+          "calls": [
+            "TypeError",
+            "WebGeneratorExplorationOccurrenceView",
+            "isinstance",
+            "render_generator_occurrence_role_label",
+            "tuple"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_build_web_occurrence_views",
+          "line": 245,
+          "calls": [
+            "_build_web_occurrence_view",
+            "tuple"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "_other_occurrence_presentations",
+          "line": 262,
+          "calls": [
+            "TypeError",
+            "id",
+            "isinstance",
+            "tuple"
+          ],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_standard_web_generator_exploration_view",
+          "line": 300,
+          "calls": [
+            "TypeError",
+            "ValueError",
+            "WebGeneratorExplorationView",
+            "_build_web_occurrence_views",
+            "_other_occurrence_presentations",
+            "_render_generator_symbol_latex",
+            "explore_standard_repository_generator_input",
+            "isinstance",
+            "len",
+            "strip"
+          ],
+          "legacy_calls": []
+        }
+      ]
+    },
+    {
+      "path": "web_operation_query_proof.py",
+      "legacy_imports": [],
+      "functions": [
+        {
+          "function": "_operation_query_proof_rule_name",
+          "line": 280,
+          "calls": [],
+          "legacy_calls": []
+        },
+        {
+          "function": "build_standard_web_operation_query_proof_view",
+          "line": 289,
+          "calls": [
+            "TypeError",
+            "ValueError",
+            "WebOperationQueryProofProvenanceView",
+            "WebOperationQueryProofStepView",
+            "WebOperationQueryProofView",
+            "_operation_query_proof_rule_name",
+            "append",
+            "build_repository_operation_query_presentation",
+            "build_repository_operation_query_proof_replay",
+            "build_repository_operation_query_proof_replay_presentation",
+            "build_repository_operation_query_proof_replay_statement_presentation",
+            "isinstance",
+            "query_standard_repository_operation_input",
+            "strip",
+            "tuple"
+          ],
+          "legacy_calls": []
+        }
+      ]
+    }
+  ],
+  "runtime_reachability_verified": false,
+  "r16_scope": "Migrate individual live public consumers before removing legacy factories; delete only proven-unreferenced functions"
+}

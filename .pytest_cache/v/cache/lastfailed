@@ -335,5 +335,12 @@
   "phase165_r14_r41_proof_transfer/test_phase165_r14_r41_proof_transfer.py::test_transfer_audit_has_no_false_reference_display_claim": true,
   "phase165_r14_r43_installer_fix/test_phase165_r14_r43_reference_reason.py::test_public_narrative_has_nonempty_references": true,
   "phase165_r48_unified_reason/test_r48.py::test_public_reason_and_result": true,
-  "test_phase165_r52_r9_shared_math.py::test_r9_public_pi32_narrative_unchanged": true
+  "test_phase165_r52_r9_shared_math.py::test_r9_public_pi32_narrative_unchanged": true,
+  "phase165_r27_r22_r1_import_fix/test_patch.py::test_r22_unproved_group_does_not_claim_found": true,
+  "phase165_r27_r22_r1_import_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
+  "phase165_r27_r22_r2_state_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
+  "phase165_r27_r22_r3_complete_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
+  "phase165_r27_r33/test_patch.py::test_r33_incomplete_proof_is_presentable": true,
+  "phase165_r27_r33/test_patch.py::test_r33_modes_preserved": true,
+  "phase165_r27_r33/test_patch.py::test_r33_rejects_invalid_depth_before_search": true
 }

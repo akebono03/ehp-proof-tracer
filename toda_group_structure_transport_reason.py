@@ -7,7 +7,7 @@ No previous Markdown or dimension-specific proof text is consulted.
 from expression import MapApplication, MapSymbol, Suspension
 from homotopy_groups import FiniteCyclicGroup, TodaSuspensionIsomorphismStatement
 from proof import ProofRule, ProofStep, Relation, RelationType
-from repository_element_presentation import render_repository_conclusion_latex
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_proof_narrative_renderer import (
     render_toda_primary_group_latex,
     render_toda_proof_statement_latex,

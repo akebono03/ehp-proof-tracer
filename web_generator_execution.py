@@ -1,15 +1,7 @@
+from toda_typed_execution_status import TypedGeneratorExecutionStatus
 from dataclasses import dataclass
 
-from repository_element_presentation import (
-  render_repository_conclusion_latex,
-)
-from repository_generator_user_execution_candidate_presentation import (
-  build_repository_generator_user_execution_candidate_list_presentation,
-)
-from repository_generator_user_execution_facade import (
-  RepositoryGeneratorUserExecutionWorkflowStatus,
-  run_standard_repository_generator_user_execution_workflow,
-)
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -201,7 +193,7 @@ class WebGeneratorExecutionProvenanceView:
 class WebGeneratorExecutionView:
   generator_input: str
   generator_latex: str
-  status: RepositoryGeneratorUserExecutionWorkflowStatus
+  status: TypedGeneratorExecutionStatus
   candidates: tuple[
     WebGeneratorExecutionCandidateView,
     ...,
@@ -214,6 +206,10 @@ class WebGeneratorExecutionView:
   ]
   rule_name: str | None
   provenance: WebGeneratorExecutionProvenanceView | None
+
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
 
   def __post_init__(
     self,
@@ -246,7 +242,7 @@ class WebGeneratorExecutionView:
 
     if not isinstance(
       self.status,
-      RepositoryGeneratorUserExecutionWorkflowStatus,
+      TypedGeneratorExecutionStatus,
     ):
       raise TypeError(
         "status must be a RepositoryGeneratorUserExecutionWorkflowStatus"
@@ -308,7 +304,7 @@ class WebGeneratorExecutionView:
 
     if (
       self.status
-      is RepositoryGeneratorUserExecutionWorkflowStatus.NONE
+      is TypedGeneratorExecutionStatus.NONE
     ):
       if (
         self.candidates
@@ -325,7 +321,7 @@ class WebGeneratorExecutionView:
 
     if (
       self.status
-      is RepositoryGeneratorUserExecutionWorkflowStatus.AMBIGUOUS
+      is TypedGeneratorExecutionStatus.AMBIGUOUS
     ):
       if len(
         self.candidates
@@ -381,215 +377,79 @@ class WebGeneratorExecutionView:
       )
 
 
-def _render_execution_statement(
-  statement,
-) -> tuple[
-  str | None,
-  str | None,
-]:
-  try:
-    latex = (
-      render_repository_conclusion_latex(
-        statement
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ):
-    latex = (
-      render_toda_proof_statement_latex(
-        statement
-      )
-    )
-
-  if latex is None:
-    return (
-      None,
-      type(
-        statement
-      ).__name__,
-    )
-
-  return (
-    latex,
-    None,
-  )
 
 
-def build_standard_web_generator_execution_view(
-  generator_input: str,
-  candidate_number: int | None = None,
-) -> WebGeneratorExecutionView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_execution_view(generator_input: str, candidate_number: int | None = None) -> WebGeneratorExecutionView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  result = (
-    run_standard_repository_generator_user_execution_workflow(
-      generator_input,
-      candidate_number=candidate_number,
-    )
-  )
-
-  generator_latex = (
-    _render_generator_symbol_latex(
-      result.resolution.applicability_result.generator
-    )
-  )
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.NONE
-  ):
-    return WebGeneratorExecutionView(
-      generator_input=generator_input,
-      generator_latex=generator_latex,
-      status=result.status,
-      candidates=(),
-      selected_candidate_number=None,
-      conclusion_latex=None,
-      premises=(),
-      rule_name=None,
-      provenance=None,
-    )
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.AMBIGUOUS
-  ):
-    presentation = (
-      build_repository_generator_user_execution_candidate_list_presentation(
-        result
-      )
-    )
-
-    candidates = []
-
-    for candidate in presentation.candidates:
-      statement_latex, fallback_type_name = (
-        _render_execution_statement(
-          candidate.conclusion
-        )
-      )
-
-      candidates.append(
-        WebGeneratorExecutionCandidateView(
-          candidate_number=(
-            candidate.candidate_number
-          ),
-          statement_latex=statement_latex,
-          fallback_type_name=(
-            fallback_type_name
-          ),
-        )
-      )
-
-    return WebGeneratorExecutionView(
-      generator_input=generator_input,
-      generator_latex=generator_latex,
-      status=result.status,
-      candidates=tuple(
-        candidates
-      ),
-      selected_candidate_number=None,
-      conclusion_latex=None,
-      premises=(),
-      rule_name=None,
-      provenance=None,
-    )
-
-  if (
-    result.status
-    is not RepositoryGeneratorUserExecutionWorkflowStatus.EXECUTED
-  ):
-    raise RuntimeError(
-      "unsupported user execution workflow status"
-    )
-
-  if result.presentation is None:
-    raise RuntimeError(
-      "executed workflow result must contain presentation"
-    )
-
-  if result.selected_target is None:
-    raise RuntimeError(
-      "executed workflow result must contain selected_target"
-    )
-
-  conclusion_latex, conclusion_fallback = (
-    _render_execution_statement(
-      result.presentation.conclusion
-    )
-  )
-
-  if conclusion_latex is None:
-    raise ValueError(
-      "executed conclusion is not renderable as LaTeX: "
-      f"{conclusion_fallback}"
-    )
-
-  premises = []
-
-  for index, premise in enumerate(
-    result.presentation.premises,
-    start=1,
-  ):
-    statement_latex, fallback_type_name = (
-      _render_execution_statement(
-        premise.conclusion
-      )
-    )
-
-    premises.append(
-      WebGeneratorExecutionPremiseView(
-        premise_number=index,
-        statement_latex=statement_latex,
-        fallback_type_name=(
-          fallback_type_name
-        ),
-      )
-    )
-
-  root_entry = (
-    result.selected_target.root_entry
-  )
-
-  return WebGeneratorExecutionView(
+    raise ValueError("generator is required")
+  if candidate_number is not None and (isinstance(candidate_number, bool) or not isinstance(candidate_number, int) or candidate_number < 1):
+    raise ValueError("candidate_number must be a positive integer")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_typed_execution import execute_typed_applicable_rules, TypedExecutionOutcome
+  from toda_typed_execution_status import TypedGeneratorExecutionStatus
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  symbol = resolve_generator_input(generator_input)
+  search = search_typed_generator_statements(generator_input)
+  execution = execute_typed_applicable_rules(search.proven_steps, candidate_number=candidate_number)
+  base = dict(
     generator_input=generator_input,
-    generator_latex=generator_latex,
-    status=result.status,
-    candidates=(),
-    selected_candidate_number=(
-      candidate_number
-      if candidate_number is not None
-      else 1
+    generator_latex=_render_generator_symbol_latex(symbol),
+    diagnostics=search.diagnostics,
+    open_goal_count=len(search.open_goals),
+  )
+  if execution.status is TypedExecutionOutcome.NONE:
+    return WebGeneratorExecutionView(
+      **base, status=TypedGeneratorExecutionStatus.NONE,
+      candidates=(), selected_candidate_number=None,
+      conclusion_latex=None, premises=(), rule_name=None, provenance=None,
+      search_status="not_executed",
+    )
+  if execution.status is TypedExecutionOutcome.AMBIGUOUS:
+    candidates = []
+    for index, match in enumerate(execution.matches, start=1):
+      try:
+        statement = render_toda_proof_statement_latex(match.inference_rule.conclusion_pattern)
+      except (TypeError, ValueError, AttributeError):
+        statement = None
+      candidates.append(WebGeneratorExecutionCandidateView(
+        candidate_number=index,
+        statement_latex=statement,
+        fallback_type_name=None if statement else type(match.inference_rule.conclusion_pattern).__name__,
+      ))
+    return WebGeneratorExecutionView(
+      **base, status=TypedGeneratorExecutionStatus.AMBIGUOUS,
+      candidates=tuple(candidates), selected_candidate_number=None,
+      conclusion_latex=None, premises=(), rule_name=None, provenance=None,
+      search_status="ambiguous",
+    )
+  step = execution.proof_step
+  assert step is not None
+  try:
+    conclusion_latex = render_toda_proof_statement_latex(step.conclusion)
+  except (TypeError, ValueError, AttributeError):
+    conclusion_latex = r"\text{導出された命題（表示未対応）}"
+  premises = []
+  for index, premise in enumerate(step.premises, start=1):
+    try:
+      statement_latex = render_toda_proof_statement_latex(premise.conclusion)
+    except (TypeError, ValueError, AttributeError):
+      statement_latex = None
+    premises.append(WebGeneratorExecutionPremiseView(
+      premise_number=index,
+      statement_latex=statement_latex,
+      fallback_type_name=None if statement_latex else type(premise.conclusion).__name__,
+    ))
+  return WebGeneratorExecutionView(
+    **base, status=TypedGeneratorExecutionStatus.EXECUTED,
+    candidates=(), selected_candidate_number=execution.selected_candidate_number,
+    conclusion_latex=conclusion_latex, premises=tuple(premises),
+    rule_name=step.inference_rule.name,
+    provenance=WebGeneratorExecutionProvenanceView(
+      key="typed-inference:" + step.inference_rule.name, theorem=None, phase=None,
     ),
-    conclusion_latex=conclusion_latex,
-    premises=tuple(
-      premises
-    ),
-    rule_name=(
-      result.presentation.rule_name
-    ),
-    provenance=(
-      WebGeneratorExecutionProvenanceView(
-        key=root_entry.key,
-        theorem=root_entry.theorem,
-        phase=root_entry.phase,
-      )
-    ),
+    search_status="executed",
   )

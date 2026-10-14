@@ -1,16 +1,6 @@
 from dataclasses import dataclass
 
-from repository_element_presentation import (
-  render_repository_conclusion_latex,
-)
-from repository_generator_applicability_facade import (
-  explore_standard_repository_generator_applicability_input,
-)
-from repository_generator_applicability_presentation import (
-  ApplicabilityRuleFamilyPresentation,
-  ApplicabilitySourceGroupPresentation,
-  build_repository_generator_applicability_presentation,
-)
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -250,6 +240,10 @@ class WebGeneratorApplicabilityView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -359,205 +353,39 @@ class WebGeneratorApplicabilityView:
       )
 
 
-def _build_rule_family_view(
-  rule_family: ApplicabilityRuleFamilyPresentation,
-) -> WebGeneratorApplicabilityRuleFamilyView:
-  if not isinstance(
-    rule_family,
-    ApplicabilityRuleFamilyPresentation,
-  ):
-    raise TypeError(
-      "rule_family must be an "
-      "ApplicabilityRuleFamilyPresentation"
-    )
-
-  return WebGeneratorApplicabilityRuleFamilyView(
-    name=rule_family.name,
-    catalog_entry_count=len(
-      rule_family.rule_groups
-    ),
-    raw_candidate_count=(
-      rule_family.raw_candidate_count
-    ),
-  )
 
 
-def _render_source_statement(
-  source_group: ApplicabilitySourceGroupPresentation,
-) -> tuple[
-  str | None,
-  str | None,
-]:
-  statement = (
-    source_group.source_statement
-  )
-
-  try:
-    return (
-      render_repository_conclusion_latex(
-        statement
-      ),
-      None,
-    )
-  except (
-    TypeError,
-    ValueError,
-  ):
-    return (
-      None,
-      type(
-        statement
-      ).__name__,
-    )
 
 
-def _build_source_view(
-  source_group: ApplicabilitySourceGroupPresentation,
-) -> WebGeneratorApplicabilitySourceView:
-  if not isinstance(
-    source_group,
-    ApplicabilitySourceGroupPresentation,
-  ):
-    raise TypeError(
-      "source_group must be an "
-      "ApplicabilitySourceGroupPresentation"
-    )
-
-  statement_latex, fallback_type_name = (
-    _render_source_statement(
-      source_group
-    )
-  )
-
-  rule_families = tuple(
-    _build_rule_family_view(
-      rule_family
-    )
-    for rule_family in (
-      source_group.rule_families
-    )
-  )
-
-  return WebGeneratorApplicabilitySourceView(
-    statement_latex=statement_latex,
-    fallback_type_name=fallback_type_name,
-    root_key=(
-      source_group
-      .scope_node
-      .root_entry
-      .key
-    ),
-    depth=(
-      source_group
-      .scope_node
-      .shortest_depth
-    ),
-    source_statement_type=type(
-      source_group.source_statement
-    ).__name__,
-    raw_candidate_count=len(
-      source_group.candidates
-    ),
-    rule_family_count=len(
-      rule_families
-    ),
-    rule_families=rule_families,
-  )
 
 
-def _build_source_views(
-  source_groups: tuple[
-    ApplicabilitySourceGroupPresentation,
-    ...,
-  ],
-) -> tuple[
-  WebGeneratorApplicabilitySourceView,
-  ...,
-]:
-  return tuple(
-    _build_source_view(
-      source_group
-    )
-    for source_group in source_groups
-  )
 
 
-def build_standard_web_generator_applicability_view(
-  generator_input: str,
-) -> WebGeneratorApplicabilityView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_applicability_view(generator_input: str) -> WebGeneratorApplicabilityView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  result = (
-    explore_standard_repository_generator_applicability_input(
-      generator_input
-    )
-  )
-
-  presentation = (
-    build_repository_generator_applicability_presentation(
-      result
-    )
-  )
-
-  toda_memberships = (
-    _build_source_views(
-      presentation
-      .toda_membership_source_groups
-    )
-  )
-  map_relations = (
-    _build_source_views(
-      presentation
-      .map_relation_source_groups
-    )
-  )
-  other_sources = (
-    _build_source_views(
-      presentation
-      .other_source_groups
-    )
-  )
-
+    raise ValueError("generator is required")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_typed_applicability import find_typed_applicable_rules
+  symbol = resolve_generator_input(generator_input)
+  search = search_typed_generator_statements(generator_input)
+  applicable = find_typed_applicable_rules(search.proven_steps)
   return WebGeneratorApplicabilityView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        result.generator
-      )
-    ),
-    occurrence_count=len(
-      result
-      .proof_scope_exploration
-      .occurrences
-    ),
-    candidate_count=len(
-      result.candidates
-    ),
-    source_count=len(
-      presentation.source_groups
-    ),
-    rule_group_count=(
-      presentation.rule_group_count
-    ),
-    rule_family_count=(
-      presentation.rule_family_count
-    ),
-    toda_memberships=toda_memberships,
-    map_relations=map_relations,
-    other_sources=other_sources,
+    generator_latex=_render_generator_symbol_latex(symbol),
+    occurrence_count=len(search.proven_steps),
+    candidate_count=sum(len(item.matches) for item in applicable),
+    source_count=0,
+    rule_group_count=0,
+    rule_family_count=len(applicable),
+    toda_memberships=(),
+    map_relations=(),
+    other_sources=(),
+    search_status=(search.status.value if not search.open_goals else "partial"),
+    diagnostics=search.diagnostics + (
+      "適用候補は証明済みの前提に対する規則照合結果であり、結論は未実行",),
+    open_goal_count=len(search.open_goals),
   )

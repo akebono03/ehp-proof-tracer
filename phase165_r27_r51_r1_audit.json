@@ -1,0 +1,11 @@
+{
+  "phase": "165 R27-R51-R1",
+  "status": "ALREADY_INSTALLED",
+  "modified_files": [],
+  "web_group_query_legacy_report_removed": true,
+  "existing_typed_entry_preserved": true,
+  "web_group_query_search": "existing_typed_entry",
+  "legacy_toda_calculation_api_unchanged": true,
+  "remaining_legacy_repository_modules": 4,
+  "full_pytest_run": false
+}

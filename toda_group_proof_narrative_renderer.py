@@ -25,9 +25,7 @@ from proof import (
 from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
-from repository_element_presentation import (
-  render_repository_conclusion_latex,
-)
+from toda_conclusion_latex_renderer import render_repository_conclusion_latex
 from toda_group_structure_transport_reason import (
   render_group_structure_transport_reason,
 )

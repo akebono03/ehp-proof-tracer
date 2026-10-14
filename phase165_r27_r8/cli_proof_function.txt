@@ -1,0 +1,25 @@
+def _run_group_proof_command(
+  n: int,
+  k: int,
+  max_depth: int | None = 2,
+  mode: str = "narrative",
+) -> int:
+  """Render the shared backward-search result; never replay an old repository."""
+  from phase165_r52_r5_auto_search import search_group_structure_automatically
+  from phase165_r52_partial_proof import ProofSearchStatus, render_partial_proof_markdown
+
+  if mode not in ("trace", "outline", "narrative"):
+    raise ValueError("mode must be trace, outline, or narrative")
+  if max_depth is not None and (
+    isinstance(max_depth, bool) or not isinstance(max_depth, int) or max_depth < 0
+  ):
+    raise ValueError("max_depth must be a nonnegative integer or None")
+
+  query = TodaGroupQuery(n=n, k=k)
+  domain = classify_toda_group_query_domain(query)
+  if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION or n < 2 or k < 0:
+    print(f"No typed group proof search is available for pi_{{{n + k}}}^{{{n}}}.")
+    return 1
+  result = search_group_structure_automatically(n=n, k=k)
+  print(render_partial_proof_markdown(result))
+  return 0 if result.status is ProofSearchStatus.COMPLETE else 1

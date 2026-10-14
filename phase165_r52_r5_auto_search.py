@@ -59,27 +59,17 @@ def search_group_structure_automatically(
     *, n: int, k: int,
     discovery=None,
 ) -> PartialProofResult:
-    """Discover registered typed propositions and run the canonical prover now.
+    """Search registered typed group propositions without legacy calculation/replay.
 
-    SOURCE_ARCHIVE text and pre-existing internal proof results are not premises.
-    In particular, a TeX source that has not been typed does not count as a
-    structure candidate.
+    Never infer an expected group answer from the old repository.
+    Unregistered structures remain open goals instead of becoming proofs.
     """
-    # Enforce the public R52 domain before attempting any discovery.
     make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
     group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
     if discovery is None:
-        from toda_calculation_facade import build_standard_toda_report
-        from toda_calculation_result import TodaCalculationStatus
-        from phase165_r52_r9_shared_math import search_shared_group_goal
-        report = build_standard_toda_report(n=n, k=k)
-        if report.status is TodaCalculationStatus.FOUND and len(report.candidates) == 1:
-            group_result = report.candidates[0].source_candidate.group_result
-            return search_shared_group_goal(
-                n=n, k=k, group_structure=group_result.group_structure,
-            )
         from phase165_r9_production_wiring import discover_goal_search_inputs
         discovery = discover_goal_search_inputs()
+
     bridge = discovery.bridge
     provider = discovery.expansion_provider
     assertions = tuple(bridge.registry._assertions.values())
@@ -91,8 +81,6 @@ def search_group_structure_automatically(
             diagnostics=("命題台帳に登録主張がなく、型付き探索を開始できない",),
         )
 
-    # In typed_reference mode this id is required solely to validate a
-    # registered context; it confers no right to cite that assertion.
     context_id = assertions[0].assertion_id
     goals = structural_candidates or (GroupStructureSearchGoal(group),)
     attempts = tuple(

@@ -4,34 +4,16 @@ from flask import (
   request,
 )
 
-from web_generator_applicability import (
-  WebGeneratorApplicabilityView,
-  build_standard_web_generator_applicability_view,
-)
-from web_generator_execution import (
-  WebGeneratorExecutionView,
-  build_standard_web_generator_execution_view,
-)
 from web_generator_exploration import (
   WebGeneratorExplorationView,
   build_standard_web_generator_exploration_view,
 )
-from web_generator_proof import (
-  WebGeneratorProofView,
-  build_standard_web_generator_proof_view,
-)
-from web_generator_proof_scope import (
-  WebGeneratorProofScopeView,
-  build_standard_web_generator_proof_scope_view,
-)
 from phase165_r52_r4_flask_bridge import (
   build_group_proof_progress_view,
 )
-from phase165_goal_only_search import GoalSearchIncompleteError
 
 from web_group_proof import (
   WebGroupProofView,
-  build_standard_web_group_proof_view,
 )
 from web_group_query import (
   WebGroupQueryView,
@@ -150,24 +132,8 @@ def create_app(
       WebOperationQueryProofView
       | None
     ) = None
-    generator_proof_view: (
-      WebGeneratorProofView
-      | None
-    ) = None
-    generator_execution_view: (
-      WebGeneratorExecutionView
-      | None
-    ) = None
     generator_exploration_view: (
       WebGeneratorExplorationView
-      | None
-    ) = None
-    generator_proof_scope_view: (
-      WebGeneratorProofScopeView
-      | None
-    ) = None
-    generator_applicability_view: (
-      WebGeneratorApplicabilityView
       | None
     ) = None
     error_message: str | None = None
@@ -199,27 +165,11 @@ def create_app(
               "group_proof_depth must be 0, 1, or 2"
             )
 
-          view = (
-            build_standard_web_group_query_view(
-              n=n,
-              k=k,
-            )
+          group_proof_view = build_group_proof_progress_view(
+            n=n,
+            k=k,
+            max_depth=group_proof_depth,
           )
-          try:
-            group_proof_view = (
-              build_standard_web_group_proof_view(
-                n,
-                k,
-                max_depth=group_proof_depth,
-                mode=group_proof_mode_value,
-              )
-            )
-          except GoalSearchIncompleteError:
-            group_proof_view = build_group_proof_progress_view(
-              n=n,
-              k=k,
-              max_depth=group_proof_depth,
-            )
         elif form_kind == "group_proof_progress":
           n = _parse_integer_form_value(n_value, "n")
           k = _parse_integer_form_value(k_value, "k")
@@ -265,47 +215,9 @@ def create_app(
             )
           )
         elif form_kind == "generator_proof":
-          generator_proof_depth = (
-            _parse_integer_form_value(
-              generator_proof_depth_value,
-              "generator_proof_depth",
-            )
-          )
-
-          if generator_proof_depth not in (
-            0,
-            1,
-            2,
-          ):
-            raise ValueError(
-              "generator_proof_depth must be 0, 1, or 2"
-            )
-
-          generator_proof_view = (
-            build_standard_web_generator_proof_view(
-              generator_input_value,
-              max_depth=generator_proof_depth,
-            )
-          )
+          raise ValueError('Legacy generator workflow is disabled; use the unified group proof search')
         elif form_kind == "generator_execution":
-          execution_candidate_value = request.form.get(
-            "execution_candidate",
-            "",
-          )
-          execution_candidate = (
-            _parse_integer_form_value(
-              execution_candidate_value,
-              "execution_candidate",
-            )
-            if execution_candidate_value.strip()
-            else None
-          )
-          generator_execution_view = (
-            build_standard_web_generator_execution_view(
-              execution_generator_input_value,
-              candidate_number=execution_candidate,
-            )
-          )
+          raise ValueError('Legacy generator workflow is disabled; use the unified group proof search')
         elif form_kind == "generator_exploration":
           generator_exploration_view = (
             build_standard_web_generator_exploration_view(
@@ -313,17 +225,9 @@ def create_app(
             )
           )
         elif form_kind == "generator_proof_scope":
-          generator_proof_scope_view = (
-            build_standard_web_generator_proof_scope_view(
-              proof_scope_generator_input_value
-            )
-          )
+          raise ValueError('Legacy generator workflow is disabled; use the unified group proof search')
         elif form_kind == "generator_applicability":
-          generator_applicability_view = (
-            build_standard_web_generator_applicability_view(
-              applicability_generator_input_value
-            )
-          )
+          raise ValueError('Legacy generator workflow is disabled; use the unified group proof search')
         else:
           n = _parse_integer_form_value(
             n_value,
@@ -397,19 +301,19 @@ def create_app(
         operation_query_proof_view
       ),
       generator_proof_view=(
-        generator_proof_view
+        None
       ),
       generator_execution_view=(
-        generator_execution_view
+        None
       ),
       generator_exploration_view=(
         generator_exploration_view
       ),
       generator_proof_scope_view=(
-        generator_proof_scope_view
+        None
       ),
       generator_applicability_view=(
-        generator_applicability_view
+        None
       ),
       error_message=error_message,
     )

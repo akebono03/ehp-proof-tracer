@@ -1,0 +1,12 @@
+{
+  "phase": "165 R27-R44",
+  "status": "CHANGED",
+  "modified_files": [
+    "web_generator_applicability.py",
+    "main.py"
+  ],
+  "shared_typed_applicability": true,
+  "old_catalog_unchanged": true,
+  "inference_execution_performed": false,
+  "full_pytest_run": false
+}

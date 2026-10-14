@@ -1,0 +1,12 @@
+{
+  "phase": "165 R27-R41",
+  "status": "CHANGED",
+  "modified_files": [
+    "cli.py",
+    "phase165_r27_r34_typed_lookup.py",
+    "toda_operation_query.py"
+  ],
+  "legacy_element_facade_removed": true,
+  "operation_parser_migrated": true,
+  "full_pytest_run": false
+}

@@ -1,0 +1,22 @@
+{
+  "phase": "165 R27-R55",
+  "status": "CHANGED",
+  "modified_files": [
+    "toda_calculation.py",
+    "toda_calculation_report.py"
+  ],
+  "deferred_modules": {
+    "toda_calculation.py": [
+      "repository_foundational_group_specialization",
+      "repository_proof_scope",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization"
+    ],
+    "toda_calculation_report.py": [
+      "toda_calculation"
+    ]
+  },
+  "legacy_execution_paths_preserved": true,
+  "old_repository_modules_deleted": [],
+  "full_pytest_run": false
+}

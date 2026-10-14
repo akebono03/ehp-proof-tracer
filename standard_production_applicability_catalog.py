@@ -1,3 +1,4 @@
+# Phase 165 R27-R48-R1 typed rule catalog
 from barratt_hilton_rules import (
   barratt_hilton_first_inference_rule,
   barratt_hilton_second_inference_rule,
@@ -22,16 +23,10 @@ from relation_rules import (
   equality_symmetry_inference_rule,
   equality_transitivity_inference_rule,
 )
-from repository_proof_scope import (
-  build_repository_proof_scope,
-)
 from rule_catalog import (
   InferenceRuleCatalog,
   InferenceRuleCatalogEntry,
   RuleRelevanceCategory,
-)
-from standard_production_repository import (
-  build_standard_production_proof_repository,
 )
 from toda_rules import (
   Toda53NuPrimeBracketSpecializationStatement,
@@ -744,64 +739,28 @@ def _representative_relevance_category(
   )
 
 
-def build_standard_production_applicability_catalog(
-) -> InferenceRuleCatalog:
-  repository = (
-    build_standard_production_proof_repository()
-  )
+def build_standard_production_applicability_catalog() -> InferenceRuleCatalog:
+  """Enumerate typed rules, not legacy repository proof-tree nodes.
 
-  scope = build_repository_proof_scope(
-    repository
-  )
+  This catalog is for metadata. A rule here is NOT a proved theorem or an
+  executable match; those require checked premises via typed applicability.
+  """
+  from phase165_r8_rule_provider import discover_inference_rules
 
+  rules, _report = discover_inference_rules()
   catalog = InferenceRuleCatalog()
-  seen_rule_ids = set()
-  entry_index = 0
-
-  for node in scope.nodes:
-    inference_rule = (
-      node.proof_step.inference_rule
-    )
-
-    if inference_rule is None:
+  for index, rule in enumerate(rules):
+    pattern = rule.conclusion_pattern
+    if pattern is None:
       continue
-
-    rule_id = id(
-      inference_rule
-    )
-
-    if rule_id in seen_rule_ids:
-      continue
-
-    seen_rule_ids.add(
-      rule_id
-    )
-
-    conclusion_type = type(
-      node.proof_step.conclusion
-    )
-
-    catalog.register(
-      InferenceRuleCatalogEntry(
-        key=(
-          "standard.production."
-          "applicability."
-          f"{entry_index:04d}"
-        ),
-        rule=inference_rule,
-        conclusion_type=conclusion_type,
-        fixed_point_safe=False,
-        relevance_category=(
-          _representative_relevance_category(
-            inference_rule,
-            conclusion_type,
-          )
-        ),
-      )
-    )
-
-    entry_index += 1
-
+    conclusion_type = pattern if isinstance(pattern, type) else type(pattern)
+    catalog.register(InferenceRuleCatalogEntry(
+      key=f"standard.production.applicability.{index:04d}",
+      rule=rule,
+      conclusion_type=conclusion_type,
+      fixed_point_safe=False,
+      relevance_category=_representative_relevance_category(rule, conclusion_type),
+    ))
   return catalog
 # Phase 103-6D15 generic EHP-exactness structural classifier
 from dataclasses import replace as _phase103_6d15_replace
@@ -3482,9 +3441,9 @@ _phase103_6d108_original_builder = (
 )
 
 
-def build_standard_production_applicability_catalog():
-  return (
-    _phase103_6d108_apply_grouped_relevance_classification(
-      _phase103_6d108_original_builder()
-    )
+def build_standard_production_applicability_catalog(
+) -> InferenceRuleCatalog:
+  raise RuntimeError(
+    "Legacy production applicability catalog is retired in Phase 165 R27-R26; "
+    "use the unified statement registry and common typed Backward Search."
   )

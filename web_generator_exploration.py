@@ -1,15 +1,5 @@
 from dataclasses import dataclass
 
-from repository_element_facade import (
-  explore_standard_repository_generator_input,
-)
-from repository_element_presentation import (
-  RepositoryGeneratorExplorationPresentation,
-  RepositoryGeneratorOccurrencePresentation,
-)
-from repository_element_renderer import (
-  render_generator_occurrence_role_label,
-)
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -120,6 +110,10 @@ class WebGeneratorExplorationView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -197,174 +191,45 @@ class WebGeneratorExplorationView:
           )
 
 
-def _build_web_occurrence_view(
-  presentation: RepositoryGeneratorOccurrencePresentation,
-) -> WebGeneratorExplorationOccurrenceView:
-  if not isinstance(
-    presentation,
-    RepositoryGeneratorOccurrencePresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "RepositoryGeneratorOccurrencePresentation"
-    )
-
-  source_occurrence = (
-    presentation.source_occurrence
-  )
-  entry = source_occurrence.entry
-
-  role_labels = tuple(
-    render_generator_occurrence_role_label(
-      role
-    )
-    for role in source_occurrence.roles
-  )
-
-  phase = (
-    entry.phase
-    if entry.phase is not None
-    else "unknown"
-  )
-  theorem = (
-    entry.theorem
-    if entry.theorem is not None
-    else "unknown"
-  )
-
-  return WebGeneratorExplorationOccurrenceView(
-    conclusion_latex=(
-      presentation.conclusion_latex
-    ),
-    role_labels=role_labels,
-    phase=phase,
-    theorem=theorem,
-  )
 
 
-def _build_web_occurrence_views(
-  presentations: tuple[
-    RepositoryGeneratorOccurrencePresentation,
-    ...,
-  ],
-) -> tuple[
-  WebGeneratorExplorationOccurrenceView,
-  ...,
-]:
-  return tuple(
-    _build_web_occurrence_view(
-      presentation
-    )
-    for presentation in presentations
-  )
 
 
-def _other_occurrence_presentations(
-  presentation: RepositoryGeneratorExplorationPresentation,
-) -> tuple[
-  RepositoryGeneratorOccurrencePresentation,
-  ...,
-]:
-  if not isinstance(
-    presentation,
-    RepositoryGeneratorExplorationPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "RepositoryGeneratorExplorationPresentation"
-    )
-
-  grouped_ids = {
-    id(
-      occurrence
-    )
-    for group in (
-      presentation.toda_bracket_occurrences,
-      presentation.map_input_occurrences,
-      presentation.group_generator_occurrences,
-      presentation.composition_left_occurrences,
-      presentation.composition_right_occurrences,
-    )
-    for occurrence in group
-  }
-
-  return tuple(
-    occurrence
-    for occurrence in presentation.occurrences
-    if id(
-      occurrence
-    ) not in grouped_ids
-  )
 
 
 def build_standard_web_generator_exploration_view(
   generator_input: str,
 ) -> WebGeneratorExplorationView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
+    raise ValueError("generator is required")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  symbol = resolve_generator_input(generator_input)
+  lookup = search_typed_generator_statements(generator_input)
+  occurrences = tuple(
+    WebGeneratorExplorationOccurrenceView(
+      conclusion_latex=render_toda_proof_statement_latex(step.conclusion),
+      role_labels=("proved",),
+      phase="165 R27-R35",
+      theorem="Typed Backward Search",
     )
-
-  report = (
-    explore_standard_repository_generator_input(
-      generator_input
-    )
+    for step in lookup.proven_steps
   )
-
-  presentation = report.presentation
-
   return WebGeneratorExplorationView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        presentation.source_result.generator
-      )
-    ),
-    occurrence_count=len(
-      presentation.occurrences
-    ),
-    toda_bracket_occurrences=(
-      _build_web_occurrence_views(
-        presentation.toda_bracket_occurrences
-      )
-    ),
-    map_input_occurrences=(
-      _build_web_occurrence_views(
-        presentation.map_input_occurrences
-      )
-    ),
-    group_generator_occurrences=(
-      _build_web_occurrence_views(
-        presentation.group_generator_occurrences
-      )
-    ),
-    composition_left_occurrences=(
-      _build_web_occurrence_views(
-        presentation.composition_left_occurrences
-      )
-    ),
-    composition_right_occurrences=(
-      _build_web_occurrence_views(
-        presentation.composition_right_occurrences
-      )
-    ),
-    other_occurrences=(
-      _build_web_occurrence_views(
-        _other_occurrence_presentations(
-          presentation
-        )
-      )
-    ),
+    generator_latex=_render_generator_symbol_latex(symbol),
+    occurrence_count=len(occurrences),
+    toda_bracket_occurrences=(),
+    map_input_occurrences=(),
+    group_generator_occurrences=(),
+    composition_left_occurrences=(),
+    composition_right_occurrences=(),
+    other_occurrences=occurrences,
+    search_status=lookup.status.value,
+    diagnostics=lookup.diagnostics,
+    open_goal_count=len(lookup.open_goals),
   )
