@@ -1,0 +1,149 @@
+{
+  "phase": "165 R52-R27-R4",
+  "mode": "READ_ONLY_REFERENCE_TO_TYPED_GIVEN_AUDIT",
+  "results": [
+    {
+      "source": "production",
+      "reference_count": 131,
+      "assertion_count": 184,
+      "proof_link_count": 0,
+      "locators": {
+        "Proposition 4.4": {
+          "reference_ids": [
+            "phase163:archive:toda:Proposition 4.4",
+            "toda:Proposition 4.4"
+          ],
+          "assertions": [
+            {
+              "assertion_id": "boundary:Proposition 4.4:nu4_decomposition_isomorphism",
+              "origin": "AssertionOrigin.FIXED_STATEMENT",
+              "content_type": "TodaFixedStatementComponent",
+              "content": "TodaFixedStatementComponent(reference_locator='Proposition 4.4', component_key='nu4_decomposition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text=None, range_is_explicit_in_current_aggregate=True)"
+            },
+            {
+              "assertion_id": "phase163:archive:toda:tex:ch4:0010",
+              "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+              "content_type": "dict",
+              "content": "{'source_statement_id': 'toda:tex:ch4:0010', 'source_text': '\\\\begin{proposition}\\\\label{prop:4.4}\\n% Prop4.4.\\\\\\n$\\\\alpha\\\\in\\\\pit{2n-1}{n}$ で $H(\\\\alpha)=\\\\pm\\\\iota_{2n-1}$ とする. \\nこのとき,\\\\\\\\\\n\\\\(\\n\\\\pit{i-1}{n-1}\\\\oplus\\\\pit{i}{2n-1}\\\\to\\\\pit{i}{n},\\\\quad\\n(\\\\beta,\\\\gamma) \\\\longmapsto E\\\\beta + \\\\alpha\\\\circ\\\\gamma\\n\\\\)\\nは, 任意の \\\\(i\\\\) で同型である. \\\\\\\\\\n特に, \\n\\\\(\\nE:\\\\pit{i-1}{n-1}\\\\to \\\\pit{i}{n}\\n\\\\)\\nは, 任意の \\\\(i\\\\) で単射である. \\n\\\\end{proposition}', 'source_sha256': '5a98acdac4748472b3007f10ae8ff13b3530dcb24ea4757d3929aa6e72a00d73', 'source_chapter': 4, 'source_position': 73, 'proof_eligible': False}"
+            }
+          ],
+          "link_count": 0,
+          "fixed_given_links": [],
+          "typed_reference_usable": false
+        },
+        "(5.2)": {
+          "reference_ids": [
+            "phase163:archive:toda:(5.2)",
+            "toda:(5.2)"
+          ],
+          "assertions": [
+            {
+              "assertion_id": "boundary:(5.2):eta2_composition_isomorphism",
+              "origin": "AssertionOrigin.FIXED_STATEMENT",
+              "content_type": "TodaFixedStatementComponent",
+              "content": "TodaFixedStatementComponent(reference_locator='(5.2)', component_key='eta2_composition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text='i >= 3', range_is_explicit_in_current_aggregate=True)"
+            },
+            {
+              "assertion_id": "phase163:archive:toda:tex:ch5:0003",
+              "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+              "content_type": "dict",
+              "content": "{'source_statement_id': 'toda:tex:ch5:0003', 'source_text': '\\\\begin{equation}\\\\label{eq:5.2}\\n% (5.2).\\\\\\n\\\\text{合成 } \\\\alpha\\\\longmapsto \\\\eta_2\\\\circ \\\\alpha \\\\text{ は, 同型 } \\n\\\\pi^{3}_{i}\\\\xrightarrow{\\\\cong}\\\\pi^{2}_{i}\\\\ (i\\\\ge3) \\n\\\\text{ を定める. }\\n\\\\end{equation}', 'source_sha256': '7f82293d6787d78f0ab075d7a93ae10710295bfe08487831f060ac6d1835d024', 'source_chapter': 5, 'source_position': 79, 'proof_eligible': False}"
+            }
+          ],
+          "link_count": 0,
+          "fixed_given_links": [],
+          "typed_reference_usable": false
+        }
+      }
+    },
+    {
+      "source": "adopted_tex",
+      "reference_count": 10,
+      "assertion_count": 10,
+      "proof_link_count": 9,
+      "locators": {
+        "Proposition 4.4": {
+          "reference_ids": [],
+          "assertions": [],
+          "link_count": 0,
+          "fixed_given_links": [],
+          "typed_reference_usable": false
+        },
+        "(5.2)": {
+          "reference_ids": [],
+          "assertions": [],
+          "link_count": 0,
+          "fixed_given_links": [],
+          "typed_reference_usable": false
+        }
+      }
+    },
+    {
+      "source": "shared",
+      "reference_count": 141,
+      "assertion_count": 193,
+      "proof_link_count": 9,
+      "locators": {
+        "Proposition 4.4": {
+          "reference_ids": [
+            "shared:0:phase163:archive:toda:Proposition 4.4",
+            "shared:0:toda:Proposition 4.4"
+          ],
+          "assertions": [
+            {
+              "assertion_id": "shared:0:boundary:Proposition 4.4:nu4_decomposition_isomorphism",
+              "origin": "AssertionOrigin.FIXED_STATEMENT",
+              "content_type": "TodaFixedStatementComponent",
+              "content": "TodaFixedStatementComponent(reference_locator='Proposition 4.4', component_key='nu4_decomposition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text=None, range_is_explicit_in_current_aggregate=True)"
+            },
+            {
+              "assertion_id": "shared:0:phase163:archive:toda:tex:ch4:0010",
+              "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+              "content_type": "dict",
+              "content": "{'source_statement_id': 'toda:tex:ch4:0010', 'source_text': '\\\\begin{proposition}\\\\label{prop:4.4}\\n% Prop4.4.\\\\\\n$\\\\alpha\\\\in\\\\pit{2n-1}{n}$ で $H(\\\\alpha)=\\\\pm\\\\iota_{2n-1}$ とする. \\nこのとき,\\\\\\\\\\n\\\\(\\n\\\\pit{i-1}{n-1}\\\\oplus\\\\pit{i}{2n-1}\\\\to\\\\pit{i}{n},\\\\quad\\n(\\\\beta,\\\\gamma) \\\\longmapsto E\\\\beta + \\\\alpha\\\\circ\\\\gamma\\n\\\\)\\nは, 任意の \\\\(i\\\\) で同型である. \\\\\\\\\\n特に, \\n\\\\(\\nE:\\\\pit{i-1}{n-1}\\\\to \\\\pit{i}{n}\\n\\\\)\\nは, 任意の \\\\(i\\\\) で単射である. \\n\\\\end{proposition}', 'source_sha256': '5a98acdac4748472b3007f10ae8ff13b3530dcb24ea4757d3929aa6e72a00d73', 'source_chapter': 4, 'source_position': 73, 'proof_eligible': False}"
+            }
+          ],
+          "link_count": 0,
+          "fixed_given_links": [],
+          "typed_reference_usable": false
+        },
+        "(5.2)": {
+          "reference_ids": [
+            "shared:0:phase163:archive:toda:(5.2)",
+            "shared:0:toda:(5.2)"
+          ],
+          "assertions": [
+            {
+              "assertion_id": "shared:0:boundary:(5.2):eta2_composition_isomorphism",
+              "origin": "AssertionOrigin.FIXED_STATEMENT",
+              "content_type": "TodaFixedStatementComponent",
+              "content": "TodaFixedStatementComponent(reference_locator='(5.2)', component_key='eta2_composition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text='i >= 3', range_is_explicit_in_current_aggregate=True)"
+            },
+            {
+              "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0003",
+              "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+              "content_type": "dict",
+              "content": "{'source_statement_id': 'toda:tex:ch5:0003', 'source_text': '\\\\begin{equation}\\\\label{eq:5.2}\\n% (5.2).\\\\\\n\\\\text{合成 } \\\\alpha\\\\longmapsto \\\\eta_2\\\\circ \\\\alpha \\\\text{ は, 同型 } \\n\\\\pi^{3}_{i}\\\\xrightarrow{\\\\cong}\\\\pi^{2}_{i}\\\\ (i\\\\ge3) \\n\\\\text{ を定める. }\\n\\\\end{equation}', 'source_sha256': '7f82293d6787d78f0ab075d7a93ae10710295bfe08487831f060ac6d1835d024', 'source_chapter': 5, 'source_position': 79, 'proof_eligible': False}"
+            }
+          ],
+          "link_count": 0,
+          "fixed_given_links": [],
+          "typed_reference_usable": false
+        }
+      }
+    }
+  ],
+  "shared_linked_conclusion_types": [
+    "GeneratorImage",
+    "GeneratorSuspension",
+    "Relation",
+    "TodaPrimaryGroupZeroStatement",
+    "TodaProp42ExactnessStatement"
+  ],
+  "proposition44_linked_typed": false,
+  "equation52_linked_typed": false,
+  "actual_backward_expansion_verified": false,
+  "reference_identity_semantically_verified": false,
+  "production_modified": false,
+  "full_pytest_run": false
+}
