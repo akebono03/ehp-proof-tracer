@@ -844,19 +844,29 @@ def _run_explore_proof_command(generator_input: str) -> int:
 
 
 
-def _run_explore_applicable_command(
-
-  generator_input: str,
-
-  detailed: bool = False,
-
-) -> int:
-
-  print(
-    "This legacy generator command is disabled; "
-    "use the unified proof search when available."
-  )
-  return 1
+def _run_explore_applicable_command(generator_input: str, detailed: bool = False) -> int:
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_typed_applicability import find_typed_applicable_rules
+  try:
+    search = search_typed_generator_statements(generator_input)
+    applicable = find_typed_applicable_rules(search.proven_steps)
+  except (TypeError, ValueError) as error:
+    build_explore_applicable_argument_parser().error(str(error))
+  print(f"Search status: {search.status.value}")
+  print(f"Proven premises: {len(search.proven_steps)}")
+  print(f"Applicable rule families: {len(applicable)}")
+  print(f"Applicable matches: {sum(len(item.matches) for item in applicable)}")
+  for item in applicable:
+    print(f"- {item.rule.name}: {len(item.matches)} match(es)")
+    if detailed:
+      for match in item.matches:
+        print(f"  Premises: {len(match.premises)}")
+  for diagnostic in search.diagnostics:
+    print(diagnostic)
+  if search.open_goals:
+    print(f"Open goals: {len(search.open_goals)}")
+  print("Applicability only: no inference rule executed")
+  return 0 if not search.open_goals else 1
 
 
 

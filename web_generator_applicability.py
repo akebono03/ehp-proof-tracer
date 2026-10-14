@@ -369,18 +369,23 @@ def build_standard_web_generator_applicability_view(generator_input: str) -> Web
     raise ValueError("generator is required")
   from generator_input import resolve_generator_input
   from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_typed_applicability import find_typed_applicable_rules
   symbol = resolve_generator_input(generator_input)
-  result = search_typed_generator_statements(generator_input)
+  search = search_typed_generator_statements(generator_input)
+  applicable = find_typed_applicable_rules(search.proven_steps)
   return WebGeneratorApplicabilityView(
     generator_input=generator_input,
     generator_latex=_render_generator_symbol_latex(symbol),
-    occurrence_count=len(result.proven_steps),
-    candidate_count=0,
+    occurrence_count=len(search.proven_steps),
+    candidate_count=sum(len(item.matches) for item in applicable),
     source_count=0,
     rule_group_count=0,
-    rule_family_count=0,
-    toda_memberships=(), map_relations=(), other_sources=(),
-    search_status="not_evaluated",
-    diagnostics=result.diagnostics + ("推論規則の適用可能性は未評価。型付き命題検索の成功だけでは適用可能とは判定しない",),
-    open_goal_count=len(result.open_goals),
+    rule_family_count=len(applicable),
+    toda_memberships=(),
+    map_relations=(),
+    other_sources=(),
+    search_status=(search.status.value if not search.open_goals else "partial"),
+    diagnostics=search.diagnostics + (
+      "適用候補は証明済みの前提に対する規則照合結果であり、結論は未実行",),
+    open_goal_count=len(search.open_goals),
   )
