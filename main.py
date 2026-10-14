@@ -860,17 +860,21 @@ def _run_explore_command(generator_input: str) -> int:
 
 
 
-def _run_explore_proof_command(
-
-  generator_input: str,
-
-) -> int:
-
-  print(
-    "This legacy generator command is disabled; "
-    "use the unified proof search when available."
-  )
-  return 1
+def _run_explore_proof_command(generator_input: str) -> int:
+  from phase165_r27_r34_typed_lookup import TypedLookupStatus, search_typed_generator_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  try:
+    result = search_typed_generator_statements(generator_input)
+  except (TypeError, ValueError) as error:
+    build_explore_proof_argument_parser().error(str(error))
+  print(f"Search status: {result.status.value}")
+  for step in result.proven_steps:
+    print(f"- ${render_toda_proof_statement_latex(step.conclusion)}$")
+  for diagnostic in result.diagnostics:
+    print(diagnostic)
+  if result.open_goals:
+    print(f"Open goals: {len(result.open_goals)}")
+  return 0 if result.status is TypedLookupStatus.COMPLETE else 1
 
 
 
@@ -892,19 +896,23 @@ def _run_explore_applicable_command(
 
 
 
-def _run_show_proof_command(
-
-  generator_input: str,
-
-  max_depth: int | None = None,
-
-) -> int:
-
-  print(
-    "This legacy generator command is disabled; "
-    "use the unified proof search when available."
-  )
-  return 1
+def _run_show_proof_command(generator_input: str, max_depth: int | None = None) -> int:
+  from phase165_r27_r34_typed_lookup import TypedLookupStatus, search_typed_generator_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  if max_depth is not None and (isinstance(max_depth, bool) or not isinstance(max_depth, int) or max_depth < 0):
+    raise ValueError("max_depth must be nonnegative")
+  try:
+    result = search_typed_generator_statements(generator_input)
+  except (TypeError, ValueError) as error:
+    build_show_proof_argument_parser().error(str(error))
+  print(f"Search status: {result.status.value}")
+  for step in result.proven_steps:
+    print(f"- ${render_toda_proof_statement_latex(step.conclusion)}$")
+  for diagnostic in result.diagnostics:
+    print(diagnostic)
+  if result.open_goals:
+    print(f"Open goals: {len(result.open_goals)}")
+  return 0 if result.status is TypedLookupStatus.COMPLETE else 1
 
 
 

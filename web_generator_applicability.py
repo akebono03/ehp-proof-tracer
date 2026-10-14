@@ -250,6 +250,10 @@ class WebGeneratorApplicabilityView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -482,82 +486,26 @@ def _build_source_views(
   )
 
 
-def build_standard_web_generator_applicability_view(
-  generator_input: str,
-) -> WebGeneratorApplicabilityView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_applicability_view(generator_input: str) -> WebGeneratorApplicabilityView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  result = (
-    explore_standard_repository_generator_applicability_input(
-      generator_input
-    )
-  )
-
-  presentation = (
-    build_repository_generator_applicability_presentation(
-      result
-    )
-  )
-
-  toda_memberships = (
-    _build_source_views(
-      presentation
-      .toda_membership_source_groups
-    )
-  )
-  map_relations = (
-    _build_source_views(
-      presentation
-      .map_relation_source_groups
-    )
-  )
-  other_sources = (
-    _build_source_views(
-      presentation
-      .other_source_groups
-    )
-  )
-
+    raise ValueError("generator is required")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  symbol = resolve_generator_input(generator_input)
+  result = search_typed_generator_statements(generator_input)
   return WebGeneratorApplicabilityView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        result.generator
-      )
-    ),
-    occurrence_count=len(
-      result
-      .proof_scope_exploration
-      .occurrences
-    ),
-    candidate_count=len(
-      result.candidates
-    ),
-    source_count=len(
-      presentation.source_groups
-    ),
-    rule_group_count=(
-      presentation.rule_group_count
-    ),
-    rule_family_count=(
-      presentation.rule_family_count
-    ),
-    toda_memberships=toda_memberships,
-    map_relations=map_relations,
-    other_sources=other_sources,
+    generator_latex=_render_generator_symbol_latex(symbol),
+    occurrence_count=len(result.proven_steps),
+    candidate_count=0,
+    source_count=0,
+    rule_group_count=0,
+    rule_family_count=0,
+    toda_memberships=(), map_relations=(), other_sources=(),
+    search_status="not_evaluated",
+    diagnostics=result.diagnostics + ("推論規則の適用可能性は未評価。型付き命題検索の成功だけでは適用可能とは判定しない",),
+    open_goal_count=len(result.open_goals),
   )

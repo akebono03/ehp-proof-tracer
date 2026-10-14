@@ -172,6 +172,10 @@ class WebGeneratorProofScopeView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -388,62 +392,25 @@ def _build_map_relation_view(
   )
 
 
-def build_standard_web_generator_proof_scope_view(
-  generator_input: str,
-) -> WebGeneratorProofScopeView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_proof_scope_view(generator_input: str) -> WebGeneratorProofScopeView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  result = (
-    explore_standard_repository_generator_proof_scope_input(
-      generator_input
-    )
-  )
-
-  toda_memberships = tuple(
-    _build_toda_membership_view(
-      membership
-    )
-    for membership in result.toda_memberships
-  )
-
-  map_relations = tuple(
-    _build_map_relation_view(
-      map_relation
-    )
-    for map_relation in result.map_relations
-  )
-
+    raise ValueError("generator is required")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  symbol = resolve_generator_input(generator_input)
+  result = search_typed_generator_statements(generator_input)
   return WebGeneratorProofScopeView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        result.generator
-      )
-    ),
-    occurrence_count=len(
-      result.occurrences
-    ),
-    toda_membership_count=len(
-      toda_memberships
-    ),
-    map_relation_count=len(
-      map_relations
-    ),
-    toda_memberships=toda_memberships,
-    map_relations=map_relations,
+    generator_latex=_render_generator_symbol_latex(symbol),
+    occurrence_count=len(result.proven_steps),
+    toda_membership_count=0,
+    map_relation_count=0,
+    toda_memberships=(),
+    map_relations=(),
+    search_status=result.status.value,
+    diagnostics=result.diagnostics,
+    open_goal_count=len(result.open_goals),
   )

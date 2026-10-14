@@ -111,6 +111,10 @@ class WebGeneratorProofView:
   ]
   max_depth: int
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -161,10 +165,8 @@ class WebGeneratorProofView:
         "steps must be a tuple"
       )
 
-    if not self.steps:
-      raise ValueError(
-        "steps must not be empty"
-      )
+    if not self.steps and self.search_status == "complete":
+      raise ValueError("complete proof must contain steps")
 
     for step in self.steps:
       if not isinstance(
@@ -241,108 +243,34 @@ def _generator_proof_statement_latex(
   )
 
 
-def build_standard_web_generator_proof_view(
-  generator_input: str,
-  max_depth: int = 1,
-) -> WebGeneratorProofView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_proof_view(generator_input: str, max_depth: int = 1) -> WebGeneratorProofView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  if (
-    isinstance(
-      max_depth,
-      bool,
-    )
-    or not isinstance(
-      max_depth,
-      int,
-    )
-  ):
-    raise TypeError(
-      "max_depth must be an int"
-    )
-
+    raise ValueError("generator is required")
+  if isinstance(max_depth, bool) or not isinstance(max_depth, int):
+    raise TypeError("max_depth must be an int")
   if max_depth < 0:
-    raise ValueError(
-      "max_depth must be nonnegative"
-    )
-
-  result = (
-    build_standard_repository_generator_known_group_proof_replay_input(
-      generator_input,
-      max_depth=max_depth,
-    )
-  )
-
-  presentation = (
-    build_repository_generator_known_group_proof_replay_presentation(
-      result
-    )
-  )
-
-  conclusion_latex, conclusion_fallback = (
-    _generator_proof_statement_latex(
-      presentation.conclusion
-    )
-  )
-
-  if conclusion_latex is None:
-    raise ValueError(
-      "known-group conclusion is not renderable as LaTeX: "
-      f"{conclusion_fallback}"
-    )
-
-  steps = []
-
-  for replay_step in presentation.steps:
-    proof_step = (
-      replay_step.proof_step
-    )
-
-    (
-      statement_latex,
-      fallback_type_name,
-    ) = _generator_proof_statement_latex(
-      proof_step.conclusion
-    )
-
-    steps.append(
-      WebGeneratorProofStepView(
-        depth=replay_step.depth,
-        statement_latex=statement_latex,
-        fallback_type_name=fallback_type_name,
-        rule_name=(
-          _generator_proof_rule_name(
-            proof_step
-          )
-        ),
-      )
-    )
-
+    raise ValueError("max_depth must be nonnegative")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  symbol = resolve_generator_input(generator_input)
+  result = search_typed_generator_statements(generator_input)
+  steps = tuple(WebGeneratorProofStepView(
+    depth=0,
+    statement_latex=render_toda_proof_statement_latex(step.conclusion),
+    fallback_type_name=None,
+    rule_name=_generator_proof_rule_name(step),
+  ) for step in result.proven_steps)
   return WebGeneratorProofView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        presentation.generator
-      )
-    ),
-    conclusion_latex=conclusion_latex,
-    steps=tuple(
-      steps
-    ),
-    max_depth=result.max_depth,
+    generator_latex=_render_generator_symbol_latex(symbol),
+    conclusion_latex=(steps[-1].statement_latex if steps else "\\text{未証明}"),
+    steps=steps,
+    max_depth=max_depth,
+    search_status=result.status.value,
+    diagnostics=result.diagnostics,
+    open_goal_count=len(result.open_goals),
   )

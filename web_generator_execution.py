@@ -215,6 +215,10 @@ class WebGeneratorExecutionView:
   rule_name: str | None
   provenance: WebGeneratorExecutionProvenanceView | None
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -417,179 +421,25 @@ def _render_execution_statement(
   )
 
 
-def build_standard_web_generator_execution_view(
-  generator_input: str,
-  candidate_number: int | None = None,
-) -> WebGeneratorExecutionView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+def build_standard_web_generator_execution_view(generator_input: str, candidate_number: int | None = None) -> WebGeneratorExecutionView:
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
-    )
-
-  result = (
-    run_standard_repository_generator_user_execution_workflow(
-      generator_input,
-      candidate_number=candidate_number,
-    )
-  )
-
-  generator_latex = (
-    _render_generator_symbol_latex(
-      result.resolution.applicability_result.generator
-    )
-  )
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.NONE
-  ):
-    return WebGeneratorExecutionView(
-      generator_input=generator_input,
-      generator_latex=generator_latex,
-      status=result.status,
-      candidates=(),
-      selected_candidate_number=None,
-      conclusion_latex=None,
-      premises=(),
-      rule_name=None,
-      provenance=None,
-    )
-
-  if (
-    result.status
-    is RepositoryGeneratorUserExecutionWorkflowStatus.AMBIGUOUS
-  ):
-    presentation = (
-      build_repository_generator_user_execution_candidate_list_presentation(
-        result
-      )
-    )
-
-    candidates = []
-
-    for candidate in presentation.candidates:
-      statement_latex, fallback_type_name = (
-        _render_execution_statement(
-          candidate.conclusion
-        )
-      )
-
-      candidates.append(
-        WebGeneratorExecutionCandidateView(
-          candidate_number=(
-            candidate.candidate_number
-          ),
-          statement_latex=statement_latex,
-          fallback_type_name=(
-            fallback_type_name
-          ),
-        )
-      )
-
-    return WebGeneratorExecutionView(
-      generator_input=generator_input,
-      generator_latex=generator_latex,
-      status=result.status,
-      candidates=tuple(
-        candidates
-      ),
-      selected_candidate_number=None,
-      conclusion_latex=None,
-      premises=(),
-      rule_name=None,
-      provenance=None,
-    )
-
-  if (
-    result.status
-    is not RepositoryGeneratorUserExecutionWorkflowStatus.EXECUTED
-  ):
-    raise RuntimeError(
-      "unsupported user execution workflow status"
-    )
-
-  if result.presentation is None:
-    raise RuntimeError(
-      "executed workflow result must contain presentation"
-    )
-
-  if result.selected_target is None:
-    raise RuntimeError(
-      "executed workflow result must contain selected_target"
-    )
-
-  conclusion_latex, conclusion_fallback = (
-    _render_execution_statement(
-      result.presentation.conclusion
-    )
-  )
-
-  if conclusion_latex is None:
-    raise ValueError(
-      "executed conclusion is not renderable as LaTeX: "
-      f"{conclusion_fallback}"
-    )
-
-  premises = []
-
-  for index, premise in enumerate(
-    result.presentation.premises,
-    start=1,
-  ):
-    statement_latex, fallback_type_name = (
-      _render_execution_statement(
-        premise.conclusion
-      )
-    )
-
-    premises.append(
-      WebGeneratorExecutionPremiseView(
-        premise_number=index,
-        statement_latex=statement_latex,
-        fallback_type_name=(
-          fallback_type_name
-        ),
-      )
-    )
-
-  root_entry = (
-    result.selected_target.root_entry
-  )
-
+    raise ValueError("generator is required")
+  if candidate_number is not None and (isinstance(candidate_number, bool) or not isinstance(candidate_number, int) or candidate_number < 1):
+    raise ValueError("candidate_number must be a positive integer")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  symbol = resolve_generator_input(generator_input)
+  result = search_typed_generator_statements(generator_input)
   return WebGeneratorExecutionView(
     generator_input=generator_input,
-    generator_latex=generator_latex,
-    status=result.status,
-    candidates=(),
-    selected_candidate_number=(
-      candidate_number
-      if candidate_number is not None
-      else 1
-    ),
-    conclusion_latex=conclusion_latex,
-    premises=tuple(
-      premises
-    ),
-    rule_name=(
-      result.presentation.rule_name
-    ),
-    provenance=(
-      WebGeneratorExecutionProvenanceView(
-        key=root_entry.key,
-        theorem=root_entry.theorem,
-        phase=root_entry.phase,
-      )
-    ),
+    generator_latex=_render_generator_symbol_latex(symbol),
+    status=RepositoryGeneratorUserExecutionWorkflowStatus.NONE,
+    candidates=(), selected_candidate_number=None,
+    conclusion_latex=None, premises=(), rule_name=None, provenance=None,
+    search_status="not_executed",
+    diagnostics=result.diagnostics + ("推論規則の選択と実行は未実施。検索結果を実行成功に昇格しない",),
+    open_goal_count=len(result.open_goals),
   )
