@@ -1,10 +1,4 @@
 from proof_repository import ProofRepository
-from phase164_r7_repository_root_resolution import (
-  validate_repository_internal_proof_roots,
-)
-from standard_production_repository import (
-  build_standard_production_proof_repository,
-)
 from toda_calculation_report import (
   build_toda_calculation_report_result,
 )
@@ -34,16 +28,9 @@ def build_standard_toda_report(
   n: int,
   k: int,
 ) -> TodaCalculationReportResult:
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  validate_repository_internal_proof_roots(
-    repository
-  )
-
-  return build_toda_report(
-    repository,
-    n=n,
-    k=k,
+  """Retired legacy standard entry; use the common typed search instead."""
+  raise RuntimeError(
+    "Legacy standard calculation is retired in Phase 165 R27-R24; "
+    "use search_group_structure_automatically(n=n, k=k) "
+    "and inspect COMPLETE, PARTIAL, or SEARCH_FAILED."
   )
