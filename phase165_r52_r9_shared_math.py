@@ -94,6 +94,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         assertion = bridge.registry.assertion(link.assertion_id)
         if assertion.origin is AssertionOrigin.FIXED_STATEMENT:
             available.append(link.step.conclusion)
+
+    from phase165_r57_r7_stable_expansion import (
+        expand_registered_toda45_finite_cyclic_goal,
+    )
+
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
         if (isinstance(goal, Relation)
@@ -113,6 +118,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                               FreeCyclicGroup(image.target_generator)),
                      image),
                 ))
+        options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available)))
         for provider in (
             expand_generic_iso_goal,
             expand_generic_ehp_hopf_goal,
