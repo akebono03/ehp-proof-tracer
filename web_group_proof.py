@@ -47,7 +47,7 @@ def build_standard_web_group_proof_view(
   max_depth: int = 2,
   mode: str = "narrative",
 ) -> WebGroupProofView:
-  """Search a typed group goal and render complete or partial proof evidence."""
+  """Use the registered n,k goal and shared proof Web adapter for every group."""
   query = TodaGroupQuery(n=n, k=k)
   domain = classify_toda_group_query_domain(query)
   if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
@@ -59,10 +59,10 @@ def build_standard_web_group_proof_view(
   if mode not in ("trace", "outline", "narrative"):
     raise ValueError("mode must be trace, outline, or narrative")
 
-  from phase165_r52_r5_auto_search import search_group_structure_automatically
+  from phase165_r55_nk_only_goal import search_group_from_registered_goal
   from phase165_r52_r3_web_adapter import build_partial_web_group_proof_view
 
-  result = search_group_structure_automatically(n=n, k=k)
+  result = search_group_from_registered_goal(n=n, k=k)
   return build_partial_web_group_proof_view(
     result,
     max_depth=max_depth,
