@@ -1,0 +1,3 @@
+# Phase 165 R27-R32 — Conservative batch legacy import cleanup
+
+Run `run.ps1` from the extracted `phase165_r27_r32` folder on Windows. The installer updates the existing project in place, removes unused legacy `repository_*` imports from a limited set of CLI/Web entry modules, then deletes repository-only dependency islands that are unreachable from all other root Python modules. Used imports and common proof/rendering machinery are retained. Files are backed up to `phase165_r27_r32_backup`. The audit is written to `phase165_r27_r32_audit.json`. Only targeted tests run. The entire pytest suite is reserved for the end of Phase 165.
