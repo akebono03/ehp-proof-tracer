@@ -1,0 +1,12 @@
+{
+  "phase": "165 R27-R42",
+  "status": "CHANGED",
+  "modified_files": [
+    "web_generator_execution.py",
+    "toda_typed_execution_status.py"
+  ],
+  "old_execution_facade_import_removed": true,
+  "group_calculation_unchanged": true,
+  "applicability_catalog_unchanged": true,
+  "full_pytest_run": false
+}

@@ -1,7 +1,7 @@
+from toda_typed_execution_status import TypedGeneratorExecutionStatus
 from dataclasses import dataclass
 
 from toda_conclusion_latex_renderer import render_repository_conclusion_latex
-from repository_generator_user_execution_facade import RepositoryGeneratorUserExecutionWorkflowStatus
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -193,7 +193,7 @@ class WebGeneratorExecutionProvenanceView:
 class WebGeneratorExecutionView:
   generator_input: str
   generator_latex: str
-  status: RepositoryGeneratorUserExecutionWorkflowStatus
+  status: TypedGeneratorExecutionStatus
   candidates: tuple[
     WebGeneratorExecutionCandidateView,
     ...,
@@ -242,7 +242,7 @@ class WebGeneratorExecutionView:
 
     if not isinstance(
       self.status,
-      RepositoryGeneratorUserExecutionWorkflowStatus,
+      TypedGeneratorExecutionStatus,
     ):
       raise TypeError(
         "status must be a RepositoryGeneratorUserExecutionWorkflowStatus"
@@ -304,7 +304,7 @@ class WebGeneratorExecutionView:
 
     if (
       self.status
-      is RepositoryGeneratorUserExecutionWorkflowStatus.NONE
+      is TypedGeneratorExecutionStatus.NONE
     ):
       if (
         self.candidates
@@ -321,7 +321,7 @@ class WebGeneratorExecutionView:
 
     if (
       self.status
-      is RepositoryGeneratorUserExecutionWorkflowStatus.AMBIGUOUS
+      is TypedGeneratorExecutionStatus.AMBIGUOUS
     ):
       if len(
         self.candidates
@@ -394,7 +394,7 @@ def build_standard_web_generator_execution_view(generator_input: str, candidate_
   return WebGeneratorExecutionView(
     generator_input=generator_input,
     generator_latex=_render_generator_symbol_latex(symbol),
-    status=RepositoryGeneratorUserExecutionWorkflowStatus.NONE,
+    status=TypedGeneratorExecutionStatus.NONE,
     candidates=(), selected_candidate_number=None,
     conclusion_latex=None, premises=(), rule_name=None, provenance=None,
     search_status="not_executed",
