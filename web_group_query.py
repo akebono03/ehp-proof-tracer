@@ -9,9 +9,6 @@ from toda_group_query_semantics import (
   classify_toda_group_query_domain,
   render_toda_group_query_domain_latex,
 )
-from toda_human_readable_renderer import (
-  render_toda_group_result_latex,
-)
 
 
 @dataclass(frozen=True)
@@ -94,47 +91,62 @@ class WebGroupQueryView:
       )
 
 
+from phase165_r52_partial_proof import GroupStructureStatus
+from phase165_r52_partial_proof import ProofSearchStatus
+from phase165_r52_r5_auto_search import search_group_structure_automatically
+from proof import Relation
+from proof import RelationType
+from toda_presentation import build_toda_group_structure_presentation
+from toda_human_readable_renderer import render_toda_group_structure_latex
+
 def build_standard_web_group_query_view(
   n: int,
   k: int,
 ) -> WebGroupQueryView:
-  """Group query backed by the canonical typed backward search only."""
-  from phase165_r52_r5_auto_search import search_group_structure_automatically
-  from phase165_r52_partial_proof import ProofSearchStatus
-  from web_group_proof import _group_proof_statement_latex
+  query = TodaGroupQuery(
+    n=n,
+    k=k,
+  )
 
-  query = TodaGroupQuery(n=n, k=k)
-  domain = classify_toda_group_query_domain(query)
+  domain = classify_toda_group_query_domain(
+    query
+  )
+
   if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
     return WebGroupQueryView(
-      n=n, k=k, status=TodaCalculationStatus.FOUND,
+      n=n,
+      k=k,
+      status=TodaCalculationStatus.FOUND,
       result_latex=render_toda_group_query_domain_latex(domain),
       proof_available=False,
     )
 
-  # The shared proof-search contract currently covers n>=2, k>=0 only.
-  # A valid but unsupported positive-dimensional input must not be certified.
-  if n < 2 or k < 0:
+  result = search_group_structure_automatically(n=n, k=k)
+  conclusion = result.conclusion
+  if (
+    result.status is ProofSearchStatus.COMPLETE
+    and result.structure_status is GroupStructureStatus.KNOWN
+    and isinstance(conclusion, Relation)
+    and conclusion.relation_type is RelationType.EQUALITY
+    and conclusion.lhs == query.target
+  ):
+    structure_latex = render_toda_group_structure_latex(
+      build_toda_group_structure_presentation(conclusion.rhs)
+    )
     return WebGroupQueryView(
-      n=n, k=k, status=TodaCalculationStatus.NOT_FOUND,
-      result_latex=None, proof_available=False,
+      n=n,
+      k=k,
+      status=TodaCalculationStatus.FOUND,
+      result_latex=structure_latex,
+      proof_available=True,
     )
 
-  result = search_group_structure_automatically(n=n, k=k)
-  if result.status is not ProofSearchStatus.COMPLETE:
-    return WebGroupQueryView(
-      n=n, k=k, status=TodaCalculationStatus.NOT_FOUND,
-      result_latex=None, proof_available=False,
-    )
-  latex, _fallback = _group_proof_statement_latex(result.conclusion)
-  if not latex:
-    return WebGroupQueryView(
-      n=n, k=k, status=TodaCalculationStatus.NOT_FOUND,
-      result_latex=None, proof_available=False,
-    )
   return WebGroupQueryView(
-    n=n, k=k, status=TodaCalculationStatus.FOUND,
-    result_latex=latex, proof_available=True,
+    n=n,
+    k=k,
+    status=TodaCalculationStatus.NOT_FOUND,
+    result_latex=None,
+    proof_available=False,
   )
 
 
