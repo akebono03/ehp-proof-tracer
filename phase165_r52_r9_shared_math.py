@@ -38,8 +38,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         production = discover_goal_search_inputs().bridge
         adopted_tex = Path(__file__).resolve().with_name("phase165_r14_r39_toda51.tex")
         from phase165_r52_r13_reference_registration import build_adopted_prop51_reference
+        from phase165_r52_r27_r5_literature import build_typed_literature_bridge
+        literature = build_typed_literature_bridge(production)
         sources = (production, build_adopted_typed_reference_registry(adopted_tex),
-                   build_adopted_prop51_reference())
+                   build_adopted_prop51_reference()) + (literature,)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
