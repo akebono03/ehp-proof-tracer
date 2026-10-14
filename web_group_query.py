@@ -1,8 +1,5 @@
 from dataclasses import dataclass
 
-from toda_calculation_facade import (
-  build_standard_toda_report,
-)
 from toda_calculation_result import (
   TodaCalculationStatus,
 )
@@ -101,62 +98,43 @@ def build_standard_web_group_query_view(
   n: int,
   k: int,
 ) -> WebGroupQueryView:
-  query = TodaGroupQuery(
-    n=n,
-    k=k,
-  )
+  """Group query backed by the canonical typed backward search only."""
+  from phase165_r52_r5_auto_search import search_group_structure_automatically
+  from phase165_r52_partial_proof import ProofSearchStatus
+  from web_group_proof import _group_proof_statement_latex
 
-  domain = (
-    classify_toda_group_query_domain(
-      query
-    )
-  )
-
-  if (
-    domain.kind
-    is not (
-      TodaGroupQueryDomainKind
-      .POSITIVE_DIMENSION
-    )
-  ):
+  query = TodaGroupQuery(n=n, k=k)
+  domain = classify_toda_group_query_domain(query)
+  if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
     return WebGroupQueryView(
-      n=n,
-      k=k,
-      status=TodaCalculationStatus.FOUND,
-      result_latex=(
-        render_toda_group_query_domain_latex(
-          domain
-        )
-      ),
+      n=n, k=k, status=TodaCalculationStatus.FOUND,
+      result_latex=render_toda_group_query_domain_latex(domain),
       proof_available=False,
     )
 
-  report = build_standard_toda_report(
-    n=n,
-    k=k,
-  )
-
-  result_latex = None
-
-  if (
-    report.status
-    is TodaCalculationStatus.FOUND
-  ):
-    result_latex = (
-      render_toda_group_result_latex(
-        report.candidates[
-          0
-        ].presentation.group
-      )
+  # The shared proof-search contract currently covers n>=2, k>=0 only.
+  # A valid but unsupported positive-dimensional input must not be certified.
+  if n < 2 or k < 0:
+    return WebGroupQueryView(
+      n=n, k=k, status=TodaCalculationStatus.NOT_FOUND,
+      result_latex=None, proof_available=False,
     )
 
+  result = search_group_structure_automatically(n=n, k=k)
+  if result.status is not ProofSearchStatus.COMPLETE:
+    return WebGroupQueryView(
+      n=n, k=k, status=TodaCalculationStatus.NOT_FOUND,
+      result_latex=None, proof_available=False,
+    )
+  latex, _fallback = _group_proof_statement_latex(result.conclusion)
+  if not latex:
+    return WebGroupQueryView(
+      n=n, k=k, status=TodaCalculationStatus.NOT_FOUND,
+      result_latex=None, proof_available=False,
+    )
   return WebGroupQueryView(
-    n=n,
-    k=k,
-    status=report.status,
-    result_latex=result_latex,
-    proof_available=(
-      report.status
-      is TodaCalculationStatus.FOUND
-    ),
+    n=n, k=k, status=TodaCalculationStatus.FOUND,
+    result_latex=latex, proof_available=True,
   )
+
+

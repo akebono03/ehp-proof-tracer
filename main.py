@@ -621,135 +621,27 @@ def _run_group_proof_command(
   max_depth: int | None = 2,
   mode: str = "narrative",
 ) -> int:
-  if mode not in (
-    "trace",
-    "outline",
-    "narrative",
+  """Render the shared backward-search result; never replay an old repository."""
+  from phase165_r52_r5_auto_search import search_group_structure_automatically
+  from phase165_r52_partial_proof import ProofSearchStatus, render_partial_proof_markdown
+
+  if mode not in ("trace", "outline", "narrative"):
+    raise ValueError("mode must be trace, outline, or narrative")
+  if max_depth is not None and (
+    isinstance(max_depth, bool) or not isinstance(max_depth, int) or max_depth < 0
   ):
-    raise ValueError(
-      "mode must be trace, outline, or narrative"
-    )
+    raise ValueError("max_depth must be a nonnegative integer or None")
 
-  query = TodaGroupQuery(
-    n=n,
-    k=k,
-  )
-
-  domain = (
-    classify_toda_group_query_domain(
-      query
-    )
-  )
-
-  if (
-    domain.kind
-    is not (
-      TodaGroupQueryDomainKind
-      .POSITIVE_DIMENSION
-    )
-  ):
-    print(
-      "No repository-backed group proof is available for "
-      f"pi_{{{n + k}}}^{{{n}}}."
-    )
+  query = TodaGroupQuery(n=n, k=k)
+  domain = classify_toda_group_query_domain(query)
+  if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION or n < 2 or k < 0:
+    print(f"No typed group proof search is available for pi_{{{n + k}}}^{{{n}}}.")
     return 1
+  result = search_group_structure_automatically(n=n, k=k)
+  print(render_partial_proof_markdown(result))
+  return 0 if result.status is ProofSearchStatus.COMPLETE else 1
 
-  report = (
-    build_standard_toda_report(
-      n=n,
-      k=k,
-    )
-  )
 
-  if (
-    report.status
-    is TodaCalculationStatus.NOT_FOUND
-  ):
-    print(
-      "No proof-backed group result found for "
-      f"pi_{{{n + k}}}^{{{n}}}."
-    )
-    return 1
-
-  if (
-    report.status
-    is TodaCalculationStatus.MULTIPLE_RESULTS
-  ):
-    print(
-      "Multiple proof-backed group results found for "
-      f"pi_{{{n + k}}}^{{{n}}}; "
-      "group-proof requires exactly one result."
-    )
-    return 1
-
-  group_result = (
-    report.candidates[
-      0
-    ].source_candidate.group_result
-  )
-
-  if max_depth is None:
-    replay = (
-      build_toda_group_result_proof_replay(
-        group_result
-      )
-    )
-  else:
-    replay = (
-      build_toda_group_result_proof_replay(
-        group_result,
-        max_depth=max_depth,
-      )
-    )
-
-  if mode == "trace":
-    markdown = (
-      render_toda_group_result_proof_replay_markdown(
-        replay
-      )
-    )
-  else:
-    if (
-      mode == "narrative"
-      and max_depth is not None
-      and max_depth > 0
-    ):
-      narrative_replay = (
-        build_complete_toda_group_result_proof_replay(
-          group_result
-        )
-      )
-      presentation = (
-        build_toda_group_proof_presentation(
-          narrative_replay
-        )
-      )
-    else:
-      presentation = (
-        build_toda_group_proof_presentation(
-          replay
-        )
-      )
-
-    if mode == "outline":
-      markdown = (
-        render_toda_group_proof_outline_markdown(
-          presentation
-        )
-      )
-    else:
-      markdown = (
-        render_toda_group_proof_narrative_markdown(
-          presentation
-        )
-      )
-
-  print(
-    markdown,
-    end="",
-  )
-
-  return 0
 
 
 def _run_execute_command(
@@ -1222,30 +1114,17 @@ def main(
     )
     return 0
 
-  result = (
-    build_standard_toda_report(
-      n=args.n,
-      k=args.k,
-    )
-  )
+  from phase165_r52_r5_auto_search import search_group_structure_automatically
+  from phase165_r52_partial_proof import ProofSearchStatus, render_partial_proof_markdown
 
-  if (
-    result.status
-    is TodaCalculationStatus.NOT_FOUND
-  ):
-    print(
-      "No proof report found for "
-      f"pi_{{{args.n + args.k}}}^{{{args.n}}}."
-    )
+  if args.n < 2 or args.k < 0:
+    print(f"No typed group proof search is available for pi_{{{args.n + args.k}}}^{{{args.n}}}.")
     return 1
+  result = search_group_structure_automatically(n=args.n, k=args.k)
+  print(render_partial_proof_markdown(result))
+  return 0 if result.status is ProofSearchStatus.COMPLETE else 1
 
-  print(
-    "\n\n---\n\n".join(
-      result.reports
-    )
-  )
 
-  return 0
 
 
 if __name__ == "__main__":
