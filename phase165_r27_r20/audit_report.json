@@ -1,0 +1,69 @@
+{
+  "phase": "165 R27-R20",
+  "mode": "GUARDED_LEGACY_ROOT_BACKUP_REMOVAL",
+  "apply": true,
+  "removed_files": 13,
+  "blocked_files": 0,
+  "production_core_modified": false,
+  "full_pytest_run": false,
+  "bootstrap_deleted": false,
+  "remaining_core_blockers": [
+    "toda_calculation_facade.py",
+    "repository_proof_scope_facade.py",
+    "repository_generator_known_group_identity_lookup.py"
+  ],
+  "records": [
+    {
+      "path": "phase164_r5_web_registry_connection.phase164_r5_r1_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "phase164_r7_r3_generator_registry.phase164_r7_r4_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "repository_generator_known_group_identity_lookup.phase164_r7_r3_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "repository_operation_query_facade.phase164_r7_r4_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "toda_calculation_facade.phase164_r7_r5_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_r1_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_r2_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase164_r5_r3_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase165_r39_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase165_r40_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase165_r52_r3_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    },
+    {
+      "path": "web_group_proof.phase165_r52_r3_empty_steps_backup.py",
+      "status": "REMOVED_WITH_BACKUP"
+    }
+  ]
+}
