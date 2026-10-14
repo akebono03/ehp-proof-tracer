@@ -1216,6 +1216,17 @@ def _render_generic_narrative_statement_prose(
   # phase165_r42_generic_typed_prose: these are shared typed map and
   # generator-image statements; never use target-specific prose.
   kind = type(statement).__name__
+  # phase165_r56_r1_generator_suspension: shared typed statement prose
+  if kind == "GeneratorSuspension":
+    map_name = _generic_group_map_name(statement.map)
+    if map_name is not None:
+      return (
+        "$" + map_name + "("
+        + render_toda_expression_latex(statement.source_generator)
+        + ") = "
+        + render_toda_expression_latex(statement.target_generator)
+        + "$."
+      )
   if kind == "GeneratorImage":
     map_name = _generic_group_map_name(statement.map)
     if map_name is not None:
