@@ -1,0 +1,62 @@
+{
+  "phase": "165 R27-R60",
+  "mode": "REGRESSION_NO_PRODUCTION_REWRITE",
+  "static": {
+    "conditions": {
+      "public_files_exist": true,
+      "old_modules_absent": true,
+      "public_direct_legacy_imports_absent": true,
+      "cli_uses_typed_partial": true,
+      "typed_facade_has_public_entry": true
+    },
+    "missing_public_files": [],
+    "remaining_old_modules": [],
+    "entry_legacy_dependencies": {
+      "cli.py": [],
+      "web_group_query.py": [],
+      "web_group_proof.py": [],
+      "toda_typed_group_facade.py": [],
+      "phase165_r52_r5_auto_search.py": []
+    }
+  },
+  "representative_groups": [
+    {
+      "n": 2,
+      "k": 1,
+      "result_type": "PartialProofResult",
+      "status": "search_failed",
+      "structure_status": "unknown",
+      "proven_steps_count": 0,
+      "open_goals_count": 1,
+      "has_conclusion": false,
+      "execution": "OK",
+      "verified_mathematical_proof": false
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "result_type": "PartialProofResult",
+      "status": "search_failed",
+      "structure_status": "unknown",
+      "proven_steps_count": 0,
+      "open_goals_count": 1,
+      "has_conclusion": false,
+      "execution": "OK",
+      "verified_mathematical_proof": false
+    },
+    {
+      "n": 3,
+      "k": 2,
+      "result_type": "PartialProofResult",
+      "status": "search_failed",
+      "structure_status": "unknown",
+      "proven_steps_count": 0,
+      "open_goals_count": 1,
+      "has_conclusion": false,
+      "execution": "OK",
+      "verified_mathematical_proof": false
+    }
+  ],
+  "full_pytest_run": false,
+  "status": "CHECKED"
+}
