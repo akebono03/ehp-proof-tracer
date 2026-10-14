@@ -1,0 +1,32 @@
+def search_shared_group_goal(*, n: int, k: int, group_structure: object,
+                              bridge: RegistryBridgeResult | None = None,
+                              expansion_provider=None,
+                              citing_assertion_id: str | None = None,
+                              verified_assertion_ids: tuple[str, ...] = ()):
+    """Run canonical search under a screened Reference context.
+
+    Older calls retain their signature. R15 ordering is applied to sources
+    outside the explicitly adopted-Tex policy; no IDs are auto-verified.
+    """
+    from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+
+    if bridge is None:
+        bridge = build_shared_typed_bridge()
+    goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
+    assertions = tuple(bridge.registry._assertions.values())
+    if not assertions:
+        raise ValueError("shared typed registry is empty")
+    context_id = citing_assertion_id or assertions[0].assertion_id
+    proof_context = screen_shared_proof_context(
+        bridge, goal=goal, citing_assertion_id=context_id,
+        verified_assertion_ids=verified_assertion_ids,
+    )
+    if expansion_provider is None:
+        expansion_provider = shared_expansion_provider(proof_context)
+    return search_registered_partial_proof(
+        n=n, k=k, goal=goal, bridge=proof_context,
+        citing_assertion_id=context_id,
+        expansion_provider=expansion_provider,
+        lookup_mode="typed_reference",
+        structure_status=GroupStructureStatus.UNKNOWN,
+    )

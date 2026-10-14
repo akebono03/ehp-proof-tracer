@@ -39,9 +39,6 @@ from toda_rules import (
   toda_exactness_zero_delta_implies_hopf_surjective_inference_rule,
   toda_exactness_zero_left_implies_hopf_injective_inference_rule,
   toda_hopf_injective_surjective_implies_isomorphism_inference_rule,
-  toda_pi3_2_define_eta2_inference_rule,
-  toda_pi3_2_eta2_hopf_relation_inference_rule,
-  toda_pi3_2_free_cyclic_generator_inference_rule,
   toda_suspension_isomorphism_implies_injective_inference_rule,
 )
 
@@ -291,9 +288,6 @@ def build_phase49_representative_result():
     toda_exactness_injective_right_implies_delta_zero_inference_rule(),
     toda_exactness_zero_delta_implies_hopf_surjective_inference_rule(),
     toda_hopf_injective_surjective_implies_isomorphism_inference_rule(),
-    toda_pi3_2_define_eta2_inference_rule(),
-    toda_pi3_2_eta2_hopf_relation_inference_rule(),
-    toda_pi3_2_free_cyclic_generator_inference_rule(),
   )
 
   result = (

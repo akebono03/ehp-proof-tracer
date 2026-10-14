@@ -595,12 +595,6 @@ _SECOND_WAVE_RELEVANCE_BY_FACTORY = {
   "toda_53_eta5_iterated_suspension_bridge_inference_rule": (
     RuleRelevanceCategory.BRIDGE
   ),
-  "toda_pi3_2_define_eta2_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
-  "toda_pi3_2_eta2_hopf_relation_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
   "toda_54_indeterminacy_double_nu_prime_generator_inference_rule": (
     RuleRelevanceCategory.BRIDGE
   ),

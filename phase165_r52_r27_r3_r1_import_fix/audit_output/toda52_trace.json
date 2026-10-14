@@ -1,0 +1,160 @@
+{
+  "phase": "165 R52-R27-R3",
+  "mode": "READ_ONLY_TODA52_PROOF_STEP_TRACE",
+  "failure": {
+    "type": "ValueError",
+    "message": "expected exactly one Toda (5.2) composition isomorphism step, found 0"
+  },
+  "runs": [
+    {
+      "rule_names": [
+        "Toda EHP exactness zero-left Hopf injectivity",
+        "Toda suspension isomorphism implies injectivity",
+        "Toda EHP exactness injective-right Delta zero",
+        "Toda EHP exactness zero-Delta Hopf surjectivity",
+        "Toda Hopf invariant injective and surjective implies isomorphism"
+      ],
+      "step_count": 11,
+      "conclusion_types": {
+        "TodaPrimaryGroupZeroStatement": 1,
+        "Relation": 1,
+        "TodaSuspensionIsomorphismStatement": 1,
+        "TodaProp42ExactnessStatement": 3,
+        "TodaHopfInvariantInjectiveStatement": 1,
+        "TodaSuspensionInjectiveStatement": 1,
+        "TodaDeltaZeroStatement": 1,
+        "TodaHopfInvariantSurjectiveStatement": 1,
+        "TodaHopfInvariantIsomorphismStatement": 1
+      },
+      "toda52_conclusions": [],
+      "eta2_statements": []
+    },
+    {
+      "rule_names": [
+        "Toda Proposition 2.7 iota_2 Whitehead-square Hopf invariant up to sign",
+        "Toda pi_3^2 Whitehead square equals twice eta_2 up to sign",
+        "free cyclic generator Delta image",
+        "Toda pi_4^3 exactness Delta image equals E kernel",
+        "Toda pi_4^3 E-H exactness zero-right suspension surjectivity",
+        "Toda pi_4^3 finite cyclic quotient calculation",
+        "Toda eta_3 notation suspension bridge",
+        "Toda pi_4^3 eta_3 generator notation"
+      ],
+      "step_count": 20,
+      "conclusion_types": {
+        "WhiteheadProduct": 1,
+        "TodaPi32Eta2DefinitionStatement": 1,
+        "Relation": 6,
+        "TodaHopfInvariantInjectiveStatement": 1,
+        "TodaPrimaryGroupZeroStatement": 1,
+        "TodaDeltaMap": 1,
+        "TodaDeltaImageUpToSignStatement": 1,
+        "TodaProp42ExactnessStatement": 2,
+        "TodaEtaFamilyDefinitionStatement": 1,
+        "TodaProp27HopfInvariantUpToSignStatement": 1,
+        "TodaDeltaImageFreeCyclicStatement": 1,
+        "TodaSuspensionSurjectiveStatement": 1,
+        "TodaPi32WhiteheadSquareUpToSignStatement": 1,
+        "TodaSuspensionKernelFreeCyclicStatement": 1
+      },
+      "toda52_conclusions": [],
+      "eta2_statements": [
+        {
+          "type": "TodaPi32Eta2DefinitionStatement",
+          "conclusion": "TodaPi32Eta2DefinitionStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), image=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+          "proof_rule": "ProofRule.GIVEN"
+        },
+        {
+          "type": "Relation",
+          "conclusion": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "proof_rule": "ProofRule.GIVEN"
+        },
+        {
+          "type": "TodaDeltaImageUpToSignStatement",
+          "conclusion": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+          "proof_rule": "ProofRule.INFERENCE"
+        },
+        {
+          "type": "Relation",
+          "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "proof_rule": "ProofRule.GIVEN"
+        },
+        {
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "conclusion": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+          "proof_rule": "ProofRule.GIVEN"
+        },
+        {
+          "type": "TodaDeltaImageFreeCyclicStatement",
+          "conclusion": "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+          "proof_rule": "ProofRule.INFERENCE"
+        },
+        {
+          "type": "Relation",
+          "conclusion": "Relation(lhs=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "proof_rule": "ProofRule.INFERENCE"
+        },
+        {
+          "type": "TodaPi32WhiteheadSquareUpToSignStatement",
+          "conclusion": "TodaPi32WhiteheadSquareUpToSignStatement(whitehead_square=WhiteheadProduct(left=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None)), right=HomotopyElement(name='ι_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+          "proof_rule": "ProofRule.INFERENCE"
+        },
+        {
+          "type": "TodaSuspensionKernelFreeCyclicStatement",
+          "conclusion": "TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+          "proof_rule": "ProofRule.INFERENCE"
+        },
+        {
+          "type": "Relation",
+          "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "proof_rule": "ProofRule.INFERENCE"
+        }
+      ]
+    },
+    {
+      "rule_names": [
+        "Toda EHP exactness zero-left Hopf injectivity",
+        "Toda suspension isomorphism implies injectivity",
+        "Toda EHP exactness injective-right Delta zero",
+        "Toda EHP exactness zero-Delta Hopf surjectivity",
+        "Toda Hopf invariant injective and surjective implies isomorphism",
+        "Toda pi_(i-1)^1 zero for i at least 3",
+        "Toda Proposition 4.4 eta_2 n=2 specialization",
+        "Toda Proposition 4.4 eta_2 second-summand restriction",
+        "Toda 5.2 eta_2 composition isomorphism"
+      ],
+      "step_count": 15,
+      "conclusion_types": {
+        "TodaPrimaryGroupZeroStatement": 2,
+        "Relation": 1,
+        "TodaSuspensionIsomorphismStatement": 1,
+        "TodaProp42ExactnessStatement": 3,
+        "TodaPi32Eta2DefinitionStatement": 1,
+        "ScalarGreaterEqualStatement": 1,
+        "TodaProp44DecompositionMap": 1,
+        "TodaHopfInvariantInjectiveStatement": 1,
+        "TodaSuspensionInjectiveStatement": 1,
+        "TodaDeltaZeroStatement": 1,
+        "TodaHopfInvariantSurjectiveStatement": 1,
+        "TodaHopfInvariantIsomorphismStatement": 1
+      },
+      "toda52_conclusions": [
+        "TodaProp44DecompositionMap(source_group=DirectSumGroup(summands=(TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), sphere_dimension=1), TodaPrimaryGroup(group_dimension=ScalarSymbol(name='i'), sphere_dimension=3))), target_group=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='i'), sphere_dimension=2), alpha=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), beta=HomotopyElement(name='β', dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), source=None, target=None, generator=None), gamma=HomotopyElement(name='γ', dimension=ScalarSymbol(name='i'), source=ScalarSymbol(name='i'), target=3, generator=None), formula=Sum(left=Suspension(expression=HomotopyElement(name='β', dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), source=None, target=None, generator=None)), right=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='γ', dimension=ScalarSymbol(name='i'), source=ScalarSymbol(name='i'), target=3, generator=None))))"
+      ],
+      "eta2_statements": [
+        {
+          "type": "TodaPi32Eta2DefinitionStatement",
+          "conclusion": "TodaPi32Eta2DefinitionStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), image=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+          "proof_rule": "ProofRule.GIVEN"
+        },
+        {
+          "type": "TodaProp44DecompositionMap",
+          "conclusion": "TodaProp44DecompositionMap(source_group=DirectSumGroup(summands=(TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), sphere_dimension=1), TodaPrimaryGroup(group_dimension=ScalarSymbol(name='i'), sphere_dimension=3))), target_group=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='i'), sphere_dimension=2), alpha=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), beta=HomotopyElement(name='β', dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), source=None, target=None, generator=None), gamma=HomotopyElement(name='γ', dimension=ScalarSymbol(name='i'), source=ScalarSymbol(name='i'), target=3, generator=None), formula=Sum(left=Suspension(expression=HomotopyElement(name='β', dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), source=None, target=None, generator=None)), right=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='γ', dimension=ScalarSymbol(name='i'), source=ScalarSymbol(name='i'), target=3, generator=None))))",
+          "proof_rule": "ProofRule.GIVEN"
+        }
+      ]
+    }
+  ],
+  "production_modified": false,
+  "full_pytest_run": false
+}

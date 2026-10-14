@@ -1,0 +1,62 @@
+"""R52-R15 tests: strict citation ordering is reusable and fails closed."""
+from dataclasses import replace
+
+import pytest
+
+from phase163_r4_registry_bridge import MigrationRecord, MigrationStatus, RegistryBridgeResult
+from phase165_r3_recursive_search import reconstruct_registered_goal, RegisteredGoalUnresolved
+from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
+from proof import ProofStep, ProofRule
+from unified_statement_registry import (
+    UnifiedStatementRegistry, LiteratureEntry, ReferenceKind, AssertionEntry,
+    AssertionKind, ProofStepLink,
+)
+
+
+def _fixture(*, available=1, cited_position=1, citing_position=2, dependencies=(), source_id='Toda'):
+    registry = UnifiedStatementRegistry()
+    registry.add_reference(LiteratureEntry('ref', ReferenceKind.PROPOSITION, 'Proposition sample', source_id='Toda', publication_position=cited_position))
+    registry.add_reference(LiteratureEntry('goal', ReferenceKind.PROPOSITION, 'Goal sample', source_id=source_id, publication_position=citing_position))
+    registry.add_assertion(AssertionEntry('cited', 'ref', AssertionKind.STATEMENT, 'fact', available_after_position=available, dependencies=dependencies))
+    registry.add_assertion(AssertionEntry('citing', 'goal', AssertionKind.STATEMENT, 'theorem'))
+    step = ProofStep('fact', (), ProofRule.GIVEN)
+    bridge = RegistryBridgeResult(registry, (MigrationRecord('test', 'cited', 'cited', MigrationStatus.STRUCTURED, 'fixture'),), (ProofStepLink('cited', step=step),))
+    return bridge, step
+
+
+def test_ordered_reference_requires_independent_review():
+    bridge, step = _fixture()
+    assert ordered_typed_reference_steps(bridge, 'fact', 'citing') == ()
+    assert ordered_typed_reference_steps(bridge, 'fact', 'citing', verified_assertion_ids=('cited',)) == (step,)
+
+
+def test_ordered_reference_rejects_later_and_unknown_availability():
+    for available in (2, None):
+        bridge, _ = _fixture(available=available)
+        assert ordered_typed_reference_steps(bridge, 'fact', 'citing', verified_assertion_ids=('cited',)) == ()
+
+
+def test_ordered_reference_rejects_back_reference():
+    bridge, _ = _fixture(dependencies=('citing',))
+    assert ordered_typed_reference_steps(bridge, 'fact', 'citing', verified_assertion_ids=('cited',)) == ()
+
+
+def test_ordered_reference_integrates_with_backward_search():
+    bridge, step = _fixture()
+    found = reconstruct_registered_goal('fact', bridge, 'citing', lambda goal: (), verified_assertion_ids=('cited',), lookup_mode='typed_reference_ordered')
+    assert found is step
+    with pytest.raises(RegisteredGoalUnresolved):
+        reconstruct_registered_goal('fact', bridge, 'citing', lambda goal: (), lookup_mode='typed_reference_ordered')
+
+
+def test_existing_unordered_mode_preserved():
+    bridge, step = _fixture(available=None)
+    found = reconstruct_registered_goal('fact', bridge, 'citing', lambda goal: (), lookup_mode='typed_reference')
+    assert found is step
+
+
+def test_ordered_reference_rejects_different_document_order():
+    bridge, _ = _fixture(source_id='Different document')
+    assert ordered_typed_reference_steps(
+        bridge, 'fact', 'citing', verified_assertion_ids=('cited',)
+    ) == ()

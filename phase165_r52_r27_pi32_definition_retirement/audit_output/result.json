@@ -1,0 +1,12 @@
+{
+  "phase": "165 R52-R27",
+  "status": "REMOVED",
+  "edits": {
+    "toda_rules.py": 2,
+    "toda_upstream_bootstrap.py": 4,
+    "probes/probe_phase49_capabilities.py": 4,
+    "standard_production_applicability_catalog.py": 2,
+    "toda_prop56_zero_bootstrap.py": 1
+  },
+  "full_pytest_run": false
+}

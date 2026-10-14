@@ -1,0 +1,3 @@
+# Phase 165 R52-R21 — Existing Inference Rule Inventory
+
+This package provides a read-only AST-based inventory of `InferenceRule(...)` construction sites and their statically visible callers. It compares rule factories with the shared backward search provider without assuming that an absence of a direct call means an unused rule. Run `run.ps1` from the project root after extraction. The script runs targeted tests and writes `audit_output/inventory.json`, `rules.csv`, and `review.md` next to the package. No existing implementation is patched; no complete pytest suite is run. This inventory is only the first pass: indirect calls, dynamic dispatch and historical backup sources require separate manual review.

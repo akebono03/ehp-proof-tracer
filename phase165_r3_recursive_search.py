@@ -57,6 +57,7 @@ def reconstruct_registered_goal(
     verified_assertion_ids: tuple[str, ...] = (),
     lookup_mode: str = "legacy",
     progress_observer: Callable[[str, object, ProofStep | None], None] | None = None,
+    completed_internal_proofs: tuple = (),
 ) -> ProofStep:
     """Derive a goal with optional read-only progress reporting.
 
@@ -70,7 +71,7 @@ def reconstruct_registered_goal(
         raise TypeError("expansion_provider must be callable")
     if not isinstance(verified_assertion_ids, tuple):
         raise TypeError("verified_assertion_ids must be a tuple")
-    if lookup_mode not in ("legacy", "typed_reference"):
+    if lookup_mode not in ("legacy", "typed_reference", "typed_reference_ordered"):
         raise ValueError("unknown lookup mode")
     if progress_observer is not None and not callable(progress_observer):
         raise TypeError("progress_observer must be callable or None")
@@ -91,7 +92,20 @@ def reconstruct_registered_goal(
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
-            if lookup_mode == "typed_reference":
+            if completed_internal_proofs:
+                from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
+                internal = find_reusable_internal_proof(target, goal, completed_internal_proofs)
+                if internal is not None:
+                    solved.append((target, internal))
+                    report("proved", target, internal)
+                    return internal
+            if lookup_mode == "typed_reference_ordered":
+                from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
+                options = list(ordered_typed_reference_steps(
+                    bridge, target, citing_assertion_id,
+                    verified_assertion_ids=verified_assertion_ids,
+                ))
+            elif lookup_mode == "typed_reference":
                 options = list(_typed_reference_steps(bridge, target))
             else:
                 candidates = find_eligible_goal_candidates(
@@ -99,6 +113,14 @@ def reconstruct_registered_goal(
                     verified_assertion_ids=verified_assertion_ids,
                 )
                 options = [x.proof_step for x in candidates if x.proof_step is not None]
+            # A uniquely registered fixed Reference is a complete proof leaf.
+            # Do not count a second derivation of the same statement as ambiguity.
+            # Multiple direct references remain ambiguous and are rejected below.
+            if lookup_mode in ("typed_reference", "typed_reference_ordered") and len(options) == 1:
+                step = options[0]
+                solved.append((target, step))
+                report("proved", target, step)
+                return step
             expansions = expansion_provider(target)
             if not isinstance(expansions, tuple):
                 raise TypeError("expansion provider must return a tuple")

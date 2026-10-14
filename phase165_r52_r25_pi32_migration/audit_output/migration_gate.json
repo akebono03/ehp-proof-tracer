@@ -1,0 +1,69 @@
+{
+  "phase": "165 R52-R25",
+  "mode": "READ_ONLY_LEGACY_GENERIC_SEMANTIC_GATE",
+  "legacy": {
+    "present": true,
+    "name": "toda_pi3_2_free_cyclic_generator_inference_rule",
+    "line": 39526,
+    "premise_types": [
+      "TodaHopfInvariantIsomorphismStatement",
+      "Relation",
+      "TodaPi32Eta2DefinitionStatement"
+    ],
+    "has_guard": true,
+    "has_conclusion_builder": true,
+    "type_names": [
+      "Relation",
+      "TodaHopfInvariantIsomorphismStatement",
+      "TodaPi32Eta2DefinitionStatement"
+    ]
+  },
+  "general": {
+    "present": true,
+    "name": "reverse_free_cyclic_transport_rule",
+    "line": 32,
+    "premise_types": [
+      "MapIsomorphism",
+      "Relation",
+      "GeneratorImage"
+    ],
+    "has_guard": true,
+    "has_conclusion_builder": true,
+    "type_names": [
+      "GeneratorImage",
+      "MapIsomorphism",
+      "Relation"
+    ]
+  },
+  "consumers": {
+    "bootstrap": {
+      "factory_calls": [
+        357
+      ],
+      "import_lines": [
+        66
+      ]
+    },
+    "probe": {
+      "factory_calls": [
+        296
+      ],
+      "import_lines": [
+        30
+      ]
+    }
+  },
+  "generic_pi32_test_present": true,
+  "premise_type_names_identical": false,
+  "old_factory_call_count": 2,
+  "status": "BLOCKED_OLD_CONSUMERS_REQUIRE_SEMANTIC_MIGRATION",
+  "deletion_approved": false,
+  "production_modified": false,
+  "full_pytest_run": false,
+  "next_obligations": [
+    "Compare old and generic rule conclusions and guards on typed proof steps",
+    "Migrate legacy bootstrap and probe preserving their public return contracts",
+    "Run targeted tests for old bootstrap, probe and new shared search",
+    "Only then delete legacy rule and remove imports"
+  ]
+}

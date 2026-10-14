@@ -1,0 +1,9 @@
+{
+  "phase": "165 R52-R27-R2",
+  "status": "ALREADY_INSTALLED",
+  "changed_file": "toda_upstream_bootstrap.py",
+  "changed_function": "build_toda_52_composition_isomorphism_step",
+  "old_rule_restored": false,
+  "new_given_created": false,
+  "full_pytest_run": false
+}
