@@ -1,0 +1,99 @@
+{
+  "orphan_modules": [
+    "repository_element_exploration",
+    "repository_element_facade",
+    "repository_element_lookup",
+    "repository_element_presentation",
+    "repository_element_renderer",
+    "repository_generator_applicability_execution_entry",
+    "repository_generator_applicability_execution_orchestration",
+    "repository_generator_applicability_execution_seed",
+    "repository_generator_applicability_facade",
+    "repository_generator_applicability_handoff",
+    "repository_generator_applicability_selection",
+    "repository_generator_production_application_execution_seed",
+    "repository_generator_production_application_recovery",
+    "repository_generator_qualified_execution_dispatch",
+    "repository_generator_qualified_execution_family",
+    "repository_generator_qualified_execution_family_selection",
+    "repository_generator_qualified_execution_selection",
+    "repository_generator_standard_qualified_execution_facade",
+    "repository_generator_two_premise_execution_integration",
+    "repository_generator_user_execution_facade",
+    "repository_generator_user_execution_handoff",
+    "repository_generator_user_execution_presentation",
+    "repository_generator_user_execution_proof_step",
+    "repository_generator_user_execution_renderer",
+    "repository_generator_user_execution_resolver",
+    "repository_inference",
+    "repository_operation_query",
+    "repository_proof_scope_applicability",
+    "repository_proof_scope_exploration",
+    "repository_proof_scope_facade"
+  ],
+  "remaining_legacy_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "active_legacy_imports": {
+    "standard_production_applicability_catalog": [
+      "repository_proof_scope"
+    ],
+    "toda_calculation": [
+      "repository_foundational_group_specialization",
+      "repository_proof_scope",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization"
+    ]
+  },
+  "critical_migration_pending": {
+    "toda_calculation": [
+      "repository_foundational_group_specialization",
+      "repository_proof_scope",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization"
+    ],
+    "standard_production_applicability_catalog": [
+      "repository_proof_scope"
+    ]
+  },
+  "phase": "165 R27-R47",
+  "status": "CHANGED",
+  "removed_legacy_modules": [
+    "repository_element_exploration",
+    "repository_element_facade",
+    "repository_element_lookup",
+    "repository_element_presentation",
+    "repository_element_renderer",
+    "repository_generator_applicability_execution_entry",
+    "repository_generator_applicability_execution_orchestration",
+    "repository_generator_applicability_execution_seed",
+    "repository_generator_applicability_facade",
+    "repository_generator_applicability_handoff",
+    "repository_generator_applicability_selection",
+    "repository_generator_production_application_execution_seed",
+    "repository_generator_production_application_recovery",
+    "repository_generator_qualified_execution_dispatch",
+    "repository_generator_qualified_execution_family",
+    "repository_generator_qualified_execution_family_selection",
+    "repository_generator_qualified_execution_selection",
+    "repository_generator_standard_qualified_execution_facade",
+    "repository_generator_two_premise_execution_integration",
+    "repository_generator_user_execution_facade",
+    "repository_generator_user_execution_handoff",
+    "repository_generator_user_execution_presentation",
+    "repository_generator_user_execution_proof_step",
+    "repository_generator_user_execution_renderer",
+    "repository_generator_user_execution_resolver",
+    "repository_inference",
+    "repository_operation_query",
+    "repository_proof_scope_applicability",
+    "repository_proof_scope_exploration",
+    "repository_proof_scope_facade"
+  ],
+  "legacy_catalog_unchanged": true,
+  "legacy_group_calculation_unchanged": true,
+  "full_pytest_run": false
+}
