@@ -34,3 +34,16 @@ def build_standard_toda_report(
     "use search_group_structure_automatically(n=n, k=k) "
     "and inspect COMPLETE, PARTIAL, or SEARCH_FAILED."
   )
+
+def build_toda_partial_result(query: TodaGroupQuery):
+    """Search a group using the registry-backed prover, never legacy calculation."""
+    if not isinstance(query, TodaGroupQuery):
+        raise TypeError("query must be a TodaGroupQuery")
+    from phase165_r52_r5_auto_search import search_group_structure_automatically
+    return search_group_structure_automatically(n=query.n, k=query.k)
+
+
+def build_standard_toda_partial_result(n: int, k: int):
+    """Canonical partial-proof entry for public group-calculation callers."""
+    return build_toda_partial_result(TodaGroupQuery(n=n, k=k))
+

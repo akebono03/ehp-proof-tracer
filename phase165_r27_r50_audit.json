@@ -1,0 +1,20 @@
+{
+  "phase": "165 R27-R50",
+  "status": "CHANGED",
+  "modified_files": [
+    "toda_calculation_facade.py"
+  ],
+  "new_api": [
+    "build_toda_partial_result",
+    "build_standard_toda_partial_result"
+  ],
+  "canonical_search": "search_group_structure_automatically",
+  "legacy_group_calculation_preserved": true,
+  "remaining_legacy_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "full_pytest_run": false
+}
