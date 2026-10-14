@@ -2447,43 +2447,6 @@ def render_toda_group_proof_generic_narrative_markdown(
   )
 
 
-def render_toda_group_proof_generic_proof_markdown(
-  presentation: TodaGroupProofPresentation,
-  blocks: tuple[
-    TodaGroupProofNarrativeBlock,
-    ...,
-  ],
-) -> str:
-  _validate_generic_narrative_blocks(
-    presentation,
-    blocks,
-  )
-
-  lines = [
-    "# Generic group proof",
-    "",
-  ]
-
-  for block_index in (
-    _generic_narrative_proof_order_indices(
-      presentation,
-      blocks,
-    )
-  ):
-    lines.extend(
-      _render_generic_narrative_proof_block(
-        presentation,
-        blocks,
-        block_index,
-      )
-    )
-
-  return (
-    "\n".join(
-      lines
-    ).rstrip()
-    + "\n"
-  )
 
 
 def render_toda_partial_proof_narrative_markdown(result) -> str:
