@@ -403,9 +403,9 @@ def _build_prop51_step() -> ProofStep:
   )
 
   eta2_hopf_step = _find_unique_step(
-    phase49[
-      "result"
-    ].steps,
+    phase50[
+      "premise_steps"
+    ],
     lambda step: (
       isinstance(
         step.conclusion,
