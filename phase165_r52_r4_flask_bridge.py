@@ -24,7 +24,8 @@ def build_group_proof_progress_view(
 ):
     """Display an actual search result, or the observed state of an explicit goal."""
     if goal is None and bridge is None and citing_assertion_id is None and expansion_provider is None:
-        result = search_group_structure_automatically(n=n, k=k)
+        from phase165_r55_nk_only_goal import search_group_from_registered_goal
+        result = search_group_from_registered_goal(n=n, k=k)
     else:
         result = search_registered_partial_proof(
             n=n,
