@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
 from toda_conclusion_latex_renderer import render_repository_conclusion_latex
-from repository_generator_applicability_presentation import ApplicabilityRuleFamilyPresentation, ApplicabilitySourceGroupPresentation
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -354,127 +353,12 @@ class WebGeneratorApplicabilityView:
       )
 
 
-def _build_rule_family_view(
-  rule_family: ApplicabilityRuleFamilyPresentation,
-) -> WebGeneratorApplicabilityRuleFamilyView:
-  if not isinstance(
-    rule_family,
-    ApplicabilityRuleFamilyPresentation,
-  ):
-    raise TypeError(
-      "rule_family must be an "
-      "ApplicabilityRuleFamilyPresentation"
-    )
-
-  return WebGeneratorApplicabilityRuleFamilyView(
-    name=rule_family.name,
-    catalog_entry_count=len(
-      rule_family.rule_groups
-    ),
-    raw_candidate_count=(
-      rule_family.raw_candidate_count
-    ),
-  )
 
 
-def _render_source_statement(
-  source_group: ApplicabilitySourceGroupPresentation,
-) -> tuple[
-  str | None,
-  str | None,
-]:
-  statement = (
-    source_group.source_statement
-  )
-
-  try:
-    return (
-      render_repository_conclusion_latex(
-        statement
-      ),
-      None,
-    )
-  except (
-    TypeError,
-    ValueError,
-  ):
-    return (
-      None,
-      type(
-        statement
-      ).__name__,
-    )
 
 
-def _build_source_view(
-  source_group: ApplicabilitySourceGroupPresentation,
-) -> WebGeneratorApplicabilitySourceView:
-  if not isinstance(
-    source_group,
-    ApplicabilitySourceGroupPresentation,
-  ):
-    raise TypeError(
-      "source_group must be an "
-      "ApplicabilitySourceGroupPresentation"
-    )
-
-  statement_latex, fallback_type_name = (
-    _render_source_statement(
-      source_group
-    )
-  )
-
-  rule_families = tuple(
-    _build_rule_family_view(
-      rule_family
-    )
-    for rule_family in (
-      source_group.rule_families
-    )
-  )
-
-  return WebGeneratorApplicabilitySourceView(
-    statement_latex=statement_latex,
-    fallback_type_name=fallback_type_name,
-    root_key=(
-      source_group
-      .scope_node
-      .root_entry
-      .key
-    ),
-    depth=(
-      source_group
-      .scope_node
-      .shortest_depth
-    ),
-    source_statement_type=type(
-      source_group.source_statement
-    ).__name__,
-    raw_candidate_count=len(
-      source_group.candidates
-    ),
-    rule_family_count=len(
-      rule_families
-    ),
-    rule_families=rule_families,
-  )
 
 
-def _build_source_views(
-  source_groups: tuple[
-    ApplicabilitySourceGroupPresentation,
-    ...,
-  ],
-) -> tuple[
-  WebGeneratorApplicabilitySourceView,
-  ...,
-]:
-  return tuple(
-    _build_source_view(
-      source_group
-    )
-    for source_group in source_groups
-  )
 
 
 def build_standard_web_generator_applicability_view(generator_input: str) -> WebGeneratorApplicabilityView:

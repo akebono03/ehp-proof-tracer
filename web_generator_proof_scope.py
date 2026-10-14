@@ -1,10 +1,6 @@
 from dataclasses import dataclass
 
 from toda_conclusion_latex_renderer import render_repository_conclusion_latex
-from repository_proof_scope_exploration import (
-  RepositoryProofScopeMapRelationOccurrence,
-  RepositoryProofScopeTodaMembershipOccurrence,
-)
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -292,99 +288,10 @@ class WebGeneratorProofScopeView:
       )
 
 
-def _toda_membership_match_labels(
-  membership: RepositoryProofScopeTodaMembershipOccurrence,
-) -> tuple[
-  str,
-  ...,
-]:
-  if not isinstance(
-    membership,
-    RepositoryProofScopeTodaMembershipOccurrence,
-  ):
-    raise TypeError(
-      "membership must be a "
-      "RepositoryProofScopeTodaMembershipOccurrence"
-    )
-
-  labels = []
-
-  if membership.is_membership_element:
-    labels.append(
-      "membership element"
-    )
-
-  labels.extend(
-    "Toda bracket " + position
-    for position in membership.bracket_positions
-  )
-
-  return tuple(
-    labels
-  )
 
 
-def _build_toda_membership_view(
-  membership: RepositoryProofScopeTodaMembershipOccurrence,
-) -> WebGeneratorProofScopeTodaMembershipView:
-  if not isinstance(
-    membership,
-    RepositoryProofScopeTodaMembershipOccurrence,
-  ):
-    raise TypeError(
-      "membership must be a "
-      "RepositoryProofScopeTodaMembershipOccurrence"
-    )
-
-  node = (
-    membership
-    .source_occurrence
-    .scope_node
-  )
-
-  return WebGeneratorProofScopeTodaMembershipView(
-    statement_latex=(
-      render_repository_conclusion_latex(
-        membership.statement
-      )
-    ),
-    root_key=node.root_entry.key,
-    depth=node.shortest_depth,
-    match_labels=(
-      _toda_membership_match_labels(
-        membership
-      )
-    ),
-  )
 
 
-def _build_map_relation_view(
-  map_relation: RepositoryProofScopeMapRelationOccurrence,
-) -> WebGeneratorProofScopeMapRelationView:
-  if not isinstance(
-    map_relation,
-    RepositoryProofScopeMapRelationOccurrence,
-  ):
-    raise TypeError(
-      "map_relation must be a "
-      "RepositoryProofScopeMapRelationOccurrence"
-    )
-
-  node = (
-    map_relation
-    .source_occurrence
-    .scope_node
-  )
-
-  return WebGeneratorProofScopeMapRelationView(
-    statement_latex=(
-      render_repository_conclusion_latex(
-        map_relation.relation
-      )
-    ),
-    root_key=node.root_entry.key,
-    depth=node.shortest_depth,
-  )
 
 
 def build_standard_web_generator_proof_scope_view(generator_input: str) -> WebGeneratorProofScopeView:

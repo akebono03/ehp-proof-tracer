@@ -377,40 +377,6 @@ class WebGeneratorExecutionView:
       )
 
 
-def _render_execution_statement(
-  statement,
-) -> tuple[
-  str | None,
-  str | None,
-]:
-  try:
-    latex = (
-      render_repository_conclusion_latex(
-        statement
-      )
-    )
-  except (
-    TypeError,
-    ValueError,
-  ):
-    latex = (
-      render_toda_proof_statement_latex(
-        statement
-      )
-    )
-
-  if latex is None:
-    return (
-      None,
-      type(
-        statement
-      ).__name__,
-    )
-
-  return (
-    latex,
-    None,
-  )
 
 
 def build_standard_web_generator_execution_view(generator_input: str, candidate_number: int | None = None) -> WebGeneratorExecutionView:

@@ -1,12 +1,5 @@
 from dataclasses import dataclass
 
-from repository_element_presentation import (
-  RepositoryGeneratorExplorationPresentation,
-  RepositoryGeneratorOccurrencePresentation,
-)
-from repository_element_renderer import (
-  render_generator_occurrence_role_label,
-)
 from toda_human_readable_renderer import (
   _render_generator_symbol_latex,
 )
@@ -198,104 +191,10 @@ class WebGeneratorExplorationView:
           )
 
 
-def _build_web_occurrence_view(
-  presentation: RepositoryGeneratorOccurrencePresentation,
-) -> WebGeneratorExplorationOccurrenceView:
-  if not isinstance(
-    presentation,
-    RepositoryGeneratorOccurrencePresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "RepositoryGeneratorOccurrencePresentation"
-    )
-
-  source_occurrence = (
-    presentation.source_occurrence
-  )
-  entry = source_occurrence.entry
-
-  role_labels = tuple(
-    render_generator_occurrence_role_label(
-      role
-    )
-    for role in source_occurrence.roles
-  )
-
-  phase = (
-    entry.phase
-    if entry.phase is not None
-    else "unknown"
-  )
-  theorem = (
-    entry.theorem
-    if entry.theorem is not None
-    else "unknown"
-  )
-
-  return WebGeneratorExplorationOccurrenceView(
-    conclusion_latex=(
-      presentation.conclusion_latex
-    ),
-    role_labels=role_labels,
-    phase=phase,
-    theorem=theorem,
-  )
 
 
-def _build_web_occurrence_views(
-  presentations: tuple[
-    RepositoryGeneratorOccurrencePresentation,
-    ...,
-  ],
-) -> tuple[
-  WebGeneratorExplorationOccurrenceView,
-  ...,
-]:
-  return tuple(
-    _build_web_occurrence_view(
-      presentation
-    )
-    for presentation in presentations
-  )
 
 
-def _other_occurrence_presentations(
-  presentation: RepositoryGeneratorExplorationPresentation,
-) -> tuple[
-  RepositoryGeneratorOccurrencePresentation,
-  ...,
-]:
-  if not isinstance(
-    presentation,
-    RepositoryGeneratorExplorationPresentation,
-  ):
-    raise TypeError(
-      "presentation must be a "
-      "RepositoryGeneratorExplorationPresentation"
-    )
-
-  grouped_ids = {
-    id(
-      occurrence
-    )
-    for group in (
-      presentation.toda_bracket_occurrences,
-      presentation.map_input_occurrences,
-      presentation.group_generator_occurrences,
-      presentation.composition_left_occurrences,
-      presentation.composition_right_occurrences,
-    )
-    for occurrence in group
-  }
-
-  return tuple(
-    occurrence
-    for occurrence in presentation.occurrences
-    if id(
-      occurrence
-    ) not in grouped_ids
-  )
 
 
 def build_standard_web_generator_exploration_view(
