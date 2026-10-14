@@ -69,7 +69,11 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             ):
                 raise ValueError("source link is not a typed fixed Reference")
             links.append(replace(link, assertion_id=prefix + link.assertion_id))
-        records.extend(source.records)
+        records.extend(
+            replace(record, assertion_id=prefix + record.assertion_id)
+            if record.assertion_id is not None else record
+            for record in source.records
+        )
     from phase165_r52_r12_component_bridge import expand_cited_given_components
     return expand_cited_given_components(
         RegistryBridgeResult(registry, tuple(records), tuple(links))
@@ -123,39 +127,32 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 
 def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               bridge: RegistryBridgeResult | None = None,
-                              expansion_provider=None):
-    """Derive group structure without citing the exact conclusion being proved.
+                              expansion_provider=None,
+                              citing_assertion_id: str | None = None,
+                              verified_assertion_ids: tuple[str, ...] = ()):
+    """Run canonical search under a screened Reference context.
 
-    Fixed references remain registered. Only the *proof-context* link for an
-    assertion identical to the root goal is hidden; other group queries can
-    continue to cite the same statement. The expansion provider is built from
-    this filtered proof context, so the excluded root cannot re-enter as a
-    direct or provider-discovered source leaf.
+    Older calls retain their signature. R15 ordering is applied to sources
+    outside the explicitly adopted-Tex policy; no IDs are auto-verified.
     """
+    from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+
     if bridge is None:
         bridge = build_shared_typed_bridge()
     goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
     assertions = tuple(bridge.registry._assertions.values())
     if not assertions:
         raise ValueError("shared typed registry is empty")
-    excluded_ids = {
-        assertion.assertion_id
-        for assertion in assertions
-        if assertion.origin is AssertionOrigin.FIXED_STATEMENT
-        and type(assertion.content) is type(goal)
-        and assertion.content == goal
-    }
-    proof_context = RegistryBridgeResult(
-        bridge.registry,
-        bridge.records,
-        tuple(link for link in bridge.proof_links
-              if link.assertion_id not in excluded_ids),
+    context_id = citing_assertion_id or assertions[0].assertion_id
+    proof_context = screen_shared_proof_context(
+        bridge, goal=goal, citing_assertion_id=context_id,
+        verified_assertion_ids=verified_assertion_ids,
     )
     if expansion_provider is None:
         expansion_provider = shared_expansion_provider(proof_context)
     return search_registered_partial_proof(
         n=n, k=k, goal=goal, bridge=proof_context,
-        citing_assertion_id=assertions[0].assertion_id,
+        citing_assertion_id=context_id,
         expansion_provider=expansion_provider,
         lookup_mode="typed_reference",
         structure_status=GroupStructureStatus.UNKNOWN,
