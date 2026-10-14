@@ -1,0 +1,15 @@
+{
+  "phase": "165 R27-R49-R1",
+  "status": "ALREADY_INSTALLED",
+  "modified_files": [],
+  "canonical_group_search_uses_legacy_calculation_seed": false,
+  "default_source": "unified_registry_and_backward_search",
+  "legacy_toda_calculation_api_unchanged": true,
+  "remaining_legacy_modules": [
+    "repository_foundational_group_specialization",
+    "repository_proof_scope",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "full_pytest_run": false
+}
