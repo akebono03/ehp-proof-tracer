@@ -1,0 +1,11 @@
+{
+  "phase": "165 R27-R53-R2",
+  "status": "CHANGED",
+  "modified_files": [
+    "toda_calculation_facade.py"
+  ],
+  "legacy_function_bodies_preserved": true,
+  "eager_repository_imports_removed": true,
+  "remaining_legacy_repository_modules": 4,
+  "full_pytest_run": false
+}

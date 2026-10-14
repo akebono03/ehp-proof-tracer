@@ -1,10 +1,4 @@
-from proof_repository import ProofRepository
-from toda_calculation_report import (
-  build_toda_calculation_report_result,
-)
-from toda_calculation_report_result import (
-  TodaCalculationReportResult,
-)
+from __future__ import annotations
 from toda_group_query import TodaGroupQuery
 
 
@@ -13,6 +7,7 @@ def build_toda_report(
   n: int,
   k: int,
 ) -> TodaCalculationReportResult:
+  from toda_calculation_report import build_toda_calculation_report_result
   query = TodaGroupQuery(
     n=n,
     k=k,
@@ -48,3 +43,9 @@ def build_standard_toda_partial_result(n: int, k: int):
     return run_typed_search(n, k)
 
 
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from proof_repository import ProofRepository
+    from toda_calculation_report_result import TodaCalculationReportResult
