@@ -1,0 +1,13 @@
+{
+  "helper": "_phase159_render_pi_n_plus_1_n_stable_transport_narrative",
+  "references": {
+    "production": [],
+    "test": [],
+    "backup": [
+      "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "toda_group_proof_narrative_renderer.phase165_r48_backup.py"
+    ]
+  },
+  "deleted": false
+}
