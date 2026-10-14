@@ -941,18 +941,49 @@ def _run_group_proof_command(
 
 
 def _run_execute_command(
-
   generator_input: str,
-
   candidate_number: int | None = None,
-
 ) -> int:
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_typed_execution import TypedExecutionOutcome, execute_typed_applicable_rules
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
 
-  print(
-    "This legacy generator command is disabled; "
-    "use the unified proof search when available."
-  )
-  return 1
+  try:
+    if not isinstance(generator_input, str) or not generator_input.strip():
+      raise ValueError("generator is required")
+    search = search_typed_generator_statements(generator_input.strip())
+    result = execute_typed_applicable_rules(
+      search.proven_steps, candidate_number=candidate_number,
+    )
+  except (TypeError, ValueError) as error:
+    parser = build_execute_argument_parser()
+    parser.error(str(error))
+
+  if result.status is TypedExecutionOutcome.NONE:
+    print(f"No typed inference candidate found for {generator_input}.")
+    for diagnostic in search.diagnostics:
+      print(diagnostic)
+    return 1
+
+  if result.status is TypedExecutionOutcome.AMBIGUOUS:
+    print(f"Multiple typed inference candidates for {generator_input}:")
+    for index, match in enumerate(result.matches, start=1):
+      print(f"  {index}. {match.inference_rule.name}")
+    print("Specify --candidate N to execute one candidate.")
+    return 0
+
+  if result.status is not TypedExecutionOutcome.EXECUTED:
+    raise RuntimeError("unsupported typed execution status")
+  step = result.proof_step
+  if step is None or step.inference_rule is None:
+    raise RuntimeError("executed inference must supply a proof step")
+  print(f"Inference rule: {step.inference_rule.name}")
+  for index, premise in enumerate(step.premises, start=1):
+    rendered = render_toda_proof_statement_latex(premise.conclusion)
+    print(f"Premise {index}: {rendered if rendered is not None else repr(premise.conclusion)}")
+  conclusion = render_toda_proof_statement_latex(step.conclusion)
+  print(f"Conclusion: {conclusion if conclusion is not None else repr(step.conclusion)}")
+  return 0
 
 
 
