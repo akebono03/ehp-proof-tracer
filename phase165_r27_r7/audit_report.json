@@ -1,0 +1,131 @@
+{
+  "phase": "165 R27-R7",
+  "mode": "READ_ONLY_LEGACY_DEPENDENCY_AUDIT",
+  "production_files_modified": false,
+  "full_pytest_run": false,
+  "scanned_files": 10,
+  "references": [
+    {
+      "path": "web_app.py",
+      "references": [
+        {
+          "symbol": "build_standard_web_group_query_view",
+          "line": 34,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_standard_web_group_query_view",
+          "line": 320,
+          "kind": "call"
+        }
+      ]
+    },
+    {
+      "path": "web_group_query.py",
+      "references": [
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 3,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 134,
+          "kind": "call"
+        }
+      ]
+    },
+    {
+      "path": "web_group_proof.py",
+      "references": [
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 6,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_toda_group_result_proof_replay",
+          "line": 26,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 714,
+          "kind": "call"
+        }
+      ]
+    },
+    {
+      "path": "toda_calculation_facade.py",
+      "references": [
+        {
+          "symbol": "build_standard_production_proof_repository",
+          "line": 5,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_standard_production_proof_repository",
+          "line": 38,
+          "kind": "call"
+        }
+      ]
+    },
+    {
+      "path": "main.py",
+      "references": [
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 68,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_toda_group_result_proof_replay",
+          "line": 80,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 658,
+          "kind": "call"
+        },
+        {
+          "symbol": "build_toda_group_result_proof_replay",
+          "line": 693,
+          "kind": "call"
+        },
+        {
+          "symbol": "build_toda_group_result_proof_replay",
+          "line": 699,
+          "kind": "call"
+        },
+        {
+          "symbol": "build_standard_toda_report",
+          "line": 1226,
+          "kind": "call"
+        }
+      ]
+    },
+    {
+      "path": "standard_production_repository.py",
+      "references": [
+        {
+          "symbol": "build_standard_proof_repository",
+          "line": 4,
+          "kind": "import"
+        },
+        {
+          "symbol": "build_standard_proof_repository",
+          "line": 24,
+          "kind": "call"
+        }
+      ]
+    }
+  ],
+  "legacy_report_called_by_auto_search": false,
+  "protected_files_excluded": [
+    "unified_statement_registry.py",
+    "phase163_r4_registry_bridge.py",
+    "phase165_r52_r2_search_adapter.py"
+  ],
+  "next_action": "Replace legacy Group query and CLI callers without promoting unproved results to FOUND; then remove orphaned legacy proof builders."
+}
