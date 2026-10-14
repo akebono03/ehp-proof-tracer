@@ -1,7 +1,5 @@
+from __future__ import annotations
 from proof_repository import ProofRepository
-from toda_calculation import (
-  build_toda_calculation_result,
-)
 from toda_calculation_report_result import (
   TodaCalculationReportCandidate,
   TodaCalculationReportResult,
@@ -22,6 +20,7 @@ def build_toda_found_calculation_report_result(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ) -> TodaCalculationReportResult:
+  from toda_calculation import build_toda_calculation_result
   calculation_result = (
     build_toda_calculation_result(
       repository,
@@ -77,6 +76,7 @@ def build_toda_calculation_report_result(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ) -> TodaCalculationReportResult:
+  from toda_calculation import build_toda_calculation_result
   calculation_result = (
     build_toda_calculation_result(
       repository,

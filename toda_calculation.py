@@ -1,3 +1,4 @@
+from __future__ import annotations
 from expression import (
   Composition,
   GeneratorSymbol,
@@ -12,18 +13,6 @@ from proof import (
 from proof_repository import (
   ProofRepository,
   ProofRepositoryEntry,
-)
-from repository_foundational_group_specialization import (
-  find_foundational_toda_group_results,
-)
-from repository_proof_scope import (
-  build_repository_proof_scope,
-)
-from repository_symbolic_sigma_specialization import (
-  specialize_repository_proof_scope_for_generator,
-)
-from repository_symbolic_stable_group_specialization import (
-  specialize_repository_proof_scope_for_toda_group_query,
 )
 from toda_calculation_goal_discovery import (
   discover_concrete_toda_calculation_goal_candidates,
@@ -296,6 +285,7 @@ def _find_low_dimensional_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ):
+  from repository_proof_scope import build_repository_proof_scope
   source_metadata = (
     _LOW_DIMENSIONAL_TODA_GROUP_SOURCES.get(
       (
@@ -366,6 +356,7 @@ def _find_prop59_concrete_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ):
+  from repository_proof_scope import build_repository_proof_scope
   if query.k != 5:
     return ()
 
@@ -562,6 +553,7 @@ def _find_existing_concrete_proof_scope_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ):
+  from repository_proof_scope import build_repository_proof_scope
   if (
     query.k
     not in _STABLE_TODA_GROUP_SOURCES
@@ -656,6 +648,8 @@ def _find_specialized_stable_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ):
+  from repository_proof_scope import build_repository_proof_scope
+  from repository_symbolic_stable_group_specialization import specialize_repository_proof_scope_for_toda_group_query
   source_metadata = (
     _STABLE_TODA_GROUP_SOURCES.get(
       query.k
@@ -729,6 +723,7 @@ def _find_concrete_sigma9_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ):
+  from repository_proof_scope import build_repository_proof_scope
   if (
     query.n,
     query.k,
@@ -811,6 +806,8 @@ def _find_specialized_sigma_toda_group_results(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ):
+  from repository_proof_scope import build_repository_proof_scope
+  from repository_symbolic_sigma_specialization import specialize_repository_proof_scope_for_generator
   if query.k != 7:
     return ()
 
@@ -878,6 +875,7 @@ def build_known_toda_calculation_result(
   repository: ProofRepository,
   query: TodaGroupQuery,
 ) -> TodaCalculationResult:
+  from repository_foundational_group_specialization import find_foundational_toda_group_results
   group_results = (
     find_foundational_toda_group_results(
       repository,
