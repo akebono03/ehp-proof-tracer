@@ -13,12 +13,6 @@ from generator_input import (
   resolve_generator_input,
 )
 from proof_repository import ProofRepository
-from toda_calculation_facade import (
-  build_toda_report,
-)
-from toda_calculation_result import (
-  TodaCalculationStatus,
-)
 
 
 def build_cli_parser() -> argparse.ArgumentParser:
@@ -78,59 +72,23 @@ def _write_markdown(
 
 
 def _run_group_command(
-  repository: ProofRepository,
-  n: int,
-  k: int,
-  stdout: TextIO,
-  stderr: TextIO,
+    repository: ProofRepository,
+    n: int,
+    k: int,
+    stdout: TextIO,
+    stderr: TextIO,
 ) -> int:
-  try:
-    result = build_toda_report(
-      repository,
-      n=n,
-      k=k,
-    )
-  except (
-    TypeError,
-    ValueError,
-  ) as error:
-    print(
-      f"error: {error}",
-      file=stderr,
-    )
-    return 2
+    from toda_typed_group_facade import build_standard_toda_partial_result
+    from phase165_r52_partial_proof import render_partial_proof_markdown
 
-  if (
-    result.status
-    is TodaCalculationStatus.NOT_FOUND
-  ):
-    print(
-      (
-        "No theorem-backed result found for "
-        f"pi_{n + k}^{n}."
-      ),
-      file=stdout,
-    )
+    try:
+        result = build_standard_toda_partial_result(n=n, k=k)
+    except (TypeError, ValueError) as error:
+        print(f"error: {error}", file=stderr)
+        return 2
+
+    _write_markdown(stdout, render_partial_proof_markdown(result))
     return 0
-
-  reports = (
-    result.reports
-  )
-
-  for index, report in enumerate(
-    reports
-  ):
-    if index:
-      stdout.write(
-        "\n---\n\n"
-      )
-
-    _write_markdown(
-      stdout,
-      report,
-    )
-
-  return 0
 
 
 def _run_element_command(
