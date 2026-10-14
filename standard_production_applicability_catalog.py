@@ -30,9 +30,6 @@ from rule_catalog import (
   InferenceRuleCatalogEntry,
   RuleRelevanceCategory,
 )
-from standard_production_repository import (
-  build_standard_production_proof_repository,
-)
 from toda_rules import (
   Toda53NuPrimeBracketSpecializationStatement,
 )
@@ -746,63 +743,10 @@ def _representative_relevance_category(
 
 def build_standard_production_applicability_catalog(
 ) -> InferenceRuleCatalog:
-  repository = (
-    build_standard_production_proof_repository()
+  raise RuntimeError(
+    "Legacy production applicability catalog is retired in Phase 165 R27-R26; "
+    "use the unified statement registry and common typed Backward Search."
   )
-
-  scope = build_repository_proof_scope(
-    repository
-  )
-
-  catalog = InferenceRuleCatalog()
-  seen_rule_ids = set()
-  entry_index = 0
-
-  for node in scope.nodes:
-    inference_rule = (
-      node.proof_step.inference_rule
-    )
-
-    if inference_rule is None:
-      continue
-
-    rule_id = id(
-      inference_rule
-    )
-
-    if rule_id in seen_rule_ids:
-      continue
-
-    seen_rule_ids.add(
-      rule_id
-    )
-
-    conclusion_type = type(
-      node.proof_step.conclusion
-    )
-
-    catalog.register(
-      InferenceRuleCatalogEntry(
-        key=(
-          "standard.production."
-          "applicability."
-          f"{entry_index:04d}"
-        ),
-        rule=inference_rule,
-        conclusion_type=conclusion_type,
-        fixed_point_safe=False,
-        relevance_category=(
-          _representative_relevance_category(
-            inference_rule,
-            conclusion_type,
-          )
-        ),
-      )
-    )
-
-    entry_index += 1
-
-  return catalog
 # Phase 103-6D15 generic EHP-exactness structural classifier
 from dataclasses import replace as _phase103_6d15_replace
 
@@ -3482,9 +3426,9 @@ _phase103_6d108_original_builder = (
 )
 
 
-def build_standard_production_applicability_catalog():
-  return (
-    _phase103_6d108_apply_grouped_relevance_classification(
-      _phase103_6d108_original_builder()
-    )
+def build_standard_production_applicability_catalog(
+) -> InferenceRuleCatalog:
+  raise RuntimeError(
+    "Legacy production applicability catalog is retired in Phase 165 R27-R26; "
+    "use the unified statement registry and common typed Backward Search."
   )
