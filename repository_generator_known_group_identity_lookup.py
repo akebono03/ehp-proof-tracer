@@ -19,9 +19,6 @@ from proof import (
 from proof_repository import (
   ProofRepository,
 )
-from phase164_r7_r3_generator_registry import (
-  validate_generator_repository_registry_links,
-)
 from repository_proof_scope import (
   RepositoryProofScopeNode,
   RepositoryProofScopeResult,
@@ -30,9 +27,6 @@ from repository_proof_scope import (
 from repository_symbolic_sigma_specialization import (
   is_toda_prop515_generic_sigma_specialization_generator,
   specialize_repository_proof_scope_for_generator,
-)
-from standard_production_repository import (
-  build_standard_production_proof_repository,
 )
 from structural_containment import (
   contains_generator_symbol,
@@ -329,32 +323,10 @@ def find_repository_generator_known_group_identity_nodes(
 
 def find_standard_repository_generator_known_group_identity_nodes(
   generator: GeneratorSymbol,
-) -> tuple[
-  RepositoryProofScopeNode,
-  ...,
-]:
-  if not isinstance(
-    generator,
-    GeneratorSymbol,
-  ):
-    raise TypeError(
-      "generator must be a GeneratorSymbol"
-    )
-
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  validate_generator_repository_registry_links(
-    repository
-  )
-
-  return (
-    find_repository_generator_known_group_identity_nodes(
-      repository,
-      generator,
-    )
-  )
+) -> tuple[RepositoryProofScopeNode, ...]:
+  if not isinstance(generator, GeneratorSymbol):
+    raise TypeError("generator must be a GeneratorSymbol")
+  raise RuntimeError('Legacy standard generator known-group identity lookup is retired in Phase 165 R27-R25; use the common typed proof search.')
 
 
 def find_standard_repository_generator_known_group_identity_input(

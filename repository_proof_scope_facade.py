@@ -23,9 +23,6 @@ from repository_proof_scope_exploration import (
 from repository_symbolic_sigma_specialization import (
   specialize_repository_proof_scope_for_generator,
 )
-from standard_production_repository import (
-  build_standard_production_proof_repository,
-)
 
 
 @dataclass(frozen=True)
@@ -242,15 +239,5 @@ def explore_repository_generator_proof_scope(
 def explore_standard_repository_generator_proof_scope_input(
   generator_input: str,
 ) -> RepositoryProofScopeExplorationResult:
-  generator = resolve_generator_input(
-    generator_input
-  )
-
-  repository = (
-    build_standard_production_proof_repository()
-  )
-
-  return explore_repository_generator_proof_scope(
-    repository,
-    generator,
-  )
+  resolve_generator_input(generator_input)
+  raise RuntimeError('Legacy standard proof-scope exploration is retired in Phase 165 R27-R25; use the common typed proof search.')
