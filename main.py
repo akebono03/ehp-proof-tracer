@@ -15,41 +15,11 @@ import sys
 
 
 
-from repository_operation_query_facade import (
 
-  query_standard_repository_operation_input,
 
-)
 
-from repository_operation_query_presentation import (
 
-  build_repository_operation_query_presentation,
 
-)
-
-from repository_operation_query_renderer import (
-
-  render_repository_operation_query_markdown,
-
-)
-
-from repository_operation_query_proof_replay import (
-
-  build_repository_operation_query_proof_replay,
-
-)
-
-from repository_operation_query_proof_replay_presentation import (
-
-  build_repository_operation_query_proof_replay_presentation,
-
-)
-
-from repository_operation_query_proof_replay_renderer import (
-
-  render_repository_operation_query_proof_replay_markdown,
-
-)
 
 
 
@@ -977,332 +947,60 @@ def _run_execute_command(
 
 
 
-def _run_query_command(
-
-  query_input: str,
-
-) -> int:
-
+def _run_query_command(query_input: str) -> int:
+  from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
   try:
-
-    result = (
-
-      query_standard_repository_operation_input(
-
-        query_input
-
-      )
-
-    )
-
-  except (
-
-    TypeError,
-
-    ValueError,
-
-  ) as error:
-
-    parser = (
-
-      build_query_argument_parser()
-
-    )
-
-    parser.error(
-
-      str(
-
-        error
-
-      )
-
-    )
-
-
-
-  if not result.found:
-
-    print(
-
-      "No known repository fact found for "
-
-      f"{query_input}."
-
-    )
-
-    return 1
-
-
-
-  presentation = (
-
-    build_repository_operation_query_presentation(
-
-      result
-
-    )
-
-  )
-
-
-
-  if not presentation.items:
-
-    print(
-
-      "No directly renderable repository fact found for "
-
-      f"{query_input}."
-
-    )
-
-    return 1
-
-
-
-  markdown = (
-
-    render_repository_operation_query_markdown(
-
-      presentation
-
-    )
-
-  )
-
-
-
-  print(
-
-    markdown,
-
-    end="",
-
-  )
-
-
-
-  return 0
+    result = search_typed_operation_statements(query_input)
+  except (TypeError, ValueError) as error:
+    build_query_argument_parser().error(str(error))
+  print(f"Search status: {result.status.value}")
+  for step in result.proven_steps:
+    print(render_toda_proof_statement_latex(step.conclusion))
+  for message in result.diagnostics:
+    print(message)
+  if result.open_goals:
+    print(f"Unresolved goals: {len(result.open_goals)}")
+  return 0 if result.proven_steps else 1
 
 
 
 
 
 def _run_query_proof_command(
-
   query_input: str,
-
   fact_number: int | None = None,
-
   max_depth: int | None = None,
-
 ) -> int:
-
+  from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  if fact_number is not None and (type(fact_number) is not int or fact_number < 1):
+    build_query_proof_argument_parser().error("fact_number must be positive")
+  if max_depth is not None and (type(max_depth) is not int or max_depth < 0):
+    build_query_proof_argument_parser().error("max_depth must be nonnegative")
   try:
-
-    result = (
-
-      query_standard_repository_operation_input(
-
-        query_input
-
-      )
-
-    )
-
-  except (
-
-    TypeError,
-
-    ValueError,
-
-  ) as error:
-
-    parser = (
-
-      build_query_proof_argument_parser()
-
-    )
-
-    parser.error(
-
-      str(
-
-        error
-
-      )
-
-    )
-
-
-
-  if not result.found:
-
-    print(
-
-      "No known repository fact found for "
-
-      f"{query_input}."
-
-    )
-
+    result = search_typed_operation_statements(query_input)
+  except (TypeError, ValueError) as error:
+    build_query_proof_argument_parser().error(str(error))
+  print(f"Search status: {result.status.value}")
+  if not result.proven_steps:
+    for message in result.diagnostics:
+      print(message)
+    print(f"Unresolved goals: {len(result.open_goals)}")
     return 1
-
-
-
-  query_presentation = (
-
-    build_repository_operation_query_presentation(
-
-      result
-
-    )
-
-  )
-
-
-
-  if not query_presentation.items:
-
-    print(
-
-      "No directly renderable repository fact found for "
-
-      f"{query_input}."
-
-    )
-
+  if fact_number is None and len(result.proven_steps) > 1:
+    for index, step in enumerate(result.proven_steps, start=1):
+      print(f"{index}: {render_toda_proof_statement_latex(step.conclusion)}")
+    print("Specify --fact N to select one proven statement.")
     return 1
-
-
-
-  if (
-
-    fact_number is None
-
-    and len(
-
-      query_presentation.items
-
-    ) > 1
-
-  ):
-
-    print(
-
-      render_repository_operation_query_markdown(
-
-        query_presentation
-
-      ),
-
-      end="",
-
-    )
-
-    print(
-
-      "\nSpecify --fact N to replay one fact."
-
-    )
-
+  selected = fact_number if fact_number is not None else 1
+  if selected > len(result.proven_steps):
+    print("Requested fact is not among proven statements.")
     return 1
-
-
-
-  try:
-
-    if max_depth is None:
-
-      replay = (
-
-        build_repository_operation_query_proof_replay(
-
-          query_presentation,
-
-          fact_number=fact_number,
-
-        )
-
-      )
-
-    else:
-
-      replay = (
-
-        build_repository_operation_query_proof_replay(
-
-          query_presentation,
-
-          fact_number=fact_number,
-
-          max_depth=max_depth,
-
-        )
-
-      )
-
-  except (
-
-    TypeError,
-
-    ValueError,
-
-  ) as error:
-
-    parser = (
-
-      build_query_proof_argument_parser()
-
-    )
-
-    parser.error(
-
-      str(
-
-        error
-
-      )
-
-    )
-
-
-
-  replay_presentation = (
-
-    build_repository_operation_query_proof_replay_presentation(
-
-      replay
-
-    )
-
-  )
-
-
-
-  markdown = (
-
-    render_repository_operation_query_proof_replay_markdown(
-
-      replay_presentation
-
-    )
-
-  )
-
-
-
-  print(
-
-    markdown,
-
-    end="",
-
-  )
-
-
-
+  step = result.proven_steps[selected - 1]
+  print(render_toda_proof_statement_latex(step.conclusion))
+  if result.open_goals:
+    print(f"Unresolved goals: {len(result.open_goals)}")
   return 0
 
 

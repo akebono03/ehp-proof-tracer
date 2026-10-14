@@ -1,0 +1,137 @@
+{
+  "deletable": [
+    "repository_nu5_eta8_suspension_zero_specialization",
+    "repository_nu5_stable_bridge_specialization",
+    "repository_nu_prime_suspension_membership_specialization",
+    "repository_operation_query_facade",
+    "repository_operation_query_lookup",
+    "repository_operation_query_presentation",
+    "repository_operation_query_proof_replay",
+    "repository_operation_query_proof_replay_presentation",
+    "repository_operation_query_proof_replay_renderer",
+    "repository_operation_query_proof_replay_statement_presentation",
+    "repository_operation_query_renderer",
+    "repository_sigma11_suspension_specialization"
+  ],
+  "retained_repository_modules": [
+    "repository_element_exploration",
+    "repository_element_facade",
+    "repository_element_lookup",
+    "repository_element_presentation",
+    "repository_element_renderer",
+    "repository_foundational_group_specialization",
+    "repository_generator_applicability_execution_entry",
+    "repository_generator_applicability_execution_orchestration",
+    "repository_generator_applicability_execution_seed",
+    "repository_generator_applicability_facade",
+    "repository_generator_applicability_handoff",
+    "repository_generator_applicability_presentation",
+    "repository_generator_applicability_selection",
+    "repository_generator_production_application_execution_seed",
+    "repository_generator_production_application_recovery",
+    "repository_generator_qualified_execution_dispatch",
+    "repository_generator_qualified_execution_family",
+    "repository_generator_qualified_execution_family_selection",
+    "repository_generator_qualified_execution_selection",
+    "repository_generator_standard_qualified_execution_facade",
+    "repository_generator_two_premise_execution_integration",
+    "repository_generator_user_execution_facade",
+    "repository_generator_user_execution_handoff",
+    "repository_generator_user_execution_presentation",
+    "repository_generator_user_execution_proof_step",
+    "repository_generator_user_execution_renderer",
+    "repository_generator_user_execution_resolver",
+    "repository_inference",
+    "repository_operation_query",
+    "repository_proof_scope",
+    "repository_proof_scope_applicability",
+    "repository_proof_scope_exploration",
+    "repository_proof_scope_facade",
+    "repository_symbolic_sigma_specialization",
+    "repository_symbolic_stable_group_specialization"
+  ],
+  "reachable_from_non_repository": {
+    "cli": [
+      "repository_element_facade"
+    ],
+    "phase162_r3e_structured_root_renderer": [
+      "repository_element_presentation"
+    ],
+    "phase162_validated_proof_presentation": [
+      "repository_element_presentation"
+    ],
+    "phase165_r27_r34_typed_lookup": [
+      "repository_operation_query"
+    ],
+    "standard_production_applicability_catalog": [
+      "repository_proof_scope"
+    ],
+    "toda_calculation": [
+      "repository_foundational_group_specialization",
+      "repository_proof_scope",
+      "repository_symbolic_sigma_specialization",
+      "repository_symbolic_stable_group_specialization"
+    ],
+    "toda_group_proof_generic_narrative_renderer": [
+      "repository_element_presentation"
+    ],
+    "toda_group_proof_narrative_renderer": [
+      "repository_element_presentation"
+    ],
+    "toda_group_proof_outline_renderer": [
+      "repository_element_presentation"
+    ],
+    "toda_group_result_proof_replay_renderer": [
+      "repository_element_presentation"
+    ],
+    "toda_group_structure_transport_reason": [
+      "repository_element_presentation"
+    ],
+    "web_generator_applicability": [
+      "repository_element_presentation",
+      "repository_generator_applicability_presentation"
+    ],
+    "web_generator_execution": [
+      "repository_element_presentation",
+      "repository_generator_user_execution_facade"
+    ],
+    "web_generator_exploration": [
+      "repository_element_presentation",
+      "repository_element_renderer"
+    ],
+    "web_generator_proof": [
+      "repository_element_presentation"
+    ],
+    "web_generator_proof_scope": [
+      "repository_element_presentation",
+      "repository_proof_scope_exploration"
+    ],
+    "web_group_proof_common": [
+      "repository_element_presentation"
+    ]
+  },
+  "phase": "165 R27-R38",
+  "modified_files": [
+    "main.py",
+    "web_operation_query_proof.py"
+  ],
+  "imports_removed": {
+    "main.py": [
+      "repository_operation_query_facade.query_standard_repository_operation_input",
+      "repository_operation_query_presentation.build_repository_operation_query_presentation",
+      "repository_operation_query_renderer.render_repository_operation_query_markdown",
+      "repository_operation_query_proof_replay.build_repository_operation_query_proof_replay",
+      "repository_operation_query_proof_replay_presentation.build_repository_operation_query_proof_replay_presentation",
+      "repository_operation_query_proof_replay_renderer.render_repository_operation_query_proof_replay_markdown"
+    ],
+    "web_operation_query_proof.py": [
+      "repository_operation_query_facade.query_standard_repository_operation_input",
+      "repository_operation_query_presentation.build_repository_operation_query_presentation",
+      "repository_operation_query_proof_replay.build_repository_operation_query_proof_replay",
+      "repository_operation_query_proof_replay_presentation.build_repository_operation_query_proof_replay_presentation",
+      "repository_operation_query_proof_replay_statement_presentation.build_repository_operation_query_proof_replay_statement_presentation"
+    ]
+  },
+  "full_pytest_run": false,
+  "status": "CHANGED"
+}

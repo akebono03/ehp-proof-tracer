@@ -1,20 +1,5 @@
 from dataclasses import dataclass
 
-from repository_operation_query_facade import (
-  query_standard_repository_operation_input,
-)
-from repository_operation_query_presentation import (
-  build_repository_operation_query_presentation,
-)
-from repository_operation_query_proof_replay import (
-  build_repository_operation_query_proof_replay,
-)
-from repository_operation_query_proof_replay_presentation import (
-  build_repository_operation_query_proof_replay_presentation,
-)
-from repository_operation_query_proof_replay_statement_presentation import (
-  build_repository_operation_query_proof_replay_statement_presentation,
-)
 
 
 @dataclass(frozen=True)
@@ -291,140 +276,51 @@ def build_standard_web_operation_query_proof_view(
   fact_number: int,
   max_depth: int = 1,
 ) -> WebOperationQueryProofView:
-  if not isinstance(
-    query_input,
-    str,
-  ):
-    raise TypeError(
-      "query_input must be a str"
-    )
-
+  """Display only steps proved by the canonical typed search, without replay."""
+  from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  if not isinstance(query_input, str):
+    raise TypeError("query_input must be a str")
   query_input = query_input.strip()
-
   if not query_input:
-    raise ValueError(
-      "operation query is required"
-    )
-
-  if (
-    isinstance(
-      fact_number,
-      bool,
-    )
-    or not isinstance(
-      fact_number,
-      int,
-    )
-  ):
-    raise TypeError(
-      "fact_number must be an int"
-    )
-
+    raise ValueError("operation query is required")
+  if type(fact_number) is not int:
+    raise TypeError("fact_number must be an int")
   if fact_number <= 0:
-    raise ValueError(
-      "fact_number must be positive"
-    )
-
-  if (
-    isinstance(
-      max_depth,
-      bool,
-    )
-    or not isinstance(
-      max_depth,
-      int,
-    )
-  ):
-    raise TypeError(
-      "max_depth must be an int"
-    )
-
+    raise ValueError("fact_number must be positive")
+  if type(max_depth) is not int:
+    raise TypeError("max_depth must be an int")
   if max_depth < 0:
+    raise ValueError("max_depth must be nonnegative")
+  result = search_typed_operation_statements(query_input)
+  if fact_number > len(result.proven_steps):
     raise ValueError(
-      "max_depth must be nonnegative"
+      "requested fact is not proved by typed backward search; "
+      f"status={result.status.value}; open_goals={len(result.open_goals)}"
     )
-
-  result = (
-    query_standard_repository_operation_input(
-      query_input
-    )
+  step = result.proven_steps[fact_number - 1]
+  statement_latex = render_toda_proof_statement_latex(step.conclusion)
+  if not isinstance(statement_latex, str) or not statement_latex:
+    raise ValueError("typed proof conclusion is not renderable")
+  rule_name = (
+    step.inference_rule.name if step.inference_rule is not None
+    else step.rule.value
   )
-
-  query_presentation = (
-    build_repository_operation_query_presentation(
-      result
-    )
-  )
-
-  replay = (
-    build_repository_operation_query_proof_replay(
-      query_presentation,
-      fact_number=fact_number,
-      max_depth=max_depth,
-    )
-  )
-
-  replay_presentation = (
-    build_repository_operation_query_proof_replay_presentation(
-      replay
-    )
-  )
-
-  node = (
-    replay
-    .source_match
-    .scope_node
-  )
-
-  provenance = (
-    WebOperationQueryProofProvenanceView(
-      theorem=node.root_entry.theorem,
-      phase=node.root_entry.phase,
-      key=node.root_entry.key,
-      depth=node.shortest_depth,
-    )
-  )
-
-  steps = []
-
-  for replay_step in replay_presentation.steps:
-    proof_step = (
-      replay_step.proof_step
-    )
-
-    statement_presentation = (
-      build_repository_operation_query_proof_replay_statement_presentation(
-        proof_step.conclusion
-      )
-    )
-
-    steps.append(
-      WebOperationQueryProofStepView(
-        depth=replay_step.depth,
-        statement_latex=(
-          statement_presentation.latex
-        ),
-        fallback_type_name=(
-          statement_presentation
-          .fallback_type_name
-        ),
-        rule_name=(
-          _operation_query_proof_rule_name(
-            proof_step
-          )
-        ),
-      )
-    )
-
   return WebOperationQueryProofView(
     query_input=query_input,
     fact_number=fact_number,
-    conclusion_latex=(
-      replay_presentation.conclusion_latex
+    conclusion_latex=statement_latex,
+    provenance=WebOperationQueryProofProvenanceView(
+      theorem=None,
+      phase=None,
+      key="typed-backward-search",
+      depth=0,
     ),
-    provenance=provenance,
-    steps=tuple(
-      steps
-    ),
-    max_depth=replay.max_depth,
+    steps=(WebOperationQueryProofStepView(
+      depth=0,
+      statement_latex=statement_latex,
+      fallback_type_name=None,
+      rule_name=rule_name,
+    ),),
+    max_depth=max_depth,
   )
