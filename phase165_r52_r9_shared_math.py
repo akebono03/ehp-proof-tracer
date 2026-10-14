@@ -148,6 +148,9 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         bridge, goal=goal, citing_assertion_id=context_id,
         verified_assertion_ids=verified_assertion_ids,
     )
+    if proof_use_order == "registered":
+        from phase165_r52_r19_prop51_binding import resolve_registered_proof_use_order
+        proof_use_order = resolve_registered_proof_use_order(proof_context, goal)
     if proof_use_order is not None:
         from phase165_r52_r18_proof_order import restrict_by_proof_use_order
         proof_context = restrict_by_proof_use_order(
