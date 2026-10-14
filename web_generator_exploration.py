@@ -120,6 +120,10 @@ class WebGeneratorExplorationView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -300,71 +304,36 @@ def _other_occurrence_presentations(
 def build_standard_web_generator_exploration_view(
   generator_input: str,
 ) -> WebGeneratorExplorationView:
-  if not isinstance(
-    generator_input,
-    str,
-  ):
-    raise TypeError(
-      "generator_input must be a str"
-    )
-
-  generator_input = (
-    generator_input.strip()
-  )
-
+  if not isinstance(generator_input, str):
+    raise TypeError("generator_input must be a str")
+  generator_input = generator_input.strip()
   if not generator_input:
-    raise ValueError(
-      "generator is required"
+    raise ValueError("generator is required")
+  from generator_input import resolve_generator_input
+  from phase165_r27_r34_typed_lookup import search_typed_generator_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  symbol = resolve_generator_input(generator_input)
+  lookup = search_typed_generator_statements(generator_input)
+  occurrences = tuple(
+    WebGeneratorExplorationOccurrenceView(
+      conclusion_latex=render_toda_proof_statement_latex(step.conclusion),
+      role_labels=("proved",),
+      phase="165 R27-R35",
+      theorem="Typed Backward Search",
     )
-
-  report = (
-    explore_standard_repository_generator_input(
-      generator_input
-    )
+    for step in lookup.proven_steps
   )
-
-  presentation = report.presentation
-
   return WebGeneratorExplorationView(
     generator_input=generator_input,
-    generator_latex=(
-      _render_generator_symbol_latex(
-        presentation.source_result.generator
-      )
-    ),
-    occurrence_count=len(
-      presentation.occurrences
-    ),
-    toda_bracket_occurrences=(
-      _build_web_occurrence_views(
-        presentation.toda_bracket_occurrences
-      )
-    ),
-    map_input_occurrences=(
-      _build_web_occurrence_views(
-        presentation.map_input_occurrences
-      )
-    ),
-    group_generator_occurrences=(
-      _build_web_occurrence_views(
-        presentation.group_generator_occurrences
-      )
-    ),
-    composition_left_occurrences=(
-      _build_web_occurrence_views(
-        presentation.composition_left_occurrences
-      )
-    ),
-    composition_right_occurrences=(
-      _build_web_occurrence_views(
-        presentation.composition_right_occurrences
-      )
-    ),
-    other_occurrences=(
-      _build_web_occurrence_views(
-        _other_occurrence_presentations(
-          presentation
-        )
-      )
-    ),
+    generator_latex=_render_generator_symbol_latex(symbol),
+    occurrence_count=len(occurrences),
+    toda_bracket_occurrences=(),
+    map_input_occurrences=(),
+    group_generator_occurrences=(),
+    composition_left_occurrences=(),
+    composition_right_occurrences=(),
+    other_occurrences=occurrences,
+    search_status=lookup.status.value,
+    diagnostics=lookup.diagnostics,
+    open_goal_count=len(lookup.open_goals),
   )

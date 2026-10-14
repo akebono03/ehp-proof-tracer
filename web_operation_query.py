@@ -52,6 +52,10 @@ class WebOperationQueryView:
     ...,
   ]
 
+  search_status: str = "not_searched"
+  diagnostics: tuple[str, ...] = ()
+  open_goal_count: int = 0
+
   def __post_init__(
     self,
   ) -> None:
@@ -104,18 +108,22 @@ class WebOperationQueryView:
 
 
 def build_standard_web_operation_query_view(query_input: str) -> WebOperationQueryView:
-    if not isinstance(query_input, str):
-        raise TypeError("query_input must be a str")
-    query_input = query_input.strip()
-    if not query_input:
-        raise ValueError("operation query is required")
-    from phase165_r27_r34_typed_lookup import search_typed_operation_statements
-    from toda_proof_narrative_renderer import render_toda_proof_statement_latex
-    result = search_typed_operation_statements(query_input)
-    items = []
-    for step in result.proven_steps:
-        statement_latex = render_toda_proof_statement_latex(step.conclusion)
-        if not isinstance(statement_latex, str) or not statement_latex:
-            continue
-        items.append(WebOperationQueryItemView(statement_latex=statement_latex, provenance_count=1))
-    return WebOperationQueryView(query_input=query_input, found=bool(items), items=tuple(items))
+  if not isinstance(query_input, str):
+    raise TypeError("query_input must be a str")
+  query_input = query_input.strip()
+  if not query_input:
+    raise ValueError("operation query is required")
+  from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+  from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+  result = search_typed_operation_statements(query_input)
+  items = []
+  for step in result.proven_steps:
+    statement_latex = render_toda_proof_statement_latex(step.conclusion)
+    if not isinstance(statement_latex, str) or not statement_latex:
+      continue
+    items.append(WebOperationQueryItemView(statement_latex=statement_latex, provenance_count=1))
+  return WebOperationQueryView(
+    query_input=query_input, found=bool(items), items=tuple(items),
+    search_status=result.status.value, diagnostics=result.diagnostics,
+    open_goal_count=len(result.open_goals),
+  )
