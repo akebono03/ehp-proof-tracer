@@ -405,6 +405,8 @@
   "phase165_r27_r8/test_phase165_r27_r8.py::test_cli_normal_query_is_incomplete",
   "phase165_r27_r8/test_phase165_r27_r8.py::test_web_boundary_domain_does_not_use_prover",
   "phase165_r27_r8/test_phase165_r27_r8.py::test_web_query_never_uses_legacy_report",
+  "phase165_r27_r9/test_phase165_r27_r9_audit.py::test_audit_does_not_modify_protected_files",
+  "phase165_r27_r9/test_phase165_r27_r9_audit.py::test_audit_reports_legacy_and_shared_view_symbols",
   "phase165_r46_reason_stage_audit/test_audit.py::test_non_mutating_stage_audit",
   "phase165_r46_reason_stage_audit/test_audit.py::test_stage_data_preserved",
   "phase165_r46_reason_stage_audit/test_audit.py::test_three_exactness_inferences_visible",

@@ -1,0 +1,1903 @@
+{
+  "phase": "165 R27-R9",
+  "mode": "READ_ONLY_FUNCTION_LEVEL_DEPENDENCY_AUDIT",
+  "production_files_modified": false,
+  "full_pytest_run": false,
+  "scanned_paths": 12,
+  "missing_paths": [],
+  "references": [
+    {
+      "path": "web_group_proof.py",
+      "references": [
+        {
+          "line": 6,
+          "kind": "import",
+          "symbol": "build_standard_toda_report",
+          "module": "toda_calculation_facade"
+        },
+        {
+          "line": 26,
+          "kind": "import",
+          "symbol": "build_toda_group_result_proof_replay",
+          "module": "toda_group_result_proof_replay"
+        },
+        {
+          "line": 38,
+          "kind": "definition",
+          "symbol": "WebGroupProofStepView"
+        },
+        {
+          "line": 257,
+          "kind": "definition",
+          "symbol": "WebGroupProofView"
+        },
+        {
+          "line": 435,
+          "kind": "definition",
+          "symbol": "_group_proof_rule_name"
+        },
+        {
+          "line": 444,
+          "kind": "definition",
+          "symbol": "_group_proof_statement_latex"
+        },
+        {
+          "line": 623,
+          "kind": "definition",
+          "symbol": "_build_group_proof_rendered_lines"
+        },
+        {
+          "line": 696,
+          "kind": "definition",
+          "symbol": "build_standard_web_group_proof_view"
+        },
+        {
+          "line": 714,
+          "kind": "call",
+          "symbol": "build_standard_toda_report"
+        },
+        {
+          "line": 726,
+          "kind": "call",
+          "symbol": "_group_proof_statement_latex"
+        },
+        {
+          "line": 737,
+          "kind": "call",
+          "symbol": "_group_proof_statement_latex"
+        },
+        {
+          "line": 740,
+          "kind": "call",
+          "symbol": "WebGroupProofStepView"
+        },
+        {
+          "line": 744,
+          "kind": "call",
+          "symbol": "_group_proof_rule_name"
+        },
+        {
+          "line": 755,
+          "kind": "call",
+          "symbol": "_build_group_proof_rendered_lines"
+        },
+        {
+          "line": 757,
+          "kind": "call",
+          "symbol": "WebGroupProofView"
+        }
+      ]
+    },
+    {
+      "path": "phase165_r52_r3_web_adapter.py",
+      "references": [
+        {
+          "line": 10,
+          "kind": "import",
+          "symbol": "WebGroupProofStepView",
+          "module": "web_group_proof"
+        },
+        {
+          "line": 10,
+          "kind": "import",
+          "symbol": "WebGroupProofView",
+          "module": "web_group_proof"
+        },
+        {
+          "line": 10,
+          "kind": "import",
+          "symbol": "_build_group_proof_rendered_lines",
+          "module": "web_group_proof"
+        },
+        {
+          "line": 10,
+          "kind": "import",
+          "symbol": "_group_proof_rule_name",
+          "module": "web_group_proof"
+        },
+        {
+          "line": 10,
+          "kind": "import",
+          "symbol": "_group_proof_statement_latex",
+          "module": "web_group_proof"
+        },
+        {
+          "line": 46,
+          "kind": "call",
+          "symbol": "_group_proof_statement_latex"
+        },
+        {
+          "line": 49,
+          "kind": "call",
+          "symbol": "WebGroupProofStepView"
+        },
+        {
+          "line": 53,
+          "kind": "call",
+          "symbol": "_group_proof_rule_name"
+        },
+        {
+          "line": 58,
+          "kind": "call",
+          "symbol": "_build_group_proof_rendered_lines"
+        },
+        {
+          "line": 59,
+          "kind": "call",
+          "symbol": "WebGroupProofView"
+        }
+      ]
+    },
+    {
+      "path": "phase165_r52_r4_flask_bridge.py",
+      "references": []
+    },
+    {
+      "path": "web_app.py",
+      "references": [
+        {
+          "line": 31,
+          "kind": "import",
+          "symbol": "WebGroupProofView",
+          "module": "web_group_proof"
+        }
+      ]
+    },
+    {
+      "path": "web_group_query.py",
+      "references": [
+        {
+          "line": 104,
+          "kind": "import",
+          "symbol": "_group_proof_statement_latex",
+          "module": "web_group_proof"
+        },
+        {
+          "line": 129,
+          "kind": "call",
+          "symbol": "_group_proof_statement_latex"
+        }
+      ]
+    },
+    {
+      "path": "main.py",
+      "references": [
+        {
+          "line": 68,
+          "kind": "import",
+          "symbol": "build_standard_toda_report",
+          "module": "toda_calculation_facade"
+        },
+        {
+          "line": 80,
+          "kind": "import",
+          "symbol": "build_toda_group_result_proof_replay",
+          "module": "toda_group_result_proof_replay"
+        }
+      ]
+    },
+    {
+      "path": "standard_production_repository.py",
+      "references": [
+        {
+          "line": 4,
+          "kind": "import",
+          "symbol": "build_standard_proof_repository",
+          "module": "standard_repository"
+        },
+        {
+          "line": 7,
+          "kind": "import",
+          "symbol": "build_toda_prop515_upper_bootstrap",
+          "module": "toda_prop515_upper_bootstrap"
+        },
+        {
+          "line": 12,
+          "kind": "definition",
+          "symbol": "build_standard_production_proof_repository"
+        },
+        {
+          "line": 15,
+          "kind": "call",
+          "symbol": "build_toda_prop515_upper_bootstrap"
+        },
+        {
+          "line": 24,
+          "kind": "call",
+          "symbol": "build_standard_proof_repository"
+        }
+      ]
+    },
+    {
+      "path": "standard_repository.py",
+      "references": [
+        {
+          "line": 36,
+          "kind": "definition",
+          "symbol": "build_standard_proof_repository"
+        }
+      ]
+    },
+    {
+      "path": "toda_calculation_facade.py",
+      "references": [
+        {
+          "line": 5,
+          "kind": "import",
+          "symbol": "build_standard_production_proof_repository",
+          "module": "standard_production_repository"
+        },
+        {
+          "line": 33,
+          "kind": "definition",
+          "symbol": "build_standard_toda_report"
+        },
+        {
+          "line": 38,
+          "kind": "call",
+          "symbol": "build_standard_production_proof_repository"
+        }
+      ]
+    },
+    {
+      "path": "toda_prop515_upper_bootstrap.py",
+      "references": [
+        {
+          "line": 90,
+          "kind": "definition",
+          "symbol": "build_toda_prop515_upper_bootstrap"
+        }
+      ]
+    },
+    {
+      "path": "phase165_r9_production_wiring.py",
+      "references": []
+    },
+    {
+      "path": "phase165_r4_production_connection.py",
+      "references": []
+    }
+  ],
+  "related_tests": [
+    {
+      "path": "test_phase165_r52_r13_r2_generic_reference_fix.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "test_phase165_r52_r3_empty_steps_contract.py",
+      "symbols": [
+        "WebGroupProofView"
+      ]
+    },
+    {
+      "path": "test_phase165_r52_r3_web_adapter.py",
+      "symbols": [
+        "WebGroupProofView"
+      ]
+    },
+    {
+      "path": "test_phase165_r52_r7_registered_common_proof.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "test_phase165_r52_r8_show_proof_route.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "test_phase165_r52_r9_shared_math.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase100_12b_standard_repository_integration.py",
+      "symbols": [
+        "build_standard_production_proof_repository",
+        "build_toda_prop515_upper_bootstrap"
+      ]
+    },
+    {
+      "path": "tests\\test_phase100_12c1_production_one_shot_facade.py",
+      "symbols": [
+        "build_standard_toda_report"
+      ]
+    },
+    {
+      "path": "tests\\test_phase100_prop515_upper_bootstrap.py",
+      "symbols": [
+        "build_toda_prop515_upper_bootstrap"
+      ]
+    },
+    {
+      "path": "tests\\test_phase100_standard_repository.py",
+      "symbols": [
+        "build_standard_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase101_production_element_exploration_facade.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase101_production_exploration_validation.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase102_production_scope_facade.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase102_proof_scope_semantic_exploration.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase102_proof_scope_traversal.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase103_indexed_production_equivalence.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase103_production_proof_scope_integration.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase103_standard_applicability_catalog.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase105_5_minimal_production_execution_seed_adapter.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase107_5_exact_production_application_premise_tuple_recovery.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase109_20_sigma10_concrete_specialization.py",
+      "symbols": [
+        "build_toda_prop515_upper_bootstrap"
+      ]
+    },
+    {
+      "path": "tests\\test_phase109_22_generic_indexed_sigma_specialization.py",
+      "symbols": [
+        "build_standard_production_proof_repository",
+        "build_toda_prop515_upper_bootstrap"
+      ]
+    },
+    {
+      "path": "tests\\test_phase109_24_generic_indexed_sigma_proof_scope_integration.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase109_3_recursive_known_group_identity_lookup.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase113_sigma_group_query_integration.py",
+      "symbols": [
+        "build_standard_toda_report"
+      ]
+    },
+    {
+      "path": "tests\\test_phase114_3_nu5_operation_query_handoff.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase115_sigma11_operation_query_handoff.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase129_nu_prime_operation_query_handoff.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase130_foundational_query_semantics.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase130_k456_specialization.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase130_low_dimensional_standard_query.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase130_sigma9_standard_query.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase130_stable_group_specialization.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase131_3_group_result_proof_replay.py",
+      "symbols": [
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase131_5_web_group_proof.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase132_4_group_proof_presentation.py",
+      "symbols": [
+        "build_standard_production_proof_repository",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase132_5_group_proof_outline_renderer.py",
+      "symbols": [
+        "build_standard_production_proof_repository",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase132_6_group_proof_narrative_renderer.py",
+      "symbols": [
+        "build_standard_production_proof_repository",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase132_8_group_proof_narrative_dedup.py",
+      "symbols": [
+        "build_standard_production_proof_repository",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase132_9_web_group_proof_modes.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_11_classifier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_14_presentation_helpers.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_16_classifier_regression.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_20_classifier_audit_scope.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_21_pi15_8_roles.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_24_pi15_8_narrative.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_24_v2_raw_group_renderer.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase134_9_group_proof_narrative_classifier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase135_1_web_narrative_display_math.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase135_2_web_narrative_inline_formatting.py",
+      "symbols": [
+        "_build_group_proof_rendered_lines"
+      ]
+    },
+    {
+      "path": "tests\\test_phase141_4_narrative_semantics.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase141_5_narrative_blocks_semantics.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase141_6_block_audit.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase141_8_general_roles.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase141_9_final_audit.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase141_narrative_blocks.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase142_2_generic_narrative_renderer.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase142_3_generic_proof_text.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_10_fix1_compatibility.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_10_local_argument_boundaries.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_12_purpose_subject.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_19_method_evidence.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_1_generic_proof_order.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_1a_semantic_dependency.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_1b_semantic_proof_order.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_2_generic_short_exact_sequence.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_3_generic_eta_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_75c_generic_semantic_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_75f_ehp_semantic_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_75i_whitehead_hopf_semantic_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_75m_finite_dimensional_semantic_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_75p_prop44_suspension_injective_semantic_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_75s_toda58_whitehead_square_semantic_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_7_narrative_arguments.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase143_8_argument_audit.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_2_sigma_triple_prime_definition.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r25_9b_nu_prime_definition_depth2.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r3_production_references.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r5_15m_evidence_contributions.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r5_15p_evidence_contribution_vocabulary.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r5_15t_aggregate_semantics.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r5_15u_evidence_integration.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r5_15u_r1_evidence_integration.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase144_6_r5_18_production_generic_proof_chain_foundation.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase145_group_proof_defaults.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase148_rc2_4_repair_r3_web_unit_parity_audit.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase148_rc2_4_repair_r4_1_numbered_equation_dependency_audit.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase148_rc2_4_repair_r4_2_calculation_premise_semantic_closure.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase148_rc2_4_repair_r4_web_narrative_depth_parity.py",
+      "symbols": [
+        "_build_group_proof_rendered_lines",
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase148_rc2_5_semantic_closure_scope.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase150_rc4_7a_cross_group_reference_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase150_rc4_7d_3_public_narrative_generic_route.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_closure_repair_r13.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_closure_repair_r13_syntax_repair_r1.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_generic_concrete_proof_scope_recovery.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r10_used_reference_filtering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r11_generic_reference_attribution_filtering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r12_root_reference_exclusion.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r2_public_reference_semantic_fact.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r2_toda45_map_property_semantic.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r3_10_public_reference_connection_repair.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r3_11_reference_body_ownership_repair.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r3_4_reference_statement_rendering_connection.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r3_5_reference_body_duplicate_suppression.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r3_6_unresolved_reference_statement_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r3_9_remaining_reference_renderer_coverage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r6_aggregate_component_granularity.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r6_reference_granularity.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r7_independent_root_path.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r7_proof_body_relevance.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r7_sibling_boundary.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r8_reference_use_prose_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_r9_reference_reuse_derivation_suppression.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase153_scalar_order_narrative_classification.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r2_fix2_semantic_sentence_composition.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r2_fix3_reference_marker_completion.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r2_fixed1_nu4_decomposition_semantic_prose.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r2_internal_prose_fallback_leakage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r4_semantic_duplication_transition_refinement.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r5_fix1_graph_backed_reference_linkage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r5_fix1_repair1_reference_entry_frontier_linkage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r5_fix1_repair2_legacy_route_linkage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r6_1_repair3_ascii_period_policy.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r6_2_ascii_comma_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r6_2_repair1_missing_shared_sources.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase154_r6_2_repair2_equation_numbering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_reference_attribution_separation.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair10_owned_step_line_suppression.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair11_reference_dependency_pruning.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair12_reference_frontier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair13_root_reference_frontier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair2_lemma52_specialization_attribution.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair3_eta3_zero_attribution.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair6_reference_boundary_collapse.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair7_reference_boundary_filter_order.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair8_reference_owned_ancestor_closure.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r5_repair9_test_contract_after_boundary_collapse.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r6_canonical_connector_local_ordering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r6_repair1_relation_side_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase156_r6_repair2_independent_relation_side_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r11_proof_body_relevance.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r11_r17_residual_narrative_defects.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r11_reference_reason_punctuation.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r19_pi6_3_reference_dependency_restoration.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_generic_dependency_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair10_reference_local_specialization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair12_map_property_reference_support.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair14_late_surjectivity_reference_support.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair16_proof_order_and_cleanup.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair18_eta_bridge_consumer_anchor.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair22_hide_rendered_reflexive_steps.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair24_robust_reflexive_filter_placement.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair26_reflexive_helper_and_relocated_filter.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair28_match_step_level_eta_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair30_final_reflexive_suppression.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair31_reference_period_and_stale_frontier_tests.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair32_exactness_intro_anchor.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair33_eta_bridge_before_visible_premises.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair35_reference_aware_eta_bridge_anchor.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair37_short_exact_after_map_support.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair39_map_type_name_fallback.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair42_repeated_reference_restatements.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair43_dangling_connector_cleanup.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair45_relation_dependency_and_unique_step_dedup.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair47_injective_image_order_reason.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair48_injective_image_reason_ordering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair53_display_closing_fragment_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair53_r3_fixed_reference_attribution.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair53_r3c_legacy_reference_marker_remapping.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair6_descendant_reference_usage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair7_fixed_aggregate_carriers.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r20_repair8_reference_alias_descendants.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r3_pi6_3_reference_boundary.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r3_repair3_recursive_internal_recovery.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r5_r10_reference_proof_boundary_qed.py",
+      "symbols": [
+        "_build_group_proof_rendered_lines",
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r5_r6_53_bracket_definition_reference.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r5_r7_reference_definition_consequence_rendering.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase157_r5_r9_fixed_definition_body_suppression.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase158_r4_equation_numbering_and_prose.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase158_r5_3_public_narrative_single_route.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase158_r5_5b_public_generic_order_route.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_standard_web_group_proof_view",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_exactness_map_property_public_dedup.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_pi3_2_exactness_reason_locality.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_pi3_2_semantic_numbered_map_property_reasoning_repair25.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_pi3_2_visible_dependency_topological_order.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py",
+      "symbols": [
+        "build_standard_production_proof_repository"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_pi4_3_repair2g_reference_policy.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_pi4_3_repair3c_provider_ancestry_contributions.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_2_hopf_injective_dependency_role.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_2_hopf_isomorphism_dependency_role.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_2_pi3_2_closure.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_2_pi3_2_narrative_repair.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_6a_foundational_reference_identity.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_6b_toda51_attribution.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_6c_source_faithful_reference_linkage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_6d_specialization_reference_linkage_finalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_6d_target_group_fact_order.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7b_exact_sequence_display_order.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7b_repair14_map_property_anchor.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7b_repair15_subsumed_exactness.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r2_equality_transitivity_collapse.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r2_repair2_restore_pipeline.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r2_repair3_projected_chain_match.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r2_repair6_semantic_rendered_equality_chain.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r3_known_result_direct_premise_specialization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r3_repair4_reference_component_pruning.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r4_equation_reference_order_repair1.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r4_exact_sequence_subsequence_suppression_repair1.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r4_generator_canonicalization_repair1.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r4_map_property_dearu_public_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r4_map_property_numbered_reasoning_repair1.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase159_r1_7c_r4_repair6_residual_proof_prose_normalization.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase160_k7_generic_transport_connection.py",
+      "symbols": [
+        "build_toda_prop515_upper_bootstrap"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_pi4_2_restored_reference_relink.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_pi4_2_specialization_frontier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r3_fixed_frontier_internal_ancestry.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r4_restore_global_frontier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_pi4_3_prop51_reference_linkage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair11_effective_reference_source_component.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair12_fixed_component_source_resolution.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair13_reference_selection_source_binding.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair14_reference_locator_dedup.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair16_prop51_higher_eta_fixed_boundary.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair3_reference_self_marker_relink.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair4_zero_marker_consumer_linkage.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair6_backward_self_marker_relink.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_r5_repair9a_final_public_reference_relink.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase161_r4_repair1_pi4_2_semantic_frontier.py",
+      "symbols": [
+        "build_standard_toda_report",
+        "build_toda_group_result_proof_replay"
+      ]
+    },
+    {
+      "path": "tests\\test_phase162_r4_b3_web_common_display.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase162_r5_web_integration.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase164_r5_r1_common_renderer.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase164_r5_r2_unified_web_display.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase164_r5_web_registry_connection.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase164_r7_r5_group_registry.py",
+      "symbols": [
+        "build_standard_toda_report"
+      ]
+    },
+    {
+      "path": "tests\\test_phase165_r49_display_fix.py",
+      "symbols": [
+        "build_standard_web_group_proof_view"
+      ]
+    },
+    {
+      "path": "tests\\test_phase165_r49_typed_reasons.py",
+      "symbols": [
+        "build_standard_toda_report"
+      ]
+    }
+  ],
+  "protected_files_excluded": [
+    "unified_statement_registry.py",
+    "phase163_r4_registry_bridge.py",
+    "phase165_r52_r2_search_adapter.py"
+  ],
+  "deletion_authorized": false,
+  "next_action": "Separate common Web view/formatting APIs from legacy report/replay before deleting bootstrap or repository builders."
+}
