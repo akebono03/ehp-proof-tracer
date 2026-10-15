@@ -1,23 +1,47 @@
-"""R57-R11: fail closed when a root group is only its own symbolic specialization.
+"""R57-R11: fail closed when a root group cites its own structure.
 
-This is a proof-use-order boundary, distinct from the publication order of
-Toda references. It neither fabricates predecessor proofs nor GIVEN leaves.
+R57-R18 permits *derived* cyclic-generator substitution backed by a separately
+proved equality, but never accepts an unproved symbolic structure as a root.
 """
 from __future__ import annotations
 
+from expression import Suspension
 from homotopy_groups import DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
 from phase165_r3_recursive_search import GoalExpansion
 from proof import Relation, RelationType
 
 
+def _proved_generator_substitution_shape(root_goal: object, expansion: GoalExpansion) -> bool:
+    """Only exempt substitution from an explicitly equal intermediate generator."""
+    if getattr(expansion.rule, "name", None) != "generic finite cyclic generator substitution from proved equality":
+        return False
+    if len(expansion.subgoals) != 2:
+        return False
+    structure, equality = expansion.subgoals
+    if not (isinstance(root_goal, Relation)
+            and isinstance(root_goal.rhs, FiniteCyclicGroup)
+            and isinstance(structure, Relation)
+            and isinstance(structure.rhs, FiniteCyclicGroup)
+            and isinstance(equality, Relation)
+            and structure.relation_type is RelationType.EQUALITY
+            and equality.relation_type is RelationType.EQUALITY):
+        return False
+    return (
+        structure.lhs == root_goal.lhs
+        and structure.rhs.order == root_goal.rhs.order
+        and isinstance(structure.rhs.generator, Suspension)
+        and equality.lhs == root_goal.rhs.generator
+        and equality.rhs == structure.rhs.generator
+    )
+
+
 def is_unordered_root_structure_specialization(
     root_goal: object, current_goal: object, expansion: GoalExpansion,
 ) -> bool:
-    """Reject direct symbolic structural facts about the requested group.
+    """Reject a group-structure root derived from its own structural theorem.
 
-    A symbolic group theorem may be used as a mathematical reference, but
-    without reviewed proof-use ordering it is not accepted as the *derivation*
-    of the same requested group's structure. Other inference branches survive.
+    A generator substitution with a proved equality has independently
+    checkable premises, unlike direct self-specialization of a source claim.
     """
     structures = (FiniteCyclicGroup, FreeCyclicGroup, DirectSumGroup)
     if not isinstance(expansion, GoalExpansion):
@@ -30,6 +54,8 @@ def is_unordered_root_structure_specialization(
         and isinstance(current_goal, Relation)
         and current_goal == root_goal
     ):
+        return False
+    if _proved_generator_substitution_shape(root_goal, expansion):
         return False
     for premise in expansion.subgoals:
         if not (
@@ -51,11 +77,7 @@ def retain_ordered_root_expansions(
     root_goal: object, current_goal: object,
     expansions: tuple[GoalExpansion, ...],
 ) -> tuple[GoalExpansion, ...]:
-    """Retain only root derivations which do not self-cite a generic structure.
-
-    This does not establish a global total ordering of all Toda groups. Such
-    ordering needs registered predecessor metadata, and remains a separate gate.
-    """
+    """Retain genuinely derived root steps; reject self-structure specialization."""
     if not isinstance(expansions, tuple):
         raise TypeError("expansions must be a tuple")
     return tuple(

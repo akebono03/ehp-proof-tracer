@@ -1,0 +1,47 @@
+{
+  "phase": "165 R57-R18",
+  "mode": "READ_ONLY_ROOT_AUDIT",
+  "targets": [
+    {
+      "n": 2,
+      "k": 1,
+      "candidate_count": 1,
+      "root_expansion_count": 1,
+      "expansion_rules": [
+        "generic reverse free cyclic structure transport along isomorphism"
+      ],
+      "required_subgoals": [
+        [
+          "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+          "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))"
+        ]
+      ]
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "candidate_count": 1,
+      "root_expansion_count": 1,
+      "expansion_rules": [
+        "generic finite cyclic generator substitution from proved equality"
+      ],
+      "required_subgoals": [
+        [
+          "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "Relation(lhs=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        ]
+      ]
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "candidate_count": 1,
+      "root_expansion_count": 0,
+      "expansion_rules": [],
+      "required_subgoals": []
+    }
+  ],
+  "no_proof_certification": true,
+  "full_pytest_run": false
+}
