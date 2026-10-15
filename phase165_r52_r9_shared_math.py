@@ -149,7 +149,8 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               expansion_provider=None,
                               citing_assertion_id: str | None = None,
                               verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None,
-                              ordered_completed_proofs: tuple = (), target_order: int | None = None):
+                              ordered_completed_proofs: tuple = (), target_order: int | None = None,
+                              proof_order_catalog=None):
     """Run canonical search under a screened Reference context.
 
     Older calls retain their signature. R15 ordering is applied to sources
@@ -158,12 +159,20 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
     from phase165_r57_r12_ordered_proofs import validate_prior_internal_proofs
 
-    prior = validate_prior_internal_proofs(
-        ordered_completed_proofs, target_order, completed_internal_proofs
-    )
+    goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
+    if proof_order_catalog is not None:
+        from phase165_r57_r13_proof_order_catalog import ProofOrderCatalog
+        if not isinstance(proof_order_catalog, ProofOrderCatalog):
+            raise TypeError("proof_order_catalog must be ProofOrderCatalog")
+        if ordered_completed_proofs or completed_internal_proofs or target_order is not None:
+            raise ValueError("catalog proof order cannot be mixed with caller order")
+        prior, target_order = proof_order_catalog.select_prior(goal)
+    else:
+        prior = validate_prior_internal_proofs(
+            ordered_completed_proofs, target_order, completed_internal_proofs
+        )
     if bridge is None:
         bridge = build_shared_typed_bridge()
-    goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
     assertions = tuple(bridge.registry._assertions.values())
     if not assertions:
         raise ValueError("shared typed registry is empty")
