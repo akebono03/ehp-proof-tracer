@@ -43,7 +43,7 @@ def registered_group_goal_candidates(bridge, *, n: int, k: int) -> tuple[Relatio
 
 
 def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_order_catalog=None):
-    """Resolve a unique sourced target and run the existing screened backward search."""
+    """Resolve a typed goal; use reviewed on-demand proof order for ordinary calls."""
     make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
     if bridge is None:
         bridge = build_shared_typed_bridge()
@@ -60,13 +60,22 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
             diagnostics=(explanation,),
         )
     candidate = candidates[0]
-    # The candidate is a requested conclusion, NEVER a GIVEN proof premise.
-    # search_shared_group_goal screens exact-root fixed assertions.
+    if proof_order_catalog is None:
+        from phase165_r57_r16_web_proof_order import resolve_reviewed_order_catalog
+        proof_order_catalog, order_diagnostic = resolve_reviewed_order_catalog(
+            bridge, n=n, k=k,
+        )
+        if order_diagnostic is not None:
+            return make_partial_proof_result(
+                n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
+                open_goals=(candidate,), diagnostics=(order_diagnostic,),
+            )
+    # Goal candidates and proof order are metadata, NEVER a GIVEN evidence source.
     result = search_shared_group_goal(
         n=n, k=k, group_structure=candidate.rhs, bridge=bridge,
         proof_order_catalog=proof_order_catalog,
     )
-    if (result.status is ProofSearchStatus.COMPLETE and result.conclusion == candidate):
+    if result.status is ProofSearchStatus.COMPLETE and result.conclusion == candidate:
         return replace(result, structure_status=GroupStructureStatus.KNOWN)
     return result
 
