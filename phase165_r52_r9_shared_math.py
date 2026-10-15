@@ -150,7 +150,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               citing_assertion_id: str | None = None,
                               verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None,
                               ordered_completed_proofs: tuple = (), target_order: int | None = None,
-                              proof_order_catalog=None):
+                              proof_order_catalog=None, recursive_proof_order_catalog=None):
     """Run canonical search under a screened Reference context.
 
     Older calls retain their signature. R15 ordering is applied to sources
@@ -160,6 +160,40 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     from phase165_r57_r12_ordered_proofs import validate_prior_internal_proofs
 
     goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
+    if recursive_proof_order_catalog is not None:
+        from phase165_r57_r14_recursive_search import search_recursively_in_proof_order
+        if (proof_order_catalog is not None or ordered_completed_proofs
+                or completed_internal_proofs or target_order is not None):
+            raise ValueError("recursive proof order cannot mix with saved or caller-supplied proofs")
+
+        def search_one(statement, earlier, order):
+            if (not isinstance(statement, Relation)
+                    or not isinstance(statement.lhs, TodaPrimaryGroup)
+                    or statement.relation_type is not RelationType.EQUALITY):
+                raise TypeError("recursive catalog targets must be typed group relations")
+            target = statement.lhs
+            if (not isinstance(target.group_dimension, int)
+                    or not isinstance(target.sphere_dimension, int)
+                    or target.sphere_dimension < 2
+                    or target.group_dimension < target.sphere_dimension):
+                raise ValueError("recursive target must have concrete dimensions")
+            return search_shared_group_goal(
+                n=target.sphere_dimension,
+                k=target.group_dimension - target.sphere_dimension,
+                group_structure=statement.rhs,
+                bridge=bridge,
+                expansion_provider=expansion_provider,
+                citing_assertion_id=citing_assertion_id,
+                verified_assertion_ids=verified_assertion_ids,
+                completed_internal_proofs=(),
+                proof_use_order=proof_use_order,
+                ordered_completed_proofs=earlier,
+                target_order=order,
+            )
+
+        return search_recursively_in_proof_order(
+            recursive_proof_order_catalog, goal, search_one,
+        )
     if proof_order_catalog is not None:
         from phase165_r57_r13_proof_order_catalog import ProofOrderCatalog
         if not isinstance(proof_order_catalog, ProofOrderCatalog):
