@@ -352,5 +352,6 @@
   "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_text_is_rendered_by_common_step_renderer": true,
   "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_whitehead_square_uses_existing_latex_renderer": true,
   "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_rejects_modified_reconstructed_goal": true,
-  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_rejects_untrusted_given_identity": true
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_rejects_untrusted_given_identity": true,
+  "phase165_r5_r16_final_renderer_gate/test_audit.py::test_direct_test_import_is_recorded": true
 }
