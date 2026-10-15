@@ -1,0 +1,160 @@
+{
+  "phase": "165 R5-R17",
+  "missing_files": [],
+  "guards": {
+    "shared_leaf_exists": true,
+    "replay_imports_shared_leaf": true,
+    "common_partial_renderer_exists": true,
+    "common_web_exists": true
+  },
+  "active_import_blockers": {},
+  "historical_imports": {
+    "audit_phase144_6_r5_20.py": [
+      "toda_group_proof_narrative_proof_chain_renderer"
+    ],
+    "audit_phase144_6_r5_21.py": [
+      "toda_group_proof_narrative_proof_chain_renderer"
+    ],
+    "audit_phase144_6_r5_23.py": [
+      "toda_group_proof_narrative_proof_chain_renderer"
+    ],
+    "audit_phase144_6_r5_24.py": [
+      "toda_group_proof_narrative_proof_chain_renderer"
+    ],
+    "phase162_r10_boundary_path_audit/audit.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r10_r2_tree_audit/audit.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r10_reference_boundary/test_r10.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r10_repair1_citation_identity_test/test_r10.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_proof_prose_repair/backup_before_apply/tests/test_phase162_r3_narrative_connection.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_2_verified_group_connection.py": [
+      "phase162_r3_narrative_connection",
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_narrative_connection.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_prose_regression.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection/tests/test_phase162_r3_2_verified_group_connection.py": [
+      "phase162_r3_narrative_connection",
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_verified_group_connection_repair1/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection_repair1/backup_before_apply/web_group_proof.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_verified_group_connection_repair1/tests/test_phase162_r3_2_verified_group_connection.py": [
+      "phase162_r3_narrative_connection",
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_verified_group_connection_repair2/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection_repair2/backup_before_apply/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection_repair2/backup_before_apply/web_group_proof.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_verified_group_connection_repair2/tests/test_phase162_r3_2_verified_group_connection.py": [
+      "phase162_r3_narrative_connection",
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_verified_group_connection_repair3/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection_repair3/backup_before_apply/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_2_verified_group_connection_repair3/tests/test_phase162_r3_2_verified_group_connection.py": [
+      "phase162_r3_narrative_connection",
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r3_2_web_math_display_repair/tests/test_phase162_r3_web_math_display.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r3_narrative_connection/tests/test_phase162_r3_narrative_connection.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase162_r4_b3_common_renderer_fix/files/tests/test_phase162_r4_b3_common_renderer_fix.py": [
+      "toda_group_proof_narrative_concrete_transport"
+    ],
+    "phase162_r5_6_narrative_final_format/files/tests/test_phase162_r5_6_narrative_final_format.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r5_display_refinement_repair1/backup/tests/test_phase162_r5_web_integration.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r5_display_refinement_repair1/files/tests/test_phase162_r5_web_integration.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r5_web_integration/files/tests/test_phase162_r5_web_integration.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r8_module_install_fix/phase162_pi5_3_web_replay.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase162_r8_web_single_reconstructed/phase162_pi5_3_web_replay.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase164_r5_r1_common_renderer/phase164_r5_web_registry_connection.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase164_r5_r1_runner_encoding_fix/phase164_r5_web_registry_connection.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase164_r5_web_registry_connection/phase164_r5_web_registry_connection.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase164_r8_r5_backup_20261012_234601/phase162_pi5_3_web_replay.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase164_r8_r5_backup_20261012_234601/phase162_web_narrative_integration.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase164_r8_r5_backup_20261012_234601/phase164_r5_web_registry_connection.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase165_r27_r20/removed_files_backup/phase164_r5_web_registry_connection.phase164_r5_r1_backup.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase165_r5_r11_leaf_decoupling/test_r5_r11.py": [
+      "phase162_web_narrative_integration"
+    ],
+    "phase165_r5_r15_deduplicate_legacy_ehp/phase162_web_narrative_integration.before_r5_r15.py": [
+      "phase162_r3_narrative_connection"
+    ],
+    "phase165_r5_r15_deduplicate_legacy_ehp/test_r5_r15.py": [
+      "phase162_web_narrative_integration"
+    ]
+  },
+  "planned_deletions": [
+    "phase162_web_narrative_integration.py",
+    "phase162_r3_narrative_connection.py",
+    "toda_group_proof_narrative_proof_chain_renderer.py",
+    "toda_group_proof_narrative_concrete_transport.py",
+    "tests/test_phase162_r5_web_integration.py",
+    "tests/test_phase162_r5_6_narrative_final_format.py",
+    "tests/test_phase162_r3_narrative_connection.py",
+    "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+    "tests/test_phase162_r4_b3_common_renderer_fix.py"
+  ],
+  "full_pytest_run": false,
+  "status": "REMOVED"
+}
