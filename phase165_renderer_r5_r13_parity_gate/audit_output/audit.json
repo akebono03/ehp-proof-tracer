@@ -1,0 +1,43 @@
+{
+  "phase": "165 R5-R13",
+  "timestamp_utc": "2026-10-15T15:24:33.435797+00:00",
+  "guards": {
+    "web_uses_phase165_adapter": true,
+    "cli_uses_partial_renderer": true,
+    "main_calls_partial_renderer": true,
+    "shared_leaves_exist": true,
+    "replay_uses_shared_leaves": true,
+    "legacy_reexports_leaves": true,
+    "legacy_web_entry_exists": true,
+    "legacy_web_calls_old_renderer": true,
+    "legacy_r3_entry_exists": true,
+    "legacy_path_not_in_public_entry_imports": true
+  },
+  "runtime": {
+    "legacy": {
+      "status": "ERROR",
+      "type": "ValueError",
+      "message": "Expected one independently derived source premise of each kind",
+      "traceback_tail": "ValueError: Expected one independently derived source premise of each kind"
+    },
+    "canonical": {
+      "status": "RENDERED",
+      "length": 215,
+      "sections": [
+        "## 証明対象",
+        "## 使用する結果",
+        "## 証明",
+        "## 未解決 Goal",
+        "## 探索診断"
+      ],
+      "has_unresolved_goal": true,
+      "preview": "## 証明対象\n\n$\\pi_{5}^{3}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n証明できた数学的な ProofStep はまだありません。\n\n**探索状態：証明未完成**\n\n## 未解決 Goal\n\n- $\\pi_{5}^{3}$\n\n## 探索診断\n\n- 群構造・生成元の型付き証明目標が文献命題台帳に未登録\n\n未解決 Goal は証明済みの結論ではありません。"
+    },
+    "both_rendered": false,
+    "semantic_parity_proven": false,
+    "decision": "BLOCKED_RUNTIME_INPUTS_NO_AUTOMATIC_REPLACEMENT"
+  },
+  "full_pytest_run": false,
+  "scope": "read_only; legacy vs canonical pi5^3 display gate",
+  "status": "REVIEW_REQUIRED"
+}

@@ -88,8 +88,10 @@ def make_partial_proof_result(
 
 
 def render_partial_proof_markdown(result: PartialProofResult) -> str:
-    """Render all partial and complete searches through the effective shared renderer."""
-    from toda_group_proof_generic_narrative_renderer import (
-        render_toda_partial_proof_narrative_markdown,
-    )
-    return render_toda_partial_proof_narrative_markdown(result)
+    """Use the R2 shared model and the canonical Narrative dispatch for any state."""
+    if not isinstance(result, PartialProofResult):
+        raise TypeError("result must be PartialProofResult")
+    from phase165_renderer_narrative_model import build_narrative_proof_model
+    from toda_group_proof_narrative_renderer import render_narrative_proof_model
+
+    return render_narrative_proof_model(build_narrative_proof_model(result))

@@ -9,7 +9,7 @@ from phase165_r52_partial_proof import (
     PartialProofResult,
     ProofSearchStatus,
 )
-from toda_group_proof_generic_narrative_renderer import _render_generic_narrative_step
+from toda_group_proof_narrative_shared_components import _render_generic_narrative_step
 from web_group_proof_common import _group_proof_statement_latex
 
 

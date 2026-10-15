@@ -3,7 +3,7 @@ import inspect
 from tests.test_phase143_19_method_evidence import (
   _method_evidence_data,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _generic_short_exact_sequence_reason_prose,
 )
 from toda_group_proof_narrative_contribution_renderer import (
@@ -98,7 +98,7 @@ def test_phase150_rc4_5e_2_reason_is_visible_before_short_exact_sequence():
 
 
 def test_phase150_rc4_5e_2_helper_has_no_target_or_rule_name_special_case():
-  import toda_group_proof_generic_narrative_renderer as module
+  import toda_group_proof_narrative_shared_components as module
 
   source = inspect.getsource(
     module._generic_short_exact_sequence_reason_prose

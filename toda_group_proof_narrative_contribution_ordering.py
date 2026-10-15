@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import Enum
 
 from proof import ProofStep
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_argument_local_body import (

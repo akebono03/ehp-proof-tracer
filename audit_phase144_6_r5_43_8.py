@@ -4,7 +4,7 @@ from test_phase144_6_r5_18_production_generic_proof_chain_foundation import (
   TARGETS,
   _context,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_argument_multi_renderer import (

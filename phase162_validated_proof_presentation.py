@@ -24,7 +24,7 @@ from toda_group_proof_narrative_references import (
     extract_toda_group_proof_step_literature_reference,
     render_toda_group_proof_narrative_reference_entries_markdown,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
     _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_renderer import (

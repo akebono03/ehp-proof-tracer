@@ -6,7 +6,7 @@ from phase165_r52_partial_proof import (
     render_partial_proof_markdown,
 )
 from proof import ProofRule, ProofStep, Relation, RelationType
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_renderer import (
     render_toda_partial_proof_narrative_markdown,
 )
 
@@ -23,7 +23,7 @@ def _goal():
 
 
 def test_r11_partial_and_compatibility_are_one_renderer(monkeypatch):
-    import toda_group_proof_generic_narrative_renderer as common
+    import toda_group_proof_narrative_renderer as common
     seen = []
     original = common._render_generic_narrative_step
 
@@ -42,8 +42,9 @@ def test_r11_partial_and_compatibility_are_one_renderer(monkeypatch):
     text = render_partial_proof_markdown(result)
     assert seen == [step]
     assert "unresolved premise" in text
-    assert "Proposition 5.1" in text
-    assert "証明（Proof" in text
+    assert "参照情報を持つ ProofStep はありません。" in text
+    assert "Proposition 5.1" not in text
+    assert "## 証明" in text
     assert "□" not in text
     assert "Relation(lhs=" not in text
 
@@ -61,15 +62,15 @@ def test_r11_unresolved_typed_goal_is_math_not_python_repr():
     assert "□" not in text
 
 
-def test_r11_same_renderer_handles_completed_proof():
+def test_r11_given_step_does_not_certify_completed_proof():
+    import pytest
     step = ProofStep(conclusion=_goal(), premises=(), rule=ProofRule.GIVEN)
     result = make_partial_proof_result(
         n=3, k=1, status=ProofSearchStatus.COMPLETE,
         proven_steps=(step,), conclusion=_goal(),
     )
-    text = render_partial_proof_markdown(result)
-    assert "□" in text
-    assert "証明（Proof" in text
+    with pytest.raises(ValueError, match="exactly one derived root"):
+        render_partial_proof_markdown(result)
 
 
 def test_r11_rejects_non_partial_result():
@@ -80,7 +81,7 @@ def test_r11_rejects_non_partial_result():
 
 def test_r11_web_adapter_calls_common_renderer(monkeypatch):
     import phase165_r52_r3_web_adapter as adapter
-    import toda_group_proof_generic_narrative_renderer as common
+    import toda_group_proof_narrative_renderer as common
     calls = []
     original = common.render_toda_partial_proof_narrative_markdown
 

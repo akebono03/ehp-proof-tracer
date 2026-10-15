@@ -1,0 +1,109 @@
+{
+  "phase": "165 R5-R16",
+  "missing_files": [],
+  "guards": {
+    "shared_leaves_defined": true,
+    "replay_uses_shared_leaves": true,
+    "old_web_reexports_shared_leaves": true,
+    "web_public_group_entry_exists": true,
+    "cli_uses_canonical_renderer": true,
+    "main_uses_canonical_renderer": true
+  },
+  "legacy_symbols": {
+    "phase162_web_narrative_integration.py:build_phase162_web_validated_isomorphism_markdown": "PRESENT",
+    "phase162_web_narrative_integration.py:_build_phase162_legacy_validated_isomorphism_markdown": "PRESENT",
+    "phase162_web_narrative_integration.py:_build_phase162_existing_group_connection": "PRESENT",
+    "phase162_r3_narrative_connection.py:render_phase162_r3_narrative": "PRESENT",
+    "phase162_r3_narrative_connection.py:render_phase162_r3_with_public_references": "PRESENT",
+    "toda_group_proof_narrative_proof_chain_renderer.py:render_toda_group_proof_narrative_from_proof_chains_markdown": "PRESENT",
+    "toda_group_proof_narrative_concrete_transport.py:render_concrete_transport_proof_from_steps": "PRESENT"
+  },
+  "status": "PUBLIC_PATH_UNIFIED_LEGACY_REMAINS",
+  "full_pytest_run": false,
+  "legacy_definitions_present": 7,
+  "direct_imports": {
+    "toda_group_proof_narrative_proof_chain_renderer.render_toda_group_proof_narrative_from_proof_chains_markdown": [
+      ".phase165_renderer_r4_backup/archive/phases/phase144_6_r5_21/payload/audit_phase144_6_r5_21.py",
+      ".phase165_renderer_r4_backup/archive/phases/phase144_6_r5_24/payload/audit_phase144_6_r5_24.py",
+      ".phase165_renderer_r4_backup/audit_phase144_6_r5_24.py",
+      ".phase165_renderer_r4_fast_backup/audit_phase144_6_r5_21.py",
+      ".phase165_renderer_r4_fast_backup/audit_phase144_6_r5_24.py",
+      ".phase165_renderer_r4_fast_r2_backup/audit_phase144_6_r5_21.py",
+      ".phase165_renderer_r4_fast_r2_backup/audit_phase144_6_r5_24.py",
+      ".phase165_renderer_r4_fast_r3_backup/audit_phase144_6_r5_21.py",
+      ".phase165_renderer_r4_fast_r3_backup/audit_phase144_6_r5_24.py",
+      "archive/phases/_root_files/audit_phase144_6_r5_19.py",
+      "archive/phases/phase144_6_r5_19/payload/audit_phase144_6_r5_19.py",
+      "archive/phases/phase144_6_r5_19/payload/tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+      "archive/phases/phase144_6_r5_20/payload/audit_phase144_6_r5_20.py",
+      "archive/phases/phase144_6_r5_21/payload/audit_phase144_6_r5_21.py",
+      "archive/phases/phase144_6_r5_23/payload/audit_phase144_6_r5_23.py",
+      "archive/phases/phase144_6_r5_24/payload/audit_phase144_6_r5_24.py",
+      "audit_phase144_6_r5_20.py",
+      "audit_phase144_6_r5_21.py",
+      "audit_phase144_6_r5_23.py",
+      "audit_phase144_6_r5_24.py",
+      "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py"
+    ],
+    "phase162_web_narrative_integration._build_phase162_existing_group_connection": [
+      "phase162_r10_boundary_path_audit/audit.py",
+      "phase162_r10_r2_tree_audit/audit.py",
+      "phase162_r10_reference_boundary/test_r10.py",
+      "phase162_r10_repair1_citation_identity_test/test_r10.py",
+      "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair1/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair2/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair3/tests/test_phase162_r3_2_verified_group_connection.py"
+    ],
+    "phase162_r3_narrative_connection.render_phase162_r3_narrative": [
+      "phase162_r3_2_proof_prose_repair/backup_before_apply/tests/test_phase162_r3_narrative_connection.py",
+      "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_narrative_connection.py",
+      "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_prose_regression.py",
+      "phase162_r3_2_verified_group_connection/phase162_web_narrative_integration.py",
+      "phase162_r3_2_verified_group_connection/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair1/phase162_web_narrative_integration.py",
+      "phase162_r3_2_verified_group_connection_repair1/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair2/backup_before_apply/phase162_web_narrative_integration.py",
+      "phase162_r3_2_verified_group_connection_repair2/phase162_web_narrative_integration.py",
+      "phase162_r3_2_verified_group_connection_repair2/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair3/backup_before_apply/phase162_web_narrative_integration.py",
+      "phase162_r3_2_verified_group_connection_repair3/phase162_web_narrative_integration.py",
+      "phase162_r3_2_verified_group_connection_repair3/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_narrative_connection/tests/test_phase162_r3_narrative_connection.py",
+      "phase162_web_narrative_integration.py",
+      "phase164_r8_r5_backup_20261012_234601/phase162_web_narrative_integration.py",
+      "phase165_r5_r15_deduplicate_legacy_ehp/phase162_web_narrative_integration.before_r5_r15.py",
+      "tests/test_phase162_r3_narrative_connection.py"
+    ],
+    "phase162_r3_narrative_connection.render_phase162_r3_with_public_references": [
+      "phase162_r3_2_proof_prose_repair/backup_before_apply/tests/test_phase162_r3_narrative_connection.py",
+      "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_narrative_connection.py",
+      "phase162_r3_narrative_connection/tests/test_phase162_r3_narrative_connection.py",
+      "tests/test_phase162_r3_narrative_connection.py"
+    ],
+    "phase162_web_narrative_integration.build_phase162_web_validated_isomorphism_markdown": [
+      "phase162_r3_2_proof_prose_repair/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair1/backup_before_apply/web_group_proof.py",
+      "phase162_r3_2_verified_group_connection_repair1/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair2/backup_before_apply/web_group_proof.py",
+      "phase162_r3_2_verified_group_connection_repair2/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r3_2_verified_group_connection_repair3/tests/test_phase162_r3_2_verified_group_connection.py",
+      "phase162_r5_6_narrative_final_format/files/tests/test_phase162_r5_6_narrative_final_format.py",
+      "phase162_r5_display_refinement_repair1/backup/tests/test_phase162_r5_web_integration.py",
+      "phase162_r5_display_refinement_repair1/files/tests/test_phase162_r5_web_integration.py",
+      "phase162_r5_web_integration/files/tests/test_phase162_r5_web_integration.py",
+      "tests/test_phase162_r5_6_narrative_final_format.py",
+      "tests/test_phase162_r5_web_integration.py"
+    ],
+    "toda_group_proof_narrative_concrete_transport.render_concrete_transport_proof_from_steps": [
+      "phase162_r4_b3_common_renderer_fix/files/tests/test_phase162_r4_b3_common_renderer_fix.py",
+      "tests/test_phase162_r4_b3_common_renderer_fix.py"
+    ],
+    "phase162_web_narrative_integration._build_phase162_legacy_validated_isomorphism_markdown": [
+      "phase165_r5_r15_deduplicate_legacy_ehp/test_r5_r15.py"
+    ]
+  }
+}

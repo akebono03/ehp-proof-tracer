@@ -1,0 +1,756 @@
+{
+  "phase": "165 R5-R10",
+  "status": "REVIEW_REQUIRED",
+  "timestamp_utc": "2026-10-15T14:31:46.509616+00:00",
+  "scanned_python": 1159,
+  "checks": {
+    "all_target_modules_present": true,
+    "no_ast_errors": true,
+    "shared_leaf_dependency_retained": true,
+    "all_four_targets_classified": true
+  },
+  "parse_errors": [],
+  "targets": {
+    "phase162_web_narrative_integration": {
+      "defined_functions": [
+        "_build_phase162_existing_group_connection",
+        "_build_phase162_legacy_validated_isomorphism_markdown",
+        "_compose_phase162_group_conclusion",
+        "_format_phase162_proof_sentences",
+        "_phase162_ehp_leaves",
+        "build_phase162_web_validated_isomorphism_markdown"
+      ],
+      "focus_functions": [
+        "build_phase162_web_validated_isomorphism_markdown",
+        "_phase162_ehp_leaves"
+      ],
+      "module_present": true,
+      "application_refs": [
+        {
+          "file": "phase162_pi5_3_web_replay.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_phase162_ehp_leaves",
+          "line": 50,
+          "kind": "call"
+        },
+        {
+          "file": "phase162_pi5_3_web_replay.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_phase162_ehp_leaves",
+          "line": null,
+          "kind": "import",
+          "alias": "_phase162_ehp_leaves"
+        }
+      ],
+      "audit_refs": [],
+      "test_refs": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 11,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_format_phase162_proof_sentences",
+          "line": 34,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_compose_phase162_group_conclusion",
+          "line": 50,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_compose_phase162_group_conclusion",
+          "line": 55,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_compose_phase162_group_conclusion",
+          "line": null,
+          "kind": "import",
+          "alias": "_compose_phase162_group_conclusion"
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "_format_phase162_proof_sentences",
+          "line": null,
+          "kind": "import",
+          "alias": "_format_phase162_proof_sentences"
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "build_phase162_web_validated_isomorphism_markdown"
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 12,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 46,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 55,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "module": "phase162_web_narrative_integration",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "build_phase162_web_validated_isomorphism_markdown"
+        }
+      ],
+      "application_call_count": 1,
+      "application_caller_files": [
+        "phase162_pi5_3_web_replay.py"
+      ],
+      "symbol_owners": {
+        "_phase162_ehp_leaves": {
+          "application": [
+            {
+              "file": "phase162_pi5_3_web_replay.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_phase162_ehp_leaves",
+              "line": 50,
+              "kind": "call"
+            },
+            {
+              "file": "phase162_pi5_3_web_replay.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_phase162_ehp_leaves",
+              "line": null,
+              "kind": "import",
+              "alias": "_phase162_ehp_leaves"
+            }
+          ],
+          "audit": [],
+          "test": []
+        },
+        "build_phase162_web_validated_isomorphism_markdown": {
+          "application": [],
+          "audit": [],
+          "test": [
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "build_phase162_web_validated_isomorphism_markdown",
+              "line": 11,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "build_phase162_web_validated_isomorphism_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "build_phase162_web_validated_isomorphism_markdown"
+            },
+            {
+              "file": "tests/test_phase162_r5_web_integration.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "build_phase162_web_validated_isomorphism_markdown",
+              "line": 12,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_web_integration.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "build_phase162_web_validated_isomorphism_markdown",
+              "line": 46,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_web_integration.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "build_phase162_web_validated_isomorphism_markdown",
+              "line": 55,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_web_integration.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "build_phase162_web_validated_isomorphism_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "build_phase162_web_validated_isomorphism_markdown"
+            }
+          ]
+        },
+        "_format_phase162_proof_sentences": {
+          "application": [],
+          "audit": [],
+          "test": [
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_format_phase162_proof_sentences",
+              "line": 34,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_format_phase162_proof_sentences",
+              "line": null,
+              "kind": "import",
+              "alias": "_format_phase162_proof_sentences"
+            }
+          ]
+        },
+        "_compose_phase162_group_conclusion": {
+          "application": [],
+          "audit": [],
+          "test": [
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_compose_phase162_group_conclusion",
+              "line": 50,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_compose_phase162_group_conclusion",
+              "line": 55,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+              "module": "phase162_web_narrative_integration",
+              "symbol": "_compose_phase162_group_conclusion",
+              "line": null,
+              "kind": "import",
+              "alias": "_compose_phase162_group_conclusion"
+            }
+          ]
+        }
+      },
+      "disposition": "RETAIN_UNTIL_APPLICATION_DEPENDENCIES_MIGRATED"
+    },
+    "phase162_r3_narrative_connection": {
+      "defined_functions": [
+        "_element_latex",
+        "_group_latex",
+        "_ordered_ancestry",
+        "_phase162_legacy_ehp_body",
+        "_phase162_web_display_math_delimiters",
+        "_reference_section",
+        "_structure_latex",
+        "render_phase162_r3_narrative",
+        "render_phase162_r3_with_public_references"
+      ],
+      "focus_functions": [
+        "render_phase162_r3_narrative",
+        "render_phase162_r3_with_public_references"
+      ],
+      "module_present": true,
+      "application_refs": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 297,
+          "kind": "call"
+        },
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": null,
+          "kind": "import",
+          "alias": "render_phase162_r3_narrative"
+        }
+      ],
+      "audit_refs": [],
+      "test_refs": [
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 41,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 52,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_with_public_references",
+          "line": 100,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 62,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 73,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 81,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_narrative",
+          "line": null,
+          "kind": "import",
+          "alias": "render_phase162_r3_narrative"
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "module": "phase162_r3_narrative_connection",
+          "symbol": "render_phase162_r3_with_public_references",
+          "line": null,
+          "kind": "import",
+          "alias": "render_phase162_r3_with_public_references"
+        }
+      ],
+      "application_call_count": 1,
+      "application_caller_files": [
+        "phase162_web_narrative_integration.py"
+      ],
+      "symbol_owners": {
+        "render_phase162_r3_narrative": {
+          "application": [
+            {
+              "file": "phase162_web_narrative_integration.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": 297,
+              "kind": "call"
+            },
+            {
+              "file": "phase162_web_narrative_integration.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": null,
+              "kind": "import",
+              "alias": "render_phase162_r3_narrative"
+            }
+          ],
+          "audit": [],
+          "test": [
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": 41,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": 52,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": 62,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": 73,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": 81,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_narrative",
+              "line": null,
+              "kind": "import",
+              "alias": "render_phase162_r3_narrative"
+            }
+          ]
+        },
+        "render_phase162_r3_with_public_references": {
+          "application": [],
+          "audit": [],
+          "test": [
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_with_public_references",
+              "line": 100,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r3_narrative_connection.py",
+              "module": "phase162_r3_narrative_connection",
+              "symbol": "render_phase162_r3_with_public_references",
+              "line": null,
+              "kind": "import",
+              "alias": "render_phase162_r3_with_public_references"
+            }
+          ]
+        }
+      },
+      "disposition": "RETAIN_UNTIL_APPLICATION_DEPENDENCIES_MIGRATED"
+    },
+    "toda_group_proof_narrative_proof_chain_renderer": {
+      "defined_functions": [
+        "_validate_toda_group_proof_narrative_proof_chain_integration",
+        "render_toda_group_proof_narrative_from_proof_chains_markdown"
+      ],
+      "focus_functions": [
+        "render_toda_group_proof_narrative_from_proof_chains_markdown"
+      ],
+      "module_present": true,
+      "application_refs": [],
+      "audit_refs": [
+        {
+          "file": "audit_phase144_6_r5_20.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 397,
+          "kind": "call"
+        },
+        {
+          "file": "audit_phase144_6_r5_20.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "file": "audit_phase144_6_r5_21.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 171,
+          "kind": "call"
+        },
+        {
+          "file": "audit_phase144_6_r5_21.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "file": "audit_phase144_6_r5_23.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 148,
+          "kind": "call"
+        },
+        {
+          "file": "audit_phase144_6_r5_23.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "file": "audit_phase144_6_r5_24.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 190,
+          "kind": "call"
+        },
+        {
+          "file": "audit_phase144_6_r5_24.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        }
+      ],
+      "test_refs": [
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 41,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 116,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 145,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 177,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": 201,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+          "line": null,
+          "kind": "import",
+          "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        }
+      ],
+      "application_call_count": 0,
+      "application_caller_files": [],
+      "symbol_owners": {
+        "render_toda_group_proof_narrative_from_proof_chains_markdown": {
+          "application": [],
+          "audit": [
+            {
+              "file": "audit_phase144_6_r5_20.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 397,
+              "kind": "call"
+            },
+            {
+              "file": "audit_phase144_6_r5_20.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+            },
+            {
+              "file": "audit_phase144_6_r5_21.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 171,
+              "kind": "call"
+            },
+            {
+              "file": "audit_phase144_6_r5_21.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+            },
+            {
+              "file": "audit_phase144_6_r5_23.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 148,
+              "kind": "call"
+            },
+            {
+              "file": "audit_phase144_6_r5_23.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+            },
+            {
+              "file": "audit_phase144_6_r5_24.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 190,
+              "kind": "call"
+            },
+            {
+              "file": "audit_phase144_6_r5_24.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+            }
+          ],
+          "test": [
+            {
+              "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 41,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 116,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 145,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 177,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": 201,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+              "module": "toda_group_proof_narrative_proof_chain_renderer",
+              "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+              "line": null,
+              "kind": "import",
+              "alias": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+            }
+          ]
+        }
+      },
+      "disposition": "NO_APPLICATION_IMPORT_FOUND_TEST_OR_EXTERNAL_API_REVIEW"
+    },
+    "toda_group_proof_narrative_concrete_transport": {
+      "defined_functions": [
+        "render_concrete_transport_proof_from_steps"
+      ],
+      "focus_functions": [
+        "render_concrete_transport_proof_from_steps"
+      ],
+      "module_present": true,
+      "application_refs": [],
+      "audit_refs": [],
+      "test_refs": [
+        {
+          "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "module": "toda_group_proof_narrative_concrete_transport",
+          "symbol": "render_concrete_transport_proof_from_steps",
+          "line": 27,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "module": "toda_group_proof_narrative_concrete_transport",
+          "symbol": "render_concrete_transport_proof_from_steps",
+          "line": 37,
+          "kind": "call"
+        },
+        {
+          "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "module": "toda_group_proof_narrative_concrete_transport",
+          "symbol": "render_concrete_transport_proof_from_steps",
+          "line": null,
+          "kind": "import",
+          "alias": "render_concrete_transport_proof_from_steps"
+        }
+      ],
+      "application_call_count": 0,
+      "application_caller_files": [],
+      "symbol_owners": {
+        "render_concrete_transport_proof_from_steps": {
+          "application": [],
+          "audit": [],
+          "test": [
+            {
+              "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+              "module": "toda_group_proof_narrative_concrete_transport",
+              "symbol": "render_concrete_transport_proof_from_steps",
+              "line": 27,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+              "module": "toda_group_proof_narrative_concrete_transport",
+              "symbol": "render_concrete_transport_proof_from_steps",
+              "line": 37,
+              "kind": "call"
+            },
+            {
+              "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+              "module": "toda_group_proof_narrative_concrete_transport",
+              "symbol": "render_concrete_transport_proof_from_steps",
+              "line": null,
+              "kind": "import",
+              "alias": "render_concrete_transport_proof_from_steps"
+            }
+          ]
+        }
+      },
+      "disposition": "NO_APPLICATION_IMPORT_FOUND_TEST_OR_EXTERNAL_API_REVIEW"
+    }
+  },
+  "limitations": [
+    "Ownership classifies scripts by filename, not by Git tracking or runtime invocation.",
+    "A static import or call is not evidence of live runtime execution.",
+    "Dynamic imports, external consumers, monkeypatching and reflection may be missed.",
+    "This stage does not remove any existing module or change proof rendering.",
+    "Historical Phase 162 fixture failures remain unresolved.",
+    "Full pytest is deferred until the end of Phase 165."
+  ]
+}

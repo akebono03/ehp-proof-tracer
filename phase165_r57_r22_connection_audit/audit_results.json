@@ -1,0 +1,206 @@
+{
+  "phase": "165 R57-R22",
+  "mode": "READ_ONLY_STATIC",
+  "files": [
+    "proof.py",
+    "phase165_r3_recursive_search.py",
+    "phase165_r52_r9_shared_math.py",
+    "phase165_r52_r23_existing_rule_adapter.py",
+    "phase165_r57_r18_generator_substitution.py",
+    "phase165_r57_r19_delta_image_backward.py",
+    "phase165_r57_r20_general_specialization.py",
+    "phase165_r14_r14_diagonal_and_prop42.py"
+  ],
+  "functions": {
+    "proof.py": [
+      "order_relation",
+      "merge_variable_bindings",
+      "lookup_variable_binding",
+      "substitute_pattern_value",
+      "substitute_statement_pattern",
+      "substitute_relation_pattern",
+      "match_pattern_value",
+      "match_relation_pattern",
+      "match_statement_pattern",
+      "match_premise_pattern",
+      "matches_premise_pattern",
+      "match_inference_rule_bindings",
+      "matches_inference_rule",
+      "find_matching_premises",
+      "_find_all_matching_premise_bindings",
+      "find_all_matching_premises",
+      "is_inference_rule_applicable",
+      "find_applicable_inference_rules",
+      "find_inference_match",
+      "find_inference_matches",
+      "find_inference_matches_for_rule",
+      "substitute_inference_conclusion",
+      "apply_inference_match",
+      "apply_inference_matches",
+      "apply_inference_matches_with_results",
+      "relation_proof_step",
+      "kernel_proof_step",
+      "image_proof_step",
+      "cokernel_proof_step",
+      "exactness_proof_step",
+      "ehp_exactness_proof_step",
+      "ehp_exactness_proof",
+      "ehp_sphere_proof",
+      "ehp_hopf_target_proof",
+      "_normalize_proof_steps",
+      "find_goal_step",
+      "_normalize_inference_rules",
+      "_normalize_inference_matches",
+      "_normalize_inference_application_results",
+      "_normalize_relations",
+      "_validate_inference_rule",
+      "relation_inference_proof_step",
+      "relation_inference_proof",
+      "_validate_max_rounds",
+      "derive_inference_steps",
+      "merge_proof_steps",
+      "partition_new_and_duplicate_proof_steps",
+      "classify_inference_application_results",
+      "derive_inference_round_result",
+      "derive_new_inference_steps",
+      "run_inference_round",
+      "run_inference_until_stable_with_history",
+      "run_inference_until_stable",
+      "inference_match_guard_accepts",
+      "__post_init__",
+      "__post_init__",
+      "__post_init__",
+      "round_history",
+      "round_count",
+      "search"
+    ],
+    "phase165_r3_recursive_search.py": [
+      "_typed_reference_steps",
+      "reconstruct_registered_goal",
+      "report",
+      "resolve"
+    ],
+    "phase165_r52_r9_shared_math.py": [
+      "build_shared_typed_bridge",
+      "shared_expansion_provider",
+      "search_shared_group_goal",
+      "expand",
+      "search_one"
+    ],
+    "phase165_r52_r23_existing_rule_adapter.py": [
+      "_eta",
+      "_iota5",
+      "_objects",
+      "expand_existing_pi43_rules"
+    ],
+    "phase165_r57_r18_generator_substitution.py": [
+      "_matching_generator_substitution",
+      "_build_generator_substitution",
+      "finite_cyclic_generator_substitution_rule"
+    ],
+    "phase165_r57_r19_delta_image_backward.py": [
+      "expand_registered_delta_image_goal"
+    ],
+    "phase165_r57_r20_general_specialization.py": [
+      "_contains_symbol",
+      "_scalar_value",
+      "_bind",
+      "_substitute_name",
+      "_instantiate",
+      "specialize_typed_statement",
+      "_specialization_rule",
+      "expand_cited_general_specialization",
+      "build_adopted_toda51_diagonal_reference",
+      "guard",
+      "conclusion"
+    ],
+    "phase165_r14_r14_diagonal_and_prop42.py": [
+      "_diagonal_shape",
+      "_iota",
+      "diagonal_suspension_subgoals",
+      "_diagonal_guard",
+      "_build_diagonal_iso",
+      "diagonal_suspension_isomorphism_rule",
+      "expand_diagonal_suspension",
+      "review_prop42_scope",
+      "audit_r14"
+    ]
+  },
+  "checks": {
+    "search_recurses_over_provider_subgoals": true,
+    "search_forward_checks_inference": true,
+    "shared_provider_calls_pi43_adapter": true,
+    "pi43_adapter_contains_target_specific_goals": true,
+    "inference_rule_has_conclusion_pattern": true,
+    "inference_rule_has_conclusion_builder": true,
+    "generic_scalar_specialization_exists": true,
+    "delta_image_reverse_exists": true,
+    "finite_cyclic_substitution_exists": true
+  },
+  "full_pytest_run": false,
+  "note": "Static checks are presence checks, not evidence that proof goals are derivable.",
+  "adapter_probe": {
+    "status": "OBSERVED",
+    "goals": {
+      "named_generator": {
+        "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "adapter_count": 1,
+        "rule_names": [
+          "generic finite cyclic generator substitution from proved equality"
+        ],
+        "subgoals": [
+          [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "Relation(lhs=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ]
+        ]
+      },
+      "finite_quotient": {
+        "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "adapter_count": 1,
+        "rule_names": [
+          "Toda pi_4^3 finite cyclic quotient calculation"
+        ],
+        "subgoals": [
+          [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+            "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))"
+          ]
+        ]
+      },
+      "suspension_kernel": {
+        "goal": "TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+        "adapter_count": 1,
+        "rule_names": [
+          "Toda pi_4^3 exactness Delta image equals E kernel"
+        ],
+        "subgoals": [
+          [
+            "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+          ]
+        ]
+      },
+      "suspension_surjective": {
+        "goal": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+        "adapter_count": 1,
+        "rule_names": [
+          "Toda pi_4^3 E-H exactness zero-right suspension surjectivity"
+        ],
+        "subgoals": [
+          [
+            "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+          ]
+        ]
+      },
+      "delta_image": {
+        "goal": "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+        "adapter_count": 0,
+        "rule_names": [],
+        "subgoals": []
+      }
+    }
+  }
+}

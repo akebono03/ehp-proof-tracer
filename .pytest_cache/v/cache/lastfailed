@@ -342,5 +342,16 @@
   "phase165_r27_r22_r3_complete_fix/test_patch.py::test_r22_complete_group_uses_existing_renderer": true,
   "phase165_r27_r33/test_patch.py::test_r33_incomplete_proof_is_presentable": true,
   "phase165_r27_r33/test_patch.py::test_r33_modes_preserved": true,
-  "phase165_r27_r33/test_patch.py::test_r33_rejects_invalid_depth_before_search": true
+  "phase165_r27_r33/test_patch.py::test_r33_rejects_invalid_depth_before_search": true,
+  "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_explicit_conclusion_pattern_unifies_typed_goal": true,
+  "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_nested_typed_patterns_and_tuples": true,
+  "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_repeated_variable_conflict_rejected": true,
+  "test_phase165_r52_r11_common_renderer.py::test_r11_same_renderer_handles_completed_proof": true,
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_reuses_exact_verified_root_and_dependencies": true,
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_injectivity_and_surjectivity_precede_isomorphism": true,
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_text_is_rendered_by_common_step_renderer": true,
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_whitehead_square_uses_existing_latex_renderer": true,
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_rejects_modified_reconstructed_goal": true,
+  "tests/test_phase162_r2_validated_proof_presentation.py::test_phase162_r2_rejects_untrusted_given_identity": true,
+  "phase165_r5_r16_final_renderer_gate/test_audit.py::test_direct_test_import_is_recorded": true
 }

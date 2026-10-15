@@ -1,0 +1,465 @@
+{
+  "phase": "165 R5-R14",
+  "status": "REVIEW_REQUIRED",
+  "guards": {
+    "shared_leaf_module": true,
+    "replay_uses_shared_module": true,
+    "web_reexports_leaf": true,
+    "public_web_entry_present": true,
+    "no_parse_errors": true
+  },
+  "counts": {
+    "scanned": 1160,
+    "functions": 17,
+    "app_bound": 1,
+    "missing": 0,
+    "test_contracts": 6
+  },
+  "application_bound": [
+    "phase162_r3_narrative_connection:render_phase162_r3_narrative"
+  ],
+  "missing_symbols": [],
+  "decisions": {
+    "phase162_web_narrative_integration:_format_phase162_proof_sentences": {
+      "state": "DEFINED",
+      "decision": "KEEP_TEST_API_PENDING_MIGRATION",
+      "application": [],
+      "tests": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 34,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "line": 161,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_web_narrative_integration:_compose_phase162_group_conclusion": {
+      "state": "DEFINED",
+      "decision": "KEEP_TEST_API_PENDING_MIGRATION",
+      "application": [],
+      "tests": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 50,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 55,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "line": 162,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_web_narrative_integration:_build_phase162_legacy_validated_isomorphism_markdown": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "line": 259,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_web_narrative_integration:_build_phase162_existing_group_connection": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "line": 258,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_web_narrative_integration:build_phase162_web_validated_isomorphism_markdown": {
+      "state": "DEFINED",
+      "decision": "KEEP_TEST_API_PENDING_MIGRATION",
+      "application": [],
+      "tests": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 11,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "line": 12,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "line": 46,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "line": 55,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [],
+      "internal": []
+    },
+    "phase162_web_narrative_integration:_phase162_ehp_leaves": {
+      "state": "REEXPORTED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "line": 221,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_element_latex": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 217,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 218,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 39,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 40,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 79,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 58,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_group_latex": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 213,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 214,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 77,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_structure_latex": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 215,
+          "kind": "application",
+          "internal": true
+        },
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 216,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_ordered_ancestry": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 190,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_reference_section": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 219,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_phase162_legacy_ehp_body": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 231,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:_phase162_web_display_math_delimiters": {
+      "state": "DEFINED",
+      "decision": "KEEP_INTERNAL_PENDING_REMOVAL",
+      "application": [],
+      "tests": [],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 269,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:render_phase162_r3_narrative": {
+      "state": "DEFINED",
+      "decision": "KEEP_APPLICATION_CALLER",
+      "application": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "line": 260,
+          "kind": "application",
+          "internal": false
+        }
+      ],
+      "tests": [
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 41,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 52,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 62,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 73,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 81,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [],
+      "internal": [
+        {
+          "file": "phase162_r3_narrative_connection.py",
+          "line": 290,
+          "kind": "application",
+          "internal": true
+        }
+      ]
+    },
+    "phase162_r3_narrative_connection:render_phase162_r3_with_public_references": {
+      "state": "DEFINED",
+      "decision": "KEEP_TEST_API_PENDING_MIGRATION",
+      "application": [],
+      "tests": [
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 100,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [],
+      "internal": []
+    },
+    "toda_group_proof_narrative_proof_chain_renderer:render_toda_group_proof_narrative_from_proof_chains_markdown": {
+      "state": "DEFINED",
+      "decision": "KEEP_TEST_API_PENDING_MIGRATION",
+      "application": [],
+      "tests": [
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 41,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 116,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 145,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 177,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 201,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [
+        {
+          "file": "audit_phase144_6_r5_20.py",
+          "line": 397,
+          "kind": "audit",
+          "internal": false
+        },
+        {
+          "file": "audit_phase144_6_r5_21.py",
+          "line": 171,
+          "kind": "audit",
+          "internal": false
+        },
+        {
+          "file": "audit_phase144_6_r5_23.py",
+          "line": 148,
+          "kind": "audit",
+          "internal": false
+        },
+        {
+          "file": "audit_phase144_6_r5_24.py",
+          "line": 190,
+          "kind": "audit",
+          "internal": false
+        }
+      ],
+      "internal": []
+    },
+    "toda_group_proof_narrative_concrete_transport:render_concrete_transport_proof_from_steps": {
+      "state": "DEFINED",
+      "decision": "KEEP_TEST_API_PENDING_MIGRATION",
+      "application": [],
+      "tests": [
+        {
+          "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "line": 27,
+          "kind": "test",
+          "internal": false
+        },
+        {
+          "file": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "line": 37,
+          "kind": "test",
+          "internal": false
+        }
+      ],
+      "audit": [],
+      "internal": []
+    }
+  },
+  "parse_errors": [],
+  "notes": [
+    "R5-R14 is read only; it never deletes or rewrites application code.",
+    "Static imports and direct calls do not prove absence of dynamic/external dependencies.",
+    "Historical Phase162 fixture regressions are not resolved here.",
+    "Phase165 global pytest is not run."
+  ]
+}

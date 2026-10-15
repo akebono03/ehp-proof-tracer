@@ -1,0 +1,32 @@
+def _build_phase162_legacy_validated_isomorphism_markdown() -> str:
+    """Render only after the exact provenance roots pass R7 validation.
+
+    EHP leaves are sourced from the R5-R11 shared module through the existing
+    compatibility import, rather than reconstructed in this legacy renderer.
+    """
+    prop51, hopf_eta5, exactness = _phase162_ehp_leaves()
+    leaves = (prop51, hopf_eta5) + exactness
+    trusted = {}
+    visited = set()
+
+    def collect(step: ProofStep) -> None:
+        key = id(step)
+        if key in visited:
+            return
+        visited.add(key)
+        if step.rule is ProofRule.GIVEN:
+            trusted[key] = step
+        for premise in step.premises:
+            collect(premise)
+
+    for leaf in leaves:
+        collect(leaf)
+
+    validated = reconstruct_phase161_r7_validated_goal(
+        phase161_r5_target_goal(), leaves, tuple(trusted.values())
+    )
+    presentation = build_validated_backward_proof_presentation(validated)
+    markdown = render_validated_backward_proof_markdown(presentation)
+    return _format_phase162_proof_sentences(
+        _compose_phase162_group_conclusion(markdown)
+    )

@@ -1,0 +1,272 @@
+{
+  "phase": "165 R5-R12",
+  "status": "PRECONDITION_FAILED",
+  "generated_utc": "2026-10-15T15:09:11.063655+00:00",
+  "scan_counts": {
+    "application": 377,
+    "test": 783
+  },
+  "guards": {
+    "r5_r11_shared_file_exists": true,
+    "replay_imports_shared_leaves": true,
+    "legacy_web_reexports_shared_leaves": true,
+    "all_old_entry_symbols_defined": false,
+    "parse_errors_empty": true
+  },
+  "parse_errors": [],
+  "functions": {
+    "phase162_web_narrative_integration:build_phase162_web_validated_isomorphism_markdown": {
+      "definitions": [
+        251
+      ],
+      "application_references": [],
+      "test_references": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "kind": "test",
+          "sites": [
+            {
+              "line": 3,
+              "kind": "import"
+            },
+            {
+              "line": 11,
+              "kind": "call"
+            }
+          ]
+        },
+        {
+          "file": "tests/test_phase162_r5_web_integration.py",
+          "kind": "test",
+          "sites": [
+            {
+              "line": 6,
+              "kind": "import"
+            },
+            {
+              "line": 12,
+              "kind": "call"
+            },
+            {
+              "line": 46,
+              "kind": "call"
+            },
+            {
+              "line": 55,
+              "kind": "call"
+            }
+          ]
+        }
+      ],
+      "internal_calls": [],
+      "decision": "RETAIN_TEST_CONTRACT_REVIEW"
+    },
+    "phase162_web_narrative_integration:_build_phase162_legacy_validated_isomorphism_markdown": {
+      "definitions": [
+        100
+      ],
+      "application_references": [],
+      "test_references": [],
+      "internal_calls": [
+        {
+          "function": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 259
+        }
+      ],
+      "decision": "RETAIN_INTERNAL_DEPENDENCY_REVIEW"
+    },
+    "phase162_web_narrative_integration:_build_phase162_existing_group_connection": {
+      "definitions": [
+        166
+      ],
+      "application_references": [],
+      "test_references": [],
+      "internal_calls": [
+        {
+          "function": "build_phase162_web_validated_isomorphism_markdown",
+          "line": 258
+        }
+      ],
+      "decision": "RETAIN_INTERNAL_DEPENDENCY_REVIEW"
+    },
+    "phase162_web_narrative_integration:_format_phase162_proof_sentences": {
+      "definitions": [
+        39
+      ],
+      "application_references": [],
+      "test_references": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "kind": "test",
+          "sites": [
+            {
+              "line": 3,
+              "kind": "import"
+            },
+            {
+              "line": 34,
+              "kind": "call"
+            }
+          ]
+        }
+      ],
+      "internal_calls": [
+        {
+          "function": "_build_phase162_legacy_validated_isomorphism_markdown",
+          "line": 161
+        }
+      ],
+      "decision": "RETAIN_TEST_CONTRACT_REVIEW"
+    },
+    "phase162_web_narrative_integration:_compose_phase162_group_conclusion": {
+      "definitions": [
+        69
+      ],
+      "application_references": [],
+      "test_references": [
+        {
+          "file": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "kind": "test",
+          "sites": [
+            {
+              "line": 3,
+              "kind": "import"
+            },
+            {
+              "line": 50,
+              "kind": "call"
+            },
+            {
+              "line": 55,
+              "kind": "call"
+            }
+          ]
+        }
+      ],
+      "internal_calls": [
+        {
+          "function": "_build_phase162_legacy_validated_isomorphism_markdown",
+          "line": 162
+        }
+      ],
+      "decision": "RETAIN_TEST_CONTRACT_REVIEW"
+    },
+    "phase162_web_narrative_integration:_phase162_ehp_leaves": {
+      "definitions": [],
+      "application_references": [],
+      "test_references": [],
+      "internal_calls": [
+        {
+          "function": "_build_phase162_existing_group_connection",
+          "line": 221
+        }
+      ],
+      "decision": "DEFINITION_MISMATCH"
+    },
+    "phase162_r3_narrative_connection:render_phase162_r3_narrative": {
+      "definitions": [
+        166
+      ],
+      "application_references": [
+        {
+          "file": "phase162_web_narrative_integration.py",
+          "kind": "application",
+          "sites": [
+            {
+              "line": 29,
+              "kind": "import"
+            },
+            {
+              "line": 260,
+              "kind": "call"
+            }
+          ]
+        }
+      ],
+      "test_references": [
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "kind": "test",
+          "sites": [
+            {
+              "line": 6,
+              "kind": "import"
+            },
+            {
+              "line": 41,
+              "kind": "call"
+            },
+            {
+              "line": 52,
+              "kind": "call"
+            },
+            {
+              "line": 62,
+              "kind": "call"
+            },
+            {
+              "line": 73,
+              "kind": "call"
+            },
+            {
+              "line": 81,
+              "kind": "call"
+            }
+          ]
+        }
+      ],
+      "internal_calls": [
+        {
+          "function": "render_phase162_r3_with_public_references",
+          "line": 290
+        }
+      ],
+      "decision": "RETAIN_APPLICATION_DEPENDENCY"
+    },
+    "phase162_r3_narrative_connection:render_phase162_r3_with_public_references": {
+      "definitions": [
+        278
+      ],
+      "application_references": [],
+      "test_references": [
+        {
+          "file": "tests/test_phase162_r3_narrative_connection.py",
+          "kind": "test",
+          "sites": [
+            {
+              "line": 85,
+              "kind": "import"
+            },
+            {
+              "line": 100,
+              "kind": "call"
+            }
+          ]
+        }
+      ],
+      "internal_calls": [],
+      "decision": "RETAIN_TEST_CONTRACT_REVIEW"
+    },
+    "phase162_r3_narrative_connection:_phase162_legacy_ehp_body": {
+      "definitions": [
+        123
+      ],
+      "application_references": [],
+      "test_references": [],
+      "internal_calls": [
+        {
+          "function": "render_phase162_r3_narrative",
+          "line": 231
+        }
+      ],
+      "decision": "RETAIN_INTERNAL_DEPENDENCY_REVIEW"
+    }
+  },
+  "limitations": [
+    "External Python consumers, reflection, dynamic imports and monkeypatching are not fully enumerable.",
+    "A retirement candidate is not permission to delete a documented or externally used API.",
+    "GitHub may lag behind local R5-R11 patches; verify local source first.",
+    "Historical Phase162 fixture failures are not changed or marked successful.",
+    "No full pytest or mathematical certification is performed."
+  ]
+}

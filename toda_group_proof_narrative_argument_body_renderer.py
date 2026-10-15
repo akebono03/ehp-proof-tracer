@@ -1,4 +1,4 @@
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _generic_narrative_dependency_labels,
   _generic_narrative_sentence_lead,
   _generic_short_exact_sequence_reason_prose,

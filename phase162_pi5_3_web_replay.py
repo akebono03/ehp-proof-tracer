@@ -5,7 +5,7 @@ from phase162_pi5_3_backward_selection import (
     _canonical_goals,
     reconstruct_phase162_pi5_3_group_goal,
 )
-from phase162_web_narrative_integration import _phase162_ehp_leaves
+from phase162_ehp_leaf_inputs import _phase162_ehp_leaves
 from probes.probe_phase50_capabilities import build_phase50_representative_result
 from probes.probe_phase56_capabilities import build_phase56_representative_result
 from proof import ProofRule, ProofStep, apply_inference_match, find_inference_match

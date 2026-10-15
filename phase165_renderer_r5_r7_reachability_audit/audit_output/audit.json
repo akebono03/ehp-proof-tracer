@@ -1,0 +1,92 @@
+{
+  "phase": "165 R5-R7",
+  "status": "REVIEW_REQUIRED",
+  "timestamp_utc": "2026-10-15T14:04:26.470175+00:00",
+  "scanned_active_root_python": 330,
+  "parse_errors": [],
+  "public_roots": [
+    "web_group_proof.py",
+    "phase165_r52_r3_web_adapter.py",
+    "phase165_r52_partial_proof.py"
+  ],
+  "canonical_module_paths": {
+    "web_group_proof.py": [
+      "web_group_proof.py",
+      "phase165_r52_r3_web_adapter.py",
+      "phase165_r52_partial_proof.py",
+      "toda_group_proof_narrative_renderer.py"
+    ],
+    "phase165_r52_r3_web_adapter.py": [
+      "phase165_r52_r3_web_adapter.py",
+      "phase165_r52_partial_proof.py",
+      "toda_group_proof_narrative_renderer.py"
+    ],
+    "phase165_r52_partial_proof.py": [
+      "phase165_r52_partial_proof.py",
+      "toda_group_proof_narrative_renderer.py"
+    ]
+  },
+  "old_phase162_web_paths": {
+    "web_group_proof.py": null,
+    "phase165_r52_r3_web_adapter.py": null,
+    "phase165_r52_partial_proof.py": null
+  },
+  "legacy_targets": {
+    "phase162_r3_narrative_connection.py": {
+      "function": "render_phase162_r3_narrative",
+      "direct_call_sites": [
+        {
+          "source": "phase162_web_narrative_integration.py",
+          "target": "phase162_r3_narrative_connection.py",
+          "symbol": "render_phase162_r3_narrative",
+          "line": 297
+        }
+      ],
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "phase165_r52_r3_web_adapter.py": null,
+        "phase165_r52_partial_proof.py": null
+      },
+      "phase162_web_import_path": [
+        "phase162_web_narrative_integration.py",
+        "phase162_r3_narrative_connection.py"
+      ],
+      "has_public_import_path": false
+    },
+    "toda_group_proof_narrative_proof_chain_renderer.py": {
+      "function": "render_toda_group_proof_narrative_from_proof_chains_markdown",
+      "direct_call_sites": [],
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "phase165_r52_r3_web_adapter.py": null,
+        "phase165_r52_partial_proof.py": null
+      },
+      "phase162_web_import_path": null,
+      "has_public_import_path": false
+    },
+    "toda_group_proof_narrative_concrete_transport.py": {
+      "function": "render_concrete_transport_proof_from_steps",
+      "direct_call_sites": [],
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "phase165_r52_r3_web_adapter.py": null,
+        "phase165_r52_partial_proof.py": null
+      },
+      "phase162_web_import_path": null,
+      "has_public_import_path": false
+    }
+  },
+  "checks": {
+    "no_syntax_errors": true,
+    "web_group_proof_reaches_canonical_module": true,
+    "no_public_import_path_to_legacy_targets": true,
+    "no_public_import_path_to_phase162_web": true
+  },
+  "limitations": [
+    "This is a conservative module-import graph, not a function-level runtime call graph.",
+    "An import path is possible reachability, not evidence that a function executes.",
+    "Absence of a path does not rule out dynamic imports, monkeypatches, route registration, or reflection.",
+    "Static roots are restricted to the named Group Proof modules; CLI and other surfaces require separate review.",
+    "No source code is modified. Historical Phase162 fixture failures remain unresolved."
+  ]
+}

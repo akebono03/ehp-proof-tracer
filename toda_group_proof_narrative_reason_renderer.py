@@ -1,7 +1,7 @@
 from toda_human_readable_renderer import (
   render_toda_expression_latex,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_expression_latex,
   _render_generic_narrative_step,
 )
