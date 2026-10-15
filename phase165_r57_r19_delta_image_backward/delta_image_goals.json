@@ -1,0 +1,220 @@
+[
+  {
+    "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "depth": 0,
+    "rules": [
+      "generic finite cyclic generator substitution from proved equality"
+    ],
+    "subgoals": [
+      [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    ]
+  },
+  {
+    "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "depth": 1,
+    "rules": [
+      "Toda pi_4^3 finite cyclic quotient calculation"
+    ],
+    "subgoals": [
+      [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+        "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))"
+      ]
+    ]
+  },
+  {
+    "goal": "Relation(lhs=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "depth": 1,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "depth": 2,
+    "rules": [
+      "generic reverse free cyclic structure transport along isomorphism"
+    ],
+    "subgoals": [
+      [
+        "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))"
+      ]
+    ]
+  },
+  {
+    "goal": "TodaSuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+    "depth": 2,
+    "rules": [
+      "Toda pi_4^3 exactness Delta image equals E kernel"
+    ],
+    "subgoals": [
+      [
+        "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+      ]
+    ]
+  },
+  {
+    "goal": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+    "depth": 2,
+    "rules": [
+      "Toda pi_4^3 E-H exactness zero-right suspension surjectivity"
+    ],
+    "subgoals": [
+      [
+        "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+      ]
+    ]
+  },
+  {
+    "goal": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+    "depth": 3,
+    "rules": [
+      "generic injective and surjective imply isomorphism"
+    ],
+    "subgoals": [
+      [
+        "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))"
+      ]
+    ]
+  },
+  {
+    "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "depth": 3,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+    "depth": 3,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+    "depth": 3,
+    "rules": [
+      "free cyclic generator Delta image"
+    ],
+    "subgoals": [
+      [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+      ]
+    ]
+  },
+  {
+    "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+    "depth": 3,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+    "depth": 3,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+    "depth": 3,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+    "depth": 4,
+    "rules": [
+      "EHP: preceding zero group and exactness imply Hopf injectivity"
+    ],
+    "subgoals": [
+      [
+        "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+      ]
+    ]
+  },
+  {
+    "goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+    "depth": 4,
+    "rules": [
+      "EHP: subsequent zero delta and exactness imply Hopf surjectivity"
+    ],
+    "subgoals": [
+      [
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+      ]
+    ]
+  },
+  {
+    "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "depth": 4,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+    "depth": 4,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+    "depth": 5,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+    "depth": 5,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+    "depth": 5,
+    "rules": [
+      "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero"
+    ],
+    "subgoals": [
+      [
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+      ]
+    ]
+  },
+  {
+    "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+    "depth": 5,
+    "rules": [],
+    "subgoals": []
+  },
+  {
+    "goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+    "depth": 6,
+    "rules": [
+      "diagonal free cyclic suspension on generators implies isomorphism"
+    ],
+    "subgoals": [
+      [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))"
+      ]
+    ]
+  },
+  {
+    "goal": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+    "depth": 6,
+    "rules": [],
+    "subgoals": []
+  }
+]

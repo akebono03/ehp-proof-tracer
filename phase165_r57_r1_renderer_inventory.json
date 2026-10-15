@@ -1,0 +1,22 @@
+{
+  "scope": "production root Python AST calls; not a full dynamic dependency analysis",
+  "call_sites": {
+    "render_toda_group_proof_narrative_markdown": [
+      "phase162_r3_narrative_connection.py:289",
+      "phase164_r5_web_registry_connection.py:47",
+      "phase165_r56_presentation_adapter.py:53"
+    ],
+    "render_toda_group_proof_generic_proof_markdown": [],
+    "render_toda_partial_proof_narrative_markdown": [
+      "phase165_r52_partial_proof.py:101"
+    ],
+    "build_phase165_pi32_web_view": [],
+    "search_group_structure_automatically": [
+      "main.py:905",
+      "main.py:931",
+      "toda_typed_group_facade.py:15",
+      "web_group_query.py:124"
+    ]
+  },
+  "automatic_deletion": false
+}

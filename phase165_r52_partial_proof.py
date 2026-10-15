@@ -88,7 +88,7 @@ def make_partial_proof_result(
 
 
 def render_partial_proof_markdown(result: PartialProofResult) -> str:
-    """Compatibility API: delegate to the one shared Toda narrative renderer."""
+    """Render all partial and complete searches through the effective shared renderer."""
     from toda_group_proof_generic_narrative_renderer import (
         render_toda_partial_proof_narrative_markdown,
     )

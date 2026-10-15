@@ -1,0 +1,61 @@
+{
+  "phase": "165 R57-R9",
+  "mode": "READ_ONLY_COMPARE_LIVE_AND_NO_STABLE_RENDER_BRANCH",
+  "target": "pi_5^4",
+  "proof_status": "complete",
+  "structure_status": "known",
+  "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "proven_step_count": 2,
+  "open_goal_count": 0,
+  "steps": [
+    {
+      "rule": "given",
+      "inference_rule": "Adopted literature Proposition 5.1",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_count": 0,
+      "premise_types": []
+    },
+    {
+      "rule": "inference",
+      "inference_rule": "Toda Proposition 5.1 generic higher-eta specialization",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_count": 1,
+      "premise_types": [
+        "Relation"
+      ]
+    }
+  ],
+  "transport_proofstep_count": 0,
+  "stable_renderer_branch_called": true,
+  "stable_renderer_branch_intercepted": true,
+  "baseline_signatures": {
+    "has_reference": true,
+    "has_proof": true,
+    "has_toda45": true,
+    "has_prop51": true,
+    "has_suspension": true,
+    "has_qed": true,
+    "has_unresolved": false,
+    "length": 481
+  },
+  "without_branch_signatures": {
+    "has_reference": false,
+    "has_proof": false,
+    "has_toda45": false,
+    "has_prop51": false,
+    "has_suspension": false,
+    "has_qed": false,
+    "has_unresolved": false,
+    "length": 142
+  },
+  "narrative_identical": false,
+  "baseline_narrative": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.\n\\]\n\n## 使用する結果\n\n**[R1] (4.5).**\n$n \\ge k + 2$ のとき, $E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m}$ は同型.\n\n**[R2] Proposition 5.1.**\n$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.\n\n---\n\n## 証明\n\n$\\pi_{5}^{4}$ の群構造を決定する.\n\n[R2]より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.\n\n[R1]を $(n,m,k)=(3,4,1)$ に適用すると, $E: \\pi_{4}^{3} \\to \\pi_{5}^{4}$ は同型.\n\n$E\\eta_{3} = \\eta_{4}$.\n\n以上より, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$.\n\n□\n",
+  "without_branch_narrative": "# Group proof narrative\n\nまず, $\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$を用いる.\n\nしたがって, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$を得る.\n\n$\\square$",
+  "production_modified": false,
+  "live_stable_renderer_deletion_allowed": false,
+  "full_pytest_run": false,
+  "finding": "ACTIVE_LEGACY_NARRATIVE_BYPASS",
+  "interpretation": "Display equality does not certify the Toda (4.5) transport ancestry. Inspect steps and compare the reference/equation rendering before deletion."
+}

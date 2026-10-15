@@ -1216,6 +1216,17 @@ def _render_generic_narrative_statement_prose(
   # phase165_r42_generic_typed_prose: these are shared typed map and
   # generator-image statements; never use target-specific prose.
   kind = type(statement).__name__
+  # phase165_r56_r1_generator_suspension: shared typed statement prose
+  if kind == "GeneratorSuspension":
+    map_name = _generic_group_map_name(statement.map)
+    if map_name is not None:
+      return (
+        "$" + map_name + "("
+        + render_toda_expression_latex(statement.source_generator)
+        + ") = "
+        + render_toda_expression_latex(statement.target_generator)
+        + "$."
+      )
   if kind == "GeneratorImage":
     map_name = _generic_group_map_name(statement.map)
     if map_name is not None:
@@ -2436,58 +2447,19 @@ def render_toda_group_proof_generic_narrative_markdown(
   )
 
 
-def render_toda_group_proof_generic_proof_markdown(
-  presentation: TodaGroupProofPresentation,
-  blocks: tuple[
-    TodaGroupProofNarrativeBlock,
-    ...,
-  ],
-) -> str:
-  _validate_generic_narrative_blocks(
-    presentation,
-    blocks,
-  )
-
-  lines = [
-    "# Generic group proof",
-    "",
-  ]
-
-  for block_index in (
-    _generic_narrative_proof_order_indices(
-      presentation,
-      blocks,
-    )
-  ):
-    lines.extend(
-      _render_generic_narrative_proof_block(
-        presentation,
-        blocks,
-        block_index,
-      )
-    )
-
-  return (
-    "\n".join(
-      lines
-    ).rstrip()
-    + "\n"
-  )
 
 
 def render_toda_partial_proof_narrative_markdown(result) -> str:
-  """Render incomplete AND completed searches using shared Toda step prose.
+  """One source-faithful narrative for complete and incomplete typed searches.
 
-  ProofStep is the only source of proved statements; an unresolved Goal is
-  always rendered as an obligation, never as a derived fact. The full
-  presentation renderer requires a single proved root, so this entry point
-  uses its shared generic step renderer for a proof forest.
+  Search state only controls the ending. Both statuses use the same target,
+  cited GIVEN ancestry, inferred ProofSteps and ordering. No proof is inferred
+  from formatting, and an open goal never becomes a proved statement.
   """
   from homotopy_groups import TodaPrimaryGroup
-  from phase165_r52_partial_proof import (
-    PartialProofResult, ProofSearchStatus, GroupStructureStatus,
-  )
-  from web_group_proof import _group_proof_statement_latex
+  from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
+  from proof import ProofRule
+  from web_group_proof_common import _group_proof_statement_latex
 
   if not isinstance(result, PartialProofResult):
     raise TypeError("result must be PartialProofResult")
@@ -2499,76 +2471,108 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
     if latex is not None:
       return "$" + latex + "$"
     if isinstance(statement, TodaPrimaryGroup):
-      return (
-        f"$\\pi_{{{statement.group_dimension}}}"
-        f"^{{{statement.sphere_dimension}}}$"
-      )
-    group = getattr(statement, "group", None)
-    if isinstance(group, TodaPrimaryGroup):
-      return statement_math(group) + " の群構造の決定"
+      return (f"$\\pi_{{{statement.group_dimension}}}"
+              f"^{{{statement.sphere_dimension}}}$")
     return type(statement).__name__ + "（数式表示未対応）"
 
-  status = {
-    ProofSearchStatus.COMPLETE: "証明完成",
-    ProofSearchStatus.PARTIAL: "部分証明・未完成",
-    ProofSearchStatus.SEARCH_FAILED: "証明未完成",
-    ProofSearchStatus.NOT_SEARCHED: "未探索",
-  }[result.status]
-  target = statement_math(result.target)
-  if result.open_goals and result.status is not ProofSearchStatus.COMPLETE:
-    # When the actual typed conclusion is available, prefer its mathematical
-    # expression to a generic group target, without claiming it as proven.
-    target = statement_math(result.open_goals[0])
-  lines = [
-    "## 証明対象", target, "",
-    f"**探索状態：{status}**",
-  ]
-  if result.structure_status is GroupStructureStatus.UNKNOWN:
-    lines.append("群構造の証明状態: unknown（この探索では未確定）")
-  if result.references:
-    lines.extend(("", "## 使用する結果（Reference）"))
-    for ref in result.references:
-      lines.append("- " + ref)
+  def label(step):
+    inference = getattr(step, "inference_rule", None)
+    ref = getattr(inference, "literature_reference", None)
+    locator = getattr(ref, "locator", None) or getattr(ref, "label", None)
+    if locator:
+      return str(locator)
+    name = getattr(inference, "name", "") or ""
+    if name.startswith("Adopted literature "):
+      return name[len("Adopted literature "):]
+    return None
 
-  lines.extend(("", "## 証明（Proof（導出済み））"))
-  if result.proven_steps:
-    # Existing generic narrative prose is reused for every proven ProofStep.
-    # No Python repr and no goal-specific prose implementation.
-    used = set()
-    for step in result.proven_steps:
-      if id(step) in used:
-        continue
-      used.add(id(step))
-      if isinstance(step.conclusion, str):
-        lines.append(step.conclusion)
-      else:
-        lines.append(_render_generic_narrative_step(step))
-  else:
+  def unique_steps(steps):
+    seen = set()
+    ordered = []
+    for step in steps:
+      if id(step) not in seen:
+        seen.add(id(step))
+        ordered.append(step)
+    return tuple(ordered)
+
+  steps = unique_steps(result.proven_steps)
+  if result.status is ProofSearchStatus.COMPLETE:
+    roots = tuple(step for step in steps if step.conclusion == result.conclusion)
+    if len(roots) != 1 or roots[0].rule is not ProofRule.INFERENCE:
+      raise ValueError("a completed narrative requires exactly one inference root")
+    if getattr(result.conclusion, "lhs", None) != result.target:
+      raise ValueError("completed proof conclusion does not match target")
+    from phase165_r57_r10_step_narrative import ordered_proof_ancestry
+    steps = ordered_proof_ancestry(roots[0])
+
+  target_statement = result.conclusion if result.status is ProofSearchStatus.COMPLETE else None
+  if target_statement is None:
+    candidate_goals = tuple(
+      goal for goal in result.open_goals
+      if getattr(goal, "lhs", None) == result.target
+    )
+    if candidate_goals:
+      target_statement = candidate_goals[-1]
+  if target_statement is None:
+    target_statement = result.target
+
+  lines = ["## 証明対象", "", statement_math(target_statement), "",
+           "## 使用する結果", ""]
+  citation_numbers = {}
+  for step in steps:
+    if step.rule is not ProofRule.GIVEN:
+      continue
+    locator = label(step)
+    if locator is None:
+      continue
+    if locator not in citation_numbers:
+      citation_numbers[locator] = "[R" + str(len(citation_numbers) + 1) + "]"
+      lines.append("**" + citation_numbers[locator] + " " + locator + ".**")
+      lines.append("")
+  if not citation_numbers:
+    lines.append("参照情報を持つ ProofStep はありません。")
+    lines.append("")
+
+  lines.extend(["---", "", "## 証明", ""])
+  if not steps:
     lines.append("証明できた数学的な ProofStep はまだありません。")
-
-  if result.open_goals:
-    lines.extend(("", "## 未解決 Goal"))
-    for goal in result.open_goals:
-      lines.append("- " + statement_math(goal))
-
-  if result.diagnostics:
-    lines.extend(("", "## 探索診断"))
-    for diagnostic in result.diagnostics:
-      if diagnostic.startswith("expected one registered derivation for "):
-        lines.append(
-          "- この目標を導出する型付き Reference と推論規則の組み合わせが見つかりません。"
-        )
-      elif "SOURCE_ARCHIVE" in diagnostic:
-        lines.append(
-          "- 数学的に型付けされていない出典テキストは証明に利用していません。"
-        )
-      else:
-        lines.append("- " + diagnostic)
+    lines.append("")
+  for step in steps:
+    if step.rule is ProofRule.GIVEN:
+      locator = label(step)
+      prefix = citation_numbers[locator] + "より, " if locator in citation_numbers else "前提（出典情報未接続）: "
+    else:
+      refs = tuple(dict.fromkeys(
+        citation_numbers[loc] for premise in step.premises
+        for loc in (label(premise),) if loc in citation_numbers
+      ))
+      prefix = ("、".join(refs) + "より, ") if refs else ""
+    rendered = _render_generic_narrative_step(step)
+    if rendered:
+      lines.append(prefix + rendered)
+      lines.append("")
 
   if result.status is ProofSearchStatus.COMPLETE:
-    lines.extend(("", "以上より, " + statement_math(result.conclusion) + ". □"))
-  elif result.status is ProofSearchStatus.NOT_SEARCHED:
-    lines.extend(("", "証明探索はまだ実行されていません。"))
+    lines.append("以上より, " + statement_math(result.conclusion) + ". □")
   else:
-    lines.extend(("", "未解決 Goal は証明済みの結論ではありません。"))
+    state = {
+      ProofSearchStatus.PARTIAL: "部分証明・未完成",
+      ProofSearchStatus.SEARCH_FAILED: "証明未完成",
+      ProofSearchStatus.NOT_SEARCHED: "未探索",
+    }[result.status]
+    lines.extend(["**探索状態：" + state + "**", ""])
+    if result.open_goals:
+      lines.extend(["## 未解決 Goal", ""])
+      for goal in result.open_goals:
+        lines.append("- " + statement_math(goal))
+      lines.append("")
+    if result.diagnostics:
+      lines.extend(["## 探索診断", ""])
+      for diagnostic in result.diagnostics:
+        if diagnostic.startswith("expected one registered derivation for "):
+          lines.append("- 型付き Reference と推論規則から一意な導出が見つかりません。")
+        else:
+          lines.append("- " + diagnostic)
+      lines.append("")
+    lines.append("未解決 Goal は証明済みの結論ではありません。")
   return "\n".join(lines)

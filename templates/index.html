@@ -563,9 +563,13 @@
           {% endif %}
         </section>
       {% elif view.status.value == "not_found" %}
+        {% if group_proof_view and not group_proof_view.partial_result %}
+          <p>Typed proof search completed. See Group proof below.</p>
+        {% else %}
         <p>
           No proof-backed result found for this query.
         </p>
+        {% endif %}
       {% elif view.status.value == "multiple_results" %}
         <p>
           Multiple proof-backed results were found.

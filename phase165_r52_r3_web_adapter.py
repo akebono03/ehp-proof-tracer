@@ -6,7 +6,7 @@ preserved for legacy complete proofs.
 """
 from __future__ import annotations
 
-from phase165_r52_partial_proof import PartialProofResult, render_partial_proof_markdown
+from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus, render_partial_proof_markdown
 from web_group_proof_common import (
     WebGroupProofStepView,
     WebGroupProofView,
@@ -71,5 +71,5 @@ def build_partial_web_group_proof_view(
         max_depth=max_depth,
         mode=mode,
         rendered_lines=rendered_lines,
-        partial_result=True,
+        partial_result=(result.status is not ProofSearchStatus.COMPLETE),
     )

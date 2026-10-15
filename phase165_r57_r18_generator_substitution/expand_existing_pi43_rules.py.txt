@@ -1,0 +1,76 @@
+def expand_existing_pi43_rules(goal: object) -> tuple[GoalExpansion, ...]:
+    """Reverse existing rules, without supplying unverified theorem premises.
+
+    For the final named generator, substitute using a *proved* generator
+    equality, not a mere textual spelling equivalence. Accept the registry's
+    eta_3 display spelling when its typed GeneratorSymbol is eta(3).
+    """
+    source, target, delta_source, e, delta, eta2, eta3, twice = _objects()
+    if isinstance(goal, Relation) and goal.relation_type is RelationType.EQUALITY:
+        if goal.lhs == target and isinstance(goal.rhs, FiniteCyclicGroup):
+            generator = goal.rhs.generator
+            symbol = getattr(generator, "generator", None)
+            if (goal.rhs.order == 2
+                    and isinstance(generator, HomotopyElement)
+                    and getattr(symbol, "family", None) == "η"
+                    and getattr(symbol, "index", None) == 3
+                    and getattr(symbol, "decoration", None) is None
+                    and generator.dimension == eta3.dimension
+                    and generator.source == eta3.source
+                    and generator.target == eta3.target
+                    and generator.name in (eta3.name, "η_3")):
+                from phase165_r57_r18_generator_substitution import (
+                    finite_cyclic_generator_substitution_rule,
+                )
+                suspended = Suspension(expression=eta2)
+                return (GoalExpansion(
+                    finite_cyclic_generator_substitution_rule(),
+                    (
+                        Relation(target, FiniteCyclicGroup(2, suspended)),
+                        Relation(generator, suspended),
+                    ),
+                ),)
+        if goal.lhs == target and goal.rhs == FiniteCyclicGroup(2, Suspension(expression=eta2)):
+            return (GoalExpansion(
+                rules.toda_pi4_3_finite_cyclic_inference_rule(),
+                (
+                    Relation(source, FreeCyclicGroup(eta2)),
+                    rules.TodaSuspensionKernelFreeCyclicStatement(
+                        map=e, kernel_group=FreeCyclicGroup(twice),
+                    ),
+                    rules.TodaSuspensionSurjectiveStatement(map=e),
+                ),
+            ),)
+    if isinstance(goal, rules.TodaSuspensionKernelFreeCyclicStatement):
+        if goal.map == e and goal.kernel_group == FreeCyclicGroup(twice):
+            return (GoalExpansion(
+                rules.toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule(),
+                (
+                    rules.TodaDeltaImageFreeCyclicStatement(
+                        map=delta, image_group=FreeCyclicGroup(twice),
+                    ),
+                    rules.TodaProp42ExactnessStatement(
+                        TodaEHPExactnessWindow(
+                            source_term=delta_source, middle_term=source,
+                            target_term=target, first_map=EHP_DELTA_MAP,
+                            second_map=EHP_E_MAP,
+                        ),
+                    ),
+                ),
+            ),)
+    if isinstance(goal, rules.TodaSuspensionSurjectiveStatement):
+        if goal.map == e:
+            return (GoalExpansion(
+                rules.toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule(),
+                (
+                    TodaPrimaryGroupZeroStatement(TodaPrimaryGroup(4, 5)),
+                    rules.TodaProp42ExactnessStatement(
+                        TodaEHPExactnessWindow(
+                            source_term=source, middle_term=target,
+                            target_term=TodaPrimaryGroup(4, 5),
+                            first_map=EHP_E_MAP, second_map=EHP_H_MAP,
+                        ),
+                    ),
+                ),
+            ),)
+    return ()

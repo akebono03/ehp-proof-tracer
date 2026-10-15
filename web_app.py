@@ -11,6 +11,7 @@ from web_generator_exploration import (
 from phase165_r52_r4_flask_bridge import (
   build_group_proof_progress_view,
 )
+from phase165_r54_explicit_web_goal import build_explicit_free_cyclic_eta_web_view
 
 from web_group_proof import (
   WebGroupProofView,
@@ -140,7 +141,20 @@ def create_app(
 
     if request.method == "POST":
       try:
-        if form_kind == "group_proof":
+        if form_kind == "explicit_group_proof":
+          n = _parse_integer_form_value(n_value, "n")
+          k = _parse_integer_form_value(k_value, "k")
+          group_proof_depth = _parse_integer_form_value(group_proof_depth_value, "group_proof_depth")
+          if group_proof_depth not in (0, 1, 2):
+            raise ValueError("group_proof_depth must be 0, 1, or 2")
+          group_proof_view = build_explicit_free_cyclic_eta_web_view(
+            n=n,
+            k=k,
+            generator=request.form.get("goal_generator", ""),
+            max_depth=group_proof_depth,
+            mode=group_proof_mode_value,
+          )
+        elif form_kind == "group_proof":
           n = _parse_integer_form_value(
             n_value,
             "n",

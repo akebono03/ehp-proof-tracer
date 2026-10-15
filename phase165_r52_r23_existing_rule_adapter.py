@@ -50,21 +50,37 @@ def _objects():
 
 
 def expand_existing_pi43_rules(goal: object) -> tuple[GoalExpansion, ...]:
-    """Use five historic rules where inverse premises can be reconstructed.
+    """Reverse existing rules, without supplying unverified theorem premises.
 
-    The Delta-image rule requires additional typed Whitehead-square premises;
-    its inverse is deliberately not synthesized without those source witnesses.
+    For the final named generator, substitute using a *proved* generator
+    equality, not a mere textual spelling equivalence. Accept the registry's
+    eta_3 display spelling when its typed GeneratorSymbol is eta(3).
     """
     source, target, delta_source, e, delta, eta2, eta3, twice = _objects()
     if isinstance(goal, Relation) and goal.relation_type is RelationType.EQUALITY:
-        if goal.lhs == target and goal.rhs == FiniteCyclicGroup(2, eta3):
-            return (GoalExpansion(
-                rules.toda_pi4_3_eta3_generator_inference_rule(),
-                (
-                    Relation(target, FiniteCyclicGroup(2, Suspension(expression=eta2))),
-                    Relation(eta3, Suspension(expression=eta2)),
-                ),
-            ),)
+        if goal.lhs == target and isinstance(goal.rhs, FiniteCyclicGroup):
+            generator = goal.rhs.generator
+            symbol = getattr(generator, "generator", None)
+            if (goal.rhs.order == 2
+                    and isinstance(generator, HomotopyElement)
+                    and getattr(symbol, "family", None) == "η"
+                    and getattr(symbol, "index", None) == 3
+                    and getattr(symbol, "decoration", None) is None
+                    and generator.dimension == eta3.dimension
+                    and generator.source == eta3.source
+                    and generator.target == eta3.target
+                    and generator.name in (eta3.name, "η_3")):
+                from phase165_r57_r18_generator_substitution import (
+                    finite_cyclic_generator_substitution_rule,
+                )
+                suspended = Suspension(expression=eta2)
+                return (GoalExpansion(
+                    finite_cyclic_generator_substitution_rule(),
+                    (
+                        Relation(target, FiniteCyclicGroup(2, suspended)),
+                        Relation(generator, suspended),
+                    ),
+                ),)
         if goal.lhs == target and goal.rhs == FiniteCyclicGroup(2, Suspension(expression=eta2)):
             return (GoalExpansion(
                 rules.toda_pi4_3_finite_cyclic_inference_rule(),
