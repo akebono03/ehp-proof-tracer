@@ -1,0 +1,138 @@
+# R57-R21-R1 変更コード
+
+変更対象: `toda_group_proof_generic_narrative_renderer.py` の `render_toda_partial_proof_narrative_markdown()` （有効な最終定義）。変更しない: その他の関数、推論規則、探索コード。
+
+以下は置換後の関数全体。
+
+```python
+def render_toda_partial_proof_narrative_markdown(result) -> str:
+  """One source-faithful narrative for complete and incomplete typed searches.
+
+  Search state only controls the ending. Both statuses use the same target,
+  cited GIVEN ancestry, inferred ProofSteps and ordering. No proof is inferred
+  from formatting, and an open goal never becomes a proved statement.
+  """
+  from homotopy_groups import TodaPrimaryGroup
+  from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
+  from proof import ProofRule
+  from web_group_proof_common import _group_proof_statement_latex
+
+  if not isinstance(result, PartialProofResult):
+    raise TypeError("result must be PartialProofResult")
+
+  def statement_math(statement):
+    if isinstance(statement, str):
+      return statement
+    latex, _fallback = _group_proof_statement_latex(statement)
+    if latex is not None:
+      return "$" + latex + "$"
+    if isinstance(statement, TodaPrimaryGroup):
+      return (f"$\\pi_{{{statement.group_dimension}}}"
+              f"^{{{statement.sphere_dimension}}}$")
+    return type(statement).__name__ + "（数式表示未対応）"
+
+  def label(step):
+    inference = getattr(step, "inference_rule", None)
+    ref = getattr(inference, "literature_reference", None)
+    locator = getattr(ref, "locator", None) or getattr(ref, "label", None)
+    if locator:
+      return str(locator)
+    name = getattr(inference, "name", "") or ""
+    if name.startswith("Adopted literature "):
+      return name[len("Adopted literature "):]
+    return None
+
+  def unique_steps(steps):
+    seen = set()
+    ordered = []
+    for step in steps:
+      if id(step) not in seen:
+        seen.add(id(step))
+        ordered.append(step)
+    return tuple(ordered)
+
+  steps = unique_steps(result.proven_steps)
+  if result.status is ProofSearchStatus.COMPLETE:
+    roots = tuple(step for step in steps if step.conclusion == result.conclusion)
+    if len(roots) != 1 or roots[0].rule is not ProofRule.INFERENCE:
+      raise ValueError("a completed narrative requires exactly one inference root")
+    if getattr(result.conclusion, "lhs", None) != result.target:
+      raise ValueError("completed proof conclusion does not match target")
+    from phase165_r57_r10_step_narrative import ordered_proof_ancestry
+    steps = ordered_proof_ancestry(roots[0])
+
+  target_statement = result.conclusion if result.status is ProofSearchStatus.COMPLETE else None
+  if target_statement is None:
+    candidate_goals = tuple(
+      goal for goal in result.open_goals
+      if getattr(goal, "lhs", None) == result.target
+    )
+    if candidate_goals:
+      target_statement = candidate_goals[-1]
+  if target_statement is None:
+    target_statement = result.target
+
+  lines = ["## 証明対象", "", statement_math(target_statement), "",
+           "## 使用する結果", ""]
+  citation_numbers = {}
+  for step in steps:
+    if step.rule is not ProofRule.GIVEN:
+      continue
+    locator = label(step)
+    if locator is None:
+      continue
+    if locator not in citation_numbers:
+      citation_numbers[locator] = "[R" + str(len(citation_numbers) + 1) + "]"
+      lines.append("**" + citation_numbers[locator] + " " + locator + ".**")
+      lines.append("")
+  if not citation_numbers:
+    lines.append("参照情報を持つ ProofStep はありません。")
+    lines.append("")
+
+  lines.extend(["---", "", "## 証明", ""])
+  if not steps:
+    lines.append("証明できた数学的な ProofStep はまだありません。")
+    lines.append("")
+  for step in steps:
+    if step.rule is ProofRule.GIVEN:
+      locator = label(step)
+      prefix = citation_numbers[locator] + "より, " if locator in citation_numbers else "前提（出典情報未接続）: "
+    else:
+      refs = tuple(dict.fromkeys(
+        citation_numbers[loc] for premise in step.premises
+        for loc in (label(premise),) if loc in citation_numbers
+      ))
+      prefix = ("、".join(refs) + "より, ") if refs else ""
+    rendered = _render_generic_narrative_step(step)
+    if rendered:
+      lines.append(prefix + rendered)
+      lines.append("")
+
+  if result.status is ProofSearchStatus.COMPLETE:
+    lines.append("以上より, " + statement_math(result.conclusion) + ". □")
+  else:
+    state = {
+      ProofSearchStatus.PARTIAL: "部分証明・未完成",
+      ProofSearchStatus.SEARCH_FAILED: "証明未完成",
+      ProofSearchStatus.NOT_SEARCHED: "未探索",
+    }[result.status]
+    lines.extend(["**探索状態：" + state + "**", ""])
+    if result.open_goals:
+      lines.extend(["## 未解決 Goal", ""])
+      for goal in result.open_goals:
+        lines.append("- " + statement_math(goal))
+      lines.append("")
+    if result.diagnostics:
+      lines.extend(["## 探索診断", ""])
+      for diagnostic in result.diagnostics:
+        if diagnostic.startswith("expected one registered derivation for "):
+          lines.append("- 型付き Reference と推論規則から一意な導出が見つかりません。")
+        else:
+          lines.append("- " + diagnostic)
+      lines.append("")
+    lines.append("未解決 Goal は証明済みの結論ではありません。")
+  return "\n".join(lines)
+
+```
+
+新規ファイル `install.py`、`test_phase165_r57_r21_r1_effective_renderer_fix.py` は ZIP に全文収録。`run.ps1` は R57-R21 の既存6テストも対象実行する。
