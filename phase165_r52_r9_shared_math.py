@@ -160,6 +160,16 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     from phase165_r57_r12_ordered_proofs import validate_prior_internal_proofs
 
     goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
+    if proof_order_catalog is not None and recursive_proof_order_catalog is None:
+        from phase165_r57_r13_proof_order_catalog import ProofOrderCatalog
+        if not isinstance(proof_order_catalog, ProofOrderCatalog):
+            raise TypeError("proof_order_catalog must be ProofOrderCatalog")
+        if ordered_completed_proofs or completed_internal_proofs or target_order is not None:
+            raise ValueError("catalog proof order cannot mix with caller-supplied proofs")
+        if any(record.completed is not None for record in proof_order_catalog._records):
+            raise ValueError("on-demand mode forbids registered completed proofs")
+        recursive_proof_order_catalog = proof_order_catalog
+        proof_order_catalog = None
     if recursive_proof_order_catalog is not None:
         from phase165_r57_r14_recursive_search import search_recursively_in_proof_order
         if (proof_order_catalog is not None or ordered_completed_proofs
