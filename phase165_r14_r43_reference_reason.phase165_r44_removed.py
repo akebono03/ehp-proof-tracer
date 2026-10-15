@@ -5,7 +5,7 @@ from proof import ProofStep
 from toda_group_proof_narrative_references import (
     extract_toda_group_proof_step_literature_reference,
 )
-from toda_group_proof_generic_narrative_renderer import _render_generic_narrative_step
+from toda_group_proof_narrative_shared_components import _render_generic_narrative_step
 
 
 def _reference_rows(presentation):

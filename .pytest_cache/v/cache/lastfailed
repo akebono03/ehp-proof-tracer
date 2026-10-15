@@ -345,5 +345,6 @@
   "phase165_r27_r33/test_patch.py::test_r33_rejects_invalid_depth_before_search": true,
   "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_explicit_conclusion_pattern_unifies_typed_goal": true,
   "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_nested_typed_patterns_and_tuples": true,
-  "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_repeated_variable_conflict_rejected": true
+  "phase165_r57_r23_conclusion_unification/test_phase165_r57_r23_conclusion_unification.py::test_r23_repeated_variable_conflict_rejected": true,
+  "test_phase165_r52_r11_common_renderer.py::test_r11_same_renderer_handles_completed_proof": true
 }

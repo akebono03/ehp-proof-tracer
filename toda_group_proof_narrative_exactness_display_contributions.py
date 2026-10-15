@@ -4,7 +4,7 @@ from enum import Enum
 from proof import (
   ProofStep,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _generic_short_exact_sequence_latex,
   _render_generic_narrative_step,
 )

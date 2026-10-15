@@ -3,7 +3,7 @@ import inspect
 from tests.test_phase143_19_method_evidence import (
   _method_evidence_data,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_contribution_renderer import (

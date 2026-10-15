@@ -32,7 +32,7 @@ from toda_group_structure_transport_reason import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
   _GENERIC_INJECTIVE_STATEMENT_TYPES,
   _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
@@ -11101,7 +11101,7 @@ def _phase159_order_public_unique_preimage_definition_premises(
 
 
 
-def render_toda_group_proof_narrative_markdown(
+def _phase160_r7_pre_transport_narrative(
   presentation: TodaGroupProofPresentation,
 ) -> str:
   rendered = (
@@ -11142,7 +11142,7 @@ def render_toda_group_proof_narrative_markdown(
 
 # Phase160-R7 generic stable finite-cyclic public narrative
 _phase160_r7_previous_public_narrative_renderer = (
-  render_toda_group_proof_narrative_markdown
+  _phase160_r7_pre_transport_narrative
 )
 
 

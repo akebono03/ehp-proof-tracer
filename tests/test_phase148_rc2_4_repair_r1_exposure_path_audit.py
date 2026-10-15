@@ -1,7 +1,7 @@
 from toda_rules import (
   TodaProp42ExactnessStatement,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
 )
 from toda_group_proof_narrative_argument_multi_renderer import (

@@ -4,7 +4,7 @@ from expression import (
 from scalar_rules import (
   OddScalarStatement,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_phase153_r3_6_component_latex,
   _render_phase153_r3_6_component_list_prose,
 )

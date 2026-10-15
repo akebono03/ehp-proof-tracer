@@ -3,7 +3,7 @@ from collections import Counter
 from audit_phase144_6_r5_43_8 import (
   build_transport_chain_inventory,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
 )
 

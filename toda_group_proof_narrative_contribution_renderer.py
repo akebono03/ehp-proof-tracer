@@ -23,7 +23,7 @@ from proof import (
 from scalar_rules import (
   ScalarGreaterEqualStatement,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _generic_short_exact_sequence_latex,
   _generic_short_exact_sequence_reason_prose,
   _render_generic_narrative_step,

@@ -8,7 +8,7 @@ must never be presented as a fully narrated or mathematically certified proof.
 from dataclasses import dataclass
 
 from proof import ProofRule, ProofStep
-from toda_group_proof_generic_narrative_renderer import _render_generic_narrative_step
+from toda_group_proof_narrative_shared_components import _render_generic_narrative_step
 from toda_group_proof_presentation import TodaGroupProofPresentation
 from toda_group_structure_transport_reason import render_group_structure_transport_reason
 

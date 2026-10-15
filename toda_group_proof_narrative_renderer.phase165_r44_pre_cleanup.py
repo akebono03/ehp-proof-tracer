@@ -34,7 +34,7 @@ from toda_group_structure_transport_reason import (
 from toda_group_proof_presentation import (
   TodaGroupProofPresentation,
 )
-from toda_group_proof_generic_narrative_renderer import (
+from toda_group_proof_narrative_shared_components import (
   _render_generic_narrative_step,
   _GENERIC_INJECTIVE_STATEMENT_TYPES,
   _GENERIC_ISOMORPHISM_STATEMENT_TYPES,
