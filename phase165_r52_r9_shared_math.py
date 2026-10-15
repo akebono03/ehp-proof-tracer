@@ -110,6 +110,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase165_r57_r11_proof_order_gate import retain_ordered_root_expansions
     from phase165_r57_r19_delta_image_backward import expand_registered_delta_image_goal
     from phase165_r57_r20_general_specialization import expand_cited_general_specialization
+    from phase165_r57_r26_generic_search_connection import (
+        build_generic_backward_expansion_provider,
+        merge_backward_expansions,
+    )
+
+    generic_provider = build_generic_backward_expansion_provider()
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
@@ -146,7 +152,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
                 raise TypeError("expansion provider contract violated")
             options.extend(new)
-        return retain_ordered_root_expansions(proof_target, goal, tuple(options))
+        merged = merge_backward_expansions(tuple(options), generic_provider(goal))
+        return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 
 
