@@ -106,6 +106,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     )
 
     from phase165_r57_r11_proof_order_gate import retain_ordered_root_expansions
+    from phase165_r57_r19_delta_image_backward import expand_registered_delta_image_goal
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
@@ -128,6 +129,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                 ))
         options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available) + prior_conclusions))
         options.extend(expand_registered_eta_specialization(goal, tuple(available)))
+        options.extend(expand_registered_delta_image_goal(goal, tuple(available)))
         for provider in (
             expand_generic_iso_goal,
             expand_generic_ehp_hopf_goal,
