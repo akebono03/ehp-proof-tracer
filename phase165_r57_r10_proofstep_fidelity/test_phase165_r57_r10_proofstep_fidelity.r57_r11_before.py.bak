@@ -1,0 +1,48 @@
+"""Proof ancestry, not a legacy stable-display branch, controls the public claim."""
+from __future__ import annotations
+
+from pathlib import Path
+
+from phase165_r52_partial_proof import ProofSearchStatus
+from phase165_r55_nk_only_goal import search_group_from_registered_goal
+from phase165_r57_r10_step_narrative import has_transport_proof_ancestry, ordered_proof_ancestry
+from proof import ProofRule
+
+
+def _result():
+    result = search_group_from_registered_goal(n=4, k=1)
+    assert result.status is ProofSearchStatus.COMPLETE
+    return result
+
+
+def test_r10_stable_target_is_completed_without_transport_inference():
+    result = _result()
+    roots = [s for s in result.proven_steps if s.conclusion == result.conclusion]
+    assert len(roots) == 1
+    assert roots[0].rule is ProofRule.INFERENCE
+    assert len(ordered_proof_ancestry(roots[0])) >= 2
+    assert not has_transport_proof_ancestry(roots[0])
+
+
+def test_r10_public_narrative_matches_actual_nontransport_proof():
+    from phase165_r52_partial_proof import render_partial_proof_markdown
+    text = render_partial_proof_markdown(_result())
+    assert "Proposition 5.1" in text
+    assert "使用する結果" in text
+    assert "証明" in text
+    assert "□" in text
+    assert "(4.5)" not in text
+    assert "安定輸送" not in text
+
+
+def test_r10_existing_pi32_narrative_is_preserved():
+    from phase165_r52_partial_proof import render_partial_proof_markdown
+    text = render_partial_proof_markdown(search_group_from_registered_goal(n=2, k=1))
+    assert "使用する結果" in text
+    assert "証明" in text
+    assert "□" in text
+
+
+def test_r10_adapter_does_not_remove_legacy_renderer():
+    text = Path(__file__).resolve().parent.parent.joinpath("toda_group_proof_narrative_renderer.py").read_text(encoding="utf-8")
+    assert "_phase160_r7_render_stable_finite_cyclic_transport_narrative" in text

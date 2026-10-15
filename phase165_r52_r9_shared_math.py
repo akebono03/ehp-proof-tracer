@@ -83,7 +83,7 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     )
 
 
-def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = ()):
+def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None):
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -101,6 +101,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase165_r57_r8_eta_specialization import (
         expand_registered_eta_specialization,
     )
+
+    from phase165_r57_r11_proof_order_gate import retain_ordered_root_expansions
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
@@ -135,7 +137,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
                 raise TypeError("expansion provider contract violated")
             options.extend(new)
-        return tuple(options)
+        return retain_ordered_root_expansions(proof_target, goal, tuple(options))
     return expand
 
 
@@ -171,7 +173,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
             proof_context, goal=goal, policy=proof_use_order,
         )
     if expansion_provider is None:
-        expansion_provider = shared_expansion_provider(proof_context)
+        expansion_provider = shared_expansion_provider(proof_context, proof_target=goal)
     return search_registered_partial_proof(
         n=n, k=k, goal=goal, bridge=proof_context,
         citing_assertion_id=context_id,
