@@ -1,0 +1,253 @@
+{
+  "audit": "phase165-renderer-r5",
+  "status": "STATIC_PASS_REVIEW_REQUIRED",
+  "timestamp_utc": "2026-10-15T13:34:29.594711+00:00",
+  "checks": {
+    "no_legacy_alias": true,
+    "no_legacy_imports": true,
+    "one_public_complete_narrative_definition": true,
+    "one_shared_model_dispatcher": true,
+    "one_partial_narrative_definition": true,
+    "partial_public_uses_model_dispatcher": true,
+    "web_entry_uses_shared_adapter": true,
+    "web_adapter_uses_public_narrative": true,
+    "dispatcher_preserves_complete_and_incomplete": true,
+    "model_preserves_proven_steps_and_open_goals": true
+  },
+  "counts": {
+    "scanned_python": 1175,
+    "scan_scope": "project_root_and_tests_only",
+    "renderer_named_files": 120,
+    "legacy_import_statements": 0,
+    "archived_root_legacy_import_statements": 2,
+    "canonical_public_complete_definitions": 1,
+    "canonical_dispatchers": 1,
+    "candidate_helper_renderers": 26
+  },
+  "old_imports": [],
+  "archived_root_imports": [
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "line": 37
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "line": 37
+    }
+  ],
+  "focus_public_definitions": {
+    "toda_group_proof_narrative_renderer.py": {
+      "render_toda_group_proof_narrative_markdown": [
+        11766
+      ],
+      "render_toda_partial_proof_narrative_markdown": [
+        11800
+      ],
+      "render_narrative_proof_model": [
+        11929
+      ]
+    },
+    "phase165_renderer_narrative_model.py": {},
+    "phase165_r52_partial_proof.py": {
+      "render_partial_proof_markdown": [
+        90
+      ]
+    },
+    "phase165_r52_r3_web_adapter.py": {
+      "build_partial_web_group_proof_view": [
+        19
+      ]
+    },
+    "phase165_r56_presentation_adapter.py": {
+      "render_completed_shared_narrative": [
+        18
+      ]
+    },
+    "web_group_proof.py": {
+      "build_standard_web_group_proof_view": [
+        44
+      ]
+    },
+    "toda_group_proof_narrative_shared_components.py": {},
+    "phase165_r57_r2_partial_narrative.py": {},
+    "phase165_r57_r10_step_narrative.py": {}
+  },
+  "potential_alternative_narrative_helpers": [
+    {
+      "path": "phase162_r3_narrative_connection.py",
+      "functions": [
+        "render_phase162_r3_narrative"
+      ]
+    },
+    {
+      "path": "phase165_r57_r10_step_narrative.py",
+      "functions": [
+        "render_completed_from_proofsteps"
+      ]
+    },
+    {
+      "path": "phase165_r57_r2_partial_narrative.py",
+      "functions": [
+        "render_incomplete_public_narrative"
+      ]
+    },
+    {
+      "path": "toda_full_proof_report_renderer.py",
+      "functions": [
+        "render_toda_full_proof_report_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_aggregate_statement_renderer.py",
+      "functions": [
+        "render_toda_group_proof_aggregate_statement_prose"
+      ]
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r42_backup.py",
+      "functions": [
+        "render_toda_group_proof_generic_narrative_markdown",
+        "render_toda_group_proof_generic_proof_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r48_backup.py",
+      "functions": [
+        "render_toda_group_proof_generic_narrative_markdown",
+        "render_toda_group_proof_generic_proof_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r48_sidecar_backup.py",
+      "functions": [
+        "render_toda_group_proof_generic_narrative_markdown",
+        "render_toda_group_proof_generic_proof_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_argument_body_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_argument_body_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_argument_discourse.py",
+      "functions": [
+        "render_toda_group_proof_narrative_argument_discourse_marker"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_argument_multi_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_multi_argument_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_argument_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_argument_purpose_sentence",
+        "render_toda_group_proof_narrative_argument_header_method_section"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_argument_single_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_single_argument_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_concrete_transport.py",
+      "functions": [
+        "render_concrete_transport_proof_from_steps"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_contribution_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_exactness_method_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_exactness_method_transition",
+        "render_toda_group_proof_narrative_exactness_method_component_latex"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_proof_chain_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_from_proof_chains_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_reason_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_reason_sentence"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_references.py",
+      "functions": [
+        "render_toda_group_proof_narrative_reference_entries_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "functions": [
+        "render_toda_group_proof_narrative_markdown",
+        "render_toda_group_proof_narrative_markdown",
+        "render_toda_group_proof_narrative_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "functions": [
+        "render_toda_group_proof_narrative_markdown",
+        "render_toda_group_proof_narrative_markdown",
+        "render_toda_group_proof_narrative_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "functions": [
+        "render_toda_group_proof_narrative_markdown",
+        "render_toda_group_proof_narrative_markdown",
+        "render_toda_group_proof_narrative_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_proof_narrative_transition_renderer.py",
+      "functions": [
+        "render_toda_group_proof_narrative_transition_connector"
+      ]
+    },
+    {
+      "path": "toda_group_proof_outline_renderer.py",
+      "functions": [
+        "render_toda_group_proof_outline_markdown"
+      ]
+    },
+    {
+      "path": "toda_group_result_proof_replay_renderer.py",
+      "functions": [
+        "render_toda_group_result_proof_replay_markdown"
+      ]
+    },
+    {
+      "path": "toda_proof_narrative_renderer.py",
+      "functions": [
+        "render_toda_proof_statement_latex",
+        "render_toda_proof_step_mathematical_markdown",
+        "render_toda_readable_proof_narrative_markdown"
+      ]
+    }
+  ],
+  "limitations": [
+    "AST and source inspection alone cannot prove that no dynamic import, monkeypatch or untested path exists.",
+    "Helper render functions are not necessarily separate public renderers; manual ownership classification remains required.",
+    "This audit does not certify mathematical correctness or arbitrary-goal backward search completeness.",
+    "Archived installer/backup directories are deliberately excluded; they can retain historical imports.",
+    "Only root filenames with explicit .phaseN_* .py backup suffix are historical; all others remain active failures."
+  ]
+}

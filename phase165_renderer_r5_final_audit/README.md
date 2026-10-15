@@ -1,0 +1,5 @@
+# Phase 165 — Renderer R5 Final Audit
+
+This read-only package checks the locally installed Renderer state after R4. It does not edit production Python sources, proof rules, imports, or documentation. It reports whether the legacy Generic module and imports are gone, whether the canonical top-level public functions are single definitions, and whether the R3 shared model is reached from partial and Web entries. It also inventories other potential proof-narrative helper renderers without incorrectly classifying all helper functions as separate public implementations.
+
+Run `run.ps1` from the extracted package directory underneath the EHP Proof Tracer project. Results are written to `audit_output/audit.json` and `audit_output/review.md`. The focused tests include the completed pi3^2 route, arbitrary unproved n=200, k=90, and Web narrative and trace modes. The full pytest suite is intentionally not run. Static checks and representative tests do not prove mathematical completeness or exclusivity of every dynamic route.

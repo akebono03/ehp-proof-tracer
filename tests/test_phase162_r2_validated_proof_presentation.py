@@ -73,7 +73,7 @@ def test_phase162_r2_injectivity_and_surjectivity_precede_isomorphism():
 
 
 def test_phase162_r2_text_is_rendered_by_common_step_renderer():
-    from toda_group_proof_generic_narrative_renderer import (
+    from toda_group_proof_narrative_renderer import (
         _render_generic_narrative_step,
     )
     from toda_group_proof_narrative_renderer import (
@@ -156,7 +156,7 @@ def test_phase162_r2_text_is_rendered_by_common_step_renderer():
 
 
 def test_phase162_r2_whitehead_square_uses_existing_latex_renderer():
-    from toda_group_proof_generic_narrative_renderer import (
+    from toda_group_proof_narrative_renderer import (
         _render_generic_narrative_step,
     )
     from toda_group_proof_narrative_renderer import (
