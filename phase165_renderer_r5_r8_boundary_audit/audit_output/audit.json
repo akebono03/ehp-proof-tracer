@@ -1,0 +1,217 @@
+{
+  "phase": "165 R5-R8",
+  "status": "REVIEW_REQUIRED",
+  "timestamp_utc": "2026-10-15T14:12:13.580925+00:00",
+  "scanned_active_root_python": 330,
+  "parse_errors": [],
+  "checks": {
+    "legacy_phase162_web_has_no_public_import_route": true,
+    "legacy_phase162_narrative_has_no_public_import_route": true,
+    "web_group_proof_imports_canonical": true,
+    "no_ast_errors": true
+  },
+  "paths": {
+    "web_group_proof.py": {
+      "toda_group_proof_narrative_renderer.py": [
+        "web_group_proof.py",
+        "phase165_r52_r3_web_adapter.py",
+        "phase165_r52_partial_proof.py",
+        "toda_group_proof_narrative_renderer.py"
+      ],
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    },
+    "main.py": {
+      "toda_group_proof_narrative_renderer.py": [
+        "main.py",
+        "toda_group_proof_narrative_renderer.py"
+      ],
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    },
+    "cli.py": {
+      "toda_group_proof_narrative_renderer.py": [
+        "cli.py",
+        "phase165_r52_partial_proof.py",
+        "toda_group_proof_narrative_renderer.py"
+      ],
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    },
+    "web_generator_proof.py": {
+      "toda_group_proof_narrative_renderer.py": null,
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    },
+    "web_generator_exploration.py": {
+      "toda_group_proof_narrative_renderer.py": null,
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    },
+    "web_generator_execution.py": {
+      "toda_group_proof_narrative_renderer.py": null,
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    },
+    "web_operation_query_proof.py": {
+      "toda_group_proof_narrative_renderer.py": null,
+      "phase162_web_narrative_integration.py": null,
+      "phase162_r3_narrative_connection.py": null
+    }
+  },
+  "legacy_import_calls": [
+    {
+      "caller": "phase162_pi5_3_web_replay.py",
+      "target": "phase162_web_narrative_integration.py",
+      "symbol": "_phase162_ehp_leaves",
+      "line": 50
+    },
+    {
+      "caller": "phase162_web_narrative_integration.py",
+      "target": "phase162_r3_narrative_connection.py",
+      "symbol": "render_phase162_r3_narrative",
+      "line": 297
+    }
+  ],
+  "symbol_callers": {
+    "build_phase162_web_validated_isomorphism_markdown": [],
+    "render_phase162_r3_narrative": [
+      {
+        "caller": "phase162_web_narrative_integration.py",
+        "target": "phase162_r3_narrative_connection.py",
+        "symbol": "render_phase162_r3_narrative",
+        "line": 297
+      }
+    ],
+    "render_toda_group_proof_outline_markdown": [],
+    "render_toda_group_result_proof_replay_markdown": []
+  },
+  "entry_function_calls": {
+    "cli.py:_run_group_command": {
+      "line": 74,
+      "calls": [
+        "_write_markdown",
+        "build_standard_toda_partial_result",
+        "print",
+        "render_partial_proof_markdown"
+      ]
+    },
+    "cli.py:_run_element_command": {
+      "line": 94,
+      "calls": [
+        "_write_markdown",
+        "len",
+        "print",
+        "render_toda_proof_statement_latex",
+        "repr",
+        "resolve_generator_input",
+        "search_typed_generator_statements",
+        "strip"
+      ]
+    },
+    "main.py:_run_show_proof_command": {
+      "line": 874,
+      "calls": [
+        "ValueError",
+        "build_show_proof_argument_parser",
+        "error",
+        "isinstance",
+        "len",
+        "print",
+        "render_toda_proof_statement_latex",
+        "search_typed_generator_statements",
+        "str"
+      ]
+    },
+    "main.py:_run_group_proof_command": {
+      "line": 910,
+      "calls": [
+        "TodaGroupQuery",
+        "ValueError",
+        "classify_toda_group_query_domain",
+        "isinstance",
+        "print",
+        "render_partial_proof_markdown",
+        "render_toda_group_query_domain_cli_message",
+        "search_group_structure_automatically"
+      ]
+    },
+    "phase162_web_narrative_integration.py:build_phase162_web_validated_isomorphism_markdown": {
+      "line": 288,
+      "calls": [
+        "ValueError",
+        "_build_phase162_existing_group_connection",
+        "_build_phase162_legacy_validated_isomorphism_markdown",
+        "render_phase162_r3_narrative"
+      ]
+    },
+    "phase165_r52_partial_proof.py:render_partial_proof_markdown": {
+      "line": 90,
+      "calls": [
+        "TypeError",
+        "build_narrative_proof_model",
+        "isinstance",
+        "render_narrative_proof_model"
+      ]
+    },
+    "phase165_r52_r3_web_adapter.py:build_partial_web_group_proof_view": {
+      "line": 19,
+      "calls": [
+        "TypeError",
+        "ValueError",
+        "WebGroupProofStepView",
+        "WebGroupProofView",
+        "_build_group_proof_rendered_lines",
+        "_group_proof_rule_name",
+        "_group_proof_statement_latex",
+        "append",
+        "isinstance",
+        "render_partial_proof_markdown",
+        "tuple"
+      ]
+    },
+    "toda_group_proof_outline_renderer.py:render_toda_group_proof_outline_markdown": {
+      "line": 126,
+      "calls": [
+        "TypeError",
+        "_append_outline_children",
+        "_render_group_proof_outline_statement",
+        "isinstance",
+        "join",
+        "set"
+      ]
+    },
+    "toda_group_result_proof_replay_renderer.py:render_toda_group_result_proof_replay_markdown": {
+      "line": 54,
+      "calls": [
+        "TypeError",
+        "_group_result_proof_replay_rule_name",
+        "_render_group_result_proof_replay_statement",
+        "enumerate",
+        "extend",
+        "isinstance",
+        "join"
+      ]
+    },
+    "web_group_proof.py:build_standard_web_group_proof_view": {
+      "line": 44,
+      "calls": [
+        "TodaGroupQuery",
+        "TypeError",
+        "ValueError",
+        "build_partial_web_group_proof_view",
+        "classify_toda_group_query_domain",
+        "isinstance",
+        "search_group_from_registered_goal"
+      ]
+    }
+  },
+  "limitations": [
+    "Import connectivity is an overapproximation of execution, not a runtime function-level proof.",
+    "No import path does not exclude dynamic imports, imports through packages, monkeypatching or reflection.",
+    "Public root list covers known Web/CLI entry modules only; all possible callers are not enumerated.",
+    "A function name with no detected imported calls may be used indirectly or externally.",
+    "The historical Phase 162 fixture failures are not resolved by this audit.",
+    "No mathematical validation and no full pytest are performed."
+  ]
+}
