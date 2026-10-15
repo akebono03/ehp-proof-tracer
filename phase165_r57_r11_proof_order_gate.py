@@ -57,6 +57,18 @@ def is_unordered_root_structure_specialization(
         return False
     if _proved_generator_substitution_shape(root_goal, expansion):
         return False
+    # A cited diagonal source (5.1) is a foundational *earlier* formula,
+    # unlike the target-group higher-eta clause of Proposition 5.1.
+    # Its use still requires screening of the exact fixed Reference leaf.
+    if (getattr(expansion.rule, "name", None) == "generic cited typed scalar specialization"
+            and len(expansion.subgoals) == 1
+            and root_goal.lhs.group_dimension == root_goal.lhs.sphere_dimension
+            and isinstance(expansion.subgoals[0], Relation)):
+        premise = expansion.subgoals[0]
+        if (isinstance(premise.lhs, TodaPrimaryGroup)
+                and premise.lhs.group_dimension == premise.lhs.sphere_dimension
+                and isinstance(premise.rhs, FreeCyclicGroup)):
+            return False
     for premise in expansion.subgoals:
         if not (
             isinstance(premise, Relation)

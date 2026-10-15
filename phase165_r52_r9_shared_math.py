@@ -39,9 +39,11 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         adopted_tex = Path(__file__).resolve().with_name("phase165_r14_r39_toda51.tex")
         from phase165_r52_r13_reference_registration import build_adopted_prop51_reference
         from phase165_r52_r27_r5_literature import build_typed_literature_bridge
+        from phase165_r57_r20_general_specialization import build_adopted_toda51_diagonal_reference
         literature = build_typed_literature_bridge(production)
         sources = (production, build_adopted_typed_reference_registry(adopted_tex),
-                   build_adopted_prop51_reference()) + (literature,)
+                   build_adopted_prop51_reference(),
+                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature,)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -107,6 +109,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 
     from phase165_r57_r11_proof_order_gate import retain_ordered_root_expansions
     from phase165_r57_r19_delta_image_backward import expand_registered_delta_image_goal
+    from phase165_r57_r20_general_specialization import expand_cited_general_specialization
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
@@ -130,6 +133,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available) + prior_conclusions))
         options.extend(expand_registered_eta_specialization(goal, tuple(available)))
         options.extend(expand_registered_delta_image_goal(goal, tuple(available)))
+        options.extend(expand_cited_general_specialization(goal, tuple(available)))
         for provider in (
             expand_generic_iso_goal,
             expand_generic_ehp_hopf_goal,
