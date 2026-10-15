@@ -94,7 +94,7 @@ def render_partial_proof_markdown(result: PartialProofResult) -> str:
     if result.status is ProofSearchStatus.COMPLETE:
         from phase165_r56_presentation_adapter import render_completed_shared_narrative
         return render_completed_shared_narrative(result)
-    from toda_group_proof_generic_narrative_renderer import (
+    from toda_group_proof_narrative_renderer import (
         render_toda_partial_proof_narrative_markdown,
     )
     return render_toda_partial_proof_narrative_markdown(result)
