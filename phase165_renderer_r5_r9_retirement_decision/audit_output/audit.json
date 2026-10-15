@@ -1,0 +1,404 @@
+{
+  "phase": "165 R5-R9",
+  "status": "REVIEW_REQUIRED",
+  "timestamp_utc": "2026-10-15T14:21:52.127511+00:00",
+  "scanned_python": 1159,
+  "checks": {
+    "target_files_exist": true,
+    "no_parse_errors": true,
+    "normal_web_not_reaching_legacy": true
+  },
+  "parse_errors": [],
+  "targets": {
+    "phase162_web_narrative_integration.py": {
+      "defined_focus_symbols": [
+        "build_phase162_web_validated_isomorphism_markdown",
+        "_phase162_ehp_leaves"
+      ],
+      "production_dependencies": [
+        {
+          "caller": "phase162_pi5_3_web_replay.py",
+          "line": 8,
+          "module": "phase162_web_narrative_integration",
+          "kind": "from_import",
+          "symbol": "_phase162_ehp_leaves"
+        },
+        {
+          "caller": "phase162_pi5_3_web_replay.py",
+          "line": 50,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "_phase162_ehp_leaves"
+        }
+      ],
+      "test_dependencies": [
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 3,
+          "module": "phase162_web_narrative_integration",
+          "kind": "from_import",
+          "symbol": "_compose_phase162_group_conclusion"
+        },
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 3,
+          "module": "phase162_web_narrative_integration",
+          "kind": "from_import",
+          "symbol": "_format_phase162_proof_sentences"
+        },
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 3,
+          "module": "phase162_web_narrative_integration",
+          "kind": "from_import",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown"
+        },
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 11,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown"
+        },
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 34,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "_format_phase162_proof_sentences"
+        },
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 50,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "_compose_phase162_group_conclusion"
+        },
+        {
+          "caller": "tests/test_phase162_r5_6_narrative_final_format.py",
+          "line": 55,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "_compose_phase162_group_conclusion"
+        },
+        {
+          "caller": "tests/test_phase162_r5_web_integration.py",
+          "line": 6,
+          "module": "phase162_web_narrative_integration",
+          "kind": "from_import",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown"
+        },
+        {
+          "caller": "tests/test_phase162_r5_web_integration.py",
+          "line": 12,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown"
+        },
+        {
+          "caller": "tests/test_phase162_r5_web_integration.py",
+          "line": 46,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown"
+        },
+        {
+          "caller": "tests/test_phase162_r5_web_integration.py",
+          "line": 55,
+          "module": "phase162_web_narrative_integration",
+          "kind": "call",
+          "symbol": "build_phase162_web_validated_isomorphism_markdown"
+        }
+      ],
+      "production_dependency_count": 2,
+      "test_dependency_count": 11,
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "main.py": null,
+        "cli.py": null,
+        "web_generator_proof.py": null,
+        "web_generator_exploration.py": null,
+        "web_generator_execution.py": null,
+        "web_operation_query_proof.py": null
+      },
+      "decision": "RETAIN_DEPENDENT_MODULE"
+    },
+    "phase162_r3_narrative_connection.py": {
+      "defined_focus_symbols": [
+        "render_phase162_r3_narrative",
+        "render_phase162_r3_with_public_references"
+      ],
+      "production_dependencies": [
+        {
+          "caller": "phase162_web_narrative_integration.py",
+          "line": 29,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "from_import",
+          "symbol": "render_phase162_r3_narrative"
+        },
+        {
+          "caller": "phase162_web_narrative_integration.py",
+          "line": 297,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_narrative"
+        }
+      ],
+      "test_dependencies": [
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 6,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "from_import",
+          "symbol": "render_phase162_r3_narrative"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 85,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "from_import",
+          "symbol": "render_phase162_r3_with_public_references"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 41,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_narrative"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 52,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_narrative"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 100,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_with_public_references"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 62,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_narrative"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 73,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_narrative"
+        },
+        {
+          "caller": "tests/test_phase162_r3_narrative_connection.py",
+          "line": 81,
+          "module": "phase162_r3_narrative_connection",
+          "kind": "call",
+          "symbol": "render_phase162_r3_narrative"
+        }
+      ],
+      "production_dependency_count": 2,
+      "test_dependency_count": 8,
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "main.py": null,
+        "cli.py": null,
+        "web_generator_proof.py": null,
+        "web_generator_exploration.py": null,
+        "web_generator_execution.py": null,
+        "web_operation_query_proof.py": null
+      },
+      "decision": "RETAIN_DEPENDENT_MODULE"
+    },
+    "toda_group_proof_narrative_proof_chain_renderer.py": {
+      "defined_focus_symbols": [
+        "render_toda_group_proof_narrative_from_proof_chains_markdown"
+      ],
+      "production_dependencies": [
+        {
+          "caller": "audit_phase144_6_r5_20.py",
+          "line": 7,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "from_import",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_20.py",
+          "line": 397,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_21.py",
+          "line": 23,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "from_import",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_21.py",
+          "line": 171,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_23.py",
+          "line": 20,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "from_import",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_23.py",
+          "line": 148,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_24.py",
+          "line": 33,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "from_import",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "audit_phase144_6_r5_24.py",
+          "line": 190,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        }
+      ],
+      "test_dependencies": [
+        {
+          "caller": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 8,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "from_import",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 41,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 116,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 145,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 177,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        },
+        {
+          "caller": "tests/test_phase144_6_r5_19_proof_chain_narrative_integration.py",
+          "line": 201,
+          "module": "toda_group_proof_narrative_proof_chain_renderer",
+          "kind": "call",
+          "symbol": "render_toda_group_proof_narrative_from_proof_chains_markdown"
+        }
+      ],
+      "production_dependency_count": 8,
+      "test_dependency_count": 6,
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "main.py": null,
+        "cli.py": null,
+        "web_generator_proof.py": null,
+        "web_generator_exploration.py": null,
+        "web_generator_execution.py": null,
+        "web_operation_query_proof.py": null
+      },
+      "decision": "RETAIN_DEPENDENT_MODULE"
+    },
+    "toda_group_proof_narrative_concrete_transport.py": {
+      "defined_focus_symbols": [
+        "render_concrete_transport_proof_from_steps"
+      ],
+      "production_dependencies": [],
+      "test_dependencies": [
+        {
+          "caller": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "line": 6,
+          "module": "toda_group_proof_narrative_concrete_transport",
+          "kind": "from_import",
+          "symbol": "render_concrete_transport_proof_from_steps"
+        },
+        {
+          "caller": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "line": 27,
+          "module": "toda_group_proof_narrative_concrete_transport",
+          "kind": "call",
+          "symbol": "render_concrete_transport_proof_from_steps"
+        },
+        {
+          "caller": "tests/test_phase162_r4_b3_common_renderer_fix.py",
+          "line": 37,
+          "module": "toda_group_proof_narrative_concrete_transport",
+          "kind": "call",
+          "symbol": "render_concrete_transport_proof_from_steps"
+        }
+      ],
+      "production_dependency_count": 0,
+      "test_dependency_count": 3,
+      "public_import_paths": {
+        "web_group_proof.py": null,
+        "main.py": null,
+        "cli.py": null,
+        "web_generator_proof.py": null,
+        "web_generator_exploration.py": null,
+        "web_generator_execution.py": null,
+        "web_operation_query_proof.py": null
+      },
+      "decision": "RETAIN_TEST_CONTRACT_REVIEW"
+    }
+  },
+  "string_references": [
+    {
+      "caller": "tests/test_phase162_r5_web_integration.py",
+      "line": 21,
+      "value": "phase162_web_narrative_integration.build_phase162_web_validated_isomorphism_markdown"
+    },
+    {
+      "caller": "tests/test_phase162_r5_web_integration.py",
+      "line": 38,
+      "value": "phase162_web_narrative_integration.build_phase162_web_validated_isomorphism_markdown"
+    },
+    {
+      "caller": "tests/test_phase165_goal_only_cutover.py",
+      "line": 33,
+      "value": "phase162_web_narrative_integration"
+    }
+  ],
+  "limitations": [
+    "No source files were removed or modified.",
+    "Root-module static imports and direct calls do not establish all runtime reachability.",
+    "Reflection, dynamic imports, external consumers, and indirect callable aliases require separate review.",
+    "Absence of import does not by itself authorize deletion of a public API.",
+    "Historical Phase162 fixture failures (6) remain unresolved and are not marked passing.",
+    "Full pytest must only run at the end of Phase 165."
+  ]
+}
