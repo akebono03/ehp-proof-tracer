@@ -1082,6 +1082,8 @@
   "phase165_r5_r17_r1_runner_recovery_fix/test_recovery.py::test_verified_existing_backup_accepts_exact_restoration",
   "phase165_r5_r17_r1_runner_recovery_fix/test_recovery.py::test_verified_existing_backup_rejects_changed_restoration",
   "phase165_r5_r17_r1_runner_recovery_fix/test_recovery.py::test_verified_existing_backup_requires_full_backup",
+  "phase165_r6_1_audit/test_audit.py::test_detects_group_specific_adapter_and_generic_connection",
+  "phase165_r6_1_audit/test_audit.py::test_no_fabrication_from_unrelated_group_symbols",
   "phase165_renderer_r1_full_audit/test_audit.py::test_r1_detects_duplicate_top_level_functions",
   "phase165_renderer_r1_full_audit/test_audit.py::test_r1_excludes_archived_and_phase_installers_from_production",
   "phase165_renderer_r1_full_audit/test_audit.py::test_r1_finds_legacy_imports_and_routes",
