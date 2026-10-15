@@ -11924,3 +11924,24 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
       lines.append("")
     lines.append("未解決 Goal は証明済みの結論ではありません。")
   return "\n".join(lines)
+
+
+def render_narrative_proof_model(model) -> str:
+    """Dispatch normalized evidence through the established Narrative implementation.
+
+    The original completed adapter retains its historical fidelity safeguards.
+    This function never creates, certifies, or changes a ProofStep.
+    """
+    from phase165_renderer_narrative_model import NarrativeProofModel
+    from phase165_r52_partial_proof import ProofSearchStatus
+
+    if not isinstance(model, NarrativeProofModel):
+        raise TypeError("model must be NarrativeProofModel")
+    if model.source_kind == "presentation":
+        return render_toda_group_proof_narrative_markdown(model.source)
+    if model.source_kind != "search_result":
+        raise ValueError("unrecognized Narrative model source")
+    if model.status is ProofSearchStatus.COMPLETE:
+        from phase165_r56_presentation_adapter import render_completed_shared_narrative
+        return render_completed_shared_narrative(model.source)
+    return render_toda_partial_proof_narrative_markdown(model.source)
