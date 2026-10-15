@@ -83,7 +83,7 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     )
 
 
-def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None):
+def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None, prior_conclusions: tuple = ()):
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -94,6 +94,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         assertion = bridge.registry.assertion(link.assertion_id)
         if assertion.origin is AssertionOrigin.FIXED_STATEMENT:
             available.append(link.step.conclusion)
+
+    if not isinstance(prior_conclusions, tuple):
+        raise TypeError("prior_conclusions must be a tuple")
 
     from phase165_r57_r7_stable_expansion import (
         expand_registered_toda45_finite_cyclic_goal,
@@ -123,7 +126,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                               FreeCyclicGroup(image.target_generator)),
                      image),
                 ))
-        options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available)))
+        options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available) + prior_conclusions))
         options.extend(expand_registered_eta_specialization(goal, tuple(available)))
         for provider in (
             expand_generic_iso_goal,
@@ -145,14 +148,19 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               bridge: RegistryBridgeResult | None = None,
                               expansion_provider=None,
                               citing_assertion_id: str | None = None,
-                              verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None):
+                              verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None,
+                              ordered_completed_proofs: tuple = (), target_order: int | None = None):
     """Run canonical search under a screened Reference context.
 
     Older calls retain their signature. R15 ordering is applied to sources
     outside the explicitly adopted-Tex policy; no IDs are auto-verified.
     """
     from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+    from phase165_r57_r12_ordered_proofs import validate_prior_internal_proofs
 
+    prior = validate_prior_internal_proofs(
+        ordered_completed_proofs, target_order, completed_internal_proofs
+    )
     if bridge is None:
         bridge = build_shared_typed_bridge()
     goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
@@ -173,12 +181,15 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
             proof_context, goal=goal, policy=proof_use_order,
         )
     if expansion_provider is None:
-        expansion_provider = shared_expansion_provider(proof_context, proof_target=goal)
+        expansion_provider = shared_expansion_provider(
+            proof_context, proof_target=goal,
+            prior_conclusions=tuple(item.root.conclusion for item in prior),
+        )
     return search_registered_partial_proof(
         n=n, k=k, goal=goal, bridge=proof_context,
         citing_assertion_id=context_id,
         expansion_provider=expansion_provider,
         lookup_mode="typed_reference",
         structure_status=GroupStructureStatus.UNKNOWN,
-        completed_internal_proofs=completed_internal_proofs,
+        completed_internal_proofs=prior,
     )
