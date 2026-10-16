@@ -1,0 +1,310 @@
+{
+  "phase": "165 R6-2 R4-R11",
+  "status": "PROVIDER_PATHS_AUDITED",
+  "goals_found": 1,
+  "production_modified": false,
+  "full_pytest_run": false,
+  "contexts": {
+    "FULL": {
+      "reference_assertions": 201,
+      "cited_witness_count": 17,
+      "rule_count": 60,
+      "catalog_skipped_factories": [
+        "set_rules.equality_implies_modulo_inference_rule:requires-input",
+        "set_rules.kernel_membership_implies_mapped_zero_inference_rule:requires-input",
+        "set_rules.mapped_zero_implies_kernel_membership_inference_rule:requires-input",
+        "set_rules.zero_implies_modulo_inference_rule:requires-input",
+        "hopf_rules.toda_prop22_left_inference_rule:requires-input",
+        "hopf_rules.toda_prop22_right_inference_rule:requires-input",
+        "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule:requires-input",
+        "relation_rules.additive_inverse_inference_rule:requires-input",
+        "relation_rules.double_equals_repeated_sum_inference_rule:requires-input",
+        "relation_rules.equality_preserved_under_left_composition_inference_rule:requires-input",
+        "relation_rules.equality_preserved_under_multiple_inference_rule:requires-input",
+        "relation_rules.equality_preserved_under_right_composition_inference_rule:requires-input",
+        "relation_rules.iterated_suspension_one_bridge_inference_rule:requires-input",
+        "relation_rules.nested_integer_multiple_inference_rule:requires-input",
+        "relation_rules.sum_associativity_inference_rule:requires-input",
+        "relation_rules.sum_commutativity_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_addition_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_inverse_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_multiple_inference_rule:requires-input",
+        "homomorphism_rules.suspension_additivity_bridge_inference_rule:requires-input",
+        "homomorphism_rules.suspension_multiple_bridge_inference_rule:requires-input"
+      ],
+      "paths": {
+        "R26_GENERIC": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "equality symmetry",
+              "subgoals": [
+                "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "WITNESS_R2": {
+          "status": "OK",
+          "count": 0,
+          "candidates": []
+        },
+        "SEEDED_R4": {
+          "status": "OK",
+          "count": 0,
+          "candidates": []
+        },
+        "CITED_SCALAR_SPECIALIZATION": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "generic cited typed scalar specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "ETA_SPECIALIZATION": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "SHARED_NO_TARGET": {
+          "status": "OK",
+          "count": 3,
+          "candidates": [
+            {
+              "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            },
+            {
+              "rule": "generic cited typed scalar specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            },
+            {
+              "rule": "equality symmetry",
+              "subgoals": [
+                "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "SHARED_WITH_TARGET": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "equality symmetry",
+              "subgoals": [
+                "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        }
+      },
+      "specialization_presence": {
+        "R26_GENERIC": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": true
+        },
+        "WITNESS_R2": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": false
+        },
+        "SEEDED_R4": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": false
+        },
+        "CITED_SCALAR_SPECIALIZATION": {
+          "prop51": false,
+          "cited_scalar": true,
+          "symmetry": false
+        },
+        "ETA_SPECIALIZATION": {
+          "prop51": true,
+          "cited_scalar": false,
+          "symmetry": false
+        },
+        "SHARED_NO_TARGET": {
+          "prop51": true,
+          "cited_scalar": true,
+          "symmetry": true
+        },
+        "SHARED_WITH_TARGET": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": true
+        }
+      }
+    },
+    "SCREENED": {
+      "reference_assertions": 201,
+      "cited_witness_count": 15,
+      "rule_count": 60,
+      "catalog_skipped_factories": [
+        "set_rules.equality_implies_modulo_inference_rule:requires-input",
+        "set_rules.kernel_membership_implies_mapped_zero_inference_rule:requires-input",
+        "set_rules.mapped_zero_implies_kernel_membership_inference_rule:requires-input",
+        "set_rules.zero_implies_modulo_inference_rule:requires-input",
+        "hopf_rules.toda_prop22_left_inference_rule:requires-input",
+        "hopf_rules.toda_prop22_right_inference_rule:requires-input",
+        "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule:requires-input",
+        "relation_rules.additive_inverse_inference_rule:requires-input",
+        "relation_rules.double_equals_repeated_sum_inference_rule:requires-input",
+        "relation_rules.equality_preserved_under_left_composition_inference_rule:requires-input",
+        "relation_rules.equality_preserved_under_multiple_inference_rule:requires-input",
+        "relation_rules.equality_preserved_under_right_composition_inference_rule:requires-input",
+        "relation_rules.iterated_suspension_one_bridge_inference_rule:requires-input",
+        "relation_rules.nested_integer_multiple_inference_rule:requires-input",
+        "relation_rules.sum_associativity_inference_rule:requires-input",
+        "relation_rules.sum_commutativity_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_addition_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_inverse_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule:requires-input",
+        "homomorphism_rules.homomorphism_preserves_multiple_inference_rule:requires-input",
+        "homomorphism_rules.suspension_additivity_bridge_inference_rule:requires-input",
+        "homomorphism_rules.suspension_multiple_bridge_inference_rule:requires-input"
+      ],
+      "paths": {
+        "R26_GENERIC": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "equality symmetry",
+              "subgoals": [
+                "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "WITNESS_R2": {
+          "status": "OK",
+          "count": 0,
+          "candidates": []
+        },
+        "SEEDED_R4": {
+          "status": "OK",
+          "count": 0,
+          "candidates": []
+        },
+        "CITED_SCALAR_SPECIALIZATION": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "generic cited typed scalar specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "ETA_SPECIALIZATION": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "SHARED_NO_TARGET": {
+          "status": "OK",
+          "count": 3,
+          "candidates": [
+            {
+              "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            },
+            {
+              "rule": "generic cited typed scalar specialization",
+              "subgoals": [
+                "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            },
+            {
+              "rule": "equality symmetry",
+              "subgoals": [
+                "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        },
+        "SHARED_WITH_TARGET": {
+          "status": "OK",
+          "count": 1,
+          "candidates": [
+            {
+              "rule": "equality symmetry",
+              "subgoals": [
+                "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              ]
+            }
+          ]
+        }
+      },
+      "specialization_presence": {
+        "R26_GENERIC": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": true
+        },
+        "WITNESS_R2": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": false
+        },
+        "SEEDED_R4": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": false
+        },
+        "CITED_SCALAR_SPECIALIZATION": {
+          "prop51": false,
+          "cited_scalar": true,
+          "symmetry": false
+        },
+        "ETA_SPECIALIZATION": {
+          "prop51": true,
+          "cited_scalar": false,
+          "symmetry": false
+        },
+        "SHARED_NO_TARGET": {
+          "prop51": true,
+          "cited_scalar": true,
+          "symmetry": true
+        },
+        "SHARED_WITH_TARGET": {
+          "prop51": false,
+          "cited_scalar": false,
+          "symmetry": true
+        }
+      }
+    }
+  },
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+}
