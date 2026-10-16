@@ -1,17 +1,14 @@
-"""Phase 165 R41: preserve complete registered ancestry for pi3^2 narratives."""
+"""Historical R41 calls share the production backward-search entry."""
 from __future__ import annotations
 
-from pathlib import Path
-
-from phase165_r14_r38_direct_registry import reconstruct_registered_pi32
-from phase165_r14_r40_replay import build_phase165_r40_pi32_common_replay
-from toda_proof_dependency import extract_toda_recursive_proof_provenance
-from toda_group_result_proof_replay import build_toda_group_result_proof_replay
+from phase165_r52_r7_registered_common_proof import build_registered_common_replay
 
 
 def _registered_reference_leaves(root):
+    """Collect terminal proof steps independently of a particular group."""
     seen = set()
     leaves = []
+
     def visit(step):
         if id(step) in seen:
             return
@@ -21,38 +18,20 @@ def _registered_reference_leaves(root):
             return
         for child in step.premises:
             visit(child)
+
     visit(root)
     return tuple(leaves)
 
 
 def build_phase165_r41_pi32_common_replay(group_result, max_depth: int, mode: str):
-    """Use R40 replay adapter but never truncate narrative inference ancestry."""
-    replay = build_phase165_r40_pi32_common_replay(group_result, max_depth)
-    if mode != "narrative":
-        return replay
-    _, registered_root = reconstruct_registered_pi32(
-        Path(__file__).resolve().with_name("phase165_r14_r39_toda51.tex")
-    )
-    if replay.root_step.conclusion != registered_root.conclusion:
-        raise ValueError("replay root disagrees with registered backward proof")
-    registered_leaves = _registered_reference_leaves(registered_root)
-    if len(registered_leaves) != 9:
-        raise ValueError("R38 frontier does not have nine reference leaves")
-    replay_leaves = _registered_reference_leaves(replay.root_step)
-    if len(replay_leaves) != len(registered_leaves):
-        raise ValueError("reference leaves lost in replay conversion")
-    for leaf in registered_leaves:
-        if not any(type(leaf.conclusion) is type(other.conclusion)
-                   and leaf.conclusion == other.conclusion for other in replay_leaves):
-            raise ValueError("registered reference was lost")
-    provenance = extract_toda_recursive_proof_provenance(replay.group_result)
-    full_depth = max(node.shortest_depth for node in provenance.nodes)
-    return build_toda_group_result_proof_replay(
-        replay.group_result, max_depth=max(max_depth, full_depth),
+    """Compatibility entry: no specialized proof reconstruction."""
+    return build_registered_common_replay(
+        group_result=group_result, max_depth=max_depth, mode=mode,
     )
 
 
 def audit_r41(group_result):
+    """Historical audit of proof preservation through the common renderer."""
     trace = build_phase165_r41_pi32_common_replay(group_result, 2, "trace")
     narrative = build_phase165_r41_pi32_common_replay(group_result, 2, "narrative")
     return {
