@@ -15,7 +15,6 @@ from phase165_r14_r9_ehp_exactness import expand_generic_ehp_hopf_goal
 from phase165_r14_r11_delta_zero import expand_delta_zero_from_suspension_iso
 from phase165_r14_r14_diagonal_and_prop42 import expand_diagonal_suspension
 from phase165_r14_r33_final_group import reverse_free_cyclic_transport_rule
-from phase165_r52_r23_existing_rule_adapter import expand_existing_pi43_rules
 from phase165_r3_recursive_search import GoalExpansion
 from phase165_r52_r2_search_adapter import search_registered_partial_proof
 from phase165_r52_partial_proof import GroupStructureStatus, ProofSearchStatus
@@ -169,7 +168,6 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_generic_ehp_hopf_goal,
             expand_delta_zero_from_suspension_iso,
             expand_diagonal_suspension,
-            expand_existing_pi43_rules,
             *extra_providers,
         ):
             new = provider(goal)
