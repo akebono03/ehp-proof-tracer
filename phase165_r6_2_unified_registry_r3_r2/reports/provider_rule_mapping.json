@@ -1,0 +1,467 @@
+{
+  "phase": "165 R6-2 Unified Registry R3-2",
+  "status": "STATIC_MAPPING_ONLY",
+  "r8_factory_count": 77,
+  "r3_shared_connection_count": 13,
+  "r3_other_expand_candidate_count": 22,
+  "shared_connections": [
+    {
+      "reference": "expand_registered_toda45_finite_cyclic_goal",
+      "provider_id": "phase165_r57_r7_stable_expansion.expand_registered_toda45_finite_cyclic_goal",
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "line": 163,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_registered_eta_specialization",
+      "provider_id": "phase165_r57_r8_eta_specialization.expand_registered_eta_specialization",
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "line": 164,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_registered_delta_image_goal",
+      "provider_id": "phase165_r57_r19_delta_image_backward.expand_registered_delta_image_goal",
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "line": 165,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_cited_general_specialization",
+      "provider_id": "phase165_r57_r20_general_specialization.expand_cited_general_specialization",
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "line": 166,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_delta_zero_from_suspension_iso",
+      "provider_id": "phase165_r14_r11_delta_zero.expand_delta_zero_from_suspension_iso",
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "line": 167,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_diagonal_suspension",
+      "provider_id": "phase165_r14_r14_diagonal_and_prop42.expand_diagonal_suspension",
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "line": 167,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_generic_ehp_hopf_goal",
+      "provider_id": "phase165_r14_r9_ehp_exactness.expand_generic_ehp_hopf_goal",
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "line": 167,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "expand_generic_iso_goal",
+      "provider_id": "phase165_r14_r6_generic_iso.expand_generic_iso_goal",
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "line": 167,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "extra_providers",
+      "provider_id": "extra_providers",
+      "connection": "PROVIDER_LOOP_DYNAMIC",
+      "line": 167,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "provider(goal)",
+      "provider_id": "provider(goal)",
+      "connection": "PROVIDER_LOOP",
+      "line": 174,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "witness_options",
+      "provider_id": "phase165_r52_r9_shared_math.witness_options",
+      "connection": "MERGE_PATH",
+      "line": 188,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "generic_provider",
+      "provider_id": "phase165_r52_r9_shared_math.generic_provider",
+      "connection": "MERGE_PATH",
+      "line": 189,
+      "source": "phase165_r52_r9_shared_math.py"
+    },
+    {
+      "reference": "seeded_options",
+      "provider_id": "phase165_r52_r9_shared_math.seeded_options",
+      "connection": "MERGE_PATH",
+      "line": 200,
+      "source": "phase165_r52_r9_shared_math.py"
+    }
+  ],
+  "providers": [
+    {
+      "provider_id": "phase161_backward_goal_schema.expand_phase161_r2_suspension_isomorphism_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [
+        {
+          "rule_id": "toda_rules.toda_53_n3_suspension_isomorphism_inference_rule",
+          "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+          "line": 42
+        }
+      ],
+      "provider_calls": [],
+      "classification": "RULE_FACTORY_REFERENCED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase161_r3_backward_goal_schema.expand_phase161_r3_ehp_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase161_r3_backward_goal_schema.expand_phase161_r3_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase161_backward_goal_schema.expand_phase161_r2_suspension_isomorphism_goal",
+          "line": 109
+        },
+        {
+          "callee": "phase161_r3_backward_goal_schema.expand_phase161_r3_ehp_goal",
+          "line": 112
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase161_r4_literature_premise_matching.expand_phase161_r4_literature_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase162_group_structure_backward.expand_group_structure_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [
+        {
+          "rule_id": "phase162_group_structure_backward.group_structure_transport_inference_rule",
+          "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+          "line": 118
+        }
+      ],
+      "provider_calls": [],
+      "classification": "RULE_FACTORY_REFERENCED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase162_pi5_3_backward_selection.expand_phase162_pi5_3_group_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [
+        {
+          "rule_id": "toda_rules.toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule",
+          "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+          "line": 93
+        }
+      ],
+      "provider_calls": [],
+      "classification": "RULE_FACTORY_REFERENCED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r11_delta_zero.expand_delta_zero_from_suspension_iso",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 77
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r14_diagonal_and_prop42.expand_diagonal_suspension",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 101
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r5_ehp_connection.expand_registered_ehp_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r6_generic_iso.expand_generic_iso_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 94
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r7_map_discovery.expand_discovered_group_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 105
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r8_source_link.expand_source_mapped_group_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r14_r7_map_discovery.expand_discovered_group_goal",
+          "line": 79
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r14_r9_ehp_exactness.expand_generic_ehp_hopf_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 138
+        },
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 142
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r52_r12_component_bridge.expand_cited_given_components",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r52_r9_shared_math.generic_provider",
+      "status": "FUNCTION_NOT_FOUND",
+      "rule_links": []
+    },
+    {
+      "provider_id": "phase165_r52_r9_shared_math.phase165_r52_r23_backup.shared_expansion_provider",
+      "status": "SOURCE_NOT_FOUND",
+      "rule_links": []
+    },
+    {
+      "provider_id": "phase165_r52_r9_shared_math.seeded_options",
+      "status": "FUNCTION_NOT_FOUND",
+      "rule_links": []
+    },
+    {
+      "provider_id": "phase165_r52_r9_shared_math.shared_expansion_provider",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r57_r26_generic_search_connection.build_generic_backward_expansion_provider",
+          "line": 120
+        },
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 156
+        },
+        {
+          "callee": "phase165_r57_r7_stable_expansion.expand_registered_toda45_finite_cyclic_goal",
+          "line": 163
+        },
+        {
+          "callee": "phase165_r57_r8_eta_specialization.expand_registered_eta_specialization",
+          "line": 164
+        },
+        {
+          "callee": "phase165_r57_r19_delta_image_backward.expand_registered_delta_image_goal",
+          "line": 165
+        },
+        {
+          "callee": "phase165_r57_r20_general_specialization.expand_cited_general_specialization",
+          "line": 166
+        },
+        {
+          "callee": "phase165_r6_2_r2_verified_inverse.reverse_rules_from_witnesses",
+          "line": 181
+        },
+        {
+          "callee": "phase165_r6_2_r4_seeded_goals.generate_seeded_backward_goals",
+          "line": 193
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r52_r9_shared_math.witness_options",
+      "status": "FUNCTION_NOT_FOUND",
+      "rule_links": []
+    },
+    {
+      "provider_id": "phase165_r57_r19_delta_image_backward.expand_registered_delta_image_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [
+        {
+          "rule_id": "toda_delta_image_rules.free_cyclic_generator_delta_image_inference_rule",
+          "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+          "line": 44
+        }
+      ],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 43
+        }
+      ],
+      "classification": "RULE_FACTORY_REFERENCED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r57_r20_general_specialization.expand_cited_general_specialization",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 160
+        }
+      ],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r57_r26_generic_search_connection.build_generic_backward_expansion_provider",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r57_r7_stable_expansion.expand_registered_toda45_finite_cyclic_goal",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [
+        {
+          "rule_id": "toda_stable_group_transport.toda_45_generic_finite_cyclic_transport_inference_rule",
+          "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+          "line": 59
+        }
+      ],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 58
+        }
+      ],
+      "classification": "RULE_FACTORY_REFERENCED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r57_r8_eta_specialization.expand_registered_eta_specialization",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [
+        {
+          "rule_id": "phase165_r57_r8_eta_specialization.eta_specialization_inference_rule",
+          "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+          "line": 128
+        }
+      ],
+      "provider_calls": [
+        {
+          "callee": "phase165_r3_recursive_search.GoalExpansion",
+          "line": 128
+        }
+      ],
+      "classification": "RULE_FACTORY_REFERENCED",
+      "mathematical_equivalence_verified": false
+    },
+    {
+      "provider_id": "phase165_r8_rule_provider.create_rule_expansion_provider",
+      "status": "SOURCE_INSPECTED",
+      "rule_links": [],
+      "provider_calls": [],
+      "classification": "NO_DIRECT_RULE_FACTORY_IDENTIFIED",
+      "mathematical_equivalence_verified": false
+    }
+  ],
+  "factory_reference_kinds": {
+    "OUTSIDE_R8_OR_UNRESOLVED_FACTORY": 6
+  },
+  "rule_factory_references": [
+    {
+      "rule_id": "toda_rules.toda_53_n3_suspension_isomorphism_inference_rule",
+      "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+      "line": 42
+    },
+    {
+      "rule_id": "phase162_group_structure_backward.group_structure_transport_inference_rule",
+      "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+      "line": 118
+    },
+    {
+      "rule_id": "toda_rules.toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule",
+      "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+      "line": 93
+    },
+    {
+      "rule_id": "toda_delta_image_rules.free_cyclic_generator_delta_image_inference_rule",
+      "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+      "line": 44
+    },
+    {
+      "rule_id": "toda_stable_group_transport.toda_45_generic_finite_cyclic_transport_inference_rule",
+      "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+      "line": 59
+    },
+    {
+      "rule_id": "phase165_r57_r8_eta_specialization.eta_specialization_inference_rule",
+      "kind": "OUTSIDE_R8_OR_UNRESOLVED_FACTORY",
+      "line": 128
+    }
+  ],
+  "duplicate_rule_factory_references": [],
+  "runtime_verified": false,
+  "proof_verified": false,
+  "production_modified": false,
+  "limitations": [
+    "Only direct AST calls are rule mappings, not mathematical equivalence.",
+    "Provider wrappers may invoke other providers transitively; no closure is asserted.",
+    "R3 static inventory is not a complete project-wide enumeration.",
+    "The R1 runtime file may differ from GitHub until committed."
+  ]
+}
