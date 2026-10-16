@@ -1,0 +1,120 @@
+{
+  "phase": "165 R6-2 R4-R9",
+  "status": "WEB_CANONICAL_RECONCILIATION_AUDITED",
+  "target_count": 1,
+  "targets": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "registry_assertions": 201,
+  "proof_links": 17,
+  "stages": {
+    "partial_web_adapter": {
+      "stage": "partial_web_adapter",
+      "ok": true,
+      "summary": {
+        "partial_result": true,
+        "step_count": 0,
+        "rendered_line_count": 14,
+        "rendered_text": [
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='証明対象', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}', suffix='', segments=(WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}'),))",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='使用する結果', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='参照情報を持つ ProofStep はありません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='参照情報を持つ ProofStep はありません。'),))",
+          "WebGroupProofRenderedLineView(kind='separator', indent_level=0, prefix='', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='証明', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='証明できた数学的な ProofStep はまだありません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='証明できた数学的な ProofStep はまだありません。'),))",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='**探索状態：証明未完成**', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='strong', value='探索状態：証明未完成'),))",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='未解決 Goal', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='- ', statement_latex='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}', suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='- '), WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}')))",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='- ', statement_latex='\\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\} = \\\\pi_{4}^{3}', suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='- '), WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\} = \\\\pi_{4}^{3}')))",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='探索診断', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='- 型付き Reference と推論規則から一意な導出が見つかりません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='- 型付き Reference と推論規則から一意な導出が見つかりません。'),))",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='未解決 Goal は証明済みの結論ではありません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='未解決 Goal は証明済みの結論ではありません。'),))"
+        ]
+      }
+    },
+    "narrative_model": {
+      "stage": "narrative_model",
+      "ok": true,
+      "summary": {
+        "status": "ProofSearchStatus.SEARCH_FAILED",
+        "step_count": 0,
+        "root_step_present": false,
+        "source_kind": "search_result"
+      }
+    },
+    "web_search_entry": {
+      "stage": "web_search_entry",
+      "ok": true,
+      "result": {
+        "status": "ProofSearchStatus.SEARCH_FAILED",
+        "conclusion": "None",
+        "proven_step_count": 0,
+        "proved_conclusions": [],
+        "step_rules": [],
+        "open_goals": [
+          "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        ],
+        "diagnostics": [
+          "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+        ],
+        "references": []
+      },
+      "complete": false
+    },
+    "shared_direct_no_order": {
+      "stage": "shared_direct_no_order",
+      "ok": true,
+      "result": {
+        "status": "ProofSearchStatus.SEARCH_FAILED",
+        "conclusion": "None",
+        "proven_step_count": 0,
+        "proved_conclusions": [],
+        "step_rules": [],
+        "open_goals": [
+          "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        ],
+        "diagnostics": [
+          "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+        ],
+        "references": []
+      },
+      "complete": false
+    },
+    "public_web_entry": {
+      "stage": "public_web_entry",
+      "ok": true,
+      "summary": {
+        "partial_result": true,
+        "step_count": 0,
+        "rendered_line_count": 14,
+        "key": "generic-partial-proof",
+        "rendered_text": [
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='証明対象', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='', statement_latex='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}', suffix='', segments=(WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}'),))",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='使用する結果', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='参照情報を持つ ProofStep はありません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='参照情報を持つ ProofStep はありません。'),))",
+          "WebGroupProofRenderedLineView(kind='separator', indent_level=0, prefix='', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='証明', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='証明できた数学的な ProofStep はまだありません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='証明できた数学的な ProofStep はまだありません。'),))",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='**探索状態：証明未完成**', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='strong', value='探索状態：証明未完成'),))",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='未解決 Goal', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='- ', statement_latex='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}', suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='- '), WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\pi_{4}^{3} = \\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\}')))",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='- ', statement_latex='\\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\} = \\\\pi_{4}^{3}', suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='- '), WebGroupProofInlineSegmentView(kind='inline_math', value='\\\\mathbb{Z}/2\\\\{\\\\eta_{3}\\\\} = \\\\pi_{4}^{3}')))",
+          "WebGroupProofRenderedLineView(kind='heading', indent_level=0, prefix='探索診断', statement_latex=None, suffix='', segments=())",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='- 型付き Reference と推論規則から一意な導出が見つかりません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='- 型付き Reference と推論規則から一意な導出が見つかりません。'),))",
+          "WebGroupProofRenderedLineView(kind='text', indent_level=0, prefix='未解決 Goal は証明済みの結論ではありません。', statement_latex=None, suffix='', segments=(WebGroupProofInlineSegmentView(kind='text', value='未解決 Goal は証明済みの結論ではありません。'),))"
+        ]
+      }
+    },
+    "proof_order": {
+      "ok": true,
+      "diagnostic": null,
+      "catalog_type": "ProofOrderCatalog"
+    }
+  },
+  "production_modified": false,
+  "full_pytest_run": false
+}
