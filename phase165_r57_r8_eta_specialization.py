@@ -84,7 +84,7 @@ def specialized_eta_group_goal_candidates(group: TodaPrimaryGroup, bridge: objec
     if not isinstance(group, TodaPrimaryGroup):
         raise TypeError("group must be TodaPrimaryGroup")
     n = group.sphere_dimension
-    if isinstance(n, bool) or not isinstance(n, int) or n < 3 or group.group_dimension != n + 1:
+    if isinstance(n, bool) or not isinstance(n, int) or n < 4 or group.group_dimension != n + 1:
         return ()
     return tuple(
         candidate for statement in _fixed_typed_relations(bridge)
