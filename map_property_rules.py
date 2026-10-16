@@ -336,3 +336,24 @@ def exactness_and_whole_kernel_implies_whole_image_inference_rule():
     ),
     conclusion_pattern=ImageWholeStatement(map=first_map),
   )
+
+
+def injective_and_surjective_imply_isomorphism_inference_rule():
+    from proof import InferenceRule, PatternVariable, PremisePattern
+
+    group_map = PatternVariable(name="group_map")
+    return InferenceRule(
+        name="injectivity and surjectivity imply isomorphism",
+        description="A map which is both injective and surjective is an isomorphism.",
+        premise_patterns=(
+            PremisePattern(
+                statement_type=InjectiveMapStatement,
+                statement_pattern=InjectiveMapStatement(map=group_map),
+            ),
+            PremisePattern(
+                statement_type=SurjectiveMapStatement,
+                statement_pattern=SurjectiveMapStatement(map=group_map),
+            ),
+        ),
+        conclusion_pattern=IsomorphismStatement(map=group_map),
+    )
