@@ -43,8 +43,8 @@ def specialize_eta_group_relation(statement: object, sphere_dimension: int) -> R
     """Produce a candidate specialization; not a proved theorem by itself."""
     if not _is_generic_eta_group_relation(statement):
         raise ValueError("source must be the registered symbolic eta group relation")
-    if isinstance(sphere_dimension, bool) or not isinstance(sphere_dimension, int) or sphere_dimension < 3:
-        raise ValueError("Toda Proposition 5.1 higher-eta range requires n >= 3")
+    if isinstance(sphere_dimension, bool) or not isinstance(sphere_dimension, int) or sphere_dimension < 4:
+        raise ValueError("Toda Proposition 5.1 higher-eta range requires n >= 4")
     n = sphere_dimension
     original = statement.rhs.generator
     eta = HomotopyElement(
@@ -106,7 +106,7 @@ def eta_specialization_inference_rule(goal: Relation) -> InferenceRule:
         return specialize_eta_group_relation(premises[0].conclusion, n)
     return InferenceRule(
         name="Toda Proposition 5.1 generic higher-eta specialization",
-        description="Instantiate n >= 3 in a registered symbolic higher-eta group statement.",
+        description="Instantiate n >= 4 in a registered symbolic higher-eta group statement.",
         premise_patterns=(PremisePattern(statement_type=Relation, relation_type=RelationType.EQUALITY),),
         conclusion_builder=build_conclusion,
         match_guard=guard,
@@ -120,7 +120,7 @@ def expand_registered_eta_specialization(goal: object, available: tuple[object, 
     if not isinstance(goal, Relation) or not isinstance(goal.lhs, TodaPrimaryGroup):
         return ()
     n = goal.lhs.sphere_dimension
-    if isinstance(n, bool) or not isinstance(n, int) or n < 3:
+    if isinstance(n, bool) or not isinstance(n, int) or n < 4:
         return ()
     sources = tuple(source for source in available
                     if _is_generic_eta_group_relation(source)

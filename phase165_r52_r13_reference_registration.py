@@ -18,6 +18,7 @@ from unified_statement_registry import (
 def register_adopted_composite_reference(
     *, assertion_id: str, locator: str, source_id: str,
     content: object, reference_kind: ReferenceKind = ReferenceKind.PROPOSITION,
+    clause_ranges: tuple[tuple[str, str, int], ...] = (),
 ) -> RegistryBridgeResult:
     """Register a caller-adopted typed composite, preserving its original citation.
 
@@ -47,7 +48,9 @@ def register_adopted_composite_reference(
         assertion_id=assertion_id, reference_id=reference_id,
         kind=AssertionKind.STATEMENT, content=content,
         origin=AssertionOrigin.FIXED_STATEMENT,
-        scope=("typed_composite_fields", tuple(part.name for part in parts)),
+        scope=("typed_composite_fields", tuple(part.name for part in parts))
+        + (("clause_ranges", clause_ranges),) if clause_ranges else
+        ("typed_composite_fields", tuple(part.name for part in parts)),
     ))
     step = ProofStep(
         conclusion=content, premises=(), rule=ProofRule.GIVEN,
@@ -135,4 +138,5 @@ def build_adopted_prop51_reference() -> RegistryBridgeResult:
         locator="Proposition 5.1",
         source_id="Toda translated TeX:Proposition 5.1 (user-adopted; original edition unverified)",
         content=content,
+        clause_ranges=(("higher_eta_group_relation", "n", 4),),
     )
