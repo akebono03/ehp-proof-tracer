@@ -10,8 +10,7 @@ from phase165_r14_r17_foundational_proofstep import derive_foundational_suspensi
 from phase165_r14_r21_toda51_completion import complete_toda51_source
 from phase165_r14_r22_same_reference import integrate_toda51_into_existing_reference
 from phase165_r14_r23_toda51_inference import AdoptedTextReview, promote_diagonal_from_existing_reference
-from phase165_r14_r34_backward_search import phase165_r34_expansions, pi32_goal
-from phase165_r14_r35_leaf_binding import backward_leaf_goals, known_source_candidates
+from phase165_r14_r35_leaf_binding import known_source_candidates
 from phase165_r5_manifest_bridge import build_phase165_r5_manifest_bridge
 from phase164_r8_proofstep_factory import derive_inference_proof_step
 from proof import ProofRule, ProofStep, find_inference_matches_for_rule
@@ -90,68 +89,5 @@ def adopted_leaf_steps(tex_path: Path) -> tuple[ProofStep, ...]:
 
 
 
-def reconstruct_adopted_tex_goal(
-    goal: object, leaf_steps: tuple[ProofStep, ...], *, limit: int = 80,
-) -> ProofStep:
-    """Build only from goal expansions and exact typed leaf lookup, no proof replay."""
-    if type(limit) is not int or limit <= 0:
-        raise ValueError("positive goal limit required")
-    visited: list[object] = []
-    active: list[object] = []
-    memo: list[tuple[object, ProofStep]] = []
-
-    def visit(current: object) -> ProofStep:
-        found = [step for key, step in memo if key == current]
-        if found:
-            return found[0]
-        if any(key == current for key in active):
-            raise ValueError("cyclic derivation")
-        if len(visited) >= limit:
-            raise ValueError("search limit exceeded")
-        visited.append(current)
-        active.append(current)
-        try:
-            options = phase165_r34_expansions(current)
-            if len(options) > 1:
-                raise ValueError("ambiguous inference expansion")
-            if options:
-                expansion = options[0]
-                premises = tuple(visit(child) for child in expansion.subgoals)
-                matches = find_inference_matches_for_rule(expansion.rule, premises)
-                if len(matches) != 1:
-                    raise ValueError(f"inference match failed for {current!r}")
-                step = derive_inference_proof_step(matches[0])
-                if step.conclusion != current or step.rule is not ProofRule.INFERENCE:
-                    raise ValueError("inference result changed")
-            else:
-                matched = [leaf for leaf in leaf_steps if leaf.conclusion == current]
-                if len(matched) != 1 or matched[0].rule is not ProofRule.GIVEN:
-                    raise ValueError(f"unresolved or ambiguous adopted leaf: {current!r}")
-                step = matched[0]
-            memo.append((current, step))
-            return step
-        finally:
-            active.pop()
-
-    return visit(goal)
 
 
-def audit_r36(tex_path: Path) -> dict:
-    leaves = adopted_leaf_steps(tex_path)
-    proof = reconstruct_adopted_tex_goal(pi32_goal(), leaves)
-    if proof.conclusion != pi32_goal():
-        raise ValueError("wrong final goal")
-    return {
-        "phase": "165 R14-R36",
-        "frontier_leaf_count": len(backward_leaf_goals(pi32_goal())),
-        "adopted_tex_leaf_count": sum(not bool(getattr(s, "foundational_reference", None)) for s in leaves),
-        "foundational_leaf_count": sum(bool(getattr(s, "foundational_reference", None)) for s in leaves),
-        "all_leaf_goals_resolved_for_adopted_search": True,
-        "goal": repr(proof.conclusion),
-        "adopted_backward_proof_created": True,
-        "existing_completed_proof_replay_used": False,
-        "registry_assertions_promoted_to_strict": 0,
-        "strict_registry_proof_created": False,
-        "status": "ADOPTED_TEX_BACKWARD_DERIVED_STRICT_REGISTRY_PENDING",
-        "full_pytest_run": False,
-    }

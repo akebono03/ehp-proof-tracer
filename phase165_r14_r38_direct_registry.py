@@ -6,10 +6,8 @@ from dataclasses import replace
 from proof import InferenceRule, LiteratureReference
 
 from phase163_r4_registry_bridge import MigrationRecord, MigrationStatus, RegistryBridgeResult
-from phase165_r14_r34_backward_search import pi32_goal, phase165_r34_expansions
-from phase165_r14_r35_leaf_binding import backward_leaf_goals, known_source_candidates
+from phase165_r14_r35_leaf_binding import known_source_candidates
 from phase165_r14_r36_adopted_backward import adopted_leaf_steps
-from phase165_r3_recursive_search import reconstruct_registered_goal
 from proof import ProofRule, ProofStep
 from unified_statement_registry import (
     AssertionEntry, AssertionKind, AssertionOrigin,
@@ -31,14 +29,6 @@ def build_adopted_typed_reference_registry(tex_path: Path) -> RegistryBridgeResu
     registry = UnifiedStatementRegistry()
     records = []
     links = []
-    registry.add_reference(LiteratureEntry(
-        "goal:pi32", ReferenceKind.PROPOSITION, "pi3^2 goal",
-        source_id="derived proof goal",
-    ))
-    registry.add_assertion(AssertionEntry(
-        "goal:pi32", "goal:pi32", AssertionKind.STATEMENT,
-        pi32_goal(), origin=AssertionOrigin.PROOF_INTERNAL,
-    ))
     for index, goal in enumerate(leaves, start=1):
         matches = [step for step in steps if type(step.conclusion) is type(goal) and step.conclusion == goal]
         if len(matches) != 1 or matches[0].rule is not ProofRule.GIVEN:
@@ -92,28 +82,5 @@ def build_adopted_typed_reference_registry(tex_path: Path) -> RegistryBridgeResu
     return RegistryBridgeResult(registry, tuple(records), tuple(links))
 
 
-def reconstruct_registered_pi32(tex_path: Path) -> tuple[RegistryBridgeResult, ProofStep]:
-    bridge = build_adopted_typed_reference_registry(tex_path)
-    proof = reconstruct_registered_goal(
-        pi32_goal(), bridge, "goal:pi32", phase165_r34_expansions,
-        lookup_mode="typed_reference",
-    )
-    if proof.conclusion != pi32_goal() or proof.rule is not ProofRule.INFERENCE:
-        raise ValueError("registered goal proof not derived")
-    return bridge, proof
 
 
-def audit_completion(tex_path: Path) -> dict:
-    bridge, proof = reconstruct_registered_pi32(tex_path)
-    leaf_count = len(bridge.proof_links)
-    return {
-        "phase": "165 R14-R38",
-        "reference_policy": "REGISTERED_TYPED_REFERENCE_NO_SEPARATE_APPROVAL",
-        "typed_reference_count": leaf_count,
-        "goal": repr(proof.conclusion),
-        "registered_backward_proof_created": True,
-        "replayed_completed_proof": False,
-        "original_edition_independently_verified": False,
-        "phase165_math_goal_completed_under_adopted_tex": True,
-        "status": "REGISTERED_TYPED_REFERENCE_PROOF_COMPLETE",
-    }
