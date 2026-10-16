@@ -46,8 +46,10 @@ def build_standard_web_group_proof_view(
   k: int,
   max_depth: int = 2,
   mode: str = "narrative",
+  *,
+  goal=None,
 ) -> WebGroupProofView:
-  """Use the registered n,k goal and shared proof Web adapter for every group."""
+  """Render a shared search for an optional caller-supplied typed proof goal."""
   query = TodaGroupQuery(n=n, k=k)
   domain = classify_toda_group_query_domain(query)
   if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
@@ -62,12 +64,13 @@ def build_standard_web_group_proof_view(
   from phase165_r55_nk_only_goal import search_group_from_registered_goal
   from phase165_r52_r3_web_adapter import build_partial_web_group_proof_view
 
-  result = search_group_from_registered_goal(n=n, k=k)
+  result = search_group_from_registered_goal(n=n, k=k, goal=goal)
   return build_partial_web_group_proof_view(
     result,
     max_depth=max_depth,
     mode=mode,
   )
+
 
 
 # Phase 165 R52-R3 explicit partial-result Web entry
