@@ -12,6 +12,7 @@ from phase163_r4_registry_bridge import RegistryBridgeResult
 from phase165_r2_registry_lookup import find_eligible_goal_candidates
 from phase164_r8_proofstep_factory import derive_inference_proof_step
 from proof import ProofStep, ProofRule, find_inference_matches_for_rule
+from phase165_r6_2_r4_r8_dedup import append_unique_verified_derivation
 from unified_statement_registry import AssertionOrigin
 
 
@@ -139,7 +140,7 @@ def reconstruct_registered_goal(
                 for match in matches:
                     step = derive_inference_proof_step(match)
                     if type(step.conclusion) is type(target) and step.conclusion == target:
-                        options.append(step)
+                        append_unique_verified_derivation(options, step)
             if len(options) != 1:
                 report("unresolved", target)
                 raise RegisteredGoalUnresolved(
