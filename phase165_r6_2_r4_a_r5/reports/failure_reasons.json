@@ -1,0 +1,1057 @@
+{
+  "phase": "165 R6-2 R4-A-R5",
+  "status": "OK",
+  "source": "REGISTERED_ASSERTION_CONTENT",
+  "goals_examined": 201,
+  "rules": [
+    {
+      "rule_id": "ehp_rules.ehp_exactness_image_implies_kernel_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP exactness transfers image structure to kernel",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "ehp_rules.ehp_exactness_implies_zero_composition_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP exactness implies zero composition",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "ehp_rules.ehp_exactness_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP exactness from image and kernel",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "ehp_rules.ehp_exactness_kernel_implies_image_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP exactness transfers kernel structure to image",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "ehp_rules.ehp_zero_composition_implies_zero_relation_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP zero composition implies zero relation",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "stable_rules.freudenthal_boundary_epimorphism_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Freudenthal boundary range implies suspension epimorphism",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "stable_rules.freudenthal_stable_isomorphism_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Freudenthal stable range implies suspension isomorphism",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "stable_rules.suspension_injectivity_reflects_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Suspension injectivity reflects equality",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "stable_rules.suspension_injectivity_reflects_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Suspension injectivity reflects zero",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "stable_rules.suspension_isomorphism_implies_injective_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Suspension isomorphism implies injectivity",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.coset_equality_implies_modulo_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "coset equality implies modulo",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.difference_membership_implies_modulo_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "difference membership implies modulo",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.equality_implies_modulo_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.exactness_implies_subgroup_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "exactness implies subgroup equality",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.kernel_membership_implies_mapped_zero_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.mapped_zero_implies_kernel_membership_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.membership_subset_propagation_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "membership subset propagation",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.modulo_implies_coset_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "modulo implies coset equality",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.modulo_implies_difference_membership_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "modulo implies difference membership",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.mutual_subset_implies_subgroup_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "mutual subset implies subgroup equality",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.subgroup_equality_implies_subset_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "subgroup equality implies subset",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.subgroup_equality_membership_propagation_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "subgroup equality membership propagation",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.subgroup_equality_modulo_propagation_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "subgroup equality modulo propagation",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.subgroup_equality_symmetry_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "subgroup equality symmetry",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.subgroup_equality_transitivity_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "subgroup equality transitivity",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.subset_transitivity_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "subset transitivity",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "set_rules.zero_implies_modulo_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.ehp_h_preserves_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP H preserves equality",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.ehp_zero_composition_implies_suspended_hopf_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "EHP E-H zero composition implies suspended Hopf zero",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.hopf_composition_formula_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "generalized Hopf composition formula",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.hopf_composition_law_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "generalized Hopf invariant enables composition law",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.hopf_invariant_statement_to_ehp_h_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "generalized Hopf invariant to EHP H equality",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.hopf_invariant_value_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "generalized Hopf invariant value is zero",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.hopf_left_composition_formula_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "generalized Hopf left composition formula",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.hopf_left_composition_law_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "generalized Hopf invariant enables left composition law",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.toda_prop22_left_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "hopf_rules.toda_prop22_right_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "scalar_rules.even_scalar_evaluates_minus_one_power_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Even exponent evaluates minus-one power to one",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "scalar_rules.even_scalar_implies_mod_two_congruence_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Even scalar implies congruence to zero modulo two",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "scalar_rules.mod_two_one_scalar_preserves_order_two_element_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Scalar congruent to one modulo two preserves order-two element",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "scalar_rules.odd_scalar_evaluates_minus_one_power_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Odd exponent evaluates minus-one power to minus one",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "scalar_rules.odd_scalar_implies_mod_two_congruence_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Odd scalar implies congruence to one modulo two",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.additive_inverse_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.composition_equality_to_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "composition equality to zero",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.double_equals_repeated_sum_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.equality_preserved_under_left_composition_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.equality_preserved_under_multiple_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.equality_preserved_under_right_composition_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "equality symmetry",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 7,
+      "r26_proposed": 7,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 194,
+        "PREMISE_ERROR:TypeError": 7
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "equality transitivity",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 194,
+        "UNBOUND_VARIABLE": 7
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.iterated_suspension_one_bridge_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.nested_integer_multiple_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.order_implies_zero_multiple_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "order implies zero multiple",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.sum_associativity_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.sum_commutativity_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.suspension_composition_functoriality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "suspension composition functoriality",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.suspension_preserves_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "suspension preserves equality",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.suspension_preserves_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "suspension preserves zero",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.suspension_preserves_zero_multiple_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "suspension preserves zero multiple",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.zero_composition_equality_implies_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "zero composition equality implies zero",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.zero_composition_reverse_equality_implies_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "zero composition reverse equality implies zero",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "relation_rules.zero_equality_implies_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "zero equality implies zero",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "map_property_rules.injective_map_reflects_equality_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "injective map reflects equality",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "map_property_rules.isomorphism_implies_injective_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "isomorphism implies injectivity",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_addition_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_inverse_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_multiple_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_zero_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "homomorphism preserves zero",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.suspension_additivity_bridge_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.suspension_is_homomorphism_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "suspension is homomorphism",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "homomorphism_rules.suspension_multiple_bridge_inference_rule",
+      "status": "REQUIRES_INPUT",
+      "goal_probe_status": "NOT_TESTED",
+      "reason_counts": {
+        "REQUIRES_INPUT_OR_FACTORY_UNAVAILABLE": 1
+      },
+      "common_search_connection": "NOT_IN_R8_DEFAULT",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "indeterminacy_rules.coset_membership_implies_modulo_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "coset membership implies modulo",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "indeterminacy_rules.equality_implies_sign_indeterminacy_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "equality implies sign indeterminacy",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "indeterminacy_rules.modulo_implies_coset_membership_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "modulo implies coset membership",
+      "structural_candidate": true,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_MATCH": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    },
+    {
+      "rule_id": "indeterminacy_rules.symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule",
+      "status": "INSTANTIATED",
+      "name": "Symbolic odd equality implies coefficient indeterminacy",
+      "structural_candidate": false,
+      "goal_probe_status": "OBSERVED_ON_REGISTERED_GOALS",
+      "r8_proposed": 0,
+      "r26_proposed": 0,
+      "reason_counts": {
+        "NO_CONCLUSION_PATTERN": 201
+      },
+      "common_search_connection": "STATIC_R8_PATH",
+      "recursive_proof_verified": false
+    }
+  ],
+  "adapter": {
+    "path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r52_r23_existing_rule_adapter.py",
+    "status": "FOUND",
+    "branches": [
+      {
+        "line": 85,
+        "category": "GOAL_EXPANSION_RETURN"
+      },
+      {
+        "line": 97,
+        "category": "GOAL_EXPANSION_RETURN"
+      },
+      {
+        "line": 114,
+        "category": "GOAL_EXPANSION_RETURN"
+      },
+      {
+        "line": 77,
+        "category": "GOAL_EXPANSION_RETURN"
+      }
+    ],
+    "rule_factories": [
+      {
+        "symbol": "rules.toda_pi4_3_finite_cyclic_inference_rule",
+        "line": 86
+      },
+      {
+        "symbol": "rules.toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+        "line": 98
+      },
+      {
+        "symbol": "rules.toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+        "line": 115
+      },
+      {
+        "symbol": "finite_cyclic_generator_substitution_rule",
+        "line": 78
+      }
+    ],
+    "shared_provider_mentions_adapter": true,
+    "shared_provider_status": "STATIC_REFERENCED"
+  },
+  "reason_totals": {
+    "NO_CONCLUSION_MATCH": 5212,
+    "NO_CONCLUSION_PATTERN": 5829,
+    "PREMISE_ERROR:TypeError": 7,
+    "UNBOUND_VARIABLE": 7
+  },
+  "runtime_proof_verified": 0,
+  "limitations": [
+    "NO_CONCLUSION_MATCH means only that no selected registered Goal matches.",
+    "UNBOUND_VARIABLE does not prove witness unavailability.",
+    "PREMISE_REJECTED_OR_GUARD_UNKNOWN does not identify a failing guard.",
+    "STATIC_R8_PATH is not recursive execution proof.",
+    "R8 factory family only; other providers and source witnesses remain outside the counts.",
+    "The adapter branch source is inspected, not executed."
+  ]
+}
