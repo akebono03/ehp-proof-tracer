@@ -1,0 +1,105 @@
+{
+  "phase": "165 R6-2 unified registry R4",
+  "status": "APPLICABILITY_AUDITED",
+  "adapter_removed": true,
+  "registered_goal_count": 201,
+  "goals_examined": 201,
+  "r1_registered_rules": 55,
+  "registered_providers": 8,
+  "provider_results": [
+    {
+      "provider_id": "phase165_r14_r6_generic_iso.expand_generic_iso_goal",
+      "origin": "SHARED_FIXED",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r14_r9_ehp_exactness.expand_generic_ehp_hopf_goal",
+      "origin": "SHARED_FIXED",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r14_r11_delta_zero.expand_delta_zero_from_suspension_iso",
+      "origin": "SHARED_FIXED",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r14_r14_diagonal_and_prop42.expand_diagonal_suspension",
+      "origin": "SHARED_FIXED",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r57_r7_stable_expansion.expand_registered_toda45_finite_cyclic_goal",
+      "origin": "SHARED_CITED_CONTEXT",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r57_r8_eta_specialization.expand_registered_eta_specialization",
+      "origin": "SHARED_CITED_CONTEXT",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r57_r19_delta_image_backward.expand_registered_delta_image_goal",
+      "origin": "SHARED_CITED_CONTEXT",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    },
+    {
+      "provider_id": "phase165_r57_r20_general_specialization.expand_cited_general_specialization",
+      "origin": "SHARED_CITED_CONTEXT",
+      "registration_status": "CONNECTED_NOT_PROOF_VERIFIED",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "sample_errors": []
+    }
+  ],
+  "generic_r26": {
+    "goals_proposed": 7,
+    "expansions": 7,
+    "errors": {},
+    "sample_errors": []
+  },
+  "shared_provider": {
+    "goals_proposed": 7,
+    "expansions": 22,
+    "errors": {},
+    "sample_errors": []
+  },
+  "proofs_verified": 0,
+  "production_modified": false,
+  "full_pytest_run": false,
+  "limitations": [
+    "Emitted GoalExpansion is not a verified proof.",
+    "Provider results are not additive: paths can overlap.",
+    "Runtime checks are limited to registered assertion-content Goals.",
+    "Witness and seeded paths are included in shared aggregate, not individually attributed.",
+    "R8 argument-required factories are not automatically instantiated."
+  ]
+}
