@@ -91,6 +91,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # R4-4 stage4: exactness-map binding from cited fixed statements only.
+    from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
+    extra_providers = (build_exactness_binding_provider(bridge),) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
         if link.step is None or link.step.rule is not ProofRule.GIVEN:
