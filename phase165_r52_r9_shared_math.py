@@ -16,6 +16,7 @@ from phase165_r14_r11_delta_zero import expand_delta_zero_from_suspension_iso
 from phase165_r14_r14_diagonal_and_prop42 import expand_diagonal_suspension
 from phase165_r14_r33_final_group import reverse_free_cyclic_transport_rule
 from phase165_r3_recursive_search import GoalExpansion
+from phase165_r6_2_unified_registry_r3_r4.context_provider_registry import build_context_expansion_provider_registry
 from phase165_r6_2_unified_registry_r3_r3.provider_registry import build_shared_expansion_provider_registry
 from phase165_r6_2_unified_registry_r1.unified_backward_rule_registry import build_unified_backward_rule_registry
 from phase165_r52_r2_search_adapter import search_registered_partial_proof
@@ -150,6 +151,15 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         extra_providers=extra_providers,
     )
 
+    context_provider_registry = build_context_expansion_provider_registry(
+        available=tuple(available),
+        prior_conclusions=prior_conclusions,
+        expand_registered_toda45_finite_cyclic_goal=expand_registered_toda45_finite_cyclic_goal,
+        expand_registered_eta_specialization=expand_registered_eta_specialization,
+        expand_registered_delta_image_goal=expand_registered_delta_image_goal,
+        expand_cited_general_specialization=expand_cited_general_specialization,
+    )
+
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
         if (isinstance(goal, Relation)
@@ -169,10 +179,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                               FreeCyclicGroup(image.target_generator)),
                      image),
                 ))
-        options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available) + prior_conclusions))
-        options.extend(expand_registered_eta_specialization(goal, tuple(available)))
-        options.extend(expand_registered_delta_image_goal(goal, tuple(available)))
-        options.extend(expand_cited_general_specialization(goal, tuple(available)))
+        for provider in context_provider_registry.providers():
+            new = provider(goal)
+            if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
+                raise TypeError("expansion provider contract violated")
+            options.extend(new)
         for provider in shared_provider_registry.providers():
             new = provider(goal)
             if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
