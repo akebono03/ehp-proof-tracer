@@ -35,13 +35,36 @@ def _proved_generator_substitution_shape(root_goal: object, expansion: GoalExpan
     )
 
 
+def _is_symbolic_cited_root_specialization(root_goal: object, expansion: GoalExpansion) -> bool:
+    """Accept an exact symbolic instance; proof search must still verify its cited GIVEN leaf.
+
+    This shape check does not itself certify provenance or waive reference screening.
+    Concrete self-citation and nonmatching instantiations remain rejected.
+    """
+    if getattr(expansion.rule, "name", None) not in (
+        "Toda Proposition 5.1 generic higher-eta specialization",
+        "generic cited typed scalar specialization",
+    ):
+        return False
+    if len(expansion.subgoals) != 1:
+        return False
+    premise = expansion.subgoals[0]
+    if not (isinstance(premise, Relation)
+            and premise.relation_type is RelationType.EQUALITY
+            and isinstance(premise.lhs, TodaPrimaryGroup)
+            and premise != root_goal):
+        return False
+    from phase165_r57_r20_general_specialization import specialize_typed_statement
+    return specialize_typed_statement(premise, root_goal) is not None
+
+
 def is_unordered_root_structure_specialization(
     root_goal: object, current_goal: object, expansion: GoalExpansion,
 ) -> bool:
-    """Reject a group-structure root derived from its own structural theorem.
+    """Reject concrete self-structure cycles, permitting exact symbolic instances.
 
-    A generator substitution with a proved equality has independently
-    checkable premises, unlike direct self-specialization of a source claim.
+    Only a real, separately linked fixed Reference proof leaf can discharge the
+    symbolic premise; the gate never manufactures a proof or citation itself.
     """
     structures = (FiniteCyclicGroup, FreeCyclicGroup, DirectSumGroup)
     if not isinstance(expansion, GoalExpansion):
@@ -57,9 +80,8 @@ def is_unordered_root_structure_specialization(
         return False
     if _proved_generator_substitution_shape(root_goal, expansion):
         return False
-    # A cited diagonal source (5.1) is a foundational *earlier* formula,
-    # unlike the target-group higher-eta clause of Proposition 5.1.
-    # Its use still requires screening of the exact fixed Reference leaf.
+    if _is_symbolic_cited_root_specialization(root_goal, expansion):
+        return False
     if (getattr(expansion.rule, "name", None) == "generic cited typed scalar specialization"
             and len(expansion.subgoals) == 1
             and root_goal.lhs.group_dimension == root_goal.lhs.sphere_dimension
@@ -83,6 +105,7 @@ def is_unordered_root_structure_specialization(
         if not isinstance(source_group.sphere_dimension, int):
             return True
     return False
+
 
 
 def retain_ordered_root_expansions(
