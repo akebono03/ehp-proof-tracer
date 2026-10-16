@@ -1,0 +1,53 @@
+
+
+@dataclass(frozen=True)
+class KernelZeroStatement:
+  """A typed assertion that the kernel of the specified map is zero."""
+  map: MapSymbol
+
+
+@dataclass(frozen=True)
+class ImageWholeStatement:
+  """A typed assertion that the image equals the whole target."""
+  map: MapSymbol
+
+
+@dataclass(frozen=True)
+class SurjectiveMapStatement:
+  map: MapSymbol
+
+
+def kernel_zero_implies_injective_inference_rule():
+  """A homomorphism with zero kernel is injective."""
+  from proof import PatternVariable
+
+  group_map = PatternVariable(name="map")
+  return InferenceRule(
+    name="zero kernel implies injectivity",
+    description="A group homomorphism with zero kernel is injective.",
+    premise_patterns=(
+      PremisePattern(
+        statement_type=KernelZeroStatement,
+        statement_pattern=KernelZeroStatement(map=group_map),
+      ),
+    ),
+    conclusion_pattern=InjectiveMapStatement(map=group_map),
+  )
+
+
+def whole_image_implies_surjective_inference_rule():
+  """A homomorphism whose image is its full codomain is surjective."""
+  from proof import PatternVariable
+
+  group_map = PatternVariable(name="map")
+  return InferenceRule(
+    name="whole image implies surjectivity",
+    description="A group homomorphism whose image is its codomain is surjective.",
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ImageWholeStatement,
+        statement_pattern=ImageWholeStatement(map=group_map),
+      ),
+    ),
+    conclusion_pattern=SurjectiveMapStatement(map=group_map),
+  )
