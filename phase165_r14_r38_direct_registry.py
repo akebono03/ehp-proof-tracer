@@ -23,8 +23,8 @@ def build_adopted_typed_reference_registry(tex_path: Path) -> RegistryBridgeResu
     This treats Toda's adopted TeX and sourced foundational fact as references;
     it does not claim that the original edition was independently checked.
     """
-    leaves = backward_leaf_goals(pi32_goal())
     steps = adopted_leaf_steps(Path(tex_path))
+    leaves = tuple(step.conclusion for step in steps)
     known = known_source_candidates(Path(tex_path))
     if len(leaves) != len(steps) or len(leaves) != 9:
         raise ValueError("R36 frontier changed")
