@@ -18,7 +18,15 @@ from proof import ProofRule, ProofStep, find_inference_matches_for_rule
 
 
 def adopted_leaf_steps(tex_path: Path) -> tuple[ProofStep, ...]:
-    """Reuse typed candidates, reviewed diagonal specializations and foundational identity."""
+    """Register cited source steps independently of a selected proof goal.
+
+    The adopted source bundle has two reviewed diagonal statements,
+    six explicitly typed source statements, and the foundational identity
+    E(iota_2)=iota_3. This inventory is not derived from a search frontier.
+    """
+    from phase165_r14_r16_foundational_suspension import (
+        instantiate_foundational_identity_suspension,
+    )
     path = Path(tex_path)
     candidates = known_source_candidates(path)
     source_text = path.read_text(encoding="utf-8")
@@ -40,37 +48,46 @@ def adopted_leaf_steps(tex_path: Path) -> tuple[ProofStep, ...]:
         if matches[0].conclusion != reviewed.registry.assertion(assertion_id).content:
             raise ValueError("diagonal source linkage mismatch")
         diagonal_steps.append(matches[0])
-    goals = backward_leaf_goals(pi32_goal())
-    step_list = [*diagonal_steps]
-    # Match only the exact 9 typed goals; no repr parsing or arbitrary assertions.
-    for goal in goals:
-        foundation = derive_foundational_suspension_step(goal)
-        if foundation is not None:
-            step_list.append(foundation)
-    # Source leaf conclusions, not source IDs, are the canonical join key.
+    if len(diagonal_steps) != 2:
+        raise ValueError("adopted diagonal source inventory changed")
+
     for candidate in candidates:
         if candidate.certification != "unverified_source_claim":
             raise ValueError("unexpected source candidate certification")
+    if len(candidates) != 6:
+        raise ValueError("adopted source candidate inventory changed")
+
+    foundation_goal = instantiate_foundational_identity_suspension(1).statement
+    foundation = derive_foundational_suspension_step(foundation_goal)
+    if foundation is None or foundation.rule is not ProofRule.GIVEN:
+        raise ValueError("foundational suspension source unavailable")
+
     from phase165_r14_r33_final_group import pi33_cyclic_step, hopf_eta2_image_step
     from phase165_r14_r31_hopf_injective import toda51_pi21_zero_step, prop42_e_h_exactness_step
     from phase165_r14_r30_hopf_surjective import prop42_h_delta_exactness_step
     from phase165_r14_r26_prop42_typed import adopted_tex_proofstep, bind_proposition42
     from phase165_r14_r29_delta_derived import Prop42ApplicationPolicy
+
     policy = Prop42ApplicationPolicy(use_unrestricted_statement_as_written=True)
-    step_list.extend((
-        pi33_cyclic_step(path), hopf_eta2_image_step(), toda51_pi21_zero_step(path),
-        prop42_e_h_exactness_step(policy), prop42_h_delta_exactness_step(policy),
-        adopted_tex_proofstep(bind_proposition42(
-            bridge, n=1, i=2, index_scope_confirmed=True,
-        )),
-    ))
-    for goal in goals:
-        matching = [step for step in step_list if step.conclusion == goal]
-        if len(matching) != 1:
-            raise ValueError(f"expected exactly one explicitly sourced leaf for {goal!r}, found {len(matching)}")
-    if len(goals) != 9 or len(step_list) != 9:
-        raise ValueError("R34 frontier changed: explicitly review new leaves")
+    step_list = [*diagonal_steps, foundation,
+                 pi33_cyclic_step(path), hopf_eta2_image_step(),
+                 toda51_pi21_zero_step(path),
+                 prop42_e_h_exactness_step(policy),
+                 prop42_h_delta_exactness_step(policy),
+                 adopted_tex_proofstep(bind_proposition42(
+                     bridge, n=1, i=2, index_scope_confirmed=True,
+                 ))]
+    if len(step_list) != 9:
+        raise ValueError("adopted source inventory changed")
+    for step in step_list:
+        if not isinstance(step, ProofStep) or step.rule is not ProofRule.GIVEN:
+            raise ValueError("adopted source leaf must be a GIVEN ProofStep")
+        if sum(other.conclusion == step.conclusion for other in step_list) != 1:
+            raise ValueError("duplicate adopted source conclusion")
+    if {candidate.goal for candidate in candidates} - {step.conclusion for step in step_list}:
+        raise ValueError("source candidates are not represented by typed steps")
     return tuple(step_list)
+
 
 
 def reconstruct_adopted_tex_goal(
