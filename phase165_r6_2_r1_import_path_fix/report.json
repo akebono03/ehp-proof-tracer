@@ -1,0 +1,42 @@
+{
+  "phase": "165 R6-2 R1",
+  "scope": "existing Toda inference rule shape; no group-specific reverse adapter executed",
+  "rules": [
+    {
+      "name": "toda_pi4_3_finite_cyclic_inference_rule",
+      "rule_name": "Toda pi_4^3 finite cyclic quotient calculation",
+      "status": "REQUIRES_GENERIC_INVERSION_DESIGN",
+      "reasons": [
+        "NO_EXPLICIT_CONCLUSION_PATTERN",
+        "PREMISE_0_NO_TEMPLATE",
+        "PREMISE_1_NO_TEMPLATE",
+        "PREMISE_2_NO_TEMPLATE"
+      ],
+      "invertible": false
+    },
+    {
+      "name": "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+      "rule_name": "Toda pi_4^3 exactness Delta image equals E kernel",
+      "status": "REQUIRES_GENERIC_INVERSION_DESIGN",
+      "reasons": [
+        "NO_EXPLICIT_CONCLUSION_PATTERN",
+        "PREMISE_0_NO_TEMPLATE",
+        "PREMISE_1_NO_TEMPLATE"
+      ],
+      "invertible": false
+    },
+    {
+      "name": "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+      "rule_name": "Toda pi_4^3 E-H exactness zero-right suspension surjectivity",
+      "status": "REQUIRES_GENERIC_INVERSION_DESIGN",
+      "reasons": [
+        "NO_EXPLICIT_CONCLUSION_PATTERN",
+        "PREMISE_0_NO_TEMPLATE",
+        "PREMISE_1_NO_TEMPLATE"
+      ],
+      "invertible": false
+    }
+  ],
+  "all_explicitly_invertible": false,
+  "full_pytest_run": false
+}

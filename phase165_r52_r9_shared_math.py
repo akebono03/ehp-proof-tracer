@@ -117,6 +117,30 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 
     generic_provider = build_generic_backward_expansion_provider()
 
+    # R6-2 R4: cited source anchors bind otherwise unknown premise variables.
+    from phase165_r6_2_r4_seeded_goals import generate_seeded_backward_goals
+    from phase165_r8_rule_provider import discover_inference_rules as _discover_seeded_rules
+    seeded_rules, _seeded_report = _discover_seeded_rules()
+    seeded_steps = tuple(
+        link.step for link in bridge.proof_links
+        if link.step is not None
+        and link.step.rule is ProofRule.GIVEN
+        and bridge.registry.assertion(link.assertion_id).origin is AssertionOrigin.FIXED_STATEMENT
+        and link.step.conclusion == bridge.registry.assertion(link.assertion_id).content
+    )
+
+    # R6-2 R3: use only cited GIVEN witnesses for verified inverse proposals.
+    from phase165_r6_2_r2_verified_inverse import reverse_rules_from_witnesses
+    from phase165_r8_rule_provider import discover_inference_rules
+    witness_rules, _witness_report = discover_inference_rules()
+    cited_witnesses = tuple(
+        link.step for link in bridge.proof_links
+        if link.step is not None
+        and link.step.rule is ProofRule.GIVEN
+        and bridge.registry.assertion(link.assertion_id).origin is AssertionOrigin.FIXED_STATEMENT
+        and link.step.conclusion == bridge.registry.assertion(link.assertion_id).content
+    )
+
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
         if (isinstance(goal, Relation)
@@ -152,7 +176,29 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
                 raise TypeError("expansion provider contract violated")
             options.extend(new)
-        merged = merge_backward_expansions(tuple(options), generic_provider(goal))
+        # R2 returns candidate Goals only; the recursive search still verifies ProofSteps.
+        # Exhaustion is not equivalent to proof; preserve the older search proposals.
+        try:
+            witness_options = reverse_rules_from_witnesses(
+                goal, witness_rules, cited_witnesses, max_combinations=2048,
+            )
+        except ValueError as exc:
+            if str(exc) != "generic witness inverse search budget exceeded":
+                raise
+            witness_options = ()
+        merged = merge_backward_expansions(
+            merge_backward_expansions(tuple(options), generic_provider(goal)),
+            witness_options,
+        )
+        try:
+            seeded_options = generate_seeded_backward_goals(
+                goal, seeded_rules, seeded_steps, max_candidates=2048,
+            )
+        except ValueError as exc:
+            if str(exc) != "seeded backward search budget exceeded":
+                raise
+            seeded_options = ()
+        merged = merge_backward_expansions(merged, seeded_options)
         return retain_ordered_root_expansions(proof_target, goal, merged)
     return expand
 

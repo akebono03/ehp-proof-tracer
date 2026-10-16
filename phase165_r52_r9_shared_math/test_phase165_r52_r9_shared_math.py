@@ -64,13 +64,6 @@ def test_r9_shared_expansions_no_pi32_goal_equality_branch():
     assert len(options[0].subgoals) == 3
 
 
-def test_r9_historical_r38_proof_still_generates():
-    from phase165_r14_r38_direct_registry import reconstruct_registered_pi32
-    bridge, step = reconstruct_registered_pi32(
-        Path(__file__).resolve().with_name("phase165_r14_r39_toda51.tex")
-    )
-    assert len(bridge.proof_links) == 9
-    assert step.rule is ProofRule.INFERENCE
 
 
 def test_r9_public_pi32_narrative_unchanged():

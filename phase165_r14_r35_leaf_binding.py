@@ -7,7 +7,6 @@ from __future__ import annotations
 from dataclasses import dataclass
 from pathlib import Path
 
-from phase165_r14_r34_backward_search import pi32_goal, phase165_r34_expansions
 from phase165_r14_r33_final_group import pi33_cyclic_step, hopf_eta2_image_step
 from phase165_r14_r31_hopf_injective import (
     toda51_pi21_zero_step, prop42_e_h_exactness_step,
@@ -31,28 +30,6 @@ class LeafBindingCandidate:
     certification: str = "unverified_source_claim"
 
 
-def backward_leaf_goals(root: object, limit: int = 80) -> tuple[object, ...]:
-    """Enumerate original typed leaf objects, never parse their repr strings."""
-    if type(limit) is not int or limit <= 0:
-        raise ValueError("limit must be positive")
-    queue = [root]
-    visited = []
-    leaves = []
-    while queue:
-        current = queue.pop(0)
-        if any(current == existing for existing in visited):
-            continue
-        if len(visited) >= limit:
-            raise ValueError("goal graph limit exceeded")
-        visited.append(current)
-        expansions = phase165_r34_expansions(current)
-        if len(expansions) > 1:
-            raise ValueError("ambiguous goal expansion")
-        if expansions:
-            queue.extend(expansions[0].subgoals)
-        else:
-            leaves.append(current)
-    return tuple(leaves)
 
 
 def known_source_candidates(tex_path: Path) -> tuple[LeafBindingCandidate, ...]:
@@ -85,40 +62,3 @@ def known_source_candidates(tex_path: Path) -> tuple[LeafBindingCandidate, ...]:
     return tuple(result)
 
 
-def audit_r35(tex_path: Path) -> dict:
-    """Provide a per-leaf mismatch report; never silently fill gaps."""
-    leaves = backward_leaf_goals(pi32_goal())
-    candidates = known_source_candidates(tex_path)
-    rows = []
-    for index, goal in enumerate(leaves, start=1):
-        matches = [row for row in candidates if row.goal == goal]
-        if len(matches) > 1:
-            status = "AMBIGUOUS_SOURCE_CANDIDATES"
-        elif len(matches) == 1:
-            status = "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED"
-        else:
-            status = "NEEDS_RULE_OR_SOURCE_REVIEW"
-        matched = matches[0] if len(matches) == 1 else None
-        rows.append({
-            "number": index,
-            "goal": repr(goal),
-            "type": type(goal).__name__,
-            "status": status,
-            "candidate_locator": matched.locator if matched else None,
-            "candidate_source_id": matched.source_id if matched else None,
-            "evidence": matched.evidence if matched else None,
-            "strict_eligible": False,
-        })
-    mapped = sum(r["status"] == "SOURCE_CANDIDATE_FOUND_NOT_CERTIFIED" for r in rows)
-    return {
-        "phase": "165 R14-R35",
-        "total_unresolved_leaves": len(rows),
-        "source_candidate_match_count": mapped,
-        "remaining_review_count": len(rows) - mapped,
-        "leaf_bindings": rows,
-        "registry_assertions_promoted": 0,
-        "existing_proof_replay_used": False,
-        "strict_registry_proof_created": False,
-        "status": "SOURCE_LEAVES_MAPPED_CERTIFICATION_PENDING",
-        "full_pytest_run": False,
-    }

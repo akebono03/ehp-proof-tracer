@@ -1,0 +1,3179 @@
+{
+  "phase": "165 R6-1",
+  "mode": "READ_ONLY",
+  "full_pytest_run": false,
+  "core_files": [
+    "phase165_r3_recursive_search.py",
+    "phase165_r52_r9_shared_math.py",
+    "phase165_r52_r23_existing_rule_adapter.py",
+    "phase165_r57_r26_generic_search_connection.py",
+    "phase165_r57_r24_candidate_discovery.py",
+    "phase165_r57_r25_premise_generation.py",
+    "phase165_r52_r2_search_adapter.py",
+    "phase165_goal_only_search.py",
+    "phase165_r52_r7_registered_common_proof.py",
+    "phase165_r14_r34_backward_search.py",
+    "proof.py"
+  ],
+  "connection_checks": {
+    "shared_imports_pi43_adapter": true,
+    "shared_calls_pi43_adapter": true,
+    "shared_calls_generic_provider": true,
+    "pi43_adapter_contains_fixed_group_targets": true,
+    "generic_provider_uses_discovery": true
+  },
+  "candidates": [
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "function": "_canonical_goals",
+      "line": 48,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "function": "expand_phase162_pi5_3_group_goal",
+      "line": 85,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "phase162_pi5_3_backward_selection.py",
+      "function": "reconstruct_phase162_pi5_3_group_goal",
+      "line": 119,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "phase162_validated_proof_presentation.py",
+      "function": "_validated_reference_application_prose",
+      "line": 274,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "phase164_r3_registry_search_connection.phase164_r7_backup.py",
+      "function": "select_phase164_r3_pi5_3_leaves",
+      "line": 33,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "phase164_r3_registry_search_connection.phase164_r7_backup.py",
+      "function": "reconstruct_phase164_r3_pi5_3",
+      "line": 102,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "phase164_r3_registry_search_connection.py",
+      "function": "select_phase164_r3_pi5_3_leaves",
+      "line": 33,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "phase164_r3_registry_search_connection.py",
+      "function": "reconstruct_phase164_r3_pi5_3",
+      "line": 92,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "phase165_r14_r17_foundational_proofstep.py",
+      "function": "audit_r17",
+      "line": 45,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r14_r34_backward_search.py",
+      "function": "pi32_goal",
+      "line": 24,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r14_r34_backward_search.py",
+      "function": "phase165_r34_expansions",
+      "line": 32,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "group_dim == sphere + 1"
+    },
+    {
+      "file": "phase165_r14_r34_backward_search.py",
+      "function": "audit_r34",
+      "line": 103,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r14_r36_adopted_backward.py",
+      "function": "adopted_leaf_steps",
+      "line": 20,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r14_r36_adopted_backward.py",
+      "function": "audit_r36",
+      "line": 122,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r14_r41_proof_transfer.py",
+      "function": "build_phase165_r41_pi32_common_replay",
+      "line": 28,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r14_r41_proof_transfer.py",
+      "function": "audit_r41",
+      "line": 55,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r52_r23_existing_rule_adapter.py",
+      "function": "_objects",
+      "line": 40,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "_objects("
+    },
+    {
+      "file": "phase165_r52_r23_existing_rule_adapter.py",
+      "function": "expand_existing_pi43_rules",
+      "line": 52,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "expand_existing_pi43_rules"
+    },
+    {
+      "file": "phase165_r52_r7_registered_common_proof.py",
+      "function": "registered_proof_providers",
+      "line": 27,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r53_pi32_goal_audit.py",
+      "function": "pi32_explicit_goal",
+      "line": 33,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r53_pi32_goal_audit.py",
+      "function": "audit_pi32_explicit_goal",
+      "line": 37,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "phase165_r53_pi32_goal_audit.py",
+      "function": "main",
+      "line": 69,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r52_r8_show_proof_route.py",
+      "function": "test_r8_actual_pi32_registered_narrative_unchanged",
+      "line": 103,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r53_pi32_goal_audit.py",
+      "function": "test_r53_explicit_goal_preserves_generator",
+      "line": 8,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r53_pi32_goal_audit.py",
+      "function": "test_r53_observes_shared_search_without_mutating_links",
+      "line": 14,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r55_nk_only_goal.py",
+      "function": "_pi32",
+      "line": 26,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r55_nk_only_goal.py",
+      "function": "test_r55_discovers_group_goal_inside_fixed_typed_composite",
+      "line": 32,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r55_nk_only_goal.py",
+      "function": "test_r55_calls_canonical_search_with_registered_goal_not_given",
+      "line": 38,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "test_phase165_r55_nk_only_goal.py",
+      "function": "test_r55_multiple_candidates_do_not_guess",
+      "line": 62,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi32"
+    },
+    {
+      "file": "toda_calculation_goal_extraction.py",
+      "function": "_extract_prop511_nu_squared_branches",
+      "line": 73,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_calculation_goal_extraction.py",
+      "function": "extract_concrete_toda_calculation_goal_candidates",
+      "line": 120,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "_render_prop56_quotient",
+      "line": 41,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi8_5"
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "_render_order_and_iterated_suspension_injective",
+      "line": 119,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi16_9"
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi8_5"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r42_backup.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 775,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r42_backup.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 942,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r42_backup.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1215,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r48_backup.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 775,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r48_backup.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 942,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r48_backup.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1215,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r48_sidecar_backup.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 775,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r48_sidecar_backup.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 942,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_group_proof_generic_narrative_renderer.phase165_r48_sidecar_backup.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1215,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_group_proof_narrative_statement_label",
+      "line": 148,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi16_9"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_render_group_proof_narrative_latex",
+      "line": 410,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_is_phase134_3_pi6_3_presentation",
+      "line": 938,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_5_pi6_3_ordered_steps",
+      "line": 968,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_5_pi6_3_reference_steps",
+      "line": 1029,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_3_pi6_3_numbered_steps",
+      "line": 1302,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase136_2_pi6_3_reference_blocks",
+      "line": 1439,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase136_2_is_pi6_5_group_step",
+      "line": 1536,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase136_2_pi6_3_ordered_numbered_steps",
+      "line": 1561,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase136_pi6_3_reason_lead",
+      "line": 1625,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_append_phase134_3_pi6_3_fact",
+      "line": 1648,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_render_phase134_3_pi6_3_narrative_markdown",
+      "line": 2404,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_is_phase134_9_pi8_5_presentation",
+      "line": 3009,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_9_pi8_5_block_lead",
+      "line": 3056,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_is_phase134_11_pi8_5_boundary_step",
+      "line": 3125,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_11_pi8_5_numbered_steps",
+      "line": 3162,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_11_pi8_5_reference_steps",
+      "line": 3240,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_11_pi8_5_dependency_text",
+      "line": 3287,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_append_phase134_11_pi8_5_fact",
+      "line": 3342,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_render_phase134_9_pi8_5_narrative_markdown",
+      "line": 3567,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase134_24_render_pi15_8_narrative",
+      "line": 3718,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_phase153_r3_10_connect_public_reference_section",
+      "line": 3976,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "_is_phase150_rc4_generic_route_target",
+      "line": 4735,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "function": "visit",
+      "line": 3172,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_group_proof_narrative_statement_label",
+      "line": 148,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi16_9"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_render_group_proof_narrative_latex",
+      "line": 410,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_is_phase134_3_pi6_3_presentation",
+      "line": 938,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_5_pi6_3_ordered_steps",
+      "line": 968,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_5_pi6_3_reference_steps",
+      "line": 1029,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_3_pi6_3_numbered_steps",
+      "line": 1302,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase136_2_pi6_3_reference_blocks",
+      "line": 1439,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase136_2_is_pi6_5_group_step",
+      "line": 1536,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase136_2_pi6_3_ordered_numbered_steps",
+      "line": 1561,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase136_pi6_3_reason_lead",
+      "line": 1625,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_append_phase134_3_pi6_3_fact",
+      "line": 1648,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_render_phase134_3_pi6_3_narrative_markdown",
+      "line": 2404,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_is_phase134_9_pi8_5_presentation",
+      "line": 3009,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_9_pi8_5_block_lead",
+      "line": 3056,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_is_phase134_11_pi8_5_boundary_step",
+      "line": 3125,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_11_pi8_5_numbered_steps",
+      "line": 3162,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_11_pi8_5_reference_steps",
+      "line": 3240,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_11_pi8_5_dependency_text",
+      "line": 3287,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_append_phase134_11_pi8_5_fact",
+      "line": 3342,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_render_phase134_9_pi8_5_narrative_markdown",
+      "line": 3567,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase134_24_render_pi15_8_narrative",
+      "line": 3718,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_phase153_r3_10_connect_public_reference_section",
+      "line": 3976,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "_is_phase150_rc4_generic_route_target",
+      "line": 4735,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "function": "visit",
+      "line": 3172,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_group_proof_narrative_statement_label",
+      "line": 148,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi16_9"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_render_group_proof_narrative_latex",
+      "line": 410,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_is_phase134_3_pi6_3_presentation",
+      "line": 938,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_5_pi6_3_ordered_steps",
+      "line": 968,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_5_pi6_3_reference_steps",
+      "line": 1029,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_3_pi6_3_numbered_steps",
+      "line": 1302,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase136_2_pi6_3_reference_blocks",
+      "line": 1439,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase136_2_is_pi6_5_group_step",
+      "line": 1536,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase136_2_pi6_3_ordered_numbered_steps",
+      "line": 1561,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase136_pi6_3_reason_lead",
+      "line": 1625,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_append_phase134_3_pi6_3_fact",
+      "line": 1648,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_render_phase134_3_pi6_3_narrative_markdown",
+      "line": 2404,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_is_phase134_9_pi8_5_presentation",
+      "line": 3009,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_9_pi8_5_block_lead",
+      "line": 3056,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_is_phase134_11_pi8_5_boundary_step",
+      "line": 3125,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_11_pi8_5_numbered_steps",
+      "line": 3162,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_11_pi8_5_reference_steps",
+      "line": 3240,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_11_pi8_5_dependency_text",
+      "line": 3287,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_append_phase134_11_pi8_5_fact",
+      "line": 3342,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_render_phase134_9_pi8_5_narrative_markdown",
+      "line": 3567,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase134_24_render_pi15_8_narrative",
+      "line": 3718,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_phase153_r3_10_connect_public_reference_section",
+      "line": 3976,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "_is_phase150_rc4_generic_route_target",
+      "line": 4735,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "function": "visit",
+      "line": 3172,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_group_proof_narrative_statement_label",
+      "line": 146,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi16_9"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_render_group_proof_narrative_latex",
+      "line": 408,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_is_phase134_3_pi6_3_presentation",
+      "line": 936,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_5_pi6_3_ordered_steps",
+      "line": 966,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_5_pi6_3_reference_steps",
+      "line": 1027,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_3_pi6_3_numbered_steps",
+      "line": 1300,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase136_2_pi6_3_reference_blocks",
+      "line": 1437,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase136_2_is_pi6_5_group_step",
+      "line": 1534,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase136_2_pi6_3_ordered_numbered_steps",
+      "line": 1559,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase136_pi6_3_reason_lead",
+      "line": 1623,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_append_phase134_3_pi6_3_fact",
+      "line": 1646,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_render_phase134_3_pi6_3_narrative_markdown",
+      "line": 2402,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_is_phase134_9_pi8_5_presentation",
+      "line": 3007,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_9_pi8_5_block_lead",
+      "line": 3054,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_is_phase134_11_pi8_5_boundary_step",
+      "line": 3123,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_11_pi8_5_numbered_steps",
+      "line": 3160,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_11_pi8_5_reference_steps",
+      "line": 3238,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_11_pi8_5_dependency_text",
+      "line": 3285,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_append_phase134_11_pi8_5_fact",
+      "line": 3340,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_render_phase134_9_pi8_5_narrative_markdown",
+      "line": 3565,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase134_24_render_pi15_8_narrative",
+      "line": 3716,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_phase153_r3_10_connect_public_reference_section",
+      "line": 3974,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "_is_phase150_rc4_generic_route_target",
+      "line": 4733,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "visit",
+      "line": 3170,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "function": "build_toda_prop56_proof_step",
+      "line": 18,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "function": "build_toda_prop58_proof_step",
+      "line": 55,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "function": "build_toda_prop511_proof_step",
+      "line": 92,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_proof_builders.py",
+      "function": "build_toda_prop515_proof_step",
+      "line": 125,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma57_pi6_2_eta2_nu_prime_inference_rule",
+      "line": 2077,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma57_delta_surjective_inference_rule",
+      "line": 2401,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma57_delta_nu5_generator_inference_rule",
+      "line": 2576,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi7_3_hopf_injective_inference_rule",
+      "line": 2876,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi7_3_finite_cyclic_inference_rule",
+      "line": 3057,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_e_nu_prime_eta6_bridge_inference_rule",
+      "line": 3361,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi8_4_decomposition_inference_rule",
+      "line": 3588,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_delta_eta9_inference_rule",
+      "line": 4183,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi9_5_concrete_exactness_inference_rule",
+      "line": 4461,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi9_9_delta_injective_inference_rule",
+      "line": 4578,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi9_5_hopf_zero_inference_rule",
+      "line": 4798,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi9_5_suspension_surjective_inference_rule",
+      "line": 4920,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_e_nu4_eta7_bridge_inference_rule",
+      "line": 5043,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi9_5_finite_cyclic_inference_rule",
+      "line": 5299,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_510_eta5_nu6_zero_inference_rule",
+      "line": 6183,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi12_5_concrete_exactness_inference_rule",
+      "line": 7211,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi12_5_hopf_isomorphism_inference_rule",
+      "line": 7306,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi12_5_finite_cyclic_inference_rule",
+      "line": 7661,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi9_2_zero_inference_rule",
+      "line": 7827,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi10_3_concrete_exactness_inference_rule",
+      "line": 8020,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi10_3_delta_surjective_inference_rule",
+      "line": 8127,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi10_3_delta_injective_inference_rule",
+      "line": 8233,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi10_3_zero_inference_rule",
+      "line": 8376,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi11_4_zero_inference_rule",
+      "line": 8503,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi10_6_concrete_exactness_inference_rule",
+      "line": 8987,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi10_6_suspension_surjective_inference_rule",
+      "line": 9058,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_pi10_6_zero_inference_rule",
+      "line": 9159,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma512_second_indeterminacy_n6_zero_inference_rule",
+      "line": 10287,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma512_bracket_singleton_mod2_inference_rule",
+      "line": 10779,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop58_finite_dimensional_integration_inference_rule",
+      "line": 13072,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_eq510_delta_iota11_inference_rule",
+      "line": 13763,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi7_2_eta2_nu_prime_eta6_inference_rule",
+      "line": 14009,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi7_2_suspension_zero_inference_rule",
+      "line": 14358,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi8_3_hopf_injective_inference_rule",
+      "line": 14686,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_delta_nu5_kernel_inference_rule",
+      "line": 14924,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_nu_prime_eta6_squared_hopf_inference_rule",
+      "line": 15113,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi8_3_finite_cyclic_inference_rule",
+      "line": 15492,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_e_nu_prime_eta6_squared_bridge_inference_rule",
+      "line": 15758,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi9_4_decomposition_inference_rule",
+      "line": 16110,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_delta_eta9_squared_inference_rule",
+      "line": 16559,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_512_n4_delta_injective_inference_rule",
+      "line": 16882,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_512_n5_delta_injective_inference_rule",
+      "line": 17201,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_512_n6_delta_injective_inference_rule",
+      "line": 17425,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi10_9_delta_injective_inference_rule",
+      "line": 17714,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi10_5_concrete_exactness_inference_rule",
+      "line": 17974,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi10_5_hopf_zero_inference_rule",
+      "line": 18066,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi10_5_suspension_surjective_inference_rule",
+      "line": 18172,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi10_5_delta_e_exactness_inference_rule",
+      "line": 18279,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_e_nu4_eta7_squared_bridge_inference_rule",
+      "line": 18349,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi10_5_finite_cyclic_inference_rule",
+      "line": 18670,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_e_nu5_eta8_squared_zero_inference_rule",
+      "line": 19190,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi11_6_concrete_exactness_inference_rule",
+      "line": 19459,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi11_6_hopf_injective_inference_rule",
+      "line": 19551,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi11_11_delta_kernel_inference_rule",
+      "line": 19700,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_delta_iota13_hopf_inference_rule",
+      "line": 19887,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi11_6_free_cyclic_inference_rule",
+      "line": 20008,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi12_7_concrete_exactness_inference_rule",
+      "line": 20252,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi13_13_delta_surjective_inference_rule",
+      "line": 20349,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi12_7_suspension_surjective_inference_rule",
+      "line": 20492,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_pi12_7_zero_inference_rule",
+      "line": 20598,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_higher_five_stem_zero_transport_inference_rule",
+      "line": 20722,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_delta_eta11_inference_rule",
+      "line": 20882,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop59_finite_dimensional_integration_inference_rule",
+      "line": 21149,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi8_2_eta2_nu_prime_eta6_squared_inference_rule",
+      "line": 21992,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi8_2_suspension_zero_inference_rule",
+      "line": 22360,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi7_2_suspension_zero_inference_rule",
+      "line": 22586,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi9_3_concrete_exactness_inference_rule",
+      "line": 22785,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi10_7_nu7_inference_rule",
+      "line": 22894,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi10_4_nu4_squared_inference_rule",
+      "line": 23029,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_513_delta_nu9_inference_rule",
+      "line": 23297,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_9_nu9_inference_rule",
+      "line": 24997,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi11_5_concrete_exactness_inference_rule",
+      "line": 25140,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi11_5_hopf_zero_inference_rule",
+      "line": 25254,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi11_5_suspension_surjective_inference_rule",
+      "line": 25356,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi11_5_nu5_squared_inference_rule",
+      "line": 25458,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_11_eta11_squared_inference_rule",
+      "line": 25754,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_concrete_exactness_inference_rule",
+      "line": 25946,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_suspension_injective_inference_rule",
+      "line": 26043,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_hopf_zero_inference_rule",
+      "line": 26282,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_suspension_injective_inference_rule",
+      "line": 26382,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_suspension_surjective_inference_rule",
+      "line": 26662,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi14_13_eta13_inference_rule",
+      "line": 26763,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_7_concrete_exactness_inference_rule",
+      "line": 26924,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_7_suspension_injective_inference_rule",
+      "line": 27021,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_7_hopf_zero_inference_rule",
+      "line": 27233,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_7_suspension_surjective_inference_rule",
+      "line": 27334,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_7_suspension_isomorphism_inference_rule",
+      "line": 27435,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi13_7_nu7_squared_inference_rule",
+      "line": 27512,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule",
+      "line": 27684,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi14_8_nu8_squared_inference_rule",
+      "line": 27851,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_higher_six_stem_nu_squared_transport_inference_rule",
+      "line": 28028,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_nu_squared_finite_dimensional_integration_inference_rule",
+      "line": 28326,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_suspension_isomorphism_inference_rule",
+      "line": 28668,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi12_6_nu6_squared_inference_rule",
+      "line": 28745,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi9_5_to_pi7_2_delta_injective_inference_rule",
+      "line": 29149,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_pi9_3_zero_inference_rule",
+      "line": 29292,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop511_finite_dimensional_integration_inference_rule",
+      "line": 29456,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop51_finite_dimensional_integration_inference_rule",
+      "line": 29780,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop53_n3_pi5_3_finite_cyclic_transport_inference_rule",
+      "line": 31102,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop53_n4_pi6_4_finite_cyclic_transport_inference_rule",
+      "line": 31789,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop53_finite_dimensional_integration_inference_rule",
+      "line": 32576,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_52_pi4_2_finite_cyclic_transport_inference_rule",
+      "line": 33436,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi5_2_eta2_cube_inference_rule",
+      "line": 33679,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_eta3_cube_order_two_inference_rule",
+      "line": 34248,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi6_3_finite_cyclic_inference_rule",
+      "line": 34569,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi7_4_decomposition_inference_rule",
+      "line": 34852,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi8_5_quotient_inference_rule",
+      "line": 35154,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi6_3_e2_injective_inference_rule",
+      "line": 35342,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_e2_nu_prime_order_four_inference_rule",
+      "line": 35685,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi8_5_finite_cyclic_inference_rule",
+      "line": 35931,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi7_3_hopf_surjective_inference_rule",
+      "line": 36669,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi7_5_delta_zero_inference_rule",
+      "line": 36902,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_pi5_2_suspension_injective_inference_rule",
+      "line": 37023,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop44_eta2_n2_isomorphism_inference_rule",
+      "line": 37922,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_45_pi4_3_finite_cyclic_transport_inference_rule",
+      "line": 38352,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_43_pi3_3_ordinary_free_cyclic_inference_rule",
+      "line": 40732,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma513_sigma_triple_prime_definition_inference_rule",
+      "line": 42476,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_514_second_short_exact_concrete_exactness_inference_rule",
+      "line": 42931,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_514_second_short_exact_inference_rule",
+      "line": 43037,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_514_first_short_exact_inference_rule",
+      "line": 43711,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_514_first_short_exact_concrete_exactness_inference_rule",
+      "line": 44356,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_514_first_short_exact_inference_rule",
+      "line": 44463,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_48_pi16_9_order_and_e4_injective_inference_rule",
+      "line": 44979,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi16_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi16_9_sigma9_finite_cyclic_inference_rule",
+      "line": 45108,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi16_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_36_lemma514_sigma_double_prime_bridge_inference_rule",
+      "line": 45689,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma514_sigma_double_prime_inference_rule",
+      "line": 46228,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma514_sigma_prime_inference_rule",
+      "line": 46655,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi14_7_finite_cyclic_inference_rule",
+      "line": 47013,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi13_6_finite_cyclic_inference_rule",
+      "line": 47376,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma514_sigma8_inference_rule",
+      "line": 47697,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_sigma8_transported_decomposition_inference_rule",
+      "line": 48359,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_pi15_8_final_group_inference_rule",
+      "line": 48695,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_516_sigma8_suspension_kernel_inference_rule",
+      "line": 48983,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop515_finite_dimensional_integration_inference_rule",
+      "line": 52022,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma510_indeterminacy_inference_rule",
+      "line": 54473,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma510_suspension_image_in_double_inference_rule",
+      "line": 54732,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma510_ordinary_suspension_image_two_primary_zero_inference_rule",
+      "line": 54958,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma510_modulo_integration_inference_rule",
+      "line": 55211,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_prop56_finite_dimensional_integration_inference_rule",
+      "line": 56718,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_58_delta_iota9_nu4_nu_prime_inference_rule",
+      "line": 57087,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_lemma54_pi6_5_finite_cyclic_inference_rule",
+      "line": 58975,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_48_lemma54_hopf_odd_multiple_inference_rule",
+      "line": 59109,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_delta_iota5_two_eta2_up_to_sign_inference_rule",
+      "line": 66019,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_pi3_2_whitehead_square_up_to_sign_inference_rule",
+      "line": 66178,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_pi4_3_delta_image_free_cyclic_inference_rule",
+      "line": 66362,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+      "line": 66531,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+      "line": 66659,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_pi4_3_finite_cyclic_inference_rule",
+      "line": 66770,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "toda_pi4_3_eta3_generator_inference_rule",
+      "line": 68041,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 2078,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 2234,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 2402,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 2577,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 2704,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 2877,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 3058,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 3362,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 3504,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 3589,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 4184,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 4379,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 4579,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 5044,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 5207,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 5300,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 6184,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 7212,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 7307,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 7529,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 7662,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 7828,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 8021,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 8128,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 8234,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 8377,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 8504,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 9160,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 10311,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 10442,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 10839,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 13073,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 13474,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 13764,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 13922,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 14010,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 14261,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 14359,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 14545,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 14687,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 14925,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 15035,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 15114,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 15369,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 15493,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 15759,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 16014,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 16111,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 16411,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 16560,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 16783,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 16883,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 17202,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 17426,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 17715,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 18067,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 18173,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 18350,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 18563,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 18671,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 19191,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 19393,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 19552,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 19701,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 19806,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 19888,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 19935,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 20009,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 20350,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 20493,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 20599,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 20723,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 20883,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 21073,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 21150,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 21872,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 21993,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 22276,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 22361,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 22587,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 23030,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 23202,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 23298,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 23519,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 25141,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 25255,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 25357,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 25459,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 25947,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 26044,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 26283,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 26447,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 26663,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 26925,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 27057,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 27234,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 27335,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 27513,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 27685,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 27852,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 28029,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 28386,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 28551,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 28746,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 29150,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 29293,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 29457,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 29690,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi8_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 29781,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 29970,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi3_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 32577,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 32823,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi4_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 34249,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 34570,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 34853,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 35291,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi8_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 35686,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 35932,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_3"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 42477,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 42932,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 43096,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 43351,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 43712,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 43852,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 44357,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 44517,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_11"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 44785,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 44980,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 45043,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi16_9"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 45109,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 45729,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 46282,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 46466,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 46679,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 46861,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_13"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 47014,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi13_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 47377,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi12_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 47698,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 48360,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 48550,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi14_7"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 48696,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 48984,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi15_8"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 52023,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 52420,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi9_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 54474,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 54625,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 54733,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 54959,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi10_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 55212,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi11_6"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 56719,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 56975,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi5_2"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 57088,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 57146,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi7_4"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "guard",
+      "line": 59110,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "pi6_5"
+    },
+    {
+      "file": "toda_rules.py",
+      "function": "build_conclusion",
+      "line": 66288,
+      "category": "REVIEW_CANDIDATE",
+      "evidence": "Pi32"
+    }
+  ],
+  "scope": "top-level Python files with search-related module names; inspect candidates manually",
+  "warning": "A text/AST match is an audit candidate, not proof of active runtime routing."
+}
