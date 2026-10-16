@@ -1,0 +1,233 @@
+{
+  "status": "ROOT_RECURSIVE_AUDITED",
+  "root_candidate_count": 3,
+  "depths": [
+    2,
+    3,
+    4
+  ],
+  "root_candidates": [
+    {
+      "index": 0,
+      "rule_name": "Toda Proposition 5.1 generic higher-eta specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "depths": {
+        "2": {
+          "result": "FORWARD_PASS",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 1,
+              "matching_fixed_given_ids": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+              ],
+              "state": "FIXED_REFERENCE",
+              "children": []
+            }
+          ],
+          "budget_used": 1
+        },
+        "3": {
+          "result": "FORWARD_PASS",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 2,
+              "matching_fixed_given_ids": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+              ],
+              "state": "FIXED_REFERENCE",
+              "children": []
+            }
+          ],
+          "budget_used": 1
+        },
+        "4": {
+          "result": "FORWARD_PASS",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 3,
+              "matching_fixed_given_ids": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+              ],
+              "state": "FIXED_REFERENCE",
+              "children": []
+            }
+          ],
+          "budget_used": 1
+        }
+      }
+    },
+    {
+      "index": 1,
+      "rule_name": "generic cited typed scalar specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "depths": {
+        "2": {
+          "result": "FORWARD_PASS",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 1,
+              "matching_fixed_given_ids": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+              ],
+              "state": "FIXED_REFERENCE",
+              "children": []
+            }
+          ],
+          "budget_used": 1
+        },
+        "3": {
+          "result": "FORWARD_PASS",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 2,
+              "matching_fixed_given_ids": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+              ],
+              "state": "FIXED_REFERENCE",
+              "children": []
+            }
+          ],
+          "budget_used": 1
+        },
+        "4": {
+          "result": "FORWARD_PASS",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 3,
+              "matching_fixed_given_ids": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+              ],
+              "state": "FIXED_REFERENCE",
+              "children": []
+            }
+          ],
+          "budget_used": 1
+        }
+      }
+    },
+    {
+      "index": 2,
+      "rule_name": "equality symmetry",
+      "subgoals": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "depths": {
+        "2": {
+          "result": "PREMISES_UNRESOLVED",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 1,
+              "matching_fixed_given_ids": [],
+              "candidate_count": 1,
+              "children": [
+                {
+                  "index": 0,
+                  "rule_name": "equality symmetry",
+                  "premises": [
+                    {
+                      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+                      "type": "Relation",
+                      "depth_remaining": 0,
+                      "matching_fixed_given_ids": [],
+                      "state": "CYCLE",
+                      "children": []
+                    }
+                  ],
+                  "forward_verification": "PREMISES_UNRESOLVED"
+                }
+              ],
+              "verified_derivation_count": 0,
+              "state": "NO_VERIFIED_DERIVATION"
+            }
+          ],
+          "budget_used": 2
+        },
+        "3": {
+          "result": "PREMISES_UNRESOLVED",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 2,
+              "matching_fixed_given_ids": [],
+              "candidate_count": 1,
+              "children": [
+                {
+                  "index": 0,
+                  "rule_name": "equality symmetry",
+                  "premises": [
+                    {
+                      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+                      "type": "Relation",
+                      "depth_remaining": 1,
+                      "matching_fixed_given_ids": [],
+                      "state": "CYCLE",
+                      "children": []
+                    }
+                  ],
+                  "forward_verification": "PREMISES_UNRESOLVED"
+                }
+              ],
+              "verified_derivation_count": 0,
+              "state": "NO_VERIFIED_DERIVATION"
+            }
+          ],
+          "budget_used": 2
+        },
+        "4": {
+          "result": "PREMISES_UNRESOLVED",
+          "subgoals": [
+            {
+              "goal": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "type": "Relation",
+              "depth_remaining": 3,
+              "matching_fixed_given_ids": [],
+              "candidate_count": 1,
+              "children": [
+                {
+                  "index": 0,
+                  "rule_name": "equality symmetry",
+                  "premises": [
+                    {
+                      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+                      "type": "Relation",
+                      "depth_remaining": 2,
+                      "matching_fixed_given_ids": [],
+                      "state": "CYCLE",
+                      "children": []
+                    }
+                  ],
+                  "forward_verification": "PREMISES_UNRESOLVED"
+                }
+              ],
+              "verified_derivation_count": 0,
+              "state": "NO_VERIFIED_DERIVATION"
+            }
+          ],
+          "budget_used": 2
+        }
+      }
+    }
+  ],
+  "note": "Bounded diagnostic search; only successful forward checks count as derived, not candidate generation.",
+  "production_modified": false,
+  "full_pytest_run": false
+}
