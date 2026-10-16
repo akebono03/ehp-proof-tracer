@@ -277,3 +277,62 @@ def whole_image_implies_surjective_inference_rule():
     ),
     conclusion_pattern=SurjectiveMapStatement(map=group_map),
   )
+
+@dataclass(frozen=True)
+class ImageZeroStatement:
+  """The image of this map is the zero subgroup."""
+  map: MapSymbol
+
+
+@dataclass(frozen=True)
+class KernelWholeStatement:
+  """The kernel of this map is its entire domain."""
+  map: MapSymbol
+
+
+def exactness_and_zero_image_implies_zero_kernel_inference_rule():
+  """At an exact consecutive pair, zero image implies zero kernel."""
+  from proof import ExactnessStatement, PatternVariable
+
+  first_map = PatternVariable(name="first_map")
+  second_map = PatternVariable(name="second_map")
+  return InferenceRule(
+    name="exactness and zero image imply zero kernel",
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ExactnessStatement,
+        statement_pattern=ExactnessStatement(
+          first_map=first_map, second_map=second_map, is_exact=True,
+        ),
+      ),
+      PremisePattern(
+        statement_type=ImageZeroStatement,
+        statement_pattern=ImageZeroStatement(map=first_map),
+      ),
+    ),
+    conclusion_pattern=KernelZeroStatement(map=second_map),
+  )
+
+
+def exactness_and_whole_kernel_implies_whole_image_inference_rule():
+  """At an exact consecutive pair, a whole kernel implies a whole image."""
+  from proof import ExactnessStatement, PatternVariable
+
+  first_map = PatternVariable(name="first_map")
+  second_map = PatternVariable(name="second_map")
+  return InferenceRule(
+    name="exactness and whole kernel imply whole image",
+    premise_patterns=(
+      PremisePattern(
+        statement_type=ExactnessStatement,
+        statement_pattern=ExactnessStatement(
+          first_map=first_map, second_map=second_map, is_exact=True,
+        ),
+      ),
+      PremisePattern(
+        statement_type=KernelWholeStatement,
+        statement_pattern=KernelWholeStatement(map=second_map),
+      ),
+    ),
+    conclusion_pattern=ImageWholeStatement(map=first_map),
+  )
