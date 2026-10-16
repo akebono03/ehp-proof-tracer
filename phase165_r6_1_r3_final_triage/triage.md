@@ -1,0 +1,371 @@
+# Phase 165 R6-1 R3 最終候補監査
+
+**注：この結果だけでR6-1の完了・全群専用処理の撤去を宣言しません。**
+
+## 分類件数
+
+- ACTIVE_GROUP_SPECIFIC_ADAPTER: 1
+- GROUP_TYPE_BRANCH_REVIEW: 109
+- NAMED_GROUP_BRANCH_REVIEW: 7
+
+## 確認済みの撤去候補（置換前の削除は禁止）
+
+- `phase165_r52_r23_existing_rule_adapter.py:expand_existing_pi43_rules`
+
+## ACTIVE_GROUP_SPECIFIC_ADAPTER（1件）
+
+- `phase165_r52_r23_existing_rule_adapter.py:52` `expand_existing_pi43_rules` / import到達=True / REPLACE_WITH_GENERIC_RULE_BEFORE_REMOVAL
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r52_r23_existing_rule_adapter`
+
+## NAMED_GROUP_BRANCH_REVIEW（7件）
+
+- `phase162_pi5_3_backward_selection.py:85` `expand_phase162_pi5_3_group_goal` / import到達=False / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `    if type(goal) is not Relation or goal != pi5_3:`
+- `phase162_pi5_3_backward_selection.py:119` `reconstruct_phase162_pi5_3_group_goal` / import到達=False / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `    if not isinstance(pi4_2_step, ProofStep) or not isinstance(eta_definition_steps, tuple): |     if pi4_2_step.rule is not ProofRule.INFERENCE or pi4_2_step.conclusion != expansion.subgoals[0]:`
+- `phase165_r14_r37_closure.py:46` `strict_search_attempt` / import到達=False / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `    if result.conclusion != pi32_goal():`
+- `phase165_r14_r38_direct_registry.phase165_r42_backup.py:79` `reconstruct_registered_pi32` / import到達=False / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `    if proof.conclusion != pi32_goal() or proof.rule is not ProofRule.INFERENCE:`
+- `phase165_r14_r38_direct_registry.py:95` `reconstruct_registered_pi32` / import到達=True / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `    if proof.conclusion != pi32_goal() or proof.rule is not ProofRule.INFERENCE:`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r38_direct_registry`
+- `toda_rules.py:29780` `toda_prop51_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `      pi3_2_group_relation       != expected_pi3_2_relation |     if not isinstance(       higher_eta_group_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:32576` `toda_prop53_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_NAMED_GOAL_BRANCH
+  - 条件: `      pi4_2_relation       != expected_pi4_2 |       pi5_3_relation       != expected_pi5_3 |     if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+
+## GROUP_TYPE_BRANCH_REVIEW（109件）
+
+- `phase165_r52_r9_shared_math.phase165_r52_r23_backup.py:83` `shared_expansion_provider` / import到達=False / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `        if (isinstance(goal, Relation)                 and goal.relation_type is RelationType.EQUALITY                 and isinstance(goal.rhs, FreeCyclicGroup)                 and isinstance(goal.lhs, TodaPrimaryGroup)):`
+- `phase165_r52_r9_shared_math.py:88` `shared_expansion_provider` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `        if (isinstance(goal, Relation)                 and goal.relation_type is RelationType.EQUALITY                 and isinstance(goal.rhs, FreeCyclicGroup)                 and isinstance(goal.lhs, TodaPrimaryGroup)):`
+  - 経路: `phase165_r52_r9_shared_math`
+- `phase165_r52_r9_shared_math.py:160` `search_shared_group_goal` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `            if (not isinstance(statement, Relation)                     or not isinstance(statement.lhs, TodaPrimaryGroup)                     or statement.relation_type is not RelationType.EQUALITY):`
+  - 経路: `phase165_r52_r9_shared_math`
+- `phase165_r57_r7_stable_expansion.py:17` `expand_registered_toda45_finite_cyclic_goal` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not (         isinstance(goal, Relation)         and goal.relation_type is RelationType.EQUALITY         and isinstance(goal.lhs, TodaPrimaryGroup)         and isinstance(goal.rhs, FiniteCyclicGroup)     ): |             if not (    `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r57_r7_stable_expansion`
+- `phase165_r57_r8_eta_specialization.py:82` `specialized_eta_group_goal_candidates` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(group, TodaPrimaryGroup):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r57_r8_eta_specialization`
+- `phase165_r57_r8_eta_specialization.py:95` `eta_specialization_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(goal, Relation) or not isinstance(goal.lhs, TodaPrimaryGroup):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r57_r8_eta_specialization`
+- `phase165_r57_r8_eta_specialization.py:116` `expand_registered_eta_specialization` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(goal, Relation) or not isinstance(goal.lhs, TodaPrimaryGroup):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r57_r8_eta_specialization`
+- `toda_rules.py:1097` `toda_45_stable_two_primary_identification_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:2077` `toda_lemma57_pi6_2_eta2_nu_prime_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       source_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:2576` `toda_lemma57_delta_nu5_generator_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi8_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=5,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:3057` `toda_prop58_pi7_3_finite_cyclic_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:3361` `toda_prop58_e_nu_prime_eta6_bridge_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=1,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:3588` `toda_prop58_pi8_4_decomposition_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       target_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_dimension=4,       ) |       source_group.summands       != (         TodaPr`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:5043` `toda_prop58_e_nu4_eta7_bridge_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi8_4_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=4,       ) |     if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaP`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:5299` `toda_prop58_pi9_5_finite_cyclic_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=1,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:7827` `toda_prop515_pi9_2_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       source_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:8127` `toda_prop515_pi10_3_delta_surjective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      prop511.pi9_3_zero       != TodaPrimaryGroupZeroStatement(         group=pi9_3,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:8503` `toda_prop515_pi11_4_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_zero,       TodaPrimaryGroupZeroStatement,     ): |     if not isinstance(       higher_group,       TodaPrimaryGroup,     ): |       higher_group       != TodaPrimaryGroup(         group_dimension=Scalar`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:9058` `toda_prop58_pi10_6_suspension_surjective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      zero_target       != TodaPrimaryGroupZeroStatement(         group=pi_10_11,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:9372` `toda_prop58_higher_four_stem_zero_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      source_zero       != TodaPrimaryGroupZeroStatement(         group=pi_10_6,       ) |       target_group       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=4,         ),         sphere_dimen`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:9761` `toda_lemma512_first_indeterminacy_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_zero,       TodaPrimaryGroupZeroStatement,     ): |     if not isinstance(       higher_group,       TodaPrimaryGroup,     ): |       higher_group       != TodaPrimaryGroup(         group_dimension=Scalar`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:10127` `toda_lemma512_second_indeterminacy_higher_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_zero,       TodaPrimaryGroupZeroStatement,     ): |     if not isinstance(       higher_group,       TodaPrimaryGroup,     ): |       higher_group       != TodaPrimaryGroup(         group_dimension=Scalar`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:10287` `toda_lemma512_second_indeterminacy_n6_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi11_6_relation.lhs       != TodaPrimaryGroup(         group_dimension=11,         sphere_dimension=6,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:10779` `toda_lemma512_bracket_singleton_mod2_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      relation.lhs       != TodaPrimaryGroup(         group_dimension=n + 6,         sphere_dimension=n,       ) |     if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPri`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:11348` `toda_lemma512_coefficient_stability_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      singleton.ambient_group       != TodaPrimaryGroup(         group_dimension=n_plus_six,         sphere_dimension=n,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:11992` `toda_lemma512_nonzero_anchor_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      singleton.ambient_group       != TodaPrimaryGroup(         group_dimension=n_plus_six,         sphere_dimension=n,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:12386` `toda_lemma512_final_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      singleton.ambient_group       != TodaPrimaryGroup(         group_dimension=n_plus_six,         sphere_dimension=n,       ) |       stability.target_group       != TodaPrimaryGroup(         group_dimension=n_plus_seven,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:13072` `toda_prop58_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi7_3_relation.lhs       != TodaPrimaryGroup(         group_dimension=7,         sphere_dimension=3,       ) |       pi8_4_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=4,       ) |       `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:13656` `toda_eq510_delta_surjective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      zero_target       != TodaPrimaryGroupZeroStatement(         group=pi_10_6,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:14009` `toda_prop59_pi7_2_eta2_nu_prime_eta6_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       source_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:14358` `toda_prop59_pi7_2_suspension_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi7_2_relation.lhs       != TodaPrimaryGroup(         group_dimension=7,         sphere_dimension=2,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:14686` `toda_prop59_pi8_3_hopf_injective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi7_2_relation.lhs       != TodaPrimaryGroup(         group_dimension=7,         sphere_dimension=2,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:14924` `toda_prop59_delta_nu5_kernel_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi8_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=5,       ) |       pi6_2_relation.lhs       != TodaPrimaryGroup(         group_dimension=6,         sphere_dimension=2,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:15113` `toda_prop59_nu_prime_eta6_squared_hopf_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi8_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=5,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:15758` `toda_prop59_e_nu_prime_eta6_squared_bridge_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi8_3_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=3,       ) |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:16110` `toda_prop59_pi9_4_decomposition_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       target_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_dimension=4,       ) |       source_group.summands       != (         TodaPr`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:16559` `toda_prop59_delta_eta9_squared_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi9_4_relation.lhs       != TodaPrimaryGroup(         group_dimension=9,         sphere_dimension=4,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:16882` `toda_512_n4_delta_injective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:17201` `toda_512_n5_delta_injective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi10_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=10,         sphere_dimension=5,       ) |     if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != Tod`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:17714` `toda_prop59_pi10_9_delta_injective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_eta_relation.lhs,       TodaPrimaryGroup,     ): |       higher_eta_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=1,         ),         spher`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:18349` `toda_prop59_e_nu4_eta7_squared_bridge_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi9_4_relation.lhs       != TodaPrimaryGroup(         group_dimension=9,         sphere_dimension=4,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:18670` `toda_prop59_pi10_5_finite_cyclic_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:19190` `toda_prop59_e_nu5_eta8_squared_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi10_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=10,         sphere_dimension=5,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:19887` `toda_prop59_delta_iota13_hopf_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi13_13_relation.lhs       != TodaPrimaryGroup(         group_dimension=13,         sphere_dimension=13,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:20492` `toda_prop59_pi12_7_suspension_surjective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      zero_target       != TodaPrimaryGroupZeroStatement(         group=pi12_13,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:20722` `toda_prop59_higher_five_stem_zero_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      source_zero       != TodaPrimaryGroupZeroStatement(         group=pi12_7,       ) |       target_group       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=5,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:20882` `toda_prop59_delta_eta11_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi10_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=10,         sphere_dimension=5,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:21149` `toda_prop59_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi7_2_relation.lhs       != TodaPrimaryGroup(         group_dimension=7,         sphere_dimension=2,       ) |       pi8_3_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=3,       ) |       `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:21992` `toda_prop511_pi8_2_eta2_nu_prime_eta6_squared_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       source_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:22586` `toda_prop511_pi7_2_suspension_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi7_2_relation.lhs       != TodaPrimaryGroup(         group_dimension=7,         sphere_dimension=2,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:22894` `toda_prop511_pi10_7_nu7_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=3,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:23029` `toda_prop511_pi10_4_nu4_squared_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi9_3_zero.group       != TodaPrimaryGroup(         group_dimension=9,         sphere_dimension=3,       ) |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       target_group       != TodaPrimaryGroup(    `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:23297` `toda_prop511_513_delta_nu9_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi9_3_zero.group       != TodaPrimaryGroup(         group_dimension=9,         sphere_dimension=3,       ) |       pi10_4_relation.lhs       != TodaPrimaryGroup(         group_dimension=10,         sphere_dimension=4,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:23614` `toda_prop511_513_delta_eta11_squared_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      delta_nu9.map       != TodaDeltaMap(         source_group=TodaPrimaryGroup(           group_dimension=12,           sphere_dimension=9,         ),         target_group=TodaPrimaryGroup(           group_dimension=10,           sphere_d`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:24170` `toda_prop511_513_delta_eta13_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_eta_relation.lhs,       TodaPrimaryGroup,     ): |       higher_eta_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=eta_index,           right=1,         ),      `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:24997` `toda_prop511_pi12_9_nu9_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=3,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:25754` `toda_prop511_pi13_11_eta11_squared_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:26763` `toda_prop511_pi14_13_eta13_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=1,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:27684` `toda_prop511_pi14_8_prop44_zero_second_summand_suspension_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      zero_statement       != TodaPrimaryGroupZeroStatement(         group=pi14_15,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:28028` `toda_prop511_higher_six_stem_nu_squared_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       target_group       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=6,         ),         sphere_dimension=n,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:28326` `toda_prop511_nu_squared_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      relation.lhs       != TodaPrimaryGroup(         group_dimension=n + 6,         sphere_dimension=n,       ) |     if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPri`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:29456` `toda_prop511_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi8_2_relation.lhs       != TodaPrimaryGroup(         group_dimension=8,         sphere_dimension=2,       ) |       pi9_3_zero       != TodaPrimaryGroupZeroStatement(         group=TodaPrimaryGroup(           group_dimension=9,      `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:30415` `toda_53_n3_hopf_eta5_surjective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:31985` `toda_prop53_eta4_squared_stable_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:32439` `toda_prop53_higher_eta_squared_finite_cyclic_generator_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       transported_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:33158` `toda_52_eta2_composition_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       first_summand,       TodaPrimaryGroup,     ): |     if not isinstance(       second_summand,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:33436` `toda_52_pi4_2_finite_cyclic_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       source_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:33679` `toda_prop56_pi5_2_eta2_cube_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_group,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       source_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:34852` `toda_prop56_pi7_4_decomposition_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       target_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_dimension=4,       ) |       source_group.summands[         0       ]       `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:35154` `toda_prop56_pi8_5_quotient_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       decomposition_map.target_group,       TodaPrimaryGroup,     ): |       decomposition_map.target_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_dimension=4,       ) |       source_grou`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:35342` `toda_prop56_pi6_3_e2_injective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       decomposition_map.target_group,       TodaPrimaryGroup,     ): |       decomposition_map.target_group       != TodaPrimaryGroup(         group_dimension=i,         sphere_dimension=4,       ) |       source_grou`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:36123` `toda_prop56_nu5_stable_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ): |       target_group       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=3,         ),         sphere_dimension=n,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:36509` `toda_prop56_higher_nu_finite_cyclic_generator_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       transported_relation.lhs,       TodaPrimaryGroup,     ): |       transported_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=3,         ),         sph`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:36669` `toda_prop56_pi7_3_hopf_surjective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:37214` `toda_prop44_eta2_second_summand_restriction_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       first_summand,       TodaPrimaryGroup,     ): |     if not isinstance(       second_summand,       TodaPrimaryGroup,     ): |     if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:37433` `toda_prop44_first_summand_restriction_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       first_summand,       TodaPrimaryGroup,     ): |     if not isinstance(       second_summand,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:37683` `toda_prop44_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       first_summand,       TodaPrimaryGroup,     ): |     if not isinstance(       second_summand,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:37922` `toda_prop44_eta2_n2_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:41267` `toda_prop58_g4_two_primary_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      source_zero       != TodaPrimaryGroupZeroStatement(         group=expected_source_group,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:41389` `toda_prop59_g5_two_primary_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      source_zero       != TodaPrimaryGroupZeroStatement(         group=expected_source_group,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:42712` `toda_514_delta_eta13_squared_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:43037` `toda_514_second_short_exact_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=2,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:43946` `toda_514_delta_nu11_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=higher_n,           right=3,         ),         sphere`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:44463` `toda_514_first_short_exact_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=higher_n,           right=3,         ),         sphere`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:44979` `toda_48_pi16_9_order_and_e4_injective_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi12_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=12,         sphere_dimension=5,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:45434` `toda_45_sigma9_finite_cyclic_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      transport_map.source_group       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=9,           right=7,         ),         sphere_dimension=9,       ) |       transport_map.target_group       != TodaPrimaryGroup(`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:45689` `toda_36_lemma514_sigma_double_prime_bridge_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi11_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=11,         sphere_dimension=5,       ) |       pi9_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=9,         sphere_dimension=5,       ) |     `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:48157` `toda_prop515_sigma8_prop44_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      source_group.summands       != (         TodaPrimaryGroup(           group_dimension=14,           sphere_dimension=7,         ),         TodaPrimaryGroup(           group_dimension=15,           sphere_dimension=15,         ),       `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:48695` `toda_prop515_pi15_8_final_group_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      transported       .pi14_7_group_relation       .lhs       != TodaPrimaryGroup(         group_dimension=14,         sphere_dimension=7,       ) |       transported       .pi15_15_group_relation       .lhs       != TodaPrimaryGroup(    `
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:52022` `toda_prop515_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi9_2_zero       != TodaPrimaryGroupZeroStatement(         group=TodaPrimaryGroup(           group_dimension=9,           sphere_dimension=2,         ),       ) |       pi10_3_zero       != TodaPrimaryGroupZeroStatement(         group`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:52594` `toda_lemma510_eta8_two_iota9_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       relation.lhs,       TodaPrimaryGroup,     ): |       relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=1,         ),         sphere_dimension=n,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:53691` `toda_lemma510_nu6_ordinary_composition_reduction_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=3,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:53876` `toda_lemma510_nu6_ordinary_composition_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      reduction       != TodaLemma510Nu6OrdinaryCompositionReductionStatement(         left_element=nu_6,         ordinary_right_group=HomotopyGroup(           group_dimension=11,           sphere_dimension=9,         ),         two_primary`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:54108` `toda_lemma510_eta9_two_iota10_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=1,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:54958` `toda_lemma510_ordinary_suspension_image_two_primary_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `      pi10_5_relation.lhs       != TodaPrimaryGroup(         group_dimension=10,         sphere_dimension=5,       )`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:55923` `toda_56_nu4_decomposition_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:56256` `toda_56_nu4_prop44_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:56502` `toda_56_nu4_decomposition_isomorphism_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       target_group,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:56718` `toda_prop56_finite_dimensional_integration_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ): |       higher_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=3,         ),         sphere_dimens`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:58975` `toda_lemma54_pi6_5_finite_cyclic_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:59339` `toda_lemma54_eta6_twice_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:63977` `toda_prop51_eta4_twice_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_eta_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:64469` `toda_lemma52_prop26_first_zero_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_eta_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:64940` `toda_lemma52_double_value_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       higher_eta_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_rules.py:67854` `toda_higher_eta_finite_cyclic_generator_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       group_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r14_r11_delta_zero` → `toda_rules`
+- `toda_stable_eta_generator_normalization.py:41` `toda_eta_concrete_generator_normalization_inference_rule` / import到達=False / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `        if not isinstance(transported.lhs, TodaPrimaryGroup):`
+- `toda_stable_generator_normalization.py:29` `toda_sigma_transport_generator_normalization_inference_rule` / import到達=False / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       transported_relation.lhs,       TodaPrimaryGroup,     ): |       transported_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=7,         ),         sph`
+- `toda_stable_generator_normalization.py:244` `toda_nu_squared_transport_generator_normalization_inference_rule` / import到達=False / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       transported_relation.lhs,       TodaPrimaryGroup,     ): |       transported_relation.lhs       != TodaPrimaryGroup(         group_dimension=ScalarSum(           left=n,           right=6,         ),         sph`
+- `toda_stable_group_transport.py:99` `toda_45_generic_finite_cyclic_transport_inference_rule` / import到達=True / MANUAL_REVIEW_GROUP_TYPE_BRANCH
+  - 条件: `    if not isinstance(       source_relation.lhs,       TodaPrimaryGroup,     ):`
+  - 経路: `phase165_r52_r9_shared_math` → `phase165_r57_r7_stable_expansion` → `toda_stable_group_transport`
+
+## 限界
+
+- R2はトップレベルの探索関連関数のみを対象とする
+- import到達性は実行時の呼び出しを証明しない
+- 116候補すべてを自動で正当・不要と断定できない
+- 撤去前に規則の一般化と回帰テストが必要
