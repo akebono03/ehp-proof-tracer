@@ -43,9 +43,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         from phase165_r52_r27_r5_literature import build_typed_literature_bridge
         from phase165_r57_r20_general_specialization import build_adopted_toda51_diagonal_reference
         literature = build_typed_literature_bridge(production)
+        from phase165_r12_r11_prop42_unified import build_adopted_prop42_general_reference
         sources = (production, build_adopted_typed_reference_registry(adopted_tex),
                    build_adopted_prop51_reference(),
-                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature,)
+                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference())
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -93,7 +94,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         raise TypeError("bridge must be RegistryBridgeResult")
     # R4-4 stage4: exactness-map binding from cited fixed statements only.
     from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
-    extra_providers = (build_exactness_binding_provider(bridge),) + tuple(extra_providers)
+    from phase165_r12_r11_prop42_unified import build_prop42_specialization_provider
+    extra_providers = (build_exactness_binding_provider(bridge), build_prop42_specialization_provider(bridge)) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
         if link.step is None or link.step.rule is not ProofRule.GIVEN:
@@ -311,6 +313,8 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         proof_context = restrict_by_proof_use_order(
             proof_context, goal=goal, policy=proof_use_order,
         )
+    from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
+    proof_context = prefer_universal_prop42_derivation(proof_context)
     if expansion_provider is None:
         expansion_provider = shared_expansion_provider(
             proof_context, proof_target=goal,
