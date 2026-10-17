@@ -515,12 +515,6 @@ _SECOND_WAVE_RELEVANCE_BY_FACTORY = {
   "toda_pi3_2_whitehead_square_up_to_sign_inference_rule": (
     RuleRelevanceCategory.THEOREM_SPECIFIC
   ),
-  "toda_pi4_3_delta_image_free_cyclic_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_pi4_3_finite_cyclic_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
   "toda_54_nu_prime_triple_eta_transport_inference_rule": (
     RuleRelevanceCategory.THEOREM_SPECIFIC
   ),
@@ -566,12 +560,6 @@ _SECOND_WAVE_RELEVANCE_BY_FACTORY = {
   "toda_exactness_zero_delta_implies_hopf_surjective_inference_rule": (
     RuleRelevanceCategory.STRUCTURAL
   ),
-  "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule": (
-    RuleRelevanceCategory.STRUCTURAL
-  ),
-  "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule": (
-    RuleRelevanceCategory.STRUCTURAL
-  ),
   "toda_hopf_injective_surjective_implies_isomorphism_inference_rule": (
     RuleRelevanceCategory.MAP_PROPERTY
   ),
@@ -579,9 +567,6 @@ _SECOND_WAVE_RELEVANCE_BY_FACTORY = {
     RuleRelevanceCategory.MAP_PROPERTY
   ),
   "toda_eta3_suspension_relation_inference_rule": (
-    RuleRelevanceCategory.BRIDGE
-  ),
-  "toda_pi4_3_eta3_generator_inference_rule": (
     RuleRelevanceCategory.BRIDGE
   ),
   "toda_53_eta4_suspension_bridge_inference_rule": (
@@ -603,9 +588,6 @@ _SECOND_WAVE_RELEVANCE_BY_FACTORY = {
     RuleRelevanceCategory.THEOREM_SPECIFIC
   ),
   "toda_54_t_ge_1_up_to_sign_inference_rule": (
-    RuleRelevanceCategory.THEOREM_SPECIFIC
-  ),
-  "toda_45_pi4_3_finite_cyclic_transport_inference_rule": (
     RuleRelevanceCategory.THEOREM_SPECIFIC
   ),
   "toda_52_pi4_2_finite_cyclic_transport_inference_rule": (
