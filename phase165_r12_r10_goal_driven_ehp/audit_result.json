@@ -1,0 +1,23 @@
+{
+  "phase": "165 R12-R10",
+  "mode": "READ_ONLY_GOAL_DRIVEN_EHP_SOURCE_MATCH",
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "source_locator": "Proposition 4.2 (4.4)",
+  "specialization_n": 2,
+  "specialization_i": 4,
+  "required_delta_e": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+  "required_e_h": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+  "source_delta_e_formula_matches": true,
+  "source_tex_checked": true,
+  "source_strict_citation_eligible": false,
+  "raw_shared_exact_window_matches_not_citation_approved": {
+    "delta_e": [],
+    "e_h": []
+  },
+  "r7_proof_order_reapplied_in_audit": false,
+  "unrelated_previous_windows_selected": false,
+  "proof_steps_created": 0,
+  "exactness_certified": false,
+  "pi43_proof_certified": false,
+  "full_pytest_run": false
+}
