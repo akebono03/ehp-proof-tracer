@@ -18,6 +18,7 @@ from unified_statement_registry import (
 def register_adopted_composite_reference(
     *, assertion_id: str, locator: str, source_id: str,
     content: object, reference_kind: ReferenceKind = ReferenceKind.PROPOSITION,
+    clause_ranges: tuple[tuple[str, str, int], ...] = (),
 ) -> RegistryBridgeResult:
     """Register a caller-adopted typed composite, preserving its original citation.
 
@@ -47,7 +48,9 @@ def register_adopted_composite_reference(
         assertion_id=assertion_id, reference_id=reference_id,
         kind=AssertionKind.STATEMENT, content=content,
         origin=AssertionOrigin.FIXED_STATEMENT,
-        scope=("typed_composite_fields", tuple(part.name for part in parts)),
+        scope=("typed_composite_fields", tuple(part.name for part in parts))
+        + (("clause_ranges", clause_ranges),) if clause_ranges else
+        ("typed_composite_fields", tuple(part.name for part in parts)),
     ))
     step = ProofStep(
         conclusion=content, premises=(), rule=ProofRule.GIVEN,
@@ -61,6 +64,14 @@ def register_adopted_composite_reference(
     return RegistryBridgeResult(
         registry, (), (ProofStepLink(assertion_id=assertion_id, step=step),),
     )
+
+
+def registered_prop51_items():
+    """List all five proposition positions; position four remains an unproved GOAL."""
+    from phase165_prop51_claim_order import ordered_prop51_items
+    bridge = build_adopted_prop51_reference()
+    content = bridge.registry.assertion("toda:adopted:prop5.1:finite_dimensional").content
+    return ordered_prop51_items(content)
 
 
 def build_adopted_prop51_reference() -> RegistryBridgeResult:
@@ -130,9 +141,22 @@ def build_adopted_prop51_reference() -> RegistryBridgeResult:
         "delta_iota5_relation", "higher_eta_group_relation",
     }:
         raise ValueError("Proposition 5.1 clauses changed")
-    return register_adopted_composite_reference(
+    bridge = register_adopted_composite_reference(
         assertion_id="toda:adopted:prop5.1:finite_dimensional",
         locator="Proposition 5.1",
         source_id="Toda translated TeX:Proposition 5.1 (user-adopted; original edition unverified)",
         content=content,
+        clause_ranges=(("higher_eta_group_relation", "n", 4),),
     )
+    # This literature assertion has no GIVEN proof link: no self-proof.
+    from phase165_prop51_claim_order import pi4_3_goal
+    bridge.registry.add_assertion(AssertionEntry(
+        assertion_id="toda:adopted:prop5.1:pi4_3",
+        reference_id="adopted:toda:adopted:prop5.1:finite_dimensional",
+        kind=AssertionKind.STATEMENT,
+        content=pi4_3_goal(),
+        origin=AssertionOrigin.FIXED_STATEMENT,
+        component_position=4,
+        scope=("user_adopted_claim_without_given_proof",),
+    ))
+    return bridge

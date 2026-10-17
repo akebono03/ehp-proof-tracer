@@ -1,0 +1,1398 @@
+{
+  "phase": "165 R9 unified rule management inventory",
+  "mode": "READ_ONLY_ACTIVE_R8_WITH_STATIC_CONNECTIONS",
+  "catalog_retired_not_invoked": true,
+  "scope": "Active R8 factories; not a mathematically complete rule registry",
+  "discovered_count": 60,
+  "factory_count": 82,
+  "requires_input_count": 22,
+  "candidate_rule_ids_unique": true,
+  "duplicate_rule_names": [],
+  "duplicate_pattern_candidates": [
+    [
+      "stable_rules.freudenthal_boundary_epimorphism_inference_rule",
+      "stable_rules.freudenthal_stable_isomorphism_inference_rule"
+    ],
+    [
+      "hopf_rules.hopf_composition_law_inference_rule",
+      "hopf_rules.hopf_invariant_statement_to_ehp_h_equality_inference_rule"
+    ],
+    [
+      "scalar_rules.even_scalar_evaluates_minus_one_power_inference_rule",
+      "scalar_rules.even_scalar_implies_mod_two_congruence_inference_rule"
+    ],
+    [
+      "scalar_rules.odd_scalar_evaluates_minus_one_power_inference_rule",
+      "scalar_rules.odd_scalar_implies_mod_two_congruence_inference_rule"
+    ],
+    [
+      "relation_rules.zero_composition_equality_implies_zero_inference_rule",
+      "relation_rules.zero_equality_implies_zero_inference_rule"
+    ]
+  ],
+  "backward_pattern_candidates": 20,
+  "sources": {
+    "phase165_r8_rule_provider.py": {
+      "present": true,
+      "calls": [
+        {
+          "function": "discover_inference_rules",
+          "line": 168
+        }
+      ]
+    },
+    "phase165_r57_r26_generic_search_connection.py": {
+      "present": true,
+      "calls": [
+        {
+          "function": "discover_inference_rules",
+          "line": 24
+        }
+      ]
+    },
+    "phase165_r52_r9_shared_math.py": {
+      "present": true,
+      "calls": [
+        {
+          "function": "build_generic_backward_expansion_provider",
+          "line": 125
+        },
+        {
+          "function": "shared_expansion_provider",
+          "line": 312
+        }
+      ]
+    },
+    "rule_catalog.py": {
+      "present": true,
+      "calls": []
+    }
+  },
+  "factories": [
+    {
+      "module": "ehp_rules",
+      "factory": "ehp_exactness_image_implies_kernel_inference_rule",
+      "rule_id_candidate": "ehp_rules.ehp_exactness_image_implies_kernel_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP exactness transfers image structure to kernel"
+    },
+    {
+      "module": "ehp_rules",
+      "factory": "ehp_exactness_implies_zero_composition_inference_rule",
+      "rule_id_candidate": "ehp_rules.ehp_exactness_implies_zero_composition_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP exactness implies zero composition"
+    },
+    {
+      "module": "ehp_rules",
+      "factory": "ehp_exactness_inference_rule",
+      "rule_id_candidate": "ehp_rules.ehp_exactness_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP exactness from image and kernel"
+    },
+    {
+      "module": "ehp_rules",
+      "factory": "ehp_exactness_kernel_implies_image_inference_rule",
+      "rule_id_candidate": "ehp_rules.ehp_exactness_kernel_implies_image_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP exactness transfers kernel structure to image"
+    },
+    {
+      "module": "ehp_rules",
+      "factory": "ehp_zero_composition_implies_zero_relation_inference_rule",
+      "rule_id_candidate": "ehp_rules.ehp_zero_composition_implies_zero_relation_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP zero composition implies zero relation"
+    },
+    {
+      "module": "stable_rules",
+      "factory": "freudenthal_boundary_epimorphism_inference_rule",
+      "rule_id_candidate": "stable_rules.freudenthal_boundary_epimorphism_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Freudenthal boundary range implies suspension epimorphism"
+    },
+    {
+      "module": "stable_rules",
+      "factory": "freudenthal_stable_isomorphism_inference_rule",
+      "rule_id_candidate": "stable_rules.freudenthal_stable_isomorphism_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Freudenthal stable range implies suspension isomorphism"
+    },
+    {
+      "module": "stable_rules",
+      "factory": "suspension_injectivity_reflects_equality_inference_rule",
+      "rule_id_candidate": "stable_rules.suspension_injectivity_reflects_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Suspension injectivity reflects equality"
+    },
+    {
+      "module": "stable_rules",
+      "factory": "suspension_injectivity_reflects_zero_inference_rule",
+      "rule_id_candidate": "stable_rules.suspension_injectivity_reflects_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Suspension injectivity reflects zero"
+    },
+    {
+      "module": "stable_rules",
+      "factory": "suspension_isomorphism_implies_injective_inference_rule",
+      "rule_id_candidate": "stable_rules.suspension_isomorphism_implies_injective_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Suspension isomorphism implies injectivity"
+    },
+    {
+      "module": "set_rules",
+      "factory": "coset_equality_implies_modulo_inference_rule",
+      "rule_id_candidate": "set_rules.coset_equality_implies_modulo_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "coset equality implies modulo"
+    },
+    {
+      "module": "set_rules",
+      "factory": "difference_membership_implies_modulo_inference_rule",
+      "rule_id_candidate": "set_rules.difference_membership_implies_modulo_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "difference membership implies modulo"
+    },
+    {
+      "module": "set_rules",
+      "factory": "equality_implies_modulo_inference_rule",
+      "rule_id_candidate": "set_rules.equality_implies_modulo_inference_rule",
+      "required_arguments": [
+        "modulus"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "set_rules",
+      "factory": "exactness_implies_subgroup_equality_inference_rule",
+      "rule_id_candidate": "set_rules.exactness_implies_subgroup_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "exactness implies subgroup equality"
+    },
+    {
+      "module": "set_rules",
+      "factory": "kernel_membership_implies_mapped_zero_inference_rule",
+      "rule_id_candidate": "set_rules.kernel_membership_implies_mapped_zero_inference_rule",
+      "required_arguments": [
+        "group_map",
+        "map_symbol"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "set_rules",
+      "factory": "mapped_zero_implies_kernel_membership_inference_rule",
+      "rule_id_candidate": "set_rules.mapped_zero_implies_kernel_membership_inference_rule",
+      "required_arguments": [
+        "group_map",
+        "map_symbol"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "set_rules",
+      "factory": "membership_subset_propagation_inference_rule",
+      "rule_id_candidate": "set_rules.membership_subset_propagation_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "membership subset propagation"
+    },
+    {
+      "module": "set_rules",
+      "factory": "modulo_implies_coset_equality_inference_rule",
+      "rule_id_candidate": "set_rules.modulo_implies_coset_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "modulo implies coset equality"
+    },
+    {
+      "module": "set_rules",
+      "factory": "modulo_implies_difference_membership_inference_rule",
+      "rule_id_candidate": "set_rules.modulo_implies_difference_membership_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "modulo implies difference membership"
+    },
+    {
+      "module": "set_rules",
+      "factory": "mutual_subset_implies_subgroup_equality_inference_rule",
+      "rule_id_candidate": "set_rules.mutual_subset_implies_subgroup_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "mutual subset implies subgroup equality"
+    },
+    {
+      "module": "set_rules",
+      "factory": "subgroup_equality_implies_subset_inference_rule",
+      "rule_id_candidate": "set_rules.subgroup_equality_implies_subset_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "subgroup equality implies subset"
+    },
+    {
+      "module": "set_rules",
+      "factory": "subgroup_equality_membership_propagation_inference_rule",
+      "rule_id_candidate": "set_rules.subgroup_equality_membership_propagation_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "subgroup equality membership propagation"
+    },
+    {
+      "module": "set_rules",
+      "factory": "subgroup_equality_modulo_propagation_inference_rule",
+      "rule_id_candidate": "set_rules.subgroup_equality_modulo_propagation_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "subgroup equality modulo propagation"
+    },
+    {
+      "module": "set_rules",
+      "factory": "subgroup_equality_symmetry_inference_rule",
+      "rule_id_candidate": "set_rules.subgroup_equality_symmetry_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "subgroup equality symmetry"
+    },
+    {
+      "module": "set_rules",
+      "factory": "subgroup_equality_transitivity_inference_rule",
+      "rule_id_candidate": "set_rules.subgroup_equality_transitivity_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "subgroup equality transitivity"
+    },
+    {
+      "module": "set_rules",
+      "factory": "subset_transitivity_inference_rule",
+      "rule_id_candidate": "set_rules.subset_transitivity_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "subset transitivity"
+    },
+    {
+      "module": "set_rules",
+      "factory": "zero_implies_modulo_inference_rule",
+      "rule_id_candidate": "set_rules.zero_implies_modulo_inference_rule",
+      "required_arguments": [
+        "modulus"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "ehp_h_preserves_equality_inference_rule",
+      "rule_id_candidate": "hopf_rules.ehp_h_preserves_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP H preserves equality"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "ehp_zero_composition_implies_suspended_hopf_zero_inference_rule",
+      "rule_id_candidate": "hopf_rules.ehp_zero_composition_implies_suspended_hopf_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "EHP E-H zero composition implies suspended Hopf zero"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "hopf_composition_formula_inference_rule",
+      "rule_id_candidate": "hopf_rules.hopf_composition_formula_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "generalized Hopf composition formula"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "hopf_composition_law_inference_rule",
+      "rule_id_candidate": "hopf_rules.hopf_composition_law_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "generalized Hopf invariant enables composition law"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "hopf_invariant_statement_to_ehp_h_equality_inference_rule",
+      "rule_id_candidate": "hopf_rules.hopf_invariant_statement_to_ehp_h_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "generalized Hopf invariant to EHP H equality"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "hopf_invariant_value_zero_inference_rule",
+      "rule_id_candidate": "hopf_rules.hopf_invariant_value_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "generalized Hopf invariant value is zero"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "hopf_left_composition_formula_inference_rule",
+      "rule_id_candidate": "hopf_rules.hopf_left_composition_formula_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "generalized Hopf left composition formula"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "hopf_left_composition_law_inference_rule",
+      "rule_id_candidate": "hopf_rules.hopf_left_composition_law_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "generalized Hopf invariant enables left composition law"
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "toda_prop22_left_inference_rule",
+      "rule_id_candidate": "hopf_rules.toda_prop22_left_inference_rule",
+      "required_arguments": [
+        "alpha",
+        "gamma"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "hopf_rules",
+      "factory": "toda_prop22_right_inference_rule",
+      "rule_id_candidate": "hopf_rules.toda_prop22_right_inference_rule",
+      "required_arguments": [
+        "alpha",
+        "gamma"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "scalar_rules",
+      "factory": "even_scalar_evaluates_minus_one_power_inference_rule",
+      "rule_id_candidate": "scalar_rules.even_scalar_evaluates_minus_one_power_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Even exponent evaluates minus-one power to one"
+    },
+    {
+      "module": "scalar_rules",
+      "factory": "even_scalar_implies_mod_two_congruence_inference_rule",
+      "rule_id_candidate": "scalar_rules.even_scalar_implies_mod_two_congruence_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Even scalar implies congruence to zero modulo two"
+    },
+    {
+      "module": "scalar_rules",
+      "factory": "mod_two_one_scalar_preserves_order_two_element_inference_rule",
+      "rule_id_candidate": "scalar_rules.mod_two_one_scalar_preserves_order_two_element_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Scalar congruent to one modulo two preserves order-two element"
+    },
+    {
+      "module": "scalar_rules",
+      "factory": "odd_scalar_evaluates_minus_one_power_inference_rule",
+      "rule_id_candidate": "scalar_rules.odd_scalar_evaluates_minus_one_power_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Odd exponent evaluates minus-one power to minus one"
+    },
+    {
+      "module": "scalar_rules",
+      "factory": "odd_scalar_implies_mod_two_congruence_inference_rule",
+      "rule_id_candidate": "scalar_rules.odd_scalar_implies_mod_two_congruence_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Odd scalar implies congruence to one modulo two"
+    },
+    {
+      "module": "scalar_rules",
+      "factory": "scalar_sign_evaluation_applies_to_multiple_inference_rule",
+      "rule_id_candidate": "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule",
+      "required_arguments": [
+        "sign",
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "additive_inverse_inference_rule",
+      "rule_id_candidate": "relation_rules.additive_inverse_inference_rule",
+      "required_arguments": [
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "composition_equality_to_zero_inference_rule",
+      "rule_id_candidate": "relation_rules.composition_equality_to_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "composition equality to zero"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "double_equals_repeated_sum_inference_rule",
+      "rule_id_candidate": "relation_rules.double_equals_repeated_sum_inference_rule",
+      "required_arguments": [
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "equality_preserved_under_left_composition_inference_rule",
+      "rule_id_candidate": "relation_rules.equality_preserved_under_left_composition_inference_rule",
+      "required_arguments": [
+        "left_expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "equality_preserved_under_multiple_inference_rule",
+      "rule_id_candidate": "relation_rules.equality_preserved_under_multiple_inference_rule",
+      "required_arguments": [
+        "coefficient"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "equality_preserved_under_right_composition_inference_rule",
+      "rule_id_candidate": "relation_rules.equality_preserved_under_right_composition_inference_rule",
+      "required_arguments": [
+        "right_expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "equality_symmetry_inference_rule",
+      "rule_id_candidate": "relation_rules.equality_symmetry_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "equality symmetry"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "equality_transitivity_inference_rule",
+      "rule_id_candidate": "relation_rules.equality_transitivity_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "equality transitivity"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "iterated_suspension_one_bridge_inference_rule",
+      "rule_id_candidate": "relation_rules.iterated_suspension_one_bridge_inference_rule",
+      "required_arguments": [
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "nested_integer_multiple_inference_rule",
+      "rule_id_candidate": "relation_rules.nested_integer_multiple_inference_rule",
+      "required_arguments": [
+        "outer_coefficient",
+        "inner_coefficient",
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "order_implies_zero_multiple_inference_rule",
+      "rule_id_candidate": "relation_rules.order_implies_zero_multiple_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "order implies zero multiple"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "sum_associativity_inference_rule",
+      "rule_id_candidate": "relation_rules.sum_associativity_inference_rule",
+      "required_arguments": [
+        "left",
+        "middle",
+        "right"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "sum_commutativity_inference_rule",
+      "rule_id_candidate": "relation_rules.sum_commutativity_inference_rule",
+      "required_arguments": [
+        "left",
+        "right"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "relation_rules",
+      "factory": "suspension_composition_functoriality_inference_rule",
+      "rule_id_candidate": "relation_rules.suspension_composition_functoriality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "suspension composition functoriality"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "suspension_preserves_equality_inference_rule",
+      "rule_id_candidate": "relation_rules.suspension_preserves_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "suspension preserves equality"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "suspension_preserves_zero_inference_rule",
+      "rule_id_candidate": "relation_rules.suspension_preserves_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "suspension preserves zero"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "suspension_preserves_zero_multiple_inference_rule",
+      "rule_id_candidate": "relation_rules.suspension_preserves_zero_multiple_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "suspension preserves zero multiple"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "zero_composition_equality_implies_zero_inference_rule",
+      "rule_id_candidate": "relation_rules.zero_composition_equality_implies_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "zero composition equality implies zero"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "zero_composition_reverse_equality_implies_zero_inference_rule",
+      "rule_id_candidate": "relation_rules.zero_composition_reverse_equality_implies_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "zero composition reverse equality implies zero"
+    },
+    {
+      "module": "relation_rules",
+      "factory": "zero_equality_implies_zero_inference_rule",
+      "rule_id_candidate": "relation_rules.zero_equality_implies_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "zero equality implies zero"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "exactness_and_whole_kernel_implies_whole_image_inference_rule",
+      "rule_id_candidate": "map_property_rules.exactness_and_whole_kernel_implies_whole_image_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "exactness and whole kernel imply whole image"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "exactness_and_zero_image_implies_zero_kernel_inference_rule",
+      "rule_id_candidate": "map_property_rules.exactness_and_zero_image_implies_zero_kernel_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "exactness and zero image imply zero kernel"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "injective_and_surjective_imply_isomorphism_inference_rule",
+      "rule_id_candidate": "map_property_rules.injective_and_surjective_imply_isomorphism_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "injectivity and surjectivity imply isomorphism"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "injective_map_reflects_equality_inference_rule",
+      "rule_id_candidate": "map_property_rules.injective_map_reflects_equality_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "injective map reflects equality"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "isomorphism_implies_injective_inference_rule",
+      "rule_id_candidate": "map_property_rules.isomorphism_implies_injective_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "isomorphism implies injectivity"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "kernel_zero_implies_injective_inference_rule",
+      "rule_id_candidate": "map_property_rules.kernel_zero_implies_injective_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "zero kernel implies injectivity"
+    },
+    {
+      "module": "map_property_rules",
+      "factory": "whole_image_implies_surjective_inference_rule",
+      "rule_id_candidate": "map_property_rules.whole_image_implies_surjective_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "whole image implies surjectivity"
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_addition_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.homomorphism_preserves_addition_inference_rule",
+      "required_arguments": [
+        "left",
+        "right"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_inverse_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.homomorphism_preserves_inverse_inference_rule",
+      "required_arguments": [
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_known_zero_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule",
+      "required_arguments": [
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_multiple_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.homomorphism_preserves_multiple_inference_rule",
+      "required_arguments": [
+        "coefficient",
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_zero_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.homomorphism_preserves_zero_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "homomorphism preserves zero"
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "suspension_additivity_bridge_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.suspension_additivity_bridge_inference_rule",
+      "required_arguments": [
+        "left",
+        "right"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "suspension_is_homomorphism_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.suspension_is_homomorphism_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "suspension is homomorphism"
+    },
+    {
+      "module": "homomorphism_rules",
+      "factory": "suspension_multiple_bridge_inference_rule",
+      "rule_id_candidate": "homomorphism_rules.suspension_multiple_bridge_inference_rule",
+      "required_arguments": [
+        "coefficient",
+        "expression"
+      ],
+      "runtime_rule_name": null
+    },
+    {
+      "module": "indeterminacy_rules",
+      "factory": "coset_membership_implies_modulo_inference_rule",
+      "rule_id_candidate": "indeterminacy_rules.coset_membership_implies_modulo_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "coset membership implies modulo"
+    },
+    {
+      "module": "indeterminacy_rules",
+      "factory": "equality_implies_sign_indeterminacy_inference_rule",
+      "rule_id_candidate": "indeterminacy_rules.equality_implies_sign_indeterminacy_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "equality implies sign indeterminacy"
+    },
+    {
+      "module": "indeterminacy_rules",
+      "factory": "modulo_implies_coset_membership_inference_rule",
+      "rule_id_candidate": "indeterminacy_rules.modulo_implies_coset_membership_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "modulo implies coset membership"
+    },
+    {
+      "module": "indeterminacy_rules",
+      "factory": "symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule",
+      "rule_id_candidate": "indeterminacy_rules.symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule",
+      "required_arguments": [],
+      "runtime_rule_name": "Symbolic odd equality implies coefficient indeterminacy"
+    }
+  ],
+  "rules": [
+    {
+      "index": 0,
+      "rule_id_candidate": "ehp_rules.ehp_exactness_image_implies_kernel_inference_rule",
+      "rule_name": "EHP exactness transfers image structure to kernel",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(KernelStatement(group_map=PatternVariable(name='second_map'), structure=PatternVariable(name='structure')), (PremisePattern(proof_rule=None, statement_type=<class 'proof.ExactnessStatement'>, statement_pattern=ExactnessStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map'), is_exact=True), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'proof.ImageStatement'>, statement_pattern=ImageStatement(group_map=PatternVariable(name='first_map'), structure=PatternVariable(name='structure')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 1,
+      "rule_id_candidate": "ehp_rules.ehp_exactness_implies_zero_composition_inference_rule",
+      "rule_name": "EHP exactness implies zero composition",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(EHPZeroCompositionStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map')), (PremisePattern(proof_rule=None, statement_type=<class 'proof.ExactnessStatement'>, statement_pattern=ExactnessStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map'), is_exact=True), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 2,
+      "rule_id_candidate": "ehp_rules.ehp_exactness_inference_rule",
+      "rule_name": "EHP exactness from image and kernel",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(ExactnessStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map'), is_exact=True), (PremisePattern(proof_rule=<ProofRule.IMAGE_COMPUTATION: 'image_computation'>, statement_type=<class 'proof.ImageStatement'>, statement_pattern=ImageStatement(group_map=PatternVariable(name='first_map'), structure=PatternVariable(name='image_structure')), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=<ProofRule.KERNEL_COMPUTATION: 'kernel_computation'>, statement_type=<class 'proof.KernelStatement'>, statement_pattern=KernelStatement(group_map=PatternVariable(name='second_map'), structure=PatternVariable(name='kernel_structure')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 3,
+      "rule_id_candidate": "ehp_rules.ehp_exactness_kernel_implies_image_inference_rule",
+      "rule_name": "EHP exactness transfers kernel structure to image",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(ImageStatement(group_map=PatternVariable(name='first_map'), structure=PatternVariable(name='structure')), (PremisePattern(proof_rule=None, statement_type=<class 'proof.ExactnessStatement'>, statement_pattern=ExactnessStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map'), is_exact=True), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'proof.KernelStatement'>, statement_pattern=KernelStatement(group_map=PatternVariable(name='second_map'), structure=PatternVariable(name='structure')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 4,
+      "rule_id_candidate": "ehp_rules.ehp_zero_composition_implies_zero_relation_inference_rule",
+      "rule_name": "EHP zero composition implies zero relation",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=Composition(left=PatternVariable(name='second_map'), right=PatternVariable(name='first_map')), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'ehp_rules.EHPZeroCompositionStatement'>, statement_pattern=EHPZeroCompositionStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 5,
+      "rule_id_candidate": "stable_rules.freudenthal_boundary_epimorphism_inference_rule",
+      "rule_name": "Freudenthal boundary range implies suspension epimorphism",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionMapStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 6,
+      "rule_id_candidate": "stable_rules.freudenthal_stable_isomorphism_inference_rule",
+      "rule_name": "Freudenthal stable range implies suspension isomorphism",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionMapStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 7,
+      "rule_id_candidate": "stable_rules.suspension_injectivity_reflects_equality_inference_rule",
+      "rule_name": "Suspension injectivity reflects equality",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionInjectiveStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionMapEqualityStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 8,
+      "rule_id_candidate": "stable_rules.suspension_injectivity_reflects_zero_inference_rule",
+      "rule_name": "Suspension injectivity reflects zero",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionInjectiveStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionMapZeroStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 9,
+      "rule_id_candidate": "stable_rules.suspension_isomorphism_implies_injective_inference_rule",
+      "rule_name": "Suspension isomorphism implies injectivity",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionIsomorphismStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 10,
+      "rule_id_candidate": "set_rules.coset_equality_implies_modulo_inference_rule",
+      "rule_name": "coset equality implies modulo",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.CosetEqualityStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 11,
+      "rule_id_candidate": "set_rules.difference_membership_implies_modulo_inference_rule",
+      "rule_name": "difference membership implies modulo",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.MembershipStatement'>, statement_pattern=MembershipStatement(element=PatternVariable(name='element'), subgroup=PatternVariable(name='subgroup')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 12,
+      "rule_id_candidate": "set_rules.exactness_implies_subgroup_equality_inference_rule",
+      "rule_name": "exactness implies subgroup equality",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'proof.ExactnessStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 13,
+      "rule_id_candidate": "set_rules.membership_subset_propagation_inference_rule",
+      "rule_name": "membership subset propagation",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(MembershipStatement(element=PatternVariable(name='element'), subgroup=PatternVariable(name='superset')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.MembershipStatement'>, statement_pattern=MembershipStatement(element=PatternVariable(name='element'), subgroup=PatternVariable(name='subset')), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubsetStatement'>, statement_pattern=SubsetStatement(subset=PatternVariable(name='subset'), superset=PatternVariable(name='superset')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 14,
+      "rule_id_candidate": "set_rules.modulo_implies_coset_equality_inference_rule",
+      "rule_name": "modulo implies coset equality",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(CosetEqualityStatement(left=Coset(representative=PatternVariable(name='left'), subgroup=PatternVariable(name='modulus')), right=Coset(representative=PatternVariable(name='right'), subgroup=PatternVariable(name='modulus'))), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.ModuloStatement'>, statement_pattern=ModuloStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right'), modulus=PatternVariable(name='modulus')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 15,
+      "rule_id_candidate": "set_rules.modulo_implies_difference_membership_inference_rule",
+      "rule_name": "modulo implies difference membership",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(MembershipStatement(element=Sum(left=PatternVariable(name='left'), right=Multiple(coefficient=-1, expression=PatternVariable(name='right'))), subgroup=PatternVariable(name='modulus')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.ModuloStatement'>, statement_pattern=ModuloStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right'), modulus=PatternVariable(name='modulus')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 16,
+      "rule_id_candidate": "set_rules.mutual_subset_implies_subgroup_equality_inference_rule",
+      "rule_name": "mutual subset implies subgroup equality",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(SubgroupEqualityStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubsetStatement'>, statement_pattern=SubsetStatement(subset=PatternVariable(name='left'), superset=PatternVariable(name='right')), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubsetStatement'>, statement_pattern=SubsetStatement(subset=PatternVariable(name='right'), superset=PatternVariable(name='left')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 17,
+      "rule_id_candidate": "set_rules.subgroup_equality_implies_subset_inference_rule",
+      "rule_name": "subgroup equality implies subset",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(SubsetStatement(subset=PatternVariable(name='left'), superset=PatternVariable(name='right')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubgroupEqualityStatement'>, statement_pattern=SubgroupEqualityStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 18,
+      "rule_id_candidate": "set_rules.subgroup_equality_membership_propagation_inference_rule",
+      "rule_name": "subgroup equality membership propagation",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.MembershipStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubgroupEqualityStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 19,
+      "rule_id_candidate": "set_rules.subgroup_equality_modulo_propagation_inference_rule",
+      "rule_name": "subgroup equality modulo propagation",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.ModuloStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubgroupEqualityStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 20,
+      "rule_id_candidate": "set_rules.subgroup_equality_symmetry_inference_rule",
+      "rule_name": "subgroup equality symmetry",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(SubgroupEqualityStatement(left=PatternVariable(name='right'), right=PatternVariable(name='left')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubgroupEqualityStatement'>, statement_pattern=SubgroupEqualityStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 21,
+      "rule_id_candidate": "set_rules.subgroup_equality_transitivity_inference_rule",
+      "rule_name": "subgroup equality transitivity",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(SubgroupEqualityStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubgroupEqualityStatement'>, statement_pattern=SubgroupEqualityStatement(left=PatternVariable(name='left'), right=PatternVariable(name='middle')), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubgroupEqualityStatement'>, statement_pattern=SubgroupEqualityStatement(left=PatternVariable(name='middle'), right=PatternVariable(name='right')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 22,
+      "rule_id_candidate": "set_rules.subset_transitivity_inference_rule",
+      "rule_name": "subset transitivity",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(SubsetStatement(subset=PatternVariable(name='subset'), superset=PatternVariable(name='superset')), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubsetStatement'>, statement_pattern=SubsetStatement(subset=PatternVariable(name='subset'), superset=PatternVariable(name='middle')), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'set_rules.SubsetStatement'>, statement_pattern=SubsetStatement(subset=PatternVariable(name='middle'), superset=PatternVariable(name='superset')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 23,
+      "rule_id_candidate": "hopf_rules.ehp_h_preserves_equality_inference_rule",
+      "rule_name": "EHP H preserves equality",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=None),))"
+    },
+    {
+      "index": 24,
+      "rule_id_candidate": "hopf_rules.ehp_zero_composition_implies_suspended_hopf_zero_inference_rule",
+      "rule_name": "EHP E-H zero composition implies suspended Hopf zero",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'ehp_rules.EHPZeroCompositionStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'expression.Expression'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 25,
+      "rule_id_candidate": "hopf_rules.hopf_composition_formula_inference_rule",
+      "rule_name": "generalized Hopf composition formula",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfCompositionLawStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'expression.Expression'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 26,
+      "rule_id_candidate": "hopf_rules.hopf_composition_law_inference_rule",
+      "rule_name": "generalized Hopf invariant enables composition law",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfInvariantStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 27,
+      "rule_id_candidate": "hopf_rules.hopf_invariant_statement_to_ehp_h_equality_inference_rule",
+      "rule_name": "generalized Hopf invariant to EHP H equality",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfInvariantStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 28,
+      "rule_id_candidate": "hopf_rules.hopf_invariant_value_zero_inference_rule",
+      "rule_name": "generalized Hopf invariant value is zero",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfInvariantStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=None, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=None)))"
+    },
+    {
+      "index": 29,
+      "rule_id_candidate": "hopf_rules.hopf_left_composition_formula_inference_rule",
+      "rule_name": "generalized Hopf left composition formula",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfLeftCompositionLawStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 30,
+      "rule_id_candidate": "hopf_rules.hopf_left_composition_law_inference_rule",
+      "rule_name": "generalized Hopf invariant enables left composition law",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfInvariantStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'expression.Expression'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 31,
+      "rule_id_candidate": "scalar_rules.even_scalar_evaluates_minus_one_power_inference_rule",
+      "rule_name": "Even exponent evaluates minus-one power to one",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.EvenScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 32,
+      "rule_id_candidate": "scalar_rules.even_scalar_implies_mod_two_congruence_inference_rule",
+      "rule_name": "Even scalar implies congruence to zero modulo two",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.EvenScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 33,
+      "rule_id_candidate": "scalar_rules.mod_two_one_scalar_preserves_order_two_element_inference_rule",
+      "rule_name": "Scalar congruent to one modulo two preserves order-two element",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=Multiple(coefficient=PatternVariable(name='scalar'), expression=PatternVariable(name='element')), rhs=PatternVariable(name='element'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=None, statement_pattern=None, relation_type=None, relation_pattern=Relation(lhs=PatternVariable(name='element'), rhs=2, relation_type=<RelationType.ORDER: 'order'>, source=None, note=None)), PremisePattern(proof_rule=None, statement_type=None, statement_pattern=ScalarCongruenceStatement(scalar=PatternVariable(name='scalar'), residue=1, modulus=2), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 34,
+      "rule_id_candidate": "scalar_rules.odd_scalar_evaluates_minus_one_power_inference_rule",
+      "rule_name": "Odd exponent evaluates minus-one power to minus one",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.OddScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 35,
+      "rule_id_candidate": "scalar_rules.odd_scalar_implies_mod_two_congruence_inference_rule",
+      "rule_name": "Odd scalar implies congruence to one modulo two",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.OddScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 36,
+      "rule_id_candidate": "relation_rules.composition_equality_to_zero_inference_rule",
+      "rule_name": "composition equality to zero",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": true,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=PatternVariable(name='composition'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='composition'), rhs=Zero(), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)),))"
+    },
+    {
+      "index": 37,
+      "rule_id_candidate": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=PatternVariable(name='right_expression'), rhs=PatternVariable(name='left_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='left_expression'), rhs=PatternVariable(name='right_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)),))"
+    },
+    {
+      "index": 38,
+      "rule_id_candidate": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(Relation(lhs=PatternVariable(name='left_expression'), rhs=PatternVariable(name='right_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='left_expression'), rhs=PatternVariable(name='middle_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)), PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='middle_expression'), rhs=PatternVariable(name='right_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))))"
+    },
+    {
+      "index": 39,
+      "rule_id_candidate": "relation_rules.order_implies_zero_multiple_inference_rule",
+      "rule_name": "order implies zero multiple",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": true,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=Multiple(coefficient=PatternVariable(name='order'), expression=PatternVariable(name='element')), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ORDER: 'order'>, relation_pattern=Relation(lhs=PatternVariable(name='element'), rhs=PatternVariable(name='order'), relation_type=<RelationType.ORDER: 'order'>, source=None, note=None)),))"
+    },
+    {
+      "index": 40,
+      "rule_id_candidate": "relation_rules.suspension_composition_functoriality_inference_rule",
+      "rule_name": "suspension composition functoriality",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='composition_expression'), rhs=PatternVariable(name='result_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)),))"
+    },
+    {
+      "index": 41,
+      "rule_id_candidate": "relation_rules.suspension_preserves_equality_inference_rule",
+      "rule_name": "suspension preserves equality",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=Suspension(expression=PatternVariable(name='left_expression')), rhs=Suspension(expression=PatternVariable(name='right_expression')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='left_expression'), rhs=PatternVariable(name='right_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)),))"
+    },
+    {
+      "index": 42,
+      "rule_id_candidate": "relation_rules.suspension_preserves_zero_inference_rule",
+      "rule_name": "suspension preserves zero",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(Relation(lhs=Suspension(expression=PatternVariable(name='expression')), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)),))"
+    },
+    {
+      "index": 43,
+      "rule_id_candidate": "relation_rules.suspension_preserves_zero_multiple_inference_rule",
+      "rule_name": "suspension preserves zero multiple",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='multiple_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)),))"
+    },
+    {
+      "index": 44,
+      "rule_id_candidate": "relation_rules.zero_composition_equality_implies_zero_inference_rule",
+      "rule_name": "zero composition equality implies zero",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)), PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=PatternVariable(name='zero_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))))"
+    },
+    {
+      "index": 45,
+      "rule_id_candidate": "relation_rules.zero_composition_reverse_equality_implies_zero_inference_rule",
+      "rule_name": "zero composition reverse equality implies zero",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)), PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='zero_expression'), rhs=PatternVariable(name='equivalent_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))))"
+    },
+    {
+      "index": 46,
+      "rule_id_candidate": "relation_rules.zero_equality_implies_zero_inference_rule",
+      "rule_name": "zero equality implies zero",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)), PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=PatternVariable(name='zero_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))))"
+    },
+    {
+      "index": 47,
+      "rule_id_candidate": "map_property_rules.exactness_and_whole_kernel_implies_whole_image_inference_rule",
+      "rule_name": "exactness and whole kernel imply whole image",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(ImageWholeStatement(map=PatternVariable(name='first_map')), (PremisePattern(proof_rule=None, statement_type=<class 'proof.ExactnessStatement'>, statement_pattern=ExactnessStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map'), is_exact=True), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.KernelWholeStatement'>, statement_pattern=KernelWholeStatement(map=PatternVariable(name='second_map')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 48,
+      "rule_id_candidate": "map_property_rules.exactness_and_zero_image_implies_zero_kernel_inference_rule",
+      "rule_name": "exactness and zero image imply zero kernel",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "REQUIRES_BINDING_OR_WITNESS",
+      "pattern_signature": "(KernelZeroStatement(map=PatternVariable(name='second_map')), (PremisePattern(proof_rule=None, statement_type=<class 'proof.ExactnessStatement'>, statement_pattern=ExactnessStatement(first_map=PatternVariable(name='first_map'), second_map=PatternVariable(name='second_map'), is_exact=True), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.ImageZeroStatement'>, statement_pattern=ImageZeroStatement(map=PatternVariable(name='first_map')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 49,
+      "rule_id_candidate": "map_property_rules.injective_and_surjective_imply_isomorphism_inference_rule",
+      "rule_name": "injectivity and surjectivity imply isomorphism",
+      "premise_count": 2,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(IsomorphismStatement(map=PatternVariable(name='group_map')), (PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.InjectiveMapStatement'>, statement_pattern=InjectiveMapStatement(map=PatternVariable(name='group_map')), relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.SurjectiveMapStatement'>, statement_pattern=SurjectiveMapStatement(map=PatternVariable(name='group_map')), relation_type=None, relation_pattern=None)))"
+    },
+    {
+      "index": 50,
+      "rule_id_candidate": "map_property_rules.injective_map_reflects_equality_inference_rule",
+      "rule_name": "injective map reflects equality",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.InjectiveMapStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=None)))"
+    },
+    {
+      "index": 51,
+      "rule_id_candidate": "map_property_rules.isomorphism_implies_injective_inference_rule",
+      "rule_name": "isomorphism implies injectivity",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(InjectiveMapStatement(map=PatternVariable(name='map')), (PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.IsomorphismStatement'>, statement_pattern=IsomorphismStatement(map=PatternVariable(name='map')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 52,
+      "rule_id_candidate": "map_property_rules.kernel_zero_implies_injective_inference_rule",
+      "rule_name": "zero kernel implies injectivity",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(InjectiveMapStatement(map=PatternVariable(name='map')), (PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.KernelZeroStatement'>, statement_pattern=KernelZeroStatement(map=PatternVariable(name='map')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 53,
+      "rule_id_candidate": "map_property_rules.whole_image_implies_surjective_inference_rule",
+      "rule_name": "whole image implies surjectivity",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(SurjectiveMapStatement(map=PatternVariable(name='map')), (PremisePattern(proof_rule=None, statement_type=<class 'map_property_rules.ImageWholeStatement'>, statement_pattern=ImageWholeStatement(map=PatternVariable(name='map')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 54,
+      "rule_id_candidate": "homomorphism_rules.homomorphism_preserves_zero_inference_rule",
+      "rule_name": "homomorphism preserves zero",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": false,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'homomorphism_rules.HomomorphismStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 55,
+      "rule_id_candidate": "homomorphism_rules.suspension_is_homomorphism_inference_rule",
+      "rule_name": "suspension is homomorphism",
+      "premise_count": 0,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(HomomorphismStatement(map=MapSymbol(name='E')), ())"
+    },
+    {
+      "index": 56,
+      "rule_id_candidate": "indeterminacy_rules.coset_membership_implies_modulo_inference_rule",
+      "rule_name": "coset membership implies modulo",
+      "premise_count": 1,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'indeterminacy_rules.CosetMembershipStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 57,
+      "rule_id_candidate": "indeterminacy_rules.equality_implies_sign_indeterminacy_inference_rule",
+      "rule_name": "equality implies sign indeterminacy",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(SignIndeterminacyStatement(value=PatternVariable(name='value'), representative=PatternVariable(name='representative')), (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='value'), rhs=PatternVariable(name='representative'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)),))"
+    },
+    {
+      "index": 58,
+      "rule_id_candidate": "indeterminacy_rules.modulo_implies_coset_membership_inference_rule",
+      "rule_name": "modulo implies coset membership",
+      "premise_count": 1,
+      "conclusion_pattern_present": true,
+      "guard_present": false,
+      "backward_pattern_variables_bound": true,
+      "backward_status": "PATTERN_CANDIDATE_ONLY",
+      "pattern_signature": "(CosetMembershipStatement(element=PatternVariable(name='left'), coset=Coset(representative=PatternVariable(name='right'), subgroup=PatternVariable(name='modulus'))), (PremisePattern(proof_rule=None, statement_type=<class 'set_rules.ModuloStatement'>, statement_pattern=ModuloStatement(left=PatternVariable(name='left'), right=PatternVariable(name='right'), modulus=PatternVariable(name='modulus')), relation_type=None, relation_pattern=None),))"
+    },
+    {
+      "index": 59,
+      "rule_id_candidate": "indeterminacy_rules.symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule",
+      "rule_name": "Symbolic odd equality implies coefficient indeterminacy",
+      "premise_count": 2,
+      "conclusion_pattern_present": false,
+      "guard_present": true,
+      "backward_pattern_variables_bound": false,
+      "backward_status": "NO_CONCLUSION_PATTERN",
+      "pattern_signature": "(None, (PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=None), PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.OddScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)))"
+    }
+  ],
+  "skipped_factories": [
+    "set_rules.equality_implies_modulo_inference_rule:requires-input",
+    "set_rules.kernel_membership_implies_mapped_zero_inference_rule:requires-input",
+    "set_rules.mapped_zero_implies_kernel_membership_inference_rule:requires-input",
+    "set_rules.zero_implies_modulo_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_left_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_right_inference_rule:requires-input",
+    "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule:requires-input",
+    "relation_rules.additive_inverse_inference_rule:requires-input",
+    "relation_rules.double_equals_repeated_sum_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_left_composition_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_multiple_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_right_composition_inference_rule:requires-input",
+    "relation_rules.iterated_suspension_one_bridge_inference_rule:requires-input",
+    "relation_rules.nested_integer_multiple_inference_rule:requires-input",
+    "relation_rules.sum_associativity_inference_rule:requires-input",
+    "relation_rules.sum_commutativity_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_addition_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_inverse_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_multiple_inference_rule:requires-input",
+    "homomorphism_rules.suspension_additivity_bridge_inference_rule:requires-input",
+    "homomorphism_rules.suspension_multiple_bridge_inference_rule:requires-input"
+  ],
+  "limitations": [
+    "Rule ID candidates are module+factory, not yet persisted canonical IDs.",
+    "Pattern matching and search proof success are not established.",
+    "Static source references do not certify runtime connection.",
+    "Semantic duplicates require human mathematical review."
+  ],
+  "full_pytest_run": false
+}

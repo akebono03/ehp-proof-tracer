@@ -101,49 +101,19 @@ def _inverse(rule: InferenceRule, goal: object) -> GoalExpansion | None:
 def discover_inference_rules(
     module_names: tuple[str, ...] = DEFAULT_RULE_MODULES,
 ) -> tuple[tuple[InferenceRule, ...], RuleCatalogReport]:
-    """Discover public zero-required-argument rule factories, deterministically.
+    """Obtain rule factories through the single R10 Rule Registry.
 
-    Factories with mandatory inputs, or requiring specific witness ProofSteps,
-    are excluded; never synthesize the missing inputs.
+    This preserves the existing public API and discovery priority. It does
+    not grant ProofStep/reference authority or synthesize missing inputs.
     """
-    rules: list[InferenceRule] = []
-    skipped: list[str] = []
-    seen: set[tuple[str, str]] = set()
-    for module_name in module_names:
-        module = import_module(module_name)
-        for name, factory in sorted(vars(module).items()):
-            if not (name.endswith("_inference_rule") and callable(factory)
-                    and getattr(factory, "__module__", None) == module.__name__):
-                continue
-            try:
-                signature = inspect.signature(factory)
-                required = [p for p in signature.parameters.values()
-                            if p.default is inspect.Parameter.empty
-                            and p.kind in (inspect.Parameter.POSITIONAL_ONLY,
-                                           inspect.Parameter.POSITIONAL_OR_KEYWORD,
-                                           inspect.Parameter.KEYWORD_ONLY)]
-                if required:
-                    skipped.append(f"{module_name}.{name}:requires-input")
-                    continue
-                rule = factory()
-            except (ValueError, TypeError, AttributeError, RuntimeError) as exc:
-                skipped.append(f"{module_name}.{name}:{type(exc).__name__}")
-                continue
-            if not isinstance(rule, InferenceRule):
-                skipped.append(f"{module_name}.{name}:not-rule")
-                continue
-            key = (module_name, name)
-            if key in seen:
-                continue
-            seen.add(key)
-            rules.append(rule)
-    report = RuleCatalogReport(
-        modules=module_names,
-        rule_names=tuple(r.name for r in rules),
-        skipped_factories=tuple(skipped),
-        skipped_rules=tuple(r.name for r in rules if r.conclusion_pattern is None),
+    from phase165_r10_rule_registry import build_rule_registry
+    registry = build_rule_registry(module_names)
+    return registry.rules(), RuleCatalogReport(
+        modules=registry.modules,
+        rule_names=tuple(entry.rule.name for entry in registry.entries),
+        skipped_factories=registry.skipped_factories,
+        skipped_rules=registry.skipped_rules,
     )
-    return tuple(rules), report
 
 
 def create_rule_expansion_provider(rules: Iterable[InferenceRule]):

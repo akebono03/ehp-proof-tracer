@@ -1,0 +1,628 @@
+{
+  "phase": "165 R6-2 unified registry R2",
+  "status": "AUDITED_READ_ONLY",
+  "source_root": ".",
+  "rule_count": 22,
+  "modules": [
+    "ehp_rules",
+    "stable_rules",
+    "set_rules",
+    "hopf_rules",
+    "scalar_rules",
+    "relation_rules",
+    "map_property_rules",
+    "homomorphism_rules",
+    "indeterminacy_rules"
+  ],
+  "count_by_module": {
+    "homomorphism_rules": 6,
+    "hopf_rules": 2,
+    "relation_rules": 9,
+    "scalar_rules": 1,
+    "set_rules": 4
+  },
+  "rules": [
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_addition_inference_rule",
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_addition_inference_rule",
+      "line": 29,
+      "parameters": [
+        {
+          "name": "left",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "right",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "left",
+        "right"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_inverse_inference_rule",
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_inverse_inference_rule",
+      "line": 127,
+      "parameters": [
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule",
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_known_zero_inference_rule",
+      "line": 365,
+      "parameters": [
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "homomorphism_rules.homomorphism_preserves_multiple_inference_rule",
+      "module": "homomorphism_rules",
+      "factory": "homomorphism_preserves_multiple_inference_rule",
+      "line": 180,
+      "parameters": [
+        {
+          "name": "coefficient",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "coefficient",
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "homomorphism_rules.suspension_additivity_bridge_inference_rule",
+      "module": "homomorphism_rules",
+      "factory": "suspension_additivity_bridge_inference_rule",
+      "line": 248,
+      "parameters": [
+        {
+          "name": "left",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "right",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "left",
+        "right"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "homomorphism_rules.suspension_multiple_bridge_inference_rule",
+      "module": "homomorphism_rules",
+      "factory": "suspension_multiple_bridge_inference_rule",
+      "line": 309,
+      "parameters": [
+        {
+          "name": "coefficient",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "coefficient",
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "hopf_rules.toda_prop22_left_inference_rule",
+      "module": "hopf_rules",
+      "factory": "toda_prop22_left_inference_rule",
+      "line": 109,
+      "parameters": [
+        {
+          "name": "alpha",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "gamma",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "alpha",
+        "gamma"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "hopf_rules.toda_prop22_right_inference_rule",
+      "module": "hopf_rules",
+      "factory": "toda_prop22_right_inference_rule",
+      "line": 64,
+      "parameters": [
+        {
+          "name": "alpha",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "gamma",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "alpha",
+        "gamma"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.additive_inverse_inference_rule",
+      "module": "relation_rules",
+      "factory": "additive_inverse_inference_rule",
+      "line": 19,
+      "parameters": [
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.double_equals_repeated_sum_inference_rule",
+      "module": "relation_rules",
+      "factory": "double_equals_repeated_sum_inference_rule",
+      "line": 97,
+      "parameters": [
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.equality_preserved_under_left_composition_inference_rule",
+      "module": "relation_rules",
+      "factory": "equality_preserved_under_left_composition_inference_rule",
+      "line": 687,
+      "parameters": [
+        {
+          "name": "left_expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "left_expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.equality_preserved_under_multiple_inference_rule",
+      "module": "relation_rules",
+      "factory": "equality_preserved_under_multiple_inference_rule",
+      "line": 734,
+      "parameters": [
+        {
+          "name": "coefficient",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "coefficient"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.equality_preserved_under_right_composition_inference_rule",
+      "module": "relation_rules",
+      "factory": "equality_preserved_under_right_composition_inference_rule",
+      "line": 640,
+      "parameters": [
+        {
+          "name": "right_expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "right_expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.iterated_suspension_one_bridge_inference_rule",
+      "module": "relation_rules",
+      "factory": "iterated_suspension_one_bridge_inference_rule",
+      "line": 405,
+      "parameters": [
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.nested_integer_multiple_inference_rule",
+      "module": "relation_rules",
+      "factory": "nested_integer_multiple_inference_rule",
+      "line": 776,
+      "parameters": [
+        {
+          "name": "outer_coefficient",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "inner_coefficient",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression",
+        "inner_coefficient",
+        "outer_coefficient"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.sum_associativity_inference_rule",
+      "module": "relation_rules",
+      "factory": "sum_associativity_inference_rule",
+      "line": 66,
+      "parameters": [
+        {
+          "name": "left",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "middle",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "right",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "left",
+        "middle",
+        "right"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "relation_rules.sum_commutativity_inference_rule",
+      "module": "relation_rules",
+      "factory": "sum_commutativity_inference_rule",
+      "line": 42,
+      "parameters": [
+        {
+          "name": "left",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "right",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "left",
+        "right"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule",
+      "module": "scalar_rules",
+      "factory": "scalar_sign_evaluation_applies_to_multiple_inference_rule",
+      "line": 197,
+      "parameters": [
+        {
+          "name": "sign",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        },
+        {
+          "name": "expression",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": null
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "expression",
+        "sign"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "set_rules.equality_implies_modulo_inference_rule",
+      "module": "set_rules",
+      "factory": "equality_implies_modulo_inference_rule",
+      "line": 336,
+      "parameters": [
+        {
+          "name": "modulus",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": "SubgroupTerm"
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "modulus"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "set_rules.kernel_membership_implies_mapped_zero_inference_rule",
+      "module": "set_rules",
+      "factory": "kernel_membership_implies_mapped_zero_inference_rule",
+      "line": 435,
+      "parameters": [
+        {
+          "name": "group_map",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": "GroupMap"
+        },
+        {
+          "name": "map_symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": "MapSymbol"
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "group_map",
+        "map_symbol"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "set_rules.mapped_zero_implies_kernel_membership_inference_rule",
+      "module": "set_rules",
+      "factory": "mapped_zero_implies_kernel_membership_inference_rule",
+      "line": 480,
+      "parameters": [
+        {
+          "name": "group_map",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": "GroupMap"
+        },
+        {
+          "name": "map_symbol",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": "MapSymbol"
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "group_map",
+        "map_symbol"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    },
+    {
+      "rule_id": "set_rules.zero_implies_modulo_inference_rule",
+      "module": "set_rules",
+      "factory": "zero_implies_modulo_inference_rule",
+      "line": 390,
+      "parameters": [
+        {
+          "name": "modulus",
+          "kind": "POSITIONAL_OR_KEYWORD",
+          "annotation": "SubgroupTerm"
+        }
+      ],
+      "contains_inference_rule_constructor": true,
+      "argument_names": [
+        "modulus"
+      ],
+      "registration": "REQUIRES_EXPLICIT_TYPED_ARGUMENTS",
+      "forward": "NOT_EVALUATED",
+      "backward": "NOT_EVALUATED",
+      "source_witness_required": "UNKNOWN_REQUIRES_REVIEW",
+      "search_connection": "NOT_IN_R8_NO_ARG_DEFAULT",
+      "certification": "NOT_CERTIFIED"
+    }
+  ],
+  "registration_policy": {
+    "default": "BLOCKED_UNTIL_EXPLICIT_ARGUMENT_BINDING",
+    "existing_safe_registration": "build_unified_backward_rule_registry(extra_rules=...)",
+    "no_automatic_witness_synthesis": true,
+    "no_default_search_connection": true
+  },
+  "limitations": [
+    "AST signatures do not verify runtime types or mathematical soundness.",
+    "This audit does not call factories or manufacture typed witness arguments.",
+    "A parameter annotation alone cannot establish a trusted source for its value.",
+    "Only the nine R8 default modules are inventoried in this stage."
+  ]
+}

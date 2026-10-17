@@ -121,6 +121,9 @@ def specialize_typed_statement(source: object, goal: object) -> tuple[tuple[str,
         return None
     if _instantiate(source, bindings) != goal:
         return None
+    from phase165_prop51_range_guard import allows_typed_specialization
+    if not allows_typed_specialization(source, bindings):
+        return None
     return tuple(sorted(bindings.items()))
 
 

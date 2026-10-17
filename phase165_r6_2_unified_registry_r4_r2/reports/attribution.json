@@ -1,0 +1,531 @@
+{
+  "phase": "165 R6-2 R4-2",
+  "status": "ATTRIBUTION_AUDITED",
+  "goals_examined": 201,
+  "rule_count": 55,
+  "provider_count": 8,
+  "generic_r26": {
+    "provider_id": "R26_GENERIC",
+    "goals_proposed": 7,
+    "expansions": 7,
+    "errors": {}
+  },
+  "shared_provider": {
+    "provider_id": "SHARED",
+    "goals_proposed": 7,
+    "expansions": 22,
+    "errors": {}
+  },
+  "generic_shared_overlap": 7,
+  "providers": [
+    {
+      "provider_id": "phase165_r14_r6_generic_iso.expand_generic_iso_goal",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r14_r9_ehp_exactness.expand_generic_ehp_hopf_goal",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r14_r11_delta_zero.expand_delta_zero_from_suspension_iso",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r14_r14_diagonal_and_prop42.expand_diagonal_suspension",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r57_r7_stable_expansion.expand_registered_toda45_finite_cyclic_goal",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r57_r8_eta_specialization.expand_registered_eta_specialization",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r57_r19_delta_image_backward.expand_registered_delta_image_goal",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    },
+    {
+      "provider_id": "phase165_r57_r20_general_specialization.expand_cited_general_specialization",
+      "goals_proposed": 0,
+      "expansions": 0,
+      "errors": {},
+      "overlap_with_shared": 0
+    }
+  ],
+  "rules": [
+    {
+      "rule_index": 0,
+      "rule_name": "EHP exactness transfers image structure to kernel",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 1,
+      "rule_name": "EHP exactness implies zero composition",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 2,
+      "rule_name": "EHP exactness from image and kernel",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 3,
+      "rule_name": "EHP exactness transfers kernel structure to image",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 4,
+      "rule_name": "EHP zero composition implies zero relation",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 5,
+      "rule_name": "Freudenthal boundary range implies suspension epimorphism",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 6,
+      "rule_name": "Freudenthal stable range implies suspension isomorphism",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 7,
+      "rule_name": "Suspension injectivity reflects equality",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 8,
+      "rule_name": "Suspension injectivity reflects zero",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 9,
+      "rule_name": "Suspension isomorphism implies injectivity",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 10,
+      "rule_name": "coset equality implies modulo",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 11,
+      "rule_name": "difference membership implies modulo",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 12,
+      "rule_name": "exactness implies subgroup equality",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 13,
+      "rule_name": "membership subset propagation",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 14,
+      "rule_name": "modulo implies coset equality",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 15,
+      "rule_name": "modulo implies difference membership",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 16,
+      "rule_name": "mutual subset implies subgroup equality",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 17,
+      "rule_name": "subgroup equality implies subset",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 18,
+      "rule_name": "subgroup equality membership propagation",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 19,
+      "rule_name": "subgroup equality modulo propagation",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 20,
+      "rule_name": "subgroup equality symmetry",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 21,
+      "rule_name": "subgroup equality transitivity",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 22,
+      "rule_name": "subset transitivity",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 23,
+      "rule_name": "EHP H preserves equality",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 24,
+      "rule_name": "EHP E-H zero composition implies suspended Hopf zero",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 25,
+      "rule_name": "generalized Hopf composition formula",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 26,
+      "rule_name": "generalized Hopf invariant enables composition law",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 27,
+      "rule_name": "generalized Hopf invariant to EHP H equality",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 28,
+      "rule_name": "generalized Hopf invariant value is zero",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 29,
+      "rule_name": "generalized Hopf left composition formula",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 30,
+      "rule_name": "generalized Hopf invariant enables left composition law",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 31,
+      "rule_name": "Even exponent evaluates minus-one power to one",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 32,
+      "rule_name": "Even scalar implies congruence to zero modulo two",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 33,
+      "rule_name": "Scalar congruent to one modulo two preserves order-two element",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 34,
+      "rule_name": "Odd exponent evaluates minus-one power to minus one",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 35,
+      "rule_name": "Odd scalar implies congruence to one modulo two",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 36,
+      "rule_name": "composition equality to zero",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 37,
+      "rule_name": "equality symmetry",
+      "classification": "APPLICABLE_CANDIDATE_ONLY",
+      "expansions": 7,
+      "goals_proposed": 7,
+      "errors": {}
+    },
+    {
+      "rule_index": 38,
+      "rule_name": "equality transitivity",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 39,
+      "rule_name": "order implies zero multiple",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 40,
+      "rule_name": "suspension composition functoriality",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 41,
+      "rule_name": "suspension preserves equality",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 42,
+      "rule_name": "suspension preserves zero",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 43,
+      "rule_name": "suspension preserves zero multiple",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 44,
+      "rule_name": "zero composition equality implies zero",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 45,
+      "rule_name": "zero composition reverse equality implies zero",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 46,
+      "rule_name": "zero equality implies zero",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 47,
+      "rule_name": "injective map reflects equality",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 48,
+      "rule_name": "isomorphism implies injectivity",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 49,
+      "rule_name": "homomorphism preserves zero",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 50,
+      "rule_name": "suspension is homomorphism",
+      "classification": "INVERSE_UNAVAILABLE_NO_PREMISE_PATTERNS",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 51,
+      "rule_name": "coset membership implies modulo",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 52,
+      "rule_name": "equality implies sign indeterminacy",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 53,
+      "rule_name": "modulo implies coset membership",
+      "classification": "NO_PROPOSAL_ON_SAMPLED_GOALS_UNRESOLVED",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    },
+    {
+      "rule_index": 54,
+      "rule_name": "Symbolic odd equality implies coefficient indeterminacy",
+      "classification": "INVERSE_UNAVAILABLE_NO_CONCLUSION_PATTERN",
+      "expansions": 0,
+      "goals_proposed": 0,
+      "errors": {}
+    }
+  ],
+  "proofs_verified": 0,
+  "production_modified": false,
+  "full_pytest_run": false,
+  "limitations": [
+    "Rule index and rule.name are provisional identifiers, not verified factory IDs.",
+    "Matching fingerprints indicate candidate equality, not proof equivalence.",
+    "Per-rule and per-provider probes are not necessarily additive.",
+    "Witness and seeded paths are not separately attributed.",
+    "An absent proposal on these Goals does not prove rule inapplicability.",
+    "WITNESS_REQUIRED and BINDING_REQUIRED cannot be certified by this audit."
+  ]
+}

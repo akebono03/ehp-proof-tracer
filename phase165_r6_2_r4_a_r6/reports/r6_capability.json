@@ -1,0 +1,169 @@
+{
+  "phase": "165 R6-2 R4-A-R6",
+  "status": "AUDITED_READ_ONLY",
+  "source_root": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof",
+  "adapter": {
+    "adapter_found": true,
+    "shared_found": true,
+    "adapter_provider_referenced": true,
+    "explicit_adapter_dimensions": [
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        5
+      ],
+      [
+        4,
+        5
+      ]
+    ],
+    "factory_mentions": {
+      "finite_cyclic_generator_substitution_rule": true,
+      "toda_pi4_3_finite_cyclic_inference_rule": true,
+      "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule": true,
+      "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule": true
+    }
+  },
+  "branches": [
+    {
+      "branch": "generator_substitution",
+      "rule_id": "phase165_r57_r18_generator_substitution.finite_cyclic_generator_substitution_rule",
+      "source": {
+        "module": "phase165_r57_r18_generator_substitution",
+        "factory": "finite_cyclic_generator_substitution_rule",
+        "source": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r57_r18_generator_substitution.py",
+        "source_found": true,
+        "function_found": true,
+        "line": 31,
+        "hardcoded_dimensions": [],
+        "constants_in_factory": []
+      },
+      "runtime": {
+        "factory_runtime": "INSTANTIATED",
+        "rule_name": "generic finite cyclic generator substitution from proved equality",
+        "conclusion_pattern": false,
+        "premise_count": 2,
+        "required_parameters": [],
+        "generic_r8_discoverable": false,
+        "pattern_backward_structural": false,
+        "unknown_premise_variables": [],
+        "error": null
+      },
+      "adapter_mentions_factory": true,
+      "generic_goal_application": "NOT_TESTED",
+      "witness_seeded_application": "NOT_TESTED",
+      "recursive_proof_verified": false,
+      "replacement_status": "NOT_DEMONSTRATED"
+    },
+    {
+      "branch": "finite_cyclic_group",
+      "rule_id": "toda_rules.toda_pi4_3_finite_cyclic_inference_rule",
+      "source": {
+        "module": "toda_rules",
+        "factory": "toda_pi4_3_finite_cyclic_inference_rule",
+        "source": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_found": true,
+        "function_found": true,
+        "line": 66770,
+        "hardcoded_dimensions": [],
+        "constants_in_factory": []
+      },
+      "runtime": {
+        "factory_runtime": "INSTANTIATED",
+        "rule_name": "Toda pi_4^3 finite cyclic quotient calculation",
+        "conclusion_pattern": false,
+        "premise_count": 3,
+        "required_parameters": [],
+        "generic_r8_discoverable": false,
+        "pattern_backward_structural": false,
+        "unknown_premise_variables": [],
+        "error": null
+      },
+      "adapter_mentions_factory": true,
+      "generic_goal_application": "NOT_TESTED",
+      "witness_seeded_application": "NOT_TESTED",
+      "recursive_proof_verified": false,
+      "replacement_status": "NOT_DEMONSTRATED"
+    },
+    {
+      "branch": "kernel_from_exactness",
+      "rule_id": "toda_rules.toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+      "source": {
+        "module": "toda_rules",
+        "factory": "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+        "source": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_found": true,
+        "function_found": true,
+        "line": 66531,
+        "hardcoded_dimensions": [],
+        "constants_in_factory": []
+      },
+      "runtime": {
+        "factory_runtime": "INSTANTIATED",
+        "rule_name": "Toda pi_4^3 exactness Delta image equals E kernel",
+        "conclusion_pattern": false,
+        "premise_count": 2,
+        "required_parameters": [],
+        "generic_r8_discoverable": false,
+        "pattern_backward_structural": false,
+        "unknown_premise_variables": [],
+        "error": null
+      },
+      "adapter_mentions_factory": true,
+      "generic_goal_application": "NOT_TESTED",
+      "witness_seeded_application": "NOT_TESTED",
+      "recursive_proof_verified": false,
+      "replacement_status": "NOT_DEMONSTRATED"
+    },
+    {
+      "branch": "surjectivity_from_exactness",
+      "rule_id": "toda_rules.toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+      "source": {
+        "module": "toda_rules",
+        "factory": "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule",
+        "source": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_rules.py",
+        "source_found": true,
+        "function_found": true,
+        "line": 66659,
+        "hardcoded_dimensions": [],
+        "constants_in_factory": []
+      },
+      "runtime": {
+        "factory_runtime": "INSTANTIATED",
+        "rule_name": "Toda pi_4^3 E-H exactness zero-right suspension surjectivity",
+        "conclusion_pattern": false,
+        "premise_count": 2,
+        "required_parameters": [],
+        "generic_r8_discoverable": false,
+        "pattern_backward_structural": false,
+        "unknown_premise_variables": [],
+        "error": null
+      },
+      "adapter_mentions_factory": true,
+      "generic_goal_application": "NOT_TESTED",
+      "witness_seeded_application": "NOT_TESTED",
+      "recursive_proof_verified": false,
+      "replacement_status": "NOT_DEMONSTRATED"
+    }
+  ],
+  "counts": {
+    "branches": 4,
+    "factories_instantiated": 4,
+    "r8_default_eligible": 0,
+    "generic_replacements_verified": 0,
+    "proofs_verified": 0
+  },
+  "limitations": [
+    "Structural analysis and zero-input factory instantiation do not establish mathematical generality.",
+    "Specialized or parameterized factories can be usable through other providers even if absent from R8.",
+    "No synthetic Goal and no proof Step is treated as evidence of replacement.",
+    "No Adapter branch is removed; actual search substitution remains future work."
+  ]
+}

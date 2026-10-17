@@ -38,6 +38,11 @@ def resolve_reviewed_order_catalog(bridge, *, n: int, k: int):
         candidates = registered_group_goal_candidates(
             bridge, n=source_n, k=source_k,
         )
+        from phase165_prop51_claim_order import prop51_intermediate_goal
+        declared_goal = prop51_intermediate_goal(n=source_n, k=source_k)
+        if declared_goal is not None:
+            # The intermediate target is goal metadata, NEVER a GIVEN premise.
+            candidates = (declared_goal,)
         if len(candidates) != 1:
             reason = ("型付き証明目標が未登録" if not candidates
                       else "型付き証明目標が複数存在")

@@ -1,0 +1,218 @@
+{
+  "phase": "165 R6 signature collision review",
+  "mode": "READ_ONLY_ACTIVE_R8_ONLY",
+  "rule_count": 60,
+  "pairs_reviewed": 5,
+  "review": [
+    {
+      "pair": [
+        "Freudenthal boundary range implies suspension epimorphism",
+        "Freudenthal stable range implies suspension isomorphism"
+      ],
+      "classification": "NO_CONCLUSION_PATTERNS__NAME_AND_DESCRIPTION_REVIEW_REQUIRED",
+      "first": {
+        "name": "Freudenthal boundary range implies suspension epimorphism",
+        "description": "A suspension map in the Freudenthal boundary range is an epimorphism.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "SuspensionMapStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      },
+      "second": {
+        "name": "Freudenthal stable range implies suspension isomorphism",
+        "description": "A suspension map in the Freudenthal stable range is an isomorphism.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "SuspensionMapStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      }
+    },
+    {
+      "pair": [
+        "generalized Hopf invariant enables composition law",
+        "generalized Hopf invariant to EHP H equality"
+      ],
+      "classification": "NO_CONCLUSION_PATTERNS__NAME_AND_DESCRIPTION_REVIEW_REQUIRED",
+      "first": {
+        "name": "generalized Hopf invariant enables composition law",
+        "description": "A generalized Hopf invariant fact H(alpha)=beta enables the Hopf composition law for alpha and beta.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "HopfInvariantStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      },
+      "second": {
+        "name": "generalized Hopf invariant to EHP H equality",
+        "description": "Represent a generalized Hopf invariant fact H(alpha)=beta as an equality using the actual EHP H map.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "HopfInvariantStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      }
+    },
+    {
+      "pair": [
+        "Even exponent evaluates minus-one power to one",
+        "Even scalar implies congruence to zero modulo two"
+      ],
+      "classification": "NO_CONCLUSION_PATTERNS__NAME_AND_DESCRIPTION_REVIEW_REQUIRED",
+      "first": {
+        "name": "Even exponent evaluates minus-one power to one",
+        "description": "If a scalar exponent is even, then minus one raised to that exponent equals one.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "EvenScalarStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      },
+      "second": {
+        "name": "Even scalar implies congruence to zero modulo two",
+        "description": "An even integer scalar symbol is congruent to zero modulo two.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "EvenScalarStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      }
+    },
+    {
+      "pair": [
+        "Odd exponent evaluates minus-one power to minus one",
+        "Odd scalar implies congruence to one modulo two"
+      ],
+      "classification": "NO_CONCLUSION_PATTERNS__NAME_AND_DESCRIPTION_REVIEW_REQUIRED",
+      "first": {
+        "name": "Odd exponent evaluates minus-one power to minus one",
+        "description": "If a scalar exponent is odd, then minus one raised to that exponent equals minus one.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "OddScalarStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      },
+      "second": {
+        "name": "Odd scalar implies congruence to one modulo two",
+        "description": "An odd integer scalar symbol is congruent to one modulo two.",
+        "conclusion_type": null,
+        "conclusion_pattern": "None",
+        "premises": [
+          {
+            "statement_type": "OddScalarStatement",
+            "relation_type": "None",
+            "relation_pattern": "None",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      }
+    },
+    {
+      "pair": [
+        "zero composition equality implies zero",
+        "zero equality implies zero"
+      ],
+      "classification": "SAME_DISPLAYED_PATTERNS__SEMANTIC_REVIEW_REQUIRED",
+      "first": {
+        "name": "zero composition equality implies zero",
+        "description": "If a composition is zero and another expression is equal to that composition, the other expression is also zero.",
+        "conclusion_type": "Relation",
+        "conclusion_pattern": "Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)",
+        "premises": [
+          {
+            "statement_type": "Relation",
+            "relation_type": "RelationType.ZERO",
+            "relation_pattern": "Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)",
+            "statement_pattern": "None"
+          },
+          {
+            "statement_type": "Relation",
+            "relation_type": "RelationType.EQUALITY",
+            "relation_pattern": "Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=PatternVariable(name='zero_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      },
+      "second": {
+        "name": "zero equality implies zero",
+        "description": "If an expression is zero and another expression is equal to that expression, the other expression is also zero.",
+        "conclusion_type": "Relation",
+        "conclusion_pattern": "Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)",
+        "premises": [
+          {
+            "statement_type": "Relation",
+            "relation_type": "RelationType.ZERO",
+            "relation_pattern": "Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)",
+            "statement_pattern": "None"
+          },
+          {
+            "statement_type": "Relation",
+            "relation_type": "RelationType.EQUALITY",
+            "relation_pattern": "Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=PatternVariable(name='zero_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "statement_pattern": "None"
+          }
+        ],
+        "guard_present": false,
+        "build_conclusion_present": false
+      }
+    }
+  ],
+  "warning": "This report does not certify semantic equivalence or full unified registry uniqueness.",
+  "retired_catalog_called": false,
+  "full_pytest_run": false
+}

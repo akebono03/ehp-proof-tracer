@@ -1,0 +1,336 @@
+{
+  "phase": "165 R6-2 R4-5 Reference audit",
+  "status": "AUDITED_READ_ONLY",
+  "assertion_count": 201,
+  "linked_given_assertion_count": 17,
+  "prop51_records": [
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+      "origin": "FIXED_STATEMENT",
+      "content_type": "TodaProp51FiniteDimensionalStatement",
+      "linked_given": true,
+      "component_paths": [
+        {
+          "path": "content.pi3_2_group_relation",
+          "type": "Relation"
+        },
+        {
+          "path": "content.pi3_2_group_relation.lhs",
+          "type": "TodaPrimaryGroup"
+        },
+        {
+          "path": "content.pi3_2_group_relation.rhs",
+          "type": "FreeCyclicGroup"
+        },
+        {
+          "path": "content.pi3_2_group_relation.relation_type",
+          "type": "RelationType"
+        },
+        {
+          "path": "content.pi3_2_group_relation.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.pi3_2_group_relation.note",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.eta2_hopf_relation",
+          "type": "Relation"
+        },
+        {
+          "path": "content.eta2_hopf_relation.lhs",
+          "type": "MapApplication"
+        },
+        {
+          "path": "content.eta2_hopf_relation.rhs",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.eta2_hopf_relation.relation_type",
+          "type": "RelationType"
+        },
+        {
+          "path": "content.eta2_hopf_relation.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.eta2_hopf_relation.note",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.delta_iota5_relation",
+          "type": "TodaDeltaImageUpToSignStatement"
+        },
+        {
+          "path": "content.delta_iota5_relation.map",
+          "type": "TodaDeltaMap"
+        },
+        {
+          "path": "content.delta_iota5_relation.element",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.delta_iota5_relation.positive_value",
+          "type": "Multiple"
+        },
+        {
+          "path": "content.higher_eta_group_relation",
+          "type": "Relation"
+        },
+        {
+          "path": "content.higher_eta_group_relation.lhs",
+          "type": "TodaPrimaryGroup"
+        },
+        {
+          "path": "content.higher_eta_group_relation.rhs",
+          "type": "FiniteCyclicGroup"
+        },
+        {
+          "path": "content.higher_eta_group_relation.relation_type",
+          "type": "RelationType"
+        },
+        {
+          "path": "content.higher_eta_group_relation.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.higher_eta_group_relation.note",
+          "type": "NoneType"
+        }
+      ]
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+      "origin": "FIXED_STATEMENT",
+      "content_type": "Relation",
+      "linked_given": true,
+      "component_paths": [
+        {
+          "path": "content.lhs",
+          "type": "TodaPrimaryGroup"
+        },
+        {
+          "path": "content.lhs.group_dimension",
+          "type": "int"
+        },
+        {
+          "path": "content.lhs.sphere_dimension",
+          "type": "int"
+        },
+        {
+          "path": "content.rhs",
+          "type": "FreeCyclicGroup"
+        },
+        {
+          "path": "content.rhs.generator",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.relation_type",
+          "type": "RelationType"
+        },
+        {
+          "path": "content.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.note",
+          "type": "NoneType"
+        }
+      ]
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+      "origin": "FIXED_STATEMENT",
+      "content_type": "Relation",
+      "linked_given": true,
+      "component_paths": [
+        {
+          "path": "content.lhs",
+          "type": "MapApplication"
+        },
+        {
+          "path": "content.lhs.map",
+          "type": "MapSymbol"
+        },
+        {
+          "path": "content.lhs.expression",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.rhs",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.rhs.name",
+          "type": "str"
+        },
+        {
+          "path": "content.rhs.dimension",
+          "type": "int"
+        },
+        {
+          "path": "content.rhs.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.rhs.target",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.rhs.generator",
+          "type": "GeneratorSymbol"
+        },
+        {
+          "path": "content.relation_type",
+          "type": "RelationType"
+        },
+        {
+          "path": "content.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.note",
+          "type": "NoneType"
+        }
+      ]
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+      "origin": "FIXED_STATEMENT",
+      "content_type": "TodaDeltaImageUpToSignStatement",
+      "linked_given": true,
+      "component_paths": [
+        {
+          "path": "content.map",
+          "type": "TodaDeltaMap"
+        },
+        {
+          "path": "content.map.source_group",
+          "type": "TodaPrimaryGroup"
+        },
+        {
+          "path": "content.map.target_group",
+          "type": "TodaPrimaryGroup"
+        },
+        {
+          "path": "content.element",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.element.name",
+          "type": "str"
+        },
+        {
+          "path": "content.element.dimension",
+          "type": "int"
+        },
+        {
+          "path": "content.element.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.element.target",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.element.generator",
+          "type": "GeneratorSymbol"
+        },
+        {
+          "path": "content.positive_value",
+          "type": "Multiple"
+        },
+        {
+          "path": "content.positive_value.coefficient",
+          "type": "int"
+        },
+        {
+          "path": "content.positive_value.expression",
+          "type": "HomotopyElement"
+        }
+      ]
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+      "origin": "FIXED_STATEMENT",
+      "content_type": "Relation",
+      "linked_given": true,
+      "component_paths": [
+        {
+          "path": "content.lhs",
+          "type": "TodaPrimaryGroup"
+        },
+        {
+          "path": "content.lhs.group_dimension",
+          "type": "ScalarSum"
+        },
+        {
+          "path": "content.lhs.sphere_dimension",
+          "type": "ScalarSymbol"
+        },
+        {
+          "path": "content.rhs",
+          "type": "FiniteCyclicGroup"
+        },
+        {
+          "path": "content.rhs.order",
+          "type": "int"
+        },
+        {
+          "path": "content.rhs.generator",
+          "type": "HomotopyElement"
+        },
+        {
+          "path": "content.relation_type",
+          "type": "RelationType"
+        },
+        {
+          "path": "content.source",
+          "type": "NoneType"
+        },
+        {
+          "path": "content.note",
+          "type": "NoneType"
+        }
+      ]
+    }
+  ],
+  "candidate_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "root_candidate_count": 3,
+  "root_candidates": [
+    {
+      "rule_name": "Toda Proposition 5.1 generic higher-eta specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule_name": "generic cited typed scalar specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule_name": "equality symmetry",
+      "subgoals": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "rule_count": 60,
+  "observations": {
+    "prop51_typed_given_present": true,
+    "prop51_delta_component_present": true,
+    "root_has_non_symmetry_expansion": true
+  },
+  "limitations": [
+    "Presence of a composite GIVEN does not prove automatic applicability of a component.",
+    "Root candidate count is not proof success.",
+    "This audit does not execute a recursive proof search.",
+    "Reference source edition is not independently verified."
+  ],
+  "production_modified": false,
+  "full_pytest_run": false
+}

@@ -1,0 +1,995 @@
+{
+  "phase": "165 R6-2 R4-3",
+  "status": "PROVENANCE_AUDITED",
+  "goals_examined": 201,
+  "registered_rules": 55,
+  "cited_given_links": 17,
+  "counts_by_provider": {
+    "R26_GENERIC": 7,
+    "SEEDED_R4": 14,
+    "SHARED": 22
+  },
+  "overlap_by_provider": [
+    {
+      "left": "R26_GENERIC",
+      "right": "SHARED",
+      "rows": 7
+    },
+    {
+      "left": "SEEDED_R4",
+      "right": "SHARED",
+      "rows": 14
+    },
+    {
+      "left": "SHARED",
+      "right": "R26_GENERIC",
+      "rows": 7
+    },
+    {
+      "left": "SHARED",
+      "right": "SEEDED_R4",
+      "rows": 14
+    }
+  ],
+  "errors": [],
+  "observations": [
+    {
+      "goal_index": 184,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 184,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:1"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 184,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:1"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 184,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 184,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:1"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 184,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:1"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 185,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 185,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:2"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 185,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:2"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 185,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 185,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:2"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 185,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:2"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 187,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 187,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:4"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 187,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:4"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 187,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 187,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:4"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 187,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:4"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 194,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 194,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:3:adopted:assertion:toda51:diagonal"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 194,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:3:adopted:assertion:toda51:diagonal"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 194,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 194,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:3:adopted:assertion:toda51:diagonal"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 194,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:3:adopted:assertion:toda51:diagonal"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "generic reverse free cyclic structure transport along isomorphism",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))"
+      ],
+      "fingerprint": [
+        "generic reverse free cyclic structure transport along isomorphism",
+        "(MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3))), Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:1:adopted:assertion:4",
+        "shared:1:adopted:assertion:5"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": []
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 197,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 198,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 198,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 198,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 198,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 198,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 198,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 200,
+      "provider_id": "R26_GENERIC",
+      "rule_id": "relation_rules.equality_symmetry_inference_rule",
+      "rule_name": "equality symmetry",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 200,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 200,
+      "provider_id": "SEEDED_R4",
+      "rule_id": "relation_rules.equality_transitivity_inference_rule",
+      "rule_name": "equality transitivity",
+      "rule_id_status": "EXACT_OBJECT",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SHARED"
+      ]
+    },
+    {
+      "goal_index": 200,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality symmetry",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality symmetry",
+        "(Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None),)"
+      ],
+      "matching_cited_premise_ids": [],
+      "witness_usage_status": "UNRESOLVED",
+      "overlap_providers": [
+        "R26_GENERIC"
+      ]
+    },
+    {
+      "goal_index": 200,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    },
+    {
+      "goal_index": 200,
+      "provider_id": "SHARED",
+      "rule_id": null,
+      "rule_name": "equality transitivity",
+      "rule_id_status": "UNRESOLVED",
+      "goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "subgoal_reprs": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "fingerprint": [
+        "equality transitivity",
+        "(Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+      ],
+      "matching_cited_premise_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+      ],
+      "witness_usage_status": "POSSIBLE_PREMISE_MATCH_NOT_PROVEN_USED",
+      "overlap_providers": [
+        "SEEDED_R4"
+      ]
+    }
+  ],
+  "proofs_verified": 0,
+  "production_modified": false,
+  "full_pytest_run": false,
+  "limitations": [
+    "An object rule ID is accepted only if exposed by the registry entry.",
+    "Matching cited premise IDs do not prove which witness bound a variable.",
+    "Witness/Seeded returns do not expose the witness-selection trace.",
+    "Fingerprint overlap compares proposals, not proofs.",
+    "SHARED may deduplicate and gate candidates, so totals need not add.",
+    "This audit does not execute recursive proof reconstruction."
+  ]
+}

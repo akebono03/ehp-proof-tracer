@@ -15,8 +15,10 @@ from phase165_r14_r9_ehp_exactness import expand_generic_ehp_hopf_goal
 from phase165_r14_r11_delta_zero import expand_delta_zero_from_suspension_iso
 from phase165_r14_r14_diagonal_and_prop42 import expand_diagonal_suspension
 from phase165_r14_r33_final_group import reverse_free_cyclic_transport_rule
-from phase165_r52_r23_existing_rule_adapter import expand_existing_pi43_rules
 from phase165_r3_recursive_search import GoalExpansion
+from phase165_r6_2_unified_registry_r3_r4.context_provider_registry import build_context_expansion_provider_registry
+from phase165_r6_2_unified_registry_r3_r3.provider_registry import build_shared_expansion_provider_registry
+from phase165_r6_2_unified_registry_r1.unified_backward_rule_registry import build_unified_backward_rule_registry
 from phase165_r52_r2_search_adapter import search_registered_partial_proof
 from phase165_r52_partial_proof import GroupStructureStatus, ProofSearchStatus
 from proof import ProofRule, ProofStep, Relation, RelationType
@@ -89,6 +91,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # R4-4 stage4: exactness-map binding from cited fixed statements only.
+    from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
+    extra_providers = (build_exactness_binding_provider(bridge),) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
         if link.step is None or link.step.rule is not ProofRule.GIVEN:
@@ -115,12 +120,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         merge_backward_expansions,
     )
 
-    generic_provider = build_generic_backward_expansion_provider()
+    unified_registry, _unified_report = build_unified_backward_rule_registry()
+    unified_rules = unified_registry.rules()
+    generic_provider = build_generic_backward_expansion_provider(unified_rules)
 
     # R6-2 R4: cited source anchors bind otherwise unknown premise variables.
     from phase165_r6_2_r4_seeded_goals import generate_seeded_backward_goals
-    from phase165_r8_rule_provider import discover_inference_rules as _discover_seeded_rules
-    seeded_rules, _seeded_report = _discover_seeded_rules()
+    seeded_rules = unified_rules
     seeded_steps = tuple(
         link.step for link in bridge.proof_links
         if link.step is not None
@@ -131,14 +137,30 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 
     # R6-2 R3: use only cited GIVEN witnesses for verified inverse proposals.
     from phase165_r6_2_r2_verified_inverse import reverse_rules_from_witnesses
-    from phase165_r8_rule_provider import discover_inference_rules
-    witness_rules, _witness_report = discover_inference_rules()
+    witness_rules = unified_rules
     cited_witnesses = tuple(
         link.step for link in bridge.proof_links
         if link.step is not None
         and link.step.rule is ProofRule.GIVEN
         and bridge.registry.assertion(link.assertion_id).origin is AssertionOrigin.FIXED_STATEMENT
         and link.step.conclusion == bridge.registry.assertion(link.assertion_id).content
+    )
+
+    shared_provider_registry = build_shared_expansion_provider_registry(
+        expand_generic_iso_goal=expand_generic_iso_goal,
+        expand_generic_ehp_hopf_goal=expand_generic_ehp_hopf_goal,
+        expand_delta_zero_from_suspension_iso=expand_delta_zero_from_suspension_iso,
+        expand_diagonal_suspension=expand_diagonal_suspension,
+        extra_providers=extra_providers,
+    )
+
+    context_provider_registry = build_context_expansion_provider_registry(
+        available=tuple(available),
+        prior_conclusions=prior_conclusions,
+        expand_registered_toda45_finite_cyclic_goal=expand_registered_toda45_finite_cyclic_goal,
+        expand_registered_eta_specialization=expand_registered_eta_specialization,
+        expand_registered_delta_image_goal=expand_registered_delta_image_goal,
+        expand_cited_general_specialization=expand_cited_general_specialization,
     )
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
@@ -160,18 +182,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
                               FreeCyclicGroup(image.target_generator)),
                      image),
                 ))
-        options.extend(expand_registered_toda45_finite_cyclic_goal(goal, tuple(available) + prior_conclusions))
-        options.extend(expand_registered_eta_specialization(goal, tuple(available)))
-        options.extend(expand_registered_delta_image_goal(goal, tuple(available)))
-        options.extend(expand_cited_general_specialization(goal, tuple(available)))
-        for provider in (
-            expand_generic_iso_goal,
-            expand_generic_ehp_hopf_goal,
-            expand_delta_zero_from_suspension_iso,
-            expand_diagonal_suspension,
-            expand_existing_pi43_rules,
-            *extra_providers,
-        ):
+        for provider in context_provider_registry.providers():
+            new = provider(goal)
+            if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
+                raise TypeError("expansion provider contract violated")
+            options.extend(new)
+        for provider in shared_provider_registry.providers():
             new = provider(goal)
             if not isinstance(new, tuple) or not all(isinstance(x, GoalExpansion) for x in new):
                 raise TypeError("expansion provider contract violated")

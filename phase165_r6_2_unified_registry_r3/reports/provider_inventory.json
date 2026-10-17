@@ -1,0 +1,284 @@
+{
+  "status": "INVENTORY_ONLY",
+  "r8_factory_id_count": 77,
+  "r8_factory_ids": [
+    "ehp_rules.ehp_exactness_image_implies_kernel_inference_rule",
+    "ehp_rules.ehp_exactness_implies_zero_composition_inference_rule",
+    "ehp_rules.ehp_exactness_inference_rule",
+    "ehp_rules.ehp_exactness_kernel_implies_image_inference_rule",
+    "ehp_rules.ehp_zero_composition_implies_zero_relation_inference_rule",
+    "homomorphism_rules.homomorphism_preserves_addition_inference_rule",
+    "homomorphism_rules.homomorphism_preserves_inverse_inference_rule",
+    "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule",
+    "homomorphism_rules.homomorphism_preserves_multiple_inference_rule",
+    "homomorphism_rules.homomorphism_preserves_zero_inference_rule",
+    "homomorphism_rules.suspension_additivity_bridge_inference_rule",
+    "homomorphism_rules.suspension_is_homomorphism_inference_rule",
+    "homomorphism_rules.suspension_multiple_bridge_inference_rule",
+    "hopf_rules.ehp_h_preserves_equality_inference_rule",
+    "hopf_rules.ehp_zero_composition_implies_suspended_hopf_zero_inference_rule",
+    "hopf_rules.hopf_composition_formula_inference_rule",
+    "hopf_rules.hopf_composition_law_inference_rule",
+    "hopf_rules.hopf_invariant_statement_to_ehp_h_equality_inference_rule",
+    "hopf_rules.hopf_invariant_value_zero_inference_rule",
+    "hopf_rules.hopf_left_composition_formula_inference_rule",
+    "hopf_rules.hopf_left_composition_law_inference_rule",
+    "hopf_rules.toda_prop22_left_inference_rule",
+    "hopf_rules.toda_prop22_right_inference_rule",
+    "indeterminacy_rules.coset_membership_implies_modulo_inference_rule",
+    "indeterminacy_rules.equality_implies_sign_indeterminacy_inference_rule",
+    "indeterminacy_rules.modulo_implies_coset_membership_inference_rule",
+    "indeterminacy_rules.symbolic_odd_equality_implies_coefficient_indeterminacy_inference_rule",
+    "map_property_rules.injective_map_reflects_equality_inference_rule",
+    "map_property_rules.isomorphism_implies_injective_inference_rule",
+    "relation_rules.additive_inverse_inference_rule",
+    "relation_rules.composition_equality_to_zero_inference_rule",
+    "relation_rules.double_equals_repeated_sum_inference_rule",
+    "relation_rules.equality_preserved_under_left_composition_inference_rule",
+    "relation_rules.equality_preserved_under_multiple_inference_rule",
+    "relation_rules.equality_preserved_under_right_composition_inference_rule",
+    "relation_rules.equality_symmetry_inference_rule",
+    "relation_rules.equality_transitivity_inference_rule",
+    "relation_rules.iterated_suspension_one_bridge_inference_rule",
+    "relation_rules.nested_integer_multiple_inference_rule",
+    "relation_rules.order_implies_zero_multiple_inference_rule",
+    "relation_rules.sum_associativity_inference_rule",
+    "relation_rules.sum_commutativity_inference_rule",
+    "relation_rules.suspension_composition_functoriality_inference_rule",
+    "relation_rules.suspension_preserves_equality_inference_rule",
+    "relation_rules.suspension_preserves_zero_inference_rule",
+    "relation_rules.suspension_preserves_zero_multiple_inference_rule",
+    "relation_rules.zero_composition_equality_implies_zero_inference_rule",
+    "relation_rules.zero_composition_reverse_equality_implies_zero_inference_rule",
+    "relation_rules.zero_equality_implies_zero_inference_rule",
+    "scalar_rules.even_scalar_evaluates_minus_one_power_inference_rule",
+    "scalar_rules.even_scalar_implies_mod_two_congruence_inference_rule",
+    "scalar_rules.mod_two_one_scalar_preserves_order_two_element_inference_rule",
+    "scalar_rules.odd_scalar_evaluates_minus_one_power_inference_rule",
+    "scalar_rules.odd_scalar_implies_mod_two_congruence_inference_rule",
+    "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule",
+    "set_rules.coset_equality_implies_modulo_inference_rule",
+    "set_rules.difference_membership_implies_modulo_inference_rule",
+    "set_rules.equality_implies_modulo_inference_rule",
+    "set_rules.exactness_implies_subgroup_equality_inference_rule",
+    "set_rules.kernel_membership_implies_mapped_zero_inference_rule",
+    "set_rules.mapped_zero_implies_kernel_membership_inference_rule",
+    "set_rules.membership_subset_propagation_inference_rule",
+    "set_rules.modulo_implies_coset_equality_inference_rule",
+    "set_rules.modulo_implies_difference_membership_inference_rule",
+    "set_rules.mutual_subset_implies_subgroup_equality_inference_rule",
+    "set_rules.subgroup_equality_implies_subset_inference_rule",
+    "set_rules.subgroup_equality_membership_propagation_inference_rule",
+    "set_rules.subgroup_equality_modulo_propagation_inference_rule",
+    "set_rules.subgroup_equality_symmetry_inference_rule",
+    "set_rules.subgroup_equality_transitivity_inference_rule",
+    "set_rules.subset_transitivity_inference_rule",
+    "set_rules.zero_implies_modulo_inference_rule",
+    "stable_rules.freudenthal_boundary_epimorphism_inference_rule",
+    "stable_rules.freudenthal_stable_isomorphism_inference_rule",
+    "stable_rules.suspension_injectivity_reflects_equality_inference_rule",
+    "stable_rules.suspension_injectivity_reflects_zero_inference_rule",
+    "stable_rules.suspension_isomorphism_implies_injective_inference_rule"
+  ],
+  "shared_provider_connections": [
+    {
+      "symbol": "expand_registered_toda45_finite_cyclic_goal",
+      "line": 163,
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_registered_eta_specialization",
+      "line": 164,
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_registered_delta_image_goal",
+      "line": 165,
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_cited_general_specialization",
+      "line": 166,
+      "connection": "DIRECT_OPTIONS_EXTEND",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_delta_zero_from_suspension_iso",
+      "line": 167,
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_diagonal_suspension",
+      "line": 167,
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_generic_ehp_hopf_goal",
+      "line": 167,
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "invoked": false
+    },
+    {
+      "symbol": "expand_generic_iso_goal",
+      "line": 167,
+      "connection": "PROVIDER_LOOP_MEMBER",
+      "invoked": false
+    },
+    {
+      "symbol": "extra_providers",
+      "line": 167,
+      "connection": "PROVIDER_LOOP_DYNAMIC",
+      "invoked": false
+    },
+    {
+      "symbol": "provider(goal)",
+      "line": 174,
+      "connection": "PROVIDER_LOOP",
+      "invoked": false
+    },
+    {
+      "symbol": "witness_options",
+      "line": 188,
+      "connection": "MERGE_PATH",
+      "invoked": false
+    },
+    {
+      "symbol": "generic_provider",
+      "line": 189,
+      "connection": "MERGE_PATH",
+      "invoked": false
+    },
+    {
+      "symbol": "seeded_options",
+      "line": 200,
+      "connection": "MERGE_PATH",
+      "invoked": false
+    }
+  ],
+  "other_expand_function_count": 22,
+  "other_expand_functions": [
+    {
+      "symbol": "phase161_backward_goal_schema.expand_phase161_r2_suspension_isomorphism_goal",
+      "line": 31,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase161_r3_backward_goal_schema.expand_phase161_r3_ehp_goal",
+      "line": 56,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase161_r3_backward_goal_schema.expand_phase161_r3_goal",
+      "line": 107,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase161_r4_literature_premise_matching.expand_phase161_r4_literature_goal",
+      "line": 54,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase162_group_structure_backward.expand_group_structure_goal",
+      "line": 95,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase162_pi5_3_backward_selection.expand_phase162_pi5_3_group_goal",
+      "line": 85,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r11_delta_zero.expand_delta_zero_from_suspension_iso",
+      "line": 54,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r14_diagonal_and_prop42.expand_diagonal_suspension",
+      "line": 95,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r5_ehp_connection.expand_registered_ehp_goal",
+      "line": 31,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r6_generic_iso.expand_generic_iso_goal",
+      "line": 91,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r7_map_discovery.expand_discovered_group_goal",
+      "line": 76,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r8_source_link.expand_source_mapped_group_goal",
+      "line": 75,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r14_r9_ehp_exactness.expand_generic_ehp_hopf_goal",
+      "line": 134,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r52_r12_component_bridge.expand_cited_given_components",
+      "line": 16,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r52_r9_shared_math.phase165_r52_r23_backup.shared_expansion_provider",
+      "line": 83,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r52_r9_shared_math.shared_expansion_provider",
+      "line": 88,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r57_r19_delta_image_backward.expand_registered_delta_image_goal",
+      "line": 15,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r57_r20_general_specialization.expand_cited_general_specialization",
+      "line": 147,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r57_r26_generic_search_connection.build_generic_backward_expansion_provider",
+      "line": 15,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r57_r7_stable_expansion.expand_registered_toda45_finite_cyclic_goal",
+      "line": 17,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r57_r8_eta_specialization.expand_registered_eta_specialization",
+      "line": 116,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    },
+    {
+      "symbol": "phase165_r8_rule_provider.create_rule_expansion_provider",
+      "line": 149,
+      "status": "SOURCE_ONLY_NOT_PROVEN_CONNECTED"
+    }
+  ],
+  "runtime_verified": false,
+  "mathematical_soundness_verified": false,
+  "notes": [
+    "Static references do not prove execution or mathematical correctness.",
+    "Potential expand_ functions may not be providers.",
+    "Only top-level Python files are scanned; this is not a complete global inventory.",
+    "No group-specific adapter or source witness is registered automatically."
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "status": "REMOVED",
+  "source_definitions_removed": [
+    "toda_45_pi4_3_finite_cyclic_transport_inference_rule",
+    "toda_pi4_3_delta_image_free_cyclic_inference_rule",
+    "toda_pi4_3_eta3_generator_inference_rule",
+    "toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule",
+    "toda_pi4_3_finite_cyclic_inference_rule",
+    "toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule"
+  ],
+  "catalog_entries_removed": 6,
+  "test_functions_removed": {
+    "tests\\test_phase50_eta_family_notation.py": [
+      "test_phase50_4e_generator_rule_matches",
+      "test_phase50_4e_generator_rule_derives_pi4_3_on_eta3",
+      "test_phase50_4e_generator_rule_rejects_wrong_order",
+      "test_phase50_4e_generator_rule_rejects_wrong_generator",
+      "test_phase50_4e_end_to_end_derives_eta3_group",
+      "test_phase50_4e_end_to_end_reaches_fixed_point_in_two_rounds",
+      "test_phase50_4e_all_derived_steps_preserve_provenance"
+    ],
+    "tests\\test_phase50_pi4_3_exactness_bridge.py": [
+      "test_phase50_4c_delta_image_rule_matches_valid_instance",
+      "test_phase50_4c_delta_image_rule_derives_expected_image",
+      "test_phase50_4c_delta_image_rule_rejects_wrong_source_generator",
+      "test_phase50_4c_kernel_rule_matches_valid_instance",
+      "test_phase50_4c_kernel_rule_derives_expected_kernel",
+      "test_phase50_4c_kernel_rule_rejects_wrong_delta_instance",
+      "test_phase50_4c_surjectivity_rule_matches_valid_instance",
+      "test_phase50_4c_surjectivity_rule_derives_expected_result",
+      "test_phase50_4c_surjectivity_rule_rejects_wrong_zero_group",
+      "test_phase50_4c_end_to_end_derives_image_kernel_and_surjectivity",
+      "test_phase50_4c_end_to_end_reaches_fixed_point_in_two_rounds",
+      "test_phase50_4c_all_derived_steps_preserve_provenance"
+    ],
+    "tests\\test_phase50_pi4_3_finite_cyclic.py": [
+      "test_phase50_4d_rule_requires_three_premises",
+      "test_phase50_4d_valid_instance_matches",
+      "test_phase50_4d_valid_instance_derives_final_group",
+      "test_phase50_4d_wrong_kernel_coefficient_is_rejected",
+      "test_phase50_4d_wrong_source_generator_is_rejected",
+      "test_phase50_4d_wrong_surjectivity_instance_is_rejected",
+      "test_phase50_4d_wrong_target_group_is_rejected",
+      "test_phase50_4d_derived_step_is_inference",
+      "test_phase50_4d_derived_step_preserves_all_premises",
+      "test_phase50_4d_derived_step_preserves_inference_rule",
+      "test_phase50_4d_reaches_fixed_point_in_one_round"
+    ],
+    "tests\\test_phase53_finite_cyclic_transport.py": [
+      "test_phase53_3_transport_rule_matches_valid_specific_instance",
+      "test_phase53_3_transport_rule_derives_transported_finite_cyclic_group",
+      "test_phase53_3_transport_result_is_inference",
+      "test_phase53_3_transport_preserves_both_premises",
+      "test_phase53_3_transport_reaches_fixed_point_in_one_round",
+      "test_phase53_3_accepts_existing_toda45_symbolic_pi4_3_source_degree",
+      "test_phase53_4_valid_stable_range_chain_derives_transport",
+      "test_phase53_4_wrong_stable_range_structure_blocks_transport",
+      "test_phase53_4_wrong_suspension_range_instance_blocks_transport",
+      "test_phase53_4_rejects_wrong_transport_source_sphere",
+      "test_phase53_4_rejects_wrong_transport_source_degree",
+      "test_phase53_4_rejects_wrong_transport_target_degree",
+      "test_phase53_4_rejects_wrong_transport_exponent",
+      "test_phase53_4_rejects_wrong_source_group",
+      "test_phase53_4_rejects_wrong_cyclic_order",
+      "test_phase53_4_rejects_wrong_generator"
+    ]
+  },
+  "modified_files": [
+    "standard_production_applicability_catalog.py",
+    "tests\\test_phase50_eta_family_notation.py",
+    "tests\\test_phase50_pi4_3_exactness_bridge.py",
+    "tests\\test_phase50_pi4_3_finite_cyclic.py",
+    "tests\\test_phase53_finite_cyclic_transport.py",
+    "toda_rules.py"
+  ],
+  "full_pytest_run": false
+}

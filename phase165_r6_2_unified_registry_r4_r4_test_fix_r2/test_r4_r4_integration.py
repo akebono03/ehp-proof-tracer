@@ -1,0 +1,37 @@
+from dataclasses import dataclass
+
+from map_property_rules import (
+    InjectiveMapStatement,
+    IsomorphismStatement,
+    isomorphism_implies_injective_inference_rule,
+)
+from phase165_r8_rule_provider import create_rule_expansion_provider
+from phase165_r57_r26_generic_search_connection import build_generic_backward_expansion_provider
+from proof import ProofRule, ProofStep
+
+
+def test_r8_inverse_isomorphism_to_injectivity():
+    rule = isomorphism_implies_injective_inference_rule()
+    goal = InjectiveMapStatement(map="f")
+    proposals = create_rule_expansion_provider((rule,))(goal)
+    assert len(proposals) == 1
+    assert proposals[0].subgoals == (IsomorphismStatement(map="f"),)
+
+
+def test_r26_inverse_isomorphism_to_injectivity():
+    rule = isomorphism_implies_injective_inference_rule()
+    goal = InjectiveMapStatement(map="f")
+    proposals = build_generic_backward_expansion_provider((rule,))(goal)
+    assert len(proposals) == 1
+    assert proposals[0].subgoals == (IsomorphismStatement(map="f"),)
+
+
+def test_no_unrelated_goal_candidate():
+    rule = isomorphism_implies_injective_inference_rule()
+    assert create_rule_expansion_provider((rule,))(IsomorphismStatement(map="f")) == ()
+
+
+def test_forward_builder_kept():
+    rule = isomorphism_implies_injective_inference_rule()
+    premise = ProofStep(conclusion=IsomorphismStatement(map="f"), premises=(), rule=ProofRule.GIVEN)
+    assert rule.conclusion_builder((premise,)) == InjectiveMapStatement(map="f")
