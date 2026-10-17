@@ -1,0 +1,17 @@
+{
+  "phase": "165 R12-R14",
+  "mode": "ACTUAL_SCREENED_RECURSIVE_KERNEL_PROOF",
+  "status": "CERTIFIED",
+  "blocker": null,
+  "kernel_goal": "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+  "kernel_proof_certified": true,
+  "proof_ancestry": {
+    "node_count": 8,
+    "given": 3,
+    "inference": 5,
+    "other": 0,
+    "has_general_prop42_ancestor": true
+  },
+  "pi43_proof_certified": false,
+  "full_pytest_run": false
+}
