@@ -1,0 +1,13 @@
+{
+  "phase": "165 R12-R23",
+  "r22_proof_reverified": false,
+  "root_ancestry_preserved": false,
+  "shared_renderer_called": false,
+  "narrative_nonempty": false,
+  "reference_locators": [],
+  "proof_node_count": 0,
+  "pi43_public_narrative_certified": false,
+  "status": "UNRESOLVED",
+  "full_pytest_run": false,
+  "blocker": "ValueError: R12-R22 audit script is unavailable"
+}
