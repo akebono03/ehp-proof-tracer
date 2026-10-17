@@ -1,0 +1,1 @@
+R12-R28: Requires installed R12-R21 and R12-R27. A generic evidence-preserving eta suspension presentation backward candidate is added to the existing shared expansion provider. Targeted pytest and canonical Web-equivalent audit only. No full pytest.
