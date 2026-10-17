@@ -1458,6 +1458,8 @@
   "phase165_rule_duplicate_review_r6/test_audit.py::test_missing_conclusion_patterns_are_not_certified_duplicates",
   "phase165_rule_identity_r7/test_audit.py::test_review_pair_inventory_has_five_unique_pairs",
   "phase165_rule_identity_r7/test_audit.py::test_review_preserves_rules_and_reports_five_pairs",
+  "phase165_rule_identity_r8/test_audit.py::test_r8_composition_rule_has_additional_guard",
+  "phase165_rule_identity_r8/test_audit.py::test_r8_pair_has_same_forward_patterns",
   "phase165_rule_pipeline_r2_runner_fix/test_audit.py::test_generic_pipeline_report_is_consistent",
   "phase165_rule_pipeline_r2_runner_fix/test_audit.py::test_only_real_source_leaves_are_counted",
   "phase165_rule_registry_audit_r3/test_audit.py::test_classification_distinguishes_not_discovered",

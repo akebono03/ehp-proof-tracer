@@ -1,0 +1,12 @@
+{
+  "phase": "165 R8 zero-relation identity review",
+  "general_name": "zero equality implies zero",
+  "composition_name": "zero composition equality implies zero",
+  "same_premises": true,
+  "same_conclusion": true,
+  "general_has_guard": false,
+  "composition_has_guard": true,
+  "classification": "SAME_PATTERNS_DIFFERENT_APPLICABILITY__KEEP_BOTH",
+  "removal_performed": false,
+  "full_pytest_run": false
+}
