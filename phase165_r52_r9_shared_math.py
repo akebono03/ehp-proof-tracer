@@ -107,6 +107,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = (expand_kernel_multiple_from_suspension,) + tuple(extra_providers)
     from phase165_r12_r30_ehp_surjectivity import expand_ehp_whole_image
     extra_providers = (expand_ehp_whole_image,) + tuple(extra_providers)
+    from phase165_r12_r31_proven_cyclic_reuse import expand_free_cyclic_structure_from_relation
+    extra_providers = (expand_free_cyclic_structure_from_relation,) + tuple(extra_providers)
     extra_providers = (build_concrete_kernel_provider(bridge),) + tuple(extra_providers)
     extra_providers = (build_exactness_binding_provider(bridge), build_prop42_specialization_provider(bridge), expand_ehp_exactness_consequences) + tuple(extra_providers)
     available = []

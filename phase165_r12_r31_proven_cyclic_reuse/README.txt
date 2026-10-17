@@ -1,0 +1,1 @@
+R12-R31: proof-backed free cyclic structure reuse. Requires previously installed R12-R22 and R12-R30. No saved proof is injected; all sources are reconstructed through the ordinary search. Run run.ps1 in this folder. Targeted tests only.
