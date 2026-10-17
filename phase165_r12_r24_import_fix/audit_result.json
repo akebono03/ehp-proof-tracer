@@ -1,0 +1,15 @@
+{
+  "phase": "165 R12-R24",
+  "generic_finite_cyclic_backward_available": true,
+  "cyclic_subgoal_correct": true,
+  "web_goal_used": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "web_search_complete": false,
+  "web_search_status": "ERROR",
+  "open_goals": [],
+  "diagnostics": [
+    "ValueError: target has no unique registered proof order"
+  ],
+  "pi43_web_proof_certified": false,
+  "full_pytest_run": false,
+  "status": "WEB_SEARCH_STILL_HAS_UNRESOLVED_PREMISES"
+}
