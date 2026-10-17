@@ -25,7 +25,7 @@ from proof import (
 DEFAULT_RULE_MODULES = (
     "ehp_rules", "stable_rules", "set_rules", "hopf_rules",
     "scalar_rules", "relation_rules", "map_property_rules",
-    "homomorphism_rules", "indeterminacy_rules",
+    "homomorphism_rules", "indeterminacy_rules", "phase165_r12_r2_quotient_rules",
 )
 
 
