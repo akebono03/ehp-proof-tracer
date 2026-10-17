@@ -1,0 +1,18 @@
+{
+  "phase": "165 R12-R23",
+  "r22_proof_reverified": true,
+  "root_ancestry_preserved": true,
+  "shared_renderer_called": true,
+  "narrative_nonempty": true,
+  "reference_locators": [
+    "Chapter V, i)",
+    "(5.1)",
+    "Proposition 5.1",
+    "Proposition 4.2 (4.4)"
+  ],
+  "proof_node_count": 38,
+  "pi43_public_narrative_certified": true,
+  "status": "PUBLIC_NARRATIVE_GENERATED_REVIEW_PENDING",
+  "full_pytest_run": false,
+  "narrative_path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r12_r23_self_contained_fix\\public_narrative.md"
+}

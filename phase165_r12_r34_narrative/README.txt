@@ -1,0 +1,1 @@
+R12-R34: current GitHub reviewed; guarded renderer patch and provenance key correction. Run run.ps1 at project root. Tests are targeted only. Review public_narrative.md and audit_result.json. Complete proof mathematics is unchanged.

@@ -1,0 +1,1 @@
+Phase165 R12-R29. Only adds an inverse provider using existing R12-R16 certified kernel conversion rule. No new axioms or fabricated proofs. Run run.ps1 at project root after extraction. Whole-suite pytest not run.

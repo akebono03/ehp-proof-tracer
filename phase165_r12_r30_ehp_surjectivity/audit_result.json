@@ -1,0 +1,24 @@
+{
+  "phase": "165 R12-R30",
+  "whole_image_candidates": 1,
+  "common_whole_image_candidates": 1,
+  "surjective_to_whole_image_candidates": 1,
+  "ehp_exactness_candidates": 1,
+  "ehp_subgoals": [
+    "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+    "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))"
+  ],
+  "web_search_status": "partial",
+  "web_search_complete": false,
+  "open_goals": [
+    "Relation(lhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), order=None)",
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "full_pytest_run": false
+}

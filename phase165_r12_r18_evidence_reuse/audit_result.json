@@ -1,0 +1,14 @@
+{
+  "phase": "165 R12-R18",
+  "canonical_pi32_search_status": "complete",
+  "pi32_root_status": "PROVEN_ROOT",
+  "pi32_blocker": null,
+  "pi32_root_inference": true,
+  "generator_suspension_fixed_witness": "UNRESOLVED",
+  "generator_image_fixed_witness": "UNRESOLVED",
+  "generator_evidence_verified": false,
+  "homomorphism_presentation_certified": false,
+  "pi43_proof_certified": false,
+  "full_pytest_run": false,
+  "status": "PI32_PROOF_REUSABLE"
+}

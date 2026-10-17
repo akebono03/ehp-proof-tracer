@@ -1,0 +1,12 @@
+{
+  "phase": "165 R12-R17",
+  "kernel_source_status": "CERTIFIED",
+  "surjectivity_source_status": "CERTIFIED",
+  "converted_antecedents_ready": true,
+  "generic_quotient_chain_available": true,
+  "homomorphism_presentation_proof": "NOT_VERIFIED",
+  "infinite_cyclic_source_proof": "NOT_VERIFIED",
+  "pi43_proof_certified": false,
+  "status": "UNRESOLVED_PENDING_TWO_PROVEN_PREMISES",
+  "full_pytest_run": false
+}
