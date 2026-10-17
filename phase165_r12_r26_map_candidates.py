@@ -5,6 +5,7 @@ Only a screened fixed eta-family definition authorizes this eta-family candidate
 """
 from __future__ import annotations
 
+from expression import GeneratorSymbol, HomotopyElement
 from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
 from phase165_r12_r2_quotient_rules import (
     CyclicStructureStatement, QuotientIsomorphismStatement,
@@ -32,6 +33,20 @@ def cited_eta_source_count(bridge: object) -> int:
     return matches
 
 
+def _same_eta_generator_name(element: object, canonical: HomotopyElement) -> bool:
+    """Allow standard Unicode subscript and TeX-style underscore names only."""
+    if not isinstance(element, HomotopyElement):
+        return False
+    if (element.dimension != canonical.dimension
+            or element.source != canonical.source
+            or element.target != canonical.target
+            or element.generator != canonical.generator):
+        return False
+    n = canonical.generator.index
+    subscripts = str(n).translate(str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉"))
+    return element.name in ("η" + subscripts, "η_" + str(n))
+
+
 def expand_cited_eta_quotient(goal: object, source_count: int) -> tuple[GoalExpansion, ...]:
     """Reverse the EXISTING quotient rule using a cited eta-family map candidate.
 
@@ -49,12 +64,12 @@ def expand_cited_eta_quotient(goal: object, source_count: int) -> tuple[GoalExpa
         return ()
     source_eta = toda_eta_family_definition_statement(n - 1).element
     target_eta = toda_eta_family_definition_statement(n).element
-    if goal.generator != target_eta:
+    if not _same_eta_generator_name(goal.generator, target_eta):
         return ()
     domain = TodaPrimaryGroup(n, n - 1)
     mapping = TodaSuspensionMap(domain, target)
     quotient = QuotientIsomorphismStatement(
-        mapping, domain, target, source_eta, target_eta, goal.order,
+        mapping, domain, target, source_eta, goal.generator, goal.order,
     )
     source_structure = CyclicStructureStatement(domain, source_eta, None)
     return (GoalExpansion(infinite_cyclic_quotient_structure_inference_rule(),

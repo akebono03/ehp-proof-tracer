@@ -1,0 +1,1 @@
+R12-R27. Installs only a guarded revision to R12-R26 eta quotient candidate provider. Existing shared-search connection remains unchanged. Runs targeted tests and Web-equivalent audit. No full pytest.\n
