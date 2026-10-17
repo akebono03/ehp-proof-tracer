@@ -1,0 +1,170 @@
+{
+  "phase": "165 R7 rule identity review",
+  "mode": "READ_ONLY_R8_RULES",
+  "active_rules": 60,
+  "pairs_reviewed": 5,
+  "pairs": [
+    {
+      "left": {
+        "name": "Freudenthal boundary range implies suspension epimorphism",
+        "description": "A suspension map in the Freudenthal boundary range is an epimorphism.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionMapStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "right": {
+        "name": "Freudenthal stable range implies suspension isomorphism",
+        "description": "A suspension map in the Freudenthal stable range is an isomorphism.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'stable_rules.SuspensionMapStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "classification": "NO_CONCLUSION_PATTERN__NOT_A_DUPLICATE_PROOF"
+    },
+    {
+      "left": {
+        "name": "generalized Hopf invariant enables composition law",
+        "description": "A generalized Hopf invariant fact H(alpha)=beta enables the Hopf composition law for alpha and beta.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfInvariantStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "right": {
+        "name": "generalized Hopf invariant to EHP H equality",
+        "description": "Represent a generalized Hopf invariant fact H(alpha)=beta as an equality using the actual EHP H map.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'hopf_rules.HopfInvariantStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "classification": "NO_CONCLUSION_PATTERN__NOT_A_DUPLICATE_PROOF"
+    },
+    {
+      "left": {
+        "name": "Even exponent evaluates minus-one power to one",
+        "description": "If a scalar exponent is even, then minus one raised to that exponent equals one.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.EvenScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "right": {
+        "name": "Even scalar implies congruence to zero modulo two",
+        "description": "An even integer scalar symbol is congruent to zero modulo two.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.EvenScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "classification": "NO_CONCLUSION_PATTERN__NOT_A_DUPLICATE_PROOF"
+    },
+    {
+      "left": {
+        "name": "Odd exponent evaluates minus-one power to minus one",
+        "description": "If a scalar exponent is odd, then minus one raised to that exponent equals minus one.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.OddScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "right": {
+        "name": "Odd scalar implies congruence to one modulo two",
+        "description": "An odd integer scalar symbol is congruent to one modulo two.",
+        "conclusion_pattern": "None",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'scalar_rules.OddScalarStatement'>, statement_pattern=None, relation_type=None, relation_pattern=None)"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "classification": "NO_CONCLUSION_PATTERN__NOT_A_DUPLICATE_PROOF"
+    },
+    {
+      "left": {
+        "name": "zero composition equality implies zero",
+        "description": "If a composition is zero and another expression is equal to that composition, the other expression is also zero.",
+        "conclusion_pattern": "Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None))",
+          "PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=PatternVariable(name='zero_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "right": {
+        "name": "zero equality implies zero",
+        "description": "If an expression is zero and another expression is equal to that expression, the other expression is also zero.",
+        "conclusion_pattern": "Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None)",
+        "premise_patterns": [
+          "PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.ZERO: 'zero'>, relation_pattern=Relation(lhs=PatternVariable(name='zero_expression'), rhs=Zero(), relation_type=<RelationType.ZERO: 'zero'>, source=None, note=None))",
+          "PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='equivalent_expression'), rhs=PatternVariable(name='zero_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+        ],
+        "guard": {
+          "present": false
+        },
+        "build_conclusion": {
+          "present": false
+        }
+      },
+      "classification": "MATCHING_OBSERVED_IMPLEMENTATION__MANUAL_REVIEW"
+    }
+  ],
+  "identity_conclusion": "This audit does not establish semantic equivalence; do not merge or delete rules automatically.",
+  "rule_id_status": "R8 is a factory discovery route; this audit cannot certify stable Rule IDs across all registries.",
+  "retired_catalog_called": false,
+  "production_modified": false,
+  "full_pytest_run": false
+}
