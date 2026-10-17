@@ -1,0 +1,319 @@
+{
+  "phase": "165 R12-R25",
+  "mode": "READ_ONLY_WEB_PROOF_ORDER_DIAGNOSTIC",
+  "target": "TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)",
+  "candidate_count": 1,
+  "candidates": [
+    {
+      "type": "Relation",
+      "lhs": {
+        "type": "TodaPrimaryGroup",
+        "fields": {
+          "group_dimension": {
+            "type": "int",
+            "value": 4
+          },
+          "sphere_dimension": {
+            "type": "int",
+            "value": 3
+          }
+        }
+      },
+      "rhs": {
+        "type": "FiniteCyclicGroup",
+        "fields": {
+          "order": {
+            "type": "int",
+            "value": 2
+          },
+          "generator": {
+            "type": "HomotopyElement",
+            "fields": {
+              "name": {
+                "type": "str",
+                "value": "η_3"
+              },
+              "dimension": {
+                "type": "int",
+                "value": 3
+              },
+              "source": {
+                "type": "int",
+                "value": 4
+              },
+              "target": {
+                "type": "int",
+                "value": 3
+              },
+              "generator": {
+                "type": "GeneratorSymbol",
+                "fields": {
+                  "family": {
+                    "type": "str",
+                    "value": "η"
+                  },
+                  "index": {
+                    "type": "int",
+                    "value": 3
+                  },
+                  "decoration": {
+                    "type": "NoneType",
+                    "value": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "relation_type": "RelationType.EQUALITY"
+    }
+  ],
+  "registered_assertion_count": 205,
+  "fixed_link_count": 20,
+  "full_pytest_run": false,
+  "no_proofstep_injected": true,
+  "no_web_override": true,
+  "order": {
+    "resolver_diagnostic": null,
+    "catalog_available": true,
+    "catalog_target_count": 2,
+    "exact_goal_matches": 1,
+    "web_goal": {
+      "type": "Relation",
+      "lhs": {
+        "type": "TodaPrimaryGroup",
+        "fields": {
+          "group_dimension": {
+            "type": "int",
+            "value": 4
+          },
+          "sphere_dimension": {
+            "type": "int",
+            "value": 3
+          }
+        }
+      },
+      "rhs": {
+        "type": "FiniteCyclicGroup",
+        "fields": {
+          "order": {
+            "type": "int",
+            "value": 2
+          },
+          "generator": {
+            "type": "HomotopyElement",
+            "fields": {
+              "name": {
+                "type": "str",
+                "value": "η_3"
+              },
+              "dimension": {
+                "type": "int",
+                "value": 3
+              },
+              "source": {
+                "type": "int",
+                "value": 4
+              },
+              "target": {
+                "type": "int",
+                "value": 3
+              },
+              "generator": {
+                "type": "GeneratorSymbol",
+                "fields": {
+                  "family": {
+                    "type": "str",
+                    "value": "η"
+                  },
+                  "index": {
+                    "type": "int",
+                    "value": 3
+                  },
+                  "decoration": {
+                    "type": "NoneType",
+                    "value": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "relation_type": "RelationType.EQUALITY"
+    },
+    "registered_targets": [
+      {
+        "position": 0,
+        "statement": {
+          "type": "Relation",
+          "lhs": {
+            "type": "TodaPrimaryGroup",
+            "fields": {
+              "group_dimension": {
+                "type": "int",
+                "value": 3
+              },
+              "sphere_dimension": {
+                "type": "int",
+                "value": 2
+              }
+            }
+          },
+          "rhs": {
+            "type": "FreeCyclicGroup",
+            "fields": {
+              "generator": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": {
+                    "type": "str",
+                    "value": "η₂"
+                  },
+                  "dimension": {
+                    "type": "int",
+                    "value": 2
+                  },
+                  "source": {
+                    "type": "int",
+                    "value": 3
+                  },
+                  "target": {
+                    "type": "int",
+                    "value": 2
+                  },
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": {
+                        "type": "str",
+                        "value": "η"
+                      },
+                      "index": {
+                        "type": "int",
+                        "value": 2
+                      },
+                      "decoration": {
+                        "type": "NoneType",
+                        "value": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "relation_type": "RelationType.EQUALITY"
+        },
+        "exact_match": false
+      },
+      {
+        "position": 1,
+        "statement": {
+          "type": "Relation",
+          "lhs": {
+            "type": "TodaPrimaryGroup",
+            "fields": {
+              "group_dimension": {
+                "type": "int",
+                "value": 4
+              },
+              "sphere_dimension": {
+                "type": "int",
+                "value": 3
+              }
+            }
+          },
+          "rhs": {
+            "type": "FiniteCyclicGroup",
+            "fields": {
+              "order": {
+                "type": "int",
+                "value": 2
+              },
+              "generator": {
+                "type": "HomotopyElement",
+                "fields": {
+                  "name": {
+                    "type": "str",
+                    "value": "η_3"
+                  },
+                  "dimension": {
+                    "type": "int",
+                    "value": 3
+                  },
+                  "source": {
+                    "type": "int",
+                    "value": 4
+                  },
+                  "target": {
+                    "type": "int",
+                    "value": 3
+                  },
+                  "generator": {
+                    "type": "GeneratorSymbol",
+                    "fields": {
+                      "family": {
+                        "type": "str",
+                        "value": "η"
+                      },
+                      "index": {
+                        "type": "int",
+                        "value": 3
+                      },
+                      "decoration": {
+                        "type": "NoneType",
+                        "value": null
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "relation_type": "RelationType.EQUALITY"
+        },
+        "exact_match": true
+      }
+    ],
+    "web_goal_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "selection": "RESOLVED",
+    "target_position": 1,
+    "completed_prior_count": 0
+  },
+  "backward": {
+    "root_expansion_count": 3,
+    "root_rule_names": [
+      "finite cyclic structure gives group relation",
+      "equality symmetry",
+      "finite cyclic structure gives group relation"
+    ],
+    "immediate_subgoals": [
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+      "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)"
+    ],
+    "cyclic_structure_subgoal_count": 2
+  },
+  "canonical_result": {
+    "status": "search_failed",
+    "conclusion": "None",
+    "proven_step_count": 0,
+    "open_goals": [
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ]
+  },
+  "web_view": {
+    "key": "generic-partial-proof",
+    "partial_result": true,
+    "step_count": 0,
+    "rendered_line_count": 15
+  },
+  "status": "ORDER_RESOLVED_SEARCH_REVIEW"
+}
