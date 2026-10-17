@@ -1,0 +1,19 @@
+{
+  "phase": "165 R12-R19",
+  "existing_eta_definition_class": true,
+  "existing_eta_definition_factory": true,
+  "eta3_definition_type_verified": true,
+  "eta_definition_fields": [
+    "index",
+    "element",
+    "iterated_suspension"
+  ],
+  "eta3_definition_repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+  "eligible_fixed_definition_link_count": 0,
+  "eligible_fixed_definition_assertion_ids": [],
+  "eta3_specialization_proof_certified": false,
+  "generator_image_proof_certified": false,
+  "pi43_proof_certified": false,
+  "full_pytest_run": false,
+  "status": "ETA_DEFINITION_REGISTRY_AUDITED_NOT_CERTIFIED"
+}
