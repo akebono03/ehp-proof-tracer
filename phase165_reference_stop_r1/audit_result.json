@@ -1,0 +1,40 @@
+{
+  "phase": "165 reference-stop R1",
+  "status": "ELIGIBILITY_BOUNDARY_INSPECTED_NO_SEARCH_PATCH",
+  "pi43_goal_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "pi32_goal_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "reviewed_order_catalog_available": true,
+  "order_diagnostic": null,
+  "matching_registry_assertions": [
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+      "group": "pi43",
+      "origin": "fixed_statement",
+      "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_link_count": 0,
+      "matching_given_count": 0,
+      "reference_ids": []
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+      "group": "pi32",
+      "origin": "fixed_statement",
+      "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_link_count": 1,
+      "matching_given_count": 1,
+      "reference_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+      ]
+    }
+  ],
+  "pi32_fixed_given_available": true,
+  "prior_internal_proof_eligible_for_search": "NOT_INSPECTED",
+  "actual_pi43_proof_tree_checked": false,
+  "search_stopping_behavior_verified": false,
+  "source_files_modified": false,
+  "full_pytest_run": false
+}
