@@ -200,6 +200,8 @@
   "phase165_r12_r34_r2_semantic_narrative/test_r12_r34_r2.py::test_group_latex",
   "phase165_r12_r34_r2_semantic_narrative/test_r12_r34_r2.py::test_typed_generator_latex",
   "phase165_r12_r34_r2_semantic_narrative/test_r12_r34_r2.py::test_untyped_generator_rejected",
+  "phase165_r12_r34_r3_audit/test_audit.py::test_r3_foundational_given_keeps_provenance",
+  "phase165_r12_r34_r3_audit/test_audit.py::test_r3_generator_suspension_is_iota1_to_iota2",
   "phase165_r12_r3_generic_connection/tests/test_phase165_r12_r3_generic_connection.py::test_r12_r3_missing_premise_does_not_become_given",
   "phase165_r12_r3_generic_connection/tests/test_phase165_r12_r3_generic_connection.py::test_r12_r3_r12_r2_factories_are_auto_discovered",
   "phase165_r12_r3_generic_connection/tests/test_phase165_r12_r3_generic_connection.py::test_r12_r3_shared_rules_chain_without_group_adapter",

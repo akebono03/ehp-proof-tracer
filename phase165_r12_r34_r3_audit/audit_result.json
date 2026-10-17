@@ -1,0 +1,16 @@
+{
+  "phase": "165 R12-R34-R3",
+  "status": "FOUNDATIONAL_LEAF_CONFIRMED_RUNTIME_TREE_ANCESTRY_NOT_YET_VERIFIED",
+  "statement_type": "GeneratorSuspension",
+  "source_generator": "ι₁",
+  "target_generator": "ι₂",
+  "statement": "E(ι₁)=ι₂",
+  "rule": "GIVEN",
+  "foundational_reference": "foundational:suspension-identity",
+  "provenance_attached_to_constructed_leaf": true,
+  "actual_pi43_proof_tree_checked": false,
+  "pi32_ancestor_of_displayed_leaf_confirmed": false,
+  "renderer_modified": false,
+  "full_pytest_run": false,
+  "next_phase": "R12-R34-R4: shared renderer ordering and prior-proof folding"
+}
