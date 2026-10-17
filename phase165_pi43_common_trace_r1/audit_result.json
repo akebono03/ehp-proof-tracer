@@ -1,0 +1,40 @@
+{
+  "phase": "165 common pi43 R1",
+  "mode": "READ_ONLY_DYNAMIC",
+  "group_adapter_absent": true,
+  "typed_reference_leaves": 15,
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "root_proposals": 1,
+  "root_rules": {
+    "equality symmetry": 1
+  },
+  "root_expansions": [
+    {
+      "rule": "equality symmetry",
+      "premises": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "first_level_subgoals": [
+    {
+      "goal": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "cited_given_exact": false,
+      "proposals": 1,
+      "rule_names": [
+        "equality symmetry"
+      ],
+      "sample": [
+        {
+          "rule": "equality symmetry",
+          "premises": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ]
+        }
+      ]
+    }
+  ],
+  "truncated_root_expansions": false,
+  "max_child_goals": 12,
+  "full_pytest_run": false
+}
