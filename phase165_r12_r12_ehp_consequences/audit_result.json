@@ -1,0 +1,26 @@
+{
+  "phase": "165 R12-R12",
+  "mode": "GENERIC_EHP_CONSEQUENCE_AND_PROVENANCE",
+  "results": {
+    "pi32_e_h": {
+      "inference": true,
+      "specialization_inference": true,
+      "has_general_prop42_given_ancestor": true
+    },
+    "pi43_delta_e": {
+      "inference": true,
+      "specialization_inference": true,
+      "has_general_prop42_given_ancestor": true
+    },
+    "pi43_e_h": {
+      "inference": true,
+      "specialization_inference": true,
+      "has_general_prop42_given_ancestor": true
+    }
+  },
+  "surjectivity_zero_target_subgoal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+  "surjectivity_certified": false,
+  "specific_kernel_multiple_derived": false,
+  "pi43_proof_certified": false,
+  "full_pytest_run": false
+}
