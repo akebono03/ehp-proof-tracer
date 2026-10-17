@@ -46,6 +46,11 @@ def same_cited_scalar_specialization(left: object, right: object) -> bool:
 
 def append_unique_verified_derivation(options: list, candidate: object) -> None:
     """Keep distinct valid derivations; omit only verified duplicate routes."""
-    if any(same_cited_scalar_specialization(old, candidate) for old in options):
+    from phase165_r12_r33_proof_tree_dedup import same_completed_proof_tree
+    if any(
+        same_cited_scalar_specialization(old, candidate)
+        or same_completed_proof_tree(old, candidate)
+        for old in options
+    ):
         return
     options.append(candidate)
