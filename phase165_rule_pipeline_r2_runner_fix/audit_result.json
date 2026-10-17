@@ -1,0 +1,112 @@
+{
+  "phase": "165 common rules R2",
+  "mode": "READ_ONLY_DYNAMIC",
+  "group_adapter_absent": true,
+  "rules_discovered": 60,
+  "discovery_modules": [
+    "ehp_rules",
+    "stable_rules",
+    "set_rules",
+    "hopf_rules",
+    "scalar_rules",
+    "relation_rules",
+    "map_property_rules",
+    "homomorphism_rules",
+    "indeterminacy_rules"
+  ],
+  "skipped_factories": [
+    "set_rules.equality_implies_modulo_inference_rule:requires-input",
+    "set_rules.kernel_membership_implies_mapped_zero_inference_rule:requires-input",
+    "set_rules.mapped_zero_implies_kernel_membership_inference_rule:requires-input",
+    "set_rules.zero_implies_modulo_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_left_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_right_inference_rule:requires-input",
+    "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule:requires-input",
+    "relation_rules.additive_inverse_inference_rule:requires-input",
+    "relation_rules.double_equals_repeated_sum_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_left_composition_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_multiple_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_right_composition_inference_rule:requires-input",
+    "relation_rules.iterated_suspension_one_bridge_inference_rule:requires-input",
+    "relation_rules.nested_integer_multiple_inference_rule:requires-input",
+    "relation_rules.sum_associativity_inference_rule:requires-input",
+    "relation_rules.sum_commutativity_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_addition_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_inverse_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_multiple_inference_rule:requires-input",
+    "homomorphism_rules.suspension_additivity_bridge_inference_rule:requires-input",
+    "homomorphism_rules.suspension_multiple_bridge_inference_rule:requires-input"
+  ],
+  "rules_without_conclusion_pattern": [
+    "Freudenthal boundary range implies suspension epimorphism",
+    "Freudenthal stable range implies suspension isomorphism",
+    "Suspension injectivity reflects equality",
+    "Suspension injectivity reflects zero",
+    "Suspension isomorphism implies injectivity",
+    "coset equality implies modulo",
+    "difference membership implies modulo",
+    "exactness implies subgroup equality",
+    "subgroup equality membership propagation",
+    "subgroup equality modulo propagation",
+    "EHP H preserves equality",
+    "EHP E-H zero composition implies suspended Hopf zero",
+    "generalized Hopf composition formula",
+    "generalized Hopf invariant enables composition law",
+    "generalized Hopf invariant to EHP H equality",
+    "generalized Hopf invariant value is zero",
+    "generalized Hopf left composition formula",
+    "generalized Hopf invariant enables left composition law",
+    "Even exponent evaluates minus-one power to one",
+    "Even scalar implies congruence to zero modulo two",
+    "Odd exponent evaluates minus-one power to minus one",
+    "Odd scalar implies congruence to one modulo two",
+    "suspension composition functoriality",
+    "suspension preserves zero multiple",
+    "injective map reflects equality",
+    "homomorphism preserves zero",
+    "coset membership implies modulo",
+    "Symbolic odd equality implies coefficient indeterminacy"
+  ],
+  "unified_count": 2,
+  "unified": [
+    {
+      "index": 37,
+      "rule": "equality symmetry",
+      "premise_patterns": 1,
+      "conclusion_pattern_present": true
+    },
+    {
+      "index": 38,
+      "rule": "equality transitivity",
+      "premise_patterns": 2,
+      "conclusion_pattern_present": true
+    }
+  ],
+  "generic_generated_count": 1,
+  "generic_generated": [
+    {
+      "index": 37,
+      "rule": "equality symmetry",
+      "premise_patterns": 1,
+      "conclusion_pattern_present": true,
+      "premises": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "premise_generation_rejected": [
+    {
+      "index": 38,
+      "rule": "equality transitivity",
+      "premise_patterns": 2,
+      "conclusion_pattern_present": true
+    }
+  ],
+  "screened_cited_given_count": 15,
+  "shared_root_proposals": 1,
+  "shared_root_rules": [
+    "equality symmetry"
+  ],
+  "full_pytest_run": false
+}
