@@ -1,0 +1,69 @@
+{
+  "phase": "165 rule duplicate R5 fix",
+  "mode": "READ_ONLY_ACTIVE_R8_ONLY",
+  "retired_catalog_called": false,
+  "scope_warning": "Only active R8 discovered inference rules are checked; this is not a full unified Rule Registry duplicate certification.",
+  "discovered_rules": 60,
+  "discovery_modules": [
+    "ehp_rules",
+    "stable_rules",
+    "set_rules",
+    "hopf_rules",
+    "scalar_rules",
+    "relation_rules",
+    "map_property_rules",
+    "homomorphism_rules",
+    "indeterminacy_rules"
+  ],
+  "skipped_factories": [
+    "set_rules.equality_implies_modulo_inference_rule:requires-input",
+    "set_rules.kernel_membership_implies_mapped_zero_inference_rule:requires-input",
+    "set_rules.mapped_zero_implies_kernel_membership_inference_rule:requires-input",
+    "set_rules.zero_implies_modulo_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_left_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_right_inference_rule:requires-input",
+    "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule:requires-input",
+    "relation_rules.additive_inverse_inference_rule:requires-input",
+    "relation_rules.double_equals_repeated_sum_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_left_composition_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_multiple_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_right_composition_inference_rule:requires-input",
+    "relation_rules.iterated_suspension_one_bridge_inference_rule:requires-input",
+    "relation_rules.nested_integer_multiple_inference_rule:requires-input",
+    "relation_rules.sum_associativity_inference_rule:requires-input",
+    "relation_rules.sum_commutativity_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_addition_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_inverse_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_multiple_inference_rule:requires-input",
+    "homomorphism_rules.suspension_additivity_bridge_inference_rule:requires-input",
+    "homomorphism_rules.suspension_multiple_bridge_inference_rule:requires-input"
+  ],
+  "duplicate_name_groups": [],
+  "duplicate_signature_candidates": [
+    [
+      "R8:5:Freudenthal boundary range implies suspension epimorphism",
+      "R8:6:Freudenthal stable range implies suspension isomorphism"
+    ],
+    [
+      "R8:26:generalized Hopf invariant enables composition law",
+      "R8:27:generalized Hopf invariant to EHP H equality"
+    ],
+    [
+      "R8:31:Even exponent evaluates minus-one power to one",
+      "R8:32:Even scalar implies congruence to zero modulo two"
+    ],
+    [
+      "R8:34:Odd exponent evaluates minus-one power to minus one",
+      "R8:35:Odd scalar implies congruence to one modulo two"
+    ],
+    [
+      "R8:44:zero composition equality implies zero",
+      "R8:46:zero equality implies zero"
+    ]
+  ],
+  "shared_object_groups": [],
+  "dedicated_pi43_names_discovered": [],
+  "interpretation": "Matching repr signatures are review candidates only; same rule name or pattern does not prove mathematical equivalence.",
+  "full_pytest_run": false
+}

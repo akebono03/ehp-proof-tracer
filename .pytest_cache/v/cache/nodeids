@@ -1452,6 +1452,8 @@
   "phase165_renderer_single_implementation_cleanup/test_cleanup.py::test_original_narrative_rendering_preserved",
   "phase165_renderer_single_implementation_cleanup/test_cleanup.py::test_partial_result_does_not_become_completed",
   "phase165_renderer_single_implementation_cleanup/test_cleanup.py::test_shared_components_have_no_public_render_functions",
+  "phase165_rule_duplicate_audit_r5_fix/test_audit.py::test_active_discovery_does_not_reintroduce_removed_pi43_rules",
+  "phase165_rule_duplicate_audit_r5_fix/test_audit.py::test_grouping_identifies_repeated_names_only",
   "phase165_rule_pipeline_r2_runner_fix/test_audit.py::test_generic_pipeline_report_is_consistent",
   "phase165_rule_pipeline_r2_runner_fix/test_audit.py::test_only_real_source_leaves_are_counted",
   "phase165_rule_registry_audit_r3/test_audit.py::test_classification_distinguishes_not_discovered",
