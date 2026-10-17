@@ -1,0 +1,26 @@
+{
+  "phase": "165 R11 rule registry connection",
+  "status": "CONNECTED",
+  "mode": "READ_ONLY_TARGETED",
+  "registry_entries": 60,
+  "discovered_rules": 60,
+  "rule_ids_unique": true,
+  "ordering_matches": true,
+  "skipped_factory_count": 22,
+  "reverse_pattern_candidates": 31,
+  "generic_provider_executed": true,
+  "probe_goal": "Relation(lhs=HomotopyElement(name='η', dimension=2, source=None, target=None, generator=None), rhs=HomotopyElement(name='η', dimension=2, source=None, target=None, generator=None), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "probe_proposal_count": 1,
+  "probe_rules": [
+    "equality symmetry"
+  ],
+  "removed_pi43_rule_definitions": [],
+  "removed_adapter_absent": true,
+  "shared_direct_rule_discovery_calls": [],
+  "shared_uses_generic_provider": true,
+  "generic_uses_discovery": true,
+  "shared_direct_discovery_required": false,
+  "retired_production_catalog_invoked": false,
+  "scope_limit": "R8 active zero-argument factories only; reverse-candidate count is not certified proof availability or full rule universe coverage",
+  "full_pytest_run": false
+}
