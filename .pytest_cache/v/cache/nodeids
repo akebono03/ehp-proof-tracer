@@ -1451,6 +1451,8 @@
   "phase165_renderer_single_implementation_cleanup/test_cleanup.py::test_shared_components_have_no_public_render_functions",
   "phase165_rule_pipeline_r2_runner_fix/test_audit.py::test_generic_pipeline_report_is_consistent",
   "phase165_rule_pipeline_r2_runner_fix/test_audit.py::test_only_real_source_leaves_are_counted",
+  "phase165_rule_registry_audit_r3/test_audit.py::test_classification_distinguishes_not_discovered",
+  "phase165_rule_registry_audit_r3/test_audit.py::test_classification_distinguishes_reverse_pattern",
   "test_phase165_r52_partial_proof.py::test_r52_arbitrary_range_and_unknown",
   "test_phase165_r52_partial_proof.py::test_r52_complete_requires_matching_step",
   "test_phase165_r52_partial_proof.py::test_r52_failed_search_preserves_diagnostics",
