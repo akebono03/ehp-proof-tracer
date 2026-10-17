@@ -11815,7 +11815,7 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
     if latex is not None:
       return "$" + latex + "$"
     if isinstance(statement, TodaPrimaryGroup):
-      return (f"$\pi_{{{statement.group_dimension}}}"
+      return (f"$\\pi_{{{statement.group_dimension}}}"
               f"^{{{statement.sphere_dimension}}}$")
     return type(statement).__name__ + "（数式表示未対応）"
 
@@ -11894,6 +11894,11 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
       lines.extend([prefix + rendered, ""])
 
   if complete:
+    ancestry_rules = tuple(getattr(getattr(step, "inference_rule", None), "name", "")
+                           for step in steps)
+    if ("first isomorphism theorem for generated kernel" in ancestry_rules
+        and "infinite cyclic quotient structure" in ancestry_rules):
+      lines.extend(["第一同型定理と無限巡回群の商群構造より, ", ""])
     lines.append("以上より, " + statement_math(result.conclusion) + ". □")
   else:
     state = {
