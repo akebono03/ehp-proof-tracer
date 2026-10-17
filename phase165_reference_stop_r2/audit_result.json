@@ -13,7 +13,7 @@
   "proven_step_count": 25,
   "proof_tree": {
     "pi32_steps_in_result": 1,
-    "pi32_given_steps_in_result": 0,
+    "pi32_given_steps_in_result": 1,
     "generator_suspension_steps_in_result": 1,
     "generator_suspension_details": [
       {
@@ -25,7 +25,7 @@
     "pi32_root_reached_by_step_object_edges": true,
     "note": "Object-edge ancestry is indicative only: some proof formats store premises as statements."
   },
-  "fixed_given_stop_observed": false,
+  "fixed_given_stop_observed": true,
   "source_files_modified": false,
   "full_pytest_run": false
 }
