@@ -1,0 +1,101 @@
+def render_toda_partial_proof_narrative_markdown(result) -> str:
+  """Render evidenced complete and incomplete typed searches without changing proofs."""
+  from homotopy_groups import TodaPrimaryGroup
+  from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
+  from proof import ProofRule
+  from web_group_proof_common import _group_proof_statement_latex
+  from phase165_r12_r34_narrative import ordered_display_steps, completed_step_text
+  from phase165_r12_r34_r2_semantic_narrative import semantic_completed_lines
+
+  if not isinstance(result, PartialProofResult):
+    raise TypeError("result must be PartialProofResult")
+
+  def statement_math(statement):
+    if isinstance(statement, str):
+      return statement
+    latex, _fallback = _group_proof_statement_latex(statement)
+    if latex is not None:
+      return "$" + latex + "$"
+    if isinstance(statement, TodaPrimaryGroup):
+      return (f"$\\pi_{{{statement.group_dimension}}}"
+              f"^{{{statement.sphere_dimension}}}$")
+    return type(statement).__name__ + "（数式表示未対応）"
+
+  def label(step):
+    inference = getattr(step, "inference_rule", None)
+    ref = getattr(inference, "literature_reference", None)
+    locator = getattr(ref, "locator", None) or getattr(ref, "label", None)
+    if locator:
+      return str(locator)
+    name = getattr(inference, "name", "") or ""
+    if name.startswith("Adopted literature "):
+      return name[len("Adopted literature "):]
+    return None
+
+  def unique_steps(items):
+    seen = set()
+    ordered = []
+    for item in items:
+      if id(item) not in seen:
+        seen.add(id(item))
+        ordered.append(item)
+    return tuple(ordered)
+
+  complete = result.status is ProofSearchStatus.COMPLETE
+  steps = unique_steps(result.proven_steps)
+  if complete:
+    roots = tuple(step for step in steps if step.conclusion == result.conclusion)
+    if len(roots) != 1 or roots[0].rule is not ProofRule.INFERENCE:
+      raise ValueError("a completed narrative requires exactly one inference root")
+    if getattr(result.conclusion, "lhs", None) != result.target:
+      raise ValueError("completed proof conclusion does not match target")
+    steps = ordered_display_steps(roots[0])
+
+  target_statement = result.conclusion if complete else None
+  if target_statement is None:
+    candidates = tuple(goal for goal in result.open_goals
+                       if getattr(goal, "lhs", None) == result.target)
+    if candidates:
+      target_statement = candidates[-1]
+  if target_statement is None:
+    target_statement = result.target
+
+  lines = ["## 証明対象", "", statement_math(target_statement), "",
+           "## 使用する結果", ""]
+  citation_numbers = {}
+  for step in steps:
+    if step.rule is not ProofRule.GIVEN:
+      continue
+    locator = label(step)
+    if locator is not None and locator not in citation_numbers:
+      citation_numbers[locator] = "[R" + str(len(citation_numbers) + 1) + "]"
+      lines.extend(["**" + citation_numbers[locator] + " " + locator + ".**", ""])
+  if not citation_numbers:
+    lines.extend(["参照情報を持つ ProofStep はありません。", ""])
+
+  lines.extend(["---", "", "## 証明", ""])
+  if complete:
+    lines.extend(semantic_completed_lines(steps, roots[0], result.target, statement_math, label, citation_numbers))
+    lines.append("以上より, " + statement_math(result.conclusion) + ". □")
+  else:
+    state = {
+      ProofSearchStatus.PARTIAL: "部分証明・未完成",
+      ProofSearchStatus.SEARCH_FAILED: "証明未完成",
+      ProofSearchStatus.NOT_SEARCHED: "未探索",
+    }[result.status]
+    lines.extend(["**探索状態：" + state + "**", ""])
+    if result.open_goals:
+      lines.extend(["## 未解決 Goal", ""])
+      for goal in result.open_goals:
+        lines.append("- " + statement_math(goal))
+      lines.append("")
+    if result.diagnostics:
+      lines.extend(["## 探索診断", ""])
+      for diagnostic in result.diagnostics:
+        if diagnostic.startswith("expected one registered derivation for "):
+          lines.append("- 型付き Reference と推論規則から一意な導出が見つかりません。")
+        else:
+          lines.append("- " + diagnostic)
+      lines.append("")
+    lines.append("未解決 Goal は証明済みの結論ではありません。")
+  return "\n".join(lines)

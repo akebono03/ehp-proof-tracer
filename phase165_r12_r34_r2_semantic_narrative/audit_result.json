@@ -1,0 +1,13 @@
+{
+  "phase": "165 R12-R34-R2",
+  "search_status": "complete",
+  "open_goals": 0,
+  "provenance": "generic-complete-proof",
+  "raw_internal_visible": false,
+  "first_isomorphism_explained": true,
+  "kernel_shown": true,
+  "source_issues": 1,
+  "final_count": 1,
+  "has_box": true,
+  "full_pytest_run": false
+}

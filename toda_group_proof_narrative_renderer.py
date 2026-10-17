@@ -11804,6 +11804,7 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
   from proof import ProofRule
   from web_group_proof_common import _group_proof_statement_latex
   from phase165_r12_r34_narrative import ordered_display_steps, completed_step_text
+  from phase165_r12_r34_r2_semantic_narrative import semantic_completed_lines
 
   if not isinstance(result, PartialProofResult):
     raise TypeError("result must be PartialProofResult")
@@ -11872,33 +11873,8 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
     lines.extend(["参照情報を持つ ProofStep はありません。", ""])
 
   lines.extend(["---", "", "## 証明", ""])
-  if not steps:
-    lines.extend(["証明できた数学的な ProofStep はまだありません。", ""])
-  for step in steps:
-    if complete and step is roots[0]:
-      continue
-    if step.rule is ProofRule.GIVEN:
-      locator = label(step)
-      prefix = citation_numbers[locator] + "より, " if locator in citation_numbers else "前提（出典情報未接続）: "
-    else:
-      refs = tuple(dict.fromkeys(
-        citation_numbers[loc] for premise in step.premises
-        for loc in (label(premise),) if loc in citation_numbers
-      ))
-      prefix = "、".join(refs) + "より, " if refs else ""
-    if complete:
-      rendered = completed_step_text(step, statement_math, _render_generic_narrative_step)
-    else:
-      rendered = _render_generic_narrative_step(step)
-    if rendered:
-      lines.extend([prefix + rendered, ""])
-
   if complete:
-    ancestry_rules = tuple(getattr(getattr(step, "inference_rule", None), "name", "")
-                           for step in steps)
-    if ("first isomorphism theorem for generated kernel" in ancestry_rules
-        and "infinite cyclic quotient structure" in ancestry_rules):
-      lines.extend(["第一同型定理と無限巡回群の商群構造より, ", ""])
+    lines.extend(semantic_completed_lines(steps, roots[0], result.target, statement_math, label, citation_numbers))
     lines.append("以上より, " + statement_math(result.conclusion) + ". □")
   else:
     state = {
