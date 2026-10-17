@@ -66,7 +66,7 @@ def build_partial_web_group_proof_view(
         conclusion_latex=target_latex,
         theorem=None,
         phase="165 R52-R3",
-        key="generic-partial-proof",
+        key=("generic-complete-proof" if result.status is ProofSearchStatus.COMPLETE else "generic-partial-proof"),
         steps=tuple(steps),
         max_depth=max_depth,
         mode=mode,

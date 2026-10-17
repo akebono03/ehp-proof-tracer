@@ -1,0 +1,11 @@
+{
+  "phase": "165 R12-R34",
+  "search_status": "complete",
+  "unresolved_count": 0,
+  "provenance_key": "generic-complete-proof",
+  "raw_quotient_rule_visible": true,
+  "first_isomorphism_explained": false,
+  "final_conclusion_count": 1,
+  "has_proof_box": true,
+  "full_pytest_run": false
+}

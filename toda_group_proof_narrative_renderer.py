@@ -11798,16 +11798,12 @@ def render_toda_group_proof_narrative_markdown(
 
 
 def render_toda_partial_proof_narrative_markdown(result) -> str:
-  """One source-faithful narrative for complete and incomplete typed searches.
-
-  Search state only controls the ending. Both statuses use the same target,
-  cited GIVEN ancestry, inferred ProofSteps and ordering. No proof is inferred
-  from formatting, and an open goal never becomes a proved statement.
-  """
+  """Render evidenced complete and incomplete typed searches without changing proofs."""
   from homotopy_groups import TodaPrimaryGroup
   from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
   from proof import ProofRule
   from web_group_proof_common import _group_proof_statement_latex
+  from phase165_r12_r34_narrative import ordered_display_steps, completed_step_text
 
   if not isinstance(result, PartialProofResult):
     raise TypeError("result must be PartialProofResult")
@@ -11819,7 +11815,7 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
     if latex is not None:
       return "$" + latex + "$"
     if isinstance(statement, TodaPrimaryGroup):
-      return (f"$\\pi_{{{statement.group_dimension}}}"
+      return (f"$\pi_{{{statement.group_dimension}}}"
               f"^{{{statement.sphere_dimension}}}$")
     return type(statement).__name__ + "（数式表示未対応）"
 
@@ -11834,33 +11830,31 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
       return name[len("Adopted literature "):]
     return None
 
-  def unique_steps(steps):
+  def unique_steps(items):
     seen = set()
     ordered = []
-    for step in steps:
-      if id(step) not in seen:
-        seen.add(id(step))
-        ordered.append(step)
+    for item in items:
+      if id(item) not in seen:
+        seen.add(id(item))
+        ordered.append(item)
     return tuple(ordered)
 
+  complete = result.status is ProofSearchStatus.COMPLETE
   steps = unique_steps(result.proven_steps)
-  if result.status is ProofSearchStatus.COMPLETE:
+  if complete:
     roots = tuple(step for step in steps if step.conclusion == result.conclusion)
     if len(roots) != 1 or roots[0].rule is not ProofRule.INFERENCE:
       raise ValueError("a completed narrative requires exactly one inference root")
     if getattr(result.conclusion, "lhs", None) != result.target:
       raise ValueError("completed proof conclusion does not match target")
-    from phase165_r57_r10_step_narrative import ordered_proof_ancestry
-    steps = ordered_proof_ancestry(roots[0])
+    steps = ordered_display_steps(roots[0])
 
-  target_statement = result.conclusion if result.status is ProofSearchStatus.COMPLETE else None
+  target_statement = result.conclusion if complete else None
   if target_statement is None:
-    candidate_goals = tuple(
-      goal for goal in result.open_goals
-      if getattr(goal, "lhs", None) == result.target
-    )
-    if candidate_goals:
-      target_statement = candidate_goals[-1]
+    candidates = tuple(goal for goal in result.open_goals
+                       if getattr(goal, "lhs", None) == result.target)
+    if candidates:
+      target_statement = candidates[-1]
   if target_statement is None:
     target_statement = result.target
 
@@ -11871,21 +11865,18 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
     if step.rule is not ProofRule.GIVEN:
       continue
     locator = label(step)
-    if locator is None:
-      continue
-    if locator not in citation_numbers:
+    if locator is not None and locator not in citation_numbers:
       citation_numbers[locator] = "[R" + str(len(citation_numbers) + 1) + "]"
-      lines.append("**" + citation_numbers[locator] + " " + locator + ".**")
-      lines.append("")
+      lines.extend(["**" + citation_numbers[locator] + " " + locator + ".**", ""])
   if not citation_numbers:
-    lines.append("参照情報を持つ ProofStep はありません。")
-    lines.append("")
+    lines.extend(["参照情報を持つ ProofStep はありません。", ""])
 
   lines.extend(["---", "", "## 証明", ""])
   if not steps:
-    lines.append("証明できた数学的な ProofStep はまだありません。")
-    lines.append("")
+    lines.extend(["証明できた数学的な ProofStep はまだありません。", ""])
   for step in steps:
+    if complete and step is roots[0]:
+      continue
     if step.rule is ProofRule.GIVEN:
       locator = label(step)
       prefix = citation_numbers[locator] + "より, " if locator in citation_numbers else "前提（出典情報未接続）: "
@@ -11894,13 +11885,15 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
         citation_numbers[loc] for premise in step.premises
         for loc in (label(premise),) if loc in citation_numbers
       ))
-      prefix = ("、".join(refs) + "より, ") if refs else ""
-    rendered = _render_generic_narrative_step(step)
+      prefix = "、".join(refs) + "より, " if refs else ""
+    if complete:
+      rendered = completed_step_text(step, statement_math, _render_generic_narrative_step)
+    else:
+      rendered = _render_generic_narrative_step(step)
     if rendered:
-      lines.append(prefix + rendered)
-      lines.append("")
+      lines.extend([prefix + rendered, ""])
 
-  if result.status is ProofSearchStatus.COMPLETE:
+  if complete:
     lines.append("以上より, " + statement_math(result.conclusion) + ". □")
   else:
     state = {
