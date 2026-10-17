@@ -96,6 +96,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
     from phase165_r12_r11_prop42_unified import build_prop42_specialization_provider
     from phase165_r12_r12_ehp_consequences import expand_ehp_exactness_consequences
+    from phase165_r12_r13_kernel_image import build_concrete_kernel_provider
+    extra_providers = (build_concrete_kernel_provider(bridge),) + tuple(extra_providers)
     extra_providers = (build_exactness_binding_provider(bridge), build_prop42_specialization_provider(bridge), expand_ehp_exactness_consequences) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
