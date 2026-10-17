@@ -111,6 +111,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 
     from phase165_r12_r15_toda51 import expand_cited_toda51_zero
     from phase165_r12_r20_eta_definition import expand_cited_eta_definition
+    from phase165_r12_r21_eta_generator_chain import expand_cited_eta_generator
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
 
@@ -176,6 +177,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options = []
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
+        options.extend(expand_cited_eta_generator(goal))
         if (isinstance(goal, Relation)
                 and goal.relation_type is RelationType.EQUALITY
                 and isinstance(goal.rhs, FreeCyclicGroup)
