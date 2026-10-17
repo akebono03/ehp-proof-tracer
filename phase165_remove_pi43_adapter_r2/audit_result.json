@@ -1,0 +1,13 @@
+{
+  "phase": "165 Adapter Removal R2",
+  "status": "REMOVED",
+  "adapter_file_exists": false,
+  "active_root_references": [],
+  "unparsed_root_files": [],
+  "generic_connectors": {
+    "generic_backward": true,
+    "verified_witness_inverse": true,
+    "seeded_goals": true
+  },
+  "full_pytest_run": false
+}
