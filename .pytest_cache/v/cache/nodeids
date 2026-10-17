@@ -1501,6 +1501,8 @@
   "phase165_reference_stop_r1/test_audit.py::test_boundary_report_has_no_premature_certification",
   "phase165_reference_stop_r1/test_audit.py::test_existing_eligibility_and_prior_proof_interfaces_exist",
   "phase165_reference_stop_r1/test_audit.py::test_no_automatic_internal_proof_without_order",
+  "phase165_reference_stop_r2/test_audit.py::test_graph_report_empty_prior",
+  "phase165_reference_stop_r2/test_audit.py::test_matching_requires_type_and_equality",
   "phase165_remove_dedicated_rules_r4/test_remove.py::test_removed_catalog_entries",
   "phase165_remove_dedicated_rules_r4/test_remove.py::test_removed_production_definitions_and_imports",
   "phase165_remove_dedicated_rules_r4/test_remove.py::test_report_and_absent_adapter",
