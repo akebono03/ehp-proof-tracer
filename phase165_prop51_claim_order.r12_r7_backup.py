@@ -1,0 +1,46 @@
+"""Ordered Proposition 5.1 items: literature clauses plus one proof goal.
+
+The fourth item is a goal, not an adopted literature claim or GIVEN step.
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from expression import GeneratorSymbol, HomotopyElement
+from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
+from proof import Relation, RelationType
+
+
+@dataclass(frozen=True)
+class OrderedProp51Item:
+    position: int
+    component_key: str
+    role: str
+    statement: object
+
+
+def pi4_3_goal() -> Relation:
+    eta3 = HomotopyElement(
+        name="η_3", dimension=3, source=4, target=3,
+        generator=GeneratorSymbol(family="η", index=3),
+    )
+    return Relation(
+        lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3),
+        rhs=FiniteCyclicGroup(order=2, generator=eta3),
+        relation_type=RelationType.EQUALITY,
+    )
+
+
+def ordered_prop51_items(adopted_content: object) -> tuple[OrderedProp51Item, ...]:
+    """Return the complete five-position inventory without certifying the goal."""
+    return (
+        OrderedProp51Item(1, "pi3_2_group_relation", "LITERATURE", adopted_content.pi3_2_group_relation),
+        OrderedProp51Item(2, "eta2_hopf_relation", "LITERATURE", adopted_content.eta2_hopf_relation),
+        OrderedProp51Item(3, "delta_iota5_relation", "LITERATURE", adopted_content.delta_iota5_relation),
+        OrderedProp51Item(4, "pi4_3_group_relation", "LITERATURE", pi4_3_goal()),
+        OrderedProp51Item(5, "higher_eta_group_relation", "LITERATURE", adopted_content.higher_eta_group_relation),
+    )
+
+
+def prop51_intermediate_goal(*, n: int, k: int) -> Relation | None:
+    """The unique explicitly adopted intermediate proof target, not a proof."""
+    return pi4_3_goal() if (n, k) == (3, 1) else None

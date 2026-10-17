@@ -1,0 +1,59 @@
+"""Proposition 5.1: original literature positions and separate proof-use order."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from expression import GeneratorSymbol, HomotopyElement
+from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
+from proof import Relation, RelationType
+
+
+@dataclass(frozen=True)
+class OrderedProp51Item:
+    position: int
+    component_key: str
+    role: str
+    statement: object
+
+
+def pi4_3_goal() -> Relation:
+    eta3 = HomotopyElement(
+        name="η_3", dimension=3, source=4, target=3,
+        generator=GeneratorSymbol(family="η", index=3),
+    )
+    return Relation(
+        lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3),
+        rhs=FiniteCyclicGroup(order=2, generator=eta3),
+        relation_type=RelationType.EQUALITY,
+    )
+
+
+def ordered_prop51_items(adopted_content: object) -> tuple[OrderedProp51Item, ...]:
+    """Return the five original positions; no source fact is proved here."""
+    return (
+        OrderedProp51Item(1, "pi3_2_group_relation", "LITERATURE", adopted_content.pi3_2_group_relation),
+        OrderedProp51Item(2, "eta2_hopf_relation", "LITERATURE", adopted_content.eta2_hopf_relation),
+        OrderedProp51Item(3, "delta_iota5_relation", "LITERATURE", adopted_content.delta_iota5_relation),
+        OrderedProp51Item(4, "pi4_3_group_relation", "LITERATURE", pi4_3_goal()),
+        OrderedProp51Item(5, "higher_eta_group_relation", "LITERATURE", adopted_content.higher_eta_group_relation),
+    )
+
+
+def proof_ordered_prop51_items(adopted_content: object) -> tuple[OrderedProp51Item, ...]:
+    """Proof-use registration order, distinct from printed source position."""
+    items = ordered_prop51_items(adopted_content)
+    by_key = {item.component_key: item for item in items}
+    keys = (
+        "eta2_hopf_relation",
+        "pi3_2_group_relation",
+        "delta_iota5_relation",
+        "pi4_3_group_relation",
+        "higher_eta_group_relation",
+    )
+    if len(by_key) != len(items) or set(by_key) != set(keys):
+        raise ValueError("Proposition 5.1 claim inventory mismatch")
+    return tuple(by_key[key] for key in keys)
+
+
+def prop51_intermediate_goal(*, n: int, k: int) -> Relation | None:
+    """The unique explicitly adopted intermediate proof target, not a proof."""
+    return pi4_3_goal() if (n, k) == (3, 1) else None

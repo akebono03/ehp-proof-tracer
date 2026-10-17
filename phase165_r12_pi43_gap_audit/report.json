@@ -1,0 +1,102 @@
+{
+  "phase": "165 R12",
+  "mode": "READ_ONLY_GAP_AUDIT_NOT_PROOF_GENERATION",
+  "registered_rule_count": 60,
+  "provider_rule_count": 60,
+  "inverse_pattern_candidates": 31,
+  "required_input_factories": [
+    "set_rules.equality_implies_modulo_inference_rule:requires-input",
+    "set_rules.kernel_membership_implies_mapped_zero_inference_rule:requires-input",
+    "set_rules.mapped_zero_implies_kernel_membership_inference_rule:requires-input",
+    "set_rules.zero_implies_modulo_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_left_inference_rule:requires-input",
+    "hopf_rules.toda_prop22_right_inference_rule:requires-input",
+    "scalar_rules.scalar_sign_evaluation_applies_to_multiple_inference_rule:requires-input",
+    "relation_rules.additive_inverse_inference_rule:requires-input",
+    "relation_rules.double_equals_repeated_sum_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_left_composition_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_multiple_inference_rule:requires-input",
+    "relation_rules.equality_preserved_under_right_composition_inference_rule:requires-input",
+    "relation_rules.iterated_suspension_one_bridge_inference_rule:requires-input",
+    "relation_rules.nested_integer_multiple_inference_rule:requires-input",
+    "relation_rules.sum_associativity_inference_rule:requires-input",
+    "relation_rules.sum_commutativity_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_addition_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_inverse_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_known_zero_inference_rule:requires-input",
+    "homomorphism_rules.homomorphism_preserves_multiple_inference_rule:requires-input",
+    "homomorphism_rules.suspension_additivity_bridge_inference_rule:requires-input",
+    "homomorphism_rules.suspension_multiple_bridge_inference_rule:requires-input"
+  ],
+  "relevant_rules": [
+    {
+      "rule_id": "ehp_rules.ehp_exactness_image_implies_kernel_inference_rule",
+      "name": "EHP exactness transfers image structure to kernel",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "ehp_rules.ehp_exactness_implies_zero_composition_inference_rule",
+      "name": "EHP exactness implies zero composition",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "ehp_rules.ehp_exactness_inference_rule",
+      "name": "EHP exactness from image and kernel",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "ehp_rules.ehp_exactness_kernel_implies_image_inference_rule",
+      "name": "EHP exactness transfers kernel structure to image",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "stable_rules.freudenthal_stable_isomorphism_inference_rule",
+      "name": "Freudenthal stable range implies suspension isomorphism",
+      "backward_pattern_candidate": false
+    },
+    {
+      "rule_id": "stable_rules.suspension_isomorphism_implies_injective_inference_rule",
+      "name": "Suspension isomorphism implies injectivity",
+      "backward_pattern_candidate": false
+    },
+    {
+      "rule_id": "set_rules.exactness_implies_subgroup_equality_inference_rule",
+      "name": "exactness implies subgroup equality",
+      "backward_pattern_candidate": false
+    },
+    {
+      "rule_id": "map_property_rules.exactness_and_whole_kernel_implies_whole_image_inference_rule",
+      "name": "exactness and whole kernel imply whole image",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "map_property_rules.exactness_and_zero_image_implies_zero_kernel_inference_rule",
+      "name": "exactness and zero image imply zero kernel",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "map_property_rules.injective_and_surjective_imply_isomorphism_inference_rule",
+      "name": "injectivity and surjectivity imply isomorphism",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "map_property_rules.isomorphism_implies_injective_inference_rule",
+      "name": "isomorphism implies injectivity",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "map_property_rules.kernel_zero_implies_injective_inference_rule",
+      "name": "zero kernel implies injectivity",
+      "backward_pattern_candidate": true
+    },
+    {
+      "rule_id": "map_property_rules.whole_image_implies_surjective_inference_rule",
+      "name": "whole image implies surjectivity",
+      "backward_pattern_candidate": true
+    }
+  ],
+  "next_required_check": "typed quotient/cyclic structure and verified pi43 premises",
+  "proof_generated": false,
+  "proofstep_verified": false,
+  "full_pytest_run": false
+}

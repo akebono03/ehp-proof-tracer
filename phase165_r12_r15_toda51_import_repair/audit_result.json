@@ -1,0 +1,17 @@
+{
+  "phase": "165 R12-R15",
+  "mode": "TODA_51_CITED_ZERO_SPECIALIZATION_SURJECTIVITY",
+  "status": "CERTIFIED",
+  "blocker": null,
+  "surjectivity_proof_certified": true,
+  "toda51_zero_ancestor": true,
+  "proof_ancestry": {
+    "node_count": 5,
+    "given": 2,
+    "inference": 3,
+    "other": 0,
+    "has_general_prop42_ancestor": true
+  },
+  "pi43_proof_certified": false,
+  "full_pytest_run": false
+}

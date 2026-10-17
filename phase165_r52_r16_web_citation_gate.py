@@ -49,6 +49,7 @@ def screen_shared_proof_context(
             and (
                 ":adopted:assertion:" in assertion.assertion_id
                 or ":toda:adopted:prop5.1:finite_dimensional" in assertion.assertion_id
+                or assertion.assertion_id.endswith(":adopted:assertion:prop42:general")
             )
         )
         if adopted:
