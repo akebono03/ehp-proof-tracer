@@ -1,0 +1,17 @@
+{
+  "phase": "165 R12-R16",
+  "kernel_source_status": "CERTIFIED",
+  "surjectivity_source_status": "CERTIFIED",
+  "kernel_conversion": "INFERENCE",
+  "surjectivity_conversion": "INFERENCE",
+  "pi43_proof_certified": false,
+  "remaining_premises": [
+    "certified homomorphism presentation with generator image",
+    "certified infinite cyclic structure of source group",
+    "first-isomorphism and quotient inference chain",
+    "final group relation proof and provenance"
+  ],
+  "full_pytest_run": false,
+  "kernel_multiple": 2,
+  "status": "BRIDGE_READY_PENDING_PROOF_PREMISES"
+}
