@@ -45,9 +45,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         literature = build_typed_literature_bridge(production)
         from phase165_r12_r11_prop42_unified import build_adopted_prop42_general_reference
         from phase165_r12_r15_toda51 import build_adopted_toda51_zero_reference
+        from phase165_r12_r20_eta_definition import build_cited_eta_family_definition
         sources = (production, build_adopted_typed_reference_registry(adopted_tex),
                    build_adopted_prop51_reference(),
-                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex))
+                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex), build_cited_eta_family_definition(Path(__file__).resolve().parent / 'sources' / 'toda' / 'Toda_05_2.tex'))
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -109,6 +110,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             available.append(link.step.conclusion)
 
     from phase165_r12_r15_toda51 import expand_cited_toda51_zero
+    from phase165_r12_r20_eta_definition import expand_cited_eta_definition
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
 
@@ -173,6 +175,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
+        options.extend(expand_cited_eta_definition(goal, tuple(available)))
         if (isinstance(goal, Relation)
                 and goal.relation_type is RelationType.EQUALITY
                 and isinstance(goal.rhs, FreeCyclicGroup)
