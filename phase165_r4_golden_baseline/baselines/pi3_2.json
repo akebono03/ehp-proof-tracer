@@ -1,0 +1,405 @@
+{
+  "case": "pi3_2",
+  "k": 1,
+  "markdown": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n\\]\n\n## 使用する結果\n\n**[R1] (5.1).**\n$\\pi_{i}^{1} = 0\\ (i > 1)$.\n$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\qquad (n \\ge 1)$.\n**[R2] Proposition 5.1.**\n$H(\\eta_{2}) = \\iota_{3}$.\n\n---\n\n## 証明\n\n$\\pi_{3}^{2}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n\\]\n\n[R1]より, $\\pi_{2}^{1} = 0$.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射.\n\n[R1]より, $\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.\n\n[R1]より, $\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$.\n\n$E(\\iota_{1}) = \\iota_{2}$.\n\nこれより, $E: \\pi_{1}^{1} \\to \\pi_{2}^{2}$ は同型.\n\n完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像.\n\n完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射.\n\n単射性と全射性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は同型.\n\n[R1]より, $\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$.\n\n[R2]より, $H(\\eta_{2}) = \\iota_{3}$.\n\n以上より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.\n\n□",
+  "markdown_sha256": "fe4dc20259419e8c38bb49e8be7a8b32cbe47e9690fc99d6a8e859aae15360be",
+  "n": 2,
+  "web_rendered_lines": [
+    {
+      "kind": "heading",
+      "prefix": "証明対象",
+      "segments": [],
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "display_math",
+          "value": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}."
+        }
+      ],
+      "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.",
+      "suffix": ""
+    },
+    {
+      "kind": "heading",
+      "prefix": "使用する結果",
+      "segments": [],
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "**[R1] (5.1).**",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R1] (5.1)."
+        }
+      ],
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{i}^{1} = 0\\ (i > 1)"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{i}^{1} = 0\\ (i > 1)",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\qquad (n \\ge 1)"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\qquad (n \\ge 1)",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "**[R2] Proposition 5.1.**",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R2] Proposition 5.1."
+        }
+      ],
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "H(\\eta_{2}) = \\iota_{3}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "H(\\eta_{2}) = \\iota_{3}",
+      "suffix": "."
+    },
+    {
+      "kind": "separator",
+      "prefix": "",
+      "segments": [],
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "heading",
+      "prefix": "証明",
+      "segments": [],
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{3}^{2}"
+        },
+        {
+          "kind": "text",
+          "value": " の群構造を決定するために, 次の完全列を考える."
+        }
+      ],
+      "statement_latex": "\\pi_{3}^{2}",
+      "suffix": " の群構造を決定するために, 次の完全列を考える."
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "display_math",
+          "value": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}."
+        }
+      ],
+      "statement_latex": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "[R1]より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R1]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{2}^{1} = 0"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{2}^{1} = 0",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "完全性より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "完全性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}"
+        },
+        {
+          "kind": "text",
+          "value": " は単射."
+        }
+      ],
+      "statement_latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}",
+      "suffix": " は単射."
+    },
+    {
+      "kind": "text",
+      "prefix": "[R1]より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R1]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "[R1]より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R1]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "E(\\iota_{1}) = \\iota_{2}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "E(\\iota_{1}) = \\iota_{2}",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "これより, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "これより, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "E: \\pi_{1}^{1} \\to \\pi_{2}^{2}"
+        },
+        {
+          "kind": "text",
+          "value": " は同型."
+        }
+      ],
+      "statement_latex": "E: \\pi_{1}^{1} \\to \\pi_{2}^{2}",
+      "suffix": " は同型."
+    },
+    {
+      "kind": "text",
+      "prefix": "完全性より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "完全性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\operatorname{Im}Δ=\\ker E=0"
+        },
+        {
+          "kind": "text",
+          "value": " なので, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}"
+        },
+        {
+          "kind": "text",
+          "value": " は零写像."
+        }
+      ],
+      "statement_latex": "\\operatorname{Im}Δ=\\ker E=0",
+      "suffix": " なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+    },
+    {
+      "kind": "text",
+      "prefix": "完全性より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "完全性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}"
+        },
+        {
+          "kind": "text",
+          "value": " は全射."
+        }
+      ],
+      "statement_latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}",
+      "suffix": " は全射."
+    },
+    {
+      "kind": "text",
+      "prefix": "単射性と全射性より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "単射性と全射性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}"
+        },
+        {
+          "kind": "text",
+          "value": " は同型."
+        }
+      ],
+      "statement_latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}",
+      "suffix": " は同型."
+    },
+    {
+      "kind": "text",
+      "prefix": "[R1]より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R1]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "[R2]より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R2]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "H(\\eta_{2}) = \\iota_{3}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "H(\\eta_{2}) = \\iota_{3}",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "以上より, ",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "以上より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ],
+      "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "suffix": "."
+    },
+    {
+      "kind": "text",
+      "prefix": "□",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "□"
+        }
+      ],
+      "statement_latex": null,
+      "suffix": ""
+    }
+  ]
+}
