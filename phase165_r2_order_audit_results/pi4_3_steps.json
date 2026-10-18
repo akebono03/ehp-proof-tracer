@@ -1,0 +1,249 @@
+{
+  "group": "pi4_3",
+  "status": "complete",
+  "root_count": 1,
+  "ancestry_count": 25,
+  "steps": [
+    {
+      "index": 0,
+      "statement_type": "TodaEtaFamilyGeneralDefinition",
+      "rule": "given",
+      "inference_name": "Toda chapter V eta-family notation",
+      "premise_count": 0
+    },
+    {
+      "index": 1,
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "rule": "inference",
+      "inference_name": "specialize cited eta-family general definition",
+      "premise_count": 1
+    },
+    {
+      "index": 2,
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "rule": "inference",
+      "inference_name": "specialize cited eta-family general definition",
+      "premise_count": 1
+    },
+    {
+      "index": 3,
+      "statement_type": "GeneratorSuspension",
+      "rule": "inference",
+      "inference_name": "consecutive cited eta definitions imply generator suspension",
+      "premise_count": 2
+    },
+    {
+      "index": 4,
+      "statement_type": "HomomorphismPresentationStatement",
+      "rule": "inference",
+      "inference_name": "cited eta generator suspension yields presentation in target notation",
+      "premise_count": 1
+    },
+    {
+      "index": 5,
+      "statement_type": "Relation",
+      "rule": "given",
+      "inference_name": "Toda (5.1) diagonal cyclic source",
+      "premise_count": 0
+    },
+    {
+      "index": 6,
+      "statement_type": "Relation",
+      "rule": "inference",
+      "inference_name": "generic cited typed scalar specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 7,
+      "statement_type": "TodaDeltaImageUpToSignStatement",
+      "rule": "given",
+      "inference_name": "Adopted literature Proposition 5.1",
+      "premise_count": 0
+    },
+    {
+      "index": 8,
+      "statement_type": "TodaDeltaImageFreeCyclicStatement",
+      "rule": "inference",
+      "inference_name": "free cyclic generator Delta image",
+      "premise_count": 2
+    },
+    {
+      "index": 9,
+      "statement_type": "TodaProp42GeneralExactnessStatement",
+      "rule": "given",
+      "inference_name": "Toda Proposition 4.2 universal EHP exact sequence",
+      "premise_count": 0
+    },
+    {
+      "index": 10,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "rule": "inference",
+      "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 11,
+      "statement_type": "EHPImageEqualsKernelStatement",
+      "rule": "inference",
+      "inference_name": "EHP exactness implies image equals kernel",
+      "premise_count": 1
+    },
+    {
+      "index": 12,
+      "statement_type": "SuspensionKernelFreeCyclicStatement",
+      "rule": "inference",
+      "inference_name": "EHP Delta image and exactness imply concrete suspension kernel",
+      "premise_count": 2
+    },
+    {
+      "index": 13,
+      "statement_type": "KernelMultipleStatement",
+      "rule": "inference",
+      "inference_name": "certified cyclic suspension kernel entails kernel multiple",
+      "premise_count": 1
+    },
+    {
+      "index": 14,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "rule": "inference",
+      "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 15,
+      "statement_type": "Toda51BelowDiagonalZeroStatement",
+      "rule": "given",
+      "inference_name": "Toda (5.1) universal below-diagonal vanishing",
+      "premise_count": 0
+    },
+    {
+      "index": 16,
+      "statement_type": "TodaPrimaryGroupZeroStatement",
+      "rule": "inference",
+      "inference_name": "Toda (5.1) general below-diagonal zero specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 17,
+      "statement_type": "MapSurjective",
+      "rule": "inference",
+      "inference_name": "EHP exactness and zero Hopf target imply suspension surjectivity",
+      "premise_count": 2
+    },
+    {
+      "index": 18,
+      "statement_type": "ImageWholeStatement",
+      "rule": "inference",
+      "inference_name": "EHP suspension surjectivity implies whole image",
+      "premise_count": 1
+    },
+    {
+      "index": 19,
+      "statement_type": "SurjectiveMapStatement",
+      "rule": "inference",
+      "inference_name": "whole image implies surjectivity",
+      "premise_count": 1
+    },
+    {
+      "index": 20,
+      "statement_type": "QuotientIsomorphismStatement",
+      "rule": "inference",
+      "inference_name": "first isomorphism theorem for generated kernel",
+      "premise_count": 3
+    },
+    {
+      "index": 21,
+      "statement_type": "Relation",
+      "rule": "given",
+      "inference_name": "Adopted literature Proposition 5.1",
+      "premise_count": 0
+    },
+    {
+      "index": 22,
+      "statement_type": "CyclicStructureStatement",
+      "rule": "inference",
+      "inference_name": "proved free cyclic group relation implies infinite cyclic structure",
+      "premise_count": 1
+    },
+    {
+      "index": 23,
+      "statement_type": "CyclicStructureStatement",
+      "rule": "inference",
+      "inference_name": "infinite cyclic quotient structure",
+      "premise_count": 2
+    },
+    {
+      "index": 24,
+      "statement_type": "Relation",
+      "rule": "inference",
+      "inference_name": "finite cyclic structure gives group relation",
+      "premise_count": 1
+    }
+  ],
+  "narrative_evidence": [
+    {
+      "line": 6,
+      "text": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}."
+    },
+    {
+      "line": 13,
+      "text": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+    },
+    {
+      "line": 14,
+      "text": "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$."
+    },
+    {
+      "line": 23,
+      "text": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}."
+    },
+    {
+      "line": 26,
+      "text": "infinite cyclic quotient structure"
+    },
+    {
+      "line": 28,
+      "text": "$\\eta_{3}=E\\eta_{2}$."
+    },
+    {
+      "line": 30,
+      "text": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "line": 32,
+      "text": "[R1]より, $\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$."
+    },
+    {
+      "line": 34,
+      "text": "これより, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$."
+    },
+    {
+      "line": 36,
+      "text": "[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$."
+    },
+    {
+      "line": 38,
+      "text": "これより, $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$."
+    },
+    {
+      "line": 42,
+      "text": "完全性より, $E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射."
+    },
+    {
+      "line": 44,
+      "text": "[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+    },
+    {
+      "line": 46,
+      "text": "完全性より, $\\ker E=\\mathbb{Z}\\{2η_{2}\\}$. "
+    },
+    {
+      "line": 48,
+      "text": "全射性と核の決定から, 第一同型定理より $\\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}$. "
+    },
+    {
+      "line": 50,
+      "text": "以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+    }
+  ]
+}
