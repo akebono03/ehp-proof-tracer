@@ -88,10 +88,11 @@ def make_partial_proof_result(
 
 
 def render_partial_proof_markdown(result: PartialProofResult) -> str:
-    """Use the R2 shared model and the canonical Narrative dispatch for any state."""
+    """Route complete results to the restored Narrative; incomplete results to partial."""
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
-    from phase165_renderer_narrative_model import build_narrative_proof_model
-    from toda_group_proof_narrative_renderer import render_narrative_proof_model
-
-    return render_narrative_proof_model(build_narrative_proof_model(result))
+    if result.status is ProofSearchStatus.COMPLETE:
+        from phase165_r56_presentation_adapter import render_completed_shared_narrative
+        return render_completed_shared_narrative(result)
+    from toda_group_proof_narrative_renderer import render_toda_partial_proof_narrative_markdown
+    return render_toda_partial_proof_narrative_markdown(result)
