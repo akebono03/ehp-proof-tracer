@@ -1,0 +1,31 @@
+{
+  "phase": "165 reference-stop R2",
+  "status": "ACTUAL_PI43_SEARCH_AUDITED",
+  "pi32_adopted_fixed_given_admitted": true,
+  "pi32_source_step_is_given": true,
+  "pi32_reference_claim": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "pi43_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "reviewed_proof_development_order_available": true,
+  "publication_order_independently_verified": false,
+  "search_status": "complete",
+  "search_complete": true,
+  "open_goals": [],
+  "proven_step_count": 25,
+  "proof_tree": {
+    "pi32_steps_in_result": 1,
+    "pi32_given_steps_in_result": 1,
+    "generator_suspension_steps_in_result": 1,
+    "generator_suspension_details": [
+      {
+        "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))",
+        "reference": null,
+        "premise_count": 2
+      }
+    ],
+    "pi32_root_reached_by_step_object_edges": true,
+    "note": "Object-edge ancestry is indicative only: some proof formats store premises as statements."
+  },
+  "fixed_given_stop_observed": true,
+  "source_files_modified": false,
+  "full_pytest_run": false
+}

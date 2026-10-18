@@ -93,13 +93,6 @@ def reconstruct_registered_goal(
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
-            if completed_internal_proofs:
-                from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
-                internal = find_reusable_internal_proof(target, goal, completed_internal_proofs)
-                if internal is not None:
-                    solved.append((target, internal))
-                    report("proved", target, internal)
-                    return internal
             if lookup_mode == "typed_reference_ordered":
                 from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
                 options = list(ordered_typed_reference_steps(
@@ -122,6 +115,14 @@ def reconstruct_registered_goal(
                 solved.append((target, step))
                 report("proved", target, step)
                 return step
+            # phase165_reference_stop_r3: direct eligible source before prior internal proof
+            if completed_internal_proofs:
+                from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
+                internal = find_reusable_internal_proof(target, goal, completed_internal_proofs)
+                if internal is not None:
+                    solved.append((target, internal))
+                    report("proved", target, internal)
+                    return internal
             expansions = expansion_provider(target)
             if not isinstance(expansions, tuple):
                 raise TypeError("expansion provider must return a tuple")
