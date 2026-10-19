@@ -2450,7 +2450,6 @@
   "tests/test_phase145_group_proof_defaults.py::test_phase145_cli_explicit_trace_depth1_is_preserved": true,
   "tests/test_phase145_group_proof_defaults.py::test_phase145_web_explicit_trace_depth1_is_preserved": true,
   "tests/test_phase148_rc2_4_repair_r4_1_r1.py::test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api": true,
-  "tests/test_phase157_r5_r4_generic_reference_selection.py::test_phase157_r5_r4_generic_filter_applies_without_representative_target_guard": true,
   "tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_web_uses_derived_common_markdown[4]": true,
   "tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_web_uses_derived_common_markdown[5]": true,
   "tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_public_web_view_uses_derived_steps[4]": true,

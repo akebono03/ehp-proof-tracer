@@ -1,0 +1,11 @@
+{
+  "phase": "165 R6-20 fix",
+  "status": "TARGETED_PASS",
+  "modified_file": "toda_group_proof_narrative_references.py",
+  "changed_function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\r6_20_reference_filter_fix\\20261019T103852Z\\toda_group_proof_narrative_references.py",
+  "before_sha256": "aedb76036239f026bc6b6c8a101db672ceed73c335436511806b172258d5baab",
+  "after_sha256": "b491e2728337b2c5c5f10372ec1c0a69f8f61b06e3344a8964c187fd69229085",
+  "pytest_returncode": 0,
+  "full_pytest_run": false
+}
