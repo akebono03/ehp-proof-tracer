@@ -1,0 +1,688 @@
+﻿csv_line,n,k,source_text,category,proposed_locator,match_status,reference_ids,candidate_assertion_ids,typed_relation_verified,mathematical_equivalence_verified,citation_eligible,proof_step_granted
+2,,2,,missing,,unparsed_or_missing,[],[],False,False,False,False
+3,3.0,3,"(5.3), \ \eta_{3}^{3}=2\nu'",toda_equation,(5.3),unmatched_locator,[],[],False,False,False,False
+4,3.0,3,"(5.3), \ \eta_{3}^{3}=2\nu'",toda_equation,(5.3),unmatched_locator,[],[],False,False,False,False
+5,4.0,3,"(5.3), \ \eta_{3}^{3}=2\nu'",toda_equation,(5.3),unmatched_locator,[],[],False,False,False,False
+6,4.0,3,,missing,,unparsed_or_missing,[],[],False,False,False,False
+7,5.0,3,"(5.5), \ E^2\nu'=2\nu_5",toda_equation,(5.5),unmatched_locator,[],[],False,False,False,False
+8,3.0,3,"(5.3), \ \eta_{3}^{3}=2\nu'",toda_equation,(5.3),unmatched_locator,[],[],False,False,False,False
+9,5.0,3,"(5.5), \ E^2\nu'=2\nu_5",toda_equation,(5.5),unmatched_locator,[],[],False,False,False,False
+10,3.0,4,E (\eta_2\nu')=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+11,5.0,4,E(E \nu'\eta_7)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+12,3.0,4,"(5.9), \ \eta_{3}\nu_{4}=\nu'\eta_{6}",toda_equation,(5.9),unmatched_locator,[],[],False,False,False,False
+13,4.0,4,"(5.9), \ \eta_{3}\nu_{4}=\nu'\eta_{6}",toda_equation,(5.9),unmatched_locator,[],[],False,False,False,False
+14,5.0,4,"(5.9), \ \eta_5\nu_6=0",toda_equation,(5.9),unmatched_locator,[],[],False,False,False,False
+15,6.0,4,"Prop3.1, \ \eta_6\nu_7=\nu_6\eta_9",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+16,3.0,5,E (\eta_2\nu'\eta_6)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+17,5.0,5,E(E \nu'\eta_{7}^2)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+18,6.0,5,E (\nu_5\eta_{8}^2)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+19,3.0,6,E (\eta_2\nu'\eta_{6}^2)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+20,3.0,6,\nu'\nu_6 \in \pi_{9}^3=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+21,6.0,7,"Lem5.14, \ E (\sigma''')=2\sigma''",toda_lemma,Lemma 5.14,unmatched_locator,[],[],False,False,False,False
+22,7.0,7,"Lem5.14, \ E (\sigma'')=2\sigma'",toda_lemma,Lemma 5.14,unmatched_locator,[],[],False,False,False,False
+23,9.0,7,"Lem5.14, \ E^2 \sigma'=2\sigma_9",toda_lemma,Lemma 5.14,unmatched_locator,[],[],False,False,False,False
+24,5.0,7,"p57, \ (2\iota_5)\sigma'''=0",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+25,9.0,7,"[O] (2.5), \ \alpha_{0}^{IV}=\sigma_9",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+26,7.0,7,"[O] (2.5), \ \alpha_{0}{'''}=\sigma'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+27,6.0,7,"[O] (2.5), \ \alpha_{0}{''}=\sigma''",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+28,5.0,7,"[O] (2.5), \ \alpha_{0}{'}=\sigma'''",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+29,9.0,8,E (E \sigma'\eta_{15})=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+30,10.0,8,"Lem6.4, \ \sigma_{10}\eta_{17}=\bar{\nu}_{10}+\varepsilon_{10}",toda_lemma,Lemma 6.4,unmatched_locator,[],[],False,False,False,False
+31,9.0,8,"Lem6.4, \ \eta_{9}\sigma_{10}=\bar{\nu}_9+\varepsilon_9",toda_lemma,Lemma 6.4,unmatched_locator,[],[],False,False,False,False
+32,10.0,8,"Lem6.4, \ \eta_{10}\sigma_{11}=\bar{\nu}_{10}+\varepsilon_{10}",toda_lemma,Lemma 6.4,unmatched_locator,[],[],False,False,False,False
+33,7.0,8,"(7.4), \ \eta_7\sigma_8=\sigma'\eta_{14}+\bar{\nu}_7+\varepsilon_7",toda_equation,(7.4),unmatched_locator,[],[],False,False,False,False
+34,6.0,8,"(7.4), \ \eta_6\sigma'=4\bar{\nu}_6",toda_equation,(7.4),unmatched_locator,[],[],False,False,False,False
+35,6.0,8,"(7.4), \ \sigma''\eta_{13}=4\bar{\nu}_6",toda_equation,(7.4),unmatched_locator,[],[],False,False,False,False
+36,5.0,8,"(7.4), \ \eta_5\sigma''=0",toda_equation,(7.4),unmatched_locator,[],[],False,False,False,False
+37,5.0,8,"(7.4), \ \sigma'''\eta_{12}=0",toda_equation,(7.4),unmatched_locator,[],[],False,False,False,False
+38,4.0,8,"(7.4), \ \eta_4\sigma'''=0",toda_equation,(7.4),unmatched_locator,[],[],False,False,False,False
+39,9.0,9,E (E \sigma'\eta_{15}^2)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+40,10.0,9,E (\sigma_9\eta_{16}^2)=\nu_{10}^3+\eta_{10}\varepsilon_{11},other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+41,6.0,9,"Lem6.3, \ \bar{\nu}_{6}\eta_{14}=\nu_{6}^3",toda_lemma,Lemma 6.3,unmatched_locator,[],[],False,False,False,False
+42,6.0,9,"Lem6.3, \ \eta_{6}\bar{\nu}_{7}=\nu_{6}^3",toda_lemma,Lemma 6.3,unmatched_locator,[],[],False,False,False,False
+43,5.0,9,"(7.3), \ \eta_{5}\bar{\nu}_6=\nu_{5}^3",toda_equation,(7.3),unmatched_locator,[],[],False,False,False,False
+44,3.0,9,"(7.5), \ \varepsilon_3\eta_{11}=\eta_3\varepsilon_4",toda_equation,(7.5),unmatched_locator,[],[],False,False,False,False
+45,8.0,9,"Prop3.1, \ \eta_{8}\bar{\nu}_{9}=\bar{\nu}_{8}\eta_{16} \ (=\nu_{8}^3)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+46,8.0,9,"Prop3.1, \ \eta_{8}\bar{\nu}_{9}=\bar{\nu}_{8}\eta_{16} \ (=\nu_{8}^3)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+47,5.0,9,"Prop3.1, \ \eta_5\varepsilon_6=\varepsilon_5\eta_{13}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+48,5.0,9,"Prop3.1, \ \eta_5\varepsilon_6=\varepsilon_5\eta_{13}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+49,3.0,10,"Lem6.6, \ E (\eta_{2}^2\varepsilon_{4})=2\varepsilon'",toda_lemma,Lemma 6.6,unmatched_locator,[],[],False,False,False,False
+50,5.0,10,E (\nu_4\sigma')=\pm 2\nu_5\sigma_8,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+51,5.0,10,"(7.10), \ E (E \varepsilon')=\pm 2\nu_5\sigma_8",toda_equation,(7.10),unmatched_locator,[],[],False,False,False,False
+52,9.0,10,E (\nu_8\sigma_{11})=2\sigma_9\nu_{16},other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+53,12.0,10,"(7.20), \ \sigma_{12}\nu_{19}=0",toda_equation,(7.20),unmatched_locator,[],[],False,False,False,False
+54,7.0,10,"(7.19), \ \sigma'\nu_{14}=x\nu_7\sigma_{10}, \ x:odd",toda_equation,(7.19),unmatched_locator,[],[],False,False,False,False
+55,5.0,10,"Prop3.1, \ \eta_5\mu_6=\mu_5\eta_{14}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+56,5.0,10,"Prop3.1, \ \eta_5\mu_6=\mu_5\eta_{14}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+57,12.0,10,"Prop3.1, \ \nu_{12}\sigma_{15}=\sigma_{12}\nu_{19} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+58,5.0,10,"[T] (6.2), \ {\sigma'''}{\nu_{12}} \equiv \eta_5^2\varepsilon_7 (=4{\nu_{5}}{\sigma_{8}}) \mod 4({\nu_{5}}{E\sigma'})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+59,3.0,11,"(7.7), \ 2\mu'=\eta_3^2\mu_5",toda_equation,(7.7),unmatched_locator,[],[],False,False,False,False
+60,5.0,11,E (\nu_4\sigma'\eta_{14})=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+61,5.0,11,"(7.14), \ E (E \mu')=\pm 2\zeta_5",toda_equation,(7.14),unmatched_locator,[],[],False,False,False,False
+62,5.0,11,"(7.12), \ E (\varepsilon_4\nu_{12})=0",toda_equation,(7.12),unmatched_locator,[],[],False,False,False,False
+63,5.0,11,E (E \nu'\varepsilon_7)=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+64,3.0,11,"(7.12), \ \nu' \bar{\nu}_6=\varepsilon_3\nu_{11}",toda_equation,(7.12),unmatched_locator,[],[],False,False,False,False
+65,3.0,11,"(7.12), \ \varepsilon'\eta_{13}=\nu'\varepsilon_6",toda_equation,(7.12),unmatched_locator,[],[],False,False,False,False
+66,6.0,11,"(7.18), \ \nu_6\varepsilon_9=2\bar{\nu}_6\nu_{14}",toda_equation,(7.18),unmatched_locator,[],[],False,False,False,False
+67,6.0,11,"(7.17)(7.18), \ \nu_6\bar{\nu}_9=\nu_6\varepsilon_9=2\bar{\nu}_6\nu_{14}",toda_equation,(7.17),unmatched_locator,[],[],False,False,False,False
+68,7.0,11,"Prop3.1, \ \nu_7\varepsilon_{10}=\varepsilon_7\nu_{15} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+69,10.0,11,"Prop3.1, \ \nu_{10}\bar{\nu}_{13}=\bar{\nu}_{10}\nu_{18} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+70,10.0,11,"Prop3.1, \ \nu_{10}\bar{\nu}_{13}=\bar{\nu}_{10}\nu_{18} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+71,3.0,12,"Lem5.7, \ E (\eta_2\nu')=0",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+72,3.0,12,"Lem5.7, \ E (\eta_2\nu')=0",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+73,6.0,12,"(7.25), \ 8\Delta(\sigma_{13})=\nu_6\mu_9",toda_equation,(7.25),unmatched_locator,[],[],False,False,False,False
+74,14.0,12,"p81, \ E (E \theta)=0",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+75,13.0,12,E ^2\theta'=0,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+76,7.0,12,"Prop3.1, \ \eta_7\zeta_8=\zeta_7\eta_{18}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+77,7.0,12,"Prop3.1, \ \nu_7\mu_{10}=\mu_7\nu_{16}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+78,5.0,12,"[MMO] (2.7), \ \eta_5\zeta_6=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+79,12.0,12,"[O] (2.1), \ A_1\equiv \theta \mod E \theta'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+80,11.0,12,C_1=\theta',other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+81,5.0,12,"[O2] Prop2.2(1), \ {\zeta_{5}}{\eta_{16}} \equiv {\nu_{5}}{\mu_{8}} \mod {\nu_{5}^{4}},{\nu_{5}}{\eta_{8}}{\varepsilon_{9}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+82,3.0,12,"[O2] Prop2.3(1), \ {\mu_{3}}{\nu_{12}} = {\nu'}{\eta_{6}}{\varepsilon_{7}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+83,3.0,13,"Lem5.7, \ E (\eta_2\nu')=0",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+84,3.0,13,"Lem5.7, \ E (\eta_2\nu')=0",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+85,5.0,14,"(7.13), \ \Delta(\bar{\nu}_9)=\varepsilon_4\nu_{12}",toda_equation,(7.13),unmatched_locator,[],[],False,False,False,False
+86,6.0,14,"(10.7), \ \nu_6\zeta_9=2\sigma''\sigma_{13}",toda_equation,(10.7),unmatched_locator,[],[],False,False,False,False
+87,6.0,14,"p100, \ \Delta(\sigma_{11}\nu_{18})=\nu_5\bar{\nu}_8\nu_{16}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+88,7.0,14,"Lem5.14, \ E \sigma''=2\sigma'",toda_lemma,Lemma 5.14,unmatched_locator,[],[],False,False,False,False
+89,7.0,14,"[MT] (15.5), \ 2\kappa_7=\bar{\nu}_7\nu_{15}^2",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+90,9.0,14,"(5.16), \ \Delta(\iota_{17})=\pm (2\sigma_8-E \sigma')",toda_equation,(5.16),unmatched_locator,[],[],False,False,False,False
+91,9.0,14,"Prop3.1, \ \nu_9\zeta_{12}=\zeta_9\nu_{20} \  (=8\sigma_{9}^2)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+92,9.0,14,"Prop3.1, \ \nu_9\zeta_{12}=\zeta_9\nu_{20} \  (=8\sigma_{9}^2)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+93,7.0,14,"[MT] (15.5), \ 2\kappa_7=\bar{\nu}_7\nu_{15}^2",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+94,12.0,14,"[O3] Prop2.3(2), \ {A_{1}}{\eta_{24}^{2}} = 8{\sigma_{12}^{2}} + 2{\Delta(\nu_{25})}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+95,3.0,15,"p104, \ E (\eta_2\varepsilon_3\nu_{11}^2)=0",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+96,6.0,15,"(10.15), \ E \rho^{IV}=2\rho'''",toda_equation,(10.15),unmatched_locator,[],[],False,False,False,False
+97,7.0,15,"(10.16), \ E \rho'''=2\rho''",toda_equation,(10.16),unmatched_locator,[],[],False,False,False,False
+98,9.0,15,"Lem10.6, \ E ^2\rho''\equiv 2\rho' \mod\{\sigma_9\bar{\nu}_{16}\}+\{\sigma_9\varepsilon_{16}\}",toda_lemma,Lemma 10.6,unmatched_locator,[],[],False,False,False,False
+99,9.0,15,"Lem5.14, \ E ^2\sigma'=2\sigma_9",toda_lemma,Lemma 5.14,unmatched_locator,[],[],False,False,False,False
+100,9.0,15,"Lem5.14, \ E ^2\sigma'=2\sigma_9",toda_lemma,Lemma 5.14,unmatched_locator,[],[],False,False,False,False
+101,10.0,15,"(10.18), \ \sigma_{10}\bar{\nu}_{17}=\sigma_{10}\varepsilon_{17}",toda_equation,(10.18),unmatched_locator,[],[],False,False,False,False
+102,11.0,15,"(10.18), \ E (\sigma_{10}\bar{\nu}_{17})=0",toda_equation,(10.18),unmatched_locator,[],[],False,False,False,False
+103,13.0,15,"Lem10.9, \ 2\rho_{13}=E ^4\rho'",toda_lemma,Lemma 10.9,unmatched_locator,[],[],False,False,False,False
+104,3.0,15,"Lem10.7, \ \varepsilon_3\sigma_{11}=0",toda_lemma,Lemma 10.7,unmatched_locator,[],[],False,False,False,False
+105,6.0,15,"Lem10.7, \ \bar{\nu}_6\sigma_{14}=0",toda_lemma,Lemma 10.7,unmatched_locator,[],[],False,False,False,False
+106,11.0,15,"Prop3.1, \ \sigma_{11}\varepsilon_{18}=\varepsilon_{11}\sigma_{19} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+107,6.0,15,"(10.23), \ \eta_6\kappa_7=\bar{\varepsilon}_6",toda_equation,(10.23),unmatched_locator,[],[],False,False,False,False
+108,9.0,15,"[MT] (15.3), \ \kappa_9\eta_{23}=\bar{\varepsilon}_9",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+109,9.0,15,"Prop3.1, \ \eta_9\kappa_{10}=\kappa_9\eta_{23} \ (=\bar{\varepsilon}_9)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+110,14.0,15,"Prop3.1, \ \sigma_{14}\bar{\nu}_{21}=\bar{\nu}_{14}\sigma_{22} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+111,11.0,15,"Prop3.1, \ \sigma_{11}\varepsilon_{18}=\varepsilon_{11}\sigma_{19} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+112,14.0,15,"Prop3.1, \ \sigma_{14}\bar{\nu}_{21}=\bar{\nu}_{14}\sigma_{22} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+113,6.0,15,"p135, \ \sigma''\varepsilon_{13}=0",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+114,7.0,15,"[MT] (15.3)', \  \kappa_7\eta_{21}=\sigma'\bar{\nu}_{14}+\bar{\varepsilon}_7",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+115,10.0,15,"[MMO] (2.3), \  \sigma_{10}^2\eta_{24}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+116,6.0,15,"[O] Prop3.1(1), \  \eta_6\sigma'\sigma_{14}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+117,9.0,15,"[O] (2.5), \  \alpha_{1}^{IV}=\rho'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+118,7.0,15,"[O] (2.5), \  \alpha_{1}{'''}=\rho''",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+119,6.0,15,"[O] (2.5), \  \alpha_{1}{''}=\rho'''",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+120,5.0,15,"[O] (2.5), \  \alpha_{1}{'}=\rho^{IV}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+121,9.0,16,"p142, \ \Delta(\mu_{17})=E \sigma'\mu_{15}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+122,9.0,16,"p142, \ \Delta(\eta_{17}\varepsilon_{18})=E^2\zeta'",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+123,9.0,16,"p142, \ \Delta(\nu_{17}^3)=\eta_8\bar{\varepsilon}_9",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+124,10.0,16,\Delta(\bar{\nu}_{19})\equiv \sigma_9\nu_{16}^3 \mod E^3\pi_{22}^6,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+125,10.0,16,\Delta(\varepsilon_{19})\equiv \sigma_9\eta_{16}\varepsilon_{17} \mod E^3\pi_{22}^6,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+126,10.0,16,"p156, \ \Delta(8\sigma_{21})=\sigma_{10}\mu_{17}+\mu_{10}\sigma_{19}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+127,17.0,16,"p160, \ \Delta(\eta_{33})\equiv E \eta^{*}{'} \mod E^2\pi_{30}^{14}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+128,18.0,16,"Prop12.20, \ \eta^{*}_{18}\equiv \omega_{18} \mod \sigma_{18}\mu_{25}",toda_proposition,Proposition 12.20,unmatched_locator,[],[],False,False,False,False
+129,7.0,16,"(12.4), \  \sigma'\eta_{14}\varepsilon_{15}=E \zeta'",toda_equation,(12.4),unmatched_locator,[],[],False,False,False,False
+130,5.0,16,"Lem12.10, \  \nu_5\sigma_8\nu_{15}^2=\eta_5\bar{\varepsilon}_6",toda_lemma,Lemma 12.10,unmatched_locator,[],[],False,False,False,False
+131,3.0,16,"Lem12.10, \  \varepsilon_{3}^2=\eta_3\bar{\varepsilon}_4",toda_lemma,Lemma 12.10,unmatched_locator,[],[],False,False,False,False
+132,3.0,16,"Lem12.10, \  \varepsilon_3\bar{\nu}_{11}=\eta_3\bar{\varepsilon}_4",toda_lemma,Lemma 12.10,unmatched_locator,[],[],False,False,False,False
+133,3.0,16,"Lem12.10, \  \bar{\varepsilon}_3\eta_{18}=\eta_3\bar{\varepsilon}_4",toda_lemma,Lemma 12.10,unmatched_locator,[],[],False,False,False,False
+134,13.0,16,"Prop12.20, \  \eta_{13}\rho_{14}=\sigma_{13}\mu_{20}",toda_proposition,Proposition 12.20,unmatched_locator,[],[],False,False,False,False
+135,13.0,16,"Prop12.20, \  \rho_{13}\eta_{28}=\sigma_{13}\mu_{20}",toda_proposition,Proposition 12.20,unmatched_locator,[],[],False,False,False,False
+136,12.0,16,"Prop12.20, \  \eta_{12}\rho_{13}=\sigma_{12}\mu_{19}",toda_proposition,Proposition 12.20,unmatched_locator,[],[],False,False,False,False
+137,5.0,16,"Prop3.1, \  \bar{\varepsilon}_5\eta_{20}=\eta_5\bar{\varepsilon}_6",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+138,5.0,16,"Prop3.1, \  \bar{\varepsilon}_5\eta_{20}=\eta_5\bar{\varepsilon}_6",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+139,15.0,16,"Prop3.1, \  \rho_{15}\eta_{30}=\eta_{15}\rho_{16} \ (=\sigma_{13}\mu_{20})",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+140,15.0,16,"Prop3.1, \  \rho_{15}\eta_{30}=\eta_{15}\rho_{16} \ (=\sigma_{13}\mu_{20})",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+141,11.0,16,"Prop3.1, \  \sigma_{11}\mu_{18}=\mu_{11}\sigma_{20}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+142,9.0,16,"Prop3.1, \  \varepsilon_9\bar{\nu}_{17}=\bar{\nu}_9\varepsilon_{17} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+143,11.0,16,"Prop3.1, \  \sigma_{11}\mu_{18}=\mu_{11}\sigma_{20}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+144,9.0,16,"Prop3.1, \  \varepsilon_9\bar{\nu}_{17}=\bar{\nu}_9\varepsilon_{17} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+145,16.0,16,"[O] (2.1), \ B_{1}\equiv \eta^{*}_{16}+\omega_{16} \mod E \eta^{*}{'} , \ \sigma_{16}\mu_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+146,15.0,16,"[O] (2.1), \ D_1=\eta^{*}{'} \mod \sigma_{15}\mu_{22}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+147,6.0,16,"[O] (2.1), \  G_0=\zeta' \mod 2\zeta' ,\eta_6\bar{\varepsilon}_7",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+148,9.0,16,"[MT] (15.4), \  \eta_{9}^2\kappa_{11}=\kappa_9\eta_{23}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+149,9.0,16,"[MT] (15.4), \  \eta_{9}^2\kappa_{11}=\kappa_9\eta_{23}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+150,9.0,16,"[O3] Prop2.2(4), \ {\eta_{9}}{E\rho'} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+151,10.0,16,"[O3] Prop2.2(4), \ {E\rho'}{\eta_{25}} = 8{\Delta(\sigma_{21})}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+152,3.0,17,"Lem12.3, \ 2\bar{\varepsilon}'=\eta_{3}^2\bar{\varepsilon}_5",toda_lemma,Lemma 12.3,unmatched_locator,[],[],False,False,False,False
+153,5.0,17,"p144, \ \Delta(\sigma_{9}^2)=x(\nu_4\sigma'\sigma_{14})\pm E \varepsilon'\sigma_{14}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+154,5.0,17,"p144, \ \Delta(\kappa_9)=\pm (2(\nu_4\kappa_7)-E \bar{\varepsilon}')",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+155,9.0,17,"(5.16), \ \Delta(\iota_{17})=\pm (2\sigma_8-E \sigma')",toda_equation,(5.16),unmatched_locator,[],[],False,False,False,False
+156,10.0,17,"(12.21), \ \Delta(\mu_{19})=\eta_9\mu_{10}\sigma_{19}+\sigma_9\eta_{16}\mu_{17}",toda_equation,(12.21),unmatched_locator,[],[],False,False,False,False
+157,17.0,17,"p160, \ \Delta(\eta^{*}{'}\eta_{32} \mod E ^2\pi_{31}^{14}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+158,18.0,17,"Prop3.1, \ \eta_{18}\eta^{*}_{19}=\eta^{*}_{18}\eta_{34}=0",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+159,4.0,17,"Lem12.3, \ E \nu'\kappa_7=E \bar{\varepsilon}'",toda_lemma,Lemma 12.3,unmatched_locator,[],[],False,False,False,False
+160,5.0,17,"p145, \ \nu_{5}^2\zeta_{11}=0",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+161,14.0,17,\omega_{14}\eta_{30}=\varepsilon^{*}_{14},other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+162,16.0,17,"Prop3.1, \ \omega_{16}\eta_{32}=\eta_{16}\omega_{17} \ (=\varepsilon^{*}_{16})",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+163,18.0,17,"Prop3.1, \ \eta_{18}\eta^{*}_{19}=\eta^{*}_{18}\eta_{34}=0",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+164,16.0,17,"Prop3.1, \ \omega_{16}\eta_{32}=\eta_{16}\omega_{17} \ (=\varepsilon^{*}_{16})",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+165,11.0,17,"Prop3.1, \ \nu_{11}\kappa_{14}=\kappa_{11}\nu_{25}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+166,6.0,17,"Prop3.1, \ \varepsilon_6\mu_{14}=\mu_6\varepsilon_{15}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+167,9.0,17,"Prop3.1, \ \bar{\nu}_9\mu_{17}=\mu_9\bar{\nu}_{18}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+168,11.0,17,"Prop3.1, \ \nu_{11}\kappa_{14}=\kappa_{11}\nu_{25}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+169,6.0,17,"Prop3.1, \ \varepsilon_6\mu_{14}=\mu_6\varepsilon_{15}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+170,9.0,17,"Prop3.1, \ \bar{\nu}_9\mu_{17}=\mu_9\bar{\nu}_{18}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+171,3.0,17,"[MMO] (2.1), \ \mu_3\bar{\nu}_{12}\equiv 0 \mod 2\bar{\varepsilon}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+172,3.0,17,"[MMO] (2.1), \ \mu_3\varepsilon_{12}\equiv \eta_3\mu_4\sigma_{13} \mod 2\bar{\varepsilon}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+173,5.0,17,"[MMO] (2.1), \ {\mu_{5}}{\bar{\nu}_{14}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+174,3.0,18,"Lem5.7, \ E (\eta_2\bar{\varepsilon}')=0",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+175,3.0,18,"(7.7), \ 2\mu'=\eta_{3}^2\mu_5",toda_equation,(7.7),unmatched_locator,[],[],False,False,False,False
+176,5.0,18,"p147, \ \Delta(\rho')=x \nu_{4}\rho''+ \ some",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+177,5.0,18,"p147, \ \Delta(\sigma_9\bar{\nu}_{16})=\nu_4\sigma'\bar{\nu}_{14}+E (\varepsilon'\bar{\nu}_{13})",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+178,5.0,18,"p147, \ \Delta(\sigma_9\varepsilon_{16})=\nu_4\sigma'\varepsilon_{14}+E (\varepsilon'\varepsilon_{13})",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+179,5.0,18,"(5.8), \ \Delta(\bar{\varepsilon}_9)=E \nu'\bar{\varepsilon}_7",toda_equation,(5.8),unmatched_locator,[],[],False,False,False,False
+180,5.0,18,"(7.14), \ 2\zeta_5=\pm E^2\mu'",toda_equation,(7.14),unmatched_locator,[],[],False,False,False,False
+181,6.0,18,"p148, \ \Delta(\kappa_{11})=\nu_5\bar{\varepsilon}_8",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+182,9.0,18,"p148, \ \Delta(\zeta_{17})=\pm (2\sigma_8\zeta_{15}-x\zeta_8\sigma_{19}) , \ x:odd",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+183,10.0,18,"Unknown , \ E (\sigma_{9}\zeta_{16})=\pm 2\lambda''+ \ some",other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+184,11.0,18,"Lem12.19, \ E \lambda''=2\lambda'",toda_lemma,Lemma 12.19,unmatched_locator,[],[],False,False,False,False
+185,11.0,18,"Lem12.19, \ E \xi''=2\xi'",toda_lemma,Lemma 12.19,unmatched_locator,[],[],False,False,False,False
+186,13.0,18,"Lem12.19, \ E ^2\lambda'=2\lambda",toda_lemma,Lemma 12.19,unmatched_locator,[],[],False,False,False,False
+187,13.0,18,"Lem12.19, \ E \xi'-2\xi_{12}=\pm \Delta(\sigma_{25})",toda_lemma,Lemma 12.19,unmatched_locator,[],[],False,False,False,False
+188,17.0,18,"Lem12.18, \ E^{3}\lambda-2\nu^{*}_{16}=\pm \Delta(\nu_{33})",toda_lemma,Lemma 12.18,unmatched_locator,[],[],False,False,False,False
+189,20.0,18,"Cor12.25, \ \Delta(\iota_{39})=\nu^{*}_{19}+\xi_{19}",other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+190,7.0,18,"Lem12.12, \ \sigma'\zeta_{14}=x\zeta_7\sigma_{18}, \ x:odd",toda_lemma,Lemma 12.12,unmatched_locator,[],[],False,False,False,False
+191,5.0,18,"Prop3.1, \ \eta_5\bar{\mu}_6=\bar{\mu}_5\eta_{22}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+192,5.0,18,"Prop3.1, \ \eta_5\bar{\mu}_6=\bar{\mu}_5\eta_{22}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+193,14.0,18,"Prop3.1, \ \eta_{14}\varepsilon^{*}_{15}=\varepsilon^{*}_{14}\eta_{31}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+194,7.0,18,"Prop3.1 , \ [MMO] (2.2), \ \nu_7\bar{\varepsilon}_{10}=\bar{\varepsilon}_7\nu_{22} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+195,17.0,18,"Prop3.1, \ \nu_{17}\rho_{20}=-\rho_{17}\nu_{32}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+196,13.0,18,"Prop3.1, \ \sigma_{13}\zeta_{20}=\zeta_{13}\sigma_{24} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+197,7.0,18,"Prop3.1, \ \nu_7\bar{\varepsilon}_{10}=\bar{\varepsilon}_7\nu_{22} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+198,17.0,18,"Prop3.1, \ \nu_{17}\rho_{20}=-\rho_{17}\nu_{32}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+199,13.0,18,"Prop3.1, \ \sigma_{13}\zeta_{20}=\zeta_{13}\sigma_{24} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+200,6.0,18,"[MMO] (2.1), \ \nu_6\rho'\equiv 0 \mod 2\zeta_6\sigma_{17}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+201,9.0,18,"[MMO] (2.3), \ \eta_9\mu_{10}\varepsilon_{19}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+202,11.0,18,"[MMO] (2.3), \ \zeta_{11}\sigma_{22}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+203,6.0,18,"[O] Prop3.1(1), \ \nu_{6}^2\theta=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+204,9.0,18,"[O] Prop3.5(7), \ \eta_{9}^2\sigma_{11}\mu_{18}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+205,5.0,18,"[O3] Prop2.4(1), \ {\nu_{5}}{\sigma_{8}^{2}}{\eta_{22}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+206,3.0,19,"p149, \ \Delta(\zeta_5\sigma_{16})\equiv \pm (\eta_2\mu'\sigma_{14}) \mod \{ \eta_2\nu'\bar{\varepsilon}_6 \}+ \{\eta_{2}^2\bar{\mu}_4 \}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+207,3.0,19,"Lem5.7, \ \Delta(\nu_5)=\pm (\eta_2\nu')",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+208,3.0,19,"Lem12.4, \ 2\bar{\mu}'=\eta_{3}^2\bar{\mu}_5",toda_lemma,Lemma 12.4,unmatched_locator,[],[],False,False,False,False
+209,5.0,19,"p150, \ \Delta(\sigma_9\mu_{16})=\nu_4\sigma'\mu_{14}+E (\varepsilon'\mu_{13})",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+210,5.0,19,"p150, \ \Delta(\sigma_9\eta_{16}\varepsilon_{17})=\nu_4E \zeta'+E (\varepsilon'\eta_{13}\varepsilon_{14})",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+211,5.0,19,"p150, \ \Delta(\sigma_9\nu_{16}^3)=\nu_4\eta_7\bar{\varepsilon}_8+E (\varepsilon'\nu_{13}^3)",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+212,5.0,19,"Lem12.4, \ E^2\bar{\mu}'=2\bar{\zeta}_5",toda_lemma,Lemma 12.4,unmatched_locator,[],[],False,False,False,False
+213,5.0,19,"p150, \ \Delta(\mu_9\sigma_{18})=E \nu'\mu_7\sigma_{16}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+214,6.0,19,"p151, \ 16\bar{\sigma}_6=\nu_6\mu_9\sigma_{18}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+215,13.0,19,"(12.26), \ P\pi_{33}^{25}=\{E \lambda'\eta_{30} \}\oplus \{E \xi'\eta_{30} \}",toda_equation,(12.26),unmatched_locator,[],[],False,False,False,False
+216,13.0,19,"(12.26), \ P\pi_{33}^{25}=\{E \lambda'\eta_{30} \}\oplus \{E \xi'\eta_{30} \}",toda_equation,(12.26),unmatched_locator,[],[],False,False,False,False
+217,14.0,19,"Lem12.21, \ E^2\omega'=2\omega_{14}\nu_{30}",toda_lemma,Lemma 12.21,unmatched_locator,[],[],False,False,False,False
+218,14.0,19,"p166, \ \Delta(\sigma_{27})=\xi_{13}\eta_{31}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+219,18.0,19,"p170, \ \Delta(\nu_{35})=\omega_{17}\nu_{33}",page_reference,,unparsed_or_missing,[],[],False,False,False,False
+220,14.0,19,"Prop3.1, \ \eta_{14}\xi_{15}=\xi_{14}\eta_{32} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+221,18.0,19,"Prop3.1, \ \eta_{18}\nu^{*}_{19}=\nu^{*}_{18}\eta_{36}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+222,18.0,19,"Prop3.1, \ \nu_{18}\omega_{21}=\omega_{18}\nu_{34} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+223,20.0,19,"Prop3.1, \ \nu_{20}\eta^{*}_{23}=\eta^{*}_{20}\nu_{36} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+224,8.0,19,"Prop3.1, \ \varepsilon_8\zeta_{16}=\zeta_8\varepsilon_{19}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+225,11.0,19,"Prop3.1, \ \bar{\nu}_{11}\zeta_{19}=\zeta_{11}\bar{\nu}_{22}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+226,20.0,19,"Prop3.1, \ \nu_{20}\eta^{*}_{23}=\eta^{*}_{20}\nu_{36} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+227,8.0,19,"Prop3.1, \ \varepsilon_8\zeta_{16}=\zeta_8\varepsilon_{19}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+228,11.0,19,"Prop3.1, \ \bar{\nu}_{11}\zeta_{19}=\zeta_{11}\bar{\nu}_{22}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+229,7.0,19,"[MMO] (2.5), \ \varepsilon_7\zeta_{15}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+230,7.0,19,"[MMO] (2.5), \ \bar{\nu}_7\zeta_{15}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+231,7.0,19,"[MMO] (2.4), \ \nu_7\sigma_{10}\mu_{17}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+232,11.0,19,"[MMO] (2.6), \ \theta'\sigma_{23}=\xi'\eta_{29}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+233,15.0,19,"[O] Prop3.1(1), \ \eta_{15}\nu^{*}_{16}=\omega_{15}\nu_{31}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+234,12.0,19,"[O] (2.2), \ A_{1}^{I}\equiv \omega' \mod \xi_{12}\eta_{30} , \ E \lambda'\eta_{30} , \ E \xi'\eta_{30}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+235,11.0,19,"[O] (2.2), \ C_{1}^{I}\equiv \lambda'\eta_{29} \mod \xi'\eta_{29}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+236,12.0,19,"[O] (2.4), \ A_{1}\sigma_{24}\equiv \xi_{12}\eta_{30} \mod E \xi'\eta_{30} , \ E \lambda'\eta_{30}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+237,11.0,19,"[O] (2.4), \ C_{1}\sigma_{23}=\xi'\eta_{29}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+238,5.0,19,"[O2] Prop2.2(3), \ {\zeta_{5}}{\varepsilon_{16}} = {\nu_{5}}{\mu_{8}}{\sigma_{17}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+239,5.0,19,"[O2] Prop2.2(3), \ {\zeta_{5}}{\eta_{16}}{\sigma_{17}} = {\nu_{5}}{\mu_{8}}{\sigma_{17}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+240,5.0,19,"[O2] Prop2.2(3), \ {\zeta_{5}}{\bar{\nu}_{16}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+241,7.0,19,"[O2] Prop2.2(3), \ {\zeta_{7}}{\varepsilon_{18}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+242,3.0,19,"[O2] Prop2.2(5), \ {\varepsilon_{3}}{\zeta_{11}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+243,5.0,19,"[O2] Prop2.2(8), \ {\nu_{5}}{\eta_{8}}{\alpha_{1}^{IV}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+244,13.0,19,"[MMO] (5.32), \ {\nu_{13}}{\omega_{16}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+245,3.0,20,"(16.1), \ E (\eta_2\bar{\mu}')=0",toda_equation,(16.1),unmatched_locator,[],[],False,False,False,False
+246,3.0,20,"Lem5.7, \ E (\eta_2\nu')=0",toda_lemma,Lemma 5.7,unmatched_locator,[],[],False,False,False,False
+247,5.0,20,"[MT]p46, \ \Delta(\bar{\mu}_9)=E \nu'\bar{\mu}_7",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+248,5.0,20,"(5.11), \ \Delta(\eta_9)=E \nu'\eta_7",toda_equation,(5.11),unmatched_locator,[],[],False,False,False,False
+249,5.0,20,"[MT]p46, \ \Delta(\sigma_9\eta_{16}\mu_{17})=\nu4\sigma'\eta_{14}\mu_{15}+E \nu'\varepsilon_7\mu_{15}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+250,6.0,20,"Lem15.3, \ 2\bar{\kappa}'=\nu_{6}^2\kappa_{12}",toda_lemma,Lemma 15.3,unmatched_locator,[],[],False,False,False,False
+251,6.0,20,"(16.6), \ \nu_6\bar{\mu}_9=16\Delta(\rho_{13})",toda_equation,(16.6),unmatched_locator,[],[],False,False,False,False
+252,6.0,20,"(5.9), \ \nu_6\eta_9=0",toda_equation,(5.9),unmatched_locator,[],[],False,False,False,False
+253,7.0,20,"(16.7), \ 2\bar{\kappa}_7=\pm E \bar{\kappa}'",toda_equation,(16.7),unmatched_locator,[],[],False,False,False,False
+254,11.0,20,"Lem16.1, \ E \beta'=\theta'\varepsilon_{23}",toda_lemma,Lemma 16.1,unmatched_locator,[],[],False,False,False,False
+255,12.0,20,"Lem16.2, \ \Delta(\mu_{25})=E \beta''",toda_lemma,Lemma 16.2,unmatched_locator,[],[],False,False,False,False
+256,13.0,20,"(16.11), \ \Delta(\eta_{25}\varepsilon_{26})=E \theta'\varepsilon_{24}",toda_equation,(16.11),unmatched_locator,[],[],False,False,False,False
+257,14.0,20,"(16.10), \ \Delta(\varepsilon_{27})=E \theta\varepsilon_{25}",toda_equation,(16.10),unmatched_locator,[],[],False,False,False,False
+258,14.0,20,"(16.10), \ \Delta(\bar{\nu}_{27})=E \theta\bar{\nu}_{25}",toda_equation,(16.10),unmatched_locator,[],[],False,False,False,False
+259,14.0,20,"Lem16.3, \ E ^2\beta'''=8\Delta(\sigma_{29})",toda_lemma,Lemma 16.3,unmatched_locator,[],[],False,False,False,False
+260,20.0,20,"Lem16.4, \ E \bar{\beta}=\Delta(\eta_{41})",toda_lemma,Lemma 16.4,unmatched_locator,[],[],False,False,False,False
+261,21.0,20,"Lem16.5, \ E \bar{\bar{\beta}}=\Delta(\iota_{43})",toda_lemma,Lemma 16.5,unmatched_locator,[],[],False,False,False,False
+262,7.0,20,"Prop3.1, \ \eta_7\bar{\zeta}_8=\bar{\zeta}_7\eta_{26}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+263,8.0,20,"Prop3.1, \ \eta_8\bar{\sigma}_9=\bar{\sigma}_8\eta_{27}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+264,7.0,20,"Prop3.1, \ \nu_7\bar{\mu}_{10}=\bar{\mu}_7\nu_{24} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+265,16.0,20,"Prop3.1, \ \nu_{16}\varepsilon^{*}_{19}=\varepsilon^{*}_{16}\nu_{33}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+266,8.0,20,"Prop3.1, \ \mu_8\zeta_{17}=\zeta_8\mu_{19}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+267,7.0,20,"Prop3.1, \ \nu_7\bar{\mu}_{10}=\bar{\mu}_7\nu_{24} \ (=0)",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+268,16.0,20,"Prop3.1, \ \nu_{16}\varepsilon^{*}_{19}=\varepsilon^{*}_{16}\nu_{33}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+269,8.0,20,"Prop3.1, \ \mu_8\zeta_{17}=\zeta_8\mu_{19}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+270,3.0,20,"[MMO] (2.5), \ \mu_3\zeta_{12}=\nu'\eta_6\mu_7\sigma_{16}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+271,6.0,20,"[MMO] (2.7), \ \eta_6\bar{\sigma}_7=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+272,5.0,20,"[MMO] (2.7), \ \eta_5\bar{\zeta}_6=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+273,5.0,20,"[MMO] (2.8), \ \bar{\mu}_5\nu_{22}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+274,12.0,20,"[O] Prop3.1(3), \ \varepsilon^{*}_{12}\nu_{29}=\theta\bar{\nu}_{24}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+275,12.0,20,"[O] Prop3.1(3), \ A_{1}\bar{\nu}_{24}=\theta\bar{\nu}_{24}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+276,11.0,20,"[O] Prop3.1(3), \ \theta'\bar{\nu}_{23}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+277,20.0,20,"[O] (2.1), \ A_{2}\equiv \bar{\bar{\beta}} \mod E \bar{\beta}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+278,19.0,20,"[O] (2.1), \ C_{2}=\bar{\beta}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+279,10.0,20,"[O] (2.1), \ F_{1}\equiv \beta' \mod 2\beta'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+280,12.0,20,"[O] (2.3), \ A_{1}^{(1)}\equiv \beta''' \mod \theta\bar{\nu}_{24} , \ \theta\varepsilon_{24} , \ E \beta'' , \ E \theta'\varepsilon_{24}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+281,11.0,20,"[O] (2.3), \ C_{1}^{(1)}\equiv \beta'' \mod \theta'\varepsilon_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+282,7.0,20,"[MT] Lem15.4, \ 4\bar{\kappa}_7=2E \bar{\kappa}'=\nu_{7}^2\kappa_{13}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+283,11.0,20,"[O2] Prop2.1(7), \ {C_{1}}{\bar{\nu}_{23}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+284,11.0,20,"[O2] Prop2.1(7), \ {C_{1}}{\eta_{23}}{\sigma_{24}} = C_1 \varepsilon_{23} (= {\theta'}{\varepsilon_{23}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+285,11.0,20,"[O2] Prop2.1(7), \ {\xi'}{\eta_{29}^{2}} = C_1 \varepsilon_{23} (= {\theta'}{\varepsilon_{23}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+286,11.0,20,"[O2] Prop2.1(7), \ {EF_{1}} = C_1 \varepsilon_{23} (= {\theta'}{\varepsilon_{23}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+287,5.0,20,"[O2] Prop2.2(1), \ {\zeta_{5}}{\mu_{16}} \equiv {\nu_{5}}{\bar{\mu}_{8}} \mod {\nu_{5}}{\eta_{8}}{\mu_{9}}{\sigma_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+288,5.0,20,"[O2] Prop2.2(2), \ {\bar{\zeta}_{5}}{\eta_{24}} \equiv {\zeta_{5}}{\mu_{16}} (\equiv {\nu_{5}}{\bar{\mu}_{8}}) \mod {\nu_{5}}{\eta_{8}}{\mu_{9}}{\sigma_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+289,3.0,20,"[O2] Prop2.3(1), \ {\bar{\mu}_{3}}{\nu_{20}} = {\nu'}{\eta_{6}}{\mu_{7}}{\sigma_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+290,3.0,21,"[M](7.1), \ \Delta(\nu_5\bar{\mu}_8)=\eta_2\nu'\bar{\mu}_6",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+291,3.0,21,"[M](7.1), \ \Delta(\nu_5\eta_8\mu_9\sigma_{18})=\eta_2\nu'\eta_6\mu_7\sigma_{16}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+292,9.0,21,"Prop3.1, \ \eta_9\bar{\kappa}_{10}=\bar{\kappa}_9\eta_{29}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+293,16.0,21,"Prop3.1, \ \nu_{16}\xi_{19}=\xi_{16}\nu_{34}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+294,20.0,21,"Prop3.1, \ \nu_{20}\nu^{*}_{23}=\nu^{*}_{20}\nu_{38}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+295,15.0,21,"Prop3.1, \ \sigma_{15}\kappa_{22}=\kappa_{15}\sigma_{29}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+296,9.0,21,"Prop3.1, \ \eta_9\bar{\kappa}_{10}=\bar{\kappa}_9\eta_{29}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+297,16.0,21,"Prop3.1, \ \nu_{16}\xi_{19}=\xi_{16}\nu_{34}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+298,20.0,21,"Prop3.1, \ \nu_{20}\nu^{*}_{23}=\nu^{*}_{20}\nu_{38}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+299,15.0,21,"Prop3.1, \ \sigma_{15}\kappa_{22}=\kappa_{15}\sigma_{29}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+300,13.0,21,"[M] (7.15), \ \xi_{13}\nu_{31}\equiv \sigma_{13}^3 \mod \sigma_{13}\kappa_{20}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+301,13.0,21,"[M] Prop7.2, \ \sigma_{13}\kappa_{20}=2\lambda\nu_{31}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+302,5.0,21,"[MMO] (2.2), \ \sigma'''\kappa_{12}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+303,11.0,21,"[O] Prop3.1(1), \ \xi'\nu_{29}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+304,10.0,21,"[O] Prop3.1(1), \ \nu_{10}\lambda=\sigma_{10}\kappa_{17}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+305,11.0,21,"[O] Prop3.1(1), \ \lambda'\nu_{29}=\sigma_{11}\kappa_{18}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+306,5.0,21,"[O] Prop3.1(7), \ \sigma'''\sigma_{12}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+307,6.0,21,"[O] Prop3.1(7), \ \sigma''\sigma_{13}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+308,7.0,21,"[O] Prop3.1(7), \ \sigma'\sigma_{14}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+309,7.0,21,"[O2] Prop2.1(2), \ {\kappa_{7}}{\sigma_{21}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+310,9.0,21,"[O2] Prop2.1(2), \ {\nu_{9}}{\xi_{12}} = {\sigma_{9}^{3}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+311,12.0,21,"[O2] Prop2.1(2), \ {\xi_{12}}{\nu_{30}} = {\sigma_{12}^{3}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+312,13.0,21,"[O2] Prop2.3(3), \ {\nu_{13}}{\nu^{*}_{16}} = {\sigma_{13}^{3}} \pm {\lambda}{\nu_{31}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+313,5.0,21,"[O2] Prop2.4(3), \ {\nu_{5}}{\zeta_{8}}{\sigma_{19}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+314,5.0,21,"[O2] Prop2.4(3), \ {\nu_{5}}{\sigma_{8}}{\zeta_{15}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+315,11.0,21,"[O3] Prop2.1(1), \ {\beta''}{\eta_{31}} =C_1\mu_{23} (= {\theta'}{\mu_{23}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+316,11.0,21,"[O3] Prop2.1(1), \ {C_{1}^{(1)}}{\eta_{31}} =C_1\mu_{23} (= {\theta'}{\mu_{23}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+317,11.0,21,"[O3] Prop2.1(1), \ {C_{1}}{\eta_{23}}{\varepsilon_{24}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+318,7.0,21,"[O3] Prop2.4(2), \ {\bar{\kappa}_{7}}{\eta_{27}} = {\eta_{7}}{\bar{\kappa}_{8}} + {\sigma'}{\kappa_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+319,9.0,22,"Prop3.1, \ \nu_9\bar{\zeta}_{12}=-\bar{\zeta}_9\nu_{28}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+320,10.0,22,"Prop3.1, \ \nu_{10}\bar{\sigma}_{13}=\bar{\sigma}_{10}\nu_{29}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+321,11.0,22,"Prop3.1, \ \sigma_{11}\bar{\varepsilon}_{18}=\bar{\varepsilon}_{11}\sigma_{26}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+322,21.0,22,"Prop3.1, \ \sigma_{21}\rho_{28}=-\rho_{21}\sigma_{36}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+323,10.0,22,"Prop3.1, \ \varepsilon_{10}\kappa_{18}=\kappa_{10}\varepsilon_{24}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+324,13.0,22,"Prop3.1, \ \bar{\nu}_{13}\kappa_{21}=\kappa_{13}\bar{\nu}_{27}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+325,9.0,22,"Prop3.1, \ \nu_9\bar{\zeta}_{12}=-\bar{\zeta}_9\nu_{28}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+326,10.0,22,"Prop3.1, \ \nu_{10}\bar{\sigma}_{13}=\bar{\sigma}_{10}\nu_{29}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+327,11.0,22,"Prop3.1, \ \sigma_{11}\bar{\varepsilon}_{18}=\bar{\varepsilon}_{11}\sigma_{26}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+328,21.0,22,"Prop3.1, \ \sigma_{21}\rho_{28}=-\rho_{21}\sigma_{36}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+329,21.0,22,"[O2] Prop2.1(4), \ \rho_{21}\sigma_{36}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+330,10.0,22,"Prop3.1, \ \varepsilon_{10}\kappa_{18}=\kappa_{10}\varepsilon_{24}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+331,13.0,22,"Prop3.1, \ \bar{\nu}_{13}\kappa_{21}=\kappa_{13}\bar{\nu}_{27}",toda_proposition,Proposition 3.1,unmatched_locator,[],[],False,False,False,False
+332,7.0,22,"[M] Lem8.1, \ \eta_7\sigma_8\kappa_{15}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+333,10.0,22,"[M] p317, \ \bar{\varepsilon}_{10}\sigma_{25}=\sigma_{10}\bar{\varepsilon}_{17}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+334,10.0,22,"[M] p317, \ \bar{\varepsilon}_{10}\sigma_{25}=\sigma_{10}\bar{\varepsilon}_{17}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+335,3.0,22,"[MMO] (2.4), \ \bar{\varepsilon}_3\sigma_{18}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+336,5.0,22,"[MMO] (2.4), \ \rho^{IV}\sigma_{20}=\nu_5\bar{\zeta}_8",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+337,10.0,22,"[O] Prop3.1(1), \ \nu_{10}\lambda\eta_{31}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+338,10.0,22,"[O] Prop3.1(1), \ \nu_{10}^2\eta^{*}_{16}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+339,7.0,22,"[O] Prop3.1(2), \ \sigma'\eta_{14}\kappa_{15}=\bar{\nu}_7\kappa_{15}+\varepsilon_{7}\kappa_{15}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+340,5.0,22,"[O] Prop3.1(2), \ \eta_{5}^2\bar{\kappa}_7=\varepsilon_5\kappa_{13}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+341,5.0,22,"[O] Prop3.1(6), \ \alpha\eta_{26}=\varepsilon_5\kappa_{13}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+342,6.0,22,"[O] Prop3.1(6), \ \eta_6\bar{\kappa}_7\eta_{27}=\varepsilon_6\kappa_{14}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+343,6.0,22,"[O] Prop3.5(1), \ \bar{\sigma}_6\nu_{25}=\nu_6\bar{\sigma}_9",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+344,5.0,22,"[O2] Prop2.1(3), \ {\bar{\zeta}_{5}}{\nu_{24}} = {\nu_{5}}{\bar{\zeta}_{8}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+345,5.0,22,"[O2] Prop2.1(3), \ {\zeta_{5}^{2}} = {\nu_{5}}{\bar{\zeta}_{8}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+346,6.0,22,"[O2] Prop2.1(4), \ \pm{\sigma''}{\rho_{13}}=\alpha_1{''}\sigma_{21} (={\rho'''}{\sigma_{21}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+347,7.0,22,"[O2] Prop2.1(4), \ {\sigma'}{\rho_{14}}\equiv x{\alpha'''_{1}}{\sigma_{22}} \mod {\bar{\nu}_{7}}{\kappa_{15}} + {\varepsilon_{7}}{\kappa_{15}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+348,9.0,22,"[O2] Prop2.1(4), \ {\sigma_{9}}{\rho_{16}}\equiv x{\rho'}{\sigma_{24}} \mod {\sigma_{9}}{\bar{\varepsilon}_{16}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+349,10.0,22,"[O2] Prop2.1(4), \ {E\rho'}{\sigma_{25}} = x{\sigma_{10}}{\rho_{17}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+350,13.0,22,"[O2] Prop2.1(4), \ {\sigma_{13}}{\rho_{20}} \equiv 2{\rho_{13}}{\sigma_{28}} \mod 4{\rho_{13}}{\sigma_{28}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+351,17.0,22,"[O2] Prop2.1(4), \ {\rho_{17}}{\sigma_{32}} = 8{\sigma^{*}_{17}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+352,17.0,22,"[O2] Prop2.1(4), \ {\sigma_{17}}{\rho_{24}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+353,14.0,22,"[O2] Prop2.1(4), \ 4({\sigma_{14}}{\rho_{21}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+354,15.0,22,"[O2] Prop2.1(4), \ 2({\sigma_{15}}{\rho_{22}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+355,14.0,22,"[O2] Prop2.1(4), \ 8({\rho_{14}}{\sigma_{29}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+356,15.0,22,"[O2] Prop2.1(4), \ 4({\rho_{15}}{\sigma_{30}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+357,5.0,22,"[O2] Prop2.1(5), \ {\nu_{5}}{\bar{\zeta}_{8}} = {\alpha'_{1}}{\sigma_{20}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+358,13.0,22,"[O2] Prop2.1(5), \ {\nu_{13}}{\bar{\zeta}_{16}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+359,11.0,22,"[O3] Prop2.3(1), \ {C_{1}}{\eta_{23}}{\mu_{24}} = 8{\sigma_{11}}{\rho_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+360,14.0,22,"[O3] Prop2.3(4), \ {\rho_{14}}{\sigma_{29}} = 2x{\sigma^{*}{''}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+361,15.0,22,"[O3] Prop2.3(4), \ {\rho_{15}}{\sigma_{30}} = 4y{\sigma^{*}{'}}, \ (y:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+362,20.0,22,"[O3] Prop2.5(7), \ {A_{2}}{\eta_{40}^{2}} = \pm 4{\sigma^{*}_{20}} + 2{\Delta(\nu_{41})}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+363,,23,,missing,,unparsed_or_missing,[],[],False,False,False,False
+364,10.0,23,"[MMO] (2.3), \ \sigma_{10}^2\mu_{24}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+365,3.0,23,"[MMO] (2.9), \ \mu_3\sigma_{12}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+366,3.0,23,"[MMO] (3.1), \ \eta_3\varepsilon_4\kappa_{12}=2\bar{\alpha}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+367,7.0,23,"[MMO] (3.2), \ E \bar{\rho}''=2\bar{\rho}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+368,7.0,23,"[MMO] (3.2), \ E ^2\bar{\rho}'''=4\bar{\rho}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+369,11.0,23,"[MMO] (3.2), \ E^4\bar{\rho}'=2\bar{\rho}_{11}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+370,5.0,23,"[O] Prop3.1(2), \ \eta_5\varepsilon_6\kappa_{14}=4\nu_5\bar{\kappa}_8",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+371,16.0,23,"[O] (2.2), \ B_{1}^{I}\equiv \bar{\varepsilon}^{*}_{16} \mod \bar{\varepsilon}^{*}_{16}+\bar{\nu}^{*}_{16} , \ E \bar{\varepsilon}^{*}{'} , \ E \bar{\nu}^{*}{'} , \ 4\nu_{16}\bar{\kappa}_{19}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+372,15.0,23,"[O] (2.2), \ D_{1}^{I}\equiv \bar{\varepsilon}^{*}{'} \mod \bar{\varepsilon}^{*}{'}+\bar{\nu}^{*}{'} , \ 2\nu_{15}\bar{\kappa}_{18}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+373,16.0,23,"[O] (2.4), \ B_{1}\sigma_{32}\equiv \bar{\varepsilon}^{*}_{16}+\bar{\nu}^{*}_{16} \mod E \pi_{38}^{15}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+374,15.0,23,"[O] (2.4), \ D_{1}\sigma_{31}=\bar{\varepsilon}^{*}{'}+\bar{\nu}^{*}{'}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+375,9.0,23,"[O] (2.5), \ \alpha_{2}^{IV}=\bar{\rho}_{9}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+376,7.0,23,"[O] (2.5), \ \alpha_{2}'''=\bar{\rho}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+377,6.0,23,"[O] (2.5), \ \alpha_{2}''=\bar{\rho}''",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+378,5.0,23,"[O] (2.5), \ \alpha_{2}'=\bar{\rho}'''",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+379,5.0,23,"[O] Prop3.1(4), \ \alpha_{1}'\varepsilon_{20}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+380,5.0,23,"[O] Prop3.1(4), \ \alpha_{1}'\bar{\nu}_{20}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+381,5.0,23,"[O] Prop3.1(4), \ \varepsilon_5\rho_{13}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+382,6.0,23,"[O] Prop3.1(4), \ \bar{\nu}_6\rho_{14}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+383,5.0,23,"[O] Prop3.5(8), \ (2\iota_5)\phi_{5}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+384,11.0,23,"[O] Prop3.4(4), \ \sigma_{11}\omega_{18}\equiv \phi_{11} \mod 4\nu_{11}\bar{\kappa}_{14}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+385,9.0,23,"[O] Prop3.4(7), \ \phi_9 \equiv  \sigma_9\eta^{*}_{16} \mod \sigma_{9}^{2}\mu_{23}, \ 4\nu_9\bar{\kappa}_{12}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+386,6.0,23,"[O2] Prop2.1(11), \ {\zeta'}{\sigma_{22}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+387,12.0,23,"[O3] Prop2.1(2), \ {\varepsilon^{*}_{12}}{\nu_{29}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+388,9.0,23,"[O3] Prop2.1(2), \ {\sigma_{9}}{E\eta^{*}{'}} \equiv 0 \mod {\sigma_{9}^{2}}{\mu_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+389,14.0,23,"[O3] Prop2.1(4), \ {\omega_{14}}{\sigma_{30}} \equiv {\psi_{14}} \mod 4{\nu_{14}}{\bar{\kappa}_{17}},{\phi_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+390,9.0,23,"[O3] Prop2.2(1), \ {\rho'}{\varepsilon_{24}} = {\sigma_{9}^{2}}{\mu_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+391,9.0,23,"[O3] Prop2.2(1), \ {\rho'}{\bar{\nu}_{24}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+392,18.0,23,"[MMO] (4.35), \ {\bar{\nu}^{*}_{18}} \equiv {\bar{\varepsilon}^{*}_{18}} \mod E^3\pi_{38}^{15}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+393,,24,,missing,,unparsed_or_missing,[],[],False,False,False,False
+394,10.0,24,"[MMO] (3.9), \ \sigma_{10}\nu_{17}\kappa_{20}=2\widetilde{\varepsilon}_{10}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+395,3.0,24,"[O] Prop3.1(2), \ \bar{\alpha}\eta_{26}=\varepsilon'\kappa_{13}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+396,3.0,24,"[O] Prop3.1(2), \ \nu'\eta_6\bar{\kappa}7=\varepsilon'\kappa_{13}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+397,3.0,24,"[O] Prop3.1(2), \ \eta_3\nu_4\bar{\kappa}7=\varepsilon'\kappa_{13}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+398,6.0,24,"[O] Prop3.1(2), \ \zeta'\varepsilon_{22}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+399,6.0,24,"[O] Prop3.1(2), \ \zeta'\bar{\nu}_{22}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+400,24.0,24,"[O] (2.1), \ B_{2}=\widetilde{\eta} \mod E \widetilde{\eta}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+401,23.0,24,"[O] (2.1), \ D_{2}=\widetilde{\eta}'",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+402,14.0,24,"[O] (2.1), \ G_{1}\equiv \zeta^{*} \mod 2\zeta^{*} , \ \omega_{14}\varepsilon_{30}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+403,16.0,24,"[O] (2.3), \ B_{1}^{(1)}\equiv \mu^{*}_{16} \mod \eta^{*}_{16}\varepsilon_{32} , \ \eta^{*}_{16}\bar{\nu}_{32}, \ E \pi_{39}^{15}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+404,6.0,24,G_{0}^{(1)} \equiv \bar{\zeta}{'}_6 \mod \ 2\bar{\zeta}{'}_6,other_unparsed,,unparsed_or_missing,[],[],False,False,False,False
+405,3.0,24,"[O] Prop3.1(5), \ \eta_3\mu_4\kappa_{13}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+406,3.0,24,"[O] Prop3.1(5), \ \bar{\varepsilon}_3\mu_{18}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+407,3.0,24,"[O] Prop3.1(5), \ \bar{\varepsilon}'\sigma_{20}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+408,3.0,24,"[O] Prop3.1(5), \ \varepsilon'\sigma_{13}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+409,5.0,24,"[O] Prop3.1(6), \ \alpha\nu_{26}\equiv \nu_5\sigma_8\kappa_{15} \mod \nu_5\eta_8\bar{\kappa}_9",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+410,4.0,24,"[O] Prop3.5(9), \ \eta_4\phi_5\equiv\delta_4 \mod \bar{\mu}_4\sigma_{21} ,E \varepsilon'\kappa_{14}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+411,5.0,24,"[O] Prop3.5(9), \ \phi_5\eta_{28}\equiv\delta_5 \mod \bar{\mu}_4\sigma_{21} ,\nu_5\eta_8\bar{\kappa}_9",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+412,6.0,24,"[O] Prop3.5(9), \ \varepsilon_6 \omega_{14}\equiv \eta_6Φ_7\equiv \delta_6 \mod \nu_6\sigma_9\kappa_{16} ,\bar{\mu}_6\sigma_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+413,9.0,24,"[O2] Prop2.1(10), \ {\eta_{9}}{\psi_{10}} \equiv {\delta_{9}} + {\bar{\sigma}{'}_{9}} \mod  {\bar{\mu}_{9}}{\sigma_{26}} , {\sigma_{9}^{2}}{\eta_{23}}{\mu_{24}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+414,14.0,24,"[O3] Prop2.1(4), \ {\omega_{14}}{\varepsilon_{30}} \equiv {\widetilde{\varepsilon}_{14}} \mod {\delta_{14}},{\bar{\mu}_{14}}{\sigma_{31}},{\bar{\sigma}{'}_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+415,14.0,24,"[O3] Prop2.1(4), \ {\omega_{14}}{\sigma_{30}}{\eta_{37}} \equiv {\bar{\sigma}{'}_{14}} \mod {\delta_{14}},{\bar{\mu}_{14}}{\sigma_{31}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+416,12.0,24,"[O3] Prop2.1(4), \ {\varepsilon^{*}_{12}}{\sigma_{29}} \equiv {\bar{\sigma}{'}_{12}} \mod {\delta_{12}},{\bar{\mu}_{12}}{\sigma_{29}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+417,9.0,24,"[O3] Prop2.2(1), \ {\bar{\rho}_{9}}{\eta_{32}} \equiv {\sigma_{9}}{\bar{\mu}_{16}} \mod \phi_9\eta_{32}(\equiv{\delta_{9}}),{\sigma_{9}^{2}}{\eta_{23}}{\mu_{24}},{\sigma_{9}}{\varepsilon^{*}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+418,4.0,24,"[O3] Prop2.2(1), \ {\mu_{4}}{\rho_{13}} \equiv {\bar{\mu}_{4}}{\sigma_{21}} \mod {E\varepsilon'}{\kappa_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+419,5.0,24,"[O3] Prop2.2(1), \ {\mu_{5}}{\rho_{14}} = {\bar{\mu}_{5}}{\sigma_{22}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+420,10.0,24,"[O3] Prop2.2(4), \ {E\rho'}{\mu_{25}} = {\Delta(\rho_{21})}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+421,5.0,24,"[O3] Prop2.4(2), \ {\nu_{5}}{E\sigma'}{\kappa_{15}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+422,5.0,24,"[O3] Prop2.6(3), \ {\alpha'_{2}}{\eta_{28}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+423,5.0,24,"[O3] Prop2.6(3), \ {\alpha'_{1}}{\mu_{20}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+424,5.0,24,"[O3] Prop2.6(3), \ {\sigma'''}{\bar{\mu}_{12}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+425,7.0,24,"[O3] Prop2.6(5), \ {\bar{\nu}_{7}}{\omega_{15}} \equiv 0 \mod {\nu_{7}}{\sigma_{10}}{\kappa_{17}},{\bar{\zeta}{'}_{7}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+426,9.0,24,"[O3] Prop2.6(5), \ {\bar{\nu}_{9}}{\omega_{17}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+427,11.0,24,"[MMO] (5.32), \ {\bar{\nu}_{11}}{\omega_{19}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+428,,25,,missing,,unparsed_or_missing,[],[],False,False,False,False
+429,5.0,25,"[O] Prop3.1(7), \ \nu_{5}^2\bar{\zeta}_{11}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+430,5.0,25,"[O] Prop3.1(7), \ 2\nu_5E \sigma'\rho_{15}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+431,5.0,25,"[O] Prop3.1(7), \ \zeta_5\sigma_{16}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+432,6.0,25,"[O] Prop3.1(8), \ \bar{\nu}_6\bar{\mu}_{14}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+433,9.0,25,"[O] Prop3.1(8), \ \eta_{9}^2\sigma_{11}\omega_{18}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+434,9.0,25,"[O] Prop3.1(8), \ \eta_9\sigma_{10}\bar{\mu}_{17}=\eta_9\bar{\mu}_{10}\sigma_{27}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+435,9.0,25,"[O] Prop3.1(8), \ \sigma_9E^3\lambda=2(\sigma_9\nu^{*}_{16})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+436,9.0,25,"[O] Prop3.1(8), \ \sigma_9\eta_{16}^2\omega_{18}=4\sigma_9\xi_{16}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+437,3.0,25,"[O] Prop3.5(2), \ \bar{\mu}_3\bar{\nu}_{20}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+438,3.0,25,"[O] Prop3.5(2), \ \varepsilon_3\bar{\mu}_{11}=\eta_3\bar{\mu}_4\sigma_{21}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+439,3.0,25,"[O] Prop3.5(2), \ \bar{\mu}_3\varepsilon_{20}=\eta_3\bar{\mu}_4\sigma_{21}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+440,3.0,25,"[O] Prop3.5(2), \ \mu_{3}^2\sigma_{21}=\eta_3\bar{\mu}_4\sigma_{21}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+441,12.0,25,"[O] Prop3.5(3), \ \sigma_{12}\xi_{19}=2(\xi_{12}\sigma_{30})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+442,13.0,25,"[O] Prop3.5(3), \ \nu_{13}\sigma^{*}_{16}\equiv \xi_{13}\sigma_{31} \mod (\lambda+2\xi_{13})\sigma_{31}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+443,16.0,25,"[O] Prop3.5(3), \ \nu^{*}_{16}\sigma_{34}=4\xi_{16}\sigma_{34}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+444,19.0,25,"[O] Prop3.5(3), \ \nu^{*}_{19}\sigma_{37}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+445,19.0,25,"[O] Prop3.5(3), \ \sigma_{19}\xi_{26}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+446,16.0,25,"[O] Prop3.5(3), \ E^3\lambda\sigma_{34}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+447,16.0,25,"[O] Prop3.5(4), \ B_{1}\eta_{32}\varepsilon_{33}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+448,16.0,25,"[O] Prop3.5(4), \ \omega_{16}\eta_{32}\varepsilon_{33}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+449,16.0,25,"[O] Prop3.5(4), \ \eta^{*}16\eta_{32}\varepsilon_{33}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+450,9.0,25,"[O] Prop3.5(4), \ \eta_9\varepsilon_{10}\omega_{18}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+451,9.0,25,"[O] Prop3.5(4), \ \varepsilon_9\varepsilon^{*}_{17}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+452,12.0,25,"[O] Prop3.5(4), \ \varepsilon^{*}_{12}\varepsilon_{29}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+453,7.0,25,"[O] Prop3.5(4), \ \bar{\nu}_7\varepsilon^{*}_{15}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+454,15.0,25,"[O] Prop3.5(4), \ \eta_{15}\eta^{*}_{16}\varepsilon_{32}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+455,16.0,25,"[O] Prop3.5(4), \ \eta_{16}\omega_{17}\bar{\nu}_{33}=4\xi_{16}\sigma_{34}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+456,16.0,25,"[O] Prop3.5(4), \ \eta_{16}\omega_{17}\eta_{33}\sigma_{34}=4\xi_{16}\sigma_{34}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+457,9.0,25,"[O] Prop5.1(2), \ E^2 \phi''' \equiv \sigma_9\nu^{*}_{16} \mod \nu_{9}^2\bar{\sigma}_{15}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+458,9.0,25,"[O] Prop5.1(3), \ \eta_{9}^2 \phi_{11}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+459,9.0,25,"[O] Prop5.1(3), \ \sigma_9\eta^{*}_{16}\eta_{32}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+460,9.0,25,"[O] Prop5.1(3), \ \eta_9 \delta_{10} \equiv 0 \mod \eta_9\bar{\mu}_{10} \sigma_{27}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+461,3.0,25,"[O] Prop4.1(2), \ 2\phi' \equiv  \eta_3 \delta_4 \mod \eta_3 \bar{\mu}_4 \sigma_{21}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+462,24.0,25,"[O] Prop6.3(13), \ {\Delta(\iota_{49})}{\eta_{47}^{2}} = {E D_{2}}{\eta_{48}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+463,5.0,25,"[O] (7.6), \ {\nu_{5}}{\bar{\nu}_{8}}{\kappa_{16}} = {\nu_{5}}{\varepsilon_{8}}{\kappa_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+464,5.0,25,"[O] (7.6), \ 4{\phi''} \equiv {\eta_{5}}{\delta_{6}} \mod \nu_5 \varepsilon_{8}\kappa_{16}, \ \eta_5 \bar{\mu}_6 \sigma_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+465,5.0,25,"[O] (7.6), \ 2{\phi''}\equiv \pm{E^{2}\phi'} \mod \nu_5 \varepsilon_8 \kappa_{16}, \ \nu_{5}^{2}\bar{\sigma}_{11}, \ \mu_{3,5}, \ \eta_{5}\bar{\mu}_6 \sigma_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+466,11.0,25,"[O2] Prop2.1(6), \ {\xi'}{\sigma_{29}} \equiv {\sigma_{11}}{\nu^{*}_{18}} \mod 2{\sigma_{11}}{\nu^{*}_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+467,5.0,25,"[O2] Prop2.1(7), \ {\eta_{5}}{\bar{\sigma}{'}_{6}} \equiv {\nu_{5}^{2}}{\bar{\sigma}_{11}} \mod {\eta_{5}}{\bar{\mu}_{6}}{\sigma_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+468,6.0,25,"[O2] Prop2.1(7), \ {\bar{\sigma}{'}_{6}}{\eta_{30}} \equiv {\nu_{6}^{2}}{\bar{\sigma}_{12}} \mod {\eta_{6}}{\bar{\mu}_{7}}{\sigma_{24}},{\Delta(E A_{1}\varepsilon_{25})}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+469,7.0,25,"[O2] Prop2.3(2), \ {\nu_{7}^{2}}{\bar{\sigma}_{13}} \equiv 2{\phi'''} \mod 2{E ^{2}\phi''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+470,9.0,25,"[O2] Prop2.3(2), \ {\nu_{9}^{2}}{\bar{\sigma}_{15}} \equiv 2E^2\phi''' (\equiv 2{\sigma_{9}}{\nu^{*}_{16}}) \mod 4{\sigma_{9}}{\xi_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+471,5.0,25,"[O2] Prop2.3(3), \ {\eta_{5}}{\phi_{6}}{\eta_{29}} = 4{\phi''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+472,7.0,25,"[O2] Prop2.3(3), \ {\sigma'}{E\lambda} \equiv 0 \mod 4{E ^{2}\phi''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+473,4.0,25,"[O2] Prop2.3(4), \ {E\nu'}{\sigma'}{\rho_{14}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+474,7.0,25,"[O2] (6.4), \ {\sigma'}{\xi_{14}} \equiv {E ^{2}\phi''} \mod 2{\phi'''},2{E ^{2}\phi''},{\eta_{7}}{\bar{\mu}_{8}}{\sigma_{25}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+475,13.0,25,"[O3] Prop2.2(2), \ {\lambda}{\sigma_{31}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+476,13.0,25,"[O3] Prop2.2(2), \ {\eta_{13}}{\bar{\sigma}{'}_{14}} \equiv 4{\xi_{13}}{\sigma_{31}} \mod {\eta_{13}}{\bar{\mu}_{14}}{\sigma_{31}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+477,16.0,25,"[O3] Prop2.2(6), \ {\sigma^{*}_{16}}{\nu_{38}} = \pm 2{\xi_{16}}{\sigma_{34}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+478,16.0,25,"[O3] Prop2.2(6), \ {\sigma_{16}}{\nu^{*}_{23}} = \pm 2{\xi_{16}}{\sigma_{34}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+479,,26,,missing,,unparsed_or_missing,[],[],False,False,False,False
+480,3.0,26,"[O] Prop3.1(9), \ \varepsilon'\sigma_{13}\mu_{20}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+481,5.0,26,"[O] Prop3.1(9), \ \zeta_5\rho_{16}=\pm \bar{\zeta}_5\sigma_{24}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+482,13.0,26,"[O] Prop3.1(9), \ \sigma_{13}\bar{\zeta}_{20}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+483,13.0,26,"[O] Prop3.1(9), \ \bar{\zeta}_{13}\sigma_{32}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+484,14.0,26,"[O] Prop3.5(4), \ \eta^{*}{'}\eta_{31}\varepsilon_{32}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+485,6.0,26,"[O] Prop3.5(5), \ \nu_6\phi_9=2\bar{\sigma}_6\sigma_{25}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+486,7.0,26,"[O] Prop3.5(5), \ \nu_7\phi_{10}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+487,9.0,26,"[O] Prop3.5(5), \ \phi_9\nu_{32}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+488,9.0,26,"[O] Prop3.5(6), \ \eta_9\sigma_{10}\nu^{*}_{17}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+489,10.0,26,"[O] Prop3.5(6), \ \bar{\sigma}_{10}\sigma_{29}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+490,9.0,26,"[O] Prop3.5(6), \ \eta_9\sigma_{10}\xi_{17}=\bar{\sigma}_9\sigma_{28}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+491,11.0,26,"[O] Prop3.5(6), \ \theta'\sigma_{23}^2=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+492,12.0,26,"[O] Prop3.5(6), \ A_{1}\sigma_{24}^2=\sigma_{12}\bar{\sigma}_{19}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+493,12.0,26,"[O] Prop3.5(6), \ \theta\sigma_{24}^2=\sigma_{12}\bar{\sigma}_{19}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+494,9.0,26,"[O] Prop3.5(7), \ \eta_{9}^2\sigma11\bar{\mu}_{18}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+495,12.0,26,"[O] Prop4.2(1), \ 32{\tau^{IV}} \equiv {\sigma_{12}}{\bar{\zeta}_{19}} \mod 2{\sigma_{12}}{\bar{\zeta}_{19}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+496,7.0,26,"[O] (8.14), \ {\sigma'}{\bar{\zeta}_{14}} = x{\bar{\zeta}_{7}}{\sigma_{26}} \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+497,10.0,26,"[O] (8.13), \ 2{\tau''} = \pm{\sigma_{10}}{\bar{\zeta}_{17}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+498,9.0,26,"[O] (8.14), \ {\bar{\zeta}_{9}}{\sigma_{28}} = \pm 2{\sigma_{9}}{\bar{\zeta}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+499,11.0,26,"[O] (8.14), \ {\bar{\zeta}_{11}}{\sigma_{30}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+500,11.0,26,"[O] (8.18), \ 2{\tau'''} = -{E \tau''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+501,11.0,26,"[O] (8.18), \ {E R_{1}} \equiv {C_{1}}{\kappa_{23}} \mod E^2 \pi_{35}^9",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+502,11.0,26,"[O] (8.18), \ 4{\tau'''} = {\sigma_{11}}{\bar{\zeta}_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+503,5.0,26,"[O2] Prop2.1(8), \ {\sigma'''}{\bar{\zeta}_{12}} =4\zeta_5\rho_{16} (= 4{\bar{\zeta}_{5}}{\sigma_{24}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+504,5.0,26,"[O2] Prop2.1(8), \ {\alpha'_{1}}{\zeta_{20}} =4\zeta_5\rho_{16} (= 4{\bar{\zeta}_{5}}{\sigma_{24}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+505,5.0,26,"[O2] Prop2.1(8), \ {\alpha'_{2}}{\nu_{28}} =4\zeta_5\rho_{16} (= 4{\bar{\zeta}_{5}}{\sigma_{24}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+506,7.0,26,"[O2] Prop2.1(8), \ {\sigma'}{\bar{\sigma}_{14}} = {\phi_{7}}{\nu_{30}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+507,7.0,26,"[O2] Prop2.1(9), \ {\eta_{7}}{\sigma_{8}}{\xi_{15}} = {\bar{\sigma}_{7}}{\sigma_{26}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+508,7.0,26,"[O2] Prop2.1(9), \ {\eta_{7}}{E\phi'''} = {\phi_{7}}{\nu_{30}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+509,8.0,26,"[O2] Prop2.1(9), \ {\eta_{8}}{\sigma_{9}}{\nu^{*}_{16}} = {\phi_{8}}{\nu_{31}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+510,4.0,26,"[O2] (6.3), \ {\varepsilon_{4}}{\xi_{12}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+511,6.0,26,"[O2] (6.3), \ {\bar{\nu}_{6}}{\xi_{14}} = \pm{\bar{\sigma}_{6}}{\sigma_{25}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+512,5.0,26,"[O3] Prop2.2(3), \ {\varepsilon_{5}}{\lambda} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+513,9.0,26,"[O3] Prop2.2(3), \ {\eta_{9}}{\bar{\mu}_{10}}{\varepsilon_{27}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+514,11.0,26,"[O3] Prop2.2(3), \ {\zeta_{11}}{\rho_{22}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+515,10.0,26,"[O3] Prop2.2(3), \ {\psi_{10}}{\nu_{33}} = {\sigma_{10}}{\bar{\sigma}_{17}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+516,7.0,26,"[O3] Prop2.2(3), \ {\nu_{7}}{\psi_{10}} \equiv \sigma'\bar{\sigma}_{14} (={\phi_{7}}{\nu_{30}}) \mod {\bar{\sigma}_{7}}{\sigma_{26}},{\bar{\zeta}_{7}}{\sigma_{26}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+517,,27,,missing,,unparsed_or_missing,[],[],False,False,False,False
+518,3.0,27,"[O] Prop3.1(10), \ \eta_{3}^2\bar{\mu}_5\varepsilon_{22}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+519,3.0,27,"[O] Prop3.1(10), \ \eta_{3}^2\bar{\mu}_5\bar{\nu}_{22}=0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+520,5.0,27,"[O2] Prop2.2(4), \ {\bar{\zeta}_{5}}{\bar{\nu}_{24}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+521,5.0,27,"[O2] Prop2.2(4), \ {\bar{\zeta}_{5}}{\varepsilon_{24}} = {\nu_{5}}{\bar{\mu}_{8}}{\sigma_{25}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+522,5.0,27,"[O2] Prop2.2(4), \ {\bar{\zeta}_{5}}{\eta_{24}}{\sigma_{25}} = {\nu_{5}}{\bar{\mu}_{8}}{\sigma_{25}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+523,5.0,27,"[O2] Prop2.2(4), \ {\zeta_{5}}{\mu_{16}}{\sigma_{25}} = {\nu_{5}}{\bar{\mu}_{8}}{\sigma_{25}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+524,3.0,27,"[O2] Prop2.2(5), \ {\varepsilon_{3}}{\bar{\sigma}_{11}}\equiv{\nu'}{\bar{\sigma}{'}_{6}} \mod{\nu'}{\bar{\mu}_{6}}{\sigma_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+525,3.0,27,"[O2] Prop2.2(5), \ {\varepsilon_{3}}{\bar{\zeta}_{11}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+526,3.0,27,"[O2] Prop2.2(5), \ {\varepsilon'}{\varepsilon^{*}_{13}} \equiv {\nu'}{\delta_{6}} \mod {\nu'}{\bar{\mu}_{6}}{\sigma_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+527,3.0,27,"[O2] Prop2.2(5), \ {\varepsilon'}{\eta_{13}}{\omega_{14}} \equiv {\nu'}{\delta_{6}} \mod {\nu'}{\bar{\mu}_{6}}{\sigma_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+528,3.0,27,"[O2] Prop2.2(5), \ {\nu'}{\varepsilon_{6}}{\omega_{14}} \equiv {\nu'}{\delta_{6}} \mod {\nu'}{\bar{\mu}_{6}}{\sigma_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+529,3.0,27,"[O2] Prop2.2(6), \ {\varepsilon'}{\bar{\mu}_{13}} = {\nu'}{\bar{\mu}_{6}}{\sigma_{23}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+530,5.0,27,"[O2] Prop2.2(7), \ {\varepsilon_{5}}{\bar{\sigma}_{13}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+531,6.0,27,"[O2] Prop2.2(7), \ {\nu_{6}}{\bar{\mu}_{9}}{\sigma_{26}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+532,6.0,27,"[O2] Prop2.2(7), \ {\nu_{6}}{\bar{\sigma}{'}_{9}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+533,6.0,27,"[O2] Prop2.2(7), \ {\nu_{6}}{\delta_{9}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+534,6.0,27,"[O2] Prop2.2(7), \ {\bar{\sigma}{'}_{6}}{\nu_{30}} = {\bar{\nu}_{6}}{\bar{\sigma}_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+535,5.0,27,"[O2] Prop2.2(8), \ {\nu_{5}}{\eta_{8}}{\bar{\rho}_{9}} = {\nu_{5}}{\bar{\mu}_{8}}{\sigma_{25}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+536,12.0,27,"[O2] Prop2.2(10), \ {A_{1}}{\bar{\varepsilon}_{24}} = 2{\sigma_{12}}{\bar{\kappa}_{19}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+537,11.0,27,"[O2] Prop2.2(10), \ {C_{1}}{\bar{\varepsilon}_{23}} = 4{\sigma_{11}}{\bar{\kappa}_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+538,12.0,27,"[O3] Prop2.1(1), \ {A_{1}}{\rho_{24}} = {A_{1}^{(1)}}{\sigma_{32}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+539,11.0,27,"[O3] Prop2.1(1), \ {C_{1}}{\rho_{23}} = {C_{1}^{(1)}}{\sigma_{31}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+540,7.0,27,"[O3] Prop2.2(5), \ {\bar{\kappa}_{7}}{\sigma_{27}} \equiv 0 \mod 2{\sigma'}{\bar{\kappa}_{14}},{\bar{\nu}_{7}}{\bar{\sigma}_{15}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+541,9.0,27,"[O3] Prop2.2(5), \ 2({\bar{\kappa}_{9}}{\sigma_{29}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+542,5.0,27,"[O3] Prop2.4(2), \ {\nu_{5}}{\eta_{8}}{\bar{\kappa}_{9}}{\nu_{29}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+543,5.0,27,"[O3] Prop2.4(2), \ {\alpha}{\nu_{26}^{2}} = {\sigma'''}{\bar{\kappa}_{12}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+544,5.0,27,"[O3] Prop2.4(2), \ {\nu_{5}}{\sigma_{8}}{\kappa_{15}}{\nu_{29}} = {\sigma'''}{\bar{\kappa}_{12}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+545,,28,,missing,,unparsed_or_missing,[],[],False,False,False,False
+546,5.0,28,"[O2] Prop2.2(1), \ {\zeta_{5}}{\bar{\mu}_{16}} \equiv {\nu_{5}}{\mu_{3,8}} \mod {\nu_{5}}{\eta_{8}}{\bar{\mu}_{9}}{\sigma_{26}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+547,5.0,28,"[O2] Prop2.2(2), \ {\zeta_{3,5}}{\eta_{32}} \equiv {\zeta_{5}}{\bar{\mu}_{16}} (\equiv{\nu_{5}}{\mu_{3,8}}) \mod {\nu_{5}}{\eta_{8}}{\bar{\mu}_{9}}{\sigma_{26}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+548,5.0,28,"[O2] Prop2.2(2), \ {\bar{\zeta}_{5}}{\mu_{24}} \equiv {\zeta_{5}}{\bar{\mu}_{16}} (\equiv{\nu_{5}}{\mu_{3,8}}) \mod {\nu_{5}}{\eta_{8}}{\bar{\mu}_{9}}{\sigma_{26}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+549,3.0,28,"[O2] Prop2.3(1), \ {\mu_{3,3} }{\nu_{28}} = {\nu'}{\eta_{6}}{\bar{\mu}_{7}}{\sigma_{24}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+550,3.0,28,"[O2] Prop2.3(1), \ {\bar{\mu}_{3}}{\zeta_{20}} = {\nu'}{\eta_{6}}{\bar{\mu}_{7}}{\sigma_{24}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+551,3.0,28,"[O2] Prop2.3(1), \ {\mu_{3}}{\bar{\zeta}_{12}} = {\nu'}{\eta_{6}}{\bar{\mu}_{7}}{\sigma_{24}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+552,3.0,28,"[O2] Prop2.3(1), \ {\varepsilon'}{\eta_{13}}{\bar{\mu}_{14}} = {\nu'}{\eta_{6}}{\bar{\mu}_{7}}{\sigma_{24}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+553,3.0,28,"[O2] Prop2.3(1), \ {\nu'}{\varepsilon_{6}}{\bar{\mu}_{14}} = {\nu'}{\eta_{6}}{\bar{\mu}_{7}}{\sigma_{24}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+554,5.0,28,"[O2] Prop2.3(2), \ {\nu_{5}^{3}}{\bar{\sigma}_{14}} = 2{\nu_{5}}{E\phi'''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+555,5.0,28,"[O2] Prop2.3(2), \ {\nu_{5}}{E ^{3}\phi''} \equiv 0 \mod \nu_5^3\bar{\sigma}_{14}(=2{\nu_{5}}{E\phi'''}),{\nu_{5}}{\eta_{8}}{\bar{\mu}_{9}}{\sigma_{26}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+556,5.0,28,"[O2] Prop2.3(2), \ 2({\nu_{5}}{E ^{3}\phi''}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+557,6.0,28,"[O2] Prop2.3(3), \ {\nu_{6}^{3}}{\bar{\sigma}_{15}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+558,7.0,28,"[O2] Prop2.3(3), \ {\nu_{7}}{E ^{3}\phi'''} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+559,4.0,28,"[O2] Prop2.3(4), \ {E\nu'}{\phi'''} = {E\phi'}{\nu_{29}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+560,5.0,28,"[O2] Prop2.3(4), \ {\phi''}{\nu_{30}} \equiv {\nu_{5}}{E\phi'''} \mod \nu_5^3\bar{\sigma}_{14}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+561,6.0,28,"[O2] Prop2.4(4), \ {\nu_{6}}{\mu_{3,9} } = 8{\Delta(\bar{\rho}_{13})}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+562,11.0,28,"[O2] Prop3.2(3), \ {C_{1}}{\sigma_{23}}{\mu_{30}} = {EF_{1}^{(1)}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+563,19.0,28,"[O2] Prop3.2(3), \ {C_{2}}{\varepsilon_{39}} \equiv {EF_{2}} \mod {\varepsilon_{19}}{\bar{\kappa}_{27}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+564,3.0,28,"[O2] (6.3), \ {\varepsilon'}{\xi_{13}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+565,3.0,28,"[O2] (6.3), \ {\varepsilon'}{\lambda} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+566,5.0,28,"[O3] Prop2.2(6), \ {\eta_{5}}{\zeta_{3,6} } = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+567,16.0,28,"[O3] Prop2.2(6), \ {\sigma^{*}_{16}}{\nu_{38}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+568,13.0,28,"[O3] Prop2.2(6), \ {\nu_{13}}{\sigma^{*}_{16}}{\nu_{38}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+569,7.0,28,"[O3] Prop2.4(3), \ {\bar{\kappa}_{7}}{\varepsilon_{27}} = {\sigma'}{\eta_{14}}{\bar{\kappa}_{15}} + {\varepsilon_{7}}{\bar{\kappa}_{15}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+570,,29,,missing,,unparsed_or_missing,[],[],False,False,False,False
+571,7.0,29,"[O2] Prop2.1(6), \ {\sigma'}{\rho_{14}}{\sigma_{29}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+572,7.0,29,"[O2] Prop2.1(6), \ {\alpha'''_{1}}{\sigma_{22}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+573,3.0,29,"[O2] Prop2.4(1), \ {\varepsilon'}{\bar{\sigma}_{13}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+574,3.0,29,"[O2] Prop2.4(1), \ {\varepsilon'}{\bar{\zeta}_{13}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+575,5.0,29,"[O2] Prop2.4(2), \ {\nu_{5}}{\eta_{8}}{\sigma_{9}}{\nu^{*}_{16}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+576,5.0,29,"[O2] Prop2.4(2), \ {\nu_{5}}{\phi_{8}}{\nu_{31}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+577,5.0,29,"[O2] Prop2.4(2), \ {\alpha'_{2}}{\nu_{28}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+578,5.0,29,"[O2] Prop2.4(3), \ {\nu_{5}}{\sigma_{8}}{\bar{\zeta}_{15}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+579,5.0,29,"[O2] Prop2.4(3), \ {\nu_{5}}{E\sigma'}{\bar{\zeta}_{15}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+580,5.0,29,"[O2] Prop2.4(3), \ {\alpha'_{1}}{\sigma_{20}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+581,5.0,29,"[O2] Prop2.4(3), \ {\nu_{5}}{\bar{\zeta}_{8}}{\sigma_{27}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+582,5.0,29,"[O2] Prop2.4(3), \ {\nu_{5}}{\zeta_{8}}{\rho_{19}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+583,5.0,29,"[O2] Prop2.4(3), \ {\nu_{5}}{\eta_{8}}{\mu_{9}}{\omega_{18}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+584,11.0,29,"[O3] Prop2.3(1), \ {C_{1}}{\eta_{23}}{\mu_{24}}{\sigma_{33}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+585,5.0,29,"[O3] Prop2.4(1), \ {\nu_{5}}{\sigma_{8}}{\bar{\sigma}_{15}} \equiv {\phi_{5}}{\nu_{28}^{2}} \mod {\nu_{5}}{\bar{\kappa}_{8}}{\nu_{28}^{2}}-{\nu_{5}^{2}}{\bar{\kappa}_{11}}\nu_{31}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+586,5.0,29,"[O3] Prop2.4(2), \ {E ^{2}\bar{\alpha}}{\nu_{28}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+587,3.0,29,"[O3] Prop2.4(2), \ {\mu_{3}}{\bar{\kappa}_{12}} \equiv {\bar{\alpha}}{\nu_{26}^{2}} \mod {\eta_{3}}{\varepsilon_{4}}{\bar{\kappa}_{12}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+588,5.0,29,"[O3] Prop2.4(2), \ {\mu_{5}}{\bar{\kappa}_{14}} \equiv 0 \mod {\eta_{5}}{\varepsilon_{6}}{\bar{\kappa}_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+589,3.0,29,"[O3] Prop2.4(3), \ {\bar{\varepsilon}_{3}}{\kappa_{18}} = {\bar{\alpha}}{\nu_{26}^{2}} + {\eta_{3}}{\varepsilon_{4}}{\bar{\kappa}_{12}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+590,5.0,29,"[O3] Prop2.4(3), \ {\bar{\varepsilon}_{5}}{\kappa_{20}} = {\eta_{5}}{\varepsilon_{6}}{\bar{\kappa}_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+591,7.0,29,"[O3] Prop2.4(3), \ {\kappa_{7}^{2}}{\eta_{35}} = {\sigma'}{\varepsilon_{14}}{\kappa_{22}} + {\eta_{7}}{\varepsilon_{8}}{\bar{\kappa}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+592,6.0,29,"[O3] Prop2.4(3), \ {\eta_{6}}{\kappa_{7}^{2}} = \bar{\varepsilon}_{6}\kappa_{21}(= {\eta_{6}}{\varepsilon_{7}}{\bar{\kappa}_{15}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+593,7.0,29,"[O3] Prop2.4(3), \ {\eta_{7}}{\bar{\kappa}_{8}}{\varepsilon_{28}} = {\eta_{7}}{\varepsilon_{8}}{\bar{\kappa}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+594,7.0,29,"[O3] Prop2.4(3), \ {\bar{\varepsilon}_{7}}{\kappa_{22}} = {\eta_{7}}{\varepsilon_{8}}{\bar{\kappa}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+595,7.0,29,"[O3] Prop2.4(3), \ {\bar{\kappa}_{7}}{\eta_{27}}{\varepsilon_{28}} = {\sigma'}{\varepsilon_{14}}{\kappa_{22}} + {\eta_{7}}{\varepsilon_{8}}{\bar{\kappa}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+596,6.0,29,"[O3] Prop2.4(3), \ {\eta_{6}}{\bar{\kappa}_{7}}{\eta_{27}}{\sigma_{28}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+597,6.0,29,"[O3] Prop2.4(3), \ {\eta_{6}}{\bar{\kappa}_{7}}{\varepsilon_{27}} = {\eta_{6}}{\varepsilon_{7}}{\bar{\kappa}_{15}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+598,7.0,29,"[O3] Prop2.4(4), \ {\kappa_{7}}{\rho_{21}} \equiv 0 \mod 8\pi_{36}^7",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+599,7.0,29,"[O3] Prop2.4(4), \ {\sigma'}{\sigma_{14}}{\rho_{21}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+600,7.0,29,"[O3] Prop2.4(4), \ {\rho''}{\kappa_{22}} \equiv 0 \mod \nu_7\sigma_{10}\bar{\sigma}_{17},{\sigma'}{\varepsilon_{14}}{\kappa_{22}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+601,8.0,29,"[O3] Prop2.4(4), \ {E\sigma'}{\sigma^{*}{'}} = -2{E\delta''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+602,11.0,29,"[O3] Prop2.4(5), \ {C_{1}}{\eta_{23}}{\omega_{24}} = 8{\sigma_{11}}{\sigma^{*}_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+603,11.0,29,"[O3] Prop2.4(5), \ {E ^{2}\rho'}{\sigma_{26}^{2}} = 8{\sigma_{11}}{\sigma^{*}_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+604,12.0,29,"[O3] Prop2.4(5), \ {EC_{1}}{\eta_{24}}{\omega_{25}} =4\Delta(\nu^{*}_{25}) (= 8{\sigma_{12}}{\sigma^{*}_{19}})",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+605,20.0,29,"[O3] Prop2.5(7), \ {A_{2}}{\eta_{40}^{2}}{\sigma_{42}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+606,7.0,29,"[O3] (7.7), \ {E\widetilde{\varepsilon}'} \equiv {\sigma'}{\omega_{14}}{\nu_{30}^{2}} \mod E^2\pi_{34}^5",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+607,22.0,29,"[O3] (7.28), \ {E ^{6}P_{1}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+608,,30,,missing,,unparsed_or_missing,[],[],False,False,False,False
+609,5.0,30,"[O3] Prop2.2(5), \ 2({\nu_{5}}{\bar{\kappa}_{8}}{\sigma_{28}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+610,3.0,30,"[O3] Prop2.4(2), \ {\eta_{3}}{\mu_{4}}{\bar{\kappa}_{13}} \equiv 0 \mod 2{\varepsilon'}{\bar{\kappa}_{13}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+611,5.0,30,"[O3] Prop2.5(1), \ {\alpha'_{1}}{\rho_{20}} \equiv {\nu_{5}}{\zeta_{3,8} } \mod 2\pi_{35}^5",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+612,5.0,30,"[O3] Prop2.5(1), \ {\alpha'_{2}}{\sigma_{28}} = {\alpha'_{1}}{\rho_{20}} (\equiv {\nu_{5}}{\zeta_{3,8} } \mod 2\pi_{35}^5)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+613,5.0,30,"[O3] Prop2.5(1), \ {\zeta_{5}}{\bar{\zeta}_{16}} = {\nu_{5}}{\zeta_{3,8} }",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+614,5.0,30,"[O3] Prop2.5(1), \ {\bar{\zeta}_{5}}{\zeta_{24}} = {\nu_{5}}{\zeta_{3,8} }",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+615,5.0,30,"[O3] Prop2.5(1), \ {\zeta_{3,5} }{\nu_{32}} = {\nu_{5}}{\zeta_{3,8} }",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+616,5.0,30,"[O3] Prop2.5(1), \ {\sigma'''}{\bar{\rho}_{12}} = {\nu_{5}}{\zeta_{3,8} }",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+617,9.0,30,"[O3] Prop2.5(2), \ 2({\alpha_{1}^{IV}}{\rho_{24}}) =\pm2\bar{\rho}_9\sigma_{32} \equiv 2x{\sigma_{9}}{\bar{\rho}_{16}} \mod 4{\sigma_{9}}{\nu_{16}}{\bar{\kappa}_{19}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+618,9.0,30,"[O3] Prop2.5(2), \ 2({\bar{\rho}_{9}}{\sigma_{32}}) \equiv 2x{\sigma_{9}}{\bar{\rho}_{16}} \mod 4{\sigma_{9}}{\nu_{16}}{\bar{\kappa}_{19}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+619,11.0,30,"[O3] Prop2.5(2), \ {E ^{2}\alpha_{1}^{IV}}{\rho_{26}} \equiv {\sigma_{11}}{\bar{\rho}_{18}} \mod 8{\sigma_{11}}{\bar{\rho}_{18}},{\sigma_{11}}{\psi_{18}},{\sigma_{11}}{\phi_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+620,13.0,30,"[O3] Prop2.5(2), \ {\sigma_{13}}{\bar{\rho}_{20}} \equiv 2x{\rho_{13}^{2}} \mod {\sigma_{13}}{\psi_{20}},{\sigma_{13}}{\phi_{20}}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+621,10.0,30,"[O3] Prop2.5(2), \ {\bar{\rho}_{10}}{\sigma_{33}} \equiv x{\sigma_{10}}{\bar{\rho}_{17}} \mod 2{\sigma_{10}}{\bar{\rho}_{17}},2{\sigma_{10}}{\nu_{17}}{\bar{\kappa}_{20}},\sigma_{10}\omega_{17}\sigma_{33},\sigma_{10}EB_1\sigma_{33}, \ (x:odd)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+622,16.0,30,"[O3] Prop2.5(2), \ 16({\rho_{16}^{2}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+623,18.0,30,"[O3] Prop2.5(2), \ 8({\rho_{18}^{2}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+624,22.0,30,"[O3] Prop2.5(2), \ 4({\rho_{22}^{2}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+625,26.0,30,"[O3] Prop2.5(2), \ 2({\rho_{26}^{2}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+626,16.0,30,"[O3] Prop2.5(2), \ 8({\sigma_{16}}{\bar{\rho}_{23}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+627,18.0,30,"[O3] Prop2.5(2), \ 4({\sigma_{18}}{\bar{\rho}_{25}}) = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+628,9.0,30,"[O3] Prop2.5(3), \ {\alpha_{1}^{IV}}{\eta_{24}}{\kappa_{25}} \equiv 0 \mod 4{\sigma_{9}}{\nu_{16}}{\bar{\kappa}_{19}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+629,5.0,30,"[O3] Prop2.5(3), \ {\nu_{5}}{\bar{\kappa}_{8}}{\sigma_{28}} \equiv 0 \mod 4{\nu_{5}}{\sigma_{8}}{\bar{\kappa}_{15}},{\nu_{5}}{\bar{\nu}_{8}}{\bar{\sigma}_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+630,3.0,30,"[O3] Prop2.5(4), \ {\nu'}{\zeta_{3,6} } = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+631,9.0,30,"[O3] Prop2.5(5), \ {\sigma_{9}}{\eta_{16}}{\sigma^{*}_{17}} \equiv {\sigma_{9}}{\psi_{16}} \mod 4{\sigma_{9}}{\nu_{16}}{\bar{\kappa}_{19}},{\sigma_{9}}{\phi_{16}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+632,9.0,30,"[O3] Prop2.5(5), \ {\eta_{9}}{\sigma_{10}}{\sigma^{*}_{17}} = {\phi_{9}}{\sigma_{32}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+633,9.0,30,"[O3] Prop2.5(6), \ {\bar{\nu}_{9}}{\nu_{17}}{\bar{\sigma}_{20}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+634,10.0,30,"[O3] Prop2.5(6), \ {\sigma_{10}}{\phi_{17}} = 2{\psi_{10}}{\sigma_{33}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+635,11.0,30,"[O3] Prop2.5(6), \ {\sigma_{11}}{\phi_{18}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+636,11.0,30,"[O3] Prop2.5(6), \ {\phi_{11}}{\sigma_{34}} = {\sigma_{11}}{\psi_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+637,11.0,30,"[O3] Prop2.5(6), \ {\sigma_{11}}{\omega_{18}}{\sigma_{34}} = {\sigma_{11}}{\psi_{18}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+638,13.0,30,"[O3] Prop2.5(6), \ {\sigma_{13}}{\psi_{20}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+639,16.0,30,"[O3] Prop2.5(8), \ {\sigma^{*}_{16}}{\varepsilon_{38}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+640,16.0,30,"[O3] Prop2.5(8), \ {\sigma^{*}_{16}}{\bar{\nu}_{38}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+641,13.0,30,"[O3] (8.22), \ {E\theta^{VII}} \equiv {\rho_{13}^{2}} \mod 2{E\theta^{VII}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+642,14.0,30,"[O3] (8.22), \ {\rho_{14}^{2}} \equiv 2{\theta^{VI}} \mod 4{\theta^{VI}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+643,15.0,30,"[O3] (8.22), \ {\rho_{15}^{2}} \equiv 4{\theta^{V}} \mod 8{\theta^{V}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+644,17.0,30,"[O3] (8.22), \ {\rho_{17}^{2}} \equiv 8{E\theta^{IV}} \mod 16{E\theta^{IV}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+645,21.0,30,"[O3] (8.27), \ {EA_{2}}{\eta_{41}}{\mu_{42}} = 32{E\theta'''}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+646,31.0,30,"[O3] (8.31), \ {E ^{9}\theta''} = 2{\theta'_{31}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+647,,31,,missing,,unparsed_or_missing,[],[],False,False,False,False
+648,16.0,31,"[O3] Prop2.1(1), \ {B_{1}}{\rho_{32}} = {B_{1}^{(1)}}{\sigma_{40}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+649,15.0,31,"[O3] Prop2.1(1), \ {D_{1}}{\rho_{31}} = {D_{1}^{(1)}}{\sigma_{39}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+650,3.0,31,"[O3] Prop2.6(1), \ {\bar{\mu}_{3}}{\sigma_{20}^{2}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+651,3.0,31,"[O3] Prop2.6(1), \ {\mu_{3}}{\sigma_{12}}{\rho_{19}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+652,3.0,31,"[O3] Prop2.6(1), \ {\varepsilon_{3}}{\psi_{11}} = {\delta_{3}}{\sigma_{27}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+653,3.0,31,"[O3] Prop2.6(1), \ {\varepsilon_{3}}{\phi_{11}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+654,3.0,31,"[O3] Prop2.6(1), \ {\varepsilon_{3}}{\bar{\rho}_{11}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+655,6.0,31,"[O3] Prop2.6(2), \ {\bar{\nu}_{6}}{\phi_{14}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+656,6.0,31,"[O3] Prop2.6(2), \ {\zeta'}{\rho_{22}} \equiv 0 \mod 8\pi_{37}^6",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+657,6.0,31,"[O3] Prop2.6(2), \ {\bar{\zeta}{'}_{6}}{\sigma_{30}} \equiv 0 \mod 8\pi_{37}^6",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+658,6.0,31,"[O3] Prop2.6(2), \ {\bar{\nu}_{6}}{\bar{\rho}_{14}} \equiv 0 \mod 8\pi_{37}^6",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+659,5.0,31,"[O3] Prop2.6(3), \ {\alpha'_{2}}{\varepsilon_{28}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+660,5.0,31,"[O3] Prop2.6(3), \ {\alpha'_{2}}{\bar{\nu}_{28}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+661,3.0,31,"[O3] Prop2.6(3), \ {\mu_{3}}{\varepsilon_{12}}{\kappa_{20}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+662,9.0,31,"[O3] Prop2.6(4), \ {\sigma_{9}}{\varepsilon^{*}_{16}}{\sigma_{33}} \equiv {\sigma_{9}}{\bar{\sigma}{'}_{16}} \mod {\sigma_{9}}{\delta_{16}},\sigma_9^2\bar{\mu}_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+663,7.0,31,"[O3] Prop2.6(5), \ {\bar{\nu}_{7}}{\omega_{15}}{\sigma_{31}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+664,6.0,31,"[O3] Prop2.6(5), \ {\varepsilon_{6}}{\omega_{14}}{\sigma_{30}} = {\delta_{6}}{\sigma_{30}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+665,6.0,31,"[O3] Prop2.6(5), \ {\eta_{6}}{\phi_{7}}{\sigma_{30}} = {\delta_{6}}{\sigma_{30}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+666,7.0,31,"[O3] Prop2.6(5), \ {\bar{\sigma}{'}_{7}}{\sigma_{31}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+667,7.0,31,"[O3] Prop2.6(5), \ {\bar{\nu}_{7}}{\psi_{15}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+668,11.0,31,"[O3] Prop2.6(5), \ {\delta_{11}}{\sigma_{35}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+669,9.0,31,"[O3] Prop2.6(6), \ {\eta_{9}}{\sigma_{10}}{\bar{\rho}_{17}} \equiv 0 \mod 8E^3\pi_{37}^6",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+670,9.0,31,"[O3] Prop2.6(6), \ {\eta_{9}}{\sigma_{10}}{\phi_{17}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+671,10.0,31,"[O3] Prop2.6(6), \ {\sigma_{10}^{2}}{\bar{\mu}_{24}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+672,10.0,31,"[O3] Prop2.6(6), \ {\sigma_{10}}{\delta_{17}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+673,10.0,31,"[O3] Prop2.6(6), \ {\sigma_{10}}{\bar{\mu}_{17}}{\sigma_{34}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+674,9.0,31,"[O3] Prop2.6(7), \ {\sigma_{9}}{E ^{2}\zeta^{*}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+675,9.0,31,"[O3] Prop2.6(7), \ {\sigma_{9}}{ED_{1}^{(1)}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+676,9.0,31,"[O3] Prop2.6(7), \ {\sigma_{9}}{E ^{2}G_{1}} \equiv 0 \mod \sigma_9\omega_{16}\varepsilon_{32}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+677,9.0,31,"[O3] Prop2.6(7), \ {\sigma_{9}}{\widetilde{\varepsilon}_{16}} \equiv 0 \mod {\sigma_{9}}{\delta_{16}},{\sigma_{9}}{\bar{\sigma}{'}_{16}},\sigma_9^2\bar{\mu}_{23}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+678,16.0,31,"[O3] Prop2.6(8), \ {\eta^{*}_{16}}{\bar{\varepsilon}_{32}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+679,10.0,31,"[O3] Prop2.6(8), \ {\bar{\varepsilon}_{10}}{\omega_{25}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+680,17.0,31,"[O3] Prop2.6(8), \ {\omega_{17}}{\bar{\varepsilon}_{33}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+681,17.0,31,"[O3] Prop2.6(8), \ {EB_{1}}{\bar{\varepsilon}_{33}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+682,12.0,31,"[O3] Prop2.6(8), \ {A_{1}}{\bar{\sigma}_{24}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+683,11.0,31,"[O3] Prop2.6(8), \ {C_{1}}{\bar{\sigma}_{23}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+684,3.0,31,"[O3] (9.5), \ {\bar{\varepsilon}_{3}}{\omega_{18}} = 0",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+685,7.0,31,"[O3] (10.1), \ {\sigma'}{\delta_{14}} \equiv x{\bar{\nu}_{7}}{\nu_{15}}{\bar{\kappa}_{18}} \mod {\sigma'}{\bar{\mu}_{14}}{\sigma_{31}}, \ (x=0 \ or \ 1)",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+686,10.0,31,"[O3] (10.5), \ {\delta_{10}}{\sigma_{34}} = 2{\kappa^{*}_{10}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+687,14.0,31,"[O3] (10.16), \ {E\alpha_{3}^{V}} \equiv 2{\rho_{3,14}} \mod 2E\alpha_3^{V},2{\omega^{*}_{14}}",external_tag,,unparsed_or_missing,[],[],False,False,False,False
+688,,32,,missing,,unparsed_or_missing,[],[],False,False,False,False
