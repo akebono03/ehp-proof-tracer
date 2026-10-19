@@ -1,0 +1,1 @@
+R6 targeted three-group exploration; no source changes, no full pytest. Explicit pi5^3 equality is goal only, not evidence. Conclusion from COMPLETE is not independent proof certification.\n

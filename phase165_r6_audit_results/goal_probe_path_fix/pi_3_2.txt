@@ -1,0 +1,5 @@
+
+Traceback (most recent call last):
+  File "C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase165_goal_probe_path_fix\probe_goal.py", line 25, in main
+    print(json.dumps(payload, ensure_ascii=False, indent=2))
+UnicodeEncodeError: 'cp932' codec can't encode character '\u2082' in position 243: illegal multibyte sequence

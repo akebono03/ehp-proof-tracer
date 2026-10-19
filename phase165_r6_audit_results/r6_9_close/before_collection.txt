@@ -1,0 +1,262 @@
+
+=================================== ERRORS ====================================
+_ ERROR collecting tests/test_phase100_12b_standard_repository_integration.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase100_12b_standard_repository_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase100_12b_standard_repository_integration.py:9: in <module>
+    from standard_production_repository import (
+E   ModuleNotFoundError: No module named 'standard_production_repository'
+___ ERROR collecting tests/test_phase144_6_pi6_generic_production_route.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_pi6_generic_production_route.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_pi6_generic_production_route.py:5: in <module>
+    from tests.test_phase143_19_method_evidence import (
+E   ModuleNotFoundError: No module named 'tests.test_phase143_19_method_evidence'
+_______ ERROR collecting tests/test_phase144_6_public_route_cutover.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_public_route_cutover.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_public_route_cutover.py:5: in <module>
+    from tests.test_phase143_19_method_evidence import (
+E   ModuleNotFoundError: No module named 'tests.test_phase143_19_method_evidence'
+_ ERROR collecting tests/test_phase144_6_r5_17a_proof_chain_selection_audit.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17a_proof_chain_selection_audit.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17a_proof_chain_selection_audit.py:1: in <module>
+    from audit_phase144_6_r5_17a import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17a'
+_ ERROR collecting tests/test_phase144_6_r5_17a_r2_argument_support_edge_integration.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17a_r2_argument_support_edge_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17a_r2_argument_support_edge_integration.py:1: in <module>
+    from audit_phase144_6_r5_17a_r2 import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17a_r2'
+_ ERROR collecting tests/test_phase144_6_r5_17a_r3_support_edge_correspondence.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17a_r3_support_edge_correspondence.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17a_r3_support_edge_correspondence.py:1: in <module>
+    from audit_phase144_6_r5_17a_r3 import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17a_r3'
+_ ERROR collecting tests/test_phase144_6_r5_17b_generic_proof_chain_types.py __
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17b_generic_proof_chain_types.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17b_generic_proof_chain_types.py:1: in <module>
+    from audit_phase144_6_r5_17b import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17b'
+_ ERROR collecting tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17c_cross_group_generic_proof_chain.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17c_cross_group_generic_proof_chain.py:1: in <module>
+    from audit_phase144_6_r5_17c import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17c'
+_ ERROR collecting tests/test_phase144_6_r5_17d_failure_novelty_classification.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17d_failure_novelty_classification.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17d_failure_novelty_classification.py:1: in <module>
+    from audit_phase144_6_r5_17d import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17d'
+_ ERROR collecting tests/test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py:1: in <module>
+    from audit_phase144_6_r5_17d_r1 import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17d_r1'
+_ ERROR collecting tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_r5_17e_proof_chain_architecture_decision.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_r5_17e_proof_chain_architecture_decision.py:1: in <module>
+    from audit_phase144_6_r5_17e import (
+E   ModuleNotFoundError: No module named 'audit_phase144_6_r5_17e'
+_____ ERROR collecting tests/test_phase148_rc2_4_post_repair_six_group.py _____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase148_rc2_4_post_repair_six_group.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase148_rc2_4_post_repair_six_group.py:3: in <module>
+    from phase148_rc2_4_repair_r5_r3_six_group_invariant_repair.audit_phase148_rc2_4_repair_r5_r3 import (
+phase148_rc2_4_repair_r5_r3_six_group_invariant_repair\audit_phase148_rc2_4_repair_r5_r3.py:7: in <module>
+    from toda_calculation_facade import (
+E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_calculation_facade.py)
+___________ ERROR collecting tests/test_phase148_rc2_4_repair_r5.py ___________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase148_rc2_4_repair_r5.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase148_rc2_4_repair_r5.py:3: in <module>
+    from phase148_rc2_4_repair_r5_two_group_exposure_path_audit.audit_phase148_rc2_4_repair_r5 import (
+phase148_rc2_4_repair_r5_two_group_exposure_path_audit\audit_phase148_rc2_4_repair_r5.py:1: in <module>
+    from toda_calculation_facade import (
+E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_calculation_facade.py)
+_________ ERROR collecting tests/test_phase148_rc2_4_repair_r5_r2.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase148_rc2_4_repair_r5_r2.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase148_rc2_4_repair_r5_r2.py:3: in <module>
+    from phase148_rc2_4_repair_r5_two_group_exposure_path_audit.audit_phase148_rc2_4_repair_r5 import (
+phase148_rc2_4_repair_r5_two_group_exposure_path_audit\audit_phase148_rc2_4_repair_r5.py:1: in <module>
+    from toda_calculation_facade import (
+E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_calculation_facade.py)
+_ ERROR collecting tests/test_phase159_pi4_3_prop51_direct_delta_provenance.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase159_pi4_3_prop51_direct_delta_provenance.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase159_pi4_3_prop51_direct_delta_provenance.py:26: in <module>
+    from toda_upstream_bootstrap import (
+E   ModuleNotFoundError: No module named 'toda_upstream_bootstrap'
+_ ERROR collecting tests/test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py:4: in <module>
+    from standard_production_repository import (
+E   ModuleNotFoundError: No module named 'standard_production_repository'
+___ ERROR collecting tests/test_phase160_k1_generic_transport_connection.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase160_k1_generic_transport_connection.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase160_k1_generic_transport_connection.py:13: in <module>
+    from toda_prop56_zero_bootstrap import (
+E   ModuleNotFoundError: No module named 'toda_prop56_zero_bootstrap'
+___ ERROR collecting tests/test_phase160_k7_generic_transport_connection.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase160_k7_generic_transport_connection.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase160_k7_generic_transport_connection.py:12: in <module>
+    from toda_prop515_upper_bootstrap import (
+E   ModuleNotFoundError: No module named 'toda_prop515_upper_bootstrap'
+_____ ERROR collecting tests/test_phase160_remaining_stable_production.py _____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase160_remaining_stable_production.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase160_remaining_stable_production.py:17: in <module>
+    from toda_phase65_bootstrap import (
+E   ModuleNotFoundError: No module named 'toda_phase65_bootstrap'
+_ ERROR collecting tests/test_phase162_r5_4_iterated_suspension_structural_rendering.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase162_r5_4_iterated_suspension_structural_rendering.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase162_r5_4_iterated_suspension_structural_rendering.py:10: in <module>
+    from repository_element_presentation import render_repository_conclusion_latex
+E   ModuleNotFoundError: No module named 'repository_element_presentation'
+_________ ERROR collecting tests/test_phase163_r4_r12_stable_bases.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase163_r4_r12_stable_bases.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase163_r4_r12_stable_bases.py:18: in <module>
+    from toda_upstream_bootstrap import _build_phase50_result
+E   ModuleNotFoundError: No module named 'toda_upstream_bootstrap'
+______ ERROR collecting tests/test_phase164_r7_r3_generator_registry.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r7_r3_generator_registry.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r7_r3_generator_registry.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'repository_generator_known_group_identity_lookup'
+______ ERROR collecting tests/test_phase164_r7_r4_operation_registry.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r7_r4_operation_registry.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r7_r4_operation_registry.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'repository_operation_query_facade'
+_________ ERROR collecting tests/test_phase49_generator_transport.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase49_generator_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase49_generator_transport.py:26: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi3_2_define_eta2_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+________________ ERROR collecting tests/test_phase81_probe.py _________________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase81_probe.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase81_probe.py:2: in <module>
+    from probes.probe_phase81_capabilities import (
+probes\probe_phase81_capabilities.py:19: in <module>
+    from test_phase81_rule_selection_regression import (
+E   ModuleNotFoundError: No module named 'test_phase81_rule_selection_regression'
+=========================== short test summary info ===========================
+ERROR tests/test_phase100_12b_standard_repository_integration.py
+ERROR tests/test_phase144_6_pi6_generic_production_route.py
+ERROR tests/test_phase144_6_public_route_cutover.py
+ERROR tests/test_phase144_6_r5_17a_proof_chain_selection_audit.py
+ERROR tests/test_phase144_6_r5_17a_r2_argument_support_edge_integration.py
+ERROR tests/test_phase144_6_r5_17a_r3_support_edge_correspondence.py
+ERROR tests/test_phase144_6_r5_17b_generic_proof_chain_types.py
+ERROR tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py
+ERROR tests/test_phase144_6_r5_17d_failure_novelty_classification.py
+ERROR tests/test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py
+ERROR tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py
+ERROR tests/test_phase148_rc2_4_post_repair_six_group.py
+ERROR tests/test_phase148_rc2_4_repair_r5.py
+ERROR tests/test_phase148_rc2_4_repair_r5_r2.py
+ERROR tests/test_phase159_pi4_3_prop51_direct_delta_provenance.py
+ERROR tests/test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py
+ERROR tests/test_phase160_k1_generic_transport_connection.py
+ERROR tests/test_phase160_k7_generic_transport_connection.py
+ERROR tests/test_phase160_remaining_stable_production.py
+ERROR tests/test_phase162_r5_4_iterated_suspension_structural_rendering.py
+ERROR tests/test_phase163_r4_r12_stable_bases.py
+ERROR tests/test_phase164_r7_r3_generator_registry.py
+ERROR tests/test_phase164_r7_r4_operation_registry.py
+ERROR tests/test_phase49_generator_transport.py
+ERROR tests/test_phase81_probe.py
+no tests collected, 25 errors in 12.18s

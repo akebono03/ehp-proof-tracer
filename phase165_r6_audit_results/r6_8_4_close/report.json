@@ -1,0 +1,43 @@
+{
+  "remaining_test_files": 305,
+  "direct_retired_imports": {},
+  "parse_errors": {},
+  "phase": "165 R6-8(4) closure",
+  "utc": "2026-10-19T06:25:15.803299+00:00",
+  "phase165_test_files": 15,
+  "collection_command": [
+    "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "-m",
+    "pytest",
+    "--collect-only",
+    "-q",
+    "--continue-on-collection-errors",
+    "--tb=short",
+    "-o",
+    "addopts=",
+    "tests\\test_phase165_goal_only_cutover.py",
+    "tests\\test_phase165_r10_goal_diagnostics.py",
+    "tests\\test_phase165_r11_wiring.py",
+    "tests\\test_phase165_r12_r2_quotient_rules.py",
+    "tests\\test_phase165_r12_r5_structure_bridge.py",
+    "tests\\test_phase165_r12_typed_binding.py",
+    "tests\\test_phase165_r2_registry_lookup.py",
+    "tests\\test_phase165_r3_recursive_search.py",
+    "tests\\test_phase165_r4_production_connection.py",
+    "tests\\test_phase165_r5_manifest_bridge.py",
+    "tests\\test_phase165_r6_binding_candidates.py",
+    "tests\\test_phase165_r7_bulk_integration.py",
+    "tests\\test_phase165_r8_rule_provider.py",
+    "tests\\test_phase165_r9_production_wiring.py",
+    "tests\\test_phase165_tex_citation_policy.py"
+  ],
+  "full_pytest_executed": false,
+  "test_bodies_executed": false,
+  "source_modified": false,
+  "mathematical_coverage_verified": false,
+  "collection_returncode": 0,
+  "collection_error_files": [],
+  "collection_summary": [
+    "68 tests collected in 8.83s"
+  ]
+}
