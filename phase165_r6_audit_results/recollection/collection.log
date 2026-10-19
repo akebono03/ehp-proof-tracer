@@ -9874,15 +9874,6 @@ probes\probe_phase80_capabilities.py:28: in <module>
 tests\test_phase80_actual_proof_integration.py:11: in <module>
     from repository_inference import (
 E   ModuleNotFoundError: No module named 'repository_inference'
-______ ERROR collecting tests/test_phase81_actual_theorem_integration.py ______
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase81_actual_theorem_integration.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase81_actual_theorem_integration.py:7: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
 ________________ ERROR collecting tests/test_phase81_probe.py _________________
 ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase81_probe.py'.
 Hint: make sure your test modules/packages have valid Python names.
@@ -9894,15 +9885,6 @@ tests\test_phase81_probe.py:2: in <module>
 probes\probe_phase81_capabilities.py:19: in <module>
     from test_phase81_rule_selection_regression import (
 E   ModuleNotFoundError: No module named 'test_phase81_rule_selection_regression'
-______ ERROR collecting tests/test_phase82_actual_theorem_integration.py ______
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase82_actual_theorem_integration.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase82_actual_theorem_integration.py:11: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
 ______ ERROR collecting tests/test_phase82_missing_premise_detection.py _______
 ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase82_missing_premise_detection.py'.
 Hint: make sure your test modules/packages have valid Python names.
@@ -9941,24 +9923,6 @@ Traceback:
 ..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
     return _bootstrap._gcd_import(name[level:], package, level)
 tests\test_phase82_two_step_forward_execution.py:4: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
-______ ERROR collecting tests/test_phase83_actual_theorem_integration.py ______
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase83_actual_theorem_integration.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase83_actual_theorem_integration.py:8: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
-___ ERROR collecting tests/test_phase83_missing_premise_producer_lookup.py ____
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase83_missing_premise_producer_lookup.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase83_missing_premise_producer_lookup.py:5: in <module>
     from repository_inference import (
 E   ModuleNotFoundError: No module named 'repository_inference'
 ________________ ERROR collecting tests/test_phase83_probe.py _________________
@@ -10001,15 +9965,6 @@ Traceback:
 tests\test_phase84_producer_premise_availability.py:9: in <module>
     from repository_inference import (
 E   ModuleNotFoundError: No module named 'repository_inference'
-___ ERROR collecting tests/test_phase84_unique_depth_two_producer_chain.py ____
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase84_unique_depth_two_producer_chain.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase84_unique_depth_two_producer_chain.py:3: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
 ______ ERROR collecting tests/test_phase85_actual_theorem_integration.py ______
 ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase85_actual_theorem_integration.py'.
 Hint: make sure your test modules/packages have valid Python names.
@@ -10017,33 +9972,6 @@ Traceback:
 ..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
     return _bootstrap._gcd_import(name[level:], package, level)
 tests\test_phase85_actual_theorem_integration.py:4: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
-____ ERROR collecting tests/test_phase85_execution_failure_diagnostics.py _____
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase85_execution_failure_diagnostics.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase85_execution_failure_diagnostics.py:13: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
-_ ERROR collecting tests/test_phase85_nested_producer_cycle_depth_classification.py _
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase85_nested_producer_cycle_depth_classification.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase85_nested_producer_cycle_depth_classification.py:10: in <module>
-    from repository_inference import (
-E   ModuleNotFoundError: No module named 'repository_inference'
-_____ ERROR collecting tests/test_phase87_selection_side_finite_retry.py ______
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase87_selection_side_finite_retry.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase87_selection_side_finite_retry.py:12: in <module>
     from repository_inference import (
 E   ModuleNotFoundError: No module named 'repository_inference'
 _______ ERROR collecting tests/test_phase88_goal_side_compatibility.py ________
@@ -10506,15 +10434,6 @@ probes\probe_phase58_capabilities.py:28: in <module>
 probes\probe_phase50_capabilities.py:34: in <module>
     from toda_rules import (
 E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
-_ ERROR collecting tests/test_phase99_actual_repository_element_lookup_validation.py _
-ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase99_actual_repository_element_lookup_validation.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests\test_phase99_actual_repository_element_lookup_validation.py:10: in <module>
-    from repository_element_lookup import (
-E   ModuleNotFoundError: No module named 'repository_element_lookup'
 ______ ERROR collecting tests/test_phase99_semantic_occurrence_roles.py _______
 ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase99_semantic_occurrence_roles.py'.
 Hint: make sure your test modules/packages have valid Python names.
@@ -10871,24 +10790,16 @@ ERROR tests/test_phase79_cross_phase_repository.py
 ERROR tests/test_phase79_repository_regression.py
 ERROR tests/test_phase80_actual_proof_integration.py
 ERROR tests/test_phase80_probe.py
-ERROR tests/test_phase81_actual_theorem_integration.py
 ERROR tests/test_phase81_probe.py
-ERROR tests/test_phase82_actual_theorem_integration.py
 ERROR tests/test_phase82_missing_premise_detection.py
 ERROR tests/test_phase82_premise_rule_lookup.py
 ERROR tests/test_phase82_probe.py
 ERROR tests/test_phase82_two_step_forward_execution.py
-ERROR tests/test_phase83_actual_theorem_integration.py
-ERROR tests/test_phase83_missing_premise_producer_lookup.py
 ERROR tests/test_phase83_probe.py
 ERROR tests/test_phase84_bounded_depth_two_execution.py
 ERROR tests/test_phase84_probe.py
 ERROR tests/test_phase84_producer_premise_availability.py
-ERROR tests/test_phase84_unique_depth_two_producer_chain.py
 ERROR tests/test_phase85_actual_theorem_integration.py
-ERROR tests/test_phase85_execution_failure_diagnostics.py
-ERROR tests/test_phase85_nested_producer_cycle_depth_classification.py
-ERROR tests/test_phase87_selection_side_finite_retry.py
 ERROR tests/test_phase88_goal_side_compatibility.py
 ERROR tests/test_phase88_realistic_catalog_collision_observability.py
 ERROR tests/test_phase90_actual_known_group_lookup.py
@@ -10909,6 +10820,5 @@ ERROR tests/test_phase95_minimal_calculation_result.py
 ERROR tests/test_phase95_recovered_branch_normalization.py
 ERROR tests/test_phase95_repository_wide_goal_candidate_discovery.py
 ERROR tests/test_phase96_minimal_structured_presentation_model.py
-ERROR tests/test_phase99_actual_repository_element_lookup_validation.py
 ERROR tests/test_phase99_semantic_occurrence_roles.py
-4223 tests collected, 380 errors in 52.45s
+4223 tests collected, 371 errors in 54.13s
