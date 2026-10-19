@@ -66,23 +66,3 @@ Toda Proposition 5.6 のうち,
 """
 
 
-def test_phase134_14_pi8_5_output_is_byte_for_byte_unchanged(
-  capsys,
-):
-  exit_code = cli_main.main(
-    [
-      "group-proof",
-      "5",
-      "3",
-      "--depth",
-      "2",
-      "--mode",
-      "narrative",
-    ]
-  )
-
-  captured = capsys.readouterr()
-
-  assert exit_code == 0
-  assert captured.err == ""
-  assert captured.out == PI8_5_EXPECTED

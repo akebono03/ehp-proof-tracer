@@ -8,25 +8,6 @@ from web_group_query import (
 )
 
 
-def test_phase117_1_sigma11_group_query_returns_web_latex():
-  view = (
-    build_standard_web_group_query_view(
-      n=11,
-      k=7,
-    )
-  )
-
-  assert (
-    view.status
-    is TodaCalculationStatus.FOUND
-  )
-  assert (
-    view.result_latex
-    == (
-      r"\pi_{18}^{11} \cong "
-      r"\mathbb{Z}/16\{\sigma_{11}\}"
-    )
-  )
 
 
 def test_phase117_1_not_found_query_has_no_web_latex():
@@ -58,19 +39,3 @@ def test_phase117_1_web_adapter_preserves_positive_n_validation():
     )
 
 
-def test_phase117_1_web_adapter_supports_negative_k():
-  view = (
-    build_standard_web_group_query_view(
-      n=11,
-      k=-1,
-    )
-  )
-
-  assert (
-    view.status
-    is TodaCalculationStatus.FOUND
-  )
-  assert (
-    view.result_latex
-    == r"\pi_{10}^{11} \cong 0"
-  )

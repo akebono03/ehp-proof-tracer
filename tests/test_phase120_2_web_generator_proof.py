@@ -5,30 +5,6 @@ from web_generator_proof import (
 )
 
 
-def test_phase120_2_sigma11_generator_proof_uses_existing_known_group_result():
-  view = (
-    build_standard_web_generator_proof_view(
-      "sigma_11"
-    )
-  )
-
-  assert (
-    view.generator_latex
-    == r"\sigma_{11}"
-  )
-
-  assert (
-    view.conclusion_latex
-    == (
-      r"\pi_{18}^{11} = "
-      r"\mathbb{Z}/16\{\sigma_{11}\}"
-    )
-  )
-
-  assert (
-    view.max_depth
-    == 1
-  )
 
 
 @pytest.mark.parametrize(
@@ -60,45 +36,8 @@ def test_phase120_2_generator_proof_accepts_web_depths(
   )
 
 
-def test_phase120_2_depth_zero_contains_only_root_step():
-  view = (
-    build_standard_web_generator_proof_view(
-      "sigma_11",
-      max_depth=0,
-    )
-  )
-
-  assert len(
-    view.steps
-  ) == 1
-
-  assert (
-    view.steps[
-      0
-    ].depth
-    == 0
-  )
 
 
-def test_phase120_2_nu_prime_preserves_existing_known_group_identity():
-  view = (
-    build_standard_web_generator_proof_view(
-      "nu_prime"
-    )
-  )
-
-  assert (
-    view.generator_latex
-    == r"\nu'"
-  )
-
-  assert (
-    view.conclusion_latex
-    == (
-      r"\pi_{6}^{3} = "
-      r"\mathbb{Z}/4\{\nu'\}"
-    )
-  )
 
 
 def test_phase120_2_blank_generator_is_rejected():

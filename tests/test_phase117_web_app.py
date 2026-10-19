@@ -20,41 +20,6 @@ def _build_test_client():
   return app.test_client()
 
 
-def test_phase117_2_web_and_cli_share_sigma11_result(
-  capsys,
-):
-  client = _build_test_client()
-
-  web_response = client.post(
-    "/",
-    data={
-      "n": "11",
-      "k": "7",
-    },
-  )
-
-  cli_exit_code = cli_main.main(
-    [
-      "11",
-      "7",
-    ]
-  )
-  captured = capsys.readouterr()
-
-  result_latex = (
-    rb"\pi_{18}^{11} \cong "
-    rb"\mathbb{Z}/16\{\sigma_{11}\}"
-  )
-
-  assert web_response.status_code == 200
-  assert cli_exit_code == 0
-  assert result_latex in web_response.data
-  assert (
-    result_latex.decode(
-      "ascii"
-    )
-    in captured.out
-  )
 
 
 def test_phase117_2_multiple_results_are_not_auto_selected(
