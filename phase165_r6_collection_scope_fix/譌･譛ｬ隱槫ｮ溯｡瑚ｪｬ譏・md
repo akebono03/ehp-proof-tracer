@@ -1,0 +1,22 @@
+# Phase 165 R6 テスト収集範囲修正
+
+ルートの `tests/` と直下の `test_*.py` を現行テスト候補として指定します。過去の Phase 展開ディレクトリと archive は探索しません。これは正式テストを完全に確定したという意味ではありません。
+
+収集段階のエラーは `phase165_r6_audit_results/collection.log` と `collection_scope.json` に保存し、テスト成功とは判定しません。
+
+以前の全ディレクトリ収集に由来する `resume_state.json` と `collected_nodeids.json` が存在する場合は、別フォルダに移動してから実行してください。古い結果を削除せず保存します。
+
+```powershell
+cd C:\Users\user\Dropbox\Python\fitz\ehp_proof
+
+$dest = '.\phase165_r6_audit_results\old_collection_before_scope_fix'
+New-Item -ItemType Directory -Force -Path $dest | Out-Null
+foreach ($name in @('resume_state.json', 'collected_nodeids.json')) {
+    $source = Join-Path '.\phase165_r6_audit_results' $name
+    if (Test-Path $source) { Move-Item -Path $source -Destination $dest -Force }
+}
+
+powershell -ExecutionPolicy Bypass -File '.\phase165_r6_collection_scope_fix\run.ps1'
+```
+
+途中停止には Ctrl+C を用い、再開には同じ run.ps1 を実行します。全体テストに未解決エラーがあると Phase は完了しません。
