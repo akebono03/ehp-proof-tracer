@@ -1,0 +1,29 @@
+{
+  "phase": "165 R6-12",
+  "status": "AUDITED_NO_CHANGES",
+  "active_files_scanned": 716,
+  "references": [
+    {
+      "path": "probes/probe_phase56_capabilities.py",
+      "line": 22,
+      "module": "probes.probe_phase49_capabilities",
+      "names": [
+        "build_phase49_representative_result",
+        "print_separator"
+      ],
+      "kind": "from_import"
+    },
+    {
+      "path": "probes/probe_phase58_capabilities.py",
+      "line": 28,
+      "module": "probes.probe_phase49_capabilities",
+      "names": [
+        "print_separator"
+      ],
+      "kind": "from_import"
+    }
+  ],
+  "parse_errors": [],
+  "retirement_performed": false,
+  "full_pytest_run": false
+}
