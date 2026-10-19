@@ -9,6 +9,8 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
+import uuid
 from datetime import datetime, timezone
 
 
@@ -17,9 +19,35 @@ def utc_now() -> str:
 
 
 def atomic_json(path: Path, value: dict) -> None:
-    tmp = path.with_suffix('.tmp')
-    tmp.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
-    os.replace(tmp, path)
+    """Retry atomic checkpoint updates when Dropbox temporarily locks the file."""
+    tmp = path.with_name(path.name + '.' + uuid.uuid4().hex + '.tmp')
+    try:
+        tmp.write_text(json.dumps(value, ensure_ascii=False, indent=2), encoding='utf-8')
+        for attempt in range(40):
+            try:
+                os.replace(tmp, path)
+                return
+            except PermissionError:
+                if attempt == 39:
+                    raise
+                time.sleep(0.25)
+    finally:
+        if tmp.exists():
+            try:
+                tmp.unlink()
+            except PermissionError:
+                pass
+
+
+def recover_successful_batch(log: Path, expected_count: int) -> bool:
+    """Recover a finished but not checkpointed batch from its complete pytest log."""
+    if not log.is_file():
+        return False
+    content = log.read_text(encoding='utf-8', errors='replace')
+    # A complete pytest terminal summary must match the batch size exactly.
+    return bool(re.search(r'^' + str(expected_count) + r' passed in [0-9.]+s\s*$',
+                          content, flags=re.MULTILINE)) and not bool(
+        re.search(r'(?m)^(FAILED|ERROR|INTERNALERROR|Traceback)', content))
 
 
 def run_logged(command: list[str], path: Path, cwd: Path) -> int:
@@ -113,6 +141,14 @@ def execute(root: Path, results: Path, chunk_size: int, extra: list[str]) -> int
             if completed.get(key, {}).get('returncode') == 0:
                 continue
             log = results / f'batch_{i:04}.log'
+            if key not in completed and recover_successful_batch(log, len(group)):
+                completed[key] = dict(returncode=0, node_count=len(group),
+                                      log=str(log), finished_at=utc_now(),
+                                      recovered_from_log=True)
+                state.update(completed=completed, updated_at=utc_now())
+                atomic_json(state_path, state)
+                print(f'RECOVERED BATCH {i}/{len(groups)} from validated log', flush=True)
+                continue
             state.update(current_batch=i, updated_at=utc_now(), status='RUNNING')
             atomic_json(state_path, state)
             print(f'BATCH {i}/{len(groups)}: {len(group)} tests; log={log}', flush=True)

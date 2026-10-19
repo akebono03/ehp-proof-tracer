@@ -1,8 +1,8 @@
 {
-  "status": "COLLECTION_FAILED",
+  "status": "FAILED",
   "started_at": "2026-10-19T06:54:49.661075+00:00",
   "collection_exit": 2,
-  "updated_at": "2026-10-19T06:59:41.390660+00:00",
+  "updated_at": "2026-10-19T07:21:40.605961+00:00",
   "collection_log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\collection.log",
   "scope": [
     "tests",
@@ -32,5 +32,181 @@
     "test_phase165_r55_nk_only_goal.py",
     "test_phase165_r56_common_renderer.py",
     "test_phase165_typed_component_lookup.py"
-  ]
+  ],
+  "fingerprint": "8d91b20942407075b249c96e9838e7e7b55dfd07fd8b35538174ac24cfd11300",
+  "chunk_size": 40,
+  "collected_node_count": 4223,
+  "batch_total": 106,
+  "completed": {
+    "1": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0001.log",
+      "finished_at": "2026-10-19T07:12:26.125690+00:00"
+    },
+    "2": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0002.log",
+      "finished_at": "2026-10-19T07:12:39.825259+00:00"
+    },
+    "3": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0003.log",
+      "finished_at": "2026-10-19T07:12:58.893793+00:00"
+    },
+    "4": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0004.log",
+      "finished_at": "2026-10-19T07:13:13.345533+00:00"
+    },
+    "5": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0005.log",
+      "finished_at": "2026-10-19T07:13:27.671198+00:00"
+    },
+    "6": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0006.log",
+      "finished_at": "2026-10-19T07:13:40.188925+00:00"
+    },
+    "7": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0007.log",
+      "finished_at": "2026-10-19T07:13:52.623269+00:00"
+    },
+    "8": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0008.log",
+      "finished_at": "2026-10-19T07:17:13.637240+00:00"
+    },
+    "9": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0009.log",
+      "finished_at": "2026-10-19T07:17:27.286044+00:00"
+    },
+    "10": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0010.log",
+      "finished_at": "2026-10-19T07:17:41.289200+00:00"
+    },
+    "11": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0011.log",
+      "finished_at": "2026-10-19T07:17:53.968168+00:00"
+    },
+    "12": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0012.log",
+      "finished_at": "2026-10-19T07:18:07.646458+00:00"
+    },
+    "13": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0013.log",
+      "finished_at": "2026-10-19T07:18:21.836270+00:00"
+    },
+    "14": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0014.log",
+      "finished_at": "2026-10-19T07:18:36.247402+00:00"
+    },
+    "15": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0015.log",
+      "finished_at": "2026-10-19T07:18:50.405780+00:00"
+    },
+    "16": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0016.log",
+      "finished_at": "2026-10-19T07:19:04.101719+00:00"
+    },
+    "17": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0017.log",
+      "finished_at": "2026-10-19T07:19:17.638011+00:00"
+    },
+    "18": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0018.log",
+      "finished_at": "2026-10-19T07:19:30.498612+00:00"
+    },
+    "19": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0019.log",
+      "finished_at": "2026-10-19T07:19:43.352499+00:00"
+    },
+    "20": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0020.log",
+      "finished_at": "2026-10-19T07:19:55.969059+00:00"
+    },
+    "21": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0021.log",
+      "finished_at": "2026-10-19T07:20:09.051939+00:00"
+    },
+    "22": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0022.log",
+      "finished_at": "2026-10-19T07:20:21.729297+00:00"
+    },
+    "23": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0023.log",
+      "finished_at": "2026-10-19T07:20:34.466862+00:00"
+    },
+    "24": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0024.log",
+      "finished_at": "2026-10-19T07:20:47.374612+00:00"
+    },
+    "25": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0025.log",
+      "finished_at": "2026-10-19T07:21:00.149158+00:00"
+    },
+    "26": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0026.log",
+      "finished_at": "2026-10-19T07:21:13.262670+00:00"
+    },
+    "27": {
+      "returncode": 0,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0027.log",
+      "finished_at": "2026-10-19T07:21:26.285630+00:00"
+    },
+    "28": {
+      "returncode": 1,
+      "node_count": 40,
+      "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\batch_0028.log",
+      "finished_at": "2026-10-19T07:21:40.601961+00:00"
+    }
+  },
+  "current_batch": 28,
+  "failed_batch": 28
 }
