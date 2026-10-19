@@ -1,0 +1,54 @@
+{
+  "phase": "166 R1",
+  "read_only": true,
+  "csv_rows": {
+    "sphere": 2150,
+    "gen": 233,
+    "relation": 687,
+    "bracket": 58
+  },
+  "database_rows": {
+    "sphere": 2150,
+    "gen": 233,
+    "sphere_relation": 687,
+    "TBtable": 58
+  },
+  "relation": {
+    "source_nonempty": 675,
+    "source_missing": 12,
+    "distinct_source_strings": 625,
+    "n_missing": 11,
+    "composition_nonempty": 640,
+    "rep_linear_nonempty": 641,
+    "complete_row_duplicates": 2,
+    "order_values": {
+      "": 11,
+      "0.0": 201,
+      "1.0": 125,
+      "16.0": 10,
+      "2.0": 275,
+      "32.0": 4,
+      "4.0": 38,
+      "8.0": 23
+    },
+    "columns": [
+      "k",
+      "n",
+      "el_str",
+      "total_coe",
+      "rep_coe",
+      "reference",
+      "order",
+      "composition",
+      "rep_linear",
+      "307",
+      "Unnamed: 9"
+    ]
+  },
+  "bracket": {
+    "source_nonempty": 53,
+    "bracket_text_nonempty": 41
+  },
+  "proof_permission": "NONE_GRANTED: origin and citation eligibility require independent verification",
+  "full_pytest_run": false
+}
