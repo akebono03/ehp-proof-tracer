@@ -1,0 +1,94 @@
+{
+  "phase": "166 R2 three group correspondence",
+  "read_only": true,
+  "source_rows": 2150,
+  "generator_rows": 233,
+  "target_count": 3,
+  "targets": [
+    {
+      "goal": "pi_3^2",
+      "n": 2,
+      "k": 1,
+      "assertion_id": "boundary:Proposition 5.1:pi3_2_group_relation",
+      "registry_content_type": "TodaFixedStatementComponent",
+      "reference_locator": "Proposition 5.1",
+      "statement_role": "group_structure",
+      "component_count": 1,
+      "components": [
+        {
+          "component_id": "0",
+          "order_as_recorded": "inf",
+          "generator_as_recorded": "η2",
+          "element_ids": [
+            "2"
+          ],
+          "base_generator_display": [
+            "η"
+          ]
+        }
+      ],
+      "correspondence": "METADATA_COMPONENT_CANDIDATE_ONLY",
+      "group_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "goal": "pi_4^3",
+      "n": 3,
+      "k": 1,
+      "assertion_id": "boundary:Proposition 5.1:higher_eta_group_relation",
+      "registry_content_type": "TodaFixedStatementComponent",
+      "reference_locator": "Proposition 5.1",
+      "statement_role": "group_structure",
+      "component_count": 1,
+      "components": [
+        {
+          "component_id": "0",
+          "order_as_recorded": "2",
+          "generator_as_recorded": "η3",
+          "element_ids": [
+            "2"
+          ],
+          "base_generator_display": [
+            "η"
+          ]
+        }
+      ],
+      "correspondence": "METADATA_COMPONENT_CANDIDATE_ONLY",
+      "group_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "goal": "pi_5^3",
+      "n": 3,
+      "k": 2,
+      "assertion_id": "boundary:Proposition 5.3:pi5_3_group_relation",
+      "registry_content_type": "TodaFixedStatementComponent",
+      "reference_locator": "Proposition 5.3",
+      "statement_role": "group_structure",
+      "component_count": 1,
+      "components": [
+        {
+          "component_id": "0",
+          "order_as_recorded": "2",
+          "generator_as_recorded": "η3^2",
+          "element_ids": [
+            "2",
+            "2"
+          ],
+          "base_generator_display": [
+            "η",
+            "η"
+          ]
+        }
+      ],
+      "correspondence": "METADATA_COMPONENT_CANDIDATE_ONLY",
+      "group_identity_confirmed": false,
+      "proof_permission_granted": false
+    }
+  ],
+  "mathematical_identity_confirmed": 0,
+  "proof_permission_granted": 0,
+  "proof_links_created": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
