@@ -25,9 +25,6 @@ from proof import (
   find_inference_match,
   run_inference_until_stable_with_history,
 )
-from probes.probe_phase49_capabilities import (
-  print_separator,
-)
 from phase165_r55_nk_only_goal import (
   search_group_from_registered_goal,
 )
@@ -51,6 +48,10 @@ from toda_rules import (
   toda_53_nu_prime_lemma52_membership_inference_rule,
   toda_eta_family_definition_statement,
 )
+
+
+def print_separator():
+  print("=" * 72)
 
 
 def build_phase58_representative_result():
