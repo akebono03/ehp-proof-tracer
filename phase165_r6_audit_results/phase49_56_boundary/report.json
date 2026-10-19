@@ -1,0 +1,190 @@
+{
+  "phase": "165 R6",
+  "generated_utc": "2026-10-19T09:29:01.612583+00:00",
+  "status": "READ_ONLY",
+  "files": [
+    {
+      "file": "tests/test_phase49_probe.py",
+      "status": "REVIEW_REQUIRED",
+      "test_count": 23,
+      "tests": [
+        "test_phase49_probe_has_six_initial_given_premises",
+        "test_phase49_probe_derives_h_injectivity",
+        "test_phase49_probe_h_injectivity_has_expected_instance",
+        "test_phase49_probe_derives_e_injectivity",
+        "test_phase49_probe_derives_delta_zero",
+        "test_phase49_probe_delta_zero_has_expected_instance",
+        "test_phase49_probe_derives_h_surjectivity",
+        "test_phase49_probe_derives_h_isomorphism",
+        "test_phase49_probe_h_isomorphism_has_expected_instance",
+        "test_phase49_probe_derives_eta_2_definition",
+        "test_phase49_probe_eta_2_is_not_given",
+        "test_phase49_probe_derives_h_eta_2_equals_iota_3",
+        "test_phase49_probe_derives_final_pi_3_2_group",
+        "test_phase49_probe_all_eight_expected_steps_are_derived",
+        "test_phase49_probe_all_derived_steps_preserve_inference_rule",
+        "test_phase49_probe_reaches_fixed_point",
+        "test_phase49_probe_reaches_fixed_point_in_six_rounds",
+        "test_phase49_probe_round_one_derives_two_steps",
+        "test_phase49_probe_round_two_derives_delta_zero",
+        "test_phase49_probe_round_three_derives_h_surjectivity",
+        "test_phase49_probe_round_four_derives_h_isomorphism",
+        "test_phase49_probe_round_five_derives_eta_2_definition",
+        "test_phase49_probe_round_six_derives_two_final_consequences"
+      ],
+      "imports": [
+        "homotopy_groups",
+        "probes.probe_phase49_capabilities",
+        "proof",
+        "toda_rules"
+      ],
+      "replacement_coverage_verified": false,
+      "action": "KEEP pending equivalence review"
+    },
+    {
+      "file": "tests/test_phase56_probe.py",
+      "status": "REVIEW_REQUIRED",
+      "test_count": 10,
+      "tests": [
+        "test_phase56_probe_uses_only_base_given_premises",
+        "test_phase56_probe_derives_phase49_eta2_dependencies",
+        "test_phase56_probe_derives_all_phase56_intermediate_results",
+        "test_phase56_probe_derives_final_toda52_statement",
+        "test_phase56_probe_final_statement_has_expected_map",
+        "test_phase56_probe_final_statement_preserves_three_derived_premises",
+        "test_phase56_probe_does_not_reintroduce_derived_results_as_given",
+        "test_phase56_probe_reaches_fixed_point",
+        "test_phase56_probe_final_result_occurs_in_last_round",
+        "test_phase56_probe_output_contains_result_provenance_and_boundary"
+      ],
+      "imports": [
+        "expression",
+        "homotopy_groups",
+        "probes.probe_phase56_capabilities",
+        "proof",
+        "toda_rules"
+      ],
+      "replacement_coverage_verified": false,
+      "action": "KEEP pending equivalence review"
+    },
+    {
+      "file": "tests/test_phase56_pi_i_minus_1_1_zero.py",
+      "status": "REVIEW_REQUIRED",
+      "test_count": 10,
+      "tests": [
+        "test_phase56_2_pi_i_minus_1_1_zero_is_representable",
+        "test_phase56_2_rule_matches_i_at_least_3",
+        "test_phase56_2_derives_pi_i_minus_1_1_zero",
+        "test_phase56_2_zero_result_is_inference",
+        "test_phase56_2_zero_result_preserves_lower_bound_premise",
+        "test_phase56_2_reaches_fixed_point_in_one_round",
+        "test_phase56_2_rejects_i_at_least_2",
+        "test_phase56_2_rejects_i_at_least_4",
+        "test_phase56_2_rejects_reversed_inequality",
+        "test_phase56_2_rejects_concrete_left_side"
+      ],
+      "imports": [
+        "expression",
+        "homotopy_groups",
+        "proof",
+        "scalar_rules",
+        "toda_rules"
+      ],
+      "replacement_coverage_verified": false,
+      "action": "KEEP pending equivalence review"
+    },
+    {
+      "file": "tests/test_phase56_prop44_eta2_specialization.py",
+      "status": "REVIEW_REQUIRED",
+      "test_count": 11,
+      "tests": [
+        "test_phase56_3_rule_matches_n2_eta2_specialization",
+        "test_phase56_3_derives_prop44_isomorphism",
+        "test_phase56_3_specialization_has_expected_source_and_target",
+        "test_phase56_3_specialization_preserves_eta2_formula",
+        "test_phase56_3_result_is_inference",
+        "test_phase56_3_preserves_derived_eta2_provenance",
+        "test_phase56_3_phase49_dependencies_are_not_given",
+        "test_phase56_3_rejects_given_hopf_relation",
+        "test_phase56_3_rejects_given_eta2_definition",
+        "test_phase56_3_rejects_wrong_alpha",
+        "test_phase56_3_reaches_fixed_point_in_one_round"
+      ],
+      "imports": [
+        "expression",
+        "homotopy_groups",
+        "probes.probe_phase49_capabilities",
+        "proof",
+        "toda_rules"
+      ],
+      "replacement_coverage_verified": false,
+      "action": "KEEP pending equivalence review"
+    },
+    {
+      "file": "tests/test_phase56_prop44_second_summand_restriction.py",
+      "status": "REVIEW_REQUIRED",
+      "test_count": 13,
+      "tests": [
+        "test_phase56_4_second_summand_restriction_is_representable",
+        "test_phase56_4_rule_matches_derived_eta2_specialization",
+        "test_phase56_4_derives_second_summand_restriction",
+        "test_phase56_4_restriction_is_eta2_composition",
+        "test_phase56_4_second_summand_is_pi_i_3",
+        "test_phase56_4_target_is_pi_i_2",
+        "test_phase56_4_result_is_inference",
+        "test_phase56_4_preserves_phase56_3_provenance",
+        "test_phase56_4_rejects_given_isomorphism",
+        "test_phase56_4_rejects_wrong_alpha",
+        "test_phase56_4_rejects_wrong_second_summand",
+        "test_phase56_4_rejects_wrong_formula",
+        "test_phase56_4_reaches_fixed_point_in_one_round"
+      ],
+      "imports": [
+        "expression",
+        "homotopy_groups",
+        "proof",
+        "test_phase56_prop44_eta2_specialization",
+        "toda_rules"
+      ],
+      "replacement_coverage_verified": false,
+      "action": "KEEP pending equivalence review"
+    },
+    {
+      "file": "tests/test_phase56_toda52_composition_isomorphism.py",
+      "status": "REVIEW_REQUIRED",
+      "test_count": 16,
+      "tests": [
+        "test_phase56_5_composition_isomorphism_is_representable",
+        "test_phase56_5_rule_matches_three_derived_dependencies",
+        "test_phase56_5_derives_toda52_composition_isomorphism",
+        "test_phase56_5_source_is_pi_i_3",
+        "test_phase56_5_target_is_pi_i_2",
+        "test_phase56_5_map_is_eta2_composition",
+        "test_phase56_5_zero_statement_matches_first_summand",
+        "test_phase56_5_zero_statement_encodes_i_at_least_3_dependency",
+        "test_phase56_5_result_is_inference",
+        "test_phase56_5_preserves_three_derived_premises",
+        "test_phase56_5_rejects_given_zero_statement",
+        "test_phase56_5_rejects_given_isomorphism",
+        "test_phase56_5_rejects_given_restriction",
+        "test_phase56_5_rejects_zero_for_wrong_first_summand",
+        "test_phase56_5_rejects_restriction_with_wrong_composition",
+        "test_phase56_5_reaches_fixed_point_in_one_round"
+      ],
+      "imports": [
+        "expression",
+        "homotopy_groups",
+        "proof",
+        "test_phase56_pi_i_minus_1_1_zero",
+        "test_phase56_prop44_second_summand_restriction",
+        "toda_rules"
+      ],
+      "replacement_coverage_verified": false,
+      "action": "KEEP pending equivalence review"
+    }
+  ],
+  "repo_files_modified": 0,
+  "legacy_tests_retired": 0,
+  "coverage_equivalence_verified": false,
+  "note": "Current search boundary tests do not replace mathematical proof-ancestry assertions."
+}
