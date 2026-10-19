@@ -1,0 +1,16 @@
+..................F.....................                                 [100%]
+================================== FAILURES ===================================
+_________ test_phase49_1_surjective_map_statement_does_not_exist_yet __________
+
+    def test_phase49_1_surjective_map_statement_does_not_exist_yet():
+>     assert not hasattr(
+        map_property_rules,
+        "SurjectiveMapStatement",
+      )
+E     AssertionError: assert not True
+E      +  where True = hasattr(map_property_rules, 'SurjectiveMapStatement')
+
+tests\test_phase49_concrete_pi3_2_compatibility.py:124: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase49_concrete_pi3_2_compatibility.py::test_phase49_1_surjective_map_statement_does_not_exist_yet
+1 failed, 39 passed in 12.73s

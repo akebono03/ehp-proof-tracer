@@ -1,0 +1,154 @@
+....FFFFF..F....FF......................                                 [100%]
+================================== FAILURES ===================================
+_________________ test_phase49_probe_derives_eta_2_definition _________________
+
+    def test_phase49_probe_derives_eta_2_definition():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      steps = representative[
+        "eta_2_definition_steps"
+      ]
+    
+>     assert len(
+        steps
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase49_probe.py:238: AssertionError
+____________________ test_phase49_probe_eta_2_is_not_given ____________________
+
+    def test_phase49_probe_eta_2_is_not_given():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      definition = (
+>       representative[
+          "eta_2_definition_steps"
+        ][
+          0
+        ]
+      )
+E     IndexError: tuple index out of range
+
+tests\test_phase49_probe.py:256: IndexError
+______________ test_phase49_probe_derives_h_eta_2_equals_iota_3 _______________
+
+    def test_phase49_probe_derives_h_eta_2_equals_iota_3():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      steps = representative[
+        "hopf_relation_steps"
+      ]
+    
+>     assert len(
+        steps
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase49_probe.py:285: AssertionError
+________________ test_phase49_probe_derives_final_pi_3_2_group ________________
+
+    def test_phase49_probe_derives_final_pi_3_2_group():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      steps = representative[
+        "final_group_steps"
+      ]
+    
+>     assert len(
+        steps
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase49_probe.py:311: AssertionError
+___________ test_phase49_probe_all_eight_expected_steps_are_derived ___________
+
+    def test_phase49_probe_all_eight_expected_steps_are_derived():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      derived = tuple(
+        step
+        for step in representative[
+          "result"
+        ].steps
+        if step.rule
+        == ProofRule.INFERENCE
+      )
+    
+>     assert len(
+        derived
+      ) == 8
+E     assert 5 == 8
+E      +  where 5 = len((ProofStep(conclusion=TodaHopfInvariantInjectiveStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group...orphism_inference_rule.<locals>.guard at 0x000002557FF4B370>, literature_reference=None), foundational_reference=None)))
+
+tests\test_phase49_probe.py:350: AssertionError
+____________ test_phase49_probe_reaches_fixed_point_in_six_rounds _____________
+
+    def test_phase49_probe_reaches_fixed_point_in_six_rounds():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+>     assert representative[
+        "result"
+      ].round_count == 6
+E     AssertionError: assert 4 == 6
+E      +  where 4 = InferenceRunResult(steps=(ProofStep(conclusion=TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2,..., accepted=True, rejection_reason=None)))), termination_reason=<InferenceTerminationReason.FIXED_POINT: 'fixed_point'>).round_count
+
+tests\test_phase49_probe.py:394: AssertionError
+___________ test_phase49_probe_round_five_derives_eta_2_definition ____________
+
+    def test_phase49_probe_round_five_derives_eta_2_definition():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      new_steps = (
+>       representative[
+          "result"
+        ].round_results[
+          4
+        ].new_steps
+      )
+E     IndexError: tuple index out of range
+
+tests\test_phase49_probe.py:494: IndexError
+_________ test_phase49_probe_round_six_derives_two_final_consequences _________
+
+    def test_phase49_probe_round_six_derives_two_final_consequences():
+      representative = (
+        build_phase49_representative_result()
+      )
+    
+      new_steps = (
+>       representative[
+          "result"
+        ].round_results[
+          5
+        ].new_steps
+      )
+E     IndexError: tuple index out of range
+
+tests\test_phase49_probe.py:519: IndexError
+=========================== short test summary info ===========================
+FAILED tests/test_phase49_probe.py::test_phase49_probe_derives_eta_2_definition
+FAILED tests/test_phase49_probe.py::test_phase49_probe_eta_2_is_not_given - I...
+FAILED tests/test_phase49_probe.py::test_phase49_probe_derives_h_eta_2_equals_iota_3
+FAILED tests/test_phase49_probe.py::test_phase49_probe_derives_final_pi_3_2_group
+FAILED tests/test_phase49_probe.py::test_phase49_probe_all_eight_expected_steps_are_derived
+FAILED tests/test_phase49_probe.py::test_phase49_probe_reaches_fixed_point_in_six_rounds
+FAILED tests/test_phase49_probe.py::test_phase49_probe_round_five_derives_eta_2_definition
+FAILED tests/test_phase49_probe.py::test_phase49_probe_round_six_derives_two_final_consequences
+8 failed, 32 passed in 12.21s

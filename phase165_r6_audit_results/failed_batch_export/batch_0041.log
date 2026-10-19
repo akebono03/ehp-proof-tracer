@@ -1,0 +1,196 @@
+.......FF....F..FFF..................F..                                 [100%]
+================================== FAILURES ===================================
+_ test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BB49D59C60>
+capsys = <_pytest.capture.CaptureFixture object at 0x000001BB49D59D50>
+
+    def test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative(
+      monkeypatch,
+      capsys,
+    ):
+      original = cli_main.build_complete_toda_group_result_proof_replay
+      calls = []
+    
+      def recording_complete_replay(group_result):
+        calls.append(group_result)
+        return original(group_result)
+    
+      monkeypatch.setattr(
+        cli_main,
+        "build_complete_toda_group_result_proof_replay",
+        recording_complete_replay,
+      )
+    
+      for n, k in TARGETS:
+        exit_code = cli_main._run_group_proof_command(
+          n,
+          k,
+          max_depth=2,
+          mode="narrative",
+        )
+        output = capsys.readouterr().out
+    
+>       assert exit_code == 0
+E       assert 1 == 0
+
+tests\test_phase144_6_r25_20_six_group_generic_production_narrative.py:40: AssertionError
+______ test_phase144_6_r25_20_trace_depth2_does_not_use_complete_replay _______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001BB49DA0AF0>
+capsys = <_pytest.capture.CaptureFixture object at 0x000001BB49DA0B80>
+
+    def test_phase144_6_r25_20_trace_depth2_does_not_use_complete_replay(
+      monkeypatch,
+      capsys,
+    ):
+      def forbidden_complete_replay(group_result):
+        raise AssertionError(
+          "trace must preserve explicit depth semantics"
+        )
+    
+      monkeypatch.setattr(
+        cli_main,
+        "build_complete_toda_group_result_proof_replay",
+        forbidden_complete_replay,
+      )
+    
+      exit_code = cli_main._run_group_proof_command(
+        3,
+        3,
+        max_depth=2,
+        mode="trace",
+      )
+      output = capsys.readouterr().out
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase144_6_r25_20_six_group_generic_production_narrative.py:70: AssertionError
+____________ test_phase145_cli_explicit_trace_depth1_is_preserved _____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001BB4CF83580>
+
+    def test_phase145_cli_explicit_trace_depth1_is_preserved(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "1",
+          "--mode",
+          "trace",
+        ]
+      )
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase145_group_proof_defaults.py:46: AssertionError
+____________ test_phase145_web_explicit_trace_depth1_is_preserved _____________
+
+    def test_phase145_web_explicit_trace_depth1_is_preserved():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "group_proof",
+          "n": "9",
+          "k": "7",
+          "group_proof_depth": "1",
+          "group_proof_mode": "trace",
+        },
+      )
+    
+      assert response.status_code == 200
+      assert b"Selected view:" in response.data
+>     assert b"trace" in response.data
+E     assert b'trace' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 15111 bytes [200 OK]>.data
+
+tests\test_phase145_group_proof_defaults.py:95: AssertionError
+_ test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api _
+
+    def test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api():
+      module = (
+>       _load_audit_module()
+      )
+
+tests\test_phase148_rc2_4_repair_r4_1_r1.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase148_rc2_4_repair_r4_1_r1.py:25: in _load_audit_module
+    spec.loader.exec_module(
+<frozen importlib._bootstrap_external>:883: in exec_module
+    ???
+<frozen importlib._bootstrap>:241: in _call_with_frames_removed
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   from toda_calculation_facade import (
+      build_standard_toda_report,
+    )
+E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_calculation_facade.py)
+
+phase148_rc2_4_repair_r4_1_numbered_equation_dependency_audit\audit_phase148_rc2_4_repair_r4_1.py:1: ImportError
+________ test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table ________
+
+    def test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table():
+      beta = HomotopyElement(
+        name="β",
+        dimension=3,
+        source=6,
+        target=3,
+      )
+    
+>     assert render_toda_expression_latex(beta) == r"\\beta"
+E     AssertionError: assert '\\beta' == '\\\\beta'
+E       
+E       - \\beta
+E       ? -
+E       + \beta
+
+tests\test_phase150_rc4_5b_3_r1_beta_latex.py:15: AssertionError
+_____ test_phase157_r2_prop51_inventory_preserves_current_four_components _____
+
+    def test_phase157_r2_prop51_inventory_preserves_current_four_components():
+      components = get_toda_fixed_statement_components(
+        "Proposition 5.1"
+      )
+    
+      assert tuple(
+        component.component_key
+        for component in components
+      ) == (
+        "pi3_2_group_relation",
+        "eta2_hopf_relation",
+        "delta_iota5_relation",
+        "higher_eta_group_relation",
+      )
+      assert tuple(
+        component.order
+        for component in components
+      ) == (
+        1,
+        2,
+        3,
+        4,
+      )
+>     assert components[-1].range_text is None
+E     AssertionError: assert 'n >= 3' is None
+E      +  where 'n >= 3' = TodaFixedStatementComponent(reference_locator='Proposition 5.1', component_key='higher_eta_group_relation', statement_...ntRole.GROUP_STRUCTURE: 'group_structure'>, order=4, range_text='n >= 3', range_is_explicit_in_current_aggregate=False).range_text
+
+tests\test_phase157_r2_literature_statement_boundary.py:59: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py::test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative
+FAILED tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py::test_phase144_6_r25_20_trace_depth2_does_not_use_complete_replay
+FAILED tests/test_phase145_group_proof_defaults.py::test_phase145_cli_explicit_trace_depth1_is_preserved
+FAILED tests/test_phase145_group_proof_defaults.py::test_phase145_web_explicit_trace_depth1_is_preserved
+FAILED tests/test_phase148_rc2_4_repair_r4_1_r1.py::test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api
+FAILED tests/test_phase150_rc4_5b_3_r1_beta_latex.py::test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table
+FAILED tests/test_phase157_r2_literature_statement_boundary.py::test_phase157_r2_prop51_inventory_preserves_current_four_components
+7 failed, 33 passed in 14.03s

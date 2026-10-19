@@ -1,0 +1,581 @@
+FFFF.............................FFFFFFF                                 [100%]
+================================== FAILURES ===================================
+__________ test_phase162_r4_b3_public_web_view_uses_derived_steps[4] __________
+
+n = 4
+
+    @pytest.mark.parametrize("n", [4, 5])
+    def test_phase162_r4_b3_public_web_view_uses_derived_steps(n):
+        public = build_standard_web_group_proof_view(n, 1, max_depth=2, mode="narrative")
+        assert public.mode == "narrative"
+>       assert any("concrete transported-generator normalization" in step.rule_name
+                   for step in public.steps)
+E       assert False
+E        +  where False = any(<generator object test_phase162_r4_b3_public_web_view_uses_derived_steps.<locals>.<genexpr> at 0x00000263E3806DC0>)
+
+tests\test_phase162_r4_b3_web_common_display.py:27: AssertionError
+__________ test_phase162_r4_b3_public_web_view_uses_derived_steps[5] __________
+
+n = 5
+
+    @pytest.mark.parametrize("n", [4, 5])
+    def test_phase162_r4_b3_public_web_view_uses_derived_steps(n):
+        public = build_standard_web_group_proof_view(n, 1, max_depth=2, mode="narrative")
+        assert public.mode == "narrative"
+>       assert any("concrete transported-generator normalization" in step.rule_name
+                   for step in public.steps)
+E       assert False
+E        +  where False = any(<generator object test_phase162_r4_b3_public_web_view_uses_derived_steps.<locals>.<genexpr> at 0x00000263E3790F90>)
+
+tests\test_phase162_r4_b3_web_common_display.py:27: AssertionError
+____________ test_phase162_r4_b3_flask_web_renders_group_proof[4] _____________
+
+n = 4
+
+    @pytest.mark.parametrize("n", [4, 5])
+    def test_phase162_r4_b3_flask_web_renders_group_proof(n):
+        client = create_app().test_client()
+        response = client.post("/", data={
+            "form_kind": "group_proof", "n": str(n), "k": "1",
+            "group_proof_mode": "narrative", "group_proof_depth": "2",
+        })
+        assert response.status_code == 200
+>       assert b"(4.5)" in response.data
+E       assert b'(4.5)' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E        +  where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 14902 bytes [200 OK]>.data
+
+tests\test_phase162_r4_b3_web_common_display.py:39: AssertionError
+____________ test_phase162_r4_b3_flask_web_renders_group_proof[5] _____________
+
+n = 5
+
+    @pytest.mark.parametrize("n", [4, 5])
+    def test_phase162_r4_b3_flask_web_renders_group_proof(n):
+        client = create_app().test_client()
+        response = client.post("/", data={
+            "form_kind": "group_proof", "n": str(n), "k": "1",
+            "group_proof_mode": "narrative", "group_proof_depth": "2",
+        })
+        assert response.status_code == 200
+>       assert b"(4.5)" in response.data
+E       assert b'(4.5)' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E        +  where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 14902 bytes [200 OK]>.data
+
+tests\test_phase162_r4_b3_web_common_display.py:39: AssertionError
+_______ test_r4_r11_repair3_registers_five_typed_literature_candidates ________
+
+    def test_r4_r11_repair3_registers_five_typed_literature_candidates():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:22: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+_________ test_r4_r11_repair3_does_not_modify_base_or_add_proof_links _________
+
+    def test_r4_r11_repair3_does_not_modify_base_or_add_proof_links():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+________________ test_r4_r11_repair3_rejects_missing_component ________________
+
+    def test_r4_r11_repair3_rejects_missing_component():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+_______________ test_r4_r11_repair3_rejects_duplicate_component _______________
+
+    def test_r4_r11_repair3_rejects_duplicate_component():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:59: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+_________________ test_r4_r11_repair3_rejects_wrong_generator _________________
+
+    def test_r4_r11_repair3_rejects_wrong_generator():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:65: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+_______________ test_r4_r11_repair3_requires_typed_higher_scope _______________
+
+    def test_r4_r11_repair3_requires_typed_higher_scope():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:76: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+___________________ test_r4_r11_repair3_rejects_false_scope ___________________
+
+    def test_r4_r11_repair3_rejects_false_scope():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:83: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+=========================== short test summary info ===========================
+FAILED tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_public_web_view_uses_derived_steps[4]
+FAILED tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_public_web_view_uses_derived_steps[5]
+FAILED tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_flask_web_renders_group_proof[4]
+FAILED tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_flask_web_renders_group_proof[5]
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_registers_five_typed_literature_candidates
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_does_not_modify_base_or_add_proof_links
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_rejects_missing_component
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_rejects_duplicate_component
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_rejects_wrong_generator
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_requires_typed_higher_scope
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_rejects_false_scope
+11 failed, 29 passed in 14.50s

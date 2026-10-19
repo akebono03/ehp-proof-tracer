@@ -1,0 +1,206 @@
+F...............FFFFFFF.................                                 [100%]
+================================== FAILURES ===================================
+_____________ test_r4_r11_repair3_rejects_prior_structured_target _____________
+
+    def test_r4_r11_repair3_rejects_prior_structured_target():
+>       base, candidates = _base_and_inputs()
+
+tests\test_phase163_r4_r11_literature_registration.py:94: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r11_literature_registration.py:18: in _base_and_inputs
+    return build_registry_bridge(), existing_prop56_candidates()
+phase163_r4_r11_literature_registration.py:157: in existing_prop56_candidates
+    from probes.probe_phase65_capabilities import build_phase65_representative_result
+probes\probe_phase65_capabilities.py:7: in <module>
+    from probes.probe_phase50_capabilities import (
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    from expression import (
+      GeneratorSymbol,
+      HomotopyElement,
+      MapApplication,
+      Multiple,
+      Suspension,
+      WhiteheadProduct,
+    )
+    from homotopy_groups import (
+      FiniteCyclicGroup,
+      FreeCyclicGroup,
+      TodaDeltaMap,
+      TodaEHPExactnessWindow,
+      TodaHopfInvariantMap,
+      TodaPrimaryGroup,
+    )
+    from low_dimensional_facts import (
+      pi_4_5_zero_fact,
+      pi_5_5_free_cyclic_fact,
+    )
+    from map_facts import (
+      EHP_DELTA_MAP,
+      EHP_E_MAP,
+      EHP_H_MAP,
+    )
+    from proof import (
+      InferenceTerminationReason,
+      ProofRule,
+      ProofStep,
+      Relation,
+      RelationType,
+      run_inference_until_stable_with_history,
+    )
+>   from toda_rules import (
+      TodaDeltaImageFreeCyclicStatement,
+      TodaDeltaImageUpToSignStatement,
+      TodaHopfInvariantInjectiveStatement,
+      TodaPi32Eta2DefinitionStatement,
+      TodaPi32WhiteheadSquareUpToSignStatement,
+      TodaProp27HopfInvariantUpToSignStatement,
+      TodaProp42ExactnessStatement,
+      TodaSuspensionKernelFreeCyclicStatement,
+      TodaSuspensionSurjectiveStatement,
+      toda_delta_iota5_whitehead_square_inference_rule,
+      toda_eta3_suspension_relation_inference_rule,
+      toda_eta_family_definition_statement,
+      toda_pi3_2_whitehead_square_up_to_sign_inference_rule,
+      toda_pi4_3_delta_image_free_cyclic_inference_rule,
+      toda_pi4_3_eta3_generator_inference_rule,
+      toda_pi4_3_exactness_delta_image_to_suspension_kernel_inference_rule,
+      toda_pi4_3_finite_cyclic_inference_rule,
+      toda_pi4_3_zero_right_implies_suspension_surjective_inference_rule,
+      toda_prop27_iota2_whitehead_hopf_invariant_inference_rule,
+    )
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+
+probes\probe_phase50_capabilities.py:34: ImportError
+___________ test_registers_all_eight_and_preserves_source_metadata ____________
+
+    def test_registers_all_eight_and_preserves_source_metadata():
+        base = build_registry_bridge()
+>       output = register_prop51_prop53_literature_statements(base, _inputs())
+
+tests\test_phase163_r4_r12_literature_registration.py:23: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+________________ test_raises_on_missing_or_duplicate_component ________________
+
+    def test_raises_on_missing_or_duplicate_component():
+        base = build_registry_bridge()
+>       inputs = _inputs()
+
+tests\test_phase163_r4_r12_literature_registration.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+_____________________ test_rejects_group_wrong_generator ______________________
+
+    def test_rejects_group_wrong_generator():
+>       item = next(i for i in _inputs() if i.component_key == "pi4_2_group_relation")
+
+tests\test_phase163_r4_r12_literature_registration.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+_______________________ test_rejects_wrong_higher_scope _______________________
+
+    def test_rejects_wrong_higher_scope():
+>       item = next(i for i in _inputs() if i.component_key == "higher_eta_squared_group_relation")
+
+tests\test_phase163_r4_r12_literature_registration.py:56: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+_____________ test_rejects_missing_scope_and_concrete_extra_scope _____________
+
+    def test_rejects_missing_scope_and_concrete_extra_scope():
+>       inputs = _inputs()
+
+tests\test_phase163_r4_r12_literature_registration.py:64: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+____________ test_registration_does_not_replace_unrelated_records _____________
+
+    def test_registration_does_not_replace_unrelated_records():
+        base = build_registry_bridge()
+>       output = register_prop51_prop53_literature_statements(base, _inputs())
+
+tests\test_phase163_r4_r12_literature_registration.py:77: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+______________ test_validation_rejects_incorrect_delta_relation _______________
+
+    def test_validation_rejects_incorrect_delta_relation():
+>       item = next(i for i in _inputs() if i.component_key == "delta_iota5_relation")
+
+tests\test_phase163_r4_r12_literature_registration.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+tests\test_phase163_r4_r12_literature_registration.py:18: in _inputs
+    return existing_prop51_prop53_candidates()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def existing_prop51_prop53_candidates() -> tuple[LiteratureComponentInput, ...]:
+        """Retired historical proof-step extraction, not a registration API."""
+>       raise RuntimeError('Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.')
+E       RuntimeError: Legacy Phase 163 bootstrap-derived candidate extraction is retired; register explicitly supplied typed LiteratureComponentInput values instead.
+
+phase163_r4_r12_literature_registration.py:212: RuntimeError
+=========================== short test summary info ===========================
+FAILED tests/test_phase163_r4_r11_literature_registration.py::test_r4_r11_repair3_rejects_prior_structured_target
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_registers_all_eight_and_preserves_source_metadata
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_raises_on_missing_or_duplicate_component
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_rejects_group_wrong_generator
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_rejects_wrong_higher_scope
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_rejects_missing_scope_and_concrete_extra_scope
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_registration_does_not_replace_unrelated_records
+FAILED tests/test_phase163_r4_r12_literature_registration.py::test_validation_rejects_incorrect_delta_relation
+8 failed, 32 passed in 13.29s

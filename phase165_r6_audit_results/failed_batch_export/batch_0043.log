@@ -1,0 +1,30 @@
+......................................FF                                 [100%]
+================================== FAILURES ===================================
+___________ test_phase162_r4_b3_web_uses_derived_common_markdown[4] ___________
+
+n = 4
+
+    @pytest.mark.parametrize("n", [4, 5])
+    def test_phase162_r4_b3_web_uses_derived_common_markdown(n):
+>       from phase162_r4_b3_web_common_display import (
+            build_phase162_r4_b3_web_common_display_view,
+        )
+E       ImportError: cannot import name 'build_phase162_r4_b3_web_common_display_view' from 'phase162_r4_b3_web_common_display' (unknown location)
+
+tests\test_phase162_r4_b3_web_common_display.py:8: ImportError
+___________ test_phase162_r4_b3_web_uses_derived_common_markdown[5] ___________
+
+n = 5
+
+    @pytest.mark.parametrize("n", [4, 5])
+    def test_phase162_r4_b3_web_uses_derived_common_markdown(n):
+>       from phase162_r4_b3_web_common_display import (
+            build_phase162_r4_b3_web_common_display_view,
+        )
+E       ImportError: cannot import name 'build_phase162_r4_b3_web_common_display_view' from 'phase162_r4_b3_web_common_display' (unknown location)
+
+tests\test_phase162_r4_b3_web_common_display.py:8: ImportError
+=========================== short test summary info ===========================
+FAILED tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_web_uses_derived_common_markdown[4]
+FAILED tests/test_phase162_r4_b3_web_common_display.py::test_phase162_r4_b3_web_uses_derived_common_markdown[5]
+2 failed, 38 passed in 13.01s

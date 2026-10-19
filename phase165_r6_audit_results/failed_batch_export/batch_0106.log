@@ -1,0 +1,19 @@
+F......................                                                  [100%]
+================================== FAILURES ===================================
+_____________ test_r8_actual_pi32_registered_narrative_unchanged ______________
+
+    def test_r8_actual_pi32_registered_narrative_unchanged():
+        from web_group_proof import build_standard_web_group_proof_view
+        view = build_standard_web_group_proof_view(
+            2, 1, max_depth=2, mode="narrative"
+        )
+>       assert view.phase == "165"
+E       AssertionError: assert '165 R52-R3' == '165'
+E         
+E         - 165
+E         + 165 R52-R3
+
+test_phase165_r52_r8_show_proof_route.py:108: AssertionError
+=========================== short test summary info ===========================
+FAILED test_phase165_r52_r8_show_proof_route.py::test_r8_actual_pi32_registered_narrative_unchanged
+1 failed, 22 passed in 8.62s
