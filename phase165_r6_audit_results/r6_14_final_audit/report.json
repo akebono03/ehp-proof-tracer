@@ -1,0 +1,29 @@
+{
+  "phase": "165 R6-14",
+  "mode": "read_only",
+  "generated_utc": "2026-10-19T10:14:27.526294+00:00",
+  "status": "READY_FOR_FINAL_PYTEST",
+  "static_audit": {
+    "active_python_files_parsed": 714,
+    "legacy_references": [],
+    "parse_errors": [],
+    "missing_required_modules": [],
+    "retired_probes_still_present": [],
+    "shared_entry_function_present": true
+  },
+  "collection": {
+    "command": [
+      "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+      "-m",
+      "pytest",
+      "--collect-only",
+      "-q",
+      "tests"
+    ],
+    "returncode": 0,
+    "stdout_file": "collection_stdout.txt",
+    "stderr_file": "collection_stderr.txt",
+    "timeout": false
+  },
+  "full_pytest_run": false
+}
