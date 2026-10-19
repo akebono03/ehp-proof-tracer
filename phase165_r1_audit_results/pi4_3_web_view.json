@@ -1,0 +1,545 @@
+{
+  "key": "generic-complete-proof",
+  "mode": "narrative",
+  "partial_result": false,
+  "step_count": 25,
+  "rendered_line_count": 23,
+  "steps": [
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "TodaEtaFamilyGeneralDefinition",
+      "rule_name": "Toda chapter V eta-family notation",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "TodaEtaFamilyDefinitionStatement",
+      "rule_name": "specialize cited eta-family general definition",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "TodaEtaFamilyDefinitionStatement",
+      "rule_name": "specialize cited eta-family general definition",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "GeneratorSuspension",
+      "rule_name": "consecutive cited eta definitions imply generator suspension",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "HomomorphismPresentationStatement",
+      "rule_name": "cited eta generator suspension yields presentation in target notation",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+      "fallback_type_name": null,
+      "rule_name": "Toda (5.1) diagonal cyclic source",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+      "fallback_type_name": null,
+      "rule_name": "generic cited typed scalar specialization",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+      "fallback_type_name": null,
+      "rule_name": "Adopted literature Proposition 5.1",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "TodaDeltaImageFreeCyclicStatement",
+      "rule_name": "free cyclic generator Delta image",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "TodaProp42GeneralExactnessStatement",
+      "rule_name": "Toda Proposition 4.2 universal EHP exact sequence",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\text{ is exact}",
+      "fallback_type_name": null,
+      "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "EHPImageEqualsKernelStatement",
+      "rule_name": "EHP exactness implies image equals kernel",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "SuspensionKernelFreeCyclicStatement",
+      "rule_name": "EHP Delta image and exactness imply concrete suspension kernel",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "KernelMultipleStatement",
+      "rule_name": "certified cyclic suspension kernel entails kernel multiple",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5} \\text{ is exact}",
+      "fallback_type_name": null,
+      "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "Toda51BelowDiagonalZeroStatement",
+      "rule_name": "Toda (5.1) universal below-diagonal vanishing",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{4}^{5} = 0",
+      "fallback_type_name": null,
+      "rule_name": "Toda (5.1) general below-diagonal zero specialization",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "MapSurjective",
+      "rule_name": "EHP exactness and zero Hopf target imply suspension surjectivity",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "ImageWholeStatement",
+      "rule_name": "EHP suspension surjectivity implies whole image",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "SurjectiveMapStatement",
+      "rule_name": "whole image implies surjectivity",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "QuotientIsomorphismStatement",
+      "rule_name": "first isomorphism theorem for generated kernel",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "fallback_type_name": null,
+      "rule_name": "Adopted literature Proposition 5.1",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "CyclicStructureStatement",
+      "rule_name": "proved free cyclic group relation implies infinite cyclic structure",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": null,
+      "fallback_type_name": "CyclicStructureStatement",
+      "rule_name": "infinite cyclic quotient structure",
+      "role_name": "derived"
+    },
+    {
+      "depth": 0,
+      "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "fallback_type_name": null,
+      "rule_name": "finite cyclic structure gives group relation",
+      "role_name": "derived"
+    }
+  ],
+  "rendered_lines": [
+    {
+      "kind": "heading",
+      "indent_level": 0,
+      "prefix": "証明対象",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": []
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.",
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "display_math",
+          "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}."
+        }
+      ]
+    },
+    {
+      "kind": "heading",
+      "indent_level": 0,
+      "prefix": "使用する結果",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": []
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R1] (5.1).**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R1] (5.1)."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R2] Proposition 5.1.**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R2] Proposition 5.1."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "separator",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": []
+    },
+    {
+      "kind": "heading",
+      "indent_level": 0,
+      "prefix": "証明",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": []
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{4}^{3}",
+      "suffix": " の群構造を決定するために, 次の完全列を考える.",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{4}^{3}"
+        },
+        {
+          "kind": "text",
+          "value": " の群構造を決定するために, 次の完全列を考える."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.",
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "display_math",
+          "value": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "infinite cyclic quotient structure",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "infinite cyclic quotient structure"
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\eta_{3}=E\\eta_{2}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\eta_{3}=E\\eta_{2}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "E(\\eta_{2}) = \\eta_{3}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "E(\\eta_{2}) = \\eta_{3}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "[R1]より, ",
+      "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R1]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "これより, ",
+      "statement_latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "これより, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "[R2]より, ",
+      "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R2]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "これより, ",
+      "statement_latex": "\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "これより, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{4}^{5} = 0",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{4}^{5} = 0"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "完全性より, ",
+      "statement_latex": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3}",
+      "suffix": " は全射.",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "完全性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3}"
+        },
+        {
+          "kind": "text",
+          "value": " は全射."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "[R2]より, ",
+      "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R2]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "以上より, ",
+      "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "以上より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "□",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "□"
+        }
+      ]
+    }
+  ]
+}

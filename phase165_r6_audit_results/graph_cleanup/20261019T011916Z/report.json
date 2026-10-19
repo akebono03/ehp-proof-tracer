@@ -1,0 +1,2824 @@
+{
+  "reported_errors": 371,
+  "error_files": 371,
+  "candidate_count": 193,
+  "remove_count": 105,
+  "retained_count": 266,
+  "decisions": [
+    {
+      "path": "tests/test_phase100_12b_standard_repository_integration.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase100_production_proof_builder.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "12daedd19e49d5be2dfc05b1b90bab870c3091f987f76ce99e97c79a5e67911e",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop511_production_proof_builder.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "e4332cc8e8394e09cebb33c38c287b9c6992a7e4cd74755bb0165a6513c59bf3",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop511_zero_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "17d0fce3a2e2ff08ef2be43bca491f18e904e109b7d0aca3833d1e46433f8c6c",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop515_low_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "20ee264c1fc707f37a8cbcf4766d4156f05db8d79beaa04816a5923d6f36c829",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop515_production_proof_builder.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "6a636d2de31b2e3dffc7b58d3e3e8af309bb536e2663992917153ba09515495d",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop515_sigma_chain_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "447a7c4a40ab3edc05e9812ea934f5ea7ae057e22d2e48bd822197f79c24b925",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop515_upper_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "6fdacbcb077267a66dd2e2df38e6312326bbd0e7903c3346011b9a74efe5813c",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop56_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "6cd58eb2b6d7a731cf10d92cefc55b70c1f56783c21aa0eaa4ee32703335e912",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop56_midstream.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "2afce557b21a2a40ff1229d49893623cae39b5041232833ff0c7dc2cf980b97a",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop56_upstream_core.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "30ecb05d1efcc4289d11904446fd42e7b1c4225643b57e999e02dc9daa2e9212",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop56_zero_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "46ef92c4394b4ef3c544c64ecc31d4a97b567e1e4a218c8d3a65546ca4ac3c78",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop58_production_proof_builder.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "69b590d7ac841e3ba6461395a5fc73eea88089434992e872e508883ee05ae9f0",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase100_prop58_zero_bootstrap.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "1962226e13c91ab3a5a576bf4d68484748b32f3e01e0a363d91a4a70cbf1a87a",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase143_22_exactness_components.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_25_relevant_groups.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_26_exactness_relevance.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_28_exactness_selection.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_30_exactness_method_transition.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_32_exactness_component_latex.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_34_argument_header_method.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_36_argument_body_blocks.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_38_exactness_display_contributions.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_39_exactness_contribution_ownership.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_41_argument_local_body.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_42_argument_body_contribution_renderer.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_44_single_argument_narrative_renderer.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_46_multi_argument_narrative_assembler.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_47_multi_argument_shared_contribution_dedup.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_49_dependency_label_narrative_policy.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_50_generic_statement_prose_renderer.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_51a_r_provenance_semantic_catalog.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_51b_aggregate_statement_prose.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_53a_narrative_transitions.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_53a_r_aggregate_derivation.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_53b_r_conclusion_aware_connector.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_53b_transition_connectors.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_55a_argument_conclusion_step.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_55b_conclusion_step_ordering.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_57a_step_calculation_chain.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_57c_step_derivation_connector.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_58a_negative_scalar_sum.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_59a_group_structure_semantic_key.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_59b_group_structure_duplicate_suppression.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_61a_argument_conclusion_direct_premises.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_61b_direct_premise_narrative.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_61b_r_semantic_suppression_priority.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_63a_r_exactness_repair.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_63a_residual_fallback_provenance.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_71a_eta_definition_visibility.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75aa_toda56_nu4_prop44_specialization_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75ab3_whitehead_correction_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75ac4_hopf_odd_multiple_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75ad_double_suspension_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75t_toda58_equation_aggregate_semantic_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75w_toda54_bracket_up_to_sign_semantic_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase143_75y_nu4_construction_semantic_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_5_generic_definition_order_equations.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_pi6_generic_production_route.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_public_route_cutover.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r25_9a_pi5_suppression.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r25_9a_r1_relocation_hidden.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r4_supporting_fact_filtering.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17a_proof_chain_selection_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17a_r2_argument_support_edge_integration.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17a_r3_support_edge_correspondence.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17b_generic_proof_chain_types.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17d_failure_novelty_classification.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_33_visible_step_rendered_markdown_survival_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_3.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_5.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_8.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_9.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase146_7_generic_argument_purpose_prose.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase147_rc1_argument_method_ownership.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_3_exactness_exposure.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_3_repair_r1.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_cross_group_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_post_repair_six_group.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r1_exposure_path_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r2.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r5.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r5_r2.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase149_rc3_3_minimal_ordering.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase149_rc3_4_cross_group_ordering.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_4_reasons.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_5_visible_reasons.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_5b_3_reference_binding.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_5c_2_exactness_to_map_property.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_5d_3_multiple_relation_to_order.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_5e_2_short_exact_derivation_reason.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_5f_2_final_group_structure_reason.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_7b_production_repair.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_7d_generic_reason_vocabulary.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase150_rc4_closure_reason_visibility.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase156_r6_3_reason_prose_canonicalization.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase157_r20_generic_dependency_architecture.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase158_r5_4_repair_common_equation_numbering.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_final_locality_reapply.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_map_property_order.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_post_reference_locality_reapply.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_proofstep_premise_locality.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_public_definition_premise_locality.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_contribution_connector_ownership.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_exactness_reason_unification.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_exactness_surjectivity_unification.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_generator_bridge_duplicate_suppression.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_prop51_direct_delta_provenance.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_provenance_priority.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_trailing_premise_order.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi6_3_zero_map_reason_order.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_pi_nplus1_n_stable_transport.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase159_r1_7c_r4_repair8_final_group_reason_and_stale_expectations.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_generic_stable_public_narrative.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_k1_generic_transport_connection.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_k2_generic_transport_connection.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_k2_public_narrative.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_k7_generic_transport_connection.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_remaining_stable_production.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase160_remaining_stable_public_narrative.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase161_r4_literature_premise_matching.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase161_r5_backward_proof_reconstruction.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase161_r6_proof_reconstruction_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase161_r7_premise_provenance_validation.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_group_structure_backward.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r2_existing_proof_connection.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r2_validated_proof_presentation.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3_2_reference_display.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3a_presentation_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3b_existing_renderer.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3c_root_reason.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3d_root_reason_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3e_structured_root.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3f_recursive_renderer.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3g_existing_reason_bridge.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3h_reason_inventory.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3i_semantic_sidecar_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3j_inference_rule_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r3k_rule_meaning_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b1_stable_path_selection.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_concrete_transport.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_generator_normalization.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_replay_integration.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b3_common_renderer_audit.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b_common_renderer_link.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_b_transport_facts.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r4_narrative_refinement.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_2_general_reference_schema.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_3_reference_application_separation.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_4_iterated_suspension_structural_rendering.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_5_proof_narrative_composition.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_6_proof_relevance_reference_attribution.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair2_direct_reference_attribution.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair3_reference_application_prose.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair4_fixed_statement_reuse.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair5_reference_component_boundary.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase163_r4_r12_stable_bases.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r3_registry_search_connection.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r1_source_crosswalk.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r2_semantic_structure.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r3_independent_semantic_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r4_citation_evidence_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r6_typed_binding.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r7_real_connection_gate.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_r8_registry_reconstruction.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r4_real_registry_audit.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r7_r3_generator_registry.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r7_r4_operation_registry.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r7_r8_fixed_literature_resolution.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase164_r8_r3_backward_factory.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase49_generator_transport.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase50_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "d318b06d8538744afafd62827c71f8d620e6c1345e54b767d892c65fa7c198ad",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase53_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "9b547beaabe8d23e63c00d52616577aacb0eecb1a4a9b37cf2735b3e5ce9a48b",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase54_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "7aed0a748eba5c8b8d26944a5b90d77e83f84275abe0d359b8c53a677ef9fd40",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase55_prop51_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase55_prop51_phase52_phase54_dependency.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase55_prop51_rejection_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "2125a621a30b1a41416dc007dc632d436bfd5f71cc624038cefe4f7efba7da68",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase57_indeterminacy_vanishing.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "4abeb609869b2e1684a678b0724a9fc40378e16a47f6f533cf272a0e9a6c0420",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase57_lemma52_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "eec1fff6ebf542ea430f14e47f0ea5d3261d7eb135d703ca3358fc0d309f2d8f",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase58_double_eta4_bridge.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "03342664e4eff681467fdd6035146a9e9591470bf83687761c6f748e1e1be619",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase58_hopf_eta5_bridge.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "0a46bb1cd339233cd6d6b3c6470b9064b8cdbe68413c3a7c02fccb2e0edc5592",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase58_lemma52_specialization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "540ffc8c6890ea657232255b137f0c3e3d30dca16754e92696dc4d5486151241",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase59_eta4_squared_stable_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase59_n3_ehp_chain.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase59_pi5_3_eta3_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase59_pi6_4_eta4_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase59_prop53_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase59_toda52_pi4_2_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase60_lemma54_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase60_nu4_whitehead_correction.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase60_toda36_specialization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase60_toda48_hopf_parity.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase60_toda54_indeterminacy.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase60_toda54_t0_bridge.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase61_lemma55_alpha_star_inclusion.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "dfce2b17c916b37a96dffa79630d9994ed7d6d73905d14cb4dd4252e71f1a5c5",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase61_lemma55_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "518879c2b6e3bf8315b04163bbee739b3a8f1495e0ced254788896de0903dd46",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase61_lemma55_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "cd5b3ef0bf175eccad651fb51367af08ee85747230ad78702848f87bf7a28543",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase61_lemma55_nu4_composition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "4d0f25a8365e2edf7d83afabde5c39f47797723d079fd7749676a88eaac84795",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase61_lemma55_nu4_suspension.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "687eb7b1776192f0101605ef77a8f869d6934a4504dbb715ac2e2ab2b77ccc2a",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase62_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "19aed3e8531cbf818d3d8abd10d5f81529692c297846b4bc930ffbf2a4fc3892",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase62_nu_family_double_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase62_nu_family_eta_cube_bridge.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase62_toda55_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "6e989af7a1c393e2c1c776ecb7f8f70e2648706015512cf7a512c1618a313fd6",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase62_toda55_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase63_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "c89ad111a0493960cb4b4f57300564de8fb4072497d3b5af097c30ced1ddf436",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase63_nu4_prop44_specialization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase63_prop44_decomposition_specialization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase63_toda56_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase63_toda56_semantics.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_equation57_injectivity.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_n5_quotient_e2_injectivity.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_nu5_order_pi8_5.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_nu5_stable_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_nu_prime_order_pi6_3.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_pi5_2_eta2_cube.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_pi7_4_decomposition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_prop56_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase65_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "360527f0f5e05c87f1c1f175f495be27bd713e6debaa5757e280abdb4e0d8153",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase66_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "ccd30118206d8328649f47f14eb076c4b91373d65ca77d31f90e9cb7fd721764",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase66_delta_iota9_nu_expression.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase66_delta_iota9_whitehead_square.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase66_expression_sign_compatibility.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase66_literature_aggregate.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase66_whitehead_square_nu_expression.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase67_lemma57_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "df471de0e2d8c2a2b146009cf33aa4cfacf98d46416be808e9b0deda1fb40299",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase67_lemma57_delta_generator.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase67_lemma57_first_branch.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "f1589293257f5b36d17fb676382a9252c6b76aced8f304b627a902b4842814e7",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase67_lemma57_n3_zero_reflection.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "7138061c3c776077a3f08355788fa103733b6698784ddf0f8798d09cf66bec7b",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase67_lemma57_nu_prime_specialization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase67_pi6_2_eta2_nu_prime.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "63a9b6defa402c60f120e60d0565c5dad1614c28f74c5158c69981b95549d805",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase68_delta_eta9.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_eta_n_nu_n_plus_one_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_nu_n_eta_n_plus_three_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_pi7_3_nu_prime_eta6.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_pi8_4_decomposition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_pi9_5_nu5_eta8.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_pi_n_plus_4_n_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_prop58_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase68_toda57_reuse.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b13eb208f6ef1ee18e84638da03be85615f345c159b019daa1b88d55bda78206",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase68_toda59_eta3_nu4.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase69_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b6c2324e2734a29dbf784622265e5da5a2a304172ab3caa6eef38fc29b198a2e",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase69_delta_iota11.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase69_delta_surjectivity.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "403fe08f9c6515787684777bf20de07cd0d96a0c8d8cea172702276c60d52e78",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase70_delta_eta9_squared_surjectivity.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_pi10_5_nu5_eta8_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_pi11_6_delta_iota13.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_pi8_3_nu_prime_eta6_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_pi9_4_decomposition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_pi_n_plus_5_n_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase70_prop59_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase71_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "cb0f6db0f358120b97f843bc6645a9eada06d648a9b1c94d83d2463152387123",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase71_toda512_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "8e33486996667e2c84014a6b0e6da8a1699920acfe6dff939e28286b9d315ad3",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase71_toda512_n4_delta_injective.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "17fc379202482b16071034ede1173537ace41a70aa20973a1c91c50e978167a8",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase71_toda512_n5_delta_injective.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "bca9baf250170d71c4de41dba0f21e279ae7cb14b07861dbb2f2f1c1821a76f0",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase71_toda512_n6_delta_injective.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "670072301d7c599a2081b71eefb76ae4a1818b1e5aeaaa2f001ff2b65f06ca21",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase72_lemma510_core_inference.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72_lemma510_modulo_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72r6_ordinary_primary_bridge.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72r7_primary_composition_indeterminacy.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72r8_corrected_lemma510_integration.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72r9_corrected_provenance_retirement.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase72ra1_toda43_semantics.py",
+      "candidate": false,
+      "legacy_error": true,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_513_delta_eta11_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "5bb03d5b614375b9f5ab4ca816c460d595575960d882647e1159e004ee722d37",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase73_513_delta_eta13.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_513_delta_nu9.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_pi10_4_nu4_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_pi11_5_nu5_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "cb5ba4098df337b5885adec7c070806de66357d91242de97981c56b262ee6968",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase73_pi12_6_nu6_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "31056c782d8d9acd290a7ce9f4179ecbaf166ab3ad2cbb591a92f82a4675c897",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase73_pi13_7_nu7_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "54b7988d7ee080e054b2d6d5612564fae5adadf3ebf9880c162da0a36f2b998e",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase73_pi14_8_nu8_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "33d50a88bb29af0547794a419d00dab73c6d5527d1d622b230d4702429148351",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_pi9_3_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_pi_n_plus_6_n_nu_squared.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "636b5ca1a81437a9bbe201ea013ce03cec1b595f7722a4fa893fe8289016d153",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase73_prop511_finite_dimensional_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase73_prop511_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "2d0c926386723a879a659ea50de5b96cbe893f11fbec704cc3defe179fd45feb",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "154183f1c14ac1868908f833f2fd9eaf9d844ac720c37a282403e7514af68640",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_bracket_defined.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "6da479ae28da4327fbc4e825fbc88ef80d92acad24a676eda29ff26ac12290b5",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_bracket_singleton_mod2.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "e24bcae85d42b0d232e808566ea788fa6a6e6c1dcd4b42b2cd0adf886820b577",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_coefficient_stability.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "4e68cdae8653a987c96f26a08e32da3d847ff96c2d252135b28488368cfd43a1",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_final_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "4406800c0cd5a250f36756e60329256673e5a3ea43e9d1d7c5e8f125a2bed8fd",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_first_indeterminacy_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b056884478d10fbc117d42b96b726ab961c79154646256bca1799339824bd261",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_nonzero_anchor.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "04718c4288e3cc42e67890572329b2cf953e15851bd05e51270b170e0c8df6e8",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase74_lemma512_second_indeterminacy_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "141651197b8b5057dc2d5a2229fae2e4c0fd359bceb8b7dfab84d03ef19bab2f",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase75_514_first_short_exact.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_514_second_short_exact.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_515_pi15_8_final_group.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_515_sigma8_prop44_decomposition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_515_sigma8_prop44_specialization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_515_sigma8_transported_decomposition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_lemma514_sigma8.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_lemma514_sigma_double_prime.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_lemma514_sigma_prime.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi10_3_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi11_4_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi12_5_order_two.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi13_6_order_four.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi14_7_order_eight.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi16_9_sigma9.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_pi9_2_zero.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_prop515_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "81fbeaf3bcc89601462f512fc4783c300bf8f9fda9bd954e3151e5e521d1807a",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase75_sigma_family_definition.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase75_sigma_stable_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "d568b5c197e75ce4bdd91bb23f4ce535e80eba6b4dea909bcf0a00d5a86d510d",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase76_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "7782403fe08a3541dfde76f476b8aae3aae5e0b55c61bf35665475e8e847d10d",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase76_delta_e_exactness_bridge.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "01353aad3328920e43cc98be37a27632a44e74088184270bfe0dbc4ca03218fa",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase76_delta_iota17.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "62f557ca252bfe8f5a1311780331c09614fbac163533ce891986218462d83eaa",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase76_sigma8_suspension_kernel.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b2f5ba54cc37c49761a3c11425b673afc757d850c93e70e7f2d4c5943612ddb1",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase77_applicability_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b0e9162485fecbf2bce6ea356cf28de24a0c99d561c30fa8a563eb16ea74d180",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase77_lemma516_scaled_bracket_sum.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "e36d48140a19add4377129cdfe2cfc7923ebc5eea077f5c947f329db9afa610b",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase77_sigma8_iterated_suspension_bridge.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "0659093dfc897f440060716b06d96aa800d903bba7a0b436172ad47631ed29d1",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase77_theorem36_bracket_sum.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "2a299d9bc06454d961683ededd44fbc31a99c5dc5c2e9782335a1a6cb020c9bb",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase77_theorem36_first_bracket.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "9b78f192db27ee3816f449d7aa2d1ebe9a8e38e6a5fa252d55530747f161a50e",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase77_theorem36_second_bracket.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b2f79174ea1a1ece10f91871ee638017e34b290b66fcefeac00d679de7aee2ee",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase78_g3_stable_nu_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase78_g4_g5_stable_zero_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase78_g6_stable_nu_squared_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase78_g7_stable_sigma_transport.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase78_stable_g0_to_g7_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": "IMPORTED_BY_SURVIVING_TEST_TRANSITIVELY",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase79_cross_phase_repository.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "467bf177cc3b26b2ca752889d9998f5b7c3495699f5e55bf55b605c26bf0f675",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase79_repository_regression.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "664d6b868b0d5a3731bd3f40d076c213a110cb6d67fc19272c7900ed12371e11",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase80_actual_proof_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "82bc12ad8e0ba2110849cf05dce0a53f6dd6f9697cfb90ff749ce95cc6234768",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase80_probe.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "27770a97c21066242352a568b947621dceba2c5ff3230a11501b99affa2e512f",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase81_probe.py",
+      "candidate": false,
+      "legacy_error": false,
+      "reason": "PROTECTED_OR_UNVERIFIED",
+      "decision": "KEEP"
+    },
+    {
+      "path": "tests/test_phase82_missing_premise_detection.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "9417e688e29a61a594f4352104b0887ad5d097782a6845f467ca957ee7150870",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase82_premise_rule_lookup.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b7a235d4a0e1cef7d33746235caea2830c4623eb063adcfe61dd0cf2cbe7936f",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase82_probe.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "e4b6ae43d384f9d06aa9e1f4cb9f43e1b04226a81c9eb07c8f40d69de81e8fe0",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase82_two_step_forward_execution.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "c7177db4bd3ca7c22c3c469d4db079705a680ab88ced9a18b43caf5198f64f62",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase83_probe.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "3a600f0dd47a158cb7ba4cf03b7e8cc39de82c7f2fffd752aaebe0ca7408a192",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase84_bounded_depth_two_execution.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "e9b0b10da1c0d767a7c0279f8479594487f637cc801221818019fcadc96ea31c",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase84_probe.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "d462fdc72fa26441d909f658097904c4cf4110fe4344ab7c7bd69dbc97f2a5ed",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase84_producer_premise_availability.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "1269da35646b84ee20c162f455ad95ee4769165ae72442fe85a8282a37e14ac4",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase85_actual_theorem_integration.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "c2886c5e1fa845744bf1cfc3d941ec5907956b66d01de98b77646ce6a280cdab",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase88_goal_side_compatibility.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "63b013651a9259c9493928375146454fee54c24401179c95ac73fe332ac31617",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase88_realistic_catalog_collision_observability.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "d7c4d5337a9a049fd0bf8c30b40a3f0f9d527b050b799ce2ec3cf0fe59546a9f",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase90_actual_known_group_lookup.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "bf19962dcf2ea900ad317073c6618d34205c25f89c29a8b803f9e91d390a1225",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase91_actual_group_normalization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "2acf9881f6830ddd67c6de08e901a736ecbb5c7b4383ae8dbf6ad257ff2472c6",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase92_actual_ehp_extraction.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "8ee8da3455213d07945d1e6ab1722078843203df51b6d186fbf6bcd755c24eb9",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase92_ehp_group_enrichment.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "887b72ccca2ff540e1555efcacb602a84f18ce0a8ea41635a60be560a362b4c3",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase92_exactness_use_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "0dfdb26a60a4d4cace8229cc96aa403e5d2e9772059ec674453cc982a4bb4e3d",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase93_actual_dependency_extraction.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "dbfa5ae3870d11769d2835a3ba1bcacdd7fff6a89a707d30739bcb9042011ca4",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase93_dependency_role_classification.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "e7133dca938af147ab3f715d4cc5fa003dfc695c16a0db515db72584c2f89ce6",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase93_representative_explanation.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "1bd8e7e96d614a1533d9056be4cd5db1c43f75a1a13cc2caf53d8d7394209f98",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase94_actual_recursive_provenance_extraction.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "04641784cf5975258c5ed110f23ad649a5fd9248d27c916228ac3e76e37e6007",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase94_representative_explanation_recursive_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "a6d7400e7b8b06eb80c2a10b788a4cd5c311365ea87f06a802c998ec52243485",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase94_shared_cycle_stable_order.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "87fca0e5e201b78e45d9ab3a78d8136e2beb2750b14ed6a9a9ad711c670004ad",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase95_calculation_candidate_aggregate_provenance.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "5c6ce59850b74b22d4473498acc8e56285f803d32c42a4e7d8fbaaeac8e4f3c1",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase95_concrete_aggregate_branch_extraction.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "7909fd1404d149c0d43bb675417160963208d78204eefb1becba867ba2e80b28",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase95_existing_branch_proof_step_recovery.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "c03200d8b291b0879564c58b37d35e8401d63ccf765a44af5c81ad40bb5153c9",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase95_minimal_calculation_result.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "d58c0963273e812d45539d2bccdbc4331fafc9fdc66bcc89b3929fce4b65d6d0",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase95_recovered_branch_normalization.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "28d8d7b7a6b3de8824b58be86f95f4bb1b69f627f1c00deac93ecd6eab7245ee",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase95_repository_wide_goal_candidate_discovery.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "84fe857396669ce224a238e8fde828718b295f58df825b4b1e90bfec004d2c1d",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase96_minimal_structured_presentation_model.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "b3e70d13cbd94a780c7172eac07308e671d70f8b98f014ceeb673bbe4d19e60e",
+      "result": "BACKED_UP_AND_REMOVED"
+    },
+    {
+      "path": "tests/test_phase99_semantic_occurrence_roles.py",
+      "candidate": true,
+      "legacy_error": true,
+      "reason": null,
+      "decision": "REMOVE",
+      "sha256": "f377e10337c05d42eb4ef6ed13eba71f83c54622fef265515e66ae15415a6751",
+      "result": "BACKED_UP_AND_REMOVED"
+    }
+  ],
+  "mode": "APPLY",
+  "baseline_log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\recollection\\collection.log",
+  "after": {
+    "returncode": 1,
+    "error_files": 266,
+    "summary_errors": 266,
+    "consistent": true
+  }
+}

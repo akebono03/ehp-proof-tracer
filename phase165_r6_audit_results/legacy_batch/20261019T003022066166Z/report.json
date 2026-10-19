@@ -1,0 +1,1104 @@
+{
+  "status": "COMPLETED",
+  "scope": "Phase80-129 direct missing repository module, no test consumers",
+  "parse_errors": {},
+  "decisions": [
+    {
+      "path": "tests/test_phase100_minimal_generator_resolver.py",
+      "module": "repository_element_facade",
+      "sha256": "ba40908218fad9b12ca7bfc988780339f4856df44a95119cd33a47ee92a95b5c",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase101_production_element_exploration_facade.py",
+      "module": "repository_element_facade",
+      "sha256": "f7bc8be512437b974eb4395dd9c604f1c2fdb28d5416e06e7d84846aba659cc2",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase101_production_exploration_validation.py",
+      "module": "repository_element_facade",
+      "sha256": "fa50060b14db5dbb2650de22da48d4d87cea0541c5f3f035f4dd0c139f4c22f4",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase102_map_relation_exploration.py",
+      "module": "repository_map_relation_exploration",
+      "sha256": "b8883a6682dbeb48d867619594a4a1f311fb58e7bfc0b13945be19ba6b6ceb95",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase102_minimal_theorem_pattern_exploration_result.py",
+      "module": "repository_element_lookup",
+      "sha256": "d385d937de1b7ba2085c0f015c1cdb14bf316fcb4e2580d1417c5a1046581bca",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase102_production_scope_facade.py",
+      "module": "repository_proof_scope_facade",
+      "sha256": "89faa82ea77a4ef24a8f6fda719614ac875248312828cd7d54307c123ae3a75b",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase102_proof_scope_renderer.py",
+      "module": "repository_proof_scope_facade",
+      "sha256": "53601b83386eb95f8323dac23c73706eddb0b132c6968c928df73e3ef1bb4bf4",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase102_toda_membership_filter.py",
+      "module": "repository_toda_membership_exploration",
+      "sha256": "fee219ec88623557adc7bf5f49b2d10d12db2042f618648ab06ea79e232be54e",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase103_6d4_relevance_metadata_propagation.py",
+      "module": "repository_generator_applicability_facade",
+      "sha256": "efd56257a11b22cb8dfc40aaf3444dce8e1d38bfa72a8374f848f60acf98afed",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase103_generator_applicability_renderer.py",
+      "module": "repository_generator_applicability_facade",
+      "sha256": "a502d51a39bbbc445342df662928e9f02f42762cfbe5c50ce601baafa9f1b0fb",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase103_generator_specific_facade.py",
+      "module": "repository_generator_applicability_facade",
+      "sha256": "97f7f0c18e87e738e932125f1cdbf6a118e2bd8da4b7235173e8877d62788559",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase103_production_applicability_validation.py",
+      "module": "repository_generator_applicability_facade",
+      "sha256": "a6ca852f14afa16eb654d26af52ca947dd90549efaa7949c1a6c91020eb681d1",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase104_4i_explicit_final_rule_bounded_search_core.py",
+      "module": "repository_inference",
+      "sha256": "bdc3a6782c84f2447d8a0482b211f09d8b2ac08f92a117ee1aa30adace223a2e",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase105_17_standard_qualified_execution_facade.py",
+      "module": "repository_generator_applicability_execution_orchestration",
+      "sha256": "6eb341eba7067204257eeb9faf6d1847ce7f2e55899e5ccdc14b69e2f02772ab",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase106_4_relevant_scope_prefilter_optimization.py",
+      "module": "repository_generator_applicability_facade",
+      "sha256": "e3643896996170179abf9304a5aed4bf00251ae95b9931b32997b9d532b8c7a3",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase107_18_multi_family_standard_facade_integration.py",
+      "module": "repository_generator_applicability_execution_entry",
+      "sha256": "ad205cc256277d1101a325754f4d77c771049de20980c3409deac667f7aab5b2",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase108_10_user_facing_executable_candidate_list.py",
+      "module": "repository_generator_user_execution_candidate_presentation",
+      "sha256": "7f03ff2a12a96afb073ac78fde57e5ac2f35c4cf4020d0a7aac064f15ae390f1",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase108_5_minimal_user_facing_executable_target_resolver.py",
+      "module": "repository_generator_user_execution_resolver",
+      "sha256": "394f7219660f43177c99f358c6a382cc1e80b500543a84bc3a30d4ee0fbeb216",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase108_6_executable_target_qualified_execution_handoff.py",
+      "module": "repository_generator_applicability_execution_orchestration",
+      "sha256": "1960964e0c0e9d8e5bd57ac1cc3dbf619c29ba304a15aa727d92a42fc8cd109e",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase108_7_executed_target_final_proof_step_extraction.py",
+      "module": "repository_generator_user_execution_handoff",
+      "sha256": "2431cfa155bf1223707008128e936a4bed760fec22f524faa36cc01a7eb90867",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase108_8_minimal_user_facing_result_proof_presentation.py",
+      "module": "repository_generator_user_execution_handoff",
+      "sha256": "d1e2332b3fa847e0fa816d0c9562952c58964fe993b83e63ff36849a0a3d1915",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase108_9_minimal_user_facing_execution_workflow_facade.py",
+      "module": "repository_generator_user_execution_facade",
+      "sha256": "825026b8aa59537471dcb6e88e48a846962132032f61c90657939b20c258cacc",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_10_existing_fact_known_group_identity_validation.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "be9ec92169c8835d0033d5a7d7a124b65c8f5a5e07377a4d3ef97b6f924a2702",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_12_nu5_proof_derived_ambient_fallback.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "e356b672ec7c2d9763fbae624343c438724d9fd82301f77b6b57cdb0cd26f23a",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_14_decorated_sigma_finite_cyclic_fallback.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "33c318d25f76295baf2a9938c492f9396a3f9facc27846dd05aabe80b6d4e939",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_16_sigma8_direct_sum_fallback.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "5ec6ad3eec46354b24cb5909ad3a8b523d6e0424123560a6dacd199ae4784ed4",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_18_sigma9_indexed_finite_cyclic_fallback.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "1e385ec5fdc7584095d303a0b8bea0c7f6cbc0fa238d2176a3d33316f3397c32",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_29_known_group_proof_replay_cli.py",
+      "module": "repository_generator_known_group_proof_replay",
+      "sha256": "ac34c8bd6a66a56dc54582e53dce098c8dc81944fe4e273eeff8a0f28c7201aa",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_31_known_group_replay_narrow_rendering.py",
+      "module": "repository_generator_known_group_proof_replay",
+      "sha256": "6d0592c35e40b3cf4df0c2b25b20f1ecbcdb30b308e5894ac66945e4771714a5",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_3_recursive_known_group_identity_lookup.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "635ddeb333c06dcbd58f0cc767a91625c904fab3cd99d0de6a29e31085e0d8e3",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_4_known_group_identity_presentation_renderer.py",
+      "module": "repository_generator_known_group_identity_lookup",
+      "sha256": "676c5bb6f961b3d77e07c56813a8c2f0e0e087e46cc1bdbf58d851ea6515b618",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_5_execute_known_group_identity_integration.py",
+      "module": "repository_generator_user_execution_facade",
+      "sha256": "c12d3156e528f8627e007bbfcb21c81c79e9c95fd0cbe285d0080c75aba05553",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_7_user_facing_target_dedup_delta_rendering.py",
+      "module": "repository_generator_user_execution_candidate_presentation",
+      "sha256": "c6e91b8d95ec78b953d84edb0bca7b92d5cae9a704c5e3172707c93211800512",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase109_8_delta_sign_normalization_executed_rendering.py",
+      "module": "repository_generator_user_execution_facade",
+      "sha256": "cd9ac5065b9cc0ad613b3dfa3add2575b5ded60b5710b6c921e30330f3fa5b4a",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase110_10_operation_query_proof_replay.py",
+      "module": "repository_operation_query_facade",
+      "sha256": "733f9ff16f315859d05facfa48d47a3a12bbc0593c86cec55ef4620706814b30",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase110_12_operation_query_proof_replay_statement_presentation.py",
+      "module": "repository_operation_query_facade",
+      "sha256": "dcdcbe217add200223a09faacb34aa70a346eb20295154144b05d984b6672874",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase110_5_minimal_operation_query_core.py",
+      "module": "repository_operation_query",
+      "sha256": "c01e091cbb4c498c78254a840b16f1c7650064d2c892b50ec0765c2a6dbd0ccd",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase110_8_operation_query_result_presentation.py",
+      "module": "repository_operation_query_facade",
+      "sha256": "a4e90e04da51fe4e90fa8a3e647ef8b1707c130ac57844fa6a2d2a58d04e73f2",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase111_12_deep_show_proof_safe_fallback.py",
+      "module": "repository_generator_known_group_proof_replay",
+      "sha256": "38333a1d39c877616508d8b832c9ffb9ca3443e715caa3614793113eac67db2f",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase111_9_three_term_composition_query.py",
+      "module": "repository_operation_query",
+      "sha256": "927bc9a3d18cb6a9eeacc6c0c9e5baa65fdff5e107d99ed9dfa9b88569a9b8a0",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase114_3_nu5_operation_query_handoff.py",
+      "module": "repository_operation_query",
+      "sha256": "69007c97e21581b5cd6fb7269a40c7b0d6f64b8f126735d61f885238cfb6e547",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase115_sigma11_operation_query_handoff.py",
+      "module": "repository_operation_query",
+      "sha256": "f5591d2529dcbfbbb4d138a2fa5ccacd3e2223c4e99eee1b16be51f3871beac3",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase121_4_web_generator_exploration.py",
+      "module": "repository_element_facade",
+      "sha256": "259bcbf71fcd41713ed545e368b5684e7982c8a48a0a99135a868a008fdbdced",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase122_4_web_generator_proof_scope.py",
+      "module": "repository_element_facade",
+      "sha256": "03f7fef26c694da4f54294e179040be7fa5c3afb63937916cc6d9e48877e5b4d",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase123_4_web_generator_applicability.py",
+      "module": "repository_generator_applicability_facade",
+      "sha256": "40a20933025cf194f9ba9fd4294f791d3a44dbf6bd55a206578db31f9e6708fa",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase125_4_web_generator_execution.py",
+      "module": "repository_generator_user_execution_facade",
+      "sha256": "a06c93212f50f37b0b9df07bb8a3fe36967fdf4d4be78737118c363432eae9ac",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase126_executable_target_relevance.py",
+      "module": "repository_generator_user_execution_resolver",
+      "sha256": "fabd21e68e1fd2e0855f0aacb63d9feb01023969ac4069bbb3bb557baaa4572a",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase128_nu5_eta8_operation_query_handoff.py",
+      "module": "repository_nu5_eta8_suspension_zero_specialization",
+      "sha256": "6f73f2148cdd366d711bebc8dd3d7fc76b22618d885f00732600dc5d590f0087",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase129_nu_prime_operation_query_handoff.py",
+      "module": "repository_nu_prime_suspension_membership_specialization",
+      "sha256": "8110c8910f7bd9db080f90876d7d6a3cbda1777bb5bfae78690544eed0f78274",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase80_actual_proof_integration.py",
+      "module": "repository_inference",
+      "sha256": "82bc12ad8e0ba2110849cf05dce0a53f6dd6f9697cfb90ff749ce95cc6234768",
+      "incoming": [
+        "tests/test_phase80_applicability_non_circularity.py",
+        "tests/test_phase81_actual_theorem_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase80_applicability_non_circularity.py",
+      "module": "repository_inference",
+      "sha256": "f044c6f98b1a57d0ee390c24d90d275006e90aa77db5fba51c81c264183045bf",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase80_probe.py",
+      "module": "repository_inference",
+      "sha256": "27770a97c21066242352a568b947621dceba2c5ff3230a11501b99affa2e512f",
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT"
+      ]
+    },
+    {
+      "path": "tests/test_phase80_repository_available_steps.py",
+      "module": "repository_inference",
+      "sha256": "98a140343c8a2da15c2a1802b6d6f69682834a70d055d849bd0ac6fa4ef92776",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase80_repository_inference_runner.py",
+      "module": "repository_inference",
+      "sha256": "4a61ba467f9e654e84f2c1644f15d8c7dc795791a935c6ffb07a63a43aa407a4",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase81_actual_theorem_integration.py",
+      "module": "repository_inference",
+      "sha256": "10013facfebe232448d67acf040ae04c311722423a006372f55da629c7d5abe4",
+      "incoming": [
+        "tests/test_phase81_rule_selection_regression.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase81_probe.py",
+      "module": "repository_inference",
+      "sha256": "a3aef0be0b69bff56ac994ea8cd566b3142947e17c4ae9e30ddd80a9e931dc43",
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT"
+      ]
+    },
+    {
+      "path": "tests/test_phase81_repository_rule_selection.py",
+      "module": "repository_inference",
+      "sha256": "6b08557a8f854db3516b599b11da485b2f0761c14fadfdf0a9a6e42d44865d60",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase81_rule_selection_regression.py",
+      "module": "repository_inference",
+      "sha256": "7bc4188e085a995043d2117e6c3b8ffe4f6d1c26240ab9f789ec3fdcb1e5a799",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase82_actual_theorem_integration.py",
+      "module": "repository_inference",
+      "sha256": "ef79ce8be52ed4fe1508796bcdf8f2fe372b0efc8bf7dfb4261337adacb04a5d",
+      "incoming": [
+        "tests/test_phase82_search_safety_regression.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_missing_premise_detection.py",
+      "module": "repository_inference",
+      "sha256": "9417e688e29a61a594f4352104b0887ad5d097782a6845f467ca957ee7150870",
+      "incoming": [
+        "tests/test_phase82_premise_rule_lookup.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_premise_rule_lookup.py",
+      "module": "repository_inference",
+      "sha256": "b7a235d4a0e1cef7d33746235caea2830c4623eb063adcfe61dd0cf2cbe7936f",
+      "incoming": [
+        "tests/test_phase82_two_step_forward_execution.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_probe.py",
+      "module": "repository_inference",
+      "sha256": "e4b6ae43d384f9d06aa9e1f4cb9f43e1b04226a81c9eb07c8f40d69de81e8fe0",
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_search_safety_regression.py",
+      "module": "repository_inference",
+      "sha256": "213665b62f7339429f31247f24b382c7ef79f8e5ff0190a2993505ee2b44df99",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase82_two_step_forward_execution.py",
+      "module": "repository_inference",
+      "sha256": "c7177db4bd3ca7c22c3c469d4db079705a680ab88ced9a18b43caf5198f64f62",
+      "incoming": [
+        "tests/test_phase82_actual_theorem_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase83_actual_theorem_integration.py",
+      "module": "repository_inference",
+      "sha256": "3ba432f34fe16056586e10e25b3577e897f1d96b3814661f687239f572562f18",
+      "incoming": [
+        "tests/test_phase83_multiple_producer_safety_regression.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase83_all_missing_premises_uniquely_producible.py",
+      "module": "repository_inference",
+      "sha256": "72eeac9fc2203a7519234b2258ec74884a3ad917413136da296a2d651652c765",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase83_missing_premise_producer_lookup.py",
+      "module": "repository_inference",
+      "sha256": "5d10ddf22499675544376d1354b2b4b1eb0c3cc9ea0230c7e551937a66698da2",
+      "incoming": [
+        "tests/test_phase83_all_missing_premises_uniquely_producible.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase83_multiple_one_level_producer_execution.py",
+      "module": "repository_inference",
+      "sha256": "87241ccfd5e9cc5967dd60b67c91e3400f75f0a91539be0fd328cf6a01a2f7b8",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase83_multiple_producer_safety_regression.py",
+      "module": "repository_inference",
+      "sha256": "e724840c76208858bc17fd14bbbc0f9d3436054b7ee4ed9cb43ab6482d057cbc",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase83_probe.py",
+      "module": "repository_inference",
+      "sha256": "3a600f0dd47a158cb7ba4cf03b7e8cc39de82c7f2fffd752aaebe0ca7408a192",
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_actual_theorem_integration.py",
+      "module": "repository_inference",
+      "sha256": "d66569184a31a5fc80589bab43c5d801e10278849dbbeb7309aaca3a216c32bc",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase84_bounded_depth_two_execution.py",
+      "module": "repository_inference",
+      "sha256": "e9b0b10da1c0d767a7c0279f8479594487f637cc801221818019fcadc96ea31c",
+      "incoming": [
+        "tests/test_phase84_depth_two_safety_regression.py",
+        "tests/test_phase85_direct_producer_failure_classification.py",
+        "tests/test_phase85_nested_producer_cycle_depth_classification.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_bounded_search_representation.py",
+      "module": "repository_inference",
+      "sha256": "df02c2e8ce80e85c21fc421d83eb83b6d52682c23b60fdbc7fa0fb156f817fa7",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase84_depth_two_safety_regression.py",
+      "module": "repository_inference",
+      "sha256": "f7d85343e305dbc7d6dfda67cbfc2dae32371e9d02d604529dbdc97cde969c07",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase84_probe.py",
+      "module": "repository_inference",
+      "sha256": "d462fdc72fa26441d909f658097904c4cf4110fe4344ab7c7bd69dbc97f2a5ed",
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_producer_premise_availability.py",
+      "module": "repository_inference",
+      "sha256": "1269da35646b84ee20c162f455ad95ee4769165ae72442fe85a8282a37e14ac4",
+      "incoming": [
+        "tests/test_phase84_actual_theorem_integration.py",
+        "tests/test_phase84_unique_depth_two_producer_chain.py",
+        "tests/test_phase85_actual_theorem_integration.py",
+        "tests/test_phase86_explicit_max_depth_parameterization.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_unique_depth_two_producer_chain.py",
+      "module": "repository_inference",
+      "sha256": "0af37f9e534853093a0eae670c5563a496850dfa75e4f244c9be94b4eb510395",
+      "incoming": [
+        "tests/test_phase85_bounded_search_diagnostic_representation.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase85_actual_theorem_integration.py",
+      "module": "repository_inference",
+      "sha256": "c2886c5e1fa845744bf1cfc3d941ec5907956b66d01de98b77646ce6a280cdab",
+      "incoming": [
+        "tests/test_phase88_realistic_catalog_collision_observability.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase85_bounded_search_diagnostic_representation.py",
+      "module": "repository_inference",
+      "sha256": "fa2e2a3540d4e349242dad4bffbddba272aea44d2247fdbafbf35b87690c1a7e",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase85_direct_producer_failure_classification.py",
+      "module": "repository_inference",
+      "sha256": "ad0a2fc53407e38d2f90c1f4c80899662f6e46496fc9feba659c5fb69640cf82",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase85_execution_diagnostic_report_integration.py",
+      "module": "repository_inference",
+      "sha256": "ac0319f8c98abf70da4ea142118423334c916131d5b9da55fe17bbf345ebf093",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase85_execution_failure_diagnostics.py",
+      "module": "repository_inference",
+      "sha256": "4acec4661816e951f70d6107788bdadcd59c4df6ec6ab039c008a2a7f4af34fa",
+      "incoming": [
+        "tests/test_phase85_execution_diagnostic_report_integration.py",
+        "tests/test_phase85_integrated_bounded_search_execution.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase85_integrated_bounded_search_execution.py",
+      "module": "repository_inference",
+      "sha256": "53533de7129b7eeea4035fd2bed63f2acb037a9d7fb6c3a0da1be9222438e3a4",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase85_nested_producer_cycle_depth_classification.py",
+      "module": "repository_inference",
+      "sha256": "0a108109b2047ef353835a60e9efa0a458aad2bf3a29f5108da63f112ffa2cb7",
+      "incoming": [
+        "tests/test_phase86_explicit_max_depth_parameterization.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase85_probe.py",
+      "module": "repository_inference",
+      "sha256": "b80f9ea7c2bca809da1edd8d521ea02dbb784761b8b86fb6295c8b52c7e87f85",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase86_depth_four_bounded_search.py",
+      "module": "repository_inference",
+      "sha256": "b564b2721b4e8d6ef151f1d6f2d10c5072284e9a51f2fc5263a42d272542d111",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase86_depth_three_bounded_search.py",
+      "module": "repository_inference",
+      "sha256": "2b1cf6fa6d6fcbb1d120a25262e7b2799d6eec341d8a1cba5add7579f566b4de",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase86_explicit_max_depth_parameterization.py",
+      "module": "repository_inference",
+      "sha256": "4f67e3539dfda73f6b0620cda6b5a0c6fb30492d47a805e9981e21f28b5a334a",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase86_probe.py",
+      "module": "repository_inference",
+      "sha256": "dcda1e5dec0d520d6c20375a64dc29573ee01076a3a7446b7ed6aaa2c5fc5070",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase87_minimal_retry_policy_representation.py",
+      "module": "repository_inference",
+      "sha256": "b5f5b004d83958f8a3e9cedacf0f12df4757fa87b51410dfb7e7bc7d7319d9d1",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase87_probe.py",
+      "module": "repository_inference",
+      "sha256": "7578e7ad78cced93eea9ff9e6d93b0f61562841bf15df29d7a21004693182b6a",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase87_retry_diagnostics_report.py",
+      "module": "repository_inference",
+      "sha256": "0ff274918adec25f507afed6c7df1f456790e67784400ed54c89057fbead429c",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase87_selected_path_execution_retry_provenance.py",
+      "module": "repository_inference",
+      "sha256": "e3d79d00b4cf225f7a5572e411ed06bbcd2a212b90c3f701a80b20f9a8a20035",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase87_selection_side_finite_retry.py",
+      "module": "repository_inference",
+      "sha256": "bd3c421c227a44d3fc9290efd209c941d76be5774cd5a056716c404ce65e9e95",
+      "incoming": [
+        "tests/test_phase87_retry_diagnostics_report.py",
+        "tests/test_phase87_selected_path_execution_retry_provenance.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase88_concrete_goal_end_to_end.py",
+      "module": "repository_inference",
+      "sha256": "1c5ecb30071a2797120fc639b5b11f97b023c2c0de9133de9cc6ebef55901d72",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase88_concrete_missing_premise_representation.py",
+      "module": "repository_inference",
+      "sha256": "3bb674e9846c4738a1b7caf2feabc94239ca4e43f111f1907732ee864c14442e",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase88_goal_side_compatibility.py",
+      "module": "repository_inference",
+      "sha256": "63b013651a9259c9493928375146454fee54c24401179c95ac73fe332ac31617",
+      "incoming": [
+        "tests/test_phase88_concrete_goal_end_to_end.py",
+        "tests/test_phase88_producer_goal_compatibility_filtering.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_DIRECT_MISSING_IMPORT",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase88_producer_goal_compatibility_filtering.py",
+      "module": "repository_inference",
+      "sha256": "28a2a0c71cac8a47541a4e0e12f05f0d07490305a475dc9be0be589db2578a0a",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase88_realistic_catalog_collision_observability.py",
+      "module": "repository_inference",
+      "sha256": "d7c4d5337a9a049fd0bf8c30b40a3f0f9d527b050b799ce2ec3cf0fe59546a9f",
+      "incoming": [
+        "tests/test_phase88_goal_side_compatibility.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase88_selected_node_concrete_execution_validation.py",
+      "module": "repository_inference",
+      "sha256": "feb3a7d888076efde42e4ba36b0a646873f9c8531a7b5236cb7d9e1c93f5f8f7",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase88_unsafe_producer_diagnostic_compatibility.py",
+      "module": "repository_inference",
+      "sha256": "d8fb0c36e47d3f1c927f655baf51fd16841472e36aff8f33e9688c14e0372417",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_actual_element_exploration_facade.py",
+      "module": "repository_element_facade",
+      "sha256": "75afab91660ec75477f00ef2a305259c3a2c1d5cd827e9c8d2697c5be77f595b",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_actual_repository_element_lookup_validation.py",
+      "module": "repository_element_lookup",
+      "sha256": "eb392429ff19573fac09a0c1cdf7a2d9afab6b414924cb09af40471745928a88",
+      "incoming": [
+        "tests/test_phase100_minimal_generator_resolver.py",
+        "tests/test_phase102_minimal_theorem_pattern_exploration_result.py",
+        "tests/test_phase102_toda_membership_filter.py",
+        "tests/test_phase99_element_centered_exploration.py",
+        "tests/test_phase99_element_exploration_facade.py",
+        "tests/test_phase99_element_exploration_presentation.py",
+        "tests/test_phase99_exploration_markdown_renderer.py",
+        "tests/test_phase99_grouped_presentation_views.py",
+        "tests/test_phase99_repository_generator_occurrence_result.py",
+        "tests/test_phase99_repository_occurrence_role_integration.py",
+        "tests/test_phase99_role_filtered_repository_lookup.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase99_element_centered_exploration.py",
+      "module": "repository_element_exploration",
+      "sha256": "82904cc647b698d6781cb556345ec3153b480ff16b07d9e65b266aaa9a63dbe1",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_element_exploration_facade.py",
+      "module": "repository_element_facade",
+      "sha256": "1b8f78afa6927d652510d6396d3ef8c7b32bf52146dbd303662f7edbb62312e2",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_element_exploration_presentation.py",
+      "module": "repository_element_exploration",
+      "sha256": "13216877c4c59a8ddf968c676c1b144070c1c5b2d4d2aae0f19599dafbcd3e4b",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_exploration_markdown_renderer.py",
+      "module": "repository_element_exploration",
+      "sha256": "154fe6098fe5efa1fa88c5e7736de6565f8073311a2dad14b4776330ff70b107",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_facade_boundary_regression.py",
+      "module": "repository_element_facade",
+      "sha256": "9ed03cc4992743288c1ad8a18e717d99edac855bec1514ae36dc9a7ff21c9983",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_grouped_presentation_views.py",
+      "module": "repository_element_exploration",
+      "sha256": "f7d7c7e4ebcd8e988af0d514e0964ffcc6a3ff3fad70a9d7b9f6f326d155e270",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_repository_conclusion_element_lookup.py",
+      "module": "repository_element_lookup",
+      "sha256": "21454c92d64a2686283ddbd631d862585e41750cc393c5d7c0227e7dfff78a67",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_repository_generator_occurrence_result.py",
+      "module": "repository_element_lookup",
+      "sha256": "b51bb5c1f4990c5c428dadf2f3339b51844e81a19a54476d522f24c8b46e511b",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_repository_occurrence_role_integration.py",
+      "module": "repository_element_lookup",
+      "sha256": "2cab5dadd1b16fc063d48f93d3c5e676fcd46c5c0fbcf07eec00c36d9901b162",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_role_filtered_repository_lookup.py",
+      "module": "repository_element_lookup",
+      "sha256": "ef6f239384a07e3cc705b42485ed5ae7669659566e5ff6ed3706feeaca97249f",
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Phase 165 R6 scoped recollection
+
+Run `run.ps1` from the repository root. The script performs two focused tests of the collector and then a **collection-only** pytest invocation on `tests/` and root `test_*.py`, excluding other historical directories. It never executes the repository's test bodies, alters production/test sources, or deletes files. It stores a full log and machine-readable report under `phase165_r6_audit_results/recollection/` and records failures as pending rather than success. Ctrl+C stops execution; rerun to recollect. Baseline of 497 errors and historical deletion count of 117 are pre-recollection context, not verified current counts.

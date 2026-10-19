@@ -1,0 +1,29 @@
+
+=================================== ERRORS ====================================
+_______ ERROR collecting tests/test_phase143_22_exactness_components.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase143_22_exactness_components.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase143_22_exactness_components.py:21: in <module>
+    from tests.test_phase143_19_method_evidence import (
+tests\test_phase143_19_method_evidence.py:3: in <module>
+    from toda_calculation_facade import (
+E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_calculation_facade.py)
+_ ERROR collecting tests/test_phase159_pi4_3_exactness_reason_unification.py __
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase159_pi4_3_exactness_reason_unification.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase159_pi4_3_exactness_reason_unification.py:3: in <module>
+    from tests.test_phase143_19_method_evidence import (
+tests\test_phase143_19_method_evidence.py:3: in <module>
+    from toda_calculation_facade import (
+E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_calculation_facade.py)
+=========================== short test summary info ===========================
+ERROR tests/test_phase143_22_exactness_components.py
+ERROR tests/test_phase159_pi4_3_exactness_reason_unification.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 3.08s

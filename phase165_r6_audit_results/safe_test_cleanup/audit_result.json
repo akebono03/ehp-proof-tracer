@@ -1,0 +1,9 @@
+﻿{
+    "phase":  "165 R6",
+    "status":  "REMOVED_BACKUP_TEST",
+    "removed":  [
+                    "tests/test_phase164_r7_statement_resolution.phase164_r7_r1_backup.py"
+                ],
+    "active_test":  "tests/test_phase164_r7_statement_resolution.py",
+    "full_pytest_run":  false
+}

@@ -1,0 +1,4685 @@
+{
+  "scope": "Phase<130 directly imports a missing repository_* module; never imported by other tests",
+  "input_errors": 380,
+  "decisions": [
+    {
+      "path": "tests/test_phase100_12b_standard_repository_integration.py",
+      "sha256": "5146c634fd41b4550d4aa14e40aec3e2d968b807fed013be5c51ac10a8962f76",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_production_proof_builder.py",
+      "sha256": "12daedd19e49d5be2dfc05b1b90bab870c3091f987f76ce99e97c79a5e67911e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop511_production_proof_builder.py",
+      "sha256": "e4332cc8e8394e09cebb33c38c287b9c6992a7e4cd74755bb0165a6513c59bf3",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop511_zero_bootstrap.py",
+      "sha256": "17d0fce3a2e2ff08ef2be43bca491f18e904e109b7d0aca3833d1e46433f8c6c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop515_low_bootstrap.py",
+      "sha256": "20ee264c1fc707f37a8cbcf4766d4156f05db8d79beaa04816a5923d6f36c829",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop515_production_proof_builder.py",
+      "sha256": "6a636d2de31b2e3dffc7b58d3e3e8af309bb536e2663992917153ba09515495d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop515_sigma_chain_bootstrap.py",
+      "sha256": "447a7c4a40ab3edc05e9812ea934f5ea7ae057e22d2e48bd822197f79c24b925",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop515_upper_bootstrap.py",
+      "sha256": "6fdacbcb077267a66dd2e2df38e6312326bbd0e7903c3346011b9a74efe5813c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop56_bootstrap.py",
+      "sha256": "6cd58eb2b6d7a731cf10d92cefc55b70c1f56783c21aa0eaa4ee32703335e912",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop56_midstream.py",
+      "sha256": "2afce557b21a2a40ff1229d49893623cae39b5041232833ff0c7dc2cf980b97a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop56_upstream_core.py",
+      "sha256": "30ecb05d1efcc4289d11904446fd42e7b1c4225643b57e999e02dc9daa2e9212",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop56_zero_bootstrap.py",
+      "sha256": "46ef92c4394b4ef3c544c64ecc31d4a97b567e1e4a218c8d3a65546ca4ac3c78",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop58_production_proof_builder.py",
+      "sha256": "69b590d7ac841e3ba6461395a5fc73eea88089434992e872e508883ee05ae9f0",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase100_prop58_zero_bootstrap.py",
+      "sha256": "1962226e13c91ab3a5a576bf4d68484748b32f3e01e0a363d91a4a70cbf1a87a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_22_exactness_components.py",
+      "sha256": "509944e68ee432b13c95558b8e9ddf217bff081a16a99d42b45a41fb3c12791e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_25_relevant_groups.py",
+      "sha256": "8b095ae63a5fb85250d190cfd85a6da211dedbee34113fa1f517f1212de9af3e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_26_exactness_relevance.py",
+      "sha256": "c3ab5d3af7bcb4db0bf0105a274da60f5eea1e3a1a1e41e7e604f74080f0d564",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_28_exactness_selection.py",
+      "sha256": "6113b3ed793ece6bd96fe223cdc04ce7082e0f85370a83202a794739e6c19186",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_30_exactness_method_transition.py",
+      "sha256": "2660a839226e909ea864f1edbe1fed80f374d21ede8352621d40e954cb541d45",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_32_exactness_component_latex.py",
+      "sha256": "5ee13c4df9aca5919b4203bd45a1fa62a406f4b5adc633607a3a4e78700c0fb4",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_34_argument_header_method.py",
+      "sha256": "0749f40c2bfca059dc68854d02509133fe7b64d6847bb1a25ff19721d3f2d1aa",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_36_argument_body_blocks.py",
+      "sha256": "bd3e6c0b9e61d0a99ea728a2e79d2fb885181613362df715eb2f462d4df80218",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_38_exactness_display_contributions.py",
+      "sha256": "09e626e63fc59f2923b01ae734402e4be37967778f825a30cb9c54790db40570",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_39_exactness_contribution_ownership.py",
+      "sha256": "717131a895347ad06969f891fac6019b5821fdff5066e3341f0d78731bd46ccd",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_41_argument_local_body.py",
+      "sha256": "e4844d9e31db0bedbddd15c750ea0379287a20fee14ecabbfdada01c5b624899",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_42_argument_body_contribution_renderer.py",
+      "sha256": "54a87ea4bd85910c8bd03be4fd70462e8cab6a9489c735c4d2175ea805b7939c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_44_single_argument_narrative_renderer.py",
+      "sha256": "5b5ec7d95c78c5b03abb773f8ed68fad1b8f44a095ff17ae47b69e04dffd0593",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_46_multi_argument_narrative_assembler.py",
+      "sha256": "1c0a697d7f9ca58565fdd02996169ebdd141acea4ae6197492b87bf407298d58",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_47_multi_argument_shared_contribution_dedup.py",
+      "sha256": "08f45e3f50ecae5c86b4720053bd7c75b322a0a1419c75a4e99dd9e7d44c5b94",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_49_dependency_label_narrative_policy.py",
+      "sha256": "f1d13e67d737907e96bfeaebc9cd3b0ed78e01524542e9626302ef0cd0d18110",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_50_generic_statement_prose_renderer.py",
+      "sha256": "9e7d68d05bba459c760140953d35a88922a5498fbc5745adc31e2d8b56fc3572",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_51a_r_provenance_semantic_catalog.py",
+      "sha256": "83b323bc99b8648eb73a69a25036212e348f45b26fa16277a4b86b4c5df5e3e9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_51b_aggregate_statement_prose.py",
+      "sha256": "913f399234f08c1fe3415d778a2033387501b6fbb5dc9dcefef29fb297aa842a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_53a_narrative_transitions.py",
+      "sha256": "08ccea932b639df27e27e9454d3e07e077d87456cd4cf87a5e5741caf66e9d34",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_53a_r_aggregate_derivation.py",
+      "sha256": "6c30bef71bbeeba8ec169883cbdde35b226c056ff0ffd6ed6adb93a14dab0b68",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_53b_r_conclusion_aware_connector.py",
+      "sha256": "4866f07f0a200a1f2c92d24f221844b4ca87e9ed070ee4a4e825c24cad581b72",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_53b_transition_connectors.py",
+      "sha256": "5c7a82f84da34dfe0be8088b87cbf63cafaba649bcc6e50ab76fcdd8e4ecdeb1",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_55a_argument_conclusion_step.py",
+      "sha256": "ae22ce3f275f184d089619df5e6a6cdfa42ec54a7eac2145387a470c47efc1ed",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_55b_conclusion_step_ordering.py",
+      "sha256": "04baec7bea91858ee5b3080006d55a9240d58687b929df989a7f6ddb6abd006a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_57a_step_calculation_chain.py",
+      "sha256": "1c1620c447b8873e1ea50a144577cc1aed3508d7715d44dcad187e39bbc12c89",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_57c_step_derivation_connector.py",
+      "sha256": "391fb3a1b19d2132e4c1e10cb60268509be8d8b278fe5fee6f05d8c9400410ef",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_58a_negative_scalar_sum.py",
+      "sha256": "44c886d92149661df28c3bfefa4ae42d48b558dc36703241f9ea9f3ff502137c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_59a_group_structure_semantic_key.py",
+      "sha256": "3f7a93838e228ebf0ce1d2823df17542cb4fd4d8682386bfc2c2ead170704775",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_59b_group_structure_duplicate_suppression.py",
+      "sha256": "4f5d808558019787f1f6aa339079c657b4372b10b615a47ef4f7d3be859e430e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_61a_argument_conclusion_direct_premises.py",
+      "sha256": "e99cb4e206c9765733fdfa7093f8e3356275772e115d21bfc46580ccafd19d01",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_61b_direct_premise_narrative.py",
+      "sha256": "0a9e5b5d541c1d89543f7590dda147f7226a343b72266e15928865c7cc32306f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_61b_r_semantic_suppression_priority.py",
+      "sha256": "9dd0f21efe942ce20ca56920edb5cc985678ea419a2a0dc0e2d5155f13bd1026",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_63a_r_exactness_repair.py",
+      "sha256": "b7aa2991a774591b7923afa32a5e13990b78d5c515bc57c0609d47a0e484c854",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_63a_residual_fallback_provenance.py",
+      "sha256": "46676055097a543aa844bac16966b3f4cf7fe2f93b8dbc1bd0342f578d384792",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_71a_eta_definition_visibility.py",
+      "sha256": "e0a7082168bf4d2ef88b580221bf0a4277052a3e3dcce3e1520a362efb27b49d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75aa_toda56_nu4_prop44_specialization_rendering.py",
+      "sha256": "9eb5d37d230cc435284b609098c00d4f9476beeb7ba9e7d9dd7f64f4f16e654e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75ab3_whitehead_correction_rendering.py",
+      "sha256": "b427bb2f4383ecebb449cb7e008e9537c48f8217d1bdecba073492c432bc34d9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75ac4_hopf_odd_multiple_rendering.py",
+      "sha256": "b66457eb5a4c62ef5aed2cc2b1a0fd81be02fd10fcafb0894a59bf8c1b246f07",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75ad_double_suspension_rendering.py",
+      "sha256": "7bec767d7d7067a92b46018c886848804fc4f89cb497b177982ef3019bdcb942",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75t_toda58_equation_aggregate_semantic_rendering.py",
+      "sha256": "bf01734d35ac00e7f5d89ee5f59a6814a5456f31395e65dcd9367806dc4ba7e9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75w_toda54_bracket_up_to_sign_semantic_rendering.py",
+      "sha256": "836a10156e8e1fbe54e0e7e3cc59f5d7ec1f88a72a0e0bae1009ddaed086ba6c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase143_75y_nu4_construction_semantic_rendering.py",
+      "sha256": "8810d0b4da809a231481de456b1d1e667039a3d0d62d43294616614d65e63380",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_5_generic_definition_order_equations.py",
+      "sha256": "10c88dc45f40f926d69ced5c37c016e68cdc2730a5bb36cf9de379b7514d8290",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_pi6_generic_production_route.py",
+      "sha256": "275c786f3d513bdeb179e6ad1edf57ad54186b76bfe44a8374bfec7ac41cfcca",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_public_route_cutover.py",
+      "sha256": "a86a447ef7a4bb0186d14ab6225e8790706df01e6c15c08727de0ae13d791212",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r25_9a_pi5_suppression.py",
+      "sha256": "927c2a01af56b530a8b5e7dd34c555617d869bcdef7b163e606326b9eb102094",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r25_9a_r1_relocation_hidden.py",
+      "sha256": "6380425b1c2a48208126fb446a4aea7a700b588064fb414b05ce56063d1b7f1a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r4_supporting_fact_filtering.py",
+      "sha256": "c42850c893978ac49b845c4e04f2b3e795ee7c23eff918c63e384ed338b7cc4a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17a_proof_chain_selection_audit.py",
+      "sha256": "a21307614d7ccf3b25422c981ef00a4ddad558a97080cf3033c01a6582ab5fe2",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17a_r2_argument_support_edge_integration.py",
+      "sha256": "8c52f9134f186cf56a16af166328c4acfd48d0c37675d3490b700661ac9afc76",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17a_r3_support_edge_correspondence.py",
+      "sha256": "51ccdfc306b91f4a049681566e7009ede2f58fe1c5dd72431a00c46efbca9f16",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17b_generic_proof_chain_types.py",
+      "sha256": "65e83fa0f8d30996267c8bf8b4cf312fb9de8d3428754c2ac07d1b20ddb4886e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17c_cross_group_generic_proof_chain.py",
+      "sha256": "5462aa83527c9f1f549a6d8876de41921aed900808a79998d141b5956c2bd86a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17d_failure_novelty_classification.py",
+      "sha256": "375f7ee78b6102259f59b6b8d56bff55cebb57841546857192e2ac03b5a494e8",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17d_r1_other_semantic_role_resolution.py",
+      "sha256": "4ae04d51eaf576e1456be68aa983c7dcd03022af6c264c6c0f4cbfef3b089c27",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_17e_proof_chain_architecture_decision.py",
+      "sha256": "713ef30f2f6e3f200347bd37816064290b811bbf59e71374fe3f38eb1f9ce026",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py",
+      "sha256": "1ca121cf99ff8b5852266ba8e726d377b82fd1bae41473c0c92f065cc4a0bb93",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py",
+      "sha256": "ad868c83a9b62fae987f4dbefaf43bef1d0706e7a0bf38fe51c4bfa2f326e8b9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py",
+      "sha256": "8cd8baa6c7d92e1efd82b9a5d5c595883889fe0615f334f51afc6cac1377dd5a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py",
+      "sha256": "6ded9ee9258bc8ef0c7dcf1760e320c2e064f2a29458b1370ddb9bd7f0a29f0d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py",
+      "sha256": "82ac286392796ae86e73dcac50ffed9a21fe2a96e12c1cb479e3d76d7bf6cb0b",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py",
+      "sha256": "2bc9081b7c698283f402bf6d675f667b5570d45977e6bc4412f3d421bb335d02",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_33_visible_step_rendered_markdown_survival_audit.py",
+      "sha256": "18b18617a3adb8de5772ba4866f1bdca96f47eb42c574acd27a1e7c5027add9c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py",
+      "sha256": "dc4bec64063668b94b0001e85286a0c108d9a53224ef453b6764f90679bfb9ff",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py",
+      "sha256": "930b4e0b1b54b758dca42a6b10a50bb7d390ed65fbaf0e7d8b2dd5ca20209918",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "sha256": "87900e07d07f3fcfb507efa85b0d3b1867ed859602d4c93e69be174390d7358f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_3.py",
+      "sha256": "2d3fb313db011361d5593ac83132d31d4e7d25d3db5ff88be7c8539fccb769d9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_5.py",
+      "sha256": "734816d259cf1ed852a78ac1a8c05ffa428afef6142bc1a700461488f8ede782",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_8.py",
+      "sha256": "4a1bbcf115a13a2df8451a45f67b87c6cf5c788de5337af255a33896c085b38f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_9.py",
+      "sha256": "7f93d7d3b94b5aab36083a100986a88416852b371f88587ebff7b5488a92a516",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase146_7_generic_argument_purpose_prose.py",
+      "sha256": "5d1fb6f9f1c56bdafc97882feccebcde1202b7dc86e8b5e2a47388e18a5f4240",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase147_rc1_argument_method_ownership.py",
+      "sha256": "e0223c85e3146a698006c44ecc10d2bffda5039cb8b6e97b164d647258c08530",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_3_exactness_exposure.py",
+      "sha256": "2d40512fd6bc33f68658ec4665cba791ecbfab4ae52ec37f42f8675567a5cf34",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_3_repair_r1.py",
+      "sha256": "002a96827dfb50482bfcd0e0d1558d8c3539027bb01806052be525035b247508",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_cross_group_audit.py",
+      "sha256": "105e87344c6e7fd46e2b895f48c47b05a5466a145508aadfba4032ea67df6c05",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_post_repair_six_group.py",
+      "sha256": "0657585cd1e1e9196af53e12cf27efd6c430f5ef0b98b37e89dd80e39c72bfa9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r1_exposure_path_audit.py",
+      "sha256": "09fe680d0ade2dd399f5a4110335f5b7977b5b8b5a78e3c0a0ccbe75fb2bb295",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r2.py",
+      "sha256": "d00ddc86fde40f00965d5559f9f631cb159aa991a1f2bc401ca19d1d2e95191e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r5.py",
+      "sha256": "a3b86c18110744791938068d668b03bd22a8eff927897d40528da695bc1c9feb",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r5_r2.py",
+      "sha256": "c51d34236870dcca156023afcafa3ff5bea8593f61af1f6475f904a72122df70",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase149_rc3_3_minimal_ordering.py",
+      "sha256": "ef29f406497f490dd7a5b370e69b5f0bcb46e4a3c2f8c6b53ff148dbe4bcb2f4",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase149_rc3_4_cross_group_ordering.py",
+      "sha256": "b36b91f866330bb6f250b05ba9090c9ff47577e9cce47c7e160c0f87f915ce4c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_4_reasons.py",
+      "sha256": "353b9bd77374fe373f6f648dfc446a38ae92115dfaacb161b8bec1f717ae63ef",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_5_visible_reasons.py",
+      "sha256": "764ba4168bfdf60f5aa926ef4ecc6246fc21ab025006df9da68d70ad288edc8a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_5b_3_reference_binding.py",
+      "sha256": "68d95ab825e9a70a1d1f07ff3b8e2d0668b8f22d920597fe5e7679fefde63972",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_5c_2_exactness_to_map_property.py",
+      "sha256": "cb722b1532d57017200b1eecaf0aebd7bf0b1ff616017e94297774c85333c269",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_5d_3_multiple_relation_to_order.py",
+      "sha256": "3f336c154b5189bfdf52e316eae808743066acf8ddf07c2e78ae6bf452156065",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_5e_2_short_exact_derivation_reason.py",
+      "sha256": "be56fda40156a8d7e6cfd3d890b25936a5f00f2011f58e26530b4ea327d936bd",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_5f_2_final_group_structure_reason.py",
+      "sha256": "8bcbc077a731617343669ba8bde681b6a1fc1d08b6b5f7cb3f677d38c8b1f664",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_7b_production_repair.py",
+      "sha256": "37ba15740d72ef1ec162e0a17bb6d62fb6230c1ca345ad6d658d10cad48ecf61",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_7d_generic_reason_vocabulary.py",
+      "sha256": "77d42975c7f16d9d9e8bef4101c75f803f7741d6aade4cc23e45eea560da0260",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py",
+      "sha256": "915c1eb20ab21a622535a9a6a2c04cd057465ab131866d64a5636c4867ee4d8c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase150_rc4_closure_reason_visibility.py",
+      "sha256": "2c875800f688f4e9f759dde8f811ed1532d875ec085357120ecec854b44eb2b0",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase156_r6_3_reason_prose_canonicalization.py",
+      "sha256": "a1f789b8ba6511c896fdbccef81aa669ab46094ac3aafdeacfbac27d9b14e440",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase157_r20_generic_dependency_architecture.py",
+      "sha256": "545039f87a73155fed08c4d4a517c5191db141b21cf834d97e5acbc8ae651371",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase158_r5_4_repair_common_equation_numbering.py",
+      "sha256": "7c60dbc6d31146b1ba36521a405a7a5061b3b8f223350305d9b481776b3c3199",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_final_locality_reapply.py",
+      "sha256": "89042552b90826df95f722cda528a54b927f304f6ff2c57174fa945fb638bd52",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_map_property_order.py",
+      "sha256": "77987889cdc7a11a4678321d5bd3dc21608c4fe63affac59f1382e56d82c4726",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_post_reference_locality_reapply.py",
+      "sha256": "1b3fed1a2745ae3c78ba88232127f5f6cfd1712ce7a70db89750f5f9566f23b8",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_proofstep_premise_locality.py",
+      "sha256": "a15fd0a12039e7ec0320ae03271e8cdabdd08d80caedd77b3df2fe291fe1dd9e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_public_definition_premise_locality.py",
+      "sha256": "c37c716684a43f7c9b80949aeae02ffae45379661bce70c72af124eb941765b2",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_contribution_connector_ownership.py",
+      "sha256": "174105cb065b457447822969e309e39f1e47ad424c0606d3c405c107221581cd",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_exactness_reason_unification.py",
+      "sha256": "c4f283fc479f8f41e3e87ccfa41c128234a116c59ca35c76c26f1e5aa34f187f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_exactness_surjectivity_unification.py",
+      "sha256": "7cb16c0abee44b8973c69846f0c07c6cda032a71e67e27bee80ad06e943dfb7c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_generator_bridge_duplicate_suppression.py",
+      "sha256": "e8e3ce2a3e1775ec459b3039779a266d5c5a7e63dbf15bfd11776fbf253c365b",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_prop51_direct_delta_provenance.py",
+      "sha256": "5f7dcd9f23e6083148158f7c021ff8005bdfa033239ba625bbb65850dad90585",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_provenance_priority.py",
+      "sha256": "84555edaa3ed1b4be2386cf4e68fe9c4779926af74337583098623fc961aff6f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_repair1c_prop56_direct_prop51_dependency.py",
+      "sha256": "c9334fc4b4fb35fb70807961771947fe2dbee48c5418c52a39ebc02cfa4faee7",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_trailing_premise_order.py",
+      "sha256": "c59b52d8856bb6daf9c6978f5f9153ca083e4dc6550d15e6d11f455af726c697",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi6_3_zero_map_reason_order.py",
+      "sha256": "8ff1d125e19679b266126db30f19b44d306909e47a00be7f2ba77cb4374d8206",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_pi_nplus1_n_stable_transport.py",
+      "sha256": "b18d3c13da5bbdc9f7bb47f677c9d6ee9b458b5273d27204a1d99871dbbf31f7",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase159_r1_7c_r4_repair8_final_group_reason_and_stale_expectations.py",
+      "sha256": "095717be65b4e5b1839e2cf5eda50b44f704773a985560126b45806963231443",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_generic_stable_public_narrative.py",
+      "sha256": "765f1a52615578d99308619b57fd9e716391987572aea6e5c4782aa58898d36c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_k1_generic_transport_connection.py",
+      "sha256": "960725336d7623e4cf00af583eb50cb484264552a81ab586de454d3ac2713b08",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_k2_generic_transport_connection.py",
+      "sha256": "4be629f4ed774a761a13f95bec7983352ea2dc2d782f5b89e01938946840ce5d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_k2_public_narrative.py",
+      "sha256": "0cf0673e332bc2830043c5750a85ecf70782cfc2cdfaef9c06fe06842ff220bf",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_k7_generic_transport_connection.py",
+      "sha256": "bec6da599d314544aad9e83140caa5e916d283f2da063be0815b74155e3b01ad",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_remaining_stable_production.py",
+      "sha256": "ea4f38a788409d4b9173610a61de5e70d498fb5e6a597605826eb4a8b48de45c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase160_remaining_stable_public_narrative.py",
+      "sha256": "aca6c88180635d2e2fa039d233756593fc5bcfd2f329d9c9da5341928ed83170",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase161_r4_literature_premise_matching.py",
+      "sha256": "5084d0d0383e1cf4051add73574c1ee1574d112f1946f5fe7a3caefe233f5c41",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase161_r5_backward_proof_reconstruction.py",
+      "sha256": "5cbf91a12470f46a763285f8e35b139154aa8a5f123089206087fecabba5ee52",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase161_r6_proof_reconstruction_audit.py",
+      "sha256": "6cfca689616e8626f7656b1fab2fbd5cbe7e95a418433323a6c140f8b3fcf324",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase161_r7_premise_provenance_validation.py",
+      "sha256": "77a3706ce5fded18f542f5462365e562650f08ac98d3257c4fa5b81174980888",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_group_structure_backward.py",
+      "sha256": "2e39cf3d808e69513e66344adc3e592395b7d42a32f9b167a5e74832cb9f64db",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r2_existing_proof_connection.py",
+      "sha256": "5f1121cf040cfbbc5e6c711fa9eb08bb70b3ecf375566dd8e5c784e779dcf59f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r2_validated_proof_presentation.py",
+      "sha256": "46ddb0a49515076b44a690c3a11001142457d4a23bddd0f05b10dcf8b1f78ccf",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase162_r3_2_reference_display.py",
+        "tests/test_phase162_r4_narrative_refinement.py",
+        "tests/test_phase162_r5_2_general_reference_schema.py",
+        "tests/test_phase162_r5_3_reference_application_separation.py",
+        "tests/test_phase162_r5_4_iterated_suspension_structural_rendering.py",
+        "tests/test_phase162_r5_5_proof_narrative_composition.py",
+        "tests/test_phase162_r5_6_proof_relevance_reference_attribution.py",
+        "tests/test_phase162_r5_6_repair2_direct_reference_attribution.py",
+        "tests/test_phase162_r5_6_repair3_reference_application_prose.py",
+        "tests/test_phase162_r5_6_repair4_fixed_statement_reuse.py",
+        "tests/test_phase162_r5_6_repair5_reference_component_boundary.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3_2_reference_display.py",
+      "sha256": "9fbeb92cca37b352b4f43b22d0574c5adcd82936588133dadc77868c5e7c1d2c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3a_presentation_audit.py",
+      "sha256": "3720d7bb60d5fa44bb150b122072240774a73b2b469cc74d83089bf961968c6d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3b_existing_renderer.py",
+      "sha256": "9fec92f6164e0290a973b63d5d87bdbeadf02ff7c265a70516383eb96b2d070d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3c_root_reason.py",
+      "sha256": "def287cf56bd236bd5caeded48f1c5a038de6af47654efcf46d294fc515f56d7",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3d_root_reason_audit.py",
+      "sha256": "7643da54afb6be1d8e98029f8093fe5910759745f7db0f08f28b6a9a99e3d6a8",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3e_structured_root.py",
+      "sha256": "bff3ad935bfabec02571e47d210c09a602c5c3ee0a8755b7eaf134b384d23e44",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3f_recursive_renderer.py",
+      "sha256": "4d1168c93ecb62562c4431a5a36fb775e46923c78f92527e84a424f921017b2f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3g_existing_reason_bridge.py",
+      "sha256": "45d3971b58ce0ccbe7406ca951370db55f1b1dd1856c6588cd1cee714269c0a5",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3h_reason_inventory.py",
+      "sha256": "992a993fb7aab17383488a5146310e724ea3630d5d637d6304693571fd86ad2b",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3i_semantic_sidecar_audit.py",
+      "sha256": "8633dc1ba648de0a98a06bb0ea2fffd586493e34f383accc203e352e4444bc8a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3j_inference_rule_audit.py",
+      "sha256": "53e3fa4527d53240ae79f0db8bb71a74698fc671b23f5bd22404f150a482e68f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r3k_rule_meaning_audit.py",
+      "sha256": "6e29cba037b24b0666386300890caed2aede76521fc0acd4b8274126179e55c3",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b1_stable_path_selection.py",
+      "sha256": "1830fec92d38864d4a1fd4edc4afc66177ae5602be8497b1cfc094e190295702",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_concrete_transport.py",
+      "sha256": "7608809f1b87b54645caf4f1a7bd90e7dc1c4fe00584baf830f79513430c4187",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_generator_normalization.py",
+      "sha256": "62f3518112658f99edd1793ad41a3f4b713aadabe664712fd7d4280519d3cdfe",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_replay_integration.py",
+      "sha256": "31ccff5302ad09ded74515b21ccb92296ca7bed414a4b7813eadc499129b02dd",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b3_common_renderer_audit.py",
+      "sha256": "6805e666cff9221f22d554771a1297cf509979e5522d5718aaf105b009825b11",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b_common_renderer_link.py",
+      "sha256": "100408a36f6f8a2404f0d377ecd4b09642f8997897c3c8bce171be762609563d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_b_transport_facts.py",
+      "sha256": "29e2aca53fe9a415e1ea4642f03d940c2febfe47215dd480e28244323c9a7714",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r4_narrative_refinement.py",
+      "sha256": "5e9cbcef81c51f5c0aebb043b69e1d11dfded41074dab92ed6faea0e45bc02f5",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_2_general_reference_schema.py",
+      "sha256": "8788884a886a259606cada923bdccc63d0619a8359ab031d4d3e1f45a11846aa",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_3_reference_application_separation.py",
+      "sha256": "5fdd798a4e62f6131908e9c8b54c4f252b66e7fe8ffb508b7b97cecc1970c492",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_4_iterated_suspension_structural_rendering.py",
+      "sha256": "947fff356773d7095bf71e139e8d5ca944a74e6b204ce2c91363680d98aad380",
+      "direct_removed_modules": [
+        "repository_element_presentation"
+      ],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_5_proof_narrative_composition.py",
+      "sha256": "0872de577e497e4b0e88d0c889313d9be5341a4cc0f25e9ac59c625c3121d935",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_6_proof_relevance_reference_attribution.py",
+      "sha256": "ed6c1df44a0bc9383f372f2c2dfbfe0934a535a1eb1d8c10cb9cf03fdf7d233c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair2_direct_reference_attribution.py",
+      "sha256": "591fac178710b92e8b4bc753a9a2e862c279240c3b628d3ef199c441178c946a",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair3_reference_application_prose.py",
+      "sha256": "341ee18fbf810000eecccb6041cce479934fb9bd6c047f92cddb2c7b3e33d837",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair4_fixed_statement_reuse.py",
+      "sha256": "6002e72035516a4e572548ab249a8b0503b8ce327e2eeb1dbfb7cbd0b699f812",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair5_reference_component_boundary.py",
+      "sha256": "f25dab0fdbc1df9ac7817b22a0eebee9a757a953aba40613eeabf7f531adf508",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase163_r4_r12_stable_bases.py",
+      "sha256": "71612cc293c4e80a3535eb4f0441b2e9f8b63d317b01ad0f805d920662b60bdc",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r3_registry_search_connection.py",
+      "sha256": "27cedca5071e5e2a3b0e5aff4d5be71f96a84833478d7b8e5347a4cb60a77444",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r1_source_crosswalk.py",
+      "sha256": "89bb17ef6b61256f7a0be426deda97e16b0924db647df4fc5845a8cbdb6d2c9c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r2_semantic_structure.py",
+      "sha256": "880012eeeafd801831bdea04718d772fca654b97d12e8535455ef3d102705920",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r3_independent_semantic_audit.py",
+      "sha256": "320a7b22f674307bf03ca6d0d8a1dcef85bb361e01d07764c74f7438f8ea2fb7",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r4_citation_evidence_audit.py",
+      "sha256": "fff2ed7fe2147952956accbed5b961edcf819849441efd08c469158265e50f75",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r6_typed_binding.py",
+      "sha256": "8b73984f180c4a44c38c21059cd6ffa7412ac7e96dab5446b39c3ddebb3d421e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r7_real_connection_gate.py",
+      "sha256": "50a07a8821b67fbc9f3adba9370d9cc2419f97ebac26aaa64314fa99347738ee",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_r8_registry_reconstruction.py",
+      "sha256": "18c66afcc82ea0b82b0572dd6d2043ce108e5651676fdafe30f4aa6b6cc4c824",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r4_real_registry_audit.py",
+      "sha256": "5b38f2b4eaab97dbd405dd337e59e10e83c84e62d8823c47f8f202f8b44117d7",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r7_r3_generator_registry.py",
+      "sha256": "c85137608fa1c9973964040789b87b44c3290d0f4d2534b1e63f114e518aeb5c",
+      "direct_removed_modules": [
+        "repository_generator_known_group_identity_lookup"
+      ],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r7_r4_operation_registry.py",
+      "sha256": "61425abec47f27c155168f778d85b139609ffaf3af9cdef9adaa76eaa60c3af0",
+      "direct_removed_modules": [
+        "repository_operation_query_facade"
+      ],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r7_r8_fixed_literature_resolution.py",
+      "sha256": "7ac9d991ce42f3b1dfca58071502d18e9123d366ab20263c925b05e4cb961189",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase164_r8_r3_backward_factory.py",
+      "sha256": "36839e03562f562e271f890aa2056dc43a3308a3ca67dd26c1aa287f3baaa539",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase49_generator_transport.py",
+      "sha256": "7fae59b44bb665e9576a6dcbe6624dcc5199205965110efc2c8fc4ccf46c896c",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase50_applicability_provenance.py",
+      "sha256": "d318b06d8538744afafd62827c71f8d620e6c1345e54b767d892c65fa7c198ad",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase53_integration.py",
+      "sha256": "9b547beaabe8d23e63c00d52616577aacb0eecb1a4a9b37cf2735b3e5ce9a48b",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase54_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase54_integration.py",
+      "sha256": "7aed0a748eba5c8b8d26944a5b90d77e83f84275abe0d359b8c53a677ef9fd40",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase55_prop51_integration.py",
+      "sha256": "1b36daa7f6fce4261723c4aa9321c4bd9d50bb4668336960d901d713b3fc7b18",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase55_prop51_rejection_provenance.py",
+        "tests/test_phase72r7_primary_composition_indeterminacy.py",
+        "tests/test_phase72r8_corrected_lemma510_integration.py",
+        "tests/test_phase73_513_delta_eta13.py",
+        "tests/test_phase73_pi13_7_nu7_squared.py",
+        "tests/test_phase75_514_second_short_exact.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase55_prop51_phase52_phase54_dependency.py",
+      "sha256": "879f0a2c47f2207daedcefc198b89c1b17fc230fb9df343d48ba4bfb77dcd1a4",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase55_prop51_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase55_prop51_rejection_provenance.py",
+      "sha256": "2125a621a30b1a41416dc007dc632d436bfd5f71cc624038cefe4f7efba7da68",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase57_indeterminacy_vanishing.py",
+      "sha256": "4abeb609869b2e1684a678b0724a9fc40378e16a47f6f533cf272a0e9a6c0420",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase57_lemma52_integration.py",
+      "sha256": "eec1fff6ebf542ea430f14e47f0ea5d3261d7eb135d703ca3358fc0d309f2d8f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase58_double_eta4_bridge.py",
+      "sha256": "03342664e4eff681467fdd6035146a9e9591470bf83687761c6f748e1e1be619",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase58_hopf_eta5_bridge.py",
+      "sha256": "0a46bb1cd339233cd6d6b3c6470b9064b8cdbe68413c3a7c02fccb2e0edc5592",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase58_lemma52_specialization.py",
+      "sha256": "540ffc8c6890ea657232255b137f0c3e3d30dca16754e92696dc4d5486151241",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase58_double_eta4_bridge.py",
+        "tests/test_phase58_hopf_eta5_bridge.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase59_eta4_squared_stable_transport.py",
+      "sha256": "f461cdcaeb4dc11497d902f7bbd4128af84c9f7dc8c45b8ea25867d08a0809d1",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase59_prop53_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase59_n3_ehp_chain.py",
+      "sha256": "610d41254856e36e4561045dfaeabed4c6739b9d4b19fa7de14754f2426b0f1f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase161_r4_literature_premise_matching.py",
+        "tests/test_phase161_r5_backward_proof_reconstruction.py",
+        "tests/test_phase161_r6_proof_reconstruction_audit.py",
+        "tests/test_phase161_r7_premise_provenance_validation.py",
+        "tests/test_phase162_group_structure_backward.py",
+        "tests/test_phase162_r2_existing_proof_connection.py",
+        "tests/test_phase162_r2_validated_proof_presentation.py",
+        "tests/test_phase164_r3_registry_search_connection.py",
+        "tests/test_phase164_r4_r1_source_crosswalk.py",
+        "tests/test_phase164_r4_r2_semantic_structure.py",
+        "tests/test_phase164_r4_r3_independent_semantic_audit.py",
+        "tests/test_phase164_r4_r4_citation_evidence_audit.py",
+        "tests/test_phase164_r4_r6_typed_binding.py",
+        "tests/test_phase164_r4_r7_real_connection_gate.py",
+        "tests/test_phase164_r4_r8_registry_reconstruction.py",
+        "tests/test_phase164_r7_r8_fixed_literature_resolution.py",
+        "tests/test_phase164_r8_r3_backward_factory.py",
+        "tests/test_phase59_pi5_3_eta3_squared.py",
+        "tests/test_phase65_nu_prime_order_pi6_3.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase59_pi5_3_eta3_squared.py",
+      "sha256": "6a3458adb6250d25a3e3a99e62e1015d42c90e094107b9146cbb46db3b3aba3c",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop56_midstream.py",
+        "tests/test_phase160_k2_generic_transport_connection.py",
+        "tests/test_phase162_r2_existing_proof_connection.py",
+        "tests/test_phase59_pi6_4_eta4_squared.py",
+        "tests/test_phase59_prop53_integration.py",
+        "tests/test_phase65_pi5_2_eta2_cube.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase59_pi6_4_eta4_squared.py",
+      "sha256": "3bea817005497429888faac5cae8694fd2876ee264627cbc0f5a174e01ca5477",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase160_k2_generic_transport_connection.py",
+        "tests/test_phase59_eta4_squared_stable_transport.py",
+        "tests/test_phase59_prop53_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase59_prop53_integration.py",
+      "sha256": "bee56858400445e9dadf84c59fe99b47bd64e2cfa3e8d3b13358754e212725a0",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop56_midstream.py",
+        "tests/test_phase60_toda54_indeterminacy.py",
+        "tests/test_phase65_equation57_injectivity.py",
+        "tests/test_phase70_pi10_5_nu5_eta8_squared.py",
+        "tests/test_phase70_pi9_4_decomposition.py",
+        "tests/test_phase72_lemma510_modulo_integration.py",
+        "tests/test_phase72r7_primary_composition_indeterminacy.py",
+        "tests/test_phase73_pi12_6_nu6_squared.py",
+        "tests/test_phase75_514_first_short_exact.py",
+        "tests/test_phase75_514_second_short_exact.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase59_toda52_pi4_2_transport.py",
+      "sha256": "927b10eb1a7b2e88cef31d2e10f65168ee2c8305a55a225a125480a5cc558c88",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase162_r2_existing_proof_connection.py",
+        "tests/test_phase59_pi5_3_eta3_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase60_lemma54_integration.py",
+      "sha256": "031be8b8469a1eb60670ad906842be1abeb790ba6db6565ec2824c071caebb59",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase61_lemma55_integration.py",
+        "tests/test_phase62_nu_family_double_transport.py",
+        "tests/test_phase63_nu4_prop44_specialization.py",
+        "tests/test_phase67_lemma57_nu_prime_specialization.py",
+        "tests/test_phase68_toda59_eta3_nu4.py",
+        "tests/test_phase75_lemma514_sigma_double_prime.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase60_nu4_whitehead_correction.py",
+      "sha256": "0e290b804013169c89e612896cf65780ccf71d38b12e48b985c8016fe15948a8",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase143_75ab3_whitehead_correction_rendering.py",
+        "tests/test_phase143_75y_nu4_construction_semantic_rendering.py",
+        "tests/test_phase60_lemma54_integration.py",
+        "tests/test_phase61_lemma55_nu4_suspension.py",
+        "tests/test_phase66_whitehead_square_nu_expression.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase60_toda36_specialization.py",
+      "sha256": "54384e3823bc24416bee6053bfc42df4d5d3295732a76bccb5848492f023d2ef",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase143_75ad_double_suspension_rendering.py",
+        "tests/test_phase143_75w_toda54_bracket_up_to_sign_semantic_rendering.py",
+        "tests/test_phase60_toda48_hopf_parity.py",
+        "tests/test_phase61_lemma55_alpha_star_inclusion.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase60_toda48_hopf_parity.py",
+      "sha256": "b707587186005e78ed994e37e6b22c1a6c9acea906f9fc117a0f4a0d97f15376",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop56_midstream.py",
+        "tests/test_phase143_75ac4_hopf_odd_multiple_rendering.py",
+        "tests/test_phase60_nu4_whitehead_correction.py",
+        "tests/test_phase65_nu_prime_order_pi6_3.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase60_toda54_indeterminacy.py",
+      "sha256": "125f9f0216a46c08ec618a9d0fac780469a8b865ed9c0b244523c086df9b6b7a",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase60_toda54_t0_bridge.py",
+        "tests/test_phase62_nu_family_eta_cube_bridge.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase60_toda54_t0_bridge.py",
+      "sha256": "b36f4171a313366f01dcaf4ea31e967616755148e6f23e3b4391d05b3304f421",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase143_75w_toda54_bracket_up_to_sign_semantic_rendering.py",
+        "tests/test_phase60_toda36_specialization.py",
+        "tests/test_phase73_513_delta_eta13.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase61_lemma55_alpha_star_inclusion.py",
+      "sha256": "dfce2b17c916b37a96dffa79630d9994ed7d6d73905d14cb4dd4252e71f1a5c5",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase61_lemma55_nu4_composition.py",
+        "tests/test_phase61_lemma55_nu4_suspension.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase61_lemma55_applicability_provenance.py",
+      "sha256": "518879c2b6e3bf8315b04163bbee739b3a8f1495e0ced254788896de0903dd46",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase61_lemma55_integration.py",
+      "sha256": "cd5b3ef0bf175eccad651fb51367af08ee85747230ad78702848f87bf7a28543",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase61_lemma55_applicability_provenance.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase61_lemma55_nu4_composition.py",
+      "sha256": "4d0f25a8365e2edf7d83afabde5c39f47797723d079fd7749676a88eaac84795",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase61_lemma55_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase61_lemma55_nu4_suspension.py",
+      "sha256": "687eb7b1776192f0101605ef77a8f869d6934a4504dbb715ac2e2ab2b77ccc2a",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase61_lemma55_nu4_composition.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase62_applicability_provenance.py",
+      "sha256": "19aed3e8531cbf818d3d8abd10d5f81529692c297846b4bc930ffbf2a4fc3892",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase62_nu_family_double_transport.py",
+      "sha256": "02de7d7711f5d5d9e2efd464c50d03fdc92922ab24ef00d852dc9335193b9917",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase62_nu_family_eta_cube_bridge.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase62_nu_family_eta_cube_bridge.py",
+      "sha256": "2373ffd7eb2f9a9bece3f9751dab8eef23cc088acb00d524710e21490c348951",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase62_applicability_provenance.py",
+        "tests/test_phase62_toda55_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase62_toda55_applicability_provenance.py",
+      "sha256": "6e989af7a1c393e2c1c776ecb7f8f70e2648706015512cf7a512c1618a313fd6",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase62_toda55_integration.py",
+      "sha256": "51556c302f97eaaeced84029d5c6e68e9d057cfc834dc2a19fa912efe357be06",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop56_midstream.py",
+        "tests/test_phase62_toda55_applicability_provenance.py",
+        "tests/test_phase65_nu5_order_pi8_5.py",
+        "tests/test_phase68_eta_n_nu_n_plus_one_zero.py",
+        "tests/test_phase68_nu_n_eta_n_plus_three_zero.py",
+        "tests/test_phase73_513_delta_eta11_squared.py",
+        "tests/test_phase73_513_delta_eta13.py",
+        "tests/test_phase74_lemma512_nonzero_anchor.py",
+        "tests/test_phase75_514_first_short_exact.py",
+        "tests/test_phase75_pi12_5_order_two.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase63_applicability_provenance.py",
+      "sha256": "c89ad111a0493960cb4b4f57300564de8fb4072497d3b5af097c30ced1ddf436",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase63_nu4_prop44_specialization.py",
+      "sha256": "c6f034a1b0241f974c1b2264812f875d997c7a9b4f3c0ffe186f08ce1fae6cda",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase143_75aa_toda56_nu4_prop44_specialization_rendering.py",
+        "tests/test_phase63_prop44_decomposition_specialization.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase63_prop44_decomposition_specialization.py",
+      "sha256": "5651abd8bab3c589c9ff3bb4545cbeee265f42fd561c95b08cc19eb05783a589",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase63_toda56_semantics.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase63_toda56_integration.py",
+      "sha256": "d0f0bb1c2170239634fb05f942bb5433307d7357b932774669c047c5a122568b",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop56_midstream.py",
+        "tests/test_phase68_pi8_4_decomposition.py",
+        "tests/test_phase70_pi9_4_decomposition.py",
+        "tests/test_phase73_pi10_4_nu4_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase63_toda56_semantics.py",
+      "sha256": "a70c3f3f8ad8d2d922439efc4af7b71a72a343df86f5ab9562a8d686351a1b73",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase63_applicability_provenance.py",
+        "tests/test_phase63_toda56_integration.py",
+        "tests/test_phase75_pi11_4_zero.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_equation57_injectivity.py",
+      "sha256": "d9331dce6d8c140f294d5851b128fb7248d3715ee4172a23f89944894c7addbb",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase157_r20_generic_dependency_architecture.py",
+        "tests/test_phase65_nu_prime_order_pi6_3.py",
+        "tests/test_phase68_pi7_3_nu_prime_eta6.py",
+        "tests/test_phase68_toda57_reuse.py",
+        "tests/test_phase68_toda59_eta3_nu4.py",
+        "tests/test_phase99_semantic_occurrence_roles.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_n5_quotient_e2_injectivity.py",
+      "sha256": "89d5e3a807e29618bc5476a76abff81f986fdb3cf0ccdbb01ae0a0ad731bd156",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase65_nu5_order_pi8_5.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_nu5_order_pi8_5.py",
+      "sha256": "d6459164e412eded925c484b620a52229ba480714f26fb5b9eb789bc8dfd4f36",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase65_nu5_stable_transport.py",
+        "tests/test_phase65_prop56_integration.py",
+        "tests/test_phase68_eta_n_nu_n_plus_one_zero.py",
+        "tests/test_phase78_g3_stable_nu_transport.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_nu5_stable_transport.py",
+      "sha256": "096a4f41cbc9c7c3d57e82bfbc286136a1a57508136e4a91e7113ce379af2685",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase65_prop56_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_nu_prime_order_pi6_3.py",
+      "sha256": "d8f48bd6766eec327d6eeb8d3d622a36cfe381e7dbf327d3bfed94c578fd7737",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase65_nu5_order_pi8_5.py",
+        "tests/test_phase65_pi7_4_decomposition.py",
+        "tests/test_phase65_prop56_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_pi5_2_eta2_cube.py",
+      "sha256": "79c7e700364e9fc0b2224e86683d0f959afb13c70e5bfa154f44345696e7e319",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase65_nu_prime_order_pi6_3.py",
+        "tests/test_phase65_prop56_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_pi7_4_decomposition.py",
+      "sha256": "c3b81b40236271b0c1181320ee04cc7061dd4d15b20b372ff1492dca23b2cb61",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase65_prop56_integration.py",
+        "tests/test_phase66_expression_sign_compatibility.py",
+        "tests/test_phase90_actual_known_group_lookup.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_prop56_integration.py",
+      "sha256": "67f27e9f549d561096b0e6ab30c95b351c67df9a5e3bb59a706958e8e2a3242c",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_production_proof_builder.py",
+        "tests/test_phase100_prop56_bootstrap.py",
+        "tests/test_phase100_prop56_zero_bootstrap.py",
+        "tests/test_phase65_provenance.py",
+        "tests/test_phase67_lemma57_delta_generator.py",
+        "tests/test_phase67_pi6_2_eta2_nu_prime.py",
+        "tests/test_phase68_pi9_5_nu5_eta8.py",
+        "tests/test_phase72r7_primary_composition_indeterminacy.py",
+        "tests/test_phase73_pi10_4_nu4_squared.py",
+        "tests/test_phase73_pi11_5_nu5_squared.py",
+        "tests/test_phase75_514_first_short_exact.py",
+        "tests/test_phase75_pi12_5_order_two.py",
+        "tests/test_phase95_calculation_candidate_aggregate_provenance.py",
+        "tests/test_phase95_concrete_aggregate_branch_extraction.py",
+        "tests/test_phase95_existing_branch_proof_step_recovery.py",
+        "tests/test_phase95_recovered_branch_normalization.py",
+        "tests/test_phase95_repository_wide_goal_candidate_discovery.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase65_provenance.py",
+      "sha256": "360527f0f5e05c87f1c1f175f495be27bd713e6debaa5757e280abdb4e0d8153",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase66_applicability_provenance.py",
+      "sha256": "ccd30118206d8328649f47f14eb076c4b91373d65ca77d31f90e9cb7fd721764",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase66_delta_iota9_nu_expression.py",
+      "sha256": "b21f29a6a2ef4bb3d659d66179c943e808a1bfb35ebbb86726b946996c70de71",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase66_applicability_provenance.py",
+        "tests/test_phase66_delta_iota9_whitehead_square.py",
+        "tests/test_phase66_literature_aggregate.py",
+        "tests/test_phase66_whitehead_square_nu_expression.py",
+        "tests/test_phase88_realistic_catalog_collision_observability.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase66_delta_iota9_whitehead_square.py",
+      "sha256": "aee1447e0ed9590f59244d2fc9507351e8c03d4af803e62727ef1c817b24da49",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase66_applicability_provenance.py",
+        "tests/test_phase66_literature_aggregate.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase66_expression_sign_compatibility.py",
+      "sha256": "35ea48101564ff89e13dbf9c596b7d7e858850d3c17e59bb451ef606455ff8e6",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase66_delta_iota9_nu_expression.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase66_literature_aggregate.py",
+      "sha256": "1c8271f2c8f11d80304df8e57d5358ed2bff8098499acf6e2f75eb84cc91eda7",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase143_75t_toda58_equation_aggregate_semantic_rendering.py",
+        "tests/test_phase68_delta_eta9.py",
+        "tests/test_phase73_513_delta_nu9.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase66_whitehead_square_nu_expression.py",
+      "sha256": "f4ed3ef98d23dcd70595e52461b280757a093eb2178616dd78384b0376475a6c",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase66_applicability_provenance.py",
+        "tests/test_phase66_delta_iota9_whitehead_square.py",
+        "tests/test_phase66_literature_aggregate.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase67_lemma57_applicability_provenance.py",
+      "sha256": "df471de0e2d8c2a2b146009cf33aa4cfacf98d46416be808e9b0deda1fb40299",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase67_lemma57_delta_generator.py",
+      "sha256": "60551acec48e0ea23e955e4ccc565fd0f99cf7a01ee5be4dc96957c44b61755d",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase67_lemma57_applicability_provenance.py",
+        "tests/test_phase70_pi8_3_nu_prime_eta6_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase67_lemma57_first_branch.py",
+      "sha256": "f1589293257f5b36d17fb676382a9252c6b76aced8f304b627a902b4842814e7",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase67_lemma57_n3_zero_reflection.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase67_lemma57_n3_zero_reflection.py",
+      "sha256": "7138061c3c776077a3f08355788fa103733b6698784ddf0f8798d09cf66bec7b",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase67_lemma57_nu_prime_specialization.py",
+      "sha256": "5e4dc56ca0e2c6312b454cf25735126c0e53dbf56d54cc7c37d3920bcccd2fca",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase67_lemma57_delta_generator.py",
+        "tests/test_phase68_pi7_3_nu_prime_eta6.py",
+        "tests/test_phase73_pi9_3_zero.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase67_pi6_2_eta2_nu_prime.py",
+      "sha256": "0fbad8491751232bd55e2222c888b37e136003f8167b79dbbbd91d2cfccb9a19",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase67_lemma57_delta_generator.py",
+        "tests/test_phase68_pi7_3_nu_prime_eta6.py",
+        "tests/test_phase99_actual_repository_element_lookup_validation.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_applicability_provenance.py",
+      "sha256": "63a9b6defa402c60f120e60d0565c5dad1614c28f74c5158c69981b95549d805",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_delta_eta9.py",
+      "sha256": "26ca3d915a222c22dd489ebdd6ff6ca4ebab8ad273a912a5c0eca5a4d2d3d956",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_pi9_5_nu5_eta8.py",
+        "tests/test_phase70_delta_eta9_squared_surjectivity.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_eta_n_nu_n_plus_one_zero.py",
+      "sha256": "07dca1e940087d8667d0df0d7bfca21a86dfc10a9730af74cd21035af0342fba",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_nu_n_eta_n_plus_three_zero.py",
+        "tests/test_phase74_lemma512_bracket_defined.py",
+        "tests/test_phase75_514_first_short_exact.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_nu_n_eta_n_plus_three_zero.py",
+      "sha256": "e481119703fc5f1d3a084e2396891b3f27e2ef5e87184ff9d8d9bf341c453888",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_pi_n_plus_4_n_zero.py",
+        "tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py",
+        "tests/test_phase72_lemma510_modulo_integration.py",
+        "tests/test_phase72r7_primary_composition_indeterminacy.py",
+        "tests/test_phase74_lemma512_bracket_defined.py",
+        "tests/test_phase74_lemma512_nonzero_anchor.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_pi7_3_nu_prime_eta6.py",
+      "sha256": "cfe16ec53351ab09512a23636c39e5d29bd2429375494514e2ecce012d736b11",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_pi8_4_decomposition.py",
+        "tests/test_phase68_prop58_integration.py",
+        "tests/test_phase68_toda59_eta3_nu4.py",
+        "tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py",
+        "tests/test_phase99_actual_repository_element_lookup_validation.py",
+        "tests/test_phase99_semantic_occurrence_roles.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_pi8_4_decomposition.py",
+      "sha256": "ce0c56943f4267d8dd3a6356d3b45e00e40c35dbb07b3fe3fa57abb2bdbb64e8",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_delta_eta9.py",
+        "tests/test_phase68_pi9_5_nu5_eta8.py",
+        "tests/test_phase68_prop58_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_pi9_5_nu5_eta8.py",
+      "sha256": "2ecb471e40f250681dba023431cc2f6ea6bd8855c4c016e5f366a0562a42415d",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_eta_n_nu_n_plus_one_zero.py",
+        "tests/test_phase68_pi_n_plus_4_n_zero.py",
+        "tests/test_phase68_prop58_integration.py",
+        "tests/test_phase69_delta_iota11.py",
+        "tests/test_phase70_pi10_5_nu5_eta8_squared.py",
+        "tests/test_phase92_actual_ehp_extraction.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_pi_n_plus_4_n_zero.py",
+      "sha256": "d1baba87385f209b5c0e31204b55b2f320a0a2a3817b261ee1ed55e34b79e952",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_prop58_integration.py",
+        "tests/test_phase69_delta_surjectivity.py",
+        "tests/test_phase78_g4_g5_stable_zero_transport.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_prop58_integration.py",
+      "sha256": "a7bb792fb2bed30624c7960f59b8a0e6f2751dac4567513e68758dcc1cfad7c7",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop58_production_proof_builder.py",
+        "tests/test_phase100_prop58_zero_bootstrap.py",
+        "tests/test_phase68_applicability_provenance.py",
+        "tests/test_phase69_applicability_provenance.py",
+        "tests/test_phase73_pi9_3_zero.py",
+        "tests/test_phase75_lemma514_sigma_double_prime.py",
+        "tests/test_phase75_pi11_4_zero.py",
+        "tests/test_phase95_concrete_aggregate_branch_extraction.py",
+        "tests/test_phase95_existing_branch_proof_step_recovery.py",
+        "tests/test_phase95_repository_wide_goal_candidate_discovery.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_toda57_reuse.py",
+      "sha256": "b13eb208f6ef1ee18e84638da03be85615f345c159b019daa1b88d55bda78206",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase68_toda59_eta3_nu4.py",
+      "sha256": "6a874b13b0578445f928c509eaf38411179e36598c85102d6e6dc1ef5862408f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase68_applicability_provenance.py",
+        "tests/test_phase68_eta_n_nu_n_plus_one_zero.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase69_applicability_provenance.py",
+      "sha256": "b6c2324e2734a29dbf784622265e5da5a2a304172ab3caa6eef38fc29b198a2e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase69_delta_iota11.py",
+      "sha256": "c97d86f8b3d4fc5af3733825c0b18e7952a0adae0e3d20d3bc4bcfd717176e31",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase69_applicability_provenance.py",
+        "tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py",
+        "tests/test_phase73_513_delta_eta11_squared.py",
+        "tests/test_phase75_514_first_short_exact.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase69_delta_surjectivity.py",
+      "sha256": "2284240fcdf30b83f4c07968db68a234c9d5e669badc7e554f765355f3da56e6",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase69_delta_iota11.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_applicability_provenance.py",
+      "sha256": "403fe08f9c6515787684777bf20de07cd0d96a0c8d8cea172702276c60d52e78",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_delta_eta9_squared_surjectivity.py",
+      "sha256": "a99275b9cfd8c0a960be1c63455ccb066fc06ba9ed194cd3336eda113c64ddcb",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_pi10_5_nu5_eta8_squared.py",
+        "tests/test_phase71_toda512_n4_delta_injective.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py",
+      "sha256": "6d862dda6b55747f4211a304621174fcaafa610b5d35ddf039524aae7d70632b",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_pi11_6_delta_iota13.py",
+        "tests/test_phase71_toda512_n5_delta_injective.py",
+        "tests/test_phase72r6_ordinary_primary_bridge.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_pi10_5_nu5_eta8_squared.py",
+      "sha256": "628cc405920c9799c883d327d4f82959e80efcecbea5b01d3d2c70080c26a3a6",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_pi11_6_delta_iota13.py",
+      "sha256": "8e57f0be3562d865e94d98b655b505febb05e0c5eeb16eb6e593ebe9d7a91306",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_pi_n_plus_5_n_zero.py",
+        "tests/test_phase71_toda512_n6_delta_injective.py",
+        "tests/test_phase72_lemma510_core_inference.py",
+        "tests/test_phase72r8_corrected_lemma510_integration.py",
+        "tests/test_phase72ra1_toda43_semantics.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py",
+      "sha256": "daf417bd0cda11e21469deb8adbf2993fd9769ab0b6848996995083dc0ce96e3",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_pi8_3_nu_prime_eta6_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_pi8_3_nu_prime_eta6_squared.py",
+      "sha256": "3038ce522f92bbbdabc54070aff335914f91d209cb9a0c95c6ed5a13aa393b33",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_pi9_4_decomposition.py",
+        "tests/test_phase99_actual_repository_element_lookup_validation.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_pi9_4_decomposition.py",
+      "sha256": "175ec4d5d417211c4c18ba8db455908b65fc3c83c39dc0222bc6139930fb36da",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_delta_eta9_squared_surjectivity.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_pi_n_plus_5_n_zero.py",
+      "sha256": "8967c26388c3dfe7c9791c3dbbff62ac327e3ac9195806562cd06fe7a1bb8144",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_prop59_integration.py",
+        "tests/test_phase78_g4_g5_stable_zero_transport.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase70_prop59_integration.py",
+      "sha256": "2293e40e9bb63e26529f6b4e4c7ec3fabb32a56158cf27b7448c146c540d9091",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase70_applicability_provenance.py",
+        "tests/test_phase72_lemma510_modulo_integration.py",
+        "tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py",
+        "tests/test_phase73_pi9_3_zero.py",
+        "tests/test_phase74_lemma512_first_indeterminacy_zero.py",
+        "tests/test_phase74_lemma512_second_indeterminacy_zero.py",
+        "tests/test_phase75_pi10_3_zero.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase71_applicability_provenance.py",
+      "sha256": "cb0f6db0f358120b97f843bc6645a9eada06d648a9b1c94d83d2463152387123",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase71_toda512_integration.py",
+      "sha256": "8e33486996667e2c84014a6b0e6da8a1699920acfe6dff939e28286b9d315ad3",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase71_applicability_provenance.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase71_toda512_n4_delta_injective.py",
+      "sha256": "17fc379202482b16071034ede1173537ace41a70aa20973a1c91c50e978167a8",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase71_toda512_integration.py",
+        "tests/test_phase73_pi11_5_nu5_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase71_toda512_n5_delta_injective.py",
+      "sha256": "bca9baf250170d71c4de41dba0f21e279ae7cb14b07861dbb2f2f1c1821a76f0",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase71_toda512_integration.py",
+        "tests/test_phase73_pi12_6_nu6_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase71_toda512_n6_delta_injective.py",
+      "sha256": "9afa53a876ca9c680fb681129b6cc48ff3b353dbdafa9dfa4040c4f2ff0edde2",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase71_toda512_integration.py",
+        "tests/test_phase72ra1_toda43_semantics.py",
+        "tests/test_phase73_pi13_7_nu7_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase72_applicability_provenance.py",
+      "sha256": "670072301d7c599a2081b71eefb76ae4a1818b1e5aeaaa2f001ff2b65f06ca21",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase72_lemma510_core_inference.py",
+      "sha256": "760e93ffaee24e3a663e3ebca62ce639c53c61b8feb5258d8e8c9d585f2c85e7",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase72_lemma510_modulo_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase72_lemma510_modulo_integration.py",
+      "sha256": "ce0764f28a4b811c987f3fc762f68e749f64c4ea3cbd1dc43265967b6e7489a1",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase72_applicability_provenance.py",
+        "tests/test_phase72r9_corrected_provenance_retirement.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase72r6_ordinary_primary_bridge.py",
+      "sha256": "5a7e5038545b496d6172abd6b7a1bdd086309f9c194feacda5e8e9135becca03",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase72r8_corrected_lemma510_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase72r7_primary_composition_indeterminacy.py",
+      "sha256": "5b98c9bde3e39885bbf82236677498659477916c7639376f5e4f031154a5bd4f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase72r8_corrected_lemma510_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase72r8_corrected_lemma510_integration.py",
+      "sha256": "54002944b80c03e758152b987164e03fb013ec20fb5ac4d3d7946de471d9068a",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase72r9_corrected_provenance_retirement.py",
+        "tests/test_phase73_513_delta_eta13.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase72r9_corrected_provenance_retirement.py",
+      "sha256": "4ec68b3491e2671f316365db40641fdde522446315cc0907462da76ef9079bf6",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase72ra1_toda43_semantics.py",
+      "sha256": "1dd820816b7de0344ddb687f577bbf5f11f54ebadf4409033f3aab163ae1220e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "PROTECTED_MODERN_OR_NON_PHASE_TEST",
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_513_delta_eta11_squared.py",
+      "sha256": "5bb03d5b614375b9f5ab4ca816c460d595575960d882647e1159e004ee722d37",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi12_6_nu6_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_513_delta_eta13.py",
+      "sha256": "292094c86d0aa6ece51184ad2310dddbb8eb86b5a185a689808eecdd4d733a4f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi13_7_nu7_squared.py",
+        "tests/test_phase74_lemma512_second_indeterminacy_zero.py",
+        "tests/test_phase75_514_second_short_exact.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_513_delta_nu9.py",
+      "sha256": "22b3df962e71051a19e0f1eac36e57ad5a4fdaeb6a05cdcd78d83e8ac9961e43",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_513_delta_eta11_squared.py",
+        "tests/test_phase73_513_delta_eta13.py",
+        "tests/test_phase73_pi11_5_nu5_squared.py",
+        "tests/test_phase75_514_first_short_exact.py",
+        "tests/test_phase75_pi12_5_order_two.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi10_4_nu4_squared.py",
+      "sha256": "9a2ff0590aaa681e4bd8016d18bb9804cde00fb936ea29d8bcaabc1884fd87c6",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_513_delta_nu9.py",
+        "tests/test_phase73_pi11_5_nu5_squared.py",
+        "tests/test_phase73_prop511_finite_dimensional_integration.py",
+        "tests/test_phase90_actual_known_group_lookup.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi11_5_nu5_squared.py",
+      "sha256": "cb5ba4098df337b5885adec7c070806de66357d91242de97981c56b262ee6968",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi12_6_nu6_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi12_6_nu6_squared.py",
+      "sha256": "31056c782d8d9acd290a7ce9f4179ecbaf166ab3ad2cbb591a92f82a4675c897",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi13_7_nu7_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi13_7_nu7_squared.py",
+      "sha256": "54b7988d7ee080e054b2d6d5612564fae5adadf3ebf9880c162da0a36f2b998e",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi14_8_nu8_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi14_8_nu8_squared.py",
+      "sha256": "33d50a88bb29af0547794a419d00dab73c6d5527d1d622b230d4702429148351",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi_n_plus_6_n_nu_squared.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py",
+      "sha256": "8492fcb7065283d4c9de350450e3579d1390ea956ddf603a16d88c503f905a6b",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_pi9_3_zero.py",
+        "tests/test_phase73_prop511_finite_dimensional_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi9_3_zero.py",
+      "sha256": "5651c891c845e4acb98487488c106d9dd4b247724129e5956512a5470ad0e8b8",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase73_513_delta_nu9.py",
+        "tests/test_phase73_pi10_4_nu4_squared.py",
+        "tests/test_phase73_prop511_finite_dimensional_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_pi_n_plus_6_n_nu_squared.py",
+      "sha256": "636b5ca1a81437a9bbe201ea013ce03cec1b595f7722a4fa893fe8289016d153",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_prop511_finite_dimensional_integration.py",
+      "sha256": "106486af8157218617dce1422e88038ac6ba442403fb0dc1b3a961fdbe2e33af",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop511_production_proof_builder.py",
+        "tests/test_phase100_prop511_zero_bootstrap.py",
+        "tests/test_phase73_prop511_provenance.py",
+        "tests/test_phase74_lemma512_bracket_singleton_mod2.py",
+        "tests/test_phase75_lemma514_sigma_double_prime.py",
+        "tests/test_phase75_pi10_3_zero.py",
+        "tests/test_phase75_pi12_5_order_two.py",
+        "tests/test_phase75_pi9_2_zero.py",
+        "tests/test_phase95_concrete_aggregate_branch_extraction.py",
+        "tests/test_phase95_existing_branch_proof_step_recovery.py",
+        "tests/test_phase95_recovered_branch_normalization.py",
+        "tests/test_phase95_repository_wide_goal_candidate_discovery.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase73_prop511_provenance.py",
+      "sha256": "2d0c926386723a879a659ea50de5b96cbe893f11fbec704cc3defe179fd45feb",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_applicability_provenance.py",
+      "sha256": "154183f1c14ac1868908f833f2fd9eaf9d844ac720c37a282403e7514af68640",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_bracket_defined.py",
+      "sha256": "6da479ae28da4327fbc4e825fbc88ef80d92acad24a676eda29ff26ac12290b5",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_first_indeterminacy_zero.py",
+        "tests/test_phase74_lemma512_second_indeterminacy_zero.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_bracket_singleton_mod2.py",
+      "sha256": "e24bcae85d42b0d232e808566ea788fa6a6e6c1dcd4b42b2cd0adf886820b577",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_applicability_provenance.py",
+        "tests/test_phase74_lemma512_coefficient_stability.py",
+        "tests/test_phase74_lemma512_final_integration.py",
+        "tests/test_phase74_lemma512_nonzero_anchor.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_coefficient_stability.py",
+      "sha256": "4e68cdae8653a987c96f26a08e32da3d847ff96c2d252135b28488368cfd43a1",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_applicability_provenance.py",
+        "tests/test_phase74_lemma512_final_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_final_integration.py",
+      "sha256": "4406800c0cd5a250f36756e60329256673e5a3ea43e9d1d7c5e8f125a2bed8fd",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_applicability_provenance.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_first_indeterminacy_zero.py",
+      "sha256": "b056884478d10fbc117d42b96b726ab961c79154646256bca1799339824bd261",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_bracket_singleton_mod2.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_nonzero_anchor.py",
+      "sha256": "04718c4288e3cc42e67890572329b2cf953e15851bd05e51270b170e0c8df6e8",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_applicability_provenance.py",
+        "tests/test_phase74_lemma512_final_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase74_lemma512_second_indeterminacy_zero.py",
+      "sha256": "141651197b8b5057dc2d5a2229fae2e4c0fd359bceb8b7dfab84d03ef19bab2f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase74_lemma512_bracket_singleton_mod2.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_514_first_short_exact.py",
+      "sha256": "c81bdb4ce8b849f15beb9269d3ceed4bd3dae71f5e2c0658f61355b2aceab2d9",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_lemma514_sigma_double_prime.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_514_second_short_exact.py",
+      "sha256": "3d50b50d088bb3b477fd4ffe2d0c7989cc3a52d45a5d35ac3258b4ce7324aae6",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_lemma514_sigma_prime.py",
+        "tests/test_phase75_pi14_7_order_eight.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_515_pi15_8_final_group.py",
+      "sha256": "78bfcf8aa580193695d626bfe542b973bc363f74cbaef71d6e96f4502efb4e6f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase143_59a_group_structure_semantic_key.py",
+        "tests/test_phase75_prop515_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_515_sigma8_prop44_decomposition.py",
+      "sha256": "a6a5745472d5d7cf6f7201339477390cfd77b0ed144cd2a94110f778a9844c62",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_515_sigma8_transported_decomposition.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_515_sigma8_prop44_specialization.py",
+      "sha256": "2545811d658f3fa71afb604c4e756d5feb5077a60e300302fd259c69c73e85a3",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_515_sigma8_prop44_decomposition.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_515_sigma8_transported_decomposition.py",
+      "sha256": "88f98bd5d5eb1fd21b9f257cddebb82b4a99270465748034df155c812e559b3e",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_515_pi15_8_final_group.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_lemma514_sigma8.py",
+      "sha256": "10133e5629d3ddefccfd9e3bd9c2e31e8ff78490f285e98688ed676560783794",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop515_sigma_chain_bootstrap.py",
+        "tests/test_phase75_515_sigma8_prop44_specialization.py",
+        "tests/test_phase75_pi16_9_sigma9.py",
+        "tests/test_phase75_sigma_family_definition.py",
+        "tests/test_phase77_sigma8_iterated_suspension_bridge.py",
+        "tests/test_phase77_theorem36_first_bracket.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_lemma514_sigma_double_prime.py",
+      "sha256": "be017acd6399d3cf1eeff35c9f75b969b38c66b93ae1df62bf5d422440ae92f7",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_lemma514_sigma8.py",
+        "tests/test_phase75_lemma514_sigma_prime.py",
+        "tests/test_phase75_pi13_6_order_four.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_lemma514_sigma_prime.py",
+      "sha256": "a7ec4ed6b0a2496f3065cc6c1b8043ec1dfafcb5831f16fb82fab79c26007097",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_lemma514_sigma8.py",
+        "tests/test_phase75_pi14_7_order_eight.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi10_3_zero.py",
+      "sha256": "5537533b104e23339a4d50c9f3faeda0bc4567b9359f838af2e1e8656639e49f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_pi11_4_zero.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi11_4_zero.py",
+      "sha256": "1409858bdcfd0d1be8883d9111f8cb10099b332b77b80c4831dfa29bb8f60a73",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_pi12_5_order_two.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi12_5_order_two.py",
+      "sha256": "915ef820282c2a224193bb22953242377c4c2adf65b4be76b5ddda6b94f2958d",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop515_low_bootstrap.py",
+        "tests/test_phase75_lemma514_sigma_double_prime.py",
+        "tests/test_phase75_pi16_9_sigma9.py",
+        "tests/test_phase75_prop515_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi13_6_order_four.py",
+      "sha256": "60fa60760d66baab701571032d61db4ae91a6c453591af977d4f7cf3b9b4d90d",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_lemma514_sigma_prime.py",
+        "tests/test_phase75_pi14_7_order_eight.py",
+        "tests/test_phase75_prop515_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi14_7_order_eight.py",
+      "sha256": "02b2beb41da9ac7ac3e8a7bd80d65e40cf309703fe7c96438571bc576e9d3814",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_515_sigma8_transported_decomposition.py",
+        "tests/test_phase75_lemma514_sigma8.py",
+        "tests/test_phase75_prop515_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi16_9_sigma9.py",
+      "sha256": "dfe818e9d88facbb29be970b4cfa179a7675aa4d2ab80f2488b23bc4e35fe108",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_sigma_stable_transport.py",
+        "tests/test_phase76_sigma8_suspension_kernel.py",
+        "tests/test_phase78_g7_stable_sigma_transport.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_pi9_2_zero.py",
+      "sha256": "bed7f9dda36c77fe262eab8abd35c7983bd949d331343eaccc9295da0cdfa8c5",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_pi10_3_zero.py",
+        "tests/test_phase90_actual_known_group_lookup.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_prop515_integration.py",
+      "sha256": "81fbeaf3bcc89601462f512fc4783c300bf8f9fda9bd954e3151e5e521d1807a",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase100_prop515_production_proof_builder.py",
+        "tests/test_phase100_prop515_upper_bootstrap.py",
+        "tests/test_phase76_sigma8_suspension_kernel.py",
+        "tests/test_phase95_concrete_aggregate_branch_extraction.py",
+        "tests/test_phase95_existing_branch_proof_step_recovery.py",
+        "tests/test_phase95_recovered_branch_normalization.py",
+        "tests/test_phase95_repository_wide_goal_candidate_discovery.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_sigma_family_definition.py",
+      "sha256": "f2b0bda846b3a541cf1ad079a7ed4c21fa37afa4aa9e50608e0098b4754ed09c",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_pi16_9_sigma9.py",
+        "tests/test_phase75_sigma_stable_transport.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase75_sigma_stable_transport.py",
+      "sha256": "d568b5c197e75ce4bdd91bb23f4ce535e80eba6b4dea909bcf0a00d5a86d510d",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase75_prop515_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase76_applicability_provenance.py",
+      "sha256": "7782403fe08a3541dfde76f476b8aae3aae5e0b55c61bf35665475e8e847d10d",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase79_cross_phase_repository.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase76_delta_e_exactness_bridge.py",
+      "sha256": "01353aad3328920e43cc98be37a27632a44e74088184270bfe0dbc4ca03218fa",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase76_delta_iota17.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase76_delta_iota17.py",
+      "sha256": "62f557ca252bfe8f5a1311780331c09614fbac163533ce891986218462d83eaa",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase76_applicability_provenance.py",
+        "tests/test_phase88_realistic_catalog_collision_observability.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase76_sigma8_suspension_kernel.py",
+      "sha256": "b2f5ba54cc37c49761a3c11425b673afc757d850c93e70e7f2d4c5943612ddb1",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase76_delta_e_exactness_bridge.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase77_applicability_provenance.py",
+      "sha256": "b0e9162485fecbf2bce6ea356cf28de24a0c99d561c30fa8a563eb16ea74d180",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase79_cross_phase_repository.py",
+        "tests/test_phase80_actual_proof_integration.py",
+        "tests/test_phase82_missing_premise_detection.py",
+        "tests/test_phase83_missing_premise_producer_lookup.py",
+        "tests/test_phase84_producer_premise_availability.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase77_lemma516_scaled_bracket_sum.py",
+      "sha256": "e36d48140a19add4377129cdfe2cfc7923ebc5eea077f5c947f329db9afa610b",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase77_applicability_provenance.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase77_sigma8_iterated_suspension_bridge.py",
+      "sha256": "0659093dfc897f440060716b06d96aa800d903bba7a0b436172ad47631ed29d1",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase77_lemma516_scaled_bracket_sum.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase77_theorem36_bracket_sum.py",
+      "sha256": "2a299d9bc06454d961683ededd44fbc31a99c5dc5c2e9782335a1a6cb020c9bb",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase77_lemma516_scaled_bracket_sum.py",
+        "tests/test_phase83_actual_theorem_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase77_theorem36_first_bracket.py",
+      "sha256": "9b78f192db27ee3816f449d7aa2d1ebe9a8e38e6a5fa252d55530747f161a50e",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase77_theorem36_second_bracket.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase77_theorem36_second_bracket.py",
+      "sha256": "b2f79174ea1a1ece10f91871ee638017e34b290b66fcefeac00d679de7aee2ee",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase77_theorem36_bracket_sum.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase78_g3_stable_nu_transport.py",
+      "sha256": "7e5d197e8c9fe3b9a612fa17663bfb34e3a3c058e6a0e84e4bcb43d41d35361e",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase78_g6_stable_nu_squared_transport.py",
+        "tests/test_phase78_stable_g0_to_g7_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase78_g4_g5_stable_zero_transport.py",
+      "sha256": "b36aaea824e36e45e849b2efb980697743e57b7dba7fe9f984de15d6542378d7",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase78_stable_g0_to_g7_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase78_g6_stable_nu_squared_transport.py",
+      "sha256": "ff44d7130f45901858a0b98b5bf81e4e093450cfd01a42a60318c93da18ff761",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase78_stable_g0_to_g7_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase78_g7_stable_sigma_transport.py",
+      "sha256": "5510a7c6508c46057b45c01409b0e1e925c968856f4582c2b39b03c0e4a9155b",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase78_stable_g0_to_g7_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase78_stable_g0_to_g7_integration.py",
+      "sha256": "9372807834a7880d2d5c22f54157afa74a70762dccc94bf5a30982560bbb63fd",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase79_cross_phase_repository.py",
+        "tests/test_proof_repository.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase79_cross_phase_repository.py",
+      "sha256": "467bf177cc3b26b2ca752889d9998f5b7c3495699f5e55bf55b605c26bf0f675",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase79_repository_regression.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase79_repository_regression.py",
+      "sha256": "664d6b868b0d5a3731bd3f40d076c213a110cb6d67fc19272c7900ed12371e11",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase80_actual_proof_integration.py",
+      "sha256": "82bc12ad8e0ba2110849cf05dce0a53f6dd6f9697cfb90ff749ce95cc6234768",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase81_actual_theorem_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase80_probe.py",
+      "sha256": "27770a97c21066242352a568b947621dceba2c5ff3230a11501b99affa2e512f",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase81_actual_theorem_integration.py",
+      "sha256": "10013facfebe232448d67acf040ae04c311722423a006372f55da629c7d5abe4",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase81_probe.py",
+      "sha256": "a3aef0be0b69bff56ac994ea8cd566b3142947e17c4ae9e30ddd80a9e931dc43",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_actual_theorem_integration.py",
+      "sha256": "ef79ce8be52ed4fe1508796bcdf8f2fe372b0efc8bf7dfb4261337adacb04a5d",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase82_missing_premise_detection.py",
+      "sha256": "9417e688e29a61a594f4352104b0887ad5d097782a6845f467ca957ee7150870",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase82_premise_rule_lookup.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_premise_rule_lookup.py",
+      "sha256": "b7a235d4a0e1cef7d33746235caea2830c4623eb063adcfe61dd0cf2cbe7936f",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase82_two_step_forward_execution.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_probe.py",
+      "sha256": "e4b6ae43d384f9d06aa9e1f4cb9f43e1b04226a81c9eb07c8f40d69de81e8fe0",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase82_two_step_forward_execution.py",
+      "sha256": "c7177db4bd3ca7c22c3c469d4db079705a680ab88ced9a18b43caf5198f64f62",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase82_actual_theorem_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase83_actual_theorem_integration.py",
+      "sha256": "3ba432f34fe16056586e10e25b3577e897f1d96b3814661f687239f572562f18",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase83_missing_premise_producer_lookup.py",
+      "sha256": "5d10ddf22499675544376d1354b2b4b1eb0c3cc9ea0230c7e551937a66698da2",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase83_probe.py",
+      "sha256": "3a600f0dd47a158cb7ba4cf03b7e8cc39de82c7f2fffd752aaebe0ca7408a192",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_bounded_depth_two_execution.py",
+      "sha256": "e9b0b10da1c0d767a7c0279f8479594487f637cc801221818019fcadc96ea31c",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase85_nested_producer_cycle_depth_classification.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_probe.py",
+      "sha256": "d462fdc72fa26441d909f658097904c4cf4110fe4344ab7c7bd69dbc97f2a5ed",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_producer_premise_availability.py",
+      "sha256": "1269da35646b84ee20c162f455ad95ee4769165ae72442fe85a8282a37e14ac4",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase84_unique_depth_two_producer_chain.py",
+        "tests/test_phase85_actual_theorem_integration.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase84_unique_depth_two_producer_chain.py",
+      "sha256": "0af37f9e534853093a0eae670c5563a496850dfa75e4f244c9be94b4eb510395",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase85_actual_theorem_integration.py",
+      "sha256": "c2886c5e1fa845744bf1cfc3d941ec5907956b66d01de98b77646ce6a280cdab",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase88_realistic_catalog_collision_observability.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase85_execution_failure_diagnostics.py",
+      "sha256": "4acec4661816e951f70d6107788bdadcd59c4df6ec6ab039c008a2a7f4af34fa",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase85_nested_producer_cycle_depth_classification.py",
+      "sha256": "0a108109b2047ef353835a60e9efa0a458aad2bf3a29f5108da63f112ffa2cb7",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase87_selection_side_finite_retry.py",
+      "sha256": "bd3c421c227a44d3fc9290efd209c941d76be5774cd5a056716c404ce65e9e95",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase88_goal_side_compatibility.py",
+      "sha256": "63b013651a9259c9493928375146454fee54c24401179c95ac73fe332ac31617",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase88_realistic_catalog_collision_observability.py",
+      "sha256": "d7c4d5337a9a049fd0bf8c30b40a3f0f9d527b050b799ce2ec3cf0fe59546a9f",
+      "direct_removed_modules": [
+        "repository_inference"
+      ],
+      "incoming": [
+        "tests/test_phase88_goal_side_compatibility.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase90_actual_known_group_lookup.py",
+      "sha256": "bf19962dcf2ea900ad317073c6618d34205c25f89c29a8b803f9e91d390a1225",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase91_actual_group_normalization.py",
+        "tests/test_phase92_ehp_group_enrichment.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase91_actual_group_normalization.py",
+      "sha256": "2acf9881f6830ddd67c6de08e901a736ecbb5c7b4383ae8dbf6ad257ff2472c6",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase92_actual_ehp_extraction.py",
+      "sha256": "8ee8da3455213d07945d1e6ab1722078843203df51b6d186fbf6bcd755c24eb9",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase92_ehp_group_enrichment.py",
+        "tests/test_phase92_exactness_use_provenance.py",
+        "tests/test_phase93_actual_dependency_extraction.py",
+        "tests/test_phase93_representative_explanation.py",
+        "tests/test_phase94_actual_recursive_provenance_extraction.py",
+        "tests/test_phase94_representative_explanation_recursive_provenance.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase92_ehp_group_enrichment.py",
+      "sha256": "887b72ccca2ff540e1555efcacb602a84f18ce0a8ea41635a60be560a362b4c3",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase92_exactness_use_provenance.py",
+      "sha256": "0dfdb26a60a4d4cace8229cc96aa403e5d2e9772059ec674453cc982a4bb4e3d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase93_actual_dependency_extraction.py",
+      "sha256": "dbfa5ae3870d11769d2835a3ba1bcacdd7fff6a89a707d30739bcb9042011ca4",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase93_dependency_role_classification.py",
+        "tests/test_phase94_shared_cycle_stable_order.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase93_dependency_role_classification.py",
+      "sha256": "e7133dca938af147ab3f715d4cc5fa003dfc695c16a0db515db72584c2f89ce6",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase93_representative_explanation.py",
+      "sha256": "1bd8e7e96d614a1533d9056be4cd5db1c43f75a1a13cc2caf53d8d7394209f98",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase95_minimal_calculation_result.py",
+        "tests/test_phase96_minimal_structured_presentation_model.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase94_actual_recursive_provenance_extraction.py",
+      "sha256": "04641784cf5975258c5ed110f23ad649a5fd9248d27c916228ac3e76e37e6007",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase94_representative_explanation_recursive_provenance.py",
+      "sha256": "a6d7400e7b8b06eb80c2a10b788a4cd5c311365ea87f06a802c998ec52243485",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase94_shared_cycle_stable_order.py",
+      "sha256": "87fca0e5e201b78e45d9ab3a78d8136e2beb2750b14ed6a9a9ad711c670004ad",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase95_calculation_candidate_aggregate_provenance.py",
+      "sha256": "5c6ce59850b74b22d4473498acc8e56285f803d32c42a4e7d8fbaaeac8e4f3c1",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase96_minimal_structured_presentation_model.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase95_concrete_aggregate_branch_extraction.py",
+      "sha256": "7909fd1404d149c0d43bb675417160963208d78204eefb1becba867ba2e80b28",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase95_existing_branch_proof_step_recovery.py",
+      "sha256": "c03200d8b291b0879564c58b37d35e8401d63ccf765a44af5c81ad40bb5153c9",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase95_minimal_calculation_result.py",
+      "sha256": "d58c0963273e812d45539d2bccdbc4331fafc9fdc66bcc89b3929fce4b65d6d0",
+      "direct_removed_modules": [],
+      "incoming": [
+        "tests/test_phase96_minimal_structured_presentation_model.py"
+      ],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE",
+        "IMPORTED_BY_OTHER_TESTS"
+      ]
+    },
+    {
+      "path": "tests/test_phase95_recovered_branch_normalization.py",
+      "sha256": "28d8d7b7a6b3de8824b58be86f95f4bb1b69f627f1c00deac93ecd6eab7245ee",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase95_repository_wide_goal_candidate_discovery.py",
+      "sha256": "84fe857396669ce224a238e8fde828718b295f58df825b4b1e90bfec004d2c1d",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase96_minimal_structured_presentation_model.py",
+      "sha256": "b3e70d13cbd94a780c7172eac07308e671d70f8b98f014ceeb673bbe4d19e60e",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    },
+    {
+      "path": "tests/test_phase99_actual_repository_element_lookup_validation.py",
+      "sha256": "eb392429ff19573fac09a0c1cdf7a2d9afab6b414924cb09af40471745928a88",
+      "direct_removed_modules": [
+        "repository_element_lookup"
+      ],
+      "incoming": [],
+      "decision": "REMOVE",
+      "reasons": [],
+      "result": "REMOVED_AFTER_BACKUP"
+    },
+    {
+      "path": "tests/test_phase99_semantic_occurrence_roles.py",
+      "sha256": "f377e10337c05d42eb4ef6ed13eba71f83c54622fef265515e66ae15415a6751",
+      "direct_removed_modules": [],
+      "incoming": [],
+      "decision": "KEEP",
+      "reasons": [
+        "NO_PROVEN_DIRECT_REMOVED_REPOSITORY_MODULE"
+      ]
+    }
+  ],
+  "parse_errors": {},
+  "removed": 9,
+  "retained": 371,
+  "status": "APPLIED"
+}

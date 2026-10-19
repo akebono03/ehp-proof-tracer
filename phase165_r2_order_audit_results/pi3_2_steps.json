@@ -1,0 +1,154 @@
+{
+  "group": "pi3_2",
+  "status": "complete",
+  "root_count": 1,
+  "ancestry_count": 16,
+  "steps": [
+    {
+      "index": 0,
+      "statement_type": "TodaPrimaryGroupZeroStatement",
+      "rule": "given",
+      "inference_name": "Toda (5.1)",
+      "premise_count": 0
+    },
+    {
+      "index": 1,
+      "statement_type": "TodaProp42GeneralExactnessStatement",
+      "rule": "given",
+      "inference_name": "Toda Proposition 4.2 universal EHP exact sequence",
+      "premise_count": 0
+    },
+    {
+      "index": 2,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "rule": "inference",
+      "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 3,
+      "statement_type": "MapInjective",
+      "rule": "inference",
+      "inference_name": "EHP: preceding zero group and exactness imply Hopf injectivity",
+      "premise_count": 2
+    },
+    {
+      "index": 4,
+      "statement_type": "Relation",
+      "rule": "given",
+      "inference_name": "Toda (5.1)",
+      "premise_count": 0
+    },
+    {
+      "index": 5,
+      "statement_type": "Relation",
+      "rule": "given",
+      "inference_name": "Toda (5.1)",
+      "premise_count": 0
+    },
+    {
+      "index": 6,
+      "statement_type": "GeneratorSuspension",
+      "rule": "given",
+      "inference_name": null,
+      "premise_count": 0
+    },
+    {
+      "index": 7,
+      "statement_type": "TodaSuspensionIsomorphismStatement",
+      "rule": "inference",
+      "inference_name": "diagonal free cyclic suspension on generators implies isomorphism",
+      "premise_count": 3
+    },
+    {
+      "index": 8,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "rule": "inference",
+      "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 9,
+      "statement_type": "TodaDeltaZeroStatement",
+      "rule": "inference",
+      "inference_name": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+      "premise_count": 2
+    },
+    {
+      "index": 10,
+      "statement_type": "TodaProp42ExactnessStatement",
+      "rule": "inference",
+      "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "premise_count": 1
+    },
+    {
+      "index": 11,
+      "statement_type": "MapSurjective",
+      "rule": "inference",
+      "inference_name": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "premise_count": 2
+    },
+    {
+      "index": 12,
+      "statement_type": "MapIsomorphism",
+      "rule": "inference",
+      "inference_name": "generic injective and surjective imply isomorphism",
+      "premise_count": 2
+    },
+    {
+      "index": 13,
+      "statement_type": "Relation",
+      "rule": "given",
+      "inference_name": "Toda (5.1)",
+      "premise_count": 0
+    },
+    {
+      "index": 14,
+      "statement_type": "GeneratorImage",
+      "rule": "given",
+      "inference_name": "Toda Proposition 5.1",
+      "premise_count": 0
+    },
+    {
+      "index": 15,
+      "statement_type": "Relation",
+      "rule": "inference",
+      "inference_name": "generic reverse free cyclic structure transport along isomorphism",
+      "premise_count": 3
+    }
+  ],
+  "narrative_evidence": [
+    {
+      "line": 6,
+      "text": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}."
+    },
+    {
+      "line": 13,
+      "text": "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\qquad (n \\ge 1)$."
+    },
+    {
+      "line": 15,
+      "text": "$H(\\eta_{2}) = \\iota_{3}$."
+    },
+    {
+      "line": 29,
+      "text": "完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は単射."
+    },
+    {
+      "line": 39,
+      "text": "完全性より, $\\operatorname{Im}Δ=\\ker E=0$ なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像."
+    },
+    {
+      "line": 41,
+      "text": "完全性より, $H: \\pi_{3}^{2} \\to \\pi_{3}^{3}$ は全射."
+    },
+    {
+      "line": 47,
+      "text": "[R2]より, $H(\\eta_{2}) = \\iota_{3}$."
+    },
+    {
+      "line": 49,
+      "text": "以上より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+    }
+  ]
+}
