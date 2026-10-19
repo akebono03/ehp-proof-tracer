@@ -1293,6 +1293,8 @@
   "phase165_r5_r17_r1_runner_recovery_fix/test_recovery.py::test_verified_existing_backup_accepts_exact_restoration",
   "phase165_r5_r17_r1_runner_recovery_fix/test_recovery.py::test_verified_existing_backup_rejects_changed_restoration",
   "phase165_r5_r17_r1_runner_recovery_fix/test_recovery.py::test_verified_existing_backup_requires_full_backup",
+  "phase165_r6_10_dependency_audit/test_audit.py::test_scan_detects_phase49_import_and_retains_current_test",
+  "phase165_r6_10_dependency_audit/test_audit.py::test_scan_is_read_only",
   "phase165_r6_1_adopted_leaves_independent/test_independent_source.py::test_reference_leaves_match_original_frontier",
   "phase165_r6_1_adopted_leaves_independent/test_independent_source.py::test_reference_registry_keeps_nine_cited_steps",
   "phase165_r6_1_adopted_leaves_independent/test_independent_source.py::test_source_catalog_does_not_trace_fixed_goal",

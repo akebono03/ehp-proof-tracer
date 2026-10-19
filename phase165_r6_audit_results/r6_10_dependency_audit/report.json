@@ -1,0 +1,202 @@
+{
+  "phase": "165 R6-10",
+  "mode": "read_only",
+  "scanned_python_files": 729,
+  "records": [
+    {
+      "path": "probes/probe_phase49_capabilities.py",
+      "imports": [],
+      "builder_calls": [
+        "build_phase49_representative_result"
+      ],
+      "legacy_named_test": false,
+      "legacy_probe": true
+    },
+    {
+      "path": "probes/probe_phase56_capabilities.py",
+      "imports": [
+        {
+          "line": 22,
+          "module": "probes.probe_phase49_capabilities",
+          "names": [
+            "build_phase49_representative_result",
+            "print_separator"
+          ]
+        }
+      ],
+      "builder_calls": [
+        "build_phase49_representative_result",
+        "build_phase56_representative_result"
+      ],
+      "legacy_named_test": false,
+      "legacy_probe": true
+    },
+    {
+      "path": "probes/probe_phase58_capabilities.py",
+      "imports": [
+        {
+          "line": 28,
+          "module": "probes.probe_phase49_capabilities",
+          "names": [
+            "print_separator"
+          ]
+        }
+      ],
+      "builder_calls": [],
+      "legacy_named_test": false,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase49_concrete_pi3_2_compatibility.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase49_delta_hopf_surjectivity.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase49_hopf_injectivity.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase49_hopf_isomorphism.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase49_low_dimensional_facts.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase49_probe.py",
+      "imports": [
+        {
+          "line": 10,
+          "module": "probes.probe_phase49_capabilities",
+          "names": [
+            "build_phase49_representative_result"
+          ]
+        }
+      ],
+      "builder_calls": [
+        "build_phase49_representative_result"
+      ],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase55_prop51_phase49_dependency.py",
+      "imports": [
+        {
+          "line": 15,
+          "module": "probes.probe_phase49_capabilities",
+          "names": [
+            "build_phase49_representative_result"
+          ]
+        }
+      ],
+      "builder_calls": [
+        "build_phase49_representative_result"
+      ],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase56_pi_i_minus_1_1_zero.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase56_probe.py",
+      "imports": [
+        {
+          "line": 12,
+          "module": "probes.probe_phase56_capabilities",
+          "names": [
+            "build_phase56_representative_result",
+            "main"
+          ]
+        }
+      ],
+      "builder_calls": [
+        "build_phase56_representative_result"
+      ],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase56_prop44_composition_compatibility.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase56_prop44_eta2_specialization.py",
+      "imports": [
+        {
+          "line": 22,
+          "module": "probes.probe_phase49_capabilities",
+          "names": [
+            "build_phase49_representative_result"
+          ]
+        }
+      ],
+      "builder_calls": [
+        "build_phase49_representative_result"
+      ],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase56_prop44_second_summand_restriction.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    },
+    {
+      "path": "tests/test_phase56_toda52_composition_isomorphism.py",
+      "imports": [],
+      "builder_calls": [],
+      "legacy_named_test": true,
+      "legacy_probe": false
+    }
+  ],
+  "parse_errors": [],
+  "direct_legacy_importers_outside_named_tests": [
+    "probes/probe_phase58_capabilities.py"
+  ],
+  "candidate_named_tests": [
+    "tests/test_phase49_concrete_pi3_2_compatibility.py",
+    "tests/test_phase49_delta_hopf_surjectivity.py",
+    "tests/test_phase49_hopf_injectivity.py",
+    "tests/test_phase49_hopf_isomorphism.py",
+    "tests/test_phase49_low_dimensional_facts.py",
+    "tests/test_phase49_probe.py",
+    "tests/test_phase55_prop51_phase49_dependency.py",
+    "tests/test_phase56_pi_i_minus_1_1_zero.py",
+    "tests/test_phase56_probe.py",
+    "tests/test_phase56_prop44_composition_compatibility.py",
+    "tests/test_phase56_prop44_eta2_specialization.py",
+    "tests/test_phase56_prop44_second_summand_restriction.py",
+    "tests/test_phase56_toda52_composition_isomorphism.py"
+  ],
+  "required_next_step": "Review dependencies before any retirement; no source files changed."
+}
