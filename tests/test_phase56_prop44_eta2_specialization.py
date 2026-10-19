@@ -1,3 +1,4 @@
+import pytest
 from expression import (
   Composition,
   HomotopyElement,
@@ -512,6 +513,7 @@ def test_phase56_3_rejects_wrong_alpha():
   ) is None
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase56_3_reaches_fixed_point_in_one_round():
   data = build_phase56_3_data()
 

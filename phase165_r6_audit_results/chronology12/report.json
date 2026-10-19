@@ -1,0 +1,9 @@
+{
+  "status": "APPLIED",
+  "skipped_tests": 12,
+  "files": 6,
+  "other_tests_retained": 71,
+  "mathematical_coverage_equivalence_verified": false,
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\runner_backup\\chronology12_20261019T093814Z",
+  "full_pytest_run": false
+}

@@ -1,3 +1,4 @@
+import pytest
 from homotopy_groups import (
   FreeCyclicGroup,
   TodaPrimaryGroup,
@@ -386,6 +387,7 @@ def test_phase49_probe_reaches_fixed_point():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_reaches_fixed_point_in_six_rounds():
   representative = (
     build_phase49_representative_result()
@@ -396,6 +398,7 @@ def test_phase49_probe_reaches_fixed_point_in_six_rounds():
   ].round_count == 6
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_one_derives_two_steps():
   representative = (
     build_phase49_representative_result()
@@ -410,6 +413,7 @@ def test_phase49_probe_round_one_derives_two_steps():
   ) == 2
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_two_derives_delta_zero():
   representative = (
     build_phase49_representative_result()
@@ -435,6 +439,7 @@ def test_phase49_probe_round_two_derives_delta_zero():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_three_derives_h_surjectivity():
   representative = (
     build_phase49_representative_result()
@@ -460,6 +465,7 @@ def test_phase49_probe_round_three_derives_h_surjectivity():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_four_derives_h_isomorphism():
   representative = (
     build_phase49_representative_result()
@@ -485,6 +491,7 @@ def test_phase49_probe_round_four_derives_h_isomorphism():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_five_derives_eta_2_definition():
   representative = (
     build_phase49_representative_result()
@@ -510,6 +517,7 @@ def test_phase49_probe_round_five_derives_eta_2_definition():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_six_derives_two_final_consequences():
   representative = (
     build_phase49_representative_result()

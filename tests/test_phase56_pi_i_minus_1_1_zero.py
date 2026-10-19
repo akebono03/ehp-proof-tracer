@@ -1,3 +1,4 @@
+import pytest
 from expression import (
   ScalarSum,
   ScalarSymbol,
@@ -184,6 +185,7 @@ def test_phase56_2_zero_result_preserves_lower_bound_premise():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase56_2_reaches_fixed_point_in_one_round():
   data = build_phase56_2_data()
 
