@@ -1,0 +1,1192 @@
+{
+  "status": "READ_ONLY_STATIC_AUDIT",
+  "target": "toda_pi4_3_delta_image_free_cyclic_inference_rule",
+  "root_cause_candidate": "probes.probe_phase50_capabilities",
+  "failed_test_count": 105,
+  "classification_counts": {
+    "PROVEN_STATIC_CHAIN": 105
+  },
+  "test_dependencies": [
+    {
+      "test_path": "tests/test_phase162_r2_validated_proof_presentation.py",
+      "path_to_legacy_probe": [
+        "test_phase162_r2_validated_proof_presentation",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r3_registry_search_connection.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r3_registry_search_connection",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r1_source_crosswalk.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r1_source_crosswalk",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r2_semantic_structure.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r2_semantic_structure",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r3_independent_semantic_audit.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r3_independent_semantic_audit",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r4_citation_evidence_audit.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r4_citation_evidence_audit",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r6_typed_binding.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r6_typed_binding",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r7_real_connection_gate.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r7_real_connection_gate",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r8_registry_reconstruction.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r8_registry_reconstruction",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_real_registry_audit.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_real_registry_audit",
+        "phase164_r4_real_registry_audit",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r7_r8_fixed_literature_resolution.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r7_r8_fixed_literature_resolution",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r8_r3_backward_factory.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r8_r3_backward_factory",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase55_prop51_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase55_prop51_phase52_phase54_dependency.py",
+      "path_to_legacy_probe": [
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase59_eta4_squared_stable_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase59_eta4_squared_stable_transport",
+        "test_phase59_pi6_4_eta4_squared",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase59_n3_ehp_chain.py",
+      "path_to_legacy_probe": [
+        "test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase59_pi5_3_eta3_squared.py",
+      "path_to_legacy_probe": [
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase59_pi6_4_eta4_squared.py",
+      "path_to_legacy_probe": [
+        "test_phase59_pi6_4_eta4_squared",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase59_prop53_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase59_prop53_integration",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase59_toda52_pi4_2_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase60_lemma54_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase60_lemma54_integration",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase60_nu4_whitehead_correction.py",
+      "path_to_legacy_probe": [
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase60_toda36_specialization.py",
+      "path_to_legacy_probe": [
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase60_toda48_hopf_parity.py",
+      "path_to_legacy_probe": [
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase60_toda54_indeterminacy.py",
+      "path_to_legacy_probe": [
+        "test_phase60_toda54_indeterminacy",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase60_toda54_t0_bridge.py",
+      "path_to_legacy_probe": [
+        "test_phase60_toda54_t0_bridge",
+        "test_phase60_toda54_indeterminacy",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase62_nu_family_double_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase62_nu_family_double_transport",
+        "test_phase60_lemma54_integration",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase62_nu_family_eta_cube_bridge.py",
+      "path_to_legacy_probe": [
+        "test_phase62_nu_family_eta_cube_bridge",
+        "test_phase60_toda54_indeterminacy",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase62_toda55_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase62_toda55_integration",
+        "test_phase62_nu_family_eta_cube_bridge",
+        "test_phase60_toda54_indeterminacy",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase63_nu4_prop44_specialization.py",
+      "path_to_legacy_probe": [
+        "test_phase63_nu4_prop44_specialization",
+        "test_phase60_lemma54_integration",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase63_prop44_decomposition_specialization.py",
+      "path_to_legacy_probe": [
+        "test_phase63_prop44_decomposition_specialization",
+        "test_phase63_nu4_prop44_specialization",
+        "test_phase60_lemma54_integration",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase63_toda56_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase63_toda56_integration",
+        "test_phase63_toda56_semantics",
+        "test_phase63_prop44_decomposition_specialization",
+        "test_phase63_nu4_prop44_specialization",
+        "test_phase60_lemma54_integration",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase63_toda56_semantics.py",
+      "path_to_legacy_probe": [
+        "test_phase63_toda56_semantics",
+        "test_phase63_prop44_decomposition_specialization",
+        "test_phase63_nu4_prop44_specialization",
+        "test_phase60_lemma54_integration",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_equation57_injectivity.py",
+      "path_to_legacy_probe": [
+        "test_phase65_equation57_injectivity",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_n5_quotient_e2_injectivity.py",
+      "path_to_legacy_probe": [
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_nu5_order_pi8_5.py",
+      "path_to_legacy_probe": [
+        "test_phase65_nu5_order_pi8_5",
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_nu5_stable_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase65_nu5_stable_transport",
+        "test_phase65_nu5_order_pi8_5",
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_nu_prime_order_pi6_3.py",
+      "path_to_legacy_probe": [
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_pi5_2_eta2_cube.py",
+      "path_to_legacy_probe": [
+        "test_phase65_pi5_2_eta2_cube",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_pi7_4_decomposition.py",
+      "path_to_legacy_probe": [
+        "test_phase65_pi7_4_decomposition",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase65_prop56_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase65_prop56_integration",
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase66_delta_iota9_nu_expression.py",
+      "path_to_legacy_probe": [
+        "test_phase66_delta_iota9_nu_expression",
+        "test_phase66_expression_sign_compatibility",
+        "test_phase65_pi7_4_decomposition",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase66_delta_iota9_whitehead_square.py",
+      "path_to_legacy_probe": [
+        "test_phase66_delta_iota9_whitehead_square",
+        "test_phase66_delta_iota9_nu_expression",
+        "test_phase66_expression_sign_compatibility",
+        "test_phase65_pi7_4_decomposition",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase66_expression_sign_compatibility.py",
+      "path_to_legacy_probe": [
+        "test_phase66_expression_sign_compatibility",
+        "test_phase65_pi7_4_decomposition",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase66_literature_aggregate.py",
+      "path_to_legacy_probe": [
+        "test_phase66_literature_aggregate",
+        "test_phase66_delta_iota9_nu_expression",
+        "test_phase66_expression_sign_compatibility",
+        "test_phase65_pi7_4_decomposition",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase66_whitehead_square_nu_expression.py",
+      "path_to_legacy_probe": [
+        "test_phase66_whitehead_square_nu_expression",
+        "test_phase60_nu4_whitehead_correction",
+        "test_phase60_toda48_hopf_parity",
+        "test_phase60_toda36_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase67_lemma57_delta_generator.py",
+      "path_to_legacy_probe": [
+        "test_phase67_lemma57_delta_generator",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase67_lemma57_nu_prime_specialization.py",
+      "path_to_legacy_probe": [
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase67_pi6_2_eta2_nu_prime.py",
+      "path_to_legacy_probe": [
+        "test_phase67_pi6_2_eta2_nu_prime",
+        "test_phase65_prop56_integration",
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_delta_eta9.py",
+      "path_to_legacy_probe": [
+        "test_phase68_delta_eta9",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_eta_n_nu_n_plus_one_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase68_eta_n_nu_n_plus_one_zero",
+        "test_phase65_nu5_order_pi8_5",
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_nu_n_eta_n_plus_three_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase68_nu_n_eta_n_plus_three_zero",
+        "test_phase62_toda55_integration",
+        "test_phase62_nu_family_eta_cube_bridge",
+        "test_phase60_toda54_indeterminacy",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_pi7_3_nu_prime_eta6.py",
+      "path_to_legacy_probe": [
+        "test_phase68_pi7_3_nu_prime_eta6",
+        "test_phase65_equation57_injectivity",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_pi8_4_decomposition.py",
+      "path_to_legacy_probe": [
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_pi9_5_nu5_eta8.py",
+      "path_to_legacy_probe": [
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_pi_n_plus_4_n_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase68_pi_n_plus_4_n_zero",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_prop58_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase68_toda59_eta3_nu4.py",
+      "path_to_legacy_probe": [
+        "test_phase68_toda59_eta3_nu4",
+        "test_phase65_equation57_injectivity",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase69_delta_iota11.py",
+      "path_to_legacy_probe": [
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase69_delta_surjectivity.py",
+      "path_to_legacy_probe": [
+        "test_phase69_delta_surjectivity",
+        "test_phase68_pi_n_plus_4_n_zero",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_delta_eta9_squared_surjectivity.py",
+      "path_to_legacy_probe": [
+        "test_phase70_delta_eta9_squared_surjectivity",
+        "test_phase68_delta_eta9",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py",
+      "path_to_legacy_probe": [
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_pi10_5_nu5_eta8_squared.py",
+      "path_to_legacy_probe": [
+        "test_phase70_pi10_5_nu5_eta8_squared",
+        "test_phase59_prop53_integration",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_pi11_6_delta_iota13.py",
+      "path_to_legacy_probe": [
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py",
+      "path_to_legacy_probe": [
+        "test_phase70_pi7_2_eta2_nu_prime_eta6",
+        "test_phase68_pi7_3_nu_prime_eta6",
+        "test_phase65_equation57_injectivity",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_pi8_3_nu_prime_eta6_squared.py",
+      "path_to_legacy_probe": [
+        "test_phase70_pi8_3_nu_prime_eta6_squared",
+        "test_phase67_lemma57_delta_generator",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_pi9_4_decomposition.py",
+      "path_to_legacy_probe": [
+        "test_phase70_pi9_4_decomposition",
+        "test_phase59_prop53_integration",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_pi_n_plus_5_n_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase70_pi_n_plus_5_n_zero",
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase70_prop59_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase70_prop59_integration",
+        "test_phase70_pi_n_plus_5_n_zero",
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase71_toda512_n6_delta_injective.py",
+      "path_to_legacy_probe": [
+        "test_phase71_toda512_n6_delta_injective",
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72_lemma510_core_inference.py",
+      "path_to_legacy_probe": [
+        "test_phase72_lemma510_core_inference",
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72_lemma510_modulo_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase72_lemma510_modulo_integration",
+        "test_phase59_prop53_integration",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72r6_ordinary_primary_bridge.py",
+      "path_to_legacy_probe": [
+        "test_phase72r6_ordinary_primary_bridge",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72r7_primary_composition_indeterminacy.py",
+      "path_to_legacy_probe": [
+        "test_phase72r7_primary_composition_indeterminacy",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72r8_corrected_lemma510_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase72r8_corrected_lemma510_integration",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72r9_corrected_provenance_retirement.py",
+      "path_to_legacy_probe": [
+        "test_phase72r9_corrected_provenance_retirement",
+        "test_phase72_lemma510_modulo_integration",
+        "test_phase59_prop53_integration",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase72ra1_toda43_semantics.py",
+      "path_to_legacy_probe": [
+        "test_phase72ra1_toda43_semantics",
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase73_513_delta_eta13.py",
+      "path_to_legacy_probe": [
+        "test_phase73_513_delta_eta13",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase73_513_delta_nu9.py",
+      "path_to_legacy_probe": [
+        "test_phase73_513_delta_nu9",
+        "test_phase73_pi9_3_zero",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase73_pi10_4_nu4_squared.py",
+      "path_to_legacy_probe": [
+        "test_phase73_pi10_4_nu4_squared",
+        "test_phase65_prop56_integration",
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py",
+      "path_to_legacy_probe": [
+        "test_phase73_pi8_2_eta2_nu_prime_eta6_squared",
+        "test_phase70_prop59_integration",
+        "test_phase70_pi_n_plus_5_n_zero",
+        "test_phase70_pi11_6_delta_iota13",
+        "test_phase70_nu5_eta8_squared_zero_delta_eta11",
+        "test_phase69_delta_iota11",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase73_pi9_3_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase73_pi9_3_zero",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase73_prop511_finite_dimensional_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase73_prop511_finite_dimensional_integration",
+        "test_phase73_pi9_3_zero",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_514_first_short_exact.py",
+      "path_to_legacy_probe": [
+        "test_phase75_514_first_short_exact",
+        "test_phase59_prop53_integration",
+        "test_phase59_pi5_3_eta3_squared",
+        "test_phase59_toda52_pi4_2_transport",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_514_second_short_exact.py",
+      "path_to_legacy_probe": [
+        "test_phase75_514_second_short_exact",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_515_pi15_8_final_group.py",
+      "path_to_legacy_probe": [
+        "test_phase75_515_pi15_8_final_group",
+        "test_phase75_515_sigma8_transported_decomposition",
+        "test_phase75_pi14_7_order_eight",
+        "test_phase75_514_second_short_exact",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_515_sigma8_prop44_decomposition.py",
+      "path_to_legacy_probe": [
+        "test_phase75_515_sigma8_prop44_decomposition",
+        "test_phase75_515_sigma8_prop44_specialization",
+        "test_phase75_lemma514_sigma8",
+        "test_phase75_lemma514_sigma_double_prime",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_515_sigma8_prop44_specialization.py",
+      "path_to_legacy_probe": [
+        "test_phase75_515_sigma8_prop44_specialization",
+        "test_phase75_lemma514_sigma8",
+        "test_phase75_lemma514_sigma_double_prime",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_515_sigma8_transported_decomposition.py",
+      "path_to_legacy_probe": [
+        "test_phase75_515_sigma8_transported_decomposition",
+        "test_phase75_pi14_7_order_eight",
+        "test_phase75_514_second_short_exact",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_lemma514_sigma8.py",
+      "path_to_legacy_probe": [
+        "test_phase75_lemma514_sigma8",
+        "test_phase75_lemma514_sigma_double_prime",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_lemma514_sigma_double_prime.py",
+      "path_to_legacy_probe": [
+        "test_phase75_lemma514_sigma_double_prime",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_lemma514_sigma_prime.py",
+      "path_to_legacy_probe": [
+        "test_phase75_lemma514_sigma_prime",
+        "test_phase75_514_second_short_exact",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi10_3_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi10_3_zero",
+        "test_phase73_prop511_finite_dimensional_integration",
+        "test_phase73_pi9_3_zero",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi11_4_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi11_4_zero",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi12_5_order_two.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi12_5_order_two",
+        "test_phase65_prop56_integration",
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi13_6_order_four.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi13_6_order_four",
+        "test_phase75_lemma514_sigma_double_prime",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi14_7_order_eight.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi14_7_order_eight",
+        "test_phase75_514_second_short_exact",
+        "test_phase55_prop51_integration",
+        "test_phase55_prop51_phase52_phase54_dependency",
+        "probes.probe_phase52_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi16_9_sigma9.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi16_9_sigma9",
+        "test_phase75_pi12_5_order_two",
+        "test_phase65_prop56_integration",
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_pi9_2_zero.py",
+      "path_to_legacy_probe": [
+        "test_phase75_pi9_2_zero",
+        "test_phase73_prop511_finite_dimensional_integration",
+        "test_phase73_pi9_3_zero",
+        "test_phase67_lemma57_nu_prime_specialization",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase75_sigma_family_definition.py",
+      "path_to_legacy_probe": [
+        "test_phase75_sigma_family_definition",
+        "test_phase75_lemma514_sigma8",
+        "test_phase75_lemma514_sigma_double_prime",
+        "test_phase68_prop58_integration",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase78_g3_stable_nu_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase78_g3_stable_nu_transport",
+        "test_phase65_nu5_order_pi8_5",
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase78_g4_g5_stable_zero_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase78_g4_g5_stable_zero_transport",
+        "test_phase68_pi_n_plus_4_n_zero",
+        "test_phase68_pi9_5_nu5_eta8",
+        "test_phase68_pi8_4_decomposition",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase78_g6_stable_nu_squared_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase78_g6_stable_nu_squared_transport",
+        "test_phase78_g3_stable_nu_transport",
+        "test_phase65_nu5_order_pi8_5",
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase78_g7_stable_sigma_transport.py",
+      "path_to_legacy_probe": [
+        "test_phase78_g7_stable_sigma_transport",
+        "test_phase75_pi16_9_sigma9",
+        "test_phase75_pi12_5_order_two",
+        "test_phase65_prop56_integration",
+        "test_phase65_nu_prime_order_pi6_3",
+        "probes.probe_phase58_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase78_stable_g0_to_g7_integration.py",
+      "path_to_legacy_probe": [
+        "test_phase78_stable_g0_to_g7_integration",
+        "test_phase78_g3_stable_nu_transport",
+        "test_phase65_nu5_order_pi8_5",
+        "test_phase65_n5_quotient_e2_injectivity",
+        "probes.probe_phase63_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    }
+  ],
+  "ast_read_errors": {},
+  "limitations": [
+    "Static AST imports do not prove runtime execution.",
+    "A missing path does not establish that a test is obsolete.",
+    "No files were edited or excluded and pytest was not rerun."
+  ]
+}
