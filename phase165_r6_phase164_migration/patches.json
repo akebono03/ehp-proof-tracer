@@ -1,0 +1,18 @@
+{
+  "tests/test_phase164_r5_r2_unified_web_display.py": {
+    "sha256": "74358f74a5d0afa2b1ba4268975b48db44f6fe978cd22874526c7a2554c292cf",
+    "functions": {
+      "test_one_public_web_builder_has_one_common_narrative_renderer": "def test_one_public_web_builder_has_one_common_narrative_renderer():\n    source = Path(web.__file__).read_text(encoding=\"utf-8\")\n    tree = ast.parse(source)\n    builders = [node for node in tree.body if isinstance(node, ast.FunctionDef)\n                and node.name == \"build_standard_web_group_proof_view\"]\n    assert len(builders) == 1\n    body = ast.get_source_segment(source, builders[0])\n    assert \"search_group_from_registered_goal\" in body\n    assert \"build_partial_web_group_proof_view\" in body\n    assert \"build_phase164_r5_web_pi5_3_proof\" not in body\n    assert \"build_phase164_r5_r2_common_replay\" not in body\n",
+      "test_standard_selector_preserves_repository_replay": "def test_standard_selector_preserves_repository_replay(monkeypatch):\n    calls = []\n    def replay(**kwargs):\n        calls.append(kwargs)\n        return (kwargs[\"group_result\"], kwargs[\"max_depth\"])\n    monkeypatch.setattr(selector, \"build_registered_common_replay\", replay)\n    for n, k, depth, mode in ((6, 3, 2, \"narrative\"), (3, 2, 0, \"trace\")):\n        result = SimpleNamespace(target=SimpleNamespace(group_dimension=n + k, sphere_dimension=n))\n        assert selector.build_phase164_r5_r2_common_replay(n, k, result, depth, mode) == (result, depth)\n    assert [call[\"mode\"] for call in calls] == [\"narrative\", \"trace\"]\n",
+      "test_source_selection_requires_no_markdown_for_ordinary_groups": "def test_source_selection_requires_no_markdown_for_ordinary_groups(monkeypatch):\n    calls = []\n    def replay(**kwargs):\n        calls.append(kwargs)\n        return kwargs[\"group_result\"]\n    monkeypatch.setattr(selector, \"build_registered_common_replay\", replay)\n    for n in range(2, 16):\n        for k in range(8):\n            result = SimpleNamespace(target=SimpleNamespace(group_dimension=n + k, sphere_dimension=n))\n            assert selector.build_phase164_r5_r2_common_replay(n, k, result, 2, \"narrative\") is result\n    assert len(calls) == 112\n    assert all(call[\"mode\"] == \"narrative\" for call in calls)\n",
+      "test_pi53_common_narrative_requires_registered_goal_catalog": "def test_pi53_common_narrative_requires_registered_goal_catalog():\n    view = web.build_standard_web_group_proof_view(3, 2, 2, \"narrative\")\n    assert view.n == 3 and view.k == 2\n    assert view.mode == \"narrative\"\n    assert view.rendered_lines\n    assert view.key in (\"generic-complete-proof\", \"generic-partial-proof\")\n"
+    }
+  },
+  "tests/test_phase164_r5_web_registry_connection.py": {
+    "sha256": "5b0de181fce611373c5fab48515502202aa3583a9347bf8332e7b058661043d3",
+    "functions": {
+      "test_group_query_web_narrative_is_phase164": "def test_group_query_web_narrative_is_phase164():\n    view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode=\"narrative\")\n    assert view.phase == \"165 R52-R3\"\n    assert view.key in (\"generic-complete-proof\", \"generic-partial-proof\")\n    assert view.mode == \"narrative\"\n    assert view.rendered_lines\n",
+      "test_manifest_must_exist": "def test_manifest_must_exist(monkeypatch, tmp_path):\n    monkeypatch.chdir(tmp_path)\n    view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode=\"narrative\")\n    assert view.n == 3 and view.k == 2\n    assert view.rendered_lines\n"
+    }
+  }
+}
