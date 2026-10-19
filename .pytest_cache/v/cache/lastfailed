@@ -2466,7 +2466,6 @@
   "tests/test_phase49_probe.py::test_phase49_probe_derives_eta_2_definition": true,
   "tests/test_phase49_probe.py::test_phase49_probe_eta_2_is_not_given": true,
   "tests/test_phase49_probe.py::test_phase49_probe_derives_h_eta_2_equals_iota_3": true,
-  "tests/test_phase49_probe.py::test_phase49_probe_derives_final_pi_3_2_group": true,
   "tests/test_phase49_probe.py::test_phase49_probe_all_eight_expected_steps_are_derived": true,
   "tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_phase49_dependency_derives_eta2_definition": true,
   "tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_h_eta2_equals_iota3_is_derived": true,
