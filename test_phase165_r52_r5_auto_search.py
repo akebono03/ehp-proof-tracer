@@ -112,19 +112,20 @@ def test_r5_does_not_invoke_legacy_replay(monkeypatch):
 
 
 def test_r5_flask_progress_form_starts_actual_search(monkeypatch):
-    import phase165_r52_r5_auto_search as auto
     from web_app import create_app
-
-    import phase165_r52_r4_flask_bridge as bridge
+    import phase165_r55_nk_only_goal as registered
+    from phase165_r52_partial_proof import make_partial_proof_result
     seen = []
 
-    def actual(n, k):
+    def actual(*, n, k, **kwargs):
         seen.append((n, k))
-        return auto.search_group_structure_automatically(
-            n=n, k=k, discovery=_discovery(content="untyped")
+        return make_partial_proof_result(
+            n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
+            open_goals=("unproved",),
+            diagnostics=("Registered search has no derivation",),
         )
 
-    monkeypatch.setattr(bridge, "search_group_structure_automatically", actual)
+    monkeypatch.setattr(registered, "search_group_from_registered_goal", actual)
     response = create_app().test_client().post("/", data={
         "form_kind": "group_proof_progress", "n": "3", "k": "1",
     })
