@@ -740,17 +740,7 @@ def filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_bound
         continue
 
       if boundary.component_key is None:
-        fixed_components = (
-          get_toda_fixed_statement_components(
-            boundary.reference_locator
-          )
-        )
-
-        if fixed_components:
-          retained_steps.append(
-            proof_step
-          )
-
+        # Aggregate statements without a typed component are not citable.
         continue
 
       component = (

@@ -3904,3 +3904,25 @@ Phase 164 の成果物は、ProofStep を含む証明生成と共通 Renderer �
 ### 次 Phase との境界
 
 後続 Phase では、共通の生成・表示基盤を用いた個別証明の数学的根拠と Narratives の品質改善、$E(\eta_2^2)=\eta_3^2$ の表示根拠・生成元対応の確認、未検証引用の原典照合を順次扱う。
+
+<!-- PHASE165_FINAL_CLOSURE_20261019 -->
+
+## 2026-10-19 — Phase 165 終了（旧方式整理・全体 pytest PASS）
+
+### 経過
+
+Phase 165 の最終テスト収集で旧方式に依存するエラーが発見され、R6 で旧モジュールと関連テストの整理に移行した。旧機構を再導入せず、退避前のバックアップを保持した。
+
+R6-15 の全体テストは 3634 件を収集し、**3521 PASS / 110 FAIL / 3 ERROR**。失敗ログを根拠に R6-16〜R6-17 で分類し、R6-18 で旧契約由来の失敗105件（96テスト関数、31ファイル）をバックアップのうえ退避した。R6-19 では5ファイルのテストを処理し、関連限定テスト **40 PASS**。R6-20 では `toda_group_proof_narrative_references.py` の `filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary()` の成分不明な集約 Reference 採用を修正し、限定テスト **26 PASS**。旧入口が十分な Goal と引用命題識別子を持たない場合は、証明済みとせず fail-closed を維持する。
+
+### 最終全体テスト
+
+- 日時：2026-10-19（JST）。
+- コマンド：`python -m pytest tests -q --tb=short`
+- 結果：**3525 passed in 21.85s**、終了コード 0。
+- 標準出力：`phase165_r6_audit_results/final_pytest/pytest_20261019T104016Z_stdout.txt`。
+- Summary：`phase165_r6_audit_results/final_pytest/` 配下の最終集計。
+
+### 完了範囲・留保
+
+Phase 165 は、旧実装の依存整理および**現行テスト集合での全体 PASS**をもって終了とする。退避した旧テストを PASS と数えず、過去の Narrative がすべて維持されたとも主張しない。型付き目標からの一般自動証明、Toda 原典のすべての来歴照合、$\pi_3^2$・$\pi_4^3$・$\pi_5^3$ の現行経路での証明生成は後続 Phase の検証対象とする。この文書更新作業では新たな pytest を実行しない。

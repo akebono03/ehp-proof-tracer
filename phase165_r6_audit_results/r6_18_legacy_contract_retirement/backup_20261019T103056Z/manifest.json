@@ -1,0 +1,284 @@
+[
+  {
+    "path": "tests/test_phase103_cli_applicability.py",
+    "sha256": "d77db0aace1b401d2c6459c42e9b95e0df3fc7bf73b3a2c4dd3eb6910034f975",
+    "retired_functions": [
+      "test_phase103_6_explore_applicable_dispatches_to_facade",
+      "test_phase103_6_actual_explore_applicable_renders_production_result",
+      "test_phase103_6_explore_applicable_zero_result_is_zero_exit"
+    ]
+  },
+  {
+    "path": "tests/test_phase103_compact_detailed_cli.py",
+    "sha256": "bc1877843cf59880b9e55e397d05da546fa9f31d8c779c6a09668d2961407993",
+    "retired_functions": [
+      "test_phase103_6c5_explore_applicable_default_uses_legacy_compact_alias",
+      "test_phase103_6c5_explore_applicable_detailed_flag_uses_detailed_renderer"
+    ]
+  },
+  {
+    "path": "tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py",
+    "sha256": "5605c6214e2dd7d9cf9b44e7b95e4ca2ab16e78ec32979b4de21190ea304affe",
+    "retired_functions": [
+      "test_phase108_12_execute_nu_prime_lists_executable_candidates_end_to_end",
+      "test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end",
+      "test_phase108_12_execute_nu_prime_candidate_2_returns_result_and_proof_end_to_end"
+    ]
+  },
+  {
+    "path": "tests/test_phase110_10_operation_query_proof_replay_cli.py",
+    "sha256": "407682483a707a1520c5d66e7ee7c2617ba8408bd79a5228503c050194e933f9",
+    "retired_functions": [
+      "test_phase110_10_query_proof_single_fact_runs_without_fact",
+      "test_phase110_10_query_proof_multiple_facts_lists_and_requires_fact",
+      "test_phase110_10_query_proof_fact_is_forwarded",
+      "test_phase110_10_query_proof_fact_zero_is_parser_error"
+    ]
+  },
+  {
+    "path": "tests/test_phase110_8_operation_query_cli_integration.py",
+    "sha256": "ca722a72ae36237036101e83db435642668ffe2ac93c4e6f4525683af821327a",
+    "retired_functions": [
+      "test_phase110_8_query_cli_builds_presentation_before_rendering",
+      "test_phase110_8_query_cli_reports_no_directly_renderable_fact"
+    ]
+  },
+  {
+    "path": "tests/test_phase111_10_proof_replay_depth_cli.py",
+    "sha256": "2f9e76e4623a5e06dba9afaebb55116d9040687a47ce4526d97563cf9e4f61c8",
+    "retired_functions": [
+      "test_phase111_10_show_proof_depth_is_forwarded",
+      "test_phase111_10_query_proof_depth_is_forwarded",
+      "test_phase111_10_query_proof_fact_and_depth_are_forwarded"
+    ]
+  },
+  {
+    "path": "tests/test_phase117_web_app.py",
+    "sha256": "76eba18b610a5e563e35b4c2d40a676bdabcb7578bce8d56087a07acfb1616d6",
+    "retired_functions": [
+      "test_phase117_2_web_and_cli_share_sigma11_result"
+    ]
+  },
+  {
+    "path": "tests/test_phase117_web_group_query.py",
+    "sha256": "87b9d0790d4c430d1d383773f9d9ce5ae379248e89c931be75616c82b3c7ff13",
+    "retired_functions": [
+      "test_phase117_1_sigma11_group_query_returns_web_latex",
+      "test_phase117_1_web_adapter_supports_negative_k"
+    ]
+  },
+  {
+    "path": "tests/test_phase118_4_depth_browser_usability.py",
+    "sha256": "6202b049ec41c89a8430d969c41725d697a7142d88e312134204ba1ed52fdbcf",
+    "retired_functions": [
+      "test_phase118_4_web_adapter_accepts_depth_zero_one_two",
+      "test_phase118_4_depth_zero_contains_only_root",
+      "test_phase118_4_depth_two_reaches_deeper_than_default_where_available",
+      "test_phase118_4_web_forwards_selected_depth",
+      "test_phase118_4_multiple_facts_remain_explicit_at_depth_ui_boundary"
+    ]
+  },
+  {
+    "path": "tests/test_phase118_web_app.py",
+    "sha256": "85c5a0445865c38772841c7a5d534f1f066b65b8e4f796ac91c9103d3dd5aee2",
+    "retired_functions": [
+      "test_phase118_2_multiple_facts_are_all_exposed",
+      "test_phase118_2_multiple_facts_do_not_select_one_fact",
+      "test_phase118_3_operation_results_have_explicit_proof_selection"
+    ]
+  },
+  {
+    "path": "tests/test_phase118_web_operation_query.py",
+    "sha256": "b207a52dff90c9432651fc8f44de6a5a07424cc1e367f7a9f306e233389e5dc5",
+    "retired_functions": [
+      "test_phase118_2_h_nu_prime_exposes_two_existing_facts",
+      "test_phase118_2_delta_iota9_exposes_multiple_facts_without_selection",
+      "test_phase118_2_e_nu5_uses_existing_handoff",
+      "test_phase118_2_e_sigma11_uses_existing_handoff"
+    ]
+  },
+  {
+    "path": "tests/test_phase118_web_operation_query_proof.py",
+    "sha256": "df89d48232c647ae4687e3e5acbf54f470ea2704f833467a1c32b3b17ef0bb53",
+    "retired_functions": [
+      "test_phase118_3_single_fact_replays_with_default_depth_one",
+      "test_phase118_3_e_nu5_preserves_selected_conclusion_latex",
+      "test_phase118_3_h_nu_prime_fact_two_is_selected",
+      "test_phase118_3_h_nu_prime_fact_one_preserves_provenance",
+      "test_phase118_3_replay_steps_use_existing_statement_presentation",
+      "test_phase118_3_e_sigma11_replays_existing_specialized_root",
+      "test_phase118_3_invalid_fact_number_is_rejected"
+    ]
+  },
+  {
+    "path": "tests/test_phase120_2_web_app_generator_proof.py",
+    "sha256": "1df70870c67c88b2ad1452b82eb84992be663d40893d95a644c213023dee6618",
+    "retired_functions": [
+      "test_phase120_2_generator_proof_forwards_depth_zero"
+    ]
+  },
+  {
+    "path": "tests/test_phase120_2_web_generator_proof.py",
+    "sha256": "0c6b71c0b5009e973bd946e23347d53af85ef8a8c6427402b7b063ef8497bf9c",
+    "retired_functions": [
+      "test_phase120_2_sigma11_generator_proof_uses_existing_known_group_result",
+      "test_phase120_2_depth_zero_contains_only_root_step",
+      "test_phase120_2_nu_prime_preserves_existing_known_group_identity"
+    ]
+  },
+  {
+    "path": "tests/test_phase123_5a_web_applicability_volume.py",
+    "sha256": "76c7905b5b724817257aa7e25f26fca6630a03660afbbb7ac0dc26af9e4d4246",
+    "retired_functions": [
+      "test_phase123_5a_nu_prime_limits_rendered_sources_and_rule_families"
+    ]
+  },
+  {
+    "path": "tests/test_phase131_4_group_result_proof_replay_cli.py",
+    "sha256": "84a5167085bb2357da03e2f7adb7053dae2d6eaa1ab091179681aa4da1003136",
+    "retired_functions": [
+      "test_phase131_4_group_proof_sigma9_renders_group_source_and_proof",
+      "test_phase131_4_group_proof_zero_group_does_not_require_generator",
+      "test_phase131_4_group_proof_not_found_is_explicit",
+      "test_phase131_4_group_proof_connectivity_zero_is_replayed",
+      "test_phase131_4_existing_group_query_semantics_remain_unchanged"
+    ]
+  },
+  {
+    "path": "tests/test_phase131_5_web_group_proof.py",
+    "sha256": "40497c67d2fdddf5a37d2d09a0f8c866a8ab101c2705df1d3dadbafff88c7baf",
+    "retired_functions": [
+      "test_phase131_5_sigma9_group_proof_view_uses_group_result_replay",
+      "test_phase131_5_zero_group_is_replayed_without_generator_input",
+      "test_phase131_5_connectivity_zero_is_replayed",
+      "test_phase131_5_domain_only_result_is_rejected"
+    ]
+  },
+  {
+    "path": "tests/test_phase132_7_group_proof_cli_modes.py",
+    "sha256": "9dbb4b7b976777c6c2eecc167b75f21f8fc72b67d2ce1c88631520fa93b03bf9",
+    "retired_functions": [
+      "test_phase132_7_group_proof_default_mode_is_narrative",
+      "test_phase132_7_group_proof_explicit_trace_remains_available",
+      "test_phase132_7_group_proof_outline_mode_uses_outline_renderer",
+      "test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer",
+      "test_phase132_7_group_proof_depth_zero_is_shared_across_modes"
+    ]
+  },
+  {
+    "path": "tests/test_phase132_9_web_group_proof_modes.py",
+    "sha256": "1d2c722691a4efe766800327e8bce9b417668eeb46f1fea7ee22566573012762",
+    "retired_functions": [
+      "test_phase132_9_narrative_is_default_web_group_proof_mode",
+      "test_phase132_9_outline_web_adapter_preserves_math",
+      "test_phase132_9_narrative_web_adapter_preserves_math",
+      "test_phase132_9_web_depth_semantics_are_shared_across_modes"
+    ]
+  },
+  {
+    "path": "tests/test_phase133_10_sigma_label_wording.py",
+    "sha256": "973d0a007f0dbe8a32bbde6a83269530d618ef0083155efea934818372f92b49",
+    "retired_functions": [
+      "test_phase133_10_sigma9_depth_two_uses_final_japanese_wording"
+    ]
+  },
+  {
+    "path": "tests/test_phase133_6_group_proof_narrative_labels.py",
+    "sha256": "a451a5a9fd5a29623e3318bf9f32965f6d9f0112bc3811582159d4249a076514",
+    "retired_functions": [
+      "test_phase133_6_pi8_5_uses_readable_nu_family_labels",
+      "test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label",
+      "test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels",
+      "test_phase133_6_sigma9_depth_two_reuses_new_labels"
+    ]
+  },
+  {
+    "path": "tests/test_phase133_9_group_proof_narrative_labels.py",
+    "sha256": "cc3edd38450d7d49608582d12deccccaa848df85310969db0bee7eec8a06e4c0",
+    "retired_functions": [
+      "test_phase133_9_pi10_4_depth_two_uses_final_readable_labels",
+      "test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels",
+      "test_phase133_9_previous_labels_remain_available"
+    ]
+  },
+  {
+    "path": "tests/test_phase134_11_pi8_5_narrative.py",
+    "sha256": "d05d4ba1c7cedb15e1be9bd64f39680e0f4208c9613f38c05591781a1a734041",
+    "retired_functions": [
+      "test_phase134_11_pi8_5_definition_is_natural_japanese",
+      "test_phase134_11_pi8_5_stops_at_pi6_3_boundary",
+      "test_phase134_11_pi8_5_uses_hidden_toda55_as_reference",
+      "test_phase134_11_pi8_5_uses_pi6_boundary_for_e2_order",
+      "test_phase134_11_pi8_5_keeps_ascii_punctuation"
+    ]
+  },
+  {
+    "path": "tests/test_phase134_11_testfix_v2.py",
+    "sha256": "dfda68f1fbec053998f55e04bb1798133551a9daa7ac15cf0f19351dbed2db23",
+    "retired_functions": [
+      "test_phase134_11_testfix_has_no_duplicate_dependency_leads",
+      "test_phase134_11_testfix_has_single_final_therefore",
+      "test_phase134_11_testfix_keeps_boundary_and_references"
+    ]
+  },
+  {
+    "path": "tests/test_phase134_11_testfix_v3.py",
+    "sha256": "1dedae75c23e3b61920b00c2d6b6514ee9c1631cfb8b7a503e89e8f78fb6d72e",
+    "retired_functions": [
+      "test_phase134_11_testfix_v3_keeps_hidden_reference_once",
+      "test_phase134_11_testfix_v3_has_no_duplicate_leads",
+      "test_phase134_11_testfix_v3_keeps_compact_boundary",
+      "test_phase134_11_testfix_v3_keeps_reference_order"
+    ]
+  },
+  {
+    "path": "tests/test_phase134_14_pi8_5_snapshot.py",
+    "sha256": "2f830be206ffa741b2a059977fd0373849a4e8f85a91d574abc88cac9c0926bb",
+    "retired_functions": [
+      "test_phase134_14_pi8_5_output_is_byte_for_byte_unchanged"
+    ]
+  },
+  {
+    "path": "tests/test_phase134_9_pi8_5_narrative.py",
+    "sha256": "415d66d4b4763355ef3712a86017d392d0fc326bc54dfb3958e3f2e8fb85ebf0",
+    "retired_functions": [
+      "test_phase134_9_pi8_5_uses_structured_narrative",
+      "test_phase134_9_pi8_5_uses_order_block_lead",
+      "test_phase134_9_pi8_5_keeps_phase133_labels",
+      "test_phase134_9_pi8_5_does_not_change_other_group_dispatch"
+    ]
+  },
+  {
+    "path": "tests/test_phase135_1_web_narrative_display_math.py",
+    "sha256": "99686845006b27a57d4f41ced7fe6ecd360dffeb9ec0c21991f507f6d484405a",
+    "retired_functions": [
+      "test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web",
+      "test_phase135_1_existing_inline_math_adapter_is_preserved"
+    ]
+  },
+  {
+    "path": "tests/test_phase144_6_r25_20_six_group_generic_production_narrative.py",
+    "sha256": "a6b9326f3abafec01b509c472346f2757a47b0342a0abcd316d234b1f8ccbd57",
+    "retired_functions": [
+      "test_phase144_6_r25_20_six_groups_use_complete_replay_for_depth2_narrative",
+      "test_phase144_6_r25_20_trace_depth2_does_not_use_complete_replay"
+    ]
+  },
+  {
+    "path": "tests/test_phase145_group_proof_defaults.py",
+    "sha256": "d470d311f76b7b722c1de89a4155106781c2177479aa863e6858fac5576f7e77",
+    "retired_functions": [
+      "test_phase145_cli_explicit_trace_depth1_is_preserved",
+      "test_phase145_web_explicit_trace_depth1_is_preserved"
+    ]
+  },
+  {
+    "path": "tests/test_phase162_r4_b3_web_common_display.py",
+    "sha256": "2af8a9dc7fd5fa1ee71aafec3824218feb50b8aac08caa09a12dc0ee8de53235",
+    "retired_functions": [
+      "test_phase162_r4_b3_web_uses_derived_common_markdown",
+      "test_phase162_r4_b3_public_web_view_uses_derived_steps",
+      "test_phase162_r4_b3_flask_web_renders_group_proof"
+    ]
+  }
+]

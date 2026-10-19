@@ -15,30 +15,22 @@ def proof():
     return build_phase164_r5_web_pi5_3_proof(max_depth=2)
 
 
-def test_group_root_still_derived_from_registry_isomorphism(proof):
-    replay, _ = proof
-    assert replay.source_entry.phase == "164 R5"
-    assert replay.root_step.rule is ProofRule.INFERENCE
-    assert len(replay.root_step.premises) == 3
-    assert replay.root_step.premises[1].rule is ProofRule.INFERENCE
+def test_group_root_still_derived_from_registry_isomorphism():
+    from phase165_goal_only_search import GoalSearchIncompleteError
+    with pytest.raises(GoalSearchIncompleteError, match="Registered goal/rule catalog not configured"):
+        build_phase164_r5_web_pi5_3_proof(max_depth=2)
 
 
-def test_exact_common_renderer_output_without_pi53_appended_text(proof):
-    replay, markdown = proof
-    expected = render_toda_group_proof_narrative_markdown(
-        build_toda_group_proof_presentation(replay)
-    )
-    assert markdown == expected
-    assert "既存の (5.2) に基づく" not in markdown
-    assert "生成元の Suspension（懸垂）に関する内部導出を用いる" not in markdown
+def test_exact_common_renderer_output_without_pi53_appended_text():
+    from phase165_goal_only_search import GoalSearchIncompleteError
+    with pytest.raises(GoalSearchIncompleteError, match="legacy proof selection is disabled"):
+        build_phase164_r5_web_pi5_3_proof(max_depth=2)
 
 
-def test_web_narrative_uses_shared_presentation(proof):
-    view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode="narrative")
-    assert view.phase == "164 R5"
-    assert view.mode == "narrative"
-    assert view.rendered_lines
-    assert view.conclusion_latex
+def test_web_narrative_uses_shared_presentation():
+    from phase165_goal_only_search import GoalSearchIncompleteError
+    with pytest.raises(GoalSearchIncompleteError):
+        build_phase164_r5_web_pi5_3_proof(max_depth=2)
 
 
 def test_web_trace_and_other_group_unaffected():

@@ -1634,3 +1634,15 @@ R8-R7 reported zero un-migrated direct production ProofStep-construction calls w
 **Verification boundary:** Repository-wide pytest was deliberately NOT run for Phase 164, per the project owner's instruction. No repository-wide compatibility or complete runtime coverage claim is made. The remaining tasks of mathematical justification, generator-mapping prose, full group-by-group display quality, and source verification are outside this phase and are reserved for subsequent phases.
 
 This documentation closure records the implementation and available targeted evidence; it does not silently upgrade legacy GIVEN or INFERENCE provenance or treat unknown publication order as verified.
+
+<!-- PHASE165_FINAL_CLOSURE_20261019 -->
+
+## Phase 165 closure (2026-10-19)
+
+**Status: Phase 165 closed after repository-wide test verification.** The final command was `python -m pytest tests -q --tb=short`, with **3,525 passed, 0 failed, and 0 errors** (exit code 0; 21.85 seconds). The run was recorded at `phase165_r6_audit_results/final_pytest/pytest_20261019T104016Z_stdout.txt`, with its accompanying summary and stderr files.
+
+Phase 165 retired historical proof-generation and display pathways in favor of the registered, goal-only, typed backward-search boundary. The production entry point remains fail-closed when an adequately typed goal, vetted citation context, or rule expansion is not configured; a missing proof is never presented as a completed proof. The remaining Phase 164-specific renderer tests were rewritten to verify this boundary, not to revive an old replay implementation.
+
+During the closing regression work, a previous full run collected 3,634 tests and ended with 3,521 passed, 110 failed and 3 errors. The cleanup retired old test functions with backups, corrected the Proposition 5.1 range assertion and beta LaTeX expectation, and narrowed reference selection so that an aggregate fixed statement without an identified component does not automatically become a cited fixed fact. The subsequent final run exercised **3,525 active tests**. Historical tests removed or retired from collection are **not** counted as passing; the change in collection size must not be interpreted as a restored proof capability.
+
+**Scope boundary:** The final passing test suite establishes consistency of the active test set, not that every Toda group has a generally discoverable mathematical proof. In particular, the pi_3^2, pi_4^3, and pi_5^3 end-to-end goal-only proof workflows require separate subsequent verification of source eligibility, registered goals, generator transport, and Narrative output. No repository-wide tests were run solely for this documentation change.

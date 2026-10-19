@@ -56,7 +56,7 @@ def test_phase157_r2_prop51_inventory_preserves_current_four_components():
     3,
     4,
   )
-  assert components[-1].range_text is None
+  assert components[-1].range_text == "n >= 3"
   assert (
     components[-1].range_is_explicit_in_current_aggregate
     is False

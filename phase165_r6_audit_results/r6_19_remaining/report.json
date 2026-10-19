@@ -1,0 +1,38 @@
+{
+  "phase": "165 R6-19",
+  "status": "APPLIED",
+  "modified_files": [
+    "tests/test_phase148_rc2_4_repair_r4_1_r1.py",
+    "tests/test_phase150_rc4_5b_3_r1_beta_latex.py",
+    "tests/test_phase157_r2_literature_statement_boundary.py",
+    "tests/test_phase164_r5_r1_common_renderer.py",
+    "tests/test_proof_repository.py"
+  ],
+  "old_functions_replaced": 3,
+  "old_functions_retired": 2,
+  "protected_reference_test_unchanged": "tests/test_phase157_r5_r4_generic_reference_selection.py",
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\r6_19_remaining\\backup_20261019T103412Z",
+  "manifest": {
+    "tests/test_phase148_rc2_4_repair_r4_1_r1.py": {
+      "before": "9a9e7f5375187ab6dff15e06a56effe35a24807d0b2e64276c56c15fa13fd25c",
+      "after": "beb50c0355265cc453af43441680cdb93a257f6560d65b65c07578a4ad596ff9"
+    },
+    "tests/test_phase150_rc4_5b_3_r1_beta_latex.py": {
+      "before": "3b1e7436ef2da83d99f66263f9a6f8564dd3d7008303ffd0ddc9125e65100ff6",
+      "after": "14eb44a4aecb37f86965c5e534393459bdb6a51e31bcaddbbb609c72492c5feb"
+    },
+    "tests/test_phase157_r2_literature_statement_boundary.py": {
+      "before": "e125464f362117d356f476b2fadda4c9c96237ef4e2ba4805d96031c7a65285a",
+      "after": "fd10c43cdb9f19e460aa4893467a97572ef2ae6979c94ea2f75b27671de878aa"
+    },
+    "tests/test_phase164_r5_r1_common_renderer.py": {
+      "before": "d8855537f58406e6ec7953f772748dd3b1f6ca99b14a77e16798aa5cb854b2fc",
+      "after": "762a42adbfcdf0f2898500aaf809fd90a0253eeb8f81507c078594049be127eb"
+    },
+    "tests/test_proof_repository.py": {
+      "before": "a49f4c4adabb2c308ba8ab3704555eb0edf2489e4737e0d7faf949555c49e71a",
+      "after": "dd818ee4473a45b0eb1dd0f19a226deeb59d6a486eb603c5b9c2318b02d9883b"
+    }
+  },
+  "full_pytest_run": false
+}
