@@ -1,0 +1,2050 @@
+
+=================================== ERRORS ====================================
+___ ERROR collecting tests/test_phase162_r2_validated_proof_presentation.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase162_r2_validated_proof_presentation.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase162_r2_validated_proof_presentation.py:23: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+____ ERROR collecting tests/test_phase164_r3_registry_search_connection.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r3_registry_search_connection.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r3_registry_search_connection.py:17: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase164_r4_r1_source_crosswalk.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r1_source_crosswalk.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r1_source_crosswalk.py:14: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase164_r4_r2_semantic_structure.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r2_semantic_structure.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r2_semantic_structure.py:12: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+__ ERROR collecting tests/test_phase164_r4_r3_independent_semantic_audit.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r3_independent_semantic_audit.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r3_independent_semantic_audit.py:12: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+____ ERROR collecting tests/test_phase164_r4_r4_citation_evidence_audit.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r4_citation_evidence_audit.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r4_citation_evidence_audit.py:17: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase164_r4_r6_typed_binding.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r6_typed_binding.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r6_typed_binding.py:12: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+_____ ERROR collecting tests/test_phase164_r4_r7_real_connection_gate.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r7_real_connection_gate.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r7_real_connection_gate.py:17: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+____ ERROR collecting tests/test_phase164_r4_r8_registry_reconstruction.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_r8_registry_reconstruction.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_r8_registry_reconstruction.py:14: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase164_r4_real_registry_audit.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r4_real_registry_audit.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase164_r4_real_registry_audit.py:6: in <module>
+    from phase164_r4_real_registry_audit import (
+phase164_r4_real_registry_audit.py:21: in <module>
+    from tests.test_phase59_n3_ehp_chain import build_phase59_3_data
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+__ ERROR collecting tests/test_phase164_r7_r8_fixed_literature_resolution.py __
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r7_r8_fixed_literature_resolution.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r7_r8_fixed_literature_resolution.py:15: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase164_r8_r3_backward_factory.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r8_r3_backward_factory.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r8_r3_backward_factory.py:7: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'tests.test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase55_prop51_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+____ ERROR collecting tests/test_phase59_eta4_squared_stable_transport.py _____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase59_pi5_3_eta3_squared.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase59_pi6_4_eta4_squared.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase59_prop53_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+________ ERROR collecting tests/test_phase59_toda52_pi4_2_transport.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_toda52_pi4_2_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_toda52_pi4_2_transport.py:19: in <module>
+    ???
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+_________ ERROR collecting tests/test_phase60_lemma54_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_______ ERROR collecting tests/test_phase60_nu4_whitehead_correction.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+________ ERROR collecting tests/test_phase60_toda36_specialization.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+__________ ERROR collecting tests/test_phase60_toda48_hopf_parity.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_________ ERROR collecting tests/test_phase60_toda54_indeterminacy.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+___________ ERROR collecting tests/test_phase60_toda54_t0_bridge.py ___________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_t0_bridge.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_t0_bridge.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase62_nu_family_double_transport.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_double_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_double_transport.py:26: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+______ ERROR collecting tests/test_phase62_nu_family_eta_cube_bridge.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase62_toda55_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase63_nu4_prop44_specialization.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_ ERROR collecting tests/test_phase63_prop44_decomposition_specialization.py __
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_prop44_decomposition_specialization.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_prop44_decomposition_specialization.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+__________ ERROR collecting tests/test_phase63_toda56_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_integration.py:11: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_semantics.py:22: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_prop44_decomposition_specialization.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+___________ ERROR collecting tests/test_phase63_toda56_semantics.py ___________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_semantics.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_semantics.py:22: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_prop44_decomposition_specialization.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+________ ERROR collecting tests/test_phase65_equation57_injectivity.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_equation57_injectivity.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase65_equation57_injectivity.py:38: in <module>
+    from test_phase59_prop53_integration import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase65_n5_quotient_e2_injectivity.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_n5_quotient_e2_injectivity.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_n5_quotient_e2_injectivity.py:15: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+___________ ERROR collecting tests/test_phase65_nu5_order_pi8_5.py ____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase65_nu5_stable_transport.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_stable_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_stable_transport.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase65_nu_prime_order_pi6_3.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu_prime_order_pi6_3.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu_prime_order_pi6_3.py:33: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+___________ ERROR collecting tests/test_phase65_pi5_2_eta2_cube.py ____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi5_2_eta2_cube.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi5_2_eta2_cube.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase65_pi7_4_decomposition.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+__________ ERROR collecting tests/test_phase65_prop56_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py:15: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase66_delta_iota9_nu_expression.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+_____ ERROR collecting tests/test_phase66_delta_iota9_whitehead_square.py _____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_whitehead_square.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_whitehead_square.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+____ ERROR collecting tests/test_phase66_expression_sign_compatibility.py _____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+_________ ERROR collecting tests/test_phase66_literature_aggregate.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_literature_aggregate.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_literature_aggregate.py:19: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+____ ERROR collecting tests/test_phase66_whitehead_square_nu_expression.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_whitehead_square_nu_expression.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_whitehead_square_nu_expression.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_______ ERROR collecting tests/test_phase67_lemma57_delta_generator.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_lemma57_delta_generator.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_lemma57_delta_generator.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py:15: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+___ ERROR collecting tests/test_phase67_lemma57_nu_prime_specialization.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_lemma57_nu_prime_specialization.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_lemma57_nu_prime_specialization.py:24: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_________ ERROR collecting tests/test_phase67_pi6_2_eta2_nu_prime.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_pi6_2_eta2_nu_prime.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_pi6_2_eta2_nu_prime.py:25: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py:15: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______________ ERROR collecting tests/test_phase68_delta_eta9.py ______________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_delta_eta9.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_delta_eta9.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_literature_aggregate.py:19: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+_______ ERROR collecting tests/test_phase68_eta_n_nu_n_plus_one_zero.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_eta_n_nu_n_plus_one_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_eta_n_nu_n_plus_one_zero.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase68_nu_n_eta_n_plus_three_zero.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase68_pi7_3_nu_prime_eta6.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi7_3_nu_prime_eta6.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi7_3_nu_prime_eta6.py:26: in <module>
+    ???
+tests\test_phase65_equation57_injectivity.py:38: in <module>
+    from test_phase59_prop53_integration import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase68_pi8_4_decomposition.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi8_4_decomposition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi8_4_decomposition.py:24: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+____________ ERROR collecting tests/test_phase68_pi9_5_nu5_eta8.py ____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi9_5_nu5_eta8.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi9_5_nu5_eta8.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py:15: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase68_pi_n_plus_4_n_zero.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi_n_plus_4_n_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi_n_plus_4_n_zero.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase68_prop58_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_prop58_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_prop58_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi7_3_nu_prime_eta6.py:26: in <module>
+    ???
+tests\test_phase65_equation57_injectivity.py:38: in <module>
+    from test_phase59_prop53_integration import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+___________ ERROR collecting tests/test_phase68_toda59_eta3_nu4.py ____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_toda59_eta3_nu4.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_toda59_eta3_nu4.py:25: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_____________ ERROR collecting tests/test_phase69_delta_iota11.py _____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase69_delta_iota11.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase69_delta_iota11.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi9_5_nu5_eta8.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py:15: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase69_delta_surjectivity.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase69_delta_surjectivity.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase69_delta_surjectivity.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi_n_plus_4_n_zero.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+___ ERROR collecting tests/test_phase70_delta_eta9_squared_surjectivity.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_delta_eta9_squared_surjectivity.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_delta_eta9_squared_surjectivity.py:33: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_delta_eta9.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_literature_aggregate.py:19: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+__ ERROR collecting tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase70_pi10_5_nu5_eta8_squared.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi10_5_nu5_eta8_squared.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi10_5_nu5_eta8_squared.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase70_pi11_6_delta_iota13.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi7_2_eta2_nu_prime_eta6.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi7_2_eta2_nu_prime_eta6.py:25: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi7_3_nu_prime_eta6.py:26: in <module>
+    ???
+tests\test_phase65_equation57_injectivity.py:38: in <module>
+    from test_phase59_prop53_integration import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_____ ERROR collecting tests/test_phase70_pi8_3_nu_prime_eta6_squared.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi8_3_nu_prime_eta6_squared.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi8_3_nu_prime_eta6_squared.py:33: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_lemma57_delta_generator.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_prop56_integration.py:15: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase70_pi9_4_decomposition.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi9_4_decomposition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi9_4_decomposition.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase70_pi_n_plus_5_n_zero.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py:36: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase70_prop59_integration.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_prop59_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_prop59_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py:36: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase71_toda512_n6_delta_injective.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase71_toda512_n6_delta_injective.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase71_toda512_n6_delta_injective.py:26: in <module>
+    from test_phase70_pi11_6_delta_iota13 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase72_lemma510_core_inference.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72_lemma510_core_inference.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase72_lemma510_core_inference.py:29: in <module>
+    from test_phase70_pi11_6_delta_iota13 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_____ ERROR collecting tests/test_phase72_lemma510_modulo_integration.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72_lemma510_modulo_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase72_lemma510_modulo_integration.py:26: in <module>
+    from test_phase59_prop53_integration import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase72r6_ordinary_primary_bridge.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r6_ordinary_primary_bridge.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r6_ordinary_primary_bridge.py:26: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_ ERROR collecting tests/test_phase72r7_primary_composition_indeterminacy.py __
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r7_primary_composition_indeterminacy.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r7_primary_composition_indeterminacy.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+___ ERROR collecting tests/test_phase72r8_corrected_lemma510_integration.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r8_corrected_lemma510_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r8_corrected_lemma510_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+__ ERROR collecting tests/test_phase72r9_corrected_provenance_retirement.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72r9_corrected_provenance_retirement.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase72r9_corrected_provenance_retirement.py:17: in <module>
+    from test_phase72_lemma510_modulo_integration import (
+tests\test_phase72_lemma510_modulo_integration.py:26: in <module>
+    from test_phase59_prop53_integration import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_________ ERROR collecting tests/test_phase72ra1_toda43_semantics.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase72ra1_toda43_semantics.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase72ra1_toda43_semantics.py:9: in <module>
+    from test_phase70_pi11_6_delta_iota13 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+___________ ERROR collecting tests/test_phase73_513_delta_eta13.py ____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_513_delta_eta13.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_513_delta_eta13.py:26: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+____________ ERROR collecting tests/test_phase73_513_delta_nu9.py _____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_513_delta_nu9.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_513_delta_nu9.py:26: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_literature_aggregate.py:19: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_delta_iota9_nu_expression.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase66_expression_sign_compatibility.py:14: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_pi7_4_decomposition.py:26: in <module>
+    ???
+probes\probe_phase63_capabilities.py:8: in <module>
+    from probes.probe_phase50_capabilities import (
+probes\probe_phase50_capabilities.py:34: in <module>
+    from toda_rules import (
+E   ImportError: cannot import name 'toda_pi4_3_delta_image_free_cyclic_inference_rule' from 'toda_rules' (C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\toda_rules.py)
+__________ ERROR collecting tests/test_phase73_pi10_4_nu4_squared.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi10_4_nu4_squared.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi10_4_nu4_squared.py:22: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_integration.py:11: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_semantics.py:22: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_prop44_decomposition_specialization.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+___ ERROR collecting tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_prop59_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py:36: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______________ ERROR collecting tests/test_phase73_pi9_3_zero.py ______________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi9_3_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi9_3_zero.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase67_lemma57_nu_prime_specialization.py:24: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_ ERROR collecting tests/test_phase73_prop511_finite_dimensional_integration.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_prop511_finite_dimensional_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_prop511_finite_dimensional_integration.py:8: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_prop59_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py:36: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+________ ERROR collecting tests/test_phase75_514_first_short_exact.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_514_first_short_exact.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_514_first_short_exact.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+________ ERROR collecting tests/test_phase75_514_second_short_exact.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_514_second_short_exact.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_514_second_short_exact.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+________ ERROR collecting tests/test_phase75_515_pi15_8_final_group.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_515_pi15_8_final_group.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase75_515_pi15_8_final_group.py:24: in <module>
+    from test_phase75_515_sigma8_transported_decomposition import (
+tests\test_phase75_515_sigma8_transported_decomposition.py:27: in <module>
+    from test_phase75_515_sigma8_prop44_decomposition import (
+tests\test_phase75_515_sigma8_prop44_decomposition.py:22: in <module>
+    from test_phase75_515_sigma8_prop44_specialization import (
+tests\test_phase75_515_sigma8_prop44_specialization.py:25: in <module>
+    from test_phase75_lemma514_sigma8 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+___ ERROR collecting tests/test_phase75_515_sigma8_prop44_decomposition.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_515_sigma8_prop44_decomposition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase75_515_sigma8_prop44_decomposition.py:22: in <module>
+    from test_phase75_515_sigma8_prop44_specialization import (
+tests\test_phase75_515_sigma8_prop44_specialization.py:25: in <module>
+    from test_phase75_lemma514_sigma8 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+___ ERROR collecting tests/test_phase75_515_sigma8_prop44_specialization.py ___
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_515_sigma8_prop44_specialization.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase75_515_sigma8_prop44_specialization.py:25: in <module>
+    from test_phase75_lemma514_sigma8 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_ ERROR collecting tests/test_phase75_515_sigma8_transported_decomposition.py _
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_515_sigma8_transported_decomposition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase75_515_sigma8_transported_decomposition.py:27: in <module>
+    from test_phase75_515_sigma8_prop44_decomposition import (
+tests\test_phase75_515_sigma8_prop44_decomposition.py:22: in <module>
+    from test_phase75_515_sigma8_prop44_specialization import (
+tests\test_phase75_515_sigma8_prop44_specialization.py:25: in <module>
+    from test_phase75_lemma514_sigma8 import (
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+___________ ERROR collecting tests/test_phase75_lemma514_sigma8.py ____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_____ ERROR collecting tests/test_phase75_lemma514_sigma_double_prime.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_________ ERROR collecting tests/test_phase75_lemma514_sigma_prime.py _________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_prime.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_prime.py:25: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_514_second_short_exact.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+_____________ ERROR collecting tests/test_phase75_pi10_3_zero.py ______________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi10_3_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi10_3_zero.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_prop59_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py:36: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_____________ ERROR collecting tests/test_phase75_pi11_4_zero.py ______________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi11_4_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi11_4_zero.py:22: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_toda56_semantics.py:22: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_prop44_decomposition_specialization.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase63_nu4_prop44_specialization.py:28: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+___________ ERROR collecting tests/test_phase75_pi12_5_order_two.py ___________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi12_5_order_two.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi12_5_order_two.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+__________ ERROR collecting tests/test_phase75_pi13_6_order_four.py ___________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi13_6_order_four.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi13_6_order_four.py:25: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+__________ ERROR collecting tests/test_phase75_pi14_7_order_eight.py __________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi14_7_order_eight.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi14_7_order_eight.py:25: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_514_second_short_exact.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_integration.py:10: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase55_prop51_phase52_phase54_dependency'
+____________ ERROR collecting tests/test_phase75_pi16_9_sigma9.py _____________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi16_9_sigma9.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi16_9_sigma9.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+______________ ERROR collecting tests/test_phase75_pi9_2_zero.py ______________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi9_2_zero.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi9_2_zero.py:18: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_prop511_finite_dimensional_integration.py:8: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_prop59_integration.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi_n_plus_5_n_zero.py:36: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_pi11_6_delta_iota13.py:32: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase70_nu5_eta8_squared_zero_delta_eta11.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_______ ERROR collecting tests/test_phase75_sigma_family_definition.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_sigma_family_definition.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_sigma_family_definition.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+________ ERROR collecting tests/test_phase78_g3_stable_nu_transport.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g3_stable_nu_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g3_stable_nu_transport.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+_____ ERROR collecting tests/test_phase78_g4_g5_stable_zero_transport.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g4_g5_stable_zero_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g4_g5_stable_zero_transport.py:16: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_pi_n_plus_4_n_zero.py:30: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase68_nu_n_eta_n_plus_three_zero.py:31: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+____ ERROR collecting tests/test_phase78_g6_stable_nu_squared_transport.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g6_stable_nu_squared_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g6_stable_nu_squared_transport.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g3_stable_nu_transport.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+______ ERROR collecting tests/test_phase78_g7_stable_sigma_transport.py _______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g7_stable_sigma_transport.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g7_stable_sigma_transport.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_pi16_9_sigma9.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma8.py:34: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase75_lemma514_sigma_double_prime.py:35: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_lemma54_integration.py:10: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_nu4_whitehead_correction.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda48_hopf_parity.py:27: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda36_specialization.py:23: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'probes.probe_phase55_capabilities'
+_____ ERROR collecting tests/test_phase78_stable_g0_to_g7_integration.py ______
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_stable_g0_to_g7_integration.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_stable_g0_to_g7_integration.py:17: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase78_g3_stable_nu_transport.py:21: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase65_nu5_order_pi8_5.py:23: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_toda55_integration.py:12: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase62_nu_family_eta_cube_bridge.py:20: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase60_toda54_indeterminacy.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_prop53_integration.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_eta4_squared_stable_transport.py:29: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi6_4_eta4_squared.py:24: in <module>
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase59_pi5_3_eta3_squared.py:21: in <module>
+    ???
+E   ModuleNotFoundError: No module named 'test_phase59_n3_ehp_chain'
+=========================== short test summary info ===========================
+ERROR tests/test_phase162_r2_validated_proof_presentation.py
+ERROR tests/test_phase164_r3_registry_search_connection.py
+ERROR tests/test_phase164_r4_r1_source_crosswalk.py
+ERROR tests/test_phase164_r4_r2_semantic_structure.py
+ERROR tests/test_phase164_r4_r3_independent_semantic_audit.py
+ERROR tests/test_phase164_r4_r4_citation_evidence_audit.py
+ERROR tests/test_phase164_r4_r6_typed_binding.py
+ERROR tests/test_phase164_r4_r7_real_connection_gate.py
+ERROR tests/test_phase164_r4_r8_registry_reconstruction.py
+ERROR tests/test_phase164_r4_real_registry_audit.py
+ERROR tests/test_phase164_r7_r8_fixed_literature_resolution.py
+ERROR tests/test_phase164_r8_r3_backward_factory.py
+ERROR tests/test_phase55_prop51_integration.py
+ERROR tests/test_phase59_eta4_squared_stable_transport.py
+ERROR tests/test_phase59_pi5_3_eta3_squared.py
+ERROR tests/test_phase59_pi6_4_eta4_squared.py
+ERROR tests/test_phase59_prop53_integration.py
+ERROR tests/test_phase59_toda52_pi4_2_transport.py
+ERROR tests/test_phase60_lemma54_integration.py
+ERROR tests/test_phase60_nu4_whitehead_correction.py
+ERROR tests/test_phase60_toda36_specialization.py
+ERROR tests/test_phase60_toda48_hopf_parity.py
+ERROR tests/test_phase60_toda54_indeterminacy.py
+ERROR tests/test_phase60_toda54_t0_bridge.py
+ERROR tests/test_phase62_nu_family_double_transport.py
+ERROR tests/test_phase62_nu_family_eta_cube_bridge.py
+ERROR tests/test_phase62_toda55_integration.py
+ERROR tests/test_phase63_nu4_prop44_specialization.py
+ERROR tests/test_phase63_prop44_decomposition_specialization.py
+ERROR tests/test_phase63_toda56_integration.py
+ERROR tests/test_phase63_toda56_semantics.py
+ERROR tests/test_phase65_equation57_injectivity.py
+ERROR tests/test_phase65_n5_quotient_e2_injectivity.py
+ERROR tests/test_phase65_nu5_order_pi8_5.py
+ERROR tests/test_phase65_nu5_stable_transport.py
+ERROR tests/test_phase65_nu_prime_order_pi6_3.py
+ERROR tests/test_phase65_pi5_2_eta2_cube.py
+ERROR tests/test_phase65_pi7_4_decomposition.py
+ERROR tests/test_phase65_prop56_integration.py
+ERROR tests/test_phase66_delta_iota9_nu_expression.py
+ERROR tests/test_phase66_delta_iota9_whitehead_square.py
+ERROR tests/test_phase66_expression_sign_compatibility.py
+ERROR tests/test_phase66_literature_aggregate.py
+ERROR tests/test_phase66_whitehead_square_nu_expression.py
+ERROR tests/test_phase67_lemma57_delta_generator.py
+ERROR tests/test_phase67_lemma57_nu_prime_specialization.py
+ERROR tests/test_phase67_pi6_2_eta2_nu_prime.py
+ERROR tests/test_phase68_delta_eta9.py
+ERROR tests/test_phase68_eta_n_nu_n_plus_one_zero.py
+ERROR tests/test_phase68_nu_n_eta_n_plus_three_zero.py
+ERROR tests/test_phase68_pi7_3_nu_prime_eta6.py
+ERROR tests/test_phase68_pi8_4_decomposition.py
+ERROR tests/test_phase68_pi9_5_nu5_eta8.py
+ERROR tests/test_phase68_pi_n_plus_4_n_zero.py
+ERROR tests/test_phase68_prop58_integration.py
+ERROR tests/test_phase68_toda59_eta3_nu4.py
+ERROR tests/test_phase69_delta_iota11.py
+ERROR tests/test_phase69_delta_surjectivity.py
+ERROR tests/test_phase70_delta_eta9_squared_surjectivity.py
+ERROR tests/test_phase70_nu5_eta8_squared_zero_delta_eta11.py
+ERROR tests/test_phase70_pi10_5_nu5_eta8_squared.py
+ERROR tests/test_phase70_pi11_6_delta_iota13.py
+ERROR tests/test_phase70_pi7_2_eta2_nu_prime_eta6.py
+ERROR tests/test_phase70_pi8_3_nu_prime_eta6_squared.py
+ERROR tests/test_phase70_pi9_4_decomposition.py
+ERROR tests/test_phase70_pi_n_plus_5_n_zero.py
+ERROR tests/test_phase70_prop59_integration.py
+ERROR tests/test_phase71_toda512_n6_delta_injective.py
+ERROR tests/test_phase72_lemma510_core_inference.py
+ERROR tests/test_phase72_lemma510_modulo_integration.py
+ERROR tests/test_phase72r6_ordinary_primary_bridge.py
+ERROR tests/test_phase72r7_primary_composition_indeterminacy.py
+ERROR tests/test_phase72r8_corrected_lemma510_integration.py
+ERROR tests/test_phase72r9_corrected_provenance_retirement.py
+ERROR tests/test_phase72ra1_toda43_semantics.py
+ERROR tests/test_phase73_513_delta_eta13.py
+ERROR tests/test_phase73_513_delta_nu9.py
+ERROR tests/test_phase73_pi10_4_nu4_squared.py
+ERROR tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py
+ERROR tests/test_phase73_pi9_3_zero.py
+ERROR tests/test_phase73_prop511_finite_dimensional_integration.py
+ERROR tests/test_phase75_514_first_short_exact.py
+ERROR tests/test_phase75_514_second_short_exact.py
+ERROR tests/test_phase75_515_pi15_8_final_group.py
+ERROR tests/test_phase75_515_sigma8_prop44_decomposition.py
+ERROR tests/test_phase75_515_sigma8_prop44_specialization.py
+ERROR tests/test_phase75_515_sigma8_transported_decomposition.py
+ERROR tests/test_phase75_lemma514_sigma8.py
+ERROR tests/test_phase75_lemma514_sigma_double_prime.py
+ERROR tests/test_phase75_lemma514_sigma_prime.py
+ERROR tests/test_phase75_pi10_3_zero.py
+ERROR tests/test_phase75_pi11_4_zero.py
+ERROR tests/test_phase75_pi12_5_order_two.py
+ERROR tests/test_phase75_pi13_6_order_four.py
+ERROR tests/test_phase75_pi14_7_order_eight.py
+ERROR tests/test_phase75_pi16_9_sigma9.py
+ERROR tests/test_phase75_pi9_2_zero.py
+ERROR tests/test_phase75_sigma_family_definition.py
+ERROR tests/test_phase78_g3_stable_nu_transport.py
+ERROR tests/test_phase78_g4_g5_stable_zero_transport.py
+ERROR tests/test_phase78_g6_stable_nu_squared_transport.py
+ERROR tests/test_phase78_g7_stable_sigma_transport.py
+ERROR tests/test_phase78_stable_g0_to_g7_integration.py
+no tests collected, 103 errors in 47.04s
