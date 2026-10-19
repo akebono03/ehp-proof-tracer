@@ -1,0 +1,22 @@
+{
+  "phase": "166 R1 source-registry audit",
+  "read_only": true,
+  "rows": 687,
+  "classified": {
+    "external_tag": 442,
+    "missing": 12,
+    "other_unparsed": 22,
+    "page_reference": 27,
+    "toda_equation": 52,
+    "toda_lemma": 44,
+    "toda_proposition": 88
+  },
+  "registry_available": true,
+  "registry_error": null,
+  "candidate_locator_rows": 104,
+  "candidate_assertion_rows": 104,
+  "verified_relation_rows": 0,
+  "granted_proof_steps": 0,
+  "policy": "A locator match is not a proof or an asserted equality; citation rights remain denied.",
+  "full_pytest_run": false
+}

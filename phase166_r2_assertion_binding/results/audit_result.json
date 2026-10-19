@@ -1,0 +1,33 @@
+{
+  "phase": "166 R2 assertion binding",
+  "read_only": true,
+  "selected_rows": 4,
+  "binding_candidates": [
+    {
+      "csv_line": 3,
+      "assertion_id": "boundary:(5.3):nu_prime_double_relation",
+      "status": "CANDIDATE_DISPLAY_AND_TYPE_ONLY",
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 8,
+      "assertion_id": "boundary:(5.3):nu_prime_double_relation",
+      "status": "CANDIDATE_DISPLAY_AND_TYPE_ONLY",
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    }
+  ],
+  "candidate_count": 2,
+  "assertion_id": "boundary:(5.3):nu_prime_double_relation",
+  "assertion_content_type": "TodaFixedStatementComponent",
+  "candidate_content_type": "Relation",
+  "component_key": "nu_prime_double_relation",
+  "homotopy_group": "pi_6^3",
+  "registry_content_equal_to_relation": false,
+  "mathematical_identity_confirmed": 0,
+  "proof_permission_granted": 0,
+  "proof_step_links_created": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}

@@ -1,0 +1,47 @@
+{
+  "phase": "166 R3 internal proof reuse audit",
+  "read_only": true,
+  "ancestry_checks": [
+    "ValueError",
+    "add",
+    "any",
+    "id",
+    "isinstance",
+    "remove",
+    "same_statement",
+    "set",
+    "visit"
+  ],
+  "reuse_checks": [
+    "TypeError",
+    "ValueError",
+    "all",
+    "append",
+    "depends_on",
+    "isinstance",
+    "len",
+    "same_statement",
+    "validate_ancestry"
+  ],
+  "catalog_prior_checks": [
+    "OrderedCompletedProof",
+    "ValueError",
+    "append",
+    "depends_on",
+    "len",
+    "same_statement",
+    "sorted",
+    "tuple",
+    "validate_ancestry",
+    "validate_prior_internal_proofs"
+  ],
+  "search_accepts_completed_internal_proofs": true,
+  "search_calls_internal_reuse": true,
+  "search_calls_proof_order_catalog": false,
+  "search_explicitly_restricts_completed_proofs": false,
+  "completed_proof_is_not_mathematical_certification": true,
+  "proof_permission_granted": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "status": "PRIOR_ORDER_GATE_NOT_OBSERVED_IN_DIRECT_SEARCH"
+}

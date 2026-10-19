@@ -1,0 +1,78 @@
+{
+  "phase": "166 R3 boundary audit",
+  "read_only": true,
+  "total_registry_assertions": 67,
+  "origin_counts": {
+    "fixed_statement": 67,
+    "proof_internal": 0,
+    "source_archive": 0
+  },
+  "target_records": [
+    {
+      "assertion_id": "boundary:Proposition 5.1:pi3_2_group_relation",
+      "origin": "fixed_statement",
+      "content_type": "TodaFixedStatementComponent",
+      "reference": "Proposition 5.1",
+      "migration_statuses": [
+        "metadata_only"
+      ],
+      "proof_link_count": 0,
+      "grant_allowed": false
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.1:higher_eta_group_relation",
+      "origin": "fixed_statement",
+      "content_type": "TodaFixedStatementComponent",
+      "reference": "Proposition 5.1",
+      "migration_statuses": [
+        "metadata_only"
+      ],
+      "proof_link_count": 0,
+      "grant_allowed": false
+    },
+    {
+      "assertion_id": "boundary:Proposition 5.3:pi5_3_group_relation",
+      "origin": "fixed_statement",
+      "content_type": "TodaFixedStatementComponent",
+      "reference": "Proposition 5.3",
+      "migration_statuses": [
+        "metadata_only"
+      ],
+      "proof_link_count": 0,
+      "grant_allowed": false
+    },
+    {
+      "assertion_id": "boundary:(5.3):nu_prime_double_relation",
+      "origin": "fixed_statement",
+      "content_type": "TodaFixedStatementComponent",
+      "reference": "(5.3)",
+      "migration_statuses": [
+        "metadata_only"
+      ],
+      "proof_link_count": 0,
+      "grant_allowed": false
+    }
+  ],
+  "citation_checks": {
+    "no_review": {
+      "status": "denied",
+      "reason": "metadata_only",
+      "usable": false
+    },
+    "id_supplied_not_certification": {
+      "status": "denied",
+      "reason": "metadata_only",
+      "usable": false
+    }
+  },
+  "lookup_modes": {
+    "legacy_uses_eligibility_lookup": true,
+    "typed_reference_uses_direct_lookup": true,
+    "ordered_mode_function_present": true,
+    "review_required_for_all_modes": false
+  },
+  "proof_permission_granted": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "status": "AUDITED_WITH_LOOKUP_MODE_REVIEW_PENDING"
+}
