@@ -1,0 +1,71 @@
+{
+  "phase": "166 R2 generator/group correspondence",
+  "read_only": true,
+  "generator_rows": 233,
+  "sphere_rows": 2150,
+  "distinct_generator_ids": 233,
+  "duplicate_generator_ids": 0,
+  "status_counts": {
+    "EMPTY_ELEMENT": 32,
+    "GENERATOR_IDS_RESOLVED_NOT_CERTIFIED": 2118
+  },
+  "focus_rows": [
+    {
+      "csv_line": 39,
+      "n": "2",
+      "k": "1",
+      "component_id": "0",
+      "generator_text": "η2",
+      "element_ids": "2",
+      "generator_base_names": "η",
+      "status": "GENERATOR_IDS_RESOLVED_NOT_CERTIFIED",
+      "display_missing": false,
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 40,
+      "n": "3",
+      "k": "1",
+      "component_id": "0",
+      "generator_text": "η3",
+      "element_ids": "2",
+      "generator_base_names": "η",
+      "status": "GENERATOR_IDS_RESOLVED_NOT_CERTIFIED",
+      "display_missing": false,
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 74,
+      "n": "3",
+      "k": "2",
+      "component_id": "0",
+      "generator_text": "η3^2",
+      "element_ids": "2 2",
+      "generator_base_names": "η | η",
+      "status": "GENERATOR_IDS_RESOLVED_NOT_CERTIFIED",
+      "display_missing": false,
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 107,
+      "n": "3",
+      "k": "3",
+      "component_id": "0",
+      "generator_text": "ν'",
+      "element_ids": "3",
+      "generator_base_names": "ν'",
+      "status": "GENERATOR_IDS_RESOLVED_NOT_CERTIFIED",
+      "display_missing": false,
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    }
+  ],
+  "claim": "Element identifier join only; no proof of generator identity, orders, suspensions or group structure",
+  "mathematical_identity_confirmed": 0,
+  "proof_permission_granted": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
