@@ -1,0 +1,31 @@
+{
+  "phase": "165 R6-8(3)",
+  "criterion": "production_root_reachability",
+  "roots": [
+    "web_app.py",
+    "phase165_r55_nk_only_goal.py",
+    "phase165_r52_r9_shared_math.py"
+  ],
+  "visited_module_count": 819,
+  "protected": [],
+  "retirable": [
+    "probes/probe_phase53_capabilities.py",
+    "probes/probe_phase54_capabilities.py",
+    "probes/probe_phase55_capabilities.py",
+    "probes/probe_phase57_capabilities.py",
+    "phase162_ehp_leaf_inputs.py",
+    "phase162_pi5_3_web_replay.py",
+    "tests/test_phase59_n3_ehp_chain.py",
+    "tests/test_phase55_prop51_phase52_phase54_dependency.py"
+  ],
+  "missing": [],
+  "missing_roots": [],
+  "parse_errors": [],
+  "nonliteral_dynamic_imports": [],
+  "safe_to_apply": true,
+  "mathematical_coverage_verified": false,
+  "pytest_collection_verified": false,
+  "full_pytest_run": false,
+  "action": "retired_production_unreachable_files",
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_8_3_runtime_backup_20261019T061117Z.zip"
+}
