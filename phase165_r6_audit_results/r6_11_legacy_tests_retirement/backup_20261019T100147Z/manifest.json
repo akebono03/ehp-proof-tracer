@@ -1,0 +1,54 @@
+[
+  {
+    "path": "tests/test_phase49_concrete_pi3_2_compatibility.py",
+    "sha256": "ebd7a0643068212394f6febf347b3cf874da54940fe35acf1d292fd7dc81b7ec"
+  },
+  {
+    "path": "tests/test_phase49_delta_hopf_surjectivity.py",
+    "sha256": "7b92de25a7c8d2eb332a1b7b552ae5260d2a7be8b9d16abdf52e7e1cc6dc4fb6"
+  },
+  {
+    "path": "tests/test_phase49_hopf_injectivity.py",
+    "sha256": "df642f8bb8ce97048378b3259073cf95f5657561ce364411167e4842ef8e9168"
+  },
+  {
+    "path": "tests/test_phase49_hopf_isomorphism.py",
+    "sha256": "b5a73c9ffde9dda3134e0293aab0e0b926c9c2fc4ead0a34d796fc3063adf3f7"
+  },
+  {
+    "path": "tests/test_phase49_low_dimensional_facts.py",
+    "sha256": "944413b7477552b08cdc5707e67f1c3f85f191368c4f48a08f830c1675370005"
+  },
+  {
+    "path": "tests/test_phase49_probe.py",
+    "sha256": "4a9cbd5a08e588822d88909a462bc7c0be106bb0fc53343cd40da4636c23179e"
+  },
+  {
+    "path": "tests/test_phase55_prop51_phase49_dependency.py",
+    "sha256": "ec8810fc2d949f7dcda2dcb91cc4b4f659ea9a9cbb2726291444701ab86f1df1"
+  },
+  {
+    "path": "tests/test_phase56_pi_i_minus_1_1_zero.py",
+    "sha256": "02ba87a0635faf359dd95f3117e850284c08dcbc9f9303b2cd3218c719c34ef7"
+  },
+  {
+    "path": "tests/test_phase56_probe.py",
+    "sha256": "312ddd20f9f7b295ec3d59322883de0fdb71a47ad8d184d9717069df6d49a620"
+  },
+  {
+    "path": "tests/test_phase56_prop44_composition_compatibility.py",
+    "sha256": "421b6ccbca17f06510b7ca83d55f2a0a4501b0b3c535a18971aaffb9272b21dc"
+  },
+  {
+    "path": "tests/test_phase56_prop44_eta2_specialization.py",
+    "sha256": "3d3a22e340f21322be8c0c9ab0ba80da97413dffa6605cc796df17bf690082ed"
+  },
+  {
+    "path": "tests/test_phase56_prop44_second_summand_restriction.py",
+    "sha256": "ead92d411ec043238638a510b3c3388371766f0f29c1a40793efe874c4cba58e"
+  },
+  {
+    "path": "tests/test_phase56_toda52_composition_isomorphism.py",
+    "sha256": "7b6067b1ec86120c42ebbb43dbf69a16fcade7bf98d2563e4753c639190d0b14"
+  }
+]

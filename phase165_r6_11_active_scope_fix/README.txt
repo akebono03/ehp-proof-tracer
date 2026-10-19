@@ -1,0 +1,1 @@
+Phase 165 R6-11 active-scope fix. Only top-level Python modules, tests/*.py and probes/*.py are scanned for direct imports and syntax errors. Historical phase packages/backups are excluded. Backup with SHA-256 before deleting only 13 candidate test files. Probe and mathematical sources unchanged. Run run.ps1 from repository root. No full pytest.
