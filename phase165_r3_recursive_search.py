@@ -26,22 +26,28 @@ class GoalExpansion:
     subgoals: tuple[object, ...]
 
 
-def _typed_reference_steps(
-    bridge: RegistryBridgeResult,
-    goal: object,
-    citing_assertion_id: str,
-    *,
-    verified_assertion_ids: tuple[str, ...] = (),
-) -> tuple[ProofStep, ...]:
-    """Use the established citation policy for direct typed references."""
-    from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
+def _typed_reference_steps(bridge: RegistryBridgeResult, goal: object) -> tuple[ProofStep, ...]:
+    """Read only exact fixed statements that have a linked given step.
 
-    return ordered_typed_reference_steps(
-        bridge,
-        goal,
-        citing_assertion_id,
-        verified_assertion_ids=verified_assertion_ids,
-    )
+    A source-only archive is not a typed statement and is not automatically
+    converted; callers register concrete typed statements explicitly.
+    """
+    result = []
+    for assertion in bridge.registry._assertions.values():
+        if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
+            continue
+        if type(assertion.content) is not type(goal) or assertion.content != goal:
+            continue
+        links = tuple(x for x in bridge.proof_links if x.assertion_id == assertion.assertion_id)
+        if len(links) != 1 or links[0].step is None:
+            continue
+        step = links[0].step
+        if (not isinstance(step, ProofStep) or step.rule is not ProofRule.GIVEN
+                or type(step.conclusion) is not type(goal) or step.conclusion != goal):
+            raise ValueError("typed Reference proof link is inconsistent")
+        result.append(step)
+    return tuple(result)
+
 
 def reconstruct_registered_goal(
     goal: object,
@@ -94,10 +100,7 @@ def reconstruct_registered_goal(
                     verified_assertion_ids=verified_assertion_ids,
                 ))
             elif lookup_mode == "typed_reference":
-                options = list(_typed_reference_steps(
-                    bridge, target, citing_assertion_id,
-                    verified_assertion_ids=verified_assertion_ids,
-                ))
+                options = list(_typed_reference_steps(bridge, target))
             else:
                 candidates = find_eligible_goal_candidates(
                     bridge, target, citing_assertion_id,
