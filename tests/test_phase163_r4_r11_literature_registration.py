@@ -7,7 +7,6 @@ from phase163_r4_registry_bridge import MigrationStatus, build_registry_bridge
 from phase163_r4_r11_literature_registration import (
     ALL_KEYS,
     LiteratureAssertionInput,
-    existing_prop56_candidates,
     register_prop56_literature_statements,
 )
 from proof import Relation
@@ -15,7 +14,8 @@ from scalar_rules import ScalarGreaterEqualStatement
 
 
 def _base_and_inputs():
-    return build_registry_bridge(), existing_prop56_candidates()
+    from phase165_r6_explicit_literature_inputs import prop56_inputs
+    return build_registry_bridge(), prop56_inputs()
 
 
 def test_r4_r11_repair3_registers_five_typed_literature_candidates():

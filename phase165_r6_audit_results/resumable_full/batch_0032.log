@@ -1,0 +1,1228 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                 [100%]
+================================== FAILURES ===================================
+__________________ test_phase103_6d56_family_coverage_counts __________________
+
+    def test_phase103_6d56_family_coverage_counts():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories
+        in categories_by_family.values()
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py:231: AssertionError
+__________________ test_phase103_6d56_entry_coverage_counts ___________________
+
+    def test_phase103_6d56_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py:249: AssertionError
+_ test_phase103_6d56_theorem_specific_entry_count_increases_by_exactly_fourteen _
+
+    def test_phase103_6d56_theorem_specific_entry_count_increases_by_exactly_fourteen():
+      before = (
+        _phase103_6d56_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_count = sum(
+        1
+        for entry in before.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+      after_count = sum(
+        1
+        for entry in after.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+>     assert (
+        after_count
+        == before_count + 14
+      )
+E     assert 0 == (0 + 14)
+
+tests\test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py:301: AssertionError
+_________ test_phase103_6d56_preserves_6d53_composition_zero_closure __________
+
+    def test_phase103_6d56_preserves_6d53_composition_zero_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.8 eta_5 nu_6 zero",
+        "Toda Proposition 3.1 nu_6 eta_9 zero consequence",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 6
+E     assert 0 == 6
+E      +  where 0 = len(())
+
+tests\test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py:324: AssertionError
+_________ test_phase103_6d56_preserves_6d50_toda52_transport_closure __________
+
+    def test_phase103_6d56_preserves_6d50_toda52_transport_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.6 pi_5^2 eta_2 cube",
+        "Toda Proposition 5.9 pi_7^2 eta_2 nu-prime eta_6",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 5
+E     assert 0 == 5
+E      +  where 0 = len(())
+
+tests\test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py:352: AssertionError
+____ test_phase103_6d56_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d56_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py:369: AssertionError
+_ test_phase103_6d59_classifies_the_two_audited_eta_square_families_as_bridge _
+
+    def test_phase103_6d59_classifies_the_two_audited_eta_square_families_as_bridge():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      for family in PHASE103_6D59_TARGET_FAMILIES:
+>       assert family in families
+E       AssertionError: assert 'Toda Proposition 5.3 n=3 eta-square suspension bridge' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:65: AssertionError
+___ test_phase103_6d59_target_entries_are_exactly_the_two_audited_factories ___
+
+    def test_phase103_6d59_target_entries_are_exactly_the_two_audited_factories():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D59_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:88: AssertionError
+___ test_phase103_6d59_changes_exactly_fourteen_entries_from_6d56_boundary ____
+
+    def test_phase103_6d59_changes_exactly_fourteen_entries_from_6d56_boundary():
+      before = (
+        _phase103_6d59_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in before_by_key.items():
+        after_entry = after_by_key[
+          key
+        ]
+    
+        factory_name = (
+          _inference_rule_factory_name(
+            before_entry.rule
+          )
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and factory_name
+          in PHASE103_6D59_TARGET_FACTORIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.BRIDGE
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len([])
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:157: AssertionError
+_________________ test_phase103_6d59_target_cluster_is_closed _________________
+
+    def test_phase103_6d59_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D59_TARGET_FACTORIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:176: AssertionError
+__________________ test_phase103_6d59_family_coverage_counts __________________
+
+    def test_phase103_6d59_family_coverage_counts():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories
+        in categories_by_family.values()
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:231: AssertionError
+__________________ test_phase103_6d59_entry_coverage_counts ___________________
+
+    def test_phase103_6d59_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:249: AssertionError
+_____ test_phase103_6d59_bridge_entry_count_increases_by_exactly_fourteen _____
+
+    def test_phase103_6d59_bridge_entry_count_increases_by_exactly_fourteen():
+      before = (
+        _phase103_6d59_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_count = sum(
+        1
+        for entry in before.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.BRIDGE
+        )
+      )
+    
+      after_count = sum(
+        1
+        for entry in after.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.BRIDGE
+        )
+      )
+    
+>     assert (
+        after_count
+        == before_count + 14
+      )
+E     assert 0 == (0 + 14)
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:301: AssertionError
+_________ test_phase103_6d59_preserves_6d56_prop53_transport_closure __________
+
+    def test_phase103_6d59_preserves_6d56_prop53_transport_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+        "Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:324: AssertionError
+_________ test_phase103_6d59_preserves_6d53_composition_zero_closure __________
+
+    def test_phase103_6d59_preserves_6d53_composition_zero_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.8 eta_5 nu_6 zero",
+        "Toda Proposition 3.1 nu_6 eta_9 zero consequence",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 6
+E     assert 0 == 6
+E      +  where 0 = len(())
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:352: AssertionError
+____ test_phase103_6d59_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d59_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py:369: AssertionError
+_ test_phase103_6d62_classifies_the_two_audited_lemma54_nu4_families_as_theorem_specific _
+
+    def test_phase103_6d62_classifies_the_two_audited_lemma54_nu4_families_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      for family in PHASE103_6D62_TARGET_FAMILIES:
+>       assert family in families
+E       AssertionError: assert 'Toda Lemma 5.4 nu_4 Hopf correction' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:65: AssertionError
+___ test_phase103_6d62_target_entries_are_exactly_the_two_audited_factories ___
+
+    def test_phase103_6d62_target_entries_are_exactly_the_two_audited_factories():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D62_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:88: AssertionError
+___ test_phase103_6d62_changes_exactly_fourteen_entries_from_6d59_boundary ____
+
+    def test_phase103_6d62_changes_exactly_fourteen_entries_from_6d59_boundary():
+      before = (
+        _phase103_6d62_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in before_by_key.items():
+        after_entry = after_by_key[
+          key
+        ]
+    
+        factory_name = (
+          _inference_rule_factory_name(
+            before_entry.rule
+          )
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and factory_name
+          in PHASE103_6D62_TARGET_FACTORIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len([])
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:157: AssertionError
+_________________ test_phase103_6d62_target_cluster_is_closed _________________
+
+    def test_phase103_6d62_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D62_TARGET_FACTORIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:176: AssertionError
+__________________ test_phase103_6d62_family_coverage_counts __________________
+
+    def test_phase103_6d62_family_coverage_counts():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories
+        in categories_by_family.values()
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:231: AssertionError
+__________________ test_phase103_6d62_entry_coverage_counts ___________________
+
+    def test_phase103_6d62_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:249: AssertionError
+_ test_phase103_6d62_theorem_specific_entry_count_increases_by_exactly_fourteen _
+
+    def test_phase103_6d62_theorem_specific_entry_count_increases_by_exactly_fourteen():
+      before = (
+        _phase103_6d62_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_count = sum(
+        1
+        for entry in before.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+      after_count = sum(
+        1
+        for entry in after.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+>     assert (
+        after_count
+        == before_count + 14
+      )
+E     assert 0 == (0 + 14)
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:301: AssertionError
+_________ test_phase103_6d62_preserves_6d59_eta_square_bridge_closure _________
+
+    def test_phase103_6d62_preserves_6d59_eta_square_bridge_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.3 n=3 eta-square suspension bridge",
+        "Toda Proposition 5.3 n=4 eta-square suspension bridge",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:324: AssertionError
+_________ test_phase103_6d62_preserves_6d56_prop53_transport_closure __________
+
+    def test_phase103_6d62_preserves_6d56_prop53_transport_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.3 n=3 pi_5^3 finite-cyclic transport",
+        "Toda Proposition 5.3 n=4 pi_6^4 finite-cyclic transport",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:352: AssertionError
+____ test_phase103_6d62_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d62_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py:369: AssertionError
+_ test_phase103_6d65_classifies_the_three_audited_prop511_nu_squared_families_as_theorem_specific _
+
+    def test_phase103_6d65_classifies_the_three_audited_prop511_nu_squared_families_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      for family in PHASE103_6D65_TARGET_FAMILIES:
+>       assert family in families
+E       AssertionError: assert 'Toda Proposition 5.11 pi_12^6 nu_6 squared' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:67: AssertionError
+__ test_phase103_6d65_target_entries_are_exactly_the_three_audited_factories __
+
+    def test_phase103_6d65_target_entries_are_exactly_the_three_audited_factories():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D65_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 3
+E     assert 0 == 3
+E      +  where 0 = len(())
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:90: AssertionError
+_____ test_phase103_6d65_changes_exactly_three_entries_from_6d62_boundary _____
+
+    def test_phase103_6d65_changes_exactly_three_entries_from_6d62_boundary():
+      before = (
+        _phase103_6d65_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in before_by_key.items():
+        after_entry = after_by_key[
+          key
+        ]
+    
+        factory_name = (
+          _inference_rule_factory_name(
+            before_entry.rule
+          )
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and factory_name
+          in PHASE103_6D65_TARGET_FACTORIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 3
+E     assert 0 == 3
+E      +  where 0 = len([])
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:159: AssertionError
+_________________ test_phase103_6d65_target_cluster_is_closed _________________
+
+    def test_phase103_6d65_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D65_TARGET_FACTORIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 3
+E     assert 0 == 3
+E      +  where 0 = len(())
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:178: AssertionError
+__________________ test_phase103_6d65_family_coverage_counts __________________
+
+    def test_phase103_6d65_family_coverage_counts():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories
+        in categories_by_family.values()
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:233: AssertionError
+__________________ test_phase103_6d65_entry_coverage_counts ___________________
+
+    def test_phase103_6d65_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:251: AssertionError
+_ test_phase103_6d65_theorem_specific_entry_count_increases_by_exactly_three __
+
+    def test_phase103_6d65_theorem_specific_entry_count_increases_by_exactly_three():
+      before = (
+        _phase103_6d65_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_count = sum(
+        1
+        for entry in before.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+      after_count = sum(
+        1
+        for entry in after.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+>     assert (
+        after_count
+        == before_count + 3
+      )
+E     assert 0 == (0 + 3)
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:303: AssertionError
+______ test_phase103_6d65_preserves_6d62_lemma54_nu4_consequence_closure ______
+
+    def test_phase103_6d65_preserves_6d62_lemma54_nu4_consequence_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Lemma 5.4 nu_4 Hopf correction",
+        "Toda Lemma 5.4 nu_4 double suspension",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:326: AssertionError
+_________ test_phase103_6d65_preserves_6d59_eta_square_bridge_closure _________
+
+    def test_phase103_6d65_preserves_6d59_eta_square_bridge_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.3 n=3 eta-square suspension bridge",
+        "Toda Proposition 5.3 n=4 eta-square suspension bridge",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:354: AssertionError
+____ test_phase103_6d65_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d65_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py:371: AssertionError
+_ test_phase103_6d68_classifies_the_three_audited_stable_range_transport_families_as_theorem_specific _
+
+    def test_phase103_6d68_classifies_the_three_audited_stable_range_transport_families_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      for family in PHASE103_6D68_TARGET_FAMILIES:
+>       assert family in families
+E       AssertionError: assert 'Toda Proposition 5.3 eta_4 squared stable transport' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:67: AssertionError
+__ test_phase103_6d68_target_entries_are_exactly_the_three_audited_factories __
+
+    def test_phase103_6d68_target_entries_are_exactly_the_three_audited_factories():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D68_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 12
+E     assert 0 == 12
+E      +  where 0 = len(())
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:90: AssertionError
+____ test_phase103_6d68_changes_exactly_twelve_entries_from_6d65_boundary _____
+
+    def test_phase103_6d68_changes_exactly_twelve_entries_from_6d65_boundary():
+      before = (
+        _phase103_6d68_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in before_by_key.items():
+        after_entry = after_by_key[
+          key
+        ]
+    
+        factory_name = (
+          _inference_rule_factory_name(
+            before_entry.rule
+          )
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and factory_name
+          in PHASE103_6D68_TARGET_FACTORIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 12
+E     assert 0 == 12
+E      +  where 0 = len([])
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:159: AssertionError
+_________________ test_phase103_6d68_target_cluster_is_closed _________________
+
+    def test_phase103_6d68_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D68_TARGET_FACTORIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 12
+E     assert 0 == 12
+E      +  where 0 = len(())
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:178: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py::test_phase103_6d56_family_coverage_counts
+FAILED tests/test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py::test_phase103_6d56_entry_coverage_counts
+FAILED tests/test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py::test_phase103_6d56_theorem_specific_entry_count_increases_by_exactly_fourteen
+FAILED tests/test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py::test_phase103_6d56_preserves_6d53_composition_zero_closure
+FAILED tests/test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py::test_phase103_6d56_preserves_6d50_toda52_transport_closure
+FAILED tests/test_phase103_6d56_prop53_finite_cyclic_suspension_transport_theorem_specific_classification.py::test_phase103_6d56_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_classifies_the_two_audited_eta_square_families_as_bridge
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_target_entries_are_exactly_the_two_audited_factories
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_changes_exactly_fourteen_entries_from_6d56_boundary
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_target_cluster_is_closed
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_family_coverage_counts
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_entry_coverage_counts
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_bridge_entry_count_increases_by_exactly_fourteen
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_preserves_6d56_prop53_transport_closure
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_preserves_6d53_composition_zero_closure
+FAILED tests/test_phase103_6d59_prop53_eta_square_suspension_bridge_classification.py::test_phase103_6d59_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_classifies_the_two_audited_lemma54_nu4_families_as_theorem_specific
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_target_entries_are_exactly_the_two_audited_factories
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_changes_exactly_fourteen_entries_from_6d59_boundary
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_target_cluster_is_closed
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_family_coverage_counts
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_entry_coverage_counts
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_theorem_specific_entry_count_increases_by_exactly_fourteen
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_preserves_6d59_eta_square_bridge_closure
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_preserves_6d56_prop53_transport_closure
+FAILED tests/test_phase103_6d62_lemma54_nu4_construction_consequence_theorem_specific_classification.py::test_phase103_6d62_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_classifies_the_three_audited_prop511_nu_squared_families_as_theorem_specific
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_target_entries_are_exactly_the_three_audited_factories
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_changes_exactly_three_entries_from_6d62_boundary
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_target_cluster_is_closed
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_family_coverage_counts
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_entry_coverage_counts
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_theorem_specific_entry_count_increases_by_exactly_three
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_preserves_6d62_lemma54_nu4_consequence_closure
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_preserves_6d59_eta_square_bridge_closure
+FAILED tests/test_phase103_6d65_prop511_finite_dimensional_nu_squared_transport_theorem_specific_classification.py::test_phase103_6d65_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_classifies_the_three_audited_stable_range_transport_families_as_theorem_specific
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_target_entries_are_exactly_the_three_audited_factories
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_changes_exactly_twelve_entries_from_6d65_boundary
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_target_cluster_is_closed
+40 failed in 13.70s

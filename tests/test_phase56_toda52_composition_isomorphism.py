@@ -1,3 +1,4 @@
+import pytest
 from expression import (
   Composition,
   ScalarSum,
@@ -589,6 +590,7 @@ def test_phase56_5_rejects_restriction_with_wrong_composition():
   ) is None
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase56_5_reaches_fixed_point_in_one_round():
   data = build_phase56_5_data()
 

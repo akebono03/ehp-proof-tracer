@@ -1,0 +1,676 @@
+FFFFFFFFFFFFFFFFFFFFFFF.FF..............                                 [100%]
+================================== FAILURES ===================================
+______ test_phase103_6d91_preserves_6d88_e_nu5_eta8_squared_zero_closure ______
+
+    def test_phase103_6d91_preserves_6d88_e_nu5_eta8_squared_zero_closure():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          == "Toda Proposition 5.9 E nu_5 eta_8 squared zero"
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase103_6d91_prop59_pi7_2_suspension_zero_theorem_specific_classification.py:328: AssertionError
+_______ test_phase103_6d91_preserves_structural_and_map_property_counts _______
+
+    def test_phase103_6d91_preserves_structural_and_map_property_counts():
+      catalog = _build_catalog()
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in catalog.entries()
+      )
+    
+>     assert (
+        counts[
+          RuleRelevanceCategory.STRUCTURAL
+        ]
+        == 201
+      )
+E     assert 0 == 201
+
+tests\test_phase103_6d91_prop59_pi7_2_suspension_zero_theorem_specific_classification.py:347: AssertionError
+____ test_phase103_6d91_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d91_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d91_prop59_pi7_2_suspension_zero_theorem_specific_classification.py:368: AssertionError
+_ test_phase103_6d94_classifies_both_symbolic_eta_generator_bridge_families_as_bridge _
+
+    def test_phase103_6d94_classifies_both_symbolic_eta_generator_bridge_families_as_bridge():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      for family_name in (
+        PHASE103_6D94_TARGET_FAMILIES
+      ):
+>       assert family_name in families
+E       AssertionError: assert 'Toda Proposition 5.3 higher eta-squared finite-cyclic generator bridge' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:71: AssertionError
+______ test_phase103_6d94_target_factories_are_exactly_the_audited_pair _______
+
+    def test_phase103_6d94_target_factories_are_exactly_the_audited_pair():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D94_TARGET_FACTORIES
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:102: AssertionError
+__________ test_phase103_6d94_changes_only_the_two_target_factories ___________
+
+    def test_phase103_6d94_changes_only_the_two_target_factories():
+      before = (
+        _phase103_6d94_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      expected_changed = {
+        key
+        for key, entry
+        in before_by_key.items()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D94_TARGET_FACTORIES
+        )
+      }
+    
+>     assert len(
+        expected_changed
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(set())
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:150: AssertionError
+_____________ test_phase103_6d94_both_target_clusters_are_closed ______________
+
+    def test_phase103_6d94_both_target_clusters_are_closed():
+      catalog = _build_catalog()
+    
+      for factory_name in (
+        PHASE103_6D94_TARGET_FACTORIES
+      ):
+        entries = tuple(
+          entry
+          for entry in catalog.entries()
+          if (
+            _inference_rule_factory_name(
+              entry.rule
+            )
+            == factory_name
+          )
+        )
+    
+>       assert len(
+          entries
+        ) == 7
+E       assert 0 == 7
+E        +  where 0 = len(())
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:199: AssertionError
+_____ test_phase103_6d94_family_coverage_changes_by_exactly_two_families ______
+
+    def test_phase103_6d94_family_coverage_changes_by_exactly_two_families():
+      before = (
+        _phase103_6d94_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_families = _families(
+        before
+      )
+      after_families = _families(
+        after
+      )
+    
+      def classified_count(
+        families,
+      ):
+        return sum(
+          1
+          for entries in families.values()
+          if {
+            entry.relevance_category
+            for entry in entries
+          }
+          != {
+            RuleRelevanceCategory.UNCLASSIFIED
+          }
+        )
+    
+>     assert len(
+        before_families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:240: AssertionError
+___ test_phase103_6d94_entry_coverage_delta_matches_fourteen_target_entries ___
+
+    def test_phase103_6d94_entry_coverage_delta_matches_fourteen_target_entries():
+      before = (
+        _phase103_6d94_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_entries = tuple(
+        before.entries()
+      )
+      after_entries = tuple(
+        after.entries()
+      )
+    
+      before_counts = Counter(
+        entry.relevance_category
+        for entry in before_entries
+      )
+    
+      after_counts = Counter(
+        entry.relevance_category
+        for entry in after_entries
+      )
+    
+>     assert len(
+        before_entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:288: AssertionError
+_____________ test_phase103_6d94_preserves_theorem_specific_count _____________
+
+    def test_phase103_6d94_preserves_theorem_specific_count():
+      catalog = _build_catalog()
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in catalog.entries()
+      )
+    
+>     assert (
+        counts[
+          RuleRelevanceCategory.THEOREM_SPECIFIC
+        ]
+        == 391
+      )
+E     assert 0 == 391
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:337: AssertionError
+_ test_phase103_6d94_preserves_structural_map_property_and_generic_relation_counts _
+
+    def test_phase103_6d94_preserves_structural_map_property_and_generic_relation_counts():
+      catalog = _build_catalog()
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in catalog.entries()
+      )
+    
+>     assert (
+        counts[
+          RuleRelevanceCategory.STRUCTURAL
+        ]
+        == 201
+      )
+E     assert 0 == 201
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:353: AssertionError
+____ test_phase103_6d94_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d94_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py:381: AssertionError
+__ test_phase103_6d98_classifies_toda53_eta3_twice_zero_as_theorem_specific ___
+
+    def test_phase103_6d98_classifies_toda53_eta3_twice_zero_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+>     assert (
+        PHASE103_6D98_TARGET_FAMILY
+        in families
+      )
+E     AssertionError: assert 'Toda 5.3 eta_3 twice zero' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:62: AssertionError
+______ test_phase103_6d98_target_factory_is_exactly_the_audited_factory _______
+
+    def test_phase103_6d98_target_factory_is_exactly_the_audited_factory():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D98_TARGET_FACTORY
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:96: AssertionError
+_______________ test_phase103_6d98_changes_only_target_factory ________________
+
+    def test_phase103_6d98_changes_only_target_factory():
+      before = (
+        _phase103_6d98_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+    
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      expected_changed = {
+        key
+        for key, entry
+        in before_by_key.items()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D98_TARGET_FACTORY
+        )
+      }
+    
+>     assert len(
+        expected_changed
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(set())
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:146: AssertionError
+_________________ test_phase103_6d98_target_cluster_is_closed _________________
+
+    def test_phase103_6d98_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D98_TARGET_FACTORY
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:195: AssertionError
+______ test_phase103_6d98_family_coverage_changes_by_exactly_one_family _______
+
+    def test_phase103_6d98_family_coverage_changes_by_exactly_one_family():
+      before = (
+        _phase103_6d98_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_families = _families(
+        before
+      )
+    
+      after_families = _families(
+        after
+      )
+    
+      def classified_count(
+        families,
+      ):
+        return sum(
+          1
+          for entries in families.values()
+          if {
+            entry.relevance_category
+            for entry in entries
+          }
+          != {
+            RuleRelevanceCategory.UNCLASSIFIED
+          }
+        )
+    
+>     assert len(
+        before_families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:268: AssertionError
+___ test_phase103_6d98_entry_coverage_delta_matches_fourteen_target_entries ___
+
+    def test_phase103_6d98_entry_coverage_delta_matches_fourteen_target_entries():
+      before = (
+        _phase103_6d98_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_entries = tuple(
+        before.entries()
+      )
+    
+      after_entries = tuple(
+        after.entries()
+      )
+    
+      before_counts = Counter(
+        entry.relevance_category
+        for entry in before_entries
+      )
+    
+      after_counts = Counter(
+        entry.relevance_category
+        for entry in after_entries
+      )
+    
+>     assert len(
+        before_entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:318: AssertionError
+_____________ test_phase103_6d98_preserves_other_category_counts ______________
+
+    def test_phase103_6d98_preserves_other_category_counts():
+      catalog = _build_catalog()
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in catalog.entries()
+      )
+    
+>     assert (
+        counts[
+          RuleRelevanceCategory.STRUCTURAL
+        ]
+        == 201
+      )
+E     assert 0 == 201
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:367: AssertionError
+____ test_phase103_6d98_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d98_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py:403: AssertionError
+___________ test_phase103_6_explore_applicable_dispatches_to_facade ___________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002695BF03C70>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002695BF03B20>
+
+    def test_phase103_6_explore_applicable_dispatches_to_facade(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = SimpleNamespace(
+        generator=object(),
+      )
+    
+      def fake_facade(
+        generator_input,
+      ):
+        calls.append(
+          generator_input
+        )
+        return fake_result
+    
+>     monkeypatch.setattr(
+        cli_main,
+        (
+          "explore_standard_repository_"
+          "generator_applicability_input"
+        ),
+        fake_facade,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'explore_standard_repository_generator_applicability_input'
+
+tests\test_phase103_cli_applicability.py:26: AttributeError
+_____ test_phase103_6_actual_explore_applicable_renders_production_result _____
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000002695BEAB160>
+
+    def test_phase103_6_actual_explore_applicable_renders_production_result(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "explore-applicable",
+          "nu_prime",
+        ]
+      )
+    
+      captured = (
+        capsys.readouterr()
+      )
+    
+      assert exit_code == 0
+    
+>     assert (
+        "# Applicable theorem / lemma candidates for $\\nu'$"
+        in captured.out
+      )
+E     assert "# Applicable theorem / lemma candidates for $\\nu'$" in 'Search status: search_failed\nProven premises: 0\nApplicable rule families: 1\nApplicable matches: 1\n- suspension is homomorphism: 1 match(es)\n該当する型付き命題が未登録です\nApplicability only: no inference rule executed\n'
+E      +  where 'Search status: search_failed\nProven premises: 0\nApplicable rule families: 1\nApplicable matches: 1\n- suspension is homomorphism: 1 match(es)\n該当する型付き命題が未登録です\nApplicability only: no inference rule executed\n' = CaptureResult(out='Search status: search_failed\nProven premises: 0\nApplicable rule families: 1\nApplicable matches: 1\n- suspension is homomorphism: 1 match(es)\n該当する型付き命題が未登録です\nApplicability only: no inference rule executed\n', err='').out
+
+tests\test_phase103_cli_applicability.py:92: AssertionError
+_________ test_phase103_6_explore_applicable_zero_result_is_zero_exit _________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000002695BE29060>
+
+    def test_phase103_6_explore_applicable_zero_result_is_zero_exit(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "explore-applicable",
+          "eta_999",
+        ]
+      )
+    
+      captured = (
+        capsys.readouterr()
+      )
+    
+      assert (
+        exit_code
+        == 0
+      )
+    
+>     assert (
+        "Proof-scope occurrences: 0"
+        in captured.out
+      )
+E     AssertionError: assert 'Proof-scope occurrences: 0' in 'Search status: search_failed\nProven premises: 0\nApplicable rule families: 1\nApplicable matches: 1\n- suspension is homomorphism: 1 match(es)\n該当する型付き命題が未登録です\nApplicability only: no inference rule executed\n'
+E      +  where 'Search status: search_failed\nProven premises: 0\nApplicable rule families: 1\nApplicable matches: 1\n- suspension is homomorphism: 1 match(es)\n該当する型付き命題が未登録です\nApplicability only: no inference rule executed\n' = CaptureResult(out='Search status: search_failed\nProven premises: 0\nApplicable rule families: 1\nApplicable matches: 1\n- suspension is homomorphism: 1 match(es)\n該当する型付き命題が未登録です\nApplicability only: no inference rule executed\n', err='').out
+
+tests\test_phase103_cli_applicability.py:178: AssertionError
+___ test_phase103_6c5_explore_applicable_default_uses_legacy_compact_alias ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002695BEC8AC0>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002695BEC9A50>
+
+    def test_phase103_6c5_explore_applicable_default_uses_legacy_compact_alias(
+      monkeypatch,
+      capsys,
+    ):
+      fake_result = SimpleNamespace()
+    
+>     monkeypatch.setattr(
+        cli_main,
+        (
+          "explore_standard_repository_"
+          "generator_applicability_input"
+        ),
+        lambda generator_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'explore_standard_repository_generator_applicability_input'
+
+tests\test_phase103_compact_detailed_cli.py:14: AttributeError
+__ test_phase103_6c5_explore_applicable_detailed_flag_uses_detailed_renderer __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002695BE90E50>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002695BE913F0>
+
+    def test_phase103_6c5_explore_applicable_detailed_flag_uses_detailed_renderer(
+      monkeypatch,
+      capsys,
+    ):
+      fake_result = SimpleNamespace()
+    
+>     monkeypatch.setattr(
+        cli_main,
+        (
+          "explore_standard_repository_"
+          "generator_applicability_input"
+        ),
+        lambda generator_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'explore_standard_repository_generator_applicability_input'
+
+tests\test_phase103_compact_detailed_cli.py:61: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/test_phase103_6d91_prop59_pi7_2_suspension_zero_theorem_specific_classification.py::test_phase103_6d91_preserves_6d88_e_nu5_eta8_squared_zero_closure
+FAILED tests/test_phase103_6d91_prop59_pi7_2_suspension_zero_theorem_specific_classification.py::test_phase103_6d91_preserves_structural_and_map_property_counts
+FAILED tests/test_phase103_6d91_prop59_pi7_2_suspension_zero_theorem_specific_classification.py::test_phase103_6d91_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_classifies_both_symbolic_eta_generator_bridge_families_as_bridge
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_target_factories_are_exactly_the_audited_pair
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_changes_only_the_two_target_factories
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_both_target_clusters_are_closed
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_family_coverage_changes_by_exactly_two_families
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_entry_coverage_delta_matches_fourteen_target_entries
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_preserves_theorem_specific_count
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_preserves_structural_map_property_and_generic_relation_counts
+FAILED tests/test_phase103_6d94_paired_symbolic_eta_family_generator_bridge_classification.py::test_phase103_6d94_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_classifies_toda53_eta3_twice_zero_as_theorem_specific
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_target_factory_is_exactly_the_audited_factory
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_changes_only_target_factory
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_target_cluster_is_closed
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_family_coverage_changes_by_exactly_one_family
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_entry_coverage_delta_matches_fourteen_target_entries
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_preserves_other_category_counts
+FAILED tests/test_phase103_6d98_toda53_eta3_twice_zero_theorem_specific_classification.py::test_phase103_6d98_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_cli_applicability.py::test_phase103_6_explore_applicable_dispatches_to_facade
+FAILED tests/test_phase103_cli_applicability.py::test_phase103_6_actual_explore_applicable_renders_production_result
+FAILED tests/test_phase103_cli_applicability.py::test_phase103_6_explore_applicable_zero_result_is_zero_exit
+FAILED tests/test_phase103_compact_detailed_cli.py::test_phase103_6c5_explore_applicable_default_uses_legacy_compact_alias
+FAILED tests/test_phase103_compact_detailed_cli.py::test_phase103_6c5_explore_applicable_detailed_flag_uses_detailed_renderer
+25 failed, 15 passed in 13.48s

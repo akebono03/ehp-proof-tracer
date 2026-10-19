@@ -1,0 +1,16 @@
+.F......................................                                 [100%]
+================================== FAILURES ===================================
+_____________ test_r11_partial_and_compatibility_are_one_renderer _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000020EC9D52F80>
+
+>   ???
+E   AssertionError: assert [] == [ProofStep(co...ference=None)]
+E     
+E     Right contains one more item: ProofStep(conclusion=Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order... note=None), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=None, foundational_reference=None)
+E     Use -v to get more diff
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\test_phase165_r52_r11_common_renderer.py:43: AssertionError
+=========================== short test summary info ===========================
+FAILED test_phase165_r52_r11_common_renderer.py::test_r11_partial_and_compatibility_are_one_renderer
+1 failed, 39 passed in 12.25s

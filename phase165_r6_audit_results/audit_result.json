@@ -1,21 +1,20 @@
-{
-  "phase": "165 R6",
-  "status": "COLLECTION_FAILED",
-  "timestamp": "2026-10-18T23:52:29.047919+00:00",
-  "r3_exit_code": 0,
-  "r4_exit_code": 0,
-  "full_pytest_run": false,
-  "full_pytest_exit_code": null,
-  "baseline_hashes_before": {
-    "pi3_2": "98dfc83e90612e574ec2d56e7a103a2bd20551fddbdf631d4785f4f499a29c1c",
-    "pi4_3": "8ebfd0305dfc49d5ffd687bf33f4f3275eb50e3ab65e1dfcb5e184b9eaf54cc9"
-  },
-  "baseline_hashes_after": {
-    "pi3_2": "98dfc83e90612e574ec2d56e7a103a2bd20551fddbdf631d4785f4f499a29c1c",
-    "pi4_3": "8ebfd0305dfc49d5ffd687bf33f4f3275eb50e3ab65e1dfcb5e184b9eaf54cc9"
-  },
-  "baselines_unchanged": true,
-  "browser_visual_check": "NOT_VERIFIED",
-  "phase_closure": "PENDING",
-  "collection_scope_report": "collection_scope.json"
+﻿{
+    "phase":  "165 R6",
+    "timestamp":  "2026-10-19T16:21:40.6409651+09:00",
+    "r3_exit_code":  0,
+    "r4_exit_code":  0,
+    "full_pytest_run":  true,
+    "full_pytest_exit_code":  1,
+    "baseline_hashes_before":  {
+                                   "pi3_2":  "98DFC83E90612E574EC2D56E7A103A2BD20551FDDBDF631D4785F4F499A29C1C",
+                                   "pi4_3":  "8EBFD0305DFC49D5FFD687BF33F4F3275EB50E3AB65E1DFCB5E184B9EAF54CC9"
+                               },
+    "baseline_hashes_after":  {
+                                  "pi3_2":  "98DFC83E90612E574EC2D56E7A103A2BD20551FDDBDF631D4785F4F499A29C1C",
+                                  "pi4_3":  "8EBFD0305DFC49D5FFD687BF33F4F3275EB50E3AB65E1DFCB5E184B9EAF54CC9"
+                              },
+    "baselines_unchanged":  true,
+    "browser_visual_check":  "NOT_VERIFIED",
+    "phase_closure":  "PENDING_MANUAL_WEB_CHECK_AND_LOG_REVIEW",
+    "full_pytest_state":  "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\resumable_full\\state.json"
 }

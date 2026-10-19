@@ -1,0 +1,492 @@
+....................EEE..FFF.F....EEEF.F                                 [100%]
+=================================== ERRORS ====================================
+__ ERROR at setup of test_group_root_still_derived_from_registry_isomorphism __
+
+    @pytest.fixture(scope="module")
+    def proof():
+>       return build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+tests\test_phase164_r5_r1_common_renderer.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F752BB67A0>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F754727640>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+phase165_goal_only_search.py:52: GoalSearchIncompleteError
+_ ERROR at setup of test_exact_common_renderer_output_without_pi53_appended_text _
+
+    @pytest.fixture(scope="module")
+    def proof():
+>       return build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+tests\test_phase164_r5_r1_common_renderer.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F752BB67A0>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F754727640>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+phase165_goal_only_search.py:52: GoalSearchIncompleteError
+________ ERROR at setup of test_web_narrative_uses_shared_presentation ________
+
+    @pytest.fixture(scope="module")
+    def proof():
+>       return build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+tests\test_phase164_r5_r1_common_renderer.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F752BB67A0>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F754727640>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+phase165_goal_only_search.py:52: GoalSearchIncompleteError
+______ ERROR at setup of test_registry_web_proof_has_inferred_group_root ______
+
+    @pytest.fixture(scope="module")
+    def registry_web_proof():
+>       return build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+tests\test_phase164_r5_web_registry_connection.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F755A54A00>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F755A011B0>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+phase165_goal_only_search.py:52: GoalSearchIncompleteError
+___ ERROR at setup of test_registry_isomorphism_is_an_actual_group_premise ____
+
+    @pytest.fixture(scope="module")
+    def registry_web_proof():
+>       return build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+tests\test_phase164_r5_web_registry_connection.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F755A54A00>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F755A011B0>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+phase165_goal_only_search.py:52: GoalSearchIncompleteError
+______ ERROR at setup of test_proof_markdown_comes_from_shared_renderer _______
+
+    @pytest.fixture(scope="module")
+    def registry_web_proof():
+>       return build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+tests\test_phase164_r5_web_registry_connection.py:15: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F755A54A00>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F755A011B0>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+phase165_goal_only_search.py:52: GoalSearchIncompleteError
+================================== FAILURES ===================================
+________ test_one_public_web_builder_has_one_common_narrative_renderer ________
+
+    def test_one_public_web_builder_has_one_common_narrative_renderer():
+        source = Path(web.__file__).read_text(encoding="utf-8")
+        tree = ast.parse(source)
+        builders = [node for node in tree.body if isinstance(node, ast.FunctionDef)
+                    and node.name == "build_standard_web_group_proof_view"]
+        assert len(builders) == 1
+        body = ast.get_source_segment(source, builders[0])
+>       assert body.count("render_toda_group_proof_narrative_markdown(presentation)") == 1
+E       assert 0 == 1
+E        +  where 0 = <built-in method count of str object at 0x000001F7528364E0>('render_toda_group_proof_narrative_markdown(presentation)')
+E        +    where <built-in method count of str object at 0x000001F7528364E0> = 'def build_standard_web_group_proof_view(\n  n: int,\n  k: int,\n  max_depth: int = 2,\n  mode: str = "narrative",\n  ..., goal=goal)\n  return build_partial_web_group_proof_view(\n    result,\n    max_depth=max_depth,\n    mode=mode,\n  )'.count
+
+tests\test_phase164_r5_r2_unified_web_display.py:20: AssertionError
+_____________ test_standard_selector_preserves_repository_replay ______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001F75586CDC0>
+
+    def test_standard_selector_preserves_repository_replay(monkeypatch):
+        sentinel = object()
+>       monkeypatch.setattr(selector, "build_toda_group_result_proof_replay",
+                            lambda result, max_depth: (result, max_depth))
+E       AttributeError: <module 'phase164_r5_r2_common_replay' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r5_r2_common_replay.py'> has no attribute 'build_toda_group_result_proof_replay'
+
+tests\test_phase164_r5_r2_unified_web_display.py:29: AttributeError
+_______ test_source_selection_requires_no_markdown_for_ordinary_groups ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001F7558789A0>
+
+    def test_source_selection_requires_no_markdown_for_ordinary_groups(monkeypatch):
+        calls = []
+>       monkeypatch.setattr(selector, "build_toda_group_result_proof_replay",
+                            lambda result, max_depth: calls.append((result, max_depth)) or result)
+E       AttributeError: <module 'phase164_r5_r2_common_replay' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase164_r5_r2_common_replay.py'> has no attribute 'build_toda_group_result_proof_replay'
+
+tests\test_phase164_r5_r2_unified_web_display.py:37: AttributeError
+_________ test_pi53_common_narrative_requires_registered_goal_catalog _________
+
+    def test_pi53_common_narrative_requires_registered_goal_catalog():
+>       with pytest.raises(
+            GoalSearchIncompleteError,
+            match="Registered goal/rule catalog not configured",
+        ):
+E       Failed: DID NOT RAISE GoalSearchIncompleteError
+
+tests\test_phase164_r5_r2_unified_web_display.py:57: Failed
+_________________ test_group_query_web_narrative_is_phase164 __________________
+
+    def test_group_query_web_narrative_is_phase164():
+        view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode="narrative")
+>       assert view.phase == "164 R5"
+E       AssertionError: assert '165 R52-R3' == '164 R5'
+E         
+E         - 164 R5
+E         + 165 R52-R3
+
+tests\test_phase164_r5_web_registry_connection.py:47: AssertionError
+__________________________ test_manifest_must_exist ___________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001F755A29780>
+tmp_path = WindowsPath('C:/Users/oomae/AppData/Local/Temp/pytest-of-oomae/pytest-71/test_manifest_must_exist0')
+
+    def test_manifest_must_exist(monkeypatch, tmp_path):
+        monkeypatch.chdir(tmp_path)
+        with pytest.raises(ValueError, match="manifest missing"):
+>           build_phase164_r5_web_pi5_3_proof(max_depth=2)
+
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase164_r5_web_registry_connection.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase164_r5_web_registry_connection.py:22: in build_phase164_r5_web_pi5_3_proof
+    group_step = construct_registered_group_proof(n=3, k=2)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = None
+bridge = RegistryBridgeResult(registry=<unified_statement_registry.UnifiedStatementRegistry object at 0x000001F755A29360>, reco...METADATA_ONLY: 'metadata_only'>, detail='Source order only; mathematics and availability unverified')), proof_links=())
+citing_assertion_id = None
+expansion_provider = <function create_rule_expansion_provider.<locals>.expand at 0x000001F7559736D0>
+verified_assertion_ids = ()
+
+    def construct_registered_group_proof(
+        *,
+        n: int,
+        k: int,
+        goal=None,
+        bridge=None,
+        citing_assertion_id=None,
+        expansion_provider=None,
+        verified_assertion_ids=(),
+    ):
+        """Use the common registered search with production input discovery.
+    
+        Missing proof goals or citation context remain fail-closed. Discovery never
+        turns an untyped source assertion into a verified premise, and existing
+        callers may continue supplying their own bridge and expansion provider.
+        """
+        group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        if bridge is None or expansion_provider is None:
+            from phase165_r9_production_wiring import discover_goal_search_inputs
+    
+            discovered = discover_goal_search_inputs()
+            if bridge is None:
+                bridge = discovered.bridge
+            if expansion_provider is None:
+                expansion_provider = discovered.expansion_provider
+            if verified_assertion_ids == ():
+                verified_assertion_ids = discovered.verified_assertion_ids
+    
+        if (
+            goal is None
+            or bridge is None
+            or citing_assertion_id is None
+            or expansion_provider is None
+        ):
+>           raise GoalSearchIncompleteError(
+                f"Registered goal/rule catalog not configured for {group!r}; "
+                "legacy proof selection is disabled"
+            )
+E           phase165_goal_only_search.GoalSearchIncompleteError: Registered goal/rule catalog not configured for TodaPrimaryGroup(group_dimension=5, sphere_dimension=3); legacy proof selection is disabled
+
+C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase165_goal_only_search.py:52: GoalSearchIncompleteError
+=========================== short test summary info ===========================
+FAILED tests/test_phase164_r5_r2_unified_web_display.py::test_one_public_web_builder_has_one_common_narrative_renderer
+FAILED tests/test_phase164_r5_r2_unified_web_display.py::test_standard_selector_preserves_repository_replay
+FAILED tests/test_phase164_r5_r2_unified_web_display.py::test_source_selection_requires_no_markdown_for_ordinary_groups
+FAILED tests/test_phase164_r5_r2_unified_web_display.py::test_pi53_common_narrative_requires_registered_goal_catalog
+FAILED tests/test_phase164_r5_web_registry_connection.py::test_group_query_web_narrative_is_phase164
+FAILED tests/test_phase164_r5_web_registry_connection.py::test_manifest_must_exist
+ERROR tests/test_phase164_r5_r1_common_renderer.py::test_group_root_still_derived_from_registry_isomorphism
+ERROR tests/test_phase164_r5_r1_common_renderer.py::test_exact_common_renderer_output_without_pi53_appended_text
+ERROR tests/test_phase164_r5_r1_common_renderer.py::test_web_narrative_uses_shared_presentation
+ERROR tests/test_phase164_r5_web_registry_connection.py::test_registry_web_proof_has_inferred_group_root
+ERROR tests/test_phase164_r5_web_registry_connection.py::test_registry_isomorphism_is_an_actual_group_premise
+ERROR tests/test_phase164_r5_web_registry_connection.py::test_proof_markdown_comes_from_shared_renderer
+6 failed, 28 passed, 6 errors in 14.32s

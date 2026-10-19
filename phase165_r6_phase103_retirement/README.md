@@ -1,0 +1,1 @@
+Phase 165 R6 Phase103 legacy catalog retirement. Backs up and removes 35 hash-verified legacy-only test files; no production code changes. Does NOT prove equivalent mathematical test coverage. Restore from report archive if necessary. Tests only legacy retirement and registry availability.

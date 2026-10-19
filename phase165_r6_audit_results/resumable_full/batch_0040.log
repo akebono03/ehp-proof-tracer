@@ -1,0 +1,194 @@
+.........FFFFFF.........................                                 [100%]
+================================== FAILURES ===================================
+_______________ test_phase134_9_pi8_5_uses_structured_narrative _______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2C249C60>
+
+    def test_phase134_9_pi8_5_uses_structured_narrative(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_9_pi8_5_narrative.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2C249C60>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_9_pi8_5_narrative.py:21: AssertionError
+_________________ test_phase134_9_pi8_5_uses_order_block_lead _________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2C28DF60>
+
+    def test_phase134_9_pi8_5_uses_order_block_lead(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_9_pi8_5_narrative.py:48: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2C28DF60>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_9_pi8_5_narrative.py:21: AssertionError
+_________________ test_phase134_9_pi8_5_keeps_phase133_labels _________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2F3E4820>
+
+    def test_phase134_9_pi8_5_keeps_phase133_labels(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_9_pi8_5_narrative.py:67: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2F3E4820>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_9_pi8_5_narrative.py:21: AssertionError
+_________ test_phase134_9_pi8_5_does_not_change_other_group_dispatch __________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x0000023E2F4A37C0>
+
+    def test_phase134_9_pi8_5_does_not_change_other_group_dispatch(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_9_pi8_5_narrative.py:100: AssertionError
+_____ test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web ______
+
+    def test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web(
+    ):
+      view = (
+        build_standard_web_group_proof_view(
+          3,
+          3,
+          max_depth=1,
+          mode="narrative",
+        )
+      )
+    
+      latex_values = tuple(
+        line.statement_latex
+        for line in view.rendered_lines
+        if line.statement_latex is not None
+      )
+    
+>     assert (
+        r"\pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}"
+        in latex_values
+      )
+E     assert "\\pi_{6}^{3} = \\mathbb{Z}/4\\{\\nu'\\}" in ('\\pi_{6}^{3}', '\\pi_{6}^{3}')
+
+tests\test_phase135_1_web_narrative_display_math.py:32: AssertionError
+__________ test_phase135_1_existing_inline_math_adapter_is_preserved __________
+
+    def test_phase135_1_existing_inline_math_adapter_is_preserved(
+    ):
+      view = (
+        build_standard_web_group_proof_view(
+          3,
+          3,
+          max_depth=1,
+          mode="narrative",
+        )
+      )
+    
+>     assert any(
+        line.statement_latex == r"\nu'"
+        and "の位数を決定する." in line.suffix
+        for line in view.rendered_lines
+      )
+E     assert False
+E      +  where False = any(<generator object test_phase135_1_existing_inline_math_adapter_is_preserved.<locals>.<genexpr> at 0x0000023E2F3DA730>)
+
+tests\test_phase135_1_web_narrative_display_math.py:66: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase134_9_pi8_5_narrative.py::test_phase134_9_pi8_5_uses_structured_narrative
+FAILED tests/test_phase134_9_pi8_5_narrative.py::test_phase134_9_pi8_5_uses_order_block_lead
+FAILED tests/test_phase134_9_pi8_5_narrative.py::test_phase134_9_pi8_5_keeps_phase133_labels
+FAILED tests/test_phase134_9_pi8_5_narrative.py::test_phase134_9_pi8_5_does_not_change_other_group_dispatch
+FAILED tests/test_phase135_1_web_narrative_display_math.py::test_phase135_1_pi6_3_narrative_display_math_is_structured_for_web
+FAILED tests/test_phase135_1_web_narrative_display_math.py::test_phase135_1_existing_inline_math_adapter_is_preserved
+6 failed, 34 passed in 13.96s

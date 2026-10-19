@@ -1,0 +1,16 @@
+{
+  "total_failed_nodes": 490,
+  "affected_files": 89,
+  "by_triage": {
+    "CURRENT_REGRESSION": 14,
+    "DEPENDENCY_FAILURE": 47,
+    "LEGACY_CANDIDATE": 282,
+    "MANUAL_REVIEW": 126,
+    "MIGRATE_FIXTURES": 15,
+    "MIGRATE_WEB_TEST": 6
+  },
+  "modified_repository_files": 0,
+  "archived_files": 0,
+  "full_pytest_run": false,
+  "warning": "Candidate status is NOT proof of retirement safety. Coverage equivalence requires review."
+}

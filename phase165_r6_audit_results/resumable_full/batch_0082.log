@@ -1,0 +1,550 @@
+FFFFF..FF......FFFFFFFFFFFFFFFFFFFFFFFFF                                 [100%]
+================================== FAILURES ===================================
+____________ test_phase56_probe_derives_phase49_eta2_dependencies _____________
+
+    def test_phase56_probe_derives_phase49_eta2_dependencies():
+      representative = (
+        build_phase56_representative_result()
+      )
+    
+>     assert len(
+        representative[
+          "eta_2_definition_steps"
+        ]
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase56_probe.py:45: AssertionError
+_________ test_phase56_probe_derives_all_phase56_intermediate_results _________
+
+    def test_phase56_probe_derives_all_phase56_intermediate_results():
+      representative = (
+        build_phase56_representative_result()
+      )
+    
+      intermediate_steps = (
+        representative[
+          "zero_steps"
+        ],
+        representative[
+          "isomorphism_steps"
+        ],
+        representative[
+          "restriction_steps"
+        ],
+      )
+    
+>     assert all(
+        len(
+          steps
+        ) == 1
+        for steps in intermediate_steps
+      )
+E     assert False
+E      +  where False = all(<generator object test_phase56_probe_derives_all_phase56_intermediate_results.<locals>.<genexpr> at 0x000002A595BAEDC0>)
+
+tests\test_phase56_probe.py:93: AssertionError
+______________ test_phase56_probe_derives_final_toda52_statement ______________
+
+    def test_phase56_probe_derives_final_toda52_statement():
+      representative = (
+        build_phase56_representative_result()
+      )
+    
+      steps = representative[
+        "composition_isomorphism_steps"
+      ]
+    
+>     assert len(
+        steps
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase56_probe.py:118: AssertionError
+_____________ test_phase56_probe_final_statement_has_expected_map _____________
+
+    def test_phase56_probe_final_statement_has_expected_map():
+      representative = (
+        build_phase56_representative_result()
+      )
+    
+      statement = (
+>       representative[
+          "composition_isomorphism_steps"
+        ][
+          0
+        ].conclusion
+      )
+E     IndexError: tuple index out of range
+
+tests\test_phase56_probe.py:142: IndexError
+_____ test_phase56_probe_final_statement_preserves_three_derived_premises _____
+
+    def test_phase56_probe_final_statement_preserves_three_derived_premises():
+      representative = (
+        build_phase56_representative_result()
+      )
+    
+      step = (
+>       representative[
+          "composition_isomorphism_steps"
+        ][
+          0
+        ]
+      )
+E     IndexError: tuple index out of range
+
+tests\test_phase56_probe.py:199: IndexError
+____________ test_phase56_probe_final_result_occurs_in_last_round _____________
+
+    def test_phase56_probe_final_result_occurs_in_last_round():
+      representative = (
+        build_phase56_representative_result()
+      )
+    
+      final_step = (
+>       representative[
+          "composition_isomorphism_steps"
+        ][
+          0
+        ]
+      )
+E     IndexError: tuple index out of range
+
+tests\test_phase56_probe.py:289: IndexError
+______ test_phase56_probe_output_contains_result_provenance_and_boundary ______
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000002A595C372E0>
+
+    def test_phase56_probe_output_contains_result_provenance_and_boundary(
+      capsys,
+    ):
+>     main()
+
+tests\test_phase56_probe.py:310: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+probes\probe_phase56_capabilities.py:631: in main
+    print_phase56_provenance(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+representative = {'phase49': {'pi_2_1': TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), 'pi_3_2': TodaPrimaryGroup(group_dimen...t(name='β', dimension=ScalarSum(left=ScalarSymbol(name='i'), right=-1), source=None, target=None, generator=None), ...}
+
+    def print_phase56_provenance(
+      representative,
+    ):
+      print()
+      print_separator()
+      print(
+        "Provenance / applicability"
+      )
+      print_separator()
+      print()
+    
+      result = representative[
+        "result"
+      ]
+    
+      zero_step = representative[
+        "zero_steps"
+      ][
+        0
+      ]
+    
+>     isomorphism_step = representative[
+        "isomorphism_steps"
+      ][
+        0
+      ]
+E     IndexError: tuple index out of range
+
+probes\probe_phase56_capabilities.py:405: IndexError
+---------------------------- Captured stdout call -----------------------------
+
+EHP Proof Tracer
+Phase 56 capability demonstration
+
+========================================================================
+Toda (5.2) composition isomorphism
+========================================================================
+
+  i ≥ 3
+  ↓
+  π_(i-1)^1 = 0
+
+  H(η₂) = ι₃
+  ↓
+  Φ:
+  π_(i-1)^1 ⊕ π_i^3 ≅ π_i^2
+
+  Φ|_(π_i^3)(γ) = η₂∘γ
+  ↓
+  η₂∘- : π_i^3 ≅ π_i^2
+
+========================================================================
+Inference rounds
+========================================================================
+
+round 1 new step count = 3
+round 2 new step count = 1
+round 3 new step count = 1
+round 4 new step count = 1
+
+========================================================================
+Provenance / applicability
+========================================================================
+
+_____________ test_phase56_3_rule_matches_n2_eta2_specialization ______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:196: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+__________________ test_phase56_3_derives_prop44_isomorphism __________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:209: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+________ test_phase56_3_specialization_has_expected_source_and_target _________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:237: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+____________ test_phase56_3_specialization_preserves_eta2_formula _____________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:282: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________________ test_phase56_3_result_is_inference ______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:313: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+______________ test_phase56_3_preserves_derived_eta2_provenance _______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:337: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+______________ test_phase56_3_phase49_dependencies_are_not_given ______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:368: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_________________ test_phase56_3_rejects_given_hopf_relation __________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:395: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+________________ test_phase56_3_rejects_given_eta2_definition _________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:424: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________________ test_phase56_3_rejects_wrong_alpha ______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:453: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________ test_phase56_3_reaches_fixed_point_in_one_round _______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:516: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_________ test_phase56_4_second_summand_restriction_is_representable __________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+___________ test_phase56_4_rule_matches_derived_eta2_specialization ___________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+______________ test_phase56_4_derives_second_summand_restriction ______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________ test_phase56_4_restriction_is_eta2_composition ________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:180: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+___________________ test_phase56_4_second_summand_is_pi_i_3 ___________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________________ test_phase56_4_target_is_pi_i_2 _______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:245: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________________ test_phase56_4_result_is_inference ______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:267: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+________________ test_phase56_4_preserves_phase56_3_provenance ________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:293: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+__________________ test_phase56_4_rejects_given_isomorphism ___________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:321: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________________ test_phase56_4_rejects_wrong_alpha ______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:344: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_________________ test_phase56_4_rejects_wrong_second_summand _________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:409: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+____________________ test_phase56_4_rejects_wrong_formula _____________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:491: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________ test_phase56_4_reaches_fixed_point_in_one_round _______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:546: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+___________ test_phase56_5_composition_isomorphism_is_representable ___________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+=========================== short test summary info ===========================
+FAILED tests/test_phase56_probe.py::test_phase56_probe_derives_phase49_eta2_dependencies
+FAILED tests/test_phase56_probe.py::test_phase56_probe_derives_all_phase56_intermediate_results
+FAILED tests/test_phase56_probe.py::test_phase56_probe_derives_final_toda52_statement
+FAILED tests/test_phase56_probe.py::test_phase56_probe_final_statement_has_expected_map
+FAILED tests/test_phase56_probe.py::test_phase56_probe_final_statement_preserves_three_derived_premises
+FAILED tests/test_phase56_probe.py::test_phase56_probe_final_result_occurs_in_last_round
+FAILED tests/test_phase56_probe.py::test_phase56_probe_output_contains_result_provenance_and_boundary
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_rule_matches_n2_eta2_specialization
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_derives_prop44_isomorphism
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_specialization_has_expected_source_and_target
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_specialization_preserves_eta2_formula
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_result_is_inference
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_preserves_derived_eta2_provenance
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_phase49_dependencies_are_not_given
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_rejects_given_hopf_relation
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_rejects_given_eta2_definition
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_rejects_wrong_alpha
+FAILED tests/test_phase56_prop44_eta2_specialization.py::test_phase56_3_reaches_fixed_point_in_one_round
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_second_summand_restriction_is_representable
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_rule_matches_derived_eta2_specialization
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_derives_second_summand_restriction
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_restriction_is_eta2_composition
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_second_summand_is_pi_i_3
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_target_is_pi_i_2
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_result_is_inference
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_preserves_phase56_3_provenance
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_rejects_given_isomorphism
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_rejects_wrong_alpha
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_rejects_wrong_second_summand
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_rejects_wrong_formula
+FAILED tests/test_phase56_prop44_second_summand_restriction.py::test_phase56_4_reaches_fixed_point_in_one_round
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_composition_isomorphism_is_representable
+32 failed, 8 passed in 12.51s

@@ -1,0 +1,95 @@
+......................FFFFFFF...........                                 [100%]
+================================== FAILURES ===================================
+__________ test_phase55_3_phase49_dependency_derives_eta2_definition __________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:86: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+________________ test_phase55_3_h_eta2_equals_iota3_is_derived ________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:115: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+______________ test_phase55_3_pi3_2_equals_free_eta2_is_derived _______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:159: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+_______ test_phase55_3_hopf_relation_depends_on_derived_eta2_definition _______
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:204: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+_______ test_phase55_3_pi3_2_group_result_uses_derived_eta2_definition ________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:246: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+__________ test_phase55_3_prop51_dependencies_are_not_given_premises __________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:286: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+______ test_phase55_3_prop51_dependencies_preserve_inference_provenance _______
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:317: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   assert 0 == 1
+E    +  where 0 = len(())
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase55_prop51_phase49_dependency.py:28: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_phase49_dependency_derives_eta2_definition
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_h_eta2_equals_iota3_is_derived
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_pi3_2_equals_free_eta2_is_derived
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_hopf_relation_depends_on_derived_eta2_definition
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_pi3_2_group_result_uses_derived_eta2_definition
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_prop51_dependencies_are_not_given_premises
+FAILED tests/test_phase55_prop51_phase49_dependency.py::test_phase55_3_prop51_dependencies_preserve_inference_provenance
+7 failed, 33 passed in 12.41s

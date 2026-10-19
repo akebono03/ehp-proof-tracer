@@ -14,8 +14,8 @@ from scalar_rules import ScalarGreaterEqualStatement
 
 
 def _inputs():
-    from phase163_r4_r12_literature_registration import existing_prop51_prop53_candidates
-    return existing_prop51_prop53_candidates()
+    from phase165_r6_explicit_literature_inputs import prop51_prop53_inputs
+    return prop51_prop53_inputs()
 
 
 def test_registers_all_eight_and_preserves_source_metadata():

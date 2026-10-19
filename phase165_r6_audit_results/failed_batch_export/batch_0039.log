@@ -1,0 +1,800 @@
+.F...FF.F..FFFFFFFFFFFFFFFFFFFFF........                                 [100%]
+================================== FAILURES ===================================
+__________ test_phase132_9_narrative_is_default_web_group_proof_mode __________
+
+    def test_phase132_9_narrative_is_default_web_group_proof_mode():
+      view = (
+        build_standard_web_group_proof_view(
+          9,
+          7,
+        )
+      )
+    
+      assert view.mode == "narrative"
+      assert view.max_depth == 2
+      assert view.rendered_lines
+>     assert view.steps
+E     AssertionError: assert ()
+E      +  where () = WebGroupProofView(n=9, k=7, conclusion_latex='\\pi_{16}^{9}', theorem=None, phase='165 R52-R3', key='generic-partial-p...='', segments=(WebGroupProofInlineSegmentView(kind='text', value='未解決 Goal は証明済みの結論ではありません。'),))), partial_result=True).steps
+
+tests\test_phase132_9_web_group_proof_modes.py:28: AssertionError
+_____________ test_phase132_9_outline_web_adapter_preserves_math ______________
+
+    def test_phase132_9_outline_web_adapter_preserves_math():
+      view = (
+        build_standard_web_group_proof_view(
+          9,
+          7,
+          max_depth=1,
+          mode="outline",
+        )
+      )
+    
+      latex_values = tuple(
+        line.statement_latex
+        for line in view.rendered_lines
+        if line.statement_latex is not None
+      )
+    
+>     assert (
+        r"\pi_{16}^{9} = "
+        r"\mathbb{Z}/16\{\sigma_{9}\}"
+        in latex_values
+      )
+E     AssertionError: assert '\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}' in ('\\pi_{16}^{9}', '\\pi_{16}^{9}')
+
+tests\test_phase132_9_web_group_proof_modes.py:76: AssertionError
+____________ test_phase132_9_narrative_web_adapter_preserves_math _____________
+
+    def test_phase132_9_narrative_web_adapter_preserves_math():
+      view = (
+        build_standard_web_group_proof_view(
+          9,
+          7,
+          max_depth=2,
+          mode="narrative",
+        )
+      )
+    
+      latex_values = tuple(
+        line.statement_latex
+        for line in view.rendered_lines
+        if line.statement_latex is not None
+      )
+    
+>     assert (
+        r"\pi_{16}^{9} = "
+        r"\mathbb{Z}/16\{\sigma_{9}\}"
+        in latex_values
+      )
+E     AssertionError: assert '\\pi_{16}^{9} = \\mathbb{Z}/16\\{\\sigma_{9}\\}' in ('\\pi_{16}^{9}', '\\pi_{16}^{9}')
+
+tests\test_phase132_9_web_group_proof_modes.py:99: AssertionError
+_____ test_phase132_9_web_depth_semantics_are_shared_across_modes[trace] ______
+
+mode = 'trace'
+
+    @pytest.mark.parametrize(
+      "mode",
+      (
+        "trace",
+        "outline",
+        "narrative",
+      ),
+    )
+    def test_phase132_9_web_depth_semantics_are_shared_across_modes(
+      mode,
+    ):
+      view = (
+        build_standard_web_group_proof_view(
+          9,
+          7,
+          max_depth=0,
+          mode=mode,
+        )
+      )
+    
+      assert view.max_depth == 0
+    
+      if mode == "trace":
+>       assert len(
+          view.steps
+        ) == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = len(())
+E        +    where () = WebGroupProofView(n=9, k=7, conclusion_latex='\\pi_{16}^{9}', theorem=None, phase='165 R52-R3', key='generic-partial-proof', steps=(), max_depth=0, mode='trace', rendered_lines=(), partial_result=True).steps
+
+tests\test_phase132_9_web_group_proof_modes.py:148: AssertionError
+________ test_phase133_10_sigma9_depth_two_uses_final_japanese_wording ________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC098D60>
+
+    def test_phase133_10_sigma9_depth_two_uses_final_japanese_wording(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_10_sigma_label_wording.py:21: AssertionError
+____________ test_phase133_6_pi8_5_uses_readable_nu_family_labels _____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBFB51E0>
+
+    def test_phase133_6_pi8_5_uses_readable_nu_family_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "1",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_6_group_proof_narrative_labels.py:21: AssertionError
+________ test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label _________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC09AC20>
+
+    def test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "4",
+          "6",
+          "--depth",
+          "1",
+          "--mode",
+          "narrative",
+        ]
+      )
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_6_group_proof_narrative_labels.py:61: AssertionError
+_______ test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels ________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBF9F520>
+
+    def test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "7",
+          "--depth",
+          "1",
+          "--mode",
+          "narrative",
+        ]
+      )
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_6_group_proof_narrative_labels.py:90: AssertionError
+_____________ test_phase133_6_sigma9_depth_two_reuses_new_labels ______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC079BA0>
+
+    def test_phase133_6_sigma9_depth_two_reuses_new_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_6_group_proof_narrative_labels.py:115: AssertionError
+_________ test_phase133_9_pi10_4_depth_two_uses_final_readable_labels _________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBFC6710>
+
+    def test_phase133_9_pi10_4_depth_two_uses_final_readable_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "4",
+          "6",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_9_group_proof_narrative_labels.py:21: AssertionError
+__________ test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels ___________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC078CA0>
+
+    def test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_9_group_proof_narrative_labels.py:53: AssertionError
+______________ test_phase133_9_previous_labels_remain_available _______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC09A530>
+
+    def test_phase133_9_previous_labels_remain_available(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "7",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase133_9_group_proof_narrative_labels.py:85: AssertionError
+____________ test_phase134_11_pi8_5_definition_is_natural_japanese ____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC0783A0>
+
+    def test_phase134_11_pi8_5_definition_is_natural_japanese(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_pi8_5_narrative.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC0783A0>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_pi8_5_narrative.py:21: AssertionError
+_______________ test_phase134_11_pi8_5_stops_at_pi6_3_boundary ________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC09A830>
+
+    def test_phase134_11_pi8_5_stops_at_pi6_3_boundary(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_pi8_5_narrative.py:49: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC09A830>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_pi8_5_narrative.py:21: AssertionError
+___________ test_phase134_11_pi8_5_uses_hidden_toda55_as_reference ____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC078AC0>
+
+    def test_phase134_11_pi8_5_uses_hidden_toda55_as_reference(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_pi8_5_narrative.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC078AC0>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_pi8_5_narrative.py:21: AssertionError
+____________ test_phase134_11_pi8_5_uses_pi6_boundary_for_e2_order ____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC099180>
+
+    def test_phase134_11_pi8_5_uses_pi6_boundary_for_e2_order(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_pi8_5_narrative.py:100: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC099180>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_pi8_5_narrative.py:21: AssertionError
+_______________ test_phase134_11_pi8_5_keeps_ascii_punctuation ________________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4D8E5E710>
+
+    def test_phase134_11_pi8_5_keeps_ascii_punctuation(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_pi8_5_narrative.py:120: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4D8E5E710>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_pi8_5_narrative.py:21: AssertionError
+_________ test_phase134_11_testfix_has_no_duplicate_dependency_leads __________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC09BB50>
+
+    def test_phase134_11_testfix_has_no_duplicate_dependency_leads(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v2.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DC09BB50>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v2.py:21: AssertionError
+_____________ test_phase134_11_testfix_has_single_final_therefore _____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBFC6F80>
+
+    def test_phase134_11_testfix_has_single_final_therefore(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v2.py:50: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBFC6F80>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v2.py:21: AssertionError
+___________ test_phase134_11_testfix_keeps_boundary_and_references ____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DA151300>
+
+    def test_phase134_11_testfix_keeps_boundary_and_references(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v2.py:62: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DA151300>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v2.py:21: AssertionError
+___________ test_phase134_11_testfix_v3_keeps_hidden_reference_once ___________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBF9EA40>
+
+    def test_phase134_11_testfix_v3_keeps_hidden_reference_once(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v3.py:30: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBF9EA40>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v3.py:21: AssertionError
+_____________ test_phase134_11_testfix_v3_has_no_duplicate_leads ______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DA0FDA50>
+
+    def test_phase134_11_testfix_v3_has_no_duplicate_leads(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v3.py:45: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DA0FDA50>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v3.py:21: AssertionError
+_____________ test_phase134_11_testfix_v3_keeps_compact_boundary ______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4D8E5E500>
+
+    def test_phase134_11_testfix_v3_keeps_compact_boundary(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v3.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4D8E5E500>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v3.py:21: AssertionError
+______________ test_phase134_11_testfix_v3_keeps_reference_order ______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBF9FC40>
+
+    def test_phase134_11_testfix_v3_keeps_reference_order(
+      capsys,
+    ):
+>     rendered = _render_pi8_5(
+        capsys
+      )
+
+tests\test_phase134_11_testfix_v3.py:93: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBF9FC40>
+
+    def _render_pi8_5(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_11_testfix_v3.py:21: AssertionError
+__________ test_phase134_14_pi8_5_output_is_byte_for_byte_unchanged ___________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001E4DBFB7190>
+
+    def test_phase134_14_pi8_5_output_is_byte_for_byte_unchanged(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "5",
+          "3",
+          "--depth",
+          "2",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase134_14_pi8_5_snapshot.py:86: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_narrative_is_default_web_group_proof_mode
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_outline_web_adapter_preserves_math
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_narrative_web_adapter_preserves_math
+FAILED tests/test_phase132_9_web_group_proof_modes.py::test_phase132_9_web_depth_semantics_are_shared_across_modes[trace]
+FAILED tests/test_phase133_10_sigma_label_wording.py::test_phase133_10_sigma9_depth_two_uses_final_japanese_wording
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi8_5_uses_readable_nu_family_labels
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi10_4_uses_readable_nu4_decomposition_label
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_pi12_5_uses_readable_sigma_triple_prime_labels
+FAILED tests/test_phase133_6_group_proof_narrative_labels.py::test_phase133_6_sigma9_depth_two_reuses_new_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi10_4_depth_two_uses_final_readable_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_pi16_9_depth_two_uses_final_sigma_labels
+FAILED tests/test_phase133_9_group_proof_narrative_labels.py::test_phase133_9_previous_labels_remain_available
+FAILED tests/test_phase134_11_pi8_5_narrative.py::test_phase134_11_pi8_5_definition_is_natural_japanese
+FAILED tests/test_phase134_11_pi8_5_narrative.py::test_phase134_11_pi8_5_stops_at_pi6_3_boundary
+FAILED tests/test_phase134_11_pi8_5_narrative.py::test_phase134_11_pi8_5_uses_hidden_toda55_as_reference
+FAILED tests/test_phase134_11_pi8_5_narrative.py::test_phase134_11_pi8_5_uses_pi6_boundary_for_e2_order
+FAILED tests/test_phase134_11_pi8_5_narrative.py::test_phase134_11_pi8_5_keeps_ascii_punctuation
+FAILED tests/test_phase134_11_testfix_v2.py::test_phase134_11_testfix_has_no_duplicate_dependency_leads
+FAILED tests/test_phase134_11_testfix_v2.py::test_phase134_11_testfix_has_single_final_therefore
+FAILED tests/test_phase134_11_testfix_v2.py::test_phase134_11_testfix_keeps_boundary_and_references
+FAILED tests/test_phase134_11_testfix_v3.py::test_phase134_11_testfix_v3_keeps_hidden_reference_once
+FAILED tests/test_phase134_11_testfix_v3.py::test_phase134_11_testfix_v3_has_no_duplicate_leads
+FAILED tests/test_phase134_11_testfix_v3.py::test_phase134_11_testfix_v3_keeps_compact_boundary
+FAILED tests/test_phase134_11_testfix_v3.py::test_phase134_11_testfix_v3_keeps_reference_order
+FAILED tests/test_phase134_14_pi8_5_snapshot.py::test_phase134_14_pi8_5_output_is_byte_for_byte_unchanged
+25 failed, 15 passed in 14.34s

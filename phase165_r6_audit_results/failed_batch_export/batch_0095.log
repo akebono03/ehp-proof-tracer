@@ -1,0 +1,11 @@
+.....................................F..                                 [100%]
+================================== FAILURES ===================================
+____ test_phase78_actual_steps_register_and_retrieve_without_graph_changes ____
+
+>   ???
+E   ModuleNotFoundError: No module named 'test_phase78_stable_g0_to_g7_integration'
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_proof_repository.py:539: ModuleNotFoundError
+=========================== short test summary info ===========================
+FAILED tests/test_proof_repository.py::test_phase78_actual_steps_register_and_retrieve_without_graph_changes
+1 failed, 39 passed in 13.49s

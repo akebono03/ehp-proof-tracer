@@ -1,0 +1,11 @@
+{
+  "changed_file": "tests\\test_phase164_r5_web_registry_connection.py",
+  "changed_functions": [
+    "test_proof_markdown_comes_from_shared_renderer",
+    "test_registry_isomorphism_is_an_actual_group_premise",
+    "test_registry_web_proof_has_inferred_group_root"
+  ],
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\phase164_fixture_cleanup\\20261019T084938Z\\tests\\test_phase164_r5_web_registry_connection.py",
+  "production_files_changed": 0,
+  "full_pytest_run": false
+}

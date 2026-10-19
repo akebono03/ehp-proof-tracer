@@ -1,0 +1,358 @@
+........................FFFFFFF.FFFFF...                                 [100%]
+================================== FAILURES ===================================
+__ test_phase108_12_execute_nu_prime_lists_executable_candidates_end_to_end ___
+
+    def test_phase108_12_execute_nu_prime_lists_executable_candidates_end_to_end():
+      result = (
+        _run_main(
+          "execute",
+          "nu_prime",
+        )
+      )
+    
+      assert result.returncode == 0
+    
+>     assert (
+        "# Executable candidates"
+        in result.stdout
+      )
+E     assert '# Executable candidates' in "Inference rule: suspension is homomorphism\nConclusion: HomomorphismStatement(map=MapSymbol(name='E'))\n"
+E      +  where "Inference rule: suspension is homomorphism\nConclusion: HomomorphismStatement(map=MapSymbol(name='E'))\n" = CompletedProcess(args=['C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe', 'main.py', 'execut...="Inference rule: suspension is homomorphism\nConclusion: HomomorphismStatement(map=MapSymbol(name='E'))\n", stderr='').stdout
+
+tests\test_phase108_12_end_to_end_cli_smoke_closure_audit.py:45: AssertionError
+_ test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end _
+
+    def test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end():
+      result = (
+        _run_main(
+          "execute",
+          "nu_prime",
+          "--candidate",
+          "1",
+        )
+      )
+    
+      assert result.returncode == 0
+    
+>     assert result.stdout.startswith(
+        "# Result\n"
+      )
+E     assert False
+E      +  where False = <built-in method startswith of str object at 0x000002540EB34FD0>('# Result\n')
+E      +    where <built-in method startswith of str object at 0x000002540EB34FD0> = "Inference rule: suspension is homomorphism\nConclusion: HomomorphismStatement(map=MapSymbol(name='E'))\n".startswith
+E      +      where "Inference rule: suspension is homomorphism\nConclusion: HomomorphismStatement(map=MapSymbol(name='E'))\n" = CompletedProcess(args=['C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe', 'main.py', 'execut...="Inference rule: suspension is homomorphism\nConclusion: HomomorphismStatement(map=MapSymbol(name='E'))\n", stderr='').stdout
+
+tests\test_phase108_12_end_to_end_cli_smoke_closure_audit.py:90: AssertionError
+_ test_phase108_12_execute_nu_prime_candidate_2_returns_result_and_proof_end_to_end _
+
+    def test_phase108_12_execute_nu_prime_candidate_2_returns_result_and_proof_end_to_end():
+      result = (
+        _run_main(
+          "execute",
+          "nu_prime",
+          "--candidate",
+          "2",
+        )
+      )
+    
+>     assert result.returncode == 0
+E     AssertionError: assert 2 == 0
+E      +  where 2 = CompletedProcess(args=['C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe', 'main.py', 'execut...cute [-h] [--candidate CANDIDATE] generator\nmain.py execute: error: candidate_number exceeds applicable candidates\n').returncode
+
+tests\test_phase108_12_end_to_end_cli_smoke_closure_audit.py:127: AssertionError
+_________ test_phase110_10_query_proof_single_fact_runs_without_fact __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540EB53A30>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540EB53430>
+
+    def test_phase110_10_query_proof_single_fact_runs_without_fact(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+    
+      fake_query_presentation = SimpleNamespace(
+        items=(
+          object(),
+        ),
+      )
+    
+      fake_replay = object()
+      fake_replay_presentation = object()
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: (
+          calls.append(
+            (
+              "query",
+              query_input,
+            )
+          )
+          or fake_result
+        ),
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase110_10_operation_query_proof_replay_cli.py:27: AttributeError
+_____ test_phase110_10_query_proof_multiple_facts_lists_and_requires_fact _____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540DDE7B80>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540DDE6EC0>
+
+    def test_phase110_10_query_proof_multiple_facts_lists_and_requires_fact(
+      monkeypatch,
+      capsys,
+    ):
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+    
+      fake_query_presentation = SimpleNamespace(
+        items=(
+          object(),
+          object(),
+        ),
+      )
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase110_10_operation_query_proof_replay_cli.py:158: AttributeError
+_______________ test_phase110_10_query_proof_fact_is_forwarded ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540EBE6680>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540EBE6440>
+
+    def test_phase110_10_query_proof_fact_is_forwarded(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+    
+      fake_query_presentation = SimpleNamespace(
+        items=(
+          object(),
+          object(),
+        ),
+      )
+    
+      fake_replay = object()
+      fake_replay_presentation = object()
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase110_10_operation_query_proof_replay_cli.py:222: AttributeError
+___________ test_phase110_10_query_proof_fact_zero_is_parser_error ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540DDE6320>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540DDE69E0>
+
+    def test_phase110_10_query_proof_fact_zero_is_parser_error(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: (
+          calls.append(
+            query_input
+          )
+          or None
+        ),
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase110_10_operation_query_proof_replay_cli.py:282: AttributeError
+_______ test_phase110_8_query_cli_builds_presentation_before_rendering ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540EBE4EB0>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540EBE4940>
+
+    def test_phase110_8_query_cli_builds_presentation_before_rendering(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+    
+      fake_presentation = SimpleNamespace(
+        items=(
+          object(),
+        ),
+      )
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: (
+          calls.append(
+            (
+              "query",
+              query_input,
+            )
+          )
+          or fake_result
+        ),
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase110_8_operation_query_cli_integration.py:22: AttributeError
+________ test_phase110_8_query_cli_reports_no_directly_renderable_fact ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540DED1660>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540DEFC190>
+
+    def test_phase110_8_query_cli_reports_no_directly_renderable_fact(
+      monkeypatch,
+      capsys,
+    ):
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+    
+      fake_presentation = SimpleNamespace(
+        items=(),
+      )
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase110_8_operation_query_cli_integration.py:110: AttributeError
+_______________ test_phase111_10_show_proof_depth_is_forwarded ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540EBD2710>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540EBD0CA0>
+
+    def test_phase111_10_show_proof_depth_is_forwarded(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = object()
+      fake_presentation = object()
+    
+      def fake_build(
+        generator_input,
+        max_depth=1,
+      ):
+        calls.append(
+          (
+            generator_input,
+            max_depth,
+          )
+        )
+        return fake_result
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "build_standard_repository_generator_known_group_proof_replay_input",
+        fake_build,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'build_standard_repository_generator_known_group_proof_replay_input'
+
+tests\test_phase111_10_proof_replay_depth_cli.py:29: AttributeError
+_______________ test_phase111_10_query_proof_depth_is_forwarded _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540DE2A740>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540DE2A8F0>
+
+    def test_phase111_10_query_proof_depth_is_forwarded(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+      fake_query_presentation = SimpleNamespace(
+        items=(
+          object(),
+        ),
+      )
+      fake_replay = object()
+      fake_replay_presentation = object()
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase111_10_proof_replay_depth_cli.py:84: AttributeError
+__________ test_phase111_10_query_proof_fact_and_depth_are_forwarded __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000002540DDE6740>
+capsys = <_pytest.capture.CaptureFixture object at 0x000002540DDE7B80>
+
+    def test_phase111_10_query_proof_fact_and_depth_are_forwarded(
+      monkeypatch,
+      capsys,
+    ):
+      calls = []
+    
+      fake_result = SimpleNamespace(
+        found=True,
+      )
+      fake_query_presentation = SimpleNamespace(
+        items=(
+          object(),
+          object(),
+        ),
+      )
+      fake_replay = object()
+      fake_replay_presentation = object()
+    
+>     monkeypatch.setattr(
+        cli_main,
+        "query_standard_repository_operation_input",
+        lambda query_input: fake_result,
+      )
+E     AttributeError: <module 'main' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\main.py'> has no attribute 'query_standard_repository_operation_input'
+
+tests\test_phase111_10_proof_replay_depth_cli.py:166: AttributeError
+=========================== short test summary info ===========================
+FAILED tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_lists_executable_candidates_end_to_end
+FAILED tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_1_returns_result_and_proof_end_to_end
+FAILED tests/test_phase108_12_end_to_end_cli_smoke_closure_audit.py::test_phase108_12_execute_nu_prime_candidate_2_returns_result_and_proof_end_to_end
+FAILED tests/test_phase110_10_operation_query_proof_replay_cli.py::test_phase110_10_query_proof_single_fact_runs_without_fact
+FAILED tests/test_phase110_10_operation_query_proof_replay_cli.py::test_phase110_10_query_proof_multiple_facts_lists_and_requires_fact
+FAILED tests/test_phase110_10_operation_query_proof_replay_cli.py::test_phase110_10_query_proof_fact_is_forwarded
+FAILED tests/test_phase110_10_operation_query_proof_replay_cli.py::test_phase110_10_query_proof_fact_zero_is_parser_error
+FAILED tests/test_phase110_8_operation_query_cli_integration.py::test_phase110_8_query_cli_builds_presentation_before_rendering
+FAILED tests/test_phase110_8_operation_query_cli_integration.py::test_phase110_8_query_cli_reports_no_directly_renderable_fact
+FAILED tests/test_phase111_10_proof_replay_depth_cli.py::test_phase111_10_show_proof_depth_is_forwarded
+FAILED tests/test_phase111_10_proof_replay_depth_cli.py::test_phase111_10_query_proof_depth_is_forwarded
+FAILED tests/test_phase111_10_proof_replay_depth_cli.py::test_phase111_10_query_proof_fact_and_depth_are_forwarded
+12 failed, 28 passed in 15.26s

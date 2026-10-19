@@ -1,0 +1,1162 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                 [100%]
+================================== FAILURES ===================================
+__________________ test_phase103_6d68_family_coverage_counts __________________
+
+    def test_phase103_6d68_family_coverage_counts():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories
+        in categories_by_family.values()
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:233: AssertionError
+__________________ test_phase103_6d68_entry_coverage_counts ___________________
+
+    def test_phase103_6d68_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:251: AssertionError
+_ test_phase103_6d68_theorem_specific_entry_count_increases_by_exactly_twelve _
+
+    def test_phase103_6d68_theorem_specific_entry_count_increases_by_exactly_twelve():
+      before = (
+        _phase103_6d68_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_count = sum(
+        1
+        for entry in before.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+      after_count = sum(
+        1
+        for entry in after.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+>     assert (
+        after_count
+        == before_count + 12
+      )
+E     assert 0 == (0 + 12)
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:303: AssertionError
+_ test_phase103_6d68_preserves_6d65_prop511_finite_dimensional_nu_squared_closure _
+
+    def test_phase103_6d68_preserves_6d65_prop511_finite_dimensional_nu_squared_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.11 pi_12^6 nu_6 squared",
+        "Toda Proposition 5.11 pi_13^7 nu_7 squared",
+        "Toda Proposition 5.11 pi_14^8 nu_8 squared",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 3
+E     assert 0 == 3
+E      +  where 0 = len(())
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:327: AssertionError
+______ test_phase103_6d68_preserves_6d62_lemma54_nu4_consequence_closure ______
+
+    def test_phase103_6d68_preserves_6d62_lemma54_nu4_consequence_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Lemma 5.4 nu_4 Hopf correction",
+        "Toda Lemma 5.4 nu_4 double suspension",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 14
+E     assert 0 == 14
+E      +  where 0 = len(())
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:355: AssertionError
+____ test_phase103_6d68_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d68_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py:372: AssertionError
+_ test_phase103_6d71_classifies_exactly_the_four_audited_eta_zero_relation_families _
+
+    def test_phase103_6d71_classifies_exactly_the_four_audited_eta_zero_relation_families():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+      for family in PHASE103_6D71_TARGET_FAMILIES:
+>       assert family in families
+E       AssertionError: assert 'Toda Proposition 5.1 eta_4 order-two consequence' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:77: AssertionError
+____ test_phase103_6d71_target_factories_are_exactly_the_audited_allowlist ____
+
+    def test_phase103_6d71_target_factories_are_exactly_the_audited_allowlist():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D71_TARGET_FAMILIES
+        )
+      )
+    
+>     assert target_entries
+E     assert ()
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:100: AssertionError
+___ test_phase103_6d71_changes_only_entries_from_the_four_target_factories ____
+
+    def test_phase103_6d71_changes_only_entries_from_the_four_target_factories():
+      before = (
+        _phase103_6d71_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      expected_changed = {
+        key
+        for key, entry in before_by_key.items()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D71_TARGET_FACTORIES
+        )
+      }
+    
+      actual_changed = set()
+    
+      for key, before_entry in before_by_key.items():
+        after_entry = after_by_key[
+          key
+        ]
+    
+        if (
+          before_entry.relevance_category
+          is not after_entry.relevance_category
+        ):
+          actual_changed.add(
+            key
+          )
+    
+          assert (
+            before_entry.relevance_category
+            is RuleRelevanceCategory.UNCLASSIFIED
+          )
+    
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+>     assert expected_changed
+E     assert set()
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:172: AssertionError
+_________________ test_phase103_6d71_target_cluster_is_closed _________________
+
+    def test_phase103_6d71_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D71_TARGET_FACTORIES
+        )
+      )
+    
+>     assert target_entries
+E     assert ()
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:190: AssertionError
+______ test_phase103_6d71_deliberately_leaves_pi14_13_eta13_unclassified ______
+
+    def test_phase103_6d71_deliberately_leaves_pi14_13_eta13_unclassified():
+      catalog = _build_catalog()
+    
+      deferred_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          == PHASE103_6D71_DEFERRED_FAMILY
+        )
+      )
+    
+>     assert deferred_entries
+E     assert ()
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:211: AssertionError
+_____ test_phase103_6d71_family_coverage_changes_by_exactly_four_families _____
+
+    def test_phase103_6d71_family_coverage_changes_by_exactly_four_families():
+      before = (
+        _phase103_6d71_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_families = _families(
+        before
+      )
+      after_families = _families(
+        after
+      )
+    
+      def classified_count(
+        families,
+      ):
+        return sum(
+          1
+          for entries in families.values()
+          if {
+            entry.relevance_category
+            for entry in entries
+          }
+          != {
+            RuleRelevanceCategory.UNCLASSIFIED
+          }
+        )
+    
+>     assert len(
+        before_families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:259: AssertionError
+__ test_phase103_6d71_entry_coverage_delta_matches_exact_target_entry_count ___
+
+    def test_phase103_6d71_entry_coverage_delta_matches_exact_target_entry_count():
+      before = (
+        _phase103_6d71_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_entries = tuple(
+        before.entries()
+      )
+      after_entries = tuple(
+        after.entries()
+      )
+    
+      before_counts = Counter(
+        entry.relevance_category
+        for entry in before_entries
+      )
+    
+      after_counts = Counter(
+        entry.relevance_category
+        for entry in after_entries
+      )
+    
+      target_count = sum(
+        1
+        for entry in before_entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          in PHASE103_6D71_TARGET_FACTORIES
+        )
+      )
+    
+>     assert target_count > 0
+E     assert 0 > 0
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:315: AssertionError
+______ test_phase103_6d71_preserves_6d68_stable_range_transport_closure _______
+
+    def test_phase103_6d71_preserves_6d68_stable_range_transport_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.3 eta_4 squared stable transport",
+        "Toda Proposition 5.6 nu_5 stable transport",
+        "Toda Proposition 5.11 higher six-stem nu squared transport",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:361: AssertionError
+___ test_phase103_6d71_preserves_6d65_finite_dimensional_nu_squared_closure ___
+
+    def test_phase103_6d71_preserves_6d65_finite_dimensional_nu_squared_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.11 pi_12^6 nu_6 squared",
+        "Toda Proposition 5.11 pi_13^7 nu_7 squared",
+        "Toda Proposition 5.11 pi_14^8 nu_8 squared",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:388: AssertionError
+____ test_phase103_6d71_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d71_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py:403: AssertionError
+_______ test_phase103_6d73_classifies_pi14_13_eta13_as_theorem_specific _______
+
+    def test_phase103_6d73_classifies_pi14_13_eta13_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+>     assert PHASE103_6D73_TARGET_FAMILY in families
+E     AssertionError: assert 'Toda Proposition 5.11 pi_14^13 eta_13' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:62: AssertionError
+_____ test_phase103_6d73_target_factory_is_exactly_the_audited_singleton ______
+
+    def test_phase103_6d73_target_factory_is_exactly_the_audited_singleton():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          == PHASE103_6D73_TARGET_FAMILY
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:89: AssertionError
+___________ test_phase103_6d73_changes_only_target_factory_entries ____________
+
+    def test_phase103_6d73_changes_only_target_factory_entries():
+      before = (
+        _phase103_6d73_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      expected_changed = {
+        key
+        for key, entry in before_by_key.items()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D73_TARGET_FACTORY
+        )
+      }
+    
+      actual_changed = set()
+    
+      for key, before_entry in before_by_key.items():
+        after_entry = after_by_key[
+          key
+        ]
+    
+        if (
+          before_entry.relevance_category
+          is not after_entry.relevance_category
+        ):
+          actual_changed.add(
+            key
+          )
+    
+          assert (
+            before_entry.relevance_category
+            is RuleRelevanceCategory.UNCLASSIFIED
+          )
+    
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+>     assert expected_changed
+E     assert set()
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:161: AssertionError
+_________________ test_phase103_6d73_target_cluster_is_closed _________________
+
+    def test_phase103_6d73_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D73_TARGET_FACTORY
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:179: AssertionError
+______ test_phase103_6d73_family_coverage_changes_by_exactly_one_family _______
+
+    def test_phase103_6d73_family_coverage_changes_by_exactly_one_family():
+      before = (
+        _phase103_6d73_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_families = _families(
+        before
+      )
+      after_families = _families(
+        after
+      )
+    
+      def classified_count(
+        families,
+      ):
+        return sum(
+          1
+          for entries in families.values()
+          if {
+            entry.relevance_category
+            for entry in entries
+          }
+          != {
+            RuleRelevanceCategory.UNCLASSIFIED
+          }
+        )
+    
+>     assert len(
+        before_families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:218: AssertionError
+_____ test_phase103_6d73_entry_coverage_delta_matches_target_entry_count ______
+
+    def test_phase103_6d73_entry_coverage_delta_matches_target_entry_count():
+      before = (
+        _phase103_6d73_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_entries = tuple(
+        before.entries()
+      )
+      after_entries = tuple(
+        after.entries()
+      )
+    
+      before_counts = Counter(
+        entry.relevance_category
+        for entry in before_entries
+      )
+    
+      after_counts = Counter(
+        entry.relevance_category
+        for entry in after_entries
+      )
+    
+      target_count = sum(
+        1
+        for entry in before_entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D73_TARGET_FACTORY
+        )
+      )
+    
+>     assert target_count > 0
+E     assert 0 > 0
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:274: AssertionError
+_________ test_phase103_6d73_preserves_6d71_eta_zero_relation_closure _________
+
+    def test_phase103_6d73_preserves_6d71_eta_zero_relation_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.1 eta_4 order-two consequence",
+        "Toda Lemma 5.4 eta_6 twice zero",
+        "Toda Lemma 5.10 eta_8 two iota_9 zero",
+        "Toda Lemma 5.10 eta_9 two iota_10 zero",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:321: AssertionError
+______ test_phase103_6d73_preserves_6d68_stable_range_transport_closure _______
+
+    def test_phase103_6d73_preserves_6d68_stable_range_transport_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.3 eta_4 squared stable transport",
+        "Toda Proposition 5.6 nu_5 stable transport",
+        "Toda Proposition 5.11 higher six-stem nu squared transport",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:348: AssertionError
+____ test_phase103_6d73_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d73_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py:363: AssertionError
+_ test_phase103_6d76_classifies_prop56_nu_prime_order_four_as_theorem_specific _
+
+    def test_phase103_6d76_classifies_prop56_nu_prime_order_four_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+>     assert PHASE103_6D76_TARGET_FAMILY in families
+E     AssertionError: assert 'Toda Proposition 5.6 nu-prime order four' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:62: AssertionError
+_____ test_phase103_6d76_target_factory_is_exactly_the_audited_singleton ______
+
+    def test_phase103_6d76_target_factory_is_exactly_the_audited_singleton():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          == PHASE103_6D76_TARGET_FAMILY
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 4
+E     assert 0 == 4
+E      +  where 0 = len(())
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:91: AssertionError
+___________ test_phase103_6d76_changes_only_target_factory_entries ____________
+
+    def test_phase103_6d76_changes_only_target_factory_entries():
+      before = (
+        _phase103_6d76_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      expected_changed = {
+        key
+        for key, entry in before_by_key.items()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D76_TARGET_FACTORY
+        )
+      }
+    
+>     assert len(
+        expected_changed
+      ) == 4
+E     assert 0 == 4
+E      +  where 0 = len(set())
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:140: AssertionError
+_________________ test_phase103_6d76_target_cluster_is_closed _________________
+
+    def test_phase103_6d76_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D76_TARGET_FACTORY
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 4
+E     assert 0 == 4
+E      +  where 0 = len(())
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:186: AssertionError
+______ test_phase103_6d76_family_coverage_changes_by_exactly_one_family _______
+
+    def test_phase103_6d76_family_coverage_changes_by_exactly_one_family():
+      before = (
+        _phase103_6d76_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_families = _families(
+        before
+      )
+      after_families = _families(
+        after
+      )
+    
+      def classified_count(
+        families,
+      ):
+        return sum(
+          1
+          for entries in families.values()
+          if {
+            entry.relevance_category
+            for entry in entries
+          }
+          != {
+            RuleRelevanceCategory.UNCLASSIFIED
+          }
+        )
+    
+>     assert len(
+        before_families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:227: AssertionError
+_____ test_phase103_6d76_entry_coverage_delta_matches_four_target_entries _____
+
+    def test_phase103_6d76_entry_coverage_delta_matches_four_target_entries():
+      before = (
+        _phase103_6d76_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_entries = tuple(
+        before.entries()
+      )
+      after_entries = tuple(
+        after.entries()
+      )
+    
+      before_counts = Counter(
+        entry.relevance_category
+        for entry in before_entries
+      )
+    
+      after_counts = Counter(
+        entry.relevance_category
+        for entry in after_entries
+      )
+    
+>     assert len(
+        before_entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:275: AssertionError
+___________ test_phase103_6d76_preserves_6d73_pi14_13_eta13_closure ___________
+
+    def test_phase103_6d76_preserves_6d73_pi14_13_eta13_closure():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          == "Toda Proposition 5.11 pi_14^13 eta_13"
+        )
+      )
+    
+>     assert entries
+E     assert ()
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:327: AssertionError
+_______ test_phase103_6d76_preserves_structural_and_map_property_counts _______
+
+    def test_phase103_6d76_preserves_structural_and_map_property_counts():
+      catalog = _build_catalog()
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in catalog.entries()
+      )
+    
+>     assert (
+        counts[
+          RuleRelevanceCategory.STRUCTURAL
+        ]
+        == 201
+      )
+E     assert 0 == 201
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:344: AssertionError
+____ test_phase103_6d76_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d76_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py:365: AssertionError
+____ test_phase103_6d79_classifies_prop59_delta_eta11_as_theorem_specific _____
+
+    def test_phase103_6d79_classifies_prop59_delta_eta11_as_theorem_specific():
+      catalog = _build_catalog()
+      families = _families(
+        catalog
+      )
+    
+>     assert PHASE103_6D79_TARGET_FAMILY in families
+E     AssertionError: assert 'Toda Proposition 5.9 Delta eta_11' in {'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...}
+
+tests\test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py:62: AssertionError
+_____ test_phase103_6d79_target_factory_is_exactly_the_audited_singleton ______
+
+    def test_phase103_6d79_target_factory_is_exactly_the_audited_singleton():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          == PHASE103_6D79_TARGET_FAMILY
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py:91: AssertionError
+____________ test_phase103_6d79_changes_only_target_factory_entry _____________
+
+    def test_phase103_6d79_changes_only_target_factory_entry():
+      before = (
+        _phase103_6d79_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      expected_changed = {
+        key
+        for key, entry in before_by_key.items()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D79_TARGET_FACTORY
+        )
+      }
+    
+>     assert len(
+        expected_changed
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(set())
+
+tests\test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py:140: AssertionError
+_________________ test_phase103_6d79_target_cluster_is_closed _________________
+
+    def test_phase103_6d79_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          _inference_rule_factory_name(
+            entry.rule
+          )
+          == PHASE103_6D79_TARGET_FACTORY
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py:186: AssertionError
+______ test_phase103_6d79_family_coverage_changes_by_exactly_one_family _______
+
+    def test_phase103_6d79_family_coverage_changes_by_exactly_one_family():
+      before = (
+        _phase103_6d79_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_families = _families(
+        before
+      )
+      after_families = _families(
+        after
+      )
+    
+      def classified_count(
+        families,
+      ):
+        return sum(
+          1
+          for entries in families.values()
+          if {
+            entry.relevance_category
+            for entry in entries
+          }
+          != {
+            RuleRelevanceCategory.UNCLASSIFIED
+          }
+        )
+    
+>     assert len(
+        before_families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py:227: AssertionError
+_____ test_phase103_6d79_entry_coverage_delta_matches_single_target_entry _____
+
+    def test_phase103_6d79_entry_coverage_delta_matches_single_target_entry():
+      before = (
+        _phase103_6d79_original_builder()
+      )
+      after = (
+        _build_catalog()
+      )
+    
+      before_entries = tuple(
+        before.entries()
+      )
+      after_entries = tuple(
+        after.entries()
+      )
+    
+      before_counts = Counter(
+        entry.relevance_category
+        for entry in before_entries
+      )
+    
+      after_counts = Counter(
+        entry.relevance_category
+        for entry in after_entries
+      )
+    
+>     assert len(
+        before_entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py:275: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_family_coverage_counts
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_entry_coverage_counts
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_theorem_specific_entry_count_increases_by_exactly_twelve
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_preserves_6d65_prop511_finite_dimensional_nu_squared_closure
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_preserves_6d62_lemma54_nu4_consequence_closure
+FAILED tests/test_phase103_6d68_cross_theorem_stable_range_transport_theorem_specific_classification.py::test_phase103_6d68_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_classifies_exactly_the_four_audited_eta_zero_relation_families
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_target_factories_are_exactly_the_audited_allowlist
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_changes_only_entries_from_the_four_target_factories
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_target_cluster_is_closed
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_deliberately_leaves_pi14_13_eta13_unclassified
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_family_coverage_changes_by_exactly_four_families
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_entry_coverage_delta_matches_exact_target_entry_count
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_preserves_6d68_stable_range_transport_closure
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_preserves_6d65_finite_dimensional_nu_squared_closure
+FAILED tests/test_phase103_6d71_prop51_derived_eta_zero_relation_theorem_specific_classification.py::test_phase103_6d71_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_classifies_pi14_13_eta13_as_theorem_specific
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_target_factory_is_exactly_the_audited_singleton
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_changes_only_target_factory_entries
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_target_cluster_is_closed
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_family_coverage_changes_by_exactly_one_family
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_entry_coverage_delta_matches_target_entry_count
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_preserves_6d71_eta_zero_relation_closure
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_preserves_6d68_stable_range_transport_closure
+FAILED tests/test_phase103_6d73_prop511_pi14_13_eta13_group_identification_theorem_specific_classification.py::test_phase103_6d73_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_classifies_prop56_nu_prime_order_four_as_theorem_specific
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_target_factory_is_exactly_the_audited_singleton
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_changes_only_target_factory_entries
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_target_cluster_is_closed
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_family_coverage_changes_by_exactly_one_family
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_entry_coverage_delta_matches_four_target_entries
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_preserves_6d73_pi14_13_eta13_closure
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_preserves_structural_and_map_property_counts
+FAILED tests/test_phase103_6d76_prop56_nu_prime_order_four_theorem_specific_classification.py::test_phase103_6d76_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py::test_phase103_6d79_classifies_prop59_delta_eta11_as_theorem_specific
+FAILED tests/test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py::test_phase103_6d79_target_factory_is_exactly_the_audited_singleton
+FAILED tests/test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py::test_phase103_6d79_changes_only_target_factory_entry
+FAILED tests/test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py::test_phase103_6d79_target_cluster_is_closed
+FAILED tests/test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py::test_phase103_6d79_family_coverage_changes_by_exactly_one_family
+FAILED tests/test_phase103_6d79_prop59_delta_eta11_theorem_specific_classification.py::test_phase103_6d79_entry_coverage_delta_matches_single_target_entry
+40 failed in 13.52s

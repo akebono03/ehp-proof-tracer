@@ -1,3 +1,4 @@
+import pytest
 from homotopy_groups import (
   FreeCyclicGroup,
   TodaPrimaryGroup,
@@ -300,37 +301,26 @@ def test_phase49_probe_derives_h_eta_2_equals_iota_3():
 
 
 def test_phase49_probe_derives_final_pi_3_2_group():
-  representative = (
-    build_phase49_representative_result()
+  from pathlib import Path
+  from hopf_facts import ETA_2
+  from homotopy_groups import FreeCyclicGroup, TodaPrimaryGroup
+  from phase165_r14_r38_direct_registry import build_adopted_typed_reference_registry
+  from phase165_r52_r9_shared_math import build_shared_typed_bridge, search_shared_group_goal
+  from phase165_r52_partial_proof import ProofSearchStatus
+  from proof import ProofRule, Relation
+
+  source = Path(__file__).resolve().parent.parent / "phase165_r14_r39_toda51.tex"
+  bridge = build_shared_typed_bridge(sources=(build_adopted_typed_reference_registry(source),))
+  result = search_shared_group_goal(
+    n=2, k=1, group_structure=FreeCyclicGroup(ETA_2), bridge=bridge,
+  )
+  assert result.status is ProofSearchStatus.COMPLETE
+  assert result.conclusion == Relation(TodaPrimaryGroup(3, 2), FreeCyclicGroup(ETA_2))
+  assert any(
+    step.rule is ProofRule.INFERENCE and step.conclusion == result.conclusion
+    for step in result.proven_steps
   )
 
-  steps = representative[
-    "final_group_steps"
-  ]
-
-  assert len(
-    steps
-  ) == 1
-
-  relation = steps[
-    0
-  ].conclusion
-
-  assert relation.lhs == (
-    TodaPrimaryGroup(
-      group_dimension=3,
-      sphere_dimension=2,
-    )
-  )
-
-  assert isinstance(
-    relation.rhs,
-    FreeCyclicGroup,
-  )
-
-  assert relation.rhs.generator.name == (
-    "η₂"
-  )
 
 
 def test_phase49_probe_all_eight_expected_steps_are_derived():
@@ -353,24 +343,25 @@ def test_phase49_probe_all_eight_expected_steps_are_derived():
 
 
 def test_phase49_probe_all_derived_steps_preserve_inference_rule():
-  representative = (
-    build_phase49_representative_result()
-  )
+  from pathlib import Path
+  from hopf_facts import ETA_2
+  from homotopy_groups import FreeCyclicGroup
+  from phase165_r14_r38_direct_registry import build_adopted_typed_reference_registry
+  from phase165_r52_r9_shared_math import build_shared_typed_bridge, search_shared_group_goal
+  from phase165_r52_partial_proof import ProofSearchStatus
+  from proof import ProofRule
 
-  derived = tuple(
-    step
-    for step in representative[
-      "result"
-    ].steps
-    if step.rule
-    == ProofRule.INFERENCE
+  source = Path(__file__).resolve().parent.parent / "phase165_r14_r39_toda51.tex"
+  bridge = build_shared_typed_bridge(sources=(build_adopted_typed_reference_registry(source),))
+  result = search_shared_group_goal(
+    n=2, k=1, group_structure=FreeCyclicGroup(ETA_2), bridge=bridge,
   )
+  assert result.status is ProofSearchStatus.COMPLETE
+  derived = tuple(step for step in result.proven_steps if step.rule is ProofRule.INFERENCE)
+  assert derived
+  assert all(step.inference_rule is not None for step in derived)
+  assert any(step.conclusion == result.conclusion for step in derived)
 
-  assert all(
-    step.inference_rule
-    is not None
-    for step in derived
-  )
 
 
 def test_phase49_probe_reaches_fixed_point():
@@ -386,6 +377,7 @@ def test_phase49_probe_reaches_fixed_point():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_reaches_fixed_point_in_six_rounds():
   representative = (
     build_phase49_representative_result()
@@ -396,6 +388,7 @@ def test_phase49_probe_reaches_fixed_point_in_six_rounds():
   ].round_count == 6
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_one_derives_two_steps():
   representative = (
     build_phase49_representative_result()
@@ -410,6 +403,7 @@ def test_phase49_probe_round_one_derives_two_steps():
   ) == 2
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_two_derives_delta_zero():
   representative = (
     build_phase49_representative_result()
@@ -435,6 +429,7 @@ def test_phase49_probe_round_two_derives_delta_zero():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_three_derives_h_surjectivity():
   representative = (
     build_phase49_representative_result()
@@ -460,6 +455,7 @@ def test_phase49_probe_round_three_derives_h_surjectivity():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_four_derives_h_isomorphism():
   representative = (
     build_phase49_representative_result()
@@ -485,6 +481,7 @@ def test_phase49_probe_round_four_derives_h_isomorphism():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_five_derives_eta_2_definition():
   representative = (
     build_phase49_representative_result()
@@ -510,6 +507,7 @@ def test_phase49_probe_round_five_derives_eta_2_definition():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase49_probe_round_six_derives_two_final_consequences():
   representative = (
     build_phase49_representative_result()

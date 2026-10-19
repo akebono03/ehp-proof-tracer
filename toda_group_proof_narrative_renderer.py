@@ -11948,6 +11948,15 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
       ProofSearchStatus.NOT_SEARCHED: "未探索",
     }[result.status]
     lines.extend(["**探索状態：" + state + "**", ""])
+    if steps:
+      lines.extend(["### 確認済み ProofStep（与件を含む）", ""])
+      for step in steps:
+        rendered = (statement_math(step.conclusion)
+                    if isinstance(step.conclusion, str)
+                    else _render_generic_narrative_step(step))
+        prefix = "- 与件: " if step.rule is ProofRule.GIVEN else "- 推論: "
+        lines.append(prefix + rendered)
+      lines.append("")
     if result.open_goals:
       lines.extend(["## 未解決 Goal", ""])
       for goal in result.open_goals:

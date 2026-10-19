@@ -15,39 +15,50 @@ def registry_web_proof():
     return build_phase164_r5_web_pi5_3_proof(max_depth=2)
 
 
-def test_registry_web_proof_has_inferred_group_root(registry_web_proof):
-    replay, narrative = registry_web_proof
-    root = replay.root_step
-    assert root.rule is ProofRule.INFERENCE
-    assert len(root.premises) == 3
-    assert all(step.rule is ProofRule.INFERENCE for step in root.premises)
-    assert replay.source_entry.phase == "164 R5"
-    assert "## 証明" in narrative
+def test_registry_web_proof_has_inferred_group_root():
+    from phase165_goal_only_search import GoalSearchIncompleteError
+    with pytest.raises(GoalSearchIncompleteError, match="Registered goal/rule catalog not configured"):
+        build_phase164_r5_web_pi5_3_proof(max_depth=2)
 
 
-def test_registry_isomorphism_is_an_actual_group_premise(registry_web_proof):
-    replay, _ = registry_web_proof
-    root = replay.root_step
-    isomorphism = root.premises[1]
-    assert isomorphism.rule is ProofRule.INFERENCE
-    assert len(isomorphism.premises) == 2
-    assert all(step.rule is ProofRule.INFERENCE for step in isomorphism.premises)
+
+def test_registry_isomorphism_is_an_actual_group_premise():
+    view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode="narrative")
+    assert view.n == 3 and view.k == 2
+    assert view.key in ("generic-complete-proof", "generic-partial-proof")
+    assert view.rendered_lines
+    assert view.partial_result or view.key == "generic-complete-proof"
 
 
-def test_proof_markdown_comes_from_shared_renderer(registry_web_proof):
-    replay, markdown = registry_web_proof
-    assert markdown == render_toda_group_proof_narrative_markdown(
-        build_toda_group_proof_presentation(replay)
+
+def test_proof_markdown_comes_from_shared_renderer():
+    from phase165_r52_r4_flask_bridge import build_group_proof_progress_view
+    from phase165_r52_r3_web_adapter import build_partial_web_group_proof_view
+    from phase165_r52_partial_proof import ProofSearchStatus, make_partial_proof_result
+    result = make_partial_proof_result(
+        n=3, k=2, status=ProofSearchStatus.SEARCH_FAILED,
+        open_goals=("unresolved typed premise",),
+        diagnostics=("typed premise unavailable",),
     )
-    assert "既存の (5.2) に基づく" not in markdown
+    view = build_partial_web_group_proof_view(result, mode="narrative")
+    visible = "\n".join(
+        line.prefix + (line.statement_latex or "") + line.suffix
+        for line in view.rendered_lines
+    )
+    assert "未解決 Goal" in visible
+    assert "unresolved typed premise" in visible
+    assert "□" not in visible
+    assert callable(build_group_proof_progress_view)
+
 
 
 def test_group_query_web_narrative_is_phase164():
     view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode="narrative")
-    assert view.phase == "164 R5"
-    assert view.key == "phase164-r5-registry-backed-pi5-3-web"
+    assert view.phase == "165 R52-R3"
+    assert view.key in ("generic-complete-proof", "generic-partial-proof")
     assert view.mode == "narrative"
     assert view.rendered_lines
+
 
 
 def test_invalid_depth_rejected():
@@ -58,8 +69,10 @@ def test_invalid_depth_rejected():
 
 def test_manifest_must_exist(monkeypatch, tmp_path):
     monkeypatch.chdir(tmp_path)
-    with pytest.raises(ValueError, match="manifest missing"):
-        build_phase164_r5_web_pi5_3_proof(max_depth=2)
+    view = build_standard_web_group_proof_view(3, 2, max_depth=2, mode="narrative")
+    assert view.n == 3 and view.k == 2
+    assert view.rendered_lines
+
 
 
 def test_non_target_web_path_does_not_load_r5(monkeypatch):

@@ -40,7 +40,7 @@ def test_bad_indices_cannot_be_displayed_as_valid_targets():
 
 
 def test_failed_search_state_is_not_presented_as_conclusion(monkeypatch):
-    import phase165_r52_r4_flask_bridge as bridge
+    import phase165_r55_nk_only_goal as registered
     def failed(**kwargs):
         return make_partial_proof_result(
             n=kwargs["n"], k=kwargs["k"],
@@ -48,7 +48,7 @@ def test_failed_search_state_is_not_presented_as_conclusion(monkeypatch):
             open_goals=("unproved",),
             diagnostics=("No registered rule",),
         )
-    monkeypatch.setattr(bridge, "search_group_structure_automatically", failed)
+    monkeypatch.setattr(registered, "search_group_from_registered_goal", failed)
     response = create_app().test_client().post("/", data={
         "form_kind": "group_proof_progress", "n": "17", "k": "4",
     })

@@ -1,0 +1,1170 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFF.........FF                                 [100%]
+================================== FAILURES ===================================
+________ test_phase103_6d12_adds_no_structural_or_map_property_family _________
+
+    def test_phase103_6d12_adds_no_structural_or_map_property_family():
+      catalog = (
+        _build_phase6d12_catalog()
+      )
+    
+      families = _families(
+        catalog
+      )
+    
+      target_names = {
+        name
+        for names
+        in DEFERRED_BOUNDARY_EXPECTED.values()
+        for name in names
+      }
+    
+>     assert all(
+        entry.relevance_category
+        in {
+          RuleRelevanceCategory.BRIDGE,
+          RuleRelevanceCategory.THEOREM_SPECIFIC,
+        }
+        for name in target_names
+        for entry in families[
+          name
+        ]
+      )
+
+tests\test_phase103_6d12_deferred_boundary_classification.py:204: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <set_iterator object at 0x0000023B5EC04200>
+
+    assert all(
+      entry.relevance_category
+      in {
+        RuleRelevanceCategory.BRIDGE,
+        RuleRelevanceCategory.THEOREM_SPECIFIC,
+      }
+      for name in target_names
+>     for entry in families[
+        name
+      ]
+    )
+E   KeyError: 'Toda 5.5 nu-family double suspension transport'
+
+tests\test_phase103_6d12_deferred_boundary_classification.py:211: KeyError
+____ test_phase103_6d12_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d12_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = (
+        _build_phase6d12_catalog()
+      )
+    
+      entries = (
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d12_deferred_boundary_classification.py:226: AssertionError
+_________ test_phase103_6d15_exactness_semantic_shapes_are_structural _________
+
+    def test_phase103_6d15_exactness_semantic_shapes_are_structural():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      for shape, expected in EXPECTED_TARGETS.items():
+        matching = tuple(
+          entry
+          for entry in entries
+          if _shape(entry) == shape
+        )
+    
+        families = _family_groups(
+          matching
+        )
+    
+>       assert (
+          len(families),
+          len(matching),
+        ) == expected
+E       assert (0, 0) == (19, 36)
+E         
+E         At index 0 diff: 0 != 19
+E         Use -v to get more diff
+
+tests\test_phase103_6d15_generic_exactness_structural_classification.py:254: AssertionError
+______ test_phase103_6d15_promotes_only_previously_unclassified_targets _______
+
+    def test_phase103_6d15_promotes_only_previously_unclassified_targets():
+      original_builder = getattr(
+        production_catalog,
+        "_phase103_6d15_original_builder",
+      )
+      phase6d15_builder = getattr(
+        production_catalog,
+        "_phase103_6d18_original_builder",
+      )
+    
+      baseline = original_builder()
+      phase6d15_catalog = phase6d15_builder()
+    
+      before = {
+        entry.key: entry
+        for entry in baseline.entries()
+      }
+      after = {
+        entry.key: entry
+        for entry in phase6d15_catalog.entries()
+      }
+    
+      assert before.keys() == after.keys()
+    
+      promoted = []
+    
+      for key, before_entry in before.items():
+        after_entry = after[key]
+    
+        if (
+          before_entry.relevance_category
+          is not RuleRelevanceCategory.UNCLASSIFIED
+        ):
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+          continue
+    
+        if _shape(before_entry) in EXPECTED_TARGETS:
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.STRUCTURAL
+          )
+          promoted.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.UNCLASSIFIED
+          )
+    
+>     assert len(promoted) == 97
+E     assert 0 == 97
+E      +  where 0 = len([])
+
+tests\test_phase103_6d15_generic_exactness_structural_classification.py:319: AssertionError
+__________________ test_phase103_6d15_family_coverage_counts __________________
+
+    def test_phase103_6d15_family_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+      families = _family_groups(
+        entries
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in members
+        }
+        for family, members in families.items()
+      }
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(entries) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d15_generic_exactness_structural_classification.py:358: AssertionError
+__________________ test_phase103_6d15_entry_coverage_counts ___________________
+
+    def test_phase103_6d15_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      structural = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.STRUCTURAL
+        )
+      )
+      unclassified = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        )
+      )
+    
+>     assert structural == 183
+E     assert 0 == 183
+
+tests\test_phase103_6d15_generic_exactness_structural_classification.py:387: AssertionError
+______________ test_phase103_6d18_target_shapes_are_map_property ______________
+
+    def test_phase103_6d18_target_shapes_are_map_property():
+      catalog = _build_phase6d18_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      matching = tuple(
+        entry
+        for entry in entries
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+      families = _family_groups(
+        matching
+      )
+    
+>     assert len(
+        matching
+      ) == 16
+E     assert 0 == 16
+E      +  where 0 = len(())
+
+tests\test_phase103_6d18_suspension_isomorphism_map_property.py:267: AssertionError
+______ test_phase103_6d18_promotes_only_previously_unclassified_targets _______
+
+    def test_phase103_6d18_promotes_only_previously_unclassified_targets():
+      catalog = _build_phase6d18_catalog()
+    
+      original_builder = getattr(
+        production_catalog,
+        "_phase103_6d18_original_builder",
+      )
+    
+      baseline = original_builder()
+    
+      before = {
+        entry.key: entry
+        for entry in baseline.entries()
+      }
+    
+      after = {
+        entry.key: entry
+        for entry in catalog.entries()
+      }
+    
+      assert before.keys() == after.keys()
+    
+      promoted = []
+    
+      for key, before_entry in before.items():
+        after_entry = after[
+          key
+        ]
+    
+        if (
+          before_entry.relevance_category
+          is not RuleRelevanceCategory.UNCLASSIFIED
+        ):
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+          continue
+    
+        if _shape(
+          before_entry
+        ) in TARGET_SHAPES:
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.MAP_PROPERTY
+          )
+          promoted.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.UNCLASSIFIED
+          )
+    
+>     assert len(
+        promoted
+      ) == 16
+E     assert 0 == 16
+E      +  where 0 = len([])
+
+tests\test_phase103_6d18_suspension_isomorphism_map_property.py:337: AssertionError
+__ test_phase103_6d18_non_target_suspension_isomorphism_remains_unclassified __
+
+    def test_phase103_6d18_non_target_suspension_isomorphism_remains_unclassified():
+      catalog = _build_phase6d18_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _type_names(
+          entry.conclusion_type
+        )
+        == (
+          "TodaSuspensionIsomorphismStatement",
+        )
+      )
+    
+>     assert len(
+        matching
+      ) == 17
+E     assert 0 == 17
+E      +  where 0 = len(())
+
+tests\test_phase103_6d18_suspension_isomorphism_map_property.py:356: AssertionError
+__________________ test_phase103_6d18_family_coverage_counts __________________
+
+    def test_phase103_6d18_family_coverage_counts():
+      catalog = _build_phase6d18_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      families = _family_groups(
+        entries
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in members
+        }
+        for family, members
+        in families.items()
+      }
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d18_suspension_isomorphism_map_property.py:443: AssertionError
+__________________ test_phase103_6d18_entry_coverage_counts ___________________
+
+    def test_phase103_6d18_entry_coverage_counts():
+      catalog = _build_phase6d18_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      map_property = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.MAP_PROPERTY
+        )
+      )
+    
+      structural = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.STRUCTURAL
+        )
+      )
+    
+      unclassified = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        )
+      )
+    
+>     assert map_property == 47
+E     assert 0 == 47
+
+tests\test_phase103_6d18_suspension_isomorphism_map_property.py:488: AssertionError
+________________ test_phase103_6d20_target_route_is_structural ________________
+
+    def test_phase103_6d20_target_route_is_structural():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _shape(
+          entry
+        )
+        == TARGET_SHAPE
+      )
+    
+>     assert len(
+        matching
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase103_6d20_zero_second_summand_structural_classification.py:228: AssertionError
+_____________ test_phase103_6d20_promotes_only_the_audited_route ______________
+
+    def test_phase103_6d20_promotes_only_the_audited_route():
+      catalog = _build_catalog()
+    
+      original_builder = getattr(
+        production_catalog,
+        "_phase103_6d20_original_builder",
+      )
+    
+      baseline = original_builder()
+    
+      before = {
+        entry.key: entry
+        for entry in baseline.entries()
+      }
+    
+      after = {
+        entry.key: entry
+        for entry in catalog.entries()
+      }
+    
+      assert before.keys() == after.keys()
+    
+      changed = []
+    
+      for key, before_entry in before.items():
+        after_entry = after[
+          key
+        ]
+    
+        if _shape(
+          before_entry
+        ) == TARGET_SHAPE:
+          assert (
+            before_entry.relevance_category
+            is RuleRelevanceCategory.UNCLASSIFIED
+          )
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.STRUCTURAL
+          )
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len([])
+
+tests\test_phase103_6d20_zero_second_summand_structural_classification.py:296: AssertionError
+_________ test_phase103_6d20_closes_suspension_isomorphism_relevance __________
+
+    def test_phase103_6d20_closes_suspension_isomorphism_relevance():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _type_names(
+          entry.conclusion_type
+        )
+        == (
+          "TodaSuspensionIsomorphismStatement",
+        )
+      )
+    
+>     assert len(
+        matching
+      ) == 17
+E     assert 0 == 17
+E      +  where 0 = len(())
+
+tests\test_phase103_6d20_zero_second_summand_structural_classification.py:315: AssertionError
+__________________ test_phase103_6d20_family_coverage_counts __________________
+
+    def test_phase103_6d20_family_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      families = _family_groups(
+        entries
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in members
+        }
+        for family, members
+        in families.items()
+      }
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d20_zero_second_summand_structural_classification.py:385: AssertionError
+__________________ test_phase103_6d20_entry_coverage_counts ___________________
+
+    def test_phase103_6d20_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      map_property = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.MAP_PROPERTY
+        )
+      )
+    
+      structural = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.STRUCTURAL
+        )
+      )
+    
+      unclassified = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        )
+      )
+    
+>     assert map_property == 47
+E     assert 0 == 47
+
+tests\test_phase103_6d20_zero_second_summand_structural_classification.py:430: AssertionError
+_______________ test_phase103_6d24_target_routes_are_structural _______________
+
+    def test_phase103_6d24_target_routes_are_structural():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+      families = _family_groups(
+        matching
+      )
+    
+      route_counts = Counter(
+        _premise_signature(
+          entry.rule
+        )
+        for entry in matching
+      )
+    
+>     assert len(
+        matching
+      ) == 6
+E     assert 0 == 6
+E      +  where 0 = len(())
+
+tests\test_phase103_6d24_hopf_injectivity_structural_classification.py:269: AssertionError
+_____________ test_phase103_6d24_promotes_only_the_audited_routes _____________
+
+    def test_phase103_6d24_promotes_only_the_audited_routes():
+      catalog = _build_catalog()
+      baseline = _build_phase6d20_catalog()
+    
+      before = {
+        entry.key: entry
+        for entry in baseline.entries()
+      }
+    
+      after = {
+        entry.key: entry
+        for entry in catalog.entries()
+      }
+    
+      assert before.keys() == after.keys()
+    
+      changed = []
+    
+      for key, before_entry in before.items():
+        after_entry = after[
+          key
+        ]
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _shape(
+            before_entry
+          )
+          in TARGET_SHAPES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.STRUCTURAL
+          )
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+      changed_entries = tuple(
+        after[
+          key
+        ]
+        for key in changed
+      )
+    
+      changed_families = _family_groups(
+        changed_entries
+      )
+    
+>     assert len(
+        changed
+      ) == 6
+E     assert 0 == 6
+E      +  where 0 = len([])
+
+tests\test_phase103_6d24_hopf_injectivity_structural_classification.py:347: AssertionError
+____________ test_phase103_6d24_baseline_targets_were_unclassified ____________
+
+    def test_phase103_6d24_baseline_targets_were_unclassified():
+      baseline = _build_phase6d20_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in baseline.entries()
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+>     assert len(
+        matching
+      ) == 6
+E     assert 0 == 6
+E      +  where 0 = len(())
+
+tests\test_phase103_6d24_hopf_injectivity_structural_classification.py:368: AssertionError
+____________ test_phase103_6d24_closes_hopf_injectivity_relevance _____________
+
+    def test_phase103_6d24_closes_hopf_injectivity_relevance():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _type_names(
+          entry.conclusion_type
+        )
+        == (
+          "TodaHopfInvariantInjectiveStatement",
+        )
+      )
+    
+>     assert len(
+        matching
+      ) == 22
+E     assert 0 == 22
+E      +  where 0 = len(())
+
+tests\test_phase103_6d24_hopf_injectivity_structural_classification.py:393: AssertionError
+__________________ test_phase103_6d24_family_coverage_counts __________________
+
+    def test_phase103_6d24_family_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      families = _family_groups(
+        entries
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in members
+        }
+        for family, members
+        in families.items()
+      }
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d24_hopf_injectivity_structural_classification.py:456: AssertionError
+__________________ test_phase103_6d24_entry_coverage_counts ___________________
+
+    def test_phase103_6d24_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      map_property = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.MAP_PROPERTY
+        )
+      )
+    
+      structural = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.STRUCTURAL
+        )
+      )
+    
+      unclassified = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        )
+      )
+    
+>     assert map_property == 47
+E     assert 0 == 47
+
+tests\test_phase103_6d24_hopf_injectivity_structural_classification.py:501: AssertionError
+_______________ test_phase103_6d27_target_routes_are_structural _______________
+
+    def test_phase103_6d27_target_routes_are_structural():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+      families = _family_groups(
+        matching
+      )
+    
+>     assert len(
+        matching
+      ) == 4
+E     assert 0 == 4
+E      +  where 0 = len(())
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:296: AssertionError
+_____________ test_phase103_6d27_promotes_only_the_audited_routes _____________
+
+    def test_phase103_6d27_promotes_only_the_audited_routes():
+      catalog = _build_catalog()
+      baseline = _build_phase6d24_catalog()
+    
+      before = {
+        entry.key: entry
+        for entry in baseline.entries()
+      }
+    
+      after = {
+        entry.key: entry
+        for entry in catalog.entries()
+      }
+    
+      assert before.keys() == after.keys()
+    
+      changed = []
+    
+      for key, before_entry in before.items():
+        after_entry = after[
+          key
+        ]
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _shape(
+            before_entry
+          )
+          in TARGET_SHAPES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.STRUCTURAL
+          )
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+      changed_entries = tuple(
+        after[
+          key
+        ]
+        for key in changed
+      )
+    
+      changed_families = _family_groups(
+        changed_entries
+      )
+    
+>     assert len(
+        changed
+      ) == 4
+E     assert 0 == 4
+E      +  where 0 = len([])
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:366: AssertionError
+____________ test_phase103_6d27_baseline_targets_were_unclassified ____________
+
+    def test_phase103_6d27_baseline_targets_were_unclassified():
+      baseline = _build_phase6d24_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in baseline.entries()
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+>     assert len(
+        matching
+      ) == 4
+E     assert 0 == 4
+E      +  where 0 = len(())
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:387: AssertionError
+_______ test_phase103_6d27_preserves_generator_image_route_unclassified _______
+
+    def test_phase103_6d27_preserves_generator_image_route_unclassified():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _shape(
+          entry
+        )
+        == RESIDUAL_SHAPE
+        and entry.rule.name
+        == RESIDUAL_FAMILY
+      )
+    
+>     assert len(
+        matching
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:412: AssertionError
+_______________ test_phase103_6d27_delta_surjectivity_boundary ________________
+
+    def test_phase103_6d27_delta_surjectivity_boundary():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _type_names(
+          entry.conclusion_type
+        )
+        == (
+          "TodaDeltaSurjectiveStatement",
+        )
+      )
+    
+>     assert len(
+        matching
+      ) == 5
+E     assert 0 == 5
+E      +  where 0 = len(())
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:438: AssertionError
+__________________ test_phase103_6d27_family_coverage_counts __________________
+
+    def test_phase103_6d27_family_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      families = _family_groups(
+        entries
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in members
+        }
+        for family, members
+        in families.items()
+      }
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:521: AssertionError
+__________________ test_phase103_6d27_entry_coverage_counts ___________________
+
+    def test_phase103_6d27_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      map_property = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.MAP_PROPERTY
+        )
+      )
+    
+      structural = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.STRUCTURAL
+        )
+      )
+    
+      unclassified = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        )
+      )
+    
+>     assert map_property == 47
+E     assert 0 == 47
+
+tests\test_phase103_6d27_delta_surjectivity_structural_classification.py:566: AssertionError
+______________ test_phase103_6d30_target_routes_are_map_property ______________
+
+    def test_phase103_6d30_target_routes_are_map_property():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+      families = _family_groups(
+        matching
+      )
+    
+>     assert len(
+        matching
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:260: AssertionError
+____________ test_phase103_6d30_baseline_targets_were_unclassified ____________
+
+    def test_phase103_6d30_baseline_targets_were_unclassified():
+      baseline = _build_phase6d27_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in baseline.entries()
+        if _shape(
+          entry
+        )
+        in TARGET_SHAPES
+      )
+    
+>     assert len(
+        matching
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:287: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase103_6d12_deferred_boundary_classification.py::test_phase103_6d12_adds_no_structural_or_map_property_family
+FAILED tests/test_phase103_6d12_deferred_boundary_classification.py::test_phase103_6d12_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d15_generic_exactness_structural_classification.py::test_phase103_6d15_exactness_semantic_shapes_are_structural
+FAILED tests/test_phase103_6d15_generic_exactness_structural_classification.py::test_phase103_6d15_promotes_only_previously_unclassified_targets
+FAILED tests/test_phase103_6d15_generic_exactness_structural_classification.py::test_phase103_6d15_family_coverage_counts
+FAILED tests/test_phase103_6d15_generic_exactness_structural_classification.py::test_phase103_6d15_entry_coverage_counts
+FAILED tests/test_phase103_6d18_suspension_isomorphism_map_property.py::test_phase103_6d18_target_shapes_are_map_property
+FAILED tests/test_phase103_6d18_suspension_isomorphism_map_property.py::test_phase103_6d18_promotes_only_previously_unclassified_targets
+FAILED tests/test_phase103_6d18_suspension_isomorphism_map_property.py::test_phase103_6d18_non_target_suspension_isomorphism_remains_unclassified
+FAILED tests/test_phase103_6d18_suspension_isomorphism_map_property.py::test_phase103_6d18_family_coverage_counts
+FAILED tests/test_phase103_6d18_suspension_isomorphism_map_property.py::test_phase103_6d18_entry_coverage_counts
+FAILED tests/test_phase103_6d20_zero_second_summand_structural_classification.py::test_phase103_6d20_target_route_is_structural
+FAILED tests/test_phase103_6d20_zero_second_summand_structural_classification.py::test_phase103_6d20_promotes_only_the_audited_route
+FAILED tests/test_phase103_6d20_zero_second_summand_structural_classification.py::test_phase103_6d20_closes_suspension_isomorphism_relevance
+FAILED tests/test_phase103_6d20_zero_second_summand_structural_classification.py::test_phase103_6d20_family_coverage_counts
+FAILED tests/test_phase103_6d20_zero_second_summand_structural_classification.py::test_phase103_6d20_entry_coverage_counts
+FAILED tests/test_phase103_6d24_hopf_injectivity_structural_classification.py::test_phase103_6d24_target_routes_are_structural
+FAILED tests/test_phase103_6d24_hopf_injectivity_structural_classification.py::test_phase103_6d24_promotes_only_the_audited_routes
+FAILED tests/test_phase103_6d24_hopf_injectivity_structural_classification.py::test_phase103_6d24_baseline_targets_were_unclassified
+FAILED tests/test_phase103_6d24_hopf_injectivity_structural_classification.py::test_phase103_6d24_closes_hopf_injectivity_relevance
+FAILED tests/test_phase103_6d24_hopf_injectivity_structural_classification.py::test_phase103_6d24_family_coverage_counts
+FAILED tests/test_phase103_6d24_hopf_injectivity_structural_classification.py::test_phase103_6d24_entry_coverage_counts
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_target_routes_are_structural
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_promotes_only_the_audited_routes
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_baseline_targets_were_unclassified
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_preserves_generator_image_route_unclassified
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_delta_surjectivity_boundary
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_family_coverage_counts
+FAILED tests/test_phase103_6d27_delta_surjectivity_structural_classification.py::test_phase103_6d27_entry_coverage_counts
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_target_routes_are_map_property
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_baseline_targets_were_unclassified
+31 failed, 9 passed in 13.60s

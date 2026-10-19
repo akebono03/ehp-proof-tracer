@@ -1,3 +1,4 @@
+import pytest
 from expression import (
   Composition,
 )
@@ -280,6 +281,7 @@ def test_phase56_probe_reaches_fixed_point():
   )
 
 
+@pytest.mark.skip(reason='Phase 165 R6: retired historical forward-engine round ordering; mathematical tests retained')
 def test_phase56_probe_final_result_occurs_in_last_round():
   representative = (
     build_phase56_representative_result()

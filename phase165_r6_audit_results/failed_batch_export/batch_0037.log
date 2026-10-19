@@ -1,0 +1,942 @@
+.......F.F..FFFFFF.FFFF.FFFF.FFF..FFFFFF                                 [100%]
+================================== FAILURES ===================================
+______________ test_phase117_2_web_and_cli_share_sigma11_result _______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000002A2AEC1E560>
+
+    def test_phase117_2_web_and_cli_share_sigma11_result(
+      capsys,
+    ):
+      client = _build_test_client()
+    
+      web_response = client.post(
+        "/",
+        data={
+          "n": "11",
+          "k": "7",
+        },
+      )
+    
+      cli_exit_code = cli_main.main(
+        [
+          "11",
+          "7",
+        ]
+      )
+      captured = capsys.readouterr()
+    
+      result_latex = (
+        rb"\pi_{18}^{11} \cong "
+        rb"\mathbb{Z}/16\{\sigma_{11}\}"
+      )
+    
+      assert web_response.status_code == 200
+>     assert cli_exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase117_web_app.py:50: AssertionError
+____________ test_phase117_1_sigma11_group_query_returns_web_latex ____________
+
+    def test_phase117_1_sigma11_group_query_returns_web_latex():
+      view = (
+        build_standard_web_group_query_view(
+          n=11,
+          k=7,
+        )
+      )
+    
+>     assert (
+        view.status
+        is TodaCalculationStatus.FOUND
+      )
+E     AssertionError: assert <TodaCalculationStatus.NOT_FOUND: 'not_found'> is <TodaCalculationStatus.FOUND: 'found'>
+E      +  where <TodaCalculationStatus.NOT_FOUND: 'not_found'> = WebGroupQueryView(n=11, k=7, status=<TodaCalculationStatus.NOT_FOUND: 'not_found'>, result_latex=None, proof_available=False).status
+E      +  and   <TodaCalculationStatus.FOUND: 'found'> = TodaCalculationStatus.FOUND
+
+tests\test_phase117_web_group_query.py:19: AssertionError
+_______________ test_phase117_1_web_adapter_supports_negative_k _______________
+
+    def test_phase117_1_web_adapter_supports_negative_k():
+      view = (
+>       build_standard_web_group_query_view(
+          n=11,
+          k=-1,
+        )
+      )
+
+tests\test_phase117_web_group_query.py:63: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+web_group_query.py:124: in build_standard_web_group_query_view
+    result = search_group_structure_automatically(n=n, k=k)
+phase165_r52_r5_auto_search.py:67: in search_group_structure_automatically
+    make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 11, k = -1, status = <ProofSearchStatus.NOT_SEARCHED: 'not_searched'>
+structure_status = <GroupStructureStatus.UNKNOWN: 'unknown'>, references = ()
+proven_steps = (), open_goals = (), diagnostics = (), conclusion = None
+
+    def make_partial_proof_result(
+        *, n: int, k: int, status: ProofSearchStatus,
+        structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
+        references: tuple[str, ...] = (),
+        proven_steps: tuple[ProofStep, ...] = (),
+        open_goals: tuple[Any, ...] = (),
+        diagnostics: tuple[str, ...] = (),
+        conclusion: Any | None = None,
+    ) -> PartialProofResult:
+        """Build a result for arbitrary nonnegative stem and sphere dimension >=2."""
+        if isinstance(n, bool) or not isinstance(n, int) or n < 2:
+            raise ValueError("n must be an integer >= 2")
+        if isinstance(k, bool) or not isinstance(k, int) or k < 0:
+>           raise ValueError("k must be a nonnegative integer")
+E           ValueError: k must be a nonnegative integer
+
+phase165_r52_partial_proof.py:77: ValueError
+__________ test_phase118_4_web_adapter_accepts_depth_zero_one_two[0] __________
+
+depth = 0
+
+    @pytest.mark.parametrize(
+      "depth",
+      (
+        0,
+        1,
+        2,
+      ),
+    )
+    def test_phase118_4_web_adapter_accepts_depth_zero_one_two(
+      depth,
+    ):
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+          max_depth=depth,
+        )
+      )
+
+tests\test_phase118_4_depth_browser_usability.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 0
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+__________ test_phase118_4_web_adapter_accepts_depth_zero_one_two[1] __________
+
+depth = 1
+
+    @pytest.mark.parametrize(
+      "depth",
+      (
+        0,
+        1,
+        2,
+      ),
+    )
+    def test_phase118_4_web_adapter_accepts_depth_zero_one_two(
+      depth,
+    ):
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+          max_depth=depth,
+        )
+      )
+
+tests\test_phase118_4_depth_browser_usability.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+__________ test_phase118_4_web_adapter_accepts_depth_zero_one_two[2] __________
+
+depth = 2
+
+    @pytest.mark.parametrize(
+      "depth",
+      (
+        0,
+        1,
+        2,
+      ),
+    )
+    def test_phase118_4_web_adapter_accepts_depth_zero_one_two(
+      depth,
+    ):
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+          max_depth=depth,
+        )
+      )
+
+tests\test_phase118_4_depth_browser_usability.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 2
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+________________ test_phase118_4_depth_zero_contains_only_root ________________
+
+    def test_phase118_4_depth_zero_contains_only_root():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+          max_depth=0,
+        )
+      )
+
+tests\test_phase118_4_depth_browser_usability.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 0
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+____ test_phase118_4_depth_two_reaches_deeper_than_default_where_available ____
+
+    def test_phase118_4_depth_two_reaches_deeper_than_default_where_available():
+      default_view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+          max_depth=1,
+        )
+      )
+
+tests\test_phase118_4_depth_browser_usability.py:74: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+_______________ test_phase118_4_web_forwards_selected_depth[0] ________________
+
+depth = '0'
+
+    @pytest.mark.parametrize(
+      "depth",
+      (
+        "0",
+        "1",
+        "2",
+      ),
+    )
+    def test_phase118_4_web_forwards_selected_depth(
+      depth,
+    ):
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation_proof",
+          "operation_query": "H(nu_prime)",
+          "fact_number": "2",
+          "proof_depth": depth,
+        },
+      )
+    
+      assert response.status_code == 200
+>     assert (
+        f"Selected depth:\n          {depth}".encode()
+        in response.data
+      )
+E     assert b'Selected depth:\n          0' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'Selected depth:\n          0' = <built-in method encode of str object at 0x000002A2B0254440>()
+E      +    where <built-in method encode of str object at 0x000002A2B0254440> = 'Selected depth:\n          0'.encode
+E      +  and   b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11187 bytes [200 OK]>.data
+
+tests\test_phase118_4_depth_browser_usability.py:137: AssertionError
+_______________ test_phase118_4_web_forwards_selected_depth[1] ________________
+
+depth = '1'
+
+    @pytest.mark.parametrize(
+      "depth",
+      (
+        "0",
+        "1",
+        "2",
+      ),
+    )
+    def test_phase118_4_web_forwards_selected_depth(
+      depth,
+    ):
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation_proof",
+          "operation_query": "H(nu_prime)",
+          "fact_number": "2",
+          "proof_depth": depth,
+        },
+      )
+    
+      assert response.status_code == 200
+>     assert (
+        f"Selected depth:\n          {depth}".encode()
+        in response.data
+      )
+E     assert b'Selected depth:\n          1' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'Selected depth:\n          1' = <built-in method encode of str object at 0x000002A2AFEE2100>()
+E      +    where <built-in method encode of str object at 0x000002A2AFEE2100> = 'Selected depth:\n          1'.encode
+E      +  and   b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11187 bytes [200 OK]>.data
+
+tests\test_phase118_4_depth_browser_usability.py:137: AssertionError
+_______________ test_phase118_4_web_forwards_selected_depth[2] ________________
+
+depth = '2'
+
+    @pytest.mark.parametrize(
+      "depth",
+      (
+        "0",
+        "1",
+        "2",
+      ),
+    )
+    def test_phase118_4_web_forwards_selected_depth(
+      depth,
+    ):
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation_proof",
+          "operation_query": "H(nu_prime)",
+          "fact_number": "2",
+          "proof_depth": depth,
+        },
+      )
+    
+      assert response.status_code == 200
+>     assert (
+        f"Selected depth:\n          {depth}".encode()
+        in response.data
+      )
+E     assert b'Selected depth:\n          2' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'Selected depth:\n          2' = <built-in method encode of str object at 0x000002A2B0255BB0>()
+E      +    where <built-in method encode of str object at 0x000002A2B0255BB0> = 'Selected depth:\n          2'.encode
+E      +  and   b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11187 bytes [200 OK]>.data
+
+tests\test_phase118_4_depth_browser_usability.py:137: AssertionError
+_____ test_phase118_4_multiple_facts_remain_explicit_at_depth_ui_boundary _____
+
+    def test_phase118_4_multiple_facts_remain_explicit_at_depth_ui_boundary():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation",
+          "operation_query": "H(nu_prime)",
+        },
+      )
+    
+      assert response.status_code == 200
+    
+>     assert (
+        response.data.count(
+          b'value="operation_proof"'
+        )
+        == 2
+      )
+E     assert 0 == 2
+E      +  where 0 = <built-in method count of bytes object at 0x000002A2AE5B0360>(b'value="operation_proof"')
+E      +    where <built-in method count of bytes object at 0x000002A2AE5B0360> = b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'.count
+E      +      where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11349 bytes [200 OK]>.data
+
+tests\test_phase118_4_depth_browser_usability.py:156: AssertionError
+_______________ test_phase118_2_multiple_facts_are_all_exposed ________________
+
+    def test_phase118_2_multiple_facts_are_all_exposed():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation",
+          "operation_query": (
+            "H(nu_prime)"
+          ),
+        },
+      )
+    
+      assert response.status_code == 200
+    
+>     assert (
+        response.data.count(
+          b'class="operation-result-math"'
+        )
+        == 2
+      )
+E     assert 0 == 2
+E      +  where 0 = <built-in method count of bytes object at 0x000002A2B0C01830>(b'class="operation-result-math"')
+E      +    where <built-in method count of bytes object at 0x000002A2B0C01830> = b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'.count
+E      +      where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11349 bytes [200 OK]>.data
+
+tests\test_phase118_web_app.py:31: AssertionError
+____________ test_phase118_2_multiple_facts_do_not_select_one_fact ____________
+
+    def test_phase118_2_multiple_facts_do_not_select_one_fact():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation",
+          "operation_query": (
+            "Delta(iota_9)"
+          ),
+        },
+      )
+    
+      assert response.status_code == 200
+    
+>     assert (
+        response.data.count(
+          b'class="operation-result-math"'
+        )
+        == 2
+      )
+E     assert 0 == 2
+E      +  where 0 = <built-in method count of bytes object at 0x000002A2B0C01830>(b'class="operation-result-math"')
+E      +    where <built-in method count of bytes object at 0x000002A2B0C01830> = b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'.count
+E      +      where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11351 bytes [200 OK]>.data
+
+tests\test_phase118_web_app.py:64: AssertionError
+_______ test_phase118_3_operation_results_have_explicit_proof_selection _______
+
+    def test_phase118_3_operation_results_have_explicit_proof_selection():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "operation",
+          "operation_query": (
+            "H(nu_prime)"
+          ),
+        },
+      )
+    
+      assert response.status_code == 200
+    
+>     assert (
+        response.data.count(
+          b'value="operation_proof"'
+        )
+        == 2
+      )
+E     assert 0 == 2
+E      +  where 0 = <built-in method count of bytes object at 0x000002A2AE5B0360>(b'value="operation_proof"')
+E      +    where <built-in method count of bytes object at 0x000002A2AE5B0360> = b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'.count
+E      +      where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...   </p>\n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11349 bytes [200 OK]>.data
+
+tests\test_phase118_web_app.py:87: AssertionError
+____________ test_phase118_2_h_nu_prime_exposes_two_existing_facts ____________
+
+    def test_phase118_2_h_nu_prime_exposes_two_existing_facts():
+      view = (
+        build_standard_web_operation_query_view(
+          "H(nu_prime)"
+        )
+      )
+    
+>     assert view.found
+E     AssertionError: assert False
+E      +  where False = WebOperationQueryView(query_input='H(nu_prime)', found=False, items=(), search_status='search_failed', diagnostics=('該当する型付き命題が未登録です',), open_goal_count=0).found
+
+tests\test_phase118_web_operation_query.py:13: AssertionError
+____ test_phase118_2_delta_iota9_exposes_multiple_facts_without_selection _____
+
+    def test_phase118_2_delta_iota9_exposes_multiple_facts_without_selection():
+      view = (
+        build_standard_web_operation_query_view(
+          "Delta(iota_9)"
+        )
+      )
+    
+>     assert view.found
+E     AssertionError: assert False
+E      +  where False = WebOperationQueryView(query_input='Delta(iota_9)', found=False, items=(), search_status='search_failed', diagnostics=('該当する型付き命題が未登録です',), open_goal_count=0).found
+
+tests\test_phase118_web_operation_query.py:54: AssertionError
+_________________ test_phase118_2_e_nu5_uses_existing_handoff _________________
+
+    def test_phase118_2_e_nu5_uses_existing_handoff():
+      view = (
+        build_standard_web_operation_query_view(
+          "E(nu_5)"
+        )
+      )
+    
+>     assert view.found
+E     AssertionError: assert False
+E      +  where False = WebOperationQueryView(query_input='E(nu_5)', found=False, items=(), search_status='search_failed', diagnostics=('該当する型付き命題が未登録です',), open_goal_count=0).found
+
+tests\test_phase118_web_operation_query.py:83: AssertionError
+_______________ test_phase118_2_e_sigma11_uses_existing_handoff _______________
+
+    def test_phase118_2_e_sigma11_uses_existing_handoff():
+      view = (
+        build_standard_web_operation_query_view(
+          "E(sigma_11)"
+        )
+      )
+    
+>     assert view.found
+E     AssertionError: assert False
+E      +  where False = WebOperationQueryView(query_input='E(sigma_11)', found=False, items=(), search_status='search_failed', diagnostics=('該当する型付き命題が未登録です',), open_goal_count=0).found
+
+tests\test_phase118_web_operation_query.py:111: AssertionError
+_________ test_phase118_3_single_fact_replays_with_default_depth_one __________
+
+    def test_phase118_3_single_fact_replays_with_default_depth_one():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "E(nu_5)",
+          fact_number=1,
+        )
+      )
+
+tests\test_phase118_web_operation_query_proof.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'E(nu_5)', fact_number = 1, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+__________ test_phase118_3_e_nu5_preserves_selected_conclusion_latex __________
+
+    def test_phase118_3_e_nu5_preserves_selected_conclusion_latex():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "E(nu_5)",
+          fact_number=1,
+        )
+      )
+
+tests\test_phase118_web_operation_query_proof.py:34: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'E(nu_5)', fact_number = 1, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+_______________ test_phase118_3_h_nu_prime_fact_two_is_selected _______________
+
+    def test_phase118_3_h_nu_prime_fact_two_is_selected():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+        )
+      )
+
+tests\test_phase118_web_operation_query_proof.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+__________ test_phase118_3_h_nu_prime_fact_one_preserves_provenance ___________
+
+    def test_phase118_3_h_nu_prime_fact_one_preserves_provenance():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=1,
+        )
+      )
+
+tests\test_phase118_web_operation_query_proof.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 1, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+______ test_phase118_3_replay_steps_use_existing_statement_presentation _______
+
+    def test_phase118_3_replay_steps_use_existing_statement_presentation():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "H(nu_prime)",
+          fact_number=2,
+        )
+      )
+
+tests\test_phase118_web_operation_query_proof.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'H(nu_prime)', fact_number = 2, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+_________ test_phase118_3_e_sigma11_replays_existing_specialized_root _________
+
+    def test_phase118_3_e_sigma11_replays_existing_specialized_root():
+      view = (
+>       build_standard_web_operation_query_proof_view(
+          "E(sigma_11)",
+          fact_number=1,
+        )
+      )
+
+tests\test_phase118_web_operation_query_proof.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+query_input = 'E(sigma_11)', fact_number = 1, max_depth = 1
+
+    def build_standard_web_operation_query_proof_view(
+      query_input: str,
+      fact_number: int,
+      max_depth: int = 1,
+    ) -> WebOperationQueryProofView:
+      """Display only steps proved by the canonical typed search, without replay."""
+      from phase165_r27_r34_typed_lookup import search_typed_operation_statements
+      from toda_proof_narrative_renderer import render_toda_proof_statement_latex
+      if not isinstance(query_input, str):
+        raise TypeError("query_input must be a str")
+      query_input = query_input.strip()
+      if not query_input:
+        raise ValueError("operation query is required")
+      if type(fact_number) is not int:
+        raise TypeError("fact_number must be an int")
+      if fact_number <= 0:
+        raise ValueError("fact_number must be positive")
+      if type(max_depth) is not int:
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      result = search_typed_operation_statements(query_input)
+      if fact_number > len(result.proven_steps):
+>       raise ValueError(
+          "requested fact is not proved by typed backward search; "
+          f"status={result.status.value}; open_goals={len(result.open_goals)}"
+        )
+E       ValueError: requested fact is not proved by typed backward search; status=search_failed; open_goals=0
+
+web_operation_query_proof.py:297: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_phase117_web_app.py::test_phase117_2_web_and_cli_share_sigma11_result
+FAILED tests/test_phase117_web_group_query.py::test_phase117_1_sigma11_group_query_returns_web_latex
+FAILED tests/test_phase117_web_group_query.py::test_phase117_1_web_adapter_supports_negative_k
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_web_adapter_accepts_depth_zero_one_two[0]
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_web_adapter_accepts_depth_zero_one_two[1]
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_web_adapter_accepts_depth_zero_one_two[2]
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_depth_zero_contains_only_root
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_depth_two_reaches_deeper_than_default_where_available
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_web_forwards_selected_depth[0]
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_web_forwards_selected_depth[1]
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_web_forwards_selected_depth[2]
+FAILED tests/test_phase118_4_depth_browser_usability.py::test_phase118_4_multiple_facts_remain_explicit_at_depth_ui_boundary
+FAILED tests/test_phase118_web_app.py::test_phase118_2_multiple_facts_are_all_exposed
+FAILED tests/test_phase118_web_app.py::test_phase118_2_multiple_facts_do_not_select_one_fact
+FAILED tests/test_phase118_web_app.py::test_phase118_3_operation_results_have_explicit_proof_selection
+FAILED tests/test_phase118_web_operation_query.py::test_phase118_2_h_nu_prime_exposes_two_existing_facts
+FAILED tests/test_phase118_web_operation_query.py::test_phase118_2_delta_iota9_exposes_multiple_facts_without_selection
+FAILED tests/test_phase118_web_operation_query.py::test_phase118_2_e_nu5_uses_existing_handoff
+FAILED tests/test_phase118_web_operation_query.py::test_phase118_2_e_sigma11_uses_existing_handoff
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_single_fact_replays_with_default_depth_one
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_e_nu5_preserves_selected_conclusion_latex
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_h_nu_prime_fact_two_is_selected
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_h_nu_prime_fact_one_preserves_provenance
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_replay_steps_use_existing_statement_presentation
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_e_sigma11_replays_existing_specialized_root
+25 failed, 15 passed in 14.51s

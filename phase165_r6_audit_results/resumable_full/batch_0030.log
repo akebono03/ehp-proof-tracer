@@ -1,0 +1,1351 @@
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                 [100%]
+================================== FAILURES ===================================
+_____________ test_phase103_6d30_promotes_only_the_audited_routes _____________
+
+    def test_phase103_6d30_promotes_only_the_audited_routes():
+      catalog = _build_catalog()
+      baseline = _build_phase6d27_catalog()
+    
+      before = {
+        entry.key: entry
+        for entry in baseline.entries()
+      }
+    
+      after = {
+        entry.key: entry
+        for entry in catalog.entries()
+      }
+    
+      assert before.keys() == after.keys()
+    
+      changed = []
+    
+      for key, before_entry in before.items():
+        after_entry = after[
+          key
+        ]
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and _shape(
+            before_entry
+          )
+          in TARGET_SHAPES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.MAP_PROPERTY
+          )
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+      changed_entries = tuple(
+        after[
+          key
+        ]
+        for key in changed
+      )
+    
+>     assert len(
+        changed_entries
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:354: AssertionError
+___________ test_phase103_6d30_closes_delta_surjectivity_relevance ____________
+
+    def test_phase103_6d30_closes_delta_surjectivity_relevance():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _type_names(
+          entry.conclusion_type
+        )
+        == (
+          "TodaDeltaSurjectiveStatement",
+        )
+      )
+    
+>     assert len(
+        matching
+      ) == 5
+E     assert 0 == 5
+E      +  where 0 = len(())
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:378: AssertionError
+_ test_phase103_6d30_marks_only_generator_image_delta_injective_map_property __
+
+    def test_phase103_6d30_marks_only_generator_image_delta_injective_map_property():
+      catalog = _build_catalog()
+    
+      matching = tuple(
+        entry
+        for entry in catalog.entries()
+        if _type_names(
+          entry.conclusion_type
+        )
+        == (
+          "TodaDeltaInjectiveStatement",
+        )
+        and entry.relevance_category
+        is RuleRelevanceCategory.MAP_PROPERTY
+      )
+    
+>     assert len(
+        matching
+      ) == 1
+E     assert 0 == 1
+E      +  where 0 = len(())
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:425: AssertionError
+__________________ test_phase103_6d30_family_coverage_counts __________________
+
+    def test_phase103_6d30_family_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      families = _family_groups(
+        entries
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in members
+        }
+        for family, members
+        in families.items()
+      }
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:476: AssertionError
+__________________ test_phase103_6d30_entry_coverage_counts ___________________
+
+    def test_phase103_6d30_entry_coverage_counts():
+      catalog = _build_catalog()
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      map_property = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.MAP_PROPERTY
+        )
+      )
+    
+      structural = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.STRUCTURAL
+        )
+      )
+    
+      unclassified = sum(
+        1
+        for entry in entries
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        )
+      )
+    
+>     assert map_property == 49
+E     assert 0 == 49
+
+tests\test_phase103_6d30_generator_image_delta_map_property_classification.py:521: AssertionError
+_ test_phase103_6d32_classifies_all_7_residual_delta_injectivity_families_as_theorem_specific _
+
+    def test_phase103_6d32_classifies_all_7_residual_delta_injectivity_families_as_theorem_specific():
+      catalog = (
+        _build_catalog()
+      )
+    
+      families = _families(
+        catalog
+      )
+    
+      for name in (
+        PHASE103_6D32_EXPECTED_THEOREM_SPECIFIC_FAMILIES
+      ):
+>       entries = families[
+          name
+        ]
+E       KeyError: 'Toda (5.12) n=4 Delta injective'
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:94: KeyError
+_ test_phase103_6d32_classifies_exactly_15_residual_delta_injectivity_entries _
+
+    def test_phase103_6d32_classifies_exactly_15_residual_delta_injectivity_entries():
+      catalog = (
+        _build_catalog()
+      )
+    
+      families = _families(
+        catalog
+      )
+    
+>     affected_entries = tuple(
+        entry
+        for name in (
+          PHASE103_6D32_EXPECTED_THEOREM_SPECIFIC_FAMILIES
+        )
+        for entry in families[
+          name
+        ]
+      )
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:116: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <tuple_iterator object at 0x000002005E291990>
+
+    affected_entries = tuple(
+      entry
+      for name in (
+        PHASE103_6D32_EXPECTED_THEOREM_SPECIFIC_FAMILIES
+      )
+>     for entry in families[
+        name
+      ]
+    )
+E   KeyError: 'Toda (5.12) n=4 Delta injective'
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:121: KeyError
+_ test_phase103_6d32_preserves_n6_generator_image_delta_injectivity_as_map_property _
+
+    def test_phase103_6d32_preserves_n6_generator_image_delta_injectivity_as_map_property():
+      catalog = (
+        _build_catalog()
+      )
+    
+      families = _families(
+        catalog
+      )
+    
+>     entries = families[
+        PHASE103_6D32_N6_MAP_PROPERTY_FAMILY
+      ]
+E     KeyError: 'Toda (5.12) n=6 Delta injective'
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:146: KeyError
+____ test_phase103_6d32_closes_delta_injectivity_relevance_classification _____
+
+    def test_phase103_6d32_closes_delta_injectivity_relevance_classification():
+      catalog = (
+        _build_catalog()
+      )
+    
+      entries = (
+        _delta_injective_entries(
+          catalog
+        )
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 16
+E     assert 0 == 16
+E      +  where 0 = len(())
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:177: AssertionError
+__ test_phase103_6d32_updates_production_family_coverage_only_by_7_families ___
+
+    def test_phase103_6d32_updates_production_family_coverage_only_by_7_families():
+      catalog = (
+        _build_catalog()
+      )
+    
+      families = _families(
+        catalog
+      )
+    
+      classified = 0
+      unclassified = 0
+    
+      for entries in families.values():
+        categories = {
+          entry.relevance_category
+          for entry in entries
+        }
+    
+        assert len(
+          categories
+        ) == 1
+    
+        category = next(
+          iter(
+            categories
+          )
+        )
+    
+        if (
+          category
+          is RuleRelevanceCategory.UNCLASSIFIED
+        ):
+          unclassified += 1
+        else:
+          classified += 1
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:239: AssertionError
+_ test_phase103_6d32_updates_only_unclassified_entry_count_from_6d30_baseline _
+
+    def test_phase103_6d32_updates_only_unclassified_entry_count_from_6d30_baseline():
+      catalog = (
+        _build_catalog()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in catalog.entries()
+      )
+    
+>     assert (
+        counts[
+          RuleRelevanceCategory.STRUCTURAL
+        ]
+        == 194
+      )
+E     assert 0 == 194
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:257: AssertionError
+____ test_phase103_6d32_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d32_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = (
+        _build_catalog()
+      )
+    
+      entries = (
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py:288: AssertionError
+_ test_phase103_6d35_classifies_only_the_two_audited_residual_families_as_structural _
+
+    def test_phase103_6d35_classifies_only_the_two_audited_residual_families_as_structural():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      for family in (
+        PHASE103_6D35_TARGET_FAMILIES
+      ):
+>       entries = families[
+          family
+        ]
+E       KeyError: 'Toda Proposition 5.11 pi_12^6 suspension injective'
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:79: KeyError
+______ test_phase103_6d35_changes_exactly_two_entries_from_6d32_boundary ______
+
+    def test_phase103_6d35_changes_exactly_two_entries_from_6d32_boundary():
+      before = (
+        _phase103_6d35_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+    
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in (
+        before_by_key.items()
+      ):
+        after_entry = (
+          after_by_key[
+            key
+          ]
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and before_entry.rule.name
+          in PHASE103_6D35_TARGET_FAMILIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.STRUCTURAL
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len([])
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:149: AssertionError
+____ test_phase103_6d35_suspension_injectivity_residual_cluster_is_closed _____
+
+    def test_phase103_6d35_suspension_injectivity_residual_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      entries = (
+        _suspension_injective_entries(
+          catalog
+        )
+      )
+    
+      residual_target_entries = tuple(
+        entry
+        for entry in entries
+        if (
+          entry.rule.name
+          in PHASE103_6D35_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        residual_target_entries
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:172: AssertionError
+__________________ test_phase103_6d35_family_coverage_counts __________________
+
+    def test_phase103_6d35_family_coverage_counts():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories in (
+          categories_by_family.values()
+        )
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:229: AssertionError
+__________________ test_phase103_6d35_entry_coverage_counts ___________________
+
+    def test_phase103_6d35_entry_coverage_counts():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:249: AssertionError
+___________ test_phase103_6d35_preserves_delta_injectivity_closure ____________
+
+    def test_phase103_6d35_preserves_delta_injectivity_closure():
+      catalog = _build_catalog()
+    
+      delta_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          getattr(
+            entry.conclusion_type,
+            "__name__",
+            None,
+          )
+          == "TodaDeltaInjectiveStatement"
+        )
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in delta_entries
+      )
+    
+>     assert len(
+        delta_entries
+      ) == 16
+E     assert 0 == 16
+E      +  where 0 = len(())
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:296: AssertionError
+____ test_phase103_6d35_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d35_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d35_residual_suspension_injectivity_structural_classification.py:329: AssertionError
+_ test_phase103_6d38_classifies_only_the_two_audited_zero_group_families_as_structural _
+
+    def test_phase103_6d38_classifies_only_the_two_audited_zero_group_families_as_structural():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      for family in (
+        PHASE103_6D38_TARGET_FAMILIES
+      ):
+>       entries = families[
+          family
+        ]
+E       KeyError: 'Toda Proposition 5.11 pi_9^3 zero'
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:62: KeyError
+______ test_phase103_6d38_changes_exactly_two_entries_from_6d35_boundary ______
+
+    def test_phase103_6d38_changes_exactly_two_entries_from_6d35_boundary():
+      before = (
+        _phase103_6d38_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+    
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in (
+        before_by_key.items()
+      ):
+        after_entry = (
+          after_by_key[
+            key
+          ]
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and before_entry.rule.name
+          in PHASE103_6D38_TARGET_FAMILIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.STRUCTURAL
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len([])
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:132: AssertionError
+___________ test_phase103_6d38_target_zero_group_cluster_is_closed ____________
+
+    def test_phase103_6d38_target_zero_group_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D38_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:149: AssertionError
+__________________ test_phase103_6d38_family_coverage_counts __________________
+
+    def test_phase103_6d38_family_coverage_counts():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories in (
+          categories_by_family.values()
+        )
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:206: AssertionError
+__________________ test_phase103_6d38_entry_coverage_counts ___________________
+
+    def test_phase103_6d38_entry_coverage_counts():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:226: AssertionError
+___________ test_phase103_6d38_preserves_delta_injectivity_closure ____________
+
+    def test_phase103_6d38_preserves_delta_injectivity_closure():
+      catalog = _build_catalog()
+    
+      delta_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          getattr(
+            entry.conclusion_type,
+            "__name__",
+            None,
+          )
+          == "TodaDeltaInjectiveStatement"
+        )
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in delta_entries
+      )
+    
+>     assert len(
+        delta_entries
+      ) == 16
+E     assert 0 == 16
+E      +  where 0 = len(())
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:273: AssertionError
+______ test_phase103_6d38_preserves_6d35_suspension_injectivity_closure _______
+
+    def test_phase103_6d38_preserves_6d35_suspension_injectivity_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.11 pi_12^6 suspension injective",
+        "Toda Proposition 5.11 pi_13^7 suspension injective",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:316: AssertionError
+____ test_phase103_6d38_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d38_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d38_zero_group_exactness_structural_classification.py:334: AssertionError
+_ test_phase103_6d41_classifies_only_the_two_audited_prop53_dependent_families_as_theorem_specific _
+
+    def test_phase103_6d41_classifies_only_the_two_audited_prop53_dependent_families_as_theorem_specific():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      for family in (
+        PHASE103_6D41_TARGET_FAMILIES
+      ):
+>       entries = families[
+          family
+        ]
+E       KeyError: 'Toda (5.14) Delta eta_13 squared zero'
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:62: KeyError
+______ test_phase103_6d41_changes_exactly_two_entries_from_6d38_boundary ______
+
+    def test_phase103_6d41_changes_exactly_two_entries_from_6d38_boundary():
+      before = (
+        _phase103_6d41_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+    
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in (
+        before_by_key.items()
+      ):
+        after_entry = (
+          after_by_key[
+            key
+          ]
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and before_entry.rule.name
+          in PHASE103_6D41_TARGET_FAMILIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len([])
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:132: AssertionError
+_________________ test_phase103_6d41_target_cluster_is_closed _________________
+
+    def test_phase103_6d41_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D41_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:149: AssertionError
+__________________ test_phase103_6d41_family_coverage_counts __________________
+
+    def test_phase103_6d41_family_coverage_counts():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories in (
+          categories_by_family.values()
+        )
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:206: AssertionError
+__________________ test_phase103_6d41_entry_coverage_counts ___________________
+
+    def test_phase103_6d41_entry_coverage_counts():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in entries
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:226: AssertionError
+__ test_phase103_6d41_theorem_specific_entry_count_increases_by_exactly_two ___
+
+    def test_phase103_6d41_theorem_specific_entry_count_increases_by_exactly_two():
+      before = (
+        _phase103_6d41_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_count = sum(
+        1
+        for entry in before.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+      after_count = sum(
+        1
+        for entry in after.entries()
+        if (
+          entry.relevance_category
+          is RuleRelevanceCategory.THEOREM_SPECIFIC
+        )
+      )
+    
+>     assert (
+        after_count
+        == before_count + 2
+      )
+E     assert 0 == (0 + 2)
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:279: AssertionError
+_______ test_phase103_6d41_preserves_6d38_zero_group_exactness_closure ________
+
+    def test_phase103_6d41_preserves_6d38_zero_group_exactness_closure():
+      catalog = _build_catalog()
+    
+      target_families = {
+        "Toda Proposition 5.11 pi_9^3 zero",
+        "Toda Proposition 5.15 pi_10^3 zero",
+      }
+    
+      entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in target_families
+        )
+      )
+    
+>     assert len(
+        entries
+      ) == 2
+E     assert 0 == 2
+E      +  where 0 = len(())
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:302: AssertionError
+___________ test_phase103_6d41_preserves_delta_injectivity_closure ____________
+
+    def test_phase103_6d41_preserves_delta_injectivity_closure():
+      catalog = _build_catalog()
+    
+      delta_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          getattr(
+            entry.conclusion_type,
+            "__name__",
+            None,
+          )
+          == "TodaDeltaInjectiveStatement"
+        )
+      )
+    
+      counts = Counter(
+        entry.relevance_category
+        for entry in delta_entries
+      )
+    
+>     assert len(
+        delta_entries
+      ) == 16
+E     assert 0 == 16
+E      +  where 0 = len(())
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:334: AssertionError
+____ test_phase103_6d41_catalog_size_and_fixed_point_safety_are_unchanged _____
+
+    def test_phase103_6d41_catalog_size_and_fixed_point_safety_are_unchanged():
+      catalog = _build_catalog()
+    
+      entries = tuple(
+        catalog.entries()
+      )
+    
+>     assert len(
+        entries
+      ) == 1188
+E     AssertionError: assert 35 == 1188
+E      +  where 35 = len((InferenceRuleCatalogEntry(key='standard.production.applicability.0000', rule=InferenceRule(name='EHP exactness transf...int_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>), ...))
+
+tests\test_phase103_6d41_prop53_dependent_theorem_specific_classification.py:367: AssertionError
+_ test_phase103_6d44_classifies_only_the_two_audited_prop56_specialization_families_as_theorem_specific _
+
+    def test_phase103_6d44_classifies_only_the_two_audited_prop56_specialization_families_as_theorem_specific():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      assert len(
+>       families[
+          PHASE103_6D44_TARGET_FAMILIES[
+            0
+          ]
+        ]
+      ) == 1
+E     KeyError: 'Toda Proposition 5.11 pi_10^7 nu_7 specialization'
+
+tests\test_phase103_6d44_prop56_specialization_theorem_specific_classification.py:60: KeyError
+_____ test_phase103_6d44_changes_exactly_three_entries_from_6d41_boundary _____
+
+    def test_phase103_6d44_changes_exactly_three_entries_from_6d41_boundary():
+      before = (
+        _phase103_6d44_original_builder()
+      )
+    
+      after = (
+        _build_catalog()
+      )
+    
+      before_by_key = {
+        entry.key: entry
+        for entry in before.entries()
+      }
+    
+      after_by_key = {
+        entry.key: entry
+        for entry in after.entries()
+      }
+    
+      assert (
+        before_by_key.keys()
+        == after_by_key.keys()
+      )
+    
+      changed = []
+    
+      for key, before_entry in (
+        before_by_key.items()
+      ):
+        after_entry = (
+          after_by_key[
+            key
+          ]
+        )
+    
+        if (
+          before_entry.relevance_category
+          is RuleRelevanceCategory.UNCLASSIFIED
+          and before_entry.rule.name
+          in PHASE103_6D44_TARGET_FAMILIES
+        ):
+          assert (
+            after_entry.relevance_category
+            is RuleRelevanceCategory.THEOREM_SPECIFIC
+          )
+    
+          changed.append(
+            key
+          )
+        else:
+          assert (
+            after_entry.relevance_category
+            is before_entry.relevance_category
+          )
+    
+>     assert len(
+        changed
+      ) == 3
+E     assert 0 == 3
+E      +  where 0 = len([])
+
+tests\test_phase103_6d44_prop56_specialization_theorem_specific_classification.py:142: AssertionError
+_________________ test_phase103_6d44_target_cluster_is_closed _________________
+
+    def test_phase103_6d44_target_cluster_is_closed():
+      catalog = _build_catalog()
+    
+      target_entries = tuple(
+        entry
+        for entry in catalog.entries()
+        if (
+          entry.rule.name
+          in PHASE103_6D44_TARGET_FAMILIES
+        )
+      )
+    
+>     assert len(
+        target_entries
+      ) == 3
+E     assert 0 == 3
+E      +  where 0 = len(())
+
+tests\test_phase103_6d44_prop56_specialization_theorem_specific_classification.py:159: AssertionError
+__________________ test_phase103_6d44_family_coverage_counts __________________
+
+    def test_phase103_6d44_family_coverage_counts():
+      catalog = _build_catalog()
+    
+      families = _families(
+        catalog
+      )
+    
+      categories_by_family = {
+        family: {
+          entry.relevance_category
+          for entry in entries
+        }
+        for family, entries
+        in families.items()
+      }
+    
+      assert all(
+        len(
+          categories
+        )
+        == 1
+        for categories in (
+          categories_by_family.values()
+        )
+      )
+    
+      classified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        != {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+      unclassified = sum(
+        1
+        for categories
+        in categories_by_family.values()
+        if categories
+        == {
+          RuleRelevanceCategory.UNCLASSIFIED
+        }
+      )
+    
+>     assert len(
+        families
+      ) == 267
+E     AssertionError: assert 35 == 267
+E      +  where 35 = len({'EHP exactness transfers image structure to kernel': (InferenceRuleCatalogEntry(key='standard.production.applicabilit...t_safe=False, goal_compatibility=None, relevance_category=<RuleRelevanceCategory.UNCLASSIFIED: 'unclassified'>),), ...})
+
+tests\test_phase103_6d44_prop56_specialization_theorem_specific_classification.py:216: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_promotes_only_the_audited_routes
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_closes_delta_surjectivity_relevance
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_marks_only_generator_image_delta_injective_map_property
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_family_coverage_counts
+FAILED tests/test_phase103_6d30_generator_image_delta_map_property_classification.py::test_phase103_6d30_entry_coverage_counts
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_classifies_all_7_residual_delta_injectivity_families_as_theorem_specific
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_classifies_exactly_15_residual_delta_injectivity_entries
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_preserves_n6_generator_image_delta_injectivity_as_map_property
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_closes_delta_injectivity_relevance_classification
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_updates_production_family_coverage_only_by_7_families
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_updates_only_unclassified_entry_count_from_6d30_baseline
+FAILED tests/test_phase103_6d32_residual_delta_injectivity_theorem_specific_classification.py::test_phase103_6d32_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_classifies_only_the_two_audited_residual_families_as_structural
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_changes_exactly_two_entries_from_6d32_boundary
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_suspension_injectivity_residual_cluster_is_closed
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_family_coverage_counts
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_entry_coverage_counts
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_preserves_delta_injectivity_closure
+FAILED tests/test_phase103_6d35_residual_suspension_injectivity_structural_classification.py::test_phase103_6d35_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_classifies_only_the_two_audited_zero_group_families_as_structural
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_changes_exactly_two_entries_from_6d35_boundary
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_target_zero_group_cluster_is_closed
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_family_coverage_counts
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_entry_coverage_counts
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_preserves_delta_injectivity_closure
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_preserves_6d35_suspension_injectivity_closure
+FAILED tests/test_phase103_6d38_zero_group_exactness_structural_classification.py::test_phase103_6d38_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_classifies_only_the_two_audited_prop53_dependent_families_as_theorem_specific
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_changes_exactly_two_entries_from_6d38_boundary
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_target_cluster_is_closed
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_family_coverage_counts
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_entry_coverage_counts
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_theorem_specific_entry_count_increases_by_exactly_two
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_preserves_6d38_zero_group_exactness_closure
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_preserves_delta_injectivity_closure
+FAILED tests/test_phase103_6d41_prop53_dependent_theorem_specific_classification.py::test_phase103_6d41_catalog_size_and_fixed_point_safety_are_unchanged
+FAILED tests/test_phase103_6d44_prop56_specialization_theorem_specific_classification.py::test_phase103_6d44_classifies_only_the_two_audited_prop56_specialization_families_as_theorem_specific
+FAILED tests/test_phase103_6d44_prop56_specialization_theorem_specific_classification.py::test_phase103_6d44_changes_exactly_three_entries_from_6d41_boundary
+FAILED tests/test_phase103_6d44_prop56_specialization_theorem_specific_classification.py::test_phase103_6d44_target_cluster_is_closed
+FAILED tests/test_phase103_6d44_prop56_specialization_theorem_specific_classification.py::test_phase103_6d44_family_coverage_counts
+40 failed in 13.33s
