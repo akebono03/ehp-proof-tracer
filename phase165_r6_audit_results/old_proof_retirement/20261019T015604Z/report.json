@@ -1,0 +1,844 @@
+{
+  "baseline": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\triage_266\\report.json",
+  "baseline_errors": 266,
+  "candidate_count": 139,
+  "removable_count": 138,
+  "protected_count": 128,
+  "removed": [
+    "tests/test_phase143_22_exactness_components.py",
+    "tests/test_phase143_25_relevant_groups.py",
+    "tests/test_phase143_26_exactness_relevance.py",
+    "tests/test_phase143_28_exactness_selection.py",
+    "tests/test_phase143_30_exactness_method_transition.py",
+    "tests/test_phase143_32_exactness_component_latex.py",
+    "tests/test_phase143_34_argument_header_method.py",
+    "tests/test_phase143_36_argument_body_blocks.py",
+    "tests/test_phase143_38_exactness_display_contributions.py",
+    "tests/test_phase143_39_exactness_contribution_ownership.py",
+    "tests/test_phase143_41_argument_local_body.py",
+    "tests/test_phase143_42_argument_body_contribution_renderer.py",
+    "tests/test_phase143_44_single_argument_narrative_renderer.py",
+    "tests/test_phase143_46_multi_argument_narrative_assembler.py",
+    "tests/test_phase143_47_multi_argument_shared_contribution_dedup.py",
+    "tests/test_phase143_49_dependency_label_narrative_policy.py",
+    "tests/test_phase143_50_generic_statement_prose_renderer.py",
+    "tests/test_phase143_51a_r_provenance_semantic_catalog.py",
+    "tests/test_phase143_51b_aggregate_statement_prose.py",
+    "tests/test_phase143_53a_narrative_transitions.py",
+    "tests/test_phase143_53a_r_aggregate_derivation.py",
+    "tests/test_phase143_53b_r_conclusion_aware_connector.py",
+    "tests/test_phase143_53b_transition_connectors.py",
+    "tests/test_phase143_55a_argument_conclusion_step.py",
+    "tests/test_phase143_55b_conclusion_step_ordering.py",
+    "tests/test_phase143_57a_step_calculation_chain.py",
+    "tests/test_phase143_57c_step_derivation_connector.py",
+    "tests/test_phase143_58a_negative_scalar_sum.py",
+    "tests/test_phase143_59a_group_structure_semantic_key.py",
+    "tests/test_phase143_59b_group_structure_duplicate_suppression.py",
+    "tests/test_phase143_61a_argument_conclusion_direct_premises.py",
+    "tests/test_phase143_61b_direct_premise_narrative.py",
+    "tests/test_phase143_61b_r_semantic_suppression_priority.py",
+    "tests/test_phase143_63a_r_exactness_repair.py",
+    "tests/test_phase143_63a_residual_fallback_provenance.py",
+    "tests/test_phase143_71a_eta_definition_visibility.py",
+    "tests/test_phase143_75aa_toda56_nu4_prop44_specialization_rendering.py",
+    "tests/test_phase143_75ab3_whitehead_correction_rendering.py",
+    "tests/test_phase143_75ac4_hopf_odd_multiple_rendering.py",
+    "tests/test_phase143_75ad_double_suspension_rendering.py",
+    "tests/test_phase143_75t_toda58_equation_aggregate_semantic_rendering.py",
+    "tests/test_phase143_75w_toda54_bracket_up_to_sign_semantic_rendering.py",
+    "tests/test_phase143_75y_nu4_construction_semantic_rendering.py",
+    "tests/test_phase144_5_generic_definition_order_equations.py",
+    "tests/test_phase144_6_pi6_generic_production_route.py",
+    "tests/test_phase144_6_public_route_cutover.py",
+    "tests/test_phase144_6_r25_9a_pi5_suppression.py",
+    "tests/test_phase144_6_r25_9a_r1_relocation_hidden.py",
+    "tests/test_phase144_6_r4_supporting_fact_filtering.py",
+    "tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py",
+    "tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py",
+    "tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py",
+    "tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py",
+    "tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py",
+    "tests/test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py",
+    "tests/test_phase144_6_r5_33_visible_step_rendered_markdown_survival_audit.py",
+    "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py",
+    "tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py",
+    "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+    "tests/test_phase144_6_r5_43_3.py",
+    "tests/test_phase144_6_r5_43_5.py",
+    "tests/test_phase144_6_r5_43_8.py",
+    "tests/test_phase144_6_r5_43_9.py",
+    "tests/test_phase146_7_generic_argument_purpose_prose.py",
+    "tests/test_phase147_rc1_argument_method_ownership.py",
+    "tests/test_phase148_rc2_3_exactness_exposure.py",
+    "tests/test_phase148_rc2_3_repair_r1.py",
+    "tests/test_phase148_rc2_4_cross_group_audit.py",
+    "tests/test_phase148_rc2_4_repair_r1_exposure_path_audit.py",
+    "tests/test_phase148_rc2_4_repair_r2.py",
+    "tests/test_phase149_rc3_3_minimal_ordering.py",
+    "tests/test_phase149_rc3_4_cross_group_ordering.py",
+    "tests/test_phase150_rc4_4_reasons.py",
+    "tests/test_phase150_rc4_5_visible_reasons.py",
+    "tests/test_phase150_rc4_5b_3_reference_binding.py",
+    "tests/test_phase150_rc4_5c_2_exactness_to_map_property.py",
+    "tests/test_phase150_rc4_5d_3_multiple_relation_to_order.py",
+    "tests/test_phase150_rc4_5e_2_short_exact_derivation_reason.py",
+    "tests/test_phase150_rc4_5f_2_final_group_structure_reason.py",
+    "tests/test_phase150_rc4_7b_production_repair.py",
+    "tests/test_phase150_rc4_7d_generic_reason_vocabulary.py",
+    "tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py",
+    "tests/test_phase150_rc4_closure_reason_visibility.py",
+    "tests/test_phase156_r6_3_reason_prose_canonicalization.py",
+    "tests/test_phase157_r20_generic_dependency_architecture.py",
+    "tests/test_phase158_r5_4_repair_common_equation_numbering.py",
+    "tests/test_phase159_pi3_2_final_locality_reapply.py",
+    "tests/test_phase159_pi3_2_map_property_order.py",
+    "tests/test_phase159_pi3_2_post_reference_locality_reapply.py",
+    "tests/test_phase159_pi3_2_proofstep_premise_locality.py",
+    "tests/test_phase159_pi3_2_public_definition_premise_locality.py",
+    "tests/test_phase159_pi4_3_contribution_connector_ownership.py",
+    "tests/test_phase159_pi4_3_exactness_reason_unification.py",
+    "tests/test_phase159_pi4_3_exactness_surjectivity_unification.py",
+    "tests/test_phase159_pi4_3_generator_bridge_duplicate_suppression.py",
+    "tests/test_phase159_pi4_3_provenance_priority.py",
+    "tests/test_phase159_pi4_3_trailing_premise_order.py",
+    "tests/test_phase159_pi6_3_zero_map_reason_order.py",
+    "tests/test_phase159_pi_nplus1_n_stable_transport.py",
+    "tests/test_phase159_r1_7c_r4_repair8_final_group_reason_and_stale_expectations.py",
+    "tests/test_phase160_generic_stable_public_narrative.py",
+    "tests/test_phase160_k2_generic_transport_connection.py",
+    "tests/test_phase160_k2_public_narrative.py",
+    "tests/test_phase160_remaining_stable_public_narrative.py",
+    "tests/test_phase161_r4_literature_premise_matching.py",
+    "tests/test_phase161_r5_backward_proof_reconstruction.py",
+    "tests/test_phase161_r6_proof_reconstruction_audit.py",
+    "tests/test_phase161_r7_premise_provenance_validation.py",
+    "tests/test_phase162_group_structure_backward.py",
+    "tests/test_phase162_r2_existing_proof_connection.py",
+    "tests/test_phase162_r3_2_reference_display.py",
+    "tests/test_phase162_r3a_presentation_audit.py",
+    "tests/test_phase162_r3b_existing_renderer.py",
+    "tests/test_phase162_r3c_root_reason.py",
+    "tests/test_phase162_r3d_root_reason_audit.py",
+    "tests/test_phase162_r3e_structured_root.py",
+    "tests/test_phase162_r3f_recursive_renderer.py",
+    "tests/test_phase162_r3g_existing_reason_bridge.py",
+    "tests/test_phase162_r3h_reason_inventory.py",
+    "tests/test_phase162_r3i_semantic_sidecar_audit.py",
+    "tests/test_phase162_r3j_inference_rule_audit.py",
+    "tests/test_phase162_r3k_rule_meaning_audit.py",
+    "tests/test_phase162_r4_b1_stable_path_selection.py",
+    "tests/test_phase162_r4_b2_concrete_transport.py",
+    "tests/test_phase162_r4_b2_generator_normalization.py",
+    "tests/test_phase162_r4_b2_replay_integration.py",
+    "tests/test_phase162_r4_b3_common_renderer_audit.py",
+    "tests/test_phase162_r4_b_common_renderer_link.py",
+    "tests/test_phase162_r4_b_transport_facts.py",
+    "tests/test_phase162_r4_narrative_refinement.py",
+    "tests/test_phase162_r5_2_general_reference_schema.py",
+    "tests/test_phase162_r5_3_reference_application_separation.py",
+    "tests/test_phase162_r5_5_proof_narrative_composition.py",
+    "tests/test_phase162_r5_6_proof_relevance_reference_attribution.py",
+    "tests/test_phase162_r5_6_repair2_direct_reference_attribution.py",
+    "tests/test_phase162_r5_6_repair3_reference_application_prose.py",
+    "tests/test_phase162_r5_6_repair4_fixed_statement_reuse.py",
+    "tests/test_phase162_r5_6_repair5_reference_component_boundary.py"
+  ],
+  "manifest": [
+    {
+      "path": "tests/test_phase143_22_exactness_components.py",
+      "sha256": "509944e68ee432b13c95558b8e9ddf217bff081a16a99d42b45a41fb3c12791e",
+      "size": 4432
+    },
+    {
+      "path": "tests/test_phase143_25_relevant_groups.py",
+      "sha256": "8b095ae63a5fb85250d190cfd85a6da211dedbee34113fa1f517f1212de9af3e",
+      "size": 2559
+    },
+    {
+      "path": "tests/test_phase143_26_exactness_relevance.py",
+      "sha256": "c3ab5d3af7bcb4db0bf0105a274da60f5eea1e3a1a1e41e7e604f74080f0d564",
+      "size": 5101
+    },
+    {
+      "path": "tests/test_phase143_28_exactness_selection.py",
+      "sha256": "6113b3ed793ece6bd96fe223cdc04ce7082e0f85370a83202a794739e6c19186",
+      "size": 6444
+    },
+    {
+      "path": "tests/test_phase143_30_exactness_method_transition.py",
+      "sha256": "2660a839226e909ea864f1edbe1fed80f374d21ede8352621d40e954cb541d45",
+      "size": 4693
+    },
+    {
+      "path": "tests/test_phase143_32_exactness_component_latex.py",
+      "sha256": "5ee13c4df9aca5919b4203bd45a1fa62a406f4b5adc633607a3a4e78700c0fb4",
+      "size": 5255
+    },
+    {
+      "path": "tests/test_phase143_34_argument_header_method.py",
+      "sha256": "0749f40c2bfca059dc68854d02509133fe7b64d6847bb1a25ff19721d3f2d1aa",
+      "size": 6115
+    },
+    {
+      "path": "tests/test_phase143_36_argument_body_blocks.py",
+      "sha256": "bd3e6c0b9e61d0a99ea728a2e79d2fb885181613362df715eb2f462d4df80218",
+      "size": 7904
+    },
+    {
+      "path": "tests/test_phase143_38_exactness_display_contributions.py",
+      "sha256": "09e626e63fc59f2923b01ae734402e4be37967778f825a30cb9c54790db40570",
+      "size": 5324
+    },
+    {
+      "path": "tests/test_phase143_39_exactness_contribution_ownership.py",
+      "sha256": "717131a895347ad06969f891fac6019b5821fdff5066e3341f0d78731bd46ccd",
+      "size": 8730
+    },
+    {
+      "path": "tests/test_phase143_41_argument_local_body.py",
+      "sha256": "e4844d9e31db0bedbddd15c750ea0379287a20fee14ecabbfdada01c5b624899",
+      "size": 4693
+    },
+    {
+      "path": "tests/test_phase143_42_argument_body_contribution_renderer.py",
+      "sha256": "54a87ea4bd85910c8bd03be4fd70462e8cab6a9489c735c4d2175ea805b7939c",
+      "size": 8403
+    },
+    {
+      "path": "tests/test_phase143_44_single_argument_narrative_renderer.py",
+      "sha256": "5b5ec7d95c78c5b03abb773f8ed68fad1b8f44a095ff17ae47b69e04dffd0593",
+      "size": 6438
+    },
+    {
+      "path": "tests/test_phase143_46_multi_argument_narrative_assembler.py",
+      "sha256": "1c0a697d7f9ca58565fdd02996169ebdd141acea4ae6197492b87bf407298d58",
+      "size": 2450
+    },
+    {
+      "path": "tests/test_phase143_47_multi_argument_shared_contribution_dedup.py",
+      "sha256": "08f45e3f50ecae5c86b4720053bd7c75b322a0a1419c75a4e99dd9e7d44c5b94",
+      "size": 2980
+    },
+    {
+      "path": "tests/test_phase143_49_dependency_label_narrative_policy.py",
+      "sha256": "f1d13e67d737907e96bfeaebc9cd3b0ed78e01524542e9626302ef0cd0d18110",
+      "size": 2712
+    },
+    {
+      "path": "tests/test_phase143_50_generic_statement_prose_renderer.py",
+      "sha256": "9e7d68d05bba459c760140953d35a88922a5498fbc5745adc31e2d8b56fc3572",
+      "size": 2518
+    },
+    {
+      "path": "tests/test_phase143_51a_r_provenance_semantic_catalog.py",
+      "sha256": "83b323bc99b8648eb73a69a25036212e348f45b26fa16277a4b86b4c5df5e3e9",
+      "size": 3619
+    },
+    {
+      "path": "tests/test_phase143_51b_aggregate_statement_prose.py",
+      "sha256": "913f399234f08c1fe3415d778a2033387501b6fbb5dc9dcefef29fb297aa842a",
+      "size": 2585
+    },
+    {
+      "path": "tests/test_phase143_53a_narrative_transitions.py",
+      "sha256": "08ccea932b639df27e27e9454d3e07e077d87456cd4cf87a5e5741caf66e9d34",
+      "size": 4466
+    },
+    {
+      "path": "tests/test_phase143_53a_r_aggregate_derivation.py",
+      "sha256": "6c30bef71bbeeba8ec169883cbdde35b226c056ff0ffd6ed6adb93a14dab0b68",
+      "size": 3398
+    },
+    {
+      "path": "tests/test_phase143_53b_r_conclusion_aware_connector.py",
+      "sha256": "4866f07f0a200a1f2c92d24f221844b4ca87e9ed070ee4a4e825c24cad581b72",
+      "size": 1345
+    },
+    {
+      "path": "tests/test_phase143_53b_transition_connectors.py",
+      "sha256": "5c7a82f84da34dfe0be8088b87cbf63cafaba649bcc6e50ab76fcdd8e4ecdeb1",
+      "size": 771
+    },
+    {
+      "path": "tests/test_phase143_55a_argument_conclusion_step.py",
+      "sha256": "ae22ce3f275f184d089619df5e6a6cdfa42ec54a7eac2145387a470c47efc1ed",
+      "size": 4478
+    },
+    {
+      "path": "tests/test_phase143_55b_conclusion_step_ordering.py",
+      "sha256": "04baec7bea91858ee5b3080006d55a9240d58687b929df989a7f6ddb6abd006a",
+      "size": 2394
+    },
+    {
+      "path": "tests/test_phase143_57a_step_calculation_chain.py",
+      "sha256": "1c1620c447b8873e1ea50a144577cc1aed3508d7715d44dcad187e39bbc12c89",
+      "size": 5588
+    },
+    {
+      "path": "tests/test_phase143_57c_step_derivation_connector.py",
+      "sha256": "391fb3a1b19d2132e4c1e10cb60268509be8d8b278fe5fee6f05d8c9400410ef",
+      "size": 3079
+    },
+    {
+      "path": "tests/test_phase143_58a_negative_scalar_sum.py",
+      "sha256": "44c886d92149661df28c3bfefa4ae42d48b558dc36703241f9ea9f3ff502137c",
+      "size": 1300
+    },
+    {
+      "path": "tests/test_phase143_59a_group_structure_semantic_key.py",
+      "sha256": "3f7a93838e228ebf0ce1d2823df17542cb4fd4d8682386bfc2c2ead170704775",
+      "size": 3426
+    },
+    {
+      "path": "tests/test_phase143_59b_group_structure_duplicate_suppression.py",
+      "sha256": "4f5d808558019787f1f6aa339079c657b4372b10b615a47ef4f7d3be859e430e",
+      "size": 2633
+    },
+    {
+      "path": "tests/test_phase143_61a_argument_conclusion_direct_premises.py",
+      "sha256": "e99cb4e206c9765733fdfa7093f8e3356275772e115d21bfc46580ccafd19d01",
+      "size": 5221
+    },
+    {
+      "path": "tests/test_phase143_61b_direct_premise_narrative.py",
+      "sha256": "0a9e5b5d541c1d89543f7590dda147f7226a343b72266e15928865c7cc32306f",
+      "size": 2838
+    },
+    {
+      "path": "tests/test_phase143_61b_r_semantic_suppression_priority.py",
+      "sha256": "9dd0f21efe942ce20ca56920edb5cc985678ea419a2a0dc0e2d5155f13bd1026",
+      "size": 1355
+    },
+    {
+      "path": "tests/test_phase143_63a_r_exactness_repair.py",
+      "sha256": "b7aa2991a774591b7923afa32a5e13990b78d5c515bc57c0609d47a0e484c854",
+      "size": 1484
+    },
+    {
+      "path": "tests/test_phase143_63a_residual_fallback_provenance.py",
+      "sha256": "46676055097a543aa844bac16966b3f4cf7fe2f93b8dbc1bd0342f578d384792",
+      "size": 1968
+    },
+    {
+      "path": "tests/test_phase143_71a_eta_definition_visibility.py",
+      "sha256": "e0a7082168bf4d2ef88b580221bf0a4277052a3e3dcce3e1520a362efb27b49d",
+      "size": 1540
+    },
+    {
+      "path": "tests/test_phase143_75aa_toda56_nu4_prop44_specialization_rendering.py",
+      "sha256": "9eb5d37d230cc435284b609098c00d4f9476beeb7ba9e7d9dd7f64f4f16e654e",
+      "size": 1284
+    },
+    {
+      "path": "tests/test_phase143_75ab3_whitehead_correction_rendering.py",
+      "sha256": "b427bb2f4383ecebb449cb7e008e9537c48f8217d1bdecba073492c432bc34d9",
+      "size": 1348
+    },
+    {
+      "path": "tests/test_phase143_75ac4_hopf_odd_multiple_rendering.py",
+      "sha256": "b66457eb5a4c62ef5aed2cc2b1a0fd81be02fd10fcafb0894a59bf8c1b246f07",
+      "size": 1098
+    },
+    {
+      "path": "tests/test_phase143_75ad_double_suspension_rendering.py",
+      "sha256": "7bec767d7d7067a92b46018c886848804fc4f89cb497b177982ef3019bdcb942",
+      "size": 1066
+    },
+    {
+      "path": "tests/test_phase143_75t_toda58_equation_aggregate_semantic_rendering.py",
+      "sha256": "bf01734d35ac00e7f5d89ee5f59a6814a5456f31395e65dcd9367806dc4ba7e9",
+      "size": 1416
+    },
+    {
+      "path": "tests/test_phase143_75w_toda54_bracket_up_to_sign_semantic_rendering.py",
+      "sha256": "836a10156e8e1fbe54e0e7e3cc59f5d7ec1f88a72a0e0bae1009ddaed086ba6c",
+      "size": 1282
+    },
+    {
+      "path": "tests/test_phase143_75y_nu4_construction_semantic_rendering.py",
+      "sha256": "8810d0b4da809a231481de456b1d1e667039a3d0d62d43294616614d65e63380",
+      "size": 1701
+    },
+    {
+      "path": "tests/test_phase144_5_generic_definition_order_equations.py",
+      "sha256": "10c88dc45f40f926d69ced5c37c016e68cdc2730a5bb36cf9de379b7514d8290",
+      "size": 1542
+    },
+    {
+      "path": "tests/test_phase144_6_pi6_generic_production_route.py",
+      "sha256": "275c786f3d513bdeb179e6ad1edf57ad54186b76bfe44a8374bfec7ac41cfcca",
+      "size": 2812
+    },
+    {
+      "path": "tests/test_phase144_6_public_route_cutover.py",
+      "sha256": "a86a447ef7a4bb0186d14ab6225e8790706df01e6c15c08727de0ae13d791212",
+      "size": 2939
+    },
+    {
+      "path": "tests/test_phase144_6_r25_9a_pi5_suppression.py",
+      "sha256": "927c2a01af56b530a8b5e7dd34c555617d869bcdef7b163e606326b9eb102094",
+      "size": 4041
+    },
+    {
+      "path": "tests/test_phase144_6_r25_9a_r1_relocation_hidden.py",
+      "sha256": "6380425b1c2a48208126fb446a4aea7a700b588064fb414b05ce56063d1b7f1a",
+      "size": 1014
+    },
+    {
+      "path": "tests/test_phase144_6_r4_supporting_fact_filtering.py",
+      "sha256": "c42850c893978ac49b845c4e04f2b3e795ee7c23eff918c63e384ed338b7cc4a",
+      "size": 2369
+    },
+    {
+      "path": "tests/test_phase144_6_r5_20_pi6_3_proof_chain_generic_parity.py",
+      "sha256": "1ca121cf99ff8b5852266ba8e726d377b82fd1bae41473c0c92f065cc4a0bb93",
+      "size": 2012
+    },
+    {
+      "path": "tests/test_phase144_6_r5_21_missing_7_facts_generic_provider_audit.py",
+      "sha256": "ad868c83a9b62fae987f4dbefaf43bef1d0706e7a0bf38fe51c4bfa2f326e8b9",
+      "size": 1540
+    },
+    {
+      "path": "tests/test_phase144_6_r5_22_missing_4_facts_statement_structure_audit.py",
+      "sha256": "8cd8baa6c7d92e1efd82b9a5d5c595883889fe0615f334f51afc6cac1377dd5a",
+      "size": 1891
+    },
+    {
+      "path": "tests/test_phase144_6_r5_23_missing_7_facts_generic_visibility_path_audit.py",
+      "sha256": "6ded9ee9258bc8ef0c7dcf1760e320c2e064f2a29458b1370ddb9bd7f0a29f0d",
+      "size": 2467
+    },
+    {
+      "path": "tests/test_phase144_6_r5_25_multi_argument_suppression_selective_frontier_relevance_audit.py",
+      "sha256": "82ac286392796ae86e73dcac50ffed9a21fe2a96e12c1cb479e3d76d7bf6cb0b",
+      "size": 2040
+    },
+    {
+      "path": "tests/test_phase144_6_r5_31_upstream_calculation_attachment_semantic_audit.py",
+      "sha256": "2bc9081b7c698283f402bf6d675f667b5570d45977e6bc4412f3d421bb335d02",
+      "size": 1370
+    },
+    {
+      "path": "tests/test_phase144_6_r5_33_visible_step_rendered_markdown_survival_audit.py",
+      "sha256": "18b18617a3adb8de5772ba4866f1bdca96f47eb42c574acd27a1e7c5027add9c",
+      "size": 1303
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11a_insertion_failure_classification_audit.py",
+      "sha256": "dc4bec64063668b94b0001e85286a0c108d9a53224ef453b6764f90679bfb9ff",
+      "size": 922
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11b_detached_argument_boundary_audit.py",
+      "sha256": "930b4e0b1b54b758dca42a6b10a50bb7d390ed65fbaf0e7d8b2dd5ca20209918",
+      "size": 904
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_11d_final_completion_audit.py",
+      "sha256": "87900e07d07f3fcfb507efa85b0d3b1867ed859602d4c93e69be174390d7358f",
+      "size": 633
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_3.py",
+      "sha256": "2d3fb313db011361d5593ac83132d31d4e7d25d3db5ff88be7c8539fccb769d9",
+      "size": 791
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_5.py",
+      "sha256": "734816d259cf1ed852a78ac1a8c05ffa428afef6142bc1a700461488f8ede782",
+      "size": 1150
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_8.py",
+      "sha256": "4a1bbcf115a13a2df8451a45f67b87c6cf5c788de5337af255a33896c085b38f",
+      "size": 769
+    },
+    {
+      "path": "tests/test_phase144_6_r5_43_9.py",
+      "sha256": "7f93d7d3b94b5aab36083a100986a88416852b371f88587ebff7b5488a92a516",
+      "size": 701
+    },
+    {
+      "path": "tests/test_phase146_7_generic_argument_purpose_prose.py",
+      "sha256": "5d1fb6f9f1c56bdafc97882feccebcde1202b7dc86e8b5e2a47388e18a5f4240",
+      "size": 1811
+    },
+    {
+      "path": "tests/test_phase147_rc1_argument_method_ownership.py",
+      "sha256": "e0223c85e3146a698006c44ecc10d2bffda5039cb8b6e97b164d647258c08530",
+      "size": 4719
+    },
+    {
+      "path": "tests/test_phase148_rc2_3_exactness_exposure.py",
+      "sha256": "2d40512fd6bc33f68658ec4665cba791ecbfab4ae52ec37f42f8675567a5cf34",
+      "size": 4171
+    },
+    {
+      "path": "tests/test_phase148_rc2_3_repair_r1.py",
+      "sha256": "002a96827dfb50482bfcd0e0d1558d8c3539027bb01806052be525035b247508",
+      "size": 1379
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_cross_group_audit.py",
+      "sha256": "105e87344c6e7fd46e2b895f48c47b05a5466a145508aadfba4032ea67df6c05",
+      "size": 5303
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r1_exposure_path_audit.py",
+      "sha256": "09fe680d0ade2dd399f5a4110335f5b7977b5b8b5a78e3c0a0ccbe75fb2bb295",
+      "size": 2244
+    },
+    {
+      "path": "tests/test_phase148_rc2_4_repair_r2.py",
+      "sha256": "d00ddc86fde40f00965d5559f9f631cb159aa991a1f2bc401ca19d1d2e95191e",
+      "size": 3112
+    },
+    {
+      "path": "tests/test_phase149_rc3_3_minimal_ordering.py",
+      "sha256": "ef29f406497f490dd7a5b370e69b5f0bcb46e4a3c2f8c6b53ff148dbe4bcb2f4",
+      "size": 4197
+    },
+    {
+      "path": "tests/test_phase149_rc3_4_cross_group_ordering.py",
+      "sha256": "b36b91f866330bb6f250b05ba9090c9ff47577e9cce47c7e160c0f87f915ce4c",
+      "size": 1397
+    },
+    {
+      "path": "tests/test_phase150_rc4_4_reasons.py",
+      "sha256": "353b9bd77374fe373f6f648dfc446a38ae92115dfaacb161b8bec1f717ae63ef",
+      "size": 4968
+    },
+    {
+      "path": "tests/test_phase150_rc4_5_visible_reasons.py",
+      "sha256": "764ba4168bfdf60f5aa926ef4ecc6246fc21ab025006df9da68d70ad288edc8a",
+      "size": 4994
+    },
+    {
+      "path": "tests/test_phase150_rc4_5b_3_reference_binding.py",
+      "sha256": "68d95ab825e9a70a1d1f07ff3b8e2d0668b8f22d920597fe5e7679fefde63972",
+      "size": 3222
+    },
+    {
+      "path": "tests/test_phase150_rc4_5c_2_exactness_to_map_property.py",
+      "sha256": "cb722b1532d57017200b1eecaf0aebd7bf0b1ff616017e94297774c85333c269",
+      "size": 4222
+    },
+    {
+      "path": "tests/test_phase150_rc4_5d_3_multiple_relation_to_order.py",
+      "sha256": "3f336c154b5189bfdf52e316eae808743066acf8ddf07c2e78ae6bf452156065",
+      "size": 3328
+    },
+    {
+      "path": "tests/test_phase150_rc4_5e_2_short_exact_derivation_reason.py",
+      "sha256": "be56fda40156a8d7e6cfd3d890b25936a5f00f2011f58e26530b4ea327d936bd",
+      "size": 2696
+    },
+    {
+      "path": "tests/test_phase150_rc4_5f_2_final_group_structure_reason.py",
+      "sha256": "8bcbc077a731617343669ba8bde681b6a1fc1d08b6b5f7cb3f677d38c8b1f664",
+      "size": 5154
+    },
+    {
+      "path": "tests/test_phase150_rc4_7b_production_repair.py",
+      "sha256": "37ba15740d72ef1ec162e0a17bb6d62fb6230c1ca345ad6d658d10cad48ecf61",
+      "size": 1817
+    },
+    {
+      "path": "tests/test_phase150_rc4_7d_generic_reason_vocabulary.py",
+      "sha256": "77d42975c7f16d9d9e8bef4101c75f803f7741d6aade4cc23e45eea560da0260",
+      "size": 1731
+    },
+    {
+      "path": "tests/test_phase150_rc4_7d_reason_hidden_conclusion_anchor.py",
+      "sha256": "915c1eb20ab21a622535a9a6a2c04cd057465ab131866d64a5636c4867ee4d8c",
+      "size": 2240
+    },
+    {
+      "path": "tests/test_phase150_rc4_closure_reason_visibility.py",
+      "sha256": "2c875800f688f4e9f759dde8f811ed1532d875ec085357120ecec854b44eb2b0",
+      "size": 1884
+    },
+    {
+      "path": "tests/test_phase156_r6_3_reason_prose_canonicalization.py",
+      "sha256": "a1f789b8ba6511c896fdbccef81aa669ab46094ac3aafdeacfbac27d9b14e440",
+      "size": 2855
+    },
+    {
+      "path": "tests/test_phase157_r20_generic_dependency_architecture.py",
+      "sha256": "545039f87a73155fed08c4d4a517c5191db141b21cf834d97e5acbc8ae651371",
+      "size": 1403
+    },
+    {
+      "path": "tests/test_phase158_r5_4_repair_common_equation_numbering.py",
+      "sha256": "7c60dbc6d31146b1ba36521a405a7a5061b3b8f223350305d9b481776b3c3199",
+      "size": 2248
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_final_locality_reapply.py",
+      "sha256": "89042552b90826df95f722cda528a54b927f304f6ff2c57174fa945fb638bd52",
+      "size": 2789
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_map_property_order.py",
+      "sha256": "77987889cdc7a11a4678321d5bd3dc21608c4fe63affac59f1382e56d82c4726",
+      "size": 3351
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_post_reference_locality_reapply.py",
+      "sha256": "1b3fed1a2745ae3c78ba88232127f5f6cfd1712ce7a70db89750f5f9566f23b8",
+      "size": 2946
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_proofstep_premise_locality.py",
+      "sha256": "a15fd0a12039e7ec0320ae03271e8cdabdd08d80caedd77b3df2fe291fe1dd9e",
+      "size": 3227
+    },
+    {
+      "path": "tests/test_phase159_pi3_2_public_definition_premise_locality.py",
+      "sha256": "c37c716684a43f7c9b80949aeae02ffae45379661bce70c72af124eb941765b2",
+      "size": 3137
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_contribution_connector_ownership.py",
+      "sha256": "174105cb065b457447822969e309e39f1e47ad424c0606d3c405c107221581cd",
+      "size": 3831
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_exactness_reason_unification.py",
+      "sha256": "c4f283fc479f8f41e3e87ccfa41c128234a116c59ca35c76c26f1e5aa34f187f",
+      "size": 5403
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_exactness_surjectivity_unification.py",
+      "sha256": "7cb16c0abee44b8973c69846f0c07c6cda032a71e67e27bee80ad06e943dfb7c",
+      "size": 4066
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_generator_bridge_duplicate_suppression.py",
+      "sha256": "e8e3ce2a3e1775ec459b3039779a266d5c5a7e63dbf15bfd11776fbf253c365b",
+      "size": 2803
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_provenance_priority.py",
+      "sha256": "84555edaa3ed1b4be2386cf4e68fe9c4779926af74337583098623fc961aff6f",
+      "size": 1460
+    },
+    {
+      "path": "tests/test_phase159_pi4_3_trailing_premise_order.py",
+      "sha256": "c59b52d8856bb6daf9c6978f5f9153ca083e4dc6550d15e6d11f455af726c697",
+      "size": 4574
+    },
+    {
+      "path": "tests/test_phase159_pi6_3_zero_map_reason_order.py",
+      "sha256": "8ff1d125e19679b266126db30f19b44d306909e47a00be7f2ba77cb4374d8206",
+      "size": 2025
+    },
+    {
+      "path": "tests/test_phase159_pi_nplus1_n_stable_transport.py",
+      "sha256": "b18d3c13da5bbdc9f7bb47f677c9d6ee9b458b5273d27204a1d99871dbbf31f7",
+      "size": 2730
+    },
+    {
+      "path": "tests/test_phase159_r1_7c_r4_repair8_final_group_reason_and_stale_expectations.py",
+      "sha256": "095717be65b4e5b1839e2cf5eda50b44f704773a985560126b45806963231443",
+      "size": 2279
+    },
+    {
+      "path": "tests/test_phase160_generic_stable_public_narrative.py",
+      "sha256": "765f1a52615578d99308619b57fd9e716391987572aea6e5c4782aa58898d36c",
+      "size": 2982
+    },
+    {
+      "path": "tests/test_phase160_k2_generic_transport_connection.py",
+      "sha256": "4be629f4ed774a761a13f95bec7983352ea2dc2d782f5b89e01938946840ce5d",
+      "size": 4664
+    },
+    {
+      "path": "tests/test_phase160_k2_public_narrative.py",
+      "sha256": "0cf0673e332bc2830043c5750a85ecf70782cfc2cdfaef9c06fe06842ff220bf",
+      "size": 2143
+    },
+    {
+      "path": "tests/test_phase160_remaining_stable_public_narrative.py",
+      "sha256": "aca6c88180635d2e2fa039d233756593fc5bcfd2f329d9c9da5341928ed83170",
+      "size": 2616
+    },
+    {
+      "path": "tests/test_phase161_r4_literature_premise_matching.py",
+      "sha256": "5084d0d0383e1cf4051add73574c1ee1574d112f1946f5fe7a3caefe233f5c41",
+      "size": 3681
+    },
+    {
+      "path": "tests/test_phase161_r5_backward_proof_reconstruction.py",
+      "sha256": "5cbf91a12470f46a763285f8e35b139154aa8a5f123089206087fecabba5ee52",
+      "size": 3356
+    },
+    {
+      "path": "tests/test_phase161_r6_proof_reconstruction_audit.py",
+      "sha256": "6cfca689616e8626f7656b1fab2fbd5cbe7e95a418433323a6c140f8b3fcf324",
+      "size": 3322
+    },
+    {
+      "path": "tests/test_phase161_r7_premise_provenance_validation.py",
+      "sha256": "77a3706ce5fded18f542f5462365e562650f08ac98d3257c4fa5b81174980888",
+      "size": 3512
+    },
+    {
+      "path": "tests/test_phase162_group_structure_backward.py",
+      "sha256": "2e39cf3d808e69513e66344adc3e592395b7d42a32f9b167a5e74832cb9f64db",
+      "size": 3706
+    },
+    {
+      "path": "tests/test_phase162_r2_existing_proof_connection.py",
+      "sha256": "5f1121cf040cfbbc5e6c711fa9eb08bb70b3ecf375566dd8e5c784e779dcf59f",
+      "size": 2928
+    },
+    {
+      "path": "tests/test_phase162_r3_2_reference_display.py",
+      "sha256": "9fbeb92cca37b352b4f43b22d0574c5adcd82936588133dadc77868c5e7c1d2c",
+      "size": 7407
+    },
+    {
+      "path": "tests/test_phase162_r3a_presentation_audit.py",
+      "sha256": "3720d7bb60d5fa44bb150b122072240774a73b2b469cc74d83089bf961968c6d",
+      "size": 1913
+    },
+    {
+      "path": "tests/test_phase162_r3b_existing_renderer.py",
+      "sha256": "9fec92f6164e0290a973b63d5d87bdbeadf02ff7c265a70516383eb96b2d070d",
+      "size": 1765
+    },
+    {
+      "path": "tests/test_phase162_r3c_root_reason.py",
+      "sha256": "def287cf56bd236bd5caeded48f1c5a038de6af47654efcf46d294fc515f56d7",
+      "size": 2448
+    },
+    {
+      "path": "tests/test_phase162_r3d_root_reason_audit.py",
+      "sha256": "7643da54afb6be1d8e98029f8093fe5910759745f7db0f08f28b6a9a99e3d6a8",
+      "size": 3448
+    },
+    {
+      "path": "tests/test_phase162_r3e_structured_root.py",
+      "sha256": "bff3ad935bfabec02571e47d210c09a602c5c3ee0a8755b7eaf134b384d23e44",
+      "size": 2793
+    },
+    {
+      "path": "tests/test_phase162_r3f_recursive_renderer.py",
+      "sha256": "4d1168c93ecb62562c4431a5a36fb775e46923c78f92527e84a424f921017b2f",
+      "size": 2501
+    },
+    {
+      "path": "tests/test_phase162_r3g_existing_reason_bridge.py",
+      "sha256": "45d3971b58ce0ccbe7406ca951370db55f1b1dd1856c6588cd1cee714269c0a5",
+      "size": 2891
+    },
+    {
+      "path": "tests/test_phase162_r3h_reason_inventory.py",
+      "sha256": "992a993fb7aab17383488a5146310e724ea3630d5d637d6304693571fd86ad2b",
+      "size": 3300
+    },
+    {
+      "path": "tests/test_phase162_r3i_semantic_sidecar_audit.py",
+      "sha256": "8633dc1ba648de0a98a06bb0ea2fffd586493e34f383accc203e352e4444bc8a",
+      "size": 4386
+    },
+    {
+      "path": "tests/test_phase162_r3j_inference_rule_audit.py",
+      "sha256": "53e3fa4527d53240ae79f0db8bb71a74698fc671b23f5bd22404f150a482e68f",
+      "size": 3581
+    },
+    {
+      "path": "tests/test_phase162_r3k_rule_meaning_audit.py",
+      "sha256": "6e29cba037b24b0666386300890caed2aede76521fc0acd4b8274126179e55c3",
+      "size": 3841
+    },
+    {
+      "path": "tests/test_phase162_r4_b1_stable_path_selection.py",
+      "sha256": "1830fec92d38864d4a1fd4edc4afc66177ae5602be8497b1cfc094e190295702",
+      "size": 1861
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_concrete_transport.py",
+      "sha256": "7608809f1b87b54645caf4f1a7bd90e7dc1c4fe00584baf830f79513430c4187",
+      "size": 2629
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_generator_normalization.py",
+      "sha256": "62f3518112658f99edd1793ad41a3f4b713aadabe664712fd7d4280519d3cdfe",
+      "size": 3605
+    },
+    {
+      "path": "tests/test_phase162_r4_b2_replay_integration.py",
+      "sha256": "31ccff5302ad09ded74515b21ccb92296ca7bed414a4b7813eadc499129b02dd",
+      "size": 2805
+    },
+    {
+      "path": "tests/test_phase162_r4_b3_common_renderer_audit.py",
+      "sha256": "6805e666cff9221f22d554771a1297cf509979e5522d5718aaf105b009825b11",
+      "size": 935
+    },
+    {
+      "path": "tests/test_phase162_r4_b_common_renderer_link.py",
+      "sha256": "100408a36f6f8a2404f0d377ecd4b09642f8997897c3c8bce171be762609563d",
+      "size": 3124
+    },
+    {
+      "path": "tests/test_phase162_r4_b_transport_facts.py",
+      "sha256": "29e2aca53fe9a415e1ea4642f03d940c2febfe47215dd480e28244323c9a7714",
+      "size": 1949
+    },
+    {
+      "path": "tests/test_phase162_r4_narrative_refinement.py",
+      "sha256": "5e9cbcef81c51f5c0aebb043b69e1d11dfded41074dab92ed6faea0e45bc02f5",
+      "size": 2570
+    },
+    {
+      "path": "tests/test_phase162_r5_2_general_reference_schema.py",
+      "sha256": "8788884a886a259606cada923bdccc63d0619a8359ab031d4d3e1f45a11846aa",
+      "size": 3552
+    },
+    {
+      "path": "tests/test_phase162_r5_3_reference_application_separation.py",
+      "sha256": "5fdd798a4e62f6131908e9c8b54c4f252b66e7fe8ffb508b7b97cecc1970c492",
+      "size": 3190
+    },
+    {
+      "path": "tests/test_phase162_r5_5_proof_narrative_composition.py",
+      "sha256": "0872de577e497e4b0e88d0c889313d9be5341a4cc0f25e9ac59c625c3121d935",
+      "size": 2126
+    },
+    {
+      "path": "tests/test_phase162_r5_6_proof_relevance_reference_attribution.py",
+      "sha256": "ed6c1df44a0bc9383f372f2c2dfbfe0934a535a1eb1d8c10cb9cf03fdf7d233c",
+      "size": 3073
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair2_direct_reference_attribution.py",
+      "sha256": "591fac178710b92e8b4bc753a9a2e862c279240c3b628d3ef199c441178c946a",
+      "size": 2395
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair3_reference_application_prose.py",
+      "sha256": "341ee18fbf810000eecccb6041cce479934fb9bd6c047f92cddb2c7b3e33d837",
+      "size": 1997
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair4_fixed_statement_reuse.py",
+      "sha256": "6002e72035516a4e572548ab249a8b0503b8ce327e2eeb1dbfb7cbd0b699f812",
+      "size": 3714
+    },
+    {
+      "path": "tests/test_phase162_r5_6_repair5_reference_component_boundary.py",
+      "sha256": "f25dab0fdbc1df9ac7817b22a0eebee9a757a953aba40613eeabf7f531adf508",
+      "size": 2994
+    }
+  ],
+  "mode": "APPLY",
+  "full_pytest_run": false,
+  "collection_exit_code": 2,
+  "collection_error_count": null,
+  "collection_summary_tail": "3_delta_nu9.py\nERROR tests/test_phase73_pi10_4_nu4_squared.py\nERROR tests/test_phase73_pi8_2_eta2_nu_prime_eta6_squared.py\nERROR tests/test_phase73_pi9_3_zero.py\nERROR tests/test_phase73_prop511_finite_dimensional_integration.py\nERROR tests/test_phase75_514_first_short_exact.py\nERROR tests/test_phase75_514_second_short_exact.py\nERROR tests/test_phase75_515_pi15_8_final_group.py\nERROR tests/test_phase75_515_sigma8_prop44_decomposition.py\nERROR tests/test_phase75_515_sigma8_prop44_specialization.py\nERROR tests/test_phase75_515_sigma8_transported_decomposition.py\nERROR tests/test_phase75_lemma514_sigma8.py\nERROR tests/test_phase75_lemma514_sigma_double_prime.py\nERROR tests/test_phase75_lemma514_sigma_prime.py\nERROR tests/test_phase75_pi10_3_zero.py\nERROR tests/test_phase75_pi11_4_zero.py\nERROR tests/test_phase75_pi12_5_order_two.py\nERROR tests/test_phase75_pi13_6_order_four.py\nERROR tests/test_phase75_pi14_7_order_eight.py\nERROR tests/test_phase75_pi16_9_sigma9.py\nERROR tests/test_phase75_pi9_2_zero.py\nERROR tests/test_phase75_sigma_family_definition.py\nERROR tests/test_phase78_g3_stable_nu_transport.py\nERROR tests/test_phase78_g4_g5_stable_zero_transport.py\nERROR tests/test_phase78_g6_stable_nu_squared_transport.py\nERROR tests/test_phase78_g7_stable_sigma_transport.py\nERROR tests/test_phase78_stable_g0_to_g7_integration.py\nERROR tests/test_phase81_probe.py\n!!!!!!!!!!!!!!!!!! Interrupted: 128 errors during collection !!!!!!!!!!!!!!!!!!\n4223 tests collected, 128 errors in 46.58s\n"
+}
