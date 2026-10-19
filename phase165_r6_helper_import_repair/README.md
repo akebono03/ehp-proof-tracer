@@ -1,0 +1,3 @@
+# Phase 165 R6: shared helper import repair
+
+This package inspects the historical `_method_evidence_data()` source from Git history or archived backups. It removes `build_standard_toda_report` **only when static syntax inspection proves the import unused**. If the deprecated function is called, no substitution is made; the source and exact call lines are preserved in an audit report. A successful candidate is accepted only if two existing focused tests pass. Failed candidates are reverted. No production files are changed and no full pytest suite is run. The package must be launched from the project root.
