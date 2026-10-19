@@ -1,0 +1,10 @@
+{
+  "group": "pi_4^3",
+  "status": "COMPLETE",
+  "proven_step_count": 25,
+  "open_goal_count": 0,
+  "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='��_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='��', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "diagnostics": [],
+  "proof_verified": false
+}
+

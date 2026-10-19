@@ -1,0 +1,12 @@
+{
+  "group": "pi_5^3",
+  "status": "SEARCH_FAILED",
+  "proven_step_count": 0,
+  "open_goal_count": 1,
+  "conclusion": "None",
+  "diagnostics": [
+    "�Q�\���E�������̌^�t���ؖ��ڕW���w�肵�Ă�������"
+  ],
+  "proof_verified": false
+}
+

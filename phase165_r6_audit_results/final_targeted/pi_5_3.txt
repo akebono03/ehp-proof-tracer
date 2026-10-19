@@ -1,0 +1,5 @@
+
+Traceback (most recent call last):
+  File "C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase165_final_targeted\probe_goal.py", line 12, in main
+    from phase165_r55_nk_only_goal import search_group_from_registered_goal
+ModuleNotFoundError: No module named 'phase165_r55_nk_only_goal'

@@ -1,0 +1,71 @@
+{
+  "phase": "165 final targeted validation",
+  "timestamp_utc": "2026-10-19T06:35:00.259435+00:00",
+  "test_files": [
+    "tests\\test_phase165_goal_only_cutover.py",
+    "tests\\test_phase165_r10_goal_diagnostics.py",
+    "tests\\test_phase165_r11_wiring.py",
+    "tests\\test_phase165_r12_r2_quotient_rules.py",
+    "tests\\test_phase165_r12_r5_structure_bridge.py",
+    "tests\\test_phase165_r12_typed_binding.py",
+    "tests\\test_phase165_r2_registry_lookup.py",
+    "tests\\test_phase165_r3_recursive_search.py",
+    "tests\\test_phase165_r4_production_connection.py",
+    "tests\\test_phase165_r5_manifest_bridge.py",
+    "tests\\test_phase165_r6_binding_candidates.py",
+    "tests\\test_phase165_r7_bulk_integration.py",
+    "tests\\test_phase165_r8_rule_provider.py",
+    "tests\\test_phase165_r9_production_wiring.py",
+    "tests\\test_phase165_tex_citation_policy.py"
+  ],
+  "full_pytest_run": false,
+  "retired_tests_restored": false,
+  "production_modified": false,
+  "targeted_pytest": {
+    "returncode": 0,
+    "timed_out": false,
+    "last_lines": [
+      "....................................................................     [100%]",
+      "68 passed in 10.12s",
+      ""
+    ],
+    "transcript": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\final_targeted\\phase165_tests.txt"
+  },
+  "pi_3^2": {
+    "returncode": 1,
+    "timed_out": false,
+    "last_lines": [
+      "",
+      "Traceback (most recent call last):",
+      "  File \"C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_final_targeted\\probe_goal.py\", line 12, in main",
+      "    from phase165_r55_nk_only_goal import search_group_from_registered_goal",
+      "ModuleNotFoundError: No module named 'phase165_r55_nk_only_goal'"
+    ],
+    "transcript": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\final_targeted\\pi_3_2.txt"
+  },
+  "pi_4^3": {
+    "returncode": 1,
+    "timed_out": false,
+    "last_lines": [
+      "",
+      "Traceback (most recent call last):",
+      "  File \"C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_final_targeted\\probe_goal.py\", line 12, in main",
+      "    from phase165_r55_nk_only_goal import search_group_from_registered_goal",
+      "ModuleNotFoundError: No module named 'phase165_r55_nk_only_goal'"
+    ],
+    "transcript": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\final_targeted\\pi_4_3.txt"
+  },
+  "pi_5^3": {
+    "returncode": 1,
+    "timed_out": false,
+    "last_lines": [
+      "",
+      "Traceback (most recent call last):",
+      "  File \"C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_final_targeted\\probe_goal.py\", line 12, in main",
+      "    from phase165_r55_nk_only_goal import search_group_from_registered_goal",
+      "ModuleNotFoundError: No module named 'phase165_r55_nk_only_goal'"
+    ],
+    "transcript": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\final_targeted\\pi_5_3.txt"
+  },
+  "all_pass": false
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "group": "pi_3^2",
+    "explicit_goal": false,
+    "status": "COMPLETE",
+    "proven_steps": 16,
+    "open_goals": 0,
+    "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "diagnostics": [],
+    "proof_verified": false
+  },
+  {
+    "group": "pi_4^3",
+    "explicit_goal": false,
+    "status": "COMPLETE",
+    "proven_steps": 25,
+    "open_goals": 0,
+    "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "diagnostics": [],
+    "proof_verified": false
+  },
+  {
+    "group": "pi_5^3",
+    "explicit_goal": true,
+    "status": "SEARCH_FAILED",
+    "proven_steps": 0,
+    "open_goals": 3,
+    "conclusion": "None",
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ],
+    "proof_verified": false
+  }
+]
