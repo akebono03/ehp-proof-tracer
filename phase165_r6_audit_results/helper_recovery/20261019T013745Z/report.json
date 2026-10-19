@@ -1,0 +1,14 @@
+{
+  "status": "CANDIDATE_FAILED_REVERTED",
+  "target": "tests\\test_phase143_19_method_evidence.py",
+  "candidates": [
+    {
+      "source": "git:b8868fa59366e626a9ff081c9607764266997c48",
+      "sha256": "b106b0dfbf663be0141941a11b946eb72d0e0ccbb3af9e8cd34103d900d4a11c",
+      "eligible": true,
+      "reason": "valid self-contained shared test helper source",
+      "targeted_test_returncode": 2
+    }
+  ],
+  "full_pytest_run": false
+}
