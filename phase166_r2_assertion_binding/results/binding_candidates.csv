@@ -1,0 +1,3 @@
+﻿csv_line,assertion_id,status,mathematical_identity_confirmed,proof_permission_granted
+3,boundary:(5.3):nu_prime_double_relation,CANDIDATE_DISPLAY_AND_TYPE_ONLY,False,False
+8,boundary:(5.3):nu_prime_double_relation,CANDIDATE_DISPLAY_AND_TYPE_ONLY,False,False
