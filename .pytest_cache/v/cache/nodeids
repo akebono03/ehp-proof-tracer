@@ -1562,6 +1562,8 @@
   "phase165_r6_legacy_batch/tests/test_cleanup.py::test_modern_tests_are_protected",
   "phase165_r6_partial_steps_display/test_phase165_r6_partial_steps_display.py::test_partial_narrative_displays_observed_given_and_inference_without_qed",
   "phase165_r6_partial_steps_display/test_phase165_r6_partial_steps_display.py::test_partial_narrative_has_no_made_up_steps",
+  "phase165_r6_phase103_retirement/test_phase103_retirement_guard.py::test_legacy_production_catalog_remains_retired",
+  "phase165_r6_phase103_retirement/test_phase103_retirement_guard.py::test_unified_registry_remains_available",
   "phase165_r6_probe_cleanup/tests/test_cleanup.py::test_keeps_imported_probe",
   "phase165_r6_probe_cleanup/tests/test_cleanup.py::test_keeps_on_unparseable_test",
   "phase165_r6_probe_cleanup/tests/test_cleanup.py::test_removes_unreferenced_failed_direct_probe_only",
