@@ -1,0 +1,11 @@
+﻿{
+    "phase":  "165 R6-15",
+    "command":  "python -m pytest tests -q --tb=short",
+    "exit_code":  1,
+    "status":  "FULL_PYTEST_FAILED",
+    "started_utc":  "2026-10-19T10:16:41.2123662Z",
+    "finished_utc":  "2026-10-19T10:17:08.5135516Z",
+    "stdout_file":  "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\r6_15_final_pytest\\pytest_20261019T191641_stdout.txt",
+    "stderr_file":  "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\r6_15_final_pytest\\pytest_20261019T191641_stderr.txt",
+    "source_files_changed":  false
+}

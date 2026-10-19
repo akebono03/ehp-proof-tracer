@@ -1,0 +1,81 @@
+{
+  "phase": "165 R6-17",
+  "mode": "read_only",
+  "generated_utc": "2026-10-19T10:25:33.707724+00:00",
+  "status": "AUDITED_NO_CHANGES",
+  "web_pi53_supplied_keywords": [
+    "n",
+    "k"
+  ],
+  "web_pi53_missing_required_context": [
+    "goal",
+    "citing_assertion_id"
+  ],
+  "boundary_found": true,
+  "items": [
+    {
+      "id": "goal_boundary",
+      "path": "phase165_goal_only_search.py",
+      "status": "FOUND",
+      "function": "construct_registered_group_proof",
+      "first_line": 18,
+      "last_line": 68,
+      "source": "def construct_registered_group_proof(\n    *,\n    n: int,\n    k: int,\n    goal=None,\n    bridge=None,\n    citing_assertion_id=None,\n    expansion_provider=None,\n    verified_assertion_ids=(),\n):\n    \"\"\"Use the common registered search with production input discovery.\n\n    Missing proof goals or citation context remain fail-closed. Discovery never\n    turns an untyped source assertion into a verified premise, and existing\n    callers may continue supplying their own bridge and expansion provider.\n    \"\"\"\n    group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)\n    if bridge is None or expansion_provider is None:\n        from phase165_r9_production_wiring import discover_goal_search_inputs\n\n        discovered = discover_goal_search_inputs()\n        if bridge is None:\n            bridge = discovered.bridge\n        if expansion_provider is None:\n            expansion_provider = discovered.expansion_provider\n        if verified_assertion_ids == ():\n            verified_assertion_ids = discovered.verified_assertion_ids\n\n    if (\n        goal is None\n        or bridge is None\n        or citing_assertion_id is None\n        or expansion_provider is None\n    ):\n        raise GoalSearchIncompleteError(\n            f\"Registered goal/rule catalog not configured for {group!r}; \"\n            \"legacy proof selection is disabled\"\n        )\n    try:\n        step = reconstruct_registered_goal(\n            goal,\n            bridge,\n            citing_assertion_id,\n            expansion_provider,\n            verified_assertion_ids=verified_assertion_ids,\n        )\n    except RegisteredGoalUnresolved as exc:\n        raise GoalSearchIncompleteError(str(exc)) from exc\n    if getattr(getattr(step, \"conclusion\", None), \"lhs\", None) != group:\n        raise GoalSearchIncompleteError(\"derived proof targets a different group\")\n    return step"
+    },
+    {
+      "id": "web_pi53",
+      "path": "phase164_r5_web_registry_connection.py",
+      "status": "FOUND",
+      "function": "build_phase164_r5_web_pi5_3_proof",
+      "first_line": 15,
+      "last_line": 52,
+      "source": "def build_phase164_r5_web_pi5_3_proof(*, max_depth: int = 2):\n    \"\"\"Ask the unified solver for pi_5^3; fail closed if it cannot prove it.\"\"\"\n    if isinstance(max_depth, bool) or not isinstance(max_depth, int):\n        raise TypeError(\"max_depth must be an integer\")\n    if max_depth < 0:\n        raise ValueError(\"max_depth must be nonnegative\")\n\n    group_step = construct_registered_group_proof(n=3, k=2)\n    if group_step.rule is not ProofRule.INFERENCE:\n        raise ValueError(\"goal-only search did not derive a proof\")\n    goal = group_step.conclusion\n    if (goal.lhs != TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)\n            or not isinstance(goal.rhs, FiniteCyclicGroup)):\n        raise ValueError(\"goal-only search returned the wrong group conclusion\")\n\n    entry = ProofRepositoryEntry(\n        key=\"phase165-goal-only-pi5-3-web\",\n        step=group_step,\n        theorem=\"Toda Proposition 5.3\",\n        phase=\"165 R1\",\n    )\n    result = TodaGroupResult(\n        target=goal.lhs,\n        group_structure=goal.rhs,\n        generators=(goal.rhs.generator,),\n        generator_orders=(goal.rhs.order,),\n        source_entry=entry,\n        proof_step=group_step,\n    )\n    replay = build_toda_group_result_proof_replay(result, max_depth=max_depth)\n    if replay.root_step is not group_step:\n        raise ValueError(\"replay replaced the goal-only proof root\")\n    narrative = render_toda_group_proof_narrative_markdown(\n        build_toda_group_proof_presentation(replay)\n    )\n    if not narrative or \"## 証明\" not in narrative:\n        raise ValueError(\"common narrative rendering failed\")\n    return replay, narrative"
+    },
+    {
+      "id": "prop51",
+      "path": "tests/test_phase157_r2_literature_statement_boundary.py",
+      "status": "FOUND",
+      "function": "test_phase157_r2_prop51_inventory_preserves_current_four_components",
+      "first_line": 36,
+      "last_line": 63,
+      "source": "def test_phase157_r2_prop51_inventory_preserves_current_four_components():\n  components = get_toda_fixed_statement_components(\n    \"Proposition 5.1\"\n  )\n\n  assert tuple(\n    component.component_key\n    for component in components\n  ) == (\n    \"pi3_2_group_relation\",\n    \"eta2_hopf_relation\",\n    \"delta_iota5_relation\",\n    \"higher_eta_group_relation\",\n  )\n  assert tuple(\n    component.order\n    for component in components\n  ) == (\n    1,\n    2,\n    3,\n    4,\n  )\n  assert components[-1].range_text is None\n  assert (\n    components[-1].range_is_explicit_in_current_aggregate\n    is False\n  )"
+    },
+    {
+      "id": "reference_selection",
+      "path": "tests/test_phase157_r5_r4_generic_reference_selection.py",
+      "status": "FOUND",
+      "function": "test_phase157_r5_r4_generic_filter_applies_without_representative_target_guard",
+      "first_line": 46,
+      "last_line": 118,
+      "source": "def test_phase157_r5_r4_generic_filter_applies_without_representative_target_guard():\n  root_step = _step(\n    \"Phase157 R5-R4 arbitrary root\",\n    None,\n    \"arbitrary non-representative target\",\n  )\n\n  fixed_step = _step(\n    'Toda 4.5 stable-range iterated suspension isomorphism',\n    '(4.5)',\n    \"fixed candidate\",\n  )\n  internal_step = _step(\n    'Toda 4.5 pi_4^3 finite-cyclic transport',\n    '(4.5)',\n    \"proof-internal candidate\",\n  )\n  aggregate_step = _step(\n    'Toda Proposition 5.3 finite-dimensional integration',\n    'Proposition 5.3',\n    \"aggregate fixed statement without component\",\n  )\n\n  fixed_entry = TodaGroupProofNarrativeReferenceEntry(\n    number=1,\n    reference=_reference(\n      '(4.5)'\n    ),\n    proof_steps=(\n      fixed_step,\n    ),\n  )\n  internal_entry = TodaGroupProofNarrativeReferenceEntry(\n    number=2,\n    reference=_reference(\n      '(4.5)'\n    ),\n    proof_steps=(\n      internal_step,\n    ),\n  )\n  aggregate_entry = TodaGroupProofNarrativeReferenceEntry(\n    number=3,\n    reference=_reference(\n      'Proposition 5.3'\n    ),\n    proof_steps=(\n      aggregate_step,\n    ),\n  )\n\n  filtered = (\n    filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary(\n      (\n        fixed_entry,\n        internal_entry,\n        aggregate_entry,\n      ),\n      root_step,\n    )\n  )\n\n  assert len(\n    filtered\n  ) == 1\n  assert filtered[\n    0\n  ].number == 1\n  assert filtered[\n    0\n  ].proof_steps == (\n    fixed_step,\n  )"
+    },
+    {
+      "id": "beta",
+      "path": "tests/test_phase150_rc4_5b_3_r1_beta_latex.py",
+      "status": "FOUND",
+      "function": "test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table",
+      "first_line": 7,
+      "last_line": 15,
+      "source": "def test_phase150_rc4_5b_3_r1_beta_uses_general_greek_latex_table():\n  beta = HomotopyElement(\n    name=\"β\",\n    dimension=3,\n    source=6,\n    target=3,\n  )\n\n  assert render_toda_expression_latex(beta) == r\"\\\\beta\""
+    },
+    {
+      "id": "historical_import",
+      "path": "tests/test_phase148_rc2_4_repair_r4_1_r1.py",
+      "status": "FOUND",
+      "function": "test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api",
+      "first_line": 31,
+      "last_line": 111,
+      "source": "def test_phase148_rc2_4_repair_r4_1_r1_argument_locations_use_current_argument_api():\n  module = (\n    _load_audit_module()\n  )\n  group_result = (\n    module._group_result()\n  )\n  contexts = (\n    module._contexts(\n      group_result\n    )\n  )\n  complete = contexts[\n    \"complete\"\n  ]\n  matches = (\n    module._matching_steps(\n      complete[\n        \"closure\"\n      ],\n      module.EQUATIONS[\n        0\n      ][\n        1\n      ],\n    )\n  )\n\n  assert len(\n    matches\n  ) == 1\n\n  proof_step = matches[\n    0\n  ][\n    0\n  ].proof_step\n\n  locations = (\n    module._argument_locations(\n      complete[\n        \"closure\"\n      ],\n      complete[\n        \"sidecar\"\n      ],\n      complete[\n        \"arguments\"\n      ],\n      complete[\n        \"blocks\"\n      ],\n      proof_step,\n    )\n  )\n\n  assert isinstance(\n    locations,\n    tuple,\n  )\n\n  for (\n    argument_index,\n    role,\n    location,\n  ) in locations:\n    assert isinstance(\n      argument_index,\n      int,\n    )\n    assert isinstance(\n      role,\n      str,\n    )\n    assert set(\n      location\n    ) == {\n      \"supporting\",\n      \"conclusion\",\n      \"local_body\",\n    }"
+    },
+    {
+      "id": "missing_dependency",
+      "path": "tests/test_proof_repository.py",
+      "status": "FOUND",
+      "function": "test_phase78_actual_steps_register_and_retrieve_without_graph_changes",
+      "first_line": 538,
+      "last_line": 629,
+      "source": "def test_phase78_actual_steps_register_and_retrieve_without_graph_changes():\n  from test_phase78_stable_g0_to_g7_integration import (\n    build_phase78_11_data,\n  )\n\n  data = build_phase78_11_data()\n  repository = ProofRepository()\n\n  g7_step = data[\n    \"g7_step\"\n  ]\n  aggregate_step = data[\n    \"aggregate_step\"\n  ]\n\n  g7_entry = ProofRepositoryEntry(\n    key=\"phase78.g7\",\n    step=g7_step,\n    phase=\"78\",\n    theorem=(\n      \"Toda stable G_0 through G_7 integration\"\n    ),\n  )\n  aggregate_entry = ProofRepositoryEntry(\n    key=\"phase78.stable_g0_to_g7\",\n    step=aggregate_step,\n    phase=\"78\",\n    theorem=(\n      \"Toda stable G_0 through G_7 integration\"\n    ),\n  )\n\n  repository.register(\n    g7_entry\n  )\n  repository.register(\n    aggregate_entry\n  )\n\n  assert (\n    repository.get(\n      \"phase78.g7\"\n    ).step\n    is g7_step\n  )\n\n  assert (\n    repository.get(\n      \"phase78.stable_g0_to_g7\"\n    ).step\n    is aggregate_step\n  )\n\n  assert (\n    repository.find_by_conclusion(\n      g7_step.conclusion\n    )\n    == (\n      g7_entry,\n    )\n  )\n\n  assert (\n    repository.find_by_phase(\n      \"78\"\n    )\n    == (\n      g7_entry,\n      aggregate_entry,\n    )\n  )\n\n  dependencies = repository.dependencies(\n    aggregate_entry\n  )\n\n  assert (\n    dependencies\n    == data[\n      \"premise_steps\"\n    ]\n  )\n\n  assert all(\n    actual is expected\n    for actual, expected in zip(\n      dependencies,\n      data[\n        \"premise_steps\"\n      ],\n    )\n  )"
+    }
+  ],
+  "full_pytest_run": false
+}
