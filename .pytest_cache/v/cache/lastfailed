@@ -2158,5 +2158,6 @@
   "phase165_r6_helper_recovery/tests/test_recover.py": true,
   "phase165_r6_legacy_batch/tests/test_cleanup.py": true,
   "phase165_r6_probe_cleanup/tests/test_cleanup.py": true,
-  "phase165_r6_retire_old_proof/tests/test_cleanup.py": true
+  "phase165_r6_retire_old_proof/tests/test_cleanup.py": true,
+  "phase165_r6_8_phase58_cutover/test_phase165_r6_8_phase58_cutover.py::test_phase58_uses_inferred_pi43_step_from_current_search": true
 }

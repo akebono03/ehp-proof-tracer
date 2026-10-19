@@ -25,9 +25,14 @@ from proof import (
   find_inference_match,
   run_inference_until_stable_with_history,
 )
-from probes.probe_phase50_capabilities import (
-  build_phase50_representative_result,
+from probes.probe_phase49_capabilities import (
   print_separator,
+)
+from phase165_r55_nk_only_goal import (
+  search_group_from_registered_goal,
+)
+from phase165_r52_partial_proof import (
+  ProofSearchStatus,
 )
 from relation_rules import (
   equality_preserved_under_left_composition_inference_rule,
@@ -49,9 +54,12 @@ from toda_rules import (
 
 
 def build_phase58_representative_result():
-  phase50 = (
-    build_phase50_representative_result()
-  )
+  pi4_3_proof = search_group_from_registered_goal(n=3, k=1)
+  if pi4_3_proof.status is not ProofSearchStatus.COMPLETE:
+    raise ValueError("pi_4^3 common proof is incomplete")
+  if pi4_3_proof.open_goals:
+    raise ValueError("pi_4^3 common proof has open goals")
+
 
   eta_3 = HomotopyElement(
     name="η₃",
@@ -149,13 +157,17 @@ def build_phase58_representative_result():
     )
   )
 
-  pi4_3_step = (
-    phase50[
-      "final_group_steps"
-    ][
-      0
-    ]
+  pi4_3_step = next(
+    (
+      step for step in reversed(pi4_3_proof.proven_steps)
+      if step.conclusion == pi4_3_proof.conclusion
+      and step.rule is ProofRule.INFERENCE
+    ),
+    None,
   )
+  if pi4_3_step is None:
+    raise ValueError("pi_4^3 common proof has no inferred conclusion")
+
 
   eta3_zero_rule = (
     toda_53_eta3_twice_zero_inference_rule()
@@ -497,7 +509,7 @@ def build_phase58_representative_result():
   )
 
   return {
-    "phase50": phase50,
+    "phase50": {"final_group_steps": (pi4_3_step,)},
     "eta_3": eta_3,
     "eta_4": eta_4,
     "eta_5": eta_5,
