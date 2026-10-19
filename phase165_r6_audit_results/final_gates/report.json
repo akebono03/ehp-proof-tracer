@@ -1,0 +1,53 @@
+{
+  "phase": "165 R6",
+  "mode": "read_only_targeted",
+  "timestamp": "2026-10-19T02:54:19.542712+00:00",
+  "full_pytest_run": false,
+  "whole_suite_collection_run": false,
+  "tests": {
+    "architecture": {
+      "status": "PASS",
+      "exit": 0
+    },
+    "two_group_golden": {
+      "status": "PASS",
+      "exit": 0
+    },
+    "public_route": {
+      "status": "PASS",
+      "exit": 0
+    }
+  },
+  "web_views_execution": {
+    "status": "PASS",
+    "exit": 0
+  },
+  "web_views": {
+    "pi3_2": {
+      "key": "generic-complete-proof",
+      "partial_result": false,
+      "step_count": 16,
+      "rendered_line_count": 25,
+      "has_rendered_text": true,
+      "mode": "narrative"
+    },
+    "pi4_3": {
+      "key": "generic-complete-proof",
+      "partial_result": false,
+      "step_count": 25,
+      "rendered_line_count": 25,
+      "has_rendered_text": true,
+      "mode": "narrative"
+    }
+  },
+  "git_status": {
+    "status": "PASS",
+    "exit": 0
+  },
+  "prior_retirement": {
+    "report_found": true,
+    "removed": 138,
+    "note": "Historical report only; not a current collection count"
+  },
+  "status": "TARGETED_PASS_PENDING_COLLECTION_AND_BROWSER"
+}
