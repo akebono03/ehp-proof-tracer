@@ -89,7 +89,7 @@ def fingerprint(nodes: list[str]) -> str:
     return hashlib.sha256('\n'.join(nodes).encode('utf-8')).hexdigest()
 
 
-def execute(root: Path, results: Path, chunk_size: int, extra: list[str]) -> int:
+def execute(root: Path, results: Path, chunk_size: int, extra: list[str], defer_failures: bool = False) -> int:
     results.mkdir(parents=True, exist_ok=True)
     state_path = results / 'state.json'
     collection_path = results / 'collection.log'
@@ -97,7 +97,8 @@ def execute(root: Path, results: Path, chunk_size: int, extra: list[str]) -> int
     if state.get('status') == 'COMPLETE':
         print('Already complete. See state.json.'); return 0
     if state.get('status') == 'FAILED':
-        print('Previous run had test failures. Re-running failed/incomplete batches.')
+        print('Previous run had test failures. Failed batches are preserved.' if defer_failures else
+              'Previous run had test failures. Re-running failed/incomplete batches.')
 
     # Reject stale or incompatible checkpoints before any execution.
     if state.get('scope') and state['scope'] != extra:
@@ -140,6 +141,9 @@ def execute(root: Path, results: Path, chunk_size: int, extra: list[str]) -> int
             # Both successful and failed batches are retained; only successful batches can be skipped.
             if completed.get(key, {}).get('returncode') == 0:
                 continue
+            if defer_failures and key in completed and completed[key].get('returncode') != 0:
+                print(f'DEFERRED FAILED BATCH {i}/{len(groups)}; original log preserved', flush=True)
+                continue
             log = results / f'batch_{i:04}.log'
             if key not in completed and recover_successful_batch(log, len(group)):
                 completed[key] = dict(returncode=0, node_count=len(group),
@@ -161,14 +165,23 @@ def execute(root: Path, results: Path, chunk_size: int, extra: list[str]) -> int
             if rc != 0:
                 state.update(status='FAILED', failed_batch=i, updated_at=utc_now())
                 atomic_json(state_path, state)
-                print(f'FAILED at batch {i}; inspect {log} and rerun to retry.', flush=True)
-                return rc
+                if not defer_failures:
+                    print(f'FAILED at batch {i}; inspect {log} and rerun to retry.', flush=True)
+                    return rc
+                print(f'RECORDED FAILURE at batch {i}; continuing, log={log}', flush=True)
     except KeyboardInterrupt:
         state.update(status='INTERRUPTED', updated_at=utc_now())
         atomic_json(state_path, state)
         print('INTERRUPTED. Completed batches preserved. Rerun to resume.', flush=True)
         return 130
-    state.update(status='COMPLETE', current_batch=None, updated_at=utc_now())
+    failed = [int(key) for key, item in completed.items() if item.get('returncode') != 0]
+    if failed:
+        state.update(status='FAILED', current_batch=None, failed_batches=sorted(failed),
+                     executed_batches=len(completed), updated_at=utc_now())
+        atomic_json(state_path, state)
+        print(f'ALL BATCHES VISITED; FAILED BATCHES: {sorted(failed)}; logs retained.', flush=True)
+        return 1
+    state.update(status='COMPLETE', current_batch=None, failed_batches=[], updated_at=utc_now())
     atomic_json(state_path, state)
     print(f'COMPLETE: {len(nodes)} collected tests, {len(groups)} successful batches.', flush=True)
     return 0
@@ -179,6 +192,8 @@ def main() -> int:
     parser.add_argument('--root', type=Path, required=True)
     parser.add_argument('--results', type=Path, required=True)
     parser.add_argument('--chunk-size', type=int, default=40)
+    parser.add_argument('--defer-failed-batches', action='store_true',
+                        help='Retain failures and continue remaining batches; never report PASS if failures remain')
     args = parser.parse_args()
     if args.chunk_size < 1:
         parser.error('--chunk-size must be positive')
@@ -195,7 +210,8 @@ def main() -> int:
     if absent:
         raise RuntimeError('Audited scope contains missing paths: ' + ', '.join(absent))
     print('PHASE 165 AUDITED SCOPE: ' + str(len(scope)) + ' paths; no whole-tree discovery', flush=True)
-    return execute(root, args.results.resolve(), args.chunk_size, scope)
+    return execute(root, args.results.resolve(), args.chunk_size, scope,
+                   defer_failures=args.defer_failed_batches)
 
 
 if __name__ == '__main__':

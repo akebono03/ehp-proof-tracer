@@ -1,0 +1,661 @@
+F.FF...FF..F........FFFFFF...FFFFFFFFFF.                                 [100%]
+================================== FAILURES ===================================
+_______________ test_phase118_3_invalid_fact_number_is_rejected _______________
+
+    def test_phase118_3_invalid_fact_number_is_rejected():
+>     with pytest.raises(
+        ValueError,
+        match=(
+          "fact_number exceeds repository fact count"
+        ),
+      ):
+E     AssertionError: Regex pattern did not match.
+E       Expected regex: 'fact_number exceeds repository fact count'
+E       Actual message: 'requested fact is not proved by typed backward search; status=search_failed; open_goals=0'
+
+tests\test_phase118_web_operation_query_proof.py:141: AssertionError
+_____________ test_phase120_2_generator_proof_forwards_depth_zero _____________
+
+    def test_phase120_2_generator_proof_forwards_depth_zero():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "generator_proof",
+          "generator_input": "sigma_11",
+          "generator_proof_depth": "0",
+        },
+      )
+    
+      assert response.status_code == 200
+    
+>     assert (
+        b"Selected depth:\n          0"
+        in response.data
+      )
+E     assert b'Selected depth:\n          0' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11168 bytes [200 OK]>.data
+
+tests\test_phase120_2_web_app_generator_proof.py:30: AssertionError
+__ test_phase120_2_sigma11_generator_proof_uses_existing_known_group_result ___
+
+    def test_phase120_2_sigma11_generator_proof_uses_existing_known_group_result():
+      view = (
+        build_standard_web_generator_proof_view(
+          "sigma_11"
+        )
+      )
+    
+      assert (
+        view.generator_latex
+        == r"\sigma_{11}"
+      )
+    
+>     assert (
+        view.conclusion_latex
+        == (
+          r"\pi_{18}^{11} = "
+          r"\mathbb{Z}/16\{\sigma_{11}\}"
+        )
+      )
+E     AssertionError: assert '\\text{未証明}' == '\\pi_{18}^{1...sigma_{11}\\}'
+E       
+E       - \pi_{18}^{11} = \mathbb{Z}/16\{\sigma_{11}\}
+E       + \text{未証明}
+
+tests\test_phase120_2_web_generator_proof.py:20: AssertionError
+_____________ test_phase120_2_depth_zero_contains_only_root_step ______________
+
+    def test_phase120_2_depth_zero_contains_only_root_step():
+      view = (
+        build_standard_web_generator_proof_view(
+          "sigma_11",
+          max_depth=0,
+        )
+      )
+    
+>     assert len(
+        view.steps
+      ) == 1
+E     AssertionError: assert 0 == 1
+E      +  where 0 = len(())
+E      +    where () = WebGeneratorProofView(generator_input='sigma_11', generator_latex='\\sigma_{11}', conclusion_latex='\\text{未証明}', steps=(), max_depth=0, search_status='search_failed', diagnostics=('該当する型付き命題が未登録です',), open_goal_count=0).steps
+
+tests\test_phase120_2_web_generator_proof.py:71: AssertionError
+______ test_phase120_2_nu_prime_preserves_existing_known_group_identity _______
+
+    def test_phase120_2_nu_prime_preserves_existing_known_group_identity():
+      view = (
+        build_standard_web_generator_proof_view(
+          "nu_prime"
+        )
+      )
+    
+      assert (
+        view.generator_latex
+        == r"\nu'"
+      )
+    
+>     assert (
+        view.conclusion_latex
+        == (
+          r"\pi_{6}^{3} = "
+          r"\mathbb{Z}/4\{\nu'\}"
+        )
+      )
+E     assert '\\text{未証明}' == "\\pi_{6}^{3}.../4\\{\\nu'\\}"
+E       
+E       - \pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}
+E       + \text{未証明}
+
+tests\test_phase120_2_web_generator_proof.py:95: AssertionError
+_____ test_phase123_5a_nu_prime_limits_rendered_sources_and_rule_families _____
+
+    def test_phase123_5a_nu_prime_limits_rendered_sources_and_rule_families():
+      client = _build_test_client()
+    
+      response = client.post(
+        "/",
+        data={
+          "form_kind": "generator_applicability",
+          "applicability_generator_input": "nu_prime",
+        },
+      )
+    
+      assert response.status_code == 200
+    
+      assert (
+        response.data.count(
+          b'class="generator-applicability-source"'
+        )
+        <= 15
+      )
+    
+      assert (
+        response.data.count(
+          b'class="generator-applicability-rule-family"'
+        )
+        <= 150
+      )
+    
+>     assert (
+        b"showing first 5"
+        in response.data
+      )
+E     assert b'showing first 5' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E      +  where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n      </p>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 11168 bytes [200 OK]>.data
+
+tests\test_phase123_5a_web_applicability_volume.py:43: AssertionError
+______ test_phase131_4_group_proof_sigma9_renders_group_source_and_proof ______
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF5DB10>
+
+    def test_phase131_4_group_proof_sigma9_renders_group_source_and_proof(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "1",
+          "--mode",
+          "trace",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase131_4_group_result_proof_replay_cli.py:22: AssertionError
+______ test_phase131_4_group_proof_zero_group_does_not_require_generator ______
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF8FE50>
+
+    def test_phase131_4_group_proof_zero_group_does_not_require_generator(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "2",
+          "7",
+          "--depth",
+          "1",
+          "--mode",
+          "trace",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase131_4_group_result_proof_replay_cli.py:54: AssertionError
+______________ test_phase131_4_group_proof_not_found_is_explicit ______________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF5FBE0>
+
+    def test_phase131_4_group_proof_not_found_is_explicit(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "20",
+          "20",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+      assert exit_code == 1
+>     assert (
+        "No proof-backed group result found for pi_{40}^{20}."
+        in captured.out
+      )
+E     AssertionError: assert 'No proof-backed group result found for pi_{40}^{20}.' in '## 証明対象\n\n$\\pi_{40}^{20}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：証明未完成**\n\n## 未解決 Goa...Reference と推論規則から一意な導出が見つかりません。\n- 群構造について型付きの具体的候補命題が未登録。SOURCE_ARCHIVE の文字列は証明前提に昇格させない\n\n未解決 Goal は証明済みの結論ではありません。'
+E      +  where '## 証明対象\n\n$\\pi_{40}^{20}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：証明未完成**\n\n## 未解決 Goa...Reference と推論規則から一意な導出が見つかりません。\n- 群構造について型付きの具体的候補命題が未登録。SOURCE_ARCHIVE の文字列は証明前提に昇格させない\n\n未解決 Goal は証明済みの結論ではありません。' = CaptureResult(out='## 証明対象\n\n$\\pi_{40}^{20}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：証明未... と推論規則から一意な導出が見つかりません。\n- 群構造について型付きの具体的候補命題が未登録。SOURCE_ARCHIVE の文字列は証明前提に昇格させない\n\n未解決 Goal は証明済みの結論ではありません。', err='').out
+
+tests\test_phase131_4_group_result_proof_replay_cli.py:75: AssertionError
+__________ test_phase131_4_group_proof_connectivity_zero_is_replayed __________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CE0F2EC0>
+
+    def test_phase131_4_group_proof_connectivity_zero_is_replayed(
+      capsys,
+    ):
+>     exit_code = cli_main.main(
+        [
+          "group-proof",
+          "11",
+          "-1",
+          "--depth",
+          "1",
+          "--mode",
+          "trace",
+        ]
+      )
+
+tests\test_phase131_4_group_result_proof_replay_cli.py:85: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+main.py:1273: in main
+    return _run_group_proof_command(
+main.py:931: in _run_group_proof_command
+    result = search_group_structure_automatically(n=n, k=k)
+phase165_r52_r5_auto_search.py:67: in search_group_structure_automatically
+    make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 11, k = -1, status = <ProofSearchStatus.NOT_SEARCHED: 'not_searched'>
+structure_status = <GroupStructureStatus.UNKNOWN: 'unknown'>, references = ()
+proven_steps = (), open_goals = (), diagnostics = (), conclusion = None
+
+    def make_partial_proof_result(
+        *, n: int, k: int, status: ProofSearchStatus,
+        structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
+        references: tuple[str, ...] = (),
+        proven_steps: tuple[ProofStep, ...] = (),
+        open_goals: tuple[Any, ...] = (),
+        diagnostics: tuple[str, ...] = (),
+        conclusion: Any | None = None,
+    ) -> PartialProofResult:
+        """Build a result for arbitrary nonnegative stem and sphere dimension >=2."""
+        if isinstance(n, bool) or not isinstance(n, int) or n < 2:
+            raise ValueError("n must be an integer >= 2")
+        if isinstance(k, bool) or not isinstance(k, int) or k < 0:
+>           raise ValueError("k must be a nonnegative integer")
+E           ValueError: k must be a nonnegative integer
+
+phase165_r52_partial_proof.py:77: ValueError
+_______ test_phase131_4_existing_group_query_semantics_remain_unchanged _______
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF8E380>
+
+    def test_phase131_4_existing_group_query_semantics_remain_unchanged(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "9",
+          "7",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase131_4_group_result_proof_replay_cli.py:120: AssertionError
+______ test_phase131_5_sigma9_group_proof_view_uses_group_result_replay _______
+
+    def test_phase131_5_sigma9_group_proof_view_uses_group_result_replay():
+      view = (
+        build_standard_web_group_proof_view(
+          9,
+          7,
+        )
+      )
+    
+>     assert (
+        view.conclusion_latex
+        == (
+          r"\pi_{16}^{9} = "
+          r"\mathbb{Z}/16\{\sigma_{9}\}"
+        )
+      )
+E     AssertionError: assert '\\pi_{16}^{9}' == '\\pi_{16}^{9...\sigma_{9}\\}'
+E       
+E       - \pi_{16}^{9} = \mathbb{Z}/16\{\sigma_{9}\}
+E       + \pi_{16}^{9}
+
+tests\test_phase131_5_web_group_proof.py:25: AssertionError
+_______ test_phase131_5_zero_group_is_replayed_without_generator_input ________
+
+    def test_phase131_5_zero_group_is_replayed_without_generator_input():
+      view = (
+        build_standard_web_group_proof_view(
+          2,
+          7,
+        )
+      )
+    
+>     assert view.conclusion_latex == r"\pi_{9}^{2} = 0"
+E     AssertionError: assert '\\pi_{9}^{2}' == '\\pi_{9}^{2} = 0'
+E       
+E       - \pi_{9}^{2} = 0
+E       ?            ----
+E       + \pi_{9}^{2}
+
+tests\test_phase131_5_web_group_proof.py:78: AssertionError
+________________ test_phase131_5_connectivity_zero_is_replayed ________________
+
+    def test_phase131_5_connectivity_zero_is_replayed():
+      view = (
+>       build_standard_web_group_proof_view(
+          11,
+          -1,
+        )
+      )
+
+tests\test_phase131_5_web_group_proof.py:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+web_group_proof.py:67: in build_standard_web_group_proof_view
+    result = search_group_from_registered_goal(n=n, k=k, goal=goal)
+phase165_r55_nk_only_goal.py:51: in search_group_from_registered_goal
+    make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 11, k = -1, status = <ProofSearchStatus.NOT_SEARCHED: 'not_searched'>
+structure_status = <GroupStructureStatus.UNKNOWN: 'unknown'>, references = ()
+proven_steps = (), open_goals = (), diagnostics = (), conclusion = None
+
+    def make_partial_proof_result(
+        *, n: int, k: int, status: ProofSearchStatus,
+        structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
+        references: tuple[str, ...] = (),
+        proven_steps: tuple[ProofStep, ...] = (),
+        open_goals: tuple[Any, ...] = (),
+        diagnostics: tuple[str, ...] = (),
+        conclusion: Any | None = None,
+    ) -> PartialProofResult:
+        """Build a result for arbitrary nonnegative stem and sphere dimension >=2."""
+        if isinstance(n, bool) or not isinstance(n, int) or n < 2:
+            raise ValueError("n must be an integer >= 2")
+        if isinstance(k, bool) or not isinstance(k, int) or k < 0:
+>           raise ValueError("k must be a nonnegative integer")
+E           ValueError: k must be a nonnegative integer
+
+phase165_r52_partial_proof.py:77: ValueError
+_______________ test_phase131_5_domain_only_result_is_rejected ________________
+
+    def test_phase131_5_domain_only_result_is_rejected():
+>     with pytest.raises(
+        ValueError,
+        match=(
+          "group proof is available only for "
+          "repository-backed group results"
+        ),
+      ):
+E     AssertionError: Regex pattern did not match.
+E       Expected regex: 'group proof is available only for repository-backed group results'
+E       Actual message: 'group proof is available only for positive-dimensional group queries'
+
+tests\test_phase131_5_web_group_proof.py:99: AssertionError
+____________ test_phase132_7_group_proof_default_mode_is_narrative ____________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7D0161330>
+
+    def test_phase132_7_group_proof_default_mode_is_narrative(
+      capsys,
+    ):
+      parser = cli_main.build_group_proof_argument_parser()
+      args = parser.parse_args(
+        [
+          "9",
+          "7",
+        ]
+      )
+    
+      assert args.mode == "narrative"
+      assert args.depth == 2
+    
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:30: AssertionError
+________ test_phase132_7_group_proof_explicit_trace_remains_available _________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF5C2E0>
+
+    def test_phase132_7_group_proof_explicit_trace_remains_available(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "1",
+          "--mode",
+          "trace",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:58: AssertionError
+_______ test_phase132_7_group_proof_outline_mode_uses_outline_renderer ________
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CE0F1D50>
+
+    def test_phase132_7_group_proof_outline_mode_uses_outline_renderer(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--mode",
+          "outline",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:81: AssertionError
+_____ test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer ______
+
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF5C220>
+
+    def test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer(
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--mode",
+          "narrative",
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:109: AssertionError
+_ test_phase132_7_group_proof_depth_zero_is_shared_across_modes[trace-# Group result] _
+
+mode = 'trace', heading = '# Group result'
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7D010E4D0>
+
+    @pytest.mark.parametrize(
+      (
+        "mode",
+        "heading",
+      ),
+      (
+        (
+          "trace",
+          "# Group result",
+        ),
+        (
+          "outline",
+          "# Group proof outline",
+        ),
+        (
+          "narrative",
+          "# Group proof narrative",
+        ),
+      ),
+    )
+    def test_phase132_7_group_proof_depth_zero_is_shared_across_modes(
+      mode,
+      heading,
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "0",
+          "--mode",
+          mode,
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:160: AssertionError
+_ test_phase132_7_group_proof_depth_zero_is_shared_across_modes[outline-# Group proof outline] _
+
+mode = 'outline', heading = '# Group proof outline'
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7D0085780>
+
+    @pytest.mark.parametrize(
+      (
+        "mode",
+        "heading",
+      ),
+      (
+        (
+          "trace",
+          "# Group result",
+        ),
+        (
+          "outline",
+          "# Group proof outline",
+        ),
+        (
+          "narrative",
+          "# Group proof narrative",
+        ),
+      ),
+    )
+    def test_phase132_7_group_proof_depth_zero_is_shared_across_modes(
+      mode,
+      heading,
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "0",
+          "--mode",
+          mode,
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:160: AssertionError
+_ test_phase132_7_group_proof_depth_zero_is_shared_across_modes[narrative-# Group proof narrative] _
+
+mode = 'narrative', heading = '# Group proof narrative'
+capsys = <_pytest.capture.CaptureFixture object at 0x000001F7CFF5D4E0>
+
+    @pytest.mark.parametrize(
+      (
+        "mode",
+        "heading",
+      ),
+      (
+        (
+          "trace",
+          "# Group result",
+        ),
+        (
+          "outline",
+          "# Group proof outline",
+        ),
+        (
+          "narrative",
+          "# Group proof narrative",
+        ),
+      ),
+    )
+    def test_phase132_7_group_proof_depth_zero_is_shared_across_modes(
+      mode,
+      heading,
+      capsys,
+    ):
+      exit_code = cli_main.main(
+        [
+          "group-proof",
+          "9",
+          "7",
+          "--depth",
+          "0",
+          "--mode",
+          mode,
+        ]
+      )
+    
+      captured = capsys.readouterr()
+    
+>     assert exit_code == 0
+E     assert 1 == 0
+
+tests\test_phase132_7_group_proof_cli_modes.py:160: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_phase118_web_operation_query_proof.py::test_phase118_3_invalid_fact_number_is_rejected
+FAILED tests/test_phase120_2_web_app_generator_proof.py::test_phase120_2_generator_proof_forwards_depth_zero
+FAILED tests/test_phase120_2_web_generator_proof.py::test_phase120_2_sigma11_generator_proof_uses_existing_known_group_result
+FAILED tests/test_phase120_2_web_generator_proof.py::test_phase120_2_depth_zero_contains_only_root_step
+FAILED tests/test_phase120_2_web_generator_proof.py::test_phase120_2_nu_prime_preserves_existing_known_group_identity
+FAILED tests/test_phase123_5a_web_applicability_volume.py::test_phase123_5a_nu_prime_limits_rendered_sources_and_rule_families
+FAILED tests/test_phase131_4_group_result_proof_replay_cli.py::test_phase131_4_group_proof_sigma9_renders_group_source_and_proof
+FAILED tests/test_phase131_4_group_result_proof_replay_cli.py::test_phase131_4_group_proof_zero_group_does_not_require_generator
+FAILED tests/test_phase131_4_group_result_proof_replay_cli.py::test_phase131_4_group_proof_not_found_is_explicit
+FAILED tests/test_phase131_4_group_result_proof_replay_cli.py::test_phase131_4_group_proof_connectivity_zero_is_replayed
+FAILED tests/test_phase131_4_group_result_proof_replay_cli.py::test_phase131_4_existing_group_query_semantics_remain_unchanged
+FAILED tests/test_phase131_5_web_group_proof.py::test_phase131_5_sigma9_group_proof_view_uses_group_result_replay
+FAILED tests/test_phase131_5_web_group_proof.py::test_phase131_5_zero_group_is_replayed_without_generator_input
+FAILED tests/test_phase131_5_web_group_proof.py::test_phase131_5_connectivity_zero_is_replayed
+FAILED tests/test_phase131_5_web_group_proof.py::test_phase131_5_domain_only_result_is_rejected
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_default_mode_is_narrative
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_explicit_trace_remains_available
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_outline_mode_uses_outline_renderer
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_narrative_mode_uses_narrative_renderer
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_depth_zero_is_shared_across_modes[trace-# Group result]
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_depth_zero_is_shared_across_modes[outline-# Group proof outline]
+FAILED tests/test_phase132_7_group_proof_cli_modes.py::test_phase132_7_group_proof_depth_zero_is_shared_across_modes[narrative-# Group proof narrative]
+22 failed, 18 passed in 14.08s

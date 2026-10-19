@@ -1,0 +1,259 @@
+FFFFFFFFFFFFFFF.........................                                 [100%]
+================================== FAILURES ===================================
+___________ test_phase56_5_rule_matches_three_derived_dependencies ____________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:150: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+____________ test_phase56_5_derives_toda52_composition_isomorphism ____________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:163: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________________ test_phase56_5_source_is_pi_i_3 _______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:184: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________________ test_phase56_5_target_is_pi_i_2 _______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:214: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+___________________ test_phase56_5_map_is_eta2_composition ____________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________ test_phase56_5_zero_statement_matches_first_summand _____________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:283: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+________ test_phase56_5_zero_statement_encodes_i_at_least_3_dependency ________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:306: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________________ test_phase56_5_result_is_inference ______________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:346: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________ test_phase56_5_preserves_three_derived_premises _______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:372: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_________________ test_phase56_5_rejects_given_zero_statement _________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:397: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+__________________ test_phase56_5_rejects_given_isomorphism ___________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:428: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+__________________ test_phase56_5_rejects_given_restriction ___________________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:459: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_____________ test_phase56_5_rejects_zero_for_wrong_first_summand _____________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:490: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+__________ test_phase56_5_rejects_restriction_with_wrong_composition __________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:534: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+_______________ test_phase56_5_reaches_fixed_point_in_one_round _______________
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:593: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_toda52_composition_isomorphism.py:35: in build_phase56_5_data
+    ???
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_second_summand_restriction.py:31: in build_phase56_4_data
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+>   ???
+E   IndexError: tuple index out of range
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\tests\test_phase56_prop44_eta2_specialization.py:36: IndexError
+=========================== short test summary info ===========================
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rule_matches_three_derived_dependencies
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_derives_toda52_composition_isomorphism
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_source_is_pi_i_3
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_target_is_pi_i_2
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_map_is_eta2_composition
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_zero_statement_matches_first_summand
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_zero_statement_encodes_i_at_least_3_dependency
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_result_is_inference
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_preserves_three_derived_premises
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_given_zero_statement
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_given_isomorphism
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_given_restriction
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_zero_for_wrong_first_summand
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_restriction_with_wrong_composition
+FAILED tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_reaches_fixed_point_in_one_round
+15 failed, 25 passed in 12.54s

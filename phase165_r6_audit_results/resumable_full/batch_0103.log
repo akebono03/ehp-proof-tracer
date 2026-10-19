@@ -1,0 +1,67 @@
+....................................FFF.                                 [100%]
+================================== FAILURES ===================================
+____________________ test_r52_arbitrary_range_and_unknown _____________________
+
+    def test_r52_arbitrary_range_and_unknown():
+        result = make_partial_proof_result(n=200, k=90, status=ProofSearchStatus.NOT_SEARCHED)
+        text = render_partial_proof_markdown(result)
+        assert r"\pi_{290}^{200}" in text
+>       assert "unknown" in text
+E       AssertionError: assert 'unknown' in '## 証明対象\n\n$\\pi_{290}^{200}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：未探索**\n\n未解決 Goal は証明済みの結論ではありません。'
+
+test_phase165_r52_partial_proof.py:16: AssertionError
+_________________ test_r52_partial_preserves_steps_and_goals __________________
+
+    def test_r52_partial_preserves_steps_and_goals():
+        step = ProofStep(conclusion="typed_known", premises=(), rule=ProofRule.GIVEN)
+        result = make_partial_proof_result(
+            n=2, k=1, status=ProofSearchStatus.PARTIAL,
+            structure_status=GroupStructureStatus.KNOWN,
+            references=("Toda Proposition 5.1",),
+            proven_steps=(step,), open_goals=("typed_missing",),
+        )
+        text = render_partial_proof_markdown(result)
+>       assert "typed_known" in text and "typed_missing" in text
+E       AssertionError: assert ('typed_known' in '## 証明対象\n\n$\\pi_{3}^{2}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：部分証明・未完成**\n\n## 未解決 Goal\n\n- typed_missing\n\n未解決 Goal は証明済みの結論ではありません。')
+
+test_phase165_r52_partial_proof.py:29: AssertionError
+__________________ test_r52_complete_requires_matching_step ___________________
+
+    def test_r52_complete_requires_matching_step():
+        step = ProofStep(conclusion="final", premises=(), rule=ProofRule.GIVEN)
+        valid = make_partial_proof_result(
+            n=3, k=2, status=ProofSearchStatus.COMPLETE,
+            proven_steps=(step,), conclusion="final",
+        )
+>       assert "□" in render_partial_proof_markdown(valid)
+
+test_phase165_r52_partial_proof.py:40: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase165_r52_partial_proof.py:96: in render_partial_proof_markdown
+    return render_completed_shared_narrative(result)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = PartialProofResult(target=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), status=<ProofSearchStatus.COMPLETE:...n'>, note=None, inference_rule=None, foundational_reference=None),), open_goals=(), diagnostics=(), conclusion='final')
+
+    def render_completed_shared_narrative(result: PartialProofResult) -> str:
+        """Render only the completed search's actual proof ancestry.
+    
+        The historical stable-transport branch is not admissible for a root
+        lacking a transport inference. Other completed presentations keep their
+        existing public renderer path, including historical pi3^2 formatting.
+        """
+        if not isinstance(result, PartialProofResult):
+            raise TypeError("result must be PartialProofResult")
+        if result.status is not ProofSearchStatus.COMPLETE or result.conclusion is None:
+            raise ValueError("a complete search is required")
+        conclusion = result.conclusion
+        if getattr(conclusion, "lhs", None) != result.target:
+>           raise ValueError("completed target does not match conclusion")
+E           ValueError: completed target does not match conclusion
+
+phase165_r56_presentation_adapter.py:31: ValueError
+=========================== short test summary info ===========================
+FAILED test_phase165_r52_partial_proof.py::test_r52_arbitrary_range_and_unknown
+FAILED test_phase165_r52_partial_proof.py::test_r52_partial_preserves_steps_and_goals
+FAILED test_phase165_r52_partial_proof.py::test_r52_complete_requires_matching_step
+3 failed, 37 passed in 13.10s

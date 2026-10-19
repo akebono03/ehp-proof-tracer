@@ -1,0 +1,429 @@
+.........FFF.....F.F....F........F....FF                                 [100%]
+================================== FAILURES ===================================
+__________________ test_r52_r2_partial_preserves_proved_leaf __________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6C0F14B0>
+
+    def test_r52_r2_partial_preserves_proved_leaf(monkeypatch):
+        leaf = ProofStep(conclusion="premise", premises=(), rule=ProofRule.GIVEN)
+        root = SyntheticStatement(TodaPrimaryGroup(9, 6))
+    
+        def fake_reconstruct(goal, bridge, cite, provider, *, verified_assertion_ids, lookup_mode, progress_observer):
+            progress_observer("proved", "premise", leaf)
+            progress_observer("unresolved", "missing", None)
+            raise RegisteredGoalUnresolved("missing rule")
+    
+        monkeypatch.setattr(adapter, "reconstruct_registered_goal", fake_reconstruct)
+>       result = adapter.search_registered_partial_proof(
+            n=6, k=3, goal=root, bridge=object(), citing_assertion_id="c",
+            expansion_provider=lambda _: (),
+        )
+
+test_phase165_r52_r2_search_adapter.py:35: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 6, k = 3
+goal = SyntheticStatement(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6))
+bridge = <object object at 0x000001EE6C37AED0>, citing_assertion_id = 'c'
+expansion_provider = <function test_r52_r2_partial_preserves_proved_leaf.<locals>.<lambda> at 0x000001EE6F16E440>
+verified_assertion_ids = (), lookup_mode = 'legacy'
+structure_status = <GroupStructureStatus.UNKNOWN: 'unknown'>, references = ()
+completed_internal_proofs = ()
+
+    def search_registered_partial_proof(
+        *,
+        n: int,
+        k: int,
+        goal: object | None = None,
+        bridge: object | None = None,
+        citing_assertion_id: str | None = None,
+        expansion_provider: object | None = None,
+        verified_assertion_ids: tuple[str, ...] = (),
+        lookup_mode: str = "legacy",
+        structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
+        references: tuple[str, ...] = (),
+        completed_internal_proofs: tuple = (),
+    ):
+        """Return observed results; never replay or manufacture missing premises."""
+        # Validate the public domain even for a not-searched result.
+        base = dict(
+            n=n, k=k, structure_status=structure_status, references=references,
+        )
+        if any(item is None for item in (goal, bridge, citing_assertion_id, expansion_provider)):
+            return make_partial_proof_result(
+                **base, status=ProofSearchStatus.NOT_SEARCHED,
+                open_goals=(goal,) if goal is not None else (),
+                diagnostics=("登録済み探索入力が不足しているため未探索",),
+            )
+    
+        target_group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        observed_steps: list[ProofStep] = []
+        observed_unresolved: list[object] = []
+    
+        def same(a: object, b: object) -> bool:
+            return type(a) is type(b) and a == b
+    
+        def observer(kind: str, observed_goal: object, step: ProofStep | None) -> None:
+            if kind == "proved":
+                if step is None or not isinstance(step, ProofStep):
+                    raise TypeError("proved observation must contain a ProofStep")
+                if not any(existing is step for existing in observed_steps):
+                    observed_steps.append(step)
+            elif kind == "unresolved":
+                if not any(same(item, observed_goal) for item in observed_unresolved):
+                    observed_unresolved.append(observed_goal)
+            else:
+                raise ValueError("unknown search observation")
+    
+        error = None
+        try:
+>           root_step = reconstruct_registered_goal(
+                goal, bridge, citing_assertion_id, expansion_provider,
+                verified_assertion_ids=verified_assertion_ids,
+                lookup_mode=lookup_mode,
+                progress_observer=observer,
+                completed_internal_proofs=completed_internal_proofs,
+            )
+E           TypeError: test_r52_r2_partial_preserves_proved_leaf.<locals>.fake_reconstruct() got an unexpected keyword argument 'completed_internal_proofs'
+
+phase165_r52_r2_search_adapter.py:63: TypeError
+_______________________ test_r52_r2_no_steps_is_failed ________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6D1C8490>
+
+    def test_r52_r2_no_steps_is_failed(monkeypatch):
+        def fake_reconstruct(goal, bridge, cite, provider, *, verified_assertion_ids, lookup_mode, progress_observer):
+            raise RegisteredGoalUnresolved("no registered derivation")
+    
+        monkeypatch.setattr(adapter, "reconstruct_registered_goal", fake_reconstruct)
+>       result = adapter.search_registered_partial_proof(
+            n=3, k=2, goal="unresolved", bridge=object(),
+            citing_assertion_id="c", expansion_provider=lambda _: (),
+        )
+
+test_phase165_r52_r2_search_adapter.py:51: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, goal = 'unresolved'
+bridge = <object object at 0x000001EE6C37B830>, citing_assertion_id = 'c'
+expansion_provider = <function test_r52_r2_no_steps_is_failed.<locals>.<lambda> at 0x000001EE6F1575B0>
+verified_assertion_ids = (), lookup_mode = 'legacy'
+structure_status = <GroupStructureStatus.UNKNOWN: 'unknown'>, references = ()
+completed_internal_proofs = ()
+
+    def search_registered_partial_proof(
+        *,
+        n: int,
+        k: int,
+        goal: object | None = None,
+        bridge: object | None = None,
+        citing_assertion_id: str | None = None,
+        expansion_provider: object | None = None,
+        verified_assertion_ids: tuple[str, ...] = (),
+        lookup_mode: str = "legacy",
+        structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
+        references: tuple[str, ...] = (),
+        completed_internal_proofs: tuple = (),
+    ):
+        """Return observed results; never replay or manufacture missing premises."""
+        # Validate the public domain even for a not-searched result.
+        base = dict(
+            n=n, k=k, structure_status=structure_status, references=references,
+        )
+        if any(item is None for item in (goal, bridge, citing_assertion_id, expansion_provider)):
+            return make_partial_proof_result(
+                **base, status=ProofSearchStatus.NOT_SEARCHED,
+                open_goals=(goal,) if goal is not None else (),
+                diagnostics=("登録済み探索入力が不足しているため未探索",),
+            )
+    
+        target_group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        observed_steps: list[ProofStep] = []
+        observed_unresolved: list[object] = []
+    
+        def same(a: object, b: object) -> bool:
+            return type(a) is type(b) and a == b
+    
+        def observer(kind: str, observed_goal: object, step: ProofStep | None) -> None:
+            if kind == "proved":
+                if step is None or not isinstance(step, ProofStep):
+                    raise TypeError("proved observation must contain a ProofStep")
+                if not any(existing is step for existing in observed_steps):
+                    observed_steps.append(step)
+            elif kind == "unresolved":
+                if not any(same(item, observed_goal) for item in observed_unresolved):
+                    observed_unresolved.append(observed_goal)
+            else:
+                raise ValueError("unknown search observation")
+    
+        error = None
+        try:
+>           root_step = reconstruct_registered_goal(
+                goal, bridge, citing_assertion_id, expansion_provider,
+                verified_assertion_ids=verified_assertion_ids,
+                lookup_mode=lookup_mode,
+                progress_observer=observer,
+                completed_internal_proofs=completed_internal_proofs,
+            )
+E           TypeError: test_r52_r2_no_steps_is_failed.<locals>.fake_reconstruct() got an unexpected keyword argument 'completed_internal_proofs'
+
+phase165_r52_r2_search_adapter.py:63: TypeError
+__________ test_r52_r2_canonical_success_is_complete_only_for_target __________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6F182D40>
+
+    def test_r52_r2_canonical_success_is_complete_only_for_target(monkeypatch):
+        target = SyntheticStatement(TodaPrimaryGroup(1002, 1000))
+        step = ProofStep(conclusion=target, premises=(), rule=ProofRule.GIVEN)
+    
+        def fake_reconstruct(goal, bridge, cite, provider, *, verified_assertion_ids, lookup_mode, progress_observer):
+            progress_observer("proved", goal, step)
+            return step
+    
+        monkeypatch.setattr(adapter, "reconstruct_registered_goal", fake_reconstruct)
+        args = dict(n=1000, k=2, goal=target, bridge=object(), citing_assertion_id="c", expansion_provider=lambda _: ())
+>       result = adapter.search_registered_partial_proof(**args)
+
+test_phase165_r52_r2_search_adapter.py:70: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 1000, k = 2
+goal = SyntheticStatement(lhs=TodaPrimaryGroup(group_dimension=1002, sphere_dimension=1000))
+bridge = <object object at 0x000001EE6C37B940>, citing_assertion_id = 'c'
+expansion_provider = <function test_r52_r2_canonical_success_is_complete_only_for_target.<locals>.<lambda> at 0x000001EE6F156440>
+verified_assertion_ids = (), lookup_mode = 'legacy'
+structure_status = <GroupStructureStatus.UNKNOWN: 'unknown'>, references = ()
+completed_internal_proofs = ()
+
+    def search_registered_partial_proof(
+        *,
+        n: int,
+        k: int,
+        goal: object | None = None,
+        bridge: object | None = None,
+        citing_assertion_id: str | None = None,
+        expansion_provider: object | None = None,
+        verified_assertion_ids: tuple[str, ...] = (),
+        lookup_mode: str = "legacy",
+        structure_status: GroupStructureStatus = GroupStructureStatus.UNKNOWN,
+        references: tuple[str, ...] = (),
+        completed_internal_proofs: tuple = (),
+    ):
+        """Return observed results; never replay or manufacture missing premises."""
+        # Validate the public domain even for a not-searched result.
+        base = dict(
+            n=n, k=k, structure_status=structure_status, references=references,
+        )
+        if any(item is None for item in (goal, bridge, citing_assertion_id, expansion_provider)):
+            return make_partial_proof_result(
+                **base, status=ProofSearchStatus.NOT_SEARCHED,
+                open_goals=(goal,) if goal is not None else (),
+                diagnostics=("登録済み探索入力が不足しているため未探索",),
+            )
+    
+        target_group = TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        observed_steps: list[ProofStep] = []
+        observed_unresolved: list[object] = []
+    
+        def same(a: object, b: object) -> bool:
+            return type(a) is type(b) and a == b
+    
+        def observer(kind: str, observed_goal: object, step: ProofStep | None) -> None:
+            if kind == "proved":
+                if step is None or not isinstance(step, ProofStep):
+                    raise TypeError("proved observation must contain a ProofStep")
+                if not any(existing is step for existing in observed_steps):
+                    observed_steps.append(step)
+            elif kind == "unresolved":
+                if not any(same(item, observed_goal) for item in observed_unresolved):
+                    observed_unresolved.append(observed_goal)
+            else:
+                raise ValueError("unknown search observation")
+    
+        error = None
+        try:
+>           root_step = reconstruct_registered_goal(
+                goal, bridge, citing_assertion_id, expansion_provider,
+                verified_assertion_ids=verified_assertion_ids,
+                lookup_mode=lookup_mode,
+                progress_observer=observer,
+                completed_internal_proofs=completed_internal_proofs,
+            )
+E           TypeError: test_r52_r2_canonical_success_is_complete_only_for_target.<locals>.fake_reconstruct() got an unexpected keyword argument 'completed_internal_proofs'
+
+phase165_r52_r2_search_adapter.py:63: TypeError
+________ test_partial_result_keeps_observed_steps_and_unresolved_goals ________
+
+    def test_partial_result_keeps_observed_steps_and_unresolved_goals():
+        step = ProofStep(conclusion="observed", premises=(), rule=ProofRule.GIVEN)
+        result = make_partial_proof_result(
+            n=3, k=2, status=ProofSearchStatus.PARTIAL,
+            proven_steps=(step,), open_goals=("unknown",),
+            references=("General theorem",),
+        )
+        view = build_partial_web_group_proof_view(result)
+        assert len(view.steps) == 1
+>       assert "Reference" in _visible_text(view)
+E       AssertionError: assert 'Reference' in '証明対象\n\\pi_{5}^{3}\n使用する結果\n参照情報を持つ ProofStep はありません。\n\n証明\n**探索状態：部分証明・未完成**\n未解決 Goal\n- unknown\n未解決 Goal は証明済みの結論ではありません。'
+E        +  where '証明対象\n\\pi_{5}^{3}\n使用する結果\n参照情報を持つ ProofStep はありません。\n\n証明\n**探索状態：部分証明・未完成**\n未解決 Goal\n- unknown\n未解決 Goal は証明済みの結論ではありません。' = _visible_text(WebGroupProofView(n=3, k=2, conclusion_latex='\\pi_{5}^{3}', theorem=None, phase='165 R52-R3', key='generic-partial-pr...='', segments=(WebGroupProofInlineSegmentView(kind='text', value='未解決 Goal は証明済みの結論ではありません。'),))), partial_result=True))
+
+test_phase165_r52_r3_web_adapter.py:44: AssertionError
+______________________ test_complete_result_retains_qed _______________________
+
+    def test_complete_result_retains_qed():
+        step = ProofStep(conclusion="proved", premises=(), rule=ProofRule.GIVEN)
+        result = make_partial_proof_result(
+            n=4, k=2, status=ProofSearchStatus.COMPLETE,
+            proven_steps=(step,), conclusion="proved",
+        )
+>       view = build_partial_web_group_proof_view(result)
+
+test_phase165_r52_r3_web_adapter.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+phase165_r52_r3_web_adapter.py:60: in build_partial_web_group_proof_view
+    markdown = render_partial_proof_markdown(result)
+phase165_r52_partial_proof.py:96: in render_partial_proof_markdown
+    return render_completed_shared_narrative(result)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+result = PartialProofResult(target=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), status=<ProofSearchStatus.COMPLETE:...'>, note=None, inference_rule=None, foundational_reference=None),), open_goals=(), diagnostics=(), conclusion='proved')
+
+    def render_completed_shared_narrative(result: PartialProofResult) -> str:
+        """Render only the completed search's actual proof ancestry.
+    
+        The historical stable-transport branch is not admissible for a root
+        lacking a transport inference. Other completed presentations keep their
+        existing public renderer path, including historical pi3^2 formatting.
+        """
+        if not isinstance(result, PartialProofResult):
+            raise TypeError("result must be PartialProofResult")
+        if result.status is not ProofSearchStatus.COMPLETE or result.conclusion is None:
+            raise ValueError("a complete search is required")
+        conclusion = result.conclusion
+        if getattr(conclusion, "lhs", None) != result.target:
+>           raise ValueError("completed target does not match conclusion")
+E           ValueError: completed target does not match conclusion
+
+phase165_r56_presentation_adapter.py:31: ValueError
+___________ test_failed_search_state_is_not_presented_as_conclusion ___________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6F492B30>
+
+    def test_failed_search_state_is_not_presented_as_conclusion(monkeypatch):
+        import phase165_r52_r4_flask_bridge as bridge
+        def failed(**kwargs):
+            return make_partial_proof_result(
+                n=kwargs["n"], k=kwargs["k"],
+                status=ProofSearchStatus.SEARCH_FAILED,
+                open_goals=("unproved",),
+                diagnostics=("No registered rule",),
+            )
+        monkeypatch.setattr(bridge, "search_group_structure_automatically", failed)
+        response = create_app().test_client().post("/", data={
+            "form_kind": "group_proof_progress", "n": "17", "k": "4",
+        })
+        assert response.status_code == 200
+        assert "証明未完成".encode("utf-8") in response.data
+>       assert b"No registered rule" in response.data
+E       assert b'No registered rule' in b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>'
+E        +  where b'<!doctype html>\n<html lang="en">\n<head>\n  <meta charset="utf-8">\n  <meta\n    name="viewport"\n    content="widt...n        \n      </section>\n    \n\n    \n\n    \n\n    \n\n    \n\n    \n    \n\n    \n\n  </main>\n</body>\n</html>' = <WrapperTestResponse 15119 bytes [200 OK]>.data
+
+test_phase165_r52_r4_flask_connection.py:57: AssertionError
+______________ test_r5_flask_progress_form_starts_actual_search _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6F41DBA0>
+
+    def test_r5_flask_progress_form_starts_actual_search(monkeypatch):
+        import phase165_r52_r5_auto_search as auto
+        from web_app import create_app
+    
+        import phase165_r52_r4_flask_bridge as bridge
+        seen = []
+    
+        def actual(n, k):
+            seen.append((n, k))
+            return auto.search_group_structure_automatically(
+                n=n, k=k, discovery=_discovery(content="untyped")
+            )
+    
+        monkeypatch.setattr(bridge, "search_group_structure_automatically", actual)
+        response = create_app().test_client().post("/", data={
+            "form_kind": "group_proof_progress", "n": "3", "k": "1",
+        })
+        assert response.status_code == 200
+>       assert seen == [(3, 1)]
+E       assert [] == [(3, 1)]
+E         
+E         Right contains one more item: (3, 1)
+E         Use -v to get more diff
+
+test_phase165_r52_r5_auto_search.py:132: AssertionError
+_______________ test_r8_unconfigured_proof_calls_partial_search _______________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6F5F3F10>
+
+    def test_r8_unconfigured_proof_calls_partial_search(monkeypatch):
+        sentinel = object()
+        called = []
+    
+        monkeypatch.setattr(
+            web_app, "build_standard_web_group_query_view",
+            lambda **kw: SimpleNamespace(
+                n=kw["n"], k=kw["k"], proof_available=False,
+                status=SimpleNamespace(value="not_found"),
+            ),
+        )
+    
+        def missing(*args, **kwargs):
+            raise GoalSearchIncompleteError("typed proof not connected")
+    
+        def partial(**kwargs):
+            called.append(kwargs)
+            return sentinel
+    
+>       monkeypatch.setattr(web_app, "build_standard_web_group_proof_view", missing)
+E       AttributeError: <module 'web_app' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\web_app.py'> has no attribute 'build_standard_web_group_proof_view'
+
+test_phase165_r52_r8_show_proof_route.py:43: AttributeError
+_________________ test_r8_registered_proof_does_not_fall_back _________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001EE6F543AC0>
+
+    def test_r8_registered_proof_does_not_fall_back(monkeypatch):
+        from phase165_r52_r3_web_adapter import build_partial_web_group_proof_view
+        from phase165_r52_partial_proof import (
+            ProofSearchStatus, make_partial_proof_result,
+        )
+        monkeypatch.setattr(
+            web_app, "build_standard_web_group_query_view",
+            lambda **kw: SimpleNamespace(
+                n=kw["n"], k=kw["k"], proof_available=False,
+                status=SimpleNamespace(value="not_found"),
+            ),
+        )
+        view = build_partial_web_group_proof_view(
+            make_partial_proof_result(
+                n=2,
+                k=1,
+                status=ProofSearchStatus.SEARCH_FAILED,
+                diagnostics=("Registered proof test fixture",),
+            ),
+        )
+>       monkeypatch.setattr(
+            web_app, "build_standard_web_group_proof_view",
+            lambda *args, **kwargs: view,
+        )
+E       AttributeError: <module 'web_app' from 'C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\web_app.py'> has no attribute 'build_standard_web_group_proof_view'
+
+test_phase165_r52_r8_show_proof_route.py:92: AttributeError
+=========================== short test summary info ===========================
+FAILED test_phase165_r52_r2_search_adapter.py::test_r52_r2_partial_preserves_proved_leaf
+FAILED test_phase165_r52_r2_search_adapter.py::test_r52_r2_no_steps_is_failed
+FAILED test_phase165_r52_r2_search_adapter.py::test_r52_r2_canonical_success_is_complete_only_for_target
+FAILED test_phase165_r52_r3_web_adapter.py::test_partial_result_keeps_observed_steps_and_unresolved_goals
+FAILED test_phase165_r52_r3_web_adapter.py::test_complete_result_retains_qed
+FAILED test_phase165_r52_r4_flask_connection.py::test_failed_search_state_is_not_presented_as_conclusion
+FAILED test_phase165_r52_r5_auto_search.py::test_r5_flask_progress_form_starts_actual_search
+FAILED test_phase165_r52_r8_show_proof_route.py::test_r8_unconfigured_proof_calls_partial_search
+FAILED test_phase165_r52_r8_show_proof_route.py::test_r8_registered_proof_does_not_fall_back
+9 failed, 31 passed in 13.17s
