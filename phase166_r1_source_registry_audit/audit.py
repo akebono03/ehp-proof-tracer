@@ -112,7 +112,8 @@ def main():
             writer.writerow({k: json.dumps(v, ensure_ascii=False) if isinstance(v, list) else v for k, v in row.items()})
     print(json.dumps(output, ensure_ascii=False, indent=2))
     if error:
-        print('NOTICE: Production registry unavailable; candidate matching not performed.')
+        print('ERROR: Production registry unavailable; candidate matching NOT performed.')
+        return 2
     return 0
 
 
