@@ -1514,6 +1514,8 @@
   "phase165_r6_probe_cleanup/tests/test_cleanup.py::test_keeps_imported_probe",
   "phase165_r6_probe_cleanup/tests/test_cleanup.py::test_keeps_on_unparseable_test",
   "phase165_r6_probe_cleanup/tests/test_cleanup.py::test_removes_unreferenced_failed_direct_probe_only",
+  "phase165_r6_recollect/tests/test_recollect.py::test_parse_collection_errors",
+  "phase165_r6_recollect/tests/test_recollect.py::test_selection_only_active_tests",
   "phase165_reference_stop_r1/test_audit.py::test_boundary_report_has_no_premature_certification",
   "phase165_reference_stop_r1/test_audit.py::test_existing_eligibility_and_prior_proof_interfaces_exist",
   "phase165_reference_stop_r1/test_audit.py::test_no_automatic_internal_proof_without_order",
