@@ -41,7 +41,8 @@ def test_partial_result_keeps_observed_steps_and_unresolved_goals():
     )
     view = build_partial_web_group_proof_view(result)
     assert len(view.steps) == 1
-    assert "Reference" in _visible_text(view)
+    assert "参照情報を持つ ProofStep はありません。" in _visible_text(view)
+    assert "General theorem" not in _visible_text(view)
     assert "未解決 Goal" in _visible_text(view)
     assert "□" not in _visible_text(view)
 

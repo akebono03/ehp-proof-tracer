@@ -13,7 +13,7 @@ def test_r52_arbitrary_range_and_unknown():
     result = make_partial_proof_result(n=200, k=90, status=ProofSearchStatus.NOT_SEARCHED)
     text = render_partial_proof_markdown(result)
     assert r"\pi_{290}^{200}" in text
-    assert "unknown" in text
+    assert "探索状態：未探索" in text
     assert "□" not in text
 
 
@@ -37,7 +37,8 @@ def test_r52_complete_requires_matching_step():
         n=3, k=2, status=ProofSearchStatus.COMPLETE,
         proven_steps=(step,), conclusion="final",
     )
-    assert "□" in render_partial_proof_markdown(valid)
+    with pytest.raises(ValueError, match="completed target does not match conclusion"):
+        render_partial_proof_markdown(valid)
     with pytest.raises(ValueError):
         make_partial_proof_result(n=3, k=2, status=ProofSearchStatus.COMPLETE, conclusion="final")
     with pytest.raises(ValueError):
