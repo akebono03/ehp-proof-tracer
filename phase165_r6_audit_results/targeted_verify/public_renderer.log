@@ -1,0 +1,54 @@
+F.F                                                                      [100%]
+================================== FAILURES ===================================
+________________ test_standard_route_uses_r55_for_arbitrary_nk ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000019FD8200520>
+
+>   ???
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase165_r57_r1_single_entry\test_phase165_r57_r1_single_entry.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+n = 3, k = 2, max_depth = 2, mode = 'narrative', goal = None
+
+    def build_standard_web_group_proof_view(
+      n: int,
+      k: int,
+      max_depth: int = 2,
+      mode: str = "narrative",
+      *,
+      goal=None,
+    ) -> WebGroupProofView:
+      """Render a shared search for an optional caller-supplied typed proof goal."""
+      query = TodaGroupQuery(n=n, k=k)
+      domain = classify_toda_group_query_domain(query)
+      if domain.kind is not TodaGroupQueryDomainKind.POSITIVE_DIMENSION:
+        raise ValueError("group proof is available only for positive-dimensional group queries")
+      if isinstance(max_depth, bool) or not isinstance(max_depth, int):
+        raise TypeError("max_depth must be an int")
+      if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+      if mode not in ("trace", "outline", "narrative"):
+        raise ValueError("mode must be trace, outline, or narrative")
+    
+      from phase165_r55_nk_only_goal import search_group_from_registered_goal
+      from phase165_r52_r3_web_adapter import build_partial_web_group_proof_view
+    
+>     result = search_group_from_registered_goal(n=n, k=k, goal=goal)
+E     TypeError: test_standard_route_uses_r55_for_arbitrary_nk.<locals>.search() got an unexpected keyword argument 'goal'
+
+web_group_proof.py:67: TypeError
+________________ test_standard_route_real_pi32_public_renderer ________________
+
+>   ???
+E   AssertionError: assert 'generic-partial-proof' == 'generic-complete-proof'
+E     
+E     - generic-complete-proof
+E     + generic-partial-proof
+
+C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase165_r57_r1_single_entry\test_phase165_r57_r1_single_entry.py:40: AssertionError
+=========================== short test summary info ===========================
+FAILED phase165_r57_r1_single_entry/test_phase165_r57_r1_single_entry.py::test_standard_route_uses_r55_for_arbitrary_nk
+FAILED phase165_r57_r1_single_entry/test_phase165_r57_r1_single_entry.py::test_standard_route_real_pi32_public_renderer
+2 failed, 1 passed in 3.04s
+
