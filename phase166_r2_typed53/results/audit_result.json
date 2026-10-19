@@ -1,0 +1,77 @@
+{
+  "phase": "166 R2 typed (5.3) witness",
+  "read_only": true,
+  "rows_total": 687,
+  "equation53_rows": 4,
+  "display_match_rows": 2,
+  "candidate_assertion_id": "boundary:(5.3):nu_prime_double_relation",
+  "assertion_content_type": "TodaFixedStatementComponent",
+  "typed_expression_type": "Relation",
+  "typing": {
+    "lhs_source": 6,
+    "lhs_target": 3,
+    "rhs_source": 6,
+    "rhs_target": 3,
+    "homotopy_group": "pi_6^3",
+    "inner_composition_compatible": true,
+    "outer_composition_compatible_by_boundary": true,
+    "typed_relation_constructed": true,
+    "registry_content_equal_to_relation": false,
+    "mathematical_identity_confirmed": false,
+    "proof_permission_granted": false
+  },
+  "mathematical_identity_confirmed": 0,
+  "proof_permission_granted": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "rows": [
+    {
+      "csv_line": 3,
+      "n": "3.0",
+      "k": "3",
+      "composition": "\\eta3^3",
+      "rep_linear": "2\\nu'",
+      "display_pair_matches_witness": true,
+      "candidate_component_id": "boundary:(5.3):nu_prime_double_relation",
+      "status": "DISPLAY_MATCH_TYPED_WITNESS_NOT_CERTIFIED",
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 4,
+      "n": "3.0",
+      "k": "3",
+      "composition": "\\eta3^3(2\\iota6)",
+      "rep_linear": "0",
+      "display_pair_matches_witness": false,
+      "candidate_component_id": null,
+      "status": "OTHER_OR_INCOMPLETE_DISPLAY",
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 5,
+      "n": "4.0",
+      "k": "3",
+      "composition": "",
+      "rep_linear": "2E\\nu'",
+      "display_pair_matches_witness": false,
+      "candidate_component_id": null,
+      "status": "OTHER_OR_INCOMPLETE_DISPLAY",
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    },
+    {
+      "csv_line": 8,
+      "n": "3.0",
+      "k": "3",
+      "composition": "\\eta3^3",
+      "rep_linear": "2\\nu'",
+      "display_pair_matches_witness": true,
+      "candidate_component_id": "boundary:(5.3):nu_prime_double_relation",
+      "status": "DISPLAY_MATCH_TYPED_WITNESS_NOT_CERTIFIED",
+      "mathematical_identity_confirmed": false,
+      "proof_permission_granted": false
+    }
+  ]
+}

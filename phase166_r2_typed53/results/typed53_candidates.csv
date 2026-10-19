@@ -1,0 +1,5 @@
+﻿csv_line,n,k,composition,rep_linear,display_pair_matches_witness,candidate_component_id,status,mathematical_identity_confirmed,proof_permission_granted
+3,3.0,3,\eta3^3,2\nu',True,boundary:(5.3):nu_prime_double_relation,DISPLAY_MATCH_TYPED_WITNESS_NOT_CERTIFIED,False,False
+4,3.0,3,\eta3^3(2\iota6),0,False,,OTHER_OR_INCOMPLETE_DISPLAY,False,False
+5,4.0,3,,2E\nu',False,,OTHER_OR_INCOMPLETE_DISPLAY,False,False
+8,3.0,3,\eta3^3,2\nu',True,boundary:(5.3):nu_prime_double_relation,DISPLAY_MATCH_TYPED_WITNESS_NOT_CERTIFIED,False,False
