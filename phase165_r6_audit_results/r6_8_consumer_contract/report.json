@@ -1,0 +1,300 @@
+{
+  "phase": "165 R6-8",
+  "mode": "read_only",
+  "files": {
+    "probes/probe_phase50_capabilities.py": {
+      "legacy_imports": [],
+      "dictionary_field_access": {
+        "representative": [
+          "delta_e_exactness",
+          "delta_image_steps",
+          "delta_up_to_sign_steps",
+          "e_h_exactness",
+          "eta_3_relation_steps",
+          "final_group_steps",
+          "intermediate_group_steps",
+          "pi_3_2_relation",
+          "premise_steps",
+          "prop27_steps",
+          "result",
+          "suspension_kernel_steps",
+          "suspension_surjective_steps",
+          "whitehead_square_steps"
+        ]
+      },
+      "builder_calls": [
+        "build_phase50_representative_result"
+      ]
+    },
+    "probes/probe_phase52_capabilities.py": {
+      "legacy_imports": [
+        {
+          "module": "probes.probe_phase50_capabilities",
+          "names": [
+            "build_phase50_representative_result",
+            "expression_text",
+            "print_separator"
+          ]
+        }
+      ],
+      "dictionary_field_access": {
+        "phase50": [
+          "eta_2",
+          "premise_steps",
+          "rules"
+        ],
+        "representative": [
+          "delta_two_eta_2_steps",
+          "delta_whitehead_steps",
+          "premise_steps",
+          "result",
+          "whitehead_two_eta_2_steps"
+        ]
+      },
+      "builder_calls": [
+        "build_phase50_representative_result",
+        "build_phase52_representative_result"
+      ]
+    },
+    "probes/probe_phase53_capabilities.py": {
+      "legacy_imports": [
+        {
+          "module": "probes.probe_phase50_capabilities",
+          "names": [
+            "build_phase50_representative_result",
+            "print_separator"
+          ]
+        }
+      ],
+      "dictionary_field_access": {
+        "phase50": [
+          "eta_3",
+          "final_group_steps",
+          "premise_steps",
+          "rules"
+        ],
+        "representative": [
+          "phase50_final_steps",
+          "premise_steps",
+          "result",
+          "toda45_steps",
+          "transported_steps"
+        ]
+      },
+      "builder_calls": [
+        "build_phase50_representative_result",
+        "build_phase53_representative_result"
+      ]
+    },
+    "probes/probe_phase54_capabilities.py": {
+      "legacy_imports": [
+        {
+          "module": "probes.probe_phase50_capabilities",
+          "names": [
+            "print_separator"
+          ]
+        },
+        {
+          "module": "probes.probe_phase53_capabilities",
+          "names": [
+            "build_phase53_representative_result"
+          ]
+        }
+      ],
+      "dictionary_field_access": {
+        "phase53": [
+          "n",
+          "phase50_final_steps",
+          "premise_steps",
+          "rules",
+          "target_group",
+          "target_relation",
+          "toda45_steps"
+        ],
+        "representative": [
+          "final_steps",
+          "higher_eta_steps",
+          "phase50_final_steps",
+          "premise_steps",
+          "result",
+          "transported_steps"
+        ]
+      },
+      "builder_calls": [
+        "build_phase53_representative_result",
+        "build_phase54_representative_result"
+      ]
+    },
+    "probes/probe_phase55_capabilities.py": {
+      "legacy_imports": [
+        {
+          "module": "probes.probe_phase49_capabilities",
+          "names": [
+            "build_phase49_representative_result"
+          ]
+        },
+        {
+          "module": "probes.probe_phase50_capabilities",
+          "names": [
+            "build_phase50_representative_result",
+            "print_separator"
+          ]
+        },
+        {
+          "module": "probes.probe_phase53_capabilities",
+          "names": [
+            "build_phase53_representative_result"
+          ]
+        },
+        {
+          "module": "probes.probe_phase54_capabilities",
+          "names": [
+            "build_phase54_representative_result"
+          ]
+        }
+      ],
+      "dictionary_field_access": {
+        "phase49": [
+          "premise_steps",
+          "result",
+          "rules"
+        ],
+        "phase50": [
+          "delta_map",
+          "eta_2",
+          "eta_2_hopf_relation",
+          "pi_3_2_relation",
+          "premise_steps",
+          "rules"
+        ],
+        "phase53": [
+          "premise_steps",
+          "rules"
+        ],
+        "phase54": [
+          "final_relation",
+          "premise_steps",
+          "rules"
+        ],
+        "representative": [
+          "delta_two_eta_2_steps",
+          "eta2_hopf_relation",
+          "eta2_hopf_steps",
+          "expected_statement",
+          "higher_eta_group_steps",
+          "pi3_2_group_relation",
+          "pi3_2_group_steps",
+          "premise_steps",
+          "prop51_steps",
+          "result"
+        ]
+      },
+      "builder_calls": [
+        "build_phase49_representative_result",
+        "build_phase50_representative_result",
+        "build_phase53_representative_result",
+        "build_phase54_representative_result",
+        "build_phase55_representative_result"
+      ]
+    },
+    "probes/probe_phase58_capabilities.py": {
+      "legacy_imports": [
+        {
+          "module": "probes.probe_phase50_capabilities",
+          "names": [
+            "build_phase50_representative_result",
+            "print_separator"
+          ]
+        }
+      ],
+      "dictionary_field_access": {
+        "phase50": [
+          "final_group_steps"
+        ],
+        "representative": [
+          "composition_step",
+          "double_result",
+          "eta3_zero_result",
+          "eta4_bridge_result",
+          "eta5_bridge_result",
+          "expected_final_double",
+          "expected_final_hopf",
+          "expected_membership",
+          "final_double_step",
+          "final_hopf_step",
+          "hopf_result",
+          "membership_step",
+          "phase58_3_result",
+          "premise_steps",
+          "raw_double_step",
+          "raw_hopf_step",
+          "right_step",
+          "specialization_result"
+        ]
+      },
+      "builder_calls": [
+        "build_phase50_representative_result",
+        "build_phase58_representative_result"
+      ]
+    },
+    "tests/test_phase59_n3_ehp_chain.py": {
+      "legacy_imports": [
+        {
+          "module": "probes.probe_phase55_capabilities",
+          "names": [
+            "build_phase55_representative_result"
+          ]
+        },
+        {
+          "module": "probes.probe_phase58_capabilities",
+          "names": [
+            "build_phase58_representative_result"
+          ]
+        }
+      ],
+      "dictionary_field_access": {
+        "data": [
+          "expected_delta_injective",
+          "expected_delta_zero",
+          "expected_hopf_surjective",
+          "expected_hopf_zero",
+          "expected_suspension_injective",
+          "expected_suspension_isomorphism",
+          "expected_suspension_surjective",
+          "hopf_eta5_step",
+          "premise_steps",
+          "prop51_step",
+          "result"
+        ],
+        "phase55": [
+          "prop51_steps"
+        ],
+        "phase58": [
+          "final_hopf_step"
+        ]
+      },
+      "builder_calls": [
+        "build_phase55_representative_result",
+        "build_phase58_representative_result",
+        "build_phase59_3_data"
+      ]
+    },
+    "tests/test_phase164_r3_registry_search_connection.py": {
+      "legacy_imports": [
+        {
+          "module": "tests.test_phase59_n3_ehp_chain",
+          "names": [
+            "build_phase59_3_data"
+          ]
+        }
+      ],
+      "dictionary_field_access": {},
+      "builder_calls": [
+        "build_phase59_3_data"
+      ]
+    }
+  },
+  "missing": [],
+  "source_changed": false,
+  "pytest_executed": false
+}

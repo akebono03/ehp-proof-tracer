@@ -1,0 +1,143 @@
+{
+  "phase": "165 R6-8",
+  "status": "DEPENDENCY_CLASSIFICATION_ONLY",
+  "target_error_records": 105,
+  "classification_counts": {
+    "PROVEN_STATIC_CHAIN": 105
+  },
+  "direct_importers": [
+    "tests/test_phase59_toda52_pi4_2_transport.py"
+  ],
+  "indirect_example_chains": [
+    {
+      "test_path": "tests/test_phase162_r2_validated_proof_presentation.py",
+      "path_to_legacy_probe": [
+        "test_phase162_r2_validated_proof_presentation",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r3_registry_search_connection.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r3_registry_search_connection",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r1_source_crosswalk.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r1_source_crosswalk",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r2_semantic_structure.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r2_semantic_structure",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r3_independent_semantic_audit.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r3_independent_semantic_audit",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r4_citation_evidence_audit.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r4_citation_evidence_audit",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r6_typed_binding.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r6_typed_binding",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r7_real_connection_gate.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r7_real_connection_gate",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_r8_registry_reconstruction.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_r8_registry_reconstruction",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r4_real_registry_audit.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r4_real_registry_audit",
+        "phase164_r4_real_registry_audit",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r7_r8_fixed_literature_resolution.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r7_r8_fixed_literature_resolution",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    },
+    {
+      "test_path": "tests/test_phase164_r8_r3_backward_factory.py",
+      "path_to_legacy_probe": [
+        "test_phase164_r8_r3_backward_factory",
+        "tests.test_phase59_n3_ehp_chain",
+        "probes.probe_phase55_capabilities",
+        "probes.probe_phase50_capabilities"
+      ],
+      "classification": "PROVEN_STATIC_CHAIN"
+    }
+  ],
+  "unresolved_test_paths": [],
+  "source_modified": false,
+  "tests_deleted": false,
+  "full_pytest_run": false,
+  "notes": [
+    "Static AST dependency chains do not establish the runtime cause on their own.",
+    "A missing path does not prove that a test is obsolete.",
+    "Do not restore removed group-specific inference rules to satisfy imports."
+  ]
+}

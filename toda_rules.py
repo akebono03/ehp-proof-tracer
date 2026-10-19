@@ -62366,9 +62366,14 @@ def toda_53_eta3_twice_zero_inference_rule():
       ),
     )
 
+    candidate = group_relation.rhs.generator
     return (
-      group_relation.rhs.generator
-      == eta_3
+      isinstance(candidate, HomotopyElement)
+      and candidate.dimension == eta_3.dimension
+      and candidate.source == eta_3.source
+      and candidate.target == eta_3.target
+      and candidate.generator == eta_3.generator
+      and candidate.name in ("η₃", "η_3")
     )
 
   def build_conclusion(

@@ -1,0 +1,24 @@
+{
+  "phase": "165 R6",
+  "mode": "targeted_no_modification",
+  "checked_at_utc": "2026-10-19T02:15:55.646719+00:00",
+  "full_pytest_run": false,
+  "groups": {
+    "shared_backward": {
+      "status": "PASS",
+      "path": "test_phase165_r52_r9_shared_math.py",
+      "exit_code": 0
+    },
+    "public_renderer": {
+      "status": "FAIL",
+      "path": "phase165_r57_r1_single_entry\\test_phase165_r57_r1_single_entry.py",
+      "exit_code": 1
+    },
+    "inverse_rules": {
+      "status": "PASS",
+      "path": "phase165_r6_2_r2_verified_inverse\\test_phase165_r6_2_r2_verified_inverse.py",
+      "exit_code": 0
+    }
+  },
+  "status": "INCOMPLETE"
+}
