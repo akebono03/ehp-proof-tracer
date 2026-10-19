@@ -1509,6 +1509,8 @@
   "phase165_r6_2_unified_registry_r4_r4/test_r4_r4_integration.py::test_r8_inverse_isomorphism_to_injectivity",
   "phase165_r6_2_unified_registry_r4_r4_test_fix_r2/test_test_fix.py::test_four_tests_preserved",
   "phase165_r6_2_unified_registry_r4_r4_test_fix_r2/test_test_fix.py::test_required_premises_argument_present",
+  "phase165_r6_8_current_search_regression/test_phase165_r6_8_current_search_regression.py::test_r6_8_current_pi3_2_uses_proven_conclusion",
+  "phase165_r6_8_current_search_regression/test_phase165_r6_8_current_search_regression.py::test_r6_8_current_pi4_3_uses_proven_conclusion",
   "phase165_r6_bulk_cleanup/tests/test_cleanup.py::test_cleanup_protects_imported_and_modern_tests",
   "phase165_r6_bulk_cleanup/tests/test_cleanup.py::test_import_extraction",
   "phase165_r6_bulk_cleanup/tests/test_cleanup.py::test_sha_backup_and_restore",
