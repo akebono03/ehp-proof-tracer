@@ -1,0 +1,47 @@
+{
+  "phase": "165 R6-8(3)",
+  "action": "blocked",
+  "candidates": [
+    "probes/probe_phase53_capabilities.py",
+    "probes/probe_phase54_capabilities.py",
+    "probes/probe_phase55_capabilities.py",
+    "probes/probe_phase57_capabilities.py",
+    "phase162_ehp_leaf_inputs.py",
+    "phase162_pi5_3_web_replay.py",
+    "tests/test_phase59_n3_ehp_chain.py",
+    "tests/test_phase55_prop51_phase52_phase54_dependency.py"
+  ],
+  "missing": [],
+  "blocking_consumers": {
+    "probes/probe_phase55_capabilities.py": [
+      "tests/test_phase60_toda36_specialization.py:23 imports probes.probe_phase55_capabilities",
+      "tests/test_phase67_lemma57_nu_prime_specialization.py:24 imports probes.probe_phase55_capabilities",
+      "tests/test_phase68_pi8_4_decomposition.py:24 imports probes.probe_phase55_capabilities"
+    ],
+    "tests/test_phase59_n3_ehp_chain.py": [
+      "audit_phase162_r3a_presentation.py:22 imports tests.test_phase59_n3_ehp_chain",
+      "diagnose_phase162_r3a_bridge.py:13 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r1_source_crosswalk.py:118 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r2_semantic_structure.py:142 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r3_independent_semantic_audit.py:171 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r4_citation_evidence_audit.py:144 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r6_typed_binding.py:155 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r7_real_connection_gate.py:191 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r8_registry_reconstruction.phase164_r7_r8_backup.py:162 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_r8_registry_reconstruction.py:166 imports tests.test_phase59_n3_ehp_chain",
+      "phase164_r4_real_registry_audit.py:21 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase162_r2_validated_proof_presentation.py:23 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r3_registry_search_connection.py:17 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r1_source_crosswalk.py:14 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r2_semantic_structure.py:12 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r3_independent_semantic_audit.py:12 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r4_citation_evidence_audit.py:17 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r6_typed_binding.py:12 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r7_real_connection_gate.py:17 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r4_r8_registry_reconstruction.py:14 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r7_r8_fixed_literature_resolution.py:15 imports tests.test_phase59_n3_ehp_chain",
+      "tests/test_phase164_r8_r3_backward_factory.py:7 imports tests.test_phase59_n3_ehp_chain"
+    ]
+  },
+  "full_pytest_run": false
+}

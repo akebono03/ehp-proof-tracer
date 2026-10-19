@@ -1,3 +1,8 @@
+from phase165_r55_nk_only_goal import search_group_from_registered_goal
+from toda_stable_group_transport import (
+  toda_45_generic_finite_cyclic_transport_inference_rule,
+)
+from phase165_r52_partial_proof import ProofSearchStatus
 from expression import (
   IteratedSuspension,
   ScalarProduct,
@@ -17,8 +22,7 @@ from proof import (
   RelationType,
   run_inference_until_stable_with_history,
 )
-from probes.probe_phase50_capabilities import (
-  build_phase50_representative_result,
+from probes.probe_phase49_capabilities import (
   print_separator,
 )
 from scalar_rules import (
@@ -27,185 +31,75 @@ from scalar_rules import (
 from toda_rules import (
   Toda45IsomorphismStatement,
   toda_45_isomorphism_inference_rule,
-  toda_45_pi4_3_finite_cyclic_transport_inference_rule,
 )
 
 
 def build_phase53_representative_result():
-  phase50 = (
-    build_phase50_representative_result()
+  """Transport a current, checked pi_4^3 proof; never execute Phase 50."""
+  pi43_proof = search_group_from_registered_goal(n=3, k=1)
+  if pi43_proof.status is not ProofSearchStatus.COMPLETE or pi43_proof.open_goals:
+    raise ValueError("pi_4^3 shared backward proof is incomplete")
+  source_step = next(
+    (step for step in pi43_proof.proven_steps
+     if step.conclusion == pi43_proof.conclusion), None)
+  if source_step is None or source_step.rule is not ProofRule.INFERENCE:
+    raise ValueError("pi_4^3 requires a derived root ProofStep")
+  source_relation = source_step.conclusion
+  if (not isinstance(source_relation, Relation)
+      or source_relation.relation_type is not RelationType.EQUALITY
+      or source_relation.lhs != TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)
+      or not isinstance(source_relation.rhs, FiniteCyclicGroup)
+      or source_relation.rhs.order != 2):
+    raise ValueError("pi_4^3 proof has unexpected group structure")
+  eta_3 = source_relation.rhs.generator
+  n = ScalarSymbol(name="n")
+  stable_range = ScalarGreaterEqualStatement(left=3, right=ScalarSum(left=1, right=2))
+  suspension_range = ScalarGreaterEqualStatement(left=n, right=3)
+  target_group = TodaPrimaryGroup(group_dimension=ScalarSum(left=n, right=1), sphere_dimension=n)
+  suspension_map = TodaIteratedSuspensionMap(
+    exponent=ScalarSum(left=n, right=ScalarProduct(left=-1, right=3)),
+    source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3),
+    target_group=target_group,
   )
-
-  n = ScalarSymbol(
-    name="n",
-  )
-
-  stable_range = (
-    ScalarGreaterEqualStatement(
-      left=3,
-      right=ScalarSum(
-        left=1,
-        right=2,
-      ),
-    )
-  )
-
-  suspension_range = (
-    ScalarGreaterEqualStatement(
-      left=n,
-      right=3,
-    )
-  )
-
-  target_group = TodaPrimaryGroup(
-    group_dimension=ScalarSum(
-      left=n,
-      right=1,
-    ),
-    sphere_dimension=n,
-  )
-
-  suspension_map = (
-    TodaIteratedSuspensionMap(
-      exponent=ScalarSum(
-        left=n,
-        right=ScalarProduct(
-          left=-1,
-          right=3,
-        ),
-      ),
-      source_group=TodaPrimaryGroup(
-        group_dimension=ScalarSum(
-          left=3,
-          right=1,
-        ),
-        sphere_dimension=3,
-      ),
-      target_group=target_group,
-    )
-  )
-
   premise_steps = (
-    phase50[
-      "premise_steps"
-    ]
-    + (
-      ProofStep(
-        conclusion=stable_range,
-        premises=(),
-        rule=ProofRule.GIVEN,
-      ),
-      ProofStep(
-        conclusion=suspension_range,
-        premises=(),
-        rule=ProofRule.GIVEN,
-      ),
-      ProofStep(
-        conclusion=suspension_map,
-        premises=(),
-        rule=ProofRule.GIVEN,
-      ),
-    )
+    source_step,
+    ProofStep(conclusion=stable_range, premises=(), rule=ProofRule.GIVEN),
+    ProofStep(conclusion=suspension_range, premises=(), rule=ProofRule.GIVEN),
+    ProofStep(conclusion=suspension_map, premises=(), rule=ProofRule.GIVEN),
   )
-
   rules = (
-    phase50[
-      "rules"
-    ]
-    + (
-      toda_45_isomorphism_inference_rule(),
-      toda_45_pi4_3_finite_cyclic_transport_inference_rule(),
-    )
+    toda_45_isomorphism_inference_rule(),
+    toda_45_generic_finite_cyclic_transport_inference_rule(),
   )
-
   target_relation = Relation(
     lhs=target_group,
-    rhs=FiniteCyclicGroup(
-      order=2,
-      generator=IteratedSuspension(
-        expression=phase50[
-          "eta_3"
-        ],
-        exponent=(
-          suspension_map.exponent
-        ),
-      ),
-    ),
+    rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(
+      expression=eta_3, exponent=suspension_map.exponent)),
     relation_type=RelationType.EQUALITY,
   )
-
-  result = (
-    run_inference_until_stable_with_history(
-      rules,
-      premise_steps,
-    )
-  )
-
-  phase50_final_relation = (
-    phase50[
-      "final_group_steps"
-    ][
-      0
-    ]
-    .conclusion
-  )
-
-  phase50_final_steps = tuple(
-    step
-    for step in result.steps
-    if (
-      step.conclusion
-      == phase50_final_relation
-    )
-  )
-
-  toda45_steps = tuple(
-    step
-    for step in result.steps
-    if (
-      isinstance(
-        step.conclusion,
-        Toda45IsomorphismStatement,
-      )
-      and step.conclusion.map
-      == suspension_map
-    )
-  )
-
-  transported_steps = tuple(
-    step
-    for step in result.steps
-    if (
-      step.conclusion
-      == target_relation
-    )
-  )
-
+  result = run_inference_until_stable_with_history(rules, premise_steps)
+  toda45_steps = tuple(step for step in result.steps if
+    isinstance(step.conclusion, Toda45IsomorphismStatement)
+    and step.conclusion.map == suspension_map)
+  transported_steps = tuple(step for step in result.steps if step.conclusion == target_relation)
+  if not toda45_steps or not transported_steps:
+    raise ValueError("Toda (4.5) finite cyclic transport was not derived")
   return {
-    "phase50": phase50,
+    "pi43_proof": pi43_proof,
+    "source_group_steps": (source_step,),
     "n": n,
     "stable_range": stable_range,
-    "suspension_range": (
-      suspension_range
-    ),
-    "suspension_map": (
-      suspension_map
-    ),
+    "suspension_range": suspension_range,
+    "suspension_map": suspension_map,
     "target_group": target_group,
-    "target_relation": (
-      target_relation
-    ),
+    "target_relation": target_relation,
     "premise_steps": premise_steps,
     "rules": rules,
     "result": result,
-    "phase50_final_steps": (
-      phase50_final_steps
-    ),
     "toda45_steps": toda45_steps,
-    "transported_steps": (
-      transported_steps
-    ),
+    "transported_steps": transported_steps,
   }
+
 
 
 def print_phase53_transport(
@@ -290,7 +184,7 @@ def print_phase53_provenance(
 
   source_step = (
     representative[
-      "phase50_final_steps"
+      "source_group_steps"
     ][
       0
     ]

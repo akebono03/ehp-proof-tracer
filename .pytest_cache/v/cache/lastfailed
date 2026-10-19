@@ -2159,5 +2159,9 @@
   "phase165_r6_legacy_batch/tests/test_cleanup.py": true,
   "phase165_r6_probe_cleanup/tests/test_cleanup.py": true,
   "phase165_r6_retire_old_proof/tests/test_cleanup.py": true,
-  "phase165_r6_8_phase58_cutover/test_phase165_r6_8_phase58_cutover.py::test_phase58_uses_inferred_pi43_step_from_current_search": true
+  "phase165_r6_8_phase58_cutover/test_phase165_r6_8_phase58_cutover.py::test_phase58_uses_inferred_pi43_step_from_current_search": true,
+  "phase165_r6_8_3_guard/tests/test_phase165_r6_8_3_contract.py::test_phase55_no_legacy_phase50_builder_dependency": true,
+  "phase165_r6_8_3_stage1/tests/test_phase165_r6_8_3_stage1.py": true,
+  "phase165_r6_8_3_stage1_fix/tests/test_phase165_r6_8_3_stage1_fix.py": true,
+  "phase165_r6_8_3_stage1_import_fix/tests/test_phase165_r6_8_3_stage1_import_fix.py::test_phase53_phase54_proof_contract": true
 }

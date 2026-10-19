@@ -9,7 +9,7 @@ from proof import (
   RelationType,
   run_inference_until_stable_with_history,
 )
-from probes.probe_phase50_capabilities import (
+from probes.probe_phase49_capabilities import (
   print_separator,
 )
 from probes.probe_phase53_capabilities import (
@@ -100,7 +100,7 @@ def build_phase54_representative_result():
     if (
       step.conclusion
       == phase53[
-        "phase50_final_steps"
+        "source_group_steps"
       ][
         0
       ].conclusion
@@ -164,7 +164,7 @@ def build_phase54_representative_result():
     "premise_steps": premise_steps,
     "rules": rules,
     "result": result,
-    "phase50_final_steps": (
+    "source_group_steps": (
       phase50_final_steps
     ),
     "toda45_steps": toda45_steps,
@@ -288,7 +288,7 @@ def print_phase54_provenance(
 
   source_step = (
     representative[
-      "phase50_final_steps"
+      "source_group_steps"
     ][
       0
     ]
