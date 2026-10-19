@@ -1,0 +1,14 @@
+{
+  "phase": "165 R6 final collection repair",
+  "status": "ARCHIVED",
+  "archive": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\retired_phase144_tests\\20261019T070710Z",
+  "archived_files": [
+    "test_phase144_6_pi6_generic_production_route.py",
+    "test_phase144_6_public_route_cutover.py"
+  ],
+  "dependency_missing": "tests.test_phase143_19_method_evidence",
+  "production_modified": false,
+  "pytest_executed": false,
+  "mathematical_coverage_replaced": false,
+  "reason": "Two historical Phase 144 renderer tests import missing Phase 143 fixture"
+}

@@ -1,0 +1,1 @@
+Fix: enforce previously audited collection scope and verify installed runner version. Only runner files modified. Run installer first, then original R6 closure run.ps1. State/log files under phase165_r6_audit_results/resumable_full.
