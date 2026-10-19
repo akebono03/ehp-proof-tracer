@@ -1,0 +1,19 @@
+{
+  "phase": "166 R2",
+  "mode": "read_only",
+  "total_rows": 687,
+  "status_counts": {
+    "NO_LOCATOR_MATCH": 80,
+    "NO_PARSED_LOCATOR": 503,
+    "TYPED_ASSERTION_CANDIDATE": 104
+  },
+  "locator_matched_rows": 104,
+  "assertion_candidate_rows": 104,
+  "typed_assertion_candidate_rows": 104,
+  "potential_expression_pair_rows": 640,
+  "mathematical_identity_confirmed": 0,
+  "proof_permission_granted": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "interpretation": "Candidate links are not certified mathematical identities. Source text and display expressions are not parsed into typed Relations."
+}
