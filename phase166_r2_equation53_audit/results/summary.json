@@ -1,0 +1,27 @@
+{
+  "phase": "166 R2 equation (5.3) inspection",
+  "mode": "read_only",
+  "selected_rows": 4,
+  "display_classes": {
+    "EXACT_DISPLAY_PAIR_NOT_TYPED": 2,
+    "INCOMPLETE_DISPLAY_PAIR": 1,
+    "OTHER_DISPLAY_PAIR_NOT_TYPED": 1
+  },
+  "distinct_display_signatures": 3,
+  "component_keys": [
+    "nu_prime_bracket_definition",
+    "nu_prime_membership",
+    "nu_prime_hopf_relation",
+    "nu_prime_double_relation"
+  ],
+  "component_roles": {
+    "nu_prime_bracket_definition": "membership",
+    "nu_prime_membership": "membership",
+    "nu_prime_hopf_relation": "map_value",
+    "nu_prime_double_relation": "relation"
+  },
+  "mathematical_identity_confirmed": 0,
+  "proof_permission_granted": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}

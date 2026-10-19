@@ -1,0 +1,5 @@
+﻿csv_line,n,k,composition,rep_linear,reference,display_class,component_candidates,mathematical_identity_confirmed,generator_typing_confirmed,proof_permission_granted,duplicate_display_count
+3,3.0,3,\eta3^3,2\nu',"(5.3), \ \eta_{3}^{3}=2\nu'",EXACT_DISPLAY_PAIR_NOT_TYPED,"[""nu_prime_bracket_definition"", ""nu_prime_membership"", ""nu_prime_hopf_relation"", ""nu_prime_double_relation""]",False,False,False,2
+4,3.0,3,\eta3^3(2\iota6),0,"(5.3), \ \eta_{3}^{3}=2\nu'",OTHER_DISPLAY_PAIR_NOT_TYPED,"[""nu_prime_bracket_definition"", ""nu_prime_membership"", ""nu_prime_hopf_relation"", ""nu_prime_double_relation""]",False,False,False,1
+5,4.0,3,,2E\nu',"(5.3), \ \eta_{3}^{3}=2\nu'",INCOMPLETE_DISPLAY_PAIR,"[""nu_prime_bracket_definition"", ""nu_prime_membership"", ""nu_prime_hopf_relation"", ""nu_prime_double_relation""]",False,False,False,1
+8,3.0,3,\eta3^3,2\nu',"(5.3), \ \eta_{3}^{3}=2\nu'",EXACT_DISPLAY_PAIR_NOT_TYPED,"[""nu_prime_bracket_definition"", ""nu_prime_membership"", ""nu_prime_hopf_relation"", ""nu_prime_double_relation""]",False,False,False,2
