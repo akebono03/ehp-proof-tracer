@@ -66,8 +66,8 @@ def test_complete_result_retains_qed():
         n=4, k=2, status=ProofSearchStatus.COMPLETE,
         proven_steps=(step,), conclusion="proved",
     )
-    view = build_partial_web_group_proof_view(result)
-    assert "□" in _visible_text(view)
+    with pytest.raises(ValueError, match="completed target does not match conclusion"):
+        build_partial_web_group_proof_view(result)
 
 
 def test_rejects_invalid_mode_and_depth():

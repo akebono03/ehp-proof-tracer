@@ -27,7 +27,8 @@ def test_r52_partial_preserves_steps_and_goals():
     )
     text = render_partial_proof_markdown(result)
     assert "typed_known" in text and "typed_missing" in text
-    assert text.index("Reference") < text.index("Proof（導出済み）") < text.index("未解決 Goal")
+    assert text.index("## 使用する結果") < text.index("### 確認済み ProofStep（与件を含む）") < text.index("## 未解決 Goal")
+    assert "与件: typed_known" in text
     assert "□" not in text
 
 
