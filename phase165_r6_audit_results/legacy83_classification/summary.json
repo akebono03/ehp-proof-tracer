@@ -1,0 +1,16 @@
+{
+  "status": "CLASSIFIED_NO_RETIREMENT",
+  "tests": 83,
+  "files": 6,
+  "categories": {
+    "CHRONOLOGY_REVIEW": 12,
+    "MATH_COVERAGE_REQUIRED": 63,
+    "MANUAL_REVIEW": 8
+  },
+  "retirement_approved": 0,
+  "coverage_equivalence_verified": false,
+  "existing_tests_modified": 0,
+  "production_files_modified": 0,
+  "full_pytest_run": false,
+  "csv": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\legacy83_classification\\classification.csv"
+}
