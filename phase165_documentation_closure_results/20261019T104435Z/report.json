@@ -1,0 +1,35 @@
+{
+  "status": "DOCUMENTATION_UPDATED",
+  "phase": "165 closure",
+  "files": {
+    "README.md": {
+      "before_sha256": "65b666a7173be5ad95fbbce92f4cd41aade197015013fa43df951befacaedabc",
+      "after_sha256": "e639ba06aeea3eed5391eb749679789d04d1d92c01261c883764f0143e46c439",
+      "bytes": 57090
+    },
+    "docs/design.md": {
+      "before_sha256": "e04f939d72f5e5aa69c7c7825660d363154115a6c51936d7bf7616b9d4de7fd3",
+      "after_sha256": "0e44c90b1e05e135880065dfbbd0c1323b5312dd95e7eb8b465c4da28a876cc9",
+      "bytes": 85492
+    },
+    "docs/development_log.md": {
+      "before_sha256": "3f12500281c3aa4361bf4eeaf9630519037897a4b32af37cef0255829ebf8709",
+      "after_sha256": "1c99c7ea2662d9c72d9a8d9c6119c8e6229328448df3b7a1515ccfccd18d3846",
+      "bytes": 95863
+    },
+    "docs/roadmap.md": {
+      "before_sha256": "c23db1c41eaa7ece15af76851292a0fab36d8d479cf326c77f4c4bb6b4c8f7fd",
+      "after_sha256": "9936c4c091dd19b16f56b8472eb00dee15e89c6fd1f861fbd9c90a27124d7ae2",
+      "bytes": 48341
+    },
+    "docs/proof_records.md": {
+      "before_sha256": "87d5247f176bc701fa8a1f3a905db0433c88601114931c0991591d1bdf269aa8",
+      "after_sha256": "8e56e89e63befe97015edd044890e95af54b0b4fbe45915a1beab4a60ca0eae2",
+      "bytes": 78864
+    }
+  },
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_documentation_closure_results\\20261019T104435Z\\backup_full_documents",
+  "full_files_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_documentation_closure_results\\20261019T104435Z\\updated_full_documents",
+  "full_pytest_rerun": false,
+  "previous_full_pytest": "3525 passed in 21.85s"
+}
