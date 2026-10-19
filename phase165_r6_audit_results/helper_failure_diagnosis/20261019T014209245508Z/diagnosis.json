@@ -1,0 +1,41 @@
+{
+  "recovery_status": "CANDIDATE_FAILED_REVERTED",
+  "candidate_count": 1,
+  "candidate_results": [
+    {
+      "source": "git:b8868fa59366e626a9ff081c9607764266997c48",
+      "sha256": "b106b0dfbf663be0141941a11b946eb72d0e0ccbb3af9e8cd34103d900d4a11c",
+      "eligible": true,
+      "reason": "valid self-contained shared test helper source",
+      "targeted_test_returncode": 2
+    }
+  ],
+  "detected_issues": {
+    "missing_module": [],
+    "missing_export": [
+      "build_standard_toda_report|toda_calculation_facade"
+    ],
+    "failed_assertions": [],
+    "errors": [
+      "tests/test_phase143_22_exactness_components.py",
+      "tests/test_phase159_pi4_3_exactness_reason_unification.py"
+    ]
+  },
+  "pytest_summaries": [
+    "!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!",
+    "2 errors in 3.08s"
+  ],
+  "error_excerpt": [
+    "_______ ERROR collecting tests/test_phase143_22_exactness_components.py _______",
+    "E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_calculation_facade.py)",
+    "_ ERROR collecting tests/test_phase159_pi4_3_exactness_reason_unification.py __",
+    "E   ImportError: cannot import name 'build_standard_toda_report' from 'toda_calculation_facade' (C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\toda_calculation_facade.py)",
+    "ERROR tests/test_phase143_22_exactness_components.py",
+    "ERROR tests/test_phase159_pi4_3_exactness_reason_unification.py"
+  ],
+  "test_log_available": true,
+  "changes_made": false,
+  "full_pytest_run": false,
+  "source_report": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\helper_recovery\\20261019T013745Z\\report.json",
+  "source_log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r6_audit_results\\helper_recovery\\20261019T013745Z\\targeted_pytest.log"
+}
