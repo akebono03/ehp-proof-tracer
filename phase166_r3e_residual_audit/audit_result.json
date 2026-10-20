@@ -1,0 +1,68 @@
+{
+  "phase": "166 R3-E residual audit",
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "cases": [
+    {
+      "n": 3,
+      "k": 1,
+      "status": "complete",
+      "open_goals": [],
+      "diagnostics": [],
+      "unique_root": true,
+      "root_inference_rule": "finite cyclic structure gives group relation",
+      "ancestor_inference_rule_names": [
+        "specialize cited eta-family general definition",
+        "specialize cited eta-family general definition",
+        "consecutive cited eta definitions imply generator suspension",
+        "cited eta generator suspension yields presentation in target notation",
+        "generic cited typed scalar specialization",
+        "free cyclic generator Delta image",
+        "Toda Proposition 4.2: generic consecutive EHP specialization",
+        "EHP exactness implies image equals kernel",
+        "EHP Delta image and exactness imply concrete suspension kernel",
+        "certified cyclic suspension kernel entails kernel multiple",
+        "Toda Proposition 4.2: generic consecutive EHP specialization",
+        "Toda (5.1) general below-diagonal zero specialization",
+        "EHP exactness and zero Hopf target imply suspension surjectivity",
+        "EHP suspension surjectivity implies whole image",
+        "whole image implies surjectivity",
+        "first isomorphism theorem for generated kernel",
+        "proved free cyclic group relation implies infinite cyclic structure",
+        "infinite cyclic quotient structure",
+        "finite cyclic structure gives group relation"
+      ],
+      "given_reference_locators": [
+        "Chapter V, i)",
+        "(5.1)",
+        "Proposition 5.1",
+        "Proposition 4.2 (4.4)",
+        "(5.1)",
+        "Proposition 5.1"
+      ],
+      "has_transport_proof_ancestry": false,
+      "raw_quotient_rule_in_markdown": true,
+      "generic_eta_specialization_in_ancestry": false,
+      "narrative": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n\\]\n\n## 使用する結果\n\n**[R1] (5.1).**\n**[R2] Proposition 5.1.**\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.\n$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.\n\n---\n\n## 証明\n\n$\\pi_{4}^{3}$ の群構造を決定するために, 次の完全列を考える.\n\n\\[\n\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.\n\\]\n\ninfinite cyclic quotient structure\n\n$\\eta_{3}=E\\eta_{2}$.\n\n$E(\\eta_{2}) = \\eta_{3}$.\n\n[R1]より, $\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$.\n\nこれより, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$.\n\n[R2]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.\n\nこれより, $\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}$.\n\n完全性より, $\\ker E=\\mathbb{Z}\\{2η_{2}\\}$.\n\n$\\pi_{4}^{5} = 0$.\n\n完全性より, $E: \\pi_{3}^{2} \\to \\pi_{4}^{3}$ は全射.\n\n[R2]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.\n\n全射性と核の決定から, 第一同型定理より $\\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}$.\n\n以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.\n\n□"
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "status": "complete",
+      "open_goals": [],
+      "diagnostics": [],
+      "unique_root": true,
+      "root_inference_rule": "Toda Proposition 5.1 generic higher-eta specialization",
+      "ancestor_inference_rule_names": [
+        "Toda Proposition 5.1 generic higher-eta specialization"
+      ],
+      "given_reference_locators": [
+        "Proposition 5.1"
+      ],
+      "has_transport_proof_ancestry": false,
+      "raw_quotient_rule_in_markdown": false,
+      "generic_eta_specialization_in_ancestry": true,
+      "narrative": "## 証明対象\n\n$\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$\n\n## 使用する結果\n\n**[R1] Proposition 5.1.**\n$\\pi_{n + 1}^{n} = \\mathbb{Z}/2\\{\\eta_{n}\\}$\n\n---\n\n## 証明\n\n[R1]に基づき、Toda Proposition 5.1 generic higher-eta specialization を適用する。\n\n以上より, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$. □"
+    }
+  ]
+}
