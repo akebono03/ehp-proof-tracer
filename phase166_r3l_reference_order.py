@@ -30,6 +30,10 @@ REVIEWED_REFERENCE_ALIASES: dict[str, str] = {
     "typed_literature:toda:tex:ch4:0006": "toda:(4.5)",
     "typed_literature:toda:tex:ch4:0010": "toda:Proposition 4.4",
     "typed_literature:toda:tex:ch5:0003": "toda:(5.2)",
+    "adopted:ref:7": "toda:Proposition 4.2",
+    "adopted:ref:8": "toda:Proposition 4.2",
+    "adopted:ref:9": "toda:Proposition 4.2",
+    "adopted:reference:prop42:general": "toda:Proposition 4.2",
 }
 
 
