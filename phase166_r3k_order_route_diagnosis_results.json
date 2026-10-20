@@ -1,0 +1,356 @@
+{
+  "phase": "166-R3K",
+  "read_only": true,
+  "full_pytest_run": false,
+  "targets": {
+    "pi_3^2": {
+      "candidate_count": 1,
+      "matches": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "component_position": 2,
+          "reference_publication_position": null,
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    "pi_4^3": {
+      "candidate_count": 1,
+      "matches": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "component_position": 4,
+          "reference_publication_position": null,
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    "pi_5^4": {
+      "candidate_count": 1,
+      "matches": []
+    }
+  },
+  "references": [
+    {
+      "reference_id": "shared:0:toda:(4.5)",
+      "locator": "(4.5)",
+      "publication_position": 69,
+      "assertions": [
+        {
+          "assertion_id": "shared:0:boundary:(4.5):stable_range_suspension_isomorphism",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:0:toda:(5.1)",
+      "locator": "(5.1)",
+      "publication_position": 77,
+      "assertions": [
+        {
+          "assertion_id": "shared:0:boundary:(5.1):circle_higher_homotopy_zero",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:(5.1):sphere_connectivity_zero",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:(5.1):stable_negative_zero",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:(5.1):diagonal_identity_group",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:(5.1):stable_zero_stem",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:(5.1):diagonal_suspension_isomorphism",
+          "component_position": null,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:0:toda:Proposition 5.1",
+      "locator": "Proposition 5.1",
+      "publication_position": 78,
+      "assertions": [
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.1:pi3_2_group_relation",
+          "component_position": 1,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.1:eta2_hopf_relation",
+          "component_position": 2,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.1:delta_iota5_relation",
+          "component_position": 3,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.1:higher_eta_group_relation",
+          "component_position": 4,
+          "type": "TodaFixedStatementComponent",
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:0:phase163:archive:toda:(4.5)",
+      "locator": "(4.5)",
+      "publication_position": 69,
+      "assertions": [
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch4:0006",
+          "component_position": null,
+          "type": "dict",
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:0:phase163:archive:toda:(5.1)",
+      "locator": "(5.1)",
+      "publication_position": 77,
+      "assertions": [
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0001",
+          "component_position": null,
+          "type": "dict",
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:0:phase163:archive:toda:Proposition 5.1",
+      "locator": "Proposition 5.1",
+      "publication_position": 78,
+      "assertions": [
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0002",
+          "component_position": null,
+          "type": "dict",
+          "has_preexisting_link": false
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:1",
+      "locator": "(5.1)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:1",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:2",
+      "locator": "(5.1)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:2",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:4",
+      "locator": "(5.1)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:4",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:5",
+      "locator": "Proposition 5.1",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:5",
+          "component_position": null,
+          "type": "GeneratorImage",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:6",
+      "locator": "(5.1)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:6",
+          "component_position": null,
+          "type": "TodaPrimaryGroupZeroStatement",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+          "component_position": null,
+          "type": "TodaProp51FiniteDimensionalStatement",
+          "has_preexisting_link": true
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+          "component_position": 4,
+          "type": "Relation",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+          "component_position": 1,
+          "type": "Relation",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+          "component_position": 2,
+          "type": "Relation",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:delta_iota5_relation",
+          "component_position": 3,
+          "type": "TodaDeltaImageUpToSignStatement",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+          "component_position": 5,
+          "type": "Relation",
+          "has_preexisting_link": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "component_position": null,
+          "type": "TodaDeltaImageUpToSignStatement",
+          "has_preexisting_link": true
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:3:adopted:toda51:diagonal",
+      "locator": "(5.1)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+          "component_position": null,
+          "type": "Relation",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:4:typed_literature:toda:tex:ch4:0006",
+      "locator": "(4.5)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "component_position": null,
+          "type": "Toda45IsomorphismStatement",
+          "has_preexisting_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:6:adopted:reference:toda51:below_diagonal_zero",
+      "locator": "(5.1)",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+          "component_position": null,
+          "type": "Toda51BelowDiagonalZeroStatement",
+          "has_preexisting_link": true
+        }
+      ]
+    }
+  ],
+  "pi43_explicit_order_selection": {
+    "target": "shared:2:toda:adopted:prop5.1:pi4_3",
+    "selected_count": 3,
+    "selected_references": [
+      "Proposition 5.1"
+    ],
+    "selected_prop51_components": [
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+        "position": 1
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+        "position": 2
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:delta_iota5_relation",
+        "position": 3
+      }
+    ],
+    "all_selected_are_given": true
+  }
+}
