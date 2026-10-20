@@ -42,7 +42,7 @@ def screen_shared_proof_context(
         for assertion in bridge.registry._assertions.values():
             if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
                 continue
-            if assertion.kind is not AssertionKind.STATEMENT:
+            if assertion.kind not in (AssertionKind.STATEMENT, AssertionKind.DEFINITION):
                 continue
             if not is_dataclass(assertion.content) or isinstance(assertion.content, type):
                 continue
