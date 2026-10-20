@@ -18,10 +18,10 @@ def expand_registered_toda45_finite_cyclic_goal(
     goal: object,
     available: tuple[object, ...],
 ) -> tuple[GoalExpansion, ...]:
-    """Use only exact, already admissible typed Reference conclusions.
+    """Propose Toda (4.5) transport from screened group and theorem premises.
 
-    The rule itself checks its premises again before deriving the conclusion.
-    An IteratedSuspension is not silently identified with a named eta symbol.
+    A concrete isomorphism is a proof subgoal, never an invented GIVEN step.
+    Its existence is checked against an admitted general literature assertion.
     """
     if not isinstance(available, tuple):
         raise TypeError("available must be a tuple")
@@ -32,33 +32,58 @@ def expand_registered_toda45_finite_cyclic_goal(
         and isinstance(goal.rhs, FiniteCyclicGroup)
     ):
         return ()
+
+    from homotopy_groups import TodaIteratedSuspensionMap
+    from phase165_r57_r20_general_specialization import specialize_typed_statement
+
     options = []
-    for iso in available:
-        if not isinstance(iso, Toda45IsomorphismStatement):
+    for base in available:
+        if not (
+            isinstance(base, Relation)
+            and base.relation_type is RelationType.EQUALITY
+            and isinstance(base.lhs, TodaPrimaryGroup)
+            and isinstance(base.rhs, FiniteCyclicGroup)
+            and base.rhs.order == goal.rhs.order
+        ):
             continue
-        transport_map = iso.map
-        if transport_map.target_group != goal.lhs:
+        source_n = base.lhs.sphere_dimension
+        target_n = goal.lhs.sphere_dimension
+        if (
+            type(source_n) is not int
+            or type(target_n) is not int
+            or target_n <= source_n
+            or base.lhs.group_dimension + target_n - source_n != goal.lhs.group_dimension
+        ):
             continue
-        for base in available:
-            if not (
-                isinstance(base, Relation)
-                and base.relation_type is RelationType.EQUALITY
-                and isinstance(base.lhs, TodaPrimaryGroup)
-                and isinstance(base.rhs, FiniteCyclicGroup)
-                and base.lhs == transport_map.source_group
-                and base.rhs.order == goal.rhs.order
-            ):
-                continue
-            expected_generator = IteratedSuspension(
-                expression=base.rhs.generator,
-                exponent=transport_map.exponent,
+        exponent = target_n - source_n
+        expected_generator = IteratedSuspension(
+            expression=base.rhs.generator,
+            exponent=exponent,
+        )
+        if goal.rhs.generator != expected_generator:
+            continue
+
+        concrete_iso = Toda45IsomorphismStatement(
+            map=TodaIteratedSuspensionMap(
+                exponent=exponent,
+                source_group=base.lhs,
+                target_group=goal.lhs,
             )
-            if goal.rhs.generator != expected_generator:
-                continue
-            candidate = GoalExpansion(
-                toda_45_generic_finite_cyclic_transport_inference_rule(),
-                (base, iso),
+        )
+        supported = any(
+            isinstance(statement, Toda45IsomorphismStatement)
+            and (
+                statement == concrete_iso
+                or specialize_typed_statement(statement, concrete_iso) is not None
             )
-            if not any(item.subgoals == candidate.subgoals for item in options):
-                options.append(candidate)
+            for statement in available
+        )
+        if not supported:
+            continue
+        candidate = GoalExpansion(
+            toda_45_generic_finite_cyclic_transport_inference_rule(),
+            (base, concrete_iso),
+        )
+        if not any(item.subgoals == candidate.subgoals for item in options):
+            options.append(candidate)
     return tuple(options)

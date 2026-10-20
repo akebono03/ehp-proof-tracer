@@ -1,0 +1,73 @@
+def expand_registered_toda45_finite_cyclic_goal(
+    goal: object,
+    available: tuple[object, ...],
+) -> tuple[GoalExpansion, ...]:
+    """Propose Toda (4.5) transport from screened group and theorem premises.
+
+    A concrete isomorphism is a proof subgoal, never an invented GIVEN step.
+    Its existence is checked against an admitted general literature assertion.
+    """
+    if not isinstance(available, tuple):
+        raise TypeError("available must be a tuple")
+    if not (
+        isinstance(goal, Relation)
+        and goal.relation_type is RelationType.EQUALITY
+        and isinstance(goal.lhs, TodaPrimaryGroup)
+        and isinstance(goal.rhs, FiniteCyclicGroup)
+    ):
+        return ()
+
+    from homotopy_groups import TodaIteratedSuspensionMap
+    from phase165_r57_r20_general_specialization import specialize_typed_statement
+
+    options = []
+    for base in available:
+        if not (
+            isinstance(base, Relation)
+            and base.relation_type is RelationType.EQUALITY
+            and isinstance(base.lhs, TodaPrimaryGroup)
+            and isinstance(base.rhs, FiniteCyclicGroup)
+            and base.rhs.order == goal.rhs.order
+        ):
+            continue
+        source_n = base.lhs.sphere_dimension
+        target_n = goal.lhs.sphere_dimension
+        if (
+            type(source_n) is not int
+            or type(target_n) is not int
+            or target_n <= source_n
+            or base.lhs.group_dimension + target_n - source_n != goal.lhs.group_dimension
+        ):
+            continue
+        exponent = target_n - source_n
+        expected_generator = IteratedSuspension(
+            expression=base.rhs.generator,
+            exponent=exponent,
+        )
+        if goal.rhs.generator != expected_generator:
+            continue
+
+        concrete_iso = Toda45IsomorphismStatement(
+            map=TodaIteratedSuspensionMap(
+                exponent=exponent,
+                source_group=base.lhs,
+                target_group=goal.lhs,
+            )
+        )
+        supported = any(
+            isinstance(statement, Toda45IsomorphismStatement)
+            and (
+                statement == concrete_iso
+                or specialize_typed_statement(statement, concrete_iso) is not None
+            )
+            for statement in available
+        )
+        if not supported:
+            continue
+        candidate = GoalExpansion(
+            toda_45_generic_finite_cyclic_transport_inference_rule(),
+            (base, concrete_iso),
+        )
+        if not any(item.subgoals == candidate.subgoals for item in options):
+            options.append(candidate)
+    return tuple(options)

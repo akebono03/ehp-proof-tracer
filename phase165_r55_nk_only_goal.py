@@ -8,6 +8,7 @@ from phase165_r52_partial_proof import GroupStructureStatus, ProofSearchStatus, 
 from phase165_r52_r9_shared_math import build_shared_typed_bridge, search_shared_group_goal
 from proof import Relation, RelationType
 from unified_statement_registry import AssertionOrigin
+from phase166_r3t_goal_source_binding.goal_source import resolve_specialized_goal_citing_id
 
 
 _GROUP_STRUCTURES = (DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup)
@@ -83,10 +84,14 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
                 n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
                 open_goals=(candidate,), diagnostics=(order_diagnostic,),
             )
-    result = search_shared_group_goal(
+    citing_id = resolve_specialized_goal_citing_id(bridge, candidate)
+    search_kwargs = dict(
         n=n, k=k, group_structure=candidate.rhs, bridge=bridge,
         proof_order_catalog=proof_order_catalog,
     )
+    if citing_id is not None:
+        search_kwargs["citing_assertion_id"] = citing_id
+    result = search_shared_group_goal(**search_kwargs)
     if result.status is ProofSearchStatus.COMPLETE and result.conclusion == candidate:
         return replace(result, structure_status=GroupStructureStatus.KNOWN)
     return result

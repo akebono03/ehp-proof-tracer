@@ -58,6 +58,41 @@ def _is_symbolic_cited_root_specialization(root_goal: object, expansion: GoalExp
     return specialize_typed_statement(premise, root_goal) is not None
 
 
+def _proved_generator_suspension_normalization_shape(root_goal: object, expansion: GoalExpansion) -> bool:
+    """Permit a proven eta-name normalization, not unproved group self-citation."""
+    from expression import IteratedSuspension
+    from homotopy_groups import TodaSuspensionMap
+    from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from phase165_r12_r28_presentation_connection import _matching_eta_name
+
+    if getattr(expansion.rule, "name", None) != "proved generator suspension normalizes transported cyclic group":
+        return False
+    if len(expansion.subgoals) != 2:
+        return False
+    transported, witness = expansion.subgoals
+    if not (isinstance(root_goal, Relation)
+            and root_goal.relation_type is RelationType.EQUALITY
+            and isinstance(root_goal.rhs, FiniteCyclicGroup)
+            and isinstance(transported, Relation)
+            and transported.relation_type is RelationType.EQUALITY
+            and isinstance(transported.rhs, FiniteCyclicGroup)
+            and isinstance(witness, GeneratorSuspension)
+            and isinstance(witness.map, TodaSuspensionMap)):
+        return False
+    generator = transported.rhs.generator
+    return (
+        transported != root_goal
+        and transported.lhs == root_goal.lhs == witness.map.target_group
+        and transported.rhs.order == root_goal.rhs.order
+        and isinstance(generator, IteratedSuspension)
+        and generator.exponent == 1
+        and _matching_eta_name(generator.expression, witness.source_generator)
+        and _matching_eta_name(root_goal.rhs.generator, witness.target_generator)
+        and witness.map.source_group != witness.map.target_group
+    )
+
+
+
 def is_unordered_root_structure_specialization(
     root_goal: object, current_goal: object, expansion: GoalExpansion,
 ) -> bool:
@@ -79,6 +114,8 @@ def is_unordered_root_structure_specialization(
     ):
         return False
     if _proved_generator_substitution_shape(root_goal, expansion):
+        return False
+    if _proved_generator_suspension_normalization_shape(root_goal, expansion):
         return False
     if _is_symbolic_cited_root_specialization(root_goal, expansion):
         return False

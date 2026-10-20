@@ -1,0 +1,105 @@
+{
+  "phase": "166 R3-X",
+  "read_only": true,
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "base_count": 1,
+  "base": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "eta3": "HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))",
+  "base_equal_definition": false,
+  "toda45_source_count": 1,
+  "root_options": [
+    {
+      "rule": "finite cyclic structure gives group relation",
+      "subgoals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), order=2)"
+      ]
+    },
+    {
+      "rule": "proved generator suspension normalizes transported cyclic group",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))"
+      ]
+    },
+    {
+      "rule": "equality symmetry",
+      "subgoals": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule": "finite cyclic structure gives group relation",
+      "subgoals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), order=2)"
+      ]
+    }
+  ],
+  "transport_candidates": [
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "direct": [],
+      "common": [
+        {
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1), order=2)"
+          ]
+        },
+        {
+          "rule": "equality symmetry",
+          "subgoals": [
+            "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ]
+        },
+        {
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=IteratedSuspension(expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1), order=2)"
+          ]
+        }
+      ]
+    },
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "direct": [
+        {
+          "rule": "Toda 4.5 generic finite-cyclic transport",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=1, source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)))"
+          ]
+        }
+      ],
+      "common": [
+        {
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1), order=2)"
+          ]
+        },
+        {
+          "rule": "Toda 4.5 generic finite-cyclic transport",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=1, source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)))"
+          ]
+        },
+        {
+          "rule": "equality symmetry",
+          "subgoals": [
+            "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ]
+        },
+        {
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1), order=2)"
+          ]
+        }
+      ]
+    }
+  ],
+  "source_specializations": []
+}

@@ -1,0 +1,71 @@
+{
+  "audit": "phase166-r3t-specialized-goal-provenance",
+  "production_modified": false,
+  "pi54_candidates": 1,
+  "pi43_candidates": 1,
+  "source_assertions": [
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": null,
+      "exact_target": false,
+      "specialized_target": true,
+      "exact_base": false
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": 500,
+      "exact_target": false,
+      "specialized_target": false,
+      "exact_base": true
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": 600,
+      "exact_target": false,
+      "specialized_target": true,
+      "exact_base": false
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": 600,
+      "exact_target": false,
+      "specialized_target": true,
+      "exact_base": false
+    }
+  ],
+  "screening_by_source": [
+    {
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+      "base_given_ids": [],
+      "accepted_count": 24
+    },
+    {
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "base_given_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ],
+      "accepted_count": 37
+    },
+    {
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+      "base_given_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ],
+      "accepted_count": 37
+    }
+  ],
+  "warning": "Specialized target source is not automatically a valid citing assertion. Review statement/component ordering before any code modification.",
+  "full_pytest_run": false
+}
