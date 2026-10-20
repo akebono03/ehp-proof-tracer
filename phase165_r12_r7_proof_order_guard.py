@@ -117,6 +117,27 @@ def restrict_registered_ordered_claims(
                            and type(getattr(c.statement, "rhs", None))
                            is type(getattr(target, "rhs", None)))
     if not identified:
+        # A concrete higher-eta goal is an instance of the fifth registered
+        # proposition claim. It must retain that claim's proof-use position.
+        from phase165_r57_r8_eta_specialization import (
+            _is_generic_eta_group_relation, specialize_eta_group_relation,
+        )
+        from homotopy_groups import TodaPrimaryGroup
+        from proof import Relation
+
+        higher = tuple(
+            c for c in claims if c.component_name == "higher_eta_group_relation"
+        )
+        if len(higher) == 1 and isinstance(target, Relation):
+            statement = higher[0].statement
+            group = getattr(target, "lhs", None)
+            if (_is_generic_eta_group_relation(statement)
+                    and isinstance(group, TodaPrimaryGroup)
+                    and type(group.sphere_dimension) is int
+                    and group.sphere_dimension >= 4
+                    and specialize_eta_group_relation(statement, group.sphere_dimension) == target):
+                identified = higher
+    if not identified:
         return bridge
     if len(identified) != 1:
         raise ValueError("ambiguous adopted Proposition 5.1 target")
