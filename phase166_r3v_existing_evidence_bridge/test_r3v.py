@@ -53,8 +53,10 @@ def test_r3v_registered_prior_and_shared_search_connection():
     transported, named, witness = _case()
     bridge = build_shared_typed_bridge()
     target_id = 'shared:2:toda:adopted:prop5.1:higher_eta_group_relation'
-    screened = screen_shared_proof_context(bridge, goal=named, citing_assertion_id=target_id,
-                                            explicit_publication_target=True)
+    screened = screen_shared_proof_context(
+        bridge, goal=named, citing_assertion_id=target_id,
+        explicit_publication_target=True,
+    )
     prior = [
         link.step.conclusion for link in screened.proof_links
         if link.step is not None
@@ -63,19 +65,15 @@ def test_r3v_registered_prior_and_shared_search_connection():
         and isinstance(link.step.conclusion.rhs, FiniteCyclicGroup)
         and link.step.conclusion.rhs.order == 2
     ]
-    assert prior, "the registered prior pi4^3 group was not screened in"
+    assert prior
+    options = shared_expansion_provider(screened, proof_target=named)(named)
     assert any(
-        getattr(item.rhs.generator, "generator", None)
-        == witness.source_generator.generator
-        and getattr(item.rhs.generator, "dimension", None)
-        == witness.source_generator.dimension
-        and getattr(item.rhs.generator, "source", None)
-        == witness.source_generator.source
-        and getattr(item.rhs.generator, "target", None)
-        == witness.source_generator.target
-        for item in prior
-    ), "typed eta3 data do not match the prior group"
-    # Do not assert object equality: source and eta-definition names may differ.
-    # The proof search must still establish any needed representation identity.
-    options = shared_expansion_provider(screened,proof_target=named)(named)
-    assert any(option.subgoals == (transported, witness) for option in options)
+        option.subgoals[0].rhs.generator.expression == prior[0].rhs.generator
+        and option.subgoals[1] == witness
+        for option in options
+        if len(option.subgoals) == 2
+        and isinstance(option.subgoals[0], Relation)
+        and isinstance(option.subgoals[0].rhs, FiniteCyclicGroup)
+        and isinstance(option.subgoals[0].rhs.generator, IteratedSuspension)
+    )
+

@@ -59,10 +59,11 @@ def _is_symbolic_cited_root_specialization(root_goal: object, expansion: GoalExp
 
 
 def _proved_generator_suspension_normalization_shape(root_goal: object, expansion: GoalExpansion) -> bool:
-    """Permit a same-group intermediate only with a separately proved E-image goal."""
+    """Permit a proven eta-name normalization, not unproved group self-citation."""
     from expression import IteratedSuspension
     from homotopy_groups import TodaSuspensionMap
     from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from phase165_r12_r28_presentation_connection import _matching_eta_name
 
     if getattr(expansion.rule, "name", None) != "proved generator suspension normalizes transported cyclic group":
         return False
@@ -85,10 +86,11 @@ def _proved_generator_suspension_normalization_shape(root_goal: object, expansio
         and transported.rhs.order == root_goal.rhs.order
         and isinstance(generator, IteratedSuspension)
         and generator.exponent == 1
-        and generator.expression == witness.source_generator
-        and root_goal.rhs.generator == witness.target_generator
+        and _matching_eta_name(generator.expression, witness.source_generator)
+        and _matching_eta_name(root_goal.rhs.generator, witness.target_generator)
         and witness.map.source_group != witness.map.target_group
     )
+
 
 
 def is_unordered_root_structure_specialization(
