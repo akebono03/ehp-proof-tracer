@@ -101,6 +101,18 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     joined = expand_cited_given_components(
         RegistryBridgeResult(registry, tuple(records), tuple(links))
     )
+    # Preserve registered mathematical statements/IDs, but keep one direct
+    # GIVEN for the Hopf-image fact; relation views are derived by a rule.
+    hopf_relation_ids = {
+        "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+    }
+    joined = RegistryBridgeResult(
+        joined.registry,
+        joined.records,
+        tuple(link for link in joined.proof_links
+              if link.assertion_id not in hopf_relation_ids),
+    )
     ordered, _order_report = connect_all_reference_orders(joined)
     from phase166_r3p_position_binding import place_r3p_reference_positions
     return place_r3p_reference_positions(ordered)
@@ -202,6 +214,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
 
     def expand(goal: object) -> tuple[GoalExpansion, ...]:
         options = []
+        from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
+        options.extend(expand_hopf_image_relation(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))

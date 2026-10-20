@@ -1,0 +1,256 @@
+{
+  "audit": "phase166-r3q-reference-audit",
+  "production_code_modified": false,
+  "pi32_status": "complete",
+  "pi32_diagnostics": [],
+  "goal_matching_registered_assertions": [
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": null,
+      "direct_content_match": false,
+      "implicit_given_count": 17,
+      "ordered_given_count": 20,
+      "excluded_previously_usable": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:5",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:7",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:8",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:9",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "publication_position": 7800,
+          "component_position": 300,
+          "was_linked": true,
+          "precedes": false
+        }
+      ]
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": 200,
+      "direct_content_match": true,
+      "implicit_given_count": 17,
+      "ordered_given_count": 22,
+      "excluded_previously_usable": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:5",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:7",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:8",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:9",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "publication_position": 7800,
+          "component_position": 300,
+          "was_linked": true,
+          "precedes": false
+        }
+      ]
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "publication_position": 7800,
+      "component_position": null,
+      "direct_content_match": true,
+      "implicit_given_count": 17,
+      "ordered_given_count": 20,
+      "excluded_previously_usable": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:5",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:7",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:8",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:1:adopted:assertion:9",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+          "publication_position": 7800,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "publication_position": null,
+          "component_position": null,
+          "was_linked": true,
+          "precedes": false
+        },
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "publication_position": 7800,
+          "component_position": 300,
+          "was_linked": true,
+          "precedes": false
+        }
+      ]
+    }
+  ],
+  "component_children_missing_position": 4,
+  "full_pytest_run": false
+}

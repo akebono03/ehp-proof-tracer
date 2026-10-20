@@ -92,6 +92,8 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
     return result
 
 
+
+
 # R57-R8 REGISTERED GENERIC GOAL SPECIALIZATION
 _phase165_r57_r8_previous_registered_group_goal_candidates = registered_group_goal_candidates
 

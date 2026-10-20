@@ -1,4 +1,4 @@
-"""Phase 166 R3-P: place two already-registered facts in proof-use order."""
+"""Phase 166 R3-P: preserve reviewed positions on canonical and component facts."""
 from dataclasses import replace
 
 from phase163_r4_registry_bridge import RegistryBridgeResult
@@ -18,10 +18,11 @@ PROP51_POSITION_MAP = {
 
 
 def place_r3p_reference_positions(bridge: RegistryBridgeResult) -> RegistryBridgeResult:
-    """Place foundation after (5.1) and eta notation inside Proposition 5.1.
+    """Keep cited component positions identical to reviewed independent claims.
 
-    Only reference positions and canonical assertion positions change. Existing
-    IDs, mathematical statements, source records, and proof links are retained.
+    A child gets a position only when an independently registered canonical
+    assertion at that position has identical typed mathematical content.
+    A composite parent has no single position and is not repositioned.
     """
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -48,6 +49,43 @@ def place_r3p_reference_positions(bridge: RegistryBridgeResult) -> RegistryBridg
     eta = bridge.registry.assertion(ETA_ASSERTION)
     if eta.reference_id != ETA_REF or eta.component_position not in (None, 300):
         raise ValueError("eta-family statement identity or order changed")
+
+    parent_id = "shared:2:toda:adopted:prop5.1:finite_dimensional"
+    parent = bridge.registry.assertion(parent_id)
+    if parent.reference_id != PROP51_REF or parent.component_position is not None:
+        raise ValueError("Proposition 5.1 composite parent must be unpositioned")
+    for key, position in PROP51_POSITION_MAP.items():
+        child_id = parent_id + ":component:" + key
+        child = bridge.registry._assertions.get(child_id)
+        if child is None:
+            if key == "pi4_3":
+                continue  # Not one of the four fields in the cited composite.
+            raise ValueError(f"missing cited component: {child_id}")
+        canonical = bridge.registry.assertion("shared:2:toda:adopted:prop5.1:" + key)
+        if (child.reference_id != PROP51_REF
+                or child.dependencies != (parent_id,)
+                or type(child.content) is not type(canonical.content)
+                or child.content != canonical.content):
+            raise ValueError(f"component does not match canonical position: {child_id}")
+        if child.component_position not in (None, position):
+            raise ValueError(f"conflicting component position: {child_id}")
+        assertion_updates[child_id] = position
+
+    # One cited Hopf-image source; use the established Proposition 5.1 position.
+    from phase165_r14_r33_final_group import hopf_eta2_image_step
+    image_id = "shared:1:adopted:assertion:5"
+    image = bridge.registry.assertion(image_id)
+    hopf_id = "shared:2:toda:adopted:prop5.1:eta2_hopf_relation"
+    hopf = bridge.registry.assertion(hopf_id)
+    if bridge.registry.reference(image.reference_id).locator != "Proposition 5.1":
+        raise ValueError("unexpected Hopf image literature locator")
+    if image.content != hopf_eta2_image_step().conclusion:
+        raise ValueError("Hopf image content mismatch")
+    if hopf.component_position not in (100,):
+        raise ValueError("Hopf source position mismatch")
+    if image.component_position not in (None, 100):
+        raise ValueError("conflicting Hopf image position")
+    assertion_updates[image_id] = 100
     result = UnifiedStatementRegistry()
     for reference in bridge.registry._references.values():
         position = reference_updates.get(reference.reference_id)
