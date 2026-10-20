@@ -102,7 +102,8 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         RegistryBridgeResult(registry, tuple(records), tuple(links))
     )
     ordered, _order_report = connect_all_reference_orders(joined)
-    return ordered
+    from phase166_r3p_position_binding import place_r3p_reference_positions
+    return place_r3p_reference_positions(ordered)
 
 
 def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None, prior_conclusions: tuple = ()):
