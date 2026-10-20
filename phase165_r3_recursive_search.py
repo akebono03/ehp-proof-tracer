@@ -72,7 +72,7 @@ def reconstruct_registered_goal(
         raise TypeError("expansion_provider must be callable")
     if not isinstance(verified_assertion_ids, tuple):
         raise TypeError("verified_assertion_ids must be a tuple")
-    if lookup_mode not in ("legacy", "typed_reference", "typed_reference_ordered"):
+    if lookup_mode not in ("legacy", "typed_reference", "typed_reference_ordered", "typed_reference_publication"):
         raise ValueError("unknown lookup mode")
     if progress_observer is not None and not callable(progress_observer):
         raise TypeError("progress_observer must be callable or None")
@@ -93,7 +93,23 @@ def reconstruct_registered_goal(
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
-            if lookup_mode == "typed_reference_ordered":
+            if lookup_mode == "typed_reference_publication":
+                from phase166_r3c_publication_order import precedes_citing_assertion
+                options = []
+                for assertion in bridge.registry._assertions.values():
+                    if not precedes_citing_assertion(bridge, assertion.assertion_id, citing_assertion_id):
+                        continue
+                    if type(assertion.content) is not type(target) or assertion.content != target:
+                        continue
+                    links = tuple(link for link in bridge.proof_links if link.assertion_id == assertion.assertion_id)
+                    if len(links) != 1 or links[0].step is None:
+                        continue
+                    step = links[0].step
+                    if (not isinstance(step, ProofStep) or step.rule is not ProofRule.GIVEN
+                            or type(step.conclusion) is not type(target) or step.conclusion != target):
+                        raise ValueError("ordered reference has inconsistent ProofStep")
+                    options.append(step)
+            elif lookup_mode == "typed_reference_ordered":
                 from phase165_r52_r15_ordered_citation import ordered_typed_reference_steps
                 options = list(ordered_typed_reference_steps(
                     bridge, target, citing_assertion_id,
@@ -110,7 +126,7 @@ def reconstruct_registered_goal(
             # A uniquely registered fixed Reference is a complete proof leaf.
             # Do not count a second derivation of the same statement as ambiguity.
             # Multiple direct references remain ambiguous and are rejected below.
-            if lookup_mode in ("typed_reference", "typed_reference_ordered") and len(options) == 1:
+            if lookup_mode in ("typed_reference", "typed_reference_ordered", "typed_reference_publication") and len(options) == 1:
                 step = options[0]
                 solved.append((target, step))
                 report("proved", target, step)

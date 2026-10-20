@@ -1,0 +1,53 @@
+"""R3-C stage 2: order constraints with explicit typed target only."""
+import pytest
+from phase163_r4_registry_bridge import RegistryBridgeResult
+from phase165_r3_recursive_search import RegisteredGoalUnresolved, reconstruct_registered_goal
+from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+from phase166_r3c_publication_order import precedes_citing_assertion
+from proof import ProofRule, ProofStep
+from unified_statement_registry import AssertionEntry, AssertionKind, LiteratureEntry, ProofStepLink, ReferenceKind, UnifiedStatementRegistry
+
+
+def _fixture(source_position=77, target_position=78, same=False, cited_component=1, target_component=2):
+    registry = UnifiedStatementRegistry()
+    registry.add_reference(LiteratureEntry("toda:(5.1)", ReferenceKind.EQUATION, "(5.1)", publication_position=source_position))
+    if not same:
+        registry.add_reference(LiteratureEntry("toda:Proposition 5.1", ReferenceKind.PROPOSITION, "Proposition 5.1", publication_position=target_position))
+    registry.add_assertion(AssertionEntry("premise", "toda:(5.1)", AssertionKind.STATEMENT, "pi21=0", component_position=cited_component))
+    registry.add_assertion(AssertionEntry("target", "toda:(5.1)" if same else "toda:Proposition 5.1", AssertionKind.STATEMENT, "goal", component_position=target_component))
+    step = ProofStep("pi21=0", (), ProofRule.GIVEN)
+    return RegistryBridgeResult(registry, (), (ProofStepLink("premise", step=step),)), step
+
+
+def test_earlier_reference_is_usable_with_explicit_target():
+    bridge, step = _fixture()
+    assert precedes_citing_assertion(bridge, "premise", "target")
+    result = reconstruct_registered_goal("pi21=0", bridge, "target", lambda _: (), lookup_mode="typed_reference_publication")
+    assert result is step
+
+
+@pytest.mark.parametrize("position", [78, 79, None])
+def test_non_earlier_reference_is_rejected(position):
+    bridge, _ = _fixture(source_position=position)
+    assert not precedes_citing_assertion(bridge, "premise", "target")
+    with pytest.raises(RegisteredGoalUnresolved):
+        reconstruct_registered_goal("pi21=0", bridge, "target", lambda _: (), lookup_mode="typed_reference_publication")
+
+
+def test_same_reference_uses_existing_component_order():
+    bridge, step = _fixture(same=True)
+    assert precedes_citing_assertion(bridge, "premise", "target")
+    assert reconstruct_registered_goal("pi21=0", bridge, "target", lambda _: (), lookup_mode="typed_reference_publication") is step
+    reversed_bridge, _ = _fixture(same=True, cited_component=3)
+    assert not precedes_citing_assertion(reversed_bridge, "premise", "target")
+
+
+def test_context_filters_later_reference_in_explicit_mode():
+    bridge, _ = _fixture(source_position=79)
+    result = screen_shared_proof_context(bridge, goal="goal", citing_assertion_id="target", explicit_publication_target=True)
+    assert result.proof_links == ()
+
+
+def test_unidentified_public_goal_uses_original_mode():
+    bridge, step = _fixture(source_position=None)
+    assert reconstruct_registered_goal("pi21=0", bridge, "target", lambda _: (), lookup_mode="typed_reference") is step

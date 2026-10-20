@@ -330,6 +330,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     proof_context = screen_shared_proof_context(
         bridge, goal=goal, citing_assertion_id=context_id,
         verified_assertion_ids=verified_assertion_ids,
+        explicit_publication_target=citing_assertion_id is not None,
     )
     # R12-R7: enforce reviewed dependencies before using cited proof leaves.
     from phase165_r12_r7_proof_order_guard import restrict_registered_ordered_claims
@@ -353,7 +354,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         n=n, k=k, goal=goal, bridge=proof_context,
         citing_assertion_id=context_id,
         expansion_provider=expansion_provider,
-        lookup_mode="typed_reference",
+        lookup_mode="typed_reference_publication" if citing_assertion_id is not None else "typed_reference",
         structure_status=GroupStructureStatus.UNKNOWN,
         completed_internal_proofs=prior,
     )

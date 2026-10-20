@@ -18,6 +18,7 @@ def screen_shared_proof_context(
     goal: object,
     citing_assertion_id: str,
     verified_assertion_ids: tuple[str, ...] = (),
+    explicit_publication_target: bool = False,
 ) -> RegistryBridgeResult:
     """Filter proof links, keeping the registry and its source records intact.
 
@@ -31,6 +32,8 @@ def screen_shared_proof_context(
         raise TypeError("verified_assertion_ids must be a tuple")
     bridge.registry.assertion(citing_assertion_id)
     accepted = []
+    if explicit_publication_target:
+        from phase166_r3c_publication_order import precedes_citing_assertion
     for link in bridge.proof_links:
         assertion = bridge.registry.assertion(link.assertion_id)
         if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
@@ -42,6 +45,10 @@ def screen_shared_proof_context(
             continue
         if type(step.conclusion) is not type(assertion.content) or step.conclusion != assertion.content:
             raise ValueError("fixed reference has inconsistent GIVEN proof link")
+        if explicit_publication_target:
+            if precedes_citing_assertion(bridge, assertion.assertion_id, citing_assertion_id):
+                accepted.append(link)
+            continue
         # A source admitted under the explicit adopted-Tex convention keeps its
         # existing trust boundary; this is not a citation-order certification.
         adopted = (

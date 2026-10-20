@@ -2511,5 +2511,7 @@
   "tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_given_restriction": true,
   "tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_zero_for_wrong_first_summand": true,
   "tests/test_phase56_toda52_composition_isomorphism.py::test_phase56_5_rejects_restriction_with_wrong_composition": true,
-  "tests/test_proof_repository.py::test_phase78_actual_steps_register_and_retrieve_without_graph_changes": true
+  "tests/test_proof_repository.py::test_phase78_actual_steps_register_and_retrieve_without_graph_changes": true,
+  "phase166_r3c_stage2/test_stage2.py::test_non_earlier_reference_is_rejected[77]": true,
+  "phase166_r3c_stage2/test_stage2.py::test_non_earlier_reference_is_rejected[76]": true
 }
