@@ -91,9 +91,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             for record in source.records
         )
     from phase165_r52_r12_component_bridge import expand_cited_given_components
-    return expand_cited_given_components(
+    from phase166_r3l_reference_order import connect_all_reference_orders
+    joined = expand_cited_given_components(
         RegistryBridgeResult(registry, tuple(records), tuple(links))
     )
+    ordered, _order_report = connect_all_reference_orders(joined)
+    return ordered
 
 
 def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None, prior_conclusions: tuple = ()):

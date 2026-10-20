@@ -1,0 +1,63 @@
+{
+  "phase": "166-R3L",
+  "all_registered_references_scanned": 148,
+  "resolved": 34,
+  "preexisting_unmapped": 108,
+  "unresolved_count": 6,
+  "unresolved_reference_ids": [
+    "shared:1:adopted:ref:3",
+    "shared:1:adopted:ref:7",
+    "shared:1:adopted:ref:8",
+    "shared:1:adopted:ref:9",
+    "shared:5:adopted:reference:prop42:general",
+    "shared:7:adopted:reference:toda5:eta_family_definition"
+  ],
+  "reviewed_aliases_used": [
+    [
+      "shared:1:adopted:ref:1",
+      "toda:(5.1)"
+    ],
+    [
+      "shared:1:adopted:ref:2",
+      "toda:(5.1)"
+    ],
+    [
+      "shared:1:adopted:ref:4",
+      "toda:(5.1)"
+    ],
+    [
+      "shared:1:adopted:ref:5",
+      "toda:Proposition 5.1"
+    ],
+    [
+      "shared:1:adopted:ref:6",
+      "toda:(5.1)"
+    ],
+    [
+      "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "toda:Proposition 5.1"
+    ],
+    [
+      "shared:3:adopted:toda51:diagonal",
+      "toda:(5.1)"
+    ],
+    [
+      "shared:4:typed_literature:toda:tex:ch4:0010",
+      "toda:Proposition 4.4"
+    ],
+    [
+      "shared:4:typed_literature:toda:tex:ch5:0003",
+      "toda:(5.2)"
+    ],
+    [
+      "shared:4:typed_literature:toda:tex:ch4:0006",
+      "toda:(4.5)"
+    ],
+    [
+      "shared:6:adopted:reference:toda51:below_diagonal_zero",
+      "toda:(5.1)"
+    ]
+  ],
+  "full_pytest_run": false,
+  "production_code_modified_by_audit": false
+}
