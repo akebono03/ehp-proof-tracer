@@ -1,0 +1,25 @@
+{
+  "audit": "phase166-r3g-runtime-path",
+  "production_modified": false,
+  "typed_general_toda45_count": 1,
+  "general_locators": [
+    "(4.5)"
+  ],
+  "general_given_available": true,
+  "concrete_iso_given_available": false,
+  "concrete_base_group_given_available": false,
+  "specialization_proposals_for_concrete_iso": 1,
+  "shared_provider_concrete_iso_proposals": [
+    "generic cited typed scalar specialization"
+  ],
+  "transport_proposals_as_is": 0,
+  "transport_proposals_base_supplied": 0,
+  "transport_proposals_base_and_iso_supplied": 1,
+  "transport_proposals_named_eta4_base_and_iso_supplied": 0,
+  "shared_provider_named_eta4_proposals": [
+    "finite cyclic structure gives group relation",
+    "equality symmetry",
+    "finite cyclic structure gives group relation"
+  ],
+  "full_pytest_run": false
+}
