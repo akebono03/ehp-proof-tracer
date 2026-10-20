@@ -1,0 +1,55 @@
+{
+  "phase": "166 R3-T",
+  "mode": "read_only",
+  "production_code_modified": false,
+  "pi54_candidate_count": 1,
+  "pi54_candidates": [
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "shared_expansion_count": 5,
+      "shared_expansion_rules": [
+        "finite cyclic structure gives group relation",
+        "Toda Proposition 5.1 generic higher-eta specialization",
+        "generic cited typed scalar specialization",
+        "equality symmetry",
+        "finite cyclic structure gives group relation"
+      ],
+      "direct_toda45_expansion_count": 0,
+      "eta_specialization_count": 1,
+      "given_exact_goal_count": 0
+    }
+  ],
+  "toda45_concrete_given_count": 1,
+  "given_type_counts": {
+    "GeneratorImage": 1,
+    "GeneratorSuspension": 1,
+    "Relation": 6,
+    "Toda45IsomorphismStatement": 1,
+    "Toda51BelowDiagonalZeroStatement": 1,
+    "Toda52UniversalStatement": 1,
+    "TodaDeltaImageUpToSignStatement": 1,
+    "TodaEtaFamilyGeneralDefinition": 1,
+    "TodaPrimaryGroupZeroStatement": 1,
+    "TodaProp42ExactnessStatement": 3,
+    "TodaProp42GeneralExactnessStatement": 1,
+    "TodaProp44UniversalStatement": 1,
+    "TodaProp51FiniteDimensionalStatement": 1
+  },
+  "web_views": {
+    "pi_4^3": {
+      "line_count": 25,
+      "has_goal": true,
+      "has_references": true,
+      "has_proof": true,
+      "text": "証明対象 \n \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n使用する結果 \n**[R1] (5.1).** [R1] (5.1).\n**[R2] Proposition 5.1.** [R2] Proposition 5.1.\n \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\} .\n \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2} .\n \n証明 \n \\pi_{4}^{3}  の群構造を決定するために, 次の完全列を考える.\n \\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.\ninfinite cyclic quotient structure infinite cyclic quotient structure\n \\eta_{3}=E\\eta_{2} .\n E(\\eta_{2}) = \\eta_{3} .\n[R1]より,  [R1]より,  \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\} .\nこれより,  これより,  \\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\} .\n[R2]より,  [R2]より,  \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2} .\nこれより,  これより,  \\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\} .\n完全性より,  完全性より,  \\ker E=\\mathbb{Z}\\{2η_{2}\\} .\n \\pi_{4}^{5} = 0 .\n完全性より,  完全性より,  E: \\pi_{3}^{2} \\to \\pi_{4}^{3}  は全射.\n[R2]より,  [R2]より,  \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\} .\n全射性と核の決定から, 第一同型定理より  全射性と核の決定から, 第一同型定理より  \\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\} .\n以上より,  以上より,  \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\} .\n□ □"
+    },
+    "pi_5^4": {
+      "line_count": 23,
+      "has_goal": true,
+      "has_references": true,
+      "has_proof": true,
+      "text": "証明対象 \n \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}\n使用する結果 \n**[R1] Chapter V, i).** [R1] Chapter V, i).\n \n証明 \n**探索状態：部分証明・未完成** 探索状態：部分証明・未完成\n確認済み ProofStep（与件を含む） \n- 与件: Toda chapter V eta-family notation - 与件: Toda chapter V eta-family notation\n- 推論: specialize cited eta-family general definition - 推論: specialize cited eta-family general definition\n- 推論: specialize cited eta-family general definition - 推論: specialize cited eta-family general definition\n- 推論:  - 推論:  E(\\eta_{3}) = \\eta_{4} .\n- 推論: cited eta generator suspension yields presentation in target notation - 推論: cited eta generator suspension yields presentation in target notation\n未解決 Goal \n- SuspensionKernelFreeCyclicStatement（数式表示未対応） - SuspensionKernelFreeCyclicStatement（数式表示未対応）\n- KernelMultipleStatement（数式表示未対応） - KernelMultipleStatement（数式表示未対応）\n- QuotientIsomorphismStatement（数式表示未対応） - QuotientIsomorphismStatement（数式表示未対応）\n- CyclicStructureStatement（数式表示未対応） - CyclicStructureStatement（数式表示未対応）\n-  -  \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}\n-  -  \\mathbb{Z}/2\\{\\eta_{4}\\} = \\pi_{5}^{4}\n探索診断 \n- 型付き Reference と推論規則から一意な導出が見つかりません。 - 型付き Reference と推論規則から一意な導出が見つかりません。\n未解決 Goal は証明済みの結論ではありません。 未解決 Goal は証明済みの結論ではありません。"
+    }
+  },
+  "full_pytest_run": false
+}

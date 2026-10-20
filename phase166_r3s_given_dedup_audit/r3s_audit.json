@@ -1,0 +1,45 @@
+{
+  "phase": "166 R3-S",
+  "mode": "read_only",
+  "production_code_modified": false,
+  "bridge": {
+    "registered_hopf_relation_assertions": [
+      "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+      "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation"
+    ],
+    "duplicate_hopf_relation_given_links": [],
+    "generator_image_given_links": [
+      "shared:1:adopted:assertion:5"
+    ],
+    "other_relation_given_link_count": 6,
+    "other_relation_given_link_ids": [
+      "shared:1:adopted:assertion:1",
+      "shared:1:adopted:assertion:2",
+      "shared:1:adopted:assertion:4",
+      "shared:3:adopted:assertion:toda51:diagonal",
+      "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+      "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+    ],
+    "no_duplicate_hopf_given": true,
+    "registered_assertions_preserved": true
+  },
+  "pi32_search_status": "COMPLETE",
+  "pi32_proven_steps": 16,
+  "pi32_image_relation_chain_verified": true,
+  "web_views": {
+    "pi_3^2": {
+      "has_goal": true,
+      "has_references": true,
+      "has_proof": true,
+      "line_count": 25
+    },
+    "pi_4^3": {
+      "has_goal": true,
+      "has_references": true,
+      "has_proof": true,
+      "line_count": 25
+    }
+  },
+  "pass": true,
+  "full_pytest_run": false
+}

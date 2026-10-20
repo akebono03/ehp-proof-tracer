@@ -1,0 +1,36 @@
+{
+  "phase": "166 R3-T specialization connection",
+  "production_code_modified": false,
+  "symbolic_toda45_given_count": 1,
+  "concrete_iso_is_given": false,
+  "concrete_iso_specialization_candidates": 1,
+  "source_binding_results": [
+    {
+      "source": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+      "bindings": [
+        [
+          "k",
+          1
+        ],
+        [
+          "m",
+          4
+        ],
+        [
+          "n",
+          3
+        ]
+      ]
+    }
+  ],
+  "specialization_subgoals": [
+    [
+      "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))"
+    ]
+  ],
+  "pi54_registered_goal_count": 1,
+  "pi54_direct_transport_count": 0,
+  "pi43_is_direct_given": false,
+  "named_eta_transport_requires_separate_generator_proof": true,
+  "full_pytest_run": false
+}

@@ -1,0 +1,39 @@
+{
+  "phase": "166 R3-T gate audit",
+  "mode": "read_only",
+  "production_code_modified": false,
+  "goal_count": 1,
+  "cases": [
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "isomorphism_given_count": 1,
+      "base_relation_given_count": 1,
+      "generator_suspension_given_count": 1,
+      "generator_suspensions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:3",
+          "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))"
+        }
+      ],
+      "match_matrix": [
+        {
+          "iso_assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "target_group_matches": false,
+          "source_group": "TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n'))",
+          "target_group": "TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))",
+          "eligible_given_base_count": 0
+        }
+      ],
+      "direct_toda45_options": 0,
+      "common_rule_names": [
+        "finite cyclic structure gives group relation",
+        "Toda Proposition 5.1 generic higher-eta specialization",
+        "generic cited typed scalar specialization",
+        "equality symmetry",
+        "finite cyclic structure gives group relation"
+      ],
+      "eta_specialization_exists": true
+    }
+  ],
+  "full_pytest_run": false
+}
