@@ -1,0 +1,51 @@
+{
+  "audit": "phase166-r3q-hopf-single-source",
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "registered_claims": [
+    {
+      "assertion_id": "shared:1:adopted:assertion:5",
+      "reference_id": "shared:1:adopted:ref:5",
+      "locator": "Proposition 5.1",
+      "reference_position": 7800,
+      "component_position": null,
+      "kind": "statement",
+      "content_type": "GeneratorImage",
+      "content_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "given_links": 1
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "reference_position": 7800,
+      "component_position": 100,
+      "kind": "statement",
+      "content_type": "Relation",
+      "content_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "given_links": 0
+    },
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:eta2_hopf_relation",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "locator": "Proposition 5.1",
+      "reference_position": 7800,
+      "component_position": 100,
+      "kind": "statement",
+      "content_type": "Relation",
+      "content_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "given_links": 1
+    }
+  ],
+  "generator_image_matches_source_factory": true,
+  "relation_type": "Relation",
+  "relation_left_type": "MapApplication",
+  "relation_map_repr": "MapSymbol(name='H')",
+  "generator_image_map_repr": "TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3))",
+  "relation_input_matches_image": true,
+  "relation_output_matches_image": false,
+  "consumers": [
+    "phase165_r14_r7_map_discovery.py:inverse_free_cyclic_transport_rule",
+    "phase165_r14_r33_final_group.py:reverse_free_cyclic_transport_rule"
+  ]
+}
