@@ -70,6 +70,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             registry.add_assertion(replace(
                 assertion, assertion_id=prefix + assertion.assertion_id,
                 reference_id=prefix + assertion.reference_id,
+                component_position=(
+                    assertion.component_position * 100
+                    if assertion.component_position is not None
+                    and assertion.component_position < 100
+                    else assertion.component_position
+                ),
                 dependencies=tuple(prefix + dep for dep in assertion.dependencies),
             ))
         eligible_ids = {
@@ -91,9 +97,13 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             for record in source.records
         )
     from phase165_r52_r12_component_bridge import expand_cited_given_components
-    return expand_cited_given_components(
+    from phase166_r3l_reference_order import connect_all_reference_orders
+    joined = expand_cited_given_components(
         RegistryBridgeResult(registry, tuple(records), tuple(links))
     )
+    ordered, _order_report = connect_all_reference_orders(joined)
+    from phase166_r3p_position_binding import place_r3p_reference_positions
+    return place_r3p_reference_positions(ordered)
 
 
 def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None, prior_conclusions: tuple = ()):

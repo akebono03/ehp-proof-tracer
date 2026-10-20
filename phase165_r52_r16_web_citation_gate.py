@@ -20,11 +20,12 @@ def screen_shared_proof_context(
     verified_assertion_ids: tuple[str, ...] = (),
     explicit_publication_target: bool = False,
 ) -> RegistryBridgeResult:
-    """Filter proof links, keeping the registry and its source records intact.
+    """Filter source statements by existing policies or explicit publication order.
 
-    The adopted path is a previously accepted translated-source convention,
-    NOT independent original-edition or publication-order verification.
-    Unrecognized unordered sources are not promoted to this path.
+    In explicit publication-order mode the registry is authoritative: a prior
+    FIXED_STATEMENT needs no manually maintained ProofStepLink. The link is
+    constructed uniformly from the registered typed assertion, independent of
+    any pre-existing ProofStepLink. Legacy implicit-target mode is unchanged.
     """
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -33,7 +34,34 @@ def screen_shared_proof_context(
     bridge.registry.assertion(citing_assertion_id)
     accepted = []
     if explicit_publication_target:
+        from dataclasses import is_dataclass
         from phase166_r3c_publication_order import precedes_citing_assertion
+        from proof import ProofStep
+        from unified_statement_registry import AssertionKind, ProofStepLink
+
+        for assertion in bridge.registry._assertions.values():
+            if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
+                continue
+            if assertion.kind is not AssertionKind.STATEMENT:
+                continue
+            if not is_dataclass(assertion.content) or isinstance(assertion.content, type):
+                continue
+            if type(assertion.content) is type(goal) and assertion.content == goal:
+                continue
+            if not precedes_citing_assertion(
+                bridge, assertion.assertion_id, citing_assertion_id
+            ):
+                continue
+            accepted.append(ProofStepLink(
+                assertion_id=assertion.assertion_id,
+                step=ProofStep(
+                    conclusion=assertion.content,
+                    premises=(),
+                    rule=ProofRule.GIVEN,
+                ),
+            ))
+        return RegistryBridgeResult(bridge.registry, bridge.records, tuple(accepted))
+
     for link in bridge.proof_links:
         assertion = bridge.registry.assertion(link.assertion_id)
         if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
@@ -45,12 +73,6 @@ def screen_shared_proof_context(
             continue
         if type(step.conclusion) is not type(assertion.content) or step.conclusion != assertion.content:
             raise ValueError("fixed reference has inconsistent GIVEN proof link")
-        if explicit_publication_target:
-            if precedes_citing_assertion(bridge, assertion.assertion_id, citing_assertion_id):
-                accepted.append(link)
-            continue
-        # A source admitted under the explicit adopted-Tex convention keeps its
-        # existing trust boundary; this is not a citation-order certification.
         adopted = (
             assertion.assertion_id.startswith("shared:")
             and (
@@ -62,8 +84,6 @@ def screen_shared_proof_context(
         if adopted:
             accepted.append(link)
             continue
-        # All other sources, including those without a known publication
-        # position, must satisfy the already-implemented strict R15 policy.
         decision = assess_phase164_r2_citation(
             bridge, assertion.assertion_id, citing_assertion_id,
             verified_assertion_ids=verified_assertion_ids,

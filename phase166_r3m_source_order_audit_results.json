@@ -1,0 +1,128 @@
+{
+  "phase": "166-R3M",
+  "read_only": true,
+  "full_pytest_run": false,
+  "total_references": 148,
+  "ordered_references": 142,
+  "unresolved_six": [
+    {
+      "reference_id": "shared:1:adopted:ref:3",
+      "locator": "Foundational: suspension identity",
+      "source_id": "R17 foundational reference",
+      "kind": "equation",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:3",
+          "origin": "fixed_statement",
+          "kind": "statement",
+          "content_type": "GeneratorSuspension",
+          "content_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+          "component_position": null,
+          "has_given_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:7",
+      "locator": "Proposition 4.2",
+      "source_id": "phase163:archive:toda:tex:ch4:0005",
+      "kind": "proposition",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:7",
+          "origin": "fixed_statement",
+          "kind": "statement",
+          "content_type": "TodaProp42ExactnessStatement",
+          "content_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+          "component_position": null,
+          "has_given_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:8",
+      "locator": "Proposition 4.2",
+      "source_id": "phase163:archive:toda:tex:ch4:0005",
+      "kind": "proposition",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:8",
+          "origin": "fixed_statement",
+          "kind": "statement",
+          "content_type": "TodaProp42ExactnessStatement",
+          "content_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+          "component_position": null,
+          "has_given_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:1:adopted:ref:9",
+      "locator": "Proposition 4.2",
+      "source_id": "phase163:archive:toda:tex:ch4:0005",
+      "kind": "proposition",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:1:adopted:assertion:9",
+          "origin": "fixed_statement",
+          "kind": "statement",
+          "content_type": "TodaProp42ExactnessStatement",
+          "content_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+          "component_position": null,
+          "has_given_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:5:adopted:reference:prop42:general",
+      "locator": "Proposition 4.2 (4.4)",
+      "source_id": "Toda adopted Japanese TeX:Proposition 4.2 (original edition unverified)",
+      "kind": "proposition",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "origin": "fixed_statement",
+          "kind": "statement",
+          "content_type": "TodaProp42GeneralExactnessStatement",
+          "content_repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+          "component_position": null,
+          "has_given_link": true
+        }
+      ]
+    },
+    {
+      "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+      "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+      "source_id": "sources/toda/Toda_05_2.tex (adopted transcription, original edition unverified)",
+      "kind": "definition",
+      "publication_position": null,
+      "assertions": [
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "origin": "fixed_statement",
+          "kind": "definition",
+          "content_type": "TodaEtaFamilyGeneralDefinition",
+          "content_repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+          "component_position": null,
+          "has_given_link": true
+        }
+      ]
+    }
+  ],
+  "unmapped_classification_counts": {},
+  "unmapped_references": [],
+  "manifest_references": 108,
+  "manifest_prop42_candidates": [
+    {
+      "reference_id": "toda:Proposition 4.2",
+      "position": 68
+    }
+  ],
+  "manifest_eta_definition_candidates": [],
+  "resolution_policy": "source identity must be explicitly checked; matching locator alone is insufficient"
+}

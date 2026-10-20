@@ -112,18 +112,113 @@ def _instantiate(value: object, bindings: dict[str, int]) -> object:
     return value
 
 
+def _bind_symbolic_constraints(pattern: object, concrete: object, bindings: dict[str, int]) -> bool:
+    """Solve typed scalar equalities in dependency order, not field order."""
+    constraints = []
+
+    def flatten(p, c):
+        if type(p) is not type(c) and not isinstance(p, (ScalarSymbol, ScalarSum, ScalarProduct)):
+            return False
+        if isinstance(p, tuple):
+            if len(p) != len(c):
+                return False
+            return all(flatten(x, y) for x, y in zip(p, c))
+        if is_dataclass(p) and not isinstance(p, type) and not isinstance(p, (ScalarSymbol, ScalarSum, ScalarProduct)):
+            return all(flatten(getattr(p, field.name), getattr(c, field.name)) for field in fields(p))
+        constraints.append((p, c))
+        return True
+
+    if not flatten(pattern, concrete):
+        return False
+    pending = list(constraints)
+    for _ in range(len(pending) + 1):
+        if not pending:
+            return True
+        next_pending = []
+        advanced = False
+        for p, c in pending:
+            if isinstance(p, (ScalarSymbol, ScalarSum, ScalarProduct)) and type(c) is int:
+                expr = _linear_scalar_expression(p)
+                if expr is None:
+                    return False
+                coefficients, constant = expr
+                remaining = {v: a for v, a in coefficients.items() if v not in bindings and a}
+                known = constant + sum(a * bindings[v] for v, a in coefficients.items() if v in bindings)
+                if not remaining:
+                    if known != c:
+                        return False
+                    advanced = True
+                elif len(remaining) == 1:
+                    name, a = next(iter(remaining.items()))
+                    if (c - known) % a:
+                        return False
+                    bindings[name] = (c - known) // a
+                    advanced = True
+                else:
+                    next_pending.append((p, c))
+            elif _bind(p, c, bindings):
+                advanced = True
+            else:
+                return False
+        if not advanced:
+            return False
+        pending = next_pending
+    return not pending
+
+
+def _linear_scalar_expression(value: object):
+    """Represent an affine scalar expression as (coefficients, constant)."""
+    if type(value) is int:
+        return ({}, value)
+    if isinstance(value, ScalarSymbol):
+        return ({value.name: 1}, 0)
+    if isinstance(value, ScalarSum):
+        left, right = _linear_scalar_expression(value.left), _linear_scalar_expression(value.right)
+        if left is None or right is None:
+            return None
+        coeff = dict(left[0])
+        for name, amount in right[0].items():
+            coeff[name] = coeff.get(name, 0) + amount
+        return (coeff, left[1] + right[1])
+    if isinstance(value, ScalarProduct):
+        if type(value.left) is int:
+            factor, inner = value.left, _linear_scalar_expression(value.right)
+        elif type(value.right) is int:
+            factor, inner = value.right, _linear_scalar_expression(value.left)
+        else:
+            return None
+        if inner is None:
+            return None
+        return ({name: factor * amount for name, amount in inner[0].items()}, factor * inner[1])
+    return None
+
+
 def specialize_typed_statement(source: object, goal: object) -> tuple[tuple[str, int], ...] | None:
-    """Find explicit scalar bindings with exact instantiated-goal equality."""
+    """Bind general numeric schemas, checking (4.5) stable-range conditions."""
     if not _contains_symbol(source):
         return None
     bindings: dict[str, int] = {}
-    if not _bind(source, goal, bindings):
+    from toda_rules import Toda45IsomorphismStatement
+    matching = (_bind_symbolic_constraints(source, goal, bindings)
+                if isinstance(source, Toda45IsomorphismStatement)
+                else _bind(source, goal, bindings))
+    if not matching:
         return None
-    if _instantiate(source, bindings) != goal:
+    try:
+        instantiated = _instantiate(source, bindings)
+    except (ValueError, TypeError):
+        return None
+    if instantiated != goal:
         return None
     from phase165_prop51_range_guard import allows_typed_specialization
     if not allows_typed_specialization(source, bindings):
         return None
+    from toda_rules import Toda45IsomorphismStatement
+    if isinstance(source, Toda45IsomorphismStatement):
+        n, k, m = (bindings.get(name) for name in ("n", "k", "m"))
+        if (any(type(x) is not int for x in (n, k, m))
+                or k < 0 or n < k + 2 or m < n):
+            return None
     return tuple(sorted(bindings.items()))
 
 

@@ -1090,7 +1090,6 @@
   "phase165_r52_r27_r2_phase50_result_fix/test_install.py": true,
   "phase165_r52_r27_r4_registry_audit/test_audit.py": true,
   "phase165_r52_r27_r5_r1_installer_fix/test_installer.py": true,
-  "phase165_r52_r27_r5_typed_references/test_r5_typed_references.py": true,
   "phase165_r52_r3_web_integration/test_phase165_r52_r3_web_adapter.py": true,
   "phase165_r52_r4_flask_connection/test_phase165_r52_r4_flask_connection.py": true,
   "phase165_r52_r5_auto_search/test_phase165_r52_r4_flask_connection.py": true,
