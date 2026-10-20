@@ -1,0 +1,61 @@
+{
+  "phase": "166 R3-R",
+  "mode": "read_only",
+  "goal": "pi_3^2",
+  "search_status": "COMPLETE",
+  "proven_steps": 16,
+  "relations_found": 4,
+  "relations_with_image_ancestor": 1,
+  "relation_evidence": [
+    {
+      "relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule": "GIVEN",
+      "inference_rule": "Toda (5.1)",
+      "immediate_generator_image_premise": false,
+      "generator_image_ancestor": false,
+      "linked_image_assertion_ids": [],
+      "linked_image_references": [],
+      "registered_proposition_5_1_ancestor": false,
+      "independent_given_relation": true
+    },
+    {
+      "relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule": "GIVEN",
+      "inference_rule": "Toda (5.1)",
+      "immediate_generator_image_premise": false,
+      "generator_image_ancestor": false,
+      "linked_image_assertion_ids": [],
+      "linked_image_references": [],
+      "registered_proposition_5_1_ancestor": false,
+      "independent_given_relation": true
+    },
+    {
+      "relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule": "GIVEN",
+      "inference_rule": "Toda (5.1)",
+      "immediate_generator_image_premise": false,
+      "generator_image_ancestor": false,
+      "linked_image_assertion_ids": [],
+      "linked_image_references": [],
+      "registered_proposition_5_1_ancestor": false,
+      "independent_given_relation": true
+    },
+    {
+      "relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "rule": "INFERENCE",
+      "inference_rule": "generic reverse free cyclic structure transport along isomorphism",
+      "immediate_generator_image_premise": true,
+      "generator_image_ancestor": true,
+      "linked_image_assertion_ids": [
+        "shared:1:adopted:assertion:5"
+      ],
+      "linked_image_references": [
+        "LiteratureEntry(reference_id='shared:1:adopted:ref:5', kind=<ReferenceKind.PROPOSITION: 'proposition'>, locator='Proposition 5.1', source_id='Toda translated TeX:Proposition 5.1 (archive ID unresolved)', publication_position=7800)"
+      ],
+      "registered_proposition_5_1_ancestor": true,
+      "independent_given_relation": false
+    }
+  ],
+  "derived_image_relation_chain_verified": true,
+  "full_pytest_run": false
+}
