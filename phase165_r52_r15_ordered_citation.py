@@ -1,12 +1,13 @@
-"""Strict, reusable Phase 165 citation lookup using the existing Phase 164 policy.
+"""Ordered typed-reference lookup based solely on documented assertion order.
 
-No assertion is approved implicitly. This path is explicitly opted into via
-lookup_mode='typed_reference_ordered' with independently reviewed IDs.
+Order determines whether a statement precedes the current proof. A concrete
+linked GIVEN is still required to use the statement as a proof leaf. An
+independent-review allowlist is not an eligibility requirement.
 """
 from __future__ import annotations
 
+from phase163_r3_registry_validation import CitationDecision, assess_citation
 from phase163_r4_registry_bridge import RegistryBridgeResult
-from phase164_r2_citation_eligibility import assess_phase164_r2_citation
 from proof import ProofRule, ProofStep
 from unified_statement_registry import AssertionOrigin
 
@@ -18,15 +19,15 @@ def ordered_typed_reference_steps(
     *,
     verified_assertion_ids: tuple[str, ...] = (),
 ) -> tuple[ProofStep, ...]:
-    """Return only uniquely linked GIVENs eligible by the existing citation policy.
+    """Return existing linked GIVEN steps for strictly earlier fixed assertions.
 
-    Missing source order, unapproved claims, and backward dependencies fail
-    closed. The original registry and any earlier derived proof remain intact.
+    The legacy keyword is accepted for API compatibility but never controls
+    availability. Unknown positions are not silently assigned an order.
     """
     if not isinstance(bridge, RegistryBridgeResult):
-        raise TypeError('bridge must be RegistryBridgeResult')
+        raise TypeError("bridge must be RegistryBridgeResult")
     if not isinstance(verified_assertion_ids, tuple):
-        raise TypeError('verified_assertion_ids must be a tuple')
+        raise TypeError("verified_assertion_ids must be a tuple")
     bridge.registry.assertion(citing_assertion_id)
     steps: list[ProofStep] = []
     for assertion in bridge.registry._assertions.values():
@@ -34,19 +35,23 @@ def ordered_typed_reference_steps(
             continue
         if type(assertion.content) is not type(goal) or assertion.content != goal:
             continue
-        decision = assess_phase164_r2_citation(
-            bridge, assertion.assertion_id, citing_assertion_id,
-            verified_assertion_ids=verified_assertion_ids,
-        )
-        if not decision.usable:
+        if citing_assertion_id in assertion.dependencies:
             continue
-        links = tuple(link for link in bridge.proof_links if link.assertion_id == assertion.assertion_id)
+        decision = assess_citation(
+            bridge.registry, assertion.assertion_id, citing_assertion_id
+        )
+        if decision.decision is not CitationDecision.ALLOWED:
+            continue
+        links = tuple(
+            link for link in bridge.proof_links
+            if link.assertion_id == assertion.assertion_id
+        )
         if len(links) != 1 or links[0].step is None:
             continue
         step = links[0].step
         if not isinstance(step, ProofStep) or step.rule is not ProofRule.GIVEN:
-            raise ValueError('ordered typed Reference must link to a GIVEN')
+            raise ValueError("ordered typed Reference must link to a GIVEN")
         if type(step.conclusion) is not type(goal) or step.conclusion != goal:
-            raise ValueError('ordered typed Reference conclusion mismatch')
+            raise ValueError("ordered typed Reference conclusion mismatch")
         steps.append(step)
     return tuple(steps)
