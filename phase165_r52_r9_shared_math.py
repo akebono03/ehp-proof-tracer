@@ -55,6 +55,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     for index, source in enumerate(sources):
         if not isinstance(source, RegistryBridgeResult):
             raise TypeError("source must be RegistryBridgeResult")
+        # R3-C: reuse Phase 163 positions on original reference IDs before
+        # shared: index namespacing. No locator or synthetic rank matching.
+        from phase166_r3b_publication_order_binding.phase166_r3b_publication_order_binding import (
+            connect_phase163_publication_order,
+        )
+        source, _publication_binding = connect_phase163_publication_order(source)
         prefix = f"shared:{index}:"
         for ref in source.registry._references.values():
             registry.add_reference(replace(ref, reference_id=prefix + ref.reference_id))
@@ -324,6 +330,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     proof_context = screen_shared_proof_context(
         bridge, goal=goal, citing_assertion_id=context_id,
         verified_assertion_ids=verified_assertion_ids,
+        explicit_publication_target=citing_assertion_id is not None,
     )
     # R12-R7: enforce reviewed dependencies before using cited proof leaves.
     from phase165_r12_r7_proof_order_guard import restrict_registered_ordered_claims
@@ -347,7 +354,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         n=n, k=k, goal=goal, bridge=proof_context,
         citing_assertion_id=context_id,
         expansion_provider=expansion_provider,
-        lookup_mode="typed_reference",
+        lookup_mode="typed_reference_publication" if citing_assertion_id is not None else "typed_reference",
         structure_status=GroupStructureStatus.UNKNOWN,
         completed_internal_proofs=prior,
     )

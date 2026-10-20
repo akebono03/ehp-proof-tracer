@@ -1,0 +1,45 @@
+{
+  "audit": "phase166-r3g-toda45-bidirectional",
+  "production_code_modified": false,
+  "general_reference_registered": true,
+  "general_reference_components": [
+    "stable_range_suspension_isomorphism"
+  ],
+  "production_given_with_locator_4_5": [],
+  "production_concrete_toda45_given_count": 0,
+  "common_search_cases": [
+    {
+      "n": 3,
+      "k": 1,
+      "reviewed_order_available": true,
+      "reviewed_order_diagnostic": null,
+      "allowed_toda45_isomorphism_count": 0,
+      "direct_toda45_backward_options": 0,
+      "shared_toda45_backward_options": 0,
+      "shared_expansion_count": 3
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "reviewed_order_available": true,
+      "reviewed_order_diagnostic": null,
+      "allowed_toda45_isomorphism_count": 0,
+      "direct_toda45_backward_options": 0,
+      "shared_toda45_backward_options": 0,
+      "shared_expansion_count": 3
+    },
+    {
+      "n": 5,
+      "k": 1,
+      "reviewed_order_available": false,
+      "reviewed_order_diagnostic": null,
+      "allowed_toda45_isomorphism_count": 0,
+      "direct_toda45_backward_options": 0,
+      "shared_toda45_backward_options": 0,
+      "shared_expansion_count": 3
+    }
+  ],
+  "forward_rule_unit_test_source": "tests/test_phase46_toda_45_theorem_semantics.py",
+  "backward_rule_unit_test_source": "phase165_r57_r7_toda45_backward_connection/test_phase165_r57_r7_toda45_backward_connection.py",
+  "interpretation": "These checks distinguish standalone rule tests from production literature-to-rule connection. They do not claim an exhaustive proof over all integer parameters."
+}

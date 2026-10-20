@@ -1,0 +1,35 @@
+{
+  "phase": "166 R3-G route check",
+  "production_changes": false,
+  "pi54_goal_candidate_count": 1,
+  "pi43_goal_candidate_count": 1,
+  "reviewed_order_available": true,
+  "reviewed_order_diagnostic": null,
+  "toda45_given_count": 0,
+  "toda45_target_matches_pi54": 0,
+  "higher_eta_symbolic_given_count": 1,
+  "candidate_analysis": [
+    {
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "toda45_direct_backward_options": 0,
+      "rule_names": [],
+      "base_candidate_exactly_matched": true
+    }
+  ],
+  "public_result": {
+    "status": "partial",
+    "open_goal_count": 6,
+    "open_goal_types": [
+      "SuspensionKernelFreeCyclicStatement",
+      "KernelMultipleStatement",
+      "QuotientIsomorphismStatement",
+      "CyclicStructureStatement",
+      "Relation",
+      "Relation"
+    ],
+    "root_rules": [],
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ]
+  }
+}
