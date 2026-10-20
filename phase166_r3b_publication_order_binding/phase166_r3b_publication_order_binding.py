@@ -73,7 +73,7 @@ def _load_manifest_reference_order(manifest_path: Path) -> tuple[dict[str, int],
             raise ValueError("one literature reference has multiple publication positions")
         rows_by_reference.setdefault(reference_id, []).append(row)
 
-    if len(positions) != 108 or sorted(positions.values()) != list(range(1, 109)):
+    if len(positions) != 108 or sorted(positions.values()) != list(range(100, 10900, 100)):
         raise ValueError("Phase 163 reference publication order changed")
 
     frozen_rows = {

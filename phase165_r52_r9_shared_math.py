@@ -70,6 +70,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             registry.add_assertion(replace(
                 assertion, assertion_id=prefix + assertion.assertion_id,
                 reference_id=prefix + assertion.reference_id,
+                component_position=(
+                    assertion.component_position * 100
+                    if assertion.component_position is not None
+                    and assertion.component_position < 100
+                    else assertion.component_position
+                ),
                 dependencies=tuple(prefix + dep for dep in assertion.dependencies),
             ))
         eligible_ids = {

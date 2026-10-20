@@ -29,7 +29,7 @@
       "source_sha256": "22483292394fe41453838684b9251199bdf4be838886bcbf47c91dc586275953",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 1,
+      "publication_position": 100,
       "component_position": null
     },
     {
@@ -44,7 +44,7 @@
       "source_sha256": "f4e72ffb0be7f59a4091fc60057bb1420d6306acf49afc312fbd89740c52bf54",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 2,
+      "publication_position": 200,
       "component_position": null
     },
     {
@@ -59,7 +59,7 @@
       "source_sha256": "77f779a8a7b5fabc2f1d9d4845e96eec5969fa5e96701c483d9911d6ca82b12d",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 3,
+      "publication_position": 300,
       "component_position": null
     },
     {
@@ -74,7 +74,7 @@
       "source_sha256": "95174efcd88208d3edd2e94d01c94bca7913b3514983fc76962bda435598145f",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 4,
+      "publication_position": 400,
       "component_position": null
     },
     {
@@ -89,7 +89,7 @@
       "source_sha256": "49b8a5b93614f432cb216bd4afc791ff693bcc0cf3244a70ecc918ea8fb85504",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 5,
+      "publication_position": 500,
       "component_position": null
     },
     {
@@ -104,7 +104,7 @@
       "source_sha256": "4c9c4da77d1cb11e984ab5abc60c73381fe059107de6f7e3bd61d1e9c55cbb31",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 6,
+      "publication_position": 600,
       "component_position": null
     },
     {
@@ -119,7 +119,7 @@
       "source_sha256": "1950f65c2f2b377afb70315a71fc5b1ee68a3afb680ad2c16e9847b85ca925d6",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 7,
+      "publication_position": 700,
       "component_position": null
     },
     {
@@ -134,7 +134,7 @@
       "source_sha256": "256985e65f2482264afdf5304e87ebe3509a69b1a2495b020ac59d89b9cec315",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 8,
+      "publication_position": 800,
       "component_position": null
     },
     {
@@ -149,7 +149,7 @@
       "source_sha256": "413190293dd1aa11def0035eba5d8d7cb570ba6ae94ec8d2bee8e1cf2e66a33f",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 9,
+      "publication_position": 900,
       "component_position": null
     },
     {
@@ -164,7 +164,7 @@
       "source_sha256": "52fb2c920ad00d0a0e7a80ef90c8b6f100c698fb59090d2df9b24ced642390c7",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 10,
+      "publication_position": 1000,
       "component_position": null
     },
     {
@@ -179,7 +179,7 @@
       "source_sha256": "80fe6fa1c768e3aa19ee430354197ea43c150c9ff1849433dfe751c2b7ee4eb9",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 11,
+      "publication_position": 1100,
       "component_position": null
     },
     {
@@ -194,7 +194,7 @@
       "source_sha256": "076760d6e0dc8f8968cfaafd7019013d091d6eea6304eaa5bbcd49018935eb16",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 12,
+      "publication_position": 1200,
       "component_position": null
     },
     {
@@ -209,7 +209,7 @@
       "source_sha256": "7318cbd0179f711d8efac79a52d6f9ef3c0b001680ea882fac3773c3d01c9426",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 13,
+      "publication_position": 1300,
       "component_position": null
     },
     {
@@ -224,7 +224,7 @@
       "source_sha256": "75d85a4cd203af55c1b97b794c7a1fb0a63a37202b35f766cd5f8e6718819ffd",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 14,
+      "publication_position": 1400,
       "component_position": null
     },
     {
@@ -239,7 +239,7 @@
       "source_sha256": "f8943965d58abca3b3e87b4aa19533bb8e50906b68f3df463d89aff58b16e6d4",
       "source_origin": "R93",
       "review_needed": true,
-      "publication_position": 15,
+      "publication_position": 1500,
       "component_position": null
     },
     {
@@ -254,7 +254,7 @@
       "source_sha256": "1b83e325afd3cf9b5d76050bde8a7770d29fe1021a3a375d7fb36992147ac5d1",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 16,
+      "publication_position": 1600,
       "component_position": null
     },
     {
@@ -269,7 +269,7 @@
       "source_sha256": "0f48de5edcc562959eecb20bf1b6122c5119bf0a1a15a73b55743b9bc4d05753",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 17,
+      "publication_position": 1700,
       "component_position": null
     },
     {
@@ -284,7 +284,7 @@
       "source_sha256": "03107202dd6e3d7c14ba27acd48752a9154bf996efe40808df5566f3390d6c92",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 18,
+      "publication_position": 1800,
       "component_position": null
     },
     {
@@ -299,8 +299,8 @@
       "source_sha256": "18f2aa6d4ce9a23424caa0c3478731c3927ea41ed8758144674a72503a0de0e7",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch1:0006",
-      "publication_position": 18,
-      "component_position": 1,
+      "publication_position": 1800,
+      "component_position": 100,
       "review_needed": false
     },
     {
@@ -315,8 +315,8 @@
       "source_sha256": "1b9ed8760f08d99741ef780b568a9eb1032376c4c7f33ab32662b69c63dd4894",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch1:0006",
-      "publication_position": 18,
-      "component_position": 2,
+      "publication_position": 1800,
+      "component_position": 200,
       "review_needed": false
     },
     {
@@ -331,8 +331,8 @@
       "source_sha256": "801a0bade006ba2f9957bc8bb7cc7165df30ccfe00e2035caee2b59d656b4488",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch1:0006",
-      "publication_position": 18,
-      "component_position": 3,
+      "publication_position": 1800,
+      "component_position": 300,
       "review_needed": false
     },
     {
@@ -347,8 +347,8 @@
       "source_sha256": "acb95d702a56cfb49b552c8f1db97c51427ce0c88fa80ce5f582242ac420939f",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch1:0006",
-      "publication_position": 18,
-      "component_position": 4,
+      "publication_position": 1800,
+      "component_position": 400,
       "review_needed": false
     },
     {
@@ -363,8 +363,8 @@
       "source_sha256": "68e14f56bc7b6fcb36e3953aef48f0e10cb82a8f72aa0a6346047f745cf0b9d2",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch1:0006",
-      "publication_position": 18,
-      "component_position": 5,
+      "publication_position": 1800,
+      "component_position": 500,
       "review_needed": false
     },
     {
@@ -379,7 +379,7 @@
       "source_sha256": "1436b8a26183920a5bc20bb58d73155b0bdb696284f27cf75ae76f3e7bd035da",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 19,
+      "publication_position": 1900,
       "component_position": null
     },
     {
@@ -394,7 +394,7 @@
       "source_sha256": "bb1a9ace16b435db0729fda04ea9de77a38aa7fdb58329a2e2fba152ebc8f51e",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 20,
+      "publication_position": 2000,
       "component_position": null
     },
     {
@@ -409,7 +409,7 @@
       "source_sha256": "b8f094e0427a38647fec900b35bede66e0caa956da8dba1ea547c465cb14bab4",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 21,
+      "publication_position": 2100,
       "component_position": null
     },
     {
@@ -424,7 +424,7 @@
       "source_sha256": "5c2a9c984a13bad79d7cbb46dc2c67f772db8c19ce56d1f30e2b7357d0a35154",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 22,
+      "publication_position": 2200,
       "component_position": null
     },
     {
@@ -439,7 +439,7 @@
       "source_sha256": "f8dc1ab5b54baf28b50cb3cfb4fe5000446b8833c84d6f5120dba5405ca24aba",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 23,
+      "publication_position": 2300,
       "component_position": null
     },
     {
@@ -454,7 +454,7 @@
       "source_sha256": "d948702336d3013c961e1a23131021c64cbe48d098cacd7b90d043c7d2407360",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 24,
+      "publication_position": 2400,
       "component_position": null
     },
     {
@@ -469,7 +469,7 @@
       "source_sha256": "e7c5263ff154ab8055befad236595323915e52c55d923e78b9c592b2f3226243",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 25,
+      "publication_position": 2500,
       "component_position": null
     },
     {
@@ -484,7 +484,7 @@
       "source_sha256": "fd50551c277184bcb6dbf1c2a0d46a0e96731d6d835b4f552b4c3eb5e3d0ac85",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 26,
+      "publication_position": 2600,
       "component_position": null
     },
     {
@@ -499,7 +499,7 @@
       "source_sha256": "45631d89b6060f7772060eb8e1c9c22bd31c48debd848ab7e9d2c55c7a695e5a",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 27,
+      "publication_position": 2700,
       "component_position": null
     },
     {
@@ -514,7 +514,7 @@
       "source_sha256": "93da973242dde706d1b16f2b4284eebdc5e3a4a04c0abee181e378c5d1740167",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 28,
+      "publication_position": 2800,
       "component_position": null
     },
     {
@@ -529,7 +529,7 @@
       "source_sha256": "4bb1cc2f1bf47b28f112c7a915a43102dc28565be465ec15d776dba34413d9ab",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 29,
+      "publication_position": 2900,
       "component_position": null
     },
     {
@@ -544,7 +544,7 @@
       "source_sha256": "d6e7c32db8d08268e65d1530905f485f5e5ba29829555b856e04d005e041a7a0",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 30,
+      "publication_position": 3000,
       "component_position": null
     },
     {
@@ -559,7 +559,7 @@
       "source_sha256": "afd45a5def8e42b266aa943702e343eb757407b2fda0416129fc3d37dd1a88d5",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 31,
+      "publication_position": 3100,
       "component_position": null
     },
     {
@@ -574,7 +574,7 @@
       "source_sha256": "1f272f5a31d928302a07e70bfdb6074ed58624129702c2c67a63d9c6fa7b2a77",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 32,
+      "publication_position": 3200,
       "component_position": null
     },
     {
@@ -589,7 +589,7 @@
       "source_sha256": "95784bdbe44b55c5bff9321dd29f8c55516f8d78e6c658d4de1b99c4370c152c",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 33,
+      "publication_position": 3300,
       "component_position": null
     },
     {
@@ -604,7 +604,7 @@
       "source_sha256": "869fc8708a0bd8dfdb54dc2a0269df1c7ce1924e5b494238e88eee5b914b1c08",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 34,
+      "publication_position": 3400,
       "component_position": null
     },
     {
@@ -619,7 +619,7 @@
       "source_sha256": "3d9bd29a7f1b1f5fa0a492cf81fa6de92bafef28ba23928f8c786ffd5a390737",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 35,
+      "publication_position": 3500,
       "component_position": null
     },
     {
@@ -634,7 +634,7 @@
       "source_sha256": "cef1c97de7a8322df548054fc6a1b74dc68d1d61622095ae054d7f8482366af1",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 36,
+      "publication_position": 3600,
       "component_position": null
     },
     {
@@ -649,7 +649,7 @@
       "source_sha256": "5560fe950f06dea97bd152bc97dd29661576697a7d7e58b41c938f0b3e373146",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 37,
+      "publication_position": 3700,
       "component_position": null
     },
     {
@@ -664,7 +664,7 @@
       "source_sha256": "d1262bcd1773af13fe6d056cafd970496d4fb14580f2ac9a40b386c7abfdfa1b",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 38,
+      "publication_position": 3800,
       "component_position": null
     },
     {
@@ -679,7 +679,7 @@
       "source_sha256": "b3d1bf49c5a034d65d1cb11cc3df01f1444a98d91ecfadad01da5044101ae9d3",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 39,
+      "publication_position": 3900,
       "component_position": null
     },
     {
@@ -694,8 +694,8 @@
       "source_sha256": "ad95b1a3346c1251041e5435cfd267d42bdd41e2befb7ebf8bbde9545094eca1",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch2:0011",
-      "publication_position": 39,
-      "component_position": 1,
+      "publication_position": 3900,
+      "component_position": 100,
       "review_needed": false
     },
     {
@@ -710,8 +710,8 @@
       "source_sha256": "60034af9dea68f0d53768320e94826ed3cd14af832c3182d6e9d117acefcea29",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch2:0011",
-      "publication_position": 39,
-      "component_position": 2,
+      "publication_position": 3900,
+      "component_position": 200,
       "review_needed": false
     },
     {
@@ -726,7 +726,7 @@
       "source_sha256": "d9f5fe30282c3e429d94a5bed25d2b3c2bd7a0f2573b9f51efa07022370d0196",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 40,
+      "publication_position": 4000,
       "component_position": null
     },
     {
@@ -741,7 +741,7 @@
       "source_sha256": "acd8cac592cd7fc4a3f8a415eaef983b3fcee037811ba55e8dffd051f3f691d6",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 41,
+      "publication_position": 4100,
       "component_position": null
     },
     {
@@ -756,7 +756,7 @@
       "source_sha256": "194710fab771ddb561e4061c2c9c69c4268d5ee587d59215609702fa60114110",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 42,
+      "publication_position": 4200,
       "component_position": null
     },
     {
@@ -771,7 +771,7 @@
       "source_sha256": "12fdbbfe68a8a2e7a3f2dec37833a691e2088796f7ce414bd5ff305561c1af22",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 43,
+      "publication_position": 4300,
       "component_position": null
     },
     {
@@ -786,7 +786,7 @@
       "source_sha256": "d7741a82b125e67387c8892a0e4b3f573128add12e379c50fad9a9dc16bc7e79",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 44,
+      "publication_position": 4400,
       "component_position": null
     },
     {
@@ -801,7 +801,7 @@
       "source_sha256": "7214a32e70b96ecc85c8ca6bc5a03e564e40f51a8d7d420909f9d34fa8d5a532",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 45,
+      "publication_position": 4500,
       "component_position": null
     },
     {
@@ -816,7 +816,7 @@
       "source_sha256": "5dd846b99e4b5cded30784477fd64c2449d72c4c07895bbff94f5c9a056fb703",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 46,
+      "publication_position": 4600,
       "component_position": null
     },
     {
@@ -831,7 +831,7 @@
       "source_sha256": "a82963a035bd070692bef02df44bb47db55f993abc1a81becd1bc6eab6b85c07",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 47,
+      "publication_position": 4700,
       "component_position": null
     },
     {
@@ -846,7 +846,7 @@
       "source_sha256": "3ae0e748d9aa44d85bc7bf048049aa1b5f6f1bfe0f30d3e9690b1533a9008457",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 48,
+      "publication_position": 4800,
       "component_position": null
     },
     {
@@ -861,7 +861,7 @@
       "source_sha256": "6cac9af19c6057572732c2e754a494de661dab831394db8fb87bab2b52d84421",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 49,
+      "publication_position": 4900,
       "component_position": null
     },
     {
@@ -876,7 +876,7 @@
       "source_sha256": "97676c9bb553f2c5cc9c7c7a3dfe3897d8099bf4ed2f6958d9574ec154800c0c",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 50,
+      "publication_position": 5000,
       "component_position": null
     },
     {
@@ -891,8 +891,8 @@
       "source_sha256": "f99c80a19203a770fe5a809aa9257afcfdab443505528134fa172d038d37de8b",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch3:0004",
-      "publication_position": 50,
-      "component_position": 1,
+      "publication_position": 5000,
+      "component_position": 100,
       "review_needed": false
     },
     {
@@ -907,8 +907,8 @@
       "source_sha256": "f4d473762f596fa19cc4d3011f242b7270e5d6df08adf12e21dae579525e0f89",
       "source_origin": "R92",
       "parent_statement_id": "toda:tex:ch3:0004",
-      "publication_position": 50,
-      "component_position": 2,
+      "publication_position": 5000,
+      "component_position": 200,
       "review_needed": false
     },
     {
@@ -923,7 +923,7 @@
       "source_sha256": "034891bbd034e2641a0880ff54675c07fd47fa51d99a19396386b51c8dff0b53",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 51,
+      "publication_position": 5100,
       "component_position": null
     },
     {
@@ -938,7 +938,7 @@
       "source_sha256": "cfe6e3bf5e635799404bb47408f0a3be6e0b00cd7250a44f65d324122b01790a",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 52,
+      "publication_position": 5200,
       "component_position": null
     },
     {
@@ -953,7 +953,7 @@
       "source_sha256": "d38fc56c345835514b699cf26d4705d0ac8b52541112943c069269378a3c27c6",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 53,
+      "publication_position": 5300,
       "component_position": null
     },
     {
@@ -968,7 +968,7 @@
       "source_sha256": "71fad6848937d4c11df63489b94057a3268704441e54f4ff44aef4246ac6212c",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 54,
+      "publication_position": 5400,
       "component_position": null
     },
     {
@@ -983,7 +983,7 @@
       "source_sha256": "d942839d8b5728ba79ea15c226259d6027d6db8ff28bc3d4ed3ed410720ca0e2",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 55,
+      "publication_position": 5500,
       "component_position": null
     },
     {
@@ -998,7 +998,7 @@
       "source_sha256": "26f2c073ec865c2427b1128922967eac77b2bae12ba0677ca50150e84b2de3e9",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 56,
+      "publication_position": 5600,
       "component_position": null
     },
     {
@@ -1013,7 +1013,7 @@
       "source_sha256": "11d18e64c2cf2119ef394f281f46aa4a449df91420da39f4ba3a6bc796142623",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 57,
+      "publication_position": 5700,
       "component_position": null
     },
     {
@@ -1028,7 +1028,7 @@
       "source_sha256": "7cd6eff496ef84c54f3dd2e0dd57df10ae2a7f4882177466696c4aa5962efa84",
       "source_origin": "R91",
       "review_needed": true,
-      "publication_position": 58,
+      "publication_position": 5800,
       "component_position": null
     },
     {
@@ -1043,7 +1043,7 @@
       "source_sha256": "43789d7e49fad09fc1610632eb81efcff1c735f22b1f8e4adedd7d8e1ec3c817",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 59,
+      "publication_position": 5900,
       "component_position": null
     },
     {
@@ -1058,7 +1058,7 @@
       "source_sha256": "0fa313bdac035c91c8878233436d5c7a8db58c19b85b011524ed5f3209492243",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 60,
+      "publication_position": 6000,
       "component_position": null
     },
     {
@@ -1073,7 +1073,7 @@
       "source_sha256": "18ba48e3744341f642b2a0a78eb87f49545d9fce952f70aac0c593188cc3f7e1",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 61,
+      "publication_position": 6100,
       "component_position": null
     },
     {
@@ -1088,7 +1088,7 @@
       "source_sha256": "dcbf0d070196f72f19d27a364ceae6a3923da6002dfcec00c17f71f2d0321146",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 62,
+      "publication_position": 6200,
       "component_position": null
     },
     {
@@ -1103,7 +1103,7 @@
       "source_sha256": "3d87cb56a3cce89fea40aa66d0a6342caf850a27ac3cbe2cf33c0296f4cee49d",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 63,
+      "publication_position": 6300,
       "component_position": null
     },
     {
@@ -1118,7 +1118,7 @@
       "source_sha256": "529ec0515e536d8a38269e0cad892a454e360673b1275099dbd1c741a4bb7a96",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 64,
+      "publication_position": 6400,
       "component_position": null
     },
     {
@@ -1133,7 +1133,7 @@
       "source_sha256": "9d361a644d620608ed6e579d417c696db2efa554401dc7a0e8adf6d98d8bd66a",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 65,
+      "publication_position": 6500,
       "component_position": null
     },
     {
@@ -1148,7 +1148,7 @@
       "source_sha256": "2b65647fb206a676c725ee7e0e277997b03b1654307ac4a94e0a8ced8a59773f",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 66,
+      "publication_position": 6600,
       "component_position": null
     },
     {
@@ -1163,7 +1163,7 @@
       "source_sha256": "d4b6b872ed0b41a924109cb979e9f130f7bd85fdb749cf3274efd622566f14df",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 67,
+      "publication_position": 6700,
       "component_position": null
     },
     {
@@ -1178,7 +1178,7 @@
       "source_sha256": "e61e29d9d69449ab52cb12395945cb96f11a7071379dd3cd9f5c8b075a03de56",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 68,
+      "publication_position": 6800,
       "component_position": null
     },
     {
@@ -1193,7 +1193,7 @@
       "source_sha256": "d822756891916a639baf14c61b6a7c6bd1119b43a7c4640bfdee96f4c836a36e",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 69,
+      "publication_position": 6900,
       "component_position": null
     },
     {
@@ -1208,7 +1208,7 @@
       "source_sha256": "35dd69ebbf4756d4f28c2603f377edb531c8069c84473297ac57d50a71eea7d7",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 70,
+      "publication_position": 7000,
       "component_position": null
     },
     {
@@ -1223,7 +1223,7 @@
       "source_sha256": "02893dbe2b6a29c9d0c22a8ff631c11260db22c705ce0f9d91a7f19e60148aef",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 71,
+      "publication_position": 7100,
       "component_position": null
     },
     {
@@ -1238,7 +1238,7 @@
       "source_sha256": "f1182214b2859adb18e4076d004b068343a12a1019f4438465e3fc08f8cbfe76",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 72,
+      "publication_position": 7200,
       "component_position": null
     },
     {
@@ -1253,7 +1253,7 @@
       "source_sha256": "5a98acdac4748472b3007f10ae8ff13b3530dcb24ea4757d3929aa6e72a00d73",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 73,
+      "publication_position": 7300,
       "component_position": null
     },
     {
@@ -1268,7 +1268,7 @@
       "source_sha256": "f6d608623c54139a73045558f00786ca24b43c7278cc89087cb209f3c70b8385",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 74,
+      "publication_position": 7400,
       "component_position": null
     },
     {
@@ -1283,7 +1283,7 @@
       "source_sha256": "4d3e6d8570a424afe52d49bf493427ed44471ca2618b4fb65f8ffaf93e3e1117",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 75,
+      "publication_position": 7500,
       "component_position": null
     },
     {
@@ -1298,7 +1298,7 @@
       "source_sha256": "7fb65e214a319293a873580d391bc7ff591d0350d1fd35140375b3594613a28c",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 76,
+      "publication_position": 7600,
       "component_position": null
     },
     {
@@ -1313,7 +1313,7 @@
       "source_sha256": "7f22530bf7ad332c903104712c58e5e1640a77dbdc1945852683ef2fe5a08005",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 77,
+      "publication_position": 7700,
       "component_position": null
     },
     {
@@ -1328,7 +1328,7 @@
       "source_sha256": "b942edc5b1ea65b61e27588210505933055b341ef42260e4a2ce398d44f5b772",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 78,
+      "publication_position": 7800,
       "component_position": null
     },
     {
@@ -1343,7 +1343,7 @@
       "source_sha256": "7f82293d6787d78f0ab075d7a93ae10710295bfe08487831f060ac6d1835d024",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 79,
+      "publication_position": 7900,
       "component_position": null
     },
     {
@@ -1358,7 +1358,7 @@
       "source_sha256": "228252ff09fbaccabeb8304a701ff14e5800189cc88d565ffd53933a7b116196",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 80,
+      "publication_position": 8000,
       "component_position": null
     },
     {
@@ -1373,7 +1373,7 @@
       "source_sha256": "f949b19909fdd4f60f562b1daa4b121a621a4e7a32b5461f770e1e80ada6d3f2",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 81,
+      "publication_position": 8100,
       "component_position": null
     },
     {
@@ -1388,7 +1388,7 @@
       "source_sha256": "80ca62057a30983c0105488966ca52c1976c88d5f6969f7ae2b6cf0030238d2f",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 82,
+      "publication_position": 8200,
       "component_position": null
     },
     {
@@ -1403,7 +1403,7 @@
       "source_sha256": "30f72eb36033b069ca814d409d87a4195569c28f50b31501bf3599999e185faa",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 83,
+      "publication_position": 8300,
       "component_position": null
     },
     {
@@ -1418,7 +1418,7 @@
       "source_sha256": "8527803db21abaeb4bea9c63c9bd1ffdb30ab5150c2c13228da74974c431344b",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 84,
+      "publication_position": 8400,
       "component_position": null
     },
     {
@@ -1433,7 +1433,7 @@
       "source_sha256": "bd3ae3e77433844cad50e1cdace830419a70eb953ebfe28c23cfb553c55790d2",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 85,
+      "publication_position": 8500,
       "component_position": null
     },
     {
@@ -1448,7 +1448,7 @@
       "source_sha256": "9443635f4aa1e13389b361de1d7b0c368088a5b27bcd613b9d6c31c6896e216a",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 86,
+      "publication_position": 8600,
       "component_position": null
     },
     {
@@ -1463,7 +1463,7 @@
       "source_sha256": "fdeca1676e4873e0215d019e73d4a56bdfe1c8c7b88c44ef6c7edd55dc0b76e5",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 87,
+      "publication_position": 8700,
       "component_position": null
     },
     {
@@ -1478,7 +1478,7 @@
       "source_sha256": "9032860133bd19d11fb309080667432a656e0a0d9583f4c6d368527f6ba7ada1",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 88,
+      "publication_position": 8800,
       "component_position": null
     },
     {
@@ -1493,7 +1493,7 @@
       "source_sha256": "83a75cf363c0642ac017fb1da287fd42709a8186ce3f59f8138957c0645377fa",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 89,
+      "publication_position": 8900,
       "component_position": null
     },
     {
@@ -1508,7 +1508,7 @@
       "source_sha256": "e51bc97e2c606ef2fe17b299ecc2c300b3d7470d5843e82ff7a611c2c07944bc",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 90,
+      "publication_position": 9000,
       "component_position": null
     },
     {
@@ -1523,7 +1523,7 @@
       "source_sha256": "01ccddfcde701ce0272d6e85226f1620b5c2c7907dc5cf19742fc70fd041c04c",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 91,
+      "publication_position": 9100,
       "component_position": null
     },
     {
@@ -1538,7 +1538,7 @@
       "source_sha256": "4e41470cead5382bc042b39634ae4bbc9bc184cda06801ddafa1331be6f0d124",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 92,
+      "publication_position": 9200,
       "component_position": null
     },
     {
@@ -1553,7 +1553,7 @@
       "source_sha256": "07a35aa57a7a28425d4da4b536de7049b76b209576e0682e89937eed0adc2ace",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 93,
+      "publication_position": 9300,
       "component_position": null
     },
     {
@@ -1568,7 +1568,7 @@
       "source_sha256": "e12f0fb03aaa342b12e59357582b4b7af939a3598302a3de592df3bd3919e2b7",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 94,
+      "publication_position": 9400,
       "component_position": null
     },
     {
@@ -1583,7 +1583,7 @@
       "source_sha256": "ee8645c65c39969e1792eaf6046c16cbd76703d6c2dddb24afdeb421737483f6",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 95,
+      "publication_position": 9500,
       "component_position": null
     },
     {
@@ -1598,7 +1598,7 @@
       "source_sha256": "ad2de6c27ac85e83b9f24ec41e1b9783a9c9b23ca7da65e883716ff97905dba0",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 96,
+      "publication_position": 9600,
       "component_position": null
     },
     {
@@ -1613,7 +1613,7 @@
       "source_sha256": "491b8160a19b5d3e2e428ee0ffb5d758adf7b569cd932da7c664dae086f254f8",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 97,
+      "publication_position": 9700,
       "component_position": null
     },
     {
@@ -1628,7 +1628,7 @@
       "source_sha256": "7be34ba3bd0b6f535015f4b208b62a2f0026c710ffa837f8d9f959457709581e",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 98,
+      "publication_position": 9800,
       "component_position": null
     },
     {
@@ -1643,7 +1643,7 @@
       "source_sha256": "b84ef199a0dfd4488f76ebf9bb2fe6c28e8ac3f02028606c0ed3247b402aa136",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 99,
+      "publication_position": 9900,
       "component_position": null
     },
     {
@@ -1658,7 +1658,7 @@
       "source_sha256": "26b8ebece64a583e2ac01d38c4d43d5ba70a9b24bfa268811854dd9966c4cd7b",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 100,
+      "publication_position": 10000,
       "component_position": null
     },
     {
@@ -1673,7 +1673,7 @@
       "source_sha256": "a1c0d4c3511d39d7a48ddf196db2dc88f0df8fa8080c036cf9e7df7d65eabe71",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 101,
+      "publication_position": 10100,
       "component_position": null
     },
     {
@@ -1688,7 +1688,7 @@
       "source_sha256": "8a254ef5d05a97a7df28a550c13750c6e2d2b9a057de6bffd94aa125311745d8",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 102,
+      "publication_position": 10200,
       "component_position": null
     },
     {
@@ -1703,7 +1703,7 @@
       "source_sha256": "1b726613b63c2daa172d80e002923593aeaa822a23fa69924273d438b39c384b",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 103,
+      "publication_position": 10300,
       "component_position": null
     },
     {
@@ -1718,7 +1718,7 @@
       "source_sha256": "664cf305d0b665ba4f00906a6ae966c14f4c0fee85cbe69db1f25d4e1883d188",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 104,
+      "publication_position": 10400,
       "component_position": null
     },
     {
@@ -1733,7 +1733,7 @@
       "source_sha256": "833717f7204ea2a9c509d66f69c54d5fc313a5398b4c0e9e6abf171e25f6a46f",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 105,
+      "publication_position": 10500,
       "component_position": null
     },
     {
@@ -1748,7 +1748,7 @@
       "source_sha256": "2e7887976b7df854f5d7443d02c89082f1a82cacfe220d91547795b75e9f3bc3",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 106,
+      "publication_position": 10600,
       "component_position": null
     },
     {
@@ -1763,7 +1763,7 @@
       "source_sha256": "46c3d27e1334344fe39245cc3911ce9cb34a9c3c80f93aee685b37c1e1f770d2",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 107,
+      "publication_position": 10700,
       "component_position": null
     },
     {
@@ -1778,7 +1778,7 @@
       "source_sha256": "59bd1ae414163256596c0ae341ba2b90ff90e2e72ebb3e12eb01156e0eced1b5",
       "source_origin": "R91",
       "review_needed": false,
-      "publication_position": 108,
+      "publication_position": 10800,
       "component_position": null
     }
   ],
