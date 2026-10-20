@@ -71,6 +71,21 @@ def place_r3p_reference_positions(bridge: RegistryBridgeResult) -> RegistryBridg
             raise ValueError(f"conflicting component position: {child_id}")
         assertion_updates[child_id] = position
 
+    # One cited Hopf-image source; use the established Proposition 5.1 position.
+    from phase165_r14_r33_final_group import hopf_eta2_image_step
+    image_id = "shared:1:adopted:assertion:5"
+    image = bridge.registry.assertion(image_id)
+    hopf_id = "shared:2:toda:adopted:prop5.1:eta2_hopf_relation"
+    hopf = bridge.registry.assertion(hopf_id)
+    if bridge.registry.reference(image.reference_id).locator != "Proposition 5.1":
+        raise ValueError("unexpected Hopf image literature locator")
+    if image.content != hopf_eta2_image_step().conclusion:
+        raise ValueError("Hopf image content mismatch")
+    if hopf.component_position not in (100,):
+        raise ValueError("Hopf source position mismatch")
+    if image.component_position not in (None, 100):
+        raise ValueError("conflicting Hopf image position")
+    assertion_updates[image_id] = 100
     result = UnifiedStatementRegistry()
     for reference in bridge.registry._references.values():
         position = reference_updates.get(reference.reference_id)
