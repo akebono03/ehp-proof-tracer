@@ -1,6 +1,4 @@
-"""R52-R15 tests: strict citation ordering is reusable and fails closed."""
-from dataclasses import replace
-
+"""R52-R15 tests updated for Phase 166 R3 order-only eligibility."""
 import pytest
 
 from phase163_r4_registry_bridge import MigrationRecord, MigrationStatus, RegistryBridgeResult
@@ -24,29 +22,30 @@ def _fixture(*, available=1, cited_position=1, citing_position=2, dependencies=(
     return bridge, step
 
 
-def test_ordered_reference_requires_independent_review():
+def test_ordered_reference_requires_only_prior_order():
     bridge, step = _fixture()
-    assert ordered_typed_reference_steps(bridge, 'fact', 'citing') == ()
+    assert ordered_typed_reference_steps(bridge, 'fact', 'citing') == (step,)
     assert ordered_typed_reference_steps(bridge, 'fact', 'citing', verified_assertion_ids=('cited',)) == (step,)
 
 
 def test_ordered_reference_rejects_later_and_unknown_availability():
     for available in (2, None):
         bridge, _ = _fixture(available=available)
-        assert ordered_typed_reference_steps(bridge, 'fact', 'citing', verified_assertion_ids=('cited',)) == ()
+        assert ordered_typed_reference_steps(bridge, 'fact', 'citing') == ()
 
 
 def test_ordered_reference_rejects_back_reference():
     bridge, _ = _fixture(dependencies=('citing',))
-    assert ordered_typed_reference_steps(bridge, 'fact', 'citing', verified_assertion_ids=('cited',)) == ()
+    assert ordered_typed_reference_steps(bridge, 'fact', 'citing') == ()
 
 
 def test_ordered_reference_integrates_with_backward_search():
     bridge, step = _fixture()
-    found = reconstruct_registered_goal('fact', bridge, 'citing', lambda goal: (), verified_assertion_ids=('cited',), lookup_mode='typed_reference_ordered')
+    found = reconstruct_registered_goal('fact', bridge, 'citing', lambda goal: (), lookup_mode='typed_reference_ordered')
     assert found is step
     with pytest.raises(RegisteredGoalUnresolved):
-        reconstruct_registered_goal('fact', bridge, 'citing', lambda goal: (), lookup_mode='typed_reference_ordered')
+        later, _ = _fixture(available=2)
+        reconstruct_registered_goal('fact', later, 'citing', lambda goal: (), lookup_mode='typed_reference_ordered')
 
 
 def test_existing_unordered_mode_preserved():
@@ -57,6 +56,4 @@ def test_existing_unordered_mode_preserved():
 
 def test_ordered_reference_rejects_different_document_order():
     bridge, _ = _fixture(source_id='Different document')
-    assert ordered_typed_reference_steps(
-        bridge, 'fact', 'citing', verified_assertion_ids=('cited',)
-    ) == ()
+    assert ordered_typed_reference_steps(bridge, 'fact', 'citing') == ()
