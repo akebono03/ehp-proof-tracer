@@ -59,5 +59,8 @@ def proof_ordered_prop51_items(adopted_content: object) -> tuple[OrderedProp51It
     )
     if len(by_key) != len(items) or set(by_key) != set(keys):
         raise ValueError("Proposition 5.1 claim inventory mismatch")
-    return tuple(by_key[key] for key in keys)
+    # Position represents the agreed proof-use order, not printed order.
+    from dataclasses import replace
+    return tuple(replace(by_key[key], position=position)
+                 for position, key in enumerate(keys, start=1))
 
