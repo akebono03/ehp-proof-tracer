@@ -7,6 +7,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from hashlib import sha256
 
+from expression import ScalarProduct, ScalarSum, ScalarSymbol
+from homotopy_groups import TodaIteratedSuspensionMap, TodaPrimaryGroup
+from toda_rules import Toda45IsomorphismStatement
+
 from phase163_r4_registry_bridge import RegistryBridgeResult, MigrationRecord, MigrationStatus
 from proof import ProofRule, ProofStep
 from unified_statement_registry import (
@@ -35,6 +39,59 @@ class Toda52UniversalStatement:
     variable: str = "i"
     minimum_i: int = 3
 
+
+
+def _toda45_universal_statement() -> Toda45IsomorphismStatement:
+    """The whole (4.5) map schema; numerical domain is validated on use."""
+    n, k, m = ScalarSymbol("n"), ScalarSymbol("k"), ScalarSymbol("m")
+    return Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(
+        exponent=ScalarSum(left=m, right=ScalarProduct(left=-1, right=n)),
+        source_group=TodaPrimaryGroup(
+            group_dimension=ScalarSum(left=n, right=k), sphere_dimension=n,
+        ),
+        target_group=TodaPrimaryGroup(
+            group_dimension=ScalarSum(left=m, right=k), sphere_dimension=m,
+        ),
+    ))
+
+
+def _register_toda45(registry, links, records, source_bridge) -> None:
+    source_id = "toda:tex:ch4:0006"
+    candidates = [
+        a for a in source_bridge.registry._assertions.values()
+        if a.origin is AssertionOrigin.SOURCE_ARCHIVE
+        and isinstance(a.content, dict)
+        and a.content.get("source_statement_id") == source_id
+    ]
+    if len(candidates) != 1:
+        raise ValueError("unique source archive entry required: (4.5)")
+    archive = candidates[0].content
+    source_text = archive.get("source_text")
+    if (not isinstance(source_text, str)
+            or archive.get("source_sha256") != sha256(source_text.encode("utf-8")).hexdigest()
+            or "E" not in source_text):
+        raise ValueError("source content does not match reviewed scope: (4.5)")
+    ref_id = f"typed_literature:{source_id}"
+    assertion_id = f"typed_literature:assertion:{source_id}"
+    statement = _toda45_universal_statement()
+    registry.add_reference(LiteratureEntry(
+        ref_id, ReferenceKind.EQUATION, "(4.5)", source_id=source_id,
+    ))
+    registry.add_assertion(AssertionEntry(
+        assertion_id, ref_id, AssertionKind.STATEMENT, statement,
+        origin=AssertionOrigin.FIXED_STATEMENT,
+        scope=("n>=k+2", "m>=n", "k>=0"),
+    ))
+    links.append(ProofStepLink(
+        assertion_id, step=ProofStep(
+            conclusion=statement, premises=(), rule=ProofRule.GIVEN,
+        ),
+    ))
+    records.append(MigrationRecord(
+        "phase166_r3g", "(4.5)", assertion_id,
+        MigrationStatus.STRUCTURED,
+        "typed universal suspension map with explicit numerical domain",
+    ))
 
 _SOURCES = (
     (
@@ -83,4 +140,5 @@ def build_typed_literature_bridge(source_bridge: RegistryBridgeResult) -> Regist
             "phase165_r52_r27_r5", locator, assertion_id,
             MigrationStatus.STRUCTURED, "typed universal literature claim; specialization not certified",
         ))
+    _register_toda45(registry, links, records, source_bridge)
     return RegistryBridgeResult(registry, tuple(records), tuple(links))
