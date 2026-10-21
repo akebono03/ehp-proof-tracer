@@ -1915,6 +1915,8 @@
   "phase166_r3am_suspension_one/tests/test_suspension_one.py::test_one_suspension_has_no_exponent",
   "phase166_r3am_suspension_one/tests/test_suspension_one.py::test_other_suspension_exponents_unchanged",
   "phase166_r3am_suspension_one/tests/test_suspension_one.py::test_pi74_and_pi158_display_no_e_one",
+  "phase166_r3an_generator_notation_audit/test_audit.py::test_112_targets_present",
+  "phase166_r3an_generator_notation_audit/test_audit.py::test_no_suspension_power_one_in_public_goals",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[legacy]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference_ordered]",
