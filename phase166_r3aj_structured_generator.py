@@ -13,22 +13,21 @@ _SUB = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
 
 
 def _base_element(row, dimension):
-    """Reconstruct a factor from the generator registry at its actual dimension."""
+    """Build a typed generator from the registered TeX and its actual degree."""
     family = str(row["display"]).strip()
     initial_n = int(row["n"])
     stem = int(row["k"])
     kinds = int(row["kinds"])
     if dimension < initial_n:
         return None
+    canonical = str(row["latex"]).strip()
     if kinds == 0:
-        # Stable-family symbols in HyoujiGen.csv carry their canonical TeX.
-        # Preserve the existing names for the four familiar families.
         if family in {"η", "ν", "σ", "ι"}:
             symbol_family = family
         else:
-            symbol_family = str(row["latex"]).strip()
-            if not symbol_family or symbol_family.lower() == "nan":
+            if not canonical or canonical.lower() == "nan":
                 return None
+            symbol_family = canonical
         return HomotopyElement(
             name=family + str(dimension).translate(_SUB),
             dimension=dimension,
@@ -36,13 +35,14 @@ def _base_element(row, dimension):
             target=dimension,
             generator=GeneratorSymbol(family=symbol_family, index=dimension),
         )
-    # Exceptional classes must retain their original name plus suspension.
-    label = family.replace("'", "′")
+    if not canonical or canonical.lower() == "nan":
+        return None
     original = HomotopyElement(
-        name=label,
+        name=family,
         dimension=initial_n,
         source=initial_n + stem,
         target=initial_n,
+        generator=GeneratorSymbol(family=canonical),
     )
     exponent = dimension - initial_n
     return original if exponent == 0 else IteratedSuspension(original, exponent)

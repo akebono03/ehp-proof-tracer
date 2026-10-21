@@ -332,27 +332,32 @@ def _render_generator_symbol_latex(
       "symbol must be a GeneratorSymbol"
     )
 
-  latex = (
-    _render_unicode_math_name_latex(
-      symbol.family
-    )
-  )
+  # A registered TeX fragment ending in an open numeric subscript
+  # (e.g. \\mu_{3,) takes its final index inside the same braces.
+  if symbol.family.startswith("\\"):
+    import re
+    if (
+      symbol.index is not None
+      and re.search(r"_\{\d+,$", symbol.family)
+    ):
+      return (
+        symbol.family
+        + _render_scalar_latex(symbol.index)
+        + "}"
+      )
+    latex = symbol.family
+  else:
+    latex = _render_unicode_math_name_latex(symbol.family)
 
   if symbol.index is not None:
     latex += (
       "_{"
-      + _render_scalar_latex(
-        symbol.index
-      )
+      + _render_scalar_latex(symbol.index)
       + "}"
     )
 
   if symbol.decoration is not None:
-    latex += (
-      _render_unicode_math_name_latex(
-        symbol.decoration
-      )
-    )
+    latex += _render_unicode_math_name_latex(symbol.decoration)
 
   return latex
 
