@@ -1,0 +1,149 @@
+{
+  "phase": "167 R3",
+  "mode": "READ_ONLY_GIVEN_ASSERTION_PROVENANCE",
+  "search_status": "complete",
+  "total_steps": 25,
+  "given_count": 6,
+  "citing_id": null,
+  "citing_id_policy": "The production citing ID is not invented when resolver returns None.",
+  "given_assertions": [
+    {
+      "step": 1,
+      "locator": "Chapter V, i)",
+      "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+      "matched_assertions": [
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+          "origin": "fixed_statement",
+          "publication_position": 7800,
+          "component_position": 300,
+          "linked_in_bridge": true,
+          "link_count": 1,
+          "precedes_actual_citing_id": null
+        }
+      ],
+      "matched_count": 1,
+      "status": "MAPPED_NO_CITING_ID"
+    },
+    {
+      "step": 6,
+      "locator": "(5.1)",
+      "conclusion_type": "Relation",
+      "matched_assertions": [
+        {
+          "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+          "reference_id": "shared:3:adopted:toda51:diagonal",
+          "origin": "fixed_statement",
+          "publication_position": 7700,
+          "component_position": null,
+          "linked_in_bridge": true,
+          "link_count": 1,
+          "precedes_actual_citing_id": null
+        }
+      ],
+      "matched_count": 1,
+      "status": "MAPPED_NO_CITING_ID"
+    },
+    {
+      "step": 8,
+      "locator": "Proposition 5.1",
+      "conclusion_type": "TodaDeltaImageUpToSignStatement",
+      "matched_assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:delta_iota5_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "origin": "fixed_statement",
+          "publication_position": 7800,
+          "component_position": 400,
+          "linked_in_bridge": false,
+          "link_count": 0,
+          "precedes_actual_citing_id": null
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "origin": "fixed_statement",
+          "publication_position": 7800,
+          "component_position": 400,
+          "linked_in_bridge": true,
+          "link_count": 1,
+          "precedes_actual_citing_id": null
+        }
+      ],
+      "matched_count": 2,
+      "status": "MULTIPLE_MATCHES"
+    },
+    {
+      "step": 10,
+      "locator": "Proposition 4.2 (4.4)",
+      "conclusion_type": "TodaProp42GeneralExactnessStatement",
+      "matched_assertions": [
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "reference_id": "shared:5:adopted:reference:prop42:general",
+          "origin": "fixed_statement",
+          "publication_position": 6800,
+          "component_position": null,
+          "linked_in_bridge": true,
+          "link_count": 1,
+          "precedes_actual_citing_id": null
+        }
+      ],
+      "matched_count": 1,
+      "status": "MAPPED_NO_CITING_ID"
+    },
+    {
+      "step": 16,
+      "locator": "(5.1)",
+      "conclusion_type": "Toda51BelowDiagonalZeroStatement",
+      "matched_assertions": [
+        {
+          "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+          "reference_id": "shared:6:adopted:reference:toda51:below_diagonal_zero",
+          "origin": "fixed_statement",
+          "publication_position": 7700,
+          "component_position": null,
+          "linked_in_bridge": true,
+          "link_count": 1,
+          "precedes_actual_citing_id": null
+        }
+      ],
+      "matched_count": 1,
+      "status": "MAPPED_NO_CITING_ID"
+    },
+    {
+      "step": 22,
+      "locator": "Proposition 5.1",
+      "conclusion_type": "Relation",
+      "matched_assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "origin": "fixed_statement",
+          "publication_position": 7800,
+          "component_position": 200,
+          "linked_in_bridge": false,
+          "link_count": 0,
+          "precedes_actual_citing_id": null
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "origin": "fixed_statement",
+          "publication_position": 7800,
+          "component_position": 200,
+          "linked_in_bridge": true,
+          "link_count": 1,
+          "precedes_actual_citing_id": null
+        }
+      ],
+      "matched_count": 2,
+      "status": "MULTIPLE_MATCHES"
+    }
+  ],
+  "publication_order_verified": false,
+  "limitation": "Provenance mapping and relative metadata are inspected; no synthetic target position is assigned. A missing citing ID cannot certify publication order.",
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
