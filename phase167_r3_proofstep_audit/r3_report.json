@@ -1,0 +1,29 @@
+{
+  "phase": "167 R3",
+  "mode": "READ_ONLY_PROOFSTEP_STRUCTURE",
+  "target": "pi_4^3",
+  "status": "search_failed",
+  "conclusion_matches_goal": false,
+  "proven_step_count": 0,
+  "ancestry_count": 0,
+  "root_is_derived": false,
+  "all_premises_precede_dependents": true,
+  "given_count": 0,
+  "publication_metadata_in_proofstep": [],
+  "publication_order_verification": "NOT_VERIFIED_FROM_PROOFSTEP_METADATA",
+  "semantic_forward_replay": "NOT_PERFORMED",
+  "problems": [
+    "Search result not COMPLETE",
+    "Expected one derived root, found 0",
+    "Required inference absent: first isomorphism theorem for generated kernel",
+    "Required inference absent: infinite cyclic quotient structure",
+    "Required inference absent: finite cyclic structure gives group relation"
+  ],
+  "steps": [],
+  "scope_notes": [
+    "A structural dependency audit does not prove semantic correctness of inference rules.",
+    "Literature publication ordering may be stored in an external registry; absence of fields in ProofStep does not imply ordering failure.",
+    "No repository source files or existing tests are changed."
+  ],
+  "full_pytest_run": false
+}

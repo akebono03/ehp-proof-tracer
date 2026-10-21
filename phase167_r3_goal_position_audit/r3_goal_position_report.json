@@ -1,0 +1,130 @@
+{
+  "phase": "167 R3 goal position audit",
+  "mode": "READ_ONLY",
+  "search_status": "complete",
+  "goal_matches_declared_prop51_item": true,
+  "production_citing_id": null,
+  "goal_assertion_candidates": [
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+      "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+      "origin": "fixed_statement",
+      "publication_position": 7800,
+      "component_position": 500,
+      "exact": true,
+      "nested": true
+    }
+  ],
+  "exact_candidate_count": 1,
+  "usable_exact_candidate_count": 1,
+  "unique_exact_citing_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+  "given_count": 6,
+  "goal_used_as_given": false,
+  "given_results": [
+    {
+      "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+      "locator": "Chapter V, i)",
+      "is_goal_itself": false,
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "publication_position": 7800,
+          "component_position": 300,
+          "precedes_goal": true
+        }
+      ],
+      "all_matches_precede": true,
+      "some_match_precedes": true
+    },
+    {
+      "conclusion_type": "Relation",
+      "locator": "(5.1)",
+      "is_goal_itself": false,
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+          "publication_position": 7700,
+          "component_position": null,
+          "precedes_goal": true
+        }
+      ],
+      "all_matches_precede": true,
+      "some_match_precedes": true
+    },
+    {
+      "conclusion_type": "TodaDeltaImageUpToSignStatement",
+      "locator": "Proposition 5.1",
+      "is_goal_itself": false,
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:delta_iota5_relation",
+          "publication_position": 7800,
+          "component_position": 400,
+          "precedes_goal": true
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "publication_position": 7800,
+          "component_position": 400,
+          "precedes_goal": true
+        }
+      ],
+      "all_matches_precede": true,
+      "some_match_precedes": true
+    },
+    {
+      "conclusion_type": "TodaProp42GeneralExactnessStatement",
+      "locator": "Proposition 4.2 (4.4)",
+      "is_goal_itself": false,
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "publication_position": 6800,
+          "component_position": null,
+          "precedes_goal": true
+        }
+      ],
+      "all_matches_precede": true,
+      "some_match_precedes": true
+    },
+    {
+      "conclusion_type": "Toda51BelowDiagonalZeroStatement",
+      "locator": "(5.1)",
+      "is_goal_itself": false,
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+          "publication_position": 7700,
+          "component_position": null,
+          "precedes_goal": true
+        }
+      ],
+      "all_matches_precede": true,
+      "some_match_precedes": true
+    },
+    {
+      "conclusion_type": "Relation",
+      "locator": "Proposition 5.1",
+      "is_goal_itself": false,
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+          "publication_position": 7800,
+          "component_position": 200,
+          "precedes_goal": true
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+          "publication_position": 7800,
+          "component_position": 200,
+          "precedes_goal": true
+        }
+      ],
+      "all_matches_precede": true,
+      "some_match_precedes": true
+    }
+  ],
+  "publication_order_verified": true,
+  "warning": "A parent assertion's position must not be treated as the position of its unregistered component. The audit does not modify production search.",
+  "full_pytest_run": false
+}

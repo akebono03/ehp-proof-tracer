@@ -1,0 +1,52 @@
+{
+  "mode": "READ_ONLY",
+  "repository": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof",
+  "functions": {
+    "adapter": {
+      "file": "phase165_r56_presentation_adapter.py",
+      "function": "render_completed_shared_narrative",
+      "status": "found",
+      "line": 18
+    },
+    "proofstep_renderer": {
+      "file": "phase165_r57_r10_step_narrative.py",
+      "function": "render_completed_from_proofsteps",
+      "status": "found",
+      "line": 71
+    },
+    "reference_renderer": {
+      "file": "toda_group_proof_narrative_references.py",
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "status": "found",
+      "line": 2036
+    },
+    "public_renderer": {
+      "file": "toda_group_proof_narrative_renderer.py",
+      "function": "render_toda_group_proof_narrative_markdown",
+      "status": "found",
+      "line": 11766
+    }
+  },
+  "source_checks": {
+    "reference_5_1_branch": true,
+    "reference_5_1_component_keys": true,
+    "adapter_has_conditional_alternate_renderer": true,
+    "alternate_renderer_includes_given_statements": true,
+    "alternate_renderer_exposes_rule_names": true
+  },
+  "saved_artifact_checks": {
+    "artifact_present": true,
+    "reference_5_1_heading": true,
+    "reference_5_1_formula_present_in_section": false,
+    "rule_name_in_body": true,
+    "eta_generator_image_occurrences": 2,
+    "saved_step_count": 25,
+    "has_quotient_rule": true,
+    "has_first_iso_rule": true
+  },
+  "limits": [
+    "Saved artifacts do not establish the current Web response.",
+    "Static source inspection does not prove which conditional renderer runs.",
+    "No production modules were imported and no pytest was invoked."
+  ]
+}

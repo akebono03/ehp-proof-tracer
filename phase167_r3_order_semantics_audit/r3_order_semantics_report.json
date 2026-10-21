@@ -1,0 +1,134 @@
+{
+  "phase": "167 R3",
+  "mode": "READ_ONLY_PUBLICATION_AND_FORWARD_REPLAY",
+  "status": "complete",
+  "step_count": 25,
+  "citing_assertion_id": null,
+  "given_checks": [
+    {
+      "step": 1,
+      "locator": "Chapter V, i)",
+      "status": "NO_CITING_ASSERTION",
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+          "publication_position": 7800,
+          "component_position": 300,
+          "precedes_target": null
+        }
+      ]
+    },
+    {
+      "step": 6,
+      "locator": "(5.1)",
+      "status": "NO_CITING_ASSERTION",
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+          "reference_id": "shared:3:adopted:toda51:diagonal",
+          "publication_position": 7700,
+          "component_position": null,
+          "precedes_target": null
+        }
+      ]
+    },
+    {
+      "step": 8,
+      "locator": "Proposition 5.1",
+      "status": "NO_CITING_ASSERTION",
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:delta_iota5_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": 400,
+          "precedes_target": null
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": 400,
+          "precedes_target": null
+        }
+      ]
+    },
+    {
+      "step": 10,
+      "locator": "Proposition 4.2 (4.4)",
+      "status": "NO_CITING_ASSERTION",
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:5:adopted:assertion:prop42:general",
+          "reference_id": "shared:5:adopted:reference:prop42:general",
+          "publication_position": 6800,
+          "component_position": null,
+          "precedes_target": null
+        }
+      ]
+    },
+    {
+      "step": 16,
+      "locator": "(5.1)",
+      "status": "NO_CITING_ASSERTION",
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+          "reference_id": "shared:6:adopted:reference:toda51:below_diagonal_zero",
+          "publication_position": 7700,
+          "component_position": null,
+          "precedes_target": null
+        }
+      ]
+    },
+    {
+      "step": 22,
+      "locator": "Proposition 5.1",
+      "status": "NO_CITING_ASSERTION",
+      "matching_assertions": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": 200,
+          "precedes_target": null
+        },
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+          "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+          "publication_position": 7800,
+          "component_position": 200,
+          "precedes_target": null
+        }
+      ]
+    }
+  ],
+  "selected_rule_replay": [
+    {
+      "step": 21,
+      "rule": "first isomorphism theorem for generated kernel",
+      "premises": 3,
+      "match_count": 1,
+      "conclusion_reproduced": true,
+      "errors": []
+    },
+    {
+      "step": 24,
+      "rule": "infinite cyclic quotient structure",
+      "premises": 2,
+      "match_count": 1,
+      "conclusion_reproduced": true,
+      "errors": []
+    }
+  ],
+  "all_givens_verified": false,
+  "selected_rules_reproduced": true,
+  "scope_limitations": [
+    "A reproduced rule application checks implementation consistency, not a formal mathematical proof.",
+    "Only the two specified quotient inference rules are replayed.",
+    "Publication checks use matching assertion content and actual registry ordering, never locator-only acceptance.",
+    "Missing or ambiguous source mappings remain visible in the report."
+  ],
+  "full_pytest_run": false
+}

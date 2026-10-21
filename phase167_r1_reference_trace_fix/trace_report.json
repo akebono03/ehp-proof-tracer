@@ -1,0 +1,1068 @@
+{
+  "phase": "167 R1",
+  "mode": "READ_ONLY_FUNCTION_TRACE",
+  "production_changes": false,
+  "full_pytest_run": false,
+  "target": "pi_4^3",
+  "events": [
+    {
+      "function": "render_completed_shared_narrative",
+      "module": "phase165_r56_presentation_adapter",
+      "stage": "call"
+    },
+    {
+      "function": "render_toda_group_proof_narrative_markdown",
+      "module": "toda_group_proof_narrative_renderer",
+      "stage": "call"
+    },
+    {
+      "function": "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "call"
+    },
+    {
+      "function": "build_toda_group_proof_narrative_reference_entries",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "call"
+    },
+    {
+      "function": "build_toda_group_proof_narrative_reference_entries",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "return",
+      "output": {
+        "entries": [
+          {
+            "number": 1,
+            "locator": "Proposition 5.1",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "TodaDeltaImageUpToSignStatement",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "locator": "Chapter V, i)",
+            "steps": [
+              {
+                "type": "TodaEtaFamilyGeneralDefinition",
+                "rule": "Toda chapter V eta-family notation",
+                "locator": "Chapter V, i)",
+                "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "locator": "Proposition 4.2",
+            "steps": [
+              {
+                "type": "TodaProp42ExactnessStatement",
+                "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+                "locator": null,
+                "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+              },
+              {
+                "type": "TodaProp42ExactnessStatement",
+                "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+                "locator": null,
+                "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "locator": "(5.1)",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Toda (5.1) diagonal cyclic source",
+                "locator": "(5.1)",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "Toda51BelowDiagonalZeroStatement",
+                "rule": "Toda (5.1) universal below-diagonal vanishing",
+                "locator": "(5.1)",
+                "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+              }
+            ]
+          },
+          {
+            "number": 5,
+            "locator": "Proposition 4.2 (4.4)",
+            "steps": [
+              {
+                "type": "TodaProp42GeneralExactnessStatement",
+                "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+                "locator": "Proposition 4.2 (4.4)",
+                "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "call",
+      "entries_input": [
+        {
+          "number": 1,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Chapter V, i)",
+          "steps": [
+            {
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "rule": "Toda chapter V eta-family notation",
+              "locator": "Chapter V, i)",
+              "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 4.2",
+          "steps": [
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+              "locator": null,
+              "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+              "locator": null,
+              "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "locator": "Proposition 4.2 (4.4)",
+          "steps": [
+            {
+              "type": "TodaProp42GeneralExactnessStatement",
+              "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+              "locator": "Proposition 4.2 (4.4)",
+              "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "return",
+      "output": {
+        "entries": [
+          {
+            "number": 1,
+            "locator": "(5.1)",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Toda (5.1) diagonal cyclic source",
+                "locator": "(5.1)",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "Toda51BelowDiagonalZeroStatement",
+                "rule": "Toda (5.1) universal below-diagonal vanishing",
+                "locator": "(5.1)",
+                "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "locator": "Proposition 5.1",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "TodaDeltaImageUpToSignStatement",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "locator": "Chapter V, i)",
+            "steps": [
+              {
+                "type": "TodaEtaFamilyGeneralDefinition",
+                "rule": "Toda chapter V eta-family notation",
+                "locator": "Chapter V, i)",
+                "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "locator": "Proposition 4.2 (4.4)",
+            "steps": [
+              {
+                "type": "TodaProp42GeneralExactnessStatement",
+                "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+                "locator": "Proposition 4.2 (4.4)",
+                "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "function": "_select_toda_group_proof_narrative_reference_entries_and_statement_lines",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "call",
+      "reference_entries_input": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Chapter V, i)",
+          "steps": [
+            {
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "rule": "Toda chapter V eta-family notation",
+              "locator": "Chapter V, i)",
+              "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "steps": [
+            {
+              "type": "TodaProp42GeneralExactnessStatement",
+              "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+              "locator": "Proposition 4.2 (4.4)",
+              "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "function": "_select_toda_group_proof_narrative_reference_entries_and_statement_lines",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "return",
+      "output": {
+        "entries": [
+          {
+            "number": 1,
+            "locator": "(5.1)",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Toda (5.1) diagonal cyclic source",
+                "locator": "(5.1)",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "Toda51BelowDiagonalZeroStatement",
+                "rule": "Toda (5.1) universal below-diagonal vanishing",
+                "locator": "(5.1)",
+                "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "locator": "Proposition 5.1",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "TodaDeltaImageUpToSignStatement",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "locator": "Chapter V, i)",
+            "steps": [
+              {
+                "type": "TodaEtaFamilyGeneralDefinition",
+                "rule": "Toda chapter V eta-family notation",
+                "locator": "Chapter V, i)",
+                "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "locator": "Proposition 4.2 (4.4)",
+            "steps": [
+              {
+                "type": "TodaProp42GeneralExactnessStatement",
+                "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+                "locator": "Proposition 4.2 (4.4)",
+                "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+              }
+            ]
+          }
+        ],
+        "statement_lines": {
+          "1": [
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$"
+          ],
+          "2": [
+            "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$",
+            "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$"
+          ]
+        }
+      }
+    },
+    {
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "call",
+      "entries_input": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        }
+      ],
+      "statement_lines_input": {
+        "1": [
+          "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$"
+        ],
+        "2": [
+          "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$",
+          "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$"
+        ]
+      }
+    },
+    {
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "return",
+      "output": {
+        "text_length": 127,
+        "reference_excerpt": "**[R1] (5.1).**\n**[R2] Proposition 5.1.**\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$\n$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$",
+        "has_infinite_cyclic_raw": false
+      }
+    },
+    {
+      "function": "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "return",
+      "output": {
+        "text_length": 791,
+        "reference_excerpt": "# Group proof narrative\n\n## 使用する結果\n\n**[R1] (5.1).**\n**[R2] Proposition 5.1.**\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.\n$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.\n\n---\n\n",
+        "has_infinite_cyclic_raw": true
+      }
+    },
+    {
+      "function": "build_toda_group_proof_narrative_reference_entries",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "call"
+    },
+    {
+      "function": "build_toda_group_proof_narrative_reference_entries",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "return",
+      "output": {
+        "entries": [
+          {
+            "number": 1,
+            "locator": "Proposition 5.1",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "TodaDeltaImageUpToSignStatement",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "locator": "Chapter V, i)",
+            "steps": [
+              {
+                "type": "TodaEtaFamilyGeneralDefinition",
+                "rule": "Toda chapter V eta-family notation",
+                "locator": "Chapter V, i)",
+                "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "locator": "Proposition 4.2",
+            "steps": [
+              {
+                "type": "TodaProp42ExactnessStatement",
+                "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+                "locator": null,
+                "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+              },
+              {
+                "type": "TodaProp42ExactnessStatement",
+                "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+                "locator": null,
+                "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "locator": "(5.1)",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Toda (5.1) diagonal cyclic source",
+                "locator": "(5.1)",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "Toda51BelowDiagonalZeroStatement",
+                "rule": "Toda (5.1) universal below-diagonal vanishing",
+                "locator": "(5.1)",
+                "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+              }
+            ]
+          },
+          {
+            "number": 5,
+            "locator": "Proposition 4.2 (4.4)",
+            "steps": [
+              {
+                "type": "TodaProp42GeneralExactnessStatement",
+                "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+                "locator": "Proposition 4.2 (4.4)",
+                "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "call",
+      "entries_input": [
+        {
+          "number": 1,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Chapter V, i)",
+          "steps": [
+            {
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "rule": "Toda chapter V eta-family notation",
+              "locator": "Chapter V, i)",
+              "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 4.2",
+          "steps": [
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+              "locator": null,
+              "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+              "locator": null,
+              "statement": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 5,
+          "locator": "Proposition 4.2 (4.4)",
+          "steps": [
+            {
+              "type": "TodaProp42GeneralExactnessStatement",
+              "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+              "locator": "Proposition 4.2 (4.4)",
+              "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "function": "filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "return",
+      "output": {
+        "entries": [
+          {
+            "number": 1,
+            "locator": "(5.1)",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Toda (5.1) diagonal cyclic source",
+                "locator": "(5.1)",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "Toda51BelowDiagonalZeroStatement",
+                "rule": "Toda (5.1) universal below-diagonal vanishing",
+                "locator": "(5.1)",
+                "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "locator": "Proposition 5.1",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "TodaDeltaImageUpToSignStatement",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "locator": "Chapter V, i)",
+            "steps": [
+              {
+                "type": "TodaEtaFamilyGeneralDefinition",
+                "rule": "Toda chapter V eta-family notation",
+                "locator": "Chapter V, i)",
+                "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "locator": "Proposition 4.2 (4.4)",
+            "steps": [
+              {
+                "type": "TodaProp42GeneralExactnessStatement",
+                "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+                "locator": "Proposition 4.2 (4.4)",
+                "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "function": "_toda_group_proof_narrative_reference_statement_lines_by_number",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "call",
+      "reference_entries_input": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Chapter V, i)",
+          "steps": [
+            {
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "rule": "Toda chapter V eta-family notation",
+              "locator": "Chapter V, i)",
+              "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "steps": [
+            {
+              "type": "TodaProp42GeneralExactnessStatement",
+              "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+              "locator": "Proposition 4.2 (4.4)",
+              "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "function": "_select_toda_group_proof_narrative_reference_entries_and_statement_lines",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "call",
+      "reference_entries_input": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Chapter V, i)",
+          "steps": [
+            {
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "rule": "Toda chapter V eta-family notation",
+              "locator": "Chapter V, i)",
+              "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "steps": [
+            {
+              "type": "TodaProp42GeneralExactnessStatement",
+              "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+              "locator": "Proposition 4.2 (4.4)",
+              "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "function": "_select_toda_group_proof_narrative_reference_entries_and_statement_lines",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "return",
+      "output": {
+        "entries": [
+          {
+            "number": 1,
+            "locator": "(5.1)",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Toda (5.1) diagonal cyclic source",
+                "locator": "(5.1)",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "Toda51BelowDiagonalZeroStatement",
+                "rule": "Toda (5.1) universal below-diagonal vanishing",
+                "locator": "(5.1)",
+                "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+              }
+            ]
+          },
+          {
+            "number": 2,
+            "locator": "Proposition 5.1",
+            "steps": [
+              {
+                "type": "Relation",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+              },
+              {
+                "type": "TodaDeltaImageUpToSignStatement",
+                "rule": "Adopted literature Proposition 5.1",
+                "locator": "Proposition 5.1",
+                "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+              }
+            ]
+          },
+          {
+            "number": 3,
+            "locator": "Chapter V, i)",
+            "steps": [
+              {
+                "type": "TodaEtaFamilyGeneralDefinition",
+                "rule": "Toda chapter V eta-family notation",
+                "locator": "Chapter V, i)",
+                "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+              }
+            ]
+          },
+          {
+            "number": 4,
+            "locator": "Proposition 4.2 (4.4)",
+            "steps": [
+              {
+                "type": "TodaProp42GeneralExactnessStatement",
+                "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+                "locator": "Proposition 4.2 (4.4)",
+                "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+              }
+            ]
+          }
+        ],
+        "statement_lines": {
+          "1": [
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$"
+          ],
+          "2": [
+            "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$",
+            "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$"
+          ]
+        }
+      }
+    },
+    {
+      "function": "_toda_group_proof_narrative_reference_statement_lines_by_number",
+      "module": "toda_group_proof_narrative_contribution_renderer",
+      "stage": "return",
+      "output": {
+        "type": "dict"
+      }
+    },
+    {
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "call",
+      "entries_input": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Toda (5.1) diagonal cyclic source",
+              "locator": "(5.1)",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "rule": "Toda (5.1) universal below-diagonal vanishing",
+              "locator": "(5.1)",
+              "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "steps": [
+            {
+              "type": "Relation",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "type": "TodaDeltaImageUpToSignStatement",
+              "rule": "Adopted literature Proposition 5.1",
+              "locator": "Proposition 5.1",
+              "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Chapter V, i)",
+          "steps": [
+            {
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "rule": "Toda chapter V eta-family notation",
+              "locator": "Chapter V, i)",
+              "statement": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "steps": [
+            {
+              "type": "TodaProp42GeneralExactnessStatement",
+              "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+              "locator": "Proposition 4.2 (4.4)",
+              "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+            }
+          ]
+        }
+      ],
+      "statement_lines_input": {
+        "1": [
+          "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$"
+        ],
+        "2": [
+          "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$",
+          "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$"
+        ]
+      }
+    },
+    {
+      "function": "render_toda_group_proof_narrative_reference_entries_markdown",
+      "module": "toda_group_proof_narrative_references",
+      "stage": "return",
+      "output": {
+        "text_length": 183,
+        "reference_excerpt": "**[R1] (5.1).**\n**[R2] Proposition 5.1.**\n$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$\n$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$\n**[R3] Chapter V, i).**\n**[R4] Proposition 4.2 (4.4).**",
+        "has_infinite_cyclic_raw": false
+      }
+    },
+    {
+      "function": "render_toda_group_proof_narrative_markdown",
+      "module": "toda_group_proof_narrative_renderer",
+      "stage": "return",
+      "output": {
+        "text_length": 964,
+        "reference_excerpt": "# Group proof narrative\n\n",
+        "has_infinite_cyclic_raw": true
+      }
+    },
+    {
+      "function": "render_completed_shared_narrative",
+      "module": "phase165_r56_presentation_adapter",
+      "stage": "return",
+      "output": {
+        "text_length": 964,
+        "reference_excerpt": "# Group proof narrative\n\n",
+        "has_infinite_cyclic_raw": true
+      }
+    }
+  ],
+  "view": {
+    "key": "generic-complete-proof",
+    "mode": "narrative",
+    "line_count": 25
+  },
+  "final_reference_section": "  \n**[R1] (5.1).**  \n**[R2] Proposition 5.1.**  \n \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\} .\n \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2} .\n  \n",
+  "final_has_general_diagonal": false,
+  "final_has_general_zero": false,
+  "final_has_raw_english": true
+}

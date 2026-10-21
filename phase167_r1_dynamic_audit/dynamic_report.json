@@ -1,0 +1,87 @@
+{
+  "phase": "167 R1",
+  "mode": "READ_ONLY_DYNAMIC",
+  "target": "pi_4^3",
+  "events": [
+    {
+      "stage": "completed_adapter",
+      "status": "complete",
+      "proven_steps": 25,
+      "ancestry_count": 25,
+      "transport_ancestry": false,
+      "given": [
+        {
+          "rule": "Toda chapter V eta-family notation",
+          "locator": "Chapter V, i)",
+          "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+          "conclusion": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+        },
+        {
+          "rule": "Toda (5.1) diagonal cyclic source",
+          "locator": "(5.1)",
+          "conclusion_type": "Relation",
+          "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "rule": "Adopted literature Proposition 5.1",
+          "locator": "Proposition 5.1",
+          "conclusion_type": "TodaDeltaImageUpToSignStatement",
+          "conclusion": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+        },
+        {
+          "rule": "Toda Proposition 4.2 universal EHP exact sequence",
+          "locator": "Proposition 4.2 (4.4)",
+          "conclusion_type": "TodaProp42GeneralExactnessStatement",
+          "conclusion": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')"
+        },
+        {
+          "rule": "Toda (5.1) universal below-diagonal vanishing",
+          "locator": "(5.1)",
+          "conclusion_type": "Toda51BelowDiagonalZeroStatement",
+          "conclusion": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+        },
+        {
+          "rule": "Adopted literature Proposition 5.1",
+          "locator": "Proposition 5.1",
+          "conclusion_type": "Relation",
+          "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "rule_names": [
+        "specialize cited eta-family general definition",
+        "specialize cited eta-family general definition",
+        "consecutive cited eta definitions imply generator suspension",
+        "cited eta generator suspension yields presentation in target notation",
+        "generic cited typed scalar specialization",
+        "free cyclic generator Delta image",
+        "Toda Proposition 4.2: generic consecutive EHP specialization",
+        "EHP exactness implies image equals kernel",
+        "EHP Delta image and exactness imply concrete suspension kernel",
+        "certified cyclic suspension kernel entails kernel multiple",
+        "Toda Proposition 4.2: generic consecutive EHP specialization",
+        "Toda (5.1) general below-diagonal zero specialization",
+        "EHP exactness and zero Hopf target imply suspension surjectivity",
+        "EHP suspension surjectivity implies whole image",
+        "whole image implies surjectivity",
+        "first isomorphism theorem for generated kernel",
+        "proved free cyclic group relation implies infinite cyclic structure",
+        "infinite cyclic quotient structure",
+        "finite cyclic structure gives group relation"
+      ]
+    }
+  ],
+  "full_pytest_run": false,
+  "production_changes": false,
+  "web_view": {
+    "key": "generic-complete-proof",
+    "mode": "narrative",
+    "line_count": 25,
+    "partial_result": false
+  },
+  "observed": {
+    "ref_5_1": true,
+    "ref_5_1_formula": true,
+    "english_rule": true,
+    "reference_section": "  \n**[R1] (5.1).**  \n**[R2] Proposition 5.1.**  \n \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\} .\n \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2} .\n  \n"
+  }
+}
