@@ -1,0 +1,18 @@
+{
+  "phase": "166 R3-AU-9",
+  "sphere_rows": 2150,
+  "master_rows": 233,
+  "statuses": {
+    "ALL_BASE_ADJACENCIES_MATCH": 14,
+    "BASE_DEGREE_MATCH": 50,
+    "BASE_DEGREE_MISMATCH_SHIFT_NOT_INFERRED": 1625,
+    "NO_FACTOR_IDS": 32,
+    "REQUIRES_DEGREE_RULE_REVIEW": 1175,
+    "SINGLE_FACTOR_BASE_DATA": 929
+  },
+  "rule": "n,k of master treated as candidate base source=n+k,target=n; no inferred suspension",
+  "generator_reference_optional": true,
+  "typed_expression_certified": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
