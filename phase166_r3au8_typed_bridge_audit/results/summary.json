@@ -1,0 +1,39 @@
+{
+  "phase": "166 R3-AU-8",
+  "sphere_rows": 2150,
+  "master_rows": 233,
+  "master_columns": [
+    "id",
+    "display",
+    "kinds",
+    "k",
+    "n",
+    "orders",
+    "latex",
+    "stable",
+    "stable_orders"
+  ],
+  "id_lookup_status": {
+    "IDS_RESOLVED_TYPING_UNVERIFIED": 2118,
+    "NO_COMPOSITION_IDS": 32
+  },
+  "composition_factor_counts": {
+    "0": 32,
+    "1": 929,
+    "2": 778,
+    "3": 340,
+    "4": 67,
+    "5": 4
+  },
+  "existing_expression_nodes": [
+    "HomotopyElement",
+    "Composition",
+    "Sum",
+    "Multiple"
+  ],
+  "existing_type_requirement": "Composition.is_type_compatible requires left.source == right.target",
+  "interpretation": "Element is ordered composition IDs, gen_coe is a group-coordinate vector, generator is optional reference text",
+  "typed_expression_certified": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
