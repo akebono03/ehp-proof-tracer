@@ -1,0 +1,465 @@
+{
+  "summary": {
+    "phase": "166-r3ap-simple-identity-audit",
+    "simple_group_count": 28,
+    "status_counts": {
+      "confirmed": 28
+    },
+    "component_status_counts": {
+      "confirmed": 28
+    },
+    "production_code_modified": false,
+    "proof_search_executed": false,
+    "scope": "strict simple-name identity against Element IDs and HyoujiGen rows; no ungrounded equivalence"
+  },
+  "records": [
+    {
+      "n": 2,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_2",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 2,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η2",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η₂",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι3",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_3",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η3",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_3",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_4",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η4",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_4",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι5",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_5",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 5,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η5",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_5",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_6",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 6,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η3",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_6",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι7",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_7",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 7,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η7",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_7",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_8",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η3",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_8",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι9",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_9",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 9,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η9",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_9",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_10",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 10,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η3",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_10",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι11",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_11",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 11,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η11",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_11",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_12",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 12,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η3",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_12",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι13",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_13",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 13,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η13",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_13",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι2",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_14",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η3",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_14",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "k": 0,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "ι15",
+          "element_ids": [
+            1
+          ],
+          "typed_name": "ι_15",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "k": 1,
+      "status": "confirmed",
+      "components": [
+        {
+          "db_name": "η15",
+          "element_ids": [
+            2
+          ],
+          "typed_name": "η_15",
+          "status": "confirmed",
+          "reason": "exact_family_factor_ids_dimensions_and_typed_identity"
+        }
+      ]
+    }
+  ]
+}
