@@ -28,6 +28,7 @@ def semantic_completed_lines(steps, root, target, statement_math, label, citatio
                     primary_exactness = step
     seen_exactness = False
     quoted_earlier = set()
+    seen_equalities = []
     for step in steps:
         if step is root:
             continue
@@ -70,12 +71,13 @@ def semantic_completed_lines(steps, root, target, statement_math, label, citatio
             output.extend([r"完全性より, $\ker E=\langle "+str(statement.multiple)+expression+r"\rangle$ である。", ""])
             continue
         if isinstance(statement, QuotientIsomorphismStatement):
-            output.extend(["全射性と核の決定から, 第一同型定理より " +
+            output.extend(["全射性と核の決定から、準同型定理より " +
                 "$"+_group(statement.codomain)+r"\cong "+_group(statement.domain)+r"/\langle "+str(statement.multiple)+_element(statement.source_generator)+r"\rangle$ を得る。", ""])
             continue
         if isinstance(statement, CyclicStructureStatement):
             if statement.group == target:
-                output.extend(["無限巡回群の商群構造より, " + _group(target)+r" は位数 "+str(statement.order)+" の巡回群である。", ""])
+                # The typed final group relation presents this conclusion.
+                pass
             continue
         if isinstance(statement, (ImageWholeStatement, SurjectiveMapStatement, MapSurjective)):
             if "surjective" not in mentioned:
@@ -94,6 +96,15 @@ def semantic_completed_lines(steps, root, target, statement_math, label, citatio
         # they remain fully present in the immutable ProofStep ancestry.
         if isinstance(statement, Relation) and isinstance(statement.lhs, TodaPrimaryGroup) and statement.lhs != target:
             continue
+        # Deduplicate equal typed equations, including reversed sides.
+        # Unrecognized representations are kept, never guessed equivalent.
+        if isinstance(statement, Relation) and statement.relation_type is RelationType.EQUALITY:
+            pair = (statement.lhs, statement.rhs)
+            if any((pair[0] == previous[0] and pair[1] == previous[1])
+                   or (pair[0] == previous[1] and pair[1] == previous[0])
+                   for previous in seen_equalities):
+                continue
+            seen_equalities.append(pair)
         text = _render_generic_narrative_step(step)
         if text and not (text == rule and text.isascii()):
             if text not in mentioned and "数式表示未対応" not in text:
