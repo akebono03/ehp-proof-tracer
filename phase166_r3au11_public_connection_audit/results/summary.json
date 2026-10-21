@@ -1,0 +1,49 @@
+{
+  "phase": "166 R3-AU-11",
+  "checks": {
+    "selector_calls_structured_db_goal": true,
+    "selector_uses_structured_for_k_ge_2": true,
+    "search_calls_registered_selector": true,
+    "search_uses_shared_goal_search": true,
+    "search_checks_citing_id": true
+  },
+  "examples": [
+    {
+      "n": 10,
+      "k": 18,
+      "candidate_count": 1,
+      "rendered": true,
+      "latex": "\\pi_{28}^{10} = \\mathbb{Z}/8\\{\\xi''\\} \\oplus \\mathbb{Z}/2\\{\\xi'' + \\lambda''\\} \\oplus \\mathbb{Z}/2\\{\\eta_{10}\\bar{\\mu}_{11}\\}",
+      "exception": ""
+    },
+    {
+      "n": 11,
+      "k": 25,
+      "candidate_count": 1,
+      "rendered": true,
+      "latex": "\\pi_{36}^{11} = \\mathbb{Z}/2\\{K_{1}\\} \\oplus \\mathbb{Z}/4\\{\\sigma_{11}\\xi_{18}\\} \\oplus \\mathbb{Z}/2\\{\\sigma_{11}\\xi_{18} + \\sigma_{11}\\nu^{*}_{18}\\} \\oplus \\mathbb{Z}/2\\{\\mu_{3,11}\\} \\oplus \\mathbb{Z}/2\\{\\eta_{11}\\bar{\\mu}_{12}\\sigma_{29}\\}",
+      "exception": ""
+    },
+    {
+      "n": 4,
+      "k": 3,
+      "candidate_count": 1,
+      "rendered": true,
+      "latex": "\\pi_{7}^{4} = \\mathbb{Z}\\{\\nu_{4}\\} \\oplus \\mathbb{Z}/4\\{E\\nu'\\}",
+      "exception": ""
+    },
+    {
+      "n": 3,
+      "k": 2,
+      "candidate_count": 1,
+      "rendered": true,
+      "latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+      "exception": ""
+    }
+  ],
+  "runtime_web_view_invoked": false,
+  "proof_completion_certified": false,
+  "public_web_connection_certified": false,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
