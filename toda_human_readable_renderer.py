@@ -528,16 +528,12 @@ def render_toda_expression_latex(
     expression,
     IteratedSuspension,
   ):
-    return (
-      "E^{"
-      + _render_scalar_latex(
-        expression.exponent
-      )
-      + "}"
-      + render_toda_expression_latex(
-        expression.expression
-      )
+    prefix = (
+      "E"
+      if type(expression.exponent) is int and expression.exponent == 1
+      else "E^{" + _render_scalar_latex(expression.exponent) + "}"
     )
+    return prefix + render_toda_expression_latex(expression.expression)
 
   if isinstance(
     expression,
@@ -573,6 +569,7 @@ def render_toda_expression_latex(
   raise TypeError(
     "unsupported expression for LaTeX rendering"
   )
+
 
 
 def render_toda_target_latex(

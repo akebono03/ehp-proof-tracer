@@ -1,0 +1,221 @@
+def render_toda_expression_latex(
+  expression,
+) -> str:
+  if isinstance(
+    expression,
+    Zero,
+  ):
+    return "0"
+
+  if isinstance(
+    expression,
+    HomotopyElement,
+  ):
+    if expression.generator is not None:
+      return (
+        _render_generator_symbol_latex(
+          expression.generator
+        )
+      )
+
+    return (
+      _render_unicode_math_name_latex(
+        expression.name
+      )
+    )
+
+  if isinstance(
+    expression,
+    Multiple,
+  ):
+    if expression.coefficient == -1:
+      return (
+        "-"
+        + render_toda_expression_latex(
+          expression.expression
+        )
+      )
+
+    coefficient = (
+      _render_scalar_latex(
+        expression.coefficient
+      )
+    )
+
+    return (
+      coefficient
+      + render_toda_expression_latex(
+        expression.expression
+      )
+    )
+
+  if isinstance(
+    expression,
+    Sum,
+  ):
+    left_latex = (
+      render_toda_expression_latex(
+        expression.left
+      )
+    )
+
+    if (
+      isinstance(
+        expression.right,
+        Multiple,
+      )
+      and isinstance(
+        expression.right.coefficient,
+        int,
+      )
+      and not isinstance(
+        expression.right.coefficient,
+        bool,
+      )
+      and expression.right.coefficient < 0
+    ):
+      magnitude = -expression.right.coefficient
+
+      right_latex = (
+        render_toda_expression_latex(
+          expression.right.expression
+        )
+      )
+
+      if magnitude != 1:
+        right_latex = (
+          str(
+            magnitude
+          )
+          + right_latex
+        )
+
+      return (
+        left_latex
+        + " - "
+        + right_latex
+      )
+
+    return (
+      left_latex
+      + " + "
+      + render_toda_expression_latex(
+        expression.right
+      )
+    )
+
+  if isinstance(
+    expression,
+    SmashProduct,
+  ):
+    return (
+      render_toda_expression_latex(
+        expression.left
+      )
+      + r" \wedge "
+      + render_toda_expression_latex(
+        expression.right
+      )
+    )
+
+  if isinstance(
+    expression,
+    WhiteheadProduct,
+  ):
+    return (
+      "["
+      + render_toda_expression_latex(
+        expression.left
+      )
+      + ", "
+      + render_toda_expression_latex(
+        expression.right
+      )
+      + "]"
+    )
+
+  if isinstance(
+    expression,
+    Composition,
+  ):
+    return (
+      render_toda_expression_latex(
+        expression.left
+      )
+      + render_toda_expression_latex(
+        expression.right
+      )
+    )
+
+  if isinstance(
+    expression,
+    MapApplication,
+  ):
+    return (
+      _render_map_symbol_latex(
+        expression.map
+      )
+      + r"\left("
+      + render_toda_expression_latex(
+        expression.expression
+      )
+      + r"\right)"
+    )
+
+  if isinstance(
+    expression,
+    Suspension,
+  ):
+    return (
+      "E"
+      + render_toda_expression_latex(
+        expression.expression
+      )
+    )
+
+  if isinstance(
+    expression,
+    IteratedSuspension,
+  ):
+    prefix = (
+      "E"
+      if type(expression.exponent) is int and expression.exponent == 1
+      else "E^{" + _render_scalar_latex(expression.exponent) + "}"
+    )
+    return prefix + render_toda_expression_latex(expression.expression)
+
+  if isinstance(
+    expression,
+    TodaBracket,
+  ):
+    latex = (
+      r"\{"
+      + render_toda_expression_latex(
+        expression.first
+      )
+      + ", "
+      + render_toda_expression_latex(
+        expression.second
+      )
+      + ", "
+      + render_toda_expression_latex(
+        expression.third
+      )
+      + r"\}"
+    )
+
+    if expression.index is not None:
+      latex += (
+        "_{"
+        + _render_scalar_latex(
+          expression.index
+        )
+        + "}"
+      )
+
+    return latex
+
+  raise TypeError(
+    "unsupported expression for LaTeX rendering"
+  )
+
