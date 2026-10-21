@@ -358,17 +358,6 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         verified_assertion_ids=verified_assertion_ids,
         explicit_publication_target=citing_assertion_id is not None,
     )
-    # R12-R7: enforce reviewed dependencies before using cited proof leaves.
-    from phase165_r12_r7_proof_order_guard import restrict_registered_ordered_claims
-    proof_context = restrict_registered_ordered_claims(proof_context, goal)
-    if proof_use_order == "registered":
-        from phase165_r52_r19_prop51_binding import resolve_registered_proof_use_order
-        proof_use_order = resolve_registered_proof_use_order(proof_context, goal)
-    if proof_use_order is not None:
-        from phase165_r52_r18_proof_order import restrict_by_proof_use_order
-        proof_context = restrict_by_proof_use_order(
-            proof_context, goal=goal, policy=proof_use_order,
-        )
     from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
     proof_context = prefer_universal_prop42_derivation(proof_context)
     if expansion_provider is None:
