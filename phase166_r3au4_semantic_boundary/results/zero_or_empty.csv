@@ -1,0 +1,50 @@
+﻿csv_line,n,k,component_id,orders,Element,gen_coe,element_length,coefficient_length,lengths_differ,nonzero_positions_zero_based,nonzero_values,coefficient_class,reference_generator_text,reference_generator_missing_is_error,element_coefficient_alignment_inferred,typed_expression_confirmed,latex_confirmed
+2,0,-1,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+37,,0,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+38,1,1,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+72,,1,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+105,,2,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+139,,3,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+145,6,4,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+146,7,4,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+147,,4,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+154,7,5,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+155,,5,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+157,3,6,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+186,,6,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+187,2,7,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+188,3,7,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+189,4,7,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+218,,7,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+219,2,8,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+277,,8,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+364,,9,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+405,,10,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+448,,11,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+464,7,12,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+465,8,12,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+466,9,12,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+472,14,12,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+473,15,12,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+474,,12,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+495,15,13,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+496,,13,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+550,,14,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+608,,15,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+670,,16,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+768,,17,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+839,,18,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+904,,19,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+955,,20,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1022,,21,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1100,,22,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1205,,23,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1321,,24,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1427,,25,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1552,,26,2,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1639,,27,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1739,,28,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1834,31,29,0,0,0,0 0 0 0 0 0 0 0 0 0 0 0,1,12,True,[],[],ZERO_COEFFICIENT_VECTOR,0,False,False,False,False
+1835,,29,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+1926,,30,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
+2066,,31,,,,,0,0,False,[],[],EMPTY_DATA_ROW,,False,False,False,False
