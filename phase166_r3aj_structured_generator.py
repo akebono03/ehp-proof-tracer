@@ -76,12 +76,14 @@ def structured_generator_from_ids(*, ids, start_dimension, generator_csv):
 
 
 def database_structured_group_goal_candidates(*, n, k, csv_path=None, generator_csv=None):
-    """Build typed Goal from complete Element IDs and component orders only.
+    """Build Goal generators from each row's gen_coe combination of representatives.
 
-    Rows without reconstruction metadata remain unsupported rather than
-    receiving a made-up atom, relation, or fake proof.
+    A sphere row's Element identifies a representation element, not necessarily
+    the generator of that row's cyclic direct-sum component. gen_coe supplies
+    coefficients of the representation elements indexed by sphere row id.
     """
     from math import inf
+    from expression import Multiple, Sum
     from homotopy_groups import DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
     from proof import Relation, RelationType
     from repository import SphereRepository
@@ -99,20 +101,47 @@ def database_structured_group_goal_candidates(*, n, k, csv_path=None, generator_
     if source_n > n:
         return ()
     components = repo.get_group(source_n, k).components
-    if not components or any(not component.element for component in components):
+    if not components:
         return ()
-    parts = []
+
+    # All representatives must be available before resolving any cyclic generator.
+    representatives = {}
     for component in components:
-        generator = structured_generator_from_ids(
+        if not component.element or component.id in representatives:
+            return ()
+        representative = structured_generator_from_ids(
             ids=component.element, start_dimension=n, generator_csv=gen_file
         )
-        if generator is None:
+        if representative is None:
             return ()
+        representatives[component.id] = representative
+
+    parts = []
+    for component in components:
+        if not component.gen_coe:
+            return ()
+        terms = []
+        for index, coefficient in enumerate(component.gen_coe):
+            if coefficient == 0:
+                continue
+            representative = representatives.get(index)
+            if representative is None:
+                return ()
+            if coefficient == 1:
+                term = representative
+            else:
+                term = Multiple(coefficient, representative)
+            terms.append(term)
+        if not terms:
+            return ()
+        generator = terms[0]
+        for term in terms[1:]:
+            generator = Sum(generator, term)
         if component.order == inf:
             parts.append(FreeCyclicGroup(generator))
         elif type(component.order) is int and component.order > 1:
             parts.append(FiniteCyclicGroup(component.order, generator))
         else:
             return ()
-    rhs = parts[0] if len(parts) == 1 else DirectSumGroup(tuple(parts))
-    return (Relation(TodaPrimaryGroup(n+k, n), rhs, RelationType.EQUALITY),)
+    structure = parts[0] if len(parts) == 1 else DirectSumGroup(tuple(parts))
+    return (Relation(TodaPrimaryGroup(n+k, n), structure, RelationType.EQUALITY),)
