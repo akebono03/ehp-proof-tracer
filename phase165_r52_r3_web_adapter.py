@@ -40,6 +40,14 @@ def build_partial_web_group_proof_view(
     dimension = result.target.group_dimension
     k = dimension - n
     target_latex = rf"\pi_{{{dimension}}}^{{{n}}}"
+    if result.status is not ProofSearchStatus.COMPLETE:
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        if any(
+            isinstance(item, TodaPrimaryGroupZeroStatement)
+            and item.group == result.target
+            for item in result.open_goals
+        ):
+            target_latex += " = 0"
 
     steps = []
     for step in result.proven_steps:

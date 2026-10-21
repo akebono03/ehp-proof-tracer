@@ -6,7 +6,7 @@ from pathlib import Path
 import re
 
 from expression import HomotopyElement, GeneratorSymbol
-from homotopy_groups import DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
+from homotopy_groups import DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup, TodaPrimaryGroupZeroStatement
 from proof import Relation, RelationType
 from repository import SphereRepository
 
@@ -83,3 +83,38 @@ def database_group_goal_candidates(*, n: int, k: int, csv_path=None):
     structure = pieces[0] if len(pieces) == 1 else DirectSumGroup(tuple(pieces))
     return (Relation(TodaPrimaryGroup(n+k, n), structure, RelationType.EQUALITY),)
 
+def database_zero_group_goal_candidates(*, n: int, k: int, csv_path=None):
+    """Construct zero-group Goals from explicit DB zero rows; never evidence.
+
+    For an unlisted stable target, reuse its stable-base row, as in
+    SphereRepository. A missing or mixed row is not a zero-group assertion.
+    """
+    if type(n) is not int or type(k) is not int or n < 2 or k < 0:
+        return ()
+    path = (
+        Path(csv_path)
+        if csv_path is not None
+        else Path(__file__).resolve().parent / "data" / "sphere.csv"
+    )
+    if not path.is_file():
+        return ()
+    repo = SphereRepository(path)
+    direct = repo.df[(repo.df["n"] == n) & (repo.df["k"] == k)]
+    if not direct.empty:
+        source_n = n
+    elif n >= k + 2:
+        source_n = k + 2
+    else:
+        return ()
+    components = repo.get_group(source_n, k).components
+    if (
+        len(components) != 1
+        or components[0].order != 0
+        or components[0].generator.strip() != "0"
+    ):
+        return ()
+    return (
+        TodaPrimaryGroupZeroStatement(
+            TodaPrimaryGroup(group_dimension=n + k, sphere_dimension=n)
+        ),
+    )

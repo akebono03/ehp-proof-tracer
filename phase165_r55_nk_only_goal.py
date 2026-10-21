@@ -56,6 +56,15 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
                 or goal.lhs != TodaPrimaryGroup(n + k, n)
                 or not isinstance(goal.rhs, _GROUP_STRUCTURES)):
             raise ValueError("goal must be a typed equality for the requested n,k")
+    if bridge is None and goal is None:
+        from phase166_r3af_goal_adapter import database_zero_group_goal_candidates
+        zero_candidates = database_zero_group_goal_candidates(n=n, k=k)
+        if len(zero_candidates) == 1:
+            return make_partial_proof_result(
+                n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED,
+                open_goals=zero_candidates,
+                diagnostics=("零群の型付き Goal を取得済み。共通証明探索への接続は未実装。",),
+            )
     if bridge is None:
         bridge = build_shared_typed_bridge()
     if goal is None:
