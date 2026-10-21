@@ -1,0 +1,35 @@
+{
+  "phase": "166 R3-AU-5",
+  "source_rows": 2150,
+  "master_rows": 233,
+  "categories": {
+    "LINEAR_COMBINATION": 23,
+    "SEPARATOR_CANDIDATE": 32,
+    "UNIT_SINGLE": 2078,
+    "ZERO_VECTOR": 17
+  },
+  "counts": {
+    "coefficients_count_0": 32,
+    "coefficients_count_12": 2118,
+    "composition_factor_count_0": 32,
+    "composition_factor_count_1": 929,
+    "composition_factor_count_2": 778,
+    "composition_factor_count_3": 340,
+    "composition_factor_count_4": 67,
+    "composition_factor_count_5": 4,
+    "reference_generator_blank": 117
+  },
+  "known_convention": {
+    "Element": "ordered display-element IDs denoting composition",
+    "gen_coe": "coordinates of the generator as a linear combination of elements",
+    "max_composition_length": 5,
+    "max_direct_sum_components": 12,
+    "generator": "optional reference text"
+  },
+  "unverified": "mapping of coordinate positions to exact expression terms; mathematical typing and renderer output",
+  "read_only": true,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "source_csv": "data\\sphere.csv",
+  "master_csv": "data\\HyoujiGen.csv"
+}
