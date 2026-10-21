@@ -2251,7 +2251,13 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
 
       if len(applicable_ranges) == 1 and statement_line.startswith("$"):
         range_suffix = r"$\;(" + applicable_ranges[0].strip() + ")$"
-        if range_suffix not in statement_line:
+        # An already embedded condition, e.g. \\quad(n \\ge 1),
+        # must not be appended a second time as separate inline math.
+        existing_condition = "(" + applicable_ranges[0].strip() + ")"
+        if (
+          range_suffix not in statement_line
+          and existing_condition not in statement_line
+        ):
           if statement_line.endswith("."):
             statement_line = statement_line[:-1] + " " + range_suffix + "."
           else:
