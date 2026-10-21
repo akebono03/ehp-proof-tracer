@@ -22,11 +22,7 @@ def build_partial_web_group_proof_view(
     max_depth: int = 2,
     mode: str = "narrative",
 ) -> WebGroupProofView:
-    """Adapt a verified search state to the shared Web view contract.
-
-    Trace mode uses ProofStep entries only, while outline and narrative
-    modes show the shared rendered text. Neither mode certifies open goals.
-    """
+    """Adapt searched goals and display their complete typed statement."""
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
     if isinstance(max_depth, bool) or not isinstance(max_depth, int):
@@ -40,14 +36,21 @@ def build_partial_web_group_proof_view(
     dimension = result.target.group_dimension
     k = dimension - n
     target_latex = rf"\pi_{{{dimension}}}^{{{n}}}"
-    if result.status is not ProofSearchStatus.COMPLETE:
-        from homotopy_groups import TodaPrimaryGroupZeroStatement
-        if any(
-            isinstance(item, TodaPrimaryGroupZeroStatement)
-            and item.group == result.target
-            for item in result.open_goals
-        ):
-            target_latex += " = 0"
+    if result.status is ProofSearchStatus.COMPLETE:
+        target_statement = result.conclusion
+    else:
+        target_statement = next(
+            (
+                item for item in reversed(result.open_goals)
+                if getattr(item, "lhs", None) == result.target
+                or getattr(item, "group", None) == result.target
+            ),
+            None,
+        )
+    if target_statement is not None:
+        statement_latex, fallback_type = _group_proof_statement_latex(target_statement)
+        if statement_latex is not None and fallback_type is None:
+            target_latex = statement_latex
 
     steps = []
     for step in result.proven_steps:
