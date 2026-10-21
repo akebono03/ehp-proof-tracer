@@ -105,6 +105,30 @@ def _render_unicode_math_name_latex(
       "name must not be empty"
     )
 
+  # Normalize exceptional DB labels without altering their typed identity.
+  # The source HyoujiGen.csv stores these labels as Unicode, while their
+  # mathematical TeX equivalents use nested bars and numeric subscripts.
+  import re
+
+  bar_pattern = re.compile(r"([Α-Ωα-ω])([\u0304\u0305]+)")
+
+  def render_bars(match):
+    base = _GREEK_LATEX.get(match.group(1), match.group(1))
+    level = len(match.group(2))
+    for _ in range(level):
+      base = r"\bar{" + base + "}"
+    return base
+
+  name = bar_pattern.sub(render_bars, name)
+  index_pattern = re.compile(r"([Α-Ωα-ω])([0-9]+)")
+  name = index_pattern.sub(
+    lambda match: match.group(1) + "".join(
+      next(key for key, value in _SUBSCRIPT_DIGITS.items() if value == digit)
+      for digit in match.group(2)
+    ),
+    name,
+  )
+
   pieces: list[str] = []
   subscript_digits: list[str] = []
   superscript_digits: list[str] = []
