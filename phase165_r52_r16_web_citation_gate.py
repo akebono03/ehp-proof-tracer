@@ -60,7 +60,47 @@ def screen_shared_proof_context(
                     rule=ProofRule.GIVEN,
                 ),
             ))
-        return RegistryBridgeResult(bridge.registry, bridge.records, tuple(accepted))
+        # Equivalent copies from the same printed position are one GIVEN,
+        # not competing independent mathematical derivations. Preserve a
+        # previously linked source when possible, including its provenance.
+        unique = []
+        for candidate in accepted:
+            assertion = bridge.registry.assertion(candidate.assertion_id)
+            reference = bridge.registry.reference(assertion.reference_id)
+            identical_index = None
+            for index, existing in enumerate(unique):
+                other = bridge.registry.assertion(existing.assertion_id)
+                other_reference = bridge.registry.reference(other.reference_id)
+                if (
+                    candidate.step.conclusion == existing.step.conclusion
+                    and reference.publication_position == other_reference.publication_position
+                    and assertion.component_position == other.component_position
+                ):
+                    identical_index = index
+                    break
+            original_links = tuple(
+                link for link in bridge.proof_links
+                if link.assertion_id == candidate.assertion_id
+                and link.step is not None
+                and link.step.rule is ProofRule.GIVEN
+                and link.step.conclusion == candidate.step.conclusion
+            )
+            if len(original_links) == 1:
+                candidate = original_links[0]
+            if identical_index is None:
+                unique.append(candidate)
+            else:
+                existing = unique[identical_index]
+                existing_linked = any(
+                    link.assertion_id == existing.assertion_id
+                    and link.step is not None
+                    and link.step.rule is ProofRule.GIVEN
+                    and link.step.conclusion == existing.step.conclusion
+                    for link in bridge.proof_links
+                )
+                if len(original_links) == 1 and not existing_linked:
+                    unique[identical_index] = candidate
+        return RegistryBridgeResult(bridge.registry, bridge.records, tuple(unique))
 
     for link in bridge.proof_links:
         assertion = bridge.registry.assertion(link.assertion_id)
