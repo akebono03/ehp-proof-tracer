@@ -1,0 +1,31 @@
+{
+  "phase": "166 R3-AU-12",
+  "source_checks": {
+    "standard_calls_search": true,
+    "flask_bridge_calls_search": true,
+    "standard_calls_adapter": true,
+    "flask_bridge_calls_adapter": true,
+    "adapter_uses_conclusion_if_complete": true,
+    "adapter_uses_open_goals_if_partial": true,
+    "adapter_uses_markdown_renderer": true,
+    "adapter_proof_complete_status": true,
+    "search_uses_shared_goal_search": true
+  },
+  "runtime_web_view": {
+    "n": 3,
+    "k": 2,
+    "entry": "flask",
+    "invoked": true,
+    "web_view_type_verified": true,
+    "key": "generic-partial-proof",
+    "partial_result": true,
+    "conclusion_latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+    "rendered_line_count": 14,
+    "proven_step_count": 0,
+    "mode": "narrative",
+    "error": ""
+  },
+  "goal_render_success_not_proof_certification": true,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
