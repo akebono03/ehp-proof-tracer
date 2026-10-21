@@ -31,7 +31,12 @@ def _generator_for_target(label: str, base_n: int, target_n: int, k: int):
         return None
     if family == "ι" and k != 0:
         return None
-    notation = family + "_" + str(target_n) + power
+    # The existing pi_3^2 typed proof uses the canonical name "η₂".
+    # HomotopyElement equality includes name, not only generator metadata.
+    notation = (
+        "η₂" if family == "η" and target_n == 2 and not power
+        else family + "_" + str(target_n) + power
+    )
     return HomotopyElement(
         name=notation, dimension=target_n, source=target_n + k,
         target=target_n,
@@ -40,19 +45,27 @@ def _generator_for_target(label: str, base_n: int, target_n: int, k: int):
     )
 
 
-def database_group_goal_candidates(*, n: int, k: int, csv_path=None):
-    """Make targets, NOT ProofSteps. Only unambiguous simple stable labels.
 
-    For a stable target, source data are read from its stable base. If the
-    table has unparseable/mixed generator notation, return no candidate.
+def database_group_goal_candidates(*, n: int, k: int, csv_path=None):
+    """Convert unambiguous CSV structures to proof goals, never evidence.
+
+    Direct nonstable rows are eligible. Stable targets use the stable base
+    when no direct row exists. Unsupported labels and zero groups remain
+    explicitly unconverted in this phase.
     """
-    if type(n) is not int or type(k) is not int or k < 0 or n < k + 2:
+    if type(n) is not int or type(k) is not int or n <= 0 or k < 0:
         return ()
     path = Path(csv_path) if csv_path is not None else Path(__file__).resolve().parent / "data" / "sphere.csv"
     if not path.is_file():
         return ()
     repo = SphereRepository(path)
-    base_n = k + 2
+    rows = repo.df[(repo.df["n"] == n) & (repo.df["k"] == k)]
+    if not rows.empty:
+        base_n = n
+    elif n >= k + 2:
+        base_n = k + 2
+    else:
+        return ()
     source = repo.get_group(base_n, k)
     if not source.components:
         return ()
@@ -69,3 +82,4 @@ def database_group_goal_candidates(*, n: int, k: int, csv_path=None):
             return ()
     structure = pieces[0] if len(pieces) == 1 else DirectSumGroup(tuple(pieces))
     return (Relation(TodaPrimaryGroup(n+k, n), structure, RelationType.EQUALITY),)
+
