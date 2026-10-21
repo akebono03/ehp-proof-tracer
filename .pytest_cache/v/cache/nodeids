@@ -1862,6 +1862,8 @@
   "phase166_r3_permission_audit/test_audit.py::test_metadata_never_receives_proof_permission",
   "phase166_r3aa_publication_runtime_audit/tests/test_r3aa_guards.py::test_r3aa_old_order_gates_not_called_in_common_search",
   "phase166_r3aa_publication_runtime_audit/tests/test_r3aa_guards.py::test_r3aa_publication_comparison_retained",
+  "phase166_r3ab_pi65_audit/test_r3ab.py::test_pi65_direct_and_web_consistent",
+  "phase166_r3ab_pi65_audit/test_r3ab.py::test_pi65_goal_and_publication_metadata",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[legacy]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference_ordered]",
