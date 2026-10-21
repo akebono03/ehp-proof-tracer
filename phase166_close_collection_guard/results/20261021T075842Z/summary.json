@@ -1,0 +1,20 @@
+{
+  "phase": "166 closure collection guard",
+  "excluded_from_collection": [
+    "phase165_r6_8_eta_name_fix/install_and_test.py"
+  ],
+  "reason": "Installer performs filesystem writes and raises SystemExit when imported; not a test module.",
+  "production_files_modified": false,
+  "full_test_suite_with_one_installer_excluded": true,
+  "command": [
+    "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--ignore=phase165_r6_8_eta_name_fix/install_and_test.py"
+  ],
+  "pytest_exit_code": 3,
+  "closure_status": "BLOCKED"
+}

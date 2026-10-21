@@ -1,0 +1,41 @@
+﻿csv_line,n,k,id,orders,Element,Element_factor_ids,Element_factor_names,gen_coe,gen_coe_nonzero_positions_zero_based,reference_generator_optional,classification,composition_order_verified,coefficient_basis_order_verified,typed_expression_connected,latex_verified
+2,0,-1,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+38,1,1,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+145,6,4,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+146,7,4,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+154,7,5,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+157,3,6,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+187,2,7,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+188,3,7,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+189,4,7,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+219,2,8,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+464,7,12,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+465,8,12,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+466,9,12,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+472,14,12,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+473,15,12,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+495,15,13,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+796,10,18,1,2,42,[42],"[[""λ''""]]",1 1 0 0 0 0 0 0 0 0 0 0,"[[0, 1], [1, 1]]",ξ''+λ'',LINEAR_COMBINATION,True,False,False,False
+799,11,18,1,4,44,[44],"[[""λ'""]]",1 1 0 0 0 0 0 0 0 0 0 0,"[[0, 1], [1, 1]]",ξ'+λ',LINEAR_COMBINATION,True,False,False,False
+802,12,18,1,4,45,[45],"[[""ξ'""]]",4 1 0 0 0 0 0 0 0 0 0 0,"[[0, 4], [1, 1]]",4ξ12+E ξ',LINEAR_COMBINATION,True,False,False,False
+803,12,18,2,4,44,[44],"[[""λ'""]]",0 1 1 0 0 0 0 0 0 0 0 0,"[[1, 1], [2, 1]]",E ξ'+E λ',LINEAR_COMBINATION,True,False,False,False
+822,18,18,1,4,46,[46],"[[""ξ""]]",1 1 0 0 0 0 0 0 0 0 0 0,"[[0, 1], [1, 1]]",ξ18,LINEAR_COMBINATION,True,False,False,False
+825,19,18,1,2,46,[46],"[[""ξ""]]",1 1 0 0 0 0 0 0 0 0 0 0,"[[0, 1], [1, 1]]",ξ19,LINEAR_COMBINATION,True,False,False,False
+1056,12,22,1,4,9 30,"[9, 30]","[[""σ""], [""ρ""]]",2 1 0 0 0 0 0 0 0 0 0 0,"[[0, 2], [1, 1]]",2σ^{*}{'''}+σ12ρ19,LINEAR_COMBINATION,True,False,False,False
+1088,20,22,3,4,73,[73],"[[""Δ(ν41)""]]",2 0 0 1 0 0 0 0 0 0 0 0,"[[0, 2], [3, 1]]",2σ^{*}20+\Delta(ν41),LINEAR_COMBINATION,True,False,False,False
+1116,7,23,3,2,56 4,"[56, 4]","[[""κ̅""], [""ν""]]",-1 0 0 1 0 0 0 0 0 0 0 0,"[[0, -1], [3, 1]]",\bar{\kappa}7ν27,LINEAR_COMBINATION,True,False,False,False
+1122,8,23,3,2,56 4,"[56, 4]","[[""κ̅""], [""ν""]]",-1 0 0 1 0 0 0 0 0 0 0 0,"[[0, -1], [3, 1]]",\bar{\kappa}8ν28,LINEAR_COMBINATION,True,False,False,False
+1131,9,23,3,2,56 4,"[56, 4]","[[""κ̅""], [""ν""]]",0 -1 0 1 0 0 0 0 0 0 0 0,"[[1, -1], [3, 1]]",\bar{\kappa}9ν29,LINEAR_COMBINATION,True,False,False,False
+1137,10,23,3,2,56 4,"[56, 4]","[[""κ̅""], [""ν""]]",0 -1 0 1 0 0 0 0 0 0 0 0,"[[1, -1], [3, 1]]",\bar{\kappa}10ν30,LINEAR_COMBINATION,True,False,False,False
+1373,11,25,2,2,9 48,"[9, 48]","[[""σ""], [""ν*""]]",0 1 1 0 0 0 0 0 0 0 0 0,"[[1, 1], [2, 1]]",σ11ξ18+σ11ν^{*}18,LINEAR_COMBINATION,True,False,False,False
+1378,12,25,2,2,9 48,"[9, 48]","[[""σ""], [""ν*""]]",2 0 1 0 0 0 0 0 0 0 0 0,"[[0, 2], [2, 1]]",ξ12σ30+σ12ν^{*}19,LINEAR_COMBINATION,True,False,False,False
+1440,4,26,4,2,4 56 4,"[4, 56, 4]","[[""ν""], [""κ̅""], [""ν""]]",-1 0 0 0 1 0 0 0 0 0 0 0,"[[0, -1], [4, 1]]",-ν4^2\bar{\kappa}10+ν4\bar{\kappa}7ν27,LINEAR_COMBINATION,True,False,False,False
+1494,12,26,1,4,121,[121],"[[""τ'''""]]",-8 1 0 0 0 0 0 0 0 0 0 0,"[[0, -8], [1, 1]]",-8τ^{IV}+E τ''',LINEAR_COMBINATION,True,False,False,False
+1525,20,26,1,4,126,[126],"[[""M2''""]]",-2 1 0 0 0 0 0 0 0 0 0 0,"[[0, -2], [1, 1]]",-2\Delta(σ41)+E M_{2}'',LINEAR_COMBINATION,True,False,False,False
+1793,12,29,0,4,161,[161],"[[""Δ(ν*25)""]]",1 0 0 2 0 0 0 0 0 0 0 0,"[[0, 1], [3, 2]]",\Delta(ν^{*}25)+2σ12σ^{*}19,LINEAR_COMBINATION,True,False,False,False
+1834,31,29,0,0,0,[0],"[[""0""]]",0 0 0 0 0 0 0 0 0 0 0 0,[],0,ZERO_VECTOR,True,False,False,False
+1885,12,30,1,4,9 81,"[9, 81]","[[""σ""], [""ρ̅""]]",2 1 0 0 0 0 0 0 0 0 0 0,"[[0, 2], [1, 1]]",2θ^{VII}+σ12\bar{\rho}19,LINEAR_COMBINATION,True,False,False,False
+1897,16,30,1,16,170,[170],"[[""θ^V""]]",2 1 0 0 0 0 0 0 0 0 0 0,"[[0, 2], [1, 1]]",2θ^{IV}+E θ^{V},LINEAR_COMBINATION,True,False,False,False
+1907,20,30,1,4,171,[171],"[[""θ^IV""]]",2 1 0 0 0 0 0 0 0 0 0 0,"[[0, 2], [1, 1]]",2θ'''+E ^4θ^{IV},LINEAR_COMBINATION,True,False,False,False
+1913,24,30,0,8,175,[175],"[[""Δ(σ49)""]]",1 -4 0 0 0 0 0 0 0 0 0 0,"[[0, 1], [1, -4]]",\Delta(σ49)-4θ'_24,LINEAR_COMBINATION,True,False,False,False
+1920,28,30,0,4,176,[176],"[[""Δ(ν57)""]]",1 -4 0 0 0 0 0 0 0 0 0 0,"[[0, 1], [1, -4]]",\Delta(ν57)-4θ'_28,LINEAR_COMBINATION,True,False,False,False

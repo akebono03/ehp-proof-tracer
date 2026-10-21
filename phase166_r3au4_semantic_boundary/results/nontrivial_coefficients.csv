@@ -1,0 +1,24 @@
+﻿csv_line,n,k,component_id,orders,Element,gen_coe,element_length,coefficient_length,lengths_differ,nonzero_positions_zero_based,nonzero_values,coefficient_class,reference_generator_text,reference_generator_missing_is_error,element_coefficient_alignment_inferred,typed_expression_confirmed,latex_confirmed
+796,10,18,1,2,42,1 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,ξ''+λ'',False,False,False,False
+799,11,18,1,4,44,1 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,ξ'+λ',False,False,False,False
+802,12,18,1,4,45,4 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[4, 1]",MULTIPLE_NONZERO_COEFFICIENTS,4ξ12+E ξ',False,False,False,False
+803,12,18,2,4,44,0 1 1 0 0 0 0 0 0 0 0 0,1,12,True,"[1, 2]","[1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,E ξ'+E λ',False,False,False,False
+822,18,18,1,4,46,1 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,ξ18,False,False,False,False
+825,19,18,1,2,46,1 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,ξ19,False,False,False,False
+1056,12,22,1,4,9 30,2 1 0 0 0 0 0 0 0 0 0 0,2,12,True,"[0, 1]","[2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,2σ^{*}{'''}+σ12ρ19,False,False,False,False
+1088,20,22,3,4,73,2 0 0 1 0 0 0 0 0 0 0 0,1,12,True,"[0, 3]","[2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,2σ^{*}20+\Delta(ν41),False,False,False,False
+1116,7,23,3,2,56 4,-1 0 0 1 0 0 0 0 0 0 0 0,2,12,True,"[0, 3]","[-1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,\bar{\kappa}7ν27,False,False,False,False
+1122,8,23,3,2,56 4,-1 0 0 1 0 0 0 0 0 0 0 0,2,12,True,"[0, 3]","[-1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,\bar{\kappa}8ν28,False,False,False,False
+1131,9,23,3,2,56 4,0 -1 0 1 0 0 0 0 0 0 0 0,2,12,True,"[1, 3]","[-1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,\bar{\kappa}9ν29,False,False,False,False
+1137,10,23,3,2,56 4,0 -1 0 1 0 0 0 0 0 0 0 0,2,12,True,"[1, 3]","[-1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,\bar{\kappa}10ν30,False,False,False,False
+1373,11,25,2,2,9 48,0 1 1 0 0 0 0 0 0 0 0 0,2,12,True,"[1, 2]","[1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,σ11ξ18+σ11ν^{*}18,False,False,False,False
+1378,12,25,2,2,9 48,2 0 1 0 0 0 0 0 0 0 0 0,2,12,True,"[0, 2]","[2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,ξ12σ30+σ12ν^{*}19,False,False,False,False
+1440,4,26,4,2,4 56 4,-1 0 0 0 1 0 0 0 0 0 0 0,3,12,True,"[0, 4]","[-1, 1]",MULTIPLE_NONZERO_COEFFICIENTS,-ν4^2\bar{\kappa}10+ν4\bar{\kappa}7ν27,False,False,False,False
+1494,12,26,1,4,121,-8 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[-8, 1]",MULTIPLE_NONZERO_COEFFICIENTS,-8τ^{IV}+E τ''',False,False,False,False
+1525,20,26,1,4,126,-2 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[-2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,-2\Delta(σ41)+E M_{2}'',False,False,False,False
+1793,12,29,0,4,161,1 0 0 2 0 0 0 0 0 0 0 0,1,12,True,"[0, 3]","[1, 2]",MULTIPLE_NONZERO_COEFFICIENTS,\Delta(ν^{*}25)+2σ12σ^{*}19,False,False,False,False
+1885,12,30,1,4,9 81,2 1 0 0 0 0 0 0 0 0 0 0,2,12,True,"[0, 1]","[2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,2θ^{VII}+σ12\bar{\rho}19,False,False,False,False
+1897,16,30,1,16,170,2 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,2θ^{IV}+E θ^{V},False,False,False,False
+1907,20,30,1,4,171,2 1 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[2, 1]",MULTIPLE_NONZERO_COEFFICIENTS,2θ'''+E ^4θ^{IV},False,False,False,False
+1913,24,30,0,8,175,1 -4 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[1, -4]",MULTIPLE_NONZERO_COEFFICIENTS,\Delta(σ49)-4θ'_24,False,False,False,False
+1920,28,30,0,4,176,1 -4 0 0 0 0 0 0 0 0 0 0,1,12,True,"[0, 1]","[1, -4]",MULTIPLE_NONZERO_COEFFICIENTS,\Delta(ν57)-4θ'_28,False,False,False,False

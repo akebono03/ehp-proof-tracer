@@ -1,0 +1,27 @@
+{
+  "phase": "166 R3-AU-4",
+  "source_rows": 2150,
+  "coefficient_classes": {
+    "EMPTY_DATA_ROW": 32,
+    "MULTIPLE_NONZERO_COEFFICIENTS": 23,
+    "UNIT_SINGLE_COEFFICIENT": 2078,
+    "ZERO_COEFFICIENT_VECTOR": 17
+  },
+  "length_pairs": {
+    "Element=0;gen_coe=0": 32,
+    "Element=1;gen_coe=12": 929,
+    "Element=2;gen_coe=12": 778,
+    "Element=3;gen_coe=12": 340,
+    "Element=4;gen_coe=12": 67,
+    "Element=5;gen_coe=12": 4
+  },
+  "different_element_and_coefficient_lengths": 2118,
+  "optional_reference_generator_blank": 117,
+  "generator_blank_is_error": false,
+  "per_position_Element_gen_coe_alignment_assumed": false,
+  "typed_expression_certified": 0,
+  "latex_certified": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "source_csv": "data\\sphere.csv"
+}

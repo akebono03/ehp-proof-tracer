@@ -1,0 +1,34 @@
+{
+  "phase": "166 R3-AU-2",
+  "read_only": true,
+  "sphere_rows": 2150,
+  "master_generator_rows": 233,
+  "malformed_master_ids": 0,
+  "duplicate_master_id_entries": 0,
+  "element_lookup_status_counts": {
+    "EMPTY_ELEMENT": 32,
+    "RESOLVED_IDS_NOT_VERIFIED": 2118
+  },
+  "gen_coe_shape_counts": {
+    "all_zero": 17,
+    "empty": 32,
+    "linear_combination": 23,
+    "single_basis": 2078
+  },
+  "review_flag_counts": {
+    "ELEMENT_LOOKUP_REVIEW": 32,
+    "EMPTY_GENERATOR_TEXT": 117,
+    "INVALID_GROUP_INDEX": 32,
+    "MISSING_OR_ZERO_GEN_COE": 49,
+    "NONTRIVIAL_GEN_COE": 23
+  },
+  "review_rows": 157,
+  "outside_112_range_rows": 2075,
+  "latex_comparisons": 0,
+  "mathematical_identities_confirmed": 0,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "interpretation": "Element ID lookup is not proof of generator identity; gen_coe is not a typed expression.",
+  "sphere_path": "data\\sphere.csv",
+  "master_path": "data\\HyoujiGen.csv"
+}

@@ -1,0 +1,39 @@
+{
+  "phase": "166",
+  "next_phase": "167",
+  "status": "HANDOFF_WITH_FULL_PYTEST_UNRESOLVED",
+  "production_code_modified": false,
+  "tests_run": false,
+  "documents": [
+    {
+      "file": "README.md",
+      "original_sha256": "22e504b817223da92fbebd1f0e0cd5bfd3cc1ef4565821ca0c064b1a1e1cd545",
+      "full_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\full_documents\\README.md",
+      "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\backup\\README.md"
+    },
+    {
+      "file": "docs/design.md",
+      "original_sha256": "0e44c90b1e05e135880065dfbbd0c1323b5312dd95e7eb8b465c4da28a876cc9",
+      "full_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\full_documents\\docs\\design.md",
+      "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\backup\\docs\\design.md"
+    },
+    {
+      "file": "docs/development_log.md",
+      "original_sha256": "1c99c7ea2662d9c72d9a8d9c6119c8e6229328448df3b7a1515ccfccd18d3846",
+      "full_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\full_documents\\docs\\development_log.md",
+      "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\backup\\docs\\development_log.md"
+    },
+    {
+      "file": "docs/roadmap.md",
+      "original_sha256": "9936c4c091dd19b16f56b8472eb00dee15e89c6fd1f861fbd9c90a27124d7ae2",
+      "full_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\full_documents\\docs\\roadmap.md",
+      "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\backup\\docs\\roadmap.md"
+    },
+    {
+      "file": "docs/proof_records.md",
+      "original_sha256": "8e56e89e63befe97015edd044890e95af54b0b4fbe45915a1beab4a60ca0eae2",
+      "full_output": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\full_documents\\docs\\proof_records.md",
+      "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_docs_closure_output\\20261021T082051Z\\backup\\docs\\proof_records.md"
+    }
+  ]
+}

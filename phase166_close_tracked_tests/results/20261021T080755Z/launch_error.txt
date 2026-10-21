@@ -1,0 +1,1 @@
+FileNotFoundError(2, 'ファイル名または拡張子が長すぎます。', None, 206, None)

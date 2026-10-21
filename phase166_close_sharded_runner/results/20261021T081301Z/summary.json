@@ -1,0 +1,19 @@
+{
+  "phase": "166 closure",
+  "mode": "sharded_previously_selected_manifest",
+  "manifest_file_count": 1410,
+  "manifest_excluded_count": 1207,
+  "batches_total": 118,
+  "batches_completed": 1,
+  "pytest_run_completed": false,
+  "status": "BLOCKED_TEST_FAILURE_OR_COLLECTION",
+  "batch_results": [
+    {
+      "batch": 1,
+      "files": 12,
+      "exit_code": 1,
+      "log": "pytest_001.log"
+    }
+  ],
+  "scope_review_required": true
+}
