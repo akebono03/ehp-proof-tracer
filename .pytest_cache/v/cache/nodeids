@@ -1866,6 +1866,7 @@
   "phase166_r3ab_pi65_audit/test_r3ab.py::test_pi65_goal_and_publication_metadata",
   "phase166_r3ac_stable_notation/tests/test_r3ac.py::test_all_positive_iteration_counts_without_special_cases",
   "phase166_r3ac_stable_notation/tests/test_r3ac.py::test_no_uncited_notation_or_unrelated_stem",
+  "phase166_r3ad_stable_transport_audit/test_r3ad.py::test_generic_stable_transport_for_multiple_stems_and_exponents",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[legacy]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference_ordered]",
