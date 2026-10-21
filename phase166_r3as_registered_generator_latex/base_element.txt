@@ -1,0 +1,34 @@
+def _base_element(row, dimension):
+    """Build a typed generator from the registered TeX and its actual degree."""
+    family = str(row["display"]).strip()
+    initial_n = int(row["n"])
+    stem = int(row["k"])
+    kinds = int(row["kinds"])
+    if dimension < initial_n:
+        return None
+    canonical = str(row["latex"]).strip()
+    if kinds == 0:
+        if family in {"η", "ν", "σ", "ι"}:
+            symbol_family = family
+        else:
+            if not canonical or canonical.lower() == "nan":
+                return None
+            symbol_family = canonical
+        return HomotopyElement(
+            name=family + str(dimension).translate(_SUB),
+            dimension=dimension,
+            source=dimension + stem,
+            target=dimension,
+            generator=GeneratorSymbol(family=symbol_family, index=dimension),
+        )
+    if not canonical or canonical.lower() == "nan":
+        return None
+    original = HomotopyElement(
+        name=family,
+        dimension=initial_n,
+        source=initial_n + stem,
+        target=initial_n,
+        generator=GeneratorSymbol(family=canonical),
+    )
+    exponent = dimension - initial_n
+    return original if exponent == 0 else IteratedSuspension(original, exponent)

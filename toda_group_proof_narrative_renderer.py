@@ -11918,7 +11918,8 @@ def render_toda_partial_proof_narrative_markdown(result) -> str:
   target_statement = result.conclusion if complete else None
   if target_statement is None:
     candidates = tuple(goal for goal in result.open_goals
-                       if getattr(goal, "lhs", None) == result.target)
+                       if (getattr(goal, "lhs", None) == result.target
+                           or getattr(goal, "group", None) == result.target))
     if candidates:
       target_statement = candidates[-1]
   if target_statement is None:

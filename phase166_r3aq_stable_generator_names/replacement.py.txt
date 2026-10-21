@@ -1,0 +1,34 @@
+def _base_element(row, dimension):
+    """Reconstruct a factor from the generator registry at its actual dimension."""
+    family = str(row["display"]).strip()
+    initial_n = int(row["n"])
+    stem = int(row["k"])
+    kinds = int(row["kinds"])
+    if dimension < initial_n:
+        return None
+    if kinds == 0:
+        # Stable-family symbols in HyoujiGen.csv carry their canonical TeX.
+        # Preserve the existing names for the four familiar families.
+        if family in {"η", "ν", "σ", "ι"}:
+            symbol_family = family
+        else:
+            symbol_family = str(row["latex"]).strip()
+            if not symbol_family or symbol_family.lower() == "nan":
+                return None
+        return HomotopyElement(
+            name=family + str(dimension).translate(_SUB),
+            dimension=dimension,
+            source=dimension + stem,
+            target=dimension,
+            generator=GeneratorSymbol(family=symbol_family, index=dimension),
+        )
+    # Exceptional classes must retain their original name plus suspension.
+    label = family.replace("'", "′")
+    original = HomotopyElement(
+        name=label,
+        dimension=initial_n,
+        source=initial_n + stem,
+        target=initial_n,
+    )
+    exponent = dimension - initial_n
+    return original if exponent == 0 else IteratedSuspension(original, exponent)

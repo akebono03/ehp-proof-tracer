@@ -105,6 +105,30 @@ def _render_unicode_math_name_latex(
       "name must not be empty"
     )
 
+  # Normalize exceptional DB labels without altering their typed identity.
+  # The source HyoujiGen.csv stores these labels as Unicode, while their
+  # mathematical TeX equivalents use nested bars and numeric subscripts.
+  import re
+
+  bar_pattern = re.compile(r"([Α-Ωα-ω])([\u0304\u0305]+)")
+
+  def render_bars(match):
+    base = _GREEK_LATEX.get(match.group(1), match.group(1))
+    level = len(match.group(2))
+    for _ in range(level):
+      base = r"\bar{" + base + "}"
+    return base
+
+  name = bar_pattern.sub(render_bars, name)
+  index_pattern = re.compile(r"([Α-Ωα-ω])([0-9]+)")
+  name = index_pattern.sub(
+    lambda match: match.group(1) + "".join(
+      next(key for key, value in _SUBSCRIPT_DIGITS.items() if value == digit)
+      for digit in match.group(2)
+    ),
+    name,
+  )
+
   pieces: list[str] = []
   subscript_digits: list[str] = []
   superscript_digits: list[str] = []
@@ -308,27 +332,32 @@ def _render_generator_symbol_latex(
       "symbol must be a GeneratorSymbol"
     )
 
-  latex = (
-    _render_unicode_math_name_latex(
-      symbol.family
-    )
-  )
+  # A registered TeX fragment ending in an open numeric subscript
+  # (e.g. \\mu_{3,) takes its final index inside the same braces.
+  if symbol.family.startswith("\\"):
+    import re
+    if (
+      symbol.index is not None
+      and re.search(r"_\{\d+,$", symbol.family)
+    ):
+      return (
+        symbol.family
+        + _render_scalar_latex(symbol.index)
+        + "}"
+      )
+    latex = symbol.family
+  else:
+    latex = _render_unicode_math_name_latex(symbol.family)
 
   if symbol.index is not None:
     latex += (
       "_{"
-      + _render_scalar_latex(
-        symbol.index
-      )
+      + _render_scalar_latex(symbol.index)
       + "}"
     )
 
   if symbol.decoration is not None:
-    latex += (
-      _render_unicode_math_name_latex(
-        symbol.decoration
-      )
-    )
+    latex += _render_unicode_math_name_latex(symbol.decoration)
 
   return latex
 
@@ -489,6 +518,42 @@ def render_toda_expression_latex(
     expression,
     Composition,
   ):
+    # Compress only a well-typed consecutive sigma family composition.
+    # This is a presentation rule: the Composition tree is unchanged.
+    factors = []
+
+    def collect_composition_factors(value):
+      if isinstance(value, Composition):
+        collect_composition_factors(value.left)
+        collect_composition_factors(value.right)
+      else:
+        factors.append(value)
+
+    collect_composition_factors(expression)
+    if len(factors) >= 2:
+      sigma_indices = []
+      for factor in factors:
+        if not isinstance(factor, HomotopyElement):
+          break
+        symbol = factor.generator
+        if (
+          symbol is None
+          or symbol.family not in ("σ", r"\sigma")
+          or type(symbol.index) is not int
+          or factor.target != symbol.index
+          or factor.source != symbol.index + 7
+        ):
+          break
+        sigma_indices.append(symbol.index)
+      if len(sigma_indices) == len(factors) and all(
+        following == preceding + 7
+        for preceding, following in zip(sigma_indices, sigma_indices[1:])
+      ):
+        return (
+          render_toda_expression_latex(factors[0])
+          + "^{" + str(len(factors)) + "}"
+        )
+
     return (
       render_toda_expression_latex(
         expression.left
@@ -528,16 +593,12 @@ def render_toda_expression_latex(
     expression,
     IteratedSuspension,
   ):
-    return (
-      "E^{"
-      + _render_scalar_latex(
-        expression.exponent
-      )
-      + "}"
-      + render_toda_expression_latex(
-        expression.expression
-      )
+    prefix = (
+      "E"
+      if type(expression.exponent) is int and expression.exponent == 1
+      else "E^{" + _render_scalar_latex(expression.exponent) + "}"
     )
+    return prefix + render_toda_expression_latex(expression.expression)
 
   if isinstance(
     expression,
@@ -573,6 +634,7 @@ def render_toda_expression_latex(
   raise TypeError(
     "unsupported expression for LaTeX rendering"
   )
+
 
 
 def render_toda_target_latex(
