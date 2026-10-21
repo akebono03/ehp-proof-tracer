@@ -1,0 +1,202 @@
+{
+  "phase": "166 R3-AD",
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "structural_cases": [
+    {
+      "k": 1,
+      "r": 1,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 1,
+      "r": 2,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 1,
+      "r": 3,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 1,
+      "r": 7,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 2,
+      "r": 1,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 2,
+      "r": 2,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 2,
+      "r": 3,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 2,
+      "r": 7,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 3,
+      "r": 1,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 3,
+      "r": 2,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 3,
+      "r": 3,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 3,
+      "r": 7,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 7,
+      "r": 1,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 7,
+      "r": 2,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 7,
+      "r": 3,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    },
+    {
+      "k": 7,
+      "r": 7,
+      "inference_matches": 1,
+      "correct_target": true,
+      "correct_generator": true,
+      "note": "Synthetic premises test the inference rule only; not literary eligibility"
+    }
+  ],
+  "real_eta": [
+    {
+      "n": 4,
+      "stem": 1,
+      "candidate_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "base_count": 1,
+      "toda45_count": 1,
+      "transport_options": 1,
+      "transport_rules": [
+        "Toda 4.5 generic finite-cyclic transport"
+      ],
+      "status": "ProofSearchStatus.COMPLETE",
+      "complete": true,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "n": 5,
+      "stem": 1,
+      "candidate_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "base_count": 1,
+      "toda45_count": 1,
+      "transport_options": 1,
+      "transport_rules": [
+        "Toda 4.5 generic finite-cyclic transport"
+      ],
+      "status": "ProofSearchStatus.COMPLETE",
+      "complete": true,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "n": 6,
+      "stem": 1,
+      "candidate_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "base_count": 1,
+      "toda45_count": 1,
+      "transport_options": 1,
+      "transport_rules": [
+        "Toda 4.5 generic finite-cyclic transport"
+      ],
+      "status": "ProofSearchStatus.COMPLETE",
+      "complete": true,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "n": 7,
+      "stem": 1,
+      "candidate_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "base_count": 1,
+      "toda45_count": 1,
+      "transport_options": 1,
+      "transport_rules": [
+        "Toda 4.5 generic finite-cyclic transport"
+      ],
+      "status": "ProofSearchStatus.COMPLETE",
+      "complete": true,
+      "open_goals": 0,
+      "diagnostics": []
+    }
+  ],
+  "higher_stems": "No registered named generator correspondence assumed; generic rule only"
+}

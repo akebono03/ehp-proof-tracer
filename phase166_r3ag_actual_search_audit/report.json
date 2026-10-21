@@ -1,0 +1,265 @@
+{
+  "phase": "166 R3-AG",
+  "read_only": true,
+  "records": [
+    {
+      "n": 4,
+      "k": 2,
+      "group": "TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4^2', dimension=4, source=6, target=4, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4^2', dimension=4, source=6, target=4, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), generator=HomotopyElement(name='η_4^2', dimension=4, source=6, target=4, generator=None), order=2)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4^2', dimension=4, source=6, target=4, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4^2', dimension=4, source=6, target=4, generator=None)), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4^2', dimension=4, source=6, target=4, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "group": "TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5^2', dimension=5, source=7, target=5, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5^2', dimension=5, source=7, target=5, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=HomotopyElement(name='η_5^2', dimension=5, source=7, target=5, generator=None), order=2)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5^2', dimension=5, source=7, target=5, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5^2', dimension=5, source=7, target=5, generator=None)), rhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5^2', dimension=5, source=7, target=5, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 6,
+      "k": 2,
+      "group": "TodaPrimaryGroup(group_dimension=8, sphere_dimension=6)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_6^2', dimension=6, source=8, target=6, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_6^2', dimension=6, source=8, target=6, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), generator=HomotopyElement(name='η_6^2', dimension=6, source=8, target=6, generator=None), order=2)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_6^2', dimension=6, source=8, target=6, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_6^2', dimension=6, source=8, target=6, generator=None)), rhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_6^2', dimension=6, source=8, target=6, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 5,
+      "k": 3,
+      "group": "TodaPrimaryGroup(group_dimension=8, sphere_dimension=5)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_5', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_5', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), generator=HomotopyElement(name='ν_5', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), order=8)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_5', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_5', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_5', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 6,
+      "k": 3,
+      "group": "TodaPrimaryGroup(group_dimension=9, sphere_dimension=6)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_6', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_6', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), generator=HomotopyElement(name='ν_6', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None)), order=8)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_6', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_6', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_6', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 7,
+      "k": 3,
+      "group": "TodaPrimaryGroup(group_dimension=10, sphere_dimension=7)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_7', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_7', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), generator=HomotopyElement(name='ν_7', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), order=8)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_7', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_7', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν_7', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 9,
+      "k": 7,
+      "group": "TodaPrimaryGroup(group_dimension=16, sphere_dimension=9)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=16, sphere_dimension=9), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_9', dimension=9, source=16, target=9, generator=GeneratorSymbol(family='σ', index=9, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=16, sphere_dimension=9), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_9', dimension=9, source=16, target=9, generator=GeneratorSymbol(family='σ', index=9, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=16, sphere_dimension=9), generator=HomotopyElement(name='σ_9', dimension=9, source=16, target=9, generator=GeneratorSymbol(family='σ', index=9, decoration=None)), order=16)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=16, sphere_dimension=9), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_9', dimension=9, source=16, target=9, generator=GeneratorSymbol(family='σ', index=9, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_9', dimension=9, source=16, target=9, generator=GeneratorSymbol(family='σ', index=9, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=16, sphere_dimension=9), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=16, sphere_dimension=9), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_9', dimension=9, source=16, target=9, generator=GeneratorSymbol(family='σ', index=9, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 10,
+      "k": 7,
+      "group": "TodaPrimaryGroup(group_dimension=17, sphere_dimension=10)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=17, sphere_dimension=10), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_10', dimension=10, source=17, target=10, generator=GeneratorSymbol(family='σ', index=10, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=17, sphere_dimension=10), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_10', dimension=10, source=17, target=10, generator=GeneratorSymbol(family='σ', index=10, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=17, sphere_dimension=10), generator=HomotopyElement(name='σ_10', dimension=10, source=17, target=10, generator=GeneratorSymbol(family='σ', index=10, decoration=None)), order=16)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=17, sphere_dimension=10), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_10', dimension=10, source=17, target=10, generator=GeneratorSymbol(family='σ', index=10, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_10', dimension=10, source=17, target=10, generator=GeneratorSymbol(family='σ', index=10, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=17, sphere_dimension=10), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=17, sphere_dimension=10), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_10', dimension=10, source=17, target=10, generator=GeneratorSymbol(family='σ', index=10, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    },
+    {
+      "n": 11,
+      "k": 7,
+      "group": "TodaPrimaryGroup(group_dimension=18, sphere_dimension=11)",
+      "registered_count": 1,
+      "database_count": 1,
+      "registered_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=11), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_11', dimension=11, source=18, target=11, generator=GeneratorSymbol(family='σ', index=11, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=11), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_11', dimension=11, source=18, target=11, generator=GeneratorSymbol(family='σ', index=11, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "selected_source": "registered",
+      "citing_assertion_id": null,
+      "publication_boundary": "NO_REGISTERED_PUBLICATION_TARGET",
+      "search_status": "ProofSearchStatus.SEARCH_FAILED",
+      "complete": false,
+      "conclusion_matches_goal": false,
+      "open_goals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=18, sphere_dimension=11), generator=HomotopyElement(name='σ_11', dimension=11, source=18, target=11, generator=GeneratorSymbol(family='σ', index=11, decoration=None)), order=16)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=11), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_11', dimension=11, source=18, target=11, generator=GeneratorSymbol(family='σ', index=11, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_11', dimension=11, source=18, target=11, generator=GeneratorSymbol(family='σ', index=11, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=11), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=11), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ_11', dimension=11, source=18, target=11, generator=GeneratorSymbol(family='σ', index=11, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "outcome": "SEARCH_EXECUTED"
+    }
+  ],
+  "summary": {
+    "targets": 9,
+    "unique_goals": 9,
+    "search_executed": 9,
+    "complete": 0,
+    "exceptions": 0
+  }
+}

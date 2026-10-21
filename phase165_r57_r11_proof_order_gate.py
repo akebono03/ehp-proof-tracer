@@ -117,6 +117,13 @@ def is_unordered_root_structure_specialization(
         return False
     if _proved_generator_suspension_normalization_shape(root_goal, expansion):
         return False
+    if getattr(expansion.rule, "name", None) == "cited stable eta-family notation for iterated transport":
+        from phase166_r3ac_stable_notation import _stable_eta_renaming_shape
+        from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
+        if (len(expansion.subgoals) == 2
+                and expansion.subgoals[1] == TodaEtaFamilyGeneralDefinition()
+                and _stable_eta_renaming_shape(expansion.subgoals[0], root_goal)):
+            return False
     if _is_symbolic_cited_root_specialization(root_goal, expansion):
         return False
     if (getattr(expansion.rule, "name", None) == "generic cited typed scalar specialization"

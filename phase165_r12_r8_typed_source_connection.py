@@ -56,7 +56,6 @@ def audit_real_pi43_quotient_connection() -> dict[str, object]:
         CyclicStructureStatement, HomomorphismPresentationStatement,
         KernelMultipleStatement, QuotientIsomorphismStatement,
     )
-    from phase165_r12_r7_proof_order_guard import restrict_registered_ordered_claims
     from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
     from phase165_r52_r9_shared_math import build_shared_typed_bridge
     from phase165_r6_2_r4_seeded_goals import generate_seeded_backward_goals
@@ -74,7 +73,6 @@ def audit_real_pi43_quotient_connection() -> dict[str, object]:
     screened = screen_shared_proof_context(
         bridge, goal=target, citing_assertion_id=match[0].assertion_id,
     )
-    screened = restrict_registered_ordered_claims(screened, target)
     anchors = collect_permitted_typed_source_anchors(screened)
     classes = (HomomorphismPresentationStatement, KernelMultipleStatement,
                SurjectiveMapStatement, QuotientIsomorphismStatement,
