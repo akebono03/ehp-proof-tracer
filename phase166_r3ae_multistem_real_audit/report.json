@@ -1,0 +1,105 @@
+{
+  "phase": "166 R3-AE",
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "stem_values": [
+    2,
+    3,
+    7
+  ],
+  "offset_values": [
+    0,
+    1,
+    2
+  ],
+  "records": [
+    {
+      "stem": 2,
+      "base_n": 4,
+      "offset": 0,
+      "target_group": "TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 2,
+      "base_n": 4,
+      "offset": 1,
+      "target_group": "TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 2,
+      "base_n": 4,
+      "offset": 2,
+      "target_group": "TodaPrimaryGroup(group_dimension=8, sphere_dimension=6)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 3,
+      "base_n": 5,
+      "offset": 0,
+      "target_group": "TodaPrimaryGroup(group_dimension=8, sphere_dimension=5)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 3,
+      "base_n": 5,
+      "offset": 1,
+      "target_group": "TodaPrimaryGroup(group_dimension=9, sphere_dimension=6)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 3,
+      "base_n": 5,
+      "offset": 2,
+      "target_group": "TodaPrimaryGroup(group_dimension=10, sphere_dimension=7)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 7,
+      "base_n": 9,
+      "offset": 0,
+      "target_group": "TodaPrimaryGroup(group_dimension=16, sphere_dimension=9)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 7,
+      "base_n": 9,
+      "offset": 1,
+      "target_group": "TodaPrimaryGroup(group_dimension=17, sphere_dimension=10)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    },
+    {
+      "stem": 7,
+      "base_n": 9,
+      "offset": 2,
+      "target_group": "TodaPrimaryGroup(group_dimension=18, sphere_dimension=11)",
+      "candidate_count": 0,
+      "candidate_reprs": [],
+      "diagnostic": "No unique registered typed target; search not attempted"
+    }
+  ],
+  "summary": {
+    "targets": 9,
+    "unique_candidates": 0,
+    "publication_bound": 0,
+    "complete": 0,
+    "exceptions": 0
+  }
+}
