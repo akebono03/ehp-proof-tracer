@@ -103,17 +103,22 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
 _phase165_r57_r8_previous_registered_group_goal_candidates = registered_group_goal_candidates
 
 def registered_group_goal_candidates(bridge, *, n: int, k: int):
-    """Extend the previous R55 selection with derived symbolic-reference goals."""
+    """Keep literature goals first; add database-derived targets only as goals."""
     from homotopy_groups import TodaPrimaryGroup
     from phase165_r57_r8_eta_specialization import specialized_eta_group_goal_candidates
+    from phase166_r3af_goal_adapter import database_group_goal_candidates
+
     existing = _phase165_r57_r8_previous_registered_group_goal_candidates(bridge=bridge, n=n, k=k)
     if not isinstance(existing, tuple):
         raise TypeError("R55 selector must return a tuple")
     group = TodaPrimaryGroup(group_dimension=n+k, sphere_dimension=n)
-    typed_bridge = bridge
-    candidates = specialized_eta_group_goal_candidates(group, typed_bridge)
+    symbolic = specialized_eta_group_goal_candidates(group, bridge)
     output = list(existing)
-    for candidate in candidates:
+    for candidate in symbolic:
         if not any(type(candidate) is type(old) and candidate == old for old in output):
             output.append(candidate)
+    if not output:
+        for candidate in database_group_goal_candidates(n=n, k=k):
+            if candidate not in output:
+                output.append(candidate)
     return tuple(output)
