@@ -1,0 +1,3128 @@
+{
+  "mode": "READ_ONLY_PROFILE",
+  "key": "generic-complete-proof",
+  "profiled_calls": {
+    "render_toda_public_group_relation_latex": 26,
+    "_render_scalar_latex": 1046,
+    "render_group_structure": 5,
+    "render_toda_public_group_generator_latex": 101,
+    "_toda_public_eta_composition_factors": 101,
+    "render_toda_expression_latex": 570,
+    "_render_generator_symbol_latex": 326,
+    "_render_unicode_math_name_latex": 433,
+    "flush_scripts": 866,
+    "render_toda_proof_statement_latex": 358,
+    "_render_toda_exactness_window_latex": 4,
+    "render_toda_primary_group_latex": 230,
+    "_render_toda_ehp_map_symbol_latex": 8,
+    "<module>": 4,
+    "TodaGroupProofNarrativeMathematicalBlockRole": 1,
+    "TodaGroupProofNarrativeBlock": 1,
+    "render_toda_group_proof_narrative_markdown": 1,
+    "_phase160_r7_render_stable_finite_cyclic_transport_narrative": 1,
+    "_phase160_r7_pre_transport_narrative": 1,
+    "_phase158_baseline_render_toda_group_proof_narrative_markdown": 1,
+    "build_toda_group_proof_narrative_blocks": 3,
+    "_validate_semantic_sidecar": 78,
+    "<genexpr>": 6387,
+    "<dictcomp>": 14,
+    "recognize_toda_group_proof_narrative_step_role": 75,
+    "_selected_step_ids": 75,
+    "<setcomp>": 78,
+    "_semantic_block_role_for_step": 72,
+    "<lambda>": 75,
+    "__post_init__": 30,
+    "render_toda_target_latex": 97,
+    "_render_generic_narrative_step": 548,
+    "_render_generic_narrative_statement_prose": 548,
+    "_render_phase153_r3_9_reference_statement_prose": 499,
+    "_render_phase153_r3_6_reference_statement_prose": 499,
+    "render_toda_group_proof_aggregate_statement_prose": 499,
+    "_normalize_toda_group_proof_narrative_sentence_endings": 117,
+    "_generic_short_exact_sequence_latex": 32,
+    "render_toda_group_structure_latex": 96,
+    "_normalize_generic_narrative_step_latex": 148,
+    "_normalize_generic_narrative_statement_latex": 148,
+    "_try_render_generic_narrative_expression_latex": 190,
+    "_try_render_generic_narrative_group_structure_latex": 190,
+    "render_toda_raw_group_structure_latex": 214,
+    "_normalize_generic_eta_family_latex": 148,
+    "_render_generic_narrative_proof_block": 1,
+    "_generic_narrative_sentence_lead": 1,
+    "_is_generic_narrative_provenance_only_statement": 1,
+    "_generic_group_map_name": 73,
+    "_render_generic_narrative_group_map_latex": 27,
+    "_wrap_phase150_rc4_generic_public_narrative": 1,
+    "_finalize_toda_group_proof_narrative_markdown": 1,
+    "_phase157_r11_r17_normalize_public_connectors": 1,
+    "_phase157_r11_r17_normalize_public_numeric_equalities": 1,
+    "_normalize_toda_group_proof_narrative_display_closing_fragments": 1,
+    "_phase158_normalize_public_narrative_contract": 1,
+    "exact_index": 3,
+    "_phase158_public_narrative_target_lines": 1,
+    "_render_group_proof_narrative_latex": 1,
+    "_render_prop44_suspension_injective_statement_latex": 1,
+    "_render_finite_dimensional_aggregate_statement_latex": 1,
+    "_phase158_strip_terminal_qed_lines": 1,
+    "_phase158_normalize_public_equation_numbers": 1,
+    "_phase158_public_equation_connector_numbers": 25,
+    "_phase158_public_equation_tag_number": 78,
+    "_phase159_r1_7b_normalize_public_exact_sequences": 1,
+    "_phase159_r1_7b_exactness_step_latex": 25,
+    "canonical_exactness": 4,
+    "_phase159_r1_7b_inline_exactness_latex": 25,
+    "_phase159_r1_7b_inline_short_exact_latex": 24,
+    "canonical_typed_exactness": 1,
+    "_phase159_r1_7b_display_math_lines": 1,
+    "_phase159_r1_7b_map_property_signature": 28,
+    "_phase159_project_generic_semantics_to_public_proof": 1,
+    "_phase159_public_semantic_projection_context": 2,
+    "_phase159_public_map_property_triples": 1,
+    "_phase159_unique_preimage_definition_line": 50,
+    "_phase159_consolidate_public_exactness_lines": 1,
+    "_phase159_public_exactness_latex": 28,
+    "_phase159_r1_7c_r4_normalize_proof_body_prose": 1,
+    "_phase159_reorder_unique_preimage_definition_premise_locality": 1,
+    "_phase159_r1_7c_r4_normalize_public_map_property_prose": 1,
+    "map_property_key": 22,
+    "_phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning": 1,
+    "_phase159_recursive_map_property_triples": 1,
+    "_phase159_r1_6c_recursive_proof_steps": 1,
+    "visit": 27,
+    "_phase159_r1_7c_r4_reorder_public_equation_reference_conclusions": 1,
+    "unique_index": 2,
+    "<listcomp>": 3
+  },
+  "typed_events": [
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_human_readable_renderer.py",
+      "function": "render_toda_public_group_relation_latex",
+      "line": 910,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "_semantic_block_role_for_step",
+      "line": 178,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "_semantic_block_role_for_step",
+      "line": 178,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "_semantic_block_role_for_step",
+      "line": 178,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "_semantic_block_role_for_step",
+      "line": 178,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "_semantic_block_role_for_step",
+      "line": 178,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "recognize_toda_group_proof_narrative_step_role",
+      "line": 249,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_blocks.py",
+      "function": "_semantic_block_role_for_step",
+      "line": 178,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_is_generic_narrative_provenance_only_statement",
+      "line": 1915,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_step_latex",
+      "line": 589,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_normalize_generic_narrative_statement_latex",
+      "line": 465,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_aggregate_statement_renderer.py",
+      "function": "render_toda_group_proof_aggregate_statement_prose",
+      "line": 155,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_proof_narrative_renderer.py",
+      "function": "render_toda_proof_statement_latex",
+      "line": 579,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "GeneratorSuspension",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_step",
+      "line": 1537,
+      "arguments": [
+        {
+          "variable": "proof_step",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_generic_narrative_statement_prose",
+      "line": 1213,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_9_reference_statement_prose",
+      "line": 773,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    },
+    {
+      "file": "toda_group_proof_narrative_shared_components.py",
+      "function": "_render_phase153_r3_6_reference_statement_prose",
+      "line": 940,
+      "arguments": [
+        {
+          "variable": "statement",
+          "conclusion_type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ]
+    }
+  ],
+  "typed_events_count": 250,
+  "web_lines": [
+    "証明対象",
+    "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.",
+    "使用する結果",
+    "**[R1] (5.1).**",
+    "\\pi_{i}^{n} = 0\\quad(i < n).",
+    "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1).",
+    "**[R2] Proposition 5.1.**",
+    "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.",
+    "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}.",
+    "",
+    "証明",
+    "\\pi_{4}^{3} の群構造を決定するために, 次の完全列を考える.",
+    "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.",
+    "\\eta_{3}=E\\eta_{2}.",
+    "E(\\eta_{2}) = \\eta_{3}.",
+    "[R1]より, \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}.",
+    "これより, \\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}.",
+    "[R2]より, \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}.",
+    "これより, \\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}.",
+    "完全性より, \\ker E=\\mathbb{Z}\\{2η_{2}\\}.",
+    "\\pi_{4}^{5} = 0.",
+    "完全性より, E: \\pi_{3}^{2} \\to \\pi_{4}^{3} は全射.",
+    "[R2]より, \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.",
+    "全射性と核の決定から, 第一同型定理より \\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}.",
+    "以上より, \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.",
+    "□"
+  ],
+  "production_modified": false
+}
