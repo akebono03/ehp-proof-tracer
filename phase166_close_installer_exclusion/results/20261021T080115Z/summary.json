@@ -1,0 +1,20 @@
+{
+  "phase": "166 closure",
+  "excluded_filename_pattern": "*install_and_test.py",
+  "matched_installer_paths": [
+    "phase165_r6_8_eta_name_fix/install_and_test.py",
+    "phase165_r6_8_phase58_cutover/install_and_test.py"
+  ],
+  "command": [
+    "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider",
+    "--ignore-glob=*install_and_test.py"
+  ],
+  "pytest_exit_code": 3,
+  "production_code_modified_by_runner": false,
+  "result": "BLOCKED"
+}

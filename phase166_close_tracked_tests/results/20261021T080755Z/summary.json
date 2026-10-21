@@ -1,0 +1,9 @@
+{
+  "phase": "166 closure",
+  "mode": "tracked_current_test_files",
+  "tracked_test_files": 1410,
+  "excluded_test_named_files": 1207,
+  "status": "BLOCKED_TESTS",
+  "pytest_exit_code": 127,
+  "full_default_discovery_not_run": true
+}

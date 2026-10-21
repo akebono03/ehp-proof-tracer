@@ -1,0 +1,20 @@
+{
+  "phase": "166 closure full pytest",
+  "timestamp_utc": "2026-10-21T07:56:47.229085+00:00",
+  "repository": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof",
+  "git_head": "eb3d2be0fb16acd3d7152c2f9e7421a8651e886d",
+  "pytest_command": [
+    "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "-m",
+    "pytest",
+    "-q",
+    "-p",
+    "no:cacheprovider"
+  ],
+  "pytest_exit_code": 3,
+  "phase166_status": "BLOCKED_BY_TEST_FAILURES",
+  "note": "PASS_CANDIDATE requires review of complete report before closing the phase.",
+  "production_code_modified_by_runner": false,
+  "full_pytest_run": true,
+  "output_dir": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_close_full_suite\\results\\20261021T075602Z"
+}

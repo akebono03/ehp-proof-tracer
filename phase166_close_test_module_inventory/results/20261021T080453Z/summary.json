@@ -1,0 +1,9 @@
+{
+  "phase": "166 closure",
+  "mode": "explicit_test_module_inventory",
+  "included_files": 2536,
+  "omitted_files": 37,
+  "unreadable_files": 2,
+  "full_pytest_run": false,
+  "status": "BLOCKED_INVENTORY"
+}
