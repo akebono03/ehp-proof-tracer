@@ -2116,105 +2116,6 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
     title = entry.reference.locator or entry.reference.label
     lines.append(f"**[R{entry.number}] {title}.**")
 
-    if entry.reference.locator == "(5.1)":
-      component_keys = {
-        boundary.component_key
-        for proof_step in entry.proof_steps
-        for boundary in (
-          classify_toda_literature_statement_step(
-            proof_step
-          ),
-        )
-        if (
-          boundary is not None
-          and boundary.classification
-          == TodaLiteratureStatementClassification.FIXED_STATEMENT
-          and boundary.reference_locator
-          == "(5.1)"
-          and boundary.component_key is not None
-        )
-      }
-
-      # Adopted typed GIVEN leaves carry the citation locator but not
-      # the legacy fixed-rule component key. Recognize only the two
-      # structurally identifiable (5.1) components, without hardcoded n.
-      for proof_step in entry.proof_steps:
-        inference = proof_step.inference_rule
-        if (
-          proof_step.premises
-          or inference is None
-          or inference.literature_reference is None
-          or inference.literature_reference.locator != "(5.1)"
-          or getattr(proof_step.rule, "name", None) != "GIVEN"
-        ):
-          continue
-        conclusion = proof_step.conclusion
-        if type(conclusion).__name__ == "TodaPrimaryGroupZeroStatement":
-          group = getattr(conclusion, "group", None)
-          if group is None:
-            group = getattr(conclusion, "target_group", None)
-          if (
-            getattr(group, "sphere_dimension", None) == 1
-            and isinstance(getattr(group, "group_dimension", None), int)
-            and group.group_dimension > 1
-          ):
-            component_keys.add("circle_higher_homotopy_zero")
-        elif type(conclusion).__name__ == "Relation":
-          lhs = getattr(conclusion, "lhs", None)
-          rhs = getattr(conclusion, "rhs", None)
-          if (
-            isinstance(getattr(lhs, "group_dimension", None), int)
-            and lhs.group_dimension >= 1
-            and lhs.group_dimension == getattr(lhs, "sphere_dimension", None)
-            and type(rhs).__name__ == "FreeCyclicGroup"
-          ):
-            component_keys.add("diagonal_identity_group")
-
-      if "circle_higher_homotopy_zero" in component_keys:
-        lines.append(
-          r"$\pi_{i}^{1} = 0\ (i > 1)$."
-        )
-
-      if "sphere_connectivity_zero" in component_keys:
-        component = (
-          get_toda_fixed_statement_component(
-            "(5.1)",
-            "sphere_connectivity_zero",
-          )
-        )
-
-        if (
-          component is not None
-          and component
-          .range_is_explicit_in_current_aggregate
-        ):
-          lines.append(
-            r"$\pi_{i}^{n} = 0\ (i < n)$."
-          )
-
-      if "diagonal_identity_group" in component_keys:
-        component = get_toda_fixed_statement_component(
-          "(5.1)",
-          "diagonal_identity_group",
-        )
-        range_latex = ""
-        if component.range_text is not None:
-          range_latex = (
-            r"\qquad ("
-            + component.range_text.replace(">=", r"\ge").replace("<=", r"\le")
-            + ")"
-          )
-        lines.append(
-          (
-            r"$\pi_{n}^{n} = "
-            r"\mathbb{Z}\{\iota_{n}\}"
-            + range_latex
-            + "$."
-          )
-        )
-
-      continue
-
     if entry.reference.locator == "Proposition 4.2":
       lines.append(
         r"$\cdots \to \pi_{i-1}^{n} \xrightarrow{E} "
@@ -2233,6 +2134,81 @@ def render_toda_group_proof_narrative_reference_entries_markdown(
         (),
       )
     )
+
+    # Normalize cited fixed-statement components to their registered general
+    # form rather than printing selected specialized proof conclusions.
+    # This is shared logic: no branch on the literature locator or target group.
+    general_formula_by_component = {
+      "circle_higher_homotopy_zero": r"\pi_{i}^{1} = 0",
+      "sphere_connectivity_zero": r"\pi_{i}^{n} = 0",
+      "diagonal_identity_group": r"\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}",
+    }
+    registered_components = {
+      component.component_key: component
+      for component in get_toda_fixed_statement_components(
+        entry.reference.locator
+      )
+    }
+    identified_components = set()
+    for proof_step in entry.proof_steps:
+      boundary = classify_toda_literature_statement_step(proof_step)
+      if (
+        boundary is not None
+        and boundary.classification
+        == TodaLiteratureStatementClassification.FIXED_STATEMENT
+        and boundary.reference_locator == entry.reference.locator
+        and boundary.component_key in registered_components
+      ):
+        identified_components.add(boundary.component_key)
+      conclusion = proof_step.conclusion
+      if type(conclusion).__name__ == "Toda51BelowDiagonalZeroStatement":
+        identified_components.add("sphere_connectivity_zero")
+      elif type(conclusion).__name__ == "TodaPrimaryGroupZeroStatement":
+        group = getattr(conclusion, "group", None)
+        if group is None:
+          group = getattr(conclusion, "target_group", None)
+        if (
+          getattr(group, "sphere_dimension", None) == 1
+          and isinstance(getattr(group, "group_dimension", None), int)
+          and group.group_dimension > 1
+        ):
+          identified_components.add("circle_higher_homotopy_zero")
+      elif type(conclusion).__name__ == "Relation":
+        lhs = getattr(conclusion, "lhs", None)
+        rhs = getattr(conclusion, "rhs", None)
+        dimension = getattr(lhs, "group_dimension", None)
+        if (
+          dimension is not None
+          and dimension == getattr(lhs, "sphere_dimension", None)
+          and type(rhs).__name__ == "FreeCyclicGroup"
+        ):
+          identified_components.add("diagonal_identity_group")
+
+    general_keys = (
+      identified_components
+      & registered_components.keys()
+      & general_formula_by_component.keys()
+    )
+    if general_keys:
+      normalized_lines = []
+      for component_key in registered_components:
+        if component_key not in general_keys:
+          continue
+        component = registered_components[component_key]
+        formula = general_formula_by_component[component_key]
+        range_text = component.range_text
+        if range_text and component.range_is_explicit_in_current_aggregate:
+          range_latex = (
+            range_text.replace(">=", r"\ge")
+            .replace("<=", r"\le")
+            .replace(">", ">")
+            .replace("<", "<")
+          )
+          formula += r"\quad(" + range_latex + ")"
+        normalized_lines.append("$" + formula + "$.")
+      # Fixed components must be shown in general form, not as an arbitrary
+      # subset of specialized equations from the current proof.
+      statement_lines = tuple(normalized_lines)
 
     for statement_line in statement_lines:
       # A catalog range belongs to its general formula, not to an
