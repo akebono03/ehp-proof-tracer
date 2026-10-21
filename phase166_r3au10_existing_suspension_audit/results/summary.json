@@ -1,0 +1,30 @@
+{
+  "module": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase166_r3aj_structured_generator.py",
+  "structured_generator_from_ids_present": true,
+  "base_element_present": true,
+  "goal_candidates_present": true,
+  "current_dimension_advanced_by_k": true,
+  "base_element_uses_dimension_minus_initial_n": true,
+  "base_element_uses_iterated_suspension": true,
+  "goal_uses_gen_coe": true,
+  "goal_constructs_multiple": true,
+  "goal_constructs_sum": true,
+  "typed_node_names": [
+    "Composition",
+    "IteratedSuspension",
+    "Multiple",
+    "Sum"
+  ],
+  "phase": "166 R3-AU-10",
+  "data": {
+    "data_rows_checked": 2118,
+    "counts": {
+      "NOT_BUILT": 3,
+      "BUILT": 2115,
+      "SEPARATOR_OR_EMPTY": 32
+    },
+    "latex_mathematically_certified": 0
+  },
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
