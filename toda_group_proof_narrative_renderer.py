@@ -11859,6 +11859,32 @@ def render_toda_group_proof_narrative_markdown(
             "全射性と核の決定から, 第一同型定理より $" + formula + "$."
           )
       rendered = "\n\n".join(paragraphs)
+  # Hide only labels of typed finite-cyclic quotient deductions.
+  # This occurs after the existing mathematical narrative is assembled,
+  # so existing quotient paragraph/anchor calculations remain unchanged.
+  if proof_root is not None:
+    from phase165_r12_r2_quotient_rules import (
+      CyclicStructureStatement,
+      QuotientIsomorphismStatement,
+    )
+    from proof import ProofRule
+    suppressed_inference_labels = {
+      step.inference_rule.name
+      for step in ancestry
+      if step.rule is ProofRule.INFERENCE
+      and step.inference_rule is not None
+      and isinstance(step.conclusion, CyclicStructureStatement)
+      and step.conclusion.order is not None
+      and any(
+        isinstance(premise.conclusion, QuotientIsomorphismStatement)
+        for premise in step.premises
+      )
+    }
+    if suppressed_inference_labels:
+      rendered = "".join(
+        line for line in rendered.splitlines(keepends=True)
+        if line.strip() not in suppressed_inference_labels
+      )
   return rendered
 
 
