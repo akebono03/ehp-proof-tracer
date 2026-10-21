@@ -1874,6 +1874,8 @@
   "phase166_r3af_goal_source/tests/test_r3af.py::test_unsupported_generator_fails_closed",
   "phase166_r3ag_actual_search_audit/test_r3ag.py::test_r3ag_covers_each_stem_and_three_stable_dimensions",
   "phase166_r3ag_actual_search_audit/test_r3ag.py::test_r3ag_reports_goal_source_without_adding_proof_premises",
+  "phase166_r3ah_provenance_audit/test_r3ah.py::test_relation_extraction_does_not_create_new_claims",
+  "phase166_r3ah_provenance_audit/test_r3ah.py::test_scope_preserves_three_stems_and_nine_targets",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[legacy]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference]",
   "phase166_r3c_ordered_search/tests/test_phase166_r3c_ordered_search.py::test_all_lookup_modes_use_existing_manifest_order[typed_reference_ordered]",
