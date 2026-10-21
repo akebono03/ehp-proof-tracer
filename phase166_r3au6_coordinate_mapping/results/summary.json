@@ -1,0 +1,19 @@
+{
+  "phase": "166 R3-AU-6",
+  "source": "R3-AU-5 all_rows.csv",
+  "counts": {
+    "groups_total": 834,
+    "groups_with_multiple_rows": 513,
+    "groups_with_nonidentity_or_special_rows": 39,
+    "rows_MATCHES_SORTED_POSITION": 2078,
+    "rows_MULTIPLE_NONZERO": 23,
+    "rows_ZERO_VECTOR": 17
+  },
+  "scope": "empirical group-local sorted-component-index versus nonzero gen_coe position",
+  "mapping_certified": false,
+  "composition_degree_certified": false,
+  "typed_expression_certified": false,
+  "generator_reference_is_optional": true,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}
