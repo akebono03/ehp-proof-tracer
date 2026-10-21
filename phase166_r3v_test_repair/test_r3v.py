@@ -75,7 +75,34 @@ def test_r3v_registered_prior_and_shared_search_connection():
         == witness.source_generator.target
         for item in prior
     ), "typed eta3 data do not match the prior group"
-    # Do not assert object equality: source and eta-definition names may differ.
-    # The proof search must still establish any needed representation identity.
-    options = shared_expansion_provider(screened,proof_target=named)(named)
-    assert any(option.subgoals == (transported, witness) for option in options)
+    # The prior generator is the exact registered one (η_3), not the
+    # differently spelled η₃ element returned by the definition factory.
+    options = shared_expansion_provider(screened, proof_target=named)(named)
+    candidates = [
+        option for option in options
+        if option.rule.name == "proved generator suspension normalizes transported cyclic group"
+        and len(option.subgoals) == 2
+        and option.subgoals[1] == witness
+    ]
+    assert candidates, "registered prior did not produce the R3-V normalization"
+    assert any(
+        isinstance(option.subgoals[0], Relation)
+        and option.subgoals[0].lhs == named.lhs
+        and isinstance(option.subgoals[0].rhs, FiniteCyclicGroup)
+        and option.subgoals[0].rhs.order == 2
+        and any(
+            option.subgoals[0].rhs.generator == IteratedSuspension(item.rhs.generator, 1)
+            for item in prior
+        )
+        for option in candidates
+    ), "R3-V transport must use the registered generator without inventing a source"
+    assert all(
+        option.rule.match_guard(
+            (
+                ProofStep(option.subgoals[0], (), ProofRule.GIVEN),
+                ProofStep(option.subgoals[1], (), ProofRule.GIVEN),
+            ),
+            {},
+        )
+        for option in candidates
+    ), "R3-V inference rule must accept the actual typed premises"

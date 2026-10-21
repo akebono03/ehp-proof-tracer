@@ -220,6 +220,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
         options.extend(expand_cited_eta_generator(goal))
+        from phase166_r3ac_stable_notation import expand_stable_eta_notation
+        options.extend(expand_stable_eta_notation(goal, tuple(available)))
         from phase166_r3v_generator_transport import expand_generator_transport_normalization
         options.extend(expand_generator_transport_normalization(goal, tuple(available)))
         if (isinstance(goal, Relation)
