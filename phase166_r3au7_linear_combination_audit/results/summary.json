@@ -1,0 +1,19 @@
+{
+  "phase": "166 R3-AU-7",
+  "total_input_rows": 2150,
+  "multi_nonzero_rows": 23,
+  "nonzero_coefficient_terms": 46,
+  "component_lookup_status": {
+    "MATCHED_BY_ID": 46
+  },
+  "rows_with_all_component_ids_present": 23,
+  "rows_with_self_reference": 23,
+  "zero_vector_rows_intentionally_out_of_scope": true,
+  "reference_generator_optional": true,
+  "matching_rule": "zero-based nonzero coefficient position is matched to same (n,k) component id (hypothesis under audit)",
+  "meaning_certified": false,
+  "typed_expression_built": false,
+  "production_code_modified": false,
+  "full_pytest_run": false,
+  "source_csv": "data\\sphere.csv"
+}
