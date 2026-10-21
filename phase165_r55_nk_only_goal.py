@@ -144,15 +144,22 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
 _phase165_r57_r8_previous_registered_group_goal_candidates = registered_group_goal_candidates
 
 def registered_group_goal_candidates(bridge, *, n: int, k: int):
-    """Prefer typed DB targets; retain registry fallback for unsupported rows.
+    """Select DB typed goals, using structured generator IDs where available.
 
-    DB data define the goal only, and are never inserted as ProofSteps or
-    GIVEN evidence. The registry remains the source of proof premises.
+    This selector only supplies goals and never supplies mathematical evidence.
+    Registered statement and symbolic fallback remain available.
     """
     from homotopy_groups import TodaPrimaryGroup
     from phase165_r57_r8_eta_specialization import specialized_eta_group_goal_candidates
     from phase166_r3af_goal_adapter import database_group_goal_candidates
+    from phase166_r3aj_structured_generator import database_structured_group_goal_candidates
 
+    # Preserve the established eta generator identity used in pi_3^2 proofs.
+    # Multi-factor generator expressions must be structural rather than names.
+    if k >= 2:
+        structured = database_structured_group_goal_candidates(n=n, k=k)
+        if structured:
+            return structured
     database = database_group_goal_candidates(n=n, k=k)
     if database:
         return database
