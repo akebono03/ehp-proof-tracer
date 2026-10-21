@@ -27,11 +27,9 @@ def search_registered_partial_proof(
     references: tuple[str, ...] = (),
     completed_internal_proofs: tuple = (),
 ):
-    """Return observed results; never replay or manufacture missing premises."""
-    # Validate the public domain even for a not-searched result.
-    base = dict(
-        n=n, k=k, structure_status=structure_status, references=references,
-    )
+    """Return only observed ProofSteps, including typed zero-group roots."""
+    from homotopy_groups import TodaPrimaryGroupZeroStatement
+    base = dict(n=n, k=k, structure_status=structure_status, references=references)
     if any(item is None for item in (goal, bridge, citing_assertion_id, expansion_provider)):
         return make_partial_proof_result(
             **base, status=ProofSearchStatus.NOT_SEARCHED,
@@ -86,13 +84,16 @@ def search_registered_partial_proof(
             diagnostics=(error or "探索が未解決のまま終了",),
         )
 
-    # The canonical prover's root success alone does not certify that the
-    # claimed group is the requested group.
-    if getattr(root_step.conclusion, "lhs", None) != target_group:
+    root_group = (
+        root_step.conclusion.group
+        if isinstance(root_step.conclusion, TodaPrimaryGroupZeroStatement)
+        else getattr(root_step.conclusion, "lhs", None)
+    )
+    if root_group != target_group or not same(root_step.conclusion, goal):
         return make_partial_proof_result(
             **base, status=ProofSearchStatus.PARTIAL,
             proven_steps=tuple(observed_steps), open_goals=(goal,),
-            diagnostics=("導出された結論の群が要求された群と一致しない",),
+            diagnostics=("導出された結論が要求された型付き Goal と一致しない",),
         )
     return make_partial_proof_result(
         **base, status=ProofSearchStatus.COMPLETE,

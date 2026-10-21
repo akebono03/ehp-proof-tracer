@@ -44,45 +44,77 @@ def registered_group_goal_candidates(bridge, *, n: int, k: int) -> tuple[Relatio
 
 
 def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_order_catalog=None, goal=None):
-    """Search an explicitly supplied typed goal, without treating it as evidence.
+    """Search typed goals. Zero goals use the same evidenced backward engine."""
+    from homotopy_groups import TodaPrimaryGroupZeroStatement
+    from phase166_r3af_goal_adapter import database_zero_group_goal_candidates
 
-    The optional goal is a Relation carrying the asserted structure and generator.
-    Legacy n,k-only calls preserve the existing registered-goal selection path.
-    """
+    target = TodaPrimaryGroup(n + k, n)
     make_partial_proof_result(n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED)
+
     if goal is not None:
-        if (not isinstance(goal, Relation)
-                or goal.relation_type is not RelationType.EQUALITY
-                or goal.lhs != TodaPrimaryGroup(n + k, n)
-                or not isinstance(goal.rhs, _GROUP_STRUCTURES)):
-            raise ValueError("goal must be a typed equality for the requested n,k")
-    if bridge is None and goal is None:
-        from phase166_r3af_goal_adapter import database_zero_group_goal_candidates
-        zero_candidates = database_zero_group_goal_candidates(n=n, k=k)
-        if len(zero_candidates) == 1:
-            return make_partial_proof_result(
-                n=n, k=k, status=ProofSearchStatus.NOT_SEARCHED,
-                open_goals=zero_candidates,
-                diagnostics=("零群の型付き Goal を取得済み。共通証明探索への接続は未実装。",),
-            )
-    if bridge is None:
-        bridge = build_shared_typed_bridge()
+        valid_relation = (
+            isinstance(goal, Relation)
+            and goal.relation_type is RelationType.EQUALITY
+            and goal.lhs == target
+            and isinstance(goal.rhs, _GROUP_STRUCTURES)
+        )
+        valid_zero = (
+            isinstance(goal, TodaPrimaryGroupZeroStatement)
+            and goal.group == target
+        )
+        if not valid_relation and not valid_zero:
+            raise ValueError("goal must be a typed group statement for the requested n,k")
+
     if goal is None:
-        candidates = registered_group_goal_candidates(bridge, n=n, k=k)
-        if len(candidates) != 1:
-            explanation = (
-                "群構造・生成元の型付き証明目標を指定してください"
-                if not candidates else
-                "群構造の型付き候補が複数あり、証明目標を一意に選択できない"
-            )
-            return make_partial_proof_result(
-                n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
-                open_goals=(TodaPrimaryGroup(n + k, n),),
-                diagnostics=(explanation,),
-            )
-        candidate = candidates[0]
+        zeros = database_zero_group_goal_candidates(n=n, k=k)
+        if len(zeros) == 1:
+            candidate = zeros[0]
+        else:
+            if bridge is None:
+                bridge = build_shared_typed_bridge()
+            candidates = registered_group_goal_candidates(bridge, n=n, k=k)
+            if len(candidates) != 1:
+                explanation = (
+                    "群構造・生成元の型付き証明目標を指定してください"
+                    if not candidates else
+                    "群構造の型付き候補が複数あり、証明目標を一意に選択できない"
+                )
+                return make_partial_proof_result(
+                    n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
+                    open_goals=(target,), diagnostics=(explanation,),
+                )
+            candidate = candidates[0]
     else:
         candidate = goal
+
+    if bridge is None:
+        bridge = build_shared_typed_bridge()
+
+    if isinstance(candidate, TodaPrimaryGroupZeroStatement):
+        from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+        from phase165_r52_r2_search_adapter import search_registered_partial_proof
+        from phase165_r52_r9_shared_math import shared_expansion_provider
+        assertions = tuple(bridge.registry._assertions.values())
+        if not assertions:
+            return make_partial_proof_result(
+                n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
+                open_goals=(candidate,), diagnostics=("型付き命題台帳が空です",),
+            )
+        # DB goals have no publication assertion. Preserve the existing
+        # implicit-target citation policy without inventing a citing ID.
+        context_id = assertions[0].assertion_id
+        screened = screen_shared_proof_context(
+            bridge, goal=candidate, citing_assertion_id=context_id,
+        )
+        provider = shared_expansion_provider(
+            screened, proof_target=candidate,
+        )
+        return search_registered_partial_proof(
+            n=n, k=k, goal=candidate, bridge=screened,
+            citing_assertion_id=context_id,
+            expansion_provider=provider, lookup_mode="typed_reference",
+        )
+
     if proof_order_catalog is None:
         from phase165_r57_r16_web_proof_order import resolve_reviewed_order_catalog
         proof_order_catalog, order_diagnostic = resolve_reviewed_order_catalog(
