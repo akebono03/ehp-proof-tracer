@@ -1,0 +1,1704 @@
+{
+  "phase": "166-3AI-112-goal-audit",
+  "read_only": true,
+  "count": 112,
+  "source_counts": {
+    "direct": 71,
+    "stable_fallback": 41
+  },
+  "conversion_counts": {
+    "typed_goal": 61,
+    "unsupported": 28,
+    "zero_unhandled": 23
+  },
+  "records": [
+    {
+      "n": 2,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 2,
+      "k": 1,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "η2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 2,
+      "k": 2,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η2^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 2,
+      "k": 3,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η2^3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 2,
+      "k": 4,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "4"
+      ],
+      "generators": [
+        "η2ν'"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 2,
+      "k": 5,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η2ν'η6"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 2,
+      "k": 6,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η2ν'η6^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 2,
+      "k": 7,
+      "source_n": 2,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 3,
+      "k": 0,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 3,
+      "k": 2,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 3,
+      "k": 3,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "4"
+      ],
+      "generators": [
+        "ν'"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 3,
+      "k": 4,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν'η6"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 3,
+      "k": 5,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν'η6^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 3,
+      "k": 6,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 3,
+      "k": 7,
+      "source_n": 3,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 4,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 4,
+      "k": 2,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 4,
+      "k": 3,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "inf",
+        "4"
+      ],
+      "generators": [
+        "ν4",
+        "E ν'"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 4,
+      "k": 4,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "2",
+        "2"
+      ],
+      "generators": [
+        "ν4η7",
+        "E ν'η7"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 4,
+      "k": 5,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "2",
+        "2"
+      ],
+      "generators": [
+        "ν4η7^2",
+        "E ν'η7^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 4,
+      "k": 6,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν4^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 4,
+      "k": 7,
+      "source_n": 4,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 5,
+      "k": 0,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 5,
+      "k": 1,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η5^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 5,
+      "k": 3,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 5,
+      "k": 4,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν5η8"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 5,
+      "k": 5,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν5η8^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 5,
+      "k": 6,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν5^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 5,
+      "k": 7,
+      "source_n": 5,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "σ'''"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 6,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 6,
+      "k": 1,
+      "source_n": 3,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 6,
+      "k": 2,
+      "source_n": 4,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 6,
+      "k": 3,
+      "source_n": 6,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν6"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 6,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 6,
+      "k": 5,
+      "source_n": 6,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "\\Delta(ι13)"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 6,
+      "k": 6,
+      "source_n": 6,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν6^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 6,
+      "k": 7,
+      "source_n": 6,
+      "source_kind": "direct",
+      "orders": [
+        "4"
+      ],
+      "generators": [
+        "σ''"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 7,
+      "k": 0,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι7"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 7,
+      "k": 1,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η7"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 7,
+      "k": 2,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η7^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 7,
+      "k": 3,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν7"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 7,
+      "k": 4,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 7,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 7,
+      "k": 6,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν7^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 7,
+      "k": 7,
+      "source_n": 7,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "σ'"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 8,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 8,
+      "k": 1,
+      "source_n": 3,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 8,
+      "k": 2,
+      "source_n": 4,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 8,
+      "k": 3,
+      "source_n": 5,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 8,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 8,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 8,
+      "k": 6,
+      "source_n": 8,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν8^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 8,
+      "k": 7,
+      "source_n": 8,
+      "source_kind": "direct",
+      "orders": [
+        "inf",
+        "8"
+      ],
+      "generators": [
+        "σ8",
+        "E σ'"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 9,
+      "k": 0,
+      "source_n": 9,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι9"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 9,
+      "k": 1,
+      "source_n": 9,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η9"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 9,
+      "k": 2,
+      "source_n": 9,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η9^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 9,
+      "k": 3,
+      "source_n": 9,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν9"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 9,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 9,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 9,
+      "k": 6,
+      "source_n": 9,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν9^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 9,
+      "k": 7,
+      "source_n": 9,
+      "source_kind": "direct",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ9"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 10,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 10,
+      "k": 1,
+      "source_n": 3,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 10,
+      "k": 2,
+      "source_n": 4,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 10,
+      "k": 3,
+      "source_n": 5,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 10,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 10,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 10,
+      "k": 6,
+      "source_n": 8,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν8^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 10,
+      "k": 7,
+      "source_n": 10,
+      "source_kind": "direct",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ10"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 11,
+      "k": 0,
+      "source_n": 11,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι11"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 11,
+      "k": 1,
+      "source_n": 11,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η11"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 11,
+      "k": 2,
+      "source_n": 11,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η11^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 11,
+      "k": 3,
+      "source_n": 11,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν11"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 11,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 11,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 11,
+      "k": 6,
+      "source_n": 11,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν11^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 11,
+      "k": 7,
+      "source_n": 11,
+      "source_kind": "direct",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ11"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 12,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 12,
+      "k": 1,
+      "source_n": 3,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 12,
+      "k": 2,
+      "source_n": 4,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 12,
+      "k": 3,
+      "source_n": 5,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 12,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 12,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 12,
+      "k": 6,
+      "source_n": 8,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν8^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 12,
+      "k": 7,
+      "source_n": 9,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ9"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 13,
+      "k": 0,
+      "source_n": 13,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι13"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 13,
+      "k": 1,
+      "source_n": 13,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η13"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 13,
+      "k": 2,
+      "source_n": 13,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η13^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 13,
+      "k": 3,
+      "source_n": 13,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν13"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 13,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 13,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 13,
+      "k": 6,
+      "source_n": 13,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν13^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 13,
+      "k": 7,
+      "source_n": 13,
+      "source_kind": "direct",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ13"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 14,
+      "k": 0,
+      "source_n": 2,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 14,
+      "k": 1,
+      "source_n": 3,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η3"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 14,
+      "k": 2,
+      "source_n": 4,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η4^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 14,
+      "k": 3,
+      "source_n": 5,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν5"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 14,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 14,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 14,
+      "k": 6,
+      "source_n": 8,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν8^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 14,
+      "k": 7,
+      "source_n": 9,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ9"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 15,
+      "k": 0,
+      "source_n": 15,
+      "source_kind": "direct",
+      "orders": [
+        "inf"
+      ],
+      "generators": [
+        "ι15"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FreeCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 15,
+      "k": 1,
+      "source_n": 15,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η15"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 15,
+      "k": 2,
+      "source_n": 15,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "η15^2"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 15,
+      "k": 3,
+      "source_n": 15,
+      "source_kind": "direct",
+      "orders": [
+        "8"
+      ],
+      "generators": [
+        "ν15"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    },
+    {
+      "n": 15,
+      "k": 4,
+      "source_n": 6,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 15,
+      "k": 5,
+      "source_n": 7,
+      "source_kind": "stable_fallback",
+      "orders": [
+        "0"
+      ],
+      "generators": [
+        "0"
+      ],
+      "conversion": "zero_unhandled",
+      "goal_type": null,
+      "explanation": "Zero group needs a typed zero-goal representation"
+    },
+    {
+      "n": 15,
+      "k": 6,
+      "source_n": 15,
+      "source_kind": "direct",
+      "orders": [
+        "2"
+      ],
+      "generators": [
+        "ν15^2"
+      ],
+      "conversion": "unsupported",
+      "goal_type": null,
+      "explanation": "Check generator syntax, sum decomposition, and typed identity before conversion"
+    },
+    {
+      "n": 15,
+      "k": 7,
+      "source_n": 15,
+      "source_kind": "direct",
+      "orders": [
+        "16"
+      ],
+      "generators": [
+        "σ15"
+      ],
+      "conversion": "typed_goal",
+      "goal_type": "FiniteCyclicGroup",
+      "explanation": "DB Goal adapter returned one typed candidate (not a ProofStep)"
+    }
+  ]
+}
