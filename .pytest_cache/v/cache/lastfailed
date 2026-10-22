@@ -2516,5 +2516,17 @@
   "phase165_r57_r10_proofstep_fidelity/test_phase165_r57_r10_proofstep_fidelity.py::test_r10_unordered_pi54_specialization_not_claimed_as_proved": true,
   "phase165_r57_r10_proofstep_fidelity/test_phase165_r57_r10_proofstep_fidelity.py::test_r10_incomplete_proof_must_not_gain_conclusion_in_renderer": true,
   "phase167_r4_3_homomorphism_theorem/test_phase167_r4_3_homomorphism_theorem.py::test_phase167_r4_3_uses_homomorphism_theorem_label_only": true,
-  "phase167_r4_3_homomorphism_theorem/test_phase167_r4_3_homomorphism_theorem.py::test_phase167_r4_3_preserves_pi43_quotient_argument": true
+  "phase167_r4_3_homomorphism_theorem/test_phase167_r4_3_homomorphism_theorem.py::test_phase167_r4_3_preserves_pi43_quotient_argument": true,
+  "phase165_r52_r27_r5_typed_references/test_r5_typed_references.py": true,
+  "phase165_r57_r10_proofstep_fidelity/test_phase165_r57_r10_proofstep_fidelity.py": true,
+  "phase165_r6_10_dependency_audit/test_audit.py": true,
+  "phase165_r6_11_active_scope_fix/test_apply.py": true,
+  "phase165_r6_11_legacy_tests_retirement/test_apply.py": true,
+  "phase165_r6_12_probe_dependency/test_audit.py": true,
+  "phase165_r6_13_probe_retirement/test_apply.py": true,
+  "phase165_r6_13_windows_path_fix/test_apply.py": true,
+  "phase165_r6_14_final_audit/test_audit.py": true,
+  "phase165_r6_17_targeted_audit/test_audit.py": true,
+  "phase165_r6_18_legacy_contract_retirement/test_apply.py": true,
+  "phase165_r6_19_remaining/test_apply.py": true
 }

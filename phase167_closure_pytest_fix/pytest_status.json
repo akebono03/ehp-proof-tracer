@@ -1,0 +1,16 @@
+{
+  "command": [
+    "C:\\Users\\oomae\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "-m",
+    "pytest",
+    "tests",
+    "-q",
+    "--tb=short",
+    "--disable-warnings"
+  ],
+  "started_utc": "2026-10-22T05:55:26.732379+00:00",
+  "finished_utc": "2026-10-22T05:55:35.726490+00:00",
+  "state": "completed",
+  "exit_code": 2,
+  "log": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase167_closure_pytest_fix\\pytest_full.log"
+}
