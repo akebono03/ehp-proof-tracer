@@ -10846,6 +10846,45 @@ def render_toda_group_proof_narrative_multi_argument_with_contributions_markdown
     )
   )
 
+  # Phase 168 R2-13: final citations come from the proven dependency tree,
+  # not the already rendered Markdown or visible-step selection.
+  tree_reference_entries = (
+    build_toda_group_proof_narrative_reference_entries(
+      presentation
+    )
+  )
+  reachable_step_ids = set()
+  pending_steps = [presentation.root_step]
+  while pending_steps:
+    pending_step = pending_steps.pop()
+    if id(pending_step) in reachable_step_ids:
+      continue
+    reachable_step_ids.add(id(pending_step))
+    pending_steps.extend(pending_step.premises)
+
+  tree_reference_entries = tuple(
+    replace(
+      entry,
+      proof_steps=tuple(
+        step for step in entry.proof_steps
+        if id(step) in reachable_step_ids
+      ),
+    )
+    for entry in tree_reference_entries
+    if any(id(step) in reachable_step_ids for step in entry.proof_steps)
+  )
+  tree_reference_entries = tuple(
+    replace(entry, number=number)
+    for number, entry in enumerate(tree_reference_entries, start=1)
+  )
+  (
+    reference_entries,
+    statement_lines_by_reference_number,
+  ) = _select_toda_group_proof_narrative_reference_entries_and_statement_lines(
+    presentation,
+    tree_reference_entries,
+  )
+
   reference_section = (
     render_toda_group_proof_narrative_reference_entries_markdown(
       reference_entries,
