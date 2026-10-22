@@ -1,0 +1,32 @@
+[
+  {
+    "group": "pi3_2",
+    "line_count": 25,
+    "latex_fields_checked": 37,
+    "issues": []
+  },
+  {
+    "group": "pi4_3",
+    "line_count": 25,
+    "latex_fields_checked": 36,
+    "issues": []
+  },
+  {
+    "group": "pi5_4",
+    "line_count": 15,
+    "latex_fields_checked": 18,
+    "issues": []
+  },
+  {
+    "group": "pi6_5",
+    "line_count": 15,
+    "latex_fields_checked": 18,
+    "issues": []
+  },
+  {
+    "group": "pi7_6",
+    "line_count": 15,
+    "latex_fields_checked": 18,
+    "issues": []
+  }
+]

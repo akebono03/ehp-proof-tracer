@@ -1,0 +1,407 @@
+[
+  {
+    "line": 1,
+    "kind": "heading",
+    "prefix": "証明対象",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 2,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.",
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "display_math",
+        "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}."
+      }
+    ]
+  },
+  {
+    "line": 3,
+    "kind": "heading",
+    "prefix": "使用する結果",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 4,
+    "kind": "text",
+    "prefix": "**[R1] (5.1).**",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "strong",
+        "value": "[R1] (5.1)."
+      }
+    ]
+  },
+  {
+    "line": 5,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{i}^{n} = 0\\quad(i < n)",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{i}^{n} = 0\\quad(i < n)"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 6,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1)",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1)"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 7,
+    "kind": "text",
+    "prefix": "**[R2] Proposition 5.1.**",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "strong",
+        "value": "[R2] Proposition 5.1."
+      }
+    ]
+  },
+  {
+    "line": 8,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 9,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 10,
+    "kind": "separator",
+    "prefix": "",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 11,
+    "kind": "heading",
+    "prefix": "証明",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 12,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{4}^{3}",
+    "suffix": " の群構造を決定するために, 次の完全列を考える.",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{4}^{3}"
+      },
+      {
+        "kind": "text",
+        "value": " の群構造を決定するために, 次の完全列を考える."
+      }
+    ]
+  },
+  {
+    "line": 13,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.",
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "display_math",
+        "value": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}."
+      }
+    ]
+  },
+  {
+    "line": 14,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "E(\\eta_{2}) = \\eta_{3}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "E(\\eta_{2}) = \\eta_{3}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 15,
+    "kind": "text",
+    "prefix": "[R1]より, ",
+    "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "[R1]より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 16,
+    "kind": "text",
+    "prefix": "これより, ",
+    "statement_latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "これより, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 17,
+    "kind": "text",
+    "prefix": "[R2]より, ",
+    "statement_latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "[R2]より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 18,
+    "kind": "text",
+    "prefix": "これより, ",
+    "statement_latex": "\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "これより, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 19,
+    "kind": "text",
+    "prefix": "完全性より, ",
+    "statement_latex": "\\ker E=\\mathbb{Z}\\{2η_{2}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "完全性より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\ker E=\\mathbb{Z}\\{2η_{2}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 20,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{4}^{5} = 0",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{4}^{5} = 0"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 21,
+    "kind": "text",
+    "prefix": "完全性より, ",
+    "statement_latex": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3}",
+    "suffix": " は全射.",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "完全性より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "E: \\pi_{3}^{2} \\to \\pi_{4}^{3}"
+      },
+      {
+        "kind": "text",
+        "value": " は全射."
+      }
+    ]
+  },
+  {
+    "line": 22,
+    "kind": "text",
+    "prefix": "[R2]より, ",
+    "statement_latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "[R2]より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 23,
+    "kind": "text",
+    "prefix": "全射性と核の決定から, 準同型定理より ",
+    "statement_latex": "\\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "全射性と核の決定から, 準同型定理より "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 24,
+    "kind": "text",
+    "prefix": "以上より, ",
+    "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "以上より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 25,
+    "kind": "text",
+    "prefix": "□",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "□"
+      }
+    ]
+  }
+]
