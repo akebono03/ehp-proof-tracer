@@ -1095,7 +1095,6 @@
   "phase165_r52_r5_auto_search/test_phase165_r52_r4_flask_connection.py": true,
   "phase165_r52_r8_show_proof_route/test_phase165_r52_r8_show_proof_route.py": true,
   "phase165_r52_r8_test_fixture_fix/test_phase165_r52_r8_show_proof_route.py": true,
-  "phase165_r57_r10_proofstep_fidelity/test_phase165_r57_r10_proofstep_fidelity.py": true,
   "phase165_r57_r11_proof_order_gate/test_phase165_r57_r10_proofstep_fidelity.py": true,
   "phase165_r57_r17_readonly_audit/test_audit.py": true,
   "phase165_r57_r21_r1_effective_renderer_fix/test_phase165_r57_r21_r1_effective_renderer_fix.py": true,
@@ -2513,5 +2512,7 @@
   "tests/test_proof_repository.py::test_phase78_actual_steps_register_and_retrieve_without_graph_changes": true,
   "phase166_r3c_stage2/test_stage2.py::test_non_earlier_reference_is_rejected[77]": true,
   "phase166_r3c_stage2/test_stage2.py::test_non_earlier_reference_is_rejected[76]": true,
-  "phase166_r3q_web_publication_order/tests/test_phase166_r3q_web_publication_order.py::test_r3q_pi32_web_complete_is_preserved": true
+  "phase166_r3q_web_publication_order/tests/test_phase166_r3q_web_publication_order.py::test_r3q_pi32_web_complete_is_preserved": true,
+  "phase165_r57_r10_proofstep_fidelity/test_phase165_r57_r10_proofstep_fidelity.py::test_r10_unordered_pi54_specialization_not_claimed_as_proved": true,
+  "phase165_r57_r10_proofstep_fidelity/test_phase165_r57_r10_proofstep_fidelity.py::test_r10_incomplete_proof_must_not_gain_conclusion_in_renderer": true
 }

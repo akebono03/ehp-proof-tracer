@@ -1,0 +1,104 @@
+{
+  "status": "complete",
+  "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "open_goals": [],
+  "steps": [
+    {
+      "rule": "given",
+      "conclusion": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+      "inference": "Toda chapter V eta-family notation",
+      "premises": []
+    },
+    {
+      "rule": "inference",
+      "conclusion": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "inference": "specialize cited eta-family general definition",
+      "premises": [
+        "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+      ]
+    },
+    {
+      "rule": "inference",
+      "conclusion": "TodaEtaFamilyDefinitionStatement(index=4, element=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=2))",
+      "inference": "specialize cited eta-family general definition",
+      "premises": [
+        "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+      ]
+    },
+    {
+      "rule": "inference",
+      "conclusion": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+      "inference": "consecutive cited eta definitions imply generator suspension",
+      "premises": [
+        "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+        "TodaEtaFamilyDefinitionStatement(index=4, element=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=2))"
+      ]
+    },
+    {
+      "rule": "inference",
+      "conclusion": "HomomorphismPresentationStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), domain=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), codomain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+      "inference": "cited eta generator suspension yields presentation in target notation",
+      "premises": [
+        "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))"
+      ]
+    },
+    {
+      "rule": "given",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "inference": "",
+      "premises": []
+    },
+    {
+      "rule": "given",
+      "conclusion": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+      "inference": "",
+      "premises": []
+    },
+    {
+      "rule": "inference",
+      "conclusion": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=1, source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)))",
+      "inference": "generic cited typed scalar specialization",
+      "premises": [
+        "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))"
+      ]
+    },
+    {
+      "rule": "inference",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "inference": "Toda 4.5 generic finite-cyclic transport",
+      "premises": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=1, source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)))"
+      ]
+    },
+    {
+      "rule": "inference",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "inference": "proved generator suspension normalizes transported cyclic group",
+      "premises": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))"
+      ]
+    }
+  ],
+  "web_key": "generic-complete-proof",
+  "web_mode": "narrative",
+  "web_lines": [
+    "証明対象  ",
+    " \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}. ",
+    "使用する結果  ",
+    "**[R1] (4.5).**  ",
+    " n \\ge k + 2  のとき, $E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m}$ は同型.",
+    "**[R2] Proposition 5.1.**  ",
+    " \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\} .",
+    "  ",
+    "証明  ",
+    " \\pi_{5}^{4}  の群構造を決定する.",
+    "[R2]より,  \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\} .",
+    "[R1]を  (n,m,k)=(3,4,1)  に適用すると, $E: \\pi_{4}^{3} \\to \\pi_{5}^{4}$ は同型.",
+    " E\\eta_{3} = \\eta_{4} .",
+    "以上より,  \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\} .",
+    "□  "
+  ],
+  "markdown": "# Group proof narrative\n\n## 証明対象\n\n\\[\n\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.\n\\]\n\n## 使用する結果\n\n**[R1] (4.5).**\n$n \\ge k + 2$ のとき, $E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m}$ は同型.\n\n**[R2] Proposition 5.1.**\n$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.\n\n---\n\n## 証明\n\n$\\pi_{5}^{4}$ の群構造を決定する.\n\n[R2]より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$.\n\n[R1]を $(n,m,k)=(3,4,1)$ に適用すると, $E: \\pi_{4}^{3} \\to \\pi_{5}^{4}$ は同型.\n\n$E\\eta_{3} = \\eta_{4}$.\n\n以上より, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$.\n\n□\n"
+}

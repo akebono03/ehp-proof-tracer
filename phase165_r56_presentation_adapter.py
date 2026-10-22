@@ -16,12 +16,7 @@ from toda_group_proof_narrative_renderer import render_toda_group_proof_narrativ
 
 
 def render_completed_shared_narrative(result: PartialProofResult) -> str:
-    """Render only the completed search's actual proof ancestry.
-
-    The historical stable-transport branch is not admissible for a root
-    lacking a transport inference. Other completed presentations keep their
-    existing public renderer path, including historical pi3^2 formatting.
-    """
+    """Render a completed typed proof through the existing shared Narrative renderer."""
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
     if result.status is not ProofSearchStatus.COMPLETE or result.conclusion is None:
@@ -55,17 +50,4 @@ def render_completed_shared_narrative(result: PartialProofResult) -> str:
     )
     replay = build_complete_toda_group_result_proof_replay(group_result)
     presentation = build_toda_group_proof_presentation(replay)
-
-    from toda_group_proof_narrative_renderer import (
-        _phase160_r7_render_stable_finite_cyclic_transport_narrative,
-    )
-    from phase165_r57_r10_step_narrative import (
-        has_transport_proof_ancestry,
-        render_completed_from_proofsteps,
-    )
-    if (
-        not has_transport_proof_ancestry(root)
-        and _phase160_r7_render_stable_finite_cyclic_transport_narrative(presentation) is not None
-    ):
-        return render_completed_from_proofsteps(result, root)
     return render_toda_group_proof_narrative_markdown(presentation)

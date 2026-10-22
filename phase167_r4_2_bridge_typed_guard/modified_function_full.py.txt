@@ -1,0 +1,331 @@
+def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
+  presentation: TodaGroupProofPresentation,
+  markdown: str,
+  reference_entries=(),
+) -> str:
+  if not isinstance(
+    presentation,
+    TodaGroupProofPresentation,
+  ):
+    raise TypeError(
+      "presentation must be a TodaGroupProofPresentation"
+    )
+
+  if not isinstance(
+    markdown,
+    str,
+  ):
+    raise TypeError(
+      "markdown must be a str"
+    )
+
+  if not isinstance(
+    reference_entries,
+    tuple,
+  ):
+    raise TypeError(
+      "reference_entries must be a tuple"
+    )
+
+  paragraphs = markdown.split(
+    "\n\n"
+  )
+
+  def match_key(
+    paragraph: str,
+  ) -> str:
+    stripped = paragraph.strip()
+
+    if stripped.startswith(
+      "[R"
+    ):
+      marker_end = stripped.find(
+        "]より, "
+      )
+
+      if marker_end >= 0:
+        stripped = stripped[
+          marker_end
+          + len(
+            "]より, "
+          ):
+        ]
+
+    return (
+      _phase157_r11_reference_statement_match_key(
+        stripped
+      )
+    )
+
+  def reference_entry_for_step(
+    proof_step: ProofStep,
+  ):
+    direct = tuple(
+      entry
+      for entry in reference_entries
+      if any(
+        candidate is proof_step
+        for candidate in entry.proof_steps
+      )
+    )
+
+    if len(
+      direct
+    ) == 1:
+      return direct[
+        0
+      ]
+
+    reference = (
+      extract_toda_group_proof_step_literature_reference(
+        proof_step
+      )
+    )
+
+    if (
+      reference is None
+      or reference.locator is None
+    ):
+      return None
+
+    by_locator = tuple(
+      entry
+      for entry in reference_entries
+      if (
+        entry.reference.locator
+        == reference.locator
+      )
+    )
+
+    if len(
+      by_locator
+    ) != 1:
+      return None
+
+    return by_locator[
+      0
+    ]
+
+  def display_line(
+    proof_step: ProofStep,
+  ) -> str | None:
+    rendered = (
+      _render_generic_narrative_step(
+        proof_step
+      )
+    )
+
+    if not rendered:
+      return None
+
+    entry = reference_entry_for_step(
+      proof_step
+    )
+
+    if entry is not None:
+      rendered = (
+        _phase153_r6_render_reference_statement(
+          presentation,
+          entry,
+          proof_step,
+          rendered,
+        )
+      )
+      rendered = (
+        _phase157_r20_canonical_fixed_reference_line(
+          proof_step,
+          rendered,
+        )
+      )
+
+      return (
+        "[R"
+        + str(
+          entry.number
+        )
+        + "]より, "
+        + rendered
+      )
+
+    return rendered
+
+  def visible_indices(
+    proof_step: ProofStep,
+  ) -> tuple[
+    int,
+    ...,
+  ]:
+    rendered = display_line(
+      proof_step
+    )
+
+    if not rendered:
+      return ()
+
+    target_key = match_key(
+      rendered
+    )
+
+    return tuple(
+      index
+      for index, paragraph in enumerate(
+        paragraphs
+      )
+      if match_key(
+        paragraph
+      )
+      == target_key
+    )
+
+  for node in presentation.nodes:
+    consumer_step = node.proof_step
+
+    definition_steps = tuple(
+      premise
+      for premise in consumer_step.premises
+      if type(
+        premise.conclusion
+      ).__name__
+      == "TodaEtaFamilyDefinitionStatement"
+    )
+
+    if len(
+      definition_steps
+    ) < 2:
+      continue
+
+    ordered = tuple(
+      sorted(
+        definition_steps,
+        key=lambda step: (
+          step.conclusion.index
+        ),
+      )
+    )
+
+    consumer_indices = visible_indices(
+      consumer_step
+    )
+
+    if len(
+      consumer_indices
+    ) != 1:
+      continue
+
+    consumer_index = consumer_indices[
+      0
+    ]
+
+    visible_direct_premise_indices = tuple(
+      index
+      for premise in consumer_step.premises
+      if premise not in definition_steps
+      for premise_indices in (
+        visible_indices(
+          premise
+        ),
+      )
+      if len(
+        premise_indices
+      ) == 1
+      for index in premise_indices
+      if index < consumer_index
+    )
+
+    insertion_index = min(
+      (
+        consumer_index,
+        *visible_direct_premise_indices,
+      )
+    )
+
+    for lower_step, upper_step in zip(
+      ordered,
+      ordered[
+        1:
+      ],
+    ):
+      lower = lower_step.conclusion
+      upper = upper_step.conclusion
+
+      if (
+        not isinstance(
+          lower.index,
+          int,
+        )
+        or isinstance(
+          lower.index,
+          bool,
+        )
+        or not isinstance(
+          upper.index,
+          int,
+        )
+        or isinstance(
+          upper.index,
+          bool,
+        )
+        or upper.index
+        != lower.index + 1
+      ):
+        continue
+
+      # R4-2: a separately displayed, typed generator suspension already
+      # proves this bridge. Do not add a second mathematical statement.
+      # Compare structured generator identities, not rendered LaTeX or names.
+      from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+      from homotopy_groups import TodaSuspensionMap
+
+      def same_generator(left, right):
+        return (
+          left.generator is not None
+          and right.generator is not None
+          and left.generator == right.generator
+          and left.dimension == right.dimension
+          and left.source == right.source
+          and left.target == right.target
+        )
+
+      typed_suspension = consumer_step.conclusion
+      if (
+        isinstance(typed_suspension, GeneratorSuspension)
+        and isinstance(typed_suspension.map, TodaSuspensionMap)
+        and same_generator(typed_suspension.source_generator, lower.element)
+        and same_generator(typed_suspension.target_generator, upper.element)
+      ):
+        continue
+
+      bridge = (
+        "$"
+        + render_toda_expression_latex(
+          upper.element
+        )
+        + "=E"
+        + render_toda_expression_latex(
+          lower.element
+        )
+        + "$ である."
+      )
+
+      bridge_key = match_key(
+        bridge
+      )
+
+      if any(
+        match_key(
+          paragraph
+        )
+        == bridge_key
+        for paragraph in paragraphs
+      ):
+        continue
+
+      paragraphs.insert(
+        insertion_index,
+        bridge,
+      )
+      insertion_index += 1
+
+  return "\n\n".join(
+    paragraphs
+  )

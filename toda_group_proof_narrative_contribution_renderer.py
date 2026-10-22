@@ -7382,6 +7382,31 @@ def insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges(
       ):
         continue
 
+      # R4-2: a separately displayed, typed generator suspension already
+      # proves this bridge. Do not add a second mathematical statement.
+      # Compare structured generator identities, not rendered LaTeX or names.
+      from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+      from homotopy_groups import TodaSuspensionMap
+
+      def same_generator(left, right):
+        return (
+          left.generator is not None
+          and right.generator is not None
+          and left.generator == right.generator
+          and left.dimension == right.dimension
+          and left.source == right.source
+          and left.target == right.target
+        )
+
+      typed_suspension = consumer_step.conclusion
+      if (
+        isinstance(typed_suspension, GeneratorSuspension)
+        and isinstance(typed_suspension.map, TodaSuspensionMap)
+        and same_generator(typed_suspension.source_generator, lower.element)
+        and same_generator(typed_suspension.target_generator, upper.element)
+      ):
+        continue
+
       bridge = (
         "$"
         + render_toda_expression_latex(

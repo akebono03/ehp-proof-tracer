@@ -1,0 +1,68 @@
+def _render_generic_narrative_step(
+  proof_step: ProofStep,
+) -> str:
+  if not isinstance(
+    proof_step,
+    ProofStep,
+  ):
+    raise TypeError(
+      "proof_step must be a ProofStep"
+    )
+
+  statement = proof_step.conclusion
+
+  prose = (
+    _render_generic_narrative_statement_prose(
+      statement
+    )
+  )
+
+  if prose is not None:
+    return (
+      _normalize_toda_group_proof_narrative_sentence_endings(
+        prose
+      )
+    )
+
+  try:
+    latex = (
+      render_repository_conclusion_latex(
+        statement
+      )
+    )
+  except (
+    TypeError,
+    ValueError,
+  ):
+    latex = None
+
+  if latex is None:
+    latex = (
+      render_toda_proof_statement_latex(
+        statement
+      )
+    )
+
+  if latex is not None:
+    latex = _normalize_generic_narrative_step_latex(
+      proof_step,
+      latex,
+    )
+    return (
+      "$"
+      + latex
+      + "$"
+    )
+
+  if proof_step.inference_rule is not None:
+    if proof_step.inference_rule.name == "infinite cyclic quotient structure":
+      return ""
+    return proof_step.inference_rule.name
+
+  return (
+    "`"
+    + type(
+      statement
+    ).__name__
+    + "`"
+  )

@@ -1,0 +1,33 @@
+{
+  "mode": "READ_ONLY",
+  "production_files_modified": false,
+  "full_pytest_run": false,
+  "targets": {
+    "pi3_2": {
+      "calls": [
+        "completed_adapter"
+      ],
+      "key": "generic-complete-proof",
+      "mode": "narrative",
+      "chars": 899,
+      "lines": 25,
+      "english_rule": false,
+      "first_isomorphism": false,
+      "homomorphism_theorem": false,
+      "raw_eta": false
+    },
+    "pi4_3": {
+      "calls": [
+        "completed_adapter"
+      ],
+      "key": "generic-complete-proof",
+      "mode": "narrative",
+      "chars": 946,
+      "lines": 27,
+      "english_rule": true,
+      "first_isomorphism": true,
+      "homomorphism_theorem": false,
+      "raw_eta": true
+    }
+  }
+}
