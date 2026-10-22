@@ -1,0 +1,309 @@
+{
+  "cases": [
+    {
+      "n": 2,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 25,
+      "references": [
+        "**[R1] (5.1).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 24,
+      "references": [
+        "**[R1] (5.1).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 5,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 6,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 7,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 8,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 9,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 10,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 11,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 12,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 13,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 14,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 15,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 16,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 17,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 18,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 19,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 20,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 21,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 22,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 23,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 24,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 25,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 26,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 27,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 28,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 29,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 30,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    },
+    {
+      "n": 31,
+      "k": 1,
+      "complete_display": true,
+      "row_count": 15,
+      "references": [
+        "**[R1] (4.5).**",
+        "**[R2] Proposition 5.1.**"
+      ]
+    }
+  ],
+  "pi43_references": [
+    "**[R1] (5.1).**",
+    "**[R2] Proposition 5.1.**"
+  ],
+  "failures": []
+}

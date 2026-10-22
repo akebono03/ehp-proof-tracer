@@ -1,0 +1,26 @@
+COMMAND: C:\Users\oomae\AppData\Local\Programs\Python\Python310\python.exe -m pytest tests -q --tb=short --disable-warnings
+
+=================================== ERRORS ====================================
+___ ERROR collecting tests/test_phase144_6_pi6_generic_production_route.py ____
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_pi6_generic_production_route.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_pi6_generic_production_route.py:5: in <module>
+    from tests.test_phase143_19_method_evidence import (
+E   ModuleNotFoundError: No module named 'tests.test_phase143_19_method_evidence'
+_______ ERROR collecting tests/test_phase144_6_public_route_cutover.py ________
+ImportError while importing test module 'C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\tests\test_phase144_6_public_route_cutover.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\AppData\Local\Programs\Python\Python310\lib\importlib\__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\test_phase144_6_public_route_cutover.py:5: in <module>
+    from tests.test_phase143_19_method_evidence import (
+E   ModuleNotFoundError: No module named 'tests.test_phase143_19_method_evidence'
+=========================== short test summary info ===========================
+ERROR tests/test_phase144_6_pi6_generic_production_route.py
+ERROR tests/test_phase144_6_public_route_cutover.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 2 errors during collection !!!!!!!!!!!!!!!!!!!
+2 errors in 7.85s
