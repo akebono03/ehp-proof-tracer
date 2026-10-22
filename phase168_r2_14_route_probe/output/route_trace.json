@@ -1,0 +1,80 @@
+{
+  "target": "pi_4^2",
+  "events": [
+    {
+      "stage": "_phase160_r7_render_stable_finite_cyclic_transport_narrative",
+      "level": "enter",
+      "root_rule": "Toda (5.2) finite-cyclic eta2 composition transport"
+    },
+    {
+      "stage": "_phase160_r7_render_stable_finite_cyclic_transport_narrative",
+      "level": "exit",
+      "result_type": "NoneType",
+      "length": null,
+      "has_references": null,
+      "has_auxiliary": null
+    },
+    {
+      "stage": "_phase160_r7_previous_public_narrative_renderer",
+      "level": "enter",
+      "root_rule": "Toda (5.2) finite-cyclic eta2 composition transport"
+    },
+    {
+      "stage": "_phase158_baseline_render_toda_group_proof_narrative_markdown",
+      "level": "enter",
+      "root_rule": "Toda (5.2) finite-cyclic eta2 composition transport"
+    },
+    {
+      "stage": "_phase158_baseline_render_toda_group_proof_narrative_markdown",
+      "level": "exit",
+      "result_type": "str",
+      "length": 158,
+      "has_references": false,
+      "has_auxiliary": true
+    },
+    {
+      "stage": "_phase160_r7_previous_public_narrative_renderer",
+      "level": "exit",
+      "result_type": "str",
+      "length": 158,
+      "has_references": false,
+      "has_auxiliary": true
+    }
+  ],
+  "public": [
+    {
+      "kind": "text",
+      "prefix": "まず, ",
+      "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "suffix": "を用いる."
+    },
+    {
+      "kind": "text",
+      "prefix": "さらに, 補助結果を用いる.",
+      "statement_latex": null,
+      "suffix": ""
+    },
+    {
+      "kind": "text",
+      "prefix": "したがって, ",
+      "statement_latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "suffix": "を得る."
+    },
+    {
+      "kind": "text",
+      "prefix": "",
+      "statement_latex": "\\square",
+      "suffix": ""
+    }
+  ],
+  "error": null,
+  "captured_markdown": {
+    "_phase158_baseline_render_toda_group_proof_narrative_markdown": "# Group proof narrative\n\nまず, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$を用いる.\nさらに, 補助結果を用いる.\n\nしたがって, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$を得る.\n\n$\\square$\n",
+    "_phase160_r7_previous_public_narrative_renderer": "# Group proof narrative\n\nまず, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$を用いる.\nさらに, 補助結果を用いる.\n\nしたがって, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$を得る.\n\n$\\square$\n"
+  },
+  "notes": [
+    "A wrapper event proves invocation; missing event does not prove source function absence.",
+    "No repository files are modified.",
+    "R2-13 local modifications, if present, are evaluated as-is."
+  ]
+}
