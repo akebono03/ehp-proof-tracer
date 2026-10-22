@@ -2122,6 +2122,8 @@
   "phase167_r4_4_order_audit/test_order_audit.py::test_representative_groups_render",
   "phase167_r4_5_latex_audit/test_audit.py::test_balanced_latex_examples",
   "phase167_r4_5_latex_audit/test_audit.py::test_unbalanced_latex_is_detected",
+  "phase167_r4_6_contribution_identity_audit/test_audit.py::test_describe_step_records_typed_provenance",
+  "phase167_r4_6_contribution_identity_audit/test_audit.py::test_describe_step_without_inference_rule",
   "phase167_r4_6_route_trace/test_audit.py::test_trace_ignores_other_content",
   "phase167_r4_6_route_trace/test_audit.py::test_trace_matching_lines",
   "phase167_r4_6_specialization_route_audit/test_audit.py::test_existing_specialization_and_order_functions_present",

@@ -1,0 +1,160 @@
+{
+  "target": "pi4_3",
+  "key": "generic-complete-proof",
+  "ordered_contributions": [
+    [
+      [
+        {
+          "step_id": 1940979222896,
+          "conclusion_type": "GeneratorSuspension",
+          "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))",
+          "rule": "ProofRule.INFERENCE",
+          "inference_rule": "consecutive cited eta definitions imply generator suspension",
+          "premises": [
+            {
+              "step_id": 1940979063280,
+              "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+              "conclusion_repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+            },
+            {
+              "step_id": 1940979221072,
+              "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+              "conclusion_repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+            }
+          ],
+          "provider_anchor": true,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "explicit_prerequisite",
+          "placement": "at_provider_anchor",
+          "distance_to_conclusion": 4
+        },
+        {
+          "step_id": 1940982219920,
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "rule": "ProofRule.GIVEN",
+          "inference_rule": "Adopted literature Proposition 5.1",
+          "premises": [],
+          "provider_anchor": false,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "bridge",
+          "placement": "before_argument_conclusion",
+          "distance_to_conclusion": 3
+        },
+        {
+          "step_id": 1940982261904,
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "rule": "ProofRule.GIVEN",
+          "inference_rule": "Toda (5.1) diagonal cyclic source",
+          "premises": [],
+          "provider_anchor": false,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "bridge",
+          "placement": "before_dependent_contribution",
+          "distance_to_conclusion": 7
+        },
+        {
+          "step_id": 1940979063472,
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "rule": "ProofRule.INFERENCE",
+          "inference_rule": "generic cited typed scalar specialization",
+          "premises": [
+            {
+              "step_id": 1940982261904,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            }
+          ],
+          "provider_anchor": false,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "bridge",
+          "placement": "before_dependent_contribution",
+          "distance_to_conclusion": 6
+        },
+        {
+          "step_id": 1940982220640,
+          "conclusion_type": "TodaDeltaImageUpToSignStatement",
+          "conclusion_repr": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+          "rule": "ProofRule.GIVEN",
+          "inference_rule": "Adopted literature Proposition 5.1",
+          "premises": [],
+          "provider_anchor": false,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "bridge",
+          "placement": "before_dependent_contribution",
+          "distance_to_conclusion": 6
+        },
+        {
+          "step_id": 1940979072592,
+          "conclusion_type": "TodaDeltaImageFreeCyclicStatement",
+          "conclusion_repr": "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+          "rule": "ProofRule.INFERENCE",
+          "inference_rule": "free cyclic generator Delta image",
+          "premises": [
+            {
+              "step_id": 1940979063472,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            {
+              "step_id": 1940982220640,
+              "conclusion_type": "TodaDeltaImageUpToSignStatement",
+              "conclusion_repr": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))"
+            }
+          ],
+          "provider_anchor": true,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "explicit_prerequisite",
+          "placement": "at_provider_anchor",
+          "distance_to_conclusion": 5
+        },
+        {
+          "step_id": 1940979234896,
+          "conclusion_type": "TodaPrimaryGroupZeroStatement",
+          "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+          "rule": "ProofRule.INFERENCE",
+          "inference_rule": "Toda (5.1) general below-diagonal zero specialization",
+          "premises": [
+            {
+              "step_id": 1940981725360,
+              "conclusion_type": "Toda51BelowDiagonalZeroStatement",
+              "conclusion_repr": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+            }
+          ],
+          "provider_anchor": false,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "bridge",
+          "placement": "before_dependent_contribution",
+          "distance_to_conclusion": 6
+        },
+        {
+          "step_id": 1940979222176,
+          "conclusion_type": "MapSurjective",
+          "conclusion_repr": "MapSurjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "rule": "ProofRule.INFERENCE",
+          "inference_rule": "EHP exactness and zero Hopf target imply suspension surjectivity",
+          "premises": [
+            {
+              "step_id": 1940979010864,
+              "conclusion_type": "TodaProp42ExactnessStatement",
+              "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))"
+            },
+            {
+              "step_id": 1940979234896,
+              "conclusion_type": "TodaPrimaryGroupZeroStatement",
+              "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))"
+            }
+          ],
+          "provider_anchor": true,
+          "provider_keys": "(('block', 1940979019408),)",
+          "role": "explicit_prerequisite",
+          "placement": "at_provider_anchor",
+          "distance_to_conclusion": 5
+        }
+      ]
+    ]
+  ],
+  "public_line_count": 25
+}
