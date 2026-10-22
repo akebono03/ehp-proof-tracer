@@ -1,0 +1,476 @@
+# Phase 168 R3-2 実行経路監査
+
+本監査は変更・修正を行いません。
+
+## pi_4^2
+
+- status: `ProofSearchStatus.COMPLETE`
+- proven_steps: 3
+- rendered_lines: 4
+
+### 出典付きステップ
+
+- step 0: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 1: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 2: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+
+### 呼び出し回数
+
+- `phase165_r52_partial_proof.<genexpr>`: 20
+- `phase165_r52_partial_proof.__init__`: 3
+- `phase165_r52_partial_proof.__post_init__`: 3
+- `phase165_r52_partial_proof.make_partial_proof_result`: 2
+- `phase165_r52_partial_proof.render_partial_proof_markdown`: 1
+- `phase165_r52_r2_search_adapter.<genexpr>`: 34
+- `phase165_r52_r2_search_adapter.observer`: 7
+- `phase165_r52_r2_search_adapter.same`: 14
+- `phase165_r52_r2_search_adapter.search_registered_partial_proof`: 1
+- `phase165_r52_r3_web_adapter.build_partial_web_group_proof_view`: 1
+- `phase165_r52_r9_shared_math.search_shared_group_goal`: 1
+- `phase165_r55_nk_only_goal.search_group_from_registered_goal`: 1
+- `toda_group_proof_narrative_contribution_renderer.<module>`: 1
+- `toda_group_proof_narrative_contribution_renderer.build_toda_group_proof_narrative_reference_reuse_marker_by_step_id`: 1
+- `toda_group_proof_narrative_contribution_renderer.numbered_connector_numbers`: 4
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_dangling_connectors`: 1
+- `toda_group_proof_narrative_references.<dictcomp>`: 2
+- `toda_group_proof_narrative_references.<genexpr>`: 2
+- `toda_group_proof_narrative_references.<module>`: 7
+- `toda_group_proof_narrative_references.TodaGroupProofNarrativeReferenceEntry`: 1
+- `toda_group_proof_narrative_references.__create_fn__`: 6
+- `toda_group_proof_narrative_references.exclude_toda_group_proof_narrative_root_reference`: 1
+- `toda_group_proof_narrative_references.extract_toda_group_proof_step_literature_reference`: 1
+- `toda_group_proof_narrative_references.render_toda_group_proof_narrative_reference_entries_markdown`: 1
+- `toda_group_proof_narrative_renderer.<dictcomp>`: 1
+- `toda_group_proof_narrative_renderer.<genexpr>`: 10
+- `toda_group_proof_narrative_renderer.<lambda>`: 4
+- `toda_group_proof_narrative_renderer.<module>`: 1
+- `toda_group_proof_narrative_renderer.<setcomp>`: 2
+- `toda_group_proof_narrative_renderer._append_narrative_for_step`: 1
+- `toda_group_proof_narrative_renderer._finalize_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer._group_proof_narrative_statement_label`: 1
+- `toda_group_proof_narrative_renderer._narrative_edges_for_parent`: 4
+- `toda_group_proof_narrative_renderer._normalize_toda_group_proof_narrative_display_closing_fragments`: 1
+- `toda_group_proof_narrative_renderer._phase157_r11_r17_normalize_public_connectors`: 1
+- `toda_group_proof_narrative_renderer._phase157_r11_r17_normalize_public_numeric_equalities`: 1
+- `toda_group_proof_narrative_renderer._phase158_baseline_render_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer._phase158_normalize_public_narrative_contract`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_public_map_property_prose`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_reorder_public_equation_reference_conclusions`: 1
+- `toda_group_proof_narrative_renderer._phase159_reorder_unique_preimage_definition_premise_locality`: 1
+- `toda_group_proof_narrative_renderer._phase160_r7_pre_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer._phase160_r7_render_stable_finite_cyclic_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer._premise_lead`: 2
+- `toda_group_proof_narrative_renderer._render_finite_dimensional_aggregate_statement_latex`: 1
+- `toda_group_proof_narrative_renderer._render_group_proof_narrative_fact`: 3
+- `toda_group_proof_narrative_renderer._render_group_proof_narrative_latex`: 1
+- `toda_group_proof_narrative_renderer._render_prop44_suspension_injective_statement_latex`: 1
+- `toda_group_proof_narrative_renderer.render_toda_group_proof_narrative_markdown`: 1
+
+## pi_3^2
+
+- status: `ProofSearchStatus.COMPLETE`
+- proven_steps: 16
+- rendered_lines: 29
+
+### 出典付きステップ
+
+- step 0: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 1: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 2: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 3: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 4: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 5: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 6: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 7: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 8: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 9: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 10: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 11: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 12: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 13: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 14: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 15: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+
+### 呼び出し回数
+
+- `phase165_r52_partial_proof.<genexpr>`: 72
+- `phase165_r52_partial_proof.__init__`: 3
+- `phase165_r52_partial_proof.__post_init__`: 3
+- `phase165_r52_partial_proof.make_partial_proof_result`: 2
+- `phase165_r52_partial_proof.render_partial_proof_markdown`: 1
+- `phase165_r52_r2_search_adapter.<genexpr>`: 180
+- `phase165_r52_r2_search_adapter.observer`: 18
+- `phase165_r52_r2_search_adapter.same`: 34
+- `phase165_r52_r2_search_adapter.search_registered_partial_proof`: 1
+- `phase165_r52_r3_web_adapter.build_partial_web_group_proof_view`: 1
+- `phase165_r52_r9_shared_math.search_one`: 1
+- `phase165_r52_r9_shared_math.search_shared_group_goal`: 2
+- `phase165_r55_nk_only_goal.search_group_from_registered_goal`: 1
+- `toda_group_proof_narrative_contribution_renderer.<dictcomp>`: 20
+- `toda_group_proof_narrative_contribution_renderer.<genexpr>`: 811
+- `toda_group_proof_narrative_contribution_renderer.<lambda>`: 46
+- `toda_group_proof_narrative_contribution_renderer.<listcomp>`: 11
+- `toda_group_proof_narrative_contribution_renderer.<setcomp>`: 27
+- `toda_group_proof_narrative_contribution_renderer._contribution_connector_lines`: 1
+- `toda_group_proof_narrative_contribution_renderer._contribution_insertion_indices`: 1
+- `toda_group_proof_narrative_contribution_renderer._direct_contribution_dependency_pairs`: 1
+- `toda_group_proof_narrative_contribution_renderer._insert_toda_group_proof_narrative_argument_contributions`: 1
+- `toda_group_proof_narrative_contribution_renderer._is_toda_group_proof_narrative_reference_statement_candidate`: 46
+- `toda_group_proof_narrative_contribution_renderer._phase153_r6_reference_aggregate_component`: 83
+- `toda_group_proof_narrative_contribution_renderer._phase153_r6_render_reference_statement`: 21
+- `toda_group_proof_narrative_contribution_renderer._phase154_r5_reference_source_steps_by_number`: 2
+- `toda_group_proof_narrative_contribution_renderer._phase154_r5_unique_visible_non_root_consumer_line`: 4
+- `toda_group_proof_narrative_contribution_renderer._phase157_r11_reference_statement_match_key`: 814
+- `toda_group_proof_narrative_contribution_renderer._phase157_r20_canonical_fixed_reference_line`: 45
+- `toda_group_proof_narrative_contribution_renderer._phase157_r5_r7_order_and_connect_fixed_definition_reference_lines`: 13
+- `toda_group_proof_narrative_contribution_renderer._phase157_r5_r9_selected_fixed_definition_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer._phase159_r1_7c_r3_root_zero_direct_premise_plan`: 2
+- `toda_group_proof_narrative_contribution_renderer._provider_anchor_index`: 2
+- `toda_group_proof_narrative_contribution_renderer._select_toda_group_proof_narrative_reference_entries_and_statement_lines`: 3
+- `toda_group_proof_narrative_contribution_renderer._shortest_path_between_steps`: 3
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_equation_tag_number`: 17
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_fixed_composition_isomorphism_specialization_plan`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_map_name_latex`: 4
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_reference_internal_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_reference_owned_step_ids`: 2
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_reference_statement_lines_by_number`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_root_fixed_statement_internal_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_two_equation_reference_numbers`: 16
+- `toda_group_proof_narrative_contribution_renderer._transport_chain_connector`: 3
+- `toda_group_proof_narrative_contribution_renderer.build_toda_group_proof_narrative_generic_used_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer.display_line`: 8
+- `toda_group_proof_narrative_contribution_renderer.ensure_before`: 2
+- `toda_group_proof_narrative_contribution_renderer.exactness_reason`: 1
+- `toda_group_proof_narrative_contribution_renderer.insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges`: 1
+- `toda_group_proof_narrative_contribution_renderer.insert_toda_group_proof_narrative_hidden_zero_map_premises`: 1
+- `toda_group_proof_narrative_contribution_renderer.insert_toda_group_proof_narrative_map_property_dependencies`: 2
+- `toda_group_proof_narrative_contribution_renderer.link_toda_group_proof_narrative_reference_body_consumers`: 2
+- `toda_group_proof_narrative_contribution_renderer.link_toda_group_proof_narrative_unmarked_reference_consumers`: 2
+- `toda_group_proof_narrative_contribution_renderer.match_key`: 123
+- `toda_group_proof_narrative_contribution_renderer.merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_connectors`: 2
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_display_math_periods`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_repeated_numeric_equalities`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_zero_map_exactness_reason`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalized_step_key`: 72
+- `toda_group_proof_narrative_contribution_renderer.numbered_connector_numbers`: 39
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_local_equation_derivations`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_order_support`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_short_exact_support`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_surjectivity_support`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_visible_relation_dependencies`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_visible_step_dependencies`: 1
+- `toda_group_proof_narrative_contribution_renderer.paragraph_index_for_step`: 11
+- `toda_group_proof_narrative_contribution_renderer.paragraph_match_key`: 106
+- `toda_group_proof_narrative_contribution_renderer.prune_toda_group_proof_narrative_root_zero_direct_premise_references`: 1
+- `toda_group_proof_narrative_contribution_renderer.reference_entry_for_step`: 16
+- `toda_group_proof_narrative_contribution_renderer.reference_number_for_step`: 8
+- `toda_group_proof_narrative_contribution_renderer.render_toda_group_proof_narrative_multi_argument_with_contributions_markdown`: 1
+- `toda_group_proof_narrative_contribution_renderer.specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application`: 1
+- `toda_group_proof_narrative_contribution_renderer.specialize_toda_group_proof_narrative_root_zero_direct_premises`: 1
+- `toda_group_proof_narrative_contribution_renderer.strip_leading_prose`: 16
+- `toda_group_proof_narrative_contribution_renderer.strip_reference_prefix`: 67
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_dangling_connectors`: 2
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_literal_reflexive_equalities`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_reference_body_duplicates`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_reference_internal_body`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_reflexive_equalities`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_repeated_reference_restatements`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_repeated_unique_step_statements`: 2
+- `toda_group_proof_narrative_contribution_renderer.trim_toda_group_proof_narrative_redundant_left_ehp_terms`: 1
+- `toda_group_proof_narrative_contribution_renderer.visible_index`: 1
+- `toda_group_proof_narrative_references.<dictcomp>`: 12
+- `toda_group_proof_narrative_references.<genexpr>`: 1503
+- `toda_group_proof_narrative_references.<lambda>`: 8
+- `toda_group_proof_narrative_references.<setcomp>`: 76
+- `toda_group_proof_narrative_references.__init__`: 47
+- `toda_group_proof_narrative_references.__post_init__`: 47
+- `toda_group_proof_narrative_references._infer_toda_group_proof_literature_reference_from_rule_name`: 277
+- `toda_group_proof_narrative_references._same_toda_group_proof_literature_reference`: 57
+- `toda_group_proof_narrative_references.build_toda_group_proof_narrative_reference_entries`: 3
+- `toda_group_proof_narrative_references.equivalent_step_ids`: 6
+- `toda_group_proof_narrative_references.exclude_toda_group_proof_narrative_root_reference`: 1
+- `toda_group_proof_narrative_references.extract_toda_group_proof_step_literature_reference`: 505
+- `toda_group_proof_narrative_references.filter_toda_group_proof_narrative_reference_entries_by_body_usage`: 2
+- `toda_group_proof_narrative_references.filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary`: 2
+- `toda_group_proof_narrative_references.has_used_external_descendant`: 3
+- `toda_group_proof_narrative_references.render_toda_group_proof_narrative_reference_entries_markdown`: 2
+- `toda_group_proof_narrative_references.replace_marker`: 12
+- `toda_group_proof_narrative_references.restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage`: 1
+- `toda_group_proof_narrative_references.select_toda_group_proof_narrative_reference_statement_steps`: 28
+- `toda_group_proof_narrative_renderer.<dictcomp>`: 2
+- `toda_group_proof_narrative_renderer.<genexpr>`: 49
+- `toda_group_proof_narrative_renderer.<setcomp>`: 3
+- `toda_group_proof_narrative_renderer._finalize_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer._normalize_toda_group_proof_narrative_display_closing_fragments`: 1
+- `toda_group_proof_narrative_renderer._phase157_r11_r17_normalize_public_connectors`: 1
+- `toda_group_proof_narrative_renderer._phase157_r11_r17_normalize_public_numeric_equalities`: 1
+- `toda_group_proof_narrative_renderer._phase158_baseline_render_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer._phase158_normalize_public_equation_numbers`: 1
+- `toda_group_proof_narrative_renderer._phase158_normalize_public_narrative_contract`: 1
+- `toda_group_proof_narrative_renderer._phase158_public_equation_connector_numbers`: 27
+- `toda_group_proof_narrative_renderer._phase158_public_equation_tag_number`: 84
+- `toda_group_proof_narrative_renderer._phase158_public_narrative_target_lines`: 1
+- `toda_group_proof_narrative_renderer._phase158_strip_terminal_qed_lines`: 1
+- `toda_group_proof_narrative_renderer._phase159_consolidate_public_exactness_lines`: 1
+- `toda_group_proof_narrative_renderer._phase159_matching_map_property_step`: 2
+- `toda_group_proof_narrative_renderer._phase159_project_generic_semantics_to_public_proof`: 1
+- `toda_group_proof_narrative_renderer._phase159_public_exactness_latex`: 30
+- `toda_group_proof_narrative_renderer._phase159_public_map_property_triples`: 1
+- `toda_group_proof_narrative_renderer._phase159_public_semantic_projection_context`: 2
+- `toda_group_proof_narrative_renderer._phase159_r1_6c_recursive_proof_steps`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_display_math_lines`: 2
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_exactness_step_latex`: 16
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_inline_exactness_latex`: 27
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_inline_short_exact_latex`: 25
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_map_property_signature`: 33
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_normalize_public_exact_sequences`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_proof_body_prose`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_public_map_property_prose`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_reorder_public_equation_reference_conclusions`: 1
+- `toda_group_proof_narrative_renderer._phase159_recursive_map_property_triples`: 1
+- `toda_group_proof_narrative_renderer._phase159_reorder_unique_preimage_definition_premise_locality`: 1
+- `toda_group_proof_narrative_renderer._phase159_unique_preimage_definition_line`: 32
+- `toda_group_proof_narrative_renderer._phase160_r7_pre_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer._phase160_r7_render_stable_finite_cyclic_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer._render_finite_dimensional_aggregate_statement_latex`: 1
+- `toda_group_proof_narrative_renderer._render_group_proof_narrative_latex`: 1
+- `toda_group_proof_narrative_renderer._render_prop44_suspension_injective_statement_latex`: 1
+- `toda_group_proof_narrative_renderer._wrap_phase150_rc4_generic_public_narrative`: 1
+- `toda_group_proof_narrative_renderer.canonical_exactness`: 7
+- `toda_group_proof_narrative_renderer.canonical_typed_exactness`: 2
+- `toda_group_proof_narrative_renderer.exact_index`: 3
+- `toda_group_proof_narrative_renderer.map_property_key`: 24
+- `toda_group_proof_narrative_renderer.render_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer.visit`: 18
+
+## pi_4^3
+
+- status: `ProofSearchStatus.COMPLETE`
+- proven_steps: 25
+- rendered_lines: 28
+
+### 出典付きステップ
+
+- step 0: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 1: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 2: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 3: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 4: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 5: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 6: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 7: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 8: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 9: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 10: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 11: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 12: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 13: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 14: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 15: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 16: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 17: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 18: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 19: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 20: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 21: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 22: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 23: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 24: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+
+### 呼び出し回数
+
+- `phase165_r52_partial_proof.<genexpr>`: 143
+- `phase165_r52_partial_proof.__init__`: 4
+- `phase165_r52_partial_proof.__post_init__`: 4
+- `phase165_r52_partial_proof.make_partial_proof_result`: 3
+- `phase165_r52_partial_proof.render_partial_proof_markdown`: 1
+- `phase165_r52_r2_search_adapter.<genexpr>`: 609
+- `phase165_r52_r2_search_adapter.observer`: 47
+- `phase165_r52_r2_search_adapter.same`: 123
+- `phase165_r52_r2_search_adapter.search_registered_partial_proof`: 2
+- `phase165_r52_r3_web_adapter.build_partial_web_group_proof_view`: 1
+- `phase165_r52_r9_shared_math.search_one`: 2
+- `phase165_r52_r9_shared_math.search_shared_group_goal`: 3
+- `phase165_r55_nk_only_goal.search_group_from_registered_goal`: 1
+- `toda_group_proof_narrative_contribution_renderer.<dictcomp>`: 21
+- `toda_group_proof_narrative_contribution_renderer.<genexpr>`: 784
+- `toda_group_proof_narrative_contribution_renderer.<lambda>`: 41
+- `toda_group_proof_narrative_contribution_renderer.<listcomp>`: 9
+- `toda_group_proof_narrative_contribution_renderer.<setcomp>`: 23
+- `toda_group_proof_narrative_contribution_renderer._contribution_connector_lines`: 1
+- `toda_group_proof_narrative_contribution_renderer._contribution_insertion_indices`: 1
+- `toda_group_proof_narrative_contribution_renderer._direct_contribution_dependency_pairs`: 1
+- `toda_group_proof_narrative_contribution_renderer._insert_toda_group_proof_narrative_argument_contributions`: 1
+- `toda_group_proof_narrative_contribution_renderer._is_toda_group_proof_narrative_reference_statement_candidate`: 39
+- `toda_group_proof_narrative_contribution_renderer._phase153_r6_reference_aggregate_component`: 53
+- `toda_group_proof_narrative_contribution_renderer._phase153_r6_render_reference_statement`: 15
+- `toda_group_proof_narrative_contribution_renderer._phase154_r5_reference_source_steps_by_number`: 2
+- `toda_group_proof_narrative_contribution_renderer._phase157_r11_reference_statement_match_key`: 480
+- `toda_group_proof_narrative_contribution_renderer._phase157_r20_canonical_fixed_reference_line`: 35
+- `toda_group_proof_narrative_contribution_renderer._phase157_r5_r7_order_and_connect_fixed_definition_reference_lines`: 13
+- `toda_group_proof_narrative_contribution_renderer._phase157_r5_r9_selected_fixed_definition_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer._phase159_r1_7c_r3_root_zero_direct_premise_plan`: 2
+- `toda_group_proof_narrative_contribution_renderer._provider_anchor_index`: 3
+- `toda_group_proof_narrative_contribution_renderer._select_toda_group_proof_narrative_reference_entries_and_statement_lines`: 3
+- `toda_group_proof_narrative_contribution_renderer._shortest_path_between_steps`: 4
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_equation_tag_number`: 12
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_fixed_composition_isomorphism_specialization_plan`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_map_name_latex`: 2
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_reference_internal_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_reference_owned_step_ids`: 2
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_reference_statement_lines_by_number`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_root_fixed_statement_internal_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer._toda_group_proof_narrative_two_equation_reference_numbers`: 11
+- `toda_group_proof_narrative_contribution_renderer._transport_chain_connector`: 4
+- `toda_group_proof_narrative_contribution_renderer.build_toda_group_proof_narrative_generic_used_step_ids`: 1
+- `toda_group_proof_narrative_contribution_renderer.display_line`: 7
+- `toda_group_proof_narrative_contribution_renderer.insert_toda_group_proof_narrative_adjacent_eta_suspension_bridges`: 1
+- `toda_group_proof_narrative_contribution_renderer.insert_toda_group_proof_narrative_hidden_zero_map_premises`: 1
+- `toda_group_proof_narrative_contribution_renderer.insert_toda_group_proof_narrative_map_property_dependencies`: 2
+- `toda_group_proof_narrative_contribution_renderer.link_toda_group_proof_narrative_reference_body_consumers`: 2
+- `toda_group_proof_narrative_contribution_renderer.link_toda_group_proof_narrative_unmarked_reference_consumers`: 2
+- `toda_group_proof_narrative_contribution_renderer.match_key`: 88
+- `toda_group_proof_narrative_contribution_renderer.merge_toda_group_proof_narrative_adjacent_ehp_exactness_windows`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_connectors`: 2
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_display_math_periods`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_repeated_numeric_equalities`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalize_toda_group_proof_narrative_zero_map_exactness_reason`: 1
+- `toda_group_proof_narrative_contribution_renderer.normalized_step_key`: 75
+- `toda_group_proof_narrative_contribution_renderer.numbered_connector_numbers`: 31
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_local_equation_derivations`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_order_support`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_short_exact_support`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_surjectivity_support`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_visible_relation_dependencies`: 1
+- `toda_group_proof_narrative_contribution_renderer.order_toda_group_proof_narrative_visible_step_dependencies`: 1
+- `toda_group_proof_narrative_contribution_renderer.paragraph_index_for_step`: 14
+- `toda_group_proof_narrative_contribution_renderer.paragraph_match_key`: 107
+- `toda_group_proof_narrative_contribution_renderer.prune_toda_group_proof_narrative_root_zero_direct_premise_references`: 1
+- `toda_group_proof_narrative_contribution_renderer.reference_entry_for_step`: 13
+- `toda_group_proof_narrative_contribution_renderer.reference_number_for_step`: 6
+- `toda_group_proof_narrative_contribution_renderer.render_toda_group_proof_narrative_multi_argument_with_contributions_markdown`: 1
+- `toda_group_proof_narrative_contribution_renderer.same_generator`: 2
+- `toda_group_proof_narrative_contribution_renderer.specialize_toda_group_proof_narrative_fixed_composition_isomorphism_application`: 1
+- `toda_group_proof_narrative_contribution_renderer.specialize_toda_group_proof_narrative_root_zero_direct_premises`: 1
+- `toda_group_proof_narrative_contribution_renderer.strip_leading_prose`: 11
+- `toda_group_proof_narrative_contribution_renderer.strip_reference_prefix`: 36
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_dangling_connectors`: 2
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_irrelevant_aggregate_ancestry`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_late_exact_sequence_prefix_restatements`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_literal_reflexive_equalities`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_reference_body_duplicates`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_reference_internal_body`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_reflexive_equalities`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_repeated_reference_restatements`: 1
+- `toda_group_proof_narrative_contribution_renderer.suppress_toda_group_proof_narrative_repeated_unique_step_statements`: 2
+- `toda_group_proof_narrative_contribution_renderer.trim_toda_group_proof_narrative_redundant_left_ehp_terms`: 1
+- `toda_group_proof_narrative_contribution_renderer.visible_indices`: 1
+- `toda_group_proof_narrative_references.<dictcomp>`: 12
+- `toda_group_proof_narrative_references.<genexpr>`: 1654
+- `toda_group_proof_narrative_references.<lambda>`: 8
+- `toda_group_proof_narrative_references.<setcomp>`: 63
+- `toda_group_proof_narrative_references.__init__`: 45
+- `toda_group_proof_narrative_references.__post_init__`: 45
+- `toda_group_proof_narrative_references._infer_toda_group_proof_literature_reference_from_rule_name`: 403
+- `toda_group_proof_narrative_references._same_toda_group_proof_literature_reference`: 54
+- `toda_group_proof_narrative_references.build_toda_group_proof_narrative_reference_entries`: 3
+- `toda_group_proof_narrative_references.equivalent_step_ids`: 4
+- `toda_group_proof_narrative_references.exclude_toda_group_proof_narrative_root_reference`: 1
+- `toda_group_proof_narrative_references.extract_toda_group_proof_step_literature_reference`: 557
+- `toda_group_proof_narrative_references.filter_toda_group_proof_narrative_reference_entries_by_body_usage`: 2
+- `toda_group_proof_narrative_references.filter_toda_group_proof_narrative_reference_entries_by_fixed_statement_boundary`: 2
+- `toda_group_proof_narrative_references.has_used_external_descendant`: 2
+- `toda_group_proof_narrative_references.render_toda_group_proof_narrative_reference_entries_markdown`: 2
+- `toda_group_proof_narrative_references.replace_marker`: 8
+- `toda_group_proof_narrative_references.restore_toda_group_proof_narrative_fixed_reference_entries_after_body_usage`: 1
+- `toda_group_proof_narrative_references.select_toda_group_proof_narrative_reference_statement_steps`: 27
+- `toda_group_proof_narrative_renderer.<dictcomp>`: 2
+- `toda_group_proof_narrative_renderer.<genexpr>`: 108
+- `toda_group_proof_narrative_renderer.<listcomp>`: 3
+- `toda_group_proof_narrative_renderer.<setcomp>`: 3
+- `toda_group_proof_narrative_renderer._finalize_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer._normalize_toda_group_proof_narrative_display_closing_fragments`: 1
+- `toda_group_proof_narrative_renderer._phase157_r11_r17_normalize_public_connectors`: 1
+- `toda_group_proof_narrative_renderer._phase157_r11_r17_normalize_public_numeric_equalities`: 1
+- `toda_group_proof_narrative_renderer._phase158_baseline_render_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer._phase158_normalize_public_equation_numbers`: 1
+- `toda_group_proof_narrative_renderer._phase158_normalize_public_narrative_contract`: 1
+- `toda_group_proof_narrative_renderer._phase158_public_equation_connector_numbers`: 21
+- `toda_group_proof_narrative_renderer._phase158_public_equation_tag_number`: 66
+- `toda_group_proof_narrative_renderer._phase158_public_narrative_target_lines`: 1
+- `toda_group_proof_narrative_renderer._phase158_strip_terminal_qed_lines`: 1
+- `toda_group_proof_narrative_renderer._phase159_consolidate_public_exactness_lines`: 1
+- `toda_group_proof_narrative_renderer._phase159_project_generic_semantics_to_public_proof`: 1
+- `toda_group_proof_narrative_renderer._phase159_public_exactness_latex`: 24
+- `toda_group_proof_narrative_renderer._phase159_public_map_property_triples`: 1
+- `toda_group_proof_narrative_renderer._phase159_public_semantic_projection_context`: 2
+- `toda_group_proof_narrative_renderer._phase159_r1_6c_recursive_proof_steps`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_display_math_lines`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_exactness_step_latex`: 25
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_inline_exactness_latex`: 21
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_inline_short_exact_latex`: 20
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_map_property_signature`: 24
+- `toda_group_proof_narrative_renderer._phase159_r1_7b_normalize_public_exact_sequences`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_proof_body_prose`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_public_map_property_prose`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_normalize_public_numbered_map_property_reasoning`: 1
+- `toda_group_proof_narrative_renderer._phase159_r1_7c_r4_reorder_public_equation_reference_conclusions`: 1
+- `toda_group_proof_narrative_renderer._phase159_recursive_map_property_triples`: 1
+- `toda_group_proof_narrative_renderer._phase159_reorder_unique_preimage_definition_premise_locality`: 1
+- `toda_group_proof_narrative_renderer._phase159_unique_preimage_definition_line`: 50
+- `toda_group_proof_narrative_renderer._phase160_r7_pre_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer._phase160_r7_render_stable_finite_cyclic_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer._render_finite_dimensional_aggregate_statement_latex`: 1
+- `toda_group_proof_narrative_renderer._render_group_proof_narrative_latex`: 1
+- `toda_group_proof_narrative_renderer._render_prop44_suspension_injective_statement_latex`: 1
+- `toda_group_proof_narrative_renderer._wrap_phase150_rc4_generic_public_narrative`: 1
+- `toda_group_proof_narrative_renderer.canonical_exactness`: 4
+- `toda_group_proof_narrative_renderer.canonical_typed_exactness`: 1
+- `toda_group_proof_narrative_renderer.exact_index`: 3
+- `toda_group_proof_narrative_renderer.map_property_key`: 20
+- `toda_group_proof_narrative_renderer.render_toda_group_proof_narrative_markdown`: 1
+- `toda_group_proof_narrative_renderer.unique_index`: 2
+- `toda_group_proof_narrative_renderer.visit`: 27
+
+## pi_5^4
+
+- status: `ProofSearchStatus.COMPLETE`
+- proven_steps: 10
+- rendered_lines: 15
+
+### 出典付きステップ
+
+- step 0: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 1: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 2: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 3: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 4: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 5: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 6: rule=<ProofRule.GIVEN: 'given'>; step_ref=None; rule_ref=None
+- step 7: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 8: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+- step 9: rule=<ProofRule.INFERENCE: 'inference'>; step_ref=None; rule_ref=None
+
+### 呼び出し回数
+
+- `phase165_r52_partial_proof.<genexpr>`: 136
+- `phase165_r52_partial_proof.__init__`: 5
+- `phase165_r52_partial_proof.__post_init__`: 5
+- `phase165_r52_partial_proof.make_partial_proof_result`: 4
+- `phase165_r52_partial_proof.render_partial_proof_markdown`: 1
+- `phase165_r52_r2_search_adapter.<genexpr>`: 840
+- `phase165_r52_r2_search_adapter.observer`: 71
+- `phase165_r52_r2_search_adapter.same`: 264
+- `phase165_r52_r2_search_adapter.search_registered_partial_proof`: 3
+- `phase165_r52_r3_web_adapter.build_partial_web_group_proof_view`: 1
+- `phase165_r52_r9_shared_math.search_one`: 3
+- `phase165_r52_r9_shared_math.search_shared_group_goal`: 4
+- `phase165_r55_nk_only_goal.search_group_from_registered_goal`: 1
+- `toda_group_proof_narrative_renderer._phase160_r7_render_stable_finite_cyclic_transport_narrative`: 1
+- `toda_group_proof_narrative_renderer.render_toda_group_proof_narrative_markdown`: 1
+
