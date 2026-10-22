@@ -1,0 +1,458 @@
+{
+  "mode": "read_only",
+  "blocks": [
+    {
+      "collection": "blocks",
+      "block_index": 1,
+      "role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+      "steps": [
+        {
+          "index": 6,
+          "type": "GeneratorSuspension",
+          "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat"
+        },
+        {
+          "index": 9,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        },
+        {
+          "index": 10,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "collection": "local_body_blocks",
+      "block_index": 8,
+      "role": "TodaGroupProofNarrativeMathematicalBlockRole.OTHER",
+      "steps": [
+        {
+          "index": 6,
+          "type": "GeneratorSuspension",
+          "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat"
+        },
+        {
+          "index": 9,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))"
+        },
+        {
+          "index": 10,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))"
+        }
+      ]
+    },
+    {
+      "collection": "actual_render_block",
+      "block_index": 0,
+      "role": "TodaGroupProofNarrativeMathematicalBlockRole.TARGET",
+      "steps": []
+    }
+  ],
+  "step_render_events": [
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "GeneratorSuspension",
+      "statement": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=Generat",
+      "return": "$E(\\eta_{2}) = \\eta_{3}$."
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+      "return": "specialize cited eta-family general definition"
+    },
+    {
+      "function": "_render_generic_narrative_step",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "statement": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+      "return": "specialize cited eta-family general definition"
+    }
+  ],
+  "web_lines": [
+    "証明対象",
+    "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.",
+    "使用する結果",
+    "**[R1] (5.1).**",
+    "\\pi_{i}^{n} = 0\\quad(i < n).",
+    "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1).",
+    "**[R2] Proposition 5.1.**",
+    "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.",
+    "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}.",
+    "",
+    "証明",
+    "\\pi_{4}^{3} の群構造を決定するために, 次の完全列を考える.",
+    "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.",
+    "\\eta_{3}=E\\eta_{2}.",
+    "E(\\eta_{2}) = \\eta_{3}.",
+    "[R1]より, \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}.",
+    "これより, \\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}.",
+    "[R2]より, \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}.",
+    "これより, \\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}.",
+    "完全性より, \\ker E=\\mathbb{Z}\\{2η_{2}\\}.",
+    "\\pi_{4}^{5} = 0.",
+    "完全性より, E: \\pi_{3}^{2} \\to \\pi_{4}^{3} は全射.",
+    "[R2]より, \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.",
+    "全射性と核の決定から, 第一同型定理より \\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}.",
+    "以上より, \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.",
+    "□"
+  ],
+  "production_modified": false
+}

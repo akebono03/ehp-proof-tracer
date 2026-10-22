@@ -1,0 +1,3 @@
+# Phase 167 R4-2: Typed duplicate display
+
+Patch the existing argument-body renderer only. Structural keys compare suspension identities without testing LaTeX text or named generators. The first displayed equality is retained; later equivalent display steps are skipped without removing proof steps. The installer outputs full modified function bodies in modified_functions_full.py.txt. The runner captures five 1-stem outputs before and after, asserts a one-line difference for pi4^3 and full equivalence elsewhere, runs two focused tests, and restores the original file on failure. Full pytest is not run.
