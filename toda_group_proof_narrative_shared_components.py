@@ -1247,6 +1247,26 @@ def _render_generic_narrative_statement_prose(
       }[kind]
       return "$" + map_latex + "$ は" + meaning + "である."
 
+  # R3-18: use typed quotient facts, never inference-rule names.
+  from phase165_r12_r2_quotient_rules import QuotientIsomorphismStatement
+  if isinstance(statement, QuotientIsomorphismStatement):
+    from phase165_r12_r34_r2_semantic_narrative import _element, _group
+    if type(statement.multiple) is not int or statement.multiple < 1:
+      return None
+    try:
+      return (
+        "全射性と核の決定から, 準同型定理より $"
+        + _group(statement.codomain)
+        + r" \cong "
+        + _group(statement.domain)
+        + r"/\mathbb{Z}\{"
+        + str(statement.multiple)
+        + _element(statement.source_generator)
+        + r"\}$ を得る."
+      )
+    except (TypeError, ValueError, AttributeError):
+      return None
+
   reference_prose = (
     _render_phase153_r3_9_reference_statement_prose(
       statement
