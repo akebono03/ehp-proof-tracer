@@ -137,7 +137,7 @@
       "expected_locator": "Proposition 5.3",
       "goal_count": 1,
       "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
-      "resolved_id": null,
+      "resolved_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
       "references": [
         {
           "id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
@@ -171,7 +171,7 @@
       "match_classes": {
         "DIFFERENT_GROUP": 4
       },
-      "status": "UNRESOLVED"
+      "status": "RESOLVED"
     },
     {
       "n": 2,
@@ -379,7 +379,7 @@
       "expected_locator": "Proposition 5.6",
       "goal_count": 1,
       "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₆', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
-      "resolved_id": null,
+      "resolved_id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
       "references": [
         {
           "id": "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
@@ -420,7 +420,7 @@
       "match_classes": {
         "DIFFERENT_GROUP": 5
       },
-      "status": "UNRESOLVED"
+      "status": "RESOLVED"
     }
   ]
 }

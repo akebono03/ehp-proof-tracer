@@ -38,13 +38,7 @@ def _same_group_structure(goal: Relation, assertion_relation: Relation) -> bool:
 
 
 def resolve_specialized_goal_citing_id(bridge, goal: Relation) -> str | None:
-    """Find a unique, positioned literature claim for the group's typed goal.
-
-    Candidate selection is dimension-first. Content must also match; a claim
-    mentioning the same group but asserting something else is not a boundary.
-    Generic eta claims use their existing checked specialization mechanism.
-    A source with missing position, or competing matches, is not guessed.
-    """
+    """Resolve unique positioned citations, including checked higher-stem instances."""
     if (not isinstance(goal, Relation)
             or goal.relation_type is not RelationType.EQUALITY
             or not isinstance(goal.lhs, TodaPrimaryGroup)
@@ -52,8 +46,12 @@ def resolve_specialized_goal_citing_id(bridge, goal: Relation) -> str | None:
         return None
     n = goal.lhs.sphere_dimension
     m = goal.lhs.group_dimension
-    if not isinstance(n, int) or not isinstance(m, int):
+    if type(n) is not int or type(m) is not int:
         return None
+
+    from phase168_r2_8_4_generic_specialization.specialization import (
+        specialize_registered_higher_stem,
+    )
 
     concrete = []
     generic = []
@@ -77,6 +75,10 @@ def resolve_specialized_goal_citing_id(bridge, goal: Relation) -> str | None:
                 and isinstance(statement.rhs, _GROUP_STRUCTURES)
                 and _same_group_structure(goal, statement)):
             concrete.append(assertion.assertion_id)
+            continue
+        candidate = specialize_registered_higher_stem(statement, n)
+        if candidate is not None and candidate.lhs == goal.lhs and _same_group_structure(goal, candidate):
+            generic.append(assertion.assertion_id)
             continue
         if not _is_generic_eta_group_relation(statement):
             continue
