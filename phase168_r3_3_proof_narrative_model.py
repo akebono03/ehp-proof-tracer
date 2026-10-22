@@ -54,29 +54,46 @@ def build_proof_narrative_model(
          if result.conclusion is not None and steps[i].conclusion == result.conclusion),
         None,
     )
+    # Locator is the printed source position. Labels are presentation metadata,
+    # not independent source identities. Exact matching avoids conflating nearby
+    # propositions or components with different locators.
     references: list[LiteratureReference] = []
+    locators: list[str] = []
     associations: list[list[int]] = []
     assertion_ids: list[list[str]] = []
     per_step: list[tuple[int, ...]] = []
 
     for step_index, step in enumerate(steps):
-        located: list[tuple[LiteratureReference, str | None]] = []
-        inference_rule = step.inference_rule
-        if inference_rule is not None and inference_rule.literature_reference is not None:
-            located.append((inference_rule.literature_reference, None))
+        linked: list[tuple[LiteratureReference, str | None]] = []
         if registry is not None:
             for link in proof_links:
                 if link.step is None or link.step != step:
                     continue
                 assertion = registry.assertion(link.assertion_id)
                 entry = registry.reference(assertion.reference_id)
-                located.append((LiteratureReference(label=entry.locator, locator=entry.locator), assertion.assertion_id))
+                linked.append((LiteratureReference(
+                    label=entry.locator, locator=entry.locator,
+                ), assertion.assertion_id))
+
+        located = list(linked)
+        inference_rule = step.inference_rule
+        if inference_rule is not None and inference_rule.literature_reference is not None:
+            rule_reference = inference_rule.literature_reference
+            rule_locator = rule_reference.locator or rule_reference.label
+            if not any(
+                (reference.locator or reference.label) == rule_locator
+                for reference, _ in linked
+            ):
+                located.append((rule_reference, None))
+
         numbers: list[int] = []
         for reference, assertion_id in located:
+            locator = reference.locator or reference.label
             try:
-                ref_index = references.index(reference)
+                ref_index = locators.index(locator)
             except ValueError:
                 ref_index = len(references)
+                locators.append(locator)
                 references.append(reference)
                 associations.append([])
                 assertion_ids.append([])
