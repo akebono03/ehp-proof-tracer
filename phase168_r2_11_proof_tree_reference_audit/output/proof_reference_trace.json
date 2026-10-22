@@ -1,0 +1,42 @@
+{
+  "audit": "phase168_r2_11",
+  "target": "pi_4^2",
+  "call": "build_standard_web_group_proof_view(2,2,2,\"narrative\")",
+  "presentations": [],
+  "events": [],
+  "public": {
+    "key": "generic-complete-proof",
+    "rendered_lines": [
+      {
+        "kind": "text",
+        "prefix": "まず, ",
+        "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+        "suffix": "を用いる."
+      },
+      {
+        "kind": "text",
+        "prefix": "さらに, 補助結果を用いる.",
+        "statement_latex": "None",
+        "suffix": ""
+      },
+      {
+        "kind": "text",
+        "prefix": "したがって, ",
+        "statement_latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+        "suffix": "を得る."
+      },
+      {
+        "kind": "text",
+        "prefix": "",
+        "statement_latex": "\\square",
+        "suffix": ""
+      }
+    ]
+  },
+  "error": null,
+  "limitations": [
+    "instrumented contribution renderer path only",
+    "if no presentation captured inspect public route",
+    "source output reflects local working tree; no files modified"
+  ]
+}
