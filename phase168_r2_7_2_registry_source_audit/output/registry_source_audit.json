@@ -1,0 +1,126 @@
+{
+  "phase": "168-R2-7-2",
+  "production_code_modified": false,
+  "targets": [
+    {
+      "locator": "Proposition 5.3",
+      "registered": [
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8200,
+          "component_position": 100
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8200,
+          "component_position": 200
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8200,
+          "component_position": 300
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8200,
+          "component_position": 400
+        },
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0006",
+          "origin": "SOURCE_ARCHIVE",
+          "content_type": "dict",
+          "category": "SOURCE_ONLY",
+          "publication_position": 8200,
+          "component_position": null
+        }
+      ],
+      "registered_categories": {
+        "METADATA_ONLY": 4,
+        "SOURCE_ONLY": 1
+      },
+      "generated_given_count": 22,
+      "generated_given_categories": {
+        "MATHEMATICAL_TYPED": 22
+      },
+      "same_proposition_generated": [],
+      "self_conclusion_generated": false,
+      "mathematical_relations_registered": []
+    },
+    {
+      "locator": "Proposition 5.6",
+      "registered": [
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8800,
+          "component_position": 100
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8800,
+          "component_position": 200
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi7_4_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8800,
+          "component_position": 300
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8800,
+          "component_position": 400
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+          "origin": "FIXED_STATEMENT",
+          "content_type": "TodaFixedStatementComponent",
+          "category": "METADATA_ONLY",
+          "publication_position": 8800,
+          "component_position": 500
+        },
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0012",
+          "origin": "SOURCE_ARCHIVE",
+          "content_type": "dict",
+          "category": "SOURCE_ONLY",
+          "publication_position": 8800,
+          "component_position": null
+        }
+      ],
+      "registered_categories": {
+        "METADATA_ONLY": 5,
+        "SOURCE_ONLY": 1
+      },
+      "generated_given_count": 22,
+      "generated_given_categories": {
+        "MATHEMATICAL_TYPED": 22
+      },
+      "same_proposition_generated": [],
+      "self_conclusion_generated": false,
+      "mathematical_relations_registered": []
+    }
+  ]
+}

@@ -46,6 +46,9 @@ def screen_shared_proof_context(
                 continue
             if not is_dataclass(assertion.content) or isinstance(assertion.content, type):
                 continue
+            # Boundary component metadata is not a mathematical proof premise.
+            if type(assertion.content).__name__ == "TodaFixedStatementComponent":
+                continue
             if type(assertion.content) is type(goal) and assertion.content == goal:
                 continue
             if not precedes_citing_assertion(
