@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from phase165_r52_partial_proof import PartialProofResult
-from proof import LiteratureReference, ProofStep
+from proof import LiteratureReference, ProofRule, ProofStep
 from unified_statement_registry import ProofStepLink, UnifiedStatementRegistry
 
 
@@ -80,10 +80,23 @@ def build_proof_narrative_model(
         if inference_rule is not None and inference_rule.literature_reference is not None:
             rule_reference = inference_rule.literature_reference
             rule_locator = rule_reference.locator or rule_reference.label
-            if not any(
-                (reference.locator or reference.label) == rule_locator
-                for reference, _ in linked
-            ):
+            # A registry heading may include a descriptive title following the
+            # short printed heading attached to the very same GIVEN. Only that
+            # heading/title shape is an alias; a numbered subsection or a
+            # genuinely different locator remains a distinct citation.
+            def same_source_heading(registered: LiteratureReference) -> bool:
+                registered_locator = registered.locator or registered.label
+                if registered_locator == rule_locator:
+                    return True
+                if step.rule is not ProofRule.GIVEN:
+                    return False
+                prefix = rule_locator + " "
+                if not registered_locator.startswith(prefix):
+                    return False
+                suffix = registered_locator[len(prefix):]
+                return suffix.startswith("The ") and len(suffix) > 4
+
+            if not any(same_source_heading(reference) for reference, _ in linked):
                 located.append((rule_reference, None))
 
         numbers: list[int] = []
