@@ -1,0 +1,139 @@
+{
+  "audit": "phase168-r2-7-3-preflight",
+  "production_code_modified": false,
+  "registrar_prop53_requires": "exactly eight LiteratureComponentInput across Proposition 5.1 and 5.3",
+  "registrar_prop56_requires": "exactly five LiteratureAssertionInput",
+  "legacy_proof_conclusions_reused": false,
+  "targets": {
+    "Proposition 5.3": {
+      "expected_component_keys": [
+        "pi4_2_group_relation",
+        "pi5_3_group_relation",
+        "pi6_4_group_relation",
+        "higher_eta_squared_group_relation"
+      ],
+      "base_boundary_count": 4,
+      "shared_metadata_count": 4,
+      "shared_math_typed_count": 0,
+      "typed_component_keys": [],
+      "unregistered_component_keys": [
+        "pi4_2_group_relation",
+        "pi5_3_group_relation",
+        "pi6_4_group_relation",
+        "higher_eta_squared_group_relation"
+      ],
+      "entries": [
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+          "key": "pi4_2_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8200,
+          "component_position": 100
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+          "key": "pi5_3_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8200,
+          "component_position": 200
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+          "key": "pi6_4_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8200,
+          "component_position": 300
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+          "key": "higher_eta_squared_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8200,
+          "component_position": 400
+        },
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0006",
+          "key": null,
+          "category": "SOURCE_ARCHIVE",
+          "content_type": "dict",
+          "publication_position": 8200,
+          "component_position": null
+        }
+      ]
+    },
+    "Proposition 5.6": {
+      "expected_component_keys": [
+        "pi5_2_group_relation",
+        "pi6_3_group_relation",
+        "pi7_4_group_relation",
+        "pi8_5_group_relation",
+        "higher_nu_group_relation"
+      ],
+      "base_boundary_count": 5,
+      "shared_metadata_count": 5,
+      "shared_math_typed_count": 0,
+      "typed_component_keys": [],
+      "unregistered_component_keys": [
+        "pi5_2_group_relation",
+        "pi6_3_group_relation",
+        "pi7_4_group_relation",
+        "pi8_5_group_relation",
+        "higher_nu_group_relation"
+      ],
+      "entries": [
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+          "key": "pi5_2_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8800,
+          "component_position": 100
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+          "key": "pi6_3_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8800,
+          "component_position": 200
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi7_4_group_relation",
+          "key": "pi7_4_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8800,
+          "component_position": 300
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+          "key": "pi8_5_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8800,
+          "component_position": 400
+        },
+        {
+          "assertion_id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+          "key": "higher_nu_group_relation",
+          "category": "METADATA_ONLY",
+          "content_type": "TodaFixedStatementComponent",
+          "publication_position": 8800,
+          "component_position": 500
+        },
+        {
+          "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0012",
+          "key": null,
+          "category": "SOURCE_ARCHIVE",
+          "content_type": "dict",
+          "publication_position": 8800,
+          "component_position": null
+        }
+      ]
+    }
+  }
+}
