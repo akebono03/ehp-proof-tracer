@@ -2667,17 +2667,17 @@ def link_toda_group_proof_narrative_reference_body_consumers(
       if len(candidates) == 1:
         consumers.append((candidates[0], derived_line.strip()))
     consumers = list(dict.fromkeys(consumers))
-    if len(consumers) != 1:
+    if not consumers:
       continue
-    index, derived_line = consumers[0]
     source_formulas = {
       _render_generic_narrative_step(step).strip().rstrip(".。")
       for step in source_steps
       if _render_generic_narrative_step(step)
     }
+    # One literature reference may have several independent specializations.
+    # Remove a displayed general form, if present, without discarding any
+    # of its concrete consequences.
     for old_index in range(len(lines) - 1, -1, -1):
-      if old_index == index:
-        continue
       stripped = lines[old_index].strip().rstrip(".。")
       if any(
         stripped == marker + "より, " + formula
@@ -2685,10 +2685,18 @@ def link_toda_group_proof_narrative_reference_body_consumers(
         for formula in source_formulas
       ):
         del lines[old_index]
-        if old_index < index:
-          index -= 1
-    lines[index] = marker + "より, " + derived_line.rstrip(".。") + "."
-
+        consumers = [
+          (index - (1 if old_index < index else 0), rendered)
+          for index, rendered in consumers
+          if index != old_index
+        ]
+    # Never attach two different source references to the same visible line.
+    # Preserve already-cited lines and keep the complete concrete result.
+    for index, derived_line in consumers:
+      existing = lines[index].strip()
+      if existing.startswith("[R"):
+        continue
+      lines[index] = marker + "より, " + derived_line.rstrip(".。") + "."
   for reference_number, source_steps in (
     source_steps_by_number.items()
   ):
