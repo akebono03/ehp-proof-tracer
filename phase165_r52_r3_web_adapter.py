@@ -7,6 +7,7 @@ preserved for legacy complete proofs.
 from __future__ import annotations
 
 from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus, render_partial_proof_markdown
+from phase168_r3_3_proof_narrative_model import ProofNarrativeModel
 from web_group_proof_common import (
     WebGroupProofStepView,
     WebGroupProofView,
@@ -21,8 +22,9 @@ def build_partial_web_group_proof_view(
     *,
     max_depth: int = 2,
     mode: str = "narrative",
+    narrative_model: ProofNarrativeModel | None = None,
 ) -> WebGroupProofView:
-    """Adapt searched goals and display their complete typed statement."""
+    """Adapt searched steps; use explicit model when the caller supplies one."""
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
     if isinstance(max_depth, bool) or not isinstance(max_depth, int):
@@ -31,6 +33,8 @@ def build_partial_web_group_proof_view(
         raise ValueError("max_depth must be nonnegative")
     if mode not in ("trace", "outline", "narrative"):
         raise ValueError("mode must be trace, outline, or narrative")
+    if narrative_model is not None and not isinstance(narrative_model, ProofNarrativeModel):
+        raise TypeError("narrative_model must be ProofNarrativeModel or None")
 
     n = result.target.sphere_dimension
     dimension = result.target.group_dimension
@@ -54,9 +58,7 @@ def build_partial_web_group_proof_view(
 
     steps = []
     for step in result.proven_steps:
-        statement_latex, fallback_type_name = _group_proof_statement_latex(
-            step.conclusion
-        )
+        statement_latex, fallback_type_name = _group_proof_statement_latex(step.conclusion)
         steps.append(WebGroupProofStepView(
             depth=0,
             statement_latex=statement_latex,
@@ -68,7 +70,11 @@ def build_partial_web_group_proof_view(
     if mode == "trace":
         rendered_lines = ()
     else:
-        markdown = render_partial_proof_markdown(result)
+        if narrative_model is None:
+            markdown = render_partial_proof_markdown(result)
+        else:
+            from phase168_r3_5_model_renderer import render_model_backed_narrative_markdown
+            markdown = render_model_backed_narrative_markdown(result, narrative_model)
         rendered_lines = _build_group_proof_rendered_lines(markdown)
 
     return WebGroupProofView(

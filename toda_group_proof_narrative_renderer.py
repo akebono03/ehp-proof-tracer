@@ -11845,7 +11845,7 @@ def render_toda_group_proof_narrative_markdown(
           + _group(item.domain) + r"/\mathbb{Z}\{"
           + str(item.multiple) + _element(item.source_generator) + r"\}"
         )
-        if "第一同型定理" not in "\n\n".join(paragraphs):
+        if "準同型定理" not in "\n\n".join(paragraphs):
           surjective_index = unique_index("は全射")
           prior_group = _group(item.domain) + " = "
           group_indices = [
