@@ -8,7 +8,7 @@ from expression import Composition, GeneratorSymbol, HomotopyElement
 from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
 from phase165_r3_recursive_search import GoalExpansion
 from phase165_r52_r27_r5_literature import Toda52UniversalStatement
-from proof import InferenceRule, PremisePattern, Relation, RelationType
+from proof import InferenceRule, LiteratureReference, PremisePattern, Relation, RelationType
 
 
 def _eta2_composition_parts(generator: object):
@@ -66,6 +66,9 @@ def _toda52_rule(expected: Relation) -> InferenceRule:
         ),
         conclusion_builder=conclusion,
         match_guard=guard,
+        literature_reference=LiteratureReference(
+            label="Toda (5.2)", locator="(5.2)",
+        ),
     )
 
 

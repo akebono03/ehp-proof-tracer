@@ -34,10 +34,29 @@ def screen_shared_proof_context(
     bridge.registry.assertion(citing_assertion_id)
     accepted = []
     if explicit_publication_target:
-        from dataclasses import is_dataclass
+        from dataclasses import is_dataclass, replace
         from phase166_r3c_publication_order import precedes_citing_assertion
-        from proof import ProofStep
+        from proof import ProofStep, InferenceRule, LiteratureReference
         from unified_statement_registry import AssertionKind, ProofStepLink
+
+        def registered_reference_step(assertion, step):
+            """Retain provenance of an already screened fixed assertion only."""
+            reference = bridge.registry.reference(assertion.reference_id)
+            locator = reference.locator
+            if not isinstance(locator, str) or not locator:
+                return step
+            if step.inference_rule is not None and step.inference_rule.literature_reference is not None:
+                return step
+            return replace(
+                step,
+                inference_rule=InferenceRule(
+                    name="Registered fixed statement: " + locator,
+                    literature_reference=LiteratureReference(
+                        label="Toda " + locator,
+                        locator=locator,
+                    ),
+                ),
+            )
 
         for assertion in bridge.registry._assertions.values():
             if assertion.origin is not AssertionOrigin.FIXED_STATEMENT:
@@ -57,11 +76,11 @@ def screen_shared_proof_context(
                 continue
             accepted.append(ProofStepLink(
                 assertion_id=assertion.assertion_id,
-                step=ProofStep(
+                step=registered_reference_step(assertion, ProofStep(
                     conclusion=assertion.content,
                     premises=(),
                     rule=ProofRule.GIVEN,
-                ),
+                )),
             ))
         # Equivalent copies from the same printed position are one GIVEN,
         # not competing independent mathematical derivations. Preserve a
@@ -89,7 +108,10 @@ def screen_shared_proof_context(
                 and link.step.conclusion == candidate.step.conclusion
             )
             if len(original_links) == 1:
-                candidate = original_links[0]
+                candidate = ProofStepLink(
+                    assertion_id=candidate.assertion_id,
+                    step=registered_reference_step(assertion, original_links[0].step),
+                )
             if identical_index is None:
                 unique.append(candidate)
             else:
