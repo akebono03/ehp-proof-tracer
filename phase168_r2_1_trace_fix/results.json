@@ -1,0 +1,38 @@
+{
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "citing_id": null,
+  "context_id": "shared:0:boundary:(4.5):stable_range_suspension_isomorphism",
+  "full_toda52": [
+    {
+      "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch5:0003",
+      "reference_id": "shared:4:typed_literature:toda:tex:ch5:0003",
+      "publication_position": 7900,
+      "component_position": null,
+      "links": [
+        {
+          "rule": "ProofRule.GIVEN",
+          "matched": true
+        }
+      ]
+    }
+  ],
+  "screened_toda52": [
+    {
+      "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch5:0003",
+      "reference_id": "shared:4:typed_literature:toda:tex:ch5:0003",
+      "publication_position": 7900,
+      "component_position": null,
+      "links": []
+    }
+  ],
+  "screened_given_toda52_count": 0,
+  "raw_transport_count": 1,
+  "screened_transport_count": 0,
+  "screened_root_rules": [
+    "finite cyclic structure gives group relation",
+    "equality symmetry",
+    "finite cyclic structure gives group relation"
+  ],
+  "screened_transport_subgoals": [],
+  "note": "This diagnostic never infers a proof from registered goal data."
+}

@@ -2528,5 +2528,7 @@
   "phase165_r6_14_final_audit/test_audit.py": true,
   "phase165_r6_17_targeted_audit/test_audit.py": true,
   "phase165_r6_18_legacy_contract_retirement/test_apply.py": true,
-  "phase165_r6_19_remaining/test_apply.py": true
+  "phase165_r6_19_remaining/test_apply.py": true,
+  "phase166_r3t_goal_source_binding/test_connection.py::test_pi43_is_not_assigned_pi54_citing_id": true,
+  "phase166_r3t_goal_source_binding/test_connection.py::test_pi32_is_not_assigned_pi54_citing_id": true
 }

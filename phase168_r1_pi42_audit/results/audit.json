@@ -1,0 +1,119 @@
+{
+  "phase": "168-R1",
+  "target": "pi_4^2",
+  "n": 2,
+  "k": 2,
+  "production_modified": false,
+  "full_pytest_executed": false,
+  "interpretation": "Goal data and search proposals are not evidence of a completed proof.",
+  "registry": {
+    "assertion_count": 210,
+    "origin_counts": {
+      "AssertionOrigin.FIXED_STATEMENT": 93,
+      "AssertionOrigin.SOURCE_ARCHIVE": 117
+    },
+    "related": [
+      {
+        "id": "shared:0:boundary:(5.2):eta2_composition_isomorphism",
+        "reference_id": "shared:0:toda:(5.2)",
+        "publication_position": null,
+        "component_position": null,
+        "origin": "AssertionOrigin.FIXED_STATEMENT",
+        "content": "TodaFixedStatementComponent(reference_locator='(5.2)', component_key='eta2_composition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text='i >= 3', range_is_explicit_in_current_aggregate=True)"
+      },
+      {
+        "id": "shared:0:boundary:Proposition 4.4:nu4_decomposition_isomorphism",
+        "reference_id": "shared:0:toda:Proposition 4.4",
+        "publication_position": null,
+        "component_position": null,
+        "origin": "AssertionOrigin.FIXED_STATEMENT",
+        "content": "TodaFixedStatementComponent(reference_locator='Proposition 4.4', component_key='nu4_decomposition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text=None, range_is_explicit_in_current_aggregate=True)"
+      },
+      {
+        "id": "shared:0:phase163:archive:toda:tex:ch4:0010",
+        "reference_id": "shared:0:phase163:archive:toda:Proposition 4.4",
+        "publication_position": null,
+        "component_position": null,
+        "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+        "content": "{'source_statement_id': 'toda:tex:ch4:0010', 'source_text': '\\\\begin{proposition}\\\\label{prop:4.4}\\n% Prop4.4.\\\\\\n$\\\\alpha\\\\in\\\\pit{2n-1}{n}$ で $H(\\\\alpha)=\\\\pm\\\\iota_{2n-1}$ とする. \\nこのとき,\\\\\\\\\\n\\\\(\\n\\\\pit{i-1}{n-1}\\\\oplus\\\\pit{i}{2n-1}\\\\to\\\\pit{i}{n},\\\\quad\\n(\\\\beta,\\\\gamma) \\\\longmapsto E\\\\beta + \\\\alpha\\\\circ\\\\gamma\\n\\\\)\\nは, 任意の \\\\(i\\\\) で同型である. \\\\\\\\\\n特に, \\n\\\\(\\nE:\\\\pit{i-1}{n-1}\\\\to \\\\pit{i}{n}\\n\\\\)\\nは, 任意の \\\\(i\\\\) で単射である. \\n\\\\end{proposition}', 'source_sha256': '5a98acdac4748472b3007f10ae8ff13b3530dcb24ea4757d3929aa6e72a00d73', 'source_chapter': 4, 'source_position': 7300, 'proof_eligible': False}"
+      },
+      {
+        "id": "shared:0:phase163:archive:toda:tex:ch5:0003",
+        "reference_id": "shared:0:phase163:archive:toda:(5.2)",
+        "publication_position": null,
+        "component_position": null,
+        "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+        "content": "{'source_statement_id': 'toda:tex:ch5:0003', 'source_text': '\\\\begin{equation}\\\\label{eq:5.2}\\n% (5.2).\\\\\\n\\\\text{合成 } \\\\alpha\\\\longmapsto \\\\eta_2\\\\circ \\\\alpha \\\\text{ は, 同型 } \\n\\\\pi^{3}_{i}\\\\xrightarrow{\\\\cong}\\\\pi^{2}_{i}\\\\ (i\\\\ge3) \\n\\\\text{ を定める. }\\n\\\\end{equation}', 'source_sha256': '7f82293d6787d78f0ab075d7a93ae10710295bfe08487831f060ac6d1835d024', 'source_chapter': 5, 'source_position': 7900, 'proof_eligible': False}"
+      },
+      {
+        "id": "shared:0:phase163:archive:toda:tex:ch5:0004",
+        "reference_id": "shared:0:phase163:archive:toda:Lemma 5.2",
+        "publication_position": null,
+        "component_position": null,
+        "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+        "content": "{'source_statement_id': 'toda:tex:ch5:0004', 'source_text': '\\\\begin{lemma}\\\\label{lem:5.2}\\n% \\\\noindent\\n% \\\\textbf{Lem5.2.}\\\\\\n\\\\(\\\\alpha\\\\in\\\\pi_{i}(S^{3})\\\\) に対し,\\n\\\\(2\\\\alpha=0\\\\) と仮定する. \\\\\\\\\\nこのとき,\\n\\\\(\\\\todai[1]{\\\\eta_3,\\\\,2\\\\iota_4,\\\\,E\\\\alpha}\\\\) \\nの任意の元 \\\\(\\\\beta\\\\) に対して,\\n\\\\[\\nH(\\\\beta)=E^{2}\\\\alpha,\\\\qquad\\n2\\\\beta=\\\\eta_3\\\\circ E\\\\alpha\\\\circ \\\\eta_{i+1}\\n\\\\]\\nが成り立つ. そのような \\\\(\\\\beta\\\\) は,\\n\\\\(\\\\pi^{3}_{i+2}\\\\) に属し, \\\\(\\\\Delta(E^{2}\\\\alpha)=0\\\\) である. \\n\\\\end{lemma}', 'source_sha256': '228252ff09fbaccabeb8304a701ff14e5800189cc88d565ffd53933a7b116196', 'source_chapter': 5, 'source_position': 8000, 'proof_eligible': False}"
+      }
+    ]
+  },
+  "proof_links": {
+    "count": 20,
+    "related": []
+  },
+  "database_goal": {
+    "count": 1,
+    "candidates": [
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_2^2', dimension=2, source=4, target=2, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ]
+  },
+  "structured_goal": {
+    "count": 1,
+    "candidates": [
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ]
+  },
+  "selected_goal": {
+    "count": 1,
+    "candidates": [
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ]
+  },
+  "pi43_goal": {
+    "count": 1,
+    "candidates": [
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ]
+  },
+  "active_search": {
+    "status": "ProofSearchStatus.SEARCH_FAILED",
+    "structure_status": "GroupStructureStatus.UNKNOWN",
+    "conclusion": "None",
+    "proven_count": 0,
+    "proven_steps": [],
+    "open_goals": [
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), order=2)",
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ],
+    "references": []
+  },
+  "root_expansions": {
+    "count": 3,
+    "items": [
+      {
+        "rule": "InferenceRule(name='finite cyclic structure gives group relation', description='If a group has a proven positive finite cyclic order and generator, identify it with the corresponding FiniteCyclicGroup.', premise_patterns=(PremisePattern(proof_rule=None, statement_type=<class 'phase165_r12_r2_quotient_rules.CyclicStructureStatement'>, statement_pattern=CyclicStructureStatement(group=PatternVariable(name='group'), generator=PatternVariable(name='generator'), order=PatternVariable(name='order')), relation_type=None, relation_pattern=None),), conclusion_builder=None, conclusion_pattern=Relation(lhs=PatternVariable(name='group'), rhs=FiniteCyclicGroup(order=PatternVariable(name='order'), generator=PatternVariable(name='generator')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), match_guard=None, literature_reference=None)",
+        "premises": []
+      },
+      {
+        "rule": "InferenceRule(name='equality symmetry', description='If one expression is equal to another expression, the reverse equality also holds.', premise_patterns=(PremisePattern(proof_rule=None, statement_type=<class 'proof.Relation'>, statement_pattern=None, relation_type=<RelationType.EQUALITY: 'equality'>, relation_pattern=Relation(lhs=PatternVariable(name='left_expression'), rhs=PatternVariable(name='right_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)),), conclusion_builder=None, conclusion_pattern=Relation(lhs=PatternVariable(name='right_expression'), rhs=PatternVariable(name='left_expression'), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), match_guard=None, literature_reference=None)",
+        "premises": []
+      },
+      {
+        "rule": "InferenceRule(name='finite cyclic structure gives group relation', description='If a group has a proven positive finite cyclic order and generator, identify it with the corresponding FiniteCyclicGroup.', premise_patterns=(PremisePattern(proof_rule=None, statement_type=<class 'phase165_r12_r2_quotient_rules.CyclicStructureStatement'>, statement_pattern=CyclicStructureStatement(group=PatternVariable(name='group'), generator=PatternVariable(name='generator'), order=PatternVariable(name='order')), relation_type=None, relation_pattern=None),), conclusion_builder=None, conclusion_pattern=Relation(lhs=PatternVariable(name='group'), rhs=FiniteCyclicGroup(order=PatternVariable(name='order'), generator=PatternVariable(name='generator')), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), match_guard=None, literature_reference=None)",
+        "premises": []
+      }
+    ]
+  }
+}

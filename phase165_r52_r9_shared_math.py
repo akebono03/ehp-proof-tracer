@@ -217,6 +217,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
+        from phase168_r2_toda52_transport import expand_toda52_finite_cyclic_goal
+        options.extend(expand_toda52_finite_cyclic_goal(goal, tuple(available)))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
         options.extend(expand_cited_eta_generator(goal))
