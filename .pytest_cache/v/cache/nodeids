@@ -2151,6 +2151,8 @@
   "phase168_r1_pi42_audit/tests/test_audit.py::test_result_report_does_not_invent_completion",
   "phase168_r2_11_proof_tree_reference_audit/tests/test_audit.py::test_entry_records_preserves_reference_identity",
   "phase168_r2_11_proof_tree_reference_audit/tests/test_audit.py::test_stage_output_extraction_keeps_empty_reference_set",
+  "phase168_r2_12_active_route_audit/tests/test_audit.py::test_safe_repr",
+  "phase168_r2_12_active_route_audit/tests/test_audit.py::test_step_record_minimal",
   "phase168_r2_4_nk_citation_binding/test_binding.py::test_ambiguous_positioned_claims_do_not_select_first",
   "phase168_r2_4_nk_citation_binding/test_binding.py::test_dimension_and_group_content_find_positioned_claim",
   "phase168_r2_4_nk_citation_binding/test_binding.py::test_existing_pi54_citation_binding_is_preserved",

@@ -1,0 +1,122 @@
+{
+  "audit": "phase168_r2_12",
+  "target": "pi_4^2",
+  "call": "build_standard_web_group_proof_view(2,2,2,\"narrative\")",
+  "events": [
+    {
+      "stage": "SEARCH_RESULT",
+      "status": "ProofSearchStatus.COMPLETE",
+      "steps": 3,
+      "references": []
+    },
+    {
+      "stage": "PRESENTATION",
+      "nodes": 3,
+      "root": 2260786606336
+    },
+    {
+      "stage": "NARRATIVE_ENTRY",
+      "root": 2260786606336
+    }
+  ],
+  "web": {
+    "key": "generic-complete-proof",
+    "rendered_lines": [
+      {
+        "kind": "text",
+        "prefix": "まず, ",
+        "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+        "suffix": "を用いる."
+      },
+      {
+        "kind": "text",
+        "prefix": "さらに, 補助結果を用いる.",
+        "statement_latex": null,
+        "suffix": ""
+      },
+      {
+        "kind": "text",
+        "prefix": "したがって, ",
+        "statement_latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+        "suffix": "を得る."
+      },
+      {
+        "kind": "text",
+        "prefix": "",
+        "statement_latex": "\\square",
+        "suffix": ""
+      }
+    ]
+  },
+  "result": {
+    "status": "ProofSearchStatus.COMPLETE",
+    "references": [],
+    "proven_steps": [
+      {
+        "identity": 2260779263328,
+        "rule": "ProofRule.GIVEN",
+        "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "inference_rule": "Registered fixed statement: Proposition 5.1",
+        "reference": "LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1')",
+        "premise_ids": []
+      },
+      {
+        "identity": 2260778973744,
+        "rule": "ProofRule.GIVEN",
+        "conclusion": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+        "inference_rule": "Registered fixed statement: (5.2)",
+        "reference": "LiteratureReference(label='Toda (5.2)', author=None, title=None, year=None, locator='(5.2)')",
+        "premise_ids": []
+      },
+      {
+        "identity": 2260786606336,
+        "rule": "ProofRule.INFERENCE",
+        "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "inference_rule": "Toda (5.2) finite-cyclic eta2 composition transport",
+        "reference": "LiteratureReference(label='Toda (5.2)', author=None, title=None, year=None, locator='(5.2)')",
+        "premise_ids": [
+          2260779263328,
+          2260778973744
+        ]
+      }
+    ],
+    "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  },
+  "presentation": {
+    "root_id": 2260786606336,
+    "nodes": [
+      {
+        "identity": 2260786606336,
+        "rule": "ProofRule.INFERENCE",
+        "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "inference_rule": "Toda (5.2) finite-cyclic eta2 composition transport",
+        "reference": "LiteratureReference(label='Toda (5.2)', author=None, title=None, year=None, locator='(5.2)')",
+        "premise_ids": [
+          2260779263328,
+          2260778973744
+        ]
+      },
+      {
+        "identity": 2260779263328,
+        "rule": "ProofRule.GIVEN",
+        "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "inference_rule": "Registered fixed statement: Proposition 5.1",
+        "reference": "LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1')",
+        "premise_ids": []
+      },
+      {
+        "identity": 2260778973744,
+        "rule": "ProofRule.GIVEN",
+        "conclusion": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+        "inference_rule": "Registered fixed statement: (5.2)",
+        "reference": "LiteratureReference(label='Toda (5.2)', author=None, title=None, year=None, locator='(5.2)')",
+        "premise_ids": []
+      }
+    ]
+  },
+  "limitations": [
+    "read-only monkey patches in current process",
+    "does not establish correctness of mathematical proof",
+    "runtime captures only the recorded entry points"
+  ]
+}
