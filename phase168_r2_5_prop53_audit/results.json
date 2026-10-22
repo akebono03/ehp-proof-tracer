@@ -1,0 +1,94 @@
+{
+  "goal_count": 1,
+  "goals": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "proposition53_assertions": [
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+      "locator": "Proposition 5.3",
+      "publication_position": 8200,
+      "component_position": 100,
+      "origin": "AssertionOrigin.FIXED_STATEMENT",
+      "content_type": "TodaFixedStatementComponent",
+      "content": "TodaFixedStatementComponent(reference_locator='Proposition 5.3', component_key='pi4_2_group_relation', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=1, range_text=None, range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+      "locator": "Proposition 5.3",
+      "publication_position": 8200,
+      "component_position": 200,
+      "origin": "AssertionOrigin.FIXED_STATEMENT",
+      "content_type": "TodaFixedStatementComponent",
+      "content": "TodaFixedStatementComponent(reference_locator='Proposition 5.3', component_key='pi5_3_group_relation', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=2, range_text=None, range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+      "locator": "Proposition 5.3",
+      "publication_position": 8200,
+      "component_position": 300,
+      "origin": "AssertionOrigin.FIXED_STATEMENT",
+      "content_type": "TodaFixedStatementComponent",
+      "content": "TodaFixedStatementComponent(reference_locator='Proposition 5.3', component_key='pi6_4_group_relation', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=3, range_text=None, range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+      "locator": "Proposition 5.3",
+      "publication_position": 8200,
+      "component_position": 400,
+      "origin": "AssertionOrigin.FIXED_STATEMENT",
+      "content_type": "TodaFixedStatementComponent",
+      "content": "TodaFixedStatementComponent(reference_locator='Proposition 5.3', component_key='higher_eta_squared_group_relation', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=4, range_text='n >= 5', range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0006",
+      "locator": "Proposition 5.3",
+      "publication_position": 8200,
+      "component_position": null,
+      "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+      "content_type": "dict",
+      "content": "{'source_statement_id': 'toda:tex:ch5:0006', 'source_text': '\\\\begin{proposition}\\\\label{prop:5.3}\\n% Prop5.3.\\\\\\n\\\\(\\\\pi^{n}_{n+2}=\\\\gen{\\\\eta_n^{2}}\\\\cong \\\\mathbb Z_2\\\\ (n\\\\ge2).\\\\) \\\\\\n\\\\((G_2;2)=\\\\gen{\\\\eta^{2}}\\\\cong \\\\mathbb Z_2 .\\\\)\\n\\\\end{proposition}', 'source_sha256': '80ca62057a30983c0105488966ca52c1976c88d5f6969f7ae2b6cf0030238d2f', 'source_chapter': 5, 'source_position': 8200, 'proof_eligible': False}"
+    }
+  ],
+  "toda52_assertions": [
+    {
+      "assertion_id": "shared:0:boundary:(5.2):eta2_composition_isomorphism",
+      "locator": "(5.2)",
+      "publication_position": 7900,
+      "component_position": null,
+      "origin": "AssertionOrigin.FIXED_STATEMENT",
+      "content_type": "TodaFixedStatementComponent",
+      "content": "TodaFixedStatementComponent(reference_locator='(5.2)', component_key='eta2_composition_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text='i >= 3', range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0003",
+      "locator": "(5.2)",
+      "publication_position": 7900,
+      "component_position": null,
+      "origin": "AssertionOrigin.SOURCE_ARCHIVE",
+      "content_type": "dict",
+      "content": "{'source_statement_id': 'toda:tex:ch5:0003', 'source_text': '\\\\begin{equation}\\\\label{eq:5.2}\\n% (5.2).\\\\\\n\\\\text{合成 } \\\\alpha\\\\longmapsto \\\\eta_2\\\\circ \\\\alpha \\\\text{ は, 同型 } \\n\\\\pi^{3}_{i}\\\\xrightarrow{\\\\cong}\\\\pi^{2}_{i}\\\\ (i\\\\ge3) \\n\\\\text{ を定める. }\\n\\\\end{equation}', 'source_sha256': '7f82293d6787d78f0ab075d7a93ae10710295bfe08487831f060ac6d1835d024', 'source_chapter': 5, 'source_position': 7900, 'proof_eligible': False}"
+    },
+    {
+      "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch5:0003",
+      "locator": "(5.2)",
+      "publication_position": 7900,
+      "component_position": null,
+      "origin": "AssertionOrigin.FIXED_STATEMENT",
+      "content_type": "Toda52UniversalStatement",
+      "content": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)"
+    }
+  ],
+  "citing_assertion_id": null,
+  "search_attempted": true,
+  "search_status": "ProofSearchStatus.SEARCH_FAILED",
+  "proven_count": 0,
+  "open_goals": [
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), order=2)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ]
+}
