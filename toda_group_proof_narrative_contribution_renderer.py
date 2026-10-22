@@ -2630,62 +2630,64 @@ def link_toda_group_proof_narrative_reference_body_consumers(
   )
   lines = body_markdown.splitlines()
 
-  # Typed specialization uses the same citation route as any direct
-  # reference application. The general statement stays in Reference.
+  # Connect already-derived, single-premise proof steps to their cited
+  # literature premises. Do not repeat specialization or inspect rule names.
   from proof import ProofRule
-  from phase165_r57_r20_general_specialization import (
-    specialize_typed_statement,
-  )
 
   for reference_number, source_steps in source_steps_by_number.items():
     marker = "[R" + str(reference_number) + "]"
-    specialized_lines = []
-    for source_step in source_steps:
-      if source_step.rule is not ProofRule.GIVEN:
+    source_ids = {
+      id(step)
+      for step in source_steps
+      if step.rule is ProofRule.GIVEN
+    }
+    consumers = []
+    for edge in presentation.edges:
+      if id(edge.premise_step) not in source_ids:
         continue
-      for edge in presentation.edges:
-        if edge.premise_step is not source_step:
-          continue
-        derived_step = edge.parent_step
-        if derived_step.rule is not ProofRule.INFERENCE:
-          continue
-        if specialize_typed_statement(
-          source_step.conclusion,
-          derived_step.conclusion,
-        ) is None:
-          continue
-        derived_line = _render_generic_narrative_step(derived_step)
-        if not derived_line:
-          continue
-        indexes = tuple(
-          i for i, line in enumerate(lines)
-          if line.strip().rstrip(".") in (
-            derived_line.strip().rstrip("."),
-            "これより, " + derived_line.strip().rstrip("."),
-          )
+      derived_step = edge.parent_step
+      if derived_step.rule is not ProofRule.INFERENCE:
+        continue
+      if (
+        len(derived_step.premises) != 1
+        or derived_step.premises[0] is not edge.premise_step
+      ):
+        continue
+      derived_line = _render_generic_narrative_step(derived_step)
+      if not derived_line:
+        continue
+      candidates = tuple(
+        i for i, line in enumerate(lines)
+        if line.strip().rstrip(".。") in (
+          derived_line.strip().rstrip(".。"),
+          "これより, " + derived_line.strip().rstrip(".。"),
+          "これより、" + derived_line.strip().rstrip(".。"),
         )
-        if len(indexes) == 1:
-          specialized_lines.append((indexes[0], derived_line.strip()))
-    specialized_lines = list(dict.fromkeys(specialized_lines))
-    if len(specialized_lines) != 1:
+      )
+      if len(candidates) == 1:
+        consumers.append((candidates[0], derived_line.strip()))
+    consumers = list(dict.fromkeys(consumers))
+    if len(consumers) != 1:
       continue
-    index, derived_line = specialized_lines[0]
-    # The source is not rendered in the proof by the insertion path.
-    # Leave all other, potentially explanatory, paragraphs untouched.
+    index, derived_line = consumers[0]
     source_formulas = {
-      _render_generic_narrative_step(step).strip().rstrip(".")
+      _render_generic_narrative_step(step).strip().rstrip(".。")
       for step in source_steps
       if _render_generic_narrative_step(step)
     }
     for old_index in range(len(lines) - 1, -1, -1):
       if old_index == index:
         continue
-      line = lines[old_index].strip().rstrip(".")
-      if any(line == marker + "より, " + formula for formula in source_formulas):
+      stripped = lines[old_index].strip().rstrip(".。")
+      if any(
+        stripped == marker + "より, " + formula
+        or stripped == marker + "より、" + formula
+        for formula in source_formulas
+      ):
         del lines[old_index]
         if old_index < index:
           index -= 1
-    lines[index] = marker + "より, " + derived_line.rstrip(".") + "."
+    lines[index] = marker + "より, " + derived_line.rstrip(".。") + "."
 
   for reference_number, source_steps in (
     source_steps_by_number.items()
