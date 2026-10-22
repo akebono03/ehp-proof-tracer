@@ -2122,6 +2122,8 @@
   "phase167_r4_4_order_audit/test_order_audit.py::test_representative_groups_render",
   "phase167_r4_5_latex_audit/test_audit.py::test_balanced_latex_examples",
   "phase167_r4_5_latex_audit/test_audit.py::test_unbalanced_latex_is_detected",
+  "phase167_r4_6_specialization_route_audit/test_audit.py::test_existing_specialization_and_order_functions_present",
+  "phase167_r4_6_specialization_route_audit/test_audit.py::test_focus_selects_reference_and_diagonal_lines",
   "phase167_r4_remove_obsolete_renderer_testfix/test_r4_remove_renderer.py::test_completed_adapter_has_single_public_renderer",
   "phase167_r4_remove_obsolete_renderer_testfix/test_r4_remove_renderer.py::test_obsolete_renderer_is_removed_but_shared_ancestry_remains",
   "phase167_r4_remove_obsolete_renderer_testfix/test_r4_remove_renderer.py::test_stable_first_stem_capture_matches_baseline",

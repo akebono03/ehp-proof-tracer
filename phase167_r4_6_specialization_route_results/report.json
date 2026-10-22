@@ -1,0 +1,395 @@
+{
+  "source_functions": {
+    "toda_group_proof_narrative_renderer.py": {
+      "_phase159_r1_6d_toda_51_diagonal_specialization_lines": {
+        "start_line": 8263,
+        "end_line": 8422,
+        "has_reference_51": true
+      },
+      "_phase159_r1_6d_finalize_reference_and_linkage": {
+        "start_line": 8425,
+        "end_line": 8496,
+        "has_reference_51": false
+      }
+    },
+    "toda_group_proof_narrative_contribution_renderer.py": {
+      "order_toda_group_proof_narrative_visible_step_dependencies": {
+        "start_line": 4705,
+        "end_line": 5110,
+        "has_reference_51": false
+      },
+      "order_toda_group_proof_narrative_visible_relation_dependencies": {
+        "start_line": 5112,
+        "end_line": 5273,
+        "has_reference_51": false
+      },
+      "render_toda_group_proof_narrative_multi_argument_with_contributions_markdown": {
+        "start_line": 10315,
+        "end_line": 10800,
+        "has_reference_51": false
+      }
+    }
+  },
+  "group_comparison": [
+    {
+      "target": "pi3_2",
+      "key": "generic-complete-proof",
+      "focus_lines": [
+        {
+          "index": 4,
+          "kind": "text",
+          "prefix": "**[R1] (5.1).**",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "strong",
+              "value": "[R1] (5.1)."
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "kind": "text",
+          "prefix": "",
+          "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1)",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1)"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 12,
+          "kind": "text",
+          "prefix": "",
+          "statement_latex": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.",
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "display_math",
+              "value": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}."
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "kind": "text",
+          "prefix": "[R1]より, ",
+          "statement_latex": "\\pi_{2}^{1} = 0",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R1]より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{2}^{1} = 0"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 14,
+          "kind": "text",
+          "prefix": "完全性より, ",
+          "statement_latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}",
+          "suffix": " は単射.",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "完全性より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}"
+            },
+            {
+              "kind": "text",
+              "value": " は単射."
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "kind": "text",
+          "prefix": "[R1]より, ",
+          "statement_latex": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R1]より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "kind": "text",
+          "prefix": "[R1]より, ",
+          "statement_latex": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R1]より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "kind": "text",
+          "prefix": "これより, ",
+          "statement_latex": "E: \\pi_{1}^{1} \\to \\pi_{2}^{2}",
+          "suffix": " は同型.",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "これより, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "E: \\pi_{1}^{1} \\to \\pi_{2}^{2}"
+            },
+            {
+              "kind": "text",
+              "value": " は同型."
+            }
+          ]
+        },
+        {
+          "index": 19,
+          "kind": "text",
+          "prefix": "完全性より, ",
+          "statement_latex": "\\operatorname{Im}Δ=\\ker E=0",
+          "suffix": " なので, $\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}$ は零写像.",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "完全性より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\operatorname{Im}Δ=\\ker E=0"
+            },
+            {
+              "kind": "text",
+              "value": " なので, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1}"
+            },
+            {
+              "kind": "text",
+              "value": " は零写像."
+            }
+          ]
+        },
+        {
+          "index": 20,
+          "kind": "text",
+          "prefix": "完全性より, ",
+          "statement_latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}",
+          "suffix": " は全射.",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "完全性より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}"
+            },
+            {
+              "kind": "text",
+              "value": " は全射."
+            }
+          ]
+        },
+        {
+          "index": 21,
+          "kind": "text",
+          "prefix": "単射性と全射性より, ",
+          "statement_latex": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}",
+          "suffix": " は同型.",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "単射性と全射性より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "H: \\pi_{3}^{2} \\to \\pi_{3}^{3}"
+            },
+            {
+              "kind": "text",
+              "value": " は同型."
+            }
+          ]
+        },
+        {
+          "index": 22,
+          "kind": "text",
+          "prefix": "[R1]より, ",
+          "statement_latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R1]より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        }
+      ],
+      "count": 25
+    },
+    {
+      "target": "pi4_3",
+      "key": "generic-complete-proof",
+      "focus_lines": [
+        {
+          "index": 4,
+          "kind": "text",
+          "prefix": "**[R1] (5.1).**",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "strong",
+              "value": "[R1] (5.1)."
+            }
+          ]
+        },
+        {
+          "index": 6,
+          "kind": "text",
+          "prefix": "",
+          "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1)",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1)"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 13,
+          "kind": "text",
+          "prefix": "",
+          "statement_latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.",
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "display_math",
+              "value": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}."
+            }
+          ]
+        },
+        {
+          "index": 15,
+          "kind": "text",
+          "prefix": "[R1]より, ",
+          "statement_latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R1]より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 16,
+          "kind": "text",
+          "prefix": "これより, ",
+          "statement_latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "これより, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "index": 18,
+          "kind": "text",
+          "prefix": "これより, ",
+          "statement_latex": "\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "これより, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        }
+      ],
+      "count": 25
+    }
+  ]
+}
