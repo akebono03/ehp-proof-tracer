@@ -1,0 +1,11 @@
+{
+  "phase": 167,
+  "status": "DOCUMENTATION_UPDATED",
+  "scope": "1-stem n=2..31, k=1",
+  "audit": "30 complete, 0 findings",
+  "pytest": "3543 passed in 25.68s, 0 failed, 0 errors; 2 retired legacy files ignored",
+  "backup": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase167_documentation_closure_output\\20261022T060657Z\\backup_full_documents",
+  "full_documents": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase167_documentation_closure_output\\20261022T060657Z\\updated_full_documents",
+  "tests_run_by_this_script": false,
+  "phase168_status": "planned, not started"
+}
