@@ -1,0 +1,44 @@
+def _toda52_rule(expected: Relation) -> InferenceRule:
+    def guard(premises, bindings):
+        if len(premises) != 2:
+            return False
+        source, theorem = (step.conclusion for step in premises)
+        if not isinstance(theorem, Toda52UniversalStatement):
+            return False
+        if (theorem.minimum_i != 3 or theorem.variable != "i"
+                or theorem.map_formula != "alpha -> eta_2 o alpha"
+                or theorem.source_group != "pi_i^3" or theorem.target_group != "pi_i^2"):
+            return False
+        if (not isinstance(source, Relation)
+                or source.relation_type is not RelationType.EQUALITY
+                or source.lhs != TodaPrimaryGroup(4, 3)
+                or not isinstance(source.rhs, FiniteCyclicGroup)
+                or source.rhs.order != 2):
+            return False
+        parts = _eta2_composition_parts(expected.rhs.generator)
+        if parts is None:
+            return False
+        eta3 = source.rhs.generator
+        return (isinstance(eta3, HomotopyElement)
+                and eta3.dimension == parts.dimension
+                and eta3.source == parts.source
+                and eta3.target == parts.target
+                and eta3.generator == parts.generator
+                and expected.lhs == TodaPrimaryGroup(4, 2))
+
+    def conclusion(premises):
+        return expected
+
+    return InferenceRule(
+        name="Toda (5.2) finite-cyclic eta2 composition transport",
+        description="Transport a proved cyclic structure along the cited (5.2) isomorphism at i=4.",
+        premise_patterns=(
+            PremisePattern(statement_type=Relation, relation_type=RelationType.EQUALITY),
+            PremisePattern(statement_type=Toda52UniversalStatement),
+        ),
+        conclusion_builder=conclusion,
+        match_guard=guard,
+        literature_reference=LiteratureReference(
+            label="Toda (5.2)", locator="(5.2)",
+        ),
+    )

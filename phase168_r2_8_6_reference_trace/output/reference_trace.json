@@ -1,0 +1,120 @@
+{
+  "audit": "phase168-r2-8-6",
+  "read_only": true,
+  "production_code_modified": false,
+  "goal_count": 1,
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+  "search_status": "complete",
+  "result_references": [],
+  "proven_steps": [
+    {
+      "rule": "given",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_count": 0,
+      "inference_rule_name": "Registered fixed statement: Proposition 5.1",
+      "inference_literature_locator": "Proposition 5.1",
+      "extracted_locator": "Proposition 5.1",
+      "extracted_label": "Toda Proposition 5.1"
+    },
+    {
+      "rule": "given",
+      "conclusion": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+      "premise_count": 0,
+      "inference_rule_name": "Registered fixed statement: (5.2)",
+      "inference_literature_locator": "(5.2)",
+      "extracted_locator": "(5.2)",
+      "extracted_label": "Toda (5.2)"
+    },
+    {
+      "rule": "inference",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_count": 2,
+      "inference_rule_name": "Toda (5.2) finite-cyclic eta2 composition transport",
+      "inference_literature_locator": "(5.2)",
+      "extracted_locator": "(5.2)",
+      "extracted_label": "Toda (5.2)"
+    }
+  ],
+  "completed": true,
+  "root_count": 1,
+  "root": {
+    "rule": "inference",
+    "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "premise_count": 2,
+    "inference_rule_name": "Toda (5.2) finite-cyclic eta2 composition transport",
+    "inference_literature_locator": "(5.2)",
+    "extracted_locator": "(5.2)",
+    "extracted_label": "Toda (5.2)"
+  },
+  "replay_steps": [
+    {
+      "depth": 0,
+      "rule": "inference",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_count": 2,
+      "inference_rule_name": "Toda (5.2) finite-cyclic eta2 composition transport",
+      "inference_literature_locator": "(5.2)",
+      "extracted_locator": "(5.2)",
+      "extracted_label": "Toda (5.2)"
+    },
+    {
+      "depth": 1,
+      "rule": "given",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_count": 0,
+      "inference_rule_name": "Registered fixed statement: Proposition 5.1",
+      "inference_literature_locator": "Proposition 5.1",
+      "extracted_locator": "Proposition 5.1",
+      "extracted_label": "Toda Proposition 5.1"
+    },
+    {
+      "depth": 1,
+      "rule": "given",
+      "conclusion": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+      "premise_count": 0,
+      "inference_rule_name": "Registered fixed statement: (5.2)",
+      "inference_literature_locator": "(5.2)",
+      "extracted_locator": "(5.2)",
+      "extracted_label": "Toda (5.2)"
+    }
+  ],
+  "presentation_edge_count": 2,
+  "raw_reference_entries": [
+    {
+      "number": 1,
+      "locator": "(5.2)",
+      "step_count": 2,
+      "conclusions": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)"
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "step_count": 1,
+      "conclusions": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "fixed_boundary_entries": [
+    {
+      "number": 1,
+      "locator": "(5.2)",
+      "step_count": 1,
+      "conclusions": [
+        "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)"
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "step_count": 1,
+      "conclusions": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "rendered_markdown": "# Group proof narrative\n\nまず, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$を用いる.\nさらに, 補助結果を用いる.\n\nしたがって, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$を得る.\n\n$\\square$"
+}

@@ -1,0 +1,73 @@
+{
+  "audit": "phase168-r2-8-8",
+  "read_only": true,
+  "search_status": "complete",
+  "raw_entries": [
+    {
+      "number": 1,
+      "locator": "(5.2)",
+      "label": "Toda (5.2)",
+      "step_ids": [
+        2952937211744,
+        2952937574112
+      ],
+      "used": null
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "label": "Toda Proposition 5.1",
+      "step_ids": [
+        2952936799104
+      ],
+      "used": null
+    }
+  ],
+  "fixed_entries": [
+    {
+      "number": 1,
+      "locator": "(5.2)",
+      "label": "Toda (5.2)",
+      "step_ids": [
+        2952937574112
+      ],
+      "used": null
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "label": "Toda Proposition 5.1",
+      "step_ids": [
+        2952936799104
+      ],
+      "used": null
+    }
+  ],
+  "root_excluded_entries": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.1",
+      "label": "Toda Proposition 5.1",
+      "step_ids": [
+        2952936799104
+      ],
+      "used": null
+    }
+  ],
+  "premise_used_entries": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.1",
+      "label": "Toda Proposition 5.1",
+      "step_ids": [
+        2952936799104
+      ],
+      "used": true
+    }
+  ],
+  "empty_used_entries": [],
+  "note": "Synthetic premise/empty usage comparisons; actual internal generic_used_step_ids are not instrumented.",
+  "rendered_markdown": "# Group proof narrative\n\nまず, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$を用いる.\nさらに, 補助結果を用いる.\n\nしたがって, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$を得る.\n\n$\\square$",
+  "render_has_marker": false,
+  "render_has_reference_section": false
+}
