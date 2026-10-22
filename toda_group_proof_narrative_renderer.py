@@ -11856,7 +11856,7 @@ def render_toda_group_proof_narrative_markdown(
             raise ValueError("R2: cannot locate earlier group after surjectivity")
           paragraphs.insert(
             group_indices[0] + 1,
-            "全射性と核の決定から, 第一同型定理より $" + formula + "$."
+            "全射性と核の決定から, 準同型定理より $" + formula + "$."
           )
       rendered = "\n\n".join(paragraphs)
   # Hide only labels of typed finite-cyclic quotient deductions.
