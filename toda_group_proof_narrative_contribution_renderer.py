@@ -679,6 +679,27 @@ def _insert_toda_group_proof_narrative_argument_contributions(
     )
   )
 
+  # A cited general statement remains a proof premise and belongs to the
+  # Reference section. Its typed specialization is the visible body step.
+  from proof import ProofRule
+  from phase165_r57_r20_general_specialization import (
+    specialize_typed_statement,
+  )
+
+  specialized_source_ids = {
+    id(source_step)
+    for contributions in ordered_contributions
+    for contribution in contributions
+    for source_step in contribution.proof_step.premises
+    if (
+      source_step.rule is ProofRule.GIVEN
+      and contribution.proof_step.rule is ProofRule.INFERENCE
+      and specialize_typed_statement(
+        source_step.conclusion,
+        contribution.proof_step.conclusion,
+      ) is not None
+    )
+  }
   insertions_by_index = {}
 
   for argument_index, contributions in enumerate(
@@ -687,6 +708,8 @@ def _insert_toda_group_proof_narrative_argument_contributions(
     for contribution_index, contribution in enumerate(
       contributions
     ):
+      if id(contribution.proof_step) in specialized_source_ids:
+        continue
       contribution_line = (
         _render_generic_narrative_step(
           contribution.proof_step
@@ -723,6 +746,15 @@ def _insert_toda_group_proof_narrative_argument_contributions(
           )
         )
       )
+      if any(
+        id(premise) in specialized_source_ids
+        and specialize_typed_statement(
+          premise.conclusion,
+          contribution.proof_step.conclusion,
+        ) is not None
+        for premise in contribution.proof_step.premises
+      ):
+        connector = None
       lines = []
 
       if connector is not None:
@@ -2597,6 +2629,63 @@ def link_toda_group_proof_narrative_reference_body_consumers(
     )
   )
   lines = body_markdown.splitlines()
+
+  # Typed specialization uses the same citation route as any direct
+  # reference application. The general statement stays in Reference.
+  from proof import ProofRule
+  from phase165_r57_r20_general_specialization import (
+    specialize_typed_statement,
+  )
+
+  for reference_number, source_steps in source_steps_by_number.items():
+    marker = "[R" + str(reference_number) + "]"
+    specialized_lines = []
+    for source_step in source_steps:
+      if source_step.rule is not ProofRule.GIVEN:
+        continue
+      for edge in presentation.edges:
+        if edge.premise_step is not source_step:
+          continue
+        derived_step = edge.parent_step
+        if derived_step.rule is not ProofRule.INFERENCE:
+          continue
+        if specialize_typed_statement(
+          source_step.conclusion,
+          derived_step.conclusion,
+        ) is None:
+          continue
+        derived_line = _render_generic_narrative_step(derived_step)
+        if not derived_line:
+          continue
+        indexes = tuple(
+          i for i, line in enumerate(lines)
+          if line.strip().rstrip(".") in (
+            derived_line.strip().rstrip("."),
+            "これより, " + derived_line.strip().rstrip("."),
+          )
+        )
+        if len(indexes) == 1:
+          specialized_lines.append((indexes[0], derived_line.strip()))
+    specialized_lines = list(dict.fromkeys(specialized_lines))
+    if len(specialized_lines) != 1:
+      continue
+    index, derived_line = specialized_lines[0]
+    # The source is not rendered in the proof by the insertion path.
+    # Leave all other, potentially explanatory, paragraphs untouched.
+    source_formulas = {
+      _render_generic_narrative_step(step).strip().rstrip(".")
+      for step in source_steps
+      if _render_generic_narrative_step(step)
+    }
+    for old_index in range(len(lines) - 1, -1, -1):
+      if old_index == index:
+        continue
+      line = lines[old_index].strip().rstrip(".")
+      if any(line == marker + "より, " + formula for formula in source_formulas):
+        del lines[old_index]
+        if old_index < index:
+          index -= 1
+    lines[index] = marker + "より, " + derived_line.rstrip(".") + "."
 
   for reference_number, source_steps in (
     source_steps_by_number.items()

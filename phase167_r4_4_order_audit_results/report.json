@@ -1,0 +1,32 @@
+[
+  {
+    "group": "pi3_2",
+    "line_count": 25,
+    "violations": [],
+    "not_observed": []
+  },
+  {
+    "group": "pi4_3",
+    "line_count": 25,
+    "violations": [],
+    "not_observed": []
+  },
+  {
+    "group": "pi5_4",
+    "line_count": 15,
+    "violations": [],
+    "not_observed": []
+  },
+  {
+    "group": "pi6_5",
+    "line_count": 15,
+    "violations": [],
+    "not_observed": []
+  },
+  {
+    "group": "pi7_6",
+    "line_count": 15,
+    "violations": [],
+    "not_observed": []
+  }
+]

@@ -1,0 +1,233 @@
+[
+  {
+    "line": 1,
+    "kind": "heading",
+    "prefix": "証明対象",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 2,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.",
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "display_math",
+        "value": "\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}."
+      }
+    ]
+  },
+  {
+    "line": 3,
+    "kind": "heading",
+    "prefix": "使用する結果",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 4,
+    "kind": "text",
+    "prefix": "**[R1] (4.5).**",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "strong",
+        "value": "[R1] (4.5)."
+      }
+    ]
+  },
+  {
+    "line": 5,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "n \\ge k + 2",
+    "suffix": " のとき, $E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m}$ は同型.",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "n \\ge k + 2"
+      },
+      {
+        "kind": "text",
+        "value": " のとき, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m}"
+      },
+      {
+        "kind": "text",
+        "value": " は同型."
+      }
+    ]
+  },
+  {
+    "line": 6,
+    "kind": "text",
+    "prefix": "**[R2] Proposition 5.1.**",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "strong",
+        "value": "[R2] Proposition 5.1."
+      }
+    ]
+  },
+  {
+    "line": 7,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 8,
+    "kind": "separator",
+    "prefix": "",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 9,
+    "kind": "heading",
+    "prefix": "証明",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": []
+  },
+  {
+    "line": 10,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "\\pi_{5}^{4}",
+    "suffix": " の群構造を決定する.",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{5}^{4}"
+      },
+      {
+        "kind": "text",
+        "value": " の群構造を決定する."
+      }
+    ]
+  },
+  {
+    "line": 11,
+    "kind": "text",
+    "prefix": "[R2]より, ",
+    "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "[R2]より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 12,
+    "kind": "text",
+    "prefix": "[R1]を ",
+    "statement_latex": "(n,m,k)=(3,4,1)",
+    "suffix": " に適用すると, $E: \\pi_{4}^{3} \\to \\pi_{5}^{4}$ は同型.",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "[R1]を "
+      },
+      {
+        "kind": "inline_math",
+        "value": "(n,m,k)=(3,4,1)"
+      },
+      {
+        "kind": "text",
+        "value": " に適用すると, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "E: \\pi_{4}^{3} \\to \\pi_{5}^{4}"
+      },
+      {
+        "kind": "text",
+        "value": " は同型."
+      }
+    ]
+  },
+  {
+    "line": 13,
+    "kind": "text",
+    "prefix": "",
+    "statement_latex": "E\\eta_{3} = \\eta_{4}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "inline_math",
+        "value": "E\\eta_{3} = \\eta_{4}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 14,
+    "kind": "text",
+    "prefix": "以上より, ",
+    "statement_latex": "\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}",
+    "suffix": ".",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "以上より, "
+      },
+      {
+        "kind": "inline_math",
+        "value": "\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}"
+      },
+      {
+        "kind": "text",
+        "value": "."
+      }
+    ]
+  },
+  {
+    "line": 15,
+    "kind": "text",
+    "prefix": "□",
+    "statement_latex": null,
+    "suffix": "",
+    "segments": [
+      {
+        "kind": "text",
+        "value": "□"
+      }
+    ]
+  }
+]

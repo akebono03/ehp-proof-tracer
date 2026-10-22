@@ -1,0 +1,1 @@
+Phase 167 R4-⑥: Reference に一般命題を保持し、Proof 本文では型付き特殊化結論のみを表示します。変更する既存関数は _insert_toda_group_proof_narrative_argument_contributions と link_toda_group_proof_narrative_reference_body_consumers の2つです。両関数全文を自動出力、修正前バックアップ。新しい群専用分岐なし。4件の限定 pytest。ローカル本番実行未検証。
