@@ -1,0 +1,235 @@
+{
+  "audit": "phase168-r2-8-goal-binding",
+  "production_code_modified": false,
+  "cases": [
+    {
+      "n": 2,
+      "k": 1,
+      "group": "pi_3^2",
+      "expected_locator": "Proposition 5.1",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+      "actual_locator": "Proposition 5.1",
+      "citing_position": [
+        7800,
+        200
+      ],
+      "generated_given_count": 15,
+      "self_conclusion_generated": false,
+      "metadata_given_count": 0,
+      "wrong_locator": false,
+      "status": "OK"
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "group": "pi_4^3",
+      "expected_locator": "Proposition 5.1",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+      "actual_locator": "Proposition 5.1",
+      "citing_position": [
+        7800,
+        500
+      ],
+      "generated_given_count": 18,
+      "self_conclusion_generated": false,
+      "metadata_given_count": 0,
+      "wrong_locator": false,
+      "status": "OK"
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "group": "pi_5^4",
+      "expected_locator": "Proposition 5.1",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "actual_locator": "Proposition 5.1",
+      "citing_position": [
+        7800,
+        600
+      ],
+      "generated_given_count": 19,
+      "self_conclusion_generated": false,
+      "metadata_given_count": 0,
+      "wrong_locator": false,
+      "status": "OK"
+    },
+    {
+      "n": 2,
+      "k": 2,
+      "group": "pi_4^2",
+      "expected_locator": "Proposition 5.3",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 3,
+      "k": 2,
+      "group": "pi_5^3",
+      "expected_locator": "Proposition 5.3",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 4,
+      "k": 2,
+      "group": "pi_6^4",
+      "expected_locator": "Proposition 5.3",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "group": "pi_7^5",
+      "expected_locator": "Proposition 5.3",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 2,
+      "k": 3,
+      "group": "pi_5^2",
+      "expected_locator": "Proposition 5.6",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 3,
+      "k": 3,
+      "group": "pi_6^3",
+      "expected_locator": "Proposition 5.6",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 4,
+      "k": 3,
+      "group": "pi_7^4",
+      "expected_locator": "Proposition 5.6",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=4), rhs=DirectSumGroup(summands=(FreeCyclicGroup(generator=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))), FiniteCyclicGroup(order=4, generator=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 5,
+      "k": 3,
+      "group": "pi_8^5",
+      "expected_locator": "Proposition 5.6",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    },
+    {
+      "n": 6,
+      "k": 3,
+      "group": "pi_9^6",
+      "expected_locator": "Proposition 5.6",
+      "goal_count": 1,
+      "goals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₆', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "citing_assertion_id": null,
+      "actual_locator": null,
+      "citing_position": null,
+      "generated_given_count": null,
+      "self_conclusion_generated": null,
+      "metadata_given_count": null,
+      "wrong_locator": null,
+      "status": "CITING_ID_UNRESOLVED"
+    }
+  ],
+  "status_counts": {
+    "CITING_ID_UNRESOLVED": 9,
+    "OK": 3
+  }
+}
