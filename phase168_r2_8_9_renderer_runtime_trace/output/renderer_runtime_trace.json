@@ -1,0 +1,46 @@
+{
+  "audit": "phase168-r2-8-9",
+  "read_only": true,
+  "production_code_modified": false,
+  "search_status": "complete",
+  "proof_steps": [
+    {
+      "step_id": 2466330824368,
+      "is_root": false,
+      "rule": "given",
+      "conclusion_type": "Relation",
+      "locator": "Proposition 5.1",
+      "premise_ids": []
+    },
+    {
+      "step_id": 2466330831136,
+      "is_root": false,
+      "rule": "given",
+      "conclusion_type": "Toda52UniversalStatement",
+      "locator": "(5.2)",
+      "premise_ids": []
+    },
+    {
+      "step_id": 2466330493952,
+      "is_root": true,
+      "rule": "inference",
+      "conclusion_type": "Relation",
+      "locator": "(5.2)",
+      "premise_ids": [
+        2466330824368,
+        2466330831136
+      ]
+    }
+  ],
+  "events": [
+    {
+      "function": "exclude_toda_group_proof_narrative_root_reference",
+      "entries": [],
+      "filtered_entries": [],
+      "output_entries": []
+    }
+  ],
+  "rendered_markdown": "# Group proof narrative\n\nまず, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$を用いる.\nさらに, 補助結果を用いる.\n\nしたがって, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$を得る.\n\n$\\square$",
+  "render_has_reference_section": false,
+  "render_has_reference_marker": false
+}
