@@ -339,7 +339,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                 proof_use_order=proof_use_order,
                 ordered_completed_proofs=earlier,
                 target_order=order,
-                context_sink=context_sink,
+                context_sink=context_sink if statement == goal else None,
             )
 
         return search_recursively_in_proof_order(
