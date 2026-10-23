@@ -2344,6 +2344,8 @@
   "phase168_r3_37c_toda45_tabfix/tests/test_tex_arrow.py::test_toda45_concrete_arrow_is_literal_latex",
   "phase168_r3_37c_typed_projection/tests/test_reference_projection.py::test_no_source_guessing_for_pi32_pi43",
   "phase168_r3_37c_typed_projection/tests/test_reference_projection.py::test_pi54_reference_and_specific_iso",
+  "phase168_r3_37d_functionname_fix/tests/test_general_reference.py::test_pi32_pi43_general_prop42_reference",
+  "phase168_r3_37d_functionname_fix/tests/test_general_reference.py::test_pi54_general_toda45_reference_and_specialization",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
