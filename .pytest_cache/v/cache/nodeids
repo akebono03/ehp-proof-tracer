@@ -2317,6 +2317,8 @@
   "phase168_r3_31_runtime_route_audit/tests/test_phase168_r3_31_audit.py::test_standard_entry_builds_model_and_calls_model_renderer",
   "phase168_r3_31a_import_path_fix/tests/test_phase168_r3_31_audit.py::test_compatibility_routes_are_explicit_and_accounted_for",
   "phase168_r3_31a_import_path_fix/tests/test_phase168_r3_31_audit.py::test_standard_entry_builds_model_and_calls_model_renderer",
+  "phase168_r3_32_renderer_integrity_audit/tests/test_phase168_r3_32_audit.py::test_audit_code_parses",
+  "phase168_r3_32_renderer_integrity_audit/tests/test_phase168_r3_32_audit.py::test_audit_is_read_only",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
