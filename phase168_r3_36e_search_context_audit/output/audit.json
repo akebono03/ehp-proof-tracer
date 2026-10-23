@@ -1,0 +1,110 @@
+{
+  "mode": "AUDIT_ONLY",
+  "status": "complete",
+  "goal": "pi_5^4",
+  "context_captured_count": 1,
+  "original_link_count": 20,
+  "search_context_link_count": 16,
+  "original_citations": [
+    {
+      "number": 1,
+      "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+      "step_indices": [
+        0
+      ],
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "reference_ids": [
+        "shared:7:adopted:reference:toda5:eta_family_definition"
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "step_indices": [
+        5
+      ],
+      "assertion_ids": [],
+      "reference_ids": []
+    },
+    {
+      "number": 3,
+      "locator": "(4.5)",
+      "step_indices": [
+        6
+      ],
+      "assertion_ids": [],
+      "reference_ids": []
+    }
+  ],
+  "search_context_citations": [
+    {
+      "number": 1,
+      "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+      "step_indices": [
+        0
+      ],
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "reference_ids": [
+        "shared:7:adopted:reference:toda5:eta_family_definition"
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "step_indices": [
+        5
+      ],
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ],
+      "reference_ids": [
+        "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+      ]
+    },
+    {
+      "number": 3,
+      "locator": "(4.5)",
+      "step_indices": [
+        6
+      ],
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+      ],
+      "reference_ids": [
+        "shared:4:typed_literature:toda:tex:ch4:0006"
+      ]
+    }
+  ],
+  "given_step_links": [
+    {
+      "step_index": 0,
+      "step_type": "TodaEtaFamilyGeneralDefinition",
+      "original_exact_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "actual_search_exact_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ]
+    },
+    {
+      "step_index": 5,
+      "step_type": "Relation",
+      "original_exact_ids": [],
+      "actual_search_exact_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ]
+    },
+    {
+      "step_index": 6,
+      "step_type": "Toda45IsomorphismStatement",
+      "original_exact_ids": [],
+      "actual_search_exact_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+      ]
+    }
+  ]
+}

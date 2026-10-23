@@ -2331,6 +2331,8 @@
   "phase168_r3_36c_assertion_origin_audit/tests/test_audit.py::test_given_step_report_shape",
   "phase168_r3_36d_screened_bridge_audit/tests/test_audit.py::test_report_is_observational",
   "phase168_r3_36d_screened_bridge_audit/tests/test_audit.py::test_report_provides_both_link_views",
+  "phase168_r3_36e_search_context_audit/tests/test_audit.py::test_actual_search_context_captured",
+  "phase168_r3_36e_search_context_audit/tests/test_audit.py::test_model_citations_retain_used_step_indices",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
