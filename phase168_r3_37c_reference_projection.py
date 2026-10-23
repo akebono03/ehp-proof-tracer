@@ -11,7 +11,7 @@ def project_reference_bodies(registry, assertion_ids):
     from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
     from toda_rules import Toda45IsomorphismStatement
     from expression import ScalarSymbol, ScalarSum, ScalarProduct
-    from homotopy_groups import TodaIteratedSuspensionMap
+    from homotopy_groups import TodaIteratedSuspensionMap, TodaPrimaryGroupZeroStatement
 
     result = []
     for assertion_id in assertion_ids:
@@ -20,6 +20,10 @@ def project_reference_bodies(registry, assertion_ids):
         if isinstance(statement, TodaEtaFamilyGeneralDefinition):
             if statement.lower_bound == 2:
                 sentence = r"$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する."
+        elif (isinstance(statement, TodaPrimaryGroupZeroStatement)
+              and isinstance(statement.group.group_dimension, ScalarSymbol)
+              and statement.group.sphere_dimension == 1):
+            sentence = r"$\pi_i^1=0\quad(i>1)$."
         elif isinstance(statement, Toda51BelowDiagonalZeroStatement):
             sentence = r"$\pi_i^n=0\quad(i<n)$."
         elif isinstance(statement, TodaProp42GeneralExactnessStatement):

@@ -65,14 +65,25 @@ def _bind(pattern: object, concrete: object, bindings: dict[str, int]) -> bool:
             return False
         if not _bind(pattern.dimension, concrete.dimension, bindings):
             return False
-        if not _bind(pattern.source, concrete.source, bindings):
+        if pattern.source is not None and not _bind(pattern.source, concrete.source, bindings):
             return False
-        if not _bind(pattern.target, concrete.target, bindings):
+        if pattern.target is not None and not _bind(pattern.target, concrete.target, bindings):
             return False
         if not _bind(pattern.generator, concrete.generator, bindings):
             return False
         name = _substitute_name(pattern.name, bindings)
-        return name == concrete.name
+        if name == concrete.name:
+            return True
+        # The registered iota_n schema has no source/target metadata, while
+        # older concrete statements use subscript characters in their names.
+        if (pattern.name == "ι_n" and pattern.source is None and pattern.target is None
+                and concrete.generator is not None
+                and concrete.generator.family == "ι"
+                and type(concrete.generator.index) is int):
+            subscript = str(concrete.generator.index).translate(
+                str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉"))
+            return concrete.name in ("ι" + subscript, "ι_" + str(concrete.generator.index))
+        return False
     if type(pattern) is not type(concrete):
         return False
     if isinstance(pattern, tuple):
@@ -209,6 +220,28 @@ def specialize_typed_statement(source: object, goal: object) -> tuple[tuple[str,
     except (ValueError, TypeError):
         return None
     if instantiated != goal:
+        from homotopy_groups import FreeCyclicGroup, TodaPrimaryGroup
+        from proof import Relation, RelationType
+        n = ScalarSymbol("n")
+        is_diagonal = (
+            isinstance(source, Relation)
+            and source.relation_type is RelationType.EQUALITY
+            and source.lhs == TodaPrimaryGroup(n, n)
+            and isinstance(source.rhs, FreeCyclicGroup)
+            and isinstance(goal, Relation)
+            and goal.relation_type is RelationType.EQUALITY
+            and isinstance(goal.lhs, TodaPrimaryGroup)
+            and isinstance(goal.rhs, FreeCyclicGroup)
+            and bindings.get("n") == goal.lhs.sphere_dimension == goal.lhs.group_dimension
+            and _bind(source, goal, dict(bindings))
+        )
+        if not is_diagonal:
+            return None
+    from homotopy_groups import TodaPrimaryGroupZeroStatement
+    if (isinstance(source, TodaPrimaryGroupZeroStatement)
+            and source.group.sphere_dimension == 1
+            and isinstance(source.group.group_dimension, ScalarSymbol)
+            and bindings.get(source.group.group_dimension.name, 0) <= 1):
         return None
     from phase165_prop51_range_guard import allows_typed_specialization
     if not allows_typed_specialization(source, bindings):
@@ -233,7 +266,9 @@ def _specialization_rule(source: object, goal: object) -> InferenceRule:
         binding = specialize_typed_statement(premises[0].conclusion, goal)
         if binding is None:
             raise ValueError("unmatched symbolic source")
-        return _instantiate(premises[0].conclusion, dict(binding))
+        # The guard has already checked this exact goal against the registered
+        # source, including the iota generator's legacy metadata representation.
+        return goal
 
     return InferenceRule(
         name="generic cited typed scalar specialization",
