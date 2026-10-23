@@ -1,0 +1,246 @@
+[
+  {
+    "case": "pi3_2",
+    "checks": [
+      {
+        "key": "exactness_for_injectivity",
+        "present": false,
+        "why": "H の単射を完全性から導いたことを明記"
+      },
+      {
+        "key": "delta_image_kernel_zero",
+        "present": false,
+        "why": "Im Δ = ker E = 0 を明記"
+      },
+      {
+        "key": "hopf_iso_from_bijectivity",
+        "present": false,
+        "why": "H の同型性を単射性と全射性から説明"
+      },
+      {
+        "key": "no_generic_circle_in_proof",
+        "present": false,
+        "why": "基準にない一般円周公式の本文再掲がない"
+      }
+    ],
+    "diff": {
+      "reference": {
+        "exact_after_line_cleanup": false,
+        "difference_line_count": 16,
+        "diff_file": "pi3_2_reference.diff"
+      },
+      "proof": {
+        "exact_after_line_cleanup": false,
+        "difference_line_count": 34,
+        "diff_file": "pi3_2_proof.diff"
+      }
+    },
+    "reference": [
+      {
+        "locator": "(5.1)",
+        "number": 1,
+        "assertion_ids": [
+          "shared:6:adopted:assertion:toda51:circle_higher_zero",
+          "shared:3:adopted:assertion:toda51:diagonal"
+        ],
+        "body_count": 2,
+        "bodies": [
+          "$\\pi_i^1=0\\quad(i>1)$.",
+          "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$."
+        ]
+      },
+      {
+        "locator": "Proposition 4.2 (4.4)",
+        "number": 2,
+        "assertion_ids": [
+          "shared:5:adopted:assertion:prop42:general"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "Proposition 4.2 により, EHP の列 $\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全である."
+        ]
+      },
+      {
+        "locator": "Foundational: suspension identity",
+        "number": 3,
+        "assertion_ids": [
+          "shared:1:adopted:assertion:3"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "$E(\\iota_{1})=\\iota_{2}$."
+        ]
+      },
+      {
+        "locator": "Proposition 5.1",
+        "number": 4,
+        "assertion_ids": [
+          "shared:1:adopted:assertion:5"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "$H(\\eta_{2})=\\iota_{3}$."
+        ]
+      }
+    ]
+  },
+  {
+    "case": "pi4_3",
+    "checks": [
+      {
+        "key": "surjectivity_from_exactness",
+        "present": false,
+        "why": "E の全射を完全性から導いたことを明記"
+      },
+      {
+        "key": "kernel_presentation",
+        "present": true,
+        "why": "ker E の具体的な表示"
+      },
+      {
+        "key": "quotient_theorem",
+        "present": true,
+        "why": "準同型定理を明記"
+      },
+      {
+        "key": "diagonal_general_in_proof",
+        "present": true,
+        "why": "基準にも存在する対角群の一般式"
+      }
+    ],
+    "diff": {
+      "reference": {
+        "exact_after_line_cleanup": false,
+        "difference_line_count": 18,
+        "diff_file": "pi4_3_reference.diff"
+      },
+      "proof": {
+        "exact_after_line_cleanup": false,
+        "difference_line_count": 31,
+        "diff_file": "pi4_3_proof.diff"
+      }
+    },
+    "reference": [
+      {
+        "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+        "number": 1,
+        "assertion_ids": [
+          "shared:7:adopted:assertion:toda5:eta_family_definition"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+        ]
+      },
+      {
+        "locator": "(5.1)",
+        "number": 2,
+        "assertion_ids": [
+          "shared:3:adopted:assertion:toda51:diagonal",
+          "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+        ],
+        "body_count": 2,
+        "bodies": [
+          "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$.",
+          "$\\pi_i^n=0\\quad(i<n)$."
+        ]
+      },
+      {
+        "locator": "Proposition 5.1",
+        "number": 3,
+        "assertion_ids": [
+          "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+        ],
+        "body_count": 2,
+        "bodies": [
+          "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+          "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+        ]
+      },
+      {
+        "locator": "Proposition 4.2 (4.4)",
+        "number": 4,
+        "assertion_ids": [
+          "shared:5:adopted:assertion:prop42:general"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "Proposition 4.2 により, EHP の列 $\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全である."
+        ]
+      }
+    ]
+  },
+  {
+    "case": "pi5_4",
+    "checks": [
+      {
+        "key": "toda45_explicit_substitution",
+        "present": false,
+        "why": "(4.5) への (n,m,k)=(3,4,1) の代入"
+      },
+      {
+        "key": "specialization_citation_in_proof",
+        "present": false,
+        "why": "(4.5) を引用して適用したことを明記"
+      },
+      {
+        "key": "source_before_generator_image",
+        "present": false,
+        "why": "引用する群構造を生成元の像より先に示す"
+      },
+      {
+        "key": "specific_map_isomorphism",
+        "present": true,
+        "why": "具体的な E 同型を表示"
+      }
+    ],
+    "diff": {
+      "reference": {
+        "exact_after_line_cleanup": false,
+        "difference_line_count": 12,
+        "diff_file": "pi5_4_reference.diff"
+      },
+      "proof": {
+        "exact_after_line_cleanup": false,
+        "difference_line_count": 14,
+        "diff_file": "pi5_4_proof.diff"
+      }
+    },
+    "reference": [
+      {
+        "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+        "number": 1,
+        "assertion_ids": [
+          "shared:7:adopted:assertion:toda5:eta_family_definition"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+        ]
+      },
+      {
+        "locator": "Proposition 5.1",
+        "number": 2,
+        "assertion_ids": [
+          "shared:2:toda:adopted:prop5.1:pi4_3"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+        ]
+      },
+      {
+        "locator": "(4.5)",
+        "number": 3,
+        "assertion_ids": [
+          "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+        ],
+        "body_count": 1,
+        "bodies": [
+          "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+        ]
+      }
+    ]
+  }
+]
