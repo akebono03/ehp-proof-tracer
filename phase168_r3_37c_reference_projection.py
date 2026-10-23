@@ -56,6 +56,10 @@ def project_reference_bodies(registry, assertion_ids):
             latex, fallback = _group_proof_statement_latex(statement)
             if latex is not None and fallback is None:
                 sentence = "$" + latex + "$."
+        if (sentence is not None and r"\pi_{n}^{n}" in sentence
+                and r"\mathbb{Z}" in sentence and r"n\ge" not in sentence
+                and sentence.endswith("$.")):
+            sentence = sentence[:-2] + r"\quad(n\ge 1)$."
         if sentence is not None and sentence not in result:
             result.append(sentence)
     return tuple(result)

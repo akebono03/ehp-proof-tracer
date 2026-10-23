@@ -47,9 +47,18 @@ def render_model_backed_narrative_markdown(
         lines.append("")
         lines.append(f"${sequence}$.")
         lines.append("")
+    from homotopy_groups import TodaPrimaryGroupZeroStatement
+    from expression import ScalarSymbol
     for entry in order:
         index = entry.step_index
         step = model.steps[index]
+        # The symbolic circle theorem belongs in Reference; the proof uses
+        # its certified integer specialization and must not lose i > 1.
+        statement = step.conclusion
+        if (isinstance(statement, TodaPrimaryGroupZeroStatement)
+                and statement.group.sphere_dimension == 1
+                and isinstance(statement.group.group_dimension, ScalarSymbol)):
+            continue
         body_line = body_by_step.get(index)
         if body_line is None:
             sentence = typed_sentence(step.conclusion, step)
@@ -59,21 +68,21 @@ def render_model_backed_narrative_markdown(
                 if tags and step.rule is ProofRule.GIVEN:
                     sentence = f"{tags}より, " + sentence
                 lines.extend((sentence, ""))
-            continue
-        tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
-        if body_line.role == "given":
-            prefix = f"{tags}より, " if tags else "前提として, "
-        elif body_line.role == "root":
-            prefix = f"{tags}を用いて, " if tags else "以上より, "
         else:
-            prefix = f"{tags}を用いて, " if tags else "導出により, "
-        statement_latex = body_line.statement_latex
-        if isinstance(step.conclusion, TodaProp42ExactnessStatement):
-            statement_latex = statement_latex.replace(r" \text{ is exact}", "")
-            lines.append(f"{prefix}${statement_latex}$ は完全列である.")
-        else:
-            lines.append(f"{prefix}${statement_latex}$ を得る.")
-        lines.append("")
+            tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
+            if body_line.role == "given":
+                prefix = f"{tags}より, " if tags else "前提として, "
+            elif body_line.role == "root":
+                prefix = f"{tags}を用いて, " if tags else "以上より, "
+            else:
+                prefix = f"{tags}を用いて, " if tags else "導出により, "
+            statement_latex = body_line.statement_latex
+            if isinstance(step.conclusion, TodaProp42ExactnessStatement):
+                statement_latex = statement_latex.replace(r" \text{ is exact}", "")
+                lines.append(f"{prefix}${statement_latex}$ は完全列である.")
+            else:
+                lines.append(f"{prefix}${statement_latex}$ を得る.")
+            lines.append("")
         for postponed in entry.after_indices:
             postponed_step = model.steps[postponed]
             sentence = typed_sentence(postponed_step.conclusion, postponed_step)

@@ -48,6 +48,29 @@ def project_narrative_order(
                     and candidate.lhs == statement.domain):
                 postponed.setdefault(later, []).append(index)
                 break
+    # Delay an already-present generator image until its source group and
+    # typed suspension isomorphism have been presented. No steps are added.
+    from phase165_r14_r6_generic_iso import GeneratorImage
+    from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from homotopy_groups import TodaSuspensionMap, TodaIteratedSuspensionMap
+    from toda_rules import Toda45IsomorphismStatement
+    for index, step in enumerate(model.steps):
+        statement = step.conclusion
+        if not isinstance(statement, (GeneratorImage, GeneratorSuspension)):
+            continue
+        if not isinstance(statement.map, TodaSuspensionMap):
+            continue
+        source_index = next((j for j in range(index + 1, len(model.steps))
+                             if getattr(model.steps[j].conclusion, "lhs", None)
+                             == statement.map.source_group), None)
+        iso_index = next((j for j in range(index + 1, len(model.steps))
+                          if isinstance(model.steps[j].conclusion, Toda45IsomorphismStatement)
+                          and isinstance(getattr(model.steps[j].conclusion, "map", None), TodaIteratedSuspensionMap)
+                          and model.steps[j].conclusion.map.exponent == 1
+                          and model.steps[j].conclusion.map.source_group == statement.map.source_group
+                          and model.steps[j].conclusion.map.target_group == statement.map.target_group), None)
+        if source_index is not None and iso_index is not None:
+            postponed.setdefault(max(source_index, iso_index), []).append(index)
     held = {i for group in postponed.values() for i in group}
     return tuple(
         NarrativeOrderEntry(index, tuple(postponed.get(index, ())))

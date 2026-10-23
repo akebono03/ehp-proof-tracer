@@ -75,7 +75,7 @@ def typed_sentence(statement, step):
             source = group_tex(delta.source_group)
             target = group_tex(delta.target_group)
             if source is not None and target is not None:
-                return (rf"完全性と懸垂写像の同型性より, "
+                return (rf"完全性より, $\operatorname{{Im}}\Delta=\ker E=0$ なので, "
                         rf"$\Delta: {source}\to {target}$ は零写像である.")
     if isinstance(statement, GeneratorImage):
         x, y = element_tex(statement.source_generator), element_tex(statement.target_generator)
@@ -91,6 +91,33 @@ def typed_sentence(statement, step):
             label = ("単射" if isinstance(statement, MapInjective)
                      else "全射" if isinstance(statement, MapSurjective)
                      else "同型")
+            # Wording is justified only by the typed inference represented in
+            # the Proof Tree, not by the goal's dimension or a source lookup.
+            from proof import ProofRule
+            if step is not None and step.rule is ProofRule.INFERENCE:
+                if isinstance(statement, (MapInjective, MapSurjective)):
+                    if step.premises and any(
+                        "exact" in str(getattr(p.inference_rule, "name", "")).lower()
+                        or isinstance(p.conclusion, (TodaProp42ExactnessStatement, EHPImageEqualsKernelStatement))
+                        for p in step.premises
+                    ):
+                        return rf"完全性より, ${symbol}: {source}\to {target}$ は{label}である."
+                    # An EHP surjectivity or injectivity inference can have
+                    # exactness deeper than its immediate typed premises.
+                    def has_exactness(p, seen):
+                        if id(p) in seen:
+                            return False
+                        seen.add(id(p))
+                        if isinstance(p.conclusion, (TodaProp42ExactnessStatement, EHPImageEqualsKernelStatement)):
+                            return True
+                        return any(has_exactness(q, seen) for q in p.premises)
+                    if any(has_exactness(p, set()) for p in step.premises):
+                        return rf"完全性より, ${symbol}: {source}\to {target}$ は{label}である."
+                if isinstance(statement, (MapIsomorphism, TodaSuspensionIsomorphismStatement)):
+                    has_inj = any(isinstance(p.conclusion, MapInjective) for p in step.premises)
+                    has_surj = any(isinstance(p.conclusion, MapSurjective) for p in step.premises)
+                    if has_inj and has_surj:
+                        return rf"単射性と全射性より, ${symbol}: {source}\to {target}$ は同型である."
             return rf"${symbol}: {source}\to {target}$ は{label}."
     if isinstance(statement, EHPImageEqualsKernelStatement):
         window = statement.window
