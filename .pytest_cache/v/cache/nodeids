@@ -2305,6 +2305,8 @@
   "phase168_r3_25a_exactness_latex_fix/tests/test_phase168_r3_25a_exactness_latex.py::test_merged_exactness_arrows_are_valid_single_backslash_latex",
   "phase168_r3_26a_after_r3_25a/tests/test_phase168_r3_26_projection.py::test_pi32_three_windows_project_one_chain",
   "phase168_r3_26a_after_r3_25a/tests/test_phase168_r3_26_projection.py::test_pi43_two_windows_project_one_chain",
+  "phase168_r3_27_typed_projection/tests/test_phase168_r3_27_typed_projection.py::test_pi32_map_properties_and_generator_image",
+  "phase168_r3_27_typed_projection/tests/test_phase168_r3_27_typed_projection.py::test_pi43_existing_typed_output_maintained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
