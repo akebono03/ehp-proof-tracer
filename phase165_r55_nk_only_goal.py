@@ -43,7 +43,7 @@ def registered_group_goal_candidates(bridge, *, n: int, k: int) -> tuple[Relatio
     return tuple(candidates)
 
 
-def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_order_catalog=None, goal=None):
+def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_order_catalog=None, goal=None, context_sink=None):
     """Search typed goals. Zero goals use the same evidenced backward engine."""
     from homotopy_groups import TodaPrimaryGroupZeroStatement
     from phase166_r3af_goal_adapter import database_zero_group_goal_candidates
@@ -106,6 +106,8 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
         screened = screen_shared_proof_context(
             bridge, goal=candidate, citing_assertion_id=context_id,
         )
+        if context_sink is not None:
+            context_sink(screened)
         provider = shared_expansion_provider(
             screened, proof_target=candidate,
         )
@@ -129,6 +131,7 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
     search_kwargs = dict(
         n=n, k=k, group_structure=candidate.rhs, bridge=bridge,
         proof_order_catalog=proof_order_catalog,
+        context_sink=context_sink,
     )
     if citing_id is not None:
         search_kwargs["citing_assertion_id"] = citing_id

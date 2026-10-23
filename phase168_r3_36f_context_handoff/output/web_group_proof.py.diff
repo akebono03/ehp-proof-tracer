@@ -1,0 +1,18 @@
+--- web_group_proof.py:before
++++ web_group_proof.py:after
+@@ -66,8 +66,13 @@
+   from phase168_r3_4_link_bridge import build_linked_proof_narrative_model
+ 
+   bridge = build_shared_typed_bridge()
+-  result = search_group_from_registered_goal(n=n, k=k, goal=goal, bridge=bridge)
+-  model = build_linked_proof_narrative_model(result, bridge)
++  search_contexts = []
++  result = search_group_from_registered_goal(
++    n=n, k=k, goal=goal, bridge=bridge,
++    context_sink=search_contexts.append,
++  )
++  model_bridge = search_contexts[-1] if search_contexts else bridge
++  model = build_linked_proof_narrative_model(result, model_bridge)
+   return build_partial_web_group_proof_view(
+     result,
+     max_depth=max_depth,
