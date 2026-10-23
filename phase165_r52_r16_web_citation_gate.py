@@ -74,6 +74,26 @@ def screen_shared_proof_context(
                 bridge, assertion.assertion_id, citing_assertion_id
             ):
                 continue
+            # A concrete fixed assertion is not an independent GIVEN if the
+            # same cited source already contains an eligible typed schema
+            # whose established specialization rule derives that assertion.
+            # Keep the registry entry for provenance; only the direct leaf is
+            # suppressed. This applies uniformly to printed source locators.
+            from phase165_r57_r20_general_specialization import specialize_typed_statement
+            reference = bridge.registry.reference(assertion.reference_id)
+            covered_by_schema = any(
+                alternative.assertion_id != assertion.assertion_id
+                and alternative.origin is AssertionOrigin.FIXED_STATEMENT
+                and alternative.kind in (AssertionKind.STATEMENT, AssertionKind.DEFINITION)
+                and bridge.registry.reference(alternative.reference_id).locator == reference.locator
+                and precedes_citing_assertion(
+                    bridge, alternative.assertion_id, citing_assertion_id
+                )
+                and specialize_typed_statement(alternative.content, assertion.content) is not None
+                for alternative in bridge.registry._assertions.values()
+            )
+            if covered_by_schema:
+                continue
             accepted.append(ProofStepLink(
                 assertion_id=assertion.assertion_id,
                 step=registered_reference_step(assertion, ProofStep(
