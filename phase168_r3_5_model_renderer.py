@@ -92,40 +92,89 @@ def render_model_backed_narrative_markdown(
                 return rf"$E({x})={y}$."
         return None
 
-    # A pair of certified, adjoining exactness windows is presented as one sequence.
-    # No extra exactness statement or new proof fact is introduced.
-    exactness_steps = [
-        (index, step.conclusion.window)
-        for index, step in enumerate(model.steps)
-        if isinstance(step.conclusion, TodaProp42ExactnessStatement)
-        and prop42_exactness_indices(step.conclusion) is not None
-    ]
-    combined_sequence = None
+    # Each certified window is a path of two typed arrows. Merge only
+    # windows sharing the *same* consecutive typed arrow (not merely a group).
+    # An ambiguous branch or cycle is left separate, rather than guessed.
+    exactness_steps = []
+    for index, step in enumerate(model.steps):
+        statement = step.conclusion
+        if (isinstance(statement, TodaProp42ExactnessStatement)
+                and prop42_exactness_indices(statement) is not None):
+            w = statement.window
+            arrows = (
+                (w.source_term, w.first_map, w.middle_term),
+                (w.middle_term, w.second_map, w.target_term),
+            )
+            if all(group_tex(g) is not None for g in
+                   (w.source_term, w.middle_term, w.target_term)):
+                exactness_steps.append((index, arrows))
+
+    # An arrow is represented by its actual source, map and target objects.
+    # Only maximal non-branching paths are rendered as combined sequences.
+    arrows_to_windows = {}
+    for index, pair in exactness_steps:
+        for arrow in pair:
+            arrows_to_windows.setdefault(arrow, set()).add(index)
+    next_arrows = {}
+    prev_arrows = {}
+    for _, pair in exactness_steps:
+        left, right = pair
+        next_arrows.setdefault(left, set()).add(right)
+        prev_arrows.setdefault(right, set()).add(left)
+    seen_arrows = set()
+    merged_sequences = []
     suppressed_exactness = set()
-    for left_index, first in exactness_steps:
-        for right_index, second in exactness_steps:
-            if (left_index == right_index
-                or first.middle_term != second.source_term
-                or first.target_term != second.middle_term
-                or first.first_map != EHP_DELTA_MAP
-                or first.second_map != EHP_E_MAP
-                or second.first_map != EHP_E_MAP
-                or second.second_map != EHP_H_MAP):
+    for index, pair in exactness_steps:
+        for arrow in pair:
+            if arrow in seen_arrows:
                 continue
-            parts = [group_tex(g) for g in (
-                first.source_term, first.middle_term,
-                first.target_term, second.target_term,
-            )]
-            if all(part is not None for part in parts):
-                a, b, c, d = parts
-                combined_sequence = (
-                    rf"{a} \xrightarrow{{\Delta}} {b} \xrightarrow{{E}} "
-                    rf"{c} \xrightarrow{{H}} {d}"
-                )
-                suppressed_exactness = {left_index, right_index}
-                break
-        if combined_sequence is not None:
-            break
+            # Explore the undirected component and verify it is one chain.
+            component = set()
+            frontier = [arrow]
+            while frontier:
+                current = frontier.pop()
+                if current in component:
+                    continue
+                component.add(current)
+                frontier.extend(next_arrows.get(current, ()))
+                frontier.extend(prev_arrows.get(current, ()))
+            seen_arrows.update(component)
+            if len(component) < 3:
+                continue
+            if any(len(next_arrows.get(a, ())) > 1 or
+                   len(prev_arrows.get(a, ())) > 1 for a in component):
+                continue
+            starts = [a for a in component if not prev_arrows.get(a)]
+            if len(starts) != 1:
+                continue
+            ordered = []
+            current = starts[0]
+            while current not in ordered:
+                ordered.append(current)
+                successors = next_arrows.get(current, ())
+                if not successors:
+                    break
+                current = next(iter(successors))
+            if len(ordered) != len(component):
+                continue
+            included = {i for i, pair in exactness_steps
+                        if pair[0] in component and pair[1] in component}
+            if len(included) < 2:
+                continue
+            map_tex = {
+                EHP_E_MAP: "E",
+                EHP_H_MAP: "H",
+                EHP_DELTA_MAP: r"\Delta",
+            }
+            if any(a[1] not in map_tex for a in ordered):
+                continue
+            sequence = group_tex(ordered[0][0])
+            for source, map_symbol, target in ordered:
+                sequence += (rf" \xrightarrow{{{map_tex[map_symbol]}}} "
+                             + group_tex(target))
+            merged_sequences.append((min(included), sequence))
+            suppressed_exactness.update(included)
+    merged_sequences.sort(key=lambda item: item[0])
 
     # Place an inferred quotient after an actually present domain presentation.
     # Only already proved Relation steps qualify: no presentation is fabricated.
@@ -149,10 +198,10 @@ def render_model_backed_narrative_markdown(
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
     lines.extend(("証明", ""))
-    if combined_sequence is not None:
+    for _, sequence in merged_sequences:
         lines.append("群構造を決定するために, 次の完全列を考える.")
         lines.append("")
-        lines.append(f"${combined_sequence}$.")
+        lines.append(f"${sequence}$.")
         lines.append("")
     for index, step in enumerate(model.steps):
         if index in suppressed_exactness or index in postponed_indices:
