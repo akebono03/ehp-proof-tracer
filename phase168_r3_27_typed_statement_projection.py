@@ -19,7 +19,11 @@ from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
 from phase165_r14_r6_generic_iso import (
     GeneratorImage, MapInjective, MapIsomorphism, MapSurjective,
 )
-from toda_rules import TodaDeltaImageFreeCyclicStatement, TodaProp42ExactnessStatement
+from toda_rules import (
+    TodaDeltaImageFreeCyclicStatement,
+    TodaDeltaZeroStatement,
+    TodaProp42ExactnessStatement,
+)
 
 def group_tex(group):
     if not isinstance(group, TodaPrimaryGroup):
@@ -55,6 +59,14 @@ def map_symbol_tex(map_object):
 
 
 def typed_sentence(statement, step):
+    if isinstance(statement, TodaDeltaZeroStatement):
+        delta = statement.map
+        if isinstance(delta, TodaDeltaMap):
+            source = group_tex(delta.source_group)
+            target = group_tex(delta.target_group)
+            if source is not None and target is not None:
+                return (rf"完全性と懸垂写像の同型性より, "
+                        rf"$\Delta: {source}\to {target}$ は零写像である.")
     if isinstance(statement, GeneratorImage):
         x, y = element_tex(statement.source_generator), element_tex(statement.target_generator)
         symbol = map_symbol_tex(statement.map)
