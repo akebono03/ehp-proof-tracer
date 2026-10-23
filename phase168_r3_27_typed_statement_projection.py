@@ -58,6 +58,57 @@ def map_symbol_tex(map_object):
     return None
 
 
+def toda45_specialization_evidence(step):
+    """Return a general cited Toda (4.5) ancestor and checked scalar bindings.
+
+    Only traverse existing ProofStep premises. The existing specialization
+    validator supplies all equalities and stable-range checks.
+    """
+    from proof import ProofRule
+    from toda_rules import Toda45IsomorphismStatement
+    from phase165_r57_r20_general_specialization import specialize_typed_statement
+
+    if (step is None or step.rule is not ProofRule.INFERENCE
+            or not isinstance(step.conclusion, Toda45IsomorphismStatement)):
+        return None
+
+    visited = set()
+
+    def find_source(node):
+        if id(node) in visited:
+            return None
+        visited.add(id(node))
+        for parent in node.premises:
+            if (parent.rule is ProofRule.GIVEN
+                    and isinstance(parent.conclusion, Toda45IsomorphismStatement)):
+                bindings = specialize_typed_statement(parent.conclusion, step.conclusion)
+                if bindings is not None and {"n", "m", "k"}.issubset(dict(bindings)):
+                    return parent, bindings
+            candidate = find_source(parent)
+            if candidate is not None:
+                return candidate
+        return None
+
+    return find_source(step)
+
+
+def project_toda45_specialization_citation_numbers(model, step_index):
+    """Bind Toda (4.5) citations only to their used general Proof Step."""
+    step = model.steps[step_index]
+    evidence = toda45_specialization_evidence(step)
+    if evidence is None:
+        return ()
+    source_step, _ = evidence
+    numbers = []
+    for source_index, candidate in enumerate(model.steps):
+        if candidate != source_step:
+            continue
+        for number in model.step_citation_numbers[source_index]:
+            if number not in numbers:
+                numbers.append(number)
+    return tuple(numbers)
+
+
 def typed_sentence(statement, step):
     from toda_rules import Toda45IsomorphismStatement
     from homotopy_groups import TodaIteratedSuspensionMap
@@ -68,6 +119,14 @@ def typed_sentence(statement, step):
             target = group_tex(mapping.target_group)
             if source is not None and target is not None and type(mapping.exponent) is int:
                 symbol = 'E' if mapping.exponent == 1 else rf'E^{{{mapping.exponent}}}'
+                evidence = toda45_specialization_evidence(step)
+                if evidence is not None:
+                    _, bindings = evidence
+                    values = dict(bindings)
+                    return (
+                        rf'$(n,m,k)=({values["n"]},{values["m"]},{values["k"]})$ '
+                        rf'に適用すると, ${symbol}: {source}\to {target}$ は同型である.'
+                    )
                 return rf'${symbol}: {source}\to {target}$ は同型である.'
     if isinstance(statement, TodaDeltaZeroStatement):
         delta = statement.map

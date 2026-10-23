@@ -6,7 +6,7 @@
 |---|---:|---:|---|
 | pi3_2 | 16 | 33 | 4/4 |
 | pi4_3 | 18 | 31 | 4/4 |
-| pi5_4 | 12 | 14 | 2/4 |
+| pi5_4 | 12 | 14 | 4/4 |
 
 ## pi3_2
 
@@ -26,8 +26,8 @@
 
 ## pi5_4
 
-- **不足または順序差** — (4.5) への (n,m,k)=(3,4,1) の代入 (`toda45_explicit_substitution`)
-- **不足または順序差** — (4.5) を引用して適用したことを明記 (`specialization_citation_in_proof`)
+- **一致** — (4.5) への (n,m,k)=(3,4,1) の代入 (`toda45_explicit_substitution`)
+- **一致** — (4.5) を引用して適用したことを明記 (`specialization_citation_in_proof`)
 - **一致** — 引用する群構造を生成元の像より先に示す (`source_before_generator_image`)
 - **一致** — 具体的な E 同型を表示 (`specific_map_isomorphism`)
 - 全文差分: `pi5_4_reference.diff`, `pi5_4_proof.diff`

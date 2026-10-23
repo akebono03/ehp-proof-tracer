@@ -1,0 +1,35 @@
+Phase 168 R3-39G-3
+
+対象: 型付き Toda (4.5) の既存特殊化と引用の本文への投影。
+証明探索規則、Registry、文献台帳、固定基準を変更しません。
+
+変更する既存関数:
+- phase168_r3_27_typed_statement_projection.py: typed_sentence
+- phase168_r3_5_model_renderer.py: render_model_backed_narrative_markdown
+新規補助関数 (phase168_r3_27_typed_statement_projection.py の typed_sentence の直前):
+- toda45_specialization_evidence
+- project_toda45_specialization_citation_numbers
+
+import変更:
+- ファイル冒頭のimportに変更なし
+- render_model_backed_narrative_markdown内のimportに補助関数を追加
+
+実行:
+cd C:\Users\user\Dropbox\Python\fitz\ehp_proof
+Expand-Archive -Path "$HOME\Downloads\phase168_r3_39g3_toda45_citation_projection.zip" -DestinationPath "." -Force
+powershell -ExecutionPolicy Bypass -File ".\phase168_r3_39g3_toda45_citation_projection\run.ps1"
+
+限定pytest:
+- 当Phaseの新規4テスト
+- 前回R3-39Gの既存4テスト（本ZIPに同梱）
+- 固定基準の既存2テスト
+全体pytestは実行しません。
+
+完了条件:
+- 限定pytest PASS
+- 凍結監査で3群の説明項目が4/4
+- Reference本文を含めた全文差分の目視確認
+- Proof Treeを越える根拠の追加なし
+
+失敗時は今回対象の既存2ファイルをバックアップから復元。
+次Phaseの証明探索拡張・別群対応は行いません。

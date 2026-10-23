@@ -1,0 +1,29 @@
+Phase 168 R3-39G-4 — Toda (4.5) citation import 修正
+
+R3-39G-3 の失敗原因：Renderer 内で
+project_toda45_specialization_citation_numbers() を呼び出したが、
+関数の local import に含めていなかったため NameError が発生。
+
+変更対象（この ZIP の apply.py を実行した場合）：
+1. phase168_r3_27_typed_statement_projection.py
+   - 新規: toda45_specialization_evidence()、project_toda45_specialization_citation_numbers()
+     追加位置: typed_sentence() の直前
+   - 変更: typed_sentence() 全文
+2. phase168_r3_5_model_renderer.py
+   - 変更: render_model_backed_narrative_markdown() 全文
+   - 変更した local import を全文で示す:
+       from phase168_r3_27_typed_statement_projection import (
+           group_tex, typed_sentence, toda45_specialization_evidence,
+           project_toda45_specialization_citation_numbers,
+       )
+
+修正の新規部分は renderer の local import の 1 名のみ。
+これは R3-39G-3 失敗時に両ファイルがロールバックされた状態から
+一括適用できる自己完結 ZIP です。R3-39G-2 の4ファイル修正は
+適用済みである必要があります。
+
+実行: PowerShell でプロジェクト直下に展開し、run.ps1 を実行。
+限定 pytest: 11件（R3-39G-3の4、R3-39G-2の4、既存監査2、新規1）。
+固定基準全文監査: 既存 phase168_r3_39f_frozen_comparison.audit を実行。
+注: 全文差分は自動で0になる必要はなく、人手で論証内容を点検します。
+全体 pytest は実行しません。

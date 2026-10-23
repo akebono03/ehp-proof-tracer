@@ -173,12 +173,12 @@
       "benchmark_explanations": [
         {
           "key": "toda45_explicit_substitution",
-          "present": false,
+          "present": true,
           "why": "(4.5) への (n,m,k)=(3,4,1) の代入"
         },
         {
           "key": "specialization_citation_in_proof",
-          "present": false,
+          "present": true,
           "why": "(4.5) を引用して適用したことを明記"
         },
         {

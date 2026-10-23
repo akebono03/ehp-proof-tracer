@@ -15,7 +15,10 @@ def render_model_backed_narrative_markdown(
     from toda_rules import TodaProp42ExactnessStatement
     from phase168_r3_29_order_projection import project_narrative_order
     from phase168_r3_26_exactness_projection import project_exactness_chains
-    from phase168_r3_27_typed_statement_projection import group_tex, typed_sentence
+    from phase168_r3_27_typed_statement_projection import (
+        group_tex, typed_sentence, toda45_specialization_evidence,
+        project_toda45_specialization_citation_numbers,
+    )
 
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
@@ -67,6 +70,15 @@ def render_model_backed_narrative_markdown(
                 tags = ", ".join(f"[R{number}]" for number in numbers)
                 if tags and step.rule is ProofRule.GIVEN:
                     sentence = f"{tags}より, " + sentence
+                elif step.rule is ProofRule.INFERENCE:
+                    sourced_numbers = project_toda45_specialization_citation_numbers(
+                        model, index
+                    )
+                    if sourced_numbers:
+                        source_tags = ", ".join(
+                            f"[R{number}]" for number in sourced_numbers
+                        )
+                        sentence = f"{source_tags}を " + sentence
                 lines.extend((sentence, ""))
         else:
             tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
