@@ -1,0 +1,25 @@
+001 証明対象
+002 \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}.
+003 使用する結果
+004 [R1] (5.1).
+005 \pi_{i}^{n} = 0\quad(i < n).
+006 \pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n \ge 1).
+007 [R2] Proposition 5.1.
+008 \pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}.
+009 \Delta\left(\iota_{5}\right) = \pm 2\eta_{2}.
+010 
+011 証明
+012 \pi_{4}^{3} の群構造を決定するために, 次の完全列を考える.
+013 \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \xrightarrow{H} \pi_{4}^{5}.
+014 E(\eta_{2}) = \eta_{3}.
+015 [R1]より, \pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}.
+016 これより, \pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}.
+017 [R2]より, \Delta(\iota_{5}) = \pm 2\eta_{2}.
+018 これより, \operatorname{Im}\Delta = \mathbb{Z}\{2\eta_{2}\}.
+019 完全性より, \ker E=\mathbb{Z}\{2η_{2}\}.
+020 \pi_{4}^{5} = 0.
+021 完全性より, E: \pi_{3}^{2} \to \pi_{4}^{3} は全射.
+022 [R2]より, \pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}.
+023 全射性と核の決定から, 準同型定理より \pi_{4}^{3}\cong \pi_{3}^{2}/\mathbb{Z}\{2η_{2}\}.
+024 以上より, \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}.
+025 □

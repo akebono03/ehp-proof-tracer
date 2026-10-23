@@ -1,0 +1,1044 @@
+{
+  "read_only": true,
+  "targets": [
+    {
+      "group": "pi3_2",
+      "n": 2,
+      "k": 1,
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "model_root_index": 15,
+      "proof_step_count": 16,
+      "generic_body_count": 8,
+      "generic_body_skipped_count": 8,
+      "unrenderable_step_types": [
+        "GeneratorImage",
+        "GeneratorSuspension",
+        "MapInjective",
+        "MapIsomorphism",
+        "MapSurjective",
+        "TodaDeltaZeroStatement",
+        "TodaProp42GeneralExactnessStatement",
+        "TodaSuspensionIsomorphismStatement"
+      ],
+      "references": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "step_indices": [
+            0,
+            4,
+            5,
+            13
+          ],
+          "assertion_ids": [
+            "shared:1:adopted:assertion:6",
+            "shared:1:adopted:assertion:1",
+            "shared:1:adopted:assertion:2",
+            "shared:1:adopted:assertion:4"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:6",
+            "shared:1:adopted:ref:1",
+            "shared:1:adopted:ref:2",
+            "shared:1:adopted:ref:4"
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Foundational: suspension identity",
+          "step_indices": [
+            6
+          ],
+          "assertion_ids": [],
+          "reference_ids": []
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            14
+          ],
+          "assertion_ids": [
+            "shared:1:adopted:assertion:5"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:5"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "type": "TodaPrimaryGroupZeroStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda (5.1)",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": "\\pi_{2}^{1} = 0",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 1,
+          "type": "TodaProp42GeneralExactnessStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda Proposition 4.2 universal EHP exact sequence",
+          "premise_count": 0,
+          "citation_numbers": [
+            2
+          ],
+          "latex": null,
+          "fallback_type": "TodaProp42GeneralExactnessStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 2,
+          "type": "TodaProp42ExactnessStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\text{ is exact}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 3,
+          "type": "MapInjective",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP: preceding zero group and exactness imply Hopf injectivity",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "MapInjective",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 4,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda (5.1)",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 5,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda (5.1)",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 6,
+          "type": "GeneratorSuspension",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Registered fixed statement: Foundational: suspension identity",
+          "premise_count": 0,
+          "citation_numbers": [
+            3
+          ],
+          "latex": null,
+          "fallback_type": "GeneratorSuspension",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 7,
+          "type": "TodaSuspensionIsomorphismStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "diagonal free cyclic suspension on generators implies isomorphism",
+          "premise_count": 3,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaSuspensionIsomorphismStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 8,
+          "type": "TodaProp42ExactnessStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2} \\text{ is exact}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 9,
+          "type": "TodaDeltaZeroStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaDeltaZeroStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 10,
+          "type": "TodaProp42ExactnessStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\text{ is exact}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 11,
+          "type": "MapSurjective",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "MapSurjective",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 12,
+          "type": "MapIsomorphism",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "generic injective and surjective imply isomorphism",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "MapIsomorphism",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 13,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda (5.1)",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 14,
+          "type": "GeneratorImage",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda Proposition 5.1",
+          "premise_count": 0,
+          "citation_numbers": [
+            4
+          ],
+          "latex": null,
+          "fallback_type": "GeneratorImage",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 15,
+          "type": "Relation",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "generic reverse free cyclic structure transport along isomorphism",
+          "premise_count": 3,
+          "citation_numbers": [],
+          "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        }
+      ],
+      "baseline_sha256": "9554c5a83aa2e89e1723fbc438477152b63ce6b3c9ff54fc07cfab7f0f24e168",
+      "historical_markers": [
+        {
+          "marker": "単射",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "零写像",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "全射",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "同型",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "H(\\eta_{2})",
+          "in_baseline": true,
+          "in_new": false
+        }
+      ],
+      "model_markdown": "使用する結果\n\n**[R1] (5.1).**\n\n**[R2] Proposition 4.2 (4.4).**\n\n**[R3] Foundational: suspension identity.**\n\n**[R4] Proposition 5.1.**\n\n証明\n\n[R1]より, $\\pi_{2}^{1} = 0$ を得る.\n\n導出により, $\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\text{ is exact}$ を得る.\n\n[R1]より, $\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$ を得る.\n\n[R1]より, $\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$ を得る.\n\n導出により, $\\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2} \\text{ is exact}$ を得る.\n\n導出により, $\\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\text{ is exact}$ を得る.\n\n[R1]より, $\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$ を得る.\n\n以上より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$ を得る.\n\n□\n",
+      "baseline_text": "001 証明対象\n002 \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n003 使用する結果\n004 [R1] (5.1).\n005 \\pi_{i}^{1} = 0\\quad(i > 1).\n006 \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1).\n007 [R2] Proposition 5.1.\n008 H(\\eta_{2}) = \\iota_{3}.\n009 \n010 証明\n011 \\pi_{3}^{2} の群構造を決定するために, 次の完全列を考える.\n012 \\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n013 [R1]より, \\pi_{2}^{1} = 0.\n014 完全性より, H: \\pi_{3}^{2} \\to \\pi_{3}^{3} は単射.\n015 [R1]より, \\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}.\n016 [R1]より, \\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}.\n017 E(\\iota_{1}) = \\iota_{2}.\n018 これより, E: \\pi_{1}^{1} \\to \\pi_{2}^{2} は同型.\n019 完全性より, \\operatorname{Im}Δ=\\ker E=0 なので, \\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1} は零写像.\n020 完全性より, H: \\pi_{3}^{2} \\to \\pi_{3}^{3} は全射.\n021 単射性と全射性より, H: \\pi_{3}^{2} \\to \\pi_{3}^{3} は同型.\n022 [R1]より, \\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}.\n023 [R2]より, H(\\eta_{2}) = \\iota_{3}.\n024 以上より, \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n025 □\n"
+    },
+    {
+      "group": "pi4_3",
+      "n": 3,
+      "k": 1,
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "model_root_index": 24,
+      "proof_step_count": 25,
+      "generic_body_count": 8,
+      "generic_body_skipped_count": 17,
+      "unrenderable_step_types": [
+        "CyclicStructureStatement",
+        "EHPImageEqualsKernelStatement",
+        "GeneratorSuspension",
+        "HomomorphismPresentationStatement",
+        "ImageWholeStatement",
+        "KernelMultipleStatement",
+        "MapSurjective",
+        "QuotientIsomorphismStatement",
+        "SurjectiveMapStatement",
+        "SuspensionKernelFreeCyclicStatement",
+        "Toda51BelowDiagonalZeroStatement",
+        "TodaDeltaImageFreeCyclicStatement",
+        "TodaEtaFamilyDefinitionStatement",
+        "TodaEtaFamilyGeneralDefinition",
+        "TodaProp42GeneralExactnessStatement"
+      ],
+      "references": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "(5.1)",
+          "step_indices": [
+            5,
+            15
+          ],
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal",
+            "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+          ],
+          "reference_ids": [
+            "shared:3:adopted:toda51:diagonal",
+            "shared:6:adopted:reference:toda51:below_diagonal_zero"
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            7,
+            21
+          ],
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            9
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "type": "TodaEtaFamilyGeneralDefinition",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda chapter V eta-family notation",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": null,
+          "fallback_type": "TodaEtaFamilyGeneralDefinition",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 1,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "specialize cited eta-family general definition",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaEtaFamilyDefinitionStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 2,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "specialize cited eta-family general definition",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaEtaFamilyDefinitionStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 3,
+          "type": "GeneratorSuspension",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "consecutive cited eta definitions imply generator suspension",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "GeneratorSuspension",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 4,
+          "type": "HomomorphismPresentationStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "cited eta generator suspension yields presentation in target notation",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "HomomorphismPresentationStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 5,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda (5.1) diagonal cyclic source",
+          "premise_count": 0,
+          "citation_numbers": [
+            2
+          ],
+          "latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 6,
+          "type": "Relation",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "generic cited typed scalar specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 7,
+          "type": "TodaDeltaImageUpToSignStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Adopted literature Proposition 5.1",
+          "premise_count": 0,
+          "citation_numbers": [
+            3
+          ],
+          "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 8,
+          "type": "TodaDeltaImageFreeCyclicStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "free cyclic generator Delta image",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaDeltaImageFreeCyclicStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 9,
+          "type": "TodaProp42GeneralExactnessStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda Proposition 4.2 universal EHP exact sequence",
+          "premise_count": 0,
+          "citation_numbers": [
+            4
+          ],
+          "latex": null,
+          "fallback_type": "TodaProp42GeneralExactnessStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 10,
+          "type": "TodaProp42ExactnessStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\text{ is exact}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 11,
+          "type": "EHPImageEqualsKernelStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP exactness implies image equals kernel",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "EHPImageEqualsKernelStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 12,
+          "type": "SuspensionKernelFreeCyclicStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP Delta image and exactness imply concrete suspension kernel",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "SuspensionKernelFreeCyclicStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 13,
+          "type": "KernelMultipleStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "certified cyclic suspension kernel entails kernel multiple",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "KernelMultipleStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 14,
+          "type": "TodaProp42ExactnessStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5} \\text{ is exact}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 15,
+          "type": "Toda51BelowDiagonalZeroStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda (5.1) universal below-diagonal vanishing",
+          "premise_count": 0,
+          "citation_numbers": [
+            2
+          ],
+          "latex": null,
+          "fallback_type": "Toda51BelowDiagonalZeroStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 16,
+          "type": "TodaPrimaryGroupZeroStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda (5.1) general below-diagonal zero specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{4}^{5} = 0",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 17,
+          "type": "MapSurjective",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP exactness and zero Hopf target imply suspension surjectivity",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "MapSurjective",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 18,
+          "type": "ImageWholeStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "EHP suspension surjectivity implies whole image",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "ImageWholeStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 19,
+          "type": "SurjectiveMapStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "whole image implies surjectivity",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "SurjectiveMapStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 20,
+          "type": "QuotientIsomorphismStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "first isomorphism theorem for generated kernel",
+          "premise_count": 3,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "QuotientIsomorphismStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 21,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Adopted literature Proposition 5.1",
+          "premise_count": 0,
+          "citation_numbers": [
+            3
+          ],
+          "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 22,
+          "type": "CyclicStructureStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "proved free cyclic group relation implies infinite cyclic structure",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "CyclicStructureStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 23,
+          "type": "CyclicStructureStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "infinite cyclic quotient structure",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "CyclicStructureStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 24,
+          "type": "Relation",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "finite cyclic structure gives group relation",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        }
+      ],
+      "baseline_sha256": "6d1a83a52f07379d382e0cb95cf237c1b7ae272fe31e347ed1d2eb510b2ee580",
+      "historical_markers": [
+        {
+          "marker": "\\operatorname{Im}\\Delta",
+          "in_baseline": true,
+          "in_new": true
+        },
+        {
+          "marker": "\\ker E",
+          "in_baseline": false,
+          "in_new": false
+        },
+        {
+          "marker": "全射",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "準同型定理",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "E(\\eta_{2})",
+          "in_baseline": true,
+          "in_new": false
+        }
+      ],
+      "model_markdown": "使用する結果\n\n**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**\n\n**[R2] (5.1).**\n\n**[R3] Proposition 5.1.**\n\n**[R4] Proposition 4.2 (4.4).**\n\n証明\n\n[R2]より, $\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$ を得る.\n\n導出により, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$ を得る.\n\n[R3]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$ を得る.\n\n導出により, $\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\text{ is exact}$ を得る.\n\n完全性より, $\\operatorname{Im}\\Delta=\\ker E$ が成り立つ.\n\n導出により, $\\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5} \\text{ is exact}$ を得る.\n\n導出により, $\\pi_{4}^{5} = 0$ を得る.\n\n[R3]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$ を得る.\n\n以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ を得る.\n\n□\n",
+      "baseline_text": "001 証明対象\n002 \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n003 使用する結果\n004 [R1] (5.1).\n005 \\pi_{i}^{n} = 0\\quad(i < n).\n006 \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1).\n007 [R2] Proposition 5.1.\n008 \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n009 \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}.\n010 \n011 証明\n012 \\pi_{4}^{3} の群構造を決定するために, 次の完全列を考える.\n013 \\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.\n014 E(\\eta_{2}) = \\eta_{3}.\n015 [R1]より, \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}.\n016 これより, \\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}.\n017 [R2]より, \\Delta(\\iota_{5}) = \\pm 2\\eta_{2}.\n018 これより, \\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}.\n019 完全性より, \\ker E=\\mathbb{Z}\\{2η_{2}\\}.\n020 \\pi_{4}^{5} = 0.\n021 完全性より, E: \\pi_{3}^{2} \\to \\pi_{4}^{3} は全射.\n022 [R2]より, \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n023 全射性と核の決定から, 準同型定理より \\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}.\n024 以上より, \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n025 □\n"
+    },
+    {
+      "group": "pi5_4",
+      "n": 4,
+      "k": 1,
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "model_root_index": 9,
+      "proof_step_count": 10,
+      "generic_body_count": 3,
+      "generic_body_skipped_count": 7,
+      "unrenderable_step_types": [
+        "GeneratorSuspension",
+        "HomomorphismPresentationStatement",
+        "Toda45IsomorphismStatement",
+        "TodaEtaFamilyDefinitionStatement",
+        "TodaEtaFamilyGeneralDefinition"
+      ],
+      "references": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            5
+          ],
+          "assertion_ids": [],
+          "reference_ids": []
+        },
+        {
+          "number": 3,
+          "locator": "(4.5)",
+          "step_indices": [
+            6
+          ],
+          "assertion_ids": [],
+          "reference_ids": []
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "type": "TodaEtaFamilyGeneralDefinition",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Toda chapter V eta-family notation",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": null,
+          "fallback_type": "TodaEtaFamilyGeneralDefinition",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 1,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "specialize cited eta-family general definition",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaEtaFamilyDefinitionStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 2,
+          "type": "TodaEtaFamilyDefinitionStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "specialize cited eta-family general definition",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "TodaEtaFamilyDefinitionStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 3,
+          "type": "GeneratorSuspension",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "consecutive cited eta definitions imply generator suspension",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "GeneratorSuspension",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 4,
+          "type": "HomomorphismPresentationStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "cited eta generator suspension yields presentation in target notation",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "HomomorphismPresentationStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 5,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Registered fixed statement: Proposition 5.1",
+          "premise_count": 0,
+          "citation_numbers": [
+            2
+          ],
+          "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 6,
+          "type": "Toda45IsomorphismStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Registered fixed statement: (4.5)",
+          "premise_count": 0,
+          "citation_numbers": [
+            3
+          ],
+          "latex": null,
+          "fallback_type": "Toda45IsomorphismStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 7,
+          "type": "Toda45IsomorphismStatement",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "generic cited typed scalar specialization",
+          "premise_count": 1,
+          "citation_numbers": [],
+          "latex": null,
+          "fallback_type": "Toda45IsomorphismStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 8,
+          "type": "Relation",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda 4.5 generic finite-cyclic transport",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": "\\pi_{5}^{4} = \\mathbb{Z}/2\\{E\\eta_{3}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 9,
+          "type": "Relation",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "proved generator suspension normalizes transported cyclic group",
+          "premise_count": 2,
+          "citation_numbers": [],
+          "latex": "\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        }
+      ],
+      "baseline_sha256": "bf9afcf6885c2a08f3a36edab35c19574a8c2ca61004f4d9509d87341d8bfcd6",
+      "historical_markers": [
+        {
+          "marker": "(n,m,k)=(3,4,1)",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "は同型",
+          "in_baseline": true,
+          "in_new": false
+        },
+        {
+          "marker": "E\\eta_{3}",
+          "in_baseline": true,
+          "in_new": true
+        }
+      ],
+      "model_markdown": "使用する結果\n\n**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**\n\n**[R2] Proposition 5.1.**\n\n**[R3] (4.5).**\n\n証明\n\n[R2]より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ を得る.\n\n導出により, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{E\\eta_{3}\\}$ を得る.\n\n以上より, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$ を得る.\n\n□\n",
+      "baseline_text": "001 証明対象\n002 \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.\n003 使用する結果\n004 [R1] (4.5).\n005 n \\ge k + 2 のとき, E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m} は同型.\n006 [R2] Proposition 5.1.\n007 \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n008 \n009 証明\n010 \\pi_{5}^{4} の群構造を決定する.\n011 [R2]より, \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n012 [R1]を (n,m,k)=(3,4,1) に適用すると, E: \\pi_{4}^{3} \\to \\pi_{5}^{4} は同型.\n013 E\\eta_{3} = \\eta_{4}.\n014 以上より, \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.\n015 □\n"
+    },
+    {
+      "group": "pi4_2",
+      "n": 2,
+      "k": 2,
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "model_root_index": 2,
+      "proof_step_count": 3,
+      "generic_body_count": 2,
+      "generic_body_skipped_count": 1,
+      "unrenderable_step_types": [
+        "Toda52UniversalStatement"
+      ],
+      "references": [
+        {
+          "number": 1,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": []
+        },
+        {
+          "number": 2,
+          "locator": "(5.2)",
+          "step_indices": [
+            1,
+            2
+          ],
+          "assertion_ids": [],
+          "reference_ids": []
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Registered fixed statement: Proposition 5.1",
+          "premise_count": 0,
+          "citation_numbers": [
+            1
+          ],
+          "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        },
+        {
+          "index": 1,
+          "type": "Toda52UniversalStatement",
+          "rule": "ProofRule.GIVEN",
+          "inference": "Registered fixed statement: (5.2)",
+          "premise_count": 0,
+          "citation_numbers": [
+            2
+          ],
+          "latex": null,
+          "fallback_type": "Toda52UniversalStatement",
+          "generic_body_included": false,
+          "rendered_exact_statement": false
+        },
+        {
+          "index": 2,
+          "type": "Relation",
+          "rule": "ProofRule.INFERENCE",
+          "inference": "Toda (5.2) finite-cyclic eta2 composition transport",
+          "premise_count": 2,
+          "citation_numbers": [
+            2
+          ],
+          "latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+          "fallback_type": null,
+          "generic_body_included": true,
+          "rendered_exact_statement": true
+        }
+      ],
+      "baseline_sha256": null,
+      "historical_markers": [
+        {
+          "marker": "Proposition 5.1",
+          "in_baseline": false,
+          "in_new": false
+        },
+        {
+          "marker": "(5.2)",
+          "in_baseline": false,
+          "in_new": true
+        }
+      ],
+      "model_markdown": "使用する結果\n\n**[R1] Proposition 5.1.**\n\n**[R2] (5.2).**\n\n証明\n\n[R1]より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ を得る.\n\n[R2]を用いて, $\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$ を得る.\n\n□\n",
+      "baseline_text": null
+    }
+  ],
+  "errors": []
+}
