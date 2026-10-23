@@ -1,0 +1,1 @@
+Phase 168 R3-37 audit-only. Captures full common-renderer output from the standard public Web entry. No production edits. Compares headings to Model IDs, not to unavailable fixed baseline text. Refer to generated output/*.md for manual full-content comparison.\n

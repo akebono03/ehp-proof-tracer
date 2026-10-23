@@ -2337,6 +2337,8 @@
   "phase168_r3_36f_context_handoff/tests/test_context_handoff.py::test_public_entry_remains_model_backed",
   "phase168_r3_36f_recursive_sink_fix/tests/test_context_handoff.py::test_pi54_actual_screened_context_has_all_registered_references",
   "phase168_r3_36f_recursive_sink_fix/tests/test_context_handoff.py::test_public_entry_remains_model_backed",
+  "phase168_r3_37_public_narrative_audit/tests/test_audit.py::test_public_reference_headings_match_model_numbers",
+  "phase168_r3_37_public_narrative_audit/tests/test_audit.py::test_three_public_model_outputs_saved",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
