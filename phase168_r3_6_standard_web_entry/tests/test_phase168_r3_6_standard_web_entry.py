@@ -21,7 +21,7 @@ def test_r36_public_entry_model_pi42_has_two_sources():
 
 
 def test_r36_default_pi32_preserves_long_form():
-    view = build_standard_web_group_proof_view(2, 1)
+    view = build_standard_web_group_proof_view(2, 1, citation_source="legacy")
     content = _text(view)
     assert "Proposition 4.2" in content
     assert "H:" in content

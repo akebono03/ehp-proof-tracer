@@ -9,16 +9,18 @@ from phase168_r3_12_body_binding import build_narrative_body_lines
 def render_model_backed_narrative_markdown(
     result: PartialProofResult, model: ProofNarrativeModel,
 ) -> str:
-    """Render only used steps and citations already selected by the model.
+    """Render verified model steps, including typed EHP image/kernel equality."""
+    from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
+    from phase165_r12_r11_prop42_unified import prop42_exactness_indices
+    from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
+    from toda_rules import TodaProp42ExactnessStatement
 
-    This is an opt-in transitional boundary. It does not attempt to reproduce
-    the established long-form mathematical argument or infer references.
-    """
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
     if not isinstance(model, ProofNarrativeModel):
         raise TypeError("model must be ProofNarrativeModel")
     body_lines = build_narrative_body_lines(result, model)
+    body_by_step = {line.step_index: line for line in body_lines}
 
     lines = ["使用する結果", ""]
     for citation in model.citations:
@@ -26,7 +28,25 @@ def render_model_backed_narrative_markdown(
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
     lines.extend(("証明", ""))
-    for body_line in body_lines:
+    for index, step in enumerate(model.steps):
+        body_line = body_by_step.get(index)
+        if body_line is None:
+            statement = step.conclusion
+            if isinstance(statement, EHPImageEqualsKernelStatement):
+                window = statement.window
+                if prop42_exactness_indices(TodaProp42ExactnessStatement(window)) is None:
+                    continue
+                if window.first_map == EHP_DELTA_MAP and window.second_map == EHP_E_MAP:
+                    latex = r"\operatorname{Im}\Delta=\ker E"
+                elif window.first_map == EHP_E_MAP and window.second_map == EHP_H_MAP:
+                    latex = r"\operatorname{Im}E=\ker H"
+                else:
+                    continue
+                tags = ", ".join(f"[R{number}]" for number in model.step_citation_numbers[index])
+                intro = f"{tags}に基づく完全性より, " if tags else "完全性より, "
+                lines.append(f"{intro}${latex}$ が成り立つ.")
+                lines.append("")
+            continue
         tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
         if body_line.role == "given":
             prefix = f"{tags}より, " if tags else "前提として, "

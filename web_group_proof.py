@@ -31,12 +31,12 @@ def build_standard_web_group_proof_view(
   mode: str = "narrative",
   *,
   goal=None,
-  citation_source: str = "legacy",
+  citation_source: str = "model",
 ) -> WebGroupProofView:
   """Render one shared search; optionally project its explicitly linked citations.
 
   The model path passes the *same* bridge into the search and projection.
-  Legacy is the default until the full-length narrative consumes the model.
+  The model is the default; legacy remains an explicit compatibility option.
   """
   query = TodaGroupQuery(n=n, k=k)
   domain = classify_toda_group_query_domain(query)
