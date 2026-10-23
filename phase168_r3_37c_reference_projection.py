@@ -8,6 +8,7 @@ def project_reference_bodies(registry, assertion_ids):
         return ()
     from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
+    from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
     from toda_rules import Toda45IsomorphismStatement
     from expression import ScalarSymbol, ScalarSum, ScalarProduct
     from homotopy_groups import TodaIteratedSuspensionMap
@@ -19,13 +20,15 @@ def project_reference_bodies(registry, assertion_ids):
         if isinstance(statement, TodaEtaFamilyGeneralDefinition):
             if statement.lower_bound == 2:
                 sentence = r"$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する."
+        elif isinstance(statement, Toda51BelowDiagonalZeroStatement):
+            sentence = r"$\pi_i^n=0\quad(i<n)$."
         elif isinstance(statement, TodaProp42GeneralExactnessStatement):
             sentence = (
                 r"Proposition 4.2 により, EHP の列 "
-                r"$\cdots\xrightarrow{\Delta}\pi_q^p"
-                r"\xrightarrow{E}\pi_{q+1}^{p+1}"
-                r"\xrightarrow{H}\pi_{q+1}^{2p+1}"
-                r"\xrightarrow{\Delta}\cdots$ は完全である."
+                r"$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}"
+                r"\xrightarrow{H}\pi_{i+1}^{2n+1}"
+                r"\xrightarrow{\Delta}\pi_{i-1}^{n}"
+                r"\xrightarrow{E}\pi_i^{n+1}$ は完全である."
             )
         elif isinstance(statement, Toda45IsomorphismStatement):
             mapping = statement.map
