@@ -2323,6 +2323,8 @@
   "phase168_r3_33_baseline_comparison/tests/test_phase168_r3_33_audit.py::test_baseline_files_preserved_and_expected_cases_present",
   "phase168_r3_35_reference_content_audit/tests/test_r3_35_static_contract.py::test_model_has_linked_assertion_ids",
   "phase168_r3_35_reference_content_audit/tests/test_r3_35_static_contract.py::test_renderer_reference_section_uses_model_citations",
+  "phase168_r3_36_reference_link_audit/tests/test_audit.py::test_audit_repository_rejects_incomplete_checkout",
+  "phase168_r3_36_reference_link_audit/tests/test_audit.py::test_inspect_file_extracts_complete_named_definition",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",

@@ -1,0 +1,375 @@
+{
+  "mode": "AUDIT_ONLY",
+  "targets": [
+    {
+      "path": "phase168_r3_3_proof_narrative_model.py",
+      "definitions": [
+        {
+          "name": "build_proof_narrative_model",
+          "first_line": 28,
+          "last_line": 154
+        }
+      ],
+      "missing_definitions": []
+    },
+    {
+      "path": "phase168_r3_4_link_bridge.py",
+      "definitions": [
+        {
+          "name": "build_linked_proof_narrative_model",
+          "first_line": 10,
+          "last_line": 30
+        }
+      ],
+      "missing_definitions": []
+    },
+    {
+      "path": "phase163_r4_r12_stable_bases.py",
+      "definitions": [
+        {
+          "name": "register_stable_minimal_dimensions",
+          "first_line": 58,
+          "last_line": 125
+        }
+      ],
+      "missing_definitions": []
+    },
+    {
+      "path": "unified_statement_registry.py",
+      "definitions": [
+        {
+          "name": "AssertionEntry",
+          "first_line": 45,
+          "last_line": 75
+        },
+        {
+          "name": "ProofStepLink",
+          "first_line": 101,
+          "last_line": 115
+        }
+      ],
+      "missing_definitions": []
+    }
+  ],
+  "checks": {
+    "model_uses_exact_step_equality": true,
+    "model_allows_inference_only_citation": true,
+    "adapter_filters_used_given_steps": true,
+    "pi43_base_is_proof_internal": true,
+    "pi43_base_depends_on_prop51_general": true
+  },
+  "occurrences": [
+    {
+      "path": "phase163_r4_r12_stable_bases.py",
+      "line": 25,
+      "token": "stable-base:1-stem:pi4_3_group_relation",
+      "source": "BASE_ID_1 = \"stable-base:1-stem:pi4_3_group_relation\""
+    },
+    {
+      "path": "phase163_r4_r12_stable_bases.py",
+      "line": 27,
+      "token": "boundary:Proposition 5.1:higher_eta_group_relation",
+      "source": "GENERAL_ID_1 = \"boundary:Proposition 5.1:higher_eta_group_relation\""
+    },
+    {
+      "path": "phase165_r52_r27_r5_literature.py",
+      "line": 12,
+      "token": "Toda45IsomorphismStatement",
+      "source": "from toda_rules import Toda45IsomorphismStatement"
+    },
+    {
+      "path": "phase165_r52_r27_r5_literature.py",
+      "line": 44,
+      "token": "Toda45IsomorphismStatement",
+      "source": "def _toda45_universal_statement() -> Toda45IsomorphismStatement:"
+    },
+    {
+      "path": "phase165_r52_r27_r5_literature.py",
+      "line": 47,
+      "token": "Toda45IsomorphismStatement",
+      "source": "return Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap("
+    },
+    {
+      "path": "phase165_r57_r20_general_specialization.py",
+      "line": 201,
+      "token": "Toda45IsomorphismStatement",
+      "source": "from toda_rules import Toda45IsomorphismStatement"
+    },
+    {
+      "path": "phase165_r57_r20_general_specialization.py",
+      "line": 203,
+      "token": "Toda45IsomorphismStatement",
+      "source": "if isinstance(source, Toda45IsomorphismStatement)"
+    },
+    {
+      "path": "phase165_r57_r20_general_specialization.py",
+      "line": 216,
+      "token": "Toda45IsomorphismStatement",
+      "source": "from toda_rules import Toda45IsomorphismStatement"
+    },
+    {
+      "path": "phase165_r57_r20_general_specialization.py",
+      "line": 217,
+      "token": "Toda45IsomorphismStatement",
+      "source": "if isinstance(source, Toda45IsomorphismStatement):"
+    },
+    {
+      "path": "phase165_r57_r7_stable_expansion.py",
+      "line": 11,
+      "token": "Toda45IsomorphismStatement",
+      "source": "from toda_rules import Toda45IsomorphismStatement"
+    },
+    {
+      "path": "phase165_r57_r7_stable_expansion.py",
+      "line": 13,
+      "token": "toda_45_generic_finite_cyclic_transport_inference_rule",
+      "source": "toda_45_generic_finite_cyclic_transport_inference_rule,"
+    },
+    {
+      "path": "phase165_r57_r7_stable_expansion.py",
+      "line": 66,
+      "token": "Toda45IsomorphismStatement",
+      "source": "concrete_iso = Toda45IsomorphismStatement("
+    },
+    {
+      "path": "phase165_r57_r7_stable_expansion.py",
+      "line": 74,
+      "token": "Toda45IsomorphismStatement",
+      "source": "isinstance(statement, Toda45IsomorphismStatement)"
+    },
+    {
+      "path": "phase165_r57_r7_stable_expansion.py",
+      "line": 84,
+      "token": "toda_45_generic_finite_cyclic_transport_inference_rule",
+      "source": "toda_45_generic_finite_cyclic_transport_inference_rule(),"
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r42_backup.py",
+      "line": 53,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r42_backup.py",
+      "line": 1871,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r48_backup.py",
+      "line": 53,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r48_backup.py",
+      "line": 1894,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r48_sidecar_backup.py",
+      "line": 53,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_generic_narrative_renderer.phase165_r48_sidecar_backup.py",
+      "line": 1894,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_blocks.py",
+      "line": 29,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_blocks.py",
+      "line": 122,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "line": 111,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r43_backup.py",
+      "line": 596,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "line": 111,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r44_pre_cleanup.py",
+      "line": 596,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "line": 111,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.phase165_r48_backup.py",
+      "line": 596,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.py",
+      "line": 109,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_renderer.py",
+      "line": 594,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_shared_components.py",
+      "line": 51,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_shared_components.py",
+      "line": 1923,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_group_proof_narrative_transport_facts.py",
+      "line": 12,
+      "token": "Toda45IsomorphismStatement",
+      "source": "from toda_rules import Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_group_proof_narrative_transport_facts.py",
+      "line": 114,
+      "token": "Toda45IsomorphismStatement",
+      "source": "if not isinstance(iso, Toda45IsomorphismStatement):"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 9515,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 20867,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 28311,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 32225,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 32953,
+      "token": "Toda45IsomorphismStatement",
+      "source": "class Toda45IsomorphismStatement:"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 36326,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 38313,
+      "token": "Toda45IsomorphismStatement",
+      "source": "return Toda45IsomorphismStatement("
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 45254,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_rules.py",
+      "line": 45469,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_stable_concrete_transport_proof.py",
+      "line": 11,
+      "token": "toda_45_generic_finite_cyclic_transport_inference_rule",
+      "source": "from toda_stable_group_transport import toda_45_generic_finite_cyclic_transport_inference_rule"
+    },
+    {
+      "path": "toda_stable_concrete_transport_proof.py",
+      "line": 58,
+      "token": "toda_45_generic_finite_cyclic_transport_inference_rule",
+      "source": "inference_rule = toda_45_generic_finite_cyclic_transport_inference_rule()"
+    },
+    {
+      "path": "toda_stable_group_transport.py",
+      "line": 17,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_stable_group_transport.py",
+      "line": 99,
+      "token": "toda_45_generic_finite_cyclic_transport_inference_rule",
+      "source": "def toda_45_generic_finite_cyclic_transport_inference_rule():"
+    },
+    {
+      "path": "toda_stable_group_transport.py",
+      "line": 200,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_stable_group_transport.py",
+      "line": 274,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement"
+    },
+    {
+      "path": "toda_stable_transport.py",
+      "line": 23,
+      "token": "Toda45IsomorphismStatement",
+      "source": "Toda45IsomorphismStatement,"
+    },
+    {
+      "path": "toda_stable_transport.py",
+      "line": 143,
+      "token": "Toda45IsomorphismStatement",
+      "source": "== Toda45IsomorphismStatement("
+    }
+  ],
+  "next_checks": [
+    "Compare the actual pi5^4 ProofStep values to bridge.proof_links, without matching by display name.",
+    "Distinguish general Toda(4.5) assertion from its n=3,m=4,k=1 instantiation.",
+    "Inspect registry AssertionOrigin and dependencies before constructing Reference body.",
+    "Compare actual rendered Reference contents with the fixed baseline after a separate patch."
+  ]
+}
