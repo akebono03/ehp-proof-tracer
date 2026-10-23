@@ -290,7 +290,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                               citing_assertion_id: str | None = None,
                               verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None,
                               ordered_completed_proofs: tuple = (), target_order: int | None = None,
-                              proof_order_catalog=None, recursive_proof_order_catalog=None):
+                              proof_order_catalog=None, recursive_proof_order_catalog=None, context_sink=None):
     """Run canonical search under a screened Reference context.
 
     Older calls retain their signature. R15 ordering is applied to sources
@@ -339,6 +339,7 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
                 proof_use_order=proof_use_order,
                 ordered_completed_proofs=earlier,
                 target_order=order,
+                context_sink=context_sink if statement == goal else None,
             )
 
         return search_recursively_in_proof_order(
@@ -368,6 +369,8 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     )
     from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
     proof_context = prefer_universal_prop42_derivation(proof_context)
+    if context_sink is not None:
+        context_sink(proof_context)
     if expansion_provider is None:
         expansion_provider = shared_expansion_provider(
             proof_context, proof_target=goal,

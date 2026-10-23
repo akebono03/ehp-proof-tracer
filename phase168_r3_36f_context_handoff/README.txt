@@ -1,0 +1,1 @@
+Phase 168 R3-36F. Minimal context handoff patch. Applies only three named functions; produces full replacement functions and diffs under output. No renderer change. Limited tests only.\n

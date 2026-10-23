@@ -1,0 +1,11 @@
+--- typed_sentence:before
++++ typed_sentence:after
+@@ -8,7 +8,7 @@
+             target = group_tex(mapping.target_group)
+             if source is not None and target is not None and type(mapping.exponent) is int:
+                 symbol = 'E' if mapping.exponent == 1 else rf'E^{{{mapping.exponent}}}'
+-                return rf'${symbol}: {source}	o {target}$ は同型である.'
++                return rf'${symbol}: {source}\to {target}$ は同型である.'
+     if isinstance(statement, TodaDeltaZeroStatement):
+         delta = statement.map
+         if isinstance(delta, TodaDeltaMap):

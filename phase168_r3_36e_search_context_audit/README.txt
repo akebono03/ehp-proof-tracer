@@ -1,0 +1,1 @@
+Phase 168 R3-36E. Captures the search adapter's exact bridge via temporary process-local interception. Production code is unchanged. Two limited report tests.\n

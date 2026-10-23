@@ -1,0 +1,724 @@
+{
+  "mode": "AUDIT_ONLY",
+  "cases": [
+    {
+      "target": "pi_3^2",
+      "status": "complete",
+      "reference_count": 4,
+      "references": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "contents": [
+            {
+              "assertion_id": "shared:1:adopted:assertion:6",
+              "type": "TodaPrimaryGroupZeroStatement",
+              "content": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            },
+            {
+              "assertion_id": "shared:1:adopted:assertion:1",
+              "type": "Relation",
+              "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            },
+            {
+              "assertion_id": "shared:1:adopted:assertion:2",
+              "type": "Relation",
+              "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            },
+            {
+              "assertion_id": "shared:1:adopted:assertion:4",
+              "type": "Relation",
+              "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 4.2 (4.4)",
+          "contents": [
+            {
+              "assertion_id": "shared:5:adopted:assertion:prop42:general",
+              "type": "TodaProp42GeneralExactnessStatement",
+              "content": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Foundational: suspension identity",
+          "contents": [
+            {
+              "assertion_id": "shared:1:adopted:assertion:3",
+              "type": "GeneratorSuspension",
+              "content": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": "$E(\\iota_{1})=\\iota_{2}$."
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 5.1",
+          "contents": [
+            {
+              "assertion_id": "shared:1:adopted:assertion:5",
+              "type": "GeneratorImage",
+              "content": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": "$H(\\eta_{2})=\\iota_{3}$."
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "kind": "TodaPrimaryGroupZeroStatement",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+          "cited_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 1,
+          "kind": "TodaProp42GeneralExactnessStatement",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+          "cited_numbers": [
+            2
+          ]
+        },
+        {
+          "index": 2,
+          "kind": "TodaProp42ExactnessStatement",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+          "cited_numbers": []
+        },
+        {
+          "index": 3,
+          "kind": "MapInjective",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$H: \\pi_{3}^{2}\\to \\pi_{3}^{3}$ は単射.",
+          "repr": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 4,
+          "kind": "Relation",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 5,
+          "kind": "Relation",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 6,
+          "kind": "GeneratorSuspension",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": "$E(\\iota_{1})=\\iota_{2}$.",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+          "cited_numbers": [
+            3
+          ]
+        },
+        {
+          "index": 7,
+          "kind": "TodaSuspensionIsomorphismStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$E: \\pi_{1}^{1}\\to \\pi_{2}^{2}$ は同型.",
+          "repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 8,
+          "kind": "TodaProp42ExactnessStatement",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+          "cited_numbers": []
+        },
+        {
+          "index": 9,
+          "kind": "TodaDeltaZeroStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "完全性と懸垂写像の同型性より, $\\Delta: \\pi_{3}^{3}\\to \\pi_{1}^{1}$ は零写像である.",
+          "repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 10,
+          "kind": "TodaProp42ExactnessStatement",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+          "cited_numbers": []
+        },
+        {
+          "index": 11,
+          "kind": "MapSurjective",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$H: \\pi_{3}^{2}\\to \\pi_{3}^{3}$ は全射.",
+          "repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 12,
+          "kind": "MapIsomorphism",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$H: \\pi_{3}^{2}\\to \\pi_{3}^{3}$ は同型.",
+          "repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 13,
+          "kind": "Relation",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 14,
+          "kind": "GeneratorImage",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": "$H(\\eta_{2})=\\iota_{3}$.",
+          "repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+          "cited_numbers": [
+            4
+          ]
+        },
+        {
+          "index": 15,
+          "kind": "Relation",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": []
+        }
+      ],
+      "markdown": "使用する結果\n\n**[R1] (5.1).**\n\n**[R2] Proposition 4.2 (4.4).**\n\n**[R3] Foundational: suspension identity.**\n\n**[R4] Proposition 5.1.**\n\n証明\n\n群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}$.\n\n[R1]より, $\\pi_{2}^{1} = 0$ を得る.\n\n$H: \\pi_{3}^{2}\\to \\pi_{3}^{3}$ は単射.\n\n[R1]より, $\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$ を得る.\n\n[R1]より, $\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$ を得る.\n\n[R3]より, $E(\\iota_{1})=\\iota_{2}$.\n\n$E: \\pi_{1}^{1}\\to \\pi_{2}^{2}$ は同型.\n\n完全性と懸垂写像の同型性より, $\\Delta: \\pi_{3}^{3}\\to \\pi_{1}^{1}$ は零写像である.\n\n$H: \\pi_{3}^{2}\\to \\pi_{3}^{3}$ は全射.\n\n$H: \\pi_{3}^{2}\\to \\pi_{3}^{3}$ は同型.\n\n[R1]より, $\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$ を得る.\n\n[R4]より, $H(\\eta_{2})=\\iota_{3}$.\n\n以上より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$ を得る.\n\n□\n"
+    },
+    {
+      "target": "pi_4^3",
+      "status": "complete",
+      "reference_count": 4,
+      "references": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "contents": [
+            {
+              "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "content": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "(5.1)",
+          "contents": [
+            {
+              "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+              "type": "Relation",
+              "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            },
+            {
+              "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+              "type": "Toda51BelowDiagonalZeroStatement",
+              "content": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "contents": [
+            {
+              "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+              "type": "TodaDeltaImageUpToSignStatement",
+              "content": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+              "origin": "fixed_statement",
+              "dependencies": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional"
+              ],
+              "typed_sentence": null
+            },
+            {
+              "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+              "type": "Relation",
+              "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "origin": "fixed_statement",
+              "dependencies": [
+                "shared:2:toda:adopted:prop5.1:finite_dimensional"
+              ],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "contents": [
+            {
+              "assertion_id": "shared:5:adopted:assertion:prop42:general",
+              "type": "TodaProp42GeneralExactnessStatement",
+              "content": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "kind": "TodaEtaFamilyGeneralDefinition",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+          "cited_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 1,
+          "kind": "TodaEtaFamilyDefinitionStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=0))",
+          "cited_numbers": []
+        },
+        {
+          "index": 2,
+          "kind": "TodaEtaFamilyDefinitionStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+          "cited_numbers": []
+        },
+        {
+          "index": 3,
+          "kind": "GeneratorSuspension",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$E(\\eta_{2})=\\eta_{3}$.",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 4,
+          "kind": "HomomorphismPresentationStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "HomomorphismPresentationStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), domain=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), codomain=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 5,
+          "kind": "Relation",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": [
+            2
+          ]
+        },
+        {
+          "index": 6,
+          "kind": "Relation",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": []
+        },
+        {
+          "index": 7,
+          "kind": "TodaDeltaImageUpToSignStatement",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+          "cited_numbers": [
+            3
+          ]
+        },
+        {
+          "index": 8,
+          "kind": "TodaDeltaImageFreeCyclicStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "これより, $\\operatorname{Im}\\Delta=\\mathbb{Z}\\{2\\eta_{2}\\}$.",
+          "repr": "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+          "cited_numbers": []
+        },
+        {
+          "index": 9,
+          "kind": "TodaProp42GeneralExactnessStatement",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+          "cited_numbers": [
+            4
+          ]
+        },
+        {
+          "index": 10,
+          "kind": "TodaProp42ExactnessStatement",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+          "cited_numbers": []
+        },
+        {
+          "index": 11,
+          "kind": "EHPImageEqualsKernelStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "完全性より, $\\operatorname{Im}\\Delta=\\ker E$ が成り立つ.",
+          "repr": "EHPImageEqualsKernelStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+          "cited_numbers": []
+        },
+        {
+          "index": 12,
+          "kind": "SuspensionKernelFreeCyclicStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "完全性より, $\\ker E=\\mathbb{Z}\\{2\\eta_{2}\\}$.",
+          "repr": "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))))",
+          "cited_numbers": []
+        },
+        {
+          "index": 13,
+          "kind": "KernelMultipleStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), domain=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), multiple=2)",
+          "cited_numbers": []
+        },
+        {
+          "index": 14,
+          "kind": "TodaProp42ExactnessStatement",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+          "cited_numbers": []
+        },
+        {
+          "index": 15,
+          "kind": "Toda51BelowDiagonalZeroStatement",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')",
+          "cited_numbers": [
+            2
+          ]
+        },
+        {
+          "index": 16,
+          "kind": "TodaPrimaryGroupZeroStatement",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+          "cited_numbers": []
+        },
+        {
+          "index": 17,
+          "kind": "MapSurjective",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$E: \\pi_{3}^{2}\\to \\pi_{4}^{3}$ は全射.",
+          "repr": "MapSurjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 18,
+          "kind": "ImageWholeStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "ImageWholeStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 19,
+          "kind": "SurjectiveMapStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "SurjectiveMapStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 20,
+          "kind": "QuotientIsomorphismStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "全射性と核の決定から, 準同型定理より $\\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2\\eta_{2}\\}$.",
+          "repr": "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), domain=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), codomain=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), multiple=2)",
+          "cited_numbers": []
+        },
+        {
+          "index": 21,
+          "kind": "Relation",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": [
+            3
+          ]
+        },
+        {
+          "index": 22,
+          "kind": "CyclicStructureStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), order=None)",
+          "cited_numbers": []
+        },
+        {
+          "index": 23,
+          "kind": "CyclicStructureStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+          "cited_numbers": []
+        },
+        {
+          "index": 24,
+          "kind": "Relation",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": []
+        }
+      ],
+      "markdown": "使用する結果\n\n**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**\n\n**[R2] (5.1).**\n\n**[R3] Proposition 5.1.**\n\n**[R4] Proposition 4.2 (4.4).**\n\n証明\n\n群構造を決定するために, 次の完全列を考える.\n\n$\\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}$.\n\n$E(\\eta_{2})=\\eta_{3}$.\n\n[R2]より, $\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$ を得る.\n\n導出により, $\\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}$ を得る.\n\n[R3]より, $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$ を得る.\n\nこれより, $\\operatorname{Im}\\Delta=\\mathbb{Z}\\{2\\eta_{2}\\}$.\n\n完全性より, $\\operatorname{Im}\\Delta=\\ker E$ が成り立つ.\n\n完全性より, $\\ker E=\\mathbb{Z}\\{2\\eta_{2}\\}$.\n\n導出により, $\\pi_{4}^{5} = 0$ を得る.\n\n$E: \\pi_{3}^{2}\\to \\pi_{4}^{3}$ は全射.\n\n[R3]より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$ を得る.\n\n全射性と核の決定から, 準同型定理より $\\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2\\eta_{2}\\}$.\n\n以上より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ を得る.\n\n□\n"
+    },
+    {
+      "target": "pi_5^4",
+      "status": "complete",
+      "reference_count": 3,
+      "references": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "contents": [
+            {
+              "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+              "type": "TodaEtaFamilyGeneralDefinition",
+              "content": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "contents": [
+            {
+              "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+              "type": "Relation",
+              "content": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "(4.5)",
+          "contents": [
+            {
+              "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+              "type": "Toda45IsomorphismStatement",
+              "content": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+              "origin": "fixed_statement",
+              "dependencies": [],
+              "typed_sentence": null
+            }
+          ]
+        }
+      ],
+      "steps": [
+        {
+          "index": 0,
+          "kind": "TodaEtaFamilyGeneralDefinition",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+          "cited_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 1,
+          "kind": "TodaEtaFamilyDefinitionStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=1))",
+          "cited_numbers": []
+        },
+        {
+          "index": 2,
+          "kind": "TodaEtaFamilyDefinitionStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "TodaEtaFamilyDefinitionStatement(index=4, element=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=2))",
+          "cited_numbers": []
+        },
+        {
+          "index": 3,
+          "kind": "GeneratorSuspension",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": "$E(\\eta_{3})=\\eta_{4}$.",
+          "repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 4,
+          "kind": "HomomorphismPresentationStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "HomomorphismPresentationStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), domain=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), codomain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 5,
+          "kind": "Relation",
+          "rule": "given",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": [
+            2
+          ]
+        },
+        {
+          "index": 6,
+          "kind": "Toda45IsomorphismStatement",
+          "rule": "given",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+          "cited_numbers": [
+            3
+          ]
+        },
+        {
+          "index": 7,
+          "kind": "Toda45IsomorphismStatement",
+          "rule": "inference",
+          "rendered_body_line": false,
+          "typed_sentence": null,
+          "repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=1, source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)))",
+          "cited_numbers": []
+        },
+        {
+          "index": 8,
+          "kind": "Relation",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": []
+        },
+        {
+          "index": 9,
+          "kind": "Relation",
+          "rule": "inference",
+          "rendered_body_line": true,
+          "typed_sentence": null,
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "cited_numbers": []
+        }
+      ],
+      "markdown": "使用する結果\n\n**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**\n\n**[R2] Proposition 5.1.**\n\n**[R3] (4.5).**\n\n証明\n\n$E(\\eta_{3})=\\eta_{4}$.\n\n[R2]より, $\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$ を得る.\n\n導出により, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{E\\eta_{3}\\}$ を得る.\n\n以上より, $\\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}$ を得る.\n\n□\n"
+    }
+  ]
+}

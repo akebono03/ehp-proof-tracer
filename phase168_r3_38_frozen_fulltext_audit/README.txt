@@ -1,0 +1,1 @@
+R3-38 read-only full text audit. Uses existing frozen originals; never overwrites them. Generates actual public-Web markdown, separate reference/proof unified diffs, model-body coverage, sha256 and 2 focused tests. Reference numbering is not frozen. No production changes or full pytest.

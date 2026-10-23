@@ -59,6 +59,16 @@ def map_symbol_tex(map_object):
 
 
 def typed_sentence(statement, step):
+    from toda_rules import Toda45IsomorphismStatement
+    from homotopy_groups import TodaIteratedSuspensionMap
+    if isinstance(statement, Toda45IsomorphismStatement):
+        mapping = statement.map
+        if isinstance(mapping, TodaIteratedSuspensionMap):
+            source = group_tex(mapping.source_group)
+            target = group_tex(mapping.target_group)
+            if source is not None and target is not None and type(mapping.exponent) is int:
+                symbol = 'E' if mapping.exponent == 1 else rf'E^{{{mapping.exponent}}}'
+                return rf'${symbol}: {source}\to {target}$ は同型である.'
     if isinstance(statement, TodaDeltaZeroStatement):
         delta = statement.map
         if isinstance(delta, TodaDeltaMap):

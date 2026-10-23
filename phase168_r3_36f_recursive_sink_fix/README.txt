@@ -1,0 +1,1 @@
+R3-36F correction: scope context_sink to the requested goal in recursive search. Only phase165_r52_r9_shared_math.py::search_shared_group_goal changes; renderer unchanged. Existing two regression tests rerun.

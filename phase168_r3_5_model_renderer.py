@@ -33,6 +33,8 @@ def render_model_backed_narrative_markdown(
         locator = citation.reference.locator or citation.reference.label
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
+        for sentence in citation.statement_bodies:
+            lines.extend((sentence, ""))
     lines.extend(("証明", ""))
     for chain in chains:
         map_tex = {EHP_E_MAP: "E", EHP_H_MAP: "H", EHP_DELTA_MAP: r"\Delta"}

@@ -1,0 +1,232 @@
+{
+  "mode": "AUDIT_ONLY",
+  "status": "DIFFERENCES_REPORTED",
+  "cases": [
+    {
+      "name": "pi3_2",
+      "baseline_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_narrative_baseline_frozen\\pi3_2_original.txt",
+      "baseline_sha256": "9554c5a83aa2e89e1723fbc438477152b63ce6b3c9ff54fc07cfab7f0f24e168",
+      "rendered_step_count": 16,
+      "web_partial": false,
+      "reference_entries": [
+        {
+          "locator": "(5.1)",
+          "number": 1,
+          "assertion_ids": [
+            "shared:1:adopted:assertion:6",
+            "shared:1:adopted:assertion:1",
+            "shared:1:adopted:assertion:2",
+            "shared:1:adopted:assertion:4"
+          ],
+          "body_count": 4,
+          "bodies": [
+            "$\\pi_{2}^{1} = 0$.",
+            "$\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}$.",
+            "$\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}$.",
+            "$\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}$."
+          ]
+        },
+        {
+          "locator": "Proposition 4.2 (4.4)",
+          "number": 2,
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "Proposition 4.2 により, EHP の列 $\\cdots\\xrightarrow{\\Delta}\\pi_q^p\\xrightarrow{E}\\pi_{q+1}^{p+1}\\xrightarrow{H}\\pi_{q+1}^{2p+1}\\xrightarrow{\\Delta}\\cdots$ は完全である."
+          ]
+        },
+        {
+          "locator": "Foundational: suspension identity",
+          "number": 3,
+          "assertion_ids": [
+            "shared:1:adopted:assertion:3"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$E(\\iota_{1})=\\iota_{2}$."
+          ]
+        },
+        {
+          "locator": "Proposition 5.1",
+          "number": 4,
+          "assertion_ids": [
+            "shared:1:adopted:assertion:5"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$H(\\eta_{2})=\\iota_{3}$."
+          ]
+        }
+      ],
+      "comparison": {
+        "reference": {
+          "exact_after_line_cleanup": false,
+          "difference_line_count": 18,
+          "diff_file": "pi3_2_reference.diff"
+        },
+        "proof": {
+          "exact_after_line_cleanup": false,
+          "difference_line_count": 32,
+          "diff_file": "pi3_2_proof.diff"
+        }
+      },
+      "observations": {
+        "all_reference_entries_have_body": true,
+        "toda45_specialization_literal": false,
+        "pi54_specific_iso_literal": false,
+        "complete_sequence_count": 1
+      },
+      "caveats": [
+        "Differences are textual; a diff alone cannot certify mathematical equivalence.",
+        "Reference numbering and its order are not frozen by BASELINE_POLICY.",
+        "The mathematical generality and indexing of Proposition 4.2 require separate source verification."
+      ]
+    },
+    {
+      "name": "pi4_3",
+      "baseline_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_narrative_baseline_frozen\\pi4_3_original.txt",
+      "baseline_sha256": "6d1a83a52f07379d382e0cb95cf237c1b7ae272fe31e347ed1d2eb510b2ee580",
+      "rendered_step_count": 25,
+      "web_partial": false,
+      "reference_entries": [
+        {
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "number": 1,
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+          ]
+        },
+        {
+          "locator": "(5.1)",
+          "number": 2,
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal",
+            "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$."
+          ]
+        },
+        {
+          "locator": "Proposition 5.1",
+          "number": 3,
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+          ],
+          "body_count": 2,
+          "bodies": [
+            "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+            "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+          ]
+        },
+        {
+          "locator": "Proposition 4.2 (4.4)",
+          "number": 4,
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "Proposition 4.2 により, EHP の列 $\\cdots\\xrightarrow{\\Delta}\\pi_q^p\\xrightarrow{E}\\pi_{q+1}^{p+1}\\xrightarrow{H}\\pi_{q+1}^{2p+1}\\xrightarrow{\\Delta}\\cdots$ は完全である."
+          ]
+        }
+      ],
+      "comparison": {
+        "reference": {
+          "exact_after_line_cleanup": false,
+          "difference_line_count": 17,
+          "diff_file": "pi4_3_reference.diff"
+        },
+        "proof": {
+          "exact_after_line_cleanup": false,
+          "difference_line_count": 31,
+          "diff_file": "pi4_3_proof.diff"
+        }
+      },
+      "observations": {
+        "all_reference_entries_have_body": true,
+        "toda45_specialization_literal": false,
+        "pi54_specific_iso_literal": false,
+        "complete_sequence_count": 1
+      },
+      "caveats": [
+        "Differences are textual; a diff alone cannot certify mathematical equivalence.",
+        "Reference numbering and its order are not frozen by BASELINE_POLICY.",
+        "The mathematical generality and indexing of Proposition 4.2 require separate source verification."
+      ]
+    },
+    {
+      "name": "pi5_4",
+      "baseline_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_narrative_baseline_frozen\\pi5_4_original.txt",
+      "baseline_sha256": "bf9afcf6885c2a08f3a36edab35c19574a8c2ca61004f4d9509d87341d8bfcd6",
+      "rendered_step_count": 10,
+      "web_partial": false,
+      "reference_entries": [
+        {
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "number": 1,
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+          ]
+        },
+        {
+          "locator": "Proposition 5.1",
+          "number": 2,
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+          ]
+        },
+        {
+          "locator": "(4.5)",
+          "number": 3,
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "body_count": 1,
+          "bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ]
+        }
+      ],
+      "comparison": {
+        "reference": {
+          "exact_after_line_cleanup": false,
+          "difference_line_count": 12,
+          "diff_file": "pi5_4_reference.diff"
+        },
+        "proof": {
+          "exact_after_line_cleanup": false,
+          "difference_line_count": 14,
+          "diff_file": "pi5_4_proof.diff"
+        }
+      },
+      "observations": {
+        "all_reference_entries_have_body": true,
+        "toda45_specialization_literal": false,
+        "pi54_specific_iso_literal": true,
+        "complete_sequence_count": 0
+      },
+      "caveats": [
+        "Differences are textual; a diff alone cannot certify mathematical equivalence.",
+        "Reference numbering and its order are not frozen by BASELINE_POLICY.",
+        "The mathematical generality and indexing of Proposition 4.2 require separate source verification."
+      ]
+    }
+  ]
+}

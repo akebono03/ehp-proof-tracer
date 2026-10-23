@@ -1,0 +1,157 @@
+{
+  "mode": "AUDIT_ONLY",
+  "goal": "pi_5^4",
+  "status": "complete",
+  "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+  "original_bridge_link_count": 20,
+  "screened_bridge_link_count": 19,
+  "original_citations": [
+    {
+      "number": 1,
+      "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "step_indices": [
+        0
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "assertion_ids": [],
+      "step_indices": [
+        5
+      ]
+    },
+    {
+      "number": 3,
+      "locator": "(4.5)",
+      "assertion_ids": [],
+      "step_indices": [
+        6
+      ]
+    }
+  ],
+  "screened_citations": [
+    {
+      "number": 1,
+      "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "step_indices": [
+        0
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 5.1",
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ],
+      "step_indices": [
+        5
+      ]
+    },
+    {
+      "number": 3,
+      "locator": "(4.5)",
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+      ],
+      "step_indices": [
+        6
+      ]
+    }
+  ],
+  "given_steps": [
+    {
+      "step_index": 0,
+      "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+      "original_citations": [
+        1
+      ],
+      "screened_citations": [
+        1
+      ],
+      "original_links": [
+        {
+          "relation": "exact",
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "origin": "fixed_statement",
+          "reference_locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "linked_step_rule": "given",
+          "linked_step_repr": "ProofStep(conclusion=TodaEtaFamilyGeneralDefinition(lower_bound=2), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Toda chapter V eta-family notation', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda Chapter V eta notation', author=None, title=None, year=None, locator='Chapter V, i)')), foundational_reference=None)",
+          "actual_step_repr": "ProofStep(conclusion=TodaEtaFamilyGeneralDefinition(lower_bound=2), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Toda chapter V eta-family notation', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda Chapter V eta notation', author=None, title=None, year=None, locator='Chapter V, i)')), foundational_reference=None)"
+        }
+      ],
+      "screened_links": [
+        {
+          "relation": "exact",
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "origin": "fixed_statement",
+          "reference_locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "linked_step_rule": "given",
+          "linked_step_repr": "ProofStep(conclusion=TodaEtaFamilyGeneralDefinition(lower_bound=2), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Toda chapter V eta-family notation', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda Chapter V eta notation', author=None, title=None, year=None, locator='Chapter V, i)')), foundational_reference=None)",
+          "actual_step_repr": "ProofStep(conclusion=TodaEtaFamilyGeneralDefinition(lower_bound=2), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Toda chapter V eta-family notation', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda Chapter V eta notation', author=None, title=None, year=None, locator='Chapter V, i)')), foundational_reference=None)"
+        }
+      ]
+    },
+    {
+      "step_index": 5,
+      "conclusion_type": "Relation",
+      "original_citations": [
+        2
+      ],
+      "screened_citations": [
+        2
+      ],
+      "original_links": [],
+      "screened_links": [
+        {
+          "relation": "exact",
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+          "origin": "fixed_statement",
+          "reference_locator": "Proposition 5.1",
+          "linked_step_rule": "given",
+          "linked_step_repr": "ProofStep(conclusion=Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Registered fixed statement: Proposition 5.1', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1')), foundational_reference=None)",
+          "actual_step_repr": "ProofStep(conclusion=Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Registered fixed statement: Proposition 5.1', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda Proposition 5.1', author=None, title=None, year=None, locator='Proposition 5.1')), foundational_reference=None)"
+        }
+      ]
+    },
+    {
+      "step_index": 6,
+      "conclusion_type": "Toda45IsomorphismStatement",
+      "original_citations": [
+        3
+      ],
+      "screened_citations": [
+        3
+      ],
+      "original_links": [
+        {
+          "relation": "same_conclusion",
+          "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "origin": "fixed_statement",
+          "reference_locator": "(4.5)",
+          "linked_step_rule": "given",
+          "linked_step_repr": "ProofStep(conclusion=Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m')))), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=None, foundational_reference=None)",
+          "actual_step_repr": "ProofStep(conclusion=Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m')))), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Registered fixed statement: (4.5)', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda (4.5)', author=None, title=None, year=None, locator='(4.5)')), foundational_reference=None)"
+        }
+      ],
+      "screened_links": [
+        {
+          "relation": "exact",
+          "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "origin": "fixed_statement",
+          "reference_locator": "(4.5)",
+          "linked_step_rule": "given",
+          "linked_step_repr": "ProofStep(conclusion=Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m')))), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Registered fixed statement: (4.5)', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda (4.5)', author=None, title=None, year=None, locator='(4.5)')), foundational_reference=None)",
+          "actual_step_repr": "ProofStep(conclusion=Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m')))), premises=(), rule=<ProofRule.GIVEN: 'given'>, note=None, inference_rule=InferenceRule(name='Registered fixed statement: (4.5)', description=None, premise_patterns=(), conclusion_builder=None, conclusion_pattern=None, match_guard=None, literature_reference=LiteratureReference(label='Toda (4.5)', author=None, title=None, year=None, locator='(4.5)')), foundational_reference=None)"
+        }
+      ]
+    }
+  ],
+  "limitation": "Screened bridge is reconstructed from the same goal and citation ID; equivalence to search's internal screened bridge must still be checked if search applies additional transforms."
+}
