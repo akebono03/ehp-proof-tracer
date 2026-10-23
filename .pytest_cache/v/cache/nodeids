@@ -2346,6 +2346,8 @@
   "phase168_r3_37c_typed_projection/tests/test_reference_projection.py::test_pi54_reference_and_specific_iso",
   "phase168_r3_37d_functionname_fix/tests/test_general_reference.py::test_pi32_pi43_general_prop42_reference",
   "phase168_r3_37d_functionname_fix/tests/test_general_reference.py::test_pi54_general_toda45_reference_and_specialization",
+  "phase168_r3_38_frozen_fulltext_audit/tests/test_audit.py::test_all_three_frozen_originals_compared",
+  "phase168_r3_38_frozen_fulltext_audit/tests/test_audit.py::test_reference_model_bodies_reported",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
