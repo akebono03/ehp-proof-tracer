@@ -1,0 +1,465 @@
+{
+  "phase": "168 R3-35",
+  "status": "AUDIT_ONLY",
+  "cases": [
+    {
+      "group": "pi_3^2",
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "step_count": 16,
+      "reference_count": 4,
+      "registry_available": true,
+      "citations": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "assertion_ids": [
+            "shared:1:adopted:assertion:6",
+            "shared:1:adopted:assertion:1",
+            "shared:1:adopted:assertion:2",
+            "shared:1:adopted:assertion:4"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:6",
+            "shared:1:adopted:ref:1",
+            "shared:1:adopted:ref:2",
+            "shared:1:adopted:ref:4"
+          ],
+          "step_indices": [
+            0,
+            4,
+            5,
+            13
+          ],
+          "assertions": [
+            {
+              "id": "shared:1:adopted:assertion:6",
+              "reference_id": "shared:1:adopted:ref:6",
+              "content_type": "TodaPrimaryGroupZeroStatement",
+              "content_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+              "latex": "\\pi_{2}^{1} = 0",
+              "fallback_type": null,
+              "renderable": true
+            },
+            {
+              "id": "shared:1:adopted:assertion:1",
+              "reference_id": "shared:1:adopted:ref:1",
+              "content_type": "Relation",
+              "content_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}",
+              "fallback_type": null,
+              "renderable": true
+            },
+            {
+              "id": "shared:1:adopted:assertion:2",
+              "reference_id": "shared:1:adopted:ref:2",
+              "content_type": "Relation",
+              "content_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}",
+              "fallback_type": null,
+              "renderable": true
+            },
+            {
+              "id": "shared:1:adopted:assertion:4",
+              "reference_id": "shared:1:adopted:ref:4",
+              "content_type": "Relation",
+              "content_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+              "fallback_type": null,
+              "renderable": true
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 0,
+              "conclusion_type": "TodaPrimaryGroupZeroStatement",
+              "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+              "latex": "\\pi_{2}^{1} = 0",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            },
+            {
+              "step_index": 4,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            },
+            {
+              "step_index": 5,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            },
+            {
+              "step_index": 13,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 4.2 (4.4)",
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "step_indices": [
+            1
+          ],
+          "assertions": [
+            {
+              "id": "shared:5:adopted:assertion:prop42:general",
+              "reference_id": "shared:5:adopted:reference:prop42:general",
+              "content_type": "TodaProp42GeneralExactnessStatement",
+              "content_repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+              "latex": null,
+              "fallback_type": "TodaProp42GeneralExactnessStatement",
+              "renderable": false
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 1,
+              "conclusion_type": "TodaProp42GeneralExactnessStatement",
+              "conclusion_repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+              "latex": null,
+              "fallback_type": "TodaProp42GeneralExactnessStatement",
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Foundational: suspension identity",
+          "assertion_ids": [],
+          "reference_ids": [],
+          "step_indices": [
+            6
+          ],
+          "assertions": [],
+          "cited_steps": [
+            {
+              "step_index": 6,
+              "conclusion_type": "GeneratorSuspension",
+              "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+              "latex": null,
+              "fallback_type": "GeneratorSuspension",
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 5.1",
+          "assertion_ids": [
+            "shared:1:adopted:assertion:5"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:5"
+          ],
+          "step_indices": [
+            14
+          ],
+          "assertions": [
+            {
+              "id": "shared:1:adopted:assertion:5",
+              "reference_id": "shared:1:adopted:ref:5",
+              "content_type": "GeneratorImage",
+              "content_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+              "latex": null,
+              "fallback_type": "GeneratorImage",
+              "renderable": false
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 14,
+              "conclusion_type": "GeneratorImage",
+              "conclusion_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+              "latex": null,
+              "fallback_type": "GeneratorImage",
+              "model_step_cites_number": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "pi_4^3",
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "step_count": 25,
+      "reference_count": 4,
+      "registry_available": true,
+      "citations": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "step_indices": [
+            0
+          ],
+          "assertions": [
+            {
+              "id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+              "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+              "content_type": "TodaEtaFamilyGeneralDefinition",
+              "content_repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+              "latex": null,
+              "fallback_type": "TodaEtaFamilyGeneralDefinition",
+              "renderable": false
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 0,
+              "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+              "conclusion_repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+              "latex": null,
+              "fallback_type": "TodaEtaFamilyGeneralDefinition",
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "(5.1)",
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal",
+            "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+          ],
+          "reference_ids": [
+            "shared:3:adopted:toda51:diagonal",
+            "shared:6:adopted:reference:toda51:below_diagonal_zero"
+          ],
+          "step_indices": [
+            5,
+            15
+          ],
+          "assertions": [
+            {
+              "id": "shared:3:adopted:assertion:toda51:diagonal",
+              "reference_id": "shared:3:adopted:toda51:diagonal",
+              "content_type": "Relation",
+              "content_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+              "fallback_type": null,
+              "renderable": true
+            },
+            {
+              "id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+              "reference_id": "shared:6:adopted:reference:toda51:below_diagonal_zero",
+              "content_type": "Toda51BelowDiagonalZeroStatement",
+              "content_repr": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')",
+              "latex": null,
+              "fallback_type": "Toda51BelowDiagonalZeroStatement",
+              "renderable": false
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 5,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            },
+            {
+              "step_index": 15,
+              "conclusion_type": "Toda51BelowDiagonalZeroStatement",
+              "conclusion_repr": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')",
+              "latex": null,
+              "fallback_type": "Toda51BelowDiagonalZeroStatement",
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "step_indices": [
+            7,
+            21
+          ],
+          "assertions": [
+            {
+              "id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+              "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+              "content_type": "TodaDeltaImageUpToSignStatement",
+              "content_repr": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+              "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+              "fallback_type": null,
+              "renderable": true
+            },
+            {
+              "id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+              "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+              "content_type": "Relation",
+              "content_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+              "fallback_type": null,
+              "renderable": true
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 7,
+              "conclusion_type": "TodaDeltaImageUpToSignStatement",
+              "conclusion_repr": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+              "latex": "\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            },
+            {
+              "step_index": 21,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "step_indices": [
+            9
+          ],
+          "assertions": [
+            {
+              "id": "shared:5:adopted:assertion:prop42:general",
+              "reference_id": "shared:5:adopted:reference:prop42:general",
+              "content_type": "TodaProp42GeneralExactnessStatement",
+              "content_repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+              "latex": null,
+              "fallback_type": "TodaProp42GeneralExactnessStatement",
+              "renderable": false
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 9,
+              "conclusion_type": "TodaProp42GeneralExactnessStatement",
+              "conclusion_repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+              "latex": null,
+              "fallback_type": "TodaProp42GeneralExactnessStatement",
+              "model_step_cites_number": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "pi_5^4",
+      "search_status": "ProofSearchStatus.COMPLETE",
+      "step_count": 10,
+      "reference_count": 3,
+      "registry_available": true,
+      "citations": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "step_indices": [
+            0
+          ],
+          "assertions": [
+            {
+              "id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+              "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+              "content_type": "TodaEtaFamilyGeneralDefinition",
+              "content_repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+              "latex": null,
+              "fallback_type": "TodaEtaFamilyGeneralDefinition",
+              "renderable": false
+            }
+          ],
+          "cited_steps": [
+            {
+              "step_index": 0,
+              "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+              "conclusion_repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+              "latex": null,
+              "fallback_type": "TodaEtaFamilyGeneralDefinition",
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "assertion_ids": [],
+          "reference_ids": [],
+          "step_indices": [
+            5
+          ],
+          "assertions": [],
+          "cited_steps": [
+            {
+              "step_index": 5,
+              "conclusion_type": "Relation",
+              "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+              "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+              "fallback_type": null,
+              "model_step_cites_number": true
+            }
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "(4.5)",
+          "assertion_ids": [],
+          "reference_ids": [],
+          "step_indices": [
+            6
+          ],
+          "assertions": [],
+          "cited_steps": [
+            {
+              "step_index": 6,
+              "conclusion_type": "Toda45IsomorphismStatement",
+              "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+              "latex": null,
+              "fallback_type": "Toda45IsomorphismStatement",
+              "model_step_cites_number": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "note": "No content is constructed from a literature locator; all candidates are model-linked assertions or proof steps."
+}

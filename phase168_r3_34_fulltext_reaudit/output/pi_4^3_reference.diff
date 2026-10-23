@@ -1,0 +1,19 @@
+--- BASELINE/pi_4^3/reference
++++ CURRENT/pi_4^3/reference
+@@ -1,8 +1,10 @@
+ 
+-[R1] (5.1).
+-\pi_{i}^{n} = 0\quad(i < n).
+-\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n \ge 1).
+-[R2] Proposition 5.1.
+-\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}.
+-\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}.
+ 
++**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**
++
++**[R2] (5.1).**
++
++**[R3] Proposition 5.1.**
++
++**[R4] Proposition 4.2 (4.4).**
++

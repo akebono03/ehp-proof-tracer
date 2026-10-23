@@ -1,0 +1,15 @@
+--- BASELINE/pi_5^4/reference
++++ CURRENT/pi_5^4/reference
+@@ -1,6 +1,8 @@
+ 
+-[R1] (4.5).
+-n \ge k + 2 のとき, E^{m-n}: \pi_{n+k}^{n} \to \pi_{m+k}^{m} は同型.
+-[R2] Proposition 5.1.
+-\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}.
+ 
++**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**
++
++**[R2] Proposition 5.1.**
++
++**[R3] (4.5).**
++

@@ -1,0 +1,161 @@
+{
+  "status": "AUDIT_ONLY",
+  "target": "Phase 168 R3-29 post-install",
+  "sources": {
+    "renderer": {
+      "file": "phase168_r3_5_model_renderer.py",
+      "exists": true,
+      "line_count": 82,
+      "definitions": [
+        "render_model_backed_narrative_markdown"
+      ],
+      "imports": [
+        "__future__",
+        "map_facts",
+        "phase165_r52_partial_proof",
+        "phase168_r3_12_body_binding",
+        "phase168_r3_26_exactness_projection",
+        "phase168_r3_27_typed_statement_projection",
+        "phase168_r3_29_order_projection",
+        "phase168_r3_3_proof_narrative_model",
+        "proof",
+        "toda_rules"
+      ],
+      "function_lines": 74,
+      "calls": [
+        "TypeError",
+        "ValueError",
+        "append",
+        "build_narrative_body_lines",
+        "extend",
+        "get",
+        "group_tex",
+        "isinstance",
+        "join",
+        "project_exactness_chains",
+        "project_narrative_order",
+        "replace",
+        "rstrip",
+        "typed_sentence"
+      ],
+      "references_citation_model": true,
+      "uses_exactness_projection": true,
+      "uses_order_projection": true,
+      "uses_typed_projection": true,
+      "reaches_legacy_renderer_by_direct_import": false,
+      "has_render_time_statement_type_checks": true
+    },
+    "narrative_model": {
+      "file": "phase168_r3_3_proof_narrative_model.py",
+      "exists": true,
+      "line_count": 154,
+      "definitions": [
+        "NarrativeCitation",
+        "ProofNarrativeModel",
+        "build_proof_narrative_model"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "phase165_r52_partial_proof",
+        "proof",
+        "unified_statement_registry"
+      ]
+    },
+    "body_binding": {
+      "file": "phase168_r3_12_body_binding.py",
+      "exists": true,
+      "line_count": 70,
+      "definitions": [
+        "NarrativeBodyLine",
+        "build_narrative_body_lines"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "phase165_r52_partial_proof",
+        "phase168_r3_3_proof_narrative_model",
+        "proof",
+        "web_group_proof_common"
+      ]
+    },
+    "exactness": {
+      "file": "phase168_r3_26_exactness_projection.py",
+      "exists": true,
+      "line_count": 95,
+      "definitions": [
+        "ExactnessChain",
+        "project_exactness_chains"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "homotopy_groups",
+        "map_facts",
+        "phase165_r12_r11_prop42_unified",
+        "phase168_r3_3_proof_narrative_model",
+        "toda_rules"
+      ]
+    },
+    "typed": {
+      "file": "phase168_r3_27_typed_statement_projection.py",
+      "exists": true,
+      "line_count": 118,
+      "definitions": [
+        "group_tex",
+        "element_tex",
+        "map_symbol_tex",
+        "typed_sentence"
+      ],
+      "imports": [
+        "__future__",
+        "expression",
+        "homotopy_groups",
+        "map_facts",
+        "phase165_r12_r11_prop42_unified",
+        "phase165_r12_r12_ehp_consequences",
+        "phase165_r12_r13_kernel_image",
+        "phase165_r12_r2_quotient_rules",
+        "phase165_r14_r14_diagonal_and_prop42",
+        "phase165_r14_r6_generic_iso",
+        "toda_rules"
+      ]
+    },
+    "order": {
+      "file": "phase168_r3_29_order_projection.py",
+      "exists": true,
+      "line_count": 56,
+      "definitions": [
+        "NarrativeOrderEntry",
+        "project_narrative_order"
+      ],
+      "imports": [
+        "__future__",
+        "dataclasses",
+        "phase165_r12_r2_quotient_rules",
+        "phase168_r3_3_proof_narrative_model",
+        "proof"
+      ]
+    },
+    "bridge": {
+      "file": "phase168_r3_4_link_bridge.py",
+      "exists": true,
+      "line_count": 30,
+      "definitions": [
+        "build_linked_proof_narrative_model"
+      ],
+      "imports": [
+        "__future__",
+        "phase163_r4_registry_bridge",
+        "phase165_r52_partial_proof",
+        "phase168_r3_3_proof_narrative_model",
+        "proof"
+      ]
+    }
+  },
+  "limitations": [
+    "This is a static audit; runtime dispatch and full Web entry wiring require separate runtime verification.",
+    "No global proof-correctness or full-test-suite conclusion is inferred.",
+    "Source version is read from the executing working tree, not from an earlier ZIP."
+  ]
+}

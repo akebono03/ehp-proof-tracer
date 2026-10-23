@@ -1,0 +1,291 @@
+{
+  "phase": "168 R3-33",
+  "status": "AUDIT_ONLY",
+  "results": {
+    "pi_3^2": {
+      "milestones": [
+        {
+          "milestone": "complete_ehp_sequence",
+          "pattern": "\\pi_{2}^{1}\\xrightarrow{E}\\pi_{3}^{2}\\xrightarrow{H}\\pi_{3}^{3}\\xrightarrow{\\Delta}\\pi_{1}^{1}\\xrightarrow{E}\\pi_{2}^{2}",
+          "status": "IN_ORDER",
+          "first_position": 135
+        },
+        {
+          "milestone": "pi21_zero",
+          "pattern": "\\pi_{2}^{1}=0",
+          "status": "IN_ORDER",
+          "first_position": 263
+        },
+        {
+          "milestone": "hopf_injective",
+          "pattern": "は単射",
+          "status": "IN_ORDER",
+          "first_position": 307
+        },
+        {
+          "milestone": "pi11_free",
+          "pattern": "\\pi_{1}^{1}=\\mathbb{Z}\\{\\iota_{1}\\}",
+          "status": "IN_ORDER",
+          "first_position": 318
+        },
+        {
+          "milestone": "pi22_free",
+          "pattern": "\\pi_{2}^{2}=\\mathbb{Z}\\{\\iota_{2}\\}",
+          "status": "IN_ORDER",
+          "first_position": 364
+        },
+        {
+          "milestone": "suspension_generator",
+          "pattern": "E(\\iota_{1})=\\iota_{2}",
+          "status": "IN_ORDER",
+          "first_position": 410
+        },
+        {
+          "milestone": "suspension_iso",
+          "pattern": "は同型",
+          "status": "IN_ORDER",
+          "first_position": 460
+        },
+        {
+          "milestone": "delta_zero",
+          "pattern": "は零写像",
+          "status": "IN_ORDER",
+          "first_position": 511
+        },
+        {
+          "milestone": "hopf_surjective",
+          "pattern": "は全射",
+          "status": "IN_ORDER",
+          "first_position": 546
+        },
+        {
+          "milestone": "hopf_iso",
+          "pattern": "は同型",
+          "status": "IN_ORDER",
+          "first_position": 460
+        },
+        {
+          "milestone": "pi33_free",
+          "pattern": "\\pi_{3}^{3}=\\mathbb{Z}\\{\\iota_{3}\\}",
+          "status": "IN_ORDER",
+          "first_position": 588
+        },
+        {
+          "milestone": "hopf_generator",
+          "pattern": "H(\\eta_{2})=\\iota_{3}",
+          "status": "IN_ORDER",
+          "first_position": 634
+        },
+        {
+          "milestone": "final_group",
+          "pattern": "\\pi_{3}^{2}=\\mathbb{Z}\\{\\eta_{2}\\}",
+          "status": "IN_ORDER",
+          "first_position": 661
+        }
+      ],
+      "in_order_count": 13,
+      "missing_or_different_count": 0,
+      "out_of_order_count": 0,
+      "reference_headings": [
+        [
+          "1",
+          "(5.1)"
+        ],
+        [
+          "2",
+          "Proposition 4.2 (4.4)"
+        ],
+        [
+          "3",
+          "Foundational: suspension identity"
+        ],
+        [
+          "4",
+          "Proposition 5.1"
+        ]
+      ],
+      "complete_sequence_occurrences": 1,
+      "note": "MISSING_OR_DIFFERENT_EXPRESSION is a literal comparison, not a mathematical invalidity verdict",
+      "status": "ProofSearchStatus.COMPLETE",
+      "step_count": 16,
+      "model_reference_matches": true,
+      "baseline_file": "pi3_2_original.txt",
+      "baseline_text": "001 証明対象\n002 \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n003 使用する結果\n004 [R1] (5.1).\n005 \\pi_{i}^{1} = 0\\quad(i > 1).\n006 \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1).\n007 [R2] Proposition 5.1.\n008 H(\\eta_{2}) = \\iota_{3}.\n009 \n010 証明\n011 \\pi_{3}^{2} の群構造を決定するために, 次の完全列を考える.\n012 \\pi_{2}^{1} \\xrightarrow{E} \\pi_{3}^{2} \\xrightarrow{H} \\pi_{3}^{3} \\xrightarrow{\\Delta} \\pi_{1}^{1} \\xrightarrow{E} \\pi_{2}^{2}.\n013 [R1]より, \\pi_{2}^{1} = 0.\n014 完全性より, H: \\pi_{3}^{2} \\to \\pi_{3}^{3} は単射.\n015 [R1]より, \\pi_{1}^{1} = \\mathbb{Z}\\{\\iota_{1}\\}.\n016 [R1]より, \\pi_{2}^{2} = \\mathbb{Z}\\{\\iota_{2}\\}.\n017 E(\\iota_{1}) = \\iota_{2}.\n018 これより, E: \\pi_{1}^{1} \\to \\pi_{2}^{2} は同型.\n019 完全性より, \\operatorname{Im}Δ=\\ker E=0 なので, \\Delta: \\pi_{3}^{3} \\to \\pi_{1}^{1} は零写像.\n020 完全性より, H: \\pi_{3}^{2} \\to \\pi_{3}^{3} は全射.\n021 単射性と全射性より, H: \\pi_{3}^{2} \\to \\pi_{3}^{3} は同型.\n022 [R1]より, \\pi_{3}^{3} = \\mathbb{Z}\\{\\iota_{3}\\}.\n023 [R2]より, H(\\eta_{2}) = \\iota_{3}.\n024 以上より, \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n025 □\n"
+    },
+    "pi_4^3": {
+      "milestones": [
+        {
+          "milestone": "complete_ehp_sequence",
+          "pattern": "\\pi_{5}^{5}\\xrightarrow{\\Delta}\\pi_{3}^{2}\\xrightarrow{E}\\pi_{4}^{3}\\xrightarrow{H}\\pi_{4}^{5}",
+          "status": "IN_ORDER",
+          "first_position": 155
+        },
+        {
+          "milestone": "suspension_generator",
+          "pattern": "E(\\eta_{2})=\\eta_{3}",
+          "status": "IN_ORDER",
+          "first_position": 250
+        },
+        {
+          "milestone": "diagonal_general",
+          "pattern": "\\pi_{n}^{n}=\\mathbb{Z}\\{\\iota_{n}\\}",
+          "status": "IN_ORDER",
+          "first_position": 278
+        },
+        {
+          "milestone": "pi55_free",
+          "pattern": "\\pi_{5}^{5}=\\mathbb{Z}\\{\\iota_{5}\\}",
+          "status": "IN_ORDER",
+          "first_position": 323
+        },
+        {
+          "milestone": "delta_generator",
+          "pattern": "\\Delta(\\iota_{5})=\\pm2\\eta_{2}",
+          "status": "IN_ORDER",
+          "first_position": 369
+        },
+        {
+          "milestone": "delta_image",
+          "pattern": "\\operatorname{Im}\\Delta=\\mathbb{Z}\\{2\\eta_{2}\\}",
+          "status": "IN_ORDER",
+          "first_position": 408
+        },
+        {
+          "milestone": "kernel",
+          "pattern": "\\kerE=\\mathbb{Z}\\{2\\eta_{2}\\}",
+          "status": "IN_ORDER",
+          "first_position": 503
+        },
+        {
+          "milestone": "pi45_zero",
+          "pattern": "\\pi_{4}^{5}=0",
+          "status": "IN_ORDER",
+          "first_position": 539
+        },
+        {
+          "milestone": "suspension_surjective",
+          "pattern": "は全射",
+          "status": "IN_ORDER",
+          "first_position": 583
+        },
+        {
+          "milestone": "source_group",
+          "pattern": "\\pi_{3}^{2}=\\mathbb{Z}\\{\\eta_{2}\\}",
+          "status": "IN_ORDER",
+          "first_position": 594
+        },
+        {
+          "milestone": "quotient",
+          "pattern": "\\pi_{4}^{3}\\cong\\pi_{3}^{2}/\\mathbb{Z}\\{2\\eta_{2}\\}",
+          "status": "IN_ORDER",
+          "first_position": 650
+        },
+        {
+          "milestone": "final_group",
+          "pattern": "\\pi_{4}^{3}=\\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "status": "IN_ORDER",
+          "first_position": 707
+        }
+      ],
+      "in_order_count": 12,
+      "missing_or_different_count": 0,
+      "out_of_order_count": 0,
+      "reference_headings": [
+        [
+          "1",
+          "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation"
+        ],
+        [
+          "2",
+          "(5.1)"
+        ],
+        [
+          "3",
+          "Proposition 5.1"
+        ],
+        [
+          "4",
+          "Proposition 4.2 (4.4)"
+        ]
+      ],
+      "complete_sequence_occurrences": 1,
+      "note": "MISSING_OR_DIFFERENT_EXPRESSION is a literal comparison, not a mathematical invalidity verdict",
+      "status": "ProofSearchStatus.COMPLETE",
+      "step_count": 25,
+      "model_reference_matches": true,
+      "baseline_file": "pi4_3_original.txt",
+      "baseline_text": "001 証明対象\n002 \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n003 使用する結果\n004 [R1] (5.1).\n005 \\pi_{i}^{n} = 0\\quad(i < n).\n006 \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n \\ge 1).\n007 [R2] Proposition 5.1.\n008 \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n009 \\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}.\n010 \n011 証明\n012 \\pi_{4}^{3} の群構造を決定するために, 次の完全列を考える.\n013 \\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\xrightarrow{E} \\pi_{4}^{3} \\xrightarrow{H} \\pi_{4}^{5}.\n014 E(\\eta_{2}) = \\eta_{3}.\n015 [R1]より, \\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}.\n016 これより, \\pi_{5}^{5} = \\mathbb{Z}\\{\\iota_{5}\\}.\n017 [R2]より, \\Delta(\\iota_{5}) = \\pm 2\\eta_{2}.\n018 これより, \\operatorname{Im}\\Delta = \\mathbb{Z}\\{2\\eta_{2}\\}.\n019 完全性より, \\ker E=\\mathbb{Z}\\{2η_{2}\\}.\n020 \\pi_{4}^{5} = 0.\n021 完全性より, E: \\pi_{3}^{2} \\to \\pi_{4}^{3} は全射.\n022 [R2]より, \\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}.\n023 全射性と核の決定から, 準同型定理より \\pi_{4}^{3}\\cong \\pi_{3}^{2}/\\mathbb{Z}\\{2η_{2}\\}.\n024 以上より, \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n025 □\n"
+    },
+    "pi_5^4": {
+      "milestones": [
+        {
+          "milestone": "source_group",
+          "pattern": "\\pi_{4}^{3}=\\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "status": "IN_ORDER",
+          "first_position": 133
+        },
+        {
+          "milestone": "toda45_specialization",
+          "pattern": "(n,m,k)=(3,4,1)",
+          "status": "MISSING_OR_DIFFERENT_EXPRESSION",
+          "first_position": -1
+        },
+        {
+          "milestone": "transport_map",
+          "pattern": "E:\\pi_{4}^{3}\\to\\pi_{5}^{4}",
+          "status": "MISSING_OR_DIFFERENT_EXPRESSION",
+          "first_position": -1
+        },
+        {
+          "milestone": "transport_isomorphism",
+          "pattern": "は同型",
+          "status": "MISSING_OR_DIFFERENT_EXPRESSION",
+          "first_position": -1
+        },
+        {
+          "milestone": "generator_transport",
+          "pattern": "E\\eta_{3}=\\eta_{4}",
+          "status": "MISSING_OR_DIFFERENT_EXPRESSION",
+          "first_position": -1
+        },
+        {
+          "milestone": "final_group",
+          "pattern": "\\pi_{5}^{4}=\\mathbb{Z}/2\\{\\eta_{4}\\}",
+          "status": "IN_ORDER",
+          "first_position": 225
+        }
+      ],
+      "in_order_count": 2,
+      "missing_or_different_count": 4,
+      "out_of_order_count": 0,
+      "reference_headings": [
+        [
+          "1",
+          "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation"
+        ],
+        [
+          "2",
+          "Proposition 5.1"
+        ],
+        [
+          "3",
+          "(4.5)"
+        ]
+      ],
+      "complete_sequence_occurrences": 0,
+      "note": "MISSING_OR_DIFFERENT_EXPRESSION is a literal comparison, not a mathematical invalidity verdict",
+      "status": "ProofSearchStatus.COMPLETE",
+      "step_count": 10,
+      "model_reference_matches": true,
+      "baseline_file": "pi5_4_original.txt",
+      "baseline_text": "001 証明対象\n002 \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.\n003 使用する結果\n004 [R1] (4.5).\n005 n \\ge k + 2 のとき, E^{m-n}: \\pi_{n+k}^{n} \\to \\pi_{m+k}^{m} は同型.\n006 [R2] Proposition 5.1.\n007 \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n008 \n009 証明\n010 \\pi_{5}^{4} の群構造を決定する.\n011 [R2]より, \\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}.\n012 [R1]を (n,m,k)=(3,4,1) に適用すると, E: \\pi_{4}^{3} \\to \\pi_{5}^{4} は同型.\n013 E\\eta_{3} = \\eta_{4}.\n014 以上より, \\pi_{5}^{4} = \\mathbb{Z}/2\\{\\eta_{4}\\}.\n015 □\n"
+    }
+  },
+  "limitations": [
+    "Expression checks are conservative literal tokens, not semantic theorem equivalence.",
+    "Out-of-order status may reflect repeated phrases such as 'は同型'.",
+    "Reference numbers from the historical baseline are intentionally ignored.",
+    "Frozen baseline files are preserved byte-for-byte.",
+    "No production code is modified and full pytest is not run."
+  ]
+}

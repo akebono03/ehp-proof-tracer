@@ -1,0 +1,134 @@
+{
+  "status": "PASS",
+  "audit_only": true,
+  "scope": "standard Web narrative mode with citation_source=model",
+  "static": {
+    "standard_entry_builds_linked_model": true,
+    "model_renderer_called_by_adapter": true,
+    "compatibility_path_still_present": true,
+    "trace_path_uses_compatibility": true,
+    "model_missing_uses_partial_markdown": true
+  },
+  "cases": [
+    {
+      "n": 2,
+      "k": 1,
+      "group": "pi_3^2",
+      "ok": true,
+      "error": null,
+      "view_type": "WebGroupProofView",
+      "partial_result": false,
+      "rendered_lines_count": 21,
+      "linked_model_calls": 1,
+      "model_renderer_calls": 1,
+      "fallback_calls": 0,
+      "events": [
+        {
+          "stage": "build_linked_model",
+          "same_proven_steps": true,
+          "step_count": 16,
+          "citation_count": 4,
+          "citation_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "model_renderer",
+          "same_proven_steps": true,
+          "citation_count": 4
+        },
+        {
+          "stage": "model_renderer_output",
+          "reference_header": true,
+          "reference_marker_count": 4,
+          "complete_sequence_count": 1
+        }
+      ]
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "group": "pi_4^3",
+      "ok": true,
+      "error": null,
+      "view_type": "WebGroupProofView",
+      "partial_result": false,
+      "rendered_lines_count": 21,
+      "linked_model_calls": 1,
+      "model_renderer_calls": 1,
+      "fallback_calls": 0,
+      "events": [
+        {
+          "stage": "build_linked_model",
+          "same_proven_steps": true,
+          "step_count": 25,
+          "citation_count": 4,
+          "citation_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "stage": "model_renderer",
+          "same_proven_steps": true,
+          "citation_count": 4
+        },
+        {
+          "stage": "model_renderer_output",
+          "reference_header": true,
+          "reference_marker_count": 4,
+          "complete_sequence_count": 1
+        }
+      ]
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "group": "pi_5^4",
+      "ok": true,
+      "error": null,
+      "view_type": "WebGroupProofView",
+      "partial_result": false,
+      "rendered_lines_count": 10,
+      "linked_model_calls": 1,
+      "model_renderer_calls": 1,
+      "fallback_calls": 0,
+      "events": [
+        {
+          "stage": "build_linked_model",
+          "same_proven_steps": true,
+          "step_count": 10,
+          "citation_count": 3,
+          "citation_numbers": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "stage": "model_renderer",
+          "same_proven_steps": true,
+          "citation_count": 3
+        },
+        {
+          "stage": "model_renderer_output",
+          "reference_header": true,
+          "reference_marker_count": 3,
+          "complete_sequence_count": 0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "This instruments the public Python Web entry, not an HTTP browser request.",
+    "It does not prove the real Web UI selects this entry in every configuration.",
+    "Compatibility paths (legacy citation and trace) remain explicitly available.",
+    "Only entry-to-renderer calls are observed; nested source correctness is not proved.",
+    "No global pytest suite is run."
+  ]
+}
