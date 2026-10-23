@@ -2309,6 +2309,8 @@
   "phase168_r3_27_typed_projection/tests/test_phase168_r3_27_typed_projection.py::test_pi43_existing_typed_output_maintained",
   "phase168_r3_28_delta_zero_prose/tests/test_phase168_r3_28_delta_zero.py::test_delta_zero_typed_prose_uses_map_groups",
   "phase168_r3_28_delta_zero_prose/tests/test_phase168_r3_28_delta_zero.py::test_pi32_delta_zero_appears_from_proof_tree",
+  "phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py::test_pi32_all_steps_preserved_without_suppression",
+  "phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py::test_pi43_quotient_is_moved_after_its_proven_domain",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",

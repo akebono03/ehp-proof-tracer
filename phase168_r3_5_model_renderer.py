@@ -10,10 +10,10 @@ def render_model_backed_narrative_markdown(
     result: PartialProofResult, model: ProofNarrativeModel,
 ) -> str:
     """Render typed conclusions from Proof Tree; references come only from model."""
-    from proof import ProofRule, Relation, RelationType
+    from proof import ProofRule
     from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
     from toda_rules import TodaProp42ExactnessStatement
-    from phase165_r12_r2_quotient_rules import QuotientIsomorphismStatement
+    from phase168_r3_29_order_projection import project_narrative_order
     from phase168_r3_26_exactness_projection import project_exactness_chains
     from phase168_r3_27_typed_statement_projection import group_tex, typed_sentence
 
@@ -27,22 +27,7 @@ def render_model_backed_narrative_markdown(
     chains = project_exactness_chains(model)
     suppressed_exactness = {index for chain in chains for index in chain.step_indices}
 
-    # Place an inferred quotient after an actually present domain presentation.
-    # Only already proved Relation steps qualify: no presentation is fabricated.
-    postponed_quotients = {}
-    for index, step in enumerate(model.steps):
-        statement = step.conclusion
-        if not isinstance(statement, QuotientIsomorphismStatement):
-            continue
-        for later in range(index + 1, len(model.steps)):
-            candidate = model.steps[later].conclusion
-            if (isinstance(candidate, Relation)
-                and candidate.relation_type is RelationType.EQUALITY
-                and candidate.lhs == statement.domain):
-                postponed_quotients.setdefault(later, []).append(index)
-                break
-
-    postponed_indices = {item for values in postponed_quotients.values() for item in values}
+    order = project_narrative_order(model, suppressed_exactness)
     lines = ["使用する結果", ""]
     for citation in model.citations:
         locator = citation.reference.locator or citation.reference.label
@@ -60,9 +45,9 @@ def render_model_backed_narrative_markdown(
         lines.append("")
         lines.append(f"${sequence}$.")
         lines.append("")
-    for index, step in enumerate(model.steps):
-        if index in suppressed_exactness or index in postponed_indices:
-            continue
+    for entry in order:
+        index = entry.step_index
+        step = model.steps[index]
         body_line = body_by_step.get(index)
         if body_line is None:
             sentence = typed_sentence(step.conclusion, step)
@@ -87,7 +72,7 @@ def render_model_backed_narrative_markdown(
         else:
             lines.append(f"{prefix}${statement_latex}$ を得る.")
         lines.append("")
-        for postponed in postponed_quotients.get(index, ()):
+        for postponed in entry.after_indices:
             postponed_step = model.steps[postponed]
             sentence = typed_sentence(postponed_step.conclusion, postponed_step)
             if sentence is not None:
