@@ -1,0 +1,103 @@
+{
+  "mode": "AUDIT_ONLY",
+  "status": "complete",
+  "target": "pi_5^4",
+  "given_steps": [
+    {
+      "step_index": 0,
+      "citation_numbers": [
+        1
+      ],
+      "locator": "Chapter V, i)",
+      "conclusion": {
+        "type": "TodaEtaFamilyGeneralDefinition",
+        "repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+      },
+      "links_same_step_or_conclusion": [
+        {
+          "kind": "exact",
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "origin": "fixed_statement",
+          "dependencies": [],
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "statement": {
+            "type": "TodaEtaFamilyGeneralDefinition",
+            "repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+          },
+          "linked_rule": "given",
+          "link_matches_conclusion": true
+        }
+      ],
+      "registered_exact_content": [
+        {
+          "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "origin": "fixed_statement",
+          "dependencies": [],
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "publication_position": 7800,
+          "component_position": 300
+        }
+      ]
+    },
+    {
+      "step_index": 5,
+      "citation_numbers": [
+        2
+      ],
+      "locator": "Proposition 5.1",
+      "conclusion": {
+        "type": "Relation",
+        "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      },
+      "links_same_step_or_conclusion": [],
+      "registered_exact_content": [
+        {
+          "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+          "origin": "fixed_statement",
+          "dependencies": [],
+          "locator": "Proposition 5.1",
+          "publication_position": 7800,
+          "component_position": 500
+        }
+      ]
+    },
+    {
+      "step_index": 6,
+      "citation_numbers": [
+        3
+      ],
+      "locator": "(4.5)",
+      "conclusion": {
+        "type": "Toda45IsomorphismStatement",
+        "repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))"
+      },
+      "links_same_step_or_conclusion": [
+        {
+          "kind": "same_conclusion",
+          "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "origin": "fixed_statement",
+          "dependencies": [],
+          "locator": "(4.5)",
+          "statement": {
+            "type": "Toda45IsomorphismStatement",
+            "repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))"
+          },
+          "linked_rule": "given",
+          "link_matches_conclusion": true
+        }
+      ],
+      "registered_exact_content": [
+        {
+          "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "origin": "fixed_statement",
+          "dependencies": [],
+          "locator": "(4.5)",
+          "publication_position": 6900,
+          "component_position": null
+        }
+      ]
+    }
+  ],
+  "bridge_links": 20,
+  "all_registry_assertions": 210
+}

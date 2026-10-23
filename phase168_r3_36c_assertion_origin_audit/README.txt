@@ -1,0 +1,1 @@
+R3-36C: read-only dynamic source origin check for all pi5^4 GIVEN steps. No production code changes. Does not certify provenance.\n
