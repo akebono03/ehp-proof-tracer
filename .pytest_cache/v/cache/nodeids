@@ -2296,6 +2296,8 @@
   "phase168_r3_21_ehp_exactness_prose/tests/test_phase168_r3_21_ehp_exactness_prose.py::test_r321_pi32_still_complete",
   "phase168_r3_21_ehp_exactness_prose/tests/test_phase168_r3_21_ehp_exactness_prose.py::test_r321_pi43_exactness_is_real_proof_step",
   "phase168_r3_21_ehp_exactness_prose/tests/test_phase168_r3_21_ehp_exactness_prose.py::test_r321_web_pi43_exactness_visible",
+  "phase168_r3_23_pi43_typed_narrative/tests/test_phase168_r3_23_pi43_typed.py::test_pi43_references_come_from_model_only",
+  "phase168_r3_23_pi43_typed_narrative/tests/test_phase168_r3_23_pi43_typed.py::test_pi43_typed_image_kernel_onto_quotient",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_repeated_rule_reference_is_deduplicated",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_root_inference_rule_reference_is_retained",
   "phase168_r3_3_narrative_model/tests/test_phase168_r3_3_proof_narrative_model.py::test_unmatched_links_are_not_treated_as_proof_evidence",
