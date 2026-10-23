@@ -34,6 +34,7 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     rigorously linked typed leaves. They are shared with every query, not
     selected because the requested group is pi3^2.
     """
+    default_sources = sources is None
     if sources is None:
         from phase165_r9_production_wiring import discover_goal_search_inputs
         from phase165_r14_r38_direct_registry import build_adopted_typed_reference_registry
@@ -105,6 +106,21 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
     joined = expand_cited_given_components(
         RegistryBridgeResult(registry, tuple(records), tuple(links))
     )
+    # Leave archived assertion identities untouched. In the default context,
+    # these four old concrete (5.1) GIVENs must be derived by the already
+    # registered universal source instead of short-circuiting the Proof Tree.
+    if default_sources:
+        legacy_ids = {
+            "shared:1:adopted:assertion:1",
+            "shared:1:adopted:assertion:2",
+            "shared:1:adopted:assertion:4",
+            "shared:1:adopted:assertion:6",
+        }
+        joined = RegistryBridgeResult(
+            joined.registry, joined.records,
+            tuple(link for link in joined.proof_links
+                  if link.assertion_id not in legacy_ids),
+        )
     # Preserve registered mathematical statements/IDs, but keep one direct
     # GIVEN for the Hopf-image fact; relation views are derived by a rule.
     hopf_relation_ids = {

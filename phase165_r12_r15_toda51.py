@@ -36,7 +36,9 @@ class Toda51BelowDiagonalZeroStatement:
 def build_adopted_toda51_zero_reference(tex_path: Path) -> RegistryBridgeResult:
     """Register exactly one universal zero assertion from the adopted source."""
     text = Path(tex_path).read_text(encoding="utf8")
-    if EXPECTED_CLAUSE not in text or r"\begin{equation}\label{5.1}" not in text:
+    if (EXPECTED_CLAUSE not in text
+            or r"\pi^{1}_{i}=0\ (i>1)" not in text
+            or r"\begin{equation}\label{5.1}" not in text):
         raise ValueError("Toda (5.1) zero clause missing or changed")
     registry = UnifiedStatementRegistry()
     registry.add_reference(LiteratureEntry(
@@ -62,7 +64,31 @@ def build_adopted_toda51_zero_reference(tex_path: Path) -> RegistryBridgeResult:
             literature_reference=LiteratureReference(label="Toda (5.1)", locator="(5.1)"),
         ),
     )
-    return RegistryBridgeResult(registry, (), (ProofStepLink(GENERAL_ASSERTION_ID, step=step),))
+    # Reuse the existing scalar-specialization rule for the circle clause.
+    # Its i > 1 domain is checked in specialize_typed_statement().
+    from expression import ScalarSymbol
+    i = ScalarSymbol("i")
+    circle_source = TodaPrimaryGroupZeroStatement(TodaPrimaryGroup(i, 1))
+    circle_id = "adopted:assertion:toda51:circle_higher_zero"
+    registry.add_assertion(AssertionEntry(
+        assertion_id=circle_id,
+        reference_id=GENERAL_REFERENCE_ID,
+        kind=AssertionKind.STATEMENT,
+        content=circle_source,
+        origin=AssertionOrigin.FIXED_STATEMENT,
+        scope=("i>1",),
+    ))
+    circle_step = ProofStep(
+        conclusion=circle_source, premises=(), rule=ProofRule.GIVEN,
+        inference_rule=InferenceRule(
+            name="Toda (5.1) general circle higher vanishing",
+            literature_reference=LiteratureReference(label="Toda (5.1)", locator="(5.1)"),
+        ),
+    )
+    return RegistryBridgeResult(registry, (), (
+        ProofStepLink(GENERAL_ASSERTION_ID, step=step),
+        ProofStepLink(circle_id, step=circle_step),
+    ))
 
 
 def below_diagonal_zero_specialization_inference_rule(goal: TodaPrimaryGroupZeroStatement) -> InferenceRule:

@@ -1,0 +1,113 @@
+{
+  "direct": [
+    {
+      "assertion_id": "shared:1:adopted:assertion:1",
+      "type": "Relation",
+      "linked_given": true,
+      "direct_legacy": true,
+      "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "symbolic_source_matches": []
+    },
+    {
+      "assertion_id": "shared:1:adopted:assertion:2",
+      "type": "Relation",
+      "linked_given": true,
+      "direct_legacy": true,
+      "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "symbolic_source_matches": []
+    },
+    {
+      "assertion_id": "shared:1:adopted:assertion:4",
+      "type": "Relation",
+      "linked_given": true,
+      "direct_legacy": true,
+      "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "symbolic_source_matches": []
+    },
+    {
+      "assertion_id": "shared:1:adopted:assertion:6",
+      "type": "TodaPrimaryGroupZeroStatement",
+      "linked_given": true,
+      "direct_legacy": true,
+      "statement": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "symbolic_source_matches": []
+    }
+  ],
+  "general": [
+    {
+      "assertion_id": "shared:0:boundary:(5.1):circle_higher_homotopy_zero",
+      "type": "TodaFixedStatementComponent",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "TodaFixedStatementComponent(reference_locator='(5.1)', component_key='circle_higher_homotopy_zero', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=None, range_text='i > 1', range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:(5.1):sphere_connectivity_zero",
+      "type": "TodaFixedStatementComponent",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "TodaFixedStatementComponent(reference_locator='(5.1)', component_key='sphere_connectivity_zero', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=None, range_text='i < n', range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:(5.1):stable_negative_zero",
+      "type": "TodaFixedStatementComponent",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "TodaFixedStatementComponent(reference_locator='(5.1)', component_key='stable_negative_zero', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=None, range_text='k < 0', range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:(5.1):diagonal_identity_group",
+      "type": "TodaFixedStatementComponent",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "TodaFixedStatementComponent(reference_locator='(5.1)', component_key='diagonal_identity_group', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=None, range_text='n >= 1', range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:(5.1):stable_zero_stem",
+      "type": "TodaFixedStatementComponent",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "TodaFixedStatementComponent(reference_locator='(5.1)', component_key='stable_zero_stem', statement_role=<TodaLiteratureStatementRole.GROUP_STRUCTURE: 'group_structure'>, order=None, range_text=None, range_is_explicit_in_current_aggregate=True)"
+    },
+    {
+      "assertion_id": "shared:0:boundary:(5.1):diagonal_suspension_isomorphism",
+      "type": "TodaFixedStatementComponent",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "TodaFixedStatementComponent(reference_locator='(5.1)', component_key='diagonal_suspension_isomorphism', statement_role=<TodaLiteratureStatementRole.OTHER: 'other'>, order=None, range_text=None, range_is_explicit_in_current_aggregate=False)"
+    },
+    {
+      "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0001",
+      "type": "dict",
+      "linked_given": false,
+      "direct_legacy": false,
+      "statement": "{'source_statement_id': 'toda:tex:ch5:0001', 'source_text': '\\\\begin{equation}\\\\label{5.1}\\n\\\\pi^{1}_{i}=0\\\\ (i>1),\\\\qquad\\n\\\\pi^{n}_{i}=0\\\\ (i<n),\\\\qquad\\nG_k=(G_k;2)=0\\\\ (k<0).\\n\\\\end{equation}', 'source_sha256': '7f22530bf7ad332c903104712c58e5e1640a77dbdc1945852683ef2fe5a08005', 'source_chapter': 5, 'source_position': 7700, 'proof_eligible': False}"
+    },
+    {
+      "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+      "type": "Relation",
+      "linked_given": true,
+      "direct_legacy": false,
+      "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    },
+    {
+      "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+      "type": "Toda51BelowDiagonalZeroStatement",
+      "linked_given": true,
+      "direct_legacy": false,
+      "statement": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+    }
+  ],
+  "unmatched_direct": [
+    "shared:1:adopted:assertion:1",
+    "shared:1:adopted:assertion:2",
+    "shared:1:adopted:assertion:4",
+    "shared:1:adopted:assertion:6"
+  ],
+  "notes": [
+    "A direct source leaf with no symbolic_source_matches must not be removed.",
+    "Symbolic matching alone does not prove that a replacement proof search succeeds.",
+    "Source publication ordering and actual Proof Tree ancestry must be retained.",
+    "No repository files were modified by this audit."
+  ]
+}
