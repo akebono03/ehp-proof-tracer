@@ -1,0 +1,416 @@
+{
+  "phase": "R3-41P10",
+  "audit_only": true,
+  "cases": {
+    "pi3_2": {
+      "fulltext_equal": true,
+      "citations_ok": true,
+      "benchmark_ok": true,
+      "replay": {
+        "step_count": 18,
+        "roles": {
+          "INFERENCE": 13,
+          "GIVEN": 5,
+          "OTHER": 0
+        },
+        "replayed_count": 13,
+        "accepted_count": 13,
+        "all_inferences_accepted": true,
+        "milliseconds": 1.847,
+        "failures": [],
+        "details": [
+          {
+            "step_index": 1,
+            "conclusion_type": "TodaPrimaryGroupZeroStatement",
+            "premise_count": 1,
+            "rule_name": "generic cited typed scalar specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 3,
+            "conclusion_type": "TodaProp42ExactnessStatement",
+            "premise_count": 1,
+            "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 4,
+            "conclusion_type": "MapInjective",
+            "premise_count": 2,
+            "rule_name": "EHP: preceding zero group and exactness imply Hopf injectivity",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 6,
+            "conclusion_type": "Relation",
+            "premise_count": 1,
+            "rule_name": "generic cited typed scalar specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 7,
+            "conclusion_type": "Relation",
+            "premise_count": 1,
+            "rule_name": "generic cited typed scalar specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 9,
+            "conclusion_type": "TodaSuspensionIsomorphismStatement",
+            "premise_count": 3,
+            "rule_name": "diagonal free cyclic suspension on generators implies isomorphism",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 10,
+            "conclusion_type": "TodaProp42ExactnessStatement",
+            "premise_count": 1,
+            "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 11,
+            "conclusion_type": "TodaDeltaZeroStatement",
+            "premise_count": 2,
+            "rule_name": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 12,
+            "conclusion_type": "TodaProp42ExactnessStatement",
+            "premise_count": 1,
+            "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 13,
+            "conclusion_type": "MapSurjective",
+            "premise_count": 2,
+            "rule_name": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 14,
+            "conclusion_type": "MapIsomorphism",
+            "premise_count": 2,
+            "rule_name": "generic injective and surjective imply isomorphism",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 15,
+            "conclusion_type": "Relation",
+            "premise_count": 1,
+            "rule_name": "generic cited typed scalar specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 17,
+            "conclusion_type": "Relation",
+            "premise_count": 3,
+            "rule_name": "generic reverse free cyclic structure transport along isomorphism",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          }
+        ],
+        "given_certified": false
+      }
+    },
+    "pi4_3": {
+      "fulltext_equal": true,
+      "citations_ok": true,
+      "benchmark_ok": true,
+      "replay": {
+        "step_count": 25,
+        "roles": {
+          "INFERENCE": 19,
+          "GIVEN": 6,
+          "OTHER": 0
+        },
+        "replayed_count": 19,
+        "accepted_count": 19,
+        "all_inferences_accepted": true,
+        "milliseconds": 2.86,
+        "failures": [],
+        "details": [
+          {
+            "step_index": 1,
+            "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+            "premise_count": 1,
+            "rule_name": "specialize cited eta-family general definition",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 2,
+            "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+            "premise_count": 1,
+            "rule_name": "specialize cited eta-family general definition",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 3,
+            "conclusion_type": "GeneratorSuspension",
+            "premise_count": 2,
+            "rule_name": "consecutive cited eta definitions imply generator suspension",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 4,
+            "conclusion_type": "HomomorphismPresentationStatement",
+            "premise_count": 1,
+            "rule_name": "cited eta generator suspension yields presentation in target notation",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 6,
+            "conclusion_type": "Relation",
+            "premise_count": 1,
+            "rule_name": "generic cited typed scalar specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 8,
+            "conclusion_type": "TodaDeltaImageFreeCyclicStatement",
+            "premise_count": 2,
+            "rule_name": "free cyclic generator Delta image",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 10,
+            "conclusion_type": "TodaProp42ExactnessStatement",
+            "premise_count": 1,
+            "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 11,
+            "conclusion_type": "EHPImageEqualsKernelStatement",
+            "premise_count": 1,
+            "rule_name": "EHP exactness implies image equals kernel",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 12,
+            "conclusion_type": "SuspensionKernelFreeCyclicStatement",
+            "premise_count": 2,
+            "rule_name": "EHP Delta image and exactness imply concrete suspension kernel",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 13,
+            "conclusion_type": "KernelMultipleStatement",
+            "premise_count": 1,
+            "rule_name": "certified cyclic suspension kernel entails kernel multiple",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 14,
+            "conclusion_type": "TodaProp42ExactnessStatement",
+            "premise_count": 1,
+            "rule_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 16,
+            "conclusion_type": "TodaPrimaryGroupZeroStatement",
+            "premise_count": 1,
+            "rule_name": "Toda (5.1) general below-diagonal zero specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 17,
+            "conclusion_type": "MapSurjective",
+            "premise_count": 2,
+            "rule_name": "EHP exactness and zero Hopf target imply suspension surjectivity",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 18,
+            "conclusion_type": "ImageWholeStatement",
+            "premise_count": 1,
+            "rule_name": "EHP suspension surjectivity implies whole image",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 19,
+            "conclusion_type": "SurjectiveMapStatement",
+            "premise_count": 1,
+            "rule_name": "whole image implies surjectivity",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 20,
+            "conclusion_type": "QuotientIsomorphismStatement",
+            "premise_count": 3,
+            "rule_name": "first isomorphism theorem for generated kernel",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 22,
+            "conclusion_type": "CyclicStructureStatement",
+            "premise_count": 1,
+            "rule_name": "proved free cyclic group relation implies infinite cyclic structure",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 23,
+            "conclusion_type": "CyclicStructureStatement",
+            "premise_count": 2,
+            "rule_name": "infinite cyclic quotient structure",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 24,
+            "conclusion_type": "Relation",
+            "premise_count": 1,
+            "rule_name": "finite cyclic structure gives group relation",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          }
+        ],
+        "given_certified": false
+      }
+    },
+    "pi5_4": {
+      "fulltext_equal": true,
+      "citations_ok": true,
+      "benchmark_ok": true,
+      "replay": {
+        "step_count": 10,
+        "roles": {
+          "INFERENCE": 7,
+          "GIVEN": 3,
+          "OTHER": 0
+        },
+        "replayed_count": 7,
+        "accepted_count": 7,
+        "all_inferences_accepted": true,
+        "milliseconds": 1.084,
+        "failures": [],
+        "details": [
+          {
+            "step_index": 1,
+            "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+            "premise_count": 1,
+            "rule_name": "specialize cited eta-family general definition",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 2,
+            "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+            "premise_count": 1,
+            "rule_name": "specialize cited eta-family general definition",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 3,
+            "conclusion_type": "GeneratorSuspension",
+            "premise_count": 2,
+            "rule_name": "consecutive cited eta definitions imply generator suspension",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 4,
+            "conclusion_type": "HomomorphismPresentationStatement",
+            "premise_count": 1,
+            "rule_name": "cited eta generator suspension yields presentation in target notation",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 7,
+            "conclusion_type": "Toda45IsomorphismStatement",
+            "premise_count": 1,
+            "rule_name": "generic cited typed scalar specialization",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 8,
+            "conclusion_type": "Relation",
+            "premise_count": 2,
+            "rule_name": "Toda 4.5 generic finite-cyclic transport",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          },
+          {
+            "step_index": 9,
+            "conclusion_type": "Relation",
+            "premise_count": 2,
+            "rule_name": "proved generator suspension normalizes transported cyclic group",
+            "matching_premise_bindings": 1,
+            "accepted": true
+          }
+        ],
+        "given_certified": false
+      }
+    }
+  },
+  "counterfeits": {
+    "stable_eta": {
+      "partial_result_accepted": true,
+      "model_accepted": true,
+      "generic_replay_rejects": true,
+      "failure": [
+        {
+          "step_index": 2,
+          "conclusion_type": "Relation",
+          "premise_count": 2,
+          "rule_name": "cited stable eta-family notation for iterated transport",
+          "matching_premise_bindings": 0,
+          "accepted": false,
+          "failure": "RULE_MATCH_REJECTED"
+        }
+      ]
+    },
+    "ehp_exactness": {
+      "partial_result_accepted": true,
+      "model_accepted": true,
+      "generic_replay_rejects": true,
+      "failure": [
+        {
+          "step_index": 25,
+          "conclusion_type": "EHPImageEqualsKernelStatement",
+          "premise_count": 1,
+          "rule_name": "EHP exactness implies image equals kernel",
+          "matching_premise_bindings": 1,
+          "accepted": false,
+          "failure": "CONCLUSION_MISMATCH"
+        }
+      ]
+    }
+  },
+  "status": "PASS"
+}
