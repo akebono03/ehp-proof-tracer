@@ -1,0 +1,190 @@
+{
+  "sources": {
+    "git": {
+      "branch": "develop",
+      "head": "02c2a6a1e13eb69f297dc50a363db958aa18f72c",
+      "status": "?? phase168_r3_41p_boundary_audit/"
+    },
+    "digests": {
+      "phase168_r3_5_model_renderer.py": {
+        "sha256": "ed248f02f3229d979ac88180fe7690e45778916c18da2d8b2221a3417cbf86cb",
+        "bytes": 20841,
+        "lines": 396
+      },
+      "phase168_r3_27_typed_statement_projection.py": {
+        "sha256": "9f51d795c7dc871edeadda2fc9c67e31920d08a88684c52b8a000be9cfe06419",
+        "bytes": 13394,
+        "lines": 263
+      },
+      "phase168_r3_3_proof_narrative_model.py": {
+        "sha256": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+        "bytes": 7438,
+        "lines": 166
+      },
+      "phase168_r3_4_link_bridge.py": {
+        "sha256": "970115534e12db4d39ef8aed48396781d21f195b868f22f0026797baa1029c60",
+        "bytes": 1377,
+        "lines": 30
+      },
+      "phase168_r3_12_body_binding.py": {
+        "sha256": "f04257bde5e26bb5a596258dd83cf6c2bd0fd68f2ad2d98adf83013a1f8c8035",
+        "bytes": 3128,
+        "lines": 70
+      },
+      "phase168_r3_29_order_projection.py": {
+        "sha256": "3392891f706c23e14b8556cb469bf27d4c52567867a38e434f9e970a2f2b2d18",
+        "bytes": 7876,
+        "lines": 179
+      },
+      "phase165_r57_r20_general_specialization.py": {
+        "sha256": "9243a9ffee447991f71a83c5700bf9533a9c774fd5e78cda8be3e33786f51056",
+        "bytes": 15620,
+        "lines": 339
+      },
+      "phase166_r3ac_stable_notation.py": {
+        "sha256": "715b3e1cc91111f3960abdb726947f95c7cbfdd6466c4673cb829d9d0b17494b",
+        "bytes": 5344,
+        "lines": 111
+      },
+      "phase165_r12_r11_prop42_unified.py": {
+        "sha256": "19827b6938ab600d31cb46009ffe73fe1266682f79fce87295594d27f0e6fae0",
+        "bytes": 7913,
+        "lines": 178
+      },
+      "phase168_r3_41o_renderer_closure/tests/test_phase168_r3_41o_renderer_closure.py": {
+        "sha256": "e8c8fe1ab67ff18bfc08bc6561552ced0aeefad570faa764acdfc60d1c4da145",
+        "bytes": 4038,
+        "lines": 97
+      },
+      "phase168_r3_41n1_import_scope_fix/tests/test_phase168_r3_41n_composed_proof_display.py": {
+        "sha256": "caca293709c1637d4d05673953819ddfac61c91d8062882b25fe51c2f51afaf3",
+        "bytes": 4755,
+        "lines": 100
+      },
+      "phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py": {
+        "sha256": "ccb386e1a1d878cd43ec3f1599f07a11b99c1422b98af1636a07959ab27537ea",
+        "bytes": 2476,
+        "lines": 52
+      },
+      "phase168_r3_39a_reference_accuracy/tests/test_phase168_r3_39a_reference_accuracy.py": {
+        "sha256": "afc745cf5af8ce99014ad00aea73e11c048d6c8139302ae87142f77e6c0ed94d",
+        "bytes": 1722,
+        "lines": 45
+      },
+      "phase168_r3_8_citation_origin/tests/test_phase168_r3_8_citation_origin.py": {
+        "sha256": "dd450ce57b69fcbf91257a85b8cd5a70c7bd7514a3357bd5ed154de927b6267d",
+        "bytes": 2197,
+        "lines": 59
+      }
+    },
+    "missing": [],
+    "static": [
+      {
+        "file": "phase168_r3_5_model_renderer.py",
+        "digest": {
+          "sha256": "ed248f02f3229d979ac88180fe7690e45778916c18da2d8b2221a3417cbf86cb",
+          "bytes": 20841,
+          "lines": 396
+        },
+        "findings": [
+          {
+            "line": 71,
+            "function": "render_model_backed_narrative_markdown.validated_specialization_citation_numbers",
+            "identifier": "specialize_typed_statement",
+            "classification": "MATHEMATICAL_REVALIDATION",
+            "excerpt": "valid = specialize_typed_statement(source, target) is not None"
+          },
+          {
+            "line": 74,
+            "function": "render_model_backed_narrative_markdown.validated_specialization_citation_numbers",
+            "identifier": "specialize_typed_statement",
+            "classification": "MATHEMATICAL_REVALIDATION",
+            "excerpt": "valid = specialize_typed_statement(source, target) is not None"
+          },
+          {
+            "line": 229,
+            "function": "render_model_backed_narrative_markdown",
+            "identifier": "getattr(inference_rule, 'name')",
+            "classification": "STRING_COUPLED_PRESENTATION",
+            "excerpt": "and getattr(consumer.inference_rule, \"name\", None)"
+          }
+        ]
+      },
+      {
+        "file": "phase168_r3_27_typed_statement_projection.py",
+        "digest": {
+          "sha256": "9f51d795c7dc871edeadda2fc9c67e31920d08a88684c52b8a000be9cfe06419",
+          "bytes": 13394,
+          "lines": 263
+        },
+        "findings": [
+          {
+            "line": 84,
+            "function": "toda45_specialization_evidence.find_source",
+            "identifier": "specialize_typed_statement",
+            "classification": "MATHEMATICAL_REVALIDATION",
+            "excerpt": "bindings = specialize_typed_statement(parent.conclusion, step.conclusion)"
+          },
+          {
+            "line": 142,
+            "function": "project_stable_eta_notation_transition",
+            "identifier": "_stable_eta_renaming_shape",
+            "classification": "MATHEMATICAL_SHAPE_RECHECK",
+            "excerpt": "or not _stable_eta_renaming_shape(transported, step.conclusion)):"
+          },
+          {
+            "line": 208,
+            "function": "typed_sentence",
+            "identifier": "getattr(inference_rule, 'name')",
+            "classification": "STRING_COUPLED_PRESENTATION",
+            "excerpt": "\"exact\" in str(getattr(p.inference_rule, \"name\", \"\")).lower()"
+          },
+          {
+            "line": 232,
+            "function": "typed_sentence",
+            "identifier": "prop42_exactness_indices",
+            "classification": "EXACTNESS_SHAPE_RECHECK",
+            "excerpt": "if prop42_exactness_indices(TodaProp42ExactnessStatement(window)) is None:"
+          }
+        ]
+      },
+      {
+        "file": "phase168_r3_3_proof_narrative_model.py",
+        "digest": {
+          "sha256": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+          "bytes": 7438,
+          "lines": 166
+        },
+        "findings": []
+      },
+      {
+        "file": "phase168_r3_4_link_bridge.py",
+        "digest": {
+          "sha256": "970115534e12db4d39ef8aed48396781d21f195b868f22f0026797baa1029c60",
+          "bytes": 1377,
+          "lines": 30
+        },
+        "findings": []
+      },
+      {
+        "file": "phase168_r3_12_body_binding.py",
+        "digest": {
+          "sha256": "f04257bde5e26bb5a596258dd83cf6c2bd0fd68f2ad2d98adf83013a1f8c8035",
+          "bytes": 3128,
+          "lines": 70
+        },
+        "findings": []
+      },
+      {
+        "file": "phase168_r3_29_order_projection.py",
+        "digest": {
+          "sha256": "3392891f706c23e14b8556cb469bf27d4c52567867a38e434f9e970a2f2b2d18",
+          "bytes": 7876,
+          "lines": 179
+        },
+        "findings": []
+      }
+    ]
+  },
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41p_boundary_audit\\audit.py\", line 459, in main\n    report[\"runtime\"] = runtime_audit()\n  File \"C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41p_boundary_audit\\audit.py\", line 192, in runtime_audit\n    import phase165_r57_r20_general_specialization as specialization\nModuleNotFoundError: No module named 'phase165_r57_r20_general_specialization'\n"
+}
