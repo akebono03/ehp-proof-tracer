@@ -76,7 +76,7 @@ def test_exactness_chain_cites_only_proved_prop42_ancestor(cases, name):
 ])
 def test_eta_suspension_cites_only_proved_eta_definition_ancestor(cases, name, source, target):
     result, model, markdown = cases[name]
-    cited = _reference_number(model, 'eta-family notation')
+    cited = _reference_number(model, 'Chapter V, i)')
     eta_witnesses = [step for step in model.steps
                      if isinstance(step.conclusion, GeneratorSuspension)
                      and _eta_pair(step.conclusion) is not None]

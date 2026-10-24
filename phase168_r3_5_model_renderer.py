@@ -158,6 +158,8 @@ def render_model_backed_narrative_markdown(
         lines.append("")
     from homotopy_groups import TodaPrimaryGroupZeroStatement
     from expression import ScalarSymbol
+    from proof import Relation
+    from homotopy_groups import TodaPrimaryGroup
     from web_group_proof_common import _group_proof_statement_latex
     for index in order:
         step = model.steps[index]
@@ -191,6 +193,19 @@ def render_model_backed_narrative_markdown(
         if (isinstance(statement, TodaPrimaryGroupZeroStatement)
                 and statement.group.sphere_dimension == 1
                 and isinstance(statement.group.group_dimension, ScalarSymbol)):
+            continue
+        # A cited symbolic diagonal GIVEN is the Reference's general schema.
+        # Only its concrete proof specializations belong in the proof body.
+        if (step.rule is ProofRule.GIVEN
+                and isinstance(statement, Relation)
+                and isinstance(statement.lhs, TodaPrimaryGroup)
+                and isinstance(statement.lhs.group_dimension, ScalarSymbol)
+                and statement.lhs.group_dimension == statement.lhs.sphere_dimension
+                and any(
+                    citation.number in model.step_citation_numbers[index]
+                    and any(r"\pi_{n}^{n}" in body for body in citation.statement_bodies)
+                    for citation in model.citations
+                )):
             continue
         # Only verbalize the certified stable-eta normalization already
         # represented by this step's source relation and cited definition.
@@ -235,6 +250,10 @@ def render_model_backed_narrative_markdown(
                             for parent in step.premises
                         )):
                     sentence = "これより, " + sentence
+                if sentence.endswith("である."):
+                    sentence = sentence[:-4] + "."
+                elif sentence.endswith("が成り立つ."):
+                    sentence = sentence[:-6] + "."
                 lines.extend((sentence, ""))
         else:
             tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
@@ -249,14 +268,14 @@ def render_model_backed_narrative_markdown(
                     sources = validated_specialization_citation_numbers(step)
                     prefix = (
                         ", ".join(f"[R{number}]" for number in sources) + "より, "
-                        if sources else "導出により, "
+                        if sources else ""
                     )
             statement_latex = body_line.statement_latex
             if isinstance(step.conclusion, TodaProp42ExactnessStatement):
                 statement_latex = statement_latex.replace(r" \text{ is exact}", "")
-                lines.append(f"{prefix}${statement_latex}$ は完全列である.")
+                lines.append(f"{prefix}${statement_latex}$ は完全.")
             else:
-                lines.append(f"{prefix}${statement_latex}$ を得る.")
+                lines.append(f"{prefix}${statement_latex}$.")
             lines.append("")
     if incomplete:
         if model.open_goals:

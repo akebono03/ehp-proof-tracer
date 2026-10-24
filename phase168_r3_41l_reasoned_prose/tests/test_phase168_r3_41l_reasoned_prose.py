@@ -78,8 +78,8 @@ def test_validated_general_specializations_have_explanatory_citations(cases, nam
         if statement_latex is None or problem is not None:
             continue
         expected = ", ".join(f"[R{number}]" for number in source_numbers)
-        assert f"{expected}より, ${statement_latex}$ を得る." in body
-        assert f"導出により, ${statement_latex}$ を得る." not in body
+        assert f"{expected}より, ${statement_latex}$." in body
+        assert f"導出により, ${statement_latex}$." not in body
     assert body.rstrip().endswith("□")
 
 
@@ -131,7 +131,7 @@ def test_pi54_specialization_and_transport_unchanged(cases):
     c = proof.index(r"E(\eta_{3})=\eta_{4}")
     assert a < b < c
     assert r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" in proof
-    assert "導出により" in proof
+    assert "導出により" not in proof
     assert proof.rstrip().endswith("□")
 
 

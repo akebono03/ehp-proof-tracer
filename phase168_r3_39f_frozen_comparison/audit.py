@@ -47,7 +47,7 @@ def assess(name: str, proof: str) -> list[dict[str, object]]:
             {"key": "surjectivity_from_exactness", "present": any("完全性より" in line for line in lines), "why": "E の全射を完全性から導いたことを明記"},
             {"key": "kernel_presentation", "present": r"\kerE=" in flat and r"\mathbb{Z}" in flat, "why": "ker E の具体的な表示"},
             {"key": "quotient_theorem", "present": "準同型定理より" in proof, "why": "準同型定理を明記"},
-            {"key": "diagonal_general_in_proof", "present": bool(re.search(r"\\pi_\{?n\}?\^\{?n\}?", flat)), "why": "基準にも存在する対角群の一般式"},
+            {"key": "diagonal_general_only_in_reference", "present": not bool(re.search(r"\\pi_\{?n\}?\^\{?n\}?", flat)), "why": "一般の対角群構造は Reference に置き本文には重複させない"},
         ]
     if name == "pi5_4":
         match = re.search(r"\(n,m,k\)=\(3,4,1\)", flat)
