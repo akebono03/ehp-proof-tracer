@@ -20,7 +20,7 @@ def render_model_backed_narrative_markdown(
     from phase168_r3_29_order_projection import project_narrative_order
     from phase168_r3_26_exactness_projection import project_exactness_chains
     from phase168_r3_27_typed_statement_projection import (
-        group_tex, typed_sentence, toda45_specialization_evidence,
+        group_tex, element_tex, typed_sentence, toda45_specialization_evidence,
         project_toda45_specialization_citation_numbers,
         project_stable_eta_notation_transition,
     )
@@ -129,6 +129,10 @@ def render_model_backed_narrative_markdown(
             lines.extend(("### 確認済み ProofStep（与件を含む）", ""))
     else:
         lines.extend(("証明", ""))
+        if not chains:
+            target_name = group_tex(model.target)
+            if target_name is not None:
+                lines.extend((f"${target_name}$の群構造を決定する.", ""))
     for chain in chains:
         map_tex = {EHP_E_MAP: "E", EHP_H_MAP: "H", EHP_DELTA_MAP: r"\Delta"}
         sequence = group_tex(chain.arrows[0][0])
@@ -150,9 +154,9 @@ def render_model_backed_narrative_markdown(
         ))
         if exactness_numbers:
             tags = ", ".join(f"[R{number}]" for number in exactness_numbers)
-            lines.append(f"群構造を決定するために, {tags}を用いて次の完全列を考える.")
+            lines.append(f"${group_tex(model.target)}$の群構造を決定するために, {tags}を用いて次の完全列を考える.")
         else:
-            lines.append("群構造を決定するために, 次の完全列を考える.")
+            lines.append(f"${group_tex(model.target)}$の群構造を決定するために, 次の完全列を考える.")
         lines.append("")
         lines.append(f"${sequence}$.")
         lines.append("")
@@ -164,7 +168,6 @@ def render_model_backed_narrative_markdown(
         from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaSuspensionMap
         from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
         from phase165_r12_r13_kernel_image import SuspensionKernelFreeCyclicStatement
-        from phase166_r3v_generator_transport import generator_transport_normalization_rule
         from toda_rules import TodaDeltaImageFreeCyclicStatement
 
         def unique_step_index(premise):
@@ -223,9 +226,11 @@ def render_model_backed_narrative_markdown(
                         and isinstance(transported, Relation)
                         and isinstance(transported.rhs, FiniteCyclicGroup)
                         and isinstance(witness_step.conclusion, GeneratorSuspension)
-                        and generator_transport_normalization_rule(conclusion).match_guard(
-                            consumer.premises, {}
-                        )):
+                        and getattr(consumer.inference_rule, "name", None)
+                        == "proved generator suspension normalizes transported cyclic group"
+                        and transported.lhs == conclusion.lhs
+                        and transported.rhs.order == conclusion.rhs.order
+                        and transported.lhs == witness_step.conclusion.map.target_group):
                     earlier_index = unique_step_index(transported_step)
                     if (earlier_index is not None
                             and earlier_index in order
@@ -294,6 +299,21 @@ def render_model_backed_narrative_markdown(
         if body_line is None:
             sentence = typed_sentence(step.conclusion, step)
             if sentence is not None:
+                # The certified kernel step already consumes the suppressed
+                # exactness equality and a concrete Delta image. Compose only
+                # the displayed equality, without re-running a proof rule.
+                if (isinstance(statement, SuspensionKernelFreeCyclicStatement)
+                        and any(
+                            isinstance(parent.conclusion, EHPImageEqualsKernelStatement)
+                            and unique_step_index(parent) in suppressed_body_indices
+                            for parent in step.premises
+                        )):
+                    generator = element_tex(statement.kernel_group.generator)
+                    if generator is not None:
+                        sentence = (
+                            rf"完全性より, $\ker E=\operatorname{{Im}}\Delta="
+                            rf"\mathbb{{Z}}\{{{generator}\}}$."
+                        )
                 numbers = model.step_citation_numbers[index]
                 tags = ", ".join(f"[R{number}]" for number in numbers)
                 if tags and step.rule is ProofRule.GIVEN:

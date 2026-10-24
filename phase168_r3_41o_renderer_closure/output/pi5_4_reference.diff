@@ -1,0 +1,12 @@
+--- pi5_4_frozen_reference
++++ pi5_4_current_reference
+@@ -1,4 +1,6 @@
+-[R1] (4.5).
+-n \ge k + 2 のとき, E^{m-n}: \pi_{n+k}^{n} \to \pi_{m+k}^{m} は同型.
+-[R2] Proposition 5.1.
+-\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}.+**[R1] Chapter V, i).**
++$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する.
++**[R2] Proposition 5.1.**
++$\pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}$.
++**[R3] (4.5).**
++$n\ge k+2$, $m\ge n$, $k\ge0$ に対し, $E^{m-n}:\pi_{n+k}^{n}\xrightarrow{\cong}\pi_{m+k}^{m}$ が成り立つ.

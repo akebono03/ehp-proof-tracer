@@ -51,7 +51,7 @@ def test_pi43_exactness_is_consumed_by_concrete_kernel(cases):
     )
     reference, proof = sections(markdown)
     assert r"\operatorname{Im}\Delta=\ker E" not in proof
-    assert r"\ker E=\mathbb{Z}\{2\eta_{2}\}" in proof
+    assert r"\ker E=\operatorname{Im}\Delta=\mathbb{Z}\{2\eta_{2}\}" in proof
     assert r"\operatorname{Im}\Delta=\mathbb{Z}\{2\eta_{2}\}" in proof
     assert "完全性より" in proof
 
