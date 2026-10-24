@@ -1,11 +1,2 @@
-................F..........                                              [100%]
-================================== FAILURES ===================================
-______________ test_pi32_all_steps_preserved_without_suppression ______________
-
->   ???
-E   AssertionError: assert '零写像である' in '使用する結果\n\n**[R1] (5.1).**\n\n$\\pi_i^1=0\\quad(i>1)$.\n\n$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$....}\\{\\iota_{3}\\}$.\n\n[R4]より, $H(\\eta_{2})=\\iota_{3}$.\n\n以上より, $\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.\n\n□\n'
-
-C:\Users\oomae\Dropbox\Python\fitz\ehp_proof\phase168_r3_29_order_projection\tests\test_phase168_r3_29_order_projection.py:51: AssertionError
-=========================== short test summary info ===========================
-FAILED phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py::test_pi32_all_steps_preserved_without_suppression
-1 failed, 26 passed in 19.94s
+................................                                         [100%]
+32 passed in 13.14s

@@ -67,7 +67,8 @@ try {
         ".\phase168_r3_29_order_projection\tests\test_phase168_r3_29_order_projection.py",
         ".\phase168_r3_39a_reference_accuracy\tests\test_phase168_r3_39a_reference_accuracy.py",
         ".\phase168_r3_8_citation_origin\tests\test_phase168_r3_8_citation_origin.py",
-        ".\phase168_r3_41p_boundary_audit\tests\test_audit_error_reporting.py"
+        ".\phase168_r3_41p_boundary_audit\tests\test_audit_error_reporting.py",
+        ".\phase168_r3_41p_boundary_audit\tests\test_launcher_and_stale_test_patch.py"
     )
     $missing = @($testPaths | Where-Object { -not (Test-Path $_) })
     if ($missing.Count -gt 0) {
@@ -78,13 +79,20 @@ try {
     $before = (git status --porcelain 2>$null) -join "`n"
     $before | Set-Content -Encoding UTF8 (Join-Path $output "git_status_before.txt")
 
+    # Run Python as a module from the project root so sibling application
+    # modules are importable (python path/to/audit.py places package dir first).
+    $patchExit = Invoke-LoggedPython `
+        -Python $python `
+        -PythonArguments @("-B", "-m", "phase168_r3_41p_boundary_audit.apply_test_fix") `
+        -OutputPrefix "test_patch"
+
     $auditExit = Invoke-LoggedPython `
         -Python $python `
-        -PythonArguments @("-B", (Join-Path $package "audit.py")) `
+        -PythonArguments @("-B", "-m", "phase168_r3_41p_boundary_audit.audit") `
         -OutputPrefix "audit_console"
 
     $testExit = 0
-    if (-not $SkipTests) {
+    if (-not $SkipTests -and $patchExit -eq 0) {
         Write-Host "Running R3-41P focused tests only; full pytest NOT run."
         $pythonArgs = @("-B", "-m", "pytest", "-q", "-p", "no:cacheprovider") + $testPaths
         $testExit = Invoke-LoggedPython `
@@ -92,14 +100,15 @@ try {
             -PythonArguments $pythonArgs `
             -OutputPrefix "pytest_focused"
     } else {
-        "FOCUSED_PYTEST_SKIPPED" |
+        $reason = if ($SkipTests) { "USER_REQUESTED_SKIP" } else { "TEST_PATCH_FAILED" }
+        ("FOCUSED_PYTEST_SKIPPED " + $reason) |
             Set-Content -Encoding UTF8 (Join-Path $output "pytest_focused.log")
     }
 
     $after = (git status --porcelain 2>$null) -join "`n"
     $after | Set-Content -Encoding UTF8 (Join-Path $output "git_status_after.txt")
     if ($before -cne $after) {
-        Write-Warning "git status changed during audit. Inspect git_status_before/after.txt."
+        Write-Host "Git status changed (the R3-29 test update is expected). Inspect git_status_before/after.txt."
     }
 
     $reviewBundle = Join-Path $output "review_bundle.zip"
@@ -111,10 +120,15 @@ try {
         Write-Host "REVIEW_BUNDLE $reviewBundle"
     }
 
+    Write-Host "TEST_PATCH_EXIT $patchExit"
     Write-Host "AUDIT_EXIT $auditExit"
     Write-Host "FOCUSED_PYTEST_EXIT $testExit"
     Write-Host "FULL_PYTEST_NOT_RUN"
     Write-Host "REPORT $(Join-Path $output 'audit.md')"
+    if ($patchExit -ne 0) {
+        Write-Warning "The R3-29 test could not be updated. No application source was touched."
+        exit $patchExit
+    }
     if ($auditExit -ne 0) {
         Write-Warning "Audit identified an error. Check audit.md and *_audit_error.txt. Review bundle was still created."
         exit $auditExit

@@ -10,8 +10,20 @@
 ## Git 状態
 
 - branch: `develop`
-- HEAD: `02c2a6a1e13eb69f297dc50a363db958aa18f72c`
-- working status (audit start): `?? phase168_r3_41p_boundary_audit/`
+- HEAD: `d2465b9bfdb977c647a893dfbc10df339b25a0c8`
+- working status (audit start): `M phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py
+ M phase168_r3_41p_boundary_audit/README.md
+ M phase168_r3_41p_boundary_audit/output/audit_console_stdout.log
+ M phase168_r3_41p_boundary_audit/output/git_status_before.txt
+ M phase168_r3_41p_boundary_audit/run.ps1
+?? phase168_r3_41p_boundary_audit/R3-41P2_REPAIR.md
+?? phase168_r3_41p_boundary_audit/apply_test_fix.py
+?? phase168_r3_41p_boundary_audit/output/backups/
+?? phase168_r3_41p_boundary_audit/output/test_patch.log
+?? phase168_r3_41p_boundary_audit/output/test_patch_stderr.log
+?? phase168_r3_41p_boundary_audit/output/test_patch_stdout.log
+?? phase168_r3_41p_boundary_audit/restore_test.py
+?? phase168_r3_41p_boundary_audit/tests/test_launcher_and_stale_test_patch.py`
 
 ## 静的監査
 
@@ -36,7 +48,9 @@
 
 | 群 | ProofStep | Reference | 引用対応 | 固定論証 | 本文差分行 | Reference差分行 |
 |---|---:|---:|---|---|---:|---:|
-| 未実施 | — | — | — | — | — | — |
+| pi3_2 | 18 | 4 | PASS | PASS | 32 |
+| pi4_3 | 25 | 4 | PASS | PASS | 29 |
+| pi5_4 | 10 | 3 | PASS | PASS | 14 |
 
 ## 要注意点
 
@@ -56,15 +70,3 @@
 
 監査結果を確認した後で、必要性を実証できた箇所だけ最小修正する。
 全体 pytest は Phase 168 終了時に実行する。
-
-## 動的監査エラー
-
-```text
-Traceback (most recent call last):
-  File "C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase168_r3_41p_boundary_audit\audit.py", line 459, in main
-    report["runtime"] = runtime_audit()
-  File "C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase168_r3_41p_boundary_audit\audit.py", line 192, in runtime_audit
-    import phase165_r57_r20_general_specialization as specialization
-ModuleNotFoundError: No module named 'phase165_r57_r20_general_specialization'
-
-```

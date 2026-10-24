@@ -1,16 +1,18 @@
-# Phase 168 R3-41P — Renderer Responsibility Boundary Audit
+# Phase 168 R3-41P2 — Renderer Responsibility Audit Launcher Repair
 
-This package audits the boundary between proof validation and narrative rendering in EHP Proof Tracer.
+This package runs a focused read-only audit of proof validation versus narrative rendering in EHP Proof Tracer. It uses the project's real proof search, typed narrative model, common renderer, and frozen textual benchmarks.
 
-It is **audit-only**: it does not patch the project's Python source files, change tests, register rules, or run the full pytest suite.
+**Scope:** This package corrects the audit launcher and updates only one legacy test assertion whose wording no longer matches the R3-41O renderer. No application renderer, proof search, mathematics, citation model, or existing API is changed. The full pytest suite remains deferred until the end of Phase 168.
 
 ## Run on Windows PowerShell
 
-From your EHP Proof Tracer repository root:
+From the repository root:
 
 ```powershell
+cd C:\Users\user\Dropbox\Python\fitz\ehp_proof
+
 Expand-Archive `
-  -Path "$HOME\Downloads\phase168_r3_41p_boundary_audit.zip" `
+  -Path "$HOME\Downloads\phase168_r3_41p2_runtime_and_test_fix.zip" `
   -DestinationPath "." `
   -Force
 
@@ -19,9 +21,21 @@ powershell `
   -File ".\phase168_r3_41p_boundary_audit\run.ps1"
 ```
 
-`run.ps1` runs the audit and five existing focused test files plus one new audit-runner regression test.
+The launcher runs the audit module with `python -B -m phase168_r3_41p_boundary_audit.audit` from the repository root. Running `python -B path/to/audit.py` directly is not supported because sibling project modules may not be on `sys.path`.
 
-To run an audit without pytest:
+It first verifies and backs up a single stale test assertion in `phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py`. Only `test_pi32_all_steps_preserved_without_suppression()` is changed, replacing the requirement for the exact phrase `零写像である` with the already-proven equation `\operatorname{Im}\Delta=\ker E=0`. The test still checks all steps in the order projection and the single complete sequence. On unfamiliar contents the patch refuses to run rather than overwriting the test.
+
+## Restore the old test
+
+From the repository root:
+
+```powershell
+python -B -m phase168_r3_41p_boundary_audit.restore_test
+```
+
+The restore tool verifies both SHA-256 hashes and refuses to overwrite later edits. The original bytes are retained under `phase168_r3_41p_boundary_audit/output/backups/`. No application source file is touched.
+
+## Run without focused pytest
 
 ```powershell
 powershell `
@@ -30,32 +44,22 @@ powershell `
   -SkipTests
 ```
 
-## Outputs
+The test assertion will still be backed up and updated. Use `restore_test` to revert it.
 
-Files under `phase168_r3_41p_boundary_audit/output/` (the review bundle is generated even when the Python audit reports a failure):
+## Results
 
-- `audit.md`, `audit.json`: static and dynamic findings, Git state, runtime validator calls, citation provenance
-- `pi3_2_current.md`, `pi4_3_current.md`, `pi5_4_current.md`: complete renderer output (reference and proof)
-- `pi*_reference.diff`, `pi*_proof.diff`: text diffs against available frozen baselines
-- `audit_console.log`, `pytest_focused.log`: combined audit and focused pytest logs
-- `audit_console_stdout.log`, `audit_console_stderr.log`: unmodified stdout/stderr files, including full tracebacks
-- `pi*_audit_error.txt`: per-group complete traceback if any group fails
-- `git_status_before.txt`, `git_status_after.txt`: source tree changes for manual inspection
+The launcher collects the audit output in `phase168_r3_41p_boundary_audit/output/`:
 
-If baseline files are absent, the audit marks comparisons unavailable instead of inventing results. Any failure is reported in `audit.json`.
+- `audit.md` and `audit.json`: static findings, proof/citation linkage, runtime validation calls, and group-by-group status
+- `pi3_2_current.md`, `pi4_3_current.md`, `pi5_4_current.md`: full generated narrative and Reference sections
+- `pi*_proof.diff`, `pi*_reference.diff`: frozen baseline textual differences when available
+- `test_patch.log`: trace of the one-test-only patch
+- `audit_console.log`, `pytest_focused.log`: standard output and errors also saved separately
+- `git_status_before.txt`, `git_status_after.txt`: track modifications
+- `review_bundle.zip`: consolidated output, even on an audit or test failure
 
-## Scope
+### Validation
 
-The audit checks common renderer/model/projection code and the cited tests, including dynamic call sites of the mathematical specialization validators. It distinguishes source-provenance consistency from proof correctness.
+The launcher executes only focused tests for R3-41O, R3-41N1, R3-29, R3-39A, R3-8 and audit-runner tests. It does not execute the full suite. Any nonzero audit or pytest status is reported honestly and propagated as a nonzero process exit code.
 
-No program source files are added or replaced. The package creates only its own output files. The project's Python behavior may produce temporary non-source artifacts through existing utilities.
-
-The full pytest suite is deliberately deferred until Phase 168 closes.
-
-## R3-41P1 runner repair
-
-`run.ps1` previously combined stderr into a PowerShell pipeline with `2>&1` while `$ErrorActionPreference = "Stop"`. On Windows PowerShell, the first Python error could stop the runner before it saved a full traceback or produced `review_bundle.zip`. The revised runner uses `Start-Process` with separate stdout/stderr redirection, reports exit codes, and packages diagnostic logs even if Python exits unsuccessfully.
-
-The Python audit also catches failures **per group** and processes the other groups, retaining their findings rather than losing them to a top-level exception. It preserves the previous exit status semantics: audit failures return a nonzero code. It never claims an audit passed when it failed.
-
-This patch replaces only the package's `audit.py` and `run.ps1`, adds a regression test under `tests/`, and updates this package README. No EHP proof generation or application modules are modified.
+See `R3-41P2_REPAIR.md` for the precise change list, complete replacement test function, completion conditions, and next-phase boundary.
