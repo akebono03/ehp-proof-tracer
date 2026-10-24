@@ -1,0 +1,19 @@
+## 使用する結果
+
+**[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.**
+
+$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する.
+
+**[R2] (5.1).**
+
+$\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n\ge 1)$.
+
+**[R3] Proposition 5.1.**
+
+$\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$.
+
+**[R4] Proposition 4.2 (4.4).**
+
+Proposition 4.2 により, EHP の列 $\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1}$ は完全である.
+
+---
