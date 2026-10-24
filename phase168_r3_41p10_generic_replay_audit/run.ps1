@@ -1,4 +1,4 @@
-param([switch]$SkipTests)
+param([switch]$SkipTests, [switch]$BundleOnly)
 
 $ErrorActionPreference = 'Stop'
 $package = Split-Path -Parent $MyInvocation.MyCommand.Path
@@ -32,8 +32,50 @@ function Invoke-CapturedPython {
     return [int]$process.ExitCode
 }
 
+function Write-ReviewBundle {
+    # Archive only audit/report files; exclude previous review bundles.
+    $entries = @(
+        Get-ChildItem -LiteralPath $output -File |
+            Where-Object { $_.Name -notlike 'review_bundle*.zip' } |
+            ForEach-Object { $_.FullName }
+    )
+    if ($entries.Count -eq 0) {
+        throw 'No audit report files found to bundle.'
+    }
+    $target = Join-Path $output 'review_bundle.zip'
+    try {
+        Compress-Archive -LiteralPath $entries -DestinationPath $target `
+            -CompressionLevel Optimal -Force -ErrorAction Stop
+    } catch {
+        # Dropbox or antivirus may temporarily lock the existing fixed-name ZIP.
+        # Preserve the successful audit and use a fresh filename instead.
+        Write-Warning ('Fixed review_bundle.zip unavailable: ' + $_.Exception.Message)
+        $unique = ('review_bundle_' + [guid]::NewGuid().ToString('N') + '.zip')
+        $target = Join-Path $output $unique
+        Compress-Archive -LiteralPath $entries -DestinationPath $target `
+            -CompressionLevel Optimal -ErrorAction Stop
+    }
+    if (-not (Test-Path -LiteralPath $target)) {
+        throw ('Review bundle was not created: ' + $target)
+    }
+    Write-Host ('REVIEW_BUNDLE ' + $target)
+}
+
 Push-Location $root
 try {
+    if ($BundleOnly) {
+        $auditJson = Join-Path $output 'audit.json'
+        if (-not (Test-Path -LiteralPath $auditJson)) {
+            throw 'Existing audit.json is missing; cannot recover prior results.'
+        }
+        Write-Host 'R3-41P10A BUNDLE_ONLY: existing audit and pytest results are preserved.'
+        Write-ReviewBundle
+        Write-Host 'AUDIT_NOT_RERUN'
+        Write-Host 'PYTEST_NOT_RERUN'
+        Write-Host 'FULL_PYTEST_NOT_RUN'
+        Write-Host 'APPLICATION_SOURCE_UNCHANGED'
+        exit 0
+    }
     Write-Host 'R3-41P10 AUDIT_ONLY: existing application modules and tests will not be patched.'
     (& git status --porcelain 2>$null) | Set-Content -Path (Join-Path $output 'git_status_before.txt') -Encoding UTF8
 
@@ -63,14 +105,7 @@ try {
     }
 
     (& git status --porcelain 2>$null) | Set-Content -Path (Join-Path $output 'git_status_after.txt') -Encoding UTF8
-    $reviewBundle = Join-Path $output 'review_bundle.zip'
-    $tempZip = Join-Path $package 'review_bundle.tmp.zip'
-    if (Test-Path $reviewBundle) { Remove-Item -Force $reviewBundle }
-    if (Test-Path $tempZip) { Remove-Item -Force $tempZip }
-    Compress-Archive -Path (Join-Path $output '*') -DestinationPath $tempZip -Force
-    Copy-Item -Path $tempZip -Destination $reviewBundle -Force
-    Remove-Item -Path $tempZip -Force
-    Write-Host ('REVIEW_BUNDLE ' + $reviewBundle)
+    Write-ReviewBundle
     Write-Host ('AUDIT_EXIT ' + $auditExit)
     Write-Host ('FOCUSED_PYTEST_EXIT ' + $testExit)
     Write-Host 'APPLICATION_SOURCE_UNCHANGED'
