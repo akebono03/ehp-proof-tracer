@@ -1,0 +1,32 @@
+[
+  {
+    "case": "pi3_2",
+    "identical": true,
+    "sha256": "83bf9c5a51346f92fd411537615d3d28c4789c92bec44f67d54f2b5f4bb7d10e"
+  },
+  {
+    "case": "pi4_3",
+    "identical": true,
+    "sha256": "a28dbd54f5ef64fdef778fa36af93ed4dcf5999a1820bb591f6e4e953779d633"
+  },
+  {
+    "case": "pi5_4",
+    "identical": true,
+    "sha256": "d6064b8ebd8d1a92afdfc9948ac9889b6bfb684a2dbc92418595d8eda41525c8"
+  },
+  {
+    "case": "pi6_5",
+    "identical": true,
+    "sha256": "70e154dcdabc3d42d8b1708fb626a63d7825f5d933a79e6e4f0de96481b4da06"
+  },
+  {
+    "case": "legacy_explicit",
+    "identical": true,
+    "sha256": "289001c3e0ab826a59fa4bf18e51383907d4eab84edc2c644cb1debc713903a3"
+  },
+  {
+    "case": "direct_fallback",
+    "identical": true,
+    "sha256": "809146f0278c6763182520ea900a68d827c43491fd878e7733876bb6170c69f0"
+  }
+]

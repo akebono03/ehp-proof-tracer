@@ -22,9 +22,11 @@ def build_group_proof_progress_view(
     expansion_provider: object | None = None,
     verified_assertion_ids: tuple[str, ...] = (),
 ):
-    """Route the ordinary Flask group proof through the model-backed public entry.
+    """Route standard searches and incomplete custom searches through one Model.
 
-    Explicit proof-search inputs retain the existing typed partial-result contract.
+    Completed custom-search results keep the existing compatibility renderer.
+    If an explicit screened RegistryBridgeResult is supplied, only its exact
+    ProofStep links may contribute registered reference statements.
     """
     if (
         goal is None
@@ -52,8 +54,21 @@ def build_group_proof_progress_view(
         expansion_provider=expansion_provider,
         verified_assertion_ids=verified_assertion_ids,
     )
+    from phase165_r52_partial_proof import ProofSearchStatus
+
+    narrative_model = None
+    if result.status is not ProofSearchStatus.COMPLETE:
+        from phase163_r4_registry_bridge import RegistryBridgeResult
+        if isinstance(bridge, RegistryBridgeResult):
+            from phase168_r3_4_link_bridge import build_linked_proof_narrative_model
+            narrative_model = build_linked_proof_narrative_model(result, bridge)
+        else:
+            from phase168_r3_3_proof_narrative_model import build_proof_narrative_model
+            narrative_model = build_proof_narrative_model(result)
+
     return build_partial_web_group_proof_view(
         result,
         max_depth=max_depth,
         mode="narrative",
+        narrative_model=narrative_model,
     )
