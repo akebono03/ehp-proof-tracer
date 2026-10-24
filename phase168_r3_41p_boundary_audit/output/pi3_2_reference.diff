@@ -1,0 +1,16 @@
+--- pi3_2_baseline_reference
++++ pi3_2_current_reference
+@@ -1,5 +1,9 @@
+-[R1] (5.1).
+-\pi_{i}^{1} = 0\quad(i > 1).
+-\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n \ge 1).
+-[R2] Proposition 5.1.
+-H(\eta_{2}) = \iota_{3}.+**[R1] (5.1).**
++$\pi_i^1=0\quad(i>1)$.
++$\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n\ge 1)$.
++**[R2] Proposition 4.2 (4.4).**
++$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1}$ は完全.
++**[R3] Foundational: suspension identity.**
++$E(\iota_{1})=\iota_{2}$.
++**[R4] Proposition 5.1.**
++$H(\eta_{2})=\iota_{3}$.

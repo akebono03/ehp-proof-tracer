@@ -1,0 +1,83 @@
+{
+  "phase": "R3-41P8",
+  "audit_only": true,
+  "sources": {
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_27_typed_statement_projection.py": "21a9ee2bc5df7ae08f32c10bb1b980cafa91a6941b03ea9f118fc4979d58e762",
+    "phase166_r3ac_stable_notation.py": "715b3e1cc91111f3960abdb726947f95c7cbfdd6466c4673cb829d9d0b17494b",
+    "phase165_r12_r11_prop42_unified.py": "19827b6938ab600d31cb46009ffe73fe1266682f79fce87295594d27f0e6fae0",
+    "phase165_r12_r12_ehp_consequences.py": "f18942b19ec188c4596f2b3448f72b4c4214925dd2914d307e92a9cdfe80fa58"
+  },
+  "cases": {
+    "pi3_2": {
+      "steps": 18,
+      "reference_count": 4,
+      "fulltext_identical": true,
+      "citation_integrity": true,
+      "benchmark_pass": true,
+      "premises_present": true,
+      "expected_counts": true
+    },
+    "pi4_3": {
+      "steps": 25,
+      "reference_count": 4,
+      "fulltext_identical": true,
+      "citation_integrity": true,
+      "benchmark_pass": true,
+      "premises_present": true,
+      "expected_counts": true
+    },
+    "pi5_4": {
+      "steps": 10,
+      "reference_count": 3,
+      "fulltext_identical": true,
+      "citation_integrity": true,
+      "benchmark_pass": true,
+      "premises_present": true,
+      "expected_counts": true
+    }
+  },
+  "counterfeit_probes": {
+    "stable_eta": {
+      "model_accepts_counterfeit_step": true,
+      "same_typed_group_and_order": true,
+      "counterfeit_inference_rule_has_matching_conclusion_pattern": true,
+      "counterfeit_has_definition_citation": true,
+      "genuine_projection": "[R1]の $\\eta$ 系列の定義より, $E^{2}\\eta_{3}=\\eta_{5}$.",
+      "unverified_rule_guard_accepts_counterfeit": false,
+      "original_shape_validator_accepts_counterfeit": false,
+      "current_projection_rejects_counterfeit": true,
+      "forced_validator_bypass_output": "[R1]の $\\eta$ 系列の定義より, $E^{2}\\eta_{3}=\\eta_{4}$.",
+      "forced_bypass_would_emit_false_equation": true
+    },
+    "ehp": {
+      "model_accepts_counterfeit_step": true,
+      "exactness_premise_window_matches_conclusion": true,
+      "original_indices_are_invalid": true,
+      "unverified_rule_guard_accepts_counterfeit": false,
+      "real_proof_projection": "完全性より, $\\operatorname{Im}\\Delta=\\ker E$ が成り立つ.",
+      "current_projection_rejects_counterfeit": true,
+      "forced_validator_bypass_output": "完全性より, $\\operatorname{Im}\\Delta=\\ker E$ が成り立つ.",
+      "forced_bypass_would_emit_false_exactness": true
+    }
+  },
+  "status": "PASS",
+  "checks": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ]
+}

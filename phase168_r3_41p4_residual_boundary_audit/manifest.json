@@ -1,0 +1,21 @@
+{
+  "phase": "168 R3-41P4",
+  "mode": "AUDIT_ONLY",
+  "github_develop_review": {
+    "phase168_r3_5_model_renderer.py": "213cbd898ebb4e08c6fa8707ffc88af53bf5d19d",
+    "phase168_r3_27_typed_statement_projection.py": "f14a155939f95dc414ad8f3022a7a2fb21e5e4cf",
+    "phase168_r3_3_proof_narrative_model.py": "1080843a2a90bf60f0b8096d3c5542a24a9abb7c",
+    "phase168_r3_12_body_binding.py": "ac7d387158b0af8ead4b07f623c216ed1dd561dd",
+    "phase168_r3_29_order_projection.py": "b0eaf673fa0d36a31a6831b1297679b48453d8a8",
+    "phase168_r3_41o_renderer_closure/tests/test_phase168_r3_41o_renderer_closure.py": "f96c1496e39051e3573c3e7ce584cc4b2a77a136",
+    "phase168_r3_41n1_import_scope_fix/tests/test_phase168_r3_41n_composed_proof_display.py": "34678282d5f9aba3a20c45176026dc50d0cd90d6",
+    "phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py": "26e82891576ea8702a63f0b32a2ee59e48574f93"
+  },
+  "r3_41p3_fixture_sha256": {
+    "pi3_2_current.md": "b7a841b075f0e780816ec45327116e0ba34d9cd964a0235939c236448a3fbe13",
+    "pi4_3_current.md": "a32ded4f04e76b7fc005f0ca671c4bad1050b36af00988a8aeb9ac47797185f2",
+    "pi5_4_current.md": "fbf22a31ec05ababaadde422d4269cad7637cf1a90c1a1856acc85043ec040c9"
+  },
+  "app_file_changes": [],
+  "full_pytest_run": false
+}

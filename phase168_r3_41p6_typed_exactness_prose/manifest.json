@@ -1,0 +1,21 @@
+{
+  "phase": "168 R3-41P6",
+  "scope": "typed_sentence() string-based exactness wording gate only",
+  "source_sha256_expected": "b23866ee3365ef0257a03670d85636abf2cc60cb244d0f702d9d0620345abf34",
+  "prior_baselines": "R3-41P5 exact complete public renderings",
+  "full_suite_run": false,
+  "files": {
+    "AUDIT.md": "8cabe921da24a3a4824f12f3762b8b7870574514b2e10fdc4a540e09132e619f",
+    "README.md": "ea2942a4f597edd6cd6f1c75461346602d07f8235ce5fd5790ee619e766055f2",
+    "__init__.py": "861f3cac76d1480c21710efa30c07424c72489906abbc076e0f15dccddfe465d",
+    "baselines/pi3_2_current.md": "b7a841b075f0e780816ec45327116e0ba34d9cd964a0235939c236448a3fbe13",
+    "baselines/pi4_3_current.md": "a32ded4f04e76b7fc005f0ca671c4bad1050b36af00988a8aeb9ac47797185f2",
+    "baselines/pi5_4_current.md": "fbf22a31ec05ababaadde422d4269cad7637cf1a90c1a1856acc85043ec040c9",
+    "patch.py": "041273c031d4c0f3eba035ca5336953aa264d292fffa53b3ad5f1e54f26ef501",
+    "restore.py": "7c9da8457eb2a48e592f28479cdb6f5fbd86da0c37ac7018090b3e1c1fffcf88",
+    "run.ps1": "09d0f1cced2f557fbe6442aa8f423de1fed33258e7f95c9b3b0de576d4cebdd2",
+    "tests/test_patch_safety.py": "e254547979a5fcaa6123a604dc28026c151f671062f00096d2c6997decfcacef",
+    "tests/test_phase168_r3_41p6_typed_exactness_prose.py": "67973792e49d608866c0015177a022a82e8f1b7a82b9b9b3ba52d83d8e1d084f",
+    "typed_sentence_FULL.py": "42b651ab18c039e2921a9c4032d78c165be854b5616b5e14ec86c0035b7758ec"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "file": "phase168_r3_27_typed_statement_projection.py",
+  "function": "typed_sentence",
+  "before_sha256": "b23866ee3365ef0257a03670d85636abf2cc60cb244d0f702d9d0620345abf34",
+  "after_sha256": "21a9ee2bc5df7ae08f32c10bb1b980cafa91a6941b03ea9f118fc4979d58e762",
+  "changed_files": [
+    "phase168_r3_27_typed_statement_projection.py"
+  ],
+  "math_rules_changed": false
+}

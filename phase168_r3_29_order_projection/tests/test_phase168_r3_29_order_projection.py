@@ -48,5 +48,5 @@ def test_pi32_all_steps_preserved_without_suppression():
     indices = [i for item in entries for i in (item.step_index, *item.after_indices)]
     assert sorted(indices) == list(range(len(model.steps)))
     rendered = render_model_backed_narrative_markdown(result, model)
-    assert "零写像である" in rendered
+    assert r"\operatorname{Im}\Delta=\ker E=0" in rendered
     assert rendered.count("次の完全列を考える") == 1

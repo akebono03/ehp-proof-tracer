@@ -1,0 +1,14 @@
+{
+  "repository": "akebono03/ehp-proof-tracer",
+  "branch": "develop",
+  "scope": "Read-only audit of existing renderer/projection and proof validators. Current local checksums recorded by audit.py.",
+  "reviewed": {
+    "phase168_r3_3_proof_narrative_model.py": "1080843a2a90bf60f0b8096d3c5542a24a9abb7c",
+    "phase168_r3_27_typed_statement_projection.py": "8e74bba8a23559417a64041715b5b950ec56c023",
+    "phase166_r3ac_stable_notation.py": "de8619628b45dd9d04ba1aebfea98a4899e2d72a",
+    "phase165_r12_r11_prop42_unified.py": "79752ec035244677ff6a54debff312e87a76fbf2",
+    "phase165_r12_r12_ehp_consequences.py": "895dc98ad4d25f14fb7aac8fa52460a77fd049bc",
+    "phase166_r3ac_stable_notation/tests/test_r3ac.py": "e22fd82fdf199602a832689e5b10cda021f07f24",
+    "phase168_r3_41o_renderer_closure/tests/test_phase168_r3_41o_renderer_closure.py": "f96c1496e39051e3573c3e7ce584cc4b2a77a136"
+  }
+}

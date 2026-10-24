@@ -58,20 +58,34 @@ def map_symbol_tex(map_object):
     return None
 
 
-def toda45_specialization_evidence(step):
-    """Return a general cited Toda (4.5) ancestor and checked scalar bindings.
 
-    Only traverse existing ProofStep premises. The existing specialization
-    validator supplies all equalities and stable-range checks.
+def toda45_specialization_evidence(step):
+    """Project an existing cited Toda (4.5) premise and display parameters.
+
+    The Proof Tree already contains the inference applying its typed general
+    premise. This function does not re-run the specialization validator or
+    decide whether Toda (4.5) applies. Numerical indices are projected from
+    the already proven concrete suspension map for presentation only.
     """
     from proof import ProofRule
     from toda_rules import Toda45IsomorphismStatement
-    from phase165_r57_r20_general_specialization import specialize_typed_statement
+    from homotopy_groups import TodaIteratedSuspensionMap, TodaPrimaryGroup
 
     if (step is None or step.rule is not ProofRule.INFERENCE
             or not isinstance(step.conclusion, Toda45IsomorphismStatement)):
         return None
-
+    mapping = step.conclusion.map
+    if (not isinstance(mapping, TodaIteratedSuspensionMap)
+            or not isinstance(mapping.source_group, TodaPrimaryGroup)
+            or not isinstance(mapping.target_group, TodaPrimaryGroup)):
+        return None
+    n = mapping.source_group.sphere_dimension
+    m = mapping.target_group.sphere_dimension
+    source_dimension = mapping.source_group.group_dimension
+    if any(type(index) is not int for index in (n, m, source_dimension)):
+        return None
+    # This is a display projection, not a validation of Toda's inequalities.
+    bindings = (("n", n), ("m", m), ("k", source_dimension - n))
     visited = set()
 
     def find_source(node):
@@ -81,9 +95,7 @@ def toda45_specialization_evidence(step):
         for parent in node.premises:
             if (parent.rule is ProofRule.GIVEN
                     and isinstance(parent.conclusion, Toda45IsomorphismStatement)):
-                bindings = specialize_typed_statement(parent.conclusion, step.conclusion)
-                if bindings is not None and {"n", "m", "k"}.issubset(dict(bindings)):
-                    return parent, bindings
+                return parent, bindings
             candidate = find_source(parent)
             if candidate is not None:
                 return candidate
@@ -204,9 +216,8 @@ def typed_sentence(statement, step):
             from proof import ProofRule
             if step is not None and step.rule is ProofRule.INFERENCE:
                 if isinstance(statement, (MapInjective, MapSurjective)):
-                    if step.premises and any(
-                        "exact" in str(getattr(p.inference_rule, "name", "")).lower()
-                        or isinstance(p.conclusion, (TodaProp42ExactnessStatement, EHPImageEqualsKernelStatement))
+                    if any(
+                        isinstance(p.conclusion, (TodaProp42ExactnessStatement, EHPImageEqualsKernelStatement))
                         for p in step.premises
                     ):
                         return rf"完全性より, ${symbol}: {source}\to {target}$ は{label}である."

@@ -10,7 +10,7 @@ def render_model_backed_narrative_markdown(
     result: PartialProofResult, model: ProofNarrativeModel,
 ) -> str:
     """Render typed Proof Tree steps; preserve incomplete search state from model."""
-    from proof import ProofRule, Relation
+    from proof import ProofRule, Relation, RelationType
     from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
     from toda_rules import TodaProp42ExactnessStatement
     from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
@@ -52,37 +52,35 @@ def render_model_backed_narrative_markdown(
             pending.extend(ancestor.premises)
         return tuple(numbers)
 
-    def validated_specialization_citation_numbers(step):
-        """Cite a direct typed general premise only after validating its indices."""
-        from homotopy_groups import TodaPrimaryGroupZeroStatement
-        from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
-        from phase165_r57_r20_general_specialization import specialize_typed_statement
-        from proof import Relation
 
+    def direct_given_premise_citation_numbers(step):
+        """Use citations of an existing direct GIVEN premise, without replaying a rule.
+
+        The Proof Tree is supplied by Backward Search. Citation ownership is
+        already stored in the Narrative Model and is not re-inferred here.
+        """
         if step.rule is not ProofRule.INFERENCE or len(step.premises) != 1:
             return ()
-        source_step = step.premises[0]
-        if source_step.rule is not ProofRule.GIVEN:
+        given_step = step.premises[0]
+        if given_step.rule is not ProofRule.GIVEN:
             return ()
-        source = source_step.conclusion
-        target = step.conclusion
-        valid = False
-        if isinstance(target, Relation) and isinstance(source, Relation):
-            valid = specialize_typed_statement(source, target) is not None
-        elif isinstance(target, TodaPrimaryGroupZeroStatement):
-            if isinstance(source, TodaPrimaryGroupZeroStatement):
-                valid = specialize_typed_statement(source, target) is not None
-            elif isinstance(source, Toda51BelowDiagonalZeroStatement):
-                group = target.group
-                i, n = group.group_dimension, group.sphere_dimension
-                valid = (type(i) is int and type(n) is int
-                         and 0 <= i < n and n >= 2)
-        if not valid:
+        # Keep the old presentationally eligible typed statement families.
+        # Proof validity itself was checked before this model was constructed.
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
+        source, target = given_step.conclusion, step.conclusion
+        is_direct_relation = isinstance(source, Relation) and isinstance(target, Relation)
+        is_typed_zero = (
+            isinstance(target, TodaPrimaryGroupZeroStatement)
+            and isinstance(source, (TodaPrimaryGroupZeroStatement,
+                                    Toda51BelowDiagonalZeroStatement))
+        )
+        if not (is_direct_relation or is_typed_zero):
             return ()
         return tuple(dict.fromkeys(
             number
             for source_index, candidate in enumerate(model.steps)
-            if candidate == source_step
+            if candidate is given_step or candidate == given_step
             for number in model.step_citation_numbers[source_index]
         ))
 
@@ -165,6 +163,7 @@ def render_model_backed_narrative_markdown(
     # premise has no distinct citation and no other consumers.
     suppressed_body_indices = set()
     if not incomplete:
+        from expression import IteratedSuspension
         from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaSuspensionMap
         from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
         from phase165_r12_r13_kernel_image import SuspensionKernelFreeCyclicStatement
@@ -226,8 +225,18 @@ def render_model_backed_narrative_markdown(
                         and isinstance(transported, Relation)
                         and isinstance(transported.rhs, FiniteCyclicGroup)
                         and isinstance(witness_step.conclusion, GeneratorSuspension)
-                        and getattr(consumer.inference_rule, "name", None)
-                        == "proved generator suspension normalizes transported cyclic group"
+                        and transported.relation_type is RelationType.EQUALITY
+                        and conclusion.relation_type is RelationType.EQUALITY
+                        and isinstance(witness_step.conclusion.map, TodaSuspensionMap)
+                        and isinstance(transported.rhs.generator, IteratedSuspension)
+                        and type(transported.rhs.generator.exponent) is int
+                        and transported.rhs.generator.exponent == 1
+                        and element_tex(transported.rhs.generator.expression) is not None
+                        and element_tex(transported.rhs.generator.expression)
+                            == element_tex(witness_step.conclusion.source_generator)
+                        and element_tex(conclusion.rhs.generator) is not None
+                        and element_tex(conclusion.rhs.generator)
+                            == element_tex(witness_step.conclusion.target_generator)
                         and transported.lhs == conclusion.lhs
                         and transported.rhs.order == conclusion.rhs.order
                         and transported.lhs == witness_step.conclusion.map.target_group):
@@ -363,7 +372,7 @@ def render_model_backed_narrative_markdown(
                 if tags:
                     prefix = f"{tags}を用いて, "
                 else:
-                    sources = validated_specialization_citation_numbers(step)
+                    sources = direct_given_premise_citation_numbers(step)
                     prefix = (
                         ", ".join(f"[R{number}]" for number in sources) + "より, "
                         if sources else ""

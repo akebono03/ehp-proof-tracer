@@ -1,0 +1,27 @@
+﻿ M phase168_r3_29_order_projection/tests/test_phase168_r3_29_order_projection.py
+ M phase168_r3_41p_boundary_audit/README.md
+ M phase168_r3_41p_boundary_audit/output/audit.json
+ M phase168_r3_41p_boundary_audit/output/audit.md
+ M phase168_r3_41p_boundary_audit/output/audit_console.log
+ M phase168_r3_41p_boundary_audit/output/audit_console_stdout.log
+ M phase168_r3_41p_boundary_audit/output/git_status_before.txt
+ M phase168_r3_41p_boundary_audit/output/pytest_focused.log
+ M phase168_r3_41p_boundary_audit/output/pytest_focused_stdout.log
+ M phase168_r3_41p_boundary_audit/run.ps1
+?? phase168_r3_41p_boundary_audit/R3-41P2_REPAIR.md
+?? phase168_r3_41p_boundary_audit/apply_test_fix.py
+?? phase168_r3_41p_boundary_audit/output/backups/
+?? phase168_r3_41p_boundary_audit/output/pi3_2_current.md
+?? phase168_r3_41p_boundary_audit/output/pi3_2_proof.diff
+?? phase168_r3_41p_boundary_audit/output/pi3_2_reference.diff
+?? phase168_r3_41p_boundary_audit/output/pi4_3_current.md
+?? phase168_r3_41p_boundary_audit/output/pi4_3_proof.diff
+?? phase168_r3_41p_boundary_audit/output/pi4_3_reference.diff
+?? phase168_r3_41p_boundary_audit/output/pi5_4_current.md
+?? phase168_r3_41p_boundary_audit/output/pi5_4_proof.diff
+?? phase168_r3_41p_boundary_audit/output/pi5_4_reference.diff
+?? phase168_r3_41p_boundary_audit/output/test_patch.log
+?? phase168_r3_41p_boundary_audit/output/test_patch_stderr.log
+?? phase168_r3_41p_boundary_audit/output/test_patch_stdout.log
+?? phase168_r3_41p_boundary_audit/restore_test.py
+?? phase168_r3_41p_boundary_audit/tests/test_launcher_and_stale_test_patch.py
