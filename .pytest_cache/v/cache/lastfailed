@@ -2543,5 +2543,6 @@
   "phase168_r3_39g3_toda45_citation_projection/tests/test_phase168_r3_39g_common_projection.py::test_phase168_r3_39g_pi43_explanation": true,
   "phase168_r3_39g3_toda45_citation_projection/tests/test_phase168_r3_39g_common_projection.py::test_phase168_r3_39g_pi54_order": true,
   "phase168_r3_41c_partial_web_cutover/tests/test_phase168_r3_41c_partial_web_cutover.py::test_public_unsearched_and_failed_cases_have_status_goals_diagnostics": true,
-  "phase168_r3_41c_partial_web_cutover/tests/test_phase168_r3_41c_partial_web_cutover.py::test_flask_custom_missing_inputs_uses_common_model_without_legacy": true
+  "phase168_r3_41c_partial_web_cutover/tests/test_phase168_r3_41c_partial_web_cutover.py::test_flask_custom_missing_inputs_uses_common_model_without_legacy": true,
+  "phase168_r3_39f_frozen_comparison/tests/test_audit.py": true
 }
