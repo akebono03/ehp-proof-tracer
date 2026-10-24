@@ -29,7 +29,7 @@ def build_cited_eta_family_definition(source_path: Path) -> RegistryBridgeResult
     registry = UnifiedStatementRegistry()
     registry.add_reference(LiteratureEntry(
         reference_id=REFERENCE_ID, kind=ReferenceKind.DEFINITION,
-        locator="Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+        locator="Chapter V, i)",
         source_id="sources/toda/Toda_05_2.tex (adopted transcription, original edition unverified)",
     ))
     general = TodaEtaFamilyGeneralDefinition()

@@ -1,0 +1,212 @@
+{
+  "phase": "168 R3-41I",
+  "mode": "AUDIT_ONLY_FROZEN_CLOSURE",
+  "status": "BASELINE_REVIEW_REQUIRED",
+  "cases": [
+    {
+      "name": "pi3_2",
+      "baseline_path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_narrative_baseline_frozen\\pi3_2_original.txt",
+      "baseline_sha256": "9554c5a83aa2e89e1723fbc438477152b63ce6b3c9ff54fc07cfab7f0f24e168",
+      "search_step_count": 18,
+      "web_partial": false,
+      "references": 4,
+      "references_with_bodies": 4,
+      "model_reference_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "reference_heading_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "used_reference_numbers_in_proof": [
+        1,
+        3,
+        4
+      ],
+      "references_not_explicitly_tagged_in_proof": [
+        2
+      ],
+      "reference_difference_lines": 16,
+      "proof_difference_lines": 33,
+      "reference_text_matches_frozen_after_cleanup": false,
+      "proof_text_matches_frozen_after_cleanup": false,
+      "benchmark_explanations": [
+        {
+          "key": "exactness_for_injectivity",
+          "present": true,
+          "why": "H の単射を完全性から導いたことを明記"
+        },
+        {
+          "key": "delta_image_kernel_zero",
+          "present": true,
+          "why": "Im Δ = ker E = 0 を明記"
+        },
+        {
+          "key": "hopf_iso_from_bijectivity",
+          "present": true,
+          "why": "H の同型性を単射性と全射性から説明"
+        },
+        {
+          "key": "no_generic_circle_in_proof",
+          "present": true,
+          "why": "基準にない一般円周公式の本文再掲がない"
+        }
+      ],
+      "missing_benchmark_explanations": [],
+      "missing_body_locators": [],
+      "issues": [
+        "MANUAL_FROZEN_TEXT_REVIEW_REQUIRED"
+      ]
+    },
+    {
+      "name": "pi4_3",
+      "baseline_path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_narrative_baseline_frozen\\pi4_3_original.txt",
+      "baseline_sha256": "6d1a83a52f07379d382e0cb95cf237c1b7ae272fe31e347ed1d2eb510b2ee580",
+      "search_step_count": 25,
+      "web_partial": false,
+      "references": 4,
+      "references_with_bodies": 4,
+      "model_reference_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "reference_heading_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "used_reference_numbers_in_proof": [
+        2,
+        3
+      ],
+      "references_not_explicitly_tagged_in_proof": [
+        1,
+        4
+      ],
+      "reference_difference_lines": 18,
+      "proof_difference_lines": 31,
+      "reference_text_matches_frozen_after_cleanup": false,
+      "proof_text_matches_frozen_after_cleanup": false,
+      "benchmark_explanations": [
+        {
+          "key": "surjectivity_from_exactness",
+          "present": true,
+          "why": "E の全射を完全性から導いたことを明記"
+        },
+        {
+          "key": "kernel_presentation",
+          "present": true,
+          "why": "ker E の具体的な表示"
+        },
+        {
+          "key": "quotient_theorem",
+          "present": true,
+          "why": "準同型定理を明記"
+        },
+        {
+          "key": "diagonal_general_in_proof",
+          "present": true,
+          "why": "基準にも存在する対角群の一般式"
+        }
+      ],
+      "missing_benchmark_explanations": [],
+      "missing_body_locators": [],
+      "issues": [
+        "MANUAL_FROZEN_TEXT_REVIEW_REQUIRED"
+      ]
+    },
+    {
+      "name": "pi5_4",
+      "baseline_path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_narrative_baseline_frozen\\pi5_4_original.txt",
+      "baseline_sha256": "bf9afcf6885c2a08f3a36edab35c19574a8c2ca61004f4d9509d87341d8bfcd6",
+      "search_step_count": 10,
+      "web_partial": false,
+      "references": 3,
+      "references_with_bodies": 3,
+      "model_reference_numbers": [
+        1,
+        2,
+        3
+      ],
+      "reference_heading_numbers": [
+        1,
+        2,
+        3
+      ],
+      "used_reference_numbers_in_proof": [
+        2,
+        3
+      ],
+      "references_not_explicitly_tagged_in_proof": [
+        1
+      ],
+      "reference_difference_lines": 12,
+      "proof_difference_lines": 14,
+      "reference_text_matches_frozen_after_cleanup": false,
+      "proof_text_matches_frozen_after_cleanup": false,
+      "benchmark_explanations": [
+        {
+          "key": "toda45_explicit_substitution",
+          "present": true,
+          "why": "(4.5) への (n,m,k)=(3,4,1) の代入"
+        },
+        {
+          "key": "specialization_citation_in_proof",
+          "present": true,
+          "why": "(4.5) を引用して適用したことを明記"
+        },
+        {
+          "key": "source_before_generator_image",
+          "present": true,
+          "why": "引用する群構造を生成元の像より先に示す"
+        },
+        {
+          "key": "specific_map_isomorphism",
+          "present": true,
+          "why": "具体的な E 同型を表示"
+        }
+      ],
+      "missing_benchmark_explanations": [],
+      "missing_body_locators": [],
+      "issues": [
+        "MANUAL_FROZEN_TEXT_REVIEW_REQUIRED"
+      ]
+    }
+  ],
+  "errors": [],
+  "route_contract": {
+    "standard_model_is_default": true,
+    "standard_explicit_legacy_retained": true,
+    "standard_builds_linked_model": true,
+    "explicit_partial_builds_model": true,
+    "flask_standard_routes_to_model": true,
+    "flask_partial_uses_model": true,
+    "adapter_explicit_model_uses_common_renderer": true,
+    "adapter_legacy_fallback_retained": true,
+    "partial_step_uses_model_citation_numbers": true
+  },
+  "source_sha256": {
+    "web_group_proof.py": "37cc141e2b4f34d13bd6a103bd0ce1abe07612ba82f2661950070456d99b148b",
+    "phase165_r52_r4_flask_bridge.py": "4c4a1c0edfbcd9a041efdec9f17ba0189a87dda2ab90bb00fa34a479085c03c3",
+    "phase165_r52_r3_web_adapter.py": "2f58215cf85c88476bedb61fd83c212bb261fd2c587889240cb00bb2dbaee69b",
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_5_model_renderer.py": "068490ef45f2072d537dd674db04cf0704832c1a9832394c29f5c04e11fcc588",
+    "phase168_r3_29_order_projection.py": "3392891f706c23e14b8556cb469bf27d4c52567867a38e434f9e970a2f2b2d18"
+  },
+  "baseline_sha256": {
+    "pi3_2": "9554c5a83aa2e89e1723fbc438477152b63ce6b3c9ff54fc07cfab7f0f24e168",
+    "pi4_3": "6d1a83a52f07379d382e0cb95cf237c1b7ae272fe31e347ed1d2eb510b2ee580",
+    "pi5_4": "bf9afcf6885c2a08f3a36edab35c19574a8c2ca61004f4d9509d87341d8bfcd6"
+  },
+  "implementation_modified": false,
+  "frozen_baseline_modified": false,
+  "full_pytest_run": false
+}

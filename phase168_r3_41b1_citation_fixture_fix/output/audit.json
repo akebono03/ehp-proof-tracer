@@ -1,0 +1,50 @@
+{
+  "phase": "168 R3-41B",
+  "mode": "FOCUSED_PARTIAL_MODEL_VALIDATION",
+  "cases": [
+    {
+      "case": "not_searched",
+      "requirements": {
+        "status": true,
+        "goal": true,
+        "diagnostics": true,
+        "observed_step": true,
+        "qed_absent": true,
+        "no_unscreened_reference": true
+      },
+      "legacy_length": 140,
+      "common_length": 142,
+      "model_citations": 0
+    },
+    {
+      "case": "partial",
+      "requirements": {
+        "status": true,
+        "goal": true,
+        "diagnostics": true,
+        "observed_step": true,
+        "qed_absent": true,
+        "no_unscreened_reference": true
+      },
+      "legacy_length": 185,
+      "common_length": 186,
+      "model_citations": 0
+    },
+    {
+      "case": "search_failed",
+      "requirements": {
+        "status": true,
+        "goal": true,
+        "diagnostics": true,
+        "observed_step": true,
+        "qed_absent": true,
+        "no_unscreened_reference": true
+      },
+      "legacy_length": 178,
+      "common_length": 180,
+      "model_citations": 0
+    }
+  ],
+  "completed_narratives_byte_identical": true,
+  "full_pytest_run": false
+}

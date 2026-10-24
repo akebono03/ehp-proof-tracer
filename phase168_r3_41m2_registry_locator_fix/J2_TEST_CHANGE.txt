@@ -1,0 +1,3 @@
+Existing file: phase168_r3_41j2_chain_test_scope_fix/tests/test_phase168_r3_41j2_citation_provenance.py
+Changed test: test_eta_suspension_cites_only_proved_eta_definition_ancestor
+Only its source lookup is updated from "eta-family notation" to "Chapter V, i)". Full patched test file is emitted by the installer to output/test_phase168_r3_41j2_citation_provenance.py.full.py.

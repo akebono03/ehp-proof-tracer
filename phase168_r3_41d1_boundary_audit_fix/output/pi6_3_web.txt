@@ -1,0 +1,14 @@
+証明対象
+\pi_{6}^{3}
+使用する結果
+参照情報を持つ ProofStep はありません。
+
+証明
+探索状態：証明未完成
+未解決 Goal
+- CyclicStructureStatement（数式表示未対応）
+- \pi_{6}^{3} = \mathbb{Z}/4\{\nu'\}
+- \mathbb{Z}/4\{\nu'\} = \pi_{6}^{3}
+探索診断
+- expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name="ν'", dimension=3, source=6, target=3, generator=GeneratorSymbol(family="\\nu'", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0
+未解決 Goal は証明済みの結論ではありません。

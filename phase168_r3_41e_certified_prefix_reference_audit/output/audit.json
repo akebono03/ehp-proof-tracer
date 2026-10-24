@@ -1,0 +1,212 @@
+{
+  "phase": "168 R3-41E",
+  "mode": "READ_ONLY_CERTIFIED_PREFIX_REFERENCE_LINK_AUDIT",
+  "case": {
+    "case": "pi4_3_certified_strict_prefix",
+    "classification": "AUDIT_ONLY_RECONSTRUCTED_PARTIAL_FROM_REAL_COMPLETE_PROOF",
+    "not_a_genuine_partial_search": true,
+    "original_status": "complete",
+    "displayed_status": "partial",
+    "full_control_step_count": 25,
+    "selected_observed_proof_steps": 13,
+    "selected_indices_in_complete": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "model_citation_count": 4,
+    "registered_assertion_citation_count": 4,
+    "citation_body_count": 4,
+    "original_proof_steps_not_recreated": true,
+    "reference_projection": {
+      "citations": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "body_count": 1,
+          "bodies": [
+            {
+              "body": "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する.",
+              "raw_reference_present": true,
+              "web_reference_present": true
+            }
+          ],
+          "raw_heading_count": 1,
+          "web_heading": true
+        },
+        {
+          "number": 2,
+          "locator": "(5.1)",
+          "step_indices": [
+            5
+          ],
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal"
+          ],
+          "reference_ids": [
+            "shared:3:adopted:toda51:diagonal"
+          ],
+          "body_count": 1,
+          "bodies": [
+            {
+              "body": "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$.",
+              "raw_reference_present": true,
+              "web_reference_present": true
+            }
+          ],
+          "raw_heading_count": 1,
+          "web_heading": true
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            7
+          ],
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "body_count": 1,
+          "bodies": [
+            {
+              "body": "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+              "raw_reference_present": true,
+              "web_reference_present": true
+            }
+          ],
+          "raw_heading_count": 1,
+          "web_heading": true
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            9
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "body_count": 1,
+          "bodies": [
+            {
+              "body": "Proposition 4.2 により, EHP の列 $\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全である.",
+              "raw_reference_present": true,
+              "web_reference_present": true
+            }
+          ],
+          "raw_heading_count": 1,
+          "web_heading": true
+        }
+      ],
+      "used_registered_link_count": 4,
+      "used_registered_assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+        "shared:3:adopted:assertion:toda51:diagonal",
+        "shared:5:adopted:assertion:prop42:general",
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "unmapped_used_assertion_ids": [],
+      "unlinked_given_step_indices": [],
+      "proof_reference_numbers": [],
+      "dangling_reference_numbers": [],
+      "issues": []
+    },
+    "step_inline_citation_audit": {
+      "steps": 13,
+      "rendered_steps": 13,
+      "cited_steps": 4,
+      "missing_inline_citation_steps": [
+        {
+          "step_index": 0,
+          "step_rule": "given",
+          "expected_numbers": [
+            1
+          ],
+          "missing_numbers": [
+            1
+          ],
+          "displayed_line": "- 与件: TodaEtaFamilyGeneralDefinition（数式表示未対応）"
+        },
+        {
+          "step_index": 5,
+          "step_rule": "given",
+          "expected_numbers": [
+            2
+          ],
+          "missing_numbers": [
+            2
+          ],
+          "displayed_line": "- 与件: $\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$"
+        },
+        {
+          "step_index": 7,
+          "step_rule": "given",
+          "expected_numbers": [
+            3
+          ],
+          "missing_numbers": [
+            3
+          ],
+          "displayed_line": "- 与件: $\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$"
+        },
+        {
+          "step_index": 9,
+          "step_rule": "given",
+          "expected_numbers": [
+            4
+          ],
+          "missing_numbers": [
+            4
+          ],
+          "displayed_line": "- 与件: TodaProp42GeneralExactnessStatement（数式表示未対応）"
+        }
+      ],
+      "issues": []
+    },
+    "unresolved_goal_kept": true,
+    "diagnostics_kept": true,
+    "web_is_partial": true,
+    "qed_absent": true
+  },
+  "source_sha256": {
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_4_link_bridge.py": "970115534e12db4d39ef8aed48396781d21f195b868f22f0026797baa1029c60",
+    "phase168_r3_5_model_renderer.py": "a640b3f30ad8a5050b9d477d92103253d94b25945e19210802a46255c71f906e",
+    "phase165_r52_r3_web_adapter.py": "2f58215cf85c88476bedb61fd83c212bb261fd2c587889240cb00bb2dbaee69b",
+    "web_group_proof.py": "37cc141e2b4f34d13bd6a103bd0ce1abe07612ba82f2661950070456d99b148b"
+  },
+  "scope_limits": [
+    "The incomplete result is reconstructed from a truly complete search.",
+    "No true PARTIAL with retained steps was observed in R3-41D1's five real targets.",
+    "All copied steps are original certified ProofStep objects; no inference is added.",
+    "The open goal and diagnostics are audit markers, not a real search trace.",
+    "This checks shared partial rendering of real cited premises, not real partial search coverage.",
+    "No implementation files or mathematical rules were changed.",
+    "Full pytest is deferred to the end of Phase 168."
+  ]
+}

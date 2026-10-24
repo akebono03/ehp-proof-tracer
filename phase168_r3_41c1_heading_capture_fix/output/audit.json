@@ -1,0 +1,48 @@
+{
+  "phase": "168 R3-41C",
+  "mode": "PARTIAL_WEB_CUTOVER",
+  "cases": [
+    {
+      "case": "not_searched",
+      "checks": {
+        "same_as_explicit_common_model": true,
+        "status": true,
+        "open_goal": true,
+        "diagnostics": true,
+        "observed_step": true,
+        "no_unverified_reference": true,
+        "no_qed": true,
+        "partial_flag": true
+      }
+    },
+    {
+      "case": "partial",
+      "checks": {
+        "same_as_explicit_common_model": true,
+        "status": true,
+        "open_goal": true,
+        "diagnostics": true,
+        "observed_step": true,
+        "no_unverified_reference": true,
+        "no_qed": true,
+        "partial_flag": true
+      }
+    },
+    {
+      "case": "search_failed",
+      "checks": {
+        "same_as_explicit_common_model": true,
+        "status": true,
+        "open_goal": true,
+        "diagnostics": true,
+        "observed_step": true,
+        "no_unverified_reference": true,
+        "no_qed": true,
+        "partial_flag": true
+      }
+    }
+  ],
+  "flask_custom_partial": "PASS",
+  "compatibility_preserved": "comparison.json",
+  "full_pytest_run": false
+}

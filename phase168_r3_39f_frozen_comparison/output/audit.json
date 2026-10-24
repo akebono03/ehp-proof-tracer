@@ -6,27 +6,27 @@
       "name": "pi3_2",
       "baseline_sha256": "9554c5a83aa2e89e1723fbc438477152b63ce6b3c9ff54fc07cfab7f0f24e168",
       "reference_diff_lines": 16,
-      "proof_diff_lines": 34,
+      "proof_diff_lines": 33,
       "reference_bodies_complete": true,
       "benchmark_explanations": [
         {
           "key": "exactness_for_injectivity",
-          "present": false,
+          "present": true,
           "why": "H の単射を完全性から導いたことを明記"
         },
         {
           "key": "delta_image_kernel_zero",
-          "present": false,
+          "present": true,
           "why": "Im Δ = ker E = 0 を明記"
         },
         {
           "key": "hopf_iso_from_bijectivity",
-          "present": false,
+          "present": true,
           "why": "H の同型性を単射性と全射性から説明"
         },
         {
           "key": "no_generic_circle_in_proof",
-          "present": false,
+          "present": true,
           "why": "基準にない一般円周公式の本文再掲がない"
         }
       ],
@@ -44,7 +44,7 @@
           "body_count": 2,
           "bodies": [
             "$\\pi_i^1=0\\quad(i>1)$.",
-            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$."
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$."
           ]
         },
         {
@@ -91,7 +91,7 @@
       "benchmark_explanations": [
         {
           "key": "surjectivity_from_exactness",
-          "present": false,
+          "present": true,
           "why": "E の全射を完全性から導いたことを明記"
         },
         {
@@ -134,7 +134,7 @@
           ],
           "body_count": 2,
           "bodies": [
-            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}$.",
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$.",
             "$\\pi_i^n=0\\quad(i<n)$."
           ]
         },
@@ -173,17 +173,17 @@
       "benchmark_explanations": [
         {
           "key": "toda45_explicit_substitution",
-          "present": false,
+          "present": true,
           "why": "(4.5) への (n,m,k)=(3,4,1) の代入"
         },
         {
           "key": "specialization_citation_in_proof",
-          "present": false,
+          "present": true,
           "why": "(4.5) を引用して適用したことを明記"
         },
         {
           "key": "source_before_generator_image",
-          "present": false,
+          "present": true,
           "why": "引用する群構造を生成元の像より先に示す"
         },
         {

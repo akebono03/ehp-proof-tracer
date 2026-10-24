@@ -1,0 +1,19 @@
+{
+  "phase": "168 R3-41J2",
+  "status": "PATCHED",
+  "changed_files": [
+    "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_5_model_renderer.py",
+    "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_26a_after_r3_25a\\tests\\test_phase168_r3_26_projection.py"
+  ],
+  "before_sha256": {
+    "renderer": "068490ef45f2072d537dd674db04cf0704832c1a9832394c29f5c04e11fcc588",
+    "test": "3b1029c30186b23af11be55d6acd8cb936c0148402f4b56f611231ad24a2781f"
+  },
+  "after_sha256": {
+    "renderer": "1e60a98a3b76f4544d053ac97cc6deb3bb321c0b41ce3c0991bee7a0277ea92f",
+    "test": "75bfc9b82285700b177038fb1eaa1b0c09440c6d6777b1e7732a394b6c60b50f"
+  },
+  "new_renderer_function": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41j2_chain_test_scope_fix\\modified_function_full.py",
+  "new_test_function": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41j2_chain_test_scope_fix\\modified_test_function_full.py",
+  "full_pytest_run": false
+}

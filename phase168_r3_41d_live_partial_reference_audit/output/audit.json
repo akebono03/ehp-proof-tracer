@@ -1,0 +1,447 @@
+{
+  "phase": "168 R3-41D",
+  "mode": "READ_ONLY_REAL_SEARCH_REFERENCE_AUDIT",
+  "source_sha256": {
+    "phase165_r55_nk_only_goal.py": "80d74bc3f21ab5710269c14e7a760472fa2f185e53b38f23e2fa8e67818469cf",
+    "phase168_r3_4_link_bridge.py": "970115534e12db4d39ef8aed48396781d21f195b868f22f0026797baa1029c60",
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_5_model_renderer.py": "a640b3f30ad8a5050b9d477d92103253d94b25945e19210802a46255c71f906e",
+    "phase165_r52_r3_web_adapter.py": "2f58215cf85c88476bedb61fd83c212bb261fd2c587889240cb00bb2dbaee69b",
+    "web_group_proof.py": "37cc141e2b4f34d13bd6a103bd0ce1abe07612ba82f2661950070456d99b148b"
+  },
+  "cases": [
+    {
+      "name": "pi6_4",
+      "n": 4,
+      "k": 2,
+      "capture_error": "ValueError: common Narrative lacks the proof boundary"
+    },
+    {
+      "name": "pi6_3",
+      "n": 3,
+      "k": 3,
+      "capture_error": "ValueError: common Narrative lacks the proof boundary"
+    },
+    {
+      "name": "pi7_5",
+      "n": 5,
+      "k": 2,
+      "capture_error": "ValueError: common Narrative lacks the proof boundary"
+    },
+    {
+      "name": "pi7_4",
+      "n": 4,
+      "k": 3,
+      "capture_error": "ValueError: common Narrative lacks the proof boundary"
+    },
+    {
+      "name": "pi8_5",
+      "n": 5,
+      "k": 3,
+      "capture_error": "ValueError: common Narrative lacks the proof boundary"
+    },
+    {
+      "name": "pi4_3_control",
+      "n": 3,
+      "k": 1,
+      "status": "complete",
+      "status_is_incomplete": false,
+      "search_step_count": 25,
+      "given_step_count": 6,
+      "open_goal_count": 0,
+      "diagnostic_count": 0,
+      "citation_count": 4,
+      "registered_citation_count": 4,
+      "reference_with_body_count": 4,
+      "web_partial_result": false,
+      "model_premise_steps": [
+        {
+          "index": 0,
+          "rule": "given",
+          "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+          "conclusion_excerpt": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+          "inference_name": "Toda chapter V eta-family notation",
+          "citation_numbers": [
+            1
+          ],
+          "premise_count": 0
+        },
+        {
+          "index": 1,
+          "rule": "inference",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "conclusion_excerpt": "TodaEtaFamilyDefinitionStatement(index=2, element=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElemen",
+          "inference_name": "specialize cited eta-family general definition",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 2,
+          "rule": "inference",
+          "conclusion_type": "TodaEtaFamilyDefinitionStatement",
+          "conclusion_excerpt": "TodaEtaFamilyDefinitionStatement(index=3, element=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElemen",
+          "inference_name": "specialize cited eta-family general definition",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 3,
+          "rule": "inference",
+          "conclusion_type": "GeneratorSuspension",
+          "conclusion_excerpt": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, ",
+          "inference_name": "consecutive cited eta definitions imply generator suspension",
+          "citation_numbers": [],
+          "premise_count": 2
+        },
+        {
+          "index": 4,
+          "rule": "inference",
+          "conclusion_type": "HomomorphismPresentationStatement",
+          "conclusion_excerpt": "HomomorphismPresentationStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), domain=TodaPrimaryGroup(group_dimension=3, ",
+          "inference_name": "cited eta generator suspension yields presentation in target notation",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 5,
+          "rule": "given",
+          "conclusion_type": "Relation",
+          "conclusion_excerpt": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=",
+          "inference_name": "Toda (5.1) diagonal cyclic source",
+          "citation_numbers": [
+            2
+          ],
+          "premise_count": 0
+        },
+        {
+          "index": 6,
+          "rule": "inference",
+          "conclusion_type": "Relation",
+          "conclusion_excerpt": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relati",
+          "inference_name": "generic cited typed scalar specialization",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 7,
+          "rule": "given",
+          "conclusion_type": "TodaDeltaImageUpToSignStatement",
+          "conclusion_excerpt": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, s",
+          "inference_name": "Adopted literature Proposition 5.1",
+          "citation_numbers": [
+            3
+          ],
+          "premise_count": 0
+        },
+        {
+          "index": 8,
+          "rule": "inference",
+          "conclusion_type": "TodaDeltaImageFreeCyclicStatement",
+          "conclusion_excerpt": "TodaDeltaImageFreeCyclicStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), image_group=FreeCyclicGroup(generator=Multiple(c",
+          "inference_name": "free cyclic generator Delta image",
+          "citation_numbers": [],
+          "premise_count": 2
+        },
+        {
+          "index": 9,
+          "rule": "given",
+          "conclusion_type": "TodaProp42GeneralExactnessStatement",
+          "conclusion_excerpt": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+          "inference_name": "Toda Proposition 4.2 universal EHP exact sequence",
+          "citation_numbers": [
+            4
+          ],
+          "premise_count": 0
+        },
+        {
+          "index": 10,
+          "rule": "inference",
+          "conclusion_type": "TodaProp42ExactnessStatement",
+          "conclusion_excerpt": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimensio",
+          "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 11,
+          "rule": "inference",
+          "conclusion_type": "EHPImageEqualsKernelStatement",
+          "conclusion_excerpt": "EHPImageEqualsKernelStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimensi",
+          "inference_name": "EHP exactness implies image equals kernel",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 12,
+          "rule": "inference",
+          "conclusion_type": "SuspensionKernelFreeCyclicStatement",
+          "conclusion_excerpt": "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), kernel_group=FreeCyclicGroup(generator=Mu",
+          "inference_name": "EHP Delta image and exactness imply concrete suspension kernel",
+          "citation_numbers": [],
+          "premise_count": 2
+        },
+        {
+          "index": 13,
+          "rule": "inference",
+          "conclusion_type": "KernelMultipleStatement",
+          "conclusion_excerpt": "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), domain=TodaPrimaryGroup(group_dimension=3, sphere_dim",
+          "inference_name": "certified cyclic suspension kernel entails kernel multiple",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 14,
+          "rule": "inference",
+          "conclusion_type": "TodaProp42ExactnessStatement",
+          "conclusion_excerpt": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimensio",
+          "inference_name": "Toda Proposition 4.2: generic consecutive EHP specialization",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 15,
+          "rule": "given",
+          "conclusion_type": "Toda51BelowDiagonalZeroStatement",
+          "conclusion_excerpt": "Toda51BelowDiagonalZeroStatement(locator='(5.1)')",
+          "inference_name": "Toda (5.1) universal below-diagonal vanishing",
+          "citation_numbers": [
+            2
+          ],
+          "premise_count": 0
+        },
+        {
+          "index": 16,
+          "rule": "inference",
+          "conclusion_type": "TodaPrimaryGroupZeroStatement",
+          "conclusion_excerpt": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=5))",
+          "inference_name": "Toda (5.1) general below-diagonal zero specialization",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 17,
+          "rule": "inference",
+          "conclusion_type": "MapSurjective",
+          "conclusion_excerpt": "MapSurjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "inference_name": "EHP exactness and zero Hopf target imply suspension surjectivity",
+          "citation_numbers": [],
+          "premise_count": 2
+        },
+        {
+          "index": 18,
+          "rule": "inference",
+          "conclusion_type": "ImageWholeStatement",
+          "conclusion_excerpt": "ImageWholeStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "inference_name": "EHP suspension surjectivity implies whole image",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 19,
+          "rule": "inference",
+          "conclusion_type": "SurjectiveMapStatement",
+          "conclusion_excerpt": "SurjectiveMapStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)))",
+          "inference_name": "whole image implies surjectivity",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 20,
+          "rule": "inference",
+          "conclusion_type": "QuotientIsomorphismStatement",
+          "conclusion_excerpt": "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), domain=TodaPrimaryGroup(group_dimension=3, spher",
+          "inference_name": "first isomorphism theorem for generated kernel",
+          "citation_numbers": [],
+          "premise_count": 3
+        },
+        {
+          "index": 21,
+          "rule": "given",
+          "conclusion_type": "Relation",
+          "conclusion_excerpt": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type",
+          "inference_name": "Adopted literature Proposition 5.1",
+          "citation_numbers": [
+            3
+          ],
+          "premise_count": 0
+        },
+        {
+          "index": 22,
+          "rule": "inference",
+          "conclusion_type": "CyclicStructureStatement",
+          "conclusion_excerpt": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), order=None)",
+          "inference_name": "proved free cyclic group relation implies infinite cyclic structure",
+          "citation_numbers": [],
+          "premise_count": 1
+        },
+        {
+          "index": 23,
+          "rule": "inference",
+          "conclusion_type": "CyclicStructureStatement",
+          "conclusion_excerpt": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+          "inference_name": "infinite cyclic quotient structure",
+          "citation_numbers": [],
+          "premise_count": 2
+        },
+        {
+          "index": 24,
+          "rule": "inference",
+          "conclusion_type": "Relation",
+          "conclusion_excerpt": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), r",
+          "inference_name": "finite cyclic structure gives group relation",
+          "citation_numbers": [],
+          "premise_count": 1
+        }
+      ],
+      "citation_projection": {
+        "citations": [
+          {
+            "number": 1,
+            "locator": "Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation",
+            "step_indices": [
+              0
+            ],
+            "assertion_ids": [
+              "shared:7:adopted:assertion:toda5:eta_family_definition"
+            ],
+            "reference_ids": [
+              "shared:7:adopted:reference:toda5:eta_family_definition"
+            ],
+            "body_count": 1,
+            "bodies": [
+              {
+                "body": "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する.",
+                "raw_reference_present": true,
+                "web_reference_present": true
+              }
+            ],
+            "raw_heading_count": 1,
+            "web_heading": true
+          },
+          {
+            "number": 2,
+            "locator": "(5.1)",
+            "step_indices": [
+              5,
+              15
+            ],
+            "assertion_ids": [
+              "shared:3:adopted:assertion:toda51:diagonal",
+              "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+            ],
+            "reference_ids": [
+              "shared:3:adopted:toda51:diagonal",
+              "shared:6:adopted:reference:toda51:below_diagonal_zero"
+            ],
+            "body_count": 2,
+            "bodies": [
+              {
+                "body": "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$.",
+                "raw_reference_present": true,
+                "web_reference_present": true
+              },
+              {
+                "body": "$\\pi_i^n=0\\quad(i<n)$.",
+                "raw_reference_present": true,
+                "web_reference_present": true
+              }
+            ],
+            "raw_heading_count": 1,
+            "web_heading": true
+          },
+          {
+            "number": 3,
+            "locator": "Proposition 5.1",
+            "step_indices": [
+              7,
+              21
+            ],
+            "assertion_ids": [
+              "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+              "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+            ],
+            "reference_ids": [
+              "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+            ],
+            "body_count": 2,
+            "bodies": [
+              {
+                "body": "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+                "raw_reference_present": true,
+                "web_reference_present": true
+              },
+              {
+                "body": "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.",
+                "raw_reference_present": true,
+                "web_reference_present": true
+              }
+            ],
+            "raw_heading_count": 1,
+            "web_heading": true
+          },
+          {
+            "number": 4,
+            "locator": "Proposition 4.2 (4.4)",
+            "step_indices": [
+              9
+            ],
+            "assertion_ids": [
+              "shared:5:adopted:assertion:prop42:general"
+            ],
+            "reference_ids": [
+              "shared:5:adopted:reference:prop42:general"
+            ],
+            "body_count": 1,
+            "bodies": [
+              {
+                "body": "Proposition 4.2 により, EHP の列 $\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全である.",
+                "raw_reference_present": true,
+                "web_reference_present": true
+              }
+            ],
+            "raw_heading_count": 1,
+            "web_heading": true
+          }
+        ],
+        "used_registered_link_count": 6,
+        "used_registered_assertion_ids": [
+          "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+          "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+          "shared:3:adopted:assertion:toda51:diagonal",
+          "shared:5:adopted:assertion:prop42:general",
+          "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+          "shared:7:adopted:assertion:toda5:eta_family_definition"
+        ],
+        "unmapped_used_assertion_ids": [],
+        "unlinked_given_step_indices": [],
+        "proof_reference_numbers": [
+          2,
+          3
+        ],
+        "dangling_reference_numbers": [],
+        "issues": []
+      },
+      "state_issues": [],
+      "capture_error": null
+    }
+  ],
+  "coverage": {
+    "real_search_attempts": 5,
+    "real_search_successful": 0,
+    "actual_incomplete_cases": 0,
+    "actual_incomplete_with_steps": 0,
+    "actual_incomplete_with_any_citation": 0,
+    "actual_incomplete_with_registered_citation": 0,
+    "actual_incomplete_with_reference_body": 0,
+    "live_cited_partial_proven": false
+  },
+  "observed_issues": [],
+  "scope_limits": [
+    "No mathematical conclusion or reference is inferred from a goal.",
+    "Samples are real Web searches, not a complete census of 112 targets.",
+    "A zero-citation incomplete result does not validate partial citation rendering.",
+    "A reference heading with no body is counted as a content gap.",
+    "A standalone rule reference and a registered assertion are distinguished.",
+    "This audit neither changes implementation nor runs full pytest."
+  ]
+}

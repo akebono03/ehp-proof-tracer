@@ -1,0 +1,28 @@
+
+\pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}.
+
+[R1] Proposition 5.1.
+H(\eta_{2}) = \iota_{3}.
+[R2] (5.1).
+\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n \ge 1).
+[R3] Proposition 4.2.
+\cdots \to \pi_{i-1}^{n} \xrightarrow{E} \pi_{i}^{n+1} \xrightarrow{H} \pi_{i}^{2n+1} \xrightarrow{\Delta} \pi_{i-2}^{n} \xrightarrow{E} \pi_{i-1}^{n+1} \to \cdots は完全である.
+[R4] Proposition 4.2 (4.4).
+[R5] Foundational: suspension identity.
+E(\iota_{1}) = \iota_{2}.
+
+
+\pi_{3}^{2} の群構造を決定するために, 次の完全列を考える.
+\pi_{2}^{1} \xrightarrow{E} \pi_{3}^{2} \xrightarrow{H} \pi_{3}^{3} \xrightarrow{\Delta} \pi_{1}^{1} \xrightarrow{E} \pi_{2}^{2}.
+[R1]より, \pi_{2}^{1} = 0.
+完全性より, H: \pi_{3}^{2} \to \pi_{3}^{3} は単射.
+[R1]より, \pi_{3}^{3} = \mathbb{Z}\{\iota_{3}\}.
+[R1]より, \pi_{1}^{1} = \mathbb{Z}\{\iota_{1}\}.
+[R1]より, \pi_{2}^{2} = \mathbb{Z}\{\iota_{2}\}.
+[R3]より, E: \pi_{1}^{1} \to \pi_{2}^{2} は同型.
+完全性より, \operatorname{Im}Δ=\ker E=0 なので, \Delta: \pi_{3}^{3} \to \pi_{1}^{1} は零写像.
+完全性より, H: \pi_{3}^{2} \to \pi_{3}^{3} は全射.
+単射性と全射性より, H: \pi_{3}^{2} \to \pi_{3}^{3} は同型.
+[R2]より, H(\eta_{2}) = \iota_{3}.
+以上より, \pi_{3}^{2} = \mathbb{Z}\{\eta_{2}\}.
+□

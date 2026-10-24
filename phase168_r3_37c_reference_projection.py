@@ -28,11 +28,10 @@ def project_reference_bodies(registry, assertion_ids):
             sentence = r"$\pi_i^n=0\quad(i<n)$."
         elif isinstance(statement, TodaProp42GeneralExactnessStatement):
             sentence = (
-                r"Proposition 4.2 により, EHP の列 "
                 r"$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}"
                 r"\xrightarrow{H}\pi_{i+1}^{2n+1}"
                 r"\xrightarrow{\Delta}\pi_{i-1}^{n}"
-                r"\xrightarrow{E}\pi_i^{n+1}$ は完全である."
+                r"\xrightarrow{E}\pi_i^{n+1}$ は完全."
             )
         elif isinstance(statement, Toda45IsomorphismStatement):
             mapping = statement.map
@@ -56,6 +55,10 @@ def project_reference_bodies(registry, assertion_ids):
             latex, fallback = _group_proof_statement_latex(statement)
             if latex is not None and fallback is None:
                 sentence = "$" + latex + "$."
+        if (sentence is not None and r"\pi_{n}^{n}" in sentence
+                and r"\mathbb{Z}" in sentence and r"n\ge" not in sentence
+                and sentence.endswith("$.")):
+            sentence = sentence[:-2] + r"\quad(n\ge 1)$."
         if sentence is not None and sentence not in result:
             result.append(sentence)
     return tuple(result)

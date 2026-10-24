@@ -1,0 +1,12 @@
+{
+  "phase": "168 R3-41L",
+  "changed_files": [
+    "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_5_model_renderer.py"
+  ],
+  "function": "render_model_backed_narrative_markdown",
+  "old_sha256": "1e60a98a3b76f4544d053ac97cc6deb3bb321c0b41ce3c0991bee7a0277ea92f",
+  "new_sha256": "d2e3876b97d13b0bc417844b5736b1d072aa184bc4cf1d1ae4cca0e1d08af440",
+  "full_file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41l_reasoned_prose\\output\\phase168_r3_5_model_renderer.py",
+  "full_function": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41l_reasoned_prose\\modified_function_full.py",
+  "full_pytest_run": false
+}

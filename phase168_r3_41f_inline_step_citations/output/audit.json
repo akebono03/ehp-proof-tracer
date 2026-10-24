@@ -1,0 +1,34 @@
+{
+  "phase": "168 R3-41F",
+  "mode": "RENDERER_ONLY_INLINE_CITATIONS",
+  "completed_four_byte_identical": true,
+  "legacy_byte_identical": true,
+  "direct_fallback_byte_identical": true,
+  "prefix_before": {
+    "steps": 13,
+    "references": 4,
+    "reference_bodies": 4,
+    "cited_steps": 4,
+    "missing_step_citations": 4,
+    "reference_issues": [],
+    "qed_absent": true,
+    "goals_kept": true,
+    "diagnostics_kept": true,
+    "audit_reconstruction_only": true
+  },
+  "prefix_after": {
+    "steps": 13,
+    "references": 4,
+    "reference_bodies": 4,
+    "cited_steps": 4,
+    "missing_step_citations": 0,
+    "reference_issues": [],
+    "qed_absent": true,
+    "goals_kept": true,
+    "diagnostics_kept": true,
+    "audit_reconstruction_only": true
+  },
+  "no_new_citations": true,
+  "not_a_genuine_partial_search": true,
+  "full_pytest_run": false
+}

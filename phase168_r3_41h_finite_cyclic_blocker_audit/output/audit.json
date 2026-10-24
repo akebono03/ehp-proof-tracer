@@ -1,0 +1,132 @@
+{
+  "phase": "168 R3-41H",
+  "mode": "READ_ONLY_FINITE_CYCLIC_PREMISE_PROVENANCE",
+  "cases": [
+    {
+      "name": "pi6_4",
+      "n": 4,
+      "k": 2,
+      "status": "search_failed",
+      "result_step_count": 0,
+      "proved_event_count": 0,
+      "unresolved_event_count": 5,
+      "root_option_count": 3,
+      "root_rules": [
+        "finite cyclic structure gives group relation",
+        "equality symmetry",
+        "finite cyclic structure gives group relation"
+      ],
+      "root_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "context_capture_count": 1,
+      "blocked_finite_cyclic_goals": [
+        {
+          "type": "CyclicStructureStatement",
+          "goal": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), order=2)",
+          "order": 2,
+          "group": "TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)",
+          "generator": "Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))",
+          "screened_exact_given_assertion_ids": [],
+          "screened_relation_same_group_ids": [],
+          "registered_fixed_exact_assertions": [],
+          "registered_fixed_same_group_relation_ids": [
+            "shared:0:boundary:Proposition 5.3:pi6_4_group_relation"
+          ],
+          "total_screened_links": 18,
+          "all_initial_link_count": 17
+        }
+      ],
+      "blocked_goal_count": 1,
+      "context_fixed_source_type_counts": {
+        "Relation": 7,
+        "GeneratorSuspension": 1,
+        "GeneratorImage": 1,
+        "TodaProp51FiniteDimensionalStatement": 1,
+        "TodaDeltaImageUpToSignStatement": 1,
+        "TodaProp44UniversalStatement": 1,
+        "Toda52UniversalStatement": 1,
+        "Toda45IsomorphismStatement": 1,
+        "TodaProp42GeneralExactnessStatement": 1,
+        "Toda51BelowDiagonalZeroStatement": 1,
+        "TodaPrimaryGroupZeroStatement": 1,
+        "TodaEtaFamilyGeneralDefinition": 1
+      },
+      "classification": "FINITE_CYCLIC_PREMISE_NO_EXPANSION",
+      "capture_error": null
+    },
+    {
+      "name": "pi6_3",
+      "n": 3,
+      "k": 3,
+      "status": "search_failed",
+      "result_step_count": 0,
+      "proved_event_count": 0,
+      "unresolved_event_count": 5,
+      "root_option_count": 3,
+      "root_rules": [
+        "finite cyclic structure gives group relation",
+        "equality symmetry",
+        "finite cyclic structure gives group relation"
+      ],
+      "root_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "context_capture_count": 1,
+      "blocked_finite_cyclic_goals": [
+        {
+          "type": "CyclicStructureStatement",
+          "goal": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)",
+          "order": 4,
+          "group": "TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)",
+          "generator": "HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))",
+          "screened_exact_given_assertion_ids": [],
+          "screened_relation_same_group_ids": [],
+          "registered_fixed_exact_assertions": [],
+          "registered_fixed_same_group_relation_ids": [
+            "shared:0:boundary:Proposition 5.6:pi6_3_group_relation"
+          ],
+          "total_screened_links": 21,
+          "all_initial_link_count": 17
+        }
+      ],
+      "blocked_goal_count": 1,
+      "context_fixed_source_type_counts": {
+        "Relation": 10,
+        "GeneratorSuspension": 1,
+        "GeneratorImage": 1,
+        "TodaProp51FiniteDimensionalStatement": 1,
+        "TodaDeltaImageUpToSignStatement": 1,
+        "TodaProp44UniversalStatement": 1,
+        "Toda52UniversalStatement": 1,
+        "Toda45IsomorphismStatement": 1,
+        "TodaProp42GeneralExactnessStatement": 1,
+        "Toda51BelowDiagonalZeroStatement": 1,
+        "TodaPrimaryGroupZeroStatement": 1,
+        "TodaEtaFamilyGeneralDefinition": 1
+      },
+      "classification": "FINITE_CYCLIC_PREMISE_NO_EXPANSION",
+      "capture_error": null
+    }
+  ],
+  "registered_cyclic_conclusion_templates": [
+    {
+      "name": "infinite cyclic quotient structure",
+      "rule_id": "phase165_r12_r2_quotient_rules.infinite_cyclic_quotient_structure_inference_rule",
+      "order_pattern": "PatternVariable(name='multiple')",
+      "premise_types": [
+        "QuotientIsomorphismStatement",
+        "CyclicStructureStatement"
+      ],
+      "eligibility": "CANDIDATE_NOT_CERTIFIED"
+    }
+  ],
+  "source_sha256": {
+    "phase165_r12_r5_structure_bridge.py": "8104625c9f05eccac04c651a399dacbb952d215ec7f2d4054aa81b91466e0ebf",
+    "phase165_r12_r31_proven_cyclic_reuse.py": "b141a7d5b1c59f016c9b21c3eb1819c90f99b65c457a3bc962c0a5240293917c",
+    "phase165_r3_recursive_search.py": "01d7c3c1b2c53aa008cece0414eb514fef52f406d495f8c5548cb42ab02b3130",
+    "phase165_r52_r9_shared_math.py": "481fb50431d1c7bb1f087ebe018b1e69dbdf502fc729c2c79954fd3d1751335c",
+    "phase165_r52_r16_web_citation_gate.py": "f9aa9e954e2bb89f496f79549237b6a0fa856a0d8b22952d9679f19e50972823",
+    "phase165_r55_nk_only_goal.py": "80d74bc3f21ab5710269c14e7a760472fa2f185e53b38f23e2fa8e67818469cf"
+  },
+  "capture_errors": 0,
+  "source_inference_not_certified_by_template": true,
+  "production_code_modified": false,
+  "full_pytest_run": false
+}

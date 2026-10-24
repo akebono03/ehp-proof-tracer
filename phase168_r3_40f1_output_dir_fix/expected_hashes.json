@@ -1,0 +1,10 @@
+{
+  "audit.py": {
+    "before": "35084632d278a06bc3456c97b62b2025c492d7e8cfc1e91a02248afd5448bbfa",
+    "after": "1cc8450be584efd066ecca6f7c1d3c15ff88045c6788dc344cd97452c7815f80"
+  },
+  "tests/test_phase168_r3_40f_residual_route_audit.py": {
+    "before": "2832402361ed82d7ca21b72fb3e47aa73f19706c455adf6559d577a452991090",
+    "after": "3b5a3dcffa1854275e24d6479091389e7c4618da53498b32f414f99ab3365dc3"
+  }
+}

@@ -1,0 +1,25 @@
+## 証明対象
+
+$\pi_{7}^{4}$
+
+## 使用する結果
+
+参照情報を持つ ProofStep はありません。
+
+---
+
+## 証明
+
+**探索状態：証明未完成**
+
+
+## 未解決 Goal
+
+- $\pi_{7}^{4} = \mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\}$
+- $\mathbb{Z}\{\nu_{4}\} \oplus \mathbb{Z}/4\{E\nu'\} = \pi_{7}^{4}$
+
+## 探索診断
+
+- expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=4), rhs=DirectSumGroup(summands=(FreeCyclicGroup(generator=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))), FiniteCyclicGroup(order=4, generator=IteratedSuspension(expression=HomotopyElement(name="ν'", dimension=3, source=6, target=3, generator=GeneratorSymbol(family="\\nu'", index=None, decoration=None)), exponent=1)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0
+
+未解決 Goal は証明済みの結論ではありません。

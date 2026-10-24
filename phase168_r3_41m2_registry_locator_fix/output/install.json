@@ -1,0 +1,36 @@
+{
+  "phase": "168 R3-41M2",
+  "full_pytest_run": false,
+  "changes": [
+    {
+      "file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_5_model_renderer.py",
+      "old_sha256": "d2e3876b97d13b0bc417844b5736b1d072aa184bc4cf1d1ae4cca0e1d08af440",
+      "new_sha256": "4d0f1b509c6e92704db96e73b6da00220235b6300c9adaa432e062b3ea2b5e51"
+    },
+    {
+      "file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_37c_reference_projection.py",
+      "old_sha256": "b493aaba37d47dbbeca11b7a90e9b9dc80d90e101f9ea6129c7db4241c7f1f0c",
+      "new_sha256": "7c91762bec6ad9aeb1c8bce8540ec325c0b5b461954a261733a4b9194c4ae1f8"
+    },
+    {
+      "file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r12_r20_eta_definition.py",
+      "old_sha256": "8c4f80f72312ba4bb176b3f577c810b67ed7d929819f85d9c42d0c7af5ffdea2",
+      "new_sha256": "22c5b379da4e965350abdf31e82525822386f3c7220839870b47b929c1325d93"
+    },
+    {
+      "file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41j2_chain_test_scope_fix\\tests\\test_phase168_r3_41j2_citation_provenance.py",
+      "old_sha256": "fe0a4fc2d42f75e96453c033409fb51ed72e4dfa770cbae8bc0ac6840d42ca5e",
+      "new_sha256": "64354422c528bc975a579e4d80ec109d3a002ccc0cd89500d729bc45a8227386"
+    },
+    {
+      "file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41l_reasoned_prose\\tests\\test_phase168_r3_41l_reasoned_prose.py",
+      "old_sha256": "18c53ee3eab7166233806483a9f4d91958124d4bec5c09a14ef4bcfad2540394",
+      "new_sha256": "6cda3248f3ef0afe059a67845ce365ca7bb9302168ffd4bc78d36c22ff383112"
+    },
+    {
+      "file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_39f_frozen_comparison\\audit.py",
+      "old_sha256": "01c77e15938d6329774379a9da0be11d3458263bdc1fda14b1269222b62c3e55",
+      "new_sha256": "8d849806d94002e2a20e22cf12d41afbde738167d82169068720a092ed53898b"
+    }
+  ]
+}

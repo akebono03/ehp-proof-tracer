@@ -1,0 +1,19 @@
+def render_model_backed_narrative_markdown(
+    result: PartialProofResult, model: ProofNarrativeModel,
+) -> str:
+    """Render typed Proof Tree steps; preserve incomplete search state from model."""
+    from proof import ProofRule, Relation
+    from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
+    from toda_rules import TodaProp42ExactnessStatement
+    from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
+    from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
+    from phase165_r12_r21_eta_generator_chain import _eta_pair
+    from phase168_r3_29_order_projection import project_narrative_order
+    from phase168_r3_26_exactness_projection import project_exactness_chains
+    from phase168_r3_27_typed_statement_projection import (
+        group_tex, element_tex, typed_sentence, toda45_specialization_evidence,
+        project_toda45_specialization_citation_numbers,
+        project_stable_eta_notation_transition,
+    )
+
