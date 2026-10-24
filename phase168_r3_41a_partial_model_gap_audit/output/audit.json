@@ -1,0 +1,128 @@
+{
+  "mode": "AUDIT_ONLY",
+  "status": "PASS",
+  "routes": {
+    "source_sha256": {
+      "phase165_r52_partial_proof.py": "98bfa6179bc86e375686a423ce397167e9a995fa8fddfd439227206a479110c6",
+      "phase165_r52_r3_web_adapter.py": "2f58215cf85c88476bedb61fd83c212bb261fd2c587889240cb00bb2dbaee69b",
+      "phase165_r52_r4_flask_bridge.py": "cf0ba1326c068ed89671ccc00df0a26bfb5b32942001baacdd861e5f0d252cfd",
+      "web_group_proof.py": "35501a48c0b1d07a29a12a11de6f0c0cff8f8b298528e184dda04d3b0dcfc4f2",
+      "phase168_r3_3_proof_narrative_model.py": "ea6862248a3db4da511d46b50a4e5d6bd090ed6c214a87526788b72117c14792",
+      "phase168_r3_5_model_renderer.py": "3d7a116a7f49b2da726726f421003939753ece41512638f5ac7a823d9b5695ac"
+    },
+    "web_default_citation_source": "model",
+    "web_standard_uses_common_model": true,
+    "web_standard_uses_adapter": true,
+    "web_explicit_partial_uses_adapter": true,
+    "flask_uses_standard_web": true,
+    "flask_explicit_case_uses_adapter": true,
+    "adapter_fallback_calls": [
+      74
+    ],
+    "adapter_common_calls": [
+      77
+    ],
+    "direct_calls": [
+      {
+        "file": "web_group_proof.py",
+        "line": 76,
+        "narrative_model_provided": true
+      },
+      {
+        "file": "web_group_proof.py",
+        "line": 91,
+        "narrative_model_provided": false
+      },
+      {
+        "file": "web_group_proof.py",
+        "line": 59,
+        "narrative_model_provided": false
+      },
+      {
+        "file": "phase165_r52_r4_flask_bridge.py",
+        "line": 55,
+        "narrative_model_provided": false
+      }
+    ],
+    "common_renderer_reads_open_goals": false,
+    "common_renderer_reads_diagnostics": false,
+    "common_renderer_reads_status": true
+  },
+  "cases": [
+    {
+      "case": "not_searched",
+      "status": "not_searched",
+      "proof_steps": 0,
+      "open_goal_count": 1,
+      "diagnostic_count": 0,
+      "legacy_sha256": "fd961c2009169c48d41fa350b3b9a662db6437236f2617b0e1c6e2b5de603474",
+      "common_sha256": "c70572c387c822443d7e063751e77bbc1b1a2e8c3145da2f2660bbc16b206128",
+      "legacy_has_status": true,
+      "common_has_status": false,
+      "legacy_has_open_goal_section": true,
+      "common_has_open_goal_section": false,
+      "legacy_has_diagnostic_section": false,
+      "common_has_diagnostic_section": false,
+      "legacy_contains_observed_step": false,
+      "common_contains_observed_step": false,
+      "adapter_has_lines": true,
+      "adapter_partial_result": true,
+      "legacy_qed": false,
+      "common_qed": false,
+      "legacy_text": "## 証明対象\n\n$\\pi_{120}^{100}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：未探索**\n\n## 未解決 Goal\n\n- target\n\n未解決 Goal は証明済みの結論ではありません。",
+      "common_text": "使用する結果\n\n証明\n"
+    },
+    {
+      "case": "partial",
+      "status": "partial",
+      "proof_steps": 1,
+      "open_goal_count": 1,
+      "diagnostic_count": 0,
+      "legacy_sha256": "c1c6a86d0ef94c285ba7e2cf5bb16703bf0c8e39e0a91776601ffa1cf3039d23",
+      "common_sha256": "c70572c387c822443d7e063751e77bbc1b1a2e8c3145da2f2660bbc16b206128",
+      "legacy_has_status": true,
+      "common_has_status": false,
+      "legacy_has_open_goal_section": true,
+      "common_has_open_goal_section": false,
+      "legacy_has_diagnostic_section": false,
+      "common_has_diagnostic_section": false,
+      "legacy_contains_observed_step": true,
+      "common_contains_observed_step": false,
+      "adapter_has_lines": true,
+      "adapter_partial_result": true,
+      "legacy_qed": false,
+      "common_qed": false,
+      "legacy_text": "## 証明対象\n\n$\\pi_{5}^{3}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：部分証明・未完成**\n\n### 確認済み ProofStep（与件を含む）\n\n- 与件: observed\n\n## 未解決 Goal\n\n- unknown\n\n未解決 Goal は証明済みの結論ではありません。",
+      "common_text": "使用する結果\n\n証明\n"
+    },
+    {
+      "case": "search_failed",
+      "status": "search_failed",
+      "proof_steps": 0,
+      "open_goal_count": 1,
+      "diagnostic_count": 1,
+      "legacy_sha256": "c9cb39e0321f2f0a713d4367289fdc8d707cd7596581a075c4ba72f145786981",
+      "common_sha256": "c70572c387c822443d7e063751e77bbc1b1a2e8c3145da2f2660bbc16b206128",
+      "legacy_has_status": true,
+      "common_has_status": false,
+      "legacy_has_open_goal_section": true,
+      "common_has_open_goal_section": false,
+      "legacy_has_diagnostic_section": true,
+      "common_has_diagnostic_section": false,
+      "legacy_contains_observed_step": false,
+      "common_contains_observed_step": false,
+      "adapter_has_lines": true,
+      "adapter_partial_result": true,
+      "legacy_qed": false,
+      "common_qed": false,
+      "legacy_text": "## 証明対象\n\n$\\pi_{21}^{17}$\n\n## 使用する結果\n\n参照情報を持つ ProofStep はありません。\n\n---\n\n## 証明\n\n**探索状態：証明未完成**\n\n## 未解決 Goal\n\n- no-rule\n\n## 探索診断\n\n- No applicable typed rule\n\n未解決 Goal は証明済みの結論ではありません。",
+      "common_text": "使用する結果\n\n証明\n"
+    }
+  ],
+  "caveats": [
+    "Source hashes represent the user's local working tree, not necessarily GitHub develop.",
+    "The synthetic cases do not measure all proof-status conditions.",
+    "The compared common output has no externally screened bridge; no citation claims are inferred.",
+    "This audit does not modify or replace the old fallback."
+  ]
+}
