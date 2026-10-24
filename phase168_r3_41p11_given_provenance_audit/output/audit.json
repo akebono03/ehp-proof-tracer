@@ -1,0 +1,443 @@
+{
+  "phase": "R3-41P11",
+  "audit_only": true,
+  "cases": {
+    "pi3_2": {
+      "steps": 18,
+      "inference_count": 13,
+      "fulltext_equal": true,
+      "citations_ok": true,
+      "benchmark_ok": true,
+      "given_audit": {
+        "given_count": 5,
+        "linked_count": 5,
+        "fixed_cited_count": 5,
+        "missing_link_indices": [],
+        "not_fixed_and_cited_indices": [],
+        "entries": [
+          {
+            "index": 0,
+            "statement_type": "TodaPrimaryGroupZeroStatement",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:6:adopted:assertion:toda51:circle_higher_zero",
+                "reference_id": "shared:6:adopted:reference:toda51:below_diagonal_zero",
+                "locator": "(5.1)",
+                "origin": "fixed_statement",
+                "publication_position": 7700,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  1
+                ],
+                "linked_citation_numbers": [
+                  1
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 2,
+            "statement_type": "TodaProp42GeneralExactnessStatement",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:5:adopted:assertion:prop42:general",
+                "reference_id": "shared:5:adopted:reference:prop42:general",
+                "locator": "Proposition 4.2 (4.4)",
+                "origin": "fixed_statement",
+                "publication_position": 6800,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  2
+                ],
+                "linked_citation_numbers": [
+                  2
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 5,
+            "statement_type": "Relation",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+                "reference_id": "shared:3:adopted:toda51:diagonal",
+                "locator": "(5.1)",
+                "origin": "fixed_statement",
+                "publication_position": 7700,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  1
+                ],
+                "linked_citation_numbers": [
+                  1
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 8,
+            "statement_type": "GeneratorSuspension",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:1:adopted:assertion:3",
+                "reference_id": "shared:1:adopted:ref:3",
+                "locator": "Foundational: suspension identity",
+                "origin": "fixed_statement",
+                "publication_position": 7701,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  3
+                ],
+                "linked_citation_numbers": [
+                  3
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 16,
+            "statement_type": "GeneratorImage",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:1:adopted:assertion:5",
+                "reference_id": "shared:1:adopted:ref:5",
+                "locator": "Proposition 5.1",
+                "origin": "fixed_statement",
+                "publication_position": 7800,
+                "component_position": 100,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  4
+                ],
+                "linked_citation_numbers": [
+                  4
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          }
+        ],
+        "publication_order_reverified": false,
+        "why_not_certified": "Screened membership and citations alone do not independently prove publication order or rule correctness."
+      },
+      "screened_bridge_link_count": 9
+    },
+    "pi4_3": {
+      "steps": 25,
+      "inference_count": 19,
+      "fulltext_equal": true,
+      "citations_ok": true,
+      "benchmark_ok": true,
+      "given_audit": {
+        "given_count": 6,
+        "linked_count": 6,
+        "fixed_cited_count": 6,
+        "missing_link_indices": [],
+        "not_fixed_and_cited_indices": [],
+        "entries": [
+          {
+            "index": 0,
+            "statement_type": "TodaEtaFamilyGeneralDefinition",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+                "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+                "locator": "Chapter V, i)",
+                "origin": "fixed_statement",
+                "publication_position": 7800,
+                "component_position": 300,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  1
+                ],
+                "linked_citation_numbers": [
+                  1
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 5,
+            "statement_type": "Relation",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:3:adopted:assertion:toda51:diagonal",
+                "reference_id": "shared:3:adopted:toda51:diagonal",
+                "locator": "(5.1)",
+                "origin": "fixed_statement",
+                "publication_position": 7700,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  2
+                ],
+                "linked_citation_numbers": [
+                  2
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 7,
+            "statement_type": "TodaDeltaImageUpToSignStatement",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+                "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+                "locator": "Proposition 5.1",
+                "origin": "fixed_statement",
+                "publication_position": 7800,
+                "component_position": 400,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  3
+                ],
+                "linked_citation_numbers": [
+                  3
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 9,
+            "statement_type": "TodaProp42GeneralExactnessStatement",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:5:adopted:assertion:prop42:general",
+                "reference_id": "shared:5:adopted:reference:prop42:general",
+                "locator": "Proposition 4.2 (4.4)",
+                "origin": "fixed_statement",
+                "publication_position": 6800,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  4
+                ],
+                "linked_citation_numbers": [
+                  4
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 15,
+            "statement_type": "Toda51BelowDiagonalZeroStatement",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:6:adopted:assertion:toda51:below_diagonal_zero",
+                "reference_id": "shared:6:adopted:reference:toda51:below_diagonal_zero",
+                "locator": "(5.1)",
+                "origin": "fixed_statement",
+                "publication_position": 7700,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  2
+                ],
+                "linked_citation_numbers": [
+                  2
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 21,
+            "statement_type": "Relation",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+                "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+                "locator": "Proposition 5.1",
+                "origin": "fixed_statement",
+                "publication_position": 7800,
+                "component_position": 200,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  3
+                ],
+                "linked_citation_numbers": [
+                  3
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          }
+        ],
+        "publication_order_reverified": false,
+        "why_not_certified": "Screened membership and citations alone do not independently prove publication order or rule correctness."
+      },
+      "screened_bridge_link_count": 12
+    },
+    "pi5_4": {
+      "steps": 10,
+      "inference_count": 7,
+      "fulltext_equal": true,
+      "citations_ok": true,
+      "benchmark_ok": true,
+      "given_audit": {
+        "given_count": 3,
+        "linked_count": 3,
+        "fixed_cited_count": 3,
+        "missing_link_indices": [],
+        "not_fixed_and_cited_indices": [],
+        "entries": [
+          {
+            "index": 0,
+            "statement_type": "TodaEtaFamilyGeneralDefinition",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+                "reference_id": "shared:7:adopted:reference:toda5:eta_family_definition",
+                "locator": "Chapter V, i)",
+                "origin": "fixed_statement",
+                "publication_position": 7800,
+                "component_position": 300,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  1
+                ],
+                "linked_citation_numbers": [
+                  1
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 5,
+            "statement_type": "Relation",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+                "reference_id": "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional",
+                "locator": "Proposition 5.1",
+                "origin": "fixed_statement",
+                "publication_position": 7800,
+                "component_position": 500,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  2
+                ],
+                "linked_citation_numbers": [
+                  2
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          },
+          {
+            "index": 6,
+            "statement_type": "Toda45IsomorphismStatement",
+            "screened_link_count": 1,
+            "linked": [
+              {
+                "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+                "reference_id": "shared:4:typed_literature:toda:tex:ch4:0006",
+                "locator": "(4.5)",
+                "origin": "fixed_statement",
+                "publication_position": 6900,
+                "component_position": null,
+                "fixed_content_matches": true,
+                "model_citation_numbers": [
+                  3
+                ],
+                "linked_citation_numbers": [
+                  3
+                ],
+                "citation_corresponds": true
+              }
+            ],
+            "source_link_present": true,
+            "fixed_source_and_citation": true
+          }
+        ],
+        "publication_order_reverified": false,
+        "why_not_certified": "Screened membership and citations alone do not independently prove publication order or rule correctness."
+      },
+      "screened_bridge_link_count": 13
+    }
+  },
+  "status": "PASS",
+  "counterfeit": {
+    "model_accepts_fake_given": true,
+    "screened_source_gate_rejects": true,
+    "given_provenance": {
+      "given_count": 1,
+      "linked_count": 0,
+      "fixed_cited_count": 0,
+      "missing_link_indices": [
+        0
+      ],
+      "not_fixed_and_cited_indices": [
+        0
+      ],
+      "entries": [
+        {
+          "index": 0,
+          "statement_type": "str",
+          "screened_link_count": 0,
+          "linked": [],
+          "source_link_present": false,
+          "fixed_source_and_citation": false
+        }
+      ],
+      "publication_order_reverified": false,
+      "why_not_certified": "Screened membership and citations alone do not independently prove publication order or rule correctness."
+    }
+  },
+  "source_coverage_complete": true,
+  "publication_order_reverified": false
+}
