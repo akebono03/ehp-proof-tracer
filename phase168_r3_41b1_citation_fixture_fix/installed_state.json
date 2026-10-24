@@ -1,0 +1,7 @@
+{
+  "backup_name": "20261024T012301481801Z",
+  "installed_shas": {
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_5_model_renderer.py": "a640b3f30ad8a5050b9d477d92103253d94b25945e19210802a46255c71f906e"
+  }
+}

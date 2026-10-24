@@ -1,0 +1,10 @@
+{
+  "cases": [
+    "pi3_2",
+    "pi4_3",
+    "pi5_4",
+    "pi6_5"
+  ],
+  "byte_identical": true,
+  "whole_pytest_executed": false
+}

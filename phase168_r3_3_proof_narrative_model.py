@@ -2,8 +2,9 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from homotopy_groups import TodaPrimaryGroup
 
-from phase165_r52_partial_proof import PartialProofResult
+from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
 from proof import LiteratureReference, ProofRule, ProofStep
 from unified_statement_registry import ProofStepLink, UnifiedStatementRegistry
 
@@ -24,6 +25,10 @@ class ProofNarrativeModel:
     citations: tuple[NarrativeCitation, ...]
     step_citation_numbers: tuple[tuple[int, ...], ...]
     root_index: int | None
+    status: ProofSearchStatus | None = None
+    target: TodaPrimaryGroup | None = None
+    open_goals: tuple[object, ...] = ()
+    diagnostics: tuple[str, ...] = ()
 
 
 def build_proof_narrative_model(
@@ -154,4 +159,8 @@ def build_proof_narrative_model(
         citations=citations,
         step_citation_numbers=tuple(per_step),
         root_index=root_index,
+        status=result.status,
+        target=result.target,
+        open_goals=result.open_goals,
+        diagnostics=result.diagnostics,
     )

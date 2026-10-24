@@ -2531,7 +2531,6 @@
   "phase165_r6_19_remaining/test_apply.py": true,
   "phase166_r3t_goal_source_binding/test_connection.py::test_pi43_is_not_assigned_pi54_citing_id": true,
   "phase166_r3t_goal_source_binding/test_connection.py::test_pi32_is_not_assigned_pi54_citing_id": true,
-  "phase168_r3_12_body_binding/tests/test_phase168_r3_12_body_binding.py::test_unknown_citation_number_is_rejected": true,
   "phase168_r3_36f_context_handoff/tests/test_context_handoff.py::test_pi54_actual_screened_context_has_all_registered_references": true,
   "phase168_r3_39d_existing_rule_repair/tests/test_phase168_r3_39d_existing_rule.py::test_circle_general_specialization_has_guard": true,
   "phase168_r3_39g_common_projection/tests/test_phase168_r3_39g_common_projection.py::test_phase168_r3_39g_pi54_order": true,
