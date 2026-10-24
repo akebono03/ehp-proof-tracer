@@ -101,11 +101,6 @@ def render_model_backed_narrative_markdown(
             else:
                 lines.append(f"{prefix}${statement_latex}$ を得る.")
             lines.append("")
-        for postponed in entry.after_indices:
-            postponed_step = model.steps[postponed]
-            sentence = typed_sentence(postponed_step.conclusion, postponed_step)
-            if sentence is not None:
-                lines.extend((sentence, ""))
     if result.status is ProofSearchStatus.COMPLETE:
         lines.append("□")
     return "\n".join(lines).rstrip() + "\n"
