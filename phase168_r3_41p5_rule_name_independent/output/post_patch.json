@@ -1,0 +1,10 @@
+{
+  "file": "phase168_r3_5_model_renderer.py",
+  "sha256_before": "d3daacf4b29a675aa2a9b72ce14d27bf25fb3f72557a10693707a441afdccabe",
+  "sha256_after": "72786adf4d3e5fc6acdd4fcd8490478841a134986a0ba507a5780cf1d56cabdc",
+  "function": "render_model_backed_narrative_markdown",
+  "changed_files": [
+    "phase168_r3_5_model_renderer.py"
+  ],
+  "full_function_path": "render_model_backed_narrative_markdown_FULL.py"
+}

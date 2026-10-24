@@ -10,7 +10,7 @@ def render_model_backed_narrative_markdown(
     result: PartialProofResult, model: ProofNarrativeModel,
 ) -> str:
     """Render typed Proof Tree steps; preserve incomplete search state from model."""
-    from proof import ProofRule, Relation
+    from proof import ProofRule, Relation, RelationType
     from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
     from toda_rules import TodaProp42ExactnessStatement
     from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
@@ -163,6 +163,7 @@ def render_model_backed_narrative_markdown(
     # premise has no distinct citation and no other consumers.
     suppressed_body_indices = set()
     if not incomplete:
+        from expression import IteratedSuspension
         from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaSuspensionMap
         from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
         from phase165_r12_r13_kernel_image import SuspensionKernelFreeCyclicStatement
@@ -224,8 +225,18 @@ def render_model_backed_narrative_markdown(
                         and isinstance(transported, Relation)
                         and isinstance(transported.rhs, FiniteCyclicGroup)
                         and isinstance(witness_step.conclusion, GeneratorSuspension)
-                        and getattr(consumer.inference_rule, "name", None)
-                        == "proved generator suspension normalizes transported cyclic group"
+                        and transported.relation_type is RelationType.EQUALITY
+                        and conclusion.relation_type is RelationType.EQUALITY
+                        and isinstance(witness_step.conclusion.map, TodaSuspensionMap)
+                        and isinstance(transported.rhs.generator, IteratedSuspension)
+                        and type(transported.rhs.generator.exponent) is int
+                        and transported.rhs.generator.exponent == 1
+                        and element_tex(transported.rhs.generator.expression) is not None
+                        and element_tex(transported.rhs.generator.expression)
+                            == element_tex(witness_step.conclusion.source_generator)
+                        and element_tex(conclusion.rhs.generator) is not None
+                        and element_tex(conclusion.rhs.generator)
+                            == element_tex(witness_step.conclusion.target_generator)
                         and transported.lhs == conclusion.lhs
                         and transported.rhs.order == conclusion.rhs.order
                         and transported.lhs == witness_step.conclusion.map.target_group):
