@@ -52,6 +52,40 @@ def render_model_backed_narrative_markdown(
             pending.extend(ancestor.premises)
         return tuple(numbers)
 
+    def validated_specialization_citation_numbers(step):
+        """Cite a direct typed general premise only after validating its indices."""
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
+        from phase165_r57_r20_general_specialization import specialize_typed_statement
+        from proof import Relation
+
+        if step.rule is not ProofRule.INFERENCE or len(step.premises) != 1:
+            return ()
+        source_step = step.premises[0]
+        if source_step.rule is not ProofRule.GIVEN:
+            return ()
+        source = source_step.conclusion
+        target = step.conclusion
+        valid = False
+        if isinstance(target, Relation) and isinstance(source, Relation):
+            valid = specialize_typed_statement(source, target) is not None
+        elif isinstance(target, TodaPrimaryGroupZeroStatement):
+            if isinstance(source, TodaPrimaryGroupZeroStatement):
+                valid = specialize_typed_statement(source, target) is not None
+            elif isinstance(source, Toda51BelowDiagonalZeroStatement):
+                group = target.group
+                i, n = group.group_dimension, group.sphere_dimension
+                valid = (type(i) is int and type(n) is int
+                         and 0 <= i < n and n >= 2)
+        if not valid:
+            return ()
+        return tuple(dict.fromkeys(
+            number
+            for source_index, candidate in enumerate(model.steps)
+            if candidate == source_step
+            for number in model.step_citation_numbers[source_index]
+        ))
+
     incomplete = result.status is not ProofSearchStatus.COMPLETE
     if incomplete and (
         model.status is not result.status
@@ -192,6 +226,15 @@ def render_model_backed_narrative_markdown(
                                 f"[R{number}]" for number in eta_numbers
                             )
                             sentence = f"{source_tags}より, " + sentence
+                from homotopy_groups import TodaSuspensionIsomorphismStatement
+                if (isinstance(statement, TodaSuspensionIsomorphismStatement)
+                        and step.rule is ProofRule.INFERENCE
+                        and any(
+                            isinstance(parent.conclusion, GeneratorSuspension)
+                            and parent.conclusion.map == statement.map
+                            for parent in step.premises
+                        )):
+                    sentence = "これより, " + sentence
                 lines.extend((sentence, ""))
         else:
             tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
@@ -200,7 +243,14 @@ def render_model_backed_narrative_markdown(
             elif body_line.role == "root":
                 prefix = f"{tags}を用いて, " if tags else "以上より, "
             else:
-                prefix = f"{tags}を用いて, " if tags else "導出により, "
+                if tags:
+                    prefix = f"{tags}を用いて, "
+                else:
+                    sources = validated_specialization_citation_numbers(step)
+                    prefix = (
+                        ", ".join(f"[R{number}]" for number in sources) + "より, "
+                        if sources else "導出により, "
+                    )
             statement_latex = body_line.statement_latex
             if isinstance(step.conclusion, TodaProp42ExactnessStatement):
                 statement_latex = statement_latex.replace(r" \text{ is exact}", "")
