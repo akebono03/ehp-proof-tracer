@@ -216,9 +216,8 @@ def typed_sentence(statement, step):
             from proof import ProofRule
             if step is not None and step.rule is ProofRule.INFERENCE:
                 if isinstance(statement, (MapInjective, MapSurjective)):
-                    if step.premises and any(
-                        "exact" in str(getattr(p.inference_rule, "name", "")).lower()
-                        or isinstance(p.conclusion, (TodaProp42ExactnessStatement, EHPImageEqualsKernelStatement))
+                    if any(
+                        isinstance(p.conclusion, (TodaProp42ExactnessStatement, EHPImageEqualsKernelStatement))
                         for p in step.premises
                     ):
                         return rf"完全性より, ${symbol}: {source}\to {target}$ は{label}である."
