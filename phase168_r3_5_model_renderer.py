@@ -10,7 +10,7 @@ def render_model_backed_narrative_markdown(
     result: PartialProofResult, model: ProofNarrativeModel,
 ) -> str:
     """Render typed Proof Tree steps; preserve incomplete search state from model."""
-    from proof import ProofRule
+    from proof import ProofRule, Relation
     from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
     from toda_rules import TodaProp42ExactnessStatement
     from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
@@ -156,12 +156,90 @@ def render_model_backed_narrative_markdown(
         lines.append("")
         lines.append(f"${sequence}$.")
         lines.append("")
+    # A later certified step can subsume a purely intermediate display step.
+    # Keep both ProofSteps in the tree; omit prose only when the consumed
+    # premise has no distinct citation and no other consumers.
+    suppressed_body_indices = set()
+    if not incomplete:
+        from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaSuspensionMap
+        from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
+        from phase165_r12_r13_kernel_image import SuspensionKernelFreeCyclicStatement
+        from phase166_r3v_generator_transport import generator_transport_normalization_rule
+        from toda_rules import TodaDeltaImageFreeCyclicStatement
+
+        def unique_step_index(premise):
+            matches = [i for i, candidate in enumerate(model.steps) if candidate is premise]
+            if len(matches) == 1:
+                return matches[0]
+            if matches:
+                return None
+            matches = [i for i, candidate in enumerate(model.steps) if candidate == premise]
+            return matches[0] if len(matches) == 1 else None
+
+        def only_consumed_by(candidate, consumer):
+            return sum(
+                any(parent is candidate or parent == candidate for parent in step.premises)
+                for step in model.steps
+            ) == 1 and any(
+                parent is candidate or parent == candidate for parent in consumer.premises
+            )
+
+        for later_index in order:
+            consumer = model.steps[later_index]
+            conclusion = consumer.conclusion
+            if (consumer.rule is ProofRule.INFERENCE
+                    and isinstance(conclusion, SuspensionKernelFreeCyclicStatement)
+                    and len(consumer.premises) == 2):
+                image_step, equality_step = consumer.premises
+                image = image_step.conclusion
+                equality = equality_step.conclusion
+                if (isinstance(image, TodaDeltaImageFreeCyclicStatement)
+                        and isinstance(equality, EHPImageEqualsKernelStatement)
+                        and image.image_group == conclusion.kernel_group
+                        and equality.window.first_map == EHP_DELTA_MAP
+                        and equality.window.second_map == EHP_E_MAP
+                        and image.map == TodaDeltaMap(
+                            equality.window.source_term, equality.window.middle_term
+                        )
+                        and conclusion.map == TodaSuspensionMap(
+                            equality.window.middle_term, equality.window.target_term
+                        )):
+                    earlier_index = unique_step_index(equality_step)
+                    if (earlier_index is not None
+                            and earlier_index in order
+                            and earlier_index != model.root_index
+                            and equality_step.rule is ProofRule.INFERENCE
+                            and not model.step_citation_numbers[earlier_index]
+                            and only_consumed_by(equality_step, consumer)):
+                        suppressed_body_indices.add(earlier_index)
+
+            if (consumer.rule is ProofRule.INFERENCE
+                    and isinstance(conclusion, Relation)
+                    and len(consumer.premises) == 2
+                    and isinstance(conclusion.rhs, FiniteCyclicGroup)):
+                transported_step, witness_step = consumer.premises
+                transported = transported_step.conclusion
+                if (transported_step.rule is ProofRule.INFERENCE
+                        and isinstance(transported, Relation)
+                        and isinstance(transported.rhs, FiniteCyclicGroup)
+                        and isinstance(witness_step.conclusion, GeneratorSuspension)
+                        and generator_transport_normalization_rule(conclusion).match_guard(
+                            consumer.premises, {}
+                        )):
+                    earlier_index = unique_step_index(transported_step)
+                    if (earlier_index is not None
+                            and earlier_index in order
+                            and earlier_index != model.root_index
+                            and not model.step_citation_numbers[earlier_index]
+                            and only_consumed_by(transported_step, consumer)):
+                        suppressed_body_indices.add(earlier_index)
     from homotopy_groups import TodaPrimaryGroupZeroStatement
     from expression import ScalarSymbol
-    from proof import Relation
     from homotopy_groups import TodaPrimaryGroup
     from web_group_proof_common import _group_proof_statement_latex
     for index in order:
+        if index in suppressed_body_indices:
+            continue
         step = model.steps[index]
         statement = step.conclusion
         if incomplete:

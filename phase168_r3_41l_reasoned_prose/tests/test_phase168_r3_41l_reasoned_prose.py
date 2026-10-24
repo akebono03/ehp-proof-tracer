@@ -123,14 +123,20 @@ def test_diagonal_iso_connective_has_matching_generator_premise(cases):
     assert "これより, $E: \\pi_{1}^{1}\\to \\pi_{2}^{2}$ は同型." in markdown
 
 
-def test_pi54_specialization_and_transport_unchanged(cases):
+def test_pi54_specialization_and_transport_proof_retained(cases):
     _, model, markdown = cases["pi5_4"]
     _, proof = sections(markdown)
     a = proof.index(r"\pi_{4}^{3} = \mathbb{Z}/2")
     b = proof.index("(n,m,k)=(3,4,1)")
     c = proof.index(r"E(\eta_{3})=\eta_{4}")
     assert a < b < c
-    assert r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" in proof
+    from web_group_proof_common import _group_proof_statement_latex
+    transported = [step for step in model.steps
+                   if r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}"
+                   in (_group_proof_statement_latex(step.conclusion)[0] or "")]
+    assert len(transported) == 1
+    assert r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" not in proof
+    assert r"\pi_{5}^{4} = \mathbb{Z}/2\{\eta_{4}\}" in proof
     assert "導出により" not in proof
     assert proof.rstrip().endswith("□")
 
@@ -147,10 +153,15 @@ def test_existing_reference_and_frozen_checks_still_hold(cases, name):
     assert body.rstrip().endswith("□")
 
 
-def test_unrelated_root_claim_is_not_promoted_to_reference(cases):
+def test_intermediate_transport_remains_in_tree_but_not_in_reference(cases):
     _, model, markdown = cases["pi5_4"]
-    _, proof = sections(markdown)
-    transport_lines = [line for line in proof.splitlines()
-                       if r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" in line]
-    assert len(transport_lines) == 1
-    assert not re.search(r"\[R\d+\]より", transport_lines[0])
+    reference, proof = sections(markdown)
+    from web_group_proof_common import _group_proof_statement_latex
+    matching = [step for step in model.steps
+                if r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}"
+                in (_group_proof_statement_latex(step.conclusion)[0] or "")]
+    assert len(matching) == 1
+    assert all(r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" not in body
+               for citation in model.citations for body in citation.statement_bodies)
+    assert r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" not in reference
+    assert r"\pi_{5}^{4} = \mathbb{Z}/2\{E\eta_{3}\}" not in proof
