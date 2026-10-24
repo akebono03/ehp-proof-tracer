@@ -1,0 +1,9 @@
+R3-41P7_STATUS PASS
+pi3_2 steps=18 refs=4 P6_FULLTEXT_EQUAL=True CITATIONS=True
+pi4_3 steps=25 refs=4 P6_FULLTEXT_EQUAL=True CITATIONS=True
+pi5_4 steps=10 refs=3 P6_FULLTEXT_EQUAL=True CITATIONS=True
+PROBE stable_eta OK
+PROBE ehp OK
+REPORT C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase168_r3_41p7_shape_boundary_audit\output\audit.md
+FULL_PYTEST_NOT_RUN
+APPLICATION_SOURCE_UNCHANGED

@@ -1,0 +1,336 @@
+{
+  "status": "PASS",
+  "sources": {
+    "phase168_r3_27_typed_statement_projection.py": {
+      "sha256": "21a9ee2bc5df7ae08f32c10bb1b980cafa91a6941b03ea9f118fc4979d58e762",
+      "github_develop_blob_sha": "f14a155939f95dc414ad8f3022a7a2fb21e5e4cf",
+      "lines": 274,
+      "validator_calls": [
+        {
+          "function": "project_stable_eta_notation_transition",
+          "line": 154,
+          "validator": "_stable_eta_renaming_shape"
+        },
+        {
+          "function": "typed_sentence",
+          "line": 243,
+          "validator": "prop42_exactness_indices"
+        }
+      ]
+    },
+    "phase166_r3ac_stable_notation.py": {
+      "sha256": "715b3e1cc91111f3960abdb726947f95c7cbfdd6466c4673cb829d9d0b17494b",
+      "github_develop_blob_sha": "de8619628b45dd9d04ba1aebfea98a4899e2d72a",
+      "lines": 111,
+      "validator_calls": [
+        {
+          "function": "stable_eta_notation_rule.guard",
+          "line": 67,
+          "validator": "_stable_eta_renaming_shape"
+        },
+        {
+          "function": "expand_stable_eta_notation",
+          "line": 105,
+          "validator": "_stable_eta_renaming_shape"
+        }
+      ]
+    },
+    "phase165_r12_r11_prop42_unified.py": {
+      "sha256": "19827b6938ab600d31cb46009ffe73fe1266682f79fce87295594d27f0e6fae0",
+      "github_develop_blob_sha": "79752ec035244677ff6a54debff312e87a76fbf2",
+      "lines": 178,
+      "validator_calls": [
+        {
+          "function": "prop42_specialization_inference_rule",
+          "line": 102,
+          "validator": "prop42_exactness_indices"
+        },
+        {
+          "function": "prop42_specialization_inference_rule.guard",
+          "line": 109,
+          "validator": "prop42_exactness_indices"
+        },
+        {
+          "function": "expand_cited_prop42_exactness",
+          "line": 131,
+          "validator": "prop42_exactness_indices"
+        },
+        {
+          "function": "prefer_universal_prop42_derivation",
+          "line": 175,
+          "validator": "prop42_exactness_indices"
+        }
+      ]
+    },
+    "phase165_r12_r12_ehp_consequences.py": {
+      "sha256": "f18942b19ec188c4596f2b3448f72b4c4214925dd2914d307e92a9cdfe80fa58",
+      "github_develop_blob_sha": "895dc98ad4d25f14fb7aac8fa52460a77fd049bc",
+      "lines": 134,
+      "validator_calls": [
+        {
+          "function": "ehp_image_equals_kernel_inference_rule.guard",
+          "line": 36,
+          "validator": "prop42_exactness_indices"
+        },
+        {
+          "function": "suspension_surjective_from_zero_target_inference_rule.guard",
+          "line": 61,
+          "validator": "prop42_exactness_indices"
+        },
+        {
+          "function": "expand_ehp_exactness_consequences",
+          "line": 87,
+          "validator": "prop42_exactness_indices"
+        },
+        {
+          "function": "expand_ehp_exactness_consequences",
+          "line": 109,
+          "validator": "prop42_exactness_indices"
+        }
+      ]
+    },
+    "phase168_r3_5_model_renderer.py": {
+      "sha256": "72786adf4d3e5fc6acdd4fcd8490478841a134986a0ba507a5780cf1d56cabdc",
+      "github_develop_blob_sha": "66509896c60d431427e3c18e70a911d7bebe8d7c",
+      "lines": 405,
+      "validator_calls": []
+    },
+    "phase168_r3_3_proof_narrative_model.py": {
+      "sha256": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+      "github_develop_blob_sha": "1080843a2a90bf60f0b8096d3c5542a24a9abb7c",
+      "lines": 166,
+      "validator_calls": []
+    }
+  },
+  "cases": {
+    "pi3_2": {
+      "steps": 18,
+      "references": 4,
+      "expected_steps": 18,
+      "expected_references": 4,
+      "expected_counts_match": true,
+      "fulltext_identical_to_p6": true,
+      "frozen_requirements": [
+        {
+          "key": "exactness_for_injectivity",
+          "present": true,
+          "why": "H の単射を完全性から導いたことを明記"
+        },
+        {
+          "key": "delta_image_kernel_zero",
+          "present": true,
+          "why": "Im Δ = ker E = 0 を明記"
+        },
+        {
+          "key": "hopf_iso_from_bijectivity",
+          "present": true,
+          "why": "H の同型性を単射性と全射性から説明"
+        },
+        {
+          "key": "no_generic_circle_in_proof",
+          "present": true,
+          "why": "基準にない一般円周公式の本文再掲がない"
+        }
+      ],
+      "frozen_requirements_pass": true,
+      "provenance": {
+        "used_citation_numbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "registered_citation_numbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "citation_numbers_match": true,
+        "bidirectional_links_valid": true,
+        "reference_bodies_complete": true,
+        "premises_in_model": true,
+        "number_of_reference_entries": 4,
+        "number_of_steps": 18
+      }
+    },
+    "pi4_3": {
+      "steps": 25,
+      "references": 4,
+      "expected_steps": 25,
+      "expected_references": 4,
+      "expected_counts_match": true,
+      "fulltext_identical_to_p6": true,
+      "frozen_requirements": [
+        {
+          "key": "surjectivity_from_exactness",
+          "present": true,
+          "why": "E の全射を完全性から導いたことを明記"
+        },
+        {
+          "key": "kernel_presentation",
+          "present": true,
+          "why": "ker E の具体的な表示"
+        },
+        {
+          "key": "quotient_theorem",
+          "present": true,
+          "why": "準同型定理を明記"
+        },
+        {
+          "key": "diagonal_general_only_in_reference",
+          "present": true,
+          "why": "一般の対角群構造は Reference に置き本文には重複させない"
+        }
+      ],
+      "frozen_requirements_pass": true,
+      "provenance": {
+        "used_citation_numbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "registered_citation_numbers": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "citation_numbers_match": true,
+        "bidirectional_links_valid": true,
+        "reference_bodies_complete": true,
+        "premises_in_model": true,
+        "number_of_reference_entries": 4,
+        "number_of_steps": 25
+      }
+    },
+    "pi5_4": {
+      "steps": 10,
+      "references": 3,
+      "expected_steps": 10,
+      "expected_references": 3,
+      "expected_counts_match": true,
+      "fulltext_identical_to_p6": true,
+      "frozen_requirements": [
+        {
+          "key": "toda45_explicit_substitution",
+          "present": true,
+          "why": "(4.5) への (n,m,k)=(3,4,1) の代入"
+        },
+        {
+          "key": "specialization_citation_in_proof",
+          "present": true,
+          "why": "(4.5) を引用して適用したことを明記"
+        },
+        {
+          "key": "source_before_generator_image",
+          "present": true,
+          "why": "引用する群構造を生成元の像より先に示す"
+        },
+        {
+          "key": "specific_map_isomorphism",
+          "present": true,
+          "why": "具体的な E 同型を表示"
+        }
+      ],
+      "frozen_requirements_pass": true,
+      "provenance": {
+        "used_citation_numbers": [
+          1,
+          2,
+          3
+        ],
+        "registered_citation_numbers": [
+          1,
+          2,
+          3
+        ],
+        "citation_numbers_match": true,
+        "bidirectional_links_valid": true,
+        "reference_bodies_complete": true,
+        "premises_in_model": true,
+        "number_of_reference_entries": 3,
+        "number_of_steps": 10
+      }
+    }
+  },
+  "probes": {
+    "stable_eta": {
+      "source": "synthetic r=2, based on phase166_r3ac_stable_notation/tests/test_r3ac.py",
+      "rule_guard_has_valid_match": true,
+      "valid_projection": "[R1]の $\\eta$ 系列の定義より, $E^{2}\\eta_{3}=\\eta_{5}$.",
+      "valid_projection_has_citation": true,
+      "invalid_order_projection": null,
+      "invalid_order_rejected": true,
+      "uncited_projection": null,
+      "uncited_rejected": true
+    },
+    "ehp": {
+      "source": "observed EHPImageEqualsKernelStatement from public search",
+      "valid_window": "TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E'))",
+      "valid_math_indices": [
+        2,
+        4,
+        "delta_e"
+      ],
+      "valid_projection": "完全性より, $\\operatorname{Im}\\Delta=\\ker E$ が成り立つ.",
+      "invalid_math_indices": null,
+      "invalid_projection": null,
+      "valid_projection_present": true,
+      "invalid_window_rejected": true
+    }
+  },
+  "runtime_validation_calls": {
+    "public_cases": {},
+    "probes": {
+      "_stable_eta_renaming_shape / phase166_r3ac_stable_notation.py / guard": 1,
+      "_stable_eta_renaming_shape / phase168_r3_27_typed_statement_projection.py / project_stable_eta_notation_transition": 3,
+      "prop42_exactness_indices / phase168_r3_27_typed_statement_projection.py / typed_sentence": 2
+    },
+    "details": [
+      {
+        "validator": "_stable_eta_renaming_shape",
+        "caller_file": "phase166_r3ac_stable_notation.py",
+        "caller_function": "guard",
+        "from_projection": false,
+        "accepted": true
+      },
+      {
+        "validator": "_stable_eta_renaming_shape",
+        "caller_file": "phase168_r3_27_typed_statement_projection.py",
+        "caller_function": "project_stable_eta_notation_transition",
+        "from_projection": true,
+        "accepted": true
+      },
+      {
+        "validator": "_stable_eta_renaming_shape",
+        "caller_file": "phase168_r3_27_typed_statement_projection.py",
+        "caller_function": "project_stable_eta_notation_transition",
+        "from_projection": true,
+        "accepted": false
+      },
+      {
+        "validator": "_stable_eta_renaming_shape",
+        "caller_file": "phase168_r3_27_typed_statement_projection.py",
+        "caller_function": "project_stable_eta_notation_transition",
+        "from_projection": true,
+        "accepted": true
+      },
+      {
+        "validator": "prop42_exactness_indices",
+        "caller_file": "phase168_r3_27_typed_statement_projection.py",
+        "caller_function": "typed_sentence",
+        "from_projection": true,
+        "accepted": true
+      },
+      {
+        "validator": "prop42_exactness_indices",
+        "caller_file": "phase168_r3_27_typed_statement_projection.py",
+        "caller_function": "typed_sentence",
+        "from_projection": true,
+        "accepted": false
+      }
+    ]
+  }
+}

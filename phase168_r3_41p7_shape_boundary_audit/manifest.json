@@ -1,0 +1,18 @@
+{
+  "phase": "168 R3-41P7",
+  "mode": "audit-only",
+  "reference_branch": "develop",
+  "baselines": "R3-41P6 bundled fulltext (identical to R3-41P5)",
+  "baseline_sha256": {
+    "pi5_4_current.md": "fbf22a31ec05ababaadde422d4269cad7637cf1a90c1a1856acc85043ec040c9",
+    "pi4_3_current.md": "a32ded4f04e76b7fc005f0ca671c4bad1050b36af00988a8aeb9ac47797185f2",
+    "pi3_2_current.md": "b7a841b075f0e780816ec45327116e0ba34d9cd964a0235939c236448a3fbe13"
+  },
+  "source_files_modified": [],
+  "full_pytest_executed": false,
+  "expected_cases": [
+    "pi3_2",
+    "pi4_3",
+    "pi5_4"
+  ]
+}
