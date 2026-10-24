@@ -1,0 +1,18 @@
+{
+  "phase": "168 R3-41P17",
+  "changed": {
+    "phase164_r8_proofstep_factory.py": {
+      "backup": "phase164_r8_proofstep_factory.py.before",
+      "before_sha256": "13b1a6f56f56029a8fb02e66903093ba8cb6a1f4b91ff0bce9d3e2f9c360e356",
+      "after_sha256": "9566af0f24b3da687095f466450fe830a56b3f0b7488181d1e3548e3c7e0fb1c"
+    },
+    "phase165_r52_r2_search_adapter.py": {
+      "backup": "phase165_r52_r2_search_adapter.py.before",
+      "before_sha256": "d6dc9eb84833357ded2a1781d4e63629fd33814e585e276859d4faff3371896d",
+      "after_sha256": "73d04934f1fe40e91f897ea5ec7b1fd5cd1127f1f9388c62c0efe84bb67158e5"
+    }
+  },
+  "new_file": "proof_origin_capture.py",
+  "new_sha256": "ebe001b901dfc3b00d8536ab8c4bad356fbc42ad3818881e2036da271f4b2db6",
+  "full_pytest_run": false
+}

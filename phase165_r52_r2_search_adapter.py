@@ -50,6 +50,9 @@ def search_registered_partial_proof(
                 raise TypeError("proved observation must contain a ProofStep")
             if not any(existing is step for existing in observed_steps):
                 observed_steps.append(step)
+            # Record only steps accepted by the canonical recursive search.
+            from proof_origin_capture import note_accepted_search_step
+            note_accepted_search_step(step)
         elif kind == "unresolved":
             if not any(same(item, observed_goal) for item in observed_unresolved):
                 observed_unresolved.append(observed_goal)
