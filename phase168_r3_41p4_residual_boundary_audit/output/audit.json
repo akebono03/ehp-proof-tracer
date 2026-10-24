@@ -1,0 +1,490 @@
+{
+  "git": {
+    "head": "9a2834bb381da4073360959206858ff1a68acc0c",
+    "branch": "develop",
+    "status": "?? phase168_r3_41p4_residual_boundary_audit/"
+  },
+  "static": {
+    "files": [
+      {
+        "file": "phase168_r3_5_model_renderer.py",
+        "sha256": "d3daacf4b29a675aa2a9b72ce14d27bf25fb3f72557a10693707a441afdccabe",
+        "bytes": 20739,
+        "findings": [
+          {
+            "line": 227,
+            "name": "inference_rule.name",
+            "kind": "string_name_dependency",
+            "source": "and getattr(consumer.inference_rule, \"name\", None)"
+          }
+        ]
+      },
+      {
+        "file": "phase168_r3_27_typed_statement_projection.py",
+        "sha256": "b23866ee3365ef0257a03670d85636abf2cc60cb244d0f702d9d0620345abf34",
+        "bytes": 14007,
+        "findings": [
+          {
+            "line": 154,
+            "name": "_stable_eta_renaming_shape",
+            "kind": "math_rule_recheck",
+            "source": "or not _stable_eta_renaming_shape(transported, step.conclusion)):"
+          },
+          {
+            "line": 220,
+            "name": "inference_rule.name",
+            "kind": "string_name_dependency",
+            "source": "\"exact\" in str(getattr(p.inference_rule, \"name\", \"\")).lower()"
+          },
+          {
+            "line": 244,
+            "name": "prop42_exactness_indices",
+            "kind": "math_rule_recheck",
+            "source": "if prop42_exactness_indices(TodaProp42ExactnessStatement(window)) is None:"
+          }
+        ]
+      },
+      {
+        "file": "phase168_r3_3_proof_narrative_model.py",
+        "sha256": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+        "bytes": 7438,
+        "findings": []
+      },
+      {
+        "file": "phase168_r3_12_body_binding.py",
+        "sha256": "f04257bde5e26bb5a596258dd83cf6c2bd0fd68f2ad2d98adf83013a1f8c8035",
+        "bytes": 3128,
+        "findings": []
+      },
+      {
+        "file": "phase168_r3_29_order_projection.py",
+        "sha256": "3392891f706c23e14b8556cb469bf27d4c52567867a38e434f9e970a2f2b2d18",
+        "bytes": 7876,
+        "findings": []
+      },
+      {
+        "file": "phase166_r3ac_stable_notation.py",
+        "sha256": "715b3e1cc91111f3960abdb726947f95c7cbfdd6466c4673cb829d9d0b17494b",
+        "bytes": 5344,
+        "findings": [
+          {
+            "line": 67,
+            "name": "_stable_eta_renaming_shape",
+            "kind": "math_rule_recheck",
+            "source": "and _stable_eta_renaming_shape(premises[0].conclusion, goal))"
+          },
+          {
+            "line": 105,
+            "name": "_stable_eta_renaming_shape",
+            "kind": "math_rule_recheck",
+            "source": "if not _stable_eta_renaming_shape(transported, goal):"
+          }
+        ]
+      },
+      {
+        "file": "phase165_r12_r11_prop42_unified.py",
+        "sha256": "19827b6938ab600d31cb46009ffe73fe1266682f79fce87295594d27f0e6fae0",
+        "bytes": 7913,
+        "findings": [
+          {
+            "line": 102,
+            "name": "prop42_exactness_indices",
+            "kind": "math_rule_recheck",
+            "source": "if prop42_exactness_indices(goal) is None:"
+          },
+          {
+            "line": 109,
+            "name": "prop42_exactness_indices",
+            "kind": "math_rule_recheck",
+            "source": "and prop42_exactness_indices(goal) is not None"
+          },
+          {
+            "line": 131,
+            "name": "prop42_exactness_indices",
+            "kind": "math_rule_recheck",
+            "source": "if source not in available or prop42_exactness_indices(goal) is None:"
+          },
+          {
+            "line": 175,
+            "name": "prop42_exactness_indices",
+            "kind": "math_rule_recheck",
+            "source": "and prop42_exactness_indices(link.step.conclusion) is not None"
+          }
+        ]
+      }
+    ],
+    "missing": []
+  },
+  "runtime": {
+    "pi3_2": {
+      "status": "ProofSearchStatus.COMPLETE",
+      "steps": 18,
+      "expected_steps": 18,
+      "references": 4,
+      "expected_references": 4,
+      "reference_provenance": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "assertion_ids": [
+            "shared:6:adopted:assertion:toda51:circle_higher_zero",
+            "shared:3:adopted:assertion:toda51:diagonal"
+          ],
+          "reference_ids": [
+            "shared:6:adopted:reference:toda51:below_diagonal_zero",
+            "shared:3:adopted:toda51:diagonal"
+          ],
+          "step_indices": [
+            0,
+            5
+          ],
+          "body_count": 2
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 4.2 (4.4)",
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "step_indices": [
+            2
+          ],
+          "body_count": 1
+        },
+        {
+          "number": 3,
+          "locator": "Foundational: suspension identity",
+          "assertion_ids": [
+            "shared:1:adopted:assertion:3"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:3"
+          ],
+          "step_indices": [
+            8
+          ],
+          "body_count": 1
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 5.1",
+          "assertion_ids": [
+            "shared:1:adopted:assertion:5"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:5"
+          ],
+          "step_indices": [
+            16
+          ],
+          "body_count": 1
+        }
+      ],
+      "citation_numbers_used": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "citation_numbers_in_model": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "citation_consistent": true,
+      "reference_bodies_complete": true,
+      "model_unmodified": true,
+      "p3_fulltext_exact": true,
+      "fulltext_diff_lines": 0,
+      "benchmark_checks": [
+        {
+          "key": "exactness_for_injectivity",
+          "present": true,
+          "why": "H の単射を完全性から導いたことを明記"
+        },
+        {
+          "key": "delta_image_kernel_zero",
+          "present": true,
+          "why": "Im Δ = ker E = 0 を明記"
+        },
+        {
+          "key": "hopf_iso_from_bijectivity",
+          "present": true,
+          "why": "H の同型性を単射性と全射性から説明"
+        },
+        {
+          "key": "no_generic_circle_in_proof",
+          "present": true,
+          "why": "基準にない一般円周公式の本文再掲がない"
+        }
+      ],
+      "benchmark_complete": true,
+      "validator_calls": [],
+      "eta_candidates": [],
+      "exactness_wording_candidates": [
+        {
+          "step_index": 4,
+          "conclusion_type": "MapInjective",
+          "direct_premise_names": [
+            "generic cited typed scalar specialization",
+            "Toda Proposition 4.2: generic consecutive EHP specialization"
+          ],
+          "direct_name_contains_exact": false,
+          "typed_exactness_in_ancestors": true
+        },
+        {
+          "step_index": 13,
+          "conclusion_type": "MapSurjective",
+          "direct_premise_names": [
+            "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+            "Toda Proposition 4.2: generic consecutive EHP specialization"
+          ],
+          "direct_name_contains_exact": true,
+          "typed_exactness_in_ancestors": true
+        }
+      ],
+      "rule_name_suppression_candidates": []
+    },
+    "pi4_3": {
+      "status": "ProofSearchStatus.COMPLETE",
+      "steps": 25,
+      "expected_steps": 25,
+      "references": 4,
+      "expected_references": 4,
+      "reference_provenance": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i)",
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "step_indices": [
+            0
+          ],
+          "body_count": 1
+        },
+        {
+          "number": 2,
+          "locator": "(5.1)",
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal",
+            "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+          ],
+          "reference_ids": [
+            "shared:3:adopted:toda51:diagonal",
+            "shared:6:adopted:reference:toda51:below_diagonal_zero"
+          ],
+          "step_indices": [
+            5,
+            15
+          ],
+          "body_count": 2
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "step_indices": [
+            7,
+            21
+          ],
+          "body_count": 2
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "step_indices": [
+            9
+          ],
+          "body_count": 1
+        }
+      ],
+      "citation_numbers_used": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "citation_numbers_in_model": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "citation_consistent": true,
+      "reference_bodies_complete": true,
+      "model_unmodified": true,
+      "p3_fulltext_exact": true,
+      "fulltext_diff_lines": 0,
+      "benchmark_checks": [
+        {
+          "key": "surjectivity_from_exactness",
+          "present": true,
+          "why": "E の全射を完全性から導いたことを明記"
+        },
+        {
+          "key": "kernel_presentation",
+          "present": true,
+          "why": "ker E の具体的な表示"
+        },
+        {
+          "key": "quotient_theorem",
+          "present": true,
+          "why": "準同型定理を明記"
+        },
+        {
+          "key": "diagonal_general_only_in_reference",
+          "present": true,
+          "why": "一般の対角群構造は Reference に置き本文には重複させない"
+        }
+      ],
+      "benchmark_complete": true,
+      "validator_calls": [],
+      "eta_candidates": [],
+      "exactness_wording_candidates": [
+        {
+          "step_index": 17,
+          "conclusion_type": "MapSurjective",
+          "direct_premise_names": [
+            "Toda Proposition 4.2: generic consecutive EHP specialization",
+            "Toda (5.1) general below-diagonal zero specialization"
+          ],
+          "direct_name_contains_exact": false,
+          "typed_exactness_in_ancestors": true
+        }
+      ],
+      "rule_name_suppression_candidates": []
+    },
+    "pi5_4": {
+      "status": "ProofSearchStatus.COMPLETE",
+      "steps": 10,
+      "expected_steps": 10,
+      "references": 3,
+      "expected_references": 3,
+      "reference_provenance": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i)",
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "step_indices": [
+            0
+          ],
+          "body_count": 1
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "step_indices": [
+            5
+          ],
+          "body_count": 1
+        },
+        {
+          "number": 3,
+          "locator": "(4.5)",
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "step_indices": [
+            6
+          ],
+          "body_count": 1
+        }
+      ],
+      "citation_numbers_used": [
+        1,
+        2,
+        3
+      ],
+      "citation_numbers_in_model": [
+        1,
+        2,
+        3
+      ],
+      "citation_consistent": true,
+      "reference_bodies_complete": true,
+      "model_unmodified": true,
+      "p3_fulltext_exact": true,
+      "fulltext_diff_lines": 0,
+      "benchmark_checks": [
+        {
+          "key": "toda45_explicit_substitution",
+          "present": true,
+          "why": "(4.5) への (n,m,k)=(3,4,1) の代入"
+        },
+        {
+          "key": "specialization_citation_in_proof",
+          "present": true,
+          "why": "(4.5) を引用して適用したことを明記"
+        },
+        {
+          "key": "source_before_generator_image",
+          "present": true,
+          "why": "引用する群構造を生成元の像より先に示す"
+        },
+        {
+          "key": "specific_map_isomorphism",
+          "present": true,
+          "why": "具体的な E 同型を表示"
+        }
+      ],
+      "benchmark_complete": true,
+      "validator_calls": [],
+      "eta_candidates": [
+        {
+          "step_index": 8,
+          "exponent": 1,
+          "premise_indices": [
+            5,
+            7
+          ]
+        }
+      ],
+      "exactness_wording_candidates": [],
+      "rule_name_suppression_candidates": [
+        {
+          "step_index": 9,
+          "rule_name": "proved generator suspension normalizes transported cyclic group",
+          "literal_matches": true,
+          "transported_step_index": 8,
+          "transported_citations": [],
+          "transported_consumer_count": 1,
+          "is_root": true
+        }
+      ]
+    }
+  }
+}
