@@ -1,0 +1,14 @@
+{
+  "status": "PATCHED",
+  "target": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_5_model_renderer.py",
+  "before_sha256": "068490ef45f2072d537dd674db04cf0704832c1a9832394c29f5c04e11fcc588",
+  "after_sha256": "1e60a98a3b76f4544d053ac97cc6deb3bb321c0b41ce3c0991bee7a0277ea92f",
+  "backup_path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41j1_citation_test_repair\\output\\phase168_r3_5_model_renderer.py.before",
+  "full_function": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41j1_citation_test_repair\\modified_function_full.py",
+  "full_file": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase168_r3_41j1_citation_test_repair\\output\\full_file.py",
+  "changed_function_count": 1,
+  "production_files_modified": [
+    "phase168_r3_5_model_renderer.py"
+  ],
+  "full_pytest_run": false
+}

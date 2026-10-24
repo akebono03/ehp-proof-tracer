@@ -22,7 +22,10 @@ def test_pi32_three_windows_project_one_chain():
     assert len(chains[0].step_indices) == 3
     rendered = render_model_backed_narrative_markdown(result, model)
     assert rendered.count("次の完全列を考える") == 1
-    assert rendered.count(r"\xrightarrow{\Delta}") == 1
+    # The Reference may contain the same general EHP arrow.
+    # Count the concrete displayed arrow only in the proof section.
+    reference, proof = rendered.split("\n証明\n", 1)
+    assert proof.count(r"\xrightarrow{\Delta}") == 1
 
 
 def test_pi43_two_windows_project_one_chain():

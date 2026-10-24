@@ -13,6 +13,10 @@ def render_model_backed_narrative_markdown(
     from proof import ProofRule
     from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
     from toda_rules import TodaProp42ExactnessStatement
+    from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
+    from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
+    from phase165_r12_r21_eta_generator_chain import _eta_pair
     from phase168_r3_29_order_projection import project_narrative_order
     from phase168_r3_26_exactness_projection import project_exactness_chains
     from phase168_r3_27_typed_statement_projection import (
@@ -27,6 +31,26 @@ def render_model_backed_narrative_markdown(
         raise TypeError("model must be ProofNarrativeModel")
     body_lines = build_narrative_body_lines(result, model)
     body_by_step = {line.step_index: line for line in body_lines}
+
+    def cited_general_ancestor_numbers(step, given_type):
+        """Return only registered citations of typed GIVEN proof ancestors."""
+        numbers = []
+        visited = set()
+        pending = [step]
+        while pending:
+            ancestor = pending.pop()
+            if id(ancestor) in visited:
+                continue
+            visited.add(id(ancestor))
+            if ancestor.rule is ProofRule.GIVEN and isinstance(ancestor.conclusion, given_type):
+                for source_index, candidate in enumerate(model.steps):
+                    if candidate == ancestor:
+                        for number in model.step_citation_numbers[source_index]:
+                            if number not in numbers:
+                                numbers.append(number)
+                        break
+            pending.extend(ancestor.premises)
+        return tuple(numbers)
 
     incomplete = result.status is not ProofSearchStatus.COMPLETE
     if incomplete and (
@@ -78,7 +102,23 @@ def render_model_backed_narrative_markdown(
             if group_tex(target) is None or symbol not in map_tex:
                 raise ValueError("unsupported certified exactness arrow")
             sequence += rf" \xrightarrow{{{map_tex[symbol]}}} {group_tex(target)}"
-        lines.append("群構造を決定するために, 次の完全列を考える.")
+        # The merged sequence stands for these certified exactness ProofSteps.
+        # Cite their own sources; never search bibliography labels by text.
+        exactness_numbers = tuple(dict.fromkeys(
+            number
+            for step_index in chain.step_indices
+            for number in (
+                model.step_citation_numbers[step_index]
+                + cited_general_ancestor_numbers(
+                    model.steps[step_index], TodaProp42GeneralExactnessStatement
+                )
+            )
+        ))
+        if exactness_numbers:
+            tags = ", ".join(f"[R{number}]" for number in exactness_numbers)
+            lines.append(f"群構造を決定するために, {tags}を用いて次の完全列を考える.")
+        else:
+            lines.append("群構造を決定するために, 次の完全列を考える.")
         lines.append("")
         lines.append(f"${sequence}$.")
         lines.append("")
@@ -140,6 +180,18 @@ def render_model_backed_narrative_markdown(
                             f"[R{number}]" for number in sourced_numbers
                         )
                         sentence = f"{source_tags}を " + sentence
+                    else:
+                        eta_numbers = (
+                            cited_general_ancestor_numbers(step, TodaEtaFamilyGeneralDefinition)
+                            if (isinstance(statement, GeneratorSuspension)
+                                and _eta_pair(statement) is not None)
+                            else ()
+                        )
+                        if eta_numbers:
+                            source_tags = ", ".join(
+                                f"[R{number}]" for number in eta_numbers
+                            )
+                            sentence = f"{source_tags}より, " + sentence
                 lines.extend((sentence, ""))
         else:
             tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
