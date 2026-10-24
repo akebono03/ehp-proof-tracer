@@ -52,37 +52,35 @@ def render_model_backed_narrative_markdown(
             pending.extend(ancestor.premises)
         return tuple(numbers)
 
-    def validated_specialization_citation_numbers(step):
-        """Cite a direct typed general premise only after validating its indices."""
-        from homotopy_groups import TodaPrimaryGroupZeroStatement
-        from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
-        from phase165_r57_r20_general_specialization import specialize_typed_statement
-        from proof import Relation
 
+    def direct_given_premise_citation_numbers(step):
+        """Use citations of an existing direct GIVEN premise, without replaying a rule.
+
+        The Proof Tree is supplied by Backward Search. Citation ownership is
+        already stored in the Narrative Model and is not re-inferred here.
+        """
         if step.rule is not ProofRule.INFERENCE or len(step.premises) != 1:
             return ()
-        source_step = step.premises[0]
-        if source_step.rule is not ProofRule.GIVEN:
+        given_step = step.premises[0]
+        if given_step.rule is not ProofRule.GIVEN:
             return ()
-        source = source_step.conclusion
-        target = step.conclusion
-        valid = False
-        if isinstance(target, Relation) and isinstance(source, Relation):
-            valid = specialize_typed_statement(source, target) is not None
-        elif isinstance(target, TodaPrimaryGroupZeroStatement):
-            if isinstance(source, TodaPrimaryGroupZeroStatement):
-                valid = specialize_typed_statement(source, target) is not None
-            elif isinstance(source, Toda51BelowDiagonalZeroStatement):
-                group = target.group
-                i, n = group.group_dimension, group.sphere_dimension
-                valid = (type(i) is int and type(n) is int
-                         and 0 <= i < n and n >= 2)
-        if not valid:
+        # Keep the old presentationally eligible typed statement families.
+        # Proof validity itself was checked before this model was constructed.
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
+        source, target = given_step.conclusion, step.conclusion
+        is_direct_relation = isinstance(source, Relation) and isinstance(target, Relation)
+        is_typed_zero = (
+            isinstance(target, TodaPrimaryGroupZeroStatement)
+            and isinstance(source, (TodaPrimaryGroupZeroStatement,
+                                    Toda51BelowDiagonalZeroStatement))
+        )
+        if not (is_direct_relation or is_typed_zero):
             return ()
         return tuple(dict.fromkeys(
             number
             for source_index, candidate in enumerate(model.steps)
-            if candidate == source_step
+            if candidate is given_step or candidate == given_step
             for number in model.step_citation_numbers[source_index]
         ))
 
@@ -363,7 +361,7 @@ def render_model_backed_narrative_markdown(
                 if tags:
                     prefix = f"{tags}を用いて, "
                 else:
-                    sources = validated_specialization_citation_numbers(step)
+                    sources = direct_given_premise_citation_numbers(step)
                     prefix = (
                         ", ".join(f"[R{number}]" for number in sources) + "より, "
                         if sources else ""
