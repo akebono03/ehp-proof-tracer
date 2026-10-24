@@ -1,0 +1,23 @@
+--- certified_prefix_before.md
++++ certified_prefix_after.md
+@@ -28,16 +28,16 @@
+ 
+ ### 確認済み ProofStep（与件を含む）
+ 
+-- 与件: TodaEtaFamilyGeneralDefinition（数式表示未対応）
++- 与件: [R1]より, TodaEtaFamilyGeneralDefinition（数式表示未対応）
+ - 推論: TodaEtaFamilyDefinitionStatement（数式表示未対応）
+ - 推論: TodaEtaFamilyDefinitionStatement（数式表示未対応）
+ - 推論: $E(\eta_{2})=\eta_{3}$.
+ - 推論: HomomorphismPresentationStatement（数式表示未対応）
+-- 与件: $\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}$
++- 与件: [R2]より, $\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}$
+ - 推論: $\pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}$
+-- 与件: $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
++- 与件: [R3]より, $\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}$
+ - 推論: これより, $\operatorname{Im}\Delta=\mathbb{Z}\{2\eta_{2}\}$.
+-- 与件: TodaProp42GeneralExactnessStatement（数式表示未対応）
++- 与件: [R4]より, TodaProp42GeneralExactnessStatement（数式表示未対応）
+ - 推論: $\pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \text{ is exact}$
+ - 推論: 完全性より, $\operatorname{Im}\Delta=\ker E$ が成り立つ.
+ - 推論: 完全性より, $\ker E=\mathbb{Z}\{2\eta_{2}\}$.

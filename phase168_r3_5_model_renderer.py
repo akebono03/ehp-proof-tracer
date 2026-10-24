@@ -104,7 +104,13 @@ def render_model_backed_narrative_markdown(
                     statement_text = (f"${latex}$" if latex is not None and fallback is None
                                       else type(statement).__name__ + "（数式表示未対応）")
             role = "与件" if step.rule is ProofRule.GIVEN else "推論"
-            lines.append(f"- {role}: {statement_text}")
+            numbers = model.step_citation_numbers[index]
+            tags = ", ".join(f"[R{number}]" for number in numbers)
+            if tags:
+                source_prefix = f"{tags}より, " if step.rule is ProofRule.GIVEN else f"{tags}を用いて, "
+            else:
+                source_prefix = ""
+            lines.append(f"- {role}: {source_prefix}{statement_text}")
             continue
         # The symbolic circle theorem belongs in Reference; the proof uses
         # its certified integer specialization and must not lose i > 1.

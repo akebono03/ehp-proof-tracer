@@ -1,0 +1,33 @@
+証明対象
+\pi_{4}^{3}
+使用する結果
+[R1] Chapter V, i) The Groups pi^(n)_(n+1), eta-family notation.
+n\ge 2 に対し, \eta_n=E^{n-2}\eta_2 と定義する.
+[R2] (5.1).
+\pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}\quad(n\ge 1).
+[R3] Proposition 5.1.
+\Delta\left(\iota_{5}\right) = \pm 2\eta_{2}.
+[R4] Proposition 4.2 (4.4).
+Proposition 4.2 により, EHP の列 \pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}\xrightarrow{H}\pi_{i+1}^{2n+1}\xrightarrow{\Delta}\pi_{i-1}^{n}\xrightarrow{E}\pi_i^{n+1} は完全である.
+
+証明
+探索状態：部分証明・未完成
+確認済み ProofStep（与件を含む）
+- 与件: [R1]より, TodaEtaFamilyGeneralDefinition（数式表示未対応）
+- 推論: TodaEtaFamilyDefinitionStatement（数式表示未対応）
+- 推論: TodaEtaFamilyDefinitionStatement（数式表示未対応）
+- 推論: E(\eta_{2})=\eta_{3}.
+- 推論: HomomorphismPresentationStatement（数式表示未対応）
+- 与件: [R2]より, \pi_{n}^{n} = \mathbb{Z}\{\iota_{n}\}
+- 推論: \pi_{5}^{5} = \mathbb{Z}\{\iota_{5}\}
+- 与件: [R3]より, \Delta\left(\iota_{5}\right) = \pm 2\eta_{2}
+- 推論: これより, \operatorname{Im}\Delta=\mathbb{Z}\{2\eta_{2}\}.
+- 与件: [R4]より, TodaProp42GeneralExactnessStatement（数式表示未対応）
+- 推論: \pi_{5}^{5} \xrightarrow{\Delta} \pi_{3}^{2} \xrightarrow{E} \pi_{4}^{3} \text{ is exact}
+- 推論: 完全性より, \operatorname{Im}\Delta=\ker E が成り立つ.
+- 推論: 完全性より, \ker E=\mathbb{Z}\{2\eta_{2}\}.
+未解決 Goal
+- \pi_{4}^{3} = \mathbb{Z}/2\{\eta_{3}\}
+探索診断
+- 監査用再構成: 完成証明の既存 ProofStep の一部のみを使用。実探索の PARTIAL ではない。
+未解決 Goal は証明済みの結論ではありません。
