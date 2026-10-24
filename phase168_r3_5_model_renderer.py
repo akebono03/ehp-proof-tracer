@@ -18,6 +18,7 @@ def render_model_backed_narrative_markdown(
     from phase168_r3_27_typed_statement_projection import (
         group_tex, typed_sentence, toda45_specialization_evidence,
         project_toda45_specialization_citation_numbers,
+        project_stable_eta_notation_transition,
     )
 
     if not isinstance(result, PartialProofResult):
@@ -62,6 +63,11 @@ def render_model_backed_narrative_markdown(
                 and statement.group.sphere_dimension == 1
                 and isinstance(statement.group.group_dimension, ScalarSymbol)):
             continue
+        # Only verbalize the certified stable-eta normalization already
+        # represented by this step's source relation and cited definition.
+        transition = project_stable_eta_notation_transition(model, index)
+        if transition is not None:
+            lines.extend((transition, ""))
         body_line = body_by_step.get(index)
         if body_line is None:
             sentence = typed_sentence(step.conclusion, step)
