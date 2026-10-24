@@ -1,0 +1,118 @@
+{
+  "phase": "168 R3-41P18",
+  "mode": "AUDIT_ONLY",
+  "status": "ORIGIN_BOUNDARY_GAPS_CONFIRMED",
+  "cases": {
+    "pi3_2": {
+      "inference_count": 13,
+      "given_count": 5,
+      "factory_outputs_at_least_inference": true,
+      "accepted_steps_at_least_proven": true,
+      "same_step_objects": true,
+      "fulltext_equal": true,
+      "web_fulltext_equal": true,
+      "citations_equal": true,
+      "web_citations_equal": true,
+      "web_partial": false,
+      "reference_count": 4,
+      "observation_closed_after_scope": true,
+      "closed_observation_rejected": true,
+      "expected_counts": [
+        13,
+        5
+      ],
+      "all_invariants_pass": true
+    },
+    "pi4_3": {
+      "inference_count": 19,
+      "given_count": 6,
+      "factory_outputs_at_least_inference": true,
+      "accepted_steps_at_least_proven": true,
+      "same_step_objects": true,
+      "fulltext_equal": true,
+      "web_fulltext_equal": true,
+      "citations_equal": true,
+      "web_citations_equal": true,
+      "web_partial": false,
+      "reference_count": 4,
+      "observation_closed_after_scope": true,
+      "closed_observation_rejected": true,
+      "expected_counts": [
+        19,
+        6
+      ],
+      "all_invariants_pass": true
+    },
+    "pi5_4": {
+      "inference_count": 7,
+      "given_count": 3,
+      "factory_outputs_at_least_inference": true,
+      "accepted_steps_at_least_proven": true,
+      "same_step_objects": true,
+      "fulltext_equal": true,
+      "web_fulltext_equal": true,
+      "citations_equal": true,
+      "web_citations_equal": true,
+      "web_partial": false,
+      "reference_count": 3,
+      "observation_closed_after_scope": true,
+      "closed_observation_rejected": true,
+      "expected_counts": [
+        7,
+        3
+      ],
+      "all_invariants_pass": true
+    }
+  },
+  "source_sha256_before": {
+    "web_group_proof.py": "b7146b95f86ca9032349384463b3399418141fcb30f49d25eb9e829b08da06ca",
+    "proof_origin_capture.py": "ebe001b901dfc3b00d8536ab8c4bad356fbc42ad3818881e2036da271f4b2db6",
+    "phase164_r8_proofstep_factory.py": "9566af0f24b3da687095f466450fe830a56b3f0b7488181d1e3548e3c7e0fb1c",
+    "phase165_r3_recursive_search.py": "01d7c3c1b2c53aa008cece0414eb514fef52f406d495f8c5548cb42ab02b3130",
+    "phase165_r52_r2_search_adapter.py": "73d04934f1fe40e91f897ea5ec7b1fd5cd1127f1f9388c62c0efe84bb67158e5",
+    "phase165_r52_partial_proof.py": "98bfa6179bc86e375686a423ce397167e9a995fa8fddfd439227206a479110c6",
+    "phase165_r52_r9_shared_math.py": "481fb50431d1c7bb1f087ebe018b1e69dbdf502fc729c2c79954fd3d1751335c",
+    "phase165_r55_nk_only_goal.py": "80d74bc3f21ab5710269c14e7a760472fa2f185e53b38f23e2fa8e67818469cf",
+    "phase168_r3_41p17_origin_handoff/origin_handoff.py": "7ca794ae277bd8a644e048b18ad3bcf26a1702ec0e53221975c5aba775952ce9",
+    "phase168_r3_41p13_trust_boundary/verification.py": "5989084449b14e27ecf1ae370c347a5e59f570b8c336f3d387f6c41eff9dd84e",
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_4_link_bridge.py": "970115534e12db4d39ef8aed48396781d21f195b868f22f0026797baa1029c60",
+    "phase168_r3_5_model_renderer.py": "72786adf4d3e5fc6acdd4fcd8490478841a134986a0ba507a5780cf1d56cabdc",
+    "phase168_r3_27_typed_statement_projection.py": "21a9ee2bc5df7ae08f32c10bb1b980cafa91a6941b03ea9f118fc4979d58e762",
+    "phase168_r3_41p12_publication_boundary_audit/baselines/pi3_2.md": "b7a841b075f0e780816ec45327116e0ba34d9cd964a0235939c236448a3fbe13",
+    "phase168_r3_41p12_publication_boundary_audit/baselines/pi4_3.md": "a32ded4f04e76b7fc005f0ca671c4bad1050b36af00988a8aeb9ac47797185f2",
+    "phase168_r3_41p12_publication_boundary_audit/baselines/pi5_4.md": "fbf22a31ec05ababaadde422d4269cad7637cf1a90c1a1856acc85043ec040c9"
+  },
+  "limits": {
+    "forged_step_unseen_before_notes": true,
+    "forged_step_rejected_before_notes": true,
+    "self_attested_forged_inference_accepted": true,
+    "inconsistent_result_target_accepted": true,
+    "replacement_bridge_wrapper_accepted": true,
+    "observation_aggregates_multiple_searches": true,
+    "cross_search_bridge_rejected": true,
+    "nested_cannot_reuse_outer_observation": true,
+    "nested_does_not_inherit_outer_steps": true,
+    "outer_observation_restored": true,
+    "manual_observation_rejected": true
+  },
+  "source_sha256_after": {
+    "web_group_proof.py": "b7146b95f86ca9032349384463b3399418141fcb30f49d25eb9e829b08da06ca",
+    "proof_origin_capture.py": "ebe001b901dfc3b00d8536ab8c4bad356fbc42ad3818881e2036da271f4b2db6",
+    "phase164_r8_proofstep_factory.py": "9566af0f24b3da687095f466450fe830a56b3f0b7488181d1e3548e3c7e0fb1c",
+    "phase165_r3_recursive_search.py": "01d7c3c1b2c53aa008cece0414eb514fef52f406d495f8c5548cb42ab02b3130",
+    "phase165_r52_r2_search_adapter.py": "73d04934f1fe40e91f897ea5ec7b1fd5cd1127f1f9388c62c0efe84bb67158e5",
+    "phase165_r52_partial_proof.py": "98bfa6179bc86e375686a423ce397167e9a995fa8fddfd439227206a479110c6",
+    "phase165_r52_r9_shared_math.py": "481fb50431d1c7bb1f087ebe018b1e69dbdf502fc729c2c79954fd3d1751335c",
+    "phase165_r55_nk_only_goal.py": "80d74bc3f21ab5710269c14e7a760472fa2f185e53b38f23e2fa8e67818469cf",
+    "phase168_r3_41p17_origin_handoff/origin_handoff.py": "7ca794ae277bd8a644e048b18ad3bcf26a1702ec0e53221975c5aba775952ce9",
+    "phase168_r3_41p13_trust_boundary/verification.py": "5989084449b14e27ecf1ae370c347a5e59f570b8c336f3d387f6c41eff9dd84e",
+    "phase168_r3_3_proof_narrative_model.py": "7499c992ccbe98d598633667cf8d0ebd76568ea49f9d2a1a394155f69bf937fc",
+    "phase168_r3_4_link_bridge.py": "970115534e12db4d39ef8aed48396781d21f195b868f22f0026797baa1029c60",
+    "phase168_r3_5_model_renderer.py": "72786adf4d3e5fc6acdd4fcd8490478841a134986a0ba507a5780cf1d56cabdc",
+    "phase168_r3_27_typed_statement_projection.py": "21a9ee2bc5df7ae08f32c10bb1b980cafa91a6941b03ea9f118fc4979d58e762",
+    "phase168_r3_41p12_publication_boundary_audit/baselines/pi3_2.md": "b7a841b075f0e780816ec45327116e0ba34d9cd964a0235939c236448a3fbe13",
+    "phase168_r3_41p12_publication_boundary_audit/baselines/pi4_3.md": "a32ded4f04e76b7fc005f0ca671c4bad1050b36af00988a8aeb9ac47797185f2",
+    "phase168_r3_41p12_publication_boundary_audit/baselines/pi5_4.md": "fbf22a31ec05ababaadde422d4269cad7637cf1a90c1a1856acc85043ec040c9"
+  }
+}
