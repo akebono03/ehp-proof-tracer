@@ -1,0 +1,12 @@
+{
+  "AUDIT.md": "012222c19263c08b264602052a1ffc6ccc1342c79a9b459c295b240eb9323345",
+  "README.md": "03de3252311e0e4c01e9f9c4a515a408d911dc799a6c2edb8d3dce7d43436a2a",
+  "__pycache__/audit.cpython-313.pyc": "42814e2a87436f619a1498245c02c6fd401eb84702bd9ea35930add1251d931e",
+  "audit.py": "9aded06d3b77d1c781fcd21a01b0cb09bd8ec93c8c00183d241e3c236ba70196",
+  "baselines/pi3_2.md": "b7a841b075f0e780816ec45327116e0ba34d9cd964a0235939c236448a3fbe13",
+  "baselines/pi4_3.md": "a32ded4f04e76b7fc005f0ca671c4bad1050b36af00988a8aeb9ac47797185f2",
+  "baselines/pi5_4.md": "fbf22a31ec05ababaadde422d4269cad7637cf1a90c1a1856acc85043ec040c9",
+  "run.ps1": "53b4f625602dd30a4106248ed9264985d43ba68565e338cb25cbd24e8ae86c2a",
+  "tests/__pycache__/test_publication_gate.cpython-313-pytest-9.0.2.pyc": "e4d6cacaf2713759ca0b21d9a78bba25e815c30157b2e1b60990b9c64d00bff9",
+  "tests/test_publication_gate.py": "8a93cabcb06f51c54321e4facf2baf675b76ef950c47599606ce1aaa0da5981a"
+}
