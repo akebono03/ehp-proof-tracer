@@ -1,0 +1,9 @@
+﻿Phase 168 R3-41I collection fix
+Result: SUCCESS
+Only intended runner change: add --import-mode=importlib
+Runner before SHA256: 7EBF5D0666642F4C83AAC9D438F7FF949A52BD46A923102D234E8EC576AE297C
+Runner after SHA256: A98E3330E1851F86148A64EBE95409275E78EBFB2B67240D0755F956302684C6
+Source/baseline snapshot: nine watched files
+Repository-wide pytest: NOT RUN
+Audit bundle: C:\Users\user\Dropbox\Python\fitz\ehp_proof\phase168_r3_41i_renderer_closure_audit\output\review_bundle.zip
+Error: 

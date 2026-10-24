@@ -2,7 +2,7 @@ $ErrorActionPreference = "Stop"
 $Project = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Push-Location $Project
 try {
-    python -m pytest -q `
+    python -m pytest -q --import-mode=importlib `
       ".\phase168_r3_41i_renderer_closure_audit\tests\test_audit.py" `
       ".\phase168_r3_39f_frozen_comparison\tests\test_audit.py" `
       ".\phase168_r3_19_web_model_default\tests\test_phase168_r3_19_web_model_default.py"
