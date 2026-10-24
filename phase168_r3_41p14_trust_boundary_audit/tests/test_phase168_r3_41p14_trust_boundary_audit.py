@@ -12,18 +12,22 @@ from phase168_r3_41p14_trust_boundary_audit.audit import (
 )
 
 
-@pytest.mark.parametrize("options", (
-    {"context": False, "positioned": True},
-    {"context": True, "positioned": False},
-    {"context": True, "positioned": True, "unsupported_rule": True},
+@pytest.mark.parametrize("options,expected_verify,expected_model,expected_rejected", (
+    ({"context": False, "positioned": True}, 0, 0, True),
+    ({"context": True, "positioned": False}, 0, 0, True),
+    # The probe deliberately replaces the checker with a mock that accepts
+    # every call. This case measures invocation, not real-rule acceptance.
+    ({"context": True, "positioned": True, "unsupported_rule": True}, 1, 1, False),
 ))
-def test_complete_unverified_routes_reach_model_without_invoking_boundary(options):
+def test_complete_web_boundary_is_always_required(
+    options, expected_verify, expected_model, expected_rejected,
+):
     row = probe_web_route(**options)
     assert row["status"] == "complete"
-    assert row["verify"] == 0
-    assert row["model"] == 1
-    assert row["render"] == 1
-    assert row["rejected"] is False
+    assert row["verify"] == expected_verify
+    assert row["model"] == expected_model
+    assert row["render"] == expected_model
+    assert row["rejected"] is expected_rejected
 
 
 def test_positioned_complete_route_invokes_boundary_before_model():
