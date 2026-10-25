@@ -1,0 +1,448 @@
+{
+  "phase": 169,
+  "audit": "R1",
+  "results": [
+    {
+      "target": "pi_4^2",
+      "n": 2,
+      "k": 2,
+      "stage": "success",
+      "candidate_count": 1,
+      "candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "complete",
+      "structure_status": "known",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "target_repr": "TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)",
+      "proven_step_count": 3,
+      "rule_counts": {
+        "given": 2,
+        "inference": 1
+      },
+      "steps": [
+        {
+          "index": 1,
+          "rule": "given",
+          "inference_rule_name": "Registered fixed statement: Proposition 5.1",
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "premise_count": 0,
+          "premises_repr": [],
+          "note": null,
+          "foundational_reference": null
+        },
+        {
+          "index": 2,
+          "rule": "given",
+          "inference_rule_name": "Registered fixed statement: (5.2)",
+          "conclusion_type": "Toda52UniversalStatement",
+          "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+          "premise_count": 0,
+          "premises_repr": [],
+          "note": null,
+          "foundational_reference": null
+        },
+        {
+          "index": 3,
+          "rule": "inference",
+          "inference_rule_name": "Toda (5.2) finite-cyclic eta2 composition transport",
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "premise_count": 2,
+          "premises_repr": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)"
+          ],
+          "note": null,
+          "foundational_reference": null
+        }
+      ],
+      "open_goal_count": 0,
+      "open_goals": [],
+      "diagnostics": [],
+      "screened_context_available": true,
+      "publication_order": {
+        "status": "ALL_PRECEDING",
+        "citing_assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+        "given_count": 2,
+        "details": [
+          {
+            "given_index": 1,
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "eligible_assertion_ids": [
+              "shared:2:toda:adopted:prop5.1:pi4_3"
+            ],
+            "eligible": true
+          },
+          {
+            "given_index": 2,
+            "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+            "eligible_assertion_ids": [
+              "shared:4:typed_literature:assertion:toda:tex:ch5:0003"
+            ],
+            "eligible": true
+          }
+        ]
+      },
+      "web_key": "generic-complete-proof",
+      "web_partial_result": false,
+      "web_conclusion_latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "web_step_count": 3,
+      "web_rendered_line_count": 9,
+      "web_rendered_lines": [
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "使用する結果",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "使用する結果"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "**[R1] Proposition 5.1.**",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "strong",
+              "value": "[R1] Proposition 5.1."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "",
+          "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "**[R2] (5.2).**",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "strong",
+              "value": "[R2] (5.2)."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "証明",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "証明"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "",
+          "statement_latex": "\\pi_{4}^{2}",
+          "suffix": "の群構造を決定する.",
+          "segments": [
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{4}^{2}"
+            },
+            {
+              "kind": "text",
+              "value": "の群構造を決定する."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "[R1]より, ",
+          "statement_latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R1]より, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "[R2]を用いて, ",
+          "statement_latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+          "suffix": ".",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "[R2]を用いて, "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}"
+            },
+            {
+              "kind": "text",
+              "value": "."
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "□",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "□"
+            }
+          ]
+        }
+      ],
+      "search_web_consistent": true
+    },
+    {
+      "target": "pi_5^3",
+      "n": 3,
+      "k": 2,
+      "stage": "success",
+      "candidate_count": 1,
+      "candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "search_failed",
+      "structure_status": "unknown",
+      "conclusion_repr": null,
+      "target_repr": "TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)",
+      "proven_step_count": 0,
+      "rule_counts": {},
+      "steps": [],
+      "open_goal_count": 3,
+      "open_goals": [
+        {
+          "type": "CyclicStructureStatement",
+          "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), order=2)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "screened_context_available": true,
+      "publication_order": {
+        "status": "NOT_CERTIFIED_INCOMPLETE",
+        "given_count": 0,
+        "details": []
+      },
+      "web_key": "generic-partial-proof",
+      "web_partial_result": true,
+      "web_conclusion_latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+      "web_step_count": 0,
+      "web_rendered_line_count": 14,
+      "web_rendered_lines": [
+        {
+          "kind": "heading",
+          "indent_level": 0,
+          "prefix": "証明対象",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": []
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "",
+          "statement_latex": "\\pi_{5}^{3}",
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{5}^{3}"
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "indent_level": 0,
+          "prefix": "使用する結果",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": []
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "参照情報を持つ ProofStep はありません。",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "参照情報を持つ ProofStep はありません。"
+            }
+          ]
+        },
+        {
+          "kind": "separator",
+          "indent_level": 0,
+          "prefix": "",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": []
+        },
+        {
+          "kind": "heading",
+          "indent_level": 0,
+          "prefix": "証明",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": []
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "**探索状態：証明未完成**",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "strong",
+              "value": "探索状態：証明未完成"
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "indent_level": 0,
+          "prefix": "未解決 Goal",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": []
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "- CyclicStructureStatement（数式表示未対応）",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "- CyclicStructureStatement（数式表示未対応）"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "- ",
+          "statement_latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "- "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "- ",
+          "statement_latex": "\\mathbb{Z}/2\\{\\eta_{3}^{2}\\} = \\pi_{5}^{3}",
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "- "
+            },
+            {
+              "kind": "inline_math",
+              "value": "\\mathbb{Z}/2\\{\\eta_{3}^{2}\\} = \\pi_{5}^{3}"
+            }
+          ]
+        },
+        {
+          "kind": "heading",
+          "indent_level": 0,
+          "prefix": "探索診断",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": []
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "- expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "- expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "indent_level": 0,
+          "prefix": "未解決 Goal は証明済みの結論ではありません。",
+          "statement_latex": null,
+          "suffix": "",
+          "segments": [
+            {
+              "kind": "text",
+              "value": "未解決 Goal は証明済みの結論ではありません。"
+            }
+          ]
+        }
+      ],
+      "search_web_consistent": true
+    }
+  ]
+}
