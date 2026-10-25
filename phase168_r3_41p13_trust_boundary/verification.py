@@ -118,4 +118,18 @@ def verify_proof_tree_for_narrative(
             and step.conclusion == result.conclusion for step in result.proven_steps
         ):
             raise UnverifiedProofTree("completed proof has no matching conclusion")
+        # A proof of another group cannot be certified for this result.target.
+        # Source chronology and inference matching alone do not bind the target.
+        # Preserve the historical generic checker for non-group synthetic input;
+        # canonical Web search always supplies a typed group conclusion.
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from proof import Relation, RelationType
+
+        if isinstance(result.conclusion, Relation):
+            if (result.conclusion.relation_type is not RelationType.EQUALITY
+                    or result.conclusion.lhs != result.target):
+                raise UnverifiedProofTree("completed proof target does not match group")
+        elif isinstance(result.conclusion, TodaPrimaryGroupZeroStatement):
+            if result.conclusion.group != result.target:
+                raise UnverifiedProofTree("completed zero proof target does not match group")
     return inference_count, given_count

@@ -1,3 +1,4 @@
+"""Phase 167 shared reference projection under the Phase 168 Web route."""
 from web_group_proof import build_standard_web_group_proof_view
 from toda_group_proof_narrative_references import (
     TodaGroupProofNarrativeReferenceEntry,
@@ -10,15 +11,19 @@ def test_phase167_r2_pi43_reference_has_two_general_results():
     view = build_standard_web_group_proof_view(3, 1, 2, "narrative")
     assert view.key == "generic-complete-proof"
     lines = view.rendered_lines
+
+    def is_section(line, title):
+        return (line.kind in ("text", "heading")
+                and line.prefix == title and line.statement_latex is None
+                and line.suffix == "")
+
     reference_index = next(
         i for i, line in enumerate(lines)
-        if line.kind == "heading" and line.prefix == "使用する結果"
+        if is_section(line, "使用する結果")
     )
     proof_index = next(
         i for i, line in enumerate(lines)
-        if i > reference_index
-        and line.kind == "heading"
-        and line.prefix == "証明"
+        if i > reference_index and is_section(line, "証明")
     )
     reference_lines = lines[reference_index + 1:proof_index]
     reference_text = "\n".join(
@@ -26,7 +31,7 @@ def test_phase167_r2_pi43_reference_has_two_general_results():
         for line in reference_lines
     )
     assert r"\pi_{n}^{n}" in reference_text
-    assert r"\pi_{i}^{n}" in reference_text
+    assert r"\pi_i^n=0" in reference_text
     assert "Proposition 5.1" in reference_text
     assert reference_text.count(r"\pi_{n}^{n}") == 1
 
