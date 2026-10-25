@@ -1,0 +1,21 @@
+{
+  "repository": "akebono03/ehp-proof-tracer",
+  "branch": "develop",
+  "observed_commit": "ec894132c61cfe621be0aff0e66031c3f9d8aed3",
+  "verified_before_authoring": true,
+  "document_git_blob_sha1": {
+    "README.md": "405568fc7726934d6699dd265d668a627487a4f3",
+    "docs/design.md": "b07bb74078ef8a06fff05194941db97d5e774ff7",
+    "docs/development_log.md": "1a856fbcd8a02ee224a5455e7a21e5dcf79c0983",
+    "docs/roadmap.md": "d5228aa083866e3d1a8877aaec03b89f08580acd",
+    "docs/proof_records.md": "29625e7366d62d3ca851d2698758a3bb9130707b"
+  },
+  "latest_phase": "168",
+  "phase_closeout_date": "2026-10-25",
+  "source_of_test_claims": "User-supplied final PowerShell log: 86 focused PASS; 3546 active suite PASS; 0 failures/errors; three frozen fulltexts and 14 prior GIVEN assertions pass",
+  "notes": [
+    "This documentation-only archive reads the complete documents from the user's local repository rather than substituting truncated files.",
+    "Historical document content is preserved except the explicitly outdated final Phase 168 roadmap plan and the obsolete README.",
+    "The archive does not perform any GitHub commit/push or rerun production pytest."
+  ]
+}

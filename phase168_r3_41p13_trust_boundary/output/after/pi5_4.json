@@ -1,0 +1,78 @@
+{
+  "citations": [
+    {
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "label": "Chapter V, i)",
+      "locator": "Chapter V, i)",
+      "number": 1,
+      "reference_ids": [
+        "shared:7:adopted:reference:toda5:eta_family_definition"
+      ],
+      "statement_bodies": [
+        "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+      ],
+      "step_indices": [
+        0
+      ]
+    },
+    {
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ],
+      "label": "Proposition 5.1",
+      "locator": "Proposition 5.1",
+      "number": 2,
+      "reference_ids": [
+        "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "statement_bodies": [
+        "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+      ],
+      "step_indices": [
+        5
+      ]
+    },
+    {
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+      ],
+      "label": "(4.5)",
+      "locator": "(4.5)",
+      "number": 3,
+      "reference_ids": [
+        "shared:4:typed_literature:toda:tex:ch4:0006"
+      ],
+      "statement_bodies": [
+        "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+      ],
+      "step_indices": [
+        6
+      ]
+    }
+  ],
+  "k": 1,
+  "n": 4,
+  "proof_step_count": 10,
+  "reference_count": 3,
+  "sha256": "d48a00fb15d931a8fdba7ef8210d9ccb8db1e6d50869aaa04583a58bbe2da756",
+  "step_citation_numbers": [
+    [
+      1
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [],
+    [],
+    []
+  ]
+}

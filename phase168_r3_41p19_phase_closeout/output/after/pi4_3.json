@@ -1,0 +1,123 @@
+{
+  "citations": [
+    {
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "label": "Chapter V, i)",
+      "locator": "Chapter V, i)",
+      "number": 1,
+      "reference_ids": [
+        "shared:7:adopted:reference:toda5:eta_family_definition"
+      ],
+      "statement_bodies": [
+        "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+      ],
+      "step_indices": [
+        0
+      ]
+    },
+    {
+      "assertion_ids": [
+        "shared:3:adopted:assertion:toda51:diagonal",
+        "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+      ],
+      "label": "(5.1)",
+      "locator": "(5.1)",
+      "number": 2,
+      "reference_ids": [
+        "shared:3:adopted:toda51:diagonal",
+        "shared:6:adopted:reference:toda51:below_diagonal_zero"
+      ],
+      "statement_bodies": [
+        "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$.",
+        "$\\pi_i^n=0\\quad(i<n)$."
+      ],
+      "step_indices": [
+        5,
+        15
+      ]
+    },
+    {
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+      ],
+      "label": "Proposition 5.1",
+      "locator": "Proposition 5.1",
+      "number": 3,
+      "reference_ids": [
+        "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "statement_bodies": [
+        "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+        "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+      ],
+      "step_indices": [
+        7,
+        21
+      ]
+    },
+    {
+      "assertion_ids": [
+        "shared:5:adopted:assertion:prop42:general"
+      ],
+      "label": "Proposition 4.2 (4.4)",
+      "locator": "Proposition 4.2 (4.4)",
+      "number": 4,
+      "reference_ids": [
+        "shared:5:adopted:reference:prop42:general"
+      ],
+      "statement_bodies": [
+        "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+      ],
+      "step_indices": [
+        9
+      ]
+    }
+  ],
+  "k": 1,
+  "n": 3,
+  "proof_step_count": 25,
+  "reference_count": 4,
+  "sha256": "ec82862e49649b0e8ce89c98ff9adceeb32a312e5919d1412581bef2b58e79e8",
+  "step_citation_numbers": [
+    [
+      1
+    ],
+    [],
+    [],
+    [],
+    [],
+    [
+      2
+    ],
+    [],
+    [
+      3
+    ],
+    [],
+    [
+      4
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      2
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      3
+    ],
+    [],
+    [],
+    []
+  ]
+}

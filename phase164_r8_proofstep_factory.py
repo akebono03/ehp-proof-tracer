@@ -33,6 +33,10 @@ def derive_inference_proof_step(match: InferenceMatch) -> ProofStep:
             or result.inference_rule is not match.inference_rule
             or result.premises != match.premises):
         raise ValueError("inference constructor contract changed")
+    # Record identity only when a canonical caller opened an observation scope.
+    # The record does not certify user-supplied InferenceMatch values.
+    from proof_origin_capture import note_factory_inference
+    note_factory_inference(result)
     return result
 
 

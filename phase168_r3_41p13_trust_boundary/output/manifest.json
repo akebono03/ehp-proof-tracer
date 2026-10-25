@@ -1,0 +1,10 @@
+{
+  "target": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\web_group_proof.py",
+  "before_sha256": "37cc141e2b4f34d13bd6a103bd0ce1abe07612ba82f2661950070456d99b148b",
+  "after_sha256": "23a9d009601d93c01483decfa0321b9caccb65c62a0d6eaa796005e8b37b7d90",
+  "modified_functions": [
+    "build_standard_web_group_proof_view"
+  ],
+  "new_module": "phase168_r3_41p13_trust_boundary/verification.py",
+  "full_pytest_run": false
+}
