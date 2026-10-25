@@ -9,6 +9,7 @@ def project_reference_bodies(registry, assertion_ids):
     from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
     from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
+    from phase165_r52_r27_r5_literature import Toda52UniversalStatement
     from toda_rules import Toda45IsomorphismStatement
     from expression import ScalarSymbol, ScalarSum, ScalarProduct
     from homotopy_groups import TodaIteratedSuspensionMap, TodaPrimaryGroupZeroStatement
@@ -33,6 +34,15 @@ def project_reference_bodies(registry, assertion_ids):
                 r"\xrightarrow{\Delta}\pi_{i-1}^{n}"
                 r"\xrightarrow{E}\pi_i^{n+1}$ は完全."
             )
+        elif isinstance(statement, Toda52UniversalStatement):
+            if (statement.variable == "i" and statement.minimum_i == 3
+                    and statement.map_formula == "alpha -> eta_2 o alpha"
+                    and statement.source_group == "pi_i^3"
+                    and statement.target_group == "pi_i^2"):
+                sentence = (
+                    r"$i\ge 3$ に対し, "
+                    r"$\eta_2\circ(-):\pi_i^3\xrightarrow{\cong}\pi_i^2$ は同型."
+                )
         elif isinstance(statement, Toda45IsomorphismStatement):
             mapping = statement.map
             n, m, k = ScalarSymbol("n"), ScalarSymbol("m"), ScalarSymbol("k")
