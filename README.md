@@ -1,15 +1,57 @@
-# R3-X launch repair
+# EHP Proof Tracer
 
-Replace only `phase166_r3x_trace/run.ps1` in the existing project. Run from the project root. Uses `python -m` to resolve root-level imports. Does not change production code or the diagnostic logic.
+EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+## Current status — Phase 168 closed (2026-10-25)
 
-<!-- PHASE166_HANDOFF_20261021 -->
-## Phase 166 handoff (2026-10-21)
+Phase 168 has completed its agreed implementation and active-test closure. The final Windows PowerShell run reported:
 
-Phase 166 implementation work is stopped and handed over with an unresolved test-collection boundary. This is **not** a full-suite PASS certification.
+- **3,546 passed**, zero failures and zero collection errors in the current `tests/` suite together with the Phase 168 regression modules.
+- **86 passed** in the focused Phase 168 closure checks.
+- Exact, unchanged proof text, references, and citation markers for $\pi_3^2$, $\pi_4^3$, and $\pi_5^4$ against the frozen Phase 168 baselines.
+- All **14 GIVEN** steps across these three examples passed the publication-order audit.
 
-The database-backed typed group goal and the public Web adapter were checked in targeted audits. For $\pi_5^3$, the public Web view rendered the intended goal but returned `generic-partial-proof`, `partial_result=true`, and zero proven steps (R3-AU-12: three targeted tests passed). A displayed goal is not a proof.
+This is an **active-suite** result, not a claim that every historical, archived, or superseded test passes. It is also not an independent mathematical formal verification of every assertion in Toda's source or a guarantee that all 112 registered homotopy groups have complete public proofs.
 
-Repository-wide pytest attempts were interrupted by historical patch/install modules collected as tests, retired test-helper imports, and Windows command-line length limits. The Phase 165 active test baseline (`python -m pytest tests -q --tb=short`, 3525 passed on 2026-10-19) must not be confused with a Phase 166 whole-repository result.
+## Canonical proof narrative path
 
-Phase 167 will first audit and repair the proof narrative for $\pi_4^3$, then investigate why $\pi_5^3$ remains partial. See `docs/roadmap.md`, `docs/design.md`, `docs/development_log.md`, and `docs/proof_records.md`.
+```text
+Registered typed goal and eligible literature statements
+    -> Backward Search
+    -> Proof Tree (ProofStep / typed InferenceRule)
+    -> Complete-proof trust boundary
+    -> Proof Narrative Model (proof uses and citation links)
+    -> Common Renderer (proof text and references)
+    -> Web view
+```
+
+The canonical complete Web path is `web_group_proof.py::build_standard_web_group_proof_view`. It uses the searched and screened source context, resolves the citing assertion from the registered goal, and checks the complete proof tree before building the narrative model. `ProofSearchStatus.PARTIAL` and other incomplete states remain explicitly incomplete; they must not be promoted to complete proofs.
+
+Reference citations are derived from used, fixed statements in the literature registry and their publication positions. They are not synthesized by looking up text labels in the renderer. Displaying a previously established group structure does not require expanding that group's entire proof tree into a later argument.
+
+The `proof_origin_capture.py` and `phase168_r3_41p17_origin_handoff` facilities are **experimental observation tools**, not security or mathematical certificates. The R3-41P18 audit identified self-attestation and cross-context limitations. The standard Web path therefore retains the existing complete-tree checker, and the renderer retains compatibility guards for independently supplied models.
+
+## Confirmed reference examples
+
+- $\pi_3^2=\mathbb Z\{\eta_2\}$ — 18 proven steps (13 INFERENCE, 5 GIVEN).
+- $\pi_4^3=\mathbb Z/2\{\eta_3\}$ — 25 proven steps (19 INFERENCE, 6 GIVEN).
+- $\pi_5^4=\mathbb Z/2\{\eta_4\}$ — 10 proven steps (7 INFERENCE, 3 GIVEN); uses the registered $\pi_4^3$ group structure and Toda (4.5), not a replay of the completed $\pi_4^3$ proof.
+
+These are representative regression fixtures, not an inventory of all certified groups. Work on the broader 2-stem and remaining incomplete targets should be tracked separately.
+
+## Tests and documentation
+
+Run the current active tests from the repository root:
+
+```powershell
+python -m pytest tests -q --tb=short
+```
+
+Phase 168 closure additionally executed focused regression modules and frozen full-text/publication audits. The closure artifact is `phase168_r3_41p19_phase_closeout/output/review_bundle_20261025_092131_633.zip` in the local run that produced the reported results; its presence in another checkout is not assumed.
+
+- [Design and trust boundaries](docs/design.md)
+- [Development history](docs/development_log.md)
+- [Roadmap](docs/roadmap.md)
+- [Proof records](docs/proof_records.md)
+
+Previous Phase 165–167 documentation remains historical. In particular, a Phase 166 partial result must not be mistaken for the status verified by later Phase 168 tests.
