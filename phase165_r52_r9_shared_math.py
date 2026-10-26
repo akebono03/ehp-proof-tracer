@@ -51,9 +51,11 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         from phase165_r12_r11_prop42_unified import build_adopted_prop42_general_reference
         from phase165_r12_r15_toda51 import build_adopted_toda51_zero_reference
         from phase165_r12_r20_eta_definition import build_cited_eta_family_definition
+        from phase169_r3h_source_registry import build_adopted_toda53_hopf_reference
         sources = (production, build_adopted_typed_reference_registry(adopted_tex),
                    build_adopted_prop51_reference(),
-                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex), build_cited_eta_family_definition(Path(__file__).resolve().parent / 'sources' / 'toda' / 'Toda_05_2.tex'))
+                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex), build_cited_eta_family_definition(Path(__file__).resolve().parent / 'sources' / 'toda' / 'Toda_05_2.tex'),
+                   build_adopted_toda53_hopf_reference(production))
     registry = UnifiedStatementRegistry()
     links = []
     records = []

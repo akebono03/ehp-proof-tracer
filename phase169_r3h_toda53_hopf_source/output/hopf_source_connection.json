@@ -1,0 +1,23 @@
+{
+  "phase": "169-R3H",
+  "lower_status": "complete",
+  "upper_status": "partial",
+  "upper_proven_steps": 6,
+  "source_assertion": "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation",
+  "source_locator": "(5.3)",
+  "publication_position": 8100,
+  "citing_assertion": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+  "prior": true,
+  "source_screened_given_count": 1,
+  "hopf_source_reconstruction": "given",
+  "hopf_premises_still_required": [
+    "inference",
+    "inference"
+  ],
+  "delta_premises_still_required": [
+    "inference"
+  ],
+  "new_unjustified_givens": 0,
+  "proof_complete_claimed": false,
+  "full_suite_run": false
+}
