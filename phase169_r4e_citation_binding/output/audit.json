@@ -1,0 +1,82 @@
+{
+  "phase": "169-R4E",
+  "git_head": "a9ff49da687364e3534592b26178be181b187f2f",
+  "proof_status": "complete",
+  "proof_steps": 18,
+  "open_goals": 0,
+  "proof_tree_verified": true,
+  "web_key": "generic-complete-proof",
+  "web_partial": false,
+  "web_steps": 18,
+  "citations": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.3",
+      "assertion_ids": [
+        "shared:0:boundary:Proposition 5.3:pi5_3_group_relation"
+      ],
+      "body": [
+        "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$."
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 4.4",
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0010"
+      ],
+      "body": [
+        "$\\alpha\\in\\pi_{2n-1}^{n}$, $H(\\alpha)=\\pm\\iota_{2n-1}$ とすると, $E:\\pi_{i-1}^{n-1}\\to\\pi_i^{n}$ は単射."
+      ]
+    },
+    {
+      "number": 3,
+      "locator": "Proposition 4.2 (4.4)",
+      "assertion_ids": [
+        "shared:5:adopted:assertion:prop42:general"
+      ],
+      "body": [
+        "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+      ]
+    },
+    {
+      "number": 4,
+      "locator": "(5.1)",
+      "assertion_ids": [
+        "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+      ],
+      "body": [
+        "$\\pi_i^n=0\\quad(i<n)$."
+      ]
+    },
+    {
+      "number": 5,
+      "locator": "Chapter V, i)",
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "body": [
+        "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+      ]
+    }
+  ],
+  "reference_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "proof_body_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "all_references_used": true,
+  "prop44_reference_body_present": true,
+  "prop44_body_tagged": true,
+  "prop42_body_tagged": true,
+  "full_pytest_run": false
+}

@@ -15,7 +15,7 @@ def project_reference_bodies(registry, assertion_ids):
     from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
     from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
-    from phase165_r52_r27_r5_literature import Toda52UniversalStatement
+    from phase165_r52_r27_r5_literature import Toda52UniversalStatement, TodaProp44UniversalStatement
     from phase165_r57_r8_eta_specialization import _is_generic_eta_group_relation
     from toda_rules import Toda45IsomorphismStatement
     from expression import ScalarSymbol, ScalarSum, ScalarProduct
@@ -73,6 +73,13 @@ def project_reference_bodies(registry, assertion_ids):
                 sentence = r"$\pi_i^1=0\quad(i>1)$."
             elif isinstance(statement, Toda51BelowDiagonalZeroStatement):
                 sentence = r"$\pi_i^n=0\quad(i<n)$."
+            elif (type(statement) is TodaProp44UniversalStatement
+                  and statement == TodaProp44UniversalStatement()):
+                sentence = (
+                    r"$\alpha\in\pi_{2n-1}^{n}$, "
+                    r"$H(\alpha)=\pm\iota_{2n-1}$ とすると, "
+                    r"$E:\pi_{i-1}^{n-1}\to\pi_i^{n}$ は単射."
+                )
             elif isinstance(statement, TodaProp42GeneralExactnessStatement):
                 sentence = (
                     r"$\pi_i^n\xrightarrow{E}\pi_{i+1}^{n+1}"

@@ -430,6 +430,18 @@ def render_model_backed_narrative_markdown(
                         for parent in step.premises
                     )):
                 sentence = "これより, " + sentence
+            # Cite the actual Proposition 4.4 GIVEN ancestor of a
+            # proved injective map; no rule-name or locator guessing.
+            from phase165_r14_r6_generic_iso import MapInjective
+            from phase165_r52_r27_r5_literature import TodaProp44UniversalStatement
+            if step.rule is ProofRule.INFERENCE and isinstance(statement, MapInjective):
+                prop44_numbers = cited_general_ancestor_numbers(
+                    step, TodaProp44UniversalStatement
+                )
+                if prop44_numbers:
+                    prop44_tags = ", ".join(f"[R{number}]" for number in prop44_numbers)
+                    if prop44_tags not in sentence:
+                        sentence = f"{prop44_tags}より, " + sentence
             if sentence.endswith("である."):
                 sentence = sentence[:-4] + "."
             elif sentence.endswith("が成り立つ."):
@@ -452,6 +464,16 @@ def render_model_backed_narrative_markdown(
                     )
             statement_latex = body_line.statement_latex
             if isinstance(step.conclusion, TodaProp42ExactnessStatement):
+                # An individual certified EHP window is sourced by the
+                # actual universal Proposition 4.2 GIVEN proof ancestor.
+                if not tags:
+                    source_numbers = cited_general_ancestor_numbers(
+                        step, TodaProp42GeneralExactnessStatement
+                    )
+                    if source_numbers:
+                        prefix = ", ".join(
+                            f"[R{number}]" for number in source_numbers
+                        ) + "より, "
                 statement_latex = statement_latex.replace(r" \text{ is exact}", "")
                 lines.append(f"{prefix}${statement_latex}$ は完全.")
             else:
