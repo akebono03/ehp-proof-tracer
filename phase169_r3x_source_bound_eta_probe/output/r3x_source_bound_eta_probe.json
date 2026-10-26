@@ -1,0 +1,27 @@
+{
+  "phase": "169-R3X",
+  "mode": "AUDIT_ONLY",
+  "pi53_status": "complete",
+  "source_assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+  "source_locator": "Proposition 5.1",
+  "source_prior_to_goal": true,
+  "bound_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "source_bound_proposal_count": 1,
+  "bound_proof_rule": "inference",
+  "bound_proof_inference": "Toda Proposition 5.1 generic higher-eta specialization",
+  "bound_proof_premise_rule": "given",
+  "bound_proof_citation_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+  "missing_source_failed_closed": true,
+  "public_provider_route_names": [
+    "finite cyclic structure gives group relation",
+    "cited stable eta-family notation for iterated transport",
+    "Toda Proposition 5.1 generic higher-eta specialization",
+    "generic cited typed scalar specialization",
+    "equality symmetry",
+    "finite cyclic structure gives group relation"
+  ],
+  "public_provider_unchanged": true,
+  "production_modified": false,
+  "existing_tests_modified": false,
+  "full_pytest_run": false
+}

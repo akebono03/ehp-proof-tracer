@@ -1,0 +1,81 @@
+{
+  "phase": "169-R3N",
+  "mode": "READ_ONLY_RESULT_CATALOG",
+  "proof_search_invoked": false,
+  "proof_completion_state_read": false,
+  "cases": [
+    {
+      "source_group": "pi_4^2",
+      "target_group": "pi_5^3",
+      "target_found": true,
+      "target_citing_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+      "db_result_found": true,
+      "prior_result_eligible": true,
+      "source_assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+      "reason": "prior_fixed_source",
+      "relation_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    },
+    {
+      "source_group": "pi_5^3",
+      "target_group": "pi_6^4",
+      "target_found": true,
+      "target_citing_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+      "db_result_found": true,
+      "prior_result_eligible": true,
+      "source_assertion_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+      "reason": "prior_fixed_source",
+      "relation_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    },
+    {
+      "source_group": "pi_6^4",
+      "target_group": "pi_7^5",
+      "target_found": true,
+      "target_citing_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+      "db_result_found": true,
+      "prior_result_eligible": true,
+      "source_assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+      "reason": "prior_fixed_source",
+      "relation_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    }
+  ],
+  "pi5_3_ancestry": {
+    "observed_steps": 24,
+    "root_ancestry_steps": 24,
+    "toda52_in_root_ancestry": null,
+    "prop53_in_root_ancestry": true
+  },
+  "search_alias_connection": true,
+  "previous_proof_completion_required": false,
+  "only_prior_fixed_sources_accepted": true,
+  "web_cases": [
+    {
+      "n": 3,
+      "k": 2,
+      "web_key": "generic-complete-proof",
+      "partial": false,
+      "display_status": "complete"
+    },
+    {
+      "n": 4,
+      "k": 2,
+      "web_key": "generic-partial-proof",
+      "partial": true,
+      "display_status": "partial"
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "web_key": "generic-partial-proof",
+      "partial": true,
+      "display_status": "partial"
+    },
+    {
+      "n": 6,
+      "k": 2,
+      "web_key": "generic-partial-proof",
+      "partial": true,
+      "display_status": "partial"
+    }
+  ],
+  "note": "Stable 2-stem transport/eta-square normalization is not implemented by this patch."
+}

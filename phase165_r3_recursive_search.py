@@ -25,6 +25,17 @@ class GoalExpansion:
     rule: object
     subgoals: tuple[object, ...]
 
+@dataclass(frozen=True)
+class SourceBoundGoal:
+    """Require a uniquely proved conclusion derived from this cited source.
+
+    This is a search obligation, not a mathematical assertion or a GIVEN leaf.
+    The returned ProofStep has the ordinary conclusion type, not this wrapper.
+    """
+    conclusion: object
+    source: object
+
+
 
 def _typed_reference_steps(bridge: RegistryBridgeResult, goal: object) -> tuple[ProofStep, ...]:
     """Read only exact fixed statements that have a linked given step.
@@ -62,9 +73,9 @@ def reconstruct_registered_goal(
 ) -> ProofStep:
     """Derive a goal with optional read-only progress reporting.
 
-    The observer receives ('proved', goal, step) only after an accepted unique
-    derivation and ('unresolved', goal, None) for a failed search branch.
-    Supplying no observer preserves the existing API and search semantics.
+    A SourceBoundGoal limits only that particular premise resolution to
+    expansions using its cited source. Other queries retain every route and
+    the original uniqueness requirement.
     """
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -93,7 +104,13 @@ def reconstruct_registered_goal(
             raise RegisteredGoalUnresolved("cyclic proof dependency")
         active.append(target)
         try:
-            if lookup_mode == "typed_reference_publication":
+            bound = isinstance(target, SourceBoundGoal)
+            actual = target.conclusion if bound else target
+            if bound:
+                # A scoped obligation MUST derive its conclusion by inference
+                # using the cited source. Never reuse a direct GIVEN or alias.
+                options = []
+            elif lookup_mode == "typed_reference_publication":
                 from phase166_r3c_publication_order import precedes_citing_assertion
                 options = []
                 for assertion in bridge.registry._assertions.values():
@@ -123,28 +140,38 @@ def reconstruct_registered_goal(
                     verified_assertion_ids=verified_assertion_ids,
                 )
                 options = [x.proof_step for x in candidates if x.proof_step is not None]
-            # A uniquely registered fixed Reference is a complete proof leaf.
-            # Do not count a second derivation of the same statement as ambiguity.
-            # Multiple direct references remain ambiguous and are rejected below.
-            if lookup_mode in ("typed_reference", "typed_reference_ordered", "typed_reference_publication") and len(options) == 1:
+            if (not bound and lookup_mode in ("typed_reference", "typed_reference_ordered", "typed_reference_publication")
+                    and len(options) == 1):
                 step = options[0]
                 solved.append((target, step))
                 report("proved", target, step)
                 return step
-            # phase165_reference_stop_r3: direct eligible source before prior internal proof
-            if completed_internal_proofs:
+            if not bound and lookup_mode == "typed_reference_publication" and not options:
+                from phase169_r3n_prior_result_alias import resolve_prior_result_alias_step
+                alias_step = resolve_prior_result_alias_step(
+                    target, bridge, citing_assertion_id,
+                )
+                if alias_step is not None:
+                    for prior_step in alias_step.premises:
+                        report("proved", prior_step.conclusion, prior_step)
+                    solved.append((target, alias_step))
+                    report("proved", target, alias_step)
+                    return alias_step
+            if not bound and completed_internal_proofs:
                 from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
                 internal = find_reusable_internal_proof(target, goal, completed_internal_proofs)
                 if internal is not None:
                     solved.append((target, internal))
                     report("proved", target, internal)
                     return internal
-            expansions = expansion_provider(target)
+            expansions = expansion_provider(actual)
             if not isinstance(expansions, tuple):
                 raise TypeError("expansion provider must return a tuple")
             for expansion in expansions:
                 if not isinstance(expansion, GoalExpansion):
                     raise TypeError("invalid inference expansion")
+                if bound and expansion.subgoals != (target.source,):
+                    continue
                 try:
                     premises = tuple(resolve(child) for child in expansion.subgoals)
                 except RegisteredGoalUnresolved:
@@ -156,7 +183,7 @@ def reconstruct_registered_goal(
                 )
                 for match in matches:
                     step = derive_inference_proof_step(match)
-                    if type(step.conclusion) is type(target) and step.conclusion == target:
+                    if type(step.conclusion) is type(actual) and step.conclusion == actual:
                         append_unique_verified_derivation(options, step)
             if len(options) != 1:
                 report("unresolved", target)

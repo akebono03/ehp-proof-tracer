@@ -1,0 +1,32 @@
+{
+  "phase": "169-R3V",
+  "mode": "AUDIT_ONLY",
+  "pi53_proof_status": "complete",
+  "pi65_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "screened_generic_source_count": 1,
+  "unique_generic_source_contents": 1,
+  "generic_source_records": [
+    {
+      "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+      "dependencies": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "component_position": 600,
+      "is_prior": true,
+      "source_locator": "Proposition 5.1"
+    }
+  ],
+  "eta_specialization_option_count": 1,
+  "pi65_proof_status": "unresolved:RegisteredGoalUnresolved: expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+  "pi65_proof_rule": null,
+  "pi65_proof_premise_types": [],
+  "pi65_proof_sources": [],
+  "hopf_current_subgoals": [
+    "Relation",
+    "TodaProp51FiniteDimensionalStatement"
+  ],
+  "hopf_has_concrete_pi65_premise": false,
+  "eta_generator_matches_h_image": true,
+  "production_files_modified": false,
+  "full_pytest_run": false
+}

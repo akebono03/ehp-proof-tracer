@@ -246,6 +246,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
+        from phase169_r3o_stable_composite_rule import (
+            expand_cited_toda45_composite_transport,
+        )
+        options.extend(expand_cited_toda45_composite_transport(
+            goal, tuple(available),
+        ))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
         # R3I: earlier cited GIVEN sources are valid inference premises.
         # Retain the historical inference-only proposal independently.

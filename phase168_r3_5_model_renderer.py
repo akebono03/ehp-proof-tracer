@@ -346,74 +346,96 @@ def render_model_backed_narrative_markdown(
                     for citation in model.citations
                 )):
             continue
+        # R3Z: general higher-eta clauses belong to Reference, not the proof body.
+        # Hide one only when a directly dependent certified specialization is
+        # retained in this display. The citation and both ProofSteps survive.
+        if (step.rule is ProofRule.GIVEN
+                and isinstance(statement, Relation)
+                and model.step_citation_numbers[index]):
+            from phase165_r57_r8_eta_specialization import _is_generic_eta_group_relation
+            from phase165_r57_r20_general_specialization import specialize_typed_statement
+            if (_is_generic_eta_group_relation(statement)
+                    and any(
+                        derived_index not in suppressed_body_indices
+                        and derived_index != index
+                        and derived.rule is ProofRule.INFERENCE
+                        and isinstance(derived.conclusion, Relation)
+                        and any(parent is step or parent == step
+                                for parent in derived.premises)
+                        and specialize_typed_statement(
+                            statement, derived.conclusion
+                        ) is not None
+                        for derived_index in order
+                        for derived in (model.steps[derived_index],)
+                    )):
+                continue
         # Only verbalize the certified stable-eta normalization already
         # represented by this step's source relation and cited definition.
         transition = project_stable_eta_notation_transition(model, index)
         if transition is not None:
             lines.extend((transition, ""))
         body_line = body_by_step.get(index)
-        if body_line is None:
-            sentence = typed_sentence(step.conclusion, step)
-            if sentence is not None:
-                # The certified kernel step already consumes the suppressed
-                # exactness equality and a concrete Delta image. Compose only
-                # the displayed equality, without re-running a proof rule.
-                if (isinstance(statement, SuspensionKernelFreeCyclicStatement)
-                        and any(
-                            isinstance(parent.conclusion, EHPImageEqualsKernelStatement)
-                            and unique_step_index(parent) in suppressed_body_indices
-                            for parent in step.premises
-                        )):
-                    generator = element_tex(statement.kernel_group.generator)
-                    if generator is not None:
-                        sentence = (
-                            rf"完全性より, $\ker E=\operatorname{{Im}}\Delta="
-                            rf"\mathbb{{Z}}\{{{generator}\}}$."
-                        )
-                numbers = model.step_citation_numbers[index]
-                tags = ", ".join(f"[R{number}]" for number in numbers)
-                if tags and step.rule is ProofRule.GIVEN:
-                    sentence = f"{tags}より, " + sentence
-                elif step.rule is ProofRule.INFERENCE:
-                    sourced_numbers = project_toda45_specialization_citation_numbers(
-                        model, index
+        sentence = typed_sentence(step.conclusion, step)
+        if sentence is not None:
+            # The certified kernel step already consumes the suppressed
+            # exactness equality and a concrete Delta image. Compose only
+            # the displayed equality, without re-running a proof rule.
+            if (isinstance(statement, SuspensionKernelFreeCyclicStatement)
+                    and any(
+                        isinstance(parent.conclusion, EHPImageEqualsKernelStatement)
+                        and unique_step_index(parent) in suppressed_body_indices
+                        for parent in step.premises
+                    )):
+                generator = element_tex(statement.kernel_group.generator)
+                if generator is not None:
+                    sentence = (
+                        rf"完全性より, $\ker E=\operatorname{{Im}}\Delta="
+                        rf"\mathbb{{Z}}\{{{generator}\}}$."
                     )
-                    if sourced_numbers:
+            numbers = model.step_citation_numbers[index]
+            tags = ", ".join(f"[R{number}]" for number in numbers)
+            if tags and step.rule is ProofRule.GIVEN:
+                sentence = f"{tags}より, " + sentence
+            elif step.rule is ProofRule.INFERENCE:
+                sourced_numbers = project_toda45_specialization_citation_numbers(
+                    model, index
+                )
+                if sourced_numbers:
+                    source_tags = ", ".join(
+                        f"[R{number}]" for number in sourced_numbers
+                    )
+                    sentence = f"{source_tags}を " + sentence
+                else:
+                    eta_numbers = (
+                        cited_general_ancestor_numbers(step, TodaEtaFamilyGeneralDefinition)
+                        if ((isinstance(statement, GeneratorSuspension)
+                             and _eta_pair(statement) is not None)
+                            or (isinstance(statement, GeneratorImage)
+                                and isinstance(statement.map, TodaSuspensionMap)
+                                and element_tex(statement.source_generator) is not None
+                                and element_tex(statement.target_generator) is not None))
+                        else ()
+                    )
+                    if eta_numbers:
                         source_tags = ", ".join(
-                            f"[R{number}]" for number in sourced_numbers
+                            f"[R{number}]" for number in eta_numbers
                         )
-                        sentence = f"{source_tags}を " + sentence
-                    else:
-                        eta_numbers = (
-                            cited_general_ancestor_numbers(step, TodaEtaFamilyGeneralDefinition)
-                            if ((isinstance(statement, GeneratorSuspension)
-                                 and _eta_pair(statement) is not None)
-                                or (isinstance(statement, GeneratorImage)
-                                    and isinstance(statement.map, TodaSuspensionMap)
-                                    and element_tex(statement.source_generator) is not None
-                                    and element_tex(statement.target_generator) is not None))
-                            else ()
-                        )
-                        if eta_numbers:
-                            source_tags = ", ".join(
-                                f"[R{number}]" for number in eta_numbers
-                            )
-                            sentence = f"{source_tags}より, " + sentence
-                from homotopy_groups import TodaSuspensionIsomorphismStatement
-                if (isinstance(statement, TodaSuspensionIsomorphismStatement)
-                        and step.rule is ProofRule.INFERENCE
-                        and any(
-                            isinstance(parent.conclusion, GeneratorSuspension)
-                            and parent.conclusion.map == statement.map
-                            for parent in step.premises
-                        )):
-                    sentence = "これより, " + sentence
-                if sentence.endswith("である."):
-                    sentence = sentence[:-4] + "."
-                elif sentence.endswith("が成り立つ."):
-                    sentence = sentence[:-6] + "."
-                lines.extend((sentence, ""))
-        else:
+                        sentence = f"{source_tags}より, " + sentence
+            from homotopy_groups import TodaSuspensionIsomorphismStatement
+            if (isinstance(statement, TodaSuspensionIsomorphismStatement)
+                    and step.rule is ProofRule.INFERENCE
+                    and any(
+                        isinstance(parent.conclusion, GeneratorSuspension)
+                        and parent.conclusion.map == statement.map
+                        for parent in step.premises
+                    )):
+                sentence = "これより, " + sentence
+            if sentence.endswith("である."):
+                sentence = sentence[:-4] + "."
+            elif sentence.endswith("が成り立つ."):
+                sentence = sentence[:-6] + "."
+            lines.extend((sentence, ""))
+        elif body_line is not None:
             tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
             if body_line.role == "given":
                 prefix = f"{tags}より, " if tags else "前提として, "

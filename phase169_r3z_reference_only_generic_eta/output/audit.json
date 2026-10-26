@@ -1,0 +1,17 @@
+{
+  "phase": "169-R3Z",
+  "proof_status": "complete",
+  "step_count": 28,
+  "reference_count": 6,
+  "general_eta_reference_only": true,
+  "concrete_pi65_in_body": true,
+  "references": [
+    "Proposition 5.3",
+    "(5.3)",
+    "Proposition 5.1",
+    "Proposition 4.2 (4.4)",
+    "(5.1)",
+    "Chapter V, i)"
+  ],
+  "full_pytest_run": false
+}

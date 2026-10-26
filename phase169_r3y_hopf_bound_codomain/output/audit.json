@@ -1,0 +1,26 @@
+{
+  "phase": "169-R3Y",
+  "pi53_status": "complete",
+  "proof_step_count": 28,
+  "hopf_premise_types": [
+    "Relation",
+    "TodaProp51FiniteDimensionalStatement",
+    "Relation"
+  ],
+  "hopf_premise_rules": [
+    "given",
+    "given",
+    "inference"
+  ],
+  "codomain_inference_rule": "Toda Proposition 5.1 generic higher-eta specialization",
+  "codomain_source_locator": "Proposition 5.1",
+  "references": [
+    "Proposition 5.3",
+    "(5.3)",
+    "Proposition 5.1",
+    "Proposition 4.2 (4.4)",
+    "(5.1)",
+    "Chapter V, i)"
+  ],
+  "full_pytest_run": false
+}

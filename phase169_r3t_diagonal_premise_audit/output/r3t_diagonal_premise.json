@@ -1,0 +1,28 @@
+{
+  "phase": "169-R3T",
+  "mode": "AUDIT_ONLY",
+  "target": "pi5^3",
+  "proof_status": "complete",
+  "screened_given_count": 18,
+  "diagonal_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "cited_diagonal_schema_matches": 1,
+  "matched_citing_assertions": [
+    "shared:3:adopted:assertion:toda51:diagonal"
+  ],
+  "general_specialization_options": 1,
+  "diagonal_proof_result": "inference",
+  "diagonal_proof_premise_types": [
+    "Relation"
+  ],
+  "diagonal_proof_source_locators": [
+    "(5.1)"
+  ],
+  "current_delta_injectivity_subgoal_types": [
+    [
+      "TodaProp51FiniteDimensionalStatement"
+    ]
+  ],
+  "old_delta_contains_pi55_premise": false,
+  "production_files_modified": false,
+  "full_suite_run": false
+}
