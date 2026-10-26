@@ -74,8 +74,13 @@ def project_reference_bodies(registry, assertion_ids):
             elif isinstance(statement, Toda51BelowDiagonalZeroStatement):
                 sentence = r"$\pi_i^n=0\quad(i<n)$."
             elif (type(statement) is TodaProp44UniversalStatement
-                  and statement == TodaProp44UniversalStatement()):
+                  and statement == TodaProp44UniversalStatement()
+                  and statement.preceding_hopf_fibration_dimensions == (2, 4, 8)):
                 sentence = (
+                    r"Proposition 4.4 直前の記述（Steenrod1951 を引用）: "
+                    r"$n=2,4,8$ では Hopf fibration "
+                    r"$h:S^{2n-1}\to S^n$ が存在する."
+                    + "\n"
                     r"$\alpha\in\pi_{2n-1}^{n}$, "
                     r"$H(\alpha)=\pm\iota_{2n-1}$ とすると, "
                     r"$E:\pi_{i-1}^{n-1}\to\pi_i^{n}$ は単射."
