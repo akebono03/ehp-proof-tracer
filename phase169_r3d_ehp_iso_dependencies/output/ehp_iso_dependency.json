@@ -1,0 +1,482 @@
+{
+  "phase": "169-R3D",
+  "audit_only": true,
+  "git_head": "9713cda6bae9a17e9051a3a74dae15f6e9e3ab81",
+  "lower_status": "complete",
+  "upper_status": "partial",
+  "upper_step_count": 4,
+  "lower_citing_assertion": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+  "upper_citing_assertion": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+  "lower_claim_precedes_upper_claim": true,
+  "pi4_claim_screened_as_given": false,
+  "note": "A screened pi4 claim is a registered fixed statement, not an on-demand replay of its completed inference proof.",
+  "iso_live_proposals": 0,
+  "iso_historical_proposals": 1,
+  "historical_tree": {
+    "goal_type": "TodaSuspensionIsomorphismStatement",
+    "goal_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+    "depth": 0,
+    "live_provider_rule_names": [],
+    "exact_registered_provenance": {
+      "registered": [],
+      "screened_given_assertion_ids": []
+    },
+    "historical_rule_names": [
+      "Toda Proposition 5.3 n=3 suspension isomorphism"
+    ],
+    "historical_subgoals": [
+      {
+        "goal_type": "TodaSuspensionInjectiveStatement",
+        "goal_repr": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+        "depth": 1,
+        "live_provider_rule_names": [],
+        "exact_registered_provenance": {
+          "registered": [],
+          "screened_given_assertion_ids": []
+        },
+        "historical_rule_names": [
+          "Toda Proposition 5.3 n=3 Delta zero implies suspension injective"
+        ],
+        "historical_subgoals": [
+          {
+            "goal_type": "TodaDeltaZeroStatement",
+            "goal_repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))",
+            "depth": 2,
+            "live_provider_rule_names": [
+              "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero"
+            ],
+            "exact_registered_provenance": {
+              "registered": [],
+              "screened_given_assertion_ids": []
+            },
+            "historical_rule_names": [
+              "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero"
+            ],
+            "historical_subgoals": [
+              {
+                "goal_type": "TodaHopfInvariantSurjectiveStatement",
+                "goal_repr": "TodaHopfInvariantSurjectiveStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+                "depth": 3,
+                "live_provider_rule_names": [],
+                "exact_registered_provenance": {
+                  "registered": [],
+                  "screened_given_assertion_ids": []
+                },
+                "literature_plan_rule": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+                "literature_requirements": [
+                  {
+                    "statement_type": "Relation",
+                    "required_proof_rule": "inference",
+                    "matching_registered_types": {
+                      "registered": [
+                        {
+                          "id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+                          "locator": "Proposition 5.3",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+                          "locator": "Proposition 5.3",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+                          "locator": "Proposition 5.3",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+                          "locator": "Proposition 5.3",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+                          "locator": "Proposition 5.6",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+                          "locator": "Proposition 5.6",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.6:pi7_4_group_relation",
+                          "locator": "Proposition 5.6",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+                          "locator": "Proposition 5.6",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+                          "locator": "Proposition 5.6",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:1:adopted:assertion:1",
+                          "locator": "(5.1)",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:1:adopted:assertion:2",
+                          "locator": "(5.1)",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:1:adopted:assertion:4",
+                          "locator": "(5.1)",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:2:toda:adopted:prop5.1:pi4_3",
+                          "locator": "Proposition 5.1",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+                          "locator": "Proposition 5.1",
+                          "content_type": "Relation"
+                        },
+                        {
+                          "id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+                          "locator": "Proposition 5.1",
+                          "content_type": "Relation"
+                        }
+                      ],
+                      "registered_count": 20,
+                      "screened_given_ids": [
+                        "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+                        "shared:2:toda:adopted:prop5.1:pi4_3",
+                        "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+                        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+                        "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+                        "shared:3:adopted:assertion:toda51:diagonal"
+                      ],
+                      "screened_given_count": 6
+                    }
+                  },
+                  {
+                    "statement_type": "TodaProp51FiniteDimensionalStatement",
+                    "required_proof_rule": "inference",
+                    "matching_registered_types": {
+                      "registered": [
+                        {
+                          "id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+                          "locator": "Proposition 5.1",
+                          "content_type": "TodaProp51FiniteDimensionalStatement"
+                        }
+                      ],
+                      "registered_count": 1,
+                      "screened_given_ids": [
+                        "shared:2:toda:adopted:prop5.1:finite_dimensional"
+                      ],
+                      "screened_given_count": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "goal_type": "TodaProp42ExactnessStatement",
+                "goal_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+                "depth": 3,
+                "live_provider_rule_names": [
+                  "Toda Proposition 4.2: generic consecutive EHP specialization"
+                ],
+                "exact_registered_provenance": {
+                  "registered": [],
+                  "screened_given_assertion_ids": []
+                },
+                "prop42_specialization_candidates": 1
+              }
+            ]
+          },
+          {
+            "goal_type": "TodaProp42ExactnessStatement",
+            "goal_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+            "depth": 2,
+            "live_provider_rule_names": [
+              "Toda Proposition 4.2: generic consecutive EHP specialization"
+            ],
+            "exact_registered_provenance": {
+              "registered": [],
+              "screened_given_assertion_ids": []
+            },
+            "prop42_specialization_candidates": 1
+          }
+        ]
+      },
+      {
+        "goal_type": "TodaSuspensionSurjectiveStatement",
+        "goal_repr": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+        "depth": 1,
+        "live_provider_rule_names": [],
+        "exact_registered_provenance": {
+          "registered": [],
+          "screened_given_assertion_ids": []
+        },
+        "historical_rule_names": [
+          "Toda Proposition 5.3 n=3 Hopf zero implies suspension surjective"
+        ],
+        "historical_subgoals": [
+          {
+            "goal_type": "TodaHopfInvariantZeroStatement",
+            "goal_repr": "TodaHopfInvariantZeroStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5)))",
+            "depth": 2,
+            "live_provider_rule_names": [],
+            "exact_registered_provenance": {
+              "registered": [],
+              "screened_given_assertion_ids": []
+            },
+            "historical_rule_names": [
+              "Toda Proposition 5.3 n=3 Delta injectivity implies Hopf zero"
+            ],
+            "historical_subgoals": [
+              {
+                "goal_type": "TodaDeltaInjectiveStatement",
+                "goal_repr": "TodaDeltaInjectiveStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)))",
+                "depth": 3,
+                "live_provider_rule_names": [],
+                "exact_registered_provenance": {
+                  "registered": [],
+                  "screened_given_assertion_ids": []
+                },
+                "literature_plan_rule": "Toda Proposition 5.1 n=3 Delta injectivity",
+                "literature_requirements": [
+                  {
+                    "statement_type": "TodaProp51FiniteDimensionalStatement",
+                    "required_proof_rule": "inference",
+                    "matching_registered_types": {
+                      "registered": [
+                        {
+                          "id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+                          "locator": "Proposition 5.1",
+                          "content_type": "TodaProp51FiniteDimensionalStatement"
+                        }
+                      ],
+                      "registered_count": 1,
+                      "screened_given_ids": [
+                        "shared:2:toda:adopted:prop5.1:finite_dimensional"
+                      ],
+                      "screened_given_count": 1
+                    }
+                  }
+                ]
+              },
+              {
+                "goal_type": "TodaProp42ExactnessStatement",
+                "goal_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+                "depth": 3,
+                "live_provider_rule_names": [
+                  "Toda Proposition 4.2: generic consecutive EHP specialization"
+                ],
+                "exact_registered_provenance": {
+                  "registered": [],
+                  "screened_given_assertion_ids": []
+                },
+                "prop42_specialization_candidates": 1
+              }
+            ]
+          },
+          {
+            "goal_type": "TodaProp42ExactnessStatement",
+            "goal_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+            "depth": 2,
+            "live_provider_rule_names": [
+              "Toda Proposition 4.2: generic consecutive EHP specialization"
+            ],
+            "exact_registered_provenance": {
+              "registered": [],
+              "screened_given_assertion_ids": []
+            },
+            "prop42_specialization_candidates": 1
+          }
+        ]
+      }
+    ]
+  },
+  "goal_type_counts": {
+    "TodaSuspensionIsomorphismStatement": 1,
+    "TodaSuspensionInjectiveStatement": 1,
+    "TodaDeltaZeroStatement": 1,
+    "TodaHopfInvariantSurjectiveStatement": 1,
+    "TodaProp42ExactnessStatement": 4,
+    "TodaSuspensionSurjectiveStatement": 1,
+    "TodaHopfInvariantZeroStatement": 1,
+    "TodaDeltaInjectiveStatement": 1
+  },
+  "exactness_window_count": 4,
+  "exactness_windows_with_live_proposals": 4,
+  "literature_terminal_count": 2,
+  "literature_terminal_requirements": [
+    {
+      "goal_type": "TodaHopfInvariantSurjectiveStatement",
+      "rule": "Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity",
+      "required_types": [
+        {
+          "statement_type": "Relation",
+          "required_proof_rule": "inference",
+          "matching_registered_types": {
+            "registered": [
+              {
+                "id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+                "locator": "Proposition 5.3",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+                "locator": "Proposition 5.3",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+                "locator": "Proposition 5.3",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+                "locator": "Proposition 5.3",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+                "locator": "Proposition 5.6",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+                "locator": "Proposition 5.6",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.6:pi7_4_group_relation",
+                "locator": "Proposition 5.6",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+                "locator": "Proposition 5.6",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+                "locator": "Proposition 5.6",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:1:adopted:assertion:1",
+                "locator": "(5.1)",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:1:adopted:assertion:2",
+                "locator": "(5.1)",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:1:adopted:assertion:4",
+                "locator": "(5.1)",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:2:toda:adopted:prop5.1:pi4_3",
+                "locator": "Proposition 5.1",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+                "locator": "Proposition 5.1",
+                "content_type": "Relation"
+              },
+              {
+                "id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+                "locator": "Proposition 5.1",
+                "content_type": "Relation"
+              }
+            ],
+            "registered_count": 20,
+            "screened_given_ids": [
+              "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+              "shared:2:toda:adopted:prop5.1:pi4_3",
+              "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+              "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+              "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+              "shared:3:adopted:assertion:toda51:diagonal"
+            ],
+            "screened_given_count": 6
+          }
+        },
+        {
+          "statement_type": "TodaProp51FiniteDimensionalStatement",
+          "required_proof_rule": "inference",
+          "matching_registered_types": {
+            "registered": [
+              {
+                "id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+                "locator": "Proposition 5.1",
+                "content_type": "TodaProp51FiniteDimensionalStatement"
+              }
+            ],
+            "registered_count": 1,
+            "screened_given_ids": [
+              "shared:2:toda:adopted:prop5.1:finite_dimensional"
+            ],
+            "screened_given_count": 1
+          }
+        }
+      ]
+    },
+    {
+      "goal_type": "TodaDeltaInjectiveStatement",
+      "rule": "Toda Proposition 5.1 n=3 Delta injectivity",
+      "required_types": [
+        {
+          "statement_type": "TodaProp51FiniteDimensionalStatement",
+          "required_proof_rule": "inference",
+          "matching_registered_types": {
+            "registered": [
+              {
+                "id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+                "locator": "Proposition 5.1",
+                "content_type": "TodaProp51FiniteDimensionalStatement"
+              }
+            ],
+            "registered_count": 1,
+            "screened_given_ids": [
+              "shared:2:toda:adopted:prop5.1:finite_dimensional"
+            ],
+            "screened_given_count": 1
+          }
+        }
+      ]
+    }
+  ],
+  "live_missing_candidate_nodes": [
+    {
+      "goal_type": "TodaSuspensionIsomorphismStatement",
+      "goal_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+    },
+    {
+      "goal_type": "TodaSuspensionInjectiveStatement",
+      "goal_repr": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+    },
+    {
+      "goal_type": "TodaHopfInvariantSurjectiveStatement",
+      "goal_repr": "TodaHopfInvariantSurjectiveStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))"
+    },
+    {
+      "goal_type": "TodaSuspensionSurjectiveStatement",
+      "goal_repr": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+    },
+    {
+      "goal_type": "TodaHopfInvariantZeroStatement",
+      "goal_repr": "TodaHopfInvariantZeroStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5)))"
+    },
+    {
+      "goal_type": "TodaDeltaInjectiveStatement",
+      "goal_repr": "TodaDeltaInjectiveStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)))"
+    }
+  ],
+  "completion_claim": false
+}
