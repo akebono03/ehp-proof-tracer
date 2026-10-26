@@ -1,0 +1,75 @@
+{
+  "phase": "169-R5",
+  "mode": "AUDIT_ONLY",
+  "git_head": "9a67deae18713680771323aec75b220357197686",
+  "target": "pi_7^5",
+  "target_group": "TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)",
+  "candidate_count": 1,
+  "candidate_goals": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+  "lower_goal_count": 1,
+  "lower_goals": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "toda45_stable_range_n4_k2": true,
+  "citation_screened_context": true,
+  "screened_lower_relation_available": false,
+  "screened_toda45_available": true,
+  "root_expansion_rule_names": [
+    "finite cyclic structure gives group relation",
+    "finite cyclic presentation transported by proved suspension isomorphism",
+    "equality symmetry",
+    "finite cyclic structure gives group relation"
+  ],
+  "cited_toda45_root_options": 0,
+  "cited_toda45_subgoal_types": [],
+  "search_status": "partial",
+  "proof_steps": 2,
+  "open_goals": [
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)",
+    "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "proof_step_records": [
+    {
+      "index": 0,
+      "rule": "given",
+      "inference_name": "Registered fixed statement: Proposition 5.3",
+      "statement_type": "Relation",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_types": []
+    },
+    {
+      "index": 1,
+      "rule": "inference",
+      "inference_name": "prior literature group result in registered generator presentation",
+      "statement_type": "Relation",
+      "conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_types": [
+        "Relation"
+      ]
+    }
+  ],
+  "proof_tree_verified": false,
+  "verification_error": null,
+  "citations": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.3",
+      "statement_bodies": [
+        "$\\pi_{6}^{4} = \\mathbb{Z}/2\\{\\eta_{4}^{2}\\}$."
+      ]
+    }
+  ],
+  "web_key": "generic-partial-proof",
+  "web_partial": true,
+  "web_error": null,
+  "full_pytest_run": false,
+  "production_modified": false
+}
