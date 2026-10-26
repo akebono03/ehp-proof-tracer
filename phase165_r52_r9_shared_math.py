@@ -159,6 +159,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = (expand_free_cyclic_structure_from_relation,) + tuple(extra_providers)
     extra_providers = (build_concrete_kernel_provider(bridge),) + tuple(extra_providers)
     extra_providers = (build_exactness_binding_provider(bridge), build_prop42_specialization_provider(bridge), expand_ehp_exactness_consequences) + tuple(extra_providers)
+    # Phase 169 R3E: connect the pre-existing typed EHP goal expansions.
+    # These propose subgoals only; no completed map property or proof leaf is inserted.
+    from phase165_r14_r5_ehp_connection import expand_registered_ehp_goal
+    extra_providers = (expand_registered_ehp_goal,) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
         if link.step is None or link.step.rule is not ProofRule.GIVEN:
