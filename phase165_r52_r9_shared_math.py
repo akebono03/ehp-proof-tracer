@@ -165,6 +165,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     # These propose subgoals only; no completed map property or proof leaf is inserted.
     from phase165_r14_r5_ehp_connection import (
         expand_registered_ehp_goal, expand_registered_ehp_terminal_goal,
+        expand_cited_ehp_terminal_goal,
     )
     extra_providers = (expand_registered_ehp_goal,) + tuple(extra_providers)
     available = []
@@ -246,6 +247,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
+        # R3I: earlier cited GIVEN sources are valid inference premises.
+        # Retain the historical inference-only proposal independently.
+        options.extend(expand_cited_ehp_terminal_goal(goal, tuple(available)))
         from phase168_r2_toda52_transport import expand_toda52_finite_cyclic_goal
         options.extend(expand_toda52_finite_cyclic_goal(goal, tuple(available)))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))

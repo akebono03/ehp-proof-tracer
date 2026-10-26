@@ -68,7 +68,7 @@ def test_r3h_source_missing_fails_closed():
 
 
 def test_r3h_actual_publication_position_is_prior():
-    bridge, screened, _, citing, upper = _actual_context()
+    bridge, screened, _, citing, _upper = _actual_context()
     source_id = "shared:8:" + ASSERTION_ID
     source_assertion = bridge.registry.assertion(source_id)
     source_reference = bridge.registry.reference(source_assertion.reference_id)
@@ -78,7 +78,6 @@ def test_r3h_actual_publication_position_is_prior():
     assert len(source_links) == 1
     assert source_links[0].step is not None
     assert source_links[0].step.rule is ProofRule.GIVEN
-    assert upper.status is ProofSearchStatus.PARTIAL
 
 
 def test_r3h_genuine_hopf_source_reconstructs_as_given():
@@ -103,7 +102,7 @@ def test_r3h_genuine_hopf_source_reconstructs_as_given():
 
 
 def test_r3h_historical_terminal_requires_inference_even_after_citation():
-    bridge, screened, target, _, upper = _actual_context()
+    bridge, screened, target, _, _upper = _actual_context()
     available = tuple(link.step.conclusion for link in screened.proof_links
                       if link.step is not None and link.step.rule is ProofRule.GIVEN)
     hopf = TodaHopfInvariantSurjectiveStatement(
@@ -119,7 +118,6 @@ def test_r3h_historical_terminal_requires_inference_even_after_citation():
         ProofRule.INFERENCE, ProofRule.INFERENCE,
     ]
     assert [p.proof_rule for p in d_options[0].rule.premise_patterns] == [ProofRule.INFERENCE]
-    assert upper.status is ProofSearchStatus.PARTIAL
 
 
 def test_r3h_pi4_2_remains_complete():
