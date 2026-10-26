@@ -64,7 +64,12 @@ def test_r3i_only_exact_screened_claims_propose_cited_rules(actual):
             assert isinstance(option.subgoals[1], Relation)
             assert option.subgoals[1].lhs == goal.map.source_group
         else:
-            assert all(p.proof_rule is ProofRule.GIVEN for p in patterns)
+            from phase165_r3_recursive_search import SourceBoundGoal
+            assert tuple(p.proof_rule for p in patterns) == (
+                ProofRule.GIVEN, ProofRule.GIVEN, ProofRule.INFERENCE,
+            )
+            assert isinstance(option.subgoals[2], SourceBoundGoal)
+            assert option.subgoals[2].conclusion.lhs == goal.map.target_group
         assert option.rule.conclusion_builder is not None
         assert option.rule.match_guard is not None
 
@@ -81,7 +86,10 @@ def test_r3i_derived_terminal_steps_have_exact_cited_ancestors(actual):
         )
         assert inferred.rule is ProofRule.INFERENCE
         assert inferred.conclusion == terminal
-        assert tuple(p.conclusion for p in inferred.premises) == option.subgoals
+        actual_goals = tuple(
+            getattr(goal_part, "conclusion", goal_part) for goal_part in option.subgoals
+        )
+        assert tuple(p.conclusion for p in inferred.premises) == actual_goals
         if isinstance(terminal, TodaDeltaInjectiveStatement):
             cited, diagonal = inferred.premises
             assert cited.rule is ProofRule.GIVEN
@@ -90,7 +98,13 @@ def test_r3i_derived_terminal_steps_have_exact_cited_ancestors(actual):
             assert diagonal.premises[0].rule is ProofRule.GIVEN
             assert diagonal.premises[0].inference_rule.literature_reference.locator == "(5.1)"
         else:
-            assert all(p.rule is ProofRule.GIVEN and not p.premises for p in inferred.premises)
+            image, proposition, codomain = inferred.premises
+            assert all(p.rule is ProofRule.GIVEN and not p.premises for p in (image, proposition))
+            assert codomain.rule is ProofRule.INFERENCE
+            assert codomain.conclusion.lhs == terminal.map.target_group
+            assert len(codomain.premises) == 1
+            assert codomain.premises[0].rule is ProofRule.GIVEN
+            assert codomain.premises[0].inference_rule.literature_reference.locator == "Proposition 5.1"
 
 
 def test_r3i_historical_inference_only_rules_remain_intact(actual):
@@ -108,10 +122,12 @@ def test_r3i_historical_inference_only_rules_remain_intact(actual):
             assert cited.rule.match_guard is not original.rule.match_guard
             assert cited.rule.conclusion_builder is not original.rule.conclusion_builder
         else:
-            # Factories create fresh function objects on each invocation.
-            # The code objects must still be the original mathematical rules.
-            assert cited.rule.match_guard.__code__ is original.rule.match_guard.__code__
-            assert cited.rule.conclusion_builder.__code__ is original.rule.conclusion_builder.__code__
+            assert tuple(p.proof_rule for p in cited.rule.premise_patterns) == (
+                ProofRule.GIVEN, ProofRule.GIVEN, ProofRule.INFERENCE,
+            )
+            assert cited.rule.match_guard is not original.rule.match_guard
+            assert cited.rule.conclusion_builder is not original.rule.conclusion_builder
+            assert original.rule.premise_patterns[0].proof_rule is ProofRule.INFERENCE
 
 
 def test_r3i_missing_source_does_not_create_a_premise(actual):
@@ -166,7 +182,11 @@ def test_r3i_real_recursive_proof_of_terminal_goals(actual):
             assert len(step.premises[1].premises) == 1
             assert step.premises[1].premises[0].rule is ProofRule.GIVEN
         else:
-            assert all(p.rule is ProofRule.GIVEN for p in step.premises)
+            assert tuple(p.rule for p in step.premises) == (
+                ProofRule.GIVEN, ProofRule.GIVEN, ProofRule.INFERENCE,
+            )
+            assert len(step.premises[-1].premises) == 1
+            assert step.premises[-1].premises[0].rule is ProofRule.GIVEN
 
 
 def test_r3i_lower_completed_proof_not_regressed(actual):
