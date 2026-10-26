@@ -346,6 +346,29 @@ def render_model_backed_narrative_markdown(
                     for citation in model.citations
                 )):
             continue
+        # R3Z: general higher-eta clauses belong to Reference, not the proof body.
+        # Hide one only when a directly dependent certified specialization is
+        # retained in this display. The citation and both ProofSteps survive.
+        if (step.rule is ProofRule.GIVEN
+                and isinstance(statement, Relation)
+                and model.step_citation_numbers[index]):
+            from phase165_r57_r8_eta_specialization import _is_generic_eta_group_relation
+            from phase165_r57_r20_general_specialization import specialize_typed_statement
+            if (_is_generic_eta_group_relation(statement)
+                    and any(
+                        derived_index not in suppressed_body_indices
+                        and derived_index != index
+                        and derived.rule is ProofRule.INFERENCE
+                        and isinstance(derived.conclusion, Relation)
+                        and any(parent is step or parent == step
+                                for parent in derived.premises)
+                        and specialize_typed_statement(
+                            statement, derived.conclusion
+                        ) is not None
+                        for derived_index in order
+                        for derived in (model.steps[derived_index],)
+                    )):
+                continue
         # Only verbalize the certified stable-eta normalization already
         # represented by this step's source relation and cited definition.
         transition = project_stable_eta_notation_transition(model, index)
