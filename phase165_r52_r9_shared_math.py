@@ -161,7 +161,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = (build_exactness_binding_provider(bridge), build_prop42_specialization_provider(bridge), expand_ehp_exactness_consequences) + tuple(extra_providers)
     # Phase 169 R3E: connect the pre-existing typed EHP goal expansions.
     # These propose subgoals only; no completed map property or proof leaf is inserted.
-    from phase165_r14_r5_ehp_connection import expand_registered_ehp_goal
+    from phase165_r14_r5_ehp_connection import (
+        expand_registered_ehp_goal, expand_registered_ehp_terminal_goal,
+    )
     extra_providers = (expand_registered_ehp_goal,) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
@@ -241,6 +243,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
+        options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
         from phase168_r2_toda52_transport import expand_toda52_finite_cyclic_goal
         options.extend(expand_toda52_finite_cyclic_goal(goal, tuple(available)))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))

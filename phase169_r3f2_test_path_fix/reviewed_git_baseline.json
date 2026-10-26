@@ -1,0 +1,10 @@
+{
+  "repository": "akebono03/ehp-proof-tracer",
+  "branch": "develop",
+  "reviewed_commit": "2e0b466ee6a91f891ca6b101794b1bd6bca0b970",
+  "production_blobs": {
+    "phase165_r52_r9_shared_math.py": "ff78d5e2a64cc74e77ef22c2e562485af15c204f",
+    "phase165_r14_r5_ehp_connection.py": "e76a0a772a709aff94b31583c4e80291b2537f36"
+  },
+  "policy": "Installer refuses any differing committed or local baseline; no unrelated source changes are overwritten."
+}
