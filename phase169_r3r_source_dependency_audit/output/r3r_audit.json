@@ -1,0 +1,140 @@
+{
+  "phase": "169-R3R",
+  "mode": "AUDIT_ONLY",
+  "status": "complete",
+  "model_steps": 24,
+  "root_ancestry_count": 24,
+  "citation_rows": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.3",
+      "assertion_ids": [
+        "shared:0:boundary:Proposition 5.3:pi4_2_group_relation"
+      ],
+      "step_indices": [
+        0
+      ],
+      "statement_bodies": [
+        "$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$."
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "(5.3)",
+      "assertion_ids": [
+        "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation"
+      ],
+      "step_indices": [
+        2
+      ],
+      "statement_bodies": [
+        "$H\\left(\\nu'\\right) = \\eta_{5}$."
+      ]
+    },
+    {
+      "number": 3,
+      "locator": "Proposition 5.1",
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "step_indices": [
+        3
+      ],
+      "statement_bodies": []
+    },
+    {
+      "number": 4,
+      "locator": "Proposition 4.2 (4.4)",
+      "assertion_ids": [
+        "shared:5:adopted:assertion:prop42:general"
+      ],
+      "step_indices": [
+        5
+      ],
+      "statement_bodies": [
+        "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+      ]
+    },
+    {
+      "number": 5,
+      "locator": "Chapter V, i)",
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "step_indices": [
+        16
+      ],
+      "statement_bodies": [
+        "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+      ]
+    }
+  ],
+  "proposition_5_1_composite_given_count": 1,
+  "proposition_5_1_composite": {
+    "type": "TodaProp51FiniteDimensionalStatement",
+    "rule": "given",
+    "step_indices": [
+      3
+    ],
+    "citation_numbers": [
+      3
+    ],
+    "premise_types": [],
+    "premise_rules": [],
+    "conclusion_repr": "TodaProp51FiniteDimensionalStatement(pi3_2_group_relation=Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), eta2_hopf_relation=Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), delta_iota5_relation=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), higher_eta_group_relation=Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None))"
+  },
+  "proposition_5_1_components": {
+    "pi3_2_group_relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "eta2_hopf_relation": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "delta_iota5_relation": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+    "higher_eta_group_relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  },
+  "pi_6_5_source_specialization_available": true,
+  "pi_6_5_source_specialization": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "pi_6_5_independent_derived_relation_steps": [],
+  "delta_injective": [
+    {
+      "type": "TodaDeltaInjectiveStatement",
+      "rule": "inference",
+      "step_indices": [
+        10
+      ],
+      "citation_numbers": [],
+      "premise_types": [
+        "TodaProp51FiniteDimensionalStatement"
+      ],
+      "premise_rules": [
+        "given"
+      ],
+      "conclusion_repr": "TodaDeltaInjectiveStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)))"
+    }
+  ],
+  "hopf_surjective": [
+    {
+      "type": "TodaHopfInvariantSurjectiveStatement",
+      "rule": "inference",
+      "step_indices": [
+        4
+      ],
+      "citation_numbers": [],
+      "premise_types": [
+        "Relation",
+        "TodaProp51FiniteDimensionalStatement"
+      ],
+      "premise_rules": [
+        "given",
+        "given"
+      ],
+      "conclusion_repr": "TodaHopfInvariantSurjectiveStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))"
+    }
+  ],
+  "pi_5_5_derived_relation_steps": [],
+  "pi_5_5_cited_given_relation_steps": [],
+  "toda_5_1_reference_in_model": false,
+  "boundaries": [
+    "A Proposition 5.1 component is literature data; projection must not invent a ProofStep.",
+    "The pi_5^5 diagonal group requires its own cited (5.1) or another verified proof ancestor.",
+    "The single Delta-injectivity proof premise must be inspected before claiming a complete explanation.",
+    "The web's complete status is recorded without modifying or re-verifying the result."
+  ]
+}
