@@ -54,29 +54,43 @@ def test_r3i_only_exact_screened_claims_propose_cited_rules(actual):
         proposals = expand_cited_ehp_terminal_goal(goal, sources)
         assert len(proposals) == 1
         option = proposals[0]
-        assert all(pattern.proof_rule is ProofRule.GIVEN for pattern in option.rule.premise_patterns)
+        patterns = option.rule.premise_patterns
+        assert len(option.subgoals) == len(patterns)
+        if isinstance(goal, TodaDeltaInjectiveStatement):
+            assert tuple(p.proof_rule for p in patterns) == (
+                ProofRule.GIVEN, ProofRule.INFERENCE,
+            )
+            from proof import Relation
+            assert isinstance(option.subgoals[1], Relation)
+            assert option.subgoals[1].lhs == goal.map.source_group
+        else:
+            assert all(p.proof_rule is ProofRule.GIVEN for p in patterns)
         assert option.rule.conclusion_builder is not None
         assert option.rule.match_guard is not None
-        assert len(option.subgoals) == len(option.rule.premise_patterns)
 
 
 def test_r3i_derived_terminal_steps_have_exact_cited_ancestors(actual):
-    _, _, _, _, _, given, goals = actual
+    _, context, goal, citing, _, given, goals = actual
     source_claims = tuple(step.conclusion for step in given)
-    for goal in goals:
-        option, = expand_cited_ehp_terminal_goal(goal, source_claims)
-        prerequisites = tuple(
-            next(step for step in given if type(step.conclusion) is type(child)
-                 and step.conclusion == child)
-            for child in option.subgoals
+    provider = shared_expansion_provider(context, proof_target=goal)
+    for terminal in goals:
+        option, = expand_cited_ehp_terminal_goal(terminal, source_claims)
+        inferred = reconstruct_registered_goal(
+            terminal, context, citing, provider,
+            lookup_mode="typed_reference_publication",
         )
-        matches = find_inference_matches_for_rule(option.rule, prerequisites)
-        assert len(matches) == 1
-        inferred = derive_inference_proof_step(matches[0])
         assert inferred.rule is ProofRule.INFERENCE
-        assert inferred.conclusion == goal
-        assert inferred.premises == prerequisites
-        assert all(step.rule is ProofRule.GIVEN and not step.premises for step in inferred.premises)
+        assert inferred.conclusion == terminal
+        assert tuple(p.conclusion for p in inferred.premises) == option.subgoals
+        if isinstance(terminal, TodaDeltaInjectiveStatement):
+            cited, diagonal = inferred.premises
+            assert cited.rule is ProofRule.GIVEN
+            assert diagonal.rule is ProofRule.INFERENCE
+            assert len(diagonal.premises) == 1
+            assert diagonal.premises[0].rule is ProofRule.GIVEN
+            assert diagonal.premises[0].inference_rule.literature_reference.locator == "(5.1)"
+        else:
+            assert all(p.rule is ProofRule.GIVEN and not p.premises for p in inferred.premises)
 
 
 def test_r3i_historical_inference_only_rules_remain_intact(actual):
@@ -87,8 +101,17 @@ def test_r3i_historical_inference_only_rules_remain_intact(actual):
         assert all(p.proof_rule is ProofRule.INFERENCE for p in original.rule.premise_patterns)
         cited, = expand_cited_ehp_terminal_goal(goal, source_claims)
         assert cited.rule is not original.rule
-        assert cited.rule.match_guard.__code__ is original.rule.match_guard.__code__
-        assert cited.rule.conclusion_builder.__code__ is original.rule.conclusion_builder.__code__
+        if isinstance(goal, TodaDeltaInjectiveStatement):
+            assert tuple(p.proof_rule for p in cited.rule.premise_patterns) == (
+                ProofRule.GIVEN, ProofRule.INFERENCE,
+            )
+            assert cited.rule.match_guard is not original.rule.match_guard
+            assert cited.rule.conclusion_builder is not original.rule.conclusion_builder
+        else:
+            # Factories create fresh function objects on each invocation.
+            # The code objects must still be the original mathematical rules.
+            assert cited.rule.match_guard.__code__ is original.rule.match_guard.__code__
+            assert cited.rule.conclusion_builder.__code__ is original.rule.conclusion_builder.__code__
 
 
 def test_r3i_missing_source_does_not_create_a_premise(actual):
@@ -134,10 +157,16 @@ def test_r3i_real_recursive_proof_of_terminal_goals(actual):
         )
         assert step.rule is ProofRule.INFERENCE
         assert step.conclusion == terminal
-        assert all(p.rule is ProofRule.GIVEN for p in step.premises)
-        assert len(step.premises) in (1, 2)
         assert step.inference_rule is not None
-        assert step.inference_rule.name.startswith("cited prior sources:")
+        assert step.inference_rule.name.startswith("cited prior sources")
+        if isinstance(terminal, TodaDeltaInjectiveStatement):
+            assert len(step.premises) == 2
+            assert step.premises[0].rule is ProofRule.GIVEN
+            assert step.premises[1].rule is ProofRule.INFERENCE
+            assert len(step.premises[1].premises) == 1
+            assert step.premises[1].premises[0].rule is ProofRule.GIVEN
+        else:
+            assert all(p.rule is ProofRule.GIVEN for p in step.premises)
 
 
 def test_r3i_lower_completed_proof_not_regressed(actual):
