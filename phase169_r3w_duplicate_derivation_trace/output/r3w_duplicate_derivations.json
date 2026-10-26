@@ -1,0 +1,179 @@
+{
+  "phase": "169-R3W",
+  "mode": "AUDIT_ONLY",
+  "pi53_status": "complete",
+  "pi65_proof_status": "RegisteredGoalUnresolved: expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+  "screened_direct_pi65_given_assertions": [],
+  "provider_proposal_count": 6,
+  "provider_proposals": [
+    {
+      "rule": "finite cyclic structure gives group relation",
+      "subgoal_types": [
+        "CyclicStructureStatement"
+      ],
+      "subgoal_short": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+      ]
+    },
+    {
+      "rule": "cited stable eta-family notation for iterated transport",
+      "subgoal_types": [
+        "Relation",
+        "TodaEtaFamilyGeneralDefinition"
+      ],
+      "subgoal_short": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+      ]
+    },
+    {
+      "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+      "subgoal_types": [
+        "Relation"
+      ],
+      "subgoal_short": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALIT"
+      ]
+    },
+    {
+      "rule": "generic cited typed scalar specialization",
+      "subgoal_types": [
+        "Relation"
+      ],
+      "subgoal_short": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALIT"
+      ]
+    },
+    {
+      "rule": "equality symmetry",
+      "subgoal_types": [
+        "Relation"
+      ],
+      "subgoal_short": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule": "finite cyclic structure gives group relation",
+      "subgoal_types": [
+        "CyclicStructureStatement"
+      ],
+      "subgoal_short": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+      ]
+    }
+  ],
+  "verified_candidate_attempts": [
+    {
+      "rule": "inference",
+      "inference_name": "cited stable eta-family notation for iterated transport",
+      "premise_types": [
+        "Relation",
+        "TodaEtaFamilyGeneralDefinition"
+      ],
+      "premise_rules": [
+        "inference",
+        "given"
+      ],
+      "premise_rule_names": [
+        "Toda 4.5 generic finite-cyclic transport",
+        "Toda chapter V eta-family notation"
+      ],
+      "given_leaves": [
+        {
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "linked_assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3"
+          ],
+          "literature_locator": "Proposition 5.1"
+        },
+        {
+          "conclusion_type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+          "linked_assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "literature_locator": "(4.5)"
+        },
+        {
+          "conclusion_type": "TodaEtaFamilyGeneralDefinition",
+          "conclusion_repr": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+          "linked_assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "literature_locator": "Chapter V, i)"
+        }
+      ],
+      "kept_after_existing_dedup": true,
+      "options_before": 0,
+      "options_after": 1
+    },
+    {
+      "rule": "inference",
+      "inference_name": "Toda Proposition 5.1 generic higher-eta specialization",
+      "premise_types": [
+        "Relation"
+      ],
+      "premise_rules": [
+        "given"
+      ],
+      "premise_rule_names": [
+        "Adopted literature Proposition 5.1"
+      ],
+      "given_leaves": [
+        {
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "linked_assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+          ],
+          "literature_locator": "Proposition 5.1"
+        }
+      ],
+      "kept_after_existing_dedup": true,
+      "options_before": 1,
+      "options_after": 2
+    },
+    {
+      "rule": "inference",
+      "inference_name": "generic cited typed scalar specialization",
+      "premise_types": [
+        "Relation"
+      ],
+      "premise_rules": [
+        "given"
+      ],
+      "premise_rule_names": [
+        "Adopted literature Proposition 5.1"
+      ],
+      "given_leaves": [
+        {
+          "conclusion_type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "linked_assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+          ],
+          "literature_locator": "Proposition 5.1"
+        }
+      ],
+      "kept_after_existing_dedup": false,
+      "options_before": 2,
+      "options_after": 2
+    }
+  ],
+  "verified_candidate_count": 3,
+  "verified_candidate_kept_count": 2,
+  "kept_candidate_pair_comparisons": [
+    {
+      "left_index": 0,
+      "right_index": 1,
+      "same_cited_scalar_specialization": false,
+      "same_completed_proof_tree": false,
+      "same_premise_object_identity": false
+    }
+  ],
+  "production_modified": false,
+  "existing_tests_modified": false,
+  "full_pytest_run": false
+}
