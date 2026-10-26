@@ -442,6 +442,34 @@ def render_model_backed_narrative_markdown(
                     prop44_tags = ", ".join(f"[R{number}]" for number in prop44_numbers)
                     if prop44_tags not in sentence:
                         sentence = f"{prop44_tags}より, " + sentence
+                    # R4F: the source paragraph immediately BEFORE Prop. 4.4
+                    # establishes the n=4 Hopf fibration.  Cite only the
+                    # actually proved MapInjective step and its cited GIVEN.
+                    # Do not invoke the later Lemma 5.4 naming nu_4.
+                    from homotopy_groups import TodaSuspensionMap
+                    mapping = statement.map
+                    i = getattr(getattr(mapping, "target_group", None),
+                                "group_dimension", None)
+                    if (isinstance(mapping, TodaSuspensionMap)
+                            and type(i) is int and i >= 4
+                            and mapping.source_group == TodaPrimaryGroup(i - 1, 3)
+                            and mapping.target_group == TodaPrimaryGroup(i, 4)
+                            and len(step.premises) == 1
+                            and step.premises[0].rule is ProofRule.GIVEN
+                            and type(step.premises[0].conclusion)
+                                is TodaProp44UniversalStatement
+                            and step.premises[0].conclusion
+                                == TodaProp44UniversalStatement()):
+                        # Keep the R4E result sentence and its [R] tag intact.
+                        # Add the source-order-safe applicability as separate prose.
+                        application = (
+                            r"$n=4$ の Hopf fibration $h:S^7\to S^4$ により, "
+                            r"$\alpha=h\in\pi_7^4$, "
+                            r"$H(\alpha)=\pm\iota_7$ と取れる. "
+                            + f"{prop44_tags}を "
+                            + rf"$(n,i)=(4,{i})$ に適用できる."
+                        )
+                        lines.extend((application, ""))
             if sentence.endswith("である."):
                 sentence = sentence[:-4] + "."
             elif sentence.endswith("が成り立つ."):

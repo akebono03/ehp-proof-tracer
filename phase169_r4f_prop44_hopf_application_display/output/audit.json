@@ -1,0 +1,15 @@
+{
+  "phase": "169-R4F",
+  "head": "4305edd24566a2780781db1783e6e462719c74b0",
+  "pi64_status": "complete",
+  "pi64_steps": 18,
+  "pi64_open_goals": 0,
+  "prop44_hopf_application_displayed": true,
+  "alpha": "h (n=4 Hopf fibration, not post-target Lemma5.4)",
+  "prop44_citation": 2,
+  "references": 5,
+  "all_reference_tags_in_body": true,
+  "narrative_ends_with_proof_box": true,
+  "web_key": "generic-complete-proof",
+  "full_pytest_run": false
+}
