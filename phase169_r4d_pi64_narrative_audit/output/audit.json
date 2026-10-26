@@ -1,0 +1,486 @@
+{
+  "phase": "169-R4D",
+  "mode": "AUDIT_ONLY",
+  "head": "c8ce9928e105b2d19f46e7fda4ec1b0b79da0067",
+  "proof_status": "complete",
+  "proof_steps": 18,
+  "open_goals": 0,
+  "proof_tree_verified": true,
+  "model_root_index": 17,
+  "web_key": "generic-complete-proof",
+  "web_partial": false,
+  "web_steps": 18,
+  "web_rendered_lines": 21,
+  "unsupported_step_types": [
+    "GeneratorImage",
+    "GeneratorSuspension",
+    "MapInjective",
+    "MapSurjective",
+    "Toda51BelowDiagonalZeroStatement",
+    "TodaEtaFamilyDefinitionStatement",
+    "TodaEtaFamilyGeneralDefinition",
+    "TodaProp42GeneralExactnessStatement",
+    "TodaProp44UniversalStatement",
+    "TodaSuspensionIsomorphismStatement"
+  ],
+  "citations": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.3",
+      "step_indices": [
+        0
+      ],
+      "assertion_ids": [
+        "shared:0:boundary:Proposition 5.3:pi5_3_group_relation"
+      ],
+      "statement_bodies": [
+        "$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$."
+      ]
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 4.4",
+      "step_indices": [
+        2,
+        3
+      ],
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0010"
+      ],
+      "statement_bodies": []
+    },
+    {
+      "number": 3,
+      "locator": "Proposition 4.2 (4.4)",
+      "step_indices": [
+        4
+      ],
+      "assertion_ids": [
+        "shared:5:adopted:assertion:prop42:general"
+      ],
+      "statement_bodies": [
+        "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+      ]
+    },
+    {
+      "number": 4,
+      "locator": "(5.1)",
+      "step_indices": [
+        6
+      ],
+      "assertion_ids": [
+        "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+      ],
+      "statement_bodies": [
+        "$\\pi_i^n=0\\quad(i<n)$."
+      ]
+    },
+    {
+      "number": 5,
+      "locator": "Chapter V, i)",
+      "step_indices": [
+        10
+      ],
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "statement_bodies": [
+        "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+      ]
+    }
+  ],
+  "citation_usage": {
+    "model_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "reference_heading_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "proof_tag_numbers": [
+      1,
+      4,
+      5
+    ],
+    "heading_count_matches": true,
+    "uncited_in_proof": [
+      2,
+      3
+    ],
+    "unknown_in_proof": [],
+    "duplicate_reference_headings": []
+  },
+  "visual_findings": [
+    "REFERENCES_NOT_TAGGED_IN_BODY"
+  ],
+  "reference_text": "使用する結果\n\n**[R1] Proposition 5.3.**\n\n$\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$.\n\n**[R2] Proposition 4.4.**\n\n**[R3] Proposition 4.2 (4.4).**\n\n$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全.\n\n**[R4] (5.1).**\n\n$\\pi_i^n=0\\quad(i<n)$.\n\n**[R5] η 系列の定義（Chapter V, i）.**\n\n$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する.\n",
+  "proof_text": "\n$\\pi_{6}^{4}$の群構造を決定する.\n\n[R1]より, $\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}$.\n\n$E: \\pi_{5}^{3}\\to \\pi_{6}^{4}$ は単射.\n\n$\\pi_{5}^{3} \\xrightarrow{E} \\pi_{6}^{4} \\xrightarrow{H} \\pi_{6}^{7}$ は完全.\n\n[R4]より, $\\pi_{6}^{7} = 0$.\n\n完全性より, $E: \\pi_{5}^{3}\\to \\pi_{6}^{4}$ は全射.\n\n単射性と全射性より, $E: \\pi_{5}^{3}\\to \\pi_{6}^{4}$ は同型.\n\n[R5]より, $E(\\eta_{3}^{2})=\\eta_{4}^{2}$.\n\n以上より, $\\pi_{6}^{4} = \\mathbb{Z}/2\\{\\eta_{4}^{2}\\}$.\n\n□\n",
+  "web_rendered_content": [
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "使用する結果",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "使用する結果"
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R1] Proposition 5.3.**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R1] Proposition 5.3."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R2] Proposition 4.4.**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R2] Proposition 4.4."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R3] Proposition 4.2 (4.4).**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R3] Proposition 4.2 (4.4)."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}",
+      "suffix": " は完全.",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}"
+        },
+        {
+          "kind": "text",
+          "value": " は完全."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R4] (5.1).**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R4] (5.1)."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_i^n=0\\quad(i<n)",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_i^n=0\\quad(i<n)"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "**[R5] η 系列の定義（Chapter V, i）.**",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "strong",
+          "value": "[R5] η 系列の定義（Chapter V, i）."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "n\\ge 2",
+      "suffix": " に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する.",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "n\\ge 2"
+        },
+        {
+          "kind": "text",
+          "value": " に対し, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\eta_n=E^{n-2}\\eta_2"
+        },
+        {
+          "kind": "text",
+          "value": " と定義する."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "証明",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "証明"
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{6}^{4}",
+      "suffix": "の群構造を決定する.",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{6}^{4}"
+        },
+        {
+          "kind": "text",
+          "value": "の群構造を決定する."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "[R1]より, ",
+      "statement_latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R1]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "E: \\pi_{5}^{3}\\to \\pi_{6}^{4}",
+      "suffix": " は単射.",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "E: \\pi_{5}^{3}\\to \\pi_{6}^{4}"
+        },
+        {
+          "kind": "text",
+          "value": " は単射."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "",
+      "statement_latex": "\\pi_{5}^{3} \\xrightarrow{E} \\pi_{6}^{4} \\xrightarrow{H} \\pi_{6}^{7}",
+      "suffix": " は完全.",
+      "segments": [
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{5}^{3} \\xrightarrow{E} \\pi_{6}^{4} \\xrightarrow{H} \\pi_{6}^{7}"
+        },
+        {
+          "kind": "text",
+          "value": " は完全."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "[R4]より, ",
+      "statement_latex": "\\pi_{6}^{7} = 0",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R4]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{6}^{7} = 0"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "完全性より, ",
+      "statement_latex": "E: \\pi_{5}^{3}\\to \\pi_{6}^{4}",
+      "suffix": " は全射.",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "完全性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "E: \\pi_{5}^{3}\\to \\pi_{6}^{4}"
+        },
+        {
+          "kind": "text",
+          "value": " は全射."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "単射性と全射性より, ",
+      "statement_latex": "E: \\pi_{5}^{3}\\to \\pi_{6}^{4}",
+      "suffix": " は同型.",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "単射性と全射性より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "E: \\pi_{5}^{3}\\to \\pi_{6}^{4}"
+        },
+        {
+          "kind": "text",
+          "value": " は同型."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "[R5]より, ",
+      "statement_latex": "E(\\eta_{3}^{2})=\\eta_{4}^{2}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "[R5]より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "E(\\eta_{3}^{2})=\\eta_{4}^{2}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "以上より, ",
+      "statement_latex": "\\pi_{6}^{4} = \\mathbb{Z}/2\\{\\eta_{4}^{2}\\}",
+      "suffix": ".",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "以上より, "
+        },
+        {
+          "kind": "inline_math",
+          "value": "\\pi_{6}^{4} = \\mathbb{Z}/2\\{\\eta_{4}^{2}\\}"
+        },
+        {
+          "kind": "text",
+          "value": "."
+        }
+      ]
+    },
+    {
+      "kind": "text",
+      "indent_level": 0,
+      "prefix": "□",
+      "statement_latex": null,
+      "suffix": "",
+      "segments": [
+        {
+          "kind": "text",
+          "value": "□"
+        }
+      ]
+    }
+  ],
+  "production_modified": false,
+  "full_pytest_run": false
+}
