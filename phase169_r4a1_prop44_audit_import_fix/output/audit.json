@@ -1,0 +1,189 @@
+{
+  "phase": "169-R4A",
+  "mode": "AUDIT_ONLY",
+  "production_modified": false,
+  "full_pytest_run": false,
+  "git": {
+    "branch": {
+      "exit_code": 0,
+      "stdout": "develop",
+      "stderr": ""
+    },
+    "head": {
+      "exit_code": 0,
+      "stdout": "b999b4bbea651782b2238732c1d16d805dfbe530",
+      "stderr": ""
+    },
+    "tracked_changes_before": {
+      "exit_code": 0,
+      "stdout": ".pytest_cache/v/cache/nodeids",
+      "stderr": ""
+    },
+    "staged_changes_before": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "tracked_changes_after": {
+      "exit_code": 0,
+      "stdout": ".pytest_cache/v/cache/nodeids",
+      "stderr": ""
+    },
+    "staged_changes_after": {
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "source": {
+    "proposition44": {
+      "found": true,
+      "path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\sources\\toda\\Toda_04_2.tex",
+      "excerpt": "\\begin{proposition}\\label{prop:4.4}\n% Prop4.4.\\\n$\\alpha\\in\\pit{2n-1}{n}$ で $H(\\alpha)=\\pm\\iota_{2n-1}$ とする. \nこのとき,\\\\\n\\(\n\\pit{i-1}{n-1}\\oplus\\pit{i}{2n-1}\\to\\pit{i}{n},\\quad\n(\\beta,\\gamma) \\longmapsto E\\beta + \\alpha\\circ\\gamma\n\\)\nは, 任意の \\(i\\) で同型である. \\\\\n特に, \n\\(\nE:\\pit{i-1}{n-1}\\to \\pit{i}{n}\n\\)\nは, 任意の \\(i\\) で単射である. \n\\end{proposition}"
+    },
+    "proposition53_proof": {
+      "found": true,
+      "path": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\sources\\toda\\Toda_05_2.tex",
+      "excerpt": "\\begin{proposition}\\label{prop:5.3}\n% Prop5.3.\\\n\\(\\pi^{n}_{n+2}=\\gen{\\eta_n^{2}}\\cong \\mathbb Z_2\\ (n\\ge2).\\) \\\n\\((G_2;2)=\\gen{\\eta^{2}}\\cong \\mathbb Z_2 .\\)\n\\end{proposition}\n\n\\noindent\n\\textbf{Proof.}\\ \n (5.2) より, \\(\\pi_{4}^{2}=\\gen{\\eta_2^{2}}\\cong \\mathbb Z_2 .\\)\n完全列 (4.4)\n\\[\n\\pi_{6}^{3}\\xrightarrow{\\ H}\\pi_{6}^{5}\\xrightarrow{\\ \\Delta\\ }\\pi_{4}^{2}\n\\xrightarrow{\\ E\\ }\\pi_{5}^{3}\\xrightarrow{\\ H\\ }\\pi^{5}_{5}\n\\xrightarrow{\\ \\Delta\\ }\\pi_{3}^{2}\n\\]\nを考える. Prop 5.1 から,\n\\(\\Delta:\\pi^{5}_{5}\\to\\pi_{3}^{2}\\) は単射である. \\\\\nしたがって, \\(H(\\pi_{5}^{3})=0\\) で, \\(E\\) は全射. \\\\\nさらに, (5.3) とProp 5.1 より,\n\\(H:\\pi^{3}_{6}\\to\\pi^{5}_{6}\\) は全射である. \\\\\nゆえに, \\(\\Delta(\\pi^{5}_{6})=0\\) であり, \n\\(E\\) は単射となる. \\\\\nよって, \\(E:\\pi_4^2\\xrightarrow{}\\pi_5^3\\) は同型となり, \\(n=3\\) の場合が示せた. \\\\\n次に, \n\\(\\pi_5^3\\xrightarrow{E}\\pi_6^4\\xrightarrow{}\\pi_6^7\\)\nにおいて, (5.1) により,\n\\(\\pit{6}{7}=0\\) なので,\n\\(E\\) は全射である. \\\\\nProp4.4 により, \\(E\\) は単射なので, \n\\(E:\\pit{5}{3}\\to\\pit{6}{4}\\) は同型であるので, \\(n=4\\) の場合が示せた. \\\\\n\\(n>4\\) と, \\((G_2;2)\\) については, (4.5) から分かる. \n\\qed"
+    }
+  },
+  "target_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+  "goal_counts": {
+    "pi_5^3": 1,
+    "pi_6^4": 1
+  },
+  "prop44_registry": [
+    {
+      "id": "shared:4:typed_literature:assertion:toda:tex:ch4:0010",
+      "locator": "Proposition 4.4",
+      "publication_position": 7300,
+      "component_position": null,
+      "origin": "FIXED_STATEMENT",
+      "content_type": "TodaProp44UniversalStatement",
+      "content": "TodaProp44UniversalStatement(source_condition='alpha in pi_(2n-1)^n; H(alpha)=+/-iota_(2n-1)', isomorphism_map='(beta,gamma)->E(beta)+alpha o gamma', source_group='pi_(i-1)^(n-1) + pi_i^(2n-1)', target_group='pi_i^n', quantifiers=('n', 'i', 'alpha'), includes_suspension_injectivity=True)"
+    }
+  ],
+  "prop44_screened_ids": [
+    "shared:4:typed_literature:assertion:toda:tex:ch4:0010"
+  ],
+  "prop44_is_prior": [
+    true
+  ],
+  "prior_pi53_source_ids": [
+    "shared:0:boundary:Proposition 5.3:pi5_3_group_relation"
+  ],
+  "source_scope": {
+    "source_sphere_dimension": 3,
+    "stem": 2,
+    "toda45_stable_range": false,
+    "n4_is_toda45_stable_base": true
+  },
+  "surjectivity": {
+    "map": "TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4))",
+    "zero_target": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=7))",
+    "zero_goal_expansions": [
+      {
+        "rule": "Toda (5.1) general below-diagonal zero specialization",
+        "subgoal_types": [
+          "Toda51BelowDiagonalZeroStatement"
+        ],
+        "subgoals": [
+          "Toda51BelowDiagonalZeroStatement(locator='(5.1)')"
+        ]
+      }
+    ],
+    "EHP_candidate_expansions": [
+      {
+        "rule": "EHP exactness and zero Hopf target imply suspension surjectivity",
+        "subgoal_types": [
+          "TodaProp42ExactnessStatement",
+          "TodaPrimaryGroupZeroStatement"
+        ],
+        "subgoals": [
+          "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=7), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+          "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=7))"
+        ]
+      }
+    ],
+    "EHP_valid_indices": [
+      [
+        3,
+        6,
+        "e_h"
+      ]
+    ]
+  },
+  "injectivity": {
+    "map": "TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4))",
+    "universal_prop44_cited": true,
+    "provider": {
+      "map_injective": {
+        "expansions": [],
+        "error": null
+      },
+      "toda_suspension_injective": {
+        "expansions": [],
+        "error": null
+      }
+    },
+    "inference_certified": false
+  },
+  "generator_transport": {
+    "eta_image_expansions": [
+      {
+        "rule": "suspension preserves composition of proved eta generators",
+        "subgoal_types": [
+          "GeneratorSuspension",
+          "GeneratorSuspension"
+        ],
+        "subgoals": [
+          "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+          "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), target_generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))"
+        ]
+      }
+    ],
+    "ineligible_toda45_candidates": []
+  },
+  "provider": {
+    "map_surjective": {
+      "expansions": [
+        {
+          "rule": "EHP exactness and zero Hopf target imply suspension surjectivity",
+          "subgoal_types": [
+            "TodaProp42ExactnessStatement",
+            "TodaPrimaryGroupZeroStatement"
+          ],
+          "subgoals": [
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=7), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+            "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=7))"
+          ]
+        }
+      ],
+      "error": null
+    },
+    "map_injective": {
+      "expansions": [],
+      "error": null
+    },
+    "toda_suspension_injective": {
+      "expansions": [],
+      "error": null
+    }
+  },
+  "search": {
+    "status": "partial",
+    "steps": 2,
+    "open_goals": [
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), order=2)",
+      "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ]
+  },
+  "next_boundary": "Audit only: connect cited Proposition 4.4 injection and EHP surjection in a later implementation, without treating candidates as a proof.",
+  "tracked_changes_unchanged": true
+}
