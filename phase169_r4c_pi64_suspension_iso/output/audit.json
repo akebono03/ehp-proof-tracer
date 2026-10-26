@@ -1,0 +1,24 @@
+{
+  "phase": "169-R4C",
+  "head": "7f4db3c50b817e2501238ec5c1ab966378ea5409",
+  "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "iso": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+  "iso_derived": true,
+  "iso_rule": "pi6_4 suspension isomorphism from proved injectivity and surjectivity",
+  "map_properties": [
+    "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+    "MapSurjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))"
+  ],
+  "cited_source_ancestors": {
+    "TodaProp44UniversalStatement": true,
+    "TodaProp42GeneralExactnessStatement": true,
+    "Toda51BelowDiagonalZeroStatement": true
+  },
+  "citation_screened": true,
+  "toda45_stable_range_relaxed": false,
+  "pi6_4_status": "complete",
+  "pi6_4_steps": 18,
+  "pi6_4_open_goals": [],
+  "pi6_4_diagnostics": [],
+  "full_pytest_run": false
+}
