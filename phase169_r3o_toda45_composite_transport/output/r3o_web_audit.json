@@ -1,0 +1,61 @@
+{
+  "phase": "169-R3O",
+  "cases": [
+    {
+      "n": 3,
+      "k": 2,
+      "view_key": "generic-complete-proof",
+      "partial": false,
+      "status": "complete",
+      "steps": 24,
+      "citations": [
+        "Proposition 5.3",
+        "(5.3)",
+        "Proposition 5.1",
+        "Proposition 4.2 (4.4)",
+        "Chapter V, i)"
+      ],
+      "has_cited_toda45": false,
+      "root_ancestry_includes_new_rule": false
+    },
+    {
+      "n": 4,
+      "k": 2,
+      "view_key": "generic-partial-proof",
+      "partial": true,
+      "status": "partial",
+      "steps": 2,
+      "citations": [
+        "Proposition 5.3"
+      ],
+      "has_cited_toda45": false,
+      "root_ancestry_includes_new_rule": null
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "view_key": "generic-partial-proof",
+      "partial": true,
+      "status": "partial",
+      "steps": 2,
+      "citations": [
+        "Proposition 5.3"
+      ],
+      "has_cited_toda45": false,
+      "root_ancestry_includes_new_rule": null
+    },
+    {
+      "n": 6,
+      "k": 2,
+      "view_key": "generic-partial-proof",
+      "partial": true,
+      "status": "partial",
+      "steps": 2,
+      "citations": [
+        "Proposition 5.3"
+      ],
+      "has_cited_toda45": false,
+      "root_ancestry_includes_new_rule": null
+    }
+  ]
+}
