@@ -252,6 +252,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_toda45_composite_transport(
             goal, tuple(available),
         ))
+        from phase169_r5b_pi75_prior_transport.rule import (
+            expand_prior_cited_toda45_composite_transport,
+        )
+        options.extend(expand_prior_cited_toda45_composite_transport(
+            goal, tuple(available), bridge, proof_target=proof_target,
+        ))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
         # R3I: earlier cited GIVEN sources are valid inference premises.
         # Retain the historical inference-only proposal independently.
