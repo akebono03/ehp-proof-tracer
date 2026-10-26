@@ -1,0 +1,116 @@
+{
+  "phase": "169-R3G",
+  "mode": "AUDIT_ONLY",
+  "git_head": "a95940646b5554181a5ef3f70f4a8b2123badaa2",
+  "lower_status": "complete",
+  "upper_status": "partial",
+  "upper_proven_steps": 4,
+  "pi5_citing_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+  "pi5_citing_locator": "Proposition 5.3",
+  "pi5_goal_exact_registry_matches": [],
+  "pi5_goal_exact_registry_match_count": 0,
+  "pi5_target_selection": "production_resolve_specialized_goal_citing_id",
+  "source_53": {
+    "label_found": true,
+    "literal_hopf_formula_found": true,
+    "snippet": "\\label{eq:5.3}\n% (5.3).\\\n\\nu'\\in\\pi_6^3,\\ H(\\nu')=\\eta_5,\\ 2\\nu'=\\eta_3\\circ\\eta_4\\circ\\eta_5 .\n",
+    "registry_entries": [
+      {
+        "assertion_id": "shared:0:boundary:(5.3):nu_prime_bracket_definition",
+        "type": "TodaFixedStatementComponent",
+        "origin": "fixed_statement",
+        "publication_position": 8100,
+        "component_position": null,
+        "prior_to_pi53": true,
+        "screened_as_given": false
+      },
+      {
+        "assertion_id": "shared:0:boundary:(5.3):nu_prime_membership",
+        "type": "TodaFixedStatementComponent",
+        "origin": "fixed_statement",
+        "publication_position": 8100,
+        "component_position": null,
+        "prior_to_pi53": true,
+        "screened_as_given": false
+      },
+      {
+        "assertion_id": "shared:0:boundary:(5.3):nu_prime_hopf_relation",
+        "type": "TodaFixedStatementComponent",
+        "origin": "fixed_statement",
+        "publication_position": 8100,
+        "component_position": null,
+        "prior_to_pi53": true,
+        "screened_as_given": false
+      },
+      {
+        "assertion_id": "shared:0:boundary:(5.3):nu_prime_double_relation",
+        "type": "TodaFixedStatementComponent",
+        "origin": "fixed_statement",
+        "publication_position": 8100,
+        "component_position": null,
+        "prior_to_pi53": true,
+        "screened_as_given": false
+      },
+      {
+        "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0005",
+        "type": "dict",
+        "origin": "source_archive",
+        "publication_position": 8100,
+        "component_position": null,
+        "prior_to_pi53": false,
+        "screened_as_given": false
+      }
+    ],
+    "entry_types": {
+      "TodaFixedStatementComponent": 4,
+      "dict": 1
+    }
+  },
+  "hopf_relation": {
+    "goal_repr": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "exact_registry_assertions": [],
+    "screened_exact_given": [],
+    "live_provider_proposals": 1,
+    "reconstruction": {
+      "status": "unresolved",
+      "reason": "expected one registered derivation for Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    }
+  },
+  "prop51_composite": {
+    "exact_registry_assertions": [
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+        "locator": "Proposition 5.1",
+        "origin": "fixed_statement",
+        "component_position": null,
+        "publication_position": 7800
+      }
+    ],
+    "screened_exact_given": [
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+        "proof_rule": "given",
+        "premise_count": 0
+      }
+    ],
+    "live_provider_proposals": 0,
+    "reconstruction": {
+      "status": "proved",
+      "proof_rule": "given",
+      "premises": 0,
+      "conclusion_exact": true
+    }
+  },
+  "terminal_premise_rules": {
+    "hopf_surjective": [
+      "inference",
+      "inference"
+    ],
+    "delta_injective": [
+      "inference"
+    ]
+  },
+  "new_givens": 0,
+  "source_modified": false,
+  "completion_claim": false
+}
