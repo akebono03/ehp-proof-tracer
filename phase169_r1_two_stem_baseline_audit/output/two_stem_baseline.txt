@@ -1,0 +1,63 @@
+Phase 169 R1 — 2-stem live search and Web baseline
+AUDIT_ONLY: no production application/test/document changes
+
+TARGET pi_4^2
+STAGE success
+CANDIDATES 1
+SEARCH_STATUS complete
+PROVEN_STEPS 3
+RULE_COUNTS {'given': 2, 'inference': 1}
+OPEN_GOALS 0
+WEB_KEY generic-complete-proof
+WEB_PARTIAL False
+SEARCH_WEB_CONSISTENT True
+PUBLICATION ALL_PRECEDING
+
+CANDIDATE GOALS
+Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+PROVEN PROOFSTEPS
+STEP 1 RULE=given INFERENCE=Registered fixed statement: Proposition 5.1
+  CONCLUSION: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+  PREMISES: 0
+STEP 2 RULE=given INFERENCE=Registered fixed statement: (5.2)
+  CONCLUSION: Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)
+  PREMISES: 0
+STEP 3 RULE=inference INFERENCE=Toda (5.2) finite-cyclic eta2 composition transport
+  CONCLUSION: Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+  PREMISES: 2
+    Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+    Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)
+
+OPEN GOALS
+
+DIAGNOSTICS
+
+------------------------------------------------------------------------
+
+TARGET pi_5^3
+STAGE success
+CANDIDATES 1
+SEARCH_STATUS search_failed
+PROVEN_STEPS 0
+RULE_COUNTS {}
+OPEN_GOALS 3
+WEB_KEY generic-partial-proof
+WEB_PARTIAL True
+SEARCH_WEB_CONSISTENT True
+PUBLICATION NOT_CERTIFIED_INCOMPLETE
+
+CANDIDATE GOALS
+Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+PROVEN PROOFSTEPS
+
+OPEN GOALS
+  CyclicStructureStatement: CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), order=2)
+  Relation: Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+  Relation: Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)
+
+DIAGNOSTICS
+  expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0
+
+------------------------------------------------------------------------

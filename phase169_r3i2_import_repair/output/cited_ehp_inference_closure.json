@@ -1,0 +1,58 @@
+{
+  "phase": "169-R3I2",
+  "lower_status": "complete",
+  "upper_status": "complete",
+  "upper_proven_steps": 26,
+  "upper_complete": true,
+  "root_verified": true,
+  "proof_tree_closure": {
+    "given_count": 6,
+    "inference_count": 19,
+    "node_count": 25,
+    "cited_assertion_ids": [
+      "shared:2:toda:adopted:prop5.1:finite_dimensional",
+      "shared:2:toda:adopted:prop5.1:pi4_3",
+      "shared:4:typed_literature:assertion:toda:tex:ch5:0003",
+      "shared:5:adopted:assertion:prop42:general",
+      "shared:7:adopted:assertion:toda5:eta_family_definition",
+      "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation"
+    ],
+    "terminal_rule_names": [
+      "cited prior sources: Toda Proposition 5.1 n=3 Delta injectivity",
+      "cited prior sources: Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity"
+    ],
+    "all_givens_prior": true,
+    "all_inferences_replayed": true,
+    "cyclic_or_unregistered_leaf": false
+  },
+  "citing_assertion": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+  "hopf_source_assertion": "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation",
+  "hopf_source_prior": true,
+  "hopf_source_rule": "given",
+  "terminal_results": [
+    {
+      "goal": "TodaHopfInvariantSurjectiveStatement",
+      "proof_rule": "inference",
+      "premise_rules": [
+        "given",
+        "given"
+      ],
+      "mathematical_rule_guard_reused": true,
+      "historical_rule_unchanged": true,
+      "inference_rule": "cited prior sources: Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity"
+    },
+    {
+      "goal": "TodaDeltaInjectiveStatement",
+      "proof_rule": "inference",
+      "premise_rules": [
+        "given"
+      ],
+      "mathematical_rule_guard_reused": true,
+      "historical_rule_unchanged": true,
+      "inference_rule": "cited prior sources: Toda Proposition 5.1 n=3 Delta injectivity"
+    }
+  ],
+  "unjustified_given_added": 0,
+  "historical_rules_modified": false,
+  "full_suite_run": false
+}

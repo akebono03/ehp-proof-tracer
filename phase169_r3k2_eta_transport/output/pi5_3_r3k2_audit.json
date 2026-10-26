@@ -1,0 +1,14 @@
+{
+  "phase": "169-R3K2",
+  "mode": "RENDERER_ONLY",
+  "status": "complete",
+  "proof_steps": 26,
+  "reference_count": 6,
+  "proven_eta_squared_image": true,
+  "eta_squared_image_premises": 2,
+  "eta_squared_transport_visible": true,
+  "duplicate_eta_components_visible": false,
+  "source_locator_preserved_in_view": true,
+  "citation_coverage": true,
+  "audit_pass": true
+}

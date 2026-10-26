@@ -1,0 +1,21 @@
+{
+  "phase": "169-R3E",
+  "lower_status": "complete",
+  "upper_status": "partial",
+  "upper_proven_steps": 4,
+  "historical_iso_proposals": 1,
+  "connected_iso_proposals": 1,
+  "ehp_connected_nodes": 11,
+  "exactness_proposals": 4,
+  "terminal_goals": [
+    "TodaHopfInvariantSurjectiveStatement",
+    "TodaDeltaInjectiveStatement"
+  ],
+  "terminal_proposals": {
+    "TodaHopfInvariantSurjectiveStatement": [],
+    "TodaDeltaInjectiveStatement": []
+  },
+  "screened_given_count": 17,
+  "pi4_publication_prior": true,
+  "complete_claim": false
+}

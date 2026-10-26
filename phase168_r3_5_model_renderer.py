@@ -14,6 +14,7 @@ def render_model_backed_narrative_markdown(
     from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
     from toda_rules import TodaProp42ExactnessStatement
     from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from phase165_r14_r6_generic_iso import GeneratorImage
     from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
     from phase165_r12_r21_eta_generator_chain import _eta_pair
@@ -110,6 +111,8 @@ def render_model_backed_narrative_markdown(
 
     for citation in model.citations:
         locator = citation.reference.locator or citation.reference.label
+        if locator == "Chapter V, i)":
+            locator = "η 系列の定義（Chapter V, i）"
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
         for sentence in citation.statement_bodies:
@@ -251,11 +254,55 @@ def render_model_backed_narrative_markdown(
     from expression import ScalarSymbol
     from homotopy_groups import TodaPrimaryGroup
     from web_group_proof_common import _group_proof_statement_latex
+    displayed_cyclic_math = set()
+    # A certified composite GeneratorImage incorporates its two verified
+    # generator-suspension premises. Suppress their separate prose only when
+    # they are uncited, used by that image alone, and its eta-square image
+    # can actually be displayed. No ProofSteps or citations are discarded.
+    if not incomplete:
+        for image_index in order:
+            image_step = model.steps[image_index]
+            image = image_step.conclusion
+            if (image_step.rule is not ProofRule.INFERENCE
+                    or not isinstance(image, GeneratorImage)
+                    or not isinstance(image.map, TodaSuspensionMap)
+                    or len(image_step.premises) != 2
+                    or element_tex(image.source_generator) is None
+                    or element_tex(image.target_generator) is None
+                    or not cited_general_ancestor_numbers(
+                        image_step, TodaEtaFamilyGeneralDefinition
+                    )
+                    or not all(isinstance(parent.conclusion, GeneratorSuspension)
+                               for parent in image_step.premises)):
+                continue
+            for parent in image_step.premises:
+                parent_index = unique_step_index(parent)
+                if (parent_index is not None and parent_index in order
+                        and parent_index != model.root_index
+                        and parent.rule is ProofRule.INFERENCE
+                        and not model.step_citation_numbers[parent_index]
+                        and only_consumed_by(parent, image_step)):
+                    suppressed_body_indices.add(parent_index)
     for index in order:
         if index in suppressed_body_indices:
             continue
         step = model.steps[index]
         statement = step.conclusion
+        if not incomplete:
+            from phase169_r3k_narrative_projection import duplicate_group_relation_notice
+            notice = duplicate_group_relation_notice(model, index, displayed_cyclic_math)
+            if notice is not None:
+                if notice:
+                    lines.extend((notice, ""))
+                continue
+            from homotopy_groups import FiniteCyclicGroup
+            if (isinstance(statement, Relation)
+                    and statement.relation_type is RelationType.EQUALITY
+                    and isinstance(statement.lhs, TodaPrimaryGroup)
+                    and isinstance(statement.rhs, FiniteCyclicGroup)):
+                latex, problem = _group_proof_statement_latex(statement)
+                if latex is not None and problem is None:
+                    displayed_cyclic_math.add(latex)
         if incomplete:
             body_line = body_by_step.get(index)
             if isinstance(statement, str):
@@ -339,8 +386,12 @@ def render_model_backed_narrative_markdown(
                     else:
                         eta_numbers = (
                             cited_general_ancestor_numbers(step, TodaEtaFamilyGeneralDefinition)
-                            if (isinstance(statement, GeneratorSuspension)
-                                and _eta_pair(statement) is not None)
+                            if ((isinstance(statement, GeneratorSuspension)
+                                 and _eta_pair(statement) is not None)
+                                or (isinstance(statement, GeneratorImage)
+                                    and isinstance(statement.map, TodaSuspensionMap)
+                                    and element_tex(statement.source_generator) is not None
+                                    and element_tex(statement.target_generator) is not None))
                             else ()
                         )
                         if eta_numbers:
@@ -382,7 +433,10 @@ def render_model_backed_narrative_markdown(
                 statement_latex = statement_latex.replace(r" \text{ is exact}", "")
                 lines.append(f"{prefix}${statement_latex}$ は完全.")
             else:
-                lines.append(f"{prefix}${statement_latex}$.")
+                from phase169_r3k_narrative_projection import project_proven_map_property
+                projected = project_proven_map_property(step, statement_latex)
+                lines.append(f"{prefix}{projected}" if projected is not None
+                             else f"{prefix}${statement_latex}$.")
             lines.append("")
     if incomplete:
         if model.open_goals:

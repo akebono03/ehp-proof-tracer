@@ -1,0 +1,20 @@
+{
+  "mode": "before",
+  "target": "pi_4^2",
+  "status": "complete",
+  "proofsteps": 3,
+  "given": 2,
+  "citation_locator": "(5.2)",
+  "citation_assertion_ids": [
+    "shared:4:typed_literature:assertion:toda:tex:ch5:0003"
+  ],
+  "citation_reference_ids": [
+    "shared:4:typed_literature:toda:tex:ch5:0003"
+  ],
+  "citation_step_indices": [
+    1,
+    2
+  ],
+  "citation_bodies": [],
+  "reference_body_rendered": false
+}

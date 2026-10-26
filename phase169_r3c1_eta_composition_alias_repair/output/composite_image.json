@@ -1,0 +1,39 @@
+{
+  "lower_status": "complete",
+  "upper_status": "partial",
+  "upper_proven_steps": 4,
+  "upper_open_goals": [
+    "CyclicStructureStatement",
+    "CyclicStructureStatement",
+    "Relation",
+    "CyclicStructureStatement",
+    "CyclicStructureStatement",
+    "Relation",
+    "Relation",
+    "TodaSuspensionIsomorphismStatement",
+    "Relation",
+    "Relation"
+  ],
+  "source_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "iso_goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+  "image_goal": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)), source_generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), target_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))",
+  "composite_image_proposals": 1,
+  "component_witness_types": [
+    "GeneratorSuspension",
+    "GeneratorSuspension"
+  ],
+  "target_citing_assertion": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+  "image_search_status": "proved",
+  "image_search_diagnostic": null,
+  "image_ancestor_given_types": [
+    "TodaEtaFamilyGeneralDefinition"
+  ],
+  "image_ancestor_inference_types": [
+    "TodaEtaFamilyDefinitionStatement",
+    "TodaEtaFamilyDefinitionStatement",
+    "GeneratorSuspension",
+    "TodaEtaFamilyDefinitionStatement",
+    "GeneratorSuspension",
+    "GeneratorImage"
+  ]
+}

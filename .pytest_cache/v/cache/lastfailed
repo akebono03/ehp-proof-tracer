@@ -974,7 +974,6 @@
   "phase165_r12_r23_self_contained_fix/tests/test_phase165_r12_r23_path_fix.py": true,
   "phase165_r12_r23_self_contained_fix/tests/test_phase165_r12_r23_public_narrative.py": true,
   "phase165_r12_r23_self_contained_fix/tests/test_phase165_r12_r23_runner_fix.py": true,
-  "phase165_r12_r24_web_search_connection/tests/test_phase165_r12_r24_web_search_connection.py": true,
   "phase165_r12_r32_derivation_audit/test_audit.py": true,
   "phase165_r12_r34_r3_audit/test_audit.py": true,
   "phase165_r12_r34_r4_scope_gate/test_audit.py": true,

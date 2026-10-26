@@ -4,6 +4,7 @@ All resulting steps use R12-R20 cited definition proof ancestors; no new GIVENs.
 """
 from __future__ import annotations
 
+from expression import Composition, HomotopyElement
 from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
 from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
 from phase165_r14_r6_generic_iso import GeneratorImage
@@ -59,6 +60,90 @@ def suspension_to_generator_image_rule() -> InferenceRule:
     )
 
 
+def _composition_eta_suspensions(goal: object) -> tuple[GeneratorSuspension, GeneratorSuspension] | None:
+    """Bind a composite DB eta goal to independently provable canonical steps.
+
+    Source database spelling may use Unicode subscripts, whereas the existing
+    cited eta-family definitions use their own canonical element objects.
+    Treat only previously recognized eta-name aliases as the same generator;
+    index, family, dimension, source and target must all match exactly.
+    The returned subgoals are canonical typed goals, not proof certificates.
+    """
+    if not isinstance(goal, GeneratorImage) or not isinstance(goal.map, TodaSuspensionMap):
+        return None
+    source, target = goal.source_generator, goal.target_generator
+    if not isinstance(source, Composition) or not isinstance(target, Composition):
+        return None
+    left, right = source.left, source.right
+    suspended_left, suspended_right = target.left, target.right
+    factors = (left, right, suspended_left, suspended_right)
+    if not all(isinstance(factor, HomotopyElement) for factor in factors):
+        return None
+    if not all(type(value) is int for factor in factors
+               for value in (factor.dimension, factor.source, factor.target)):
+        return None
+    n = left.target
+    if n < 2 or left.source != right.target or suspended_left.source != suspended_right.target:
+        return None
+    if (goal.map.source_group != TodaPrimaryGroup(n + 2, n)
+            or goal.map.target_group != TodaPrimaryGroup(n + 3, n + 1)):
+        return None
+
+    from phase165_r12_r28_presentation_connection import _matching_eta_name
+    older = toda_eta_family_definition_statement(n).element
+    middle = toda_eta_family_definition_statement(n + 1).element
+    newer = toda_eta_family_definition_statement(n + 2).element
+    if not all(_matching_eta_name(actual, canonical) for actual, canonical in (
+        (left, older),
+        (right, middle),
+        (suspended_left, middle),
+        (suspended_right, newer),
+    )):
+        return None
+
+    first = GeneratorSuspension(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(n + 1, n),
+            TodaPrimaryGroup(n + 2, n + 1),
+        ),
+        older,
+        middle,
+    )
+    second = GeneratorSuspension(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(n + 2, n + 1),
+            TodaPrimaryGroup(n + 3, n + 2),
+        ),
+        middle,
+        newer,
+    )
+    if _eta_pair(first) is None or _eta_pair(second) is None:
+        return None
+    return first, second
+
+
+def composition_eta_suspension_image_rule(goal: GeneratorImage) -> InferenceRule:
+    """Suspend a composite only from two verified component suspensions."""
+    expected = _composition_eta_suspensions(goal)
+    if expected is None:
+        raise ValueError("goal must be a typed composite of consecutive eta suspensions")
+
+    def guard(premises, bindings):
+        return (len(premises) == 2
+                and all(step.rule is ProofRule.INFERENCE for step in premises)
+                and tuple(step.conclusion for step in premises) == expected)
+
+    return InferenceRule(
+        name="suspension preserves composition of proved eta generators",
+        premise_patterns=(
+            PremisePattern(proof_rule=ProofRule.INFERENCE, statement_type=GeneratorSuspension),
+            PremisePattern(proof_rule=ProofRule.INFERENCE, statement_type=GeneratorSuspension),
+        ),
+        match_guard=guard,
+        conclusion_pattern=goal,
+    )
+
+
 def expand_cited_eta_generator(goal: object) -> tuple[GoalExpansion, ...]:
     if isinstance(goal, GeneratorSuspension):
         pair = _eta_pair(goal)
@@ -67,9 +152,11 @@ def expand_cited_eta_generator(goal: object) -> tuple[GoalExpansion, ...]:
         return (GoalExpansion(eta_definition_to_suspension_rule(goal), pair),)
     if isinstance(goal, GeneratorImage) and isinstance(goal.map, TodaSuspensionMap):
         witness = GeneratorSuspension(goal.map, goal.source_generator, goal.target_generator)
-        if _eta_pair(witness) is None:
-            return ()
-        return (GoalExpansion(suspension_to_generator_image_rule(), (witness,)),)
+        if _eta_pair(witness) is not None:
+            return (GoalExpansion(suspension_to_generator_image_rule(), (witness,)),)
+        composite = _composition_eta_suspensions(goal)
+        if composite is not None:
+            return (GoalExpansion(composition_eta_suspension_image_rule(goal), composite),)
     return ()
 
 

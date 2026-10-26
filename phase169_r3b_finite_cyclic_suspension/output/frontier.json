@@ -1,0 +1,44 @@
+{
+  "lower_status": "complete",
+  "upper_status": "partial",
+  "upper_proven_steps": 4,
+  "upper_open_goals": [
+    "CyclicStructureStatement",
+    "CyclicStructureStatement",
+    "Relation",
+    "CyclicStructureStatement",
+    "CyclicStructureStatement",
+    "Relation",
+    "Relation",
+    "TodaSuspensionIsomorphismStatement",
+    "Relation",
+    "Relation"
+  ],
+  "upper_diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "source_goal_candidates": 2,
+  "root_candidate_rules": [
+    "finite cyclic structure gives group relation",
+    "finite cyclic presentation transported by proved suspension isomorphism",
+    "equality symmetry",
+    "finite cyclic structure gives group relation"
+  ],
+  "transport_candidates": 1,
+  "transport_subgoals": [
+    {
+      "type": "Relation",
+      "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    },
+    {
+      "type": "TodaSuspensionIsomorphismStatement",
+      "repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+    },
+    {
+      "type": "GeneratorImage",
+      "repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)), source_generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), target_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))"
+    }
+  ],
+  "cited_iso_as_given": false,
+  "cited_generator_image_as_given": false
+}

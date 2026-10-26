@@ -51,9 +51,11 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
         from phase165_r12_r11_prop42_unified import build_adopted_prop42_general_reference
         from phase165_r12_r15_toda51 import build_adopted_toda51_zero_reference
         from phase165_r12_r20_eta_definition import build_cited_eta_family_definition
+        from phase169_r3h_source_registry import build_adopted_toda53_hopf_reference
         sources = (production, build_adopted_typed_reference_registry(adopted_tex),
                    build_adopted_prop51_reference(),
-                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex), build_cited_eta_family_definition(Path(__file__).resolve().parent / 'sources' / 'toda' / 'Toda_05_2.tex'))
+                   build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex), build_cited_eta_family_definition(Path(__file__).resolve().parent / 'sources' / 'toda' / 'Toda_05_2.tex'),
+                   build_adopted_toda53_hopf_reference(production))
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -159,6 +161,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     extra_providers = (expand_free_cyclic_structure_from_relation,) + tuple(extra_providers)
     extra_providers = (build_concrete_kernel_provider(bridge),) + tuple(extra_providers)
     extra_providers = (build_exactness_binding_provider(bridge), build_prop42_specialization_provider(bridge), expand_ehp_exactness_consequences) + tuple(extra_providers)
+    # Phase 169 R3E: connect the pre-existing typed EHP goal expansions.
+    # These propose subgoals only; no completed map property or proof leaf is inserted.
+    from phase165_r14_r5_ehp_connection import (
+        expand_registered_ehp_goal, expand_registered_ehp_terminal_goal,
+        expand_cited_ehp_terminal_goal,
+    )
+    extra_providers = (expand_registered_ehp_goal,) + tuple(extra_providers)
     available = []
     for link in bridge.proof_links:
         if link.step is None or link.step.rule is not ProofRule.GIVEN:
@@ -237,6 +246,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
+        options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
+        # R3I: earlier cited GIVEN sources are valid inference premises.
+        # Retain the historical inference-only proposal independently.
+        options.extend(expand_cited_ehp_terminal_goal(goal, tuple(available)))
         from phase168_r2_toda52_transport import expand_toda52_finite_cyclic_goal
         options.extend(expand_toda52_finite_cyclic_goal(goal, tuple(available)))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
