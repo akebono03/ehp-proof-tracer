@@ -1,0 +1,527 @@
+{
+  "phase": "169-R3J",
+  "mode": "AUDIT_ONLY",
+  "target": "pi_5^3",
+  "status": "complete",
+  "proven_steps": 26,
+  "model_steps": 26,
+  "root_index": 25,
+  "web_key": "generic-complete-proof",
+  "web_partial": false,
+  "citation_count": 6,
+  "citations": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.1",
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3",
+        "shared:2:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "reference_ids": [
+        "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "body_count": 1,
+      "statement_bodies": [
+        "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+      ],
+      "step_indices": [
+        0,
+        5
+      ],
+      "mentioned_in_proof": true
+    },
+    {
+      "number": 2,
+      "locator": "(5.2)",
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch5:0003"
+      ],
+      "reference_ids": [
+        "shared:4:typed_literature:toda:tex:ch5:0003"
+      ],
+      "body_count": 1,
+      "statement_bodies": [
+        "$i\\ge 3$ に対し, $\\eta_2\\circ(-):\\pi_i^3\\xrightarrow{\\cong}\\pi_i^2$ は同型."
+      ],
+      "step_indices": [
+        1,
+        3
+      ],
+      "mentioned_in_proof": true
+    },
+    {
+      "number": 3,
+      "locator": "Proposition 5.3",
+      "assertion_ids": [
+        "shared:0:boundary:Proposition 5.3:pi4_2_group_relation"
+      ],
+      "reference_ids": [
+        "shared:0:toda:Proposition 5.3"
+      ],
+      "body_count": 1,
+      "statement_bodies": [
+        "$\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}$."
+      ],
+      "step_indices": [
+        2
+      ],
+      "mentioned_in_proof": true
+    },
+    {
+      "number": 4,
+      "locator": "(5.3)",
+      "assertion_ids": [
+        "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation"
+      ],
+      "reference_ids": [
+        "shared:8:toda:(5.3)"
+      ],
+      "body_count": 1,
+      "statement_bodies": [
+        "$H\\left(\\nu'\\right) = \\eta_{5}$."
+      ],
+      "step_indices": [
+        4
+      ],
+      "mentioned_in_proof": true
+    },
+    {
+      "number": 5,
+      "locator": "Proposition 4.2 (4.4)",
+      "assertion_ids": [
+        "shared:5:adopted:assertion:prop42:general"
+      ],
+      "reference_ids": [
+        "shared:5:adopted:reference:prop42:general"
+      ],
+      "body_count": 1,
+      "statement_bodies": [
+        "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+      ],
+      "step_indices": [
+        7
+      ],
+      "mentioned_in_proof": true
+    },
+    {
+      "number": 6,
+      "locator": "Chapter V, i)",
+      "assertion_ids": [
+        "shared:7:adopted:assertion:toda5:eta_family_definition"
+      ],
+      "reference_ids": [
+        "shared:7:adopted:reference:toda5:eta_family_definition"
+      ],
+      "body_count": 1,
+      "statement_bodies": [
+        "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+      ],
+      "step_indices": [
+        18
+      ],
+      "mentioned_in_proof": true
+    }
+  ],
+  "proof_citation_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+  ],
+  "all_citations_mentioned": true,
+  "reference_section_line_count": 23,
+  "proof_section_line_count": 33,
+  "english_map_property_lines": [
+    {
+      "line": 13,
+      "text": "$H: \\pi_{6}^{3} \\to \\pi_{6}^{5} \\text{ is surjective}$.",
+      "tokens": [
+        "is surjective"
+      ]
+    },
+    {
+      "line": 17,
+      "text": "$E: \\pi_{4}^{2} \\to \\pi_{5}^{3} \\text{ is injective}$.",
+      "tokens": [
+        "is injective"
+      ]
+    },
+    {
+      "line": 19,
+      "text": "$\\Delta: \\pi_{5}^{5} \\to \\pi_{3}^{2} \\text{ is injective}$.",
+      "tokens": [
+        "is injective"
+      ]
+    },
+    {
+      "line": 21,
+      "text": "$H: \\pi_{5}^{3} \\to \\pi_{5}^{5} \\text{ is the zero map}$.",
+      "tokens": [
+        "is the zero map"
+      ]
+    },
+    {
+      "line": 23,
+      "text": "$E: \\pi_{4}^{2} \\to \\pi_{5}^{3} \\text{ is surjective}$.",
+      "tokens": [
+        "is surjective"
+      ]
+    }
+  ],
+  "unrenderable_lines": [],
+  "duplicated_math_expressions": [
+    {
+      "formula": "\\pi_{4}^{2}=\\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "count": 2
+    }
+  ],
+  "presentation_diagnostics": {
+    "pi4_2_presentation_mentions": 2,
+    "reference_eta_family_heading": true,
+    "visible_eta_suspension_lines": [
+      "[R6]より, $E(\\eta_{2})=\\eta_{3}$.",
+      "[R6]より, $E(\\eta_{3})=\\eta_{4}$."
+    ],
+    "explicit_eta_squared_transport": false,
+    "terminal_hopf_surjectivity_proven": true,
+    "terminal_delta_injectivity_proven": true
+  },
+  "step_diagnostics": [
+    {
+      "step_index": 0,
+      "rule": "given",
+      "statement_type": "Relation",
+      "premise_count": 0,
+      "citation_numbers": [
+        1
+      ],
+      "latex": "\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 1,
+      "rule": "given",
+      "statement_type": "Toda52UniversalStatement",
+      "premise_count": 0,
+      "citation_numbers": [
+        2
+      ],
+      "latex": null,
+      "fallback": "Toda52UniversalStatement",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 2,
+      "rule": "given",
+      "statement_type": "Relation",
+      "premise_count": 0,
+      "citation_numbers": [
+        3
+      ],
+      "latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 3,
+      "rule": "inference",
+      "statement_type": "Relation",
+      "premise_count": 2,
+      "citation_numbers": [
+        2
+      ],
+      "latex": "\\pi_{4}^{2} = \\mathbb{Z}/2\\{\\eta_{2}^{2}\\}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 4,
+      "rule": "given",
+      "statement_type": "Relation",
+      "premise_count": 0,
+      "citation_numbers": [
+        4
+      ],
+      "latex": "H\\left(\\nu'\\right) = \\eta_{5}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 5,
+      "rule": "given",
+      "statement_type": "TodaProp51FiniteDimensionalStatement",
+      "premise_count": 0,
+      "citation_numbers": [
+        1
+      ],
+      "latex": null,
+      "fallback": "TodaProp51FiniteDimensionalStatement",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 6,
+      "rule": "inference",
+      "statement_type": "TodaHopfInvariantSurjectiveStatement",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": "H: \\pi_{6}^{3} \\to \\pi_{6}^{5} \\text{ is surjective}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 7,
+      "rule": "given",
+      "statement_type": "TodaProp42GeneralExactnessStatement",
+      "premise_count": 0,
+      "citation_numbers": [
+        5
+      ],
+      "latex": null,
+      "fallback": "TodaProp42GeneralExactnessStatement",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 8,
+      "rule": "inference",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": "\\pi_{6}^{3} \\xrightarrow{H} \\pi_{6}^{5} \\xrightarrow{\\Delta} \\pi_{4}^{2} \\text{ is exact}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 9,
+      "rule": "inference",
+      "statement_type": "TodaDeltaZeroStatement",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "TodaDeltaZeroStatement",
+      "typed_japanese_candidate": "完全性より, $\\operatorname{Im}\\Delta=\\ker E=0$ なので, $\\Delta: \\pi_{6}^{5}\\to \\pi_{4}^{2}$ は零写像である.",
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 10,
+      "rule": "inference",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": "\\pi_{6}^{5} \\xrightarrow{\\Delta} \\pi_{4}^{2} \\xrightarrow{E} \\pi_{5}^{3} \\text{ is exact}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 11,
+      "rule": "inference",
+      "statement_type": "TodaSuspensionInjectiveStatement",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": "E: \\pi_{4}^{2} \\to \\pi_{5}^{3} \\text{ is injective}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 12,
+      "rule": "inference",
+      "statement_type": "TodaDeltaInjectiveStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": "\\Delta: \\pi_{5}^{5} \\to \\pi_{3}^{2} \\text{ is injective}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 13,
+      "rule": "inference",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": "\\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5} \\xrightarrow{\\Delta} \\pi_{3}^{2} \\text{ is exact}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 14,
+      "rule": "inference",
+      "statement_type": "TodaHopfInvariantZeroStatement",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": "H: \\pi_{5}^{3} \\to \\pi_{5}^{5} \\text{ is the zero map}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 15,
+      "rule": "inference",
+      "statement_type": "TodaProp42ExactnessStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": "\\pi_{4}^{2} \\xrightarrow{E} \\pi_{5}^{3} \\xrightarrow{H} \\pi_{5}^{5} \\text{ is exact}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 16,
+      "rule": "inference",
+      "statement_type": "TodaSuspensionSurjectiveStatement",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": "E: \\pi_{4}^{2} \\to \\pi_{5}^{3} \\text{ is surjective}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 17,
+      "rule": "inference",
+      "statement_type": "TodaSuspensionIsomorphismStatement",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "TodaSuspensionIsomorphismStatement",
+      "typed_japanese_candidate": "$E: \\pi_{4}^{2}\\to \\pi_{5}^{3}$ は同型.",
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 18,
+      "rule": "given",
+      "statement_type": "TodaEtaFamilyGeneralDefinition",
+      "premise_count": 0,
+      "citation_numbers": [
+        6
+      ],
+      "latex": null,
+      "fallback": "TodaEtaFamilyGeneralDefinition",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 19,
+      "rule": "inference",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 20,
+      "rule": "inference",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 21,
+      "rule": "inference",
+      "statement_type": "GeneratorSuspension",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "GeneratorSuspension",
+      "typed_japanese_candidate": "$E(\\eta_{2})=\\eta_{3}$.",
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 22,
+      "rule": "inference",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "premise_count": 1,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "TodaEtaFamilyDefinitionStatement",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 23,
+      "rule": "inference",
+      "statement_type": "GeneratorSuspension",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "GeneratorSuspension",
+      "typed_japanese_candidate": "$E(\\eta_{3})=\\eta_{4}$.",
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 24,
+      "rule": "inference",
+      "statement_type": "GeneratorImage",
+      "premise_count": 2,
+      "citation_numbers": [],
+      "latex": null,
+      "fallback": "GeneratorImage",
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": false
+    },
+    {
+      "step_index": 25,
+      "rule": "inference",
+      "statement_type": "Relation",
+      "premise_count": 3,
+      "citation_numbers": [],
+      "latex": "\\pi_{5}^{3} = \\mathbb{Z}/2\\{\\eta_{3}^{2}\\}",
+      "fallback": null,
+      "typed_japanese_candidate": null,
+      "typed_candidate_error": null,
+      "is_root": true
+    }
+  ],
+  "limitations": [
+    "Display anomalies do not invalidate or certify mathematical inferences.",
+    "This audit never modifies ProofStep, Narrative Model, citation positions, or renderer.",
+    "A source heading must not be removed without separate citation-coverage verification.",
+    "Eta-squared transport must not be inserted without a typed proof ancestor."
+  ]
+}
