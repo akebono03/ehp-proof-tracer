@@ -2549,9 +2549,5 @@
   "phase168_r3_41n_composed_proof_display/tests/test_phase168_r3_41n_composed_proof_display.py::test_no_source_citation_or_benchmark_regression[pi4_3]": true,
   "phase168_r3_41n_composed_proof_display/tests/test_phase168_r3_41n_composed_proof_display.py::test_no_source_citation_or_benchmark_regression[pi5_4]": true,
   "phase168_r3_41n_composed_proof_display/tests/test_phase168_r3_41n_composed_proof_display.py::test_pi32_hopf_reasoning_does_not_lose_exactness": true,
-  "phase168_r3_41p17_origin_handoff/tests/test_phase168_r3_41p17_origin_handoff.py::test_forged_inference_is_not_factory_observed": true,
-  "phase169_r3j_narrative_boundary_audit/tests/test_r3j_narrative_boundary_audit.py::test_r3j_public_model_route_has_completed_typed_root": true,
-  "phase169_r3j_narrative_boundary_audit/tests/test_r3j_narrative_boundary_audit.py::test_r3j_reference_items_trace_to_actual_model": true,
-  "phase169_r3j_narrative_boundary_audit/tests/test_r3j_narrative_boundary_audit.py::test_r3j_display_anomalies_are_diagnostics_only": true,
-  "phase169_r3j_narrative_boundary_audit/tests/test_r3j_narrative_boundary_audit.py::test_r3j_inference_terminal_steps_are_preserved": true
+  "phase168_r3_41p17_origin_handoff/tests/test_phase168_r3_41p17_origin_handoff.py::test_forged_inference_is_not_factory_observed": true
 }

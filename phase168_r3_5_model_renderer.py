@@ -251,11 +251,27 @@ def render_model_backed_narrative_markdown(
     from expression import ScalarSymbol
     from homotopy_groups import TodaPrimaryGroup
     from web_group_proof_common import _group_proof_statement_latex
+    displayed_cyclic_math = set()
     for index in order:
         if index in suppressed_body_indices:
             continue
         step = model.steps[index]
         statement = step.conclusion
+        if not incomplete:
+            from phase169_r3k_narrative_projection import duplicate_group_relation_notice
+            notice = duplicate_group_relation_notice(model, index, displayed_cyclic_math)
+            if notice is not None:
+                if notice:
+                    lines.extend((notice, ""))
+                continue
+            from homotopy_groups import FiniteCyclicGroup
+            if (isinstance(statement, Relation)
+                    and statement.relation_type is RelationType.EQUALITY
+                    and isinstance(statement.lhs, TodaPrimaryGroup)
+                    and isinstance(statement.rhs, FiniteCyclicGroup)):
+                latex, problem = _group_proof_statement_latex(statement)
+                if latex is not None and problem is None:
+                    displayed_cyclic_math.add(latex)
         if incomplete:
             body_line = body_by_step.get(index)
             if isinstance(statement, str):
@@ -382,7 +398,10 @@ def render_model_backed_narrative_markdown(
                 statement_latex = statement_latex.replace(r" \text{ is exact}", "")
                 lines.append(f"{prefix}${statement_latex}$ は完全.")
             else:
-                lines.append(f"{prefix}${statement_latex}$.")
+                from phase169_r3k_narrative_projection import project_proven_map_property
+                projected = project_proven_map_property(step, statement_latex)
+                lines.append(f"{prefix}{projected}" if projected is not None
+                             else f"{prefix}${statement_latex}$.")
             lines.append("")
     if incomplete:
         if model.open_goals:
