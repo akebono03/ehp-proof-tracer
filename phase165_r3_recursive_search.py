@@ -131,6 +131,20 @@ def reconstruct_registered_goal(
                 solved.append((target, step))
                 report("proved", target, step)
                 return step
+            # R3N: a positioned DB result needs no completed earlier proof.
+            # Exact screened GIVEN sources were returned above. Only differing
+            # registered generator presentations reach this guarded fallback.
+            if lookup_mode == "typed_reference_publication" and not options:
+                from phase169_r3n_prior_result_alias import resolve_prior_result_alias_step
+                alias_step = resolve_prior_result_alias_step(
+                    target, bridge, citing_assertion_id,
+                )
+                if alias_step is not None:
+                    for prior_step in alias_step.premises:
+                        report("proved", prior_step.conclusion, prior_step)
+                    solved.append((target, alias_step))
+                    report("proved", target, alias_step)
+                    return alias_step
             # phase165_reference_stop_r3: direct eligible source before prior internal proof
             if completed_internal_proofs:
                 from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
