@@ -255,15 +255,32 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase169_r5b_pi75_prior_transport.rule import (
             expand_prior_cited_toda45_composite_transport,
         )
-        options.extend(expand_prior_cited_toda45_composite_transport(
+        legacy_one_step_options = expand_prior_cited_toda45_composite_transport(
             goal, tuple(available), bridge, proof_target=proof_target,
-        ))
+        )
+        options.extend(legacy_one_step_options)
         from phase169_r6a_pi86_two_step_transport.rule import (
             expand_prior_two_step_eta_square_transport,
         )
-        options.extend(expand_prior_two_step_eta_square_transport(
+        legacy_two_step_options = expand_prior_two_step_eta_square_transport(
             goal, tuple(available), bridge, proof_target=proof_target,
-        ))
+        )
+        options.extend(legacy_two_step_options)
+        # R7 integration boundary: enable on the active 2-stem only.
+        # The mathematical inference rule itself has no stem-specific branch.
+        # Preserve the already verified R5B/R6A routes without ambiguity.
+        from phase169_r7_general_stable_transport.rule import (
+            expand_prior_general_stable_transport,
+        )
+        if (not legacy_one_step_options and not legacy_two_step_options
+                and isinstance(goal, Relation)
+                and isinstance(goal.lhs, TodaPrimaryGroup)
+                and type(goal.lhs.group_dimension) is int
+                and type(goal.lhs.sphere_dimension) is int
+                and goal.lhs.group_dimension - goal.lhs.sphere_dimension == 2):
+            options.extend(expand_prior_general_stable_transport(
+                goal, tuple(available), bridge, proof_target=proof_target,
+            ))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
         # R3I: earlier cited GIVEN sources are valid inference premises.
         # Retain the historical inference-only proposal independently.
