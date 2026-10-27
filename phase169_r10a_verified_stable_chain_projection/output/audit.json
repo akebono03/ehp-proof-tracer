@@ -1,0 +1,17 @@
+{
+  "phase": "169-R10A",
+  "head": "bd1412e28e8d2861e073a1c13ea886f049d19603",
+  "status": "complete",
+  "proof_steps": 21,
+  "model_steps": 21,
+  "open_goals": 0,
+  "compressed_image_equations": 1,
+  "stable_isomorphism_occurrences": 1,
+  "reference_count": 3,
+  "proof_tree_verified": true,
+  "web_key": "generic-complete-proof",
+  "production_files_changed": [
+    "phase168_r3_5_model_renderer.py"
+  ],
+  "full_pytest_run": false
+}

@@ -283,7 +283,28 @@ def render_model_backed_narrative_markdown(
                         and not model.step_citation_numbers[parent_index]
                         and only_consumed_by(parent, image_step)):
                     suppressed_body_indices.add(parent_index)
+    # R10A: presentation-only projection of the already-verified E^r image chain.
+    # The Proof Tree, its citations, and all original ProofSteps remain intact.
+    from phase169_r10a_verified_stable_chain_projection.projection import (
+        project_verified_stable_image_chain,
+    )
+    stable_chain_display = (
+        project_verified_stable_image_chain(model, order)
+        if not incomplete else None
+    )
+    if stable_chain_display is not None:
+        suppressed_body_indices.update(stable_chain_display.hidden_indices)
     for index in order:
+        if stable_chain_display is not None and index == stable_chain_display.root_index:
+            source_tags = ", ".join(
+                f"[R{number}]" for number in stable_chain_display.citation_numbers
+            )
+            compressed_statement = (
+                rf"$E^{{{stable_chain_display.exponent}}}"
+                rf"({stable_chain_display.source_tex})="
+                rf"{stable_chain_display.target_tex}$"
+            )
+            lines.extend((f"{source_tags}より, {compressed_statement}.", ""))
         if index in suppressed_body_indices:
             continue
         step = model.steps[index]
