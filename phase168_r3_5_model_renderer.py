@@ -288,8 +288,12 @@ def render_model_backed_narrative_markdown(
     from phase169_r10a_verified_stable_chain_projection.projection import (
         project_verified_stable_image_chain,
     )
+    from phase169_r10a2_unified_one_stem.one_stem_projection import (
+        project_verified_one_stem_notation_chain,
+    )
     stable_chain_display = (
-        project_verified_stable_image_chain(model, order)
+        (project_verified_stable_image_chain(model, order)
+         or project_verified_one_stem_notation_chain(model, order))
         if not incomplete else None
     )
     if stable_chain_display is not None:
@@ -392,7 +396,11 @@ def render_model_backed_narrative_markdown(
                 continue
         # Only verbalize the certified stable-eta normalization already
         # represented by this step's source relation and cited definition.
-        transition = project_stable_eta_notation_transition(model, index)
+        transition = (
+        None
+        if stable_chain_display is not None and index == stable_chain_display.root_index
+        else project_stable_eta_notation_transition(model, index)
+    )
         if transition is not None:
             lines.extend((transition, ""))
         body_line = body_by_step.get(index)
