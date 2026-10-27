@@ -1,0 +1,34 @@
+{
+  "phase": "169 R10E9",
+  "mode": "FOCUSED_PATCH_AUDIT",
+  "source_equations_added": false,
+  "mathematical_inference_rules_added": false,
+  "csv_names_as_proof": false,
+  "full_pytest_run": false,
+  "cases": [
+    {
+      "target": "pi_22^13",
+      "status": "complete",
+      "open_goals": [],
+      "inferred_generator_images": 18,
+      "proven_steps": 46,
+      "complete_claim_from_audit": false
+    },
+    {
+      "target": "pi_24^15",
+      "status": "complete",
+      "open_goals": [],
+      "inferred_generator_images": 34,
+      "proven_steps": 72,
+      "complete_claim_from_audit": false
+    },
+    {
+      "target": "pi_23^15",
+      "status": "complete",
+      "open_goals": [],
+      "inferred_generator_images": 10,
+      "proven_steps": 28,
+      "complete_claim_from_audit": false
+    }
+  ]
+}
