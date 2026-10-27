@@ -1,0 +1,142 @@
+{
+  "phase": "169-R8",
+  "mode": "AUDIT_ONLY",
+  "timestamp_utc": "2026-10-27T02:06:23.265082+00:00",
+  "branch": "develop",
+  "local_head": "c6ec2cd7579d16472e2381b9dfe5ff6e5b592546",
+  "remote_develop": "c6ec2cd7579d16472e2381b9dfe5ff6e5b592546\trefs/heads/develop",
+  "working_tree_before": "",
+  "cases": [
+    {
+      "n": 5,
+      "k": 3,
+      "group": "pi_8^5",
+      "goal_candidates": 1,
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "citation_status": "screened",
+      "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+      "admitted_given_count": 24,
+      "has_toda45_source": true,
+      "shared_root_candidates": 3,
+      "shared_general_transport_root_candidates": 0,
+      "direct_general_transport_candidates": 0,
+      "prior_sources": [],
+      "proof_status": "search_failed",
+      "proof_steps": 0,
+      "unresolved_goal_count": 3,
+      "unresolved_goal_types": [
+        "CyclicStructureStatement",
+        "Relation",
+        "Relation"
+      ],
+      "root_rule_name": null
+    },
+    {
+      "n": 6,
+      "k": 3,
+      "group": "pi_9^6",
+      "goal_candidates": 1,
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₆', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "citation_status": "screened",
+      "citing_assertion_id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+      "admitted_given_count": 25,
+      "has_toda45_source": true,
+      "shared_root_candidates": 3,
+      "shared_general_transport_root_candidates": 0,
+      "direct_general_transport_candidates": 1,
+      "prior_sources": [
+        {
+          "n": 5,
+          "k": 3,
+          "eligible": true,
+          "reason": "prior_fixed_source",
+          "positioned_citation": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+          "has_candidate_relation": true,
+          "typed_image_goals": 1,
+          "image_types": [
+            "GeneratorImage"
+          ],
+          "first_generator_image": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6)), source_generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), target_generator=HomotopyElement(name='ν₆', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None)))"
+        }
+      ],
+      "general_transport_subgoals": [
+        "Relation",
+        "Toda45IsomorphismStatement",
+        "GeneratorImage"
+      ],
+      "generator_image_subgoals": 1,
+      "proof_status": "search_failed",
+      "proof_steps": 0,
+      "unresolved_goal_count": 3,
+      "unresolved_goal_types": [
+        "CyclicStructureStatement",
+        "Relation",
+        "Relation"
+      ],
+      "root_rule_name": null
+    },
+    {
+      "n": 7,
+      "k": 3,
+      "group": "pi_10^7",
+      "goal_candidates": 1,
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "citation_status": "screened",
+      "citing_assertion_id": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+      "admitted_given_count": 25,
+      "has_toda45_source": true,
+      "shared_root_candidates": 3,
+      "shared_general_transport_root_candidates": 0,
+      "direct_general_transport_candidates": 1,
+      "prior_sources": [
+        {
+          "n": 5,
+          "k": 3,
+          "eligible": true,
+          "reason": "prior_fixed_source",
+          "positioned_citation": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+          "has_candidate_relation": true,
+          "typed_image_goals": 2,
+          "image_types": [
+            "GeneratorImage",
+            "GeneratorImage"
+          ],
+          "first_generator_image": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6)), source_generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), target_generator=HomotopyElement(name='ν₆', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None)))"
+        },
+        {
+          "n": 6,
+          "k": 3,
+          "eligible": false,
+          "reason": "source_not_prior",
+          "positioned_citation": "shared:0:boundary:Proposition 5.6:higher_nu_group_relation",
+          "has_candidate_relation": true,
+          "typed_image_goals": 1,
+          "image_types": [
+            "GeneratorImage"
+          ],
+          "first_generator_image": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=6), target_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7)), source_generator=HomotopyElement(name='ν₆', dimension=6, source=9, target=6, generator=GeneratorSymbol(family='ν', index=6, decoration=None)), target_generator=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)))"
+        }
+      ],
+      "general_transport_subgoals": [
+        "Relation",
+        "Toda45IsomorphismStatement",
+        "GeneratorImage",
+        "GeneratorImage"
+      ],
+      "generator_image_subgoals": 2,
+      "proof_status": "search_failed",
+      "proof_steps": 0,
+      "unresolved_goal_count": 3,
+      "unresolved_goal_types": [
+        "CyclicStructureStatement",
+        "Relation",
+        "Relation"
+      ],
+      "root_rule_name": null
+    }
+  ],
+  "whole_pytest_run": false,
+  "production_files_modified": false,
+  "working_tree_after": "",
+  "working_tree_unchanged": true
+}
