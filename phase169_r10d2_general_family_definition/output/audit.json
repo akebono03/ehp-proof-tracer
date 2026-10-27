@@ -1,0 +1,66 @@
+{
+  "phase": "169-R10D2",
+  "branch": "develop",
+  "head": "bcea6120a31533d56bdacb879b2eb53049506cc8",
+  "source_position_by_family_id": {
+    "4": 8550,
+    "9": 10450
+  },
+  "reviewed_family_count": 2,
+  "all_db_families_are_proven": false,
+  "nu_public_image_options": 1,
+  "three_stem_completed": true,
+  "cases": [
+    {
+      "group": "pi_9^8",
+      "stem": 1,
+      "status": "complete",
+      "proof_steps": 10,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_10^8",
+      "stem": 2,
+      "status": "complete",
+      "proof_steps": 21,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_8^5",
+      "stem": 3,
+      "status": "search_failed",
+      "proof_steps": 0,
+      "open_goals": 3,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ]
+    },
+    {
+      "group": "pi_9^6",
+      "stem": 3,
+      "status": "complete",
+      "proof_steps": 9,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_10^7",
+      "stem": 3,
+      "status": "complete",
+      "proof_steps": 11,
+      "open_goals": 0,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_11^8",
+      "stem": 3,
+      "status": "complete",
+      "proof_steps": 13,
+      "open_goals": 0,
+      "diagnostics": []
+    }
+  ],
+  "full_pytest_run": false
+}
