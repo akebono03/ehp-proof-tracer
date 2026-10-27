@@ -273,18 +273,20 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             goal, tuple(available), bridge, proof_target=proof_target,
         )
         options.extend(legacy_two_step_options)
-        # R10D2: stem-neutral R7 transport, with publication order checked
-        # by the prior-source resolver and each generator image independently proved.
-        # Retain the already verified R5B/R6A expansions when they are available.
-        from phase169_r7_general_stable_transport.rule import (
-            expand_prior_general_stable_transport,
+        # R10E1: one typed entry for zero, cyclic, free and direct-sum groups.
+        # Previously verified finite-cyclic derivations retain their R7 adapter.
+        # Neither DB results nor candidate generators become GIVEN proof leaves.
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from phase169_r10e1_general_group_transport.transport import (
+            expand_prior_general_group_transport,
         )
         if (not legacy_one_step_options and not legacy_two_step_options
-                and isinstance(goal, Relation)
-                and isinstance(goal.lhs, TodaPrimaryGroup)
-                and type(goal.lhs.group_dimension) is int
-                and type(goal.lhs.sphere_dimension) is int):
-            options.extend(expand_prior_general_stable_transport(
+                and ((isinstance(goal, Relation)
+                      and isinstance(goal.lhs, TodaPrimaryGroup)
+                      and type(goal.lhs.group_dimension) is int
+                      and type(goal.lhs.sphere_dimension) is int)
+                     or isinstance(goal, TodaPrimaryGroupZeroStatement))):
+            options.extend(expand_prior_general_group_transport(
                 goal, tuple(available), bridge, proof_target=proof_target,
             ))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
