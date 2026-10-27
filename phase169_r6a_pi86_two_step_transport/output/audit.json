@@ -1,0 +1,39 @@
+{
+  "phase": "169-R6A",
+  "head": "43079793291001226b10bba33b80ff311849fba4",
+  "status": "complete",
+  "steps": 15,
+  "open_goals": 0,
+  "root_inference_premises": 4,
+  "root_premise_rules": [
+    "inference",
+    "inference",
+    "inference",
+    "inference"
+  ],
+  "root_premise_types": [
+    "Relation",
+    "Toda45IsomorphismStatement",
+    "GeneratorImage",
+    "GeneratorImage"
+  ],
+  "verified_inference_and_given_counts": [
+    12,
+    3
+  ],
+  "proof_tree_verified": true,
+  "web_key": "generic-complete-proof",
+  "reference_count": 3,
+  "reference_headings": [
+    "1",
+    "2",
+    "3"
+  ],
+  "proof_citation_numbers": [
+    "1",
+    "2",
+    "3"
+  ],
+  "untagged_references": [],
+  "full_pytest_run": false
+}

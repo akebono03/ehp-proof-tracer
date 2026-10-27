@@ -1,0 +1,19 @@
+{
+  "phase": "169-R4B",
+  "head": "3b9c171749c533a8c2fdc74077cfcab85bfdea3f",
+  "source": "Proposition 4.4",
+  "map_injectivity_status": "CERTIFIED",
+  "map_injectivity_is_inference": true,
+  "map_injectivity_source_is_given": true,
+  "proof_rule": "Toda Proposition 4.4 Hopf dimension-four suspension injectivity",
+  "pi6_4_search_status": "partial",
+  "pi6_4_steps": 2,
+  "pi6_4_unresolved": [
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), order=2)",
+    "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "toda45_outside_stable_range_for_pi5_3": true,
+  "full_pytest_run": false
+}

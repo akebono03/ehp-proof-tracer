@@ -1,0 +1,51 @@
+{
+  "phase": "169-R6",
+  "mode": "AUDIT_ONLY",
+  "head": "b1a108e6acb5bc1c0babc02f6d2b3d38e73113ab",
+  "pi86_target_citation": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+  "candidate_count": 1,
+  "prior_pi64": {
+    "eligible": true,
+    "reason": "prior_fixed_source",
+    "source_assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+    "relation_available_as_db_goal": true
+  },
+  "prior_pi75": {
+    "eligible": false,
+    "reason": "source_not_prior",
+    "source_assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+    "relation_available_as_db_goal": true
+  },
+  "screened_pi64_given": false,
+  "screened_pi75_given": false,
+  "screened_toda45": true,
+  "existing_r3o_options": 0,
+  "existing_r5b_options": 0,
+  "existing_r57_options": 0,
+  "goal_only_one_step_options": 1,
+  "goal_only_two_step_options": 0,
+  "two_step_iso_specializable": true,
+  "two_step_db_generator_equals_iterated_expression": false,
+  "pi86_status": "partial",
+  "pi86_steps": 2,
+  "pi86_open_goals": 7,
+  "pi86_unresolved_types": [
+    "CyclicStructureStatement",
+    "CyclicStructureStatement",
+    "TodaSuspensionIsomorphismStatement",
+    "Relation",
+    "Relation",
+    "Relation",
+    "Relation"
+  ],
+  "pi86_diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=6), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "web_key": "generic-partial-proof",
+  "web_partial": true,
+  "web_steps": 2,
+  "web_rendered_lines": 22,
+  "full_pytest_run": false,
+  "production_modified": false,
+  "proof_tree_verified": false
+}

@@ -1,0 +1,37 @@
+{
+  "phase": "169-R5B",
+  "head": "58cf34f08630cd2f371be8376979c169e197126d",
+  "status": "complete",
+  "steps": 12,
+  "open_goals": 0,
+  "proof_tree_verified": true,
+  "root_rule": "cited Toda (4.5) finite-cyclic composite generator transport",
+  "root_premise_types": [
+    "Relation",
+    "Toda45IsomorphismStatement",
+    "GeneratorImage"
+  ],
+  "root_premise_rules": [
+    "inference",
+    "inference",
+    "inference"
+  ],
+  "given_leaf_types": [
+    "Relation",
+    "Toda45IsomorphismStatement",
+    "TodaEtaFamilyGeneralDefinition"
+  ],
+  "web_key": "generic-complete-proof",
+  "references": 3,
+  "reference_headings": [
+    "1",
+    "2",
+    "3"
+  ],
+  "reference_tags_in_body": [
+    "1",
+    "2",
+    "3"
+  ],
+  "full_pytest_run": false
+}

@@ -1,0 +1,59 @@
+{
+  "phase": "169-R5A",
+  "mode": "AUDIT_ONLY",
+  "head": "633d2ae8f793fa12141a4b60ed519d901acd4e4e",
+  "target_citation": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+  "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "lower_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "prior_eligibility": true,
+  "prior_reason": "prior_fixed_source",
+  "prior_source_citation": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+  "screened_lower_given": false,
+  "screened_toda45": true,
+  "actual_cited_options": 0,
+  "goal_only_options": 1,
+  "goal_only_subgoal_types": [
+    [
+      "Relation",
+      "Toda45IsomorphismStatement",
+      "GeneratorImage"
+    ]
+  ],
+  "attempts": {
+    "lower_group_pi6_4": {
+      "proved": true,
+      "error": null,
+      "unresolved": [],
+      "proof_rule": "inference",
+      "steps_in_subtree": 2,
+      "given_leaf_types": [
+        "Relation"
+      ],
+      "inference_rule": "prior literature group result in registered generator presentation"
+    },
+    "toda45_concrete_iso": {
+      "proved": true,
+      "error": null,
+      "unresolved": [],
+      "proof_rule": "inference",
+      "steps_in_subtree": 2,
+      "given_leaf_types": [
+        "Toda45IsomorphismStatement"
+      ],
+      "inference_rule": "generic cited typed scalar specialization"
+    },
+    "eta_squared_generator_image": {
+      "proved": true,
+      "error": null,
+      "unresolved": [],
+      "proof_rule": "inference",
+      "steps_in_subtree": 7,
+      "given_leaf_types": [
+        "TodaEtaFamilyGeneralDefinition"
+      ],
+      "inference_rule": "suspension preserves composition of proved eta generators"
+    }
+  },
+  "production_modified": false,
+  "full_pytest_run": false
+}

@@ -1,0 +1,16 @@
+{
+  "phase": "169 R4G",
+  "head": "625a9eb33f57c4915c05024ead0f984c8d3b44ba",
+  "source_verified": true,
+  "source_locator": "Toda Chapter IV, immediately before Proposition 4.4",
+  "printed_original_cites": "Steenrod1951",
+  "reference_locator": "Proposition 4.4",
+  "reference_body_includes_prior_hopf_fibration": true,
+  "separate_new_given_created": false,
+  "proof_status": "complete",
+  "proof_steps": 18,
+  "open_goals": 0,
+  "citation_count": 5,
+  "all_citations_in_body": true,
+  "full_pytest_run": false
+}

@@ -5,7 +5,8 @@ These are reference statements, not theorems about a specific substituted map.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from hashlib import sha256
+from hashlib import sha1, sha256
+from pathlib import Path
 
 from expression import ScalarProduct, ScalarSum, ScalarSymbol
 from homotopy_groups import TodaIteratedSuspensionMap, TodaPrimaryGroup
@@ -21,13 +22,18 @@ from unified_statement_registry import (
 
 @dataclass(frozen=True)
 class TodaProp44UniversalStatement:
-    """For n, alpha: H(alpha)=±iota_(2n-1) implies the sum map is an isomorphism."""
+    """Conditional proposition plus its explicitly checked preceding Hopf-fibration premise.
+
+    The fibration statement is printed before Proposition 4.4 in the adopted
+    Toda source, not in the proposition environment itself.
+    """
     source_condition: str = "alpha in pi_(2n-1)^n; H(alpha)=+/-iota_(2n-1)"
     isomorphism_map: str = "(beta,gamma)->E(beta)+alpha o gamma"
     source_group: str = "pi_(i-1)^(n-1) + pi_i^(2n-1)"
     target_group: str = "pi_i^n"
     quantifiers: tuple[str, ...] = ("n", "i", "alpha")
     includes_suspension_injectivity: bool = True
+    preceding_hopf_fibration_dimensions: tuple[int, ...] = (2, 4, 8)
 
 
 @dataclass(frozen=True)
@@ -93,6 +99,42 @@ def _register_toda45(registry, links, records, source_bridge) -> None:
         "typed universal suspension map with explicit numerical domain",
     ))
 
+def verify_prop44_hopf_fibration_source(source_path: Path | None = None) -> None:
+    """Verify the actual Chapter IV paragraph immediately before Proposition 4.4.
+
+    The frozen Git blob is an independently reviewed source identity; no
+    assertion can be introduced from a modified or incomplete passage.
+    """
+    if source_path is None:
+        source_path = Path(__file__).resolve().parent / "sources" / "toda" / "Toda_04_2.tex"
+    if not isinstance(source_path, Path):
+        raise TypeError("source_path must be a pathlib.Path")
+    original = source_path.read_bytes()
+    normalized = original.replace(b"\r\n", b"\n")
+    candidates = (original, normalized, normalized.replace(b"\n", b"\r\n"))
+    def actual_sha(content: bytes) -> str:
+        return sha1(b"blob " + str(len(content)).encode("ascii") + b"\x00" + content).hexdigest()
+    if not any(actual_sha(candidate) == "4d0c32b196f4bd51c04650dd26b0fd7133b6d4f7"
+               for candidate in candidates):
+        raise ValueError("unverified Toda Chapter IV source file for Hopf fibration")
+    text = normalized.decode("utf-8")
+    start_marker = "$n=2,4,8$ のとき, Hopf fibration"
+    end_marker = r"\begin{proposition}\label{prop:4.4}"
+    start = text.find(start_marker)
+    end = text.find(end_marker)
+    if start < 0 or end <= start or text.count(start_marker) != 1 or text.count(end_marker) != 1:
+        raise ValueError("Proposition 4.4 Hopf-fibration source position is invalid")
+    passage = text[start:end]
+    required = (
+        r"S^{2n-1}\xrightarrow{h} S^n",
+        "Hopf 不変量",
+        r"$\pm1$",
+        r"\cite{Steenrod1951}",
+    )
+    if any(fragment not in passage for fragment in required):
+        raise ValueError("the reviewed Hopf-fibration prelude is missing")
+
+
 _SOURCES = (
     (
         "Proposition 4.4", "toda:tex:ch4:0010", "5a98acdac4748472b3007f10ae8ff13b3530dcb24ea4757d3929aa6e72a00d73",
@@ -109,6 +151,7 @@ _SOURCES = (
 
 def build_typed_literature_bridge(source_bridge: RegistryBridgeResult) -> RegistryBridgeResult:
     """Produce two fixed, source-bound general claims; never promote other archive rows."""
+    verify_prop44_hopf_fibration_source()
     registry = UnifiedStatementRegistry()
     links = []
     records = []

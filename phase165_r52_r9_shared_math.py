@@ -252,6 +252,18 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_toda45_composite_transport(
             goal, tuple(available),
         ))
+        from phase169_r5b_pi75_prior_transport.rule import (
+            expand_prior_cited_toda45_composite_transport,
+        )
+        options.extend(expand_prior_cited_toda45_composite_transport(
+            goal, tuple(available), bridge, proof_target=proof_target,
+        ))
+        from phase169_r6a_pi86_two_step_transport.rule import (
+            expand_prior_two_step_eta_square_transport,
+        )
+        options.extend(expand_prior_two_step_eta_square_transport(
+            goal, tuple(available), bridge, proof_target=proof_target,
+        ))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
         # R3I: earlier cited GIVEN sources are valid inference premises.
         # Retain the historical inference-only proposal independently.
@@ -261,6 +273,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
         options.extend(expand_cited_eta_generator(goal))
+        from phase169_r4b_prop44_injectivity.rule import expand_cited_prop44_injectivity
+        options.extend(expand_cited_prop44_injectivity(goal, tuple(available)))
+        from phase169_r4c_pi64_suspension_iso.rule import expand_pi64_suspension_isomorphism
+        options.extend(expand_pi64_suspension_isomorphism(goal))
         from phase166_r3ac_stable_notation import expand_stable_eta_notation
         options.extend(expand_stable_eta_notation(goal, tuple(available)))
         from phase166_r3v_generator_transport import expand_generator_transport_normalization
