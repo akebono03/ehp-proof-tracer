@@ -1,0 +1,34 @@
+{
+  "phase": "169 R10E8",
+  "source": "Toda Chapter VI adopted transcription, original edition unverified",
+  "chapter_vi_checked_positions": {
+    "10": 10899,
+    "11": 11301,
+    "12": 12109
+  },
+  "registered_chapter_vi_fixed_sources": 3,
+  "inference_engine_changed": false,
+  "csv_proves_generator_image": false,
+  "full_pytest_run": false,
+  "results": [
+    {
+      "target": "pi_23^15",
+      "status": "complete",
+      "open_goals": [],
+      "inferred_generator_images": 10,
+      "proof_step_count": 28
+    },
+    {
+      "target": "pi_24^15",
+      "status": "partial",
+      "open_goals": [
+        "GeneratorImage",
+        "GeneratorImage",
+        "Relation",
+        "Relation"
+      ],
+      "inferred_generator_images": 22,
+      "proof_step_count": 43
+    }
+  ]
+}

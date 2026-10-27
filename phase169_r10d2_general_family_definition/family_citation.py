@@ -22,6 +22,9 @@ from phase169_r10b_registered_stable_family_binding.family_registry import (
     registered_family_of,
     registered_stable_family_pair,
 )
+from phase169_r10e8_hyoujigen_generic_suspension.source_records import (
+    CHAPTER_VI_SOURCE_RECORDS,
+)
 from proof import (
     InferenceRule, LiteratureReference, PremisePattern, ProofRule, ProofStep,
 )
@@ -187,7 +190,7 @@ def canonical_member(source: CitedStableFamilyDefinition, index: int
     if not isinstance(source, CitedStableFamilyDefinition) or type(index) is not int:
         return None
     # Registration is explicit: a DB row alone never authorizes a definition.
-    if source.family_id not in {record.family_id for record in SOURCE_RECORDS}:
+    if source.family_id not in {record.family_id for record in SOURCE_RECORDS + CHAPTER_VI_SOURCE_RECORDS}:
         return None
     family = _registered_family(source.family_id)
     if (family is None or _source_for(family) != source
@@ -300,7 +303,7 @@ def cited_family_reference_sentence(statement: object) -> str | None:
     """General definition only in Reference; concrete instances stay in proof."""
     if not isinstance(statement, CitedStableFamilyDefinition):
         return None
-    if statement.family_id not in {record.family_id for record in SOURCE_RECORDS}:
+    if statement.family_id not in {record.family_id for record in SOURCE_RECORDS + CHAPTER_VI_SOURCE_RECORDS}:
         return None
     family = _registered_family(statement.family_id)
     if family is None or _source_for(family) != statement:
