@@ -1,0 +1,182 @@
+{
+  "phase": "169 R10ED",
+  "mode": "AUDIT_ONLY",
+  "requires_prior_verified_r10ec": true,
+  "original_public_web_trust_boundary_unchanged": true,
+  "all_full_suite_tests_run": false,
+  "cases": [
+    {
+      "group": "pi_22^13",
+      "status": "complete",
+      "trust_boundary": "PASS",
+      "inference_steps_verified": 40,
+      "given_steps_verified": 6,
+      "stem": 9,
+      "suspensions": 2,
+      "summands": 3,
+      "certified_images": 6,
+      "hidden_in_narrative_only": 20,
+      "proof_steps_retained": 46,
+      "reference_count": 6,
+      "aggregate_citations": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "rendered_chars": 1108,
+      "duplicate_image_prose": 0,
+      "fail_closed": {
+        "missing_root": true,
+        "duplicate_order": true,
+        "missing_image_in_order": true,
+        "missing_root_image": true,
+        "permuted_root_images": true,
+        "uncited_proof_tree": true,
+        "forged_citation_number": true,
+        "cited_intermediate_image": true,
+        "outside_consumer": true
+      },
+      "rendered_file": "pi_22_13.md"
+    },
+    {
+      "group": "pi_23^15",
+      "status": "complete",
+      "trust_boundary": "PASS",
+      "inference_steps_verified": 24,
+      "given_steps_verified": 4,
+      "stem": 8,
+      "suspensions": 5,
+      "summands": 2,
+      "certified_images": 10,
+      "hidden_in_narrative_only": 10,
+      "proof_steps_retained": 28,
+      "reference_count": 4,
+      "aggregate_citations": [
+        3,
+        4
+      ],
+      "rendered_chars": 817,
+      "duplicate_image_prose": 0,
+      "fail_closed": {
+        "missing_root": true,
+        "duplicate_order": true,
+        "missing_image_in_order": true,
+        "missing_root_image": true,
+        "permuted_root_images": true,
+        "uncited_proof_tree": true,
+        "forged_citation_number": true,
+        "cited_intermediate_image": true,
+        "outside_consumer": true
+      },
+      "rendered_file": "pi_23_15.md"
+    },
+    {
+      "group": "pi_24^15",
+      "status": "complete",
+      "trust_boundary": "PASS",
+      "inference_steps_verified": 66,
+      "given_steps_verified": 6,
+      "stem": 9,
+      "suspensions": 4,
+      "summands": 3,
+      "certified_images": 12,
+      "hidden_in_narrative_only": 38,
+      "proof_steps_retained": 72,
+      "reference_count": 6,
+      "aggregate_citations": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "rendered_chars": 1108,
+      "duplicate_image_prose": 0,
+      "fail_closed": {
+        "missing_root": true,
+        "duplicate_order": true,
+        "missing_image_in_order": true,
+        "missing_root_image": true,
+        "permuted_root_images": true,
+        "uncited_proof_tree": true,
+        "forged_citation_number": true,
+        "cited_intermediate_image": true,
+        "outside_consumer": true
+      },
+      "rendered_file": "pi_24_15.md"
+    },
+    {
+      "group": "pi_33^24",
+      "status": "complete",
+      "trust_boundary": "PASS",
+      "inference_steps_verified": 174,
+      "given_steps_verified": 6,
+      "stem": 9,
+      "suspensions": 13,
+      "summands": 3,
+      "certified_images": 39,
+      "hidden_in_narrative_only": 110,
+      "proof_steps_retained": 180,
+      "reference_count": 6,
+      "aggregate_citations": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "rendered_chars": 1112,
+      "duplicate_image_prose": 0,
+      "fail_closed": {
+        "missing_root": true,
+        "duplicate_order": true,
+        "missing_image_in_order": true,
+        "missing_root_image": true,
+        "permuted_root_images": true,
+        "uncited_proof_tree": true,
+        "forged_citation_number": true,
+        "cited_intermediate_image": true,
+        "outside_consumer": true
+      },
+      "rendered_file": "pi_33_24.md"
+    },
+    {
+      "group": "pi_39^30",
+      "status": "complete",
+      "trust_boundary": "PASS",
+      "inference_steps_verified": 246,
+      "given_steps_verified": 6,
+      "stem": 9,
+      "suspensions": 19,
+      "summands": 3,
+      "certified_images": 57,
+      "hidden_in_narrative_only": 158,
+      "proof_steps_retained": 252,
+      "reference_count": 6,
+      "aggregate_citations": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "rendered_chars": 1112,
+      "duplicate_image_prose": 0,
+      "fail_closed": {
+        "missing_root": true,
+        "duplicate_order": true,
+        "missing_image_in_order": true,
+        "missing_root_image": true,
+        "permuted_root_images": true,
+        "uncited_proof_tree": true,
+        "forged_citation_number": true,
+        "cited_intermediate_image": true,
+        "outside_consumer": true
+      },
+      "rendered_file": "pi_39_30.md"
+    }
+  ],
+  "limits": [
+    "Positive coverage covers 8-stem and 9-stem, with 2 and 3 summands; it is not a proof for every stem.",
+    "Projection is callable only behind the established complete-proof Web trust boundary; audit mutations are never treated as proofs.",
+    "Compression requires at least two suspensions and a cited image for every summand at every stage."
+  ]
+}
