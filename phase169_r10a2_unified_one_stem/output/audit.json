@@ -1,0 +1,23 @@
+{
+  "phase": "169-R10A2",
+  "head": "aa3d70e276cfa942d56e3b6204afbc4f7131437f",
+  "status": "complete",
+  "proof_steps": 10,
+  "reference_count": 3,
+  "root_index": 9,
+  "compressed_exponent": 5,
+  "suppressed_prose_step_indices": [
+    3,
+    8
+  ],
+  "source_citation_numbers": [
+    1
+  ],
+  "one_stem_generator_identity_equation_count": 1,
+  "verified_proof_counts": [
+    7,
+    3
+  ],
+  "web_key": "generic-complete-proof",
+  "full_pytest_run": false
+}

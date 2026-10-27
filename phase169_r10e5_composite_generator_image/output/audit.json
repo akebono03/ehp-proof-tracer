@@ -1,0 +1,66 @@
+{
+  "phase": "169 R10E5",
+  "cases": [
+    {
+      "n": 14,
+      "k": 6,
+      "status": "complete",
+      "composite_image_inferences": 6,
+      "diagnostics": [],
+      "unresolved_goal_types": []
+    },
+    {
+      "n": 15,
+      "k": 8,
+      "status": "partial",
+      "composite_image_inferences": 0,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "unresolved_goal_types": [
+        "GeneratorImage",
+        "Relation",
+        "Relation"
+      ]
+    },
+    {
+      "n": 15,
+      "k": 9,
+      "status": "partial",
+      "composite_image_inferences": 8,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "unresolved_goal_types": [
+        "GeneratorImage",
+        "Relation",
+        "Relation"
+      ]
+    },
+    {
+      "n": 14,
+      "k": 7,
+      "status": "complete",
+      "composite_image_inferences": 0,
+      "diagnostics": [],
+      "unresolved_goal_types": []
+    },
+    {
+      "n": 8,
+      "k": 4,
+      "status": "complete",
+      "composite_image_inferences": 0,
+      "diagnostics": [],
+      "unresolved_goal_types": []
+    },
+    {
+      "n": 13,
+      "k": 3,
+      "status": "complete",
+      "composite_image_inferences": 0,
+      "diagnostics": [],
+      "unresolved_goal_types": []
+    }
+  ],
+  "full_pytest_run": false
+}

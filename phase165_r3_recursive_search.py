@@ -140,6 +140,15 @@ def reconstruct_registered_goal(
                     verified_assertion_ids=verified_assertion_ids,
                 )
                 options = [x.proof_step for x in candidates if x.proof_step is not None]
+            # R10E4: DB results earlier in (stem, sphere dimension) are
+            # explicit adopted premises, not fabricated Toda citations.
+            # Prefer existing admitted literature leaves where present.
+            if (not bound and not options and lookup_mode in
+                    ("typed_reference", "typed_reference_ordered", "typed_reference_publication")):
+                from phase169_r10e4_ordered_db_prior.db_prior import admitted_db_step
+                db_step = admitted_db_step(actual, proof_target=goal, bridge=bridge)
+                if db_step is not None:
+                    options.append(db_step)
             if (not bound and lookup_mode in ("typed_reference", "typed_reference_ordered", "typed_reference_publication")
                     and len(options) == 1):
                 step = options[0]

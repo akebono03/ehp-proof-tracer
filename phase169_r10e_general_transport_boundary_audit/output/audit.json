@@ -1,0 +1,296 @@
+{
+  "phase": "169 R10E0",
+  "kind": "AUDIT_ONLY",
+  "head": "aae0800d6bdf60ca5fe1abf9911375849504e78f",
+  "proof_steps_created": 0,
+  "production_files_modified": [],
+  "full_pytest_run": false,
+  "cases": [
+    {
+      "group": "pi_12^8",
+      "n": 8,
+      "stem": 4,
+      "stable_source_minimum_n": 6,
+      "target_is_stable": true,
+      "lower_stable_source_exists": true,
+      "zero_database_goal_count": 1,
+      "registered_group_goal_count": 0,
+      "goals": [
+        {
+          "type": "TodaPrimaryGroupZeroStatement",
+          "shape": "zero_group",
+          "repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=8))"
+        }
+      ],
+      "goal_details": [
+        {
+          "goal_type": "TodaPrimaryGroupZeroStatement",
+          "group_shape": "zero_group",
+          "citing_assertion_id": null,
+          "r7_root_shape_accepted": false,
+          "prior_sources": [
+            {
+              "source_group": "pi_10^6",
+              "db_result_count": 0,
+              "source_shapes": [],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_11^7",
+              "db_result_count": 0,
+              "source_shapes": [],
+              "publication_eligibility": "unknown_without_target_citation"
+            }
+          ],
+          "r7_direct_candidate_count": null,
+          "provider_root_option_count": null,
+          "provider_root_rule_names": [],
+          "visible_general_family_ids": []
+        }
+      ]
+    },
+    {
+      "group": "pi_14^8",
+      "n": 8,
+      "stem": 6,
+      "stable_source_minimum_n": 8,
+      "target_is_stable": true,
+      "lower_stable_source_exists": false,
+      "zero_database_goal_count": 0,
+      "registered_group_goal_count": 1,
+      "goals": [
+        {
+          "type": "Relation",
+          "shape": "finite_cyclic",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₈', dimension=8, source=11, target=8, generator=GeneratorSymbol(family='ν', index=8, decoration=None)), right=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "goal_details": [
+        {
+          "goal_type": "Relation",
+          "group_shape": "finite_cyclic",
+          "citing_assertion_id": null,
+          "r7_root_shape_accepted": true,
+          "prior_sources": [],
+          "r7_direct_candidate_count": null,
+          "provider_root_option_count": null,
+          "provider_root_rule_names": [],
+          "visible_general_family_ids": []
+        }
+      ]
+    },
+    {
+      "group": "pi_22^15",
+      "n": 15,
+      "stem": 7,
+      "stable_source_minimum_n": 9,
+      "target_is_stable": true,
+      "lower_stable_source_exists": true,
+      "zero_database_goal_count": 0,
+      "registered_group_goal_count": 1,
+      "goals": [
+        {
+          "type": "Relation",
+          "shape": "finite_cyclic",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=22, sphere_dimension=15), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ₁₅', dimension=15, source=22, target=15, generator=GeneratorSymbol(family='σ', index=15, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "goal_details": [
+        {
+          "goal_type": "Relation",
+          "group_shape": "finite_cyclic",
+          "citing_assertion_id": null,
+          "r7_root_shape_accepted": true,
+          "prior_sources": [
+            {
+              "source_group": "pi_16^9",
+              "db_result_count": 1,
+              "source_shapes": [
+                "finite_cyclic"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_17^10",
+              "db_result_count": 1,
+              "source_shapes": [
+                "finite_cyclic"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_18^11",
+              "db_result_count": 1,
+              "source_shapes": [
+                "finite_cyclic"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_19^12",
+              "db_result_count": 1,
+              "source_shapes": [
+                "finite_cyclic"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_20^13",
+              "db_result_count": 1,
+              "source_shapes": [
+                "finite_cyclic"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_21^14",
+              "db_result_count": 1,
+              "source_shapes": [
+                "finite_cyclic"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            }
+          ],
+          "r7_direct_candidate_count": null,
+          "provider_root_option_count": null,
+          "provider_root_rule_names": [],
+          "visible_general_family_ids": []
+        }
+      ]
+    },
+    {
+      "group": "pi_23^15",
+      "n": 15,
+      "stem": 8,
+      "stable_source_minimum_n": 10,
+      "target_is_stable": true,
+      "lower_stable_source_exists": true,
+      "zero_database_goal_count": 0,
+      "registered_group_goal_count": 1,
+      "goals": [
+        {
+          "type": "Relation",
+          "shape": "direct_sum",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "goal_details": [
+        {
+          "goal_type": "Relation",
+          "group_shape": "direct_sum",
+          "citing_assertion_id": null,
+          "r7_root_shape_accepted": false,
+          "prior_sources": [
+            {
+              "source_group": "pi_18^10",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_19^11",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_20^12",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_21^13",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_22^14",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            }
+          ],
+          "r7_direct_candidate_count": null,
+          "provider_root_option_count": null,
+          "provider_root_rule_names": [],
+          "visible_general_family_ids": []
+        }
+      ]
+    },
+    {
+      "group": "pi_24^15",
+      "n": 15,
+      "stem": 9,
+      "stable_source_minimum_n": 11,
+      "target_is_stable": true,
+      "lower_stable_source_exists": true,
+      "zero_database_goal_count": 0,
+      "registered_group_goal_count": 1,
+      "goals": [
+        {
+          "type": "Relation",
+          "shape": "direct_sum",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "goal_details": [
+        {
+          "goal_type": "Relation",
+          "group_shape": "direct_sum",
+          "citing_assertion_id": null,
+          "r7_root_shape_accepted": false,
+          "prior_sources": [
+            {
+              "source_group": "pi_20^11",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_21^12",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_22^13",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            },
+            {
+              "source_group": "pi_23^14",
+              "db_result_count": 1,
+              "source_shapes": [
+                "direct_sum"
+              ],
+              "publication_eligibility": "unknown_without_target_citation"
+            }
+          ],
+          "r7_direct_candidate_count": null,
+          "provider_root_option_count": null,
+          "provider_root_rule_names": [],
+          "visible_general_family_ids": []
+        }
+      ]
+    }
+  ]
+}

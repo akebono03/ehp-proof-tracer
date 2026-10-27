@@ -1,0 +1,48 @@
+{
+  "phase": "169-R7",
+  "kind": "after-patch focused audit",
+  "git_head": "92991804252d1cf57ba7b21ce7a57c5a4032ad7c",
+  "cases": [
+    {
+      "n": 5,
+      "k": 2,
+      "status": "complete",
+      "steps": 12,
+      "open_goals": 0,
+      "root_premises": 3,
+      "publication_proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 6,
+      "k": 2,
+      "status": "complete",
+      "steps": 15,
+      "open_goals": 0,
+      "root_premises": 4,
+      "publication_proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 7,
+      "k": 2,
+      "status": "complete",
+      "steps": 18,
+      "open_goals": 0,
+      "root_premises": 5,
+      "publication_proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 8,
+      "k": 2,
+      "status": "complete",
+      "steps": 21,
+      "open_goals": 0,
+      "root_premises": 6,
+      "publication_proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    }
+  ],
+  "full_pytest_run": false
+}

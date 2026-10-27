@@ -1,0 +1,75 @@
+{
+  "phase": "169 R10E1",
+  "branch": "develop",
+  "head": "5c250316553861777722ae248c840e6570eeb8a5",
+  "limited_regressions": [
+    {
+      "group": "pi_9^8",
+      "status": "complete",
+      "proof_steps": 10,
+      "open_goals": 0
+    },
+    {
+      "group": "pi_10^8",
+      "status": "complete",
+      "proof_steps": 21,
+      "open_goals": 0
+    },
+    {
+      "group": "pi_11^8",
+      "status": "complete",
+      "proof_steps": 13,
+      "open_goals": 0
+    }
+  ],
+  "group_shapes": [
+    {
+      "target": "pi_12^8",
+      "shapes": [
+        "zero"
+      ],
+      "citation_resolved": false,
+      "candidate_count": null,
+      "reason": "not_a_cited_target"
+    },
+    {
+      "target": "pi_14^8",
+      "shapes": [
+        "FiniteCyclicGroup"
+      ],
+      "citation_resolved": false,
+      "candidate_count": null,
+      "reason": "not_a_cited_target"
+    },
+    {
+      "target": "pi_22^15",
+      "shapes": [
+        "FiniteCyclicGroup"
+      ],
+      "citation_resolved": false,
+      "candidate_count": null,
+      "reason": "not_a_cited_target"
+    },
+    {
+      "target": "pi_23^15",
+      "shapes": [
+        "DirectSumGroup"
+      ],
+      "citation_resolved": false,
+      "candidate_count": null,
+      "reason": "not_a_cited_target"
+    },
+    {
+      "target": "pi_24^15",
+      "shapes": [
+        "DirectSumGroup"
+      ],
+      "citation_resolved": false,
+      "candidate_count": null,
+      "reason": "not_a_cited_target"
+    }
+  ],
+  "data_is_not_a_proof": true,
+  "unresolved_citation_is_not_missing_math": true,
+  "full_pytest_run": false
+}

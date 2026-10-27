@@ -88,13 +88,33 @@ def build_standard_web_group_proof_view(
     if not search_contexts:
       raise UnverifiedProofTree("complete proof has no screened search context")
     citing_id = resolve_specialized_goal_citing_id(bridge, result.conclusion)
+    # A DB goal need not have a publication assertion. For this derived-only
+    # route, require an actual typed group target before invoking the gate.
+    # Synthetic/untyped completed results retain the previous fail-closed path.
     if citing_id is None:
-      raise UnverifiedProofTree("complete proof has no positioned citing assertion")
-    # Unsupported origins and invalid inferences are rejected by the existing
-    # single proof-tree checker; do not silently skip its invocation here.
-    verify_proof_tree_for_narrative(
-      result, model_bridge, citing_assertion_id=citing_id,
-    )
+      from homotopy_groups import TodaPrimaryGroupZeroStatement
+      from proof import Relation, RelationType
+      valid_derived_group = (
+        isinstance(result.conclusion, Relation)
+        and result.conclusion.relation_type is RelationType.EQUALITY
+        and result.conclusion.lhs == result.target
+      ) or (
+        isinstance(result.conclusion, TodaPrimaryGroupZeroStatement)
+        and result.conclusion.group == result.target
+      )
+      if not valid_derived_group:
+        raise UnverifiedProofTree("complete unpositioned proof lacks a typed group target")
+    # Keep the existing positioned-Goal call signature byte-for-byte.
+    # The new keyword is passed only to genuinely unpositioned targets.
+    if citing_id is None:
+      verify_proof_tree_for_narrative(
+        result, model_bridge, citing_assertion_id=None,
+        derived_target_without_citing_id=True,
+      )
+    else:
+      verify_proof_tree_for_narrative(
+        result, model_bridge, citing_assertion_id=citing_id,
+      )
   model = build_linked_proof_narrative_model(result, model_bridge)
   return build_partial_web_group_proof_view(
     result,

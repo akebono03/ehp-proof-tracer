@@ -13,6 +13,9 @@ def project_reference_bodies(registry, assertion_ids):
         return ()
     from dataclasses import fields, is_dataclass
     from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
+    from phase169_r10d2_general_family_definition.family_citation import (
+        CitedStableFamilyDefinition, cited_family_reference_sentence,
+    )
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
     from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
     from phase165_r52_r27_r5_literature import Toda52UniversalStatement, TodaProp44UniversalStatement
@@ -67,6 +70,8 @@ def project_reference_bodies(registry, assertion_ids):
             if isinstance(statement, TodaEtaFamilyGeneralDefinition):
                 if statement.lower_bound == 2:
                     sentence = r"$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する."
+            elif isinstance(statement, CitedStableFamilyDefinition):
+                sentence = cited_family_reference_sentence(statement)
             elif (isinstance(statement, TodaPrimaryGroupZeroStatement)
                   and isinstance(statement.group.group_dimension, ScalarSymbol)
                   and statement.group.sphere_dimension == 1):

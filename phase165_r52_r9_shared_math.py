@@ -56,6 +56,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
                    build_adopted_prop51_reference(),
                    build_adopted_toda51_diagonal_reference(adopted_tex)) + (literature, build_adopted_prop42_general_reference(), build_adopted_toda51_zero_reference(adopted_tex), build_cited_eta_family_definition(Path(__file__).resolve().parent / 'sources' / 'toda' / 'Toda_05_2.tex'),
                    build_adopted_toda53_hopf_reference(production))
+        from phase169_r10d2_general_family_definition.family_citation import (
+            build_cited_stable_family_definitions,
+        )
+        sources = sources + (build_cited_stable_family_definitions(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -180,6 +184,9 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     from phase165_r12_r24_web_search_connection import expand_finite_cyclic_relation
     from phase165_r12_r20_eta_definition import expand_cited_eta_definition
     from phase165_r12_r21_eta_generator_chain import expand_cited_eta_generator
+    from phase169_r10d2_general_family_definition.family_citation import (
+        expand_cited_stable_family,
+    )
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
 
@@ -255,15 +262,33 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         from phase169_r5b_pi75_prior_transport.rule import (
             expand_prior_cited_toda45_composite_transport,
         )
-        options.extend(expand_prior_cited_toda45_composite_transport(
+        legacy_one_step_options = expand_prior_cited_toda45_composite_transport(
             goal, tuple(available), bridge, proof_target=proof_target,
-        ))
+        )
+        options.extend(legacy_one_step_options)
         from phase169_r6a_pi86_two_step_transport.rule import (
             expand_prior_two_step_eta_square_transport,
         )
-        options.extend(expand_prior_two_step_eta_square_transport(
+        legacy_two_step_options = expand_prior_two_step_eta_square_transport(
             goal, tuple(available), bridge, proof_target=proof_target,
-        ))
+        )
+        options.extend(legacy_two_step_options)
+        # R10E1: one typed entry for zero, cyclic, free and direct-sum groups.
+        # Previously verified finite-cyclic derivations retain their R7 adapter.
+        # Neither DB results nor candidate generators become GIVEN proof leaves.
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from phase169_r10e1_general_group_transport.transport import (
+            expand_prior_general_group_transport,
+        )
+        if (not legacy_one_step_options and not legacy_two_step_options
+                and ((isinstance(goal, Relation)
+                      and isinstance(goal.lhs, TodaPrimaryGroup)
+                      and type(goal.lhs.group_dimension) is int
+                      and type(goal.lhs.sphere_dimension) is int)
+                     or isinstance(goal, TodaPrimaryGroupZeroStatement))):
+            options.extend(expand_prior_general_group_transport(
+                goal, tuple(available), bridge, proof_target=proof_target,
+            ))
         options.extend(expand_registered_ehp_terminal_goal(goal, tuple(available)))
         # R3I: earlier cited GIVEN sources are valid inference premises.
         # Retain the historical inference-only proposal independently.
@@ -272,7 +297,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_toda52_finite_cyclic_goal(goal, tuple(available)))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
-        options.extend(expand_cited_eta_generator(goal))
+        eta_generator_options = expand_cited_eta_generator(goal)
+        options.extend(eta_generator_options)
+        options.extend(expand_cited_stable_family(goal, tuple(available)))
+        if not eta_generator_options:
+            from phase169_r10e5_composite_generator_image.rule import (
+                expand_composite_generator_image,
+            )
+            options.extend(expand_composite_generator_image(goal))
         from phase169_r4b_prop44_injectivity.rule import expand_cited_prop44_injectivity
         options.extend(expand_cited_prop44_injectivity(goal, tuple(available)))
         from phase169_r4c_pi64_suspension_iso.rule import expand_pi64_suspension_isomorphism
@@ -413,11 +445,19 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     if not assertions:
         raise ValueError("shared typed registry is empty")
     context_id = citing_assertion_id or assertions[0].assertion_id
-    proof_context = screen_shared_proof_context(
-        bridge, goal=goal, citing_assertion_id=context_id,
-        verified_assertion_ids=verified_assertion_ids,
-        explicit_publication_target=citing_assertion_id is not None,
-    )
+    if citing_assertion_id is None:
+        from phase169_r10e2_unpositioned_citation.source_first import (
+            screen_independent_sources_for_derived_goal,
+        )
+        proof_context = screen_independent_sources_for_derived_goal(
+            bridge, goal=goal,
+        )
+    else:
+        proof_context = screen_shared_proof_context(
+            bridge, goal=goal, citing_assertion_id=context_id,
+            verified_assertion_ids=verified_assertion_ids,
+            explicit_publication_target=True,
+        )
     from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
     proof_context = prefer_universal_prop42_derivation(proof_context)
     if context_sink is not None:
