@@ -91,7 +91,9 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
         bridge = build_shared_typed_bridge()
 
     if isinstance(candidate, TodaPrimaryGroupZeroStatement):
-        from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+        from phase169_r10e2_unpositioned_citation.source_first import (
+            screen_independent_sources_for_derived_goal,
+        )
         from phase165_r52_r2_search_adapter import search_registered_partial_proof
         from phase165_r52_r9_shared_math import shared_expansion_provider
         assertions = tuple(bridge.registry._assertions.values())
@@ -100,11 +102,11 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
                 n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
                 open_goals=(candidate,), diagnostics=("型付き命題台帳が空です",),
             )
-        # DB goals have no publication assertion. Preserve the existing
-        # implicit-target citation policy without inventing a citing ID.
+        # The DB target has no publication position. Cite only independently
+        # positioned fixed source statements; invent no target citation ID.
         context_id = assertions[0].assertion_id
-        screened = screen_shared_proof_context(
-            bridge, goal=candidate, citing_assertion_id=context_id,
+        screened = screen_independent_sources_for_derived_goal(
+            bridge, goal=candidate,
         )
         if context_sink is not None:
             context_sink(screened)

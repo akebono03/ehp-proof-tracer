@@ -111,8 +111,7 @@ def render_model_backed_narrative_markdown(
 
     for citation in model.citations:
         locator = citation.reference.locator or citation.reference.label
-        if locator == "Chapter V, i)":
-            locator = "η 系列の定義（Chapter V, i）"
+        # Display the cited locator verbatim; no series-specific alias.
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
         for sentence in citation.statement_bodies:

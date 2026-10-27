@@ -1,0 +1,89 @@
+{
+  "phase": "169 R10E2",
+  "head": "d33e25b61a694cdc7be2127040f4d596ef52413e",
+  "kind": "FOCUSED_IMPLEMENTATION_AUDIT",
+  "regressions": [
+    {
+      "group": "pi_9^8",
+      "status": "complete"
+    },
+    {
+      "group": "pi_10^8",
+      "status": "complete"
+    },
+    {
+      "group": "pi_11^8",
+      "status": "complete"
+    }
+  ],
+  "boundaries": [
+    {
+      "group": "pi_12^8",
+      "goals": [
+        {
+          "goal_kind": "zero",
+          "screened_source_count": 35,
+          "suitable_prior_source_candidates": [],
+          "status": "search_failed",
+          "open_goal_count": 1,
+          "proof_step_count": 0
+        }
+      ]
+    },
+    {
+      "group": "pi_14^8",
+      "goals": [
+        {
+          "goal_kind": "FiniteCyclicGroup",
+          "screened_source_count": 35,
+          "suitable_prior_source_candidates": [],
+          "status": "search_failed",
+          "open_goal_count": 3,
+          "proof_step_count": 0
+        }
+      ]
+    },
+    {
+      "group": "pi_22^15",
+      "goals": [
+        {
+          "goal_kind": "FiniteCyclicGroup",
+          "screened_source_count": 35,
+          "suitable_prior_source_candidates": [],
+          "status": "search_failed",
+          "open_goal_count": 3,
+          "proof_step_count": 0
+        }
+      ]
+    },
+    {
+      "group": "pi_23^15",
+      "goals": [
+        {
+          "goal_kind": "DirectSumGroup",
+          "screened_source_count": 35,
+          "suitable_prior_source_candidates": [],
+          "status": "search_failed",
+          "open_goal_count": 2,
+          "proof_step_count": 0
+        }
+      ]
+    },
+    {
+      "group": "pi_24^15",
+      "goals": [
+        {
+          "goal_kind": "DirectSumGroup",
+          "screened_source_count": 35,
+          "suitable_prior_source_candidates": [],
+          "status": "search_failed",
+          "open_goal_count": 2,
+          "proof_step_count": 0
+        }
+      ]
+    }
+  ],
+  "target_publication_position_invented": false,
+  "mathematical_proof_from_csv": false,
+  "full_pytest_run": false
+}

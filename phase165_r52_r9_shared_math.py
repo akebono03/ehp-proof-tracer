@@ -439,11 +439,19 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
     if not assertions:
         raise ValueError("shared typed registry is empty")
     context_id = citing_assertion_id or assertions[0].assertion_id
-    proof_context = screen_shared_proof_context(
-        bridge, goal=goal, citing_assertion_id=context_id,
-        verified_assertion_ids=verified_assertion_ids,
-        explicit_publication_target=citing_assertion_id is not None,
-    )
+    if citing_assertion_id is None:
+        from phase169_r10e2_unpositioned_citation.source_first import (
+            screen_independent_sources_for_derived_goal,
+        )
+        proof_context = screen_independent_sources_for_derived_goal(
+            bridge, goal=goal,
+        )
+    else:
+        proof_context = screen_shared_proof_context(
+            bridge, goal=goal, citing_assertion_id=context_id,
+            verified_assertion_ids=verified_assertion_ids,
+            explicit_publication_target=True,
+        )
     from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
     proof_context = prefer_universal_prop42_derivation(proof_context)
     if context_sink is not None:

@@ -1,0 +1,28 @@
+﻿{
+    "phase":  "169 R10E2-R2",
+    "head":  "d33e25b61a694cdc7be2127040f4d596ef52413e",
+    "before":  [
+
+               ],
+    "after":  [
+                  "phase165_r52_r9_shared_math.py",
+                  "phase165_r55_nk_only_goal.py",
+                  "phase168_r3_41p13_trust_boundary/verification.py",
+                  "phase168_r3_5_model_renderer.py",
+                  "phase169_r10e1_general_group_transport/transport.py",
+                  "web_group_proof.py"
+              ],
+    "added":  [
+                  "phase165_r52_r9_shared_math.py",
+                  "phase165_r55_nk_only_goal.py",
+                  "phase168_r3_41p13_trust_boundary/verification.py",
+                  "phase168_r3_5_model_renderer.py",
+                  "phase169_r10e1_general_group_transport/transport.py",
+                  "web_group_proof.py"
+              ],
+    "removed":  [
+
+                ],
+    "full_pytest_run":  false,
+    "non_target_files_automatically_reverted":  false
+}

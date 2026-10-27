@@ -207,11 +207,13 @@ def expand_prior_general_group_transport(
     *,
     proof_target: object,
 ) -> tuple[GoalExpansion, ...]:
-    """Common proof search entry without a stem- or group-type-specific theorem.
+    """Transport a screened earlier result, with or without a cited root target.
 
-    Finite-cyclic goals keep the already-tested R7 route for API and narrative
-    compatibility; all other shapes use the same typed transport obligations.
-    Any absent/ambiguous citation or isomorphism returns no proof candidate.
+    If the goal has its own positioned citing assertion, publication precedence
+    is mandatory and the established R7 finite-cyclic behavior is preserved.
+    A DB-only goal has no fictional publication position: only uniquely
+    screened, independently positioned prior FIXED statements can serve as
+    source premises. A same-group source is never accepted.
     """
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("typed source bridge required")
@@ -219,13 +221,6 @@ def expand_prior_general_group_transport(
         raise TypeError("available must be a tuple")
     if goal != proof_target or _goal_group(goal) is None:
         return ()
-    if isinstance(goal, Relation) and isinstance(goal.rhs, FiniteCyclicGroup):
-        from phase169_r7_general_stable_transport.rule import (
-            expand_prior_general_stable_transport,
-        )
-        return expand_prior_general_stable_transport(
-            goal, available, bridge, proof_target=proof_target,
-        )
     group = _goal_group(goal)
     if not all(type(x) is int for x in (group.group_dimension, group.sphere_dimension)):
         return ()
@@ -238,10 +233,26 @@ def expand_prior_general_group_transport(
         if isinstance(goal, TodaPrimaryGroupZeroStatement)
         else resolve_specialized_goal_citing_id(bridge, goal)
     )
-    if citing_id is None:
-        return ()
+    if isinstance(goal, Relation) and isinstance(goal.rhs, FiniteCyclicGroup):
+        from phase169_r7_general_stable_transport.rule import (
+            expand_prior_general_stable_transport,
+        )
+        legacy = expand_prior_general_stable_transport(
+            goal, available, bridge, proof_target=proof_target,
+        )
+        if citing_id is not None or legacy:
+            return legacy
+
     for source_n in range(k + 2, n):
-        if isinstance(goal, TodaPrimaryGroupZeroStatement):
+        if citing_id is None:
+            from phase169_r10e2_unpositioned_citation.source_first import (
+                uniquely_screened_prior_sources,
+            )
+            found = uniquely_screened_prior_sources(
+                bridge, goal=goal, source_n=source_n,
+            )
+            source = found[0] if len(found) == 1 else None
+        elif isinstance(goal, TodaPrimaryGroupZeroStatement):
             source = _prior_zero_goal(
                 bridge, source_n=source_n, stem=k, citing_id=citing_id,
             )
@@ -257,10 +268,10 @@ def expand_prior_general_group_transport(
         shape = _transport_shape(source, goal)
         if images is None or shape is None:
             continue
-        source_n, stem, r = shape
+        actual_n, stem, r = shape
         iso = Toda45IsomorphismStatement(TodaIteratedSuspensionMap(
             exponent=r,
-            source_group=TodaPrimaryGroup(source_n + stem, source_n),
+            source_group=TodaPrimaryGroup(actual_n + stem, actual_n),
             target_group=group,
         ))
         if not any(
