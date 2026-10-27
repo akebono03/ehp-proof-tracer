@@ -1,0 +1,507 @@
+{
+  "phase": "169 R10E6",
+  "mode": "AUDIT_ONLY",
+  "branch": "develop",
+  "head": "c61bfaa72b75121c256518fbe37c7e8e27e5f815",
+  "cases": [
+    {
+      "target": "pi_23^15",
+      "stable_base": "pi_18^10",
+      "source_explicit_in_db": true,
+      "source_admitted_as_ordered_db_given": true,
+      "target_goal_candidates": 1,
+      "status": "partial",
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "open_goals": [
+        {
+          "type": "GeneratorImage",
+          "repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=18, sphere_dimension=10), target_group=TodaPrimaryGroup(group_dimension=19, sphere_dimension=11)), source_generator=HomotopyElement(name='ν̅₁₀', dimension=10, source=18, target=10, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=10, decoration=None)), target_generator=HomotopyElement(name='ν̅₁₁', dimension=11, source=19, target=11, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=11, decoration=None)))",
+          "source_generator": "ν̅₁₀",
+          "target_generator": "ν̅₁₁",
+          "factors": []
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), rhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "search_inferred_generator_images": 0,
+      "screened_family_source_ids": [
+        4,
+        9
+      ],
+      "screened_context_captured": true,
+      "transport": {
+        "typed_transport_compatible": true,
+        "suspension_exponent": 5,
+        "expected_image_count": 10,
+        "source_generators": [
+          "ν̅₁₀",
+          "ε₁₀"
+        ],
+        "target_generators": [
+          "ν̅₁₅",
+          "ε₁₅"
+        ],
+        "component_reports": [
+          {
+            "index": 1,
+            "source_generator": "ν̅₁₀",
+            "target_generator": "ν̅₁₅",
+            "expected_image_count": 5,
+            "inferred_image_count": 0,
+            "images": [
+              {
+                "suspension_index": 1,
+                "source_generator": "ν̅₁₀",
+                "target_generator": "ν̅₁₁",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": true,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 11,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 2,
+                "source_generator": "ν̅₁₁",
+                "target_generator": "ν̅₁₂",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 11,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 3,
+                "source_generator": "ν̅₁₂",
+                "target_generator": "ν̅₁₃",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 11,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 4,
+                "source_generator": "ν̅₁₃",
+                "target_generator": "ν̅₁₄",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 11,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 5,
+                "source_generator": "ν̅₁₄",
+                "target_generator": "ν̅₁₅",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 11,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "source_generator": "ε₁₀",
+            "target_generator": "ε₁₅",
+            "expected_image_count": 5,
+            "inferred_image_count": 0,
+            "images": [
+              {
+                "suspension_index": 1,
+                "source_generator": "ε₁₀",
+                "target_generator": "ε₁₁",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 10,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 2,
+                "source_generator": "ε₁₁",
+                "target_generator": "ε₁₂",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 10,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 3,
+                "source_generator": "ε₁₂",
+                "target_generator": "ε₁₃",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 10,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 4,
+                "source_generator": "ε₁₃",
+                "target_generator": "ε₁₄",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 10,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 5,
+                "source_generator": "ε₁₄",
+                "target_generator": "ε₁₅",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 10,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "target": "pi_24^15",
+      "stable_base": "pi_20^11",
+      "source_explicit_in_db": true,
+      "source_admitted_as_ordered_db_given": true,
+      "target_goal_candidates": 1,
+      "status": "partial",
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "open_goals": [
+        {
+          "type": "GeneratorImage",
+          "repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=21, sphere_dimension=12)), source_generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None)), target_generator=HomotopyElement(name='μ₁₂', dimension=12, source=21, target=12, generator=GeneratorSymbol(family='\\\\mu', index=12, decoration=None)))",
+          "source_generator": "μ₁₁",
+          "target_generator": "μ₁₂",
+          "factors": []
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), rhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "search_inferred_generator_images": 18,
+      "screened_family_source_ids": [
+        4,
+        9
+      ],
+      "screened_context_captured": true,
+      "transport": {
+        "typed_transport_compatible": true,
+        "suspension_exponent": 4,
+        "expected_image_count": 12,
+        "source_generators": [
+          "(ν₁₁ ∘ (ν₁₄ ∘ ν₁₇))",
+          "μ₁₁",
+          "(η₁₁ ∘ ε₁₂)"
+        ],
+        "target_generators": [
+          "(ν₁₅ ∘ (ν₁₈ ∘ ν₂₁))",
+          "μ₁₅",
+          "(η₁₅ ∘ ε₁₆)"
+        ],
+        "component_reports": [
+          {
+            "index": 1,
+            "source_generator": "(ν₁₁ ∘ (ν₁₄ ∘ ν₁₇))",
+            "target_generator": "(ν₁₅ ∘ (ν₁₈ ∘ ν₂₁))",
+            "expected_image_count": 4,
+            "inferred_image_count": 4,
+            "images": [
+              {
+                "suspension_index": 1,
+                "source_generator": "(ν₁₁ ∘ (ν₁₄ ∘ ν₁₇))",
+                "target_generator": "(ν₁₂ ∘ (ν₁₅ ∘ ν₁₈))",
+                "in_search_proven_steps_as_inference": true,
+                "exact_open_goal": false
+              },
+              {
+                "suspension_index": 2,
+                "source_generator": "(ν₁₂ ∘ (ν₁₅ ∘ ν₁₈))",
+                "target_generator": "(ν₁₃ ∘ (ν₁₆ ∘ ν₁₉))",
+                "in_search_proven_steps_as_inference": true,
+                "exact_open_goal": false
+              },
+              {
+                "suspension_index": 3,
+                "source_generator": "(ν₁₃ ∘ (ν₁₆ ∘ ν₁₉))",
+                "target_generator": "(ν₁₄ ∘ (ν₁₇ ∘ ν₂₀))",
+                "in_search_proven_steps_as_inference": true,
+                "exact_open_goal": false
+              },
+              {
+                "suspension_index": 4,
+                "source_generator": "(ν₁₄ ∘ (ν₁₇ ∘ ν₂₀))",
+                "target_generator": "(ν₁₅ ∘ (ν₁₈ ∘ ν₂₁))",
+                "in_search_proven_steps_as_inference": true,
+                "exact_open_goal": false
+              }
+            ]
+          },
+          {
+            "index": 2,
+            "source_generator": "μ₁₁",
+            "target_generator": "μ₁₅",
+            "expected_image_count": 4,
+            "inferred_image_count": 0,
+            "images": [
+              {
+                "suspension_index": 1,
+                "source_generator": "μ₁₁",
+                "target_generator": "μ₁₂",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": true,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 12,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 2,
+                "source_generator": "μ₁₂",
+                "target_generator": "μ₁₃",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 12,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 3,
+                "source_generator": "μ₁₃",
+                "target_generator": "μ₁₄",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 12,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 4,
+                "source_generator": "μ₁₄",
+                "target_generator": "μ₁₅",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": 12,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 0,
+                  "composition_factor_goals": [],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              }
+            ]
+          },
+          {
+            "index": 3,
+            "source_generator": "(η₁₁ ∘ ε₁₂)",
+            "target_generator": "(η₁₅ ∘ ε₁₆)",
+            "expected_image_count": 4,
+            "inferred_image_count": 0,
+            "images": [
+              {
+                "suspension_index": 1,
+                "source_generator": "(η₁₁ ∘ ε₁₂)",
+                "target_generator": "(η₁₂ ∘ ε₁₃)",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": null,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 1,
+                  "composition_factor_goals": [
+                    {
+                      "source": "η₁₁",
+                      "target": "η₁₂"
+                    },
+                    {
+                      "source": "ε₁₂",
+                      "target": "ε₁₃"
+                    }
+                  ],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 2,
+                "source_generator": "(η₁₂ ∘ ε₁₃)",
+                "target_generator": "(η₁₃ ∘ ε₁₄)",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": null,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 1,
+                  "composition_factor_goals": [
+                    {
+                      "source": "η₁₂",
+                      "target": "η₁₃"
+                    },
+                    {
+                      "source": "ε₁₃",
+                      "target": "ε₁₄"
+                    }
+                  ],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 3,
+                "source_generator": "(η₁₃ ∘ ε₁₄)",
+                "target_generator": "(η₁₄ ∘ ε₁₅)",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": null,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 1,
+                  "composition_factor_goals": [
+                    {
+                      "source": "η₁₃",
+                      "target": "η₁₄"
+                    },
+                    {
+                      "source": "ε₁₄",
+                      "target": "ε₁₅"
+                    }
+                  ],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              },
+              {
+                "suspension_index": 4,
+                "source_generator": "(η₁₄ ∘ ε₁₅)",
+                "target_generator": "(η₁₅ ∘ ε₁₆)",
+                "in_search_proven_steps_as_inference": false,
+                "exact_open_goal": false,
+                "candidate_diagnosis": {
+                  "family_id_from_name_metadata": null,
+                  "family_has_reviewed_source": false,
+                  "family_source_in_screened_context": false,
+                  "cited_family_proposals": 0,
+                  "composition_proposals": 1,
+                  "composition_factor_goals": [
+                    {
+                      "source": "η₁₄",
+                      "target": "η₁₅"
+                    },
+                    {
+                      "source": "ε₁₅",
+                      "target": "ε₁₆"
+                    }
+                  ],
+                  "scope": "These are possible rule expansions, not verified proofs"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "production_files_modified": [],
+  "full_pytest_run": false
+}

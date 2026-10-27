@@ -1,0 +1,55 @@
+{
+  "phase": "169 R10EB",
+  "cases": [
+    {
+      "group": "pi_22^13",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_count": 40,
+      "given_count": 6,
+      "direct_sum": true,
+      "rendered_chars": 1379,
+      "duplicate_image_prose": 2,
+      "public_summary": "\\pi_{22}^{13} = \\mathbb{Z}/2\\{\\nu_{13}^{3}\\} \\oplus \\mathbb{Z}/2\\{\\mu_{13}\\} \\oplus \\mathbb{Z}/2\\{\\eta_{13}\\varepsilon_{14}\\}",
+      "rendered_file": "pi_22_13.md"
+    },
+    {
+      "group": "pi_23^15",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_count": 24,
+      "given_count": 4,
+      "direct_sum": true,
+      "rendered_chars": 719,
+      "duplicate_image_prose": 0,
+      "public_summary": "\\pi_{23}^{15} = \\mathbb{Z}/2\\{\\bar{\\nu}_{15}\\} \\oplus \\mathbb{Z}/2\\{\\varepsilon_{15}\\}",
+      "rendered_file": "pi_23_15.md"
+    },
+    {
+      "group": "pi_24^15",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_count": 66,
+      "given_count": 6,
+      "direct_sum": true,
+      "rendered_chars": 1751,
+      "duplicate_image_prose": 4,
+      "public_summary": "\\pi_{24}^{15} = \\mathbb{Z}/2\\{\\nu_{15}^{3}\\} \\oplus \\mathbb{Z}/2\\{\\mu_{15}\\} \\oplus \\mathbb{Z}/2\\{\\eta_{15}\\varepsilon_{16}\\}",
+      "rendered_file": "pi_24_15.md"
+    },
+    {
+      "group": "pi_39^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_count": 246,
+      "given_count": 6,
+      "direct_sum": true,
+      "rendered_chars": 4167,
+      "duplicate_image_prose": 19,
+      "public_summary": "\\pi_{39}^{30} = \\mathbb{Z}/2\\{\\nu_{30}^{3}\\} \\oplus \\mathbb{Z}/2\\{\\mu_{30}\\} \\oplus \\mathbb{Z}/2\\{\\eta_{30}\\varepsilon_{31}\\}",
+      "rendered_file": "pi_39_30.md"
+    }
+  ],
+  "proof_rules_changed": false,
+  "full_pytest_run": false
+}

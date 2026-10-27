@@ -1,0 +1,180 @@
+"""Generic eta-family definition -> suspension -> generator image evidence.
+
+All resulting steps use R12-R20 cited definition proof ancestors; no new GIVENs.
+"""
+from __future__ import annotations
+
+from expression import Composition, HomotopyElement
+from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
+from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+from phase165_r14_r6_generic_iso import GeneratorImage
+from phase165_r3_recursive_search import GoalExpansion
+from proof import InferenceRule, PremisePattern, ProofStep, ProofRule, find_inference_matches_for_rule
+from phase164_r8_proofstep_factory import derive_inference_proof_step
+from toda_rules import TodaEtaFamilyDefinitionStatement, toda_eta_family_definition_statement
+
+
+def _eta_pair(goal: GeneratorSuspension):
+    """Match only recognized typed eta spellings to cited family instances.
+
+    The DB uses Unicode subscript names and Toda's existing eta path may use
+    underscore names.  The already existing alias checker verifies family,
+    index, source, target, dimension and one of the two accepted spellings.
+    No new proof source, suspension axiom, or equality is introduced.
+    """
+    if not isinstance(goal, GeneratorSuspension) or not isinstance(goal.map, TodaSuspensionMap):
+        return None
+    n = getattr(getattr(goal.target_generator, "generator", None), "index", None)
+    if type(n) is not int or n < 3:
+        return None
+    older = toda_eta_family_definition_statement(n - 1)
+    newer = toda_eta_family_definition_statement(n)
+    from phase165_r12_r28_presentation_connection import _matching_eta_name
+    if (goal.map != TodaSuspensionMap(TodaPrimaryGroup(n, n - 1), TodaPrimaryGroup(n + 1, n))
+            or not _matching_eta_name(goal.source_generator, older.element)
+            or not _matching_eta_name(goal.target_generator, newer.element)):
+        return None
+    return older, newer
+
+
+def eta_definition_to_suspension_rule(goal: GeneratorSuspension) -> InferenceRule:
+    pair = _eta_pair(goal)
+    if pair is None:
+        raise ValueError("goal is not a consecutive eta-family suspension")
+    def guard(premises, bindings):
+        return (len(premises) == 2
+                and tuple(step.conclusion for step in premises) == pair)
+    return InferenceRule(
+        name="consecutive cited eta definitions imply generator suspension",
+        premise_patterns=(PremisePattern(statement_type=TodaEtaFamilyDefinitionStatement),
+                          PremisePattern(statement_type=TodaEtaFamilyDefinitionStatement)),
+        match_guard=guard,
+        conclusion_pattern=goal,
+    )
+
+
+def suspension_to_generator_image_rule() -> InferenceRule:
+    def build(premises):
+        src = premises[0].conclusion
+        return GeneratorImage(src.map, src.source_generator, src.target_generator)
+    return InferenceRule(
+        name="proved suspension of generator supplies generator image",
+        premise_patterns=(PremisePattern(statement_type=GeneratorSuspension),),
+        match_guard=lambda premises, bindings: (
+            len(premises) == 1
+            and isinstance(premises[0].conclusion, GeneratorSuspension)
+            and isinstance(premises[0].conclusion.map, TodaSuspensionMap)),
+        conclusion_builder=build,
+    )
+
+
+def _composition_eta_suspensions(goal: object) -> tuple[GeneratorSuspension, GeneratorSuspension] | None:
+    """Bind a composite DB eta goal to independently provable canonical steps.
+
+    Source database spelling may use Unicode subscripts, whereas the existing
+    cited eta-family definitions use their own canonical element objects.
+    Treat only previously recognized eta-name aliases as the same generator;
+    index, family, dimension, source and target must all match exactly.
+    The returned subgoals are canonical typed goals, not proof certificates.
+    """
+    if not isinstance(goal, GeneratorImage) or not isinstance(goal.map, TodaSuspensionMap):
+        return None
+    source, target = goal.source_generator, goal.target_generator
+    if not isinstance(source, Composition) or not isinstance(target, Composition):
+        return None
+    left, right = source.left, source.right
+    suspended_left, suspended_right = target.left, target.right
+    factors = (left, right, suspended_left, suspended_right)
+    if not all(isinstance(factor, HomotopyElement) for factor in factors):
+        return None
+    if not all(type(value) is int for factor in factors
+               for value in (factor.dimension, factor.source, factor.target)):
+        return None
+    n = left.target
+    if n < 2 or left.source != right.target or suspended_left.source != suspended_right.target:
+        return None
+    if (goal.map.source_group != TodaPrimaryGroup(n + 2, n)
+            or goal.map.target_group != TodaPrimaryGroup(n + 3, n + 1)):
+        return None
+
+    from phase165_r12_r28_presentation_connection import _matching_eta_name
+    older = toda_eta_family_definition_statement(n).element
+    middle = toda_eta_family_definition_statement(n + 1).element
+    newer = toda_eta_family_definition_statement(n + 2).element
+    if not all(_matching_eta_name(actual, canonical) for actual, canonical in (
+        (left, older),
+        (right, middle),
+        (suspended_left, middle),
+        (suspended_right, newer),
+    )):
+        return None
+
+    first = GeneratorSuspension(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(n + 1, n),
+            TodaPrimaryGroup(n + 2, n + 1),
+        ),
+        older,
+        middle,
+    )
+    second = GeneratorSuspension(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(n + 2, n + 1),
+            TodaPrimaryGroup(n + 3, n + 2),
+        ),
+        middle,
+        newer,
+    )
+    if _eta_pair(first) is None or _eta_pair(second) is None:
+        return None
+    return first, second
+
+
+def composition_eta_suspension_image_rule(goal: GeneratorImage) -> InferenceRule:
+    """Suspend a composite only from two verified component suspensions."""
+    expected = _composition_eta_suspensions(goal)
+    if expected is None:
+        raise ValueError("goal must be a typed composite of consecutive eta suspensions")
+
+    def guard(premises, bindings):
+        return (len(premises) == 2
+                and all(step.rule is ProofRule.INFERENCE for step in premises)
+                and tuple(step.conclusion for step in premises) == expected)
+
+    return InferenceRule(
+        name="suspension preserves composition of proved eta generators",
+        premise_patterns=(
+            PremisePattern(proof_rule=ProofRule.INFERENCE, statement_type=GeneratorSuspension),
+            PremisePattern(proof_rule=ProofRule.INFERENCE, statement_type=GeneratorSuspension),
+        ),
+        match_guard=guard,
+        conclusion_pattern=goal,
+    )
+
+
+def expand_cited_eta_generator(goal: object) -> tuple[GoalExpansion, ...]:
+    if isinstance(goal, GeneratorSuspension):
+        pair = _eta_pair(goal)
+        if pair is None:
+            return ()
+        return (GoalExpansion(eta_definition_to_suspension_rule(goal), pair),)
+    if isinstance(goal, GeneratorImage) and isinstance(goal.map, TodaSuspensionMap):
+        witness = GeneratorSuspension(goal.map, goal.source_generator, goal.target_generator)
+        if _eta_pair(witness) is not None:
+            return (GoalExpansion(suspension_to_generator_image_rule(), (witness,)),)
+        composite = _composition_eta_suspensions(goal)
+        if composite is not None:
+            return (GoalExpansion(composition_eta_suspension_image_rule(goal), composite),)
+    return ()
+
+
+def proof_has_cited_eta_general_ancestor(step: ProofStep) -> bool:
+    from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
+    visited = set()
+    def visit(node):
+        if id(node) in visited:
+            return False
+        visited.add(id(node))
+        return (node.rule is ProofRule.GIVEN
+                and isinstance(node.conclusion, TodaEtaFamilyGeneralDefinition)) or any(visit(p) for p in node.premises)
+    return visit(step)

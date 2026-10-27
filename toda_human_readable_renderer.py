@@ -518,6 +518,13 @@ def render_toda_expression_latex(
     expression,
     Composition,
   ):
+    from phase169_r10eb_typed_composition_power.display import (
+      typed_stable_composition_power_latex,
+    )
+    power = typed_stable_composition_power_latex(expression)
+    if power is not None:
+      return power
+    # Keep the legacy sigma fallback for historical non-canonical display names.
     # Compress only a well-typed consecutive sigma family composition.
     # This is a presentation rule: the Composition tree is unchanged.
     factors = []
