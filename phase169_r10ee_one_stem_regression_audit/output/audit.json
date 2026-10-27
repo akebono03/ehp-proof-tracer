@@ -1,0 +1,210 @@
+{
+  "phase": "169 R10EE",
+  "mode": "AUDIT_ONLY",
+  "purpose": "Phase168 one-stem baseline regression diagnosis",
+  "cases": [
+    {
+      "group": "pi_3^2",
+      "n": 2,
+      "k": 1,
+      "registered_goal_candidate_count": 1,
+      "registered_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goal_candidate_count": 1,
+      "database_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "complete",
+      "structure_status": "known",
+      "open_goal_types": [],
+      "open_goal_details": [],
+      "diagnostics": [],
+      "proof_steps": 18,
+      "inference_steps": 13,
+      "given_steps": 5,
+      "root_conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "screened_context_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:pi3_2_group_relation",
+      "screened_proof_links": 9,
+      "trust": "PASS",
+      "trust_replay_counts": [
+        13,
+        5
+      ],
+      "phase168_frozen_step_count": 18,
+      "phase168_step_count_equal": true,
+      "source_of_frozen_count": "Phase 168 documentation, 2026-10-25"
+    },
+    {
+      "group": "pi_4^3",
+      "n": 3,
+      "k": 1,
+      "registered_goal_candidate_count": 1,
+      "registered_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goal_candidate_count": 1,
+      "database_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "complete",
+      "structure_status": "known",
+      "open_goal_types": [],
+      "open_goal_details": [],
+      "diagnostics": [],
+      "proof_steps": 25,
+      "inference_steps": 19,
+      "given_steps": 6,
+      "root_conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "screened_context_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+      "screened_proof_links": 12,
+      "trust": "PASS",
+      "trust_replay_counts": [
+        19,
+        6
+      ],
+      "phase168_frozen_step_count": 25,
+      "phase168_step_count_equal": true,
+      "source_of_frozen_count": "Phase 168 documentation, 2026-10-25"
+    },
+    {
+      "group": "pi_5^4",
+      "n": 4,
+      "k": 1,
+      "registered_goal_candidate_count": 1,
+      "registered_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goal_candidate_count": 1,
+      "database_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "partial",
+      "structure_status": "unknown",
+      "open_goal_types": [
+        "SuspensionKernelFreeCyclicStatement",
+        "KernelMultipleStatement",
+        "QuotientIsomorphismStatement",
+        "CyclicStructureStatement",
+        "CyclicStructureStatement",
+        "Relation",
+        "Relation",
+        "Relation"
+      ],
+      "open_goal_details": [
+        "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))))",
+        "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), domain=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), multiple=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), domain=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), codomain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), multiple=2)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), order=2)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1), order=2)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2"
+      ],
+      "proof_steps": 11,
+      "inference_steps": 8,
+      "given_steps": 3,
+      "root_conclusion": "None",
+      "screened_context_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "screened_proof_links": 13,
+      "trust": "NOT_APPLICABLE_INCOMPLETE",
+      "trust_replay_counts": null,
+      "phase168_frozen_step_count": 10,
+      "phase168_step_count_equal": null,
+      "source_of_frozen_count": "Phase 168 documentation, 2026-10-25"
+    },
+    {
+      "group": "pi_6^5",
+      "n": 5,
+      "k": 1,
+      "registered_goal_candidate_count": 1,
+      "registered_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goal_candidate_count": 1,
+      "database_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "partial",
+      "structure_status": "unknown",
+      "open_goal_types": [
+        "SuspensionKernelFreeCyclicStatement",
+        "KernelMultipleStatement",
+        "QuotientIsomorphismStatement",
+        "CyclicStructureStatement",
+        "CyclicStructureStatement",
+        "Relation",
+        "Relation",
+        "Relation"
+      ],
+      "open_goal_details": [
+        "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))))",
+        "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), multiple=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), target_generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), multiple=2)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2), order=2)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2"
+      ],
+      "proof_steps": 14,
+      "inference_steps": 11,
+      "given_steps": 3,
+      "root_conclusion": "None",
+      "screened_context_count": 1,
+      "citing_assertion_id": "shared:2:toda:adopted:prop5.1:higher_eta_group_relation",
+      "screened_proof_links": 13,
+      "trust": "NOT_APPLICABLE_INCOMPLETE",
+      "trust_replay_counts": null,
+      "phase168_frozen_step_count": null,
+      "phase168_step_count_equal": null,
+      "source_of_frozen_count": "Phase 168 documentation, 2026-10-25"
+    },
+    {
+      "group": "pi_10^8",
+      "n": 8,
+      "k": 2,
+      "registered_goal_candidate_count": 1,
+      "registered_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None)), right=HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "database_goal_candidate_count": 1,
+      "database_goal_candidates": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_8^2', dimension=8, source=10, target=8, generator=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "status": "complete",
+      "structure_status": "known",
+      "open_goal_types": [],
+      "open_goal_details": [],
+      "diagnostics": [],
+      "proof_steps": 21,
+      "inference_steps": 17,
+      "given_steps": 4,
+      "root_conclusion": "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None)), right=HomotopyElement(name='η₉', dimension=9, source=10, target=9, generator=GeneratorSymbol(family='η', index=9, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "screened_context_count": 1,
+      "citing_assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+      "screened_proof_links": 20,
+      "trust": "PASS",
+      "trust_replay_counts": [
+        17,
+        4
+      ],
+      "phase168_frozen_step_count": null,
+      "phase168_step_count_equal": null,
+      "source_of_frozen_count": "Phase 168 documentation, 2026-10-25"
+    }
+  ],
+  "phase169_closeout": "BLOCKED_ONE_STEM_REGRESSION",
+  "production_files_changed": [],
+  "proof_inference_rules_changed": false,
+  "full_pytest_run": false
+}
