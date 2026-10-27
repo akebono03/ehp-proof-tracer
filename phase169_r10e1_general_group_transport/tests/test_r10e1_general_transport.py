@@ -204,14 +204,35 @@ def test_r10e1_prior_citation_and_iso_required_for_direct_sum(monkeypatch):
     ) == ()
     monkeypatch.setattr(universal, 'resolve_specialized_goal_citing_id',
                         lambda b, target: None)
+    # R10E4 permits an independent, earlier DB group without a target cite.
+    db_options = universal.expand_prior_general_group_transport(
+        goal, (_iso(10, 8, 2),), bridge, proof_target=goal,
+    )
+    assert len(db_options) == 1
+    assert db_options[0].subgoals[0] == source
+    from phase169_r10e4_ordered_db_prior import db_prior
+    monkeypatch.setattr(
+        db_prior, 'exact_prior_database_result', lambda *args, **kwargs: None,
+    )
     assert universal.expand_prior_general_group_transport(
         goal, (_iso(10, 8, 2),), bridge, proof_target=goal,
     ) == ()
 
 
-def test_r10e1_zero_citation_absence_not_inferred_from_db():
+def test_r10e1_zero_citation_absence_not_inferred_from_db(monkeypatch):
     bridge = RegistryBridgeResult(UnifiedStatementRegistry(), (), ())
     goal = _zero(8, 4)
+    # The real (n=6, k=4) DB zero result may be used even without a
+    # separately registered proposition, but only as an adopted DB prior.
+    options = universal.expand_prior_general_group_transport(
+        goal, (_iso(6, 4, 2),), bridge, proof_target=goal,
+    )
+    assert len(options) == 1
+    assert options[0].subgoals[0] == _zero(6, 4)
+    from phase169_r10e4_ordered_db_prior import db_prior
+    monkeypatch.setattr(
+        db_prior, 'exact_prior_database_result', lambda *args, **kwargs: None,
+    )
     assert universal.expand_prior_general_group_transport(
         goal, (_iso(6, 4, 2),), bridge, proof_target=goal,
     ) == ()
@@ -229,10 +250,22 @@ def test_r10e1_existing_finite_cyclic_route_keeps_compatibility(monkeypatch):
         return ()
 
     monkeypatch.setattr(old, 'expand_prior_general_stable_transport', fake)
+    # R7 is still tried first; when it offers nothing, the authorized
+    # R10E4 DB prior may supply the identical typed source obligation.
+    options = universal.expand_prior_general_group_transport(
+        goal, (_iso(5, 3, 2),), bridge, proof_target=goal,
+    )
+    assert len(options) == 1
+    assert options[0].subgoals[0] == source
+    assert seen == [(goal, goal)]
+    from phase169_r10e4_ordered_db_prior import db_prior
+    monkeypatch.setattr(
+        db_prior, 'exact_prior_database_result', lambda *args, **kwargs: None,
+    )
     assert universal.expand_prior_general_group_transport(
         goal, (_iso(5, 3, 2),), bridge, proof_target=goal,
     ) == ()
-    assert seen == [(goal, goal)]
+    assert seen == [(goal, goal), (goal, goal)]
 
 
 def test_r10e1_patch_is_guarded_and_does_not_duplicate():

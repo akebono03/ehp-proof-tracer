@@ -240,7 +240,7 @@ def expand_prior_general_group_transport(
         legacy = expand_prior_general_stable_transport(
             goal, available, bridge, proof_target=proof_target,
         )
-        if citing_id is not None or legacy:
+        if legacy:
             return legacy
 
     for source_n in range(k + 2, n):
@@ -262,6 +262,14 @@ def expand_prior_general_group_transport(
                 citing_assertion_id=citing_id,
             )
             source = prior.relation if prior.eligible else None
+        if source is None:
+            # The root may cite no proposition. Adopt an explicitly
+            # stored earlier DB structure, never a synthetic stable fallback.
+            from phase169_r10e4_ordered_db_prior.db_prior import (
+                exact_prior_database_result, precedes_db_goal,
+            )
+            if precedes_db_goal(source_n, k, n, k):
+                source = exact_prior_database_result(source_n, k)
         if source is None:
             continue
         images = generator_images_for_group_transport(source, goal)

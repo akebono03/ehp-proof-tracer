@@ -1,0 +1,115 @@
+{
+  "phase": "169 R10E4",
+  "order": "(source_k,source_n)<(target_k,target_n)",
+  "provenance": "adopted prior DB data; not a Toda fixed theorem",
+  "results": [
+    {
+      "n": 14,
+      "k": 7,
+      "group": "pi_21^14",
+      "status": "search_failed",
+      "stable_base": "pi_16^9",
+      "base_db_explicit": false,
+      "db_prior_admitted": false,
+      "accepted_proof_steps": 0,
+      "open_goals": 3,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=21, sphere_dimension=14), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ₁₄', dimension=14, source=21, target=14, generator=GeneratorSymbol(family='σ', index=14, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "db_antecedents": []
+    },
+    {
+      "n": 15,
+      "k": 7,
+      "group": "pi_22^15",
+      "status": "search_failed",
+      "stable_base": "pi_16^9",
+      "base_db_explicit": false,
+      "db_prior_admitted": false,
+      "accepted_proof_steps": 0,
+      "open_goals": 3,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=22, sphere_dimension=15), rhs=FiniteCyclicGroup(order=16, generator=HomotopyElement(name='σ₁₅', dimension=15, source=22, target=15, generator=GeneratorSymbol(family='σ', index=15, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "db_antecedents": []
+    },
+    {
+      "n": 8,
+      "k": 4,
+      "group": "pi_12^8",
+      "status": "search_failed",
+      "stable_base": "pi_10^6",
+      "base_db_explicit": false,
+      "db_prior_admitted": false,
+      "accepted_proof_steps": 0,
+      "open_goals": 1,
+      "diagnostics": [
+        "expected one registered derivation for TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=8)), found 0"
+      ],
+      "db_antecedents": []
+    },
+    {
+      "n": 8,
+      "k": 6,
+      "group": "pi_14^8",
+      "status": "search_failed",
+      "stable_base": "pi_14^8",
+      "base_db_explicit": false,
+      "db_prior_admitted": false,
+      "accepted_proof_steps": 0,
+      "open_goals": 3,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₈', dimension=8, source=11, target=8, generator=GeneratorSymbol(family='ν', index=8, decoration=None)), right=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "db_antecedents": []
+    },
+    {
+      "n": 15,
+      "k": 8,
+      "group": "pi_23^15",
+      "status": "search_failed",
+      "stable_base": "pi_18^10",
+      "base_db_explicit": false,
+      "db_prior_admitted": false,
+      "accepted_proof_steps": 0,
+      "open_goals": 2,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "db_antecedents": []
+    },
+    {
+      "n": 15,
+      "k": 9,
+      "group": "pi_24^15",
+      "status": "search_failed",
+      "stable_base": "pi_20^11",
+      "base_db_explicit": false,
+      "db_prior_admitted": false,
+      "accepted_proof_steps": 0,
+      "open_goals": 2,
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "db_antecedents": []
+    }
+  ],
+  "regressions": [
+    {
+      "n": 8,
+      "k": 1,
+      "status": "complete"
+    },
+    {
+      "n": 8,
+      "k": 2,
+      "status": "complete"
+    },
+    {
+      "n": 8,
+      "k": 3,
+      "status": "complete"
+    }
+  ],
+  "full_pytest_run": false
+}

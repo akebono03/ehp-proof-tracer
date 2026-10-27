@@ -1,0 +1,181 @@
+{
+  "phase": "169 R10E4R2",
+  "cases": [
+    {
+      "n": 14,
+      "k": 7,
+      "base_n": 9,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "Relation",
+      "base_group": [
+        9,
+        7
+      ],
+      "base_admitted": true,
+      "target_count": 1,
+      "proof_status": "complete",
+      "diagnostics": [],
+      "used_database_steps": [
+        {
+          "coordinates": [
+            9,
+            7
+          ],
+          "note": "ADOPTED_DATABASE_PRIOR; independent reference not asserted"
+        }
+      ]
+    },
+    {
+      "n": 14,
+      "k": 6,
+      "base_n": 8,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "Relation",
+      "base_group": [
+        8,
+        6
+      ],
+      "base_admitted": true,
+      "target_count": 1,
+      "proof_status": "partial",
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=14), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "used_database_steps": [
+        {
+          "coordinates": [
+            8,
+            6
+          ],
+          "note": "ADOPTED_DATABASE_PRIOR; independent reference not asserted"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "k": 7,
+      "base_n": 9,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "Relation",
+      "base_group": [
+        9,
+        7
+      ],
+      "base_admitted": true,
+      "target_count": 1,
+      "proof_status": "complete",
+      "diagnostics": [],
+      "used_database_steps": [
+        {
+          "coordinates": [
+            9,
+            7
+          ],
+          "note": "ADOPTED_DATABASE_PRIOR; independent reference not asserted"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "k": 4,
+      "base_n": 6,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "TodaPrimaryGroupZeroStatement",
+      "base_group": [
+        6,
+        4
+      ],
+      "base_admitted": true,
+      "target_count": 1,
+      "proof_status": "complete",
+      "diagnostics": [],
+      "used_database_steps": [
+        {
+          "coordinates": [
+            6,
+            4
+          ],
+          "note": "ADOPTED_DATABASE_PRIOR; independent reference not asserted"
+        }
+      ]
+    },
+    {
+      "n": 8,
+      "k": 6,
+      "base_n": 8,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "Relation",
+      "base_group": [
+        8,
+        6
+      ],
+      "base_admitted": false,
+      "target_count": 1,
+      "proof_status": "search_failed",
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₈', dimension=8, source=11, target=8, generator=GeneratorSymbol(family='ν', index=8, decoration=None)), right=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "used_database_steps": []
+    },
+    {
+      "n": 15,
+      "k": 8,
+      "base_n": 10,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "Relation",
+      "base_group": [
+        10,
+        8
+      ],
+      "base_admitted": true,
+      "target_count": 1,
+      "proof_status": "partial",
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₅', dimension=15, source=23, target=15, generator=GeneratorSymbol(family='\\\\varepsilon', index=15, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "used_database_steps": [
+        {
+          "coordinates": [
+            10,
+            8
+          ],
+          "note": "ADOPTED_DATABASE_PRIOR; independent reference not asserted"
+        }
+      ]
+    },
+    {
+      "n": 15,
+      "k": 9,
+      "base_n": 11,
+      "base_row_present": true,
+      "base_typed": true,
+      "base_type": "Relation",
+      "base_group": [
+        11,
+        9
+      ],
+      "base_admitted": true,
+      "target_count": 1,
+      "proof_status": "partial",
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)), right=HomotopyElement(name='ν₂₁', dimension=21, source=24, target=21, generator=GeneratorSymbol(family='ν', index=21, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₅', dimension=15, source=24, target=15, generator=GeneratorSymbol(family='\\\\mu', index=15, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₅', dimension=15, source=16, target=15, generator=GeneratorSymbol(family='η', index=15, decoration=None)), right=HomotopyElement(name='ε₁₆', dimension=16, source=24, target=16, generator=GeneratorSymbol(family='\\\\varepsilon', index=16, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "used_database_steps": [
+        {
+          "coordinates": [
+            11,
+            9
+          ],
+          "note": "ADOPTED_DATABASE_PRIOR; independent reference not asserted"
+        }
+      ]
+    }
+  ],
+  "full_pytest_run": false
+}

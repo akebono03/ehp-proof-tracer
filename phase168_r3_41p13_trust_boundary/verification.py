@@ -92,7 +92,13 @@ def verify_proof_tree_for_narrative(
             if step.rule is ProofRule.GIVEN:
                 if step.premises:
                     raise UnverifiedProofTree("GIVEN has unproved premises")
-                accepted = False
+                # R10E4: the DB assumption is authenticated by a fresh
+                # exact-row read and the target-dependent lexicographic gate.
+                # It is NOT promoted to a Toda FIXED_STATEMENT.
+                from phase169_r10e4_ordered_db_prior.db_prior import verified_db_step
+                accepted = verified_db_step(
+                    step, proof_target=result.conclusion, bridge=bridge,
+                )
                 for link in bridge.proof_links:
                     if link.step is None or link.step != step:
                         continue
