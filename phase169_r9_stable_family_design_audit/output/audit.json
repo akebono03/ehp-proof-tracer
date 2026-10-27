@@ -1,0 +1,651 @@
+{
+  "phase": "169-R9",
+  "kind": "AUDIT_ONLY",
+  "time_utc": "2026-10-27T02:18:02.203450+00:00",
+  "local_head": "06162bbc18d6330dfcfc77cdc0d001c9f156c41b",
+  "local_branch": "develop",
+  "git_status": "?? phase169_r9_stable_family_design_audit/",
+  "remote_develop": "06162bbc18d6330dfcfc77cdc0d001c9f156c41b\trefs/heads/develop",
+  "hyoujigen_sha256": "ab4971ad243e0b241b26ae802d36c403c2b47f6e4739c82ad613f1eb3c0f3c9c",
+  "all_rows": 233,
+  "kinds_zero_count": 40,
+  "kinds_zero_below_stable_range": 40,
+  "family_records": [
+    {
+      "id": 0,
+      "display": "0",
+      "kinds": 0,
+      "k": 0,
+      "n_min": 0,
+      "latex": "0",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 2,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 1,
+      "display": "ι",
+      "kinds": 0,
+      "k": 0,
+      "n_min": 1,
+      "latex": "\\iota",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 2,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 2,
+      "display": "η",
+      "kinds": 0,
+      "k": 1,
+      "n_min": 2,
+      "latex": "\\eta",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 3,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 4,
+      "display": "ν",
+      "kinds": 0,
+      "k": 3,
+      "n_min": 4,
+      "latex": "\\nu",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 5,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 9,
+      "display": "σ",
+      "kinds": 0,
+      "k": 7,
+      "n_min": 8,
+      "latex": "\\sigma",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 9,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 10,
+      "display": "ε",
+      "kinds": 0,
+      "k": 8,
+      "n_min": 3,
+      "latex": "\\varepsilon",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 10,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 11,
+      "display": "ν̅",
+      "kinds": 0,
+      "k": 8,
+      "n_min": 6,
+      "latex": "\\bar{\\nu}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 10,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 12,
+      "display": "μ",
+      "kinds": 0,
+      "k": 9,
+      "n_min": 3,
+      "latex": "\\mu",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 11,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 16,
+      "display": "ζ",
+      "kinds": 0,
+      "k": 11,
+      "n_min": 5,
+      "latex": "\\zeta",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 13,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 23,
+      "display": "κ",
+      "kinds": 0,
+      "k": 14,
+      "n_min": 7,
+      "latex": "\\kappa",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 16,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 25,
+      "display": "ε̅",
+      "kinds": 0,
+      "k": 15,
+      "n_min": 3,
+      "latex": "\\bar{\\varepsilon}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 17,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 30,
+      "display": "ρ",
+      "kinds": 0,
+      "k": 15,
+      "n_min": 13,
+      "latex": "\\rho",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 17,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 34,
+      "display": "ω",
+      "kinds": 0,
+      "k": 16,
+      "n_min": 14,
+      "latex": "\\omega",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 18,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 36,
+      "display": "η*",
+      "kinds": 0,
+      "k": 16,
+      "n_min": 16,
+      "latex": "\\eta^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 18,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 38,
+      "display": "μ̅",
+      "kinds": 0,
+      "k": 17,
+      "n_min": 3,
+      "latex": "\\bar{\\mu}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 19,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 40,
+      "display": "ε*",
+      "kinds": 0,
+      "k": 17,
+      "n_min": 12,
+      "latex": "\\varepsilon^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 19,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 46,
+      "display": "ξ",
+      "kinds": 0,
+      "k": 18,
+      "n_min": 12,
+      "latex": "\\xi",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 20,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 48,
+      "display": "ν*",
+      "kinds": 0,
+      "k": 18,
+      "n_min": 16,
+      "latex": "\\nu^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 20,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 50,
+      "display": "ζ̅",
+      "kinds": 0,
+      "k": 19,
+      "n_min": 5,
+      "latex": "\\bar{\\zeta}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 21,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 51,
+      "display": "σ̅",
+      "kinds": 0,
+      "k": 19,
+      "n_min": 6,
+      "latex": "\\bar{\\sigma}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 21,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 56,
+      "display": "κ̅",
+      "kinds": 0,
+      "k": 20,
+      "n_min": 7,
+      "latex": "\\bar{\\kappa}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 22,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 72,
+      "display": "σ*",
+      "kinds": 0,
+      "k": 22,
+      "n_min": 16,
+      "latex": "\\sigma^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 24,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 76,
+      "display": "φ",
+      "kinds": 0,
+      "k": 23,
+      "n_min": 5,
+      "latex": "\\phi",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 25,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 81,
+      "display": "ρ̅",
+      "kinds": 0,
+      "k": 23,
+      "n_min": 9,
+      "latex": "\\bar{\\rho}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 25,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 82,
+      "display": "ψ",
+      "kinds": 0,
+      "k": 23,
+      "n_min": 10,
+      "latex": "\\psi",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 25,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 85,
+      "display": "ε̅*",
+      "kinds": 0,
+      "k": 23,
+      "n_min": 16,
+      "latex": "\\bar{\\varepsilon}^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 25,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 86,
+      "display": "ν̅*",
+      "kinds": 0,
+      "k": 23,
+      "n_min": 16,
+      "latex": "\\bar{\\nu}^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 25,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 88,
+      "display": "δ",
+      "kinds": 0,
+      "k": 24,
+      "n_min": 3,
+      "latex": "\\delta",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 26,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 89,
+      "display": "ζ̅'",
+      "kinds": 0,
+      "k": 24,
+      "n_min": 6,
+      "latex": "\\bar{\\zeta}{'}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 26,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 90,
+      "display": "σ̅'",
+      "kinds": 0,
+      "k": 24,
+      "n_min": 6,
+      "latex": "\\bar{\\sigma}{'}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 26,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 93,
+      "display": "֮ε",
+      "kinds": 0,
+      "k": 24,
+      "n_min": 10,
+      "latex": "\\widetilde{\\varepsilon}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 26,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 97,
+      "display": "μ*",
+      "kinds": 0,
+      "k": 24,
+      "n_min": 16,
+      "latex": "\\mu^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 26,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 103,
+      "display": "μ3,",
+      "kinds": 0,
+      "k": 25,
+      "n_min": 3,
+      "latex": "\\mu_{3,",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 27,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 132,
+      "display": "ζ3,",
+      "kinds": 0,
+      "k": 27,
+      "n_min": 5,
+      "latex": "\\zeta_{3,",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 29,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 174,
+      "display": "θ'_",
+      "kinds": 0,
+      "k": 30,
+      "n_min": 23,
+      "latex": "\\theta'",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 32,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 185,
+      "display": "κ*",
+      "kinds": 0,
+      "k": 31,
+      "n_min": 10,
+      "latex": "\\kappa^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 33,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 188,
+      "display": "ω*",
+      "kinds": 0,
+      "k": 31,
+      "n_min": 14,
+      "latex": "\\omega^{*}",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 33,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 189,
+      "display": "ρ3,",
+      "kinds": 0,
+      "k": 31,
+      "n_min": 14,
+      "latex": "\\rho_{3,",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 33,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 219,
+      "display": "μ4,",
+      "kinds": 0,
+      "k": 33,
+      "n_min": 3,
+      "latex": "\\mu_{4,",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 35,
+      "at_minimum_in_stable_range": false
+    },
+    {
+      "id": 223,
+      "display": "κ'",
+      "kinds": 0,
+      "k": 33,
+      "n_min": 6,
+      "latex": "\\kappa'",
+      "stable": "",
+      "stable_orders": "",
+      "freudenthal_start": 35,
+      "at_minimum_in_stable_range": false
+    }
+  ],
+  "examples": [
+    {
+      "id": 2,
+      "display": "η",
+      "k": 1,
+      "n": 2,
+      "r": 1,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": false
+    },
+    {
+      "id": 2,
+      "display": "η",
+      "k": 1,
+      "n": 3,
+      "r": 5,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": true
+    },
+    {
+      "id": 4,
+      "display": "ν",
+      "k": 3,
+      "n": 4,
+      "r": 1,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": false
+    },
+    {
+      "id": 4,
+      "display": "ν",
+      "k": 3,
+      "n": 5,
+      "r": 2,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": true
+    },
+    {
+      "id": 9,
+      "display": "σ",
+      "k": 7,
+      "n": 8,
+      "r": 1,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": false
+    },
+    {
+      "id": 9,
+      "display": "σ",
+      "k": 7,
+      "n": 9,
+      "r": 3,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": true
+    },
+    {
+      "id": 10,
+      "display": "ε",
+      "k": 8,
+      "n": 3,
+      "r": 7,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": false
+    },
+    {
+      "id": 10,
+      "display": "ε",
+      "k": 8,
+      "n": 10,
+      "r": 2,
+      "family_notation_candidate": true,
+      "stable_group_isomorphism_range": true
+    }
+  ],
+  "source_checks": {
+    "phase166_r3aj_structured_generator.py": {
+      "present": true,
+      "sha256": "efdf33324f3d964c9efa03748aa53b8bbb4406dea122cec98c92e905d0e511c7",
+      "functions_missing": [],
+      "functions": {
+        "_base_element": {
+          "line": 15,
+          "end_line": 48
+        },
+        "structured_generator_from_ids": {
+          "line": 50,
+          "end_line": 75
+        }
+      }
+    },
+    "phase169_r7_general_stable_transport/rule.py": {
+      "present": true,
+      "sha256": "556ea09c22c5af00b79e15595902620c6589b22a6c78684f7bf257c200cc1549",
+      "functions_missing": [],
+      "functions": {
+        "_intermediate_typed_generator": {
+          "line": 50,
+          "end_line": 112
+        },
+        "_consecutive_generator_image_goals": {
+          "line": 115,
+          "end_line": 151
+        },
+        "general_stable_cyclic_transport_rule": {
+          "line": 154,
+          "end_line": 199
+        }
+      }
+    },
+    "phase168_r3_5_model_renderer.py": {
+      "present": true,
+      "sha256": "983e72461f33dee20b4e22f31db2625b662e7a62e049962b490b093089ae4fb8",
+      "functions_missing": [],
+      "functions": {
+        "render_model_backed_narrative_markdown": {
+          "line": 9,
+          "end_line": 531
+        }
+      }
+    },
+    "phase165_r12_r21_eta_generator_chain.py": {
+      "present": true,
+      "sha256": "a7014bbe6086b705ade80cf46e9109a0e248674adaf01a8a1532769eb3dc909c",
+      "functions_missing": [],
+      "functions": {
+        "_composition_eta_suspensions": {
+          "line": 63,
+          "end_line": 122
+        },
+        "expand_cited_eta_generator": {
+          "line": 147,
+          "end_line": 160
+        }
+      }
+    },
+    "phase165_r52_r9_shared_math.py": {
+      "present": true,
+      "sha256": "4861019ad73c1dfb4ad95fb406d1c3898e62798defe2b24a051e35bf99a9e79b",
+      "functions_missing": [],
+      "functions": {
+        "shared_expansion_provider": {
+          "line": 143,
+          "end_line": 352
+        }
+      }
+    }
+  },
+  "proof_or_renderer_modified": false,
+  "whole_pytest_run": false,
+  "interpretation": [
+    "kinds=0 identifies DB suspension-family notation, not a group isomorphism at its minimum n.",
+    "The stable group range is n >= k+2, independently of HyoujiGen n_min.",
+    "DB family identity is metadata; proof of a named suspension requires cited definition/evidence.",
+    "Eta-square composition can be compressed in narrative only after proving all image premises.",
+    "No unproved base group, including pi_8^5, is promoted to a GIVEN."
+  ]
+}
