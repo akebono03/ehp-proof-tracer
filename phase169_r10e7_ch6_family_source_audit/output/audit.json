@@ -1,0 +1,69 @@
+{
+  "phase": "169 R10E7",
+  "mode": "AUDIT_ONLY",
+  "source": "sources/toda/Toda_06_2.tex (adopted transcription)",
+  "definitions": [
+    {
+      "label": "epsilon",
+      "section_line": 80,
+      "clause_line": 99,
+      "following_section_line": 468,
+      "unique_source_clause": true,
+      "defining_clause": "\\varepsilon_n:=E^{\\,n-3}\\varepsilon_3\\quad (n\\ge3)",
+      "original_edition_verified": false,
+      "family_id": 10,
+      "stem": 8,
+      "minimum_n": 3,
+      "metadata_only": true,
+      "already_cited_by_r10d2": false
+    },
+    {
+      "label": "bar_nu",
+      "section_line": 468,
+      "clause_line": 501,
+      "following_section_line": 862,
+      "unique_source_clause": true,
+      "defining_clause": "\\overline{\\nu}_n:=E^{\\,n-6}\\overline{\\nu}_6\\ (n\\ge6)",
+      "original_edition_verified": false,
+      "family_id": 11,
+      "stem": 8,
+      "minimum_n": 6,
+      "metadata_only": true,
+      "already_cited_by_r10d2": false
+    },
+    {
+      "label": "mu",
+      "section_line": 862,
+      "clause_line": 1309,
+      "following_section_line": 1746,
+      "unique_source_clause": true,
+      "defining_clause": "\\mu_{n}:=E^{\\,n-3}\\mu_{3}",
+      "original_edition_verified": false,
+      "family_id": 12,
+      "stem": 9,
+      "minimum_n": 3,
+      "metadata_only": true,
+      "already_cited_by_r10d2": false
+    }
+  ],
+  "manifest": {
+    "chapters": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "chapter6_entries": 0,
+    "chapter6_position_covered": false,
+    "publication_position_invented": false
+  },
+  "currently_registered_source_ids": [
+    4,
+    9
+  ],
+  "citation_registration_ready": false,
+  "next_requirement": "Review Chapter VI publication-position anchors and extend the existing cited stable-family registry without fabricating GIVENs",
+  "production_files_modified": [],
+  "full_pytest_run": false
+}
