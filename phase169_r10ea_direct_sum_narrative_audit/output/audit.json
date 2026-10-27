@@ -1,0 +1,326 @@
+{
+  "phase": "169 R10EA",
+  "mode": "AUDIT_ONLY",
+  "cases": [
+    {
+      "goal": "pi_22^13",
+      "n": 13,
+      "k": 9,
+      "search_status": "complete",
+      "open_goal_types": [],
+      "proven_steps": 46,
+      "inferred_generator_image_steps": 18,
+      "images_without_supported_element_tex": 10,
+      "unsupported_image_examples": [
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None)))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)))"
+        },
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None))))"
+        },
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₆', dimension=16, source=19, target=16, generator=GeneratorSymbol(family='ν', index=16, decoration=None)), right=HomotopyElement(name='ν₁₉', dimension=19, source=22, target=19, generator=GeneratorSymbol(family='ν', index=19, decoration=None)))"
+        }
+      ],
+      "screened_search_context_present": true,
+      "trust_boundary": "PASS",
+      "citing_assertion_id": null,
+      "trust_replayed_inference_steps": 40,
+      "trust_checked_given_steps": 6,
+      "root_is_direct_sum": true,
+      "used_reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)",
+        "Chapter V, ν-family definition (after Lemma 5.5)",
+        "Chapter VI, iii) The elements mu_n (definition)",
+        "Chapter V, i)",
+        "Chapter VI, i) The Elements epsilon_n (definition)"
+      ],
+      "rendered_characters": 1271,
+      "rendered_nonempty_lines": 28,
+      "rendered_image_equations": {
+        "total_occurrences": 10,
+        "distinct_equations": 8,
+        "extra_duplicate_occurrences": 2,
+        "repeated_equations": [
+          {
+            "from": "\\eta_{11}",
+            "to": "\\eta_{12}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{12}",
+            "to": "\\eta_{13}",
+            "copies": 2
+          }
+        ]
+      },
+      "displayed_terminal_square": true,
+      "rendered_file": "pi_22_13.rendered.md"
+    },
+    {
+      "goal": "pi_23^15",
+      "n": 15,
+      "k": 8,
+      "search_status": "complete",
+      "open_goal_types": [],
+      "proven_steps": 28,
+      "inferred_generator_image_steps": 10,
+      "images_without_supported_element_tex": 10,
+      "unsupported_image_examples": [
+        {
+          "source": "HomotopyElement(name='ν̅₁₀', dimension=10, source=18, target=10, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=10, decoration=None))",
+          "target": "HomotopyElement(name='ν̅₁₁', dimension=11, source=19, target=11, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=11, decoration=None))"
+        },
+        {
+          "source": "HomotopyElement(name='ν̅₁₁', dimension=11, source=19, target=11, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=11, decoration=None))",
+          "target": "HomotopyElement(name='ν̅₁₂', dimension=12, source=20, target=12, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=12, decoration=None))"
+        },
+        {
+          "source": "HomotopyElement(name='ν̅₁₂', dimension=12, source=20, target=12, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=12, decoration=None))",
+          "target": "HomotopyElement(name='ν̅₁₃', dimension=13, source=21, target=13, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=13, decoration=None))"
+        }
+      ],
+      "screened_search_context_present": true,
+      "trust_boundary": "PASS",
+      "citing_assertion_id": null,
+      "trust_replayed_inference_steps": 24,
+      "trust_checked_given_steps": 4,
+      "root_is_direct_sum": true,
+      "used_reference_locators": [
+        "DB prior: sphere.csv (n=10, k=8)",
+        "(4.5)",
+        "Chapter VI, ii) The elements bar-nu_n (definition)",
+        "Chapter VI, i) The Elements epsilon_n (definition)"
+      ],
+      "rendered_characters": 719,
+      "rendered_nonempty_lines": 14,
+      "rendered_image_equations": {
+        "total_occurrences": 0,
+        "distinct_equations": 0,
+        "extra_duplicate_occurrences": 0,
+        "repeated_equations": []
+      },
+      "displayed_terminal_square": true,
+      "rendered_file": "pi_23_15.rendered.md"
+    },
+    {
+      "goal": "pi_24^15",
+      "n": 15,
+      "k": 9,
+      "search_status": "complete",
+      "open_goal_types": [],
+      "proven_steps": 72,
+      "inferred_generator_image_steps": 34,
+      "images_without_supported_element_tex": 20,
+      "unsupported_image_examples": [
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None)))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)))"
+        },
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None))))"
+        },
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₆', dimension=16, source=19, target=16, generator=GeneratorSymbol(family='ν', index=16, decoration=None)), right=HomotopyElement(name='ν₁₉', dimension=19, source=22, target=19, generator=GeneratorSymbol(family='ν', index=19, decoration=None)))"
+        }
+      ],
+      "screened_search_context_present": true,
+      "trust_boundary": "PASS",
+      "citing_assertion_id": null,
+      "trust_replayed_inference_steps": 66,
+      "trust_checked_given_steps": 6,
+      "root_is_direct_sum": true,
+      "used_reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)",
+        "Chapter V, ν-family definition (after Lemma 5.5)",
+        "Chapter VI, iii) The elements mu_n (definition)",
+        "Chapter V, i)",
+        "Chapter VI, i) The Elements epsilon_n (definition)"
+      ],
+      "rendered_characters": 1511,
+      "rendered_nonempty_lines": 36,
+      "rendered_image_equations": {
+        "total_occurrences": 18,
+        "distinct_equations": 14,
+        "extra_duplicate_occurrences": 4,
+        "repeated_equations": [
+          {
+            "from": "\\eta_{11}",
+            "to": "\\eta_{12}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{12}",
+            "to": "\\eta_{13}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{13}",
+            "to": "\\eta_{14}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{14}",
+            "to": "\\eta_{15}",
+            "copies": 2
+          }
+        ]
+      },
+      "displayed_terminal_square": true,
+      "rendered_file": "pi_24_15.rendered.md"
+    },
+    {
+      "goal": "pi_39^30",
+      "n": 30,
+      "k": 9,
+      "search_status": "complete",
+      "open_goal_types": [],
+      "proven_steps": 252,
+      "inferred_generator_image_steps": 139,
+      "images_without_supported_element_tex": 95,
+      "unsupported_image_examples": [
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None)))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)))"
+        },
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None))))"
+        },
+        {
+          "source": "Composition(left=HomotopyElement(name='ν₁₅', dimension=15, source=18, target=15, generator=GeneratorSymbol(family='ν', index=15, decoration=None)), right=HomotopyElement(name='ν₁₈', dimension=18, source=21, target=18, generator=GeneratorSymbol(family='ν', index=18, decoration=None)))",
+          "target": "Composition(left=HomotopyElement(name='ν₁₆', dimension=16, source=19, target=16, generator=GeneratorSymbol(family='ν', index=16, decoration=None)), right=HomotopyElement(name='ν₁₉', dimension=19, source=22, target=19, generator=GeneratorSymbol(family='ν', index=19, decoration=None)))"
+        }
+      ],
+      "screened_search_context_present": true,
+      "trust_boundary": "PASS",
+      "citing_assertion_id": null,
+      "trust_replayed_inference_steps": 246,
+      "trust_checked_given_steps": 6,
+      "root_is_direct_sum": true,
+      "used_reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)",
+        "Chapter V, ν-family definition (after Lemma 5.5)",
+        "Chapter VI, iii) The elements mu_n (definition)",
+        "Chapter V, i)",
+        "Chapter VI, i) The Elements epsilon_n (definition)"
+      ],
+      "rendered_characters": 2937,
+      "rendered_nonempty_lines": 81,
+      "rendered_image_equations": {
+        "total_occurrences": 63,
+        "distinct_equations": 44,
+        "extra_duplicate_occurrences": 19,
+        "repeated_equations": [
+          {
+            "from": "\\eta_{11}",
+            "to": "\\eta_{12}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{12}",
+            "to": "\\eta_{13}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{13}",
+            "to": "\\eta_{14}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{14}",
+            "to": "\\eta_{15}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{15}",
+            "to": "\\eta_{16}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{16}",
+            "to": "\\eta_{17}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{17}",
+            "to": "\\eta_{18}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{18}",
+            "to": "\\eta_{19}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{19}",
+            "to": "\\eta_{20}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{20}",
+            "to": "\\eta_{21}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{21}",
+            "to": "\\eta_{22}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{22}",
+            "to": "\\eta_{23}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{23}",
+            "to": "\\eta_{24}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{24}",
+            "to": "\\eta_{25}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{25}",
+            "to": "\\eta_{26}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{26}",
+            "to": "\\eta_{27}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{27}",
+            "to": "\\eta_{28}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{28}",
+            "to": "\\eta_{29}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{29}",
+            "to": "\\eta_{30}",
+            "copies": 2
+          }
+        ]
+      },
+      "displayed_terminal_square": true,
+      "rendered_file": "pi_39_30.rendered.md"
+    }
+  ],
+  "production_files_changed": [],
+  "full_pytest_run": false
+}
