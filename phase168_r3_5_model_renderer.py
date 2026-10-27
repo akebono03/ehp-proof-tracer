@@ -297,7 +297,20 @@ def render_model_backed_narrative_markdown(
     )
     if stable_chain_display is not None:
         suppressed_body_indices.update(stable_chain_display.hidden_indices)
+    # R10EC: a complete, verified direct-sum proof may present the actual
+    # E^r endpoints, while retaining all certified ProofSteps and citations.
+    from phase169_r10ec_direct_sum_narrative_projection.projection import (
+        project_verified_direct_sum_transport,
+    )
+    direct_sum_display = (
+        project_verified_direct_sum_transport(model, order)
+        if not incomplete else None
+    )
+    if direct_sum_display is not None:
+        suppressed_body_indices.update(direct_sum_display.hidden_indices)
     for index in order:
+        if direct_sum_display is not None and index == direct_sum_display.root_index:
+            lines.extend((direct_sum_display.statement, ""))
         if stable_chain_display is not None and index == stable_chain_display.root_index:
             source_tags = ", ".join(
                 f"[R{number}]" for number in stable_chain_display.citation_numbers
