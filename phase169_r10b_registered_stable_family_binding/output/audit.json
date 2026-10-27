@@ -1,0 +1,48 @@
+{
+  "phase": "169-R10B",
+  "family_rows": 39,
+  "cases": [
+    {
+      "n": 8,
+      "k": 1,
+      "status": "complete",
+      "steps": 10,
+      "proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 5,
+      "k": 2,
+      "status": "complete",
+      "steps": 12,
+      "proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 6,
+      "k": 2,
+      "status": "complete",
+      "steps": 15,
+      "proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 7,
+      "k": 2,
+      "status": "complete",
+      "steps": 18,
+      "proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    },
+    {
+      "n": 8,
+      "k": 2,
+      "status": "complete",
+      "steps": 21,
+      "proof_tree_verified": true,
+      "web_key": "generic-complete-proof"
+    }
+  ],
+  "claim": "typed candidate registry; no source proof from DB",
+  "full_pytest": false
+}
