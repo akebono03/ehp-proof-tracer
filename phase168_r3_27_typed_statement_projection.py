@@ -37,6 +37,14 @@ def element_tex(value):
     """Render only supported generators; normalize typed consecutive eta composites."""
     from expression import Composition
 
+    if isinstance(value, Composition):
+        from phase169_r10eb_typed_composition_power.display import (
+            typed_stable_composition_power_latex,
+        )
+        power = typed_stable_composition_power_latex(value)
+        if power is not None:
+            return power
+
     if isinstance(value, Multiple) and type(value.coefficient) is int:
         inner = element_tex(value.expression)
         return f"{value.coefficient}{inner}" if inner is not None else None
