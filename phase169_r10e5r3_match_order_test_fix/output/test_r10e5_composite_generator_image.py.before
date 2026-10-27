@@ -1,0 +1,142 @@
+"""Typed composition-image obligations; no result may be inserted as GIVEN."""
+from __future__ import annotations
+
+from dataclasses import replace
+
+import pytest
+
+from expression import Composition, GeneratorSymbol, HomotopyElement
+from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
+from phase165_r14_r6_generic_iso import GeneratorImage
+from phase169_r10e5_composite_generator_image.rule import (
+    component_image_obligations,
+    composite_generator_image_rule,
+    expand_composite_generator_image,
+)
+from phase169_r10b_registered_stable_family_binding.family_registry import (
+    read_registered_stable_families,
+)
+from proof import (
+    ProofRule, ProofStep, apply_inference_match,
+    find_inference_matches_for_rule,
+)
+
+
+def _nu(n: int) -> HomotopyElement:
+    family = next(x for x in read_registered_stable_families()
+                  if x.family_id == 4)
+    return HomotopyElement(
+        name=family.name_at(n), dimension=n,
+        source=n + family.stem, target=n,
+        generator=GeneratorSymbol(family=family.symbol_family, index=n),
+    )
+
+
+def _square(n: int) -> Composition:
+    return Composition(_nu(n), _nu(n + 3))
+
+
+def _cube(n: int) -> Composition:
+    return Composition(_nu(n), Composition(_nu(n + 3), _nu(n + 6)))
+
+
+def _image(n: int, stem: int, earlier: object, later: object) -> GeneratorImage:
+    return GeneratorImage(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(n + stem, n),
+            TodaPrimaryGroup(n + stem + 1, n + 1),
+        ),
+        earlier, later,
+    )
+
+
+def test_r10e5_nu_squared_creates_two_independent_factor_images():
+    goal = _image(8, 6, _square(8), _square(9))
+    obligations = component_image_obligations(goal)
+    assert obligations == (
+        _image(8, 3, _nu(8), _nu(9)),
+        _image(11, 3, _nu(11), _nu(12)),
+    )
+    options = expand_composite_generator_image(goal)
+    assert len(options) == 1
+    assert options[0].subgoals == obligations
+    assert all(not isinstance(x, ProofStep) for x in options[0].subgoals)
+
+
+def test_r10e5_two_inferred_images_are_required_to_prove_composition():
+    goal = _image(8, 6, _square(8), _square(9))
+    obligations = component_image_obligations(goal)
+    assert obligations is not None
+    rule = composite_generator_image_rule(goal)
+    steps = tuple(ProofStep(item, (), ProofRule.INFERENCE)
+                  for item in obligations)
+    matches = find_inference_matches_for_rule(rule, steps)
+    assert len(matches) == 1
+    assert apply_inference_match(matches[0]).conclusion == goal
+    assert find_inference_matches_for_rule(rule, steps[:1]) == ()
+    assert find_inference_matches_for_rule(
+        rule, (replace(steps[0], rule=ProofRule.GIVEN), steps[1]),
+    ) == ()
+    assert find_inference_matches_for_rule(rule, tuple(reversed(steps))) == ()
+
+
+def test_r10e5_nested_nu_cube_recurses_without_family_specific_code():
+    goal = _image(9, 9, _cube(9), _cube(10))
+    obligations = component_image_obligations(goal)
+    assert obligations is not None and len(obligations) == 2
+    assert obligations[0] == _image(9, 3, _nu(9), _nu(10))
+    second_level = component_image_obligations(obligations[1])
+    assert second_level is not None and len(second_level) == 2
+    assert all(expand_composite_generator_image(item)
+               for item in (goal, obligations[1]))
+
+
+def test_r10e5_refuses_inconsistent_factor_suspension_and_composition():
+    valid = _image(8, 6, _square(8), _square(9))
+    bad_generator = Composition(_nu(9), _nu(13))
+    assert expand_composite_generator_image(replace(
+        valid, target_generator=bad_generator,
+    )) == ()
+    unchanged = replace(valid, target_generator=valid.source_generator)
+    assert expand_composite_generator_image(unchanged) == ()
+    wrong_map = replace(valid, map=TodaSuspensionMap(
+        TodaPrimaryGroup(15, 9), TodaPrimaryGroup(16, 10),
+    ))
+    assert expand_composite_generator_image(wrong_map) == ()
+    with pytest.raises(ValueError):
+        composite_generator_image_rule(unchanged)
+
+
+def test_r10e5_simple_member_remains_for_cited_family_path():
+    goal = _image(8, 3, _nu(8), _nu(9))
+    assert expand_composite_generator_image(goal) == ()
+    from phase169_r10d2_general_family_definition.family_citation import (
+        expand_cited_stable_family, CitedStableFamilyDefinition,
+    )
+    source = CitedStableFamilyDefinition(4, 4, 3)
+    assert len(expand_cited_stable_family(goal, (source,))) == 1
+
+
+def test_r10e5_composite_without_proved_component_cannot_complete():
+    goal = _image(8, 6, _square(8), _square(9))
+    options = expand_composite_generator_image(goal)
+    assert len(options) == 1
+    # The provider supplies candidate Goal objects, never a leaf or a proof.
+    assert all(isinstance(item, GeneratorImage) for item in options[0].subgoals)
+    assert find_inference_matches_for_rule(options[0].rule, ()) == ()
+
+
+def test_r10e5_patch_guarded_and_full_function_retained():
+    from phase169_r10e5_composite_generator_image.patch import OLD, NEW, transform
+    sample = (
+        'def shared_expansion_provider():\n'
+        '    def expand(goal):\n'
+        + OLD + '\n'
+        '        return ()\n'
+        '    return expand\n'
+    ).encode('utf-8')
+    modified, full = transform(sample)
+    assert NEW in modified.decode('utf-8')
+    assert full.startswith('def shared_expansion_provider():')
+    with pytest.raises(RuntimeError, match='source anchor'):
+        transform(modified)

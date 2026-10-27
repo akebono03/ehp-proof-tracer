@@ -297,8 +297,14 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_toda52_finite_cyclic_goal(goal, tuple(available)))
         options.extend(expand_cited_toda51_zero(goal, tuple(available)))
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
-        options.extend(expand_cited_eta_generator(goal))
+        eta_generator_options = expand_cited_eta_generator(goal)
+        options.extend(eta_generator_options)
         options.extend(expand_cited_stable_family(goal, tuple(available)))
+        if not eta_generator_options:
+            from phase169_r10e5_composite_generator_image.rule import (
+                expand_composite_generator_image,
+            )
+            options.extend(expand_composite_generator_image(goal))
         from phase169_r4b_prop44_injectivity.rule import expand_cited_prop44_injectivity
         options.extend(expand_cited_prop44_injectivity(goal, tuple(available)))
         from phase169_r4c_pi64_suspension_iso.rule import expand_pi64_suspension_isomorphism
