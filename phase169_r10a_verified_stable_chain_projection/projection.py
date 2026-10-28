@@ -110,27 +110,64 @@ def project_verified_stable_image_chain(
             if any(parent is image_step for parent in consumer.premises)
         ):
             return None
-    source_tex, target_tex = element_tex(src.rhs.generator), element_tex(dst.rhs.generator)
+    # A public LaTeX spelling is permitted only for the already-typed,
+    # independently proven generator.  The public printer supplies notation,
+    # never a missing GeneratorImage or a new mathematical inference.
+    def display_generator_tex(generator):
+        value = element_tex(generator)
+        if value:
+            return value
+        from expression import Composition
+        if not isinstance(generator, Composition):
+            return None
+        from toda_human_readable_renderer import render_toda_public_group_generator_latex
+        return render_toda_public_group_generator_latex(generator)
+
+    source_tex = display_generator_tex(src.rhs.generator)
+    target_tex = display_generator_tex(dst.rhs.generator)
     if not source_tex or not target_tex:
         return None
 
     hidden = set(image_indices)
-    # An eta-family suspension step can be shared by adjacent composite images.
-    # Hide it only when ALL of its actual consumers are the collapsed images,
-    # and the individual step has no direct citation to preserve.
-    for index, candidate in enumerate(steps):
-        if (index not in order or index == root_index
-                or candidate.rule is not ProofRule.INFERENCE
-                or not isinstance(candidate.conclusion, GeneratorSuspension)
-                or model.step_citation_numbers[index]):
+    # The image chain may use intermediate GeneratorImages and
+    # GeneratorSuspensions for its factors (e.g. nu^2 or eta o mu).
+    # Inspect ONLY ancestors of the root's independently proved images.
+    # Hide a typed inference only when it has no own citation and every
+    # consumer is already hidden (or the compressed root).  This fixed point
+    # keeps shared or separately cited evidence visible, and never edits the
+    # model or its actual dependencies.
+    eligible_ancestors = set()
+    pending = [premise for image_step in images for premise in image_step.premises]
+    visited = set()
+    while pending:
+        ancestor = pending.pop()
+        identity = id(ancestor)
+        if identity in visited:
             continue
-        consumers = {
-            consumer_index
-            for consumer_index, consumer in enumerate(steps)
-            if any(parent is candidate for parent in consumer.premises)
-        }
-        if consumers and consumers.issubset(hidden):
-            hidden.add(index)
+        visited.add(identity)
+        index = by_identity.get(identity)
+        if index is None or index not in order:
+            return None
+        if (index != root_index
+                and ancestor.rule is ProofRule.INFERENCE
+                and isinstance(ancestor.conclusion, (GeneratorImage, GeneratorSuspension))
+                and not model.step_citation_numbers[index]):
+            eligible_ancestors.add(index)
+        pending.extend(ancestor.premises)
+
+    changed = True
+    while changed:
+        changed = False
+        for index in sorted(eligible_ancestors - hidden):
+            ancestor = steps[index]
+            consumers = {
+                consumer_index
+                for consumer_index, consumer in enumerate(steps)
+                if any(parent is ancestor for parent in consumer.premises)
+            }
+            if consumers and consumers.issubset(hidden | {root_index}):
+                hidden.add(index)
+                changed = True
 
     # Citations are copied from actual linked GIVEN ancestors of the image
     # proofs, not inferred from the symbols eta/nu/sigma or from rule names.
