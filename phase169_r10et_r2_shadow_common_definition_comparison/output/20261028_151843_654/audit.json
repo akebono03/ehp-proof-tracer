@@ -1,0 +1,2656 @@
+{
+  "phase": "169 R10ET-R2",
+  "mode": "AUDIT_ONLY_SHADOW",
+  "head": "a5892721436effaf7be759ff17afd3bd427814ed",
+  "base_head": "36e4dc41427ec4437009c96b01cacb07dc165bf6",
+  "source_blob": "61cbadb06f770c51a9c1f5a3c8026acf9e3e14aa",
+  "cases": [
+    {
+      "group": "pi_69^43",
+      "n": 43,
+      "k": 26,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 32,
+      "givens": 2,
+      "proof_steps": 34,
+      "root_index": 33,
+      "root_ancestry_steps": 34,
+      "unreachable_steps": [],
+      "images": 30,
+      "image_actual_common": 30,
+      "image_common_eligible": 30,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 30
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=28, k=26)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=15, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=69, sphere_dimension=43)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{15}(\\nu_{28}^{2}\\bar{\\kappa}_{34})=\\nu_{43}^{2}\\bar{\\kappa}_{49}$、$E^{15}(\\eta_{28}\\mu_{3,29})=\\eta_{43}\\mu_{3,44}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi69_43\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi69_43\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=28, k=26)",
+          "(4.5)",
+          "Chapter V, ν-family definition (after Lemma 5.5)",
+          "Chapter V, i)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=28, k=26)",
+          "(4.5)"
+        ],
+        "removed_references": [
+          "Chapter V, ν-family definition (after Lemma 5.5)",
+          "Chapter V, i)"
+        ],
+        "added_references": [],
+        "baseline_common_images": 30,
+        "shadow_common_images": 30,
+        "baseline_cited_common_eligible": 78,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=15, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=69, sphere_dimension=43)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=15, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=69, sphere_dimension=43)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": true,
+        "shadow_projection_present": true,
+        "baseline_equations": "[R3], [R4]より, $E^{15}(\\nu_{28}^{2}\\bar{\\kappa}_{34})=\\nu_{43}^{2}\\bar{\\kappa}_{49}$、$E^{15}(\\eta_{28}\\mu_{3,29})=\\eta_{43}\\mu_{3,44}$.",
+        "shadow_equations": "Definition より, $E^{15}(\\nu_{28}^{2}\\bar{\\kappa}_{34})=\\nu_{43}^{2}\\bar{\\kappa}_{49}$、$E^{15}(\\eta_{28}\\mu_{3,29})=\\eta_{43}\\mu_{3,44}$."
+      }
+    },
+    {
+      "group": "pi_56^30",
+      "n": 30,
+      "k": 26,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 6,
+      "givens": 2,
+      "proof_steps": 8,
+      "root_index": 7,
+      "root_ancestry_steps": 8,
+      "unreachable_steps": [],
+      "images": 4,
+      "image_actual_common": 4,
+      "image_common_eligible": 4,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 4
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=28, k=26)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=2, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=56, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{2}(\\nu_{28}^{2}\\bar{\\kappa}_{34})=\\nu_{30}^{2}\\bar{\\kappa}_{36}$、$E^{2}(\\eta_{28}\\mu_{3,29})=\\eta_{30}\\mu_{3,31}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi56_30\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi56_30\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=28, k=26)",
+          "(4.5)",
+          "Chapter V, ν-family definition (after Lemma 5.5)",
+          "Chapter V, i)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=28, k=26)",
+          "(4.5)"
+        ],
+        "removed_references": [
+          "Chapter V, ν-family definition (after Lemma 5.5)",
+          "Chapter V, i)"
+        ],
+        "added_references": [],
+        "baseline_common_images": 4,
+        "shadow_common_images": 4,
+        "baseline_cited_common_eligible": 12,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=2, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=56, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=2, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=56, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": true,
+        "shadow_projection_present": true,
+        "baseline_equations": "[R3], [R4]より, $E^{2}(\\nu_{28}^{2}\\bar{\\kappa}_{34})=\\nu_{30}^{2}\\bar{\\kappa}_{36}$、$E^{2}(\\eta_{28}\\mu_{3,29})=\\eta_{30}\\mu_{3,31}$.",
+        "shadow_equations": "Definition より, $E^{2}(\\nu_{28}^{2}\\bar{\\kappa}_{34})=\\nu_{30}^{2}\\bar{\\kappa}_{36}$、$E^{2}(\\eta_{28}\\mu_{3,29})=\\eta_{30}\\mu_{3,31}$."
+      }
+    },
+    {
+      "group": "pi_41^30",
+      "n": 30,
+      "k": 11,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 19,
+      "givens": 2,
+      "proof_steps": 21,
+      "root_index": 20,
+      "root_ancestry_steps": 21,
+      "unreachable_steps": [],
+      "images": 17,
+      "image_actual_common": 17,
+      "image_common_eligible": 17,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 17
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=13, k=11)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=17, source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi41_30\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi41_30\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=13, k=11)",
+          "(4.5)",
+          "Chapter VI, v) Definition of indexed elements"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=13, k=11)",
+          "(4.5)"
+        ],
+        "removed_references": [
+          "Chapter VI, v) Definition of indexed elements"
+        ],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 17,
+        "baseline_cited_common_eligible": 17,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=17, source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=17, source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_44^30",
+      "n": 30,
+      "k": 14,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 30,
+      "givens": 2,
+      "proof_steps": 32,
+      "root_index": 31,
+      "root_ancestry_steps": 32,
+      "unreachable_steps": [],
+      "images": 28,
+      "image_actual_common": 28,
+      "image_common_eligible": 28,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 28
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=16, k=14)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{14}(\\sigma_{16}^{2})=\\sigma_{30}^{2}$、$E^{14}(\\kappa_{16})=\\kappa_{30}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi44_30\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi44_30\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=16, k=14)",
+          "(4.5)",
+          "Chapter V, σ-family definition (after Lemma 5.14)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=16, k=14)",
+          "(4.5)"
+        ],
+        "removed_references": [
+          "Chapter V, σ-family definition (after Lemma 5.14)"
+        ],
+        "added_references": [],
+        "baseline_common_images": 14,
+        "shadow_common_images": 28,
+        "baseline_cited_common_eligible": 35,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": true,
+        "shadow_projection_present": true,
+        "baseline_equations": "Definition と [R3] より, $E^{14}(\\sigma_{16}^{2})=\\sigma_{30}^{2}$、$E^{14}(\\kappa_{16})=\\kappa_{30}$.",
+        "shadow_equations": "Definition より, $E^{14}(\\sigma_{16}^{2})=\\sigma_{30}^{2}$、$E^{14}(\\kappa_{16})=\\kappa_{30}$."
+      }
+    },
+    {
+      "group": "pi_46^30",
+      "n": 30,
+      "k": 16,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 26,
+      "givens": 2,
+      "proof_steps": 28,
+      "root_index": 27,
+      "root_ancestry_steps": 28,
+      "unreachable_steps": [],
+      "images": 24,
+      "image_actual_common": 24,
+      "image_common_eligible": 24,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 24
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=18, k=16)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ω₁₈', dimension=18, source=34, target=18, generator=GeneratorSymbol(family='\\\\omega', index=18, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='μ₂₅', dimension=25, source=34, target=25, generator=GeneratorSymbol(family='\\\\mu', index=25, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=12, source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=46, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{12}(\\omega_{18})=\\omega_{30}$、$E^{12}(\\sigma_{18}\\mu_{25})=\\sigma_{30}\\mu_{37}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi46_30\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi46_30\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=18, k=16)",
+          "(4.5)",
+          "Chapter V, σ-family definition (after Lemma 5.14)",
+          "Chapter VI, iii) The elements mu_n (definition)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=18, k=16)",
+          "(4.5)"
+        ],
+        "removed_references": [
+          "Chapter V, σ-family definition (after Lemma 5.14)",
+          "Chapter VI, iii) The elements mu_n (definition)"
+        ],
+        "added_references": [],
+        "baseline_common_images": 12,
+        "shadow_common_images": 24,
+        "baseline_cited_common_eligible": 36,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ω₁₈', dimension=18, source=34, target=18, generator=GeneratorSymbol(family='\\\\omega', index=18, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='μ₂₅', dimension=25, source=34, target=25, generator=GeneratorSymbol(family='\\\\mu', index=25, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=12, source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=46, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ω₁₈', dimension=18, source=34, target=18, generator=GeneratorSymbol(family='\\\\omega', index=18, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='μ₂₅', dimension=25, source=34, target=25, generator=GeneratorSymbol(family='\\\\mu', index=25, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=12, source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=46, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": true,
+        "shadow_projection_present": true,
+        "baseline_equations": "Definition と [R3], [R4] より, $E^{12}(\\omega_{18})=\\omega_{30}$、$E^{12}(\\sigma_{18}\\mu_{25})=\\sigma_{30}\\mu_{37}$.",
+        "shadow_equations": "Definition より, $E^{12}(\\omega_{18})=\\omega_{30}$、$E^{12}(\\sigma_{18}\\mu_{25})=\\sigma_{30}\\mu_{37}$."
+      }
+    },
+    {
+      "group": "pi_39^30",
+      "n": 30,
+      "k": 9,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 59,
+      "givens": 2,
+      "proof_steps": 61,
+      "root_index": 60,
+      "root_ancestry_steps": 61,
+      "unreachable_steps": [],
+      "images": 57,
+      "image_actual_common": 57,
+      "image_common_eligible": 57,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 57
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=11, k=9)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=19, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{19}(\\nu_{11}^{3})=\\nu_{30}^{3}$、$E^{19}(\\mu_{11})=\\mu_{30}$、$E^{19}(\\eta_{11}\\varepsilon_{12})=\\eta_{30}\\varepsilon_{31}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi39_30\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi39_30\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=11, k=9)",
+          "(4.5)",
+          "Chapter V, ν-family definition (after Lemma 5.5)",
+          "Chapter VI, iii) The elements mu_n (definition)",
+          "Chapter V, i)",
+          "Chapter VI, i) The Elements epsilon_n (definition)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=11, k=9)",
+          "(4.5)"
+        ],
+        "removed_references": [
+          "Chapter V, ν-family definition (after Lemma 5.5)",
+          "Chapter VI, iii) The elements mu_n (definition)",
+          "Chapter V, i)",
+          "Chapter VI, i) The Elements epsilon_n (definition)"
+        ],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 57,
+        "baseline_cited_common_eligible": 139,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=19, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 2,
+            "type": "Toda45IsomorphismStatement",
+            "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=19, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=30)))",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": true,
+        "shadow_projection_present": true,
+        "baseline_equations": "[R3], [R4], [R5], [R6]より, $E^{19}(\\nu_{11}^{3})=\\nu_{30}^{3}$、$E^{19}(\\mu_{11})=\\mu_{30}$、$E^{19}(\\eta_{11}\\varepsilon_{12})=\\eta_{30}\\varepsilon_{31}$.",
+        "shadow_equations": "Definition より, $E^{19}(\\nu_{11}^{3})=\\nu_{30}^{3}$、$E^{19}(\\mu_{11})=\\mu_{30}$、$E^{19}(\\eta_{11}\\varepsilon_{12})=\\eta_{30}\\varepsilon_{31}$."
+      }
+    },
+    {
+      "group": "pi_3^2",
+      "n": 2,
+      "k": 1,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 13,
+      "givens": 5,
+      "proof_steps": 18,
+      "root_index": 17,
+      "root_ancestry_steps": 18,
+      "unreachable_steps": [],
+      "images": 1,
+      "image_actual_common": 0,
+      "image_common_eligible": 0,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "Toda Proposition 5.1": 1
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "(5.1)",
+          "step_indices": [
+            0,
+            5
+          ],
+          "assertion_ids": [
+            "shared:6:adopted:assertion:toda51:circle_higher_zero",
+            "shared:3:adopted:assertion:toda51:diagonal"
+          ],
+          "reference_ids": [
+            "shared:6:adopted:reference:toda51:below_diagonal_zero",
+            "shared:3:adopted:toda51:diagonal"
+          ],
+          "statement_bodies": [
+            "$\\pi_i^1=0\\quad(i>1)$.",
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            2
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "statement_bodies": [
+            "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 3,
+          "locator": "Foundational: suspension identity",
+          "step_indices": [
+            8
+          ],
+          "assertion_ids": [
+            "shared:1:adopted:assertion:3"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:3"
+          ],
+          "statement_bodies": [
+            "$E(\\iota_{1})=\\iota_{2}$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            16
+          ],
+          "assertion_ids": [
+            "shared:1:adopted:assertion:5"
+          ],
+          "reference_ids": [
+            "shared:1:adopted:ref:5"
+          ],
+          "statement_bodies": [
+            "$H(\\eta_{2})=\\iota_{3}$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": [
+            16
+          ]
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 14,
+          "type": "MapIsomorphism",
+          "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+          "citation_numbers": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "index": 15,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi3_2\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi3_2\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "(5.1)",
+          "Proposition 4.2 (4.4)",
+          "Foundational: suspension identity",
+          "Proposition 5.1"
+        ],
+        "new_references": [
+          "(5.1)",
+          "Proposition 4.2 (4.4)",
+          "Foundational: suspension identity",
+          "Proposition 5.1"
+        ],
+        "removed_references": [],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 0,
+        "baseline_cited_common_eligible": 0,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 14,
+            "type": "MapIsomorphism",
+            "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+            "citation_numbers": [
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "index": 15,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 14,
+            "type": "MapIsomorphism",
+            "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+            "citation_numbers": [
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "index": 15,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_4^3",
+      "n": 3,
+      "k": 1,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 19,
+      "givens": 6,
+      "proof_steps": 25,
+      "root_index": 24,
+      "root_ancestry_steps": 25,
+      "unreachable_steps": [],
+      "images": 0,
+      "image_actual_common": 0,
+      "image_common_eligible": 0,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {},
+      "references": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "statement_bodies": [
+            "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(5.1)",
+          "step_indices": [
+            5,
+            15
+          ],
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal",
+            "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+          ],
+          "reference_ids": [
+            "shared:3:adopted:toda51:diagonal",
+            "shared:6:adopted:reference:toda51:below_diagonal_zero"
+          ],
+          "statement_bodies": [
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$.",
+            "$\\pi_i^n=0\\quad(i<n)$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            7,
+            21
+          ],
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "statement_bodies": [
+            "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+            "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            9
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "statement_bodies": [
+            "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 23,
+          "type": "CyclicStructureStatement",
+          "conclusion_repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+          "citation_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi4_3\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi4_3\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "Chapter V, i)",
+          "(5.1)",
+          "Proposition 5.1",
+          "Proposition 4.2 (4.4)"
+        ],
+        "new_references": [
+          "Chapter V, i)",
+          "(5.1)",
+          "Proposition 5.1",
+          "Proposition 4.2 (4.4)"
+        ],
+        "removed_references": [],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 0,
+        "baseline_cited_common_eligible": 0,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 23,
+            "type": "CyclicStructureStatement",
+            "conclusion_repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+            "citation_numbers": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 23,
+            "type": "CyclicStructureStatement",
+            "conclusion_repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+            "citation_numbers": [
+              1,
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_5^4",
+      "n": 4,
+      "k": 1,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 7,
+      "givens": 3,
+      "proof_steps": 10,
+      "root_index": 9,
+      "root_ancestry_steps": 9,
+      "unreachable_steps": [
+        4
+      ],
+      "images": 0,
+      "image_actual_common": 0,
+      "image_common_eligible": 0,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {},
+      "references": [
+        {
+          "number": 1,
+          "locator": "Chapter V, i)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "statement_bodies": [
+            "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            5
+          ],
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "statement_bodies": [
+            "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 3,
+          "locator": "(4.5)",
+          "step_indices": [
+            6
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 8,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            2,
+            3
+          ]
+        },
+        {
+          "index": 3,
+          "type": "GeneratorSuspension",
+          "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+          "citation_numbers": [
+            1
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi5_4\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi5_4\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "Chapter V, i)",
+          "Proposition 5.1",
+          "(4.5)"
+        ],
+        "new_references": [
+          "Chapter V, i)",
+          "Proposition 5.1",
+          "(4.5)"
+        ],
+        "removed_references": [],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 0,
+        "baseline_cited_common_eligible": 0,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 8,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              2,
+              3
+            ]
+          },
+          {
+            "index": 3,
+            "type": "GeneratorSuspension",
+            "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+            "citation_numbers": [
+              1
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 8,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              2,
+              3
+            ]
+          },
+          {
+            "index": 3,
+            "type": "GeneratorSuspension",
+            "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+            "citation_numbers": [
+              1
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_4^2",
+      "n": 2,
+      "k": 2,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 1,
+      "givens": 2,
+      "proof_steps": 3,
+      "root_index": 2,
+      "root_ancestry_steps": 3,
+      "unreachable_steps": [],
+      "images": 0,
+      "image_actual_common": 0,
+      "image_common_eligible": 0,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {},
+      "references": [
+        {
+          "number": 1,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "statement_bodies": [
+            "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(5.2)",
+          "step_indices": [
+            1,
+            2
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch5:0003"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch5:0003"
+          ],
+          "statement_bodies": [
+            "$i\\ge 3$ に対し, $\\eta_2\\circ(-):\\pi_i^3\\xrightarrow{\\cong}\\pi_i^2$ は同型."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 1,
+          "type": "Toda52UniversalStatement",
+          "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi4_2\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi4_2\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "Proposition 5.1",
+          "(5.2)"
+        ],
+        "new_references": [
+          "Proposition 5.1",
+          "(5.2)"
+        ],
+        "removed_references": [],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 0,
+        "baseline_cited_common_eligible": 0,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 1,
+            "type": "Toda52UniversalStatement",
+            "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 1,
+            "type": "Toda52UniversalStatement",
+            "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+            "citation_numbers": [
+              2
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_5^3",
+      "n": 3,
+      "k": 2,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 20,
+      "givens": 7,
+      "proof_steps": 27,
+      "root_index": 26,
+      "root_ancestry_steps": 27,
+      "unreachable_steps": [],
+      "images": 1,
+      "image_actual_common": 0,
+      "image_common_eligible": 0,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "suspension preserves composition of proved eta generators": 1
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=2, k=2) [参考: Proposition 5.3]",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(5.3)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation"
+          ],
+          "reference_ids": [
+            "shared:8:toda:(5.3)"
+          ],
+          "statement_bodies": [
+            "$H\\left(\\nu'\\right) = \\eta_{5}$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 5.1",
+          "step_indices": [
+            2,
+            3
+          ],
+          "assertion_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional",
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+          ],
+          "reference_ids": [
+            "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+          ],
+          "statement_bodies": [
+            "$\\pi_{3}^{2} = \\mathbb{Z}\\{\\eta_{2}\\}$.",
+            "$H\\left(\\eta_{2}\\right) = \\iota_{3}$.",
+            "$\\Delta\\left(\\iota_{5}\\right) = \\pm 2\\eta_{2}$.",
+            "$\\pi_{n+1}^{n}=\\mathbb{Z}/2\\{\\eta_{n}\\}\\quad(n\\ge4)$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 4,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            6
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "statement_bodies": [
+            "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 5,
+          "locator": "(5.1)",
+          "step_indices": [
+            11
+          ],
+          "assertion_ids": [
+            "shared:3:adopted:assertion:toda51:diagonal"
+          ],
+          "reference_ids": [
+            "shared:3:adopted:toda51:diagonal"
+          ],
+          "statement_bodies": [
+            "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 6,
+          "locator": "Chapter V, i)",
+          "step_indices": [
+            19
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "statement_bodies": [
+            "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": [
+            25
+          ]
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 18,
+          "type": "TodaSuspensionIsomorphismStatement",
+          "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+          "citation_numbers": [
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi5_3\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi5_3\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=2, k=2) [参考: Proposition 5.3]",
+          "(5.3)",
+          "Proposition 5.1",
+          "Proposition 4.2 (4.4)",
+          "(5.1)",
+          "Chapter V, i)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=2, k=2) [参考: Proposition 5.3]",
+          "(5.3)",
+          "Proposition 5.1",
+          "Proposition 4.2 (4.4)",
+          "(5.1)",
+          "Chapter V, i)"
+        ],
+        "removed_references": [],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 0,
+        "baseline_cited_common_eligible": 0,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 18,
+            "type": "TodaSuspensionIsomorphismStatement",
+            "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+            "citation_numbers": [
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 18,
+            "type": "TodaSuspensionIsomorphismStatement",
+            "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+            "citation_numbers": [
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_6^4",
+      "n": 4,
+      "k": 2,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 5,
+      "proof_steps": 17,
+      "root_index": 16,
+      "root_ancestry_steps": 17,
+      "unreachable_steps": [],
+      "images": 1,
+      "image_actual_common": 0,
+      "image_common_eligible": 0,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "suspension preserves composition of proved eta generators": 1
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=3, k=2) [参考: Proposition 5.3]",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "Proposition 4.4",
+          "step_indices": [
+            1,
+            2
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0010"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0010"
+          ],
+          "statement_bodies": [
+            "Proposition 4.4 直前の記述（Steenrod1951 を引用）: $n=2,4,8$ では Hopf fibration $h:S^{2n-1}\\to S^n$ が存在する.\n$\\alpha\\in\\pi_{2n-1}^{n}$, $H(\\alpha)=\\pm\\iota_{2n-1}$ とすると, $E:\\pi_{i-1}^{n-1}\\to\\pi_i^{n}$ は単射."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 3,
+          "locator": "Proposition 4.2 (4.4)",
+          "step_indices": [
+            3
+          ],
+          "assertion_ids": [
+            "shared:5:adopted:assertion:prop42:general"
+          ],
+          "reference_ids": [
+            "shared:5:adopted:reference:prop42:general"
+          ],
+          "statement_bodies": [
+            "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 4,
+          "locator": "(5.1)",
+          "step_indices": [
+            5
+          ],
+          "assertion_ids": [
+            "shared:6:adopted:assertion:toda51:below_diagonal_zero"
+          ],
+          "reference_ids": [
+            "shared:6:adopted:reference:toda51:below_diagonal_zero"
+          ],
+          "statement_bodies": [
+            "$\\pi_i^n=0\\quad(i<n)$."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 5,
+          "locator": "Chapter V, i)",
+          "step_indices": [
+            9
+          ],
+          "assertion_ids": [
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ],
+          "reference_ids": [
+            "shared:7:adopted:reference:toda5:eta_family_definition"
+          ],
+          "statement_bodies": [
+            "$n\\ge 2$ に対し, $\\eta_n=E^{n-2}\\eta_2$ と定義する."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": [
+            15
+          ]
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 8,
+          "type": "TodaSuspensionIsomorphismStatement",
+          "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+          "citation_numbers": [
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi6_4\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi6_4\\proof_steps.json",
+      "comparison": {
+        "previous_available": true,
+        "previous_references": [
+          "DB prior: sphere.csv (n=3, k=2) [参考: Proposition 5.3]",
+          "Proposition 4.4",
+          "Proposition 4.2 (4.4)",
+          "(5.1)",
+          "Chapter V, i)"
+        ],
+        "new_references": [
+          "DB prior: sphere.csv (n=3, k=2) [参考: Proposition 5.3]",
+          "Proposition 4.4",
+          "Proposition 4.2 (4.4)",
+          "(5.1)",
+          "Chapter V, i)"
+        ],
+        "removed_references": [],
+        "added_references": [],
+        "baseline_common_images": 0,
+        "shadow_common_images": 0,
+        "baseline_cited_common_eligible": 0,
+        "shadow_cited_common_eligible": 0,
+        "before_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 8,
+            "type": "TodaSuspensionIsomorphismStatement",
+            "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+            "citation_numbers": [
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "after_root_support": [
+          {
+            "index": 0,
+            "type": "Relation",
+            "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "citation_numbers": [
+              1
+            ]
+          },
+          {
+            "index": 8,
+            "type": "TodaSuspensionIsomorphismStatement",
+            "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+            "citation_numbers": [
+              2,
+              3,
+              4
+            ]
+          }
+        ],
+        "baseline_projection_present": false,
+        "shadow_projection_present": false,
+        "baseline_equations": null,
+        "shadow_equations": null
+      }
+    },
+    {
+      "group": "pi_28^22",
+      "n": 22,
+      "k": 6,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 16,
+      "givens": 2,
+      "proof_steps": 18,
+      "root_index": 17,
+      "root_ancestry_steps": 18,
+      "unreachable_steps": [],
+      "images": 14,
+      "image_actual_common": 14,
+      "image_common_eligible": 14,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 14
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=8, k=6)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₈', dimension=8, source=11, target=8, generator=GeneratorSymbol(family='ν', index=8, decoration=None)), right=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), target_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=22)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi28_22\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi28_22\\proof_steps.json",
+      "comparison": {
+        "previous_available": false
+      }
+    },
+    {
+      "group": "pi_32^22",
+      "n": 22,
+      "k": 10,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "proof_steps": 14,
+      "root_index": 13,
+      "root_ancestry_steps": 14,
+      "unreachable_steps": [],
+      "images": 10,
+      "image_actual_common": 10,
+      "image_common_eligible": 10,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 10
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=12, k=10)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=22, sphere_dimension=12), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₂', dimension=12, source=13, target=12, generator=GeneratorSymbol(family='η', index=12, decoration=None)), right=HomotopyElement(name='μ₁₃', dimension=13, source=22, target=13, generator=GeneratorSymbol(family='\\\\mu', index=13, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=10, source_group=TodaPrimaryGroup(group_dimension=22, sphere_dimension=12), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=22)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": null,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi32_22\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi32_22\\proof_steps.json",
+      "comparison": {
+        "previous_available": false
+      }
+    },
+    {
+      "group": "pi_23^15",
+      "n": 15,
+      "k": 8,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "proof_steps": 14,
+      "root_index": 13,
+      "root_ancestry_steps": 14,
+      "unreachable_steps": [],
+      "images": 10,
+      "image_actual_common": 10,
+      "image_common_eligible": 10,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 10
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=10, k=8)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=10), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₀', dimension=10, source=18, target=10, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=10, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₀', dimension=10, source=18, target=10, generator=GeneratorSymbol(family='\\\\varepsilon', index=10, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=5, source_group=TodaPrimaryGroup(group_dimension=18, sphere_dimension=10), target_group=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{5}(\\bar{\\nu}_{10})=\\bar{\\nu}_{15}$、$E^{5}(\\varepsilon_{10})=\\varepsilon_{15}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi23_15\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi23_15\\proof_steps.json",
+      "comparison": {
+        "previous_available": false
+      }
+    },
+    {
+      "group": "pi_33^24",
+      "n": 24,
+      "k": 9,
+      "status": "complete",
+      "open_goal_types": [],
+      "open_goals": [],
+      "diagnostics": [],
+      "context_count": 1,
+      "trust": "PASS",
+      "inferences": 41,
+      "givens": 2,
+      "proof_steps": 43,
+      "root_index": 42,
+      "root_ancestry_steps": 43,
+      "unreachable_steps": [],
+      "images": 39,
+      "image_actual_common": 39,
+      "image_common_eligible": 39,
+      "image_cited_but_common_eligible": 0,
+      "image_rules": {
+        "stable representative definitional suspension": 39
+      },
+      "references": [
+        {
+          "number": 1,
+          "locator": "DB prior: sphere.csv (n=11, k=9)",
+          "step_indices": [
+            0
+          ],
+          "assertion_ids": [],
+          "reference_ids": [],
+          "statement_bodies": [],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        },
+        {
+          "number": 2,
+          "locator": "(4.5)",
+          "step_indices": [
+            1
+          ],
+          "assertion_ids": [
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+          ],
+          "reference_ids": [
+            "shared:4:typed_literature:toda:tex:ch4:0006"
+          ],
+          "statement_bodies": [
+            "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+          ],
+          "reachable_from_root": true,
+          "directly_attributed_to_given": true,
+          "reference_heading_displayed": true,
+          "body_marker_displayed": true,
+          "referenced_by_image_ancestry": []
+        }
+      ],
+      "root_first_two_premise_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=13, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=24)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "direct_sum_projection": {
+        "statement": "Definition より, $E^{13}(\\nu_{11}^{3})=\\nu_{24}^{3}$、$E^{13}(\\mu_{11})=\\mu_{24}$、$E^{13}(\\eta_{11}\\varepsilon_{12})=\\eta_{24}\\varepsilon_{25}$.",
+        "hidden_indices": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41
+        ],
+        "citation_numbers": []
+      },
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi33_24\\narrative.md",
+      "trace": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r2_shadow_common_definition_comparison\\output\\20261028_151843_654\\pi33_24\\proof_steps.json",
+      "comparison": {
+        "previous_available": false
+      }
+    }
+  ],
+  "cyclic": [
+    {
+      "status": "complete",
+      "trust": "PASS",
+      "cyclic_projection_present": false,
+      "cyclic_citation_numbers": [],
+      "reference_locators": [
+        "DB prior: sphere.csv (n=8, k=6)",
+        "(4.5)"
+      ],
+      "group": "pi_28^22"
+    },
+    {
+      "status": "complete",
+      "trust": "PASS",
+      "cyclic_projection_present": false,
+      "cyclic_citation_numbers": [],
+      "reference_locators": [
+        "DB prior: sphere.csv (n=12, k=10)",
+        "(4.5)"
+      ],
+      "group": "pi_32^22"
+    }
+  ],
+  "full_pytest_run": false,
+  "production_changed": [],
+  "in_process_provider_override_only": true,
+  "provider_restored": true,
+  "tracked_unchanged": true,
+  "all_complete_trusted": true,
+  "lost_direct_sum_projection": [],
+  "lost_cyclic_projection": [
+    "pi_28^22",
+    "pi_32^22"
+  ],
+  "core_provenance_preserved": true,
+  "ready_for_implementation": false
+}
