@@ -1,0 +1,273 @@
+{
+  "phase": "169 R10EH",
+  "mode": "AUDIT_ONLY",
+  "cases": [
+    {
+      "group": "pi_28^22",
+      "n": 22,
+      "k": 6,
+      "status": "complete",
+      "goal_candidates": 1,
+      "proof_steps": 54,
+      "open_goal_types": [],
+      "open_goal_examples": [],
+      "diagnostics": [],
+      "given_steps": 3,
+      "inference_steps": 51,
+      "goal_generator": {
+        "structure": "FiniteCyclicGroup",
+        "order": 2,
+        "generator_type": "Composition",
+        "generator_repr": "Composition(left=HomotopyElement(name='ν₂₂', dimension=22, source=25, target=22, generator=GeneratorSymbol(family='ν', index=22, decoration=None)), right=HomotopyElement(name='ν₂₅', dimension=25, source=28, target=25, generator=GeneratorSymbol(family='ν', index=25, decoration=None)))",
+        "element_tex_supported": true,
+        "public_tex_supported": true,
+        "members": [
+          {
+            "element": "HomotopyElement(name='ν₂₂', dimension=22, source=25, target=22, generator=GeneratorSymbol(family='ν', index=22, decoration=None))",
+            "family_id": 4,
+            "family_display": "ν",
+            "source_status": "REVIEWED_GENERIC_FAMILY_SOURCE"
+          },
+          {
+            "element": "HomotopyElement(name='ν₂₅', dimension=25, source=28, target=25, generator=GeneratorSymbol(family='ν', index=25, decoration=None))",
+            "family_id": 4,
+            "family_display": "ν",
+            "source_status": "REVIEWED_GENERIC_FAMILY_SOURCE"
+          }
+        ]
+      },
+      "trust": "PASS",
+      "narrative_file": "pi_28_22.md",
+      "verified_inference_steps": 51,
+      "verified_given_steps": 3,
+      "narrative_characters": 961,
+      "narrative_E_image_metrics": {
+        "total_occurrences": 17,
+        "distinct_equations": 17,
+        "extra_duplicate_occurrences": 0,
+        "repeated_equations": []
+      },
+      "r10a_cyclic_projection": true,
+      "r10ec_direct_sum_projection": false,
+      "proof_tree_preserved": true,
+      "reference_count": 3,
+      "references_displayed": true,
+      "root_premise_types": [
+        "Relation",
+        "Toda45IsomorphismStatement",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage"
+      ]
+    },
+    {
+      "group": "pi_32^22",
+      "n": 22,
+      "k": 10,
+      "status": "complete",
+      "goal_candidates": 1,
+      "proof_steps": 68,
+      "open_goal_types": [],
+      "open_goal_examples": [],
+      "diagnostics": [],
+      "given_steps": 4,
+      "inference_steps": 64,
+      "goal_generator": {
+        "structure": "FiniteCyclicGroup",
+        "order": 2,
+        "generator_type": "Composition",
+        "generator_repr": "Composition(left=HomotopyElement(name='η₂₂', dimension=22, source=23, target=22, generator=GeneratorSymbol(family='η', index=22, decoration=None)), right=HomotopyElement(name='μ₂₃', dimension=23, source=32, target=23, generator=GeneratorSymbol(family='\\\\mu', index=23, decoration=None)))",
+        "element_tex_supported": false,
+        "public_tex_supported": true,
+        "members": [
+          {
+            "element": "HomotopyElement(name='η₂₂', dimension=22, source=23, target=22, generator=GeneratorSymbol(family='η', index=22, decoration=None))",
+            "family_id": 2,
+            "family_display": "η",
+            "source_status": "LEGACY_ETA_DEFINITION_PATH"
+          },
+          {
+            "element": "HomotopyElement(name='μ₂₃', dimension=23, source=32, target=23, generator=GeneratorSymbol(family='\\\\mu', index=23, decoration=None))",
+            "family_id": 12,
+            "family_display": "μ",
+            "source_status": "REVIEWED_GENERIC_FAMILY_SOURCE"
+          }
+        ]
+      },
+      "trust": "PASS",
+      "narrative_file": "pi_32_22.md",
+      "verified_inference_steps": 64,
+      "verified_given_steps": 4,
+      "narrative_characters": 1280,
+      "narrative_E_image_metrics": {
+        "total_occurrences": 20,
+        "distinct_equations": 10,
+        "extra_duplicate_occurrences": 10,
+        "repeated_equations": [
+          {
+            "from": "\\eta_{12}",
+            "to": "\\eta_{13}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{13}",
+            "to": "\\eta_{14}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{14}",
+            "to": "\\eta_{15}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{15}",
+            "to": "\\eta_{16}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{16}",
+            "to": "\\eta_{17}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{17}",
+            "to": "\\eta_{18}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{18}",
+            "to": "\\eta_{19}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{19}",
+            "to": "\\eta_{20}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{20}",
+            "to": "\\eta_{21}",
+            "copies": 2
+          },
+          {
+            "from": "\\eta_{21}",
+            "to": "\\eta_{22}",
+            "copies": 2
+          }
+        ]
+      },
+      "r10a_cyclic_projection": false,
+      "r10ec_direct_sum_projection": false,
+      "proof_tree_preserved": true,
+      "reference_count": 4,
+      "references_displayed": true,
+      "root_premise_types": [
+        "Relation",
+        "Toda45IsomorphismStatement",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage",
+        "GeneratorImage"
+      ]
+    },
+    {
+      "group": "pi_33^22",
+      "n": 22,
+      "k": 11,
+      "status": "partial",
+      "goal_candidates": 1,
+      "proof_steps": 3,
+      "open_goal_types": [
+        "CyclicStructureStatement",
+        "GeneratorImage",
+        "Relation",
+        "Relation"
+      ],
+      "open_goal_examples": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22), generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None)), order=8)",
+        "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14)), source_generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None)), target_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "given_steps": 2,
+      "inference_steps": 1,
+      "goal_generator": {
+        "structure": "FiniteCyclicGroup",
+        "order": 8,
+        "generator_type": "HomotopyElement",
+        "generator_repr": "HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None))",
+        "element_tex_supported": false,
+        "public_tex_supported": true,
+        "members": [
+          {
+            "element": "HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None))",
+            "family_id": 16,
+            "family_display": "ζ",
+            "source_status": "NO_REVIEWED_GENERIC_FAMILY_SOURCE_IN_THIS_REGISTRY"
+          }
+        ]
+      },
+      "trust": "NOT_APPLICABLE_INCOMPLETE",
+      "narrative_file": null
+    },
+    {
+      "group": "pi_36^22",
+      "n": 22,
+      "k": 14,
+      "status": "partial",
+      "goal_candidates": 1,
+      "proof_steps": 36,
+      "open_goal_types": [
+        "GeneratorImage",
+        "Relation",
+        "Relation"
+      ],
+      "open_goal_examples": [
+        "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17)), source_generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None)), target_generator=HomotopyElement(name='κ₁₇', dimension=17, source=31, target=17, generator=GeneratorSymbol(family='\\\\kappa', index=17, decoration=None)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None))))), rhs=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "given_steps": 3,
+      "inference_steps": 33,
+      "goal_generator": {
+        "structure": "DirectSumGroup",
+        "members": []
+      },
+      "trust": "NOT_APPLICABLE_INCOMPLETE",
+      "narrative_file": null
+    }
+  ],
+  "classifications": [
+    "PASS",
+    "PASS",
+    "EXPECTED_INCOMPLETE",
+    "EXPECTED_INCOMPLETE"
+  ],
+  "production_files_changed": false,
+  "mathematical_inference_rules_added": false,
+  "full_pytest_run": false,
+  "audit_pass": true
+}

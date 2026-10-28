@@ -1,0 +1,145 @@
+{
+  "phase": "169 R10EK",
+  "mode": "AUDIT_ONLY",
+  "unification_implemented": false,
+  "shared_contract_tested": true,
+  "current_cyclic_and_direct_sum_implementations_retained": true,
+  "not_covered": [
+    "free cyclic proof presentation",
+    "zero groups",
+    "one-stem eta-notation special route",
+    "incomplete 11-stem and 14-stem cases",
+    "all possible stem and generator structures"
+  ],
+  "design_recommendation": "Extract only common verified ancestry/citation/external-consumer checks after a separate equivalence and safety audit; keep group-specific endpoint notation and no-proof-evidence boundary.",
+  "cases": [
+    {
+      "group": "pi_28^22",
+      "category": "finite_cyclic",
+      "components": 1,
+      "suspensions": 14,
+      "root_generator_images": 14,
+      "hidden_inference_steps": 31,
+      "registered_citation_numbers": [
+        1,
+        2,
+        3
+      ],
+      "projection_citation_numbers": [
+        3
+      ],
+      "projection_output_shape": "VerifiedStableImageChainDisplay",
+      "shared_contract": "PASS",
+      "status": "complete",
+      "trust": "PASS",
+      "verified_inference_steps": 51,
+      "verified_given_steps": 3,
+      "proof_step_count": 54,
+      "reference_count": 3,
+      "one_step_equations": 0,
+      "duplicate_equations": 0,
+      "proof_tree_preserved": true,
+      "reference_preserved": true,
+      "rendered_file": "pi_28_22.md"
+    },
+    {
+      "group": "pi_32^22",
+      "category": "finite_cyclic",
+      "components": 1,
+      "suspensions": 10,
+      "root_generator_images": 10,
+      "hidden_inference_steps": 40,
+      "registered_citation_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "projection_citation_numbers": [
+        3,
+        4
+      ],
+      "projection_output_shape": "VerifiedStableImageChainDisplay",
+      "shared_contract": "PASS",
+      "status": "complete",
+      "trust": "PASS",
+      "verified_inference_steps": 64,
+      "verified_given_steps": 4,
+      "proof_step_count": 68,
+      "reference_count": 4,
+      "one_step_equations": 0,
+      "duplicate_equations": 0,
+      "proof_tree_preserved": true,
+      "reference_preserved": true,
+      "rendered_file": "pi_32_22.md"
+    },
+    {
+      "group": "pi_23^15",
+      "category": "direct_sum",
+      "components": 2,
+      "suspensions": 5,
+      "root_generator_images": 10,
+      "hidden_inference_steps": 10,
+      "registered_citation_numbers": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "projection_citation_numbers": [
+        3,
+        4
+      ],
+      "projection_output_shape": "VerifiedDirectSumTransportDisplay",
+      "shared_contract": "PASS",
+      "status": "complete",
+      "trust": "PASS",
+      "verified_inference_steps": 24,
+      "verified_given_steps": 4,
+      "proof_step_count": 28,
+      "reference_count": 4,
+      "one_step_equations": 0,
+      "duplicate_equations": 0,
+      "proof_tree_preserved": true,
+      "reference_preserved": true,
+      "rendered_file": "pi_23_15.md"
+    },
+    {
+      "group": "pi_33^24",
+      "category": "direct_sum",
+      "components": 3,
+      "suspensions": 13,
+      "root_generator_images": 39,
+      "hidden_inference_steps": 110,
+      "registered_citation_numbers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "projection_citation_numbers": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "projection_output_shape": "VerifiedDirectSumTransportDisplay",
+      "shared_contract": "PASS",
+      "status": "complete",
+      "trust": "PASS",
+      "verified_inference_steps": 174,
+      "verified_given_steps": 6,
+      "proof_step_count": 180,
+      "reference_count": 6,
+      "one_step_equations": 0,
+      "duplicate_equations": 0,
+      "proof_tree_preserved": true,
+      "reference_preserved": true,
+      "rendered_file": "pi_33_24.md"
+    }
+  ],
+  "full_pytest_run": false,
+  "production_files_changed": false
+}

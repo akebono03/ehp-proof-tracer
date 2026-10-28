@@ -228,6 +228,17 @@ def expand_prior_general_group_transport(
     k = group.group_dimension - n
     if k < 0 or n <= k + 2 or _components(goal) is None:
         return ()
+    # R10EG: established eta-specific 1-stem derivations must not compete
+    # with the newer arbitrary-fold general transport at the same root.
+    # This is a proposal-selection restriction, not a mathematical fact.
+    if (k == 1 and isinstance(goal, Relation)
+            and isinstance(goal.rhs, FiniteCyclicGroup)
+            and goal.rhs.order == 2):
+        from phase165_r12_r28_presentation_connection import _matching_eta_name
+        from toda_rules import toda_eta_family_definition_statement
+        eta = toda_eta_family_definition_statement(n).element
+        if _matching_eta_name(goal.rhs.generator, eta):
+            return ()
     citing_id = (
         _zero_citing_assertion_id(bridge, goal)
         if isinstance(goal, TodaPrimaryGroupZeroStatement)

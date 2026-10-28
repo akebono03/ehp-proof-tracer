@@ -110,48 +110,43 @@ def project_verified_stable_image_chain(
             if any(parent is image_step for parent in consumer.premises)
         ):
             return None
-    source_tex, target_tex = element_tex(src.rhs.generator), element_tex(dst.rhs.generator)
+    # A public LaTeX spelling is permitted only for the already-typed,
+    # independently proven generator.  The public printer supplies notation,
+    # never a missing GeneratorImage or a new mathematical inference.
+    def display_generator_tex(generator):
+        value = element_tex(generator)
+        if value:
+            return value
+        from expression import Composition
+        if not isinstance(generator, Composition):
+            return None
+        from toda_human_readable_renderer import render_toda_public_group_generator_latex
+        return render_toda_public_group_generator_latex(generator)
+
+    source_tex = display_generator_tex(src.rhs.generator)
+    target_tex = display_generator_tex(dst.rhs.generator)
     if not source_tex or not target_tex:
         return None
 
-    hidden = set(image_indices)
-    # An eta-family suspension step can be shared by adjacent composite images.
-    # Hide it only when ALL of its actual consumers are the collapsed images,
-    # and the individual step has no direct citation to preserve.
-    for index, candidate in enumerate(steps):
-        if (index not in order or index == root_index
-                or candidate.rule is not ProofRule.INFERENCE
-                or not isinstance(candidate.conclusion, GeneratorSuspension)
-                or model.step_citation_numbers[index]):
-            continue
-        consumers = {
-            consumer_index
-            for consumer_index, consumer in enumerate(steps)
-            if any(parent is candidate for parent in consumer.premises)
-        }
-        if consumers and consumers.issubset(hidden):
-            hidden.add(index)
-
-    # Citations are copied from actual linked GIVEN ancestors of the image
-    # proofs, not inferred from the symbols eta/nu/sigma or from rule names.
-    cited = set()
-    for image_step in images:
-        pending = [image_step]
-        visited = set()
-        while pending:
-            candidate = pending.pop()
-            if id(candidate) in visited:
-                continue
-            visited.add(id(candidate))
-            index = by_identity.get(id(candidate))
-            if index is not None and candidate.rule is ProofRule.GIVEN:
-                cited.update(model.step_citation_numbers[index])
-            pending.extend(candidate.premises)
-    citation_numbers = tuple(
-        citation.number for citation in model.citations if citation.number in cited
+    # R10EL: use the shared, proof-preserving suppression contract.
+    # The cyclic-specific root and single-generator chain checks above stay.
+    from phase169_r10el_shared_generator_suppression.core import (
+        exclusive_generator_inference_indices,
     )
-    # Never replace individually cited evidence with an uncited displayed claim.
-    if not citation_numbers:
+    hidden = exclusive_generator_inference_indices(
+        model, order, images, root_index, require_all=False,
+    )
+    if hidden is None:
+        return None
+
+    # R10EN: shared GIVEN-ancestor provenance; the cyclic union policy stays.
+    from phase169_r10en_shared_citation_provenance.core import (
+        verified_generator_image_citation_numbers,
+    )
+    citation_numbers = verified_generator_image_citation_numbers(
+        model, order, images, require_each=False,
+    )
+    if citation_numbers is None:
         return None
     return VerifiedStableImageChainDisplay(
         root_index=root_index,

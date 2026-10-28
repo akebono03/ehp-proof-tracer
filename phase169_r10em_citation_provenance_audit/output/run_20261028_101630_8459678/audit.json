@@ -1,0 +1,993 @@
+{
+  "phase": "169 R10EM",
+  "mode": "AUDIT_ONLY",
+  "summary": "Citation provenance of already verified generator transport",
+  "cases": [
+    {
+      "group": "pi_28^22",
+      "shape": "cyclic",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 51,
+      "given_steps": 3,
+      "proof_step_count": 54,
+      "suspensions": 14,
+      "hidden_display_only": 31,
+      "reference_count": 3,
+      "provenance_summary": {
+        "image_count": 14,
+        "images_with_cited_given": 14,
+        "every_image_has_cited_given": true,
+        "missing_ancestors": 0,
+        "unregistered_citations": [],
+        "projected_citation_numbers": [
+          3
+        ],
+        "linked_citation_numbers": [
+          3
+        ],
+        "projection_matches_union": true
+      },
+      "image_provenance": [
+        {
+          "image_step_index": 10,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 15,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 19,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 22,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 25,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 28,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 31,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 34,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 37,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 40,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 43,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 46,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 49,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 52,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        }
+      ],
+      "mathematical_inference_added": false,
+      "proof_tree_unchanged": true,
+      "rendered_file": "pi_28_22.md"
+    },
+    {
+      "group": "pi_32^22",
+      "shape": "cyclic",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 64,
+      "given_steps": 4,
+      "proof_step_count": 68,
+      "suspensions": 10,
+      "hidden_display_only": 40,
+      "reference_count": 4,
+      "provenance_summary": {
+        "image_count": 10,
+        "images_with_cited_given": 10,
+        "every_image_has_cited_given": true,
+        "missing_ancestors": 0,
+        "unregistered_citations": [],
+        "projected_citation_numbers": [
+          3,
+          4
+        ],
+        "linked_citation_numbers": [
+          3,
+          4
+        ],
+        "projection_matches_union": true
+      },
+      "image_provenance": [
+        {
+          "image_step_index": 12,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 18,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 24,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 30,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 36,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 42,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 48,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 54,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 60,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 66,
+          "given_step_indices": [
+            3,
+            8
+          ],
+          "registered_citation_numbers": [
+            3,
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        }
+      ],
+      "mathematical_inference_added": false,
+      "proof_tree_unchanged": true,
+      "rendered_file": "pi_32_22.md"
+    },
+    {
+      "group": "pi_23^15",
+      "shape": "direct_sum",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 24,
+      "given_steps": 4,
+      "proof_step_count": 28,
+      "suspensions": 5,
+      "hidden_display_only": 10,
+      "reference_count": 4,
+      "provenance_summary": {
+        "image_count": 10,
+        "images_with_cited_given": 10,
+        "every_image_has_cited_given": true,
+        "missing_ancestors": 0,
+        "unregistered_citations": [],
+        "projected_citation_numbers": [
+          3,
+          4
+        ],
+        "linked_citation_numbers": [
+          3,
+          4
+        ],
+        "projection_matches_union": true
+      },
+      "image_provenance": [
+        {
+          "image_step_index": 6,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 8,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 10,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 12,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 14,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 18,
+          "given_step_indices": [
+            15
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 20,
+          "given_step_indices": [
+            15
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 22,
+          "given_step_indices": [
+            15
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 24,
+          "given_step_indices": [
+            15
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 26,
+          "given_step_indices": [
+            15
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        }
+      ],
+      "mathematical_inference_added": false,
+      "proof_tree_unchanged": true,
+      "rendered_file": "pi_23_15.md"
+    },
+    {
+      "group": "pi_33^24",
+      "shape": "direct_sum",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 174,
+      "given_steps": 6,
+      "proof_step_count": 180,
+      "suspensions": 13,
+      "hidden_display_only": 110,
+      "reference_count": 6,
+      "provenance_summary": {
+        "image_count": 39,
+        "images_with_cited_given": 39,
+        "every_image_has_cited_given": true,
+        "missing_ancestors": 0,
+        "unregistered_citations": [],
+        "projected_citation_numbers": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "linked_citation_numbers": [
+          3,
+          4,
+          5,
+          6
+        ],
+        "projection_matches_union": true
+      },
+      "image_provenance": [
+        {
+          "image_step_index": 14,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 22,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 28,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 32,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 36,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 40,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 44,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 48,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 52,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 56,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 60,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 64,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 68,
+          "given_step_indices": [
+            3
+          ],
+          "registered_citation_numbers": [
+            3
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 72,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 74,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 76,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 78,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 80,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 82,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 84,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 86,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 88,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 90,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 92,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 94,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 96,
+          "given_step_indices": [
+            69
+          ],
+          "registered_citation_numbers": [
+            4
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 106,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 112,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 118,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 124,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 130,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 136,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 142,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 148,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 154,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 160,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 166,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 172,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        },
+        {
+          "image_step_index": 178,
+          "given_step_indices": [
+            97,
+            102
+          ],
+          "registered_citation_numbers": [
+            5,
+            6
+          ],
+          "unregistered_citation_numbers": [],
+          "missing_ancestor_indices": false
+        }
+      ],
+      "mathematical_inference_added": false,
+      "proof_tree_unchanged": true,
+      "rendered_file": "pi_33_24.md"
+    }
+  ],
+  "inference_rules_changed": false,
+  "production_files_changed": false,
+  "full_pytest_run": false
+}

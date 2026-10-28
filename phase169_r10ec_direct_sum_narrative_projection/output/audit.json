@@ -1,0 +1,63 @@
+{
+  "phase": "169 R10EC",
+  "cases": [
+    {
+      "group": "pi_22^13",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 40,
+      "given_steps": 6,
+      "suppressed_display_steps": 20,
+      "displayed_formulae": "[R3], [R4], [R5], [R6]より, $E^{2}(\\nu_{11}^{3})=\\nu_{13}^{3}$、$E^{2}(\\mu_{11})=\\mu_{13}$、$E^{2}(\\eta_{11}\\varepsilon_{12})=\\eta_{13}\\varepsilon_{14}$.",
+      "duplicate_image_prose": 0,
+      "rendered_characters": 1108,
+      "reference_count": 6,
+      "proof_step_count": 46,
+      "rendered_file": "pi_22_13.md"
+    },
+    {
+      "group": "pi_23^15",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 24,
+      "given_steps": 4,
+      "suppressed_display_steps": 10,
+      "displayed_formulae": "[R3], [R4]より, $E^{5}(\\bar{\\nu}_{10})=\\bar{\\nu}_{15}$、$E^{5}(\\varepsilon_{10})=\\varepsilon_{15}$.",
+      "duplicate_image_prose": 0,
+      "rendered_characters": 817,
+      "reference_count": 4,
+      "proof_step_count": 28,
+      "rendered_file": "pi_23_15.md"
+    },
+    {
+      "group": "pi_24^15",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 66,
+      "given_steps": 6,
+      "suppressed_display_steps": 38,
+      "displayed_formulae": "[R3], [R4], [R5], [R6]より, $E^{4}(\\nu_{11}^{3})=\\nu_{15}^{3}$、$E^{4}(\\mu_{11})=\\mu_{15}$、$E^{4}(\\eta_{11}\\varepsilon_{12})=\\eta_{15}\\varepsilon_{16}$.",
+      "duplicate_image_prose": 0,
+      "rendered_characters": 1108,
+      "reference_count": 6,
+      "proof_step_count": 72,
+      "rendered_file": "pi_24_15.md"
+    },
+    {
+      "group": "pi_39^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 246,
+      "given_steps": 6,
+      "suppressed_display_steps": 158,
+      "displayed_formulae": "[R3], [R4], [R5], [R6]より, $E^{19}(\\nu_{11}^{3})=\\nu_{30}^{3}$、$E^{19}(\\mu_{11})=\\mu_{30}$、$E^{19}(\\eta_{11}\\varepsilon_{12})=\\eta_{30}\\varepsilon_{31}$.",
+      "duplicate_image_prose": 0,
+      "rendered_characters": 1112,
+      "reference_count": 6,
+      "proof_step_count": 252,
+      "rendered_file": "pi_39_30.md"
+    }
+  ],
+  "proof_rules_changed": false,
+  "full_pytest_run": false
+}
