@@ -1,0 +1,309 @@
+{
+  "phase": "169 R10ET-R5D",
+  "mode": "REAL_PROVIDER",
+  "baseline": "phase169_r10et_r2_shadow_common_definition_comparison/output/20261028_151843_654/audit.json",
+  "full_suite_run": false,
+  "cases": [
+    {
+      "n": 43,
+      "k": 26,
+      "group": "pi_69^43",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 32,
+      "givens": 2,
+      "canonical_images": 30,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=28, k=26)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi69_43.md"
+    },
+    {
+      "n": 30,
+      "k": 26,
+      "group": "pi_56^30",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 6,
+      "givens": 2,
+      "canonical_images": 4,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=28, k=26)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi56_30.md"
+    },
+    {
+      "n": 30,
+      "k": 11,
+      "group": "pi_41^30",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 19,
+      "givens": 2,
+      "canonical_images": 17,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=13, k=11)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi41_30.md"
+    },
+    {
+      "n": 30,
+      "k": 14,
+      "group": "pi_44^30",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 30,
+      "givens": 2,
+      "canonical_images": 28,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=16, k=14)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi44_30.md"
+    },
+    {
+      "n": 30,
+      "k": 16,
+      "group": "pi_46^30",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 26,
+      "givens": 2,
+      "canonical_images": 24,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=18, k=16)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi46_30.md"
+    },
+    {
+      "n": 30,
+      "k": 9,
+      "group": "pi_39^30",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 59,
+      "givens": 2,
+      "canonical_images": 57,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi39_30.md"
+    },
+    {
+      "n": 2,
+      "k": 1,
+      "group": "pi_3^2",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 13,
+      "givens": 5,
+      "canonical_images": 0,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "(5.1)",
+        "Proposition 4.2 (4.4)",
+        "Foundational: suspension identity",
+        "Proposition 5.1"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi3_2.md"
+    },
+    {
+      "n": 3,
+      "k": 1,
+      "group": "pi_4^3",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 19,
+      "givens": 6,
+      "canonical_images": 0,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "Chapter V, i)",
+        "(5.1)",
+        "Proposition 5.1",
+        "Proposition 4.2 (4.4)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi4_3.md"
+    },
+    {
+      "n": 4,
+      "k": 1,
+      "group": "pi_5^4",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 7,
+      "givens": 3,
+      "canonical_images": 0,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "Chapter V, i)",
+        "Proposition 5.1",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi5_4.md"
+    },
+    {
+      "n": 2,
+      "k": 2,
+      "group": "pi_4^2",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 1,
+      "givens": 2,
+      "canonical_images": 0,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "Proposition 5.1",
+        "(5.2)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi4_2.md"
+    },
+    {
+      "n": 3,
+      "k": 2,
+      "group": "pi_5^3",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 20,
+      "givens": 7,
+      "canonical_images": 0,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=2, k=2) [参考: Proposition 5.3]",
+        "(5.3)",
+        "Proposition 5.1",
+        "Proposition 4.2 (4.4)",
+        "(5.1)",
+        "Chapter V, i)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi5_3.md"
+    },
+    {
+      "n": 4,
+      "k": 2,
+      "group": "pi_6^4",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 5,
+      "canonical_images": 0,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=3, k=2) [参考: Proposition 5.3]",
+        "Proposition 4.4",
+        "Proposition 4.2 (4.4)",
+        "(5.1)",
+        "Chapter V, i)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi6_4.md"
+    },
+    {
+      "n": 22,
+      "k": 6,
+      "group": "pi_28^22",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 16,
+      "givens": 2,
+      "canonical_images": 14,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=8, k=6)",
+        "(4.5)"
+      ],
+      "cyclic_projection": true,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi28_22.md"
+    },
+    {
+      "n": 22,
+      "k": 10,
+      "group": "pi_32^22",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "canonical_images": 10,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=12, k=10)",
+        "(4.5)"
+      ],
+      "cyclic_projection": true,
+      "direct_sum_projection": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi32_22.md"
+    },
+    {
+      "n": 15,
+      "k": 8,
+      "group": "pi_23^15",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "canonical_images": 10,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=10, k=8)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi23_15.md"
+    },
+    {
+      "n": 24,
+      "k": 9,
+      "group": "pi_33^24",
+      "complete": true,
+      "trust": "PASS",
+      "inferences": 41,
+      "givens": 2,
+      "canonical_images": 39,
+      "eligible_noncanonical_images": 0,
+      "references": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "cyclic_projection": false,
+      "direct_sum_projection": true,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r5d_staged_audit_guard\\output\\20261028_163049_579\\narratives\\pi33_24.md"
+    }
+  ],
+  "all_complete_trusted": true
+}

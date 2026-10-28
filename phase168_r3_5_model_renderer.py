@@ -19,6 +19,7 @@ def render_model_backed_narrative_markdown(
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
     from phase165_r12_r21_eta_generator_chain import _eta_pair
     from phase168_r3_29_order_projection import project_narrative_order
+    from phase168_r3_3_proof_narrative_model import root_ancestor_step_indices
     from phase168_r3_26_exactness_projection import project_exactness_chains
     from phase168_r3_27_typed_statement_projection import (
         group_tex, element_tex, typed_sentence, toda45_specialization_evidence,
@@ -104,9 +105,17 @@ def render_model_backed_narrative_markdown(
             raise ValueError("unsupported partial target group")
         lines = ["## 証明対象", "", f"${target_latex}$", "", "## 使用する結果", ""]
     else:
-        chains = project_exactness_chains(model)
+        root_scope = root_ancestor_step_indices(model.steps, model.root_index)
+        chains = tuple(
+            chain for chain in project_exactness_chains(model)
+            if all(index in root_scope for index in chain.step_indices)
+        )
         suppressed_exactness = {index for chain in chains for index in chain.step_indices}
-        order = tuple(entry.step_index for entry in project_narrative_order(model, suppressed_exactness))
+        order = tuple(
+            entry.step_index
+            for entry in project_narrative_order(model, suppressed_exactness)
+            if entry.step_index in root_scope
+        )
         lines = ["使用する結果", ""]
 
     for citation in model.citations:
@@ -285,6 +294,7 @@ def render_model_backed_narrative_markdown(
     # R10A: presentation-only projection of the already-verified E^r image chain.
     # The Proof Tree, its citations, and all original ProofSteps remain intact.
     from phase169_r10a_verified_stable_chain_projection.projection import (
+        VerifiedStableImageChainDisplay,
         project_verified_stable_image_chain,
     )
     from phase169_r10a2_unified_one_stem.one_stem_projection import (
@@ -320,7 +330,13 @@ def render_model_backed_narrative_markdown(
                 rf"({stable_chain_display.source_tex})="
                 rf"{stable_chain_display.target_tex}$"
             )
-            lines.extend((f"{source_tags}より, {compressed_statement}.", ""))
+            if source_tags:
+                prefix = f"{source_tags}より, "
+            elif isinstance(stable_chain_display, VerifiedStableImageChainDisplay):
+                prefix = "Definition より, "
+            else:
+                prefix = ""
+            lines.extend((f"{prefix}{compressed_statement}.", ""))
         if index in suppressed_body_indices:
             continue
         step = model.steps[index]

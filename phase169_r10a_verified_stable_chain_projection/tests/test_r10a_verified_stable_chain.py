@@ -43,7 +43,15 @@ def test_r10a_4fold_eta_square_is_single_certified_display(pi108):
     assert display.exponent == 4
     assert display.root_index == model.root_index
     assert len(display.hidden_indices) >= 4
-    assert display.citation_numbers
+    from phase169_r10et_r4_cyclic_definition_projection.policy import (
+        canonical_definition_image,
+    )
+    images = model.steps[model.root_index].premises[2:]
+    if all(canonical_definition_image(image) for image in images):
+        assert display.citation_numbers == ()
+        assert "Definition より, " in render_model_backed_narrative_markdown(result, model)
+    else:
+        assert display.citation_numbers
     assert all(model.steps[i].rule is ProofRule.INFERENCE for i in display.hidden_indices)
     original_length = len(model.steps)
     narrative = render_model_backed_narrative_markdown(result, model)

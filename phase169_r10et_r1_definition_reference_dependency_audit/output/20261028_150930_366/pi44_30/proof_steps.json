@@ -1,0 +1,2712 @@
+{
+  "root_index": 75,
+  "root_premises": [
+    0,
+    2,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    39,
+    42,
+    45,
+    48,
+    51,
+    54,
+    57,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "adopted prior database result (not a literature theorem)",
+      "rule_source_locator": "DB prior: sphere.csv (n=16, k=14)",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        1
+      ]
+    },
+    {
+      "index": 1,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Screened fixed source: (4.5)",
+      "rule_source_locator": "(4.5)",
+      "conclusion_type": "Toda45IsomorphismStatement",
+      "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic cited typed scalar specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "Toda45IsomorphismStatement",
+      "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)))",
+      "premise_indices": [
+        1
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 3,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Cited stable-family definition",
+      "rule_source_locator": "Chapter V, σ-family definition (after Lemma 5.14)",
+      "conclusion_type": "CitedStableFamilyDefinition",
+      "conclusion_repr": "CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        3
+      ]
+    },
+    {
+      "index": 4,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=16, element=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), suspension_exponent=8)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 5,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=17, element=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), suspension_exponent=9)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 6,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=23, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=17)), source_generator=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), target_generator=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)))",
+      "premise_indices": [
+        4,
+        5
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 7,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=23, element=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), suspension_exponent=15)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 8,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=24, element=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), suspension_exponent=16)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 9,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=24)), source_generator=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), target_generator=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)))",
+      "premise_indices": [
+        7,
+        8
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 10,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17)), source_generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), right=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None))))",
+      "premise_indices": [
+        6,
+        9
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 11,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=18, element=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), suspension_exponent=10)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 12,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=18)), source_generator=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), target_generator=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)))",
+      "premise_indices": [
+        5,
+        11
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 13,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=25, element=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), suspension_exponent=17)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 14,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=25)), source_generator=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), target_generator=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)))",
+      "premise_indices": [
+        8,
+        13
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 15,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18)), source_generator=Composition(left=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), right=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None))))",
+      "premise_indices": [
+        12,
+        14
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 16,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=19, element=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), suspension_exponent=11)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 17,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=19)), source_generator=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), target_generator=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)))",
+      "premise_indices": [
+        11,
+        16
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 18,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=26, element=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), suspension_exponent=18)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 19,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=26)), source_generator=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), target_generator=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)))",
+      "premise_indices": [
+        13,
+        18
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 20,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19)), source_generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), right=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None))))",
+      "premise_indices": [
+        17,
+        19
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 21,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=20, element=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), suspension_exponent=12)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 22,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=20)), source_generator=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), target_generator=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)))",
+      "premise_indices": [
+        16,
+        21
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 23,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=27, element=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), suspension_exponent=19)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 24,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=27)), source_generator=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), target_generator=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)))",
+      "premise_indices": [
+        18,
+        23
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 25,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20)), source_generator=Composition(left=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), right=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), right=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None))))",
+      "premise_indices": [
+        22,
+        24
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 26,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=21, element=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), suspension_exponent=13)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 27,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=21)), source_generator=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), target_generator=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)))",
+      "premise_indices": [
+        21,
+        26
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 28,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=28, element=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), suspension_exponent=20)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 29,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=28)), source_generator=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), target_generator=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)))",
+      "premise_indices": [
+        23,
+        28
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 30,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21)), source_generator=Composition(left=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), right=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), right=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None))))",
+      "premise_indices": [
+        27,
+        29
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 31,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=22, element=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), suspension_exponent=14)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 32,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=22)), source_generator=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), target_generator=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)))",
+      "premise_indices": [
+        26,
+        31
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 33,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=29, element=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), suspension_exponent=21)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 34,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=29)), source_generator=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), target_generator=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)))",
+      "premise_indices": [
+        28,
+        33
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 35,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22)), source_generator=Composition(left=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), right=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None))))",
+      "premise_indices": [
+        32,
+        34
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 36,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=23)), source_generator=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), target_generator=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))",
+      "premise_indices": [
+        31,
+        7
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 37,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=30, element=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)), suspension_exponent=22)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 38,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=30)), source_generator=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), target_generator=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)))",
+      "premise_indices": [
+        33,
+        37
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 39,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23)), source_generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), right=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None))))",
+      "premise_indices": [
+        36,
+        38
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 40,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=31, element=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None)), suspension_exponent=23)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 41,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=30), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=31)), source_generator=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)), target_generator=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None)))",
+      "premise_indices": [
+        37,
+        40
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 42,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24)), source_generator=Composition(left=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), right=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), right=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None))))",
+      "premise_indices": [
+        9,
+        41
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 43,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=32, element=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None)), suspension_exponent=24)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 44,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=31), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=32)), source_generator=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None)), target_generator=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None)))",
+      "premise_indices": [
+        40,
+        43
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 45,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25)), source_generator=Composition(left=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), right=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), right=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None))))",
+      "premise_indices": [
+        14,
+        44
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 46,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=33, element=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None)), suspension_exponent=25)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 47,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=32), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=33)), source_generator=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None)), target_generator=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None)))",
+      "premise_indices": [
+        43,
+        46
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 48,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26)), source_generator=Composition(left=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), right=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), right=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None))))",
+      "premise_indices": [
+        19,
+        47
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 49,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=34, element=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None)), suspension_exponent=26)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 50,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=33), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=34)), source_generator=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None)), target_generator=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None)))",
+      "premise_indices": [
+        46,
+        49
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 51,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27)), source_generator=Composition(left=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), right=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), right=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None))))",
+      "premise_indices": [
+        24,
+        50
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 52,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=35, element=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None)), suspension_exponent=27)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 53,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=34), target_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=35)), source_generator=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None)), target_generator=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None)))",
+      "premise_indices": [
+        49,
+        52
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 54,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28)), source_generator=Composition(left=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), right=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), right=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None))))",
+      "premise_indices": [
+        29,
+        53
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 55,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=36, element=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None)), suspension_exponent=28)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 56,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=35), target_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=36)), source_generator=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None)), target_generator=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None)))",
+      "premise_indices": [
+        52,
+        55
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 57,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29)), source_generator=Composition(left=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), right=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), right=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None))))",
+      "premise_indices": [
+        34,
+        56
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 58,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=9, minimum_n=8, stem=7), index=37, element=HomotopyElement(name='σ₃₇', dimension=37, source=44, target=37, generator=GeneratorSymbol(family='σ', index=37, decoration=None)), suspension_exponent=29)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 59,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=36), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=37)), source_generator=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None)), target_generator=HomotopyElement(name='σ₃₇', dimension=37, source=44, target=37, generator=GeneratorSymbol(family='σ', index=37, decoration=None)))",
+      "premise_indices": [
+        55,
+        58
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 60,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)), source_generator=Composition(left=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), right=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)), right=HomotopyElement(name='σ₃₇', dimension=37, source=44, target=37, generator=GeneratorSymbol(family='σ', index=37, decoration=None))))",
+      "premise_indices": [
+        38,
+        59
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 61,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17)), source_generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None)), target_generator=HomotopyElement(name='κ₁₇', dimension=17, source=31, target=17, generator=GeneratorSymbol(family='\\\\kappa', index=17, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 62,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18)), source_generator=HomotopyElement(name='κ₁₇', dimension=17, source=31, target=17, generator=GeneratorSymbol(family='\\\\kappa', index=17, decoration=None)), target_generator=HomotopyElement(name='κ₁₈', dimension=18, source=32, target=18, generator=GeneratorSymbol(family='\\\\kappa', index=18, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 63,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19)), source_generator=HomotopyElement(name='κ₁₈', dimension=18, source=32, target=18, generator=GeneratorSymbol(family='\\\\kappa', index=18, decoration=None)), target_generator=HomotopyElement(name='κ₁₉', dimension=19, source=33, target=19, generator=GeneratorSymbol(family='\\\\kappa', index=19, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 64,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20)), source_generator=HomotopyElement(name='κ₁₉', dimension=19, source=33, target=19, generator=GeneratorSymbol(family='\\\\kappa', index=19, decoration=None)), target_generator=HomotopyElement(name='κ₂₀', dimension=20, source=34, target=20, generator=GeneratorSymbol(family='\\\\kappa', index=20, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 65,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21)), source_generator=HomotopyElement(name='κ₂₀', dimension=20, source=34, target=20, generator=GeneratorSymbol(family='\\\\kappa', index=20, decoration=None)), target_generator=HomotopyElement(name='κ₂₁', dimension=21, source=35, target=21, generator=GeneratorSymbol(family='\\\\kappa', index=21, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 66,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22)), source_generator=HomotopyElement(name='κ₂₁', dimension=21, source=35, target=21, generator=GeneratorSymbol(family='\\\\kappa', index=21, decoration=None)), target_generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 67,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23)), source_generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None)), target_generator=HomotopyElement(name='κ₂₃', dimension=23, source=37, target=23, generator=GeneratorSymbol(family='\\\\kappa', index=23, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 68,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24)), source_generator=HomotopyElement(name='κ₂₃', dimension=23, source=37, target=23, generator=GeneratorSymbol(family='\\\\kappa', index=23, decoration=None)), target_generator=HomotopyElement(name='κ₂₄', dimension=24, source=38, target=24, generator=GeneratorSymbol(family='\\\\kappa', index=24, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 69,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25)), source_generator=HomotopyElement(name='κ₂₄', dimension=24, source=38, target=24, generator=GeneratorSymbol(family='\\\\kappa', index=24, decoration=None)), target_generator=HomotopyElement(name='κ₂₅', dimension=25, source=39, target=25, generator=GeneratorSymbol(family='\\\\kappa', index=25, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 70,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26)), source_generator=HomotopyElement(name='κ₂₅', dimension=25, source=39, target=25, generator=GeneratorSymbol(family='\\\\kappa', index=25, decoration=None)), target_generator=HomotopyElement(name='κ₂₆', dimension=26, source=40, target=26, generator=GeneratorSymbol(family='\\\\kappa', index=26, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 71,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27)), source_generator=HomotopyElement(name='κ₂₆', dimension=26, source=40, target=26, generator=GeneratorSymbol(family='\\\\kappa', index=26, decoration=None)), target_generator=HomotopyElement(name='κ₂₇', dimension=27, source=41, target=27, generator=GeneratorSymbol(family='\\\\kappa', index=27, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 72,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28)), source_generator=HomotopyElement(name='κ₂₇', dimension=27, source=41, target=27, generator=GeneratorSymbol(family='\\\\kappa', index=27, decoration=None)), target_generator=HomotopyElement(name='κ₂₈', dimension=28, source=42, target=28, generator=GeneratorSymbol(family='\\\\kappa', index=28, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 73,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29)), source_generator=HomotopyElement(name='κ₂₈', dimension=28, source=42, target=28, generator=GeneratorSymbol(family='\\\\kappa', index=28, decoration=None)), target_generator=HomotopyElement(name='κ₂₉', dimension=29, source=43, target=29, generator=GeneratorSymbol(family='\\\\kappa', index=29, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 74,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)), source_generator=HomotopyElement(name='κ₂₉', dimension=29, source=43, target=29, generator=GeneratorSymbol(family='\\\\kappa', index=29, decoration=None)), target_generator=HomotopyElement(name='κ₃₀', dimension=30, source=44, target=30, generator=GeneratorSymbol(family='\\\\kappa', index=30, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 75,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "typed arbitrary-fold stable transport of group structure",
+      "rule_source_locator": null,
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)), right=HomotopyElement(name='σ₃₇', dimension=37, source=44, target=37, generator=GeneratorSymbol(family='σ', index=37, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₃₀', dimension=30, source=44, target=30, generator=GeneratorSymbol(family='\\\\kappa', index=30, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        0,
+        2,
+        10,
+        15,
+        20,
+        25,
+        30,
+        35,
+        39,
+        42,
+        45,
+        48,
+        51,
+        54,
+        57,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74
+      ],
+      "direct_citation_numbers": []
+    }
+  ],
+  "images": [
+    {
+      "index": 6,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=23, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=17)), source_generator=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), target_generator=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)))",
+      "premise_indices": [
+        4,
+        5
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 9,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=24)), source_generator=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), target_generator=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)))",
+      "premise_indices": [
+        7,
+        8
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 10,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17)), source_generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), right=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None))))",
+      "premise_indices": [
+        6,
+        9
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 12,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=18)), source_generator=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), target_generator=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)))",
+      "premise_indices": [
+        5,
+        11
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 14,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=25)), source_generator=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), target_generator=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)))",
+      "premise_indices": [
+        8,
+        13
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 15,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18)), source_generator=Composition(left=HomotopyElement(name='σ₁₇', dimension=17, source=24, target=17, generator=GeneratorSymbol(family='σ', index=17, decoration=None)), right=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None))))",
+      "premise_indices": [
+        12,
+        14
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 17,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=19)), source_generator=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), target_generator=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)))",
+      "premise_indices": [
+        11,
+        16
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 19,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=26)), source_generator=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), target_generator=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)))",
+      "premise_indices": [
+        13,
+        18
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 20,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19)), source_generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), right=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None))))",
+      "premise_indices": [
+        17,
+        19
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 22,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=20)), source_generator=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), target_generator=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)))",
+      "premise_indices": [
+        16,
+        21
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 24,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=27)), source_generator=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), target_generator=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)))",
+      "premise_indices": [
+        18,
+        23
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 25,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20)), source_generator=Composition(left=HomotopyElement(name='σ₁₉', dimension=19, source=26, target=19, generator=GeneratorSymbol(family='σ', index=19, decoration=None)), right=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), right=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None))))",
+      "premise_indices": [
+        22,
+        24
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 27,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=21)), source_generator=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), target_generator=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)))",
+      "premise_indices": [
+        21,
+        26
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 29,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=28)), source_generator=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), target_generator=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)))",
+      "premise_indices": [
+        23,
+        28
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 30,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21)), source_generator=Composition(left=HomotopyElement(name='σ₂₀', dimension=20, source=27, target=20, generator=GeneratorSymbol(family='σ', index=20, decoration=None)), right=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), right=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None))))",
+      "premise_indices": [
+        27,
+        29
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 32,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=22)), source_generator=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), target_generator=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)))",
+      "premise_indices": [
+        26,
+        31
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 34,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=29)), source_generator=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), target_generator=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)))",
+      "premise_indices": [
+        28,
+        33
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 35,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22)), source_generator=Composition(left=HomotopyElement(name='σ₂₁', dimension=21, source=28, target=21, generator=GeneratorSymbol(family='σ', index=21, decoration=None)), right=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None))))",
+      "premise_indices": [
+        32,
+        34
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 36,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=23)), source_generator=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), target_generator=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))",
+      "premise_indices": [
+        31,
+        7
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 38,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=30)), source_generator=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), target_generator=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)))",
+      "premise_indices": [
+        33,
+        37
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 39,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23)), source_generator=Composition(left=HomotopyElement(name='σ₂₂', dimension=22, source=29, target=22, generator=GeneratorSymbol(family='σ', index=22, decoration=None)), right=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), right=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None))))",
+      "premise_indices": [
+        36,
+        38
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 41,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=30), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=31)), source_generator=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)), target_generator=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None)))",
+      "premise_indices": [
+        37,
+        40
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 42,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24)), source_generator=Composition(left=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)), right=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), right=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None))))",
+      "premise_indices": [
+        9,
+        41
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 44,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=31), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=32)), source_generator=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None)), target_generator=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None)))",
+      "premise_indices": [
+        40,
+        43
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 45,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25)), source_generator=Composition(left=HomotopyElement(name='σ₂₄', dimension=24, source=31, target=24, generator=GeneratorSymbol(family='σ', index=24, decoration=None)), right=HomotopyElement(name='σ₃₁', dimension=31, source=38, target=31, generator=GeneratorSymbol(family='σ', index=31, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), right=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None))))",
+      "premise_indices": [
+        14,
+        44
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 47,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=32), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=33)), source_generator=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None)), target_generator=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None)))",
+      "premise_indices": [
+        43,
+        46
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 48,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26)), source_generator=Composition(left=HomotopyElement(name='σ₂₅', dimension=25, source=32, target=25, generator=GeneratorSymbol(family='σ', index=25, decoration=None)), right=HomotopyElement(name='σ₃₂', dimension=32, source=39, target=32, generator=GeneratorSymbol(family='σ', index=32, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), right=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None))))",
+      "premise_indices": [
+        19,
+        47
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 50,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=33), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=34)), source_generator=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None)), target_generator=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None)))",
+      "premise_indices": [
+        46,
+        49
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 51,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27)), source_generator=Composition(left=HomotopyElement(name='σ₂₆', dimension=26, source=33, target=26, generator=GeneratorSymbol(family='σ', index=26, decoration=None)), right=HomotopyElement(name='σ₃₃', dimension=33, source=40, target=33, generator=GeneratorSymbol(family='σ', index=33, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), right=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None))))",
+      "premise_indices": [
+        24,
+        50
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 53,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=34), target_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=35)), source_generator=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None)), target_generator=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None)))",
+      "premise_indices": [
+        49,
+        52
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 54,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28)), source_generator=Composition(left=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)), right=HomotopyElement(name='σ₃₄', dimension=34, source=41, target=34, generator=GeneratorSymbol(family='σ', index=34, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), right=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None))))",
+      "premise_indices": [
+        29,
+        53
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 56,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=35), target_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=36)), source_generator=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None)), target_generator=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None)))",
+      "premise_indices": [
+        52,
+        55
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 57,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29)), source_generator=Composition(left=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)), right=HomotopyElement(name='σ₃₅', dimension=35, source=42, target=35, generator=GeneratorSymbol(family='σ', index=35, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), right=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None))))",
+      "premise_indices": [
+        34,
+        56
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 59,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=36), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=37)), source_generator=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None)), target_generator=HomotopyElement(name='σ₃₇', dimension=37, source=44, target=37, generator=GeneratorSymbol(family='σ', index=37, decoration=None)))",
+      "premise_indices": [
+        55,
+        58
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 60,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "suspension preserves composition of separately proved maps",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)), source_generator=Composition(left=HomotopyElement(name='σ₂₉', dimension=29, source=36, target=29, generator=GeneratorSymbol(family='σ', index=29, decoration=None)), right=HomotopyElement(name='σ₃₆', dimension=36, source=43, target=36, generator=GeneratorSymbol(family='σ', index=36, decoration=None))), target_generator=Composition(left=HomotopyElement(name='σ₃₀', dimension=30, source=37, target=30, generator=GeneratorSymbol(family='σ', index=30, decoration=None)), right=HomotopyElement(name='σ₃₇', dimension=37, source=44, target=37, generator=GeneratorSymbol(family='σ', index=37, decoration=None))))",
+      "premise_indices": [
+        38,
+        59
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter V, σ-family definition (after Lemma 5.14)"
+      ]
+    },
+    {
+      "index": 61,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17)), source_generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None)), target_generator=HomotopyElement(name='κ₁₇', dimension=17, source=31, target=17, generator=GeneratorSymbol(family='\\\\kappa', index=17, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 62,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18)), source_generator=HomotopyElement(name='κ₁₇', dimension=17, source=31, target=17, generator=GeneratorSymbol(family='\\\\kappa', index=17, decoration=None)), target_generator=HomotopyElement(name='κ₁₈', dimension=18, source=32, target=18, generator=GeneratorSymbol(family='\\\\kappa', index=18, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 63,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19)), source_generator=HomotopyElement(name='κ₁₈', dimension=18, source=32, target=18, generator=GeneratorSymbol(family='\\\\kappa', index=18, decoration=None)), target_generator=HomotopyElement(name='κ₁₉', dimension=19, source=33, target=19, generator=GeneratorSymbol(family='\\\\kappa', index=19, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 64,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20)), source_generator=HomotopyElement(name='κ₁₉', dimension=19, source=33, target=19, generator=GeneratorSymbol(family='\\\\kappa', index=19, decoration=None)), target_generator=HomotopyElement(name='κ₂₀', dimension=20, source=34, target=20, generator=GeneratorSymbol(family='\\\\kappa', index=20, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 65,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21)), source_generator=HomotopyElement(name='κ₂₀', dimension=20, source=34, target=20, generator=GeneratorSymbol(family='\\\\kappa', index=20, decoration=None)), target_generator=HomotopyElement(name='κ₂₁', dimension=21, source=35, target=21, generator=GeneratorSymbol(family='\\\\kappa', index=21, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 66,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22)), source_generator=HomotopyElement(name='κ₂₁', dimension=21, source=35, target=21, generator=GeneratorSymbol(family='\\\\kappa', index=21, decoration=None)), target_generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 67,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23)), source_generator=HomotopyElement(name='κ₂₂', dimension=22, source=36, target=22, generator=GeneratorSymbol(family='\\\\kappa', index=22, decoration=None)), target_generator=HomotopyElement(name='κ₂₃', dimension=23, source=37, target=23, generator=GeneratorSymbol(family='\\\\kappa', index=23, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 68,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24)), source_generator=HomotopyElement(name='κ₂₃', dimension=23, source=37, target=23, generator=GeneratorSymbol(family='\\\\kappa', index=23, decoration=None)), target_generator=HomotopyElement(name='κ₂₄', dimension=24, source=38, target=24, generator=GeneratorSymbol(family='\\\\kappa', index=24, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 69,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25)), source_generator=HomotopyElement(name='κ₂₄', dimension=24, source=38, target=24, generator=GeneratorSymbol(family='\\\\kappa', index=24, decoration=None)), target_generator=HomotopyElement(name='κ₂₅', dimension=25, source=39, target=25, generator=GeneratorSymbol(family='\\\\kappa', index=25, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 70,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26)), source_generator=HomotopyElement(name='κ₂₅', dimension=25, source=39, target=25, generator=GeneratorSymbol(family='\\\\kappa', index=25, decoration=None)), target_generator=HomotopyElement(name='κ₂₆', dimension=26, source=40, target=26, generator=GeneratorSymbol(family='\\\\kappa', index=26, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 71,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27)), source_generator=HomotopyElement(name='κ₂₆', dimension=26, source=40, target=26, generator=GeneratorSymbol(family='\\\\kappa', index=26, decoration=None)), target_generator=HomotopyElement(name='κ₂₇', dimension=27, source=41, target=27, generator=GeneratorSymbol(family='\\\\kappa', index=27, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 72,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28)), source_generator=HomotopyElement(name='κ₂₇', dimension=27, source=41, target=27, generator=GeneratorSymbol(family='\\\\kappa', index=27, decoration=None)), target_generator=HomotopyElement(name='κ₂₈', dimension=28, source=42, target=28, generator=GeneratorSymbol(family='\\\\kappa', index=28, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 73,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=42, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29)), source_generator=HomotopyElement(name='κ₂₈', dimension=28, source=42, target=28, generator=GeneratorSymbol(family='\\\\kappa', index=28, decoration=None)), target_generator=HomotopyElement(name='κ₂₉', dimension=29, source=43, target=29, generator=GeneratorSymbol(family='\\\\kappa', index=29, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    },
+    {
+      "index": 74,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "stable representative definitional suspension",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=43, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)), source_generator=HomotopyElement(name='κ₂₉', dimension=29, source=43, target=29, generator=GeneratorSymbol(family='\\\\kappa', index=29, decoration=None)), target_generator=HomotopyElement(name='κ₃₀', dimension=30, source=44, target=30, generator=GeneratorSymbol(family='\\\\kappa', index=30, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": true,
+      "given_ancestor_indices": [],
+      "given_ancestor_citation_numbers": [],
+      "given_ancestor_locators": []
+    }
+  ],
+  "references": [
+    {
+      "number": 1,
+      "locator": "DB prior: sphere.csv (n=16, k=14)",
+      "step_indices": [
+        0
+      ],
+      "assertion_ids": [],
+      "reference_ids": [],
+      "statement_bodies": [],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 2,
+      "locator": "(4.5)",
+      "step_indices": [
+        1
+      ],
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+      ],
+      "reference_ids": [
+        "shared:4:typed_literature:toda:tex:ch4:0006"
+      ],
+      "statement_bodies": [
+        "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 3,
+      "locator": "Chapter V, σ-family definition (after Lemma 5.14)",
+      "step_indices": [
+        3
+      ],
+      "assertion_ids": [
+        "shared:9:adopted:assertion:toda5:stable_family:9"
+      ],
+      "reference_ids": [
+        "shared:9:adopted:reference:toda5:stable_family:9"
+      ],
+      "statement_bodies": [
+        "$n\\ge 8$ に対し, $\\sigma_n=E^{n-8}\\sigma_{8}$ と定義する."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": [
+        6,
+        9,
+        10,
+        12,
+        14,
+        15,
+        17,
+        19,
+        20,
+        22,
+        24,
+        25,
+        27,
+        29,
+        30,
+        32,
+        34,
+        35,
+        36,
+        38,
+        39,
+        41,
+        42,
+        44,
+        45,
+        47,
+        48,
+        50,
+        51,
+        53,
+        54,
+        56,
+        57,
+        59,
+        60
+      ]
+    }
+  ]
+}

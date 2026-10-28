@@ -1,0 +1,356 @@
+{
+  "phase": "169 R10ET-R3B",
+  "mode": "AUDIT_ONLY_IN_MEMORY_PROJECTION",
+  "head": "c63ca5d07904e7725cbfabc9db2d714845d9a8c7",
+  "provider_source_blob": "61cbadb06f770c51a9c1f5a3c8026acf9e3e14aa",
+  "cases": [
+    {
+      "group": "pi_28^22",
+      "n": 22,
+      "k": 6,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 16,
+      "givens": 2,
+      "canonical_definition_images": 14,
+      "references": {
+        "1": "DB prior: sphere.csv (n=8, k=6)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": true,
+      "baseline_direct_sum": false,
+      "candidate_direct_sum": false,
+      "candidate_cyclic_citations": [],
+      "candidate_cyclic_hidden": 14,
+      "candidate_direct_sum_citations": null,
+      "candidate_calls": 2,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": true,
+      "no_individual_definition_reference": true,
+      "markdown_length": 430,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi28_22\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_32^22",
+      "n": 22,
+      "k": 10,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "canonical_definition_images": 10,
+      "references": {
+        "1": "DB prior: sphere.csv (n=12, k=10)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": true,
+      "baseline_direct_sum": false,
+      "candidate_direct_sum": false,
+      "candidate_cyclic_citations": [],
+      "candidate_cyclic_hidden": 10,
+      "candidate_direct_sum_citations": null,
+      "candidate_calls": 2,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": true,
+      "no_individual_definition_reference": true,
+      "markdown_length": 458,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi32_22\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_23^15",
+      "n": 15,
+      "k": 8,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "canonical_definition_images": 10,
+      "references": {
+        "1": "DB prior: sphere.csv (n=10, k=8)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 576,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi23_15\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_33^24",
+      "n": 24,
+      "k": 9,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 41,
+      "givens": 2,
+      "canonical_definition_images": 39,
+      "references": {
+        "1": "DB prior: sphere.csv (n=11, k=9)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 699,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi33_24\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_69^43",
+      "n": 43,
+      "k": 26,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 32,
+      "givens": 2,
+      "canonical_definition_images": 30,
+      "references": {
+        "1": "DB prior: sphere.csv (n=28, k=26)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 653,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi69_43\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_56^30",
+      "n": 30,
+      "k": 26,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 6,
+      "givens": 2,
+      "canonical_definition_images": 4,
+      "references": {
+        "1": "DB prior: sphere.csv (n=28, k=26)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 650,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi56_30\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_41^30",
+      "n": 30,
+      "k": 11,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 19,
+      "givens": 2,
+      "canonical_definition_images": 17,
+      "references": {
+        "1": "DB prior: sphere.csv (n=13, k=11)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": false,
+      "candidate_direct_sum": false,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": null,
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 392,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi41_30\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_44^30",
+      "n": 30,
+      "k": 14,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 30,
+      "givens": 2,
+      "canonical_definition_images": 28,
+      "references": {
+        "1": "DB prior: sphere.csv (n=16, k=14)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 565,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi44_30\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_46^30",
+      "n": 30,
+      "k": 16,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 26,
+      "givens": 2,
+      "canonical_definition_images": 24,
+      "references": {
+        "1": "DB prior: sphere.csv (n=18, k=16)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 581,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi46_30\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    },
+    {
+      "group": "pi_39^30",
+      "n": 30,
+      "k": 9,
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 59,
+      "givens": 2,
+      "canonical_definition_images": 57,
+      "references": {
+        "1": "DB prior: sphere.csv (n=11, k=9)",
+        "2": "(4.5)"
+      },
+      "source_citation_numbers": [
+        1
+      ],
+      "iso_citation_numbers": [
+        2
+      ],
+      "baseline_cyclic": false,
+      "candidate_cyclic": false,
+      "baseline_direct_sum": true,
+      "candidate_direct_sum": true,
+      "candidate_cyclic_citations": null,
+      "candidate_cyclic_hidden": null,
+      "candidate_direct_sum_citations": [],
+      "candidate_calls": 0,
+      "candidate_rejections": 0,
+      "has_orphan_cyclic_reference_prefix": false,
+      "no_individual_definition_reference": true,
+      "markdown_length": 699,
+      "narrative_path": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r3b_reviewed_head_guard\\output\\20261028_153945_037\\pi39_30\\candidate_narrative.md",
+      "proof_steps_and_citations_unchanged": true
+    }
+  ],
+  "all_complete_trusted": true,
+  "focus_cyclic_recovered": true,
+  "no_direct_sum_regression": true,
+  "tracked_unchanged": true,
+  "provider_restored": true,
+  "full_pytest_run": false,
+  "application_changed": [],
+  "requires_renderer_prefix_review": true
+}

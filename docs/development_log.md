@@ -7911,3 +7911,48 @@ Phase 165 は、旧実装の依存整理および**現行テスト集合での�
 ### 引き継ぎ事項
 
 実験的 Origin Observation には P18 で確認した信頼境界の問題が残る。標準 Web には採用せず、完全証明の既存検証を維持する。2-stem の未完成・未監査の群、生成元輸送、文献命題の原典照合は別工程とし、Phase 168 の合格件数によって数学的に認証済みとみなさない。
+
+<!-- PHASE169_R10ET_DOCUMENT_CLOSEOUT_20261028 -->
+
+## 2026-10-28 — Phase 169 R10ET 実装・監査区切り（Phase 169 全体は継続）
+
+**対象と方針：** 個別の生成元や family 名に応じた Definition 引用ではなく、型付き `GeneratorImage` に適合する共通 Definition（定義）を本番探索で優先する。`HyoujiGen.csv` を含む既存の生成元情報と証明規則を利用し、群ごとの表示文章や新しい数学的主張を追加しない。
+
+- **R10ET-R5D：** `shared_expansion_provider()` と既存の回帰テスト4ファイルを変更し、共通 Definition の探索優先順位を実装。適用外の Goal は既存経路に委譲。既知の群構造 DB prior と Toda (4.5) の引用祖先は維持。R5C の実装を変えず、Git index にある監査パッケージを保護するガードを整備した。
+- **R10ET-R6：** 本番の探索経路による16件の必須監査と3件の追加調査を実施。初回は必須16件 PASS、追加3件中 $\pi_{10}^{8}$ のみ `REVIEW_REQUIRED`。19件すべて Trust PASS、共通 Definition 適用可能な個別 Definition への残存依存0件。初回の判定は完全 PASS としなかった。
+- **R10ET-R6B：** $\pi_{10}^{8}$ の監査出力を詳細確認。生成元像は `ELIGIBLE=4`・`CANONICAL=4`。最終結論で利用しない `(n=7,k=2)` の DB prior が Reference と本文に表示されていることを特定した。
+- **R10ET-R6C：** `phase168_r3_3_proof_narrative_model.py` と `phase168_r3_5_model_renderer.py` の完成証明用 root-ancestor projection を修正。Proof Tree・Trust Boundary・不完全証明の情報は変更せず、使用しない Reference のみ除外。限定 pytest **43 PASS**、16+3件の独立監査 **19/19 PASS**。
+- **R10ET-R6D：** R6 の `certify_reviewed_production()` が旧 Renderer のハッシュに固定されていたため、既知の R6C 変換後のソースを厳密に検証するよう監査ガードを更新。R6 の元の19ケース監査を再実行して `REQUIRED_PASS=True`、`PROBES_PASS=True`、`AUDIT_ONLY_COMPLETE=PASS`、限定 pytest **24 PASS**、Git index 保持を確認。最終監査記録：`phase169_r10et_r6_residual_definition_dependency_audit/output/20261028_174644_215/audit.md`。
+
+### Git 環境の復旧と現在のコミット
+
+Dropbox が作成した `.git/logs/` 内の競合コピー3件について、原本・作業差分を Dropbox 外へバックアップした上で競合コピーだけを隔離した（R2B）。続いて Git for Windows の `core.longpaths=true` とローカル `.git/info/exclude` により、R5D の長い `full_sources` 生成ファイルを一括登録対象から除外した。これらは数学的実装の変更ではない。任意の監査出力を無条件に Git に追加する運用は避ける。
+
+GitHub `develop` では `fc07630e8c2ca04b16f0e3eb08a06ea4f12e9b79`（コミットメッセージ `10et5d`）に本体7ファイル・R6D 監査スクリプト等が登録された。Closeout R1 では GitHub・ローカル・追跡 ref が一致、tracked の staged / unstaged 差分がともに0、文書5件と確認済み本体8ファイルが GitHub と一致したため `READY_FOR_DOCUMENT_CLOSEOUT` と判定した。
+
+### 現時点の結論と未実施事項
+
+**R10ET は本番実装と限定監査を完了。Phase 169 全体は未終了。** 19例の成功を全 stem・全登録群への無条件の一般化とみなさない。文献原典の独立した数学的真理判定、旧 Definition 台帳の削除、新しい推論機能の先取りはしない。主要文書の更新を済ませた後に、Phase 169 の残件・全体テスト対象範囲・正式 Closeout を別工程で判断する。今回の文書更新では全体 pytest を実行しない。
+
+<!-- PHASE169_FINAL_CLOSEOUT_20261028 -->
+
+## 2026-10-28 — Phase 169 最終 Closeout（終了時テスト Gate・文書記録）
+
+R10ET R5D〜R6D の実装と限定監査、R10ET Closeout R2A の主要文書5件全文更新、Closeout R3A の整合性検査を前提に、Phase 169 の終了時最終 Gate を Windows PowerShell から実行した。R3A は文書5/5、本体ソース8/8、R6対象19/19、Git index 保全を PASS とした。R10ET を再実装せず、終了判定のみ追加した。
+
+### 終了時テスト（新規実行の記録）
+
+- 実行日：2026-10-28（JST）。
+- Gate 補助限定 pytest：**8 passed in 2.36s**（ユーザー実行ログ）。
+- 関連回帰：**67 passed in 21.86s**、終了コード0。対象は Gate に明記された Phase 169 の10テストファイル（Phase 168 P19 回帰を含む）。
+- 現行アクティブテスト：**3546 passed in 34.95s**、FAIL 0、ERROR 0、終了コード0。
+- 全体テストコマンド：`python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests`。
+- `tests/conftest.py` の Phase 155 audit-only nodeid 選別を維持し、歴史的退避テストは追加収集しない。`PYTHONDONTWRITEBYTECODE=1` と cacheprovider 無効化を使用した。
+- Git index：実行前後の保全確認 `True`。Gate 判定：`PHASE169_CLOSEOUT_R1_TEST_GATE_PASS=True`、`TEST_GATE_PASS_PENDING_PHASE169_CLOSEOUT_DOCUMENTATION`。
+- 最終 Gate 証拠は `%LOCALAPPDATA%\EHPProofTracerRecovery\phase169_closeout_r1_20261028_193510_755227\report.json` に保存された。本文書の文書更新 Gate はその JSON を読み直し、同じ回数と終了コードを検証している。
+
+### 正式終了判断
+
+**Phase 169 は、上記テストと R10ET の既存監査で検証済みの実装範囲について終了と判定する。** 記録更新は証明探索の新機能・命題登録・既存 API 変更を伴わない。対象外 Goal の partial を complete と扱わず、19件の監査から任意の stem の数学的証明完成を主張しない。
+
+次 Phase では、未完成の数学的対象と群構造・関係式・生成元 DB の登録状況を現行コードから監査し、必要最小限の変更だけを新たな Phase の責務として定める。旧方式の無条件再導入・文献命題の真偽の自動認証・未検証の一般化は実施しない。

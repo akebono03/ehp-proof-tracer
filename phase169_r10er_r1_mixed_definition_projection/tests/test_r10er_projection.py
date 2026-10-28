@@ -71,7 +71,7 @@ def test_r10er_mixed_direct_sum_has_two_compressed_images(
     assert display.root_index == model.root_index
     assert all(formula in display.statement for formula in formulae)
     assert "Definition" in display.statement
-    assert display.citation_numbers
+    assert display.citation_numbers == ()
     assert len(display.hidden_indices) >= 2 * exponent
     step_ids_before = tuple(id(step) for step in model.steps)
     citations_before = model.step_citation_numbers
@@ -91,13 +91,17 @@ def test_r10er_mixed_direct_sum_has_two_compressed_images(
     assert len(definitions) >= definition_steps
 
 
-def test_r10er_earlier_fully_cited_direct_sum_keeps_its_old_prefix(cases):
+def test_r10er_common_definition_replaces_cited_prefix(cases):
     result, model, order = cases[(30, 9)]
     display = project_verified_direct_sum_transport(model, order)
     assert display is not None
-    assert display.citation_numbers
-    assert display.statement.startswith("[R")
-    assert "Definition と" not in display.statement
+    assert display.citation_numbers == ()
+    assert display.statement.startswith("Definition より, ")
+    locators = tuple(item.reference.locator or item.reference.label
+                     for item in model.citations)
+    assert len(locators) == 2
+    assert any("DB prior:" in locator for locator in locators)
+    assert "(4.5)" in locators
     assert display.statement in render_model_backed_narrative_markdown(result, model)
 
 

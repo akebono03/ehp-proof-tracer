@@ -1,0 +1,381 @@
+{
+  "root_index": 17,
+  "root_premises": [
+    14,
+    15,
+    16
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Toda (5.1) general circle higher vanishing",
+      "rule_source_locator": "(5.1)",
+      "conclusion_type": "TodaPrimaryGroupZeroStatement",
+      "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='i'), sphere_dimension=1))",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        1
+      ]
+    },
+    {
+      "index": 1,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic cited typed scalar specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "TodaPrimaryGroupZeroStatement",
+      "conclusion_repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1))",
+      "premise_indices": [
+        0
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 2,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Toda Proposition 4.2 universal EHP exact sequence",
+      "rule_source_locator": "Proposition 4.2 (4.4)",
+      "conclusion_type": "TodaProp42GeneralExactnessStatement",
+      "conclusion_repr": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        2
+      ]
+    },
+    {
+      "index": 3,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=1), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+      "premise_indices": [
+        2
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 4,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "EHP: preceding zero group and exactness imply Hopf injectivity",
+      "rule_source_locator": null,
+      "conclusion_type": "MapInjective",
+      "conclusion_repr": "MapInjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "premise_indices": [
+        1,
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 5,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Toda (5.1) diagonal cyclic source",
+      "rule_source_locator": "(5.1)",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSymbol(name='n'), sphere_dimension=ScalarSymbol(name='n')), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_n', dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='ι', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        1
+      ]
+    },
+    {
+      "index": 6,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic cited typed scalar specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        5
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 7,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic cited typed scalar specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        5
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 8,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Registered fixed statement: Foundational: suspension identity",
+      "rule_source_locator": "Foundational: suspension identity",
+      "conclusion_type": "GeneratorSuspension",
+      "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)), source_generator=HomotopyElement(name='ι₁', dimension=1, source=1, target=1, generator=GeneratorSymbol(family='ι', index=1, decoration=None)), target_generator=HomotopyElement(name='ι₂', dimension=2, source=2, target=2, generator=GeneratorSymbol(family='ι', index=2, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        3
+      ]
+    },
+    {
+      "index": 9,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "diagonal free cyclic suspension on generators implies isomorphism",
+      "rule_source_locator": null,
+      "conclusion_type": "TodaSuspensionIsomorphismStatement",
+      "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_group=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2)))",
+      "premise_indices": [
+        6,
+        7,
+        8
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 10,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), target_term=TodaPrimaryGroup(group_dimension=2, sphere_dimension=2), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+      "premise_indices": [
+        2
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 11,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+      "rule_source_locator": null,
+      "conclusion_type": "TodaDeltaZeroStatement",
+      "conclusion_repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1)))",
+      "premise_indices": [
+        9,
+        10
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 12,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "Toda Proposition 4.2: generic consecutive EHP specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "TodaProp42ExactnessStatement",
+      "conclusion_repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=1, sphere_dimension=1), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+      "premise_indices": [
+        2
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 13,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "rule_source_locator": null,
+      "conclusion_type": "MapSurjective",
+      "conclusion_repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "premise_indices": [
+        11,
+        12
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 14,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic injective and surjective imply isomorphism",
+      "rule_source_locator": null,
+      "conclusion_type": "MapIsomorphism",
+      "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+      "premise_indices": [
+        4,
+        13
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 15,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic cited typed scalar specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        5
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 16,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Toda Proposition 5.1",
+      "rule_source_locator": "Proposition 5.1",
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        4
+      ],
+      "eligible_for_common_definition": false,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        16
+      ],
+      "given_ancestor_citation_numbers": [
+        4
+      ],
+      "given_ancestor_locators": [
+        "Proposition 5.1"
+      ]
+    },
+    {
+      "index": 17,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic reverse free cyclic structure transport along isomorphism",
+      "rule_source_locator": null,
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        14,
+        15,
+        16
+      ],
+      "direct_citation_numbers": []
+    }
+  ],
+  "images": [
+    {
+      "index": 16,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Toda Proposition 5.1",
+      "rule_source_locator": "Proposition 5.1",
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        4
+      ],
+      "eligible_for_common_definition": false,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        16
+      ],
+      "given_ancestor_citation_numbers": [
+        4
+      ],
+      "given_ancestor_locators": [
+        "Proposition 5.1"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "number": 1,
+      "locator": "(5.1)",
+      "step_indices": [
+        0,
+        5
+      ],
+      "assertion_ids": [
+        "shared:6:adopted:assertion:toda51:circle_higher_zero",
+        "shared:3:adopted:assertion:toda51:diagonal"
+      ],
+      "reference_ids": [
+        "shared:6:adopted:reference:toda51:below_diagonal_zero",
+        "shared:3:adopted:toda51:diagonal"
+      ],
+      "statement_bodies": [
+        "$\\pi_i^1=0\\quad(i>1)$.",
+        "$\\pi_{n}^{n} = \\mathbb{Z}\\{\\iota_{n}\\}\\quad(n\\ge 1)$."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 2,
+      "locator": "Proposition 4.2 (4.4)",
+      "step_indices": [
+        2
+      ],
+      "assertion_ids": [
+        "shared:5:adopted:assertion:prop42:general"
+      ],
+      "reference_ids": [
+        "shared:5:adopted:reference:prop42:general"
+      ],
+      "statement_bodies": [
+        "$\\pi_i^n\\xrightarrow{E}\\pi_{i+1}^{n+1}\\xrightarrow{H}\\pi_{i+1}^{2n+1}\\xrightarrow{\\Delta}\\pi_{i-1}^{n}\\xrightarrow{E}\\pi_i^{n+1}$ は完全."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 3,
+      "locator": "Foundational: suspension identity",
+      "step_indices": [
+        8
+      ],
+      "assertion_ids": [
+        "shared:1:adopted:assertion:3"
+      ],
+      "reference_ids": [
+        "shared:1:adopted:ref:3"
+      ],
+      "statement_bodies": [
+        "$E(\\iota_{1})=\\iota_{2}$."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 4,
+      "locator": "Proposition 5.1",
+      "step_indices": [
+        16
+      ],
+      "assertion_ids": [
+        "shared:1:adopted:assertion:5"
+      ],
+      "reference_ids": [
+        "shared:1:adopted:ref:5"
+      ],
+      "statement_bodies": [
+        "$H(\\eta_{2})=\\iota_{3}$."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": [
+        16
+      ]
+    }
+  ]
+}
