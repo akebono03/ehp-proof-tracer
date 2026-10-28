@@ -1,0 +1,66 @@
+{
+  "phase": "169 R10ER-R1",
+  "full_pytest_run": false,
+  "production_changed": [
+    "phase169_r10ec_direct_sum_narrative_projection/projection.py"
+  ],
+  "new_inference_rules": 0,
+  "new_cited_definitions": 0,
+  "cases": [
+    {
+      "group": "pi_44^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 73,
+      "given_steps": 3,
+      "definition_images": 14,
+      "exponent": 14,
+      "compressed_equations": 2,
+      "hidden_prose_only": 49,
+      "individual_image_equations": 0,
+      "citation_numbers": [
+        3
+      ],
+      "proof_tree_unchanged": true,
+      "file": "pi44_30.md"
+    },
+    {
+      "group": "pi_46^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 76,
+      "given_steps": 4,
+      "definition_images": 12,
+      "exponent": 12,
+      "compressed_equations": 2,
+      "hidden_prose_only": 48,
+      "individual_image_equations": 0,
+      "citation_numbers": [
+        3,
+        4
+      ],
+      "proof_tree_unchanged": true,
+      "file": "pi46_30.md"
+    },
+    {
+      "group": "pi_39^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 246,
+      "given_steps": 6,
+      "definition_images": 0,
+      "exponent": 19,
+      "compressed_equations": 2,
+      "hidden_prose_only": 158,
+      "individual_image_equations": 0,
+      "citation_numbers": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "proof_tree_unchanged": true,
+      "file": "pi39_30.md"
+    }
+  ]
+}

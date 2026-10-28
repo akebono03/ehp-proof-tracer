@@ -1,0 +1,20 @@
+{
+  "phase": "169 R10EO-R3",
+  "mode": "REVIEWED_SOURCE_REGISTRATION",
+  "reviewed_definition_ids": [
+    16
+  ],
+  "verified_reviewed_definition_positions": [
+    12938
+  ],
+  "pi41_30_status": "complete",
+  "pi41_30_open_goal_types": [],
+  "pi41_30_open_goal_details": [],
+  "pi41_30_diagnostics": [],
+  "pi41_30_trust": "PASS",
+  "proof_tree_trust_required_when_complete": true,
+  "inference_rules_added": false,
+  "full_pytest_run": false,
+  "verified_inference_steps": 37,
+  "verified_given_steps": 3
+}

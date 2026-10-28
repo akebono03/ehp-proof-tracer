@@ -100,15 +100,50 @@ def project_verified_direct_sum_transport(
                    for step, image in zip(image_steps, expected))):
         return None
 
-    # R10EN: each direct-sum image needs its own registered GIVEN ancestor.
+    # R10ER: a typed stable Definition inference has no literature GIVEN.
+    # All other image paths retain R10EN's every-image citation requirement.
+    from phase169_r10eq_r1_universal_stable_definition.definition import (
+        expand_defined_stable_element_image,
+    )
     from phase169_r10en_shared_citation_provenance.core import (
         verified_generator_image_citation_numbers,
     )
-    numbers = verified_generator_image_citation_numbers(
-        model, order, image_steps, require_each=True,
+    from proof import InferenceRule, find_inference_matches_for_rule
+
+    def is_certified_definition_image(step):
+        if (step.rule is not ProofRule.INFERENCE or step.premises
+                or not isinstance(step.inference_rule, InferenceRule)):
+            return False
+        proposals = expand_defined_stable_element_image(step.conclusion)
+        if len(proposals) != 1 or proposals[0].subgoals:
+            return False
+        actual = step.inference_rule
+        canonical = proposals[0].rule
+        return (
+            actual.name == canonical.name
+            and actual.description == canonical.description
+            and actual.premise_patterns == canonical.premise_patterns == ()
+            and actual.conclusion_pattern == canonical.conclusion_pattern
+            and actual.conclusion_builder is None
+            and actual.literature_reference is None
+            and len(find_inference_matches_for_rule(actual, ())) == 1
+        )
+
+    cited_image_steps = tuple(
+        step for step in image_steps if not is_certified_definition_image(step)
     )
-    if numbers is None:
-        return None
+    if cited_image_steps:
+        numbers = verified_generator_image_citation_numbers(
+            model, order, cited_image_steps, require_each=True,
+        )
+        if numbers is None:
+            return None
+    else:
+        # The root's independently cited source and (4.5) remain mandatory.
+        # Never manufacture a citation for a definition-only image chain.
+        if not getattr(model, "citations", ()):
+            return None
+        numbers = ()
 
     # R10EL: the shared strict contract preserves all-or-nothing direct-sum
     # suppression, including external-consumer and individual-citation checks.
@@ -133,7 +168,14 @@ def project_verified_direct_sum_transport(
     if not formulae:
         return None
     labels = ", ".join(f"[R{number}]" for number in numbers)
-    statement = f"{labels}より, " + "、".join(formulae) + "."
+    if len(cited_image_steps) == len(image_steps):
+        # Unchanged output for all earlier fully cited direct-sum proofs.
+        prefix = f"{labels}より, "
+    elif labels:
+        prefix = f"Definition と {labels} より, "
+    else:
+        prefix = "Definition より, "
+    statement = prefix + "、".join(formulae) + "."
     return VerifiedDirectSumTransportDisplay(
         root_index=root_index,
         hidden_indices=tuple(sorted(hidden)),

@@ -66,6 +66,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_stable_family_definitions(),
             build_cited_chapter_vi_family_definitions(),
         )
+        from phase169_r10eo_r3_reviewed_definition_bridge.reviewed_definitions import (
+            build_cited_reviewed_definitions,
+        )
+        sources = sources + (build_cited_reviewed_definitions(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -305,12 +309,23 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_eta_definition(goal, tuple(available)))
         eta_generator_options = expand_cited_eta_generator(goal)
         options.extend(eta_generator_options)
-        options.extend(expand_cited_stable_family(goal, tuple(available)))
+        cited_stable_options = expand_cited_stable_family(
+            goal, tuple(available),
+        )
+        options.extend(cited_stable_options)
+        composite_image_options = ()
         if not eta_generator_options:
             from phase169_r10e5_composite_generator_image.rule import (
                 expand_composite_generator_image,
             )
-            options.extend(expand_composite_generator_image(goal))
+            composite_image_options = expand_composite_generator_image(goal)
+            options.extend(composite_image_options)
+        if not (eta_generator_options or cited_stable_options
+                or composite_image_options):
+            from phase169_r10eq_r1_universal_stable_definition.definition import (
+                expand_defined_stable_element_image,
+            )
+            options.extend(expand_defined_stable_element_image(goal))
         from phase169_r4b_prop44_injectivity.rule import expand_cited_prop44_injectivity
         options.extend(expand_cited_prop44_injectivity(goal, tuple(available)))
         from phase169_r4c_pi64_suspension_iso.rule import expand_pi64_suspension_isomorphism

@@ -1,0 +1,696 @@
+{
+  "phase": "169 R10EO-R1",
+  "mode": "AUDIT_ONLY",
+  "metadata": {
+    "mode": "AUDIT_ONLY",
+    "all_rows": 233,
+    "series_count": 39,
+    "registered_identifier_count": 39,
+    "registered_definition_ids": [
+      4,
+      9,
+      10,
+      11,
+      12
+    ],
+    "source_publication_positions": {
+      "chapter_v": [
+        [
+          4,
+          8550
+        ],
+        [
+          9,
+          10450
+        ]
+      ],
+      "chapter_vi": [
+        [
+          10,
+          10899
+        ],
+        [
+          11,
+          11301
+        ],
+        [
+          12,
+          12109
+        ]
+      ]
+    },
+    "series_with_nonempty_stable": 0,
+    "series_with_nonempty_stable_orders": 0,
+    "candidate_count": 15,
+    "families": [
+      {
+        "id": 1,
+        "display": "ι",
+        "stem": 0,
+        "minimum_n": 1,
+        "latex": "\\iota",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 2,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 2,
+        "display": "η",
+        "stem": 1,
+        "minimum_n": 2,
+        "latex": "\\eta",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 3,
+        "initial_n_in_stable_range": false,
+        "citation_status": "LEGACY_ETA_CITATION_PATH",
+        "literal_candidates": []
+      },
+      {
+        "id": 4,
+        "display": "ν",
+        "stem": 3,
+        "minimum_n": 4,
+        "latex": "\\nu",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 5,
+        "initial_n_in_stable_range": false,
+        "citation_status": "REGISTERED_CITED_DEFINITION",
+        "literal_candidates": [
+          {
+            "source_id": "chapter_v",
+            "line": 606,
+            "paragraph": "",
+            "normalized_match": "\\nu_n:=E^{n-4}\\nu_4",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_v",
+            "line": 606,
+            "paragraph": "",
+            "normalized_match": "\\nu_n:=E^{n-4}\\nu_4",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_v",
+            "line": 609,
+            "paragraph": "",
+            "normalized_match": "\\nu_n:=E^{n-4}\\nu_4",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          }
+        ]
+      },
+      {
+        "id": 9,
+        "display": "σ",
+        "stem": 7,
+        "minimum_n": 8,
+        "latex": "\\sigma",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 9,
+        "initial_n_in_stable_range": false,
+        "citation_status": "REGISTERED_CITED_DEFINITION",
+        "literal_candidates": [
+          {
+            "source_id": "chapter_v",
+            "line": 2104,
+            "paragraph": "",
+            "normalized_match": "\\sigma_n:=E^{n-8}\\sigma_8",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_v",
+            "line": 2111,
+            "paragraph": "",
+            "normalized_match": "\\sigma_n:=E^{n-8}\\sigma_8",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_v",
+            "line": 2111,
+            "paragraph": "",
+            "normalized_match": "\\sigma_n:=E^{n-8}\\sigma_8",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          }
+        ]
+      },
+      {
+        "id": 10,
+        "display": "ε",
+        "stem": 8,
+        "minimum_n": 3,
+        "latex": "\\varepsilon",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 10,
+        "initial_n_in_stable_range": false,
+        "citation_status": "REGISTERED_CITED_DEFINITION",
+        "literal_candidates": [
+          {
+            "source_id": "chapter_vi",
+            "line": 96,
+            "paragraph": "\\paragraph{i). The Elements \\(\\varepsilon_n\\).}",
+            "normalized_match": "\\varepsilon_n:=E^{n-3}\\varepsilon_3",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_vi",
+            "line": 99,
+            "paragraph": "\\paragraph{i). The Elements \\(\\varepsilon_n\\).}",
+            "normalized_match": "\\varepsilon_n:=E^{n-3}\\varepsilon_3",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_vi",
+            "line": 100,
+            "paragraph": "\\paragraph{i). The Elements \\(\\varepsilon_n\\).}",
+            "normalized_match": "\\varepsilon_n:=E^{n-3}\\varepsilon_3",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          }
+        ]
+      },
+      {
+        "id": 11,
+        "display": "ν̅",
+        "stem": 8,
+        "minimum_n": 6,
+        "latex": "\\bar{\\nu}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 10,
+        "initial_n_in_stable_range": false,
+        "citation_status": "REGISTERED_CITED_DEFINITION",
+        "literal_candidates": [
+          {
+            "source_id": "chapter_vi",
+            "line": 501,
+            "paragraph": "\\paragraph{ii). The elements \\(\\,\\overline{\\nu}_n\\).}",
+            "normalized_match": "\\bar{\\nu}_n:=E^{n-6}\\bar{\\nu}_6",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_vi",
+            "line": 502,
+            "paragraph": "\\paragraph{ii). The elements \\(\\,\\overline{\\nu}_n\\).}",
+            "normalized_match": "\\bar{\\nu}_n:=E^{n-6}\\bar{\\nu}_6",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          }
+        ]
+      },
+      {
+        "id": 12,
+        "display": "μ",
+        "stem": 9,
+        "minimum_n": 3,
+        "latex": "\\mu",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 11,
+        "initial_n_in_stable_range": false,
+        "citation_status": "REGISTERED_CITED_DEFINITION",
+        "literal_candidates": [
+          {
+            "source_id": "chapter_vi",
+            "line": 1309,
+            "paragraph": "\\paragraph{iii). The elements \\(\\mu_n\\).}",
+            "normalized_match": "\\mu_n:=E^{n-3}\\mu_3",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_vi",
+            "line": 1310,
+            "paragraph": "\\paragraph{iii). The elements \\(\\mu_n\\).}",
+            "normalized_match": "\\mu_n:=E^{n-3}\\mu_3",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          }
+        ]
+      },
+      {
+        "id": 16,
+        "display": "ζ",
+        "stem": 11,
+        "minimum_n": 5,
+        "latex": "\\zeta",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 13,
+        "initial_n_in_stable_range": false,
+        "citation_status": "TEXT_MATCH_REQUIRES_INDEPENDENT_REVIEW",
+        "literal_candidates": [
+          {
+            "source_id": "chapter_vi",
+            "line": 2138,
+            "paragraph": "\\paragraph{v). The elements \\(\\zeta_{n}\\).}",
+            "normalized_match": "\\zeta_n:=E^{n-5}\\zeta_5",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          },
+          {
+            "source_id": "chapter_vi",
+            "line": 2139,
+            "paragraph": "\\paragraph{v). The elements \\(\\zeta_{n}\\).}",
+            "normalized_match": "\\zeta_n:=E^{n-5}\\zeta_5",
+            "classification": "TEXT_MATCH_CANDIDATE_NOT_AUTHORIZED"
+          }
+        ]
+      },
+      {
+        "id": 23,
+        "display": "κ",
+        "stem": 14,
+        "minimum_n": 7,
+        "latex": "\\kappa",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 16,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 25,
+        "display": "ε̅",
+        "stem": 15,
+        "minimum_n": 3,
+        "latex": "\\bar{\\varepsilon}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 17,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 30,
+        "display": "ρ",
+        "stem": 15,
+        "minimum_n": 13,
+        "latex": "\\rho",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 17,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 34,
+        "display": "ω",
+        "stem": 16,
+        "minimum_n": 14,
+        "latex": "\\omega",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 18,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 36,
+        "display": "η*",
+        "stem": 16,
+        "minimum_n": 16,
+        "latex": "\\eta^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 18,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 38,
+        "display": "μ̅",
+        "stem": 17,
+        "minimum_n": 3,
+        "latex": "\\bar{\\mu}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 19,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 40,
+        "display": "ε*",
+        "stem": 17,
+        "minimum_n": 12,
+        "latex": "\\varepsilon^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 19,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 46,
+        "display": "ξ",
+        "stem": 18,
+        "minimum_n": 12,
+        "latex": "\\xi",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 20,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 48,
+        "display": "ν*",
+        "stem": 18,
+        "minimum_n": 16,
+        "latex": "\\nu^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 20,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 50,
+        "display": "ζ̅",
+        "stem": 19,
+        "minimum_n": 5,
+        "latex": "\\bar{\\zeta}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 21,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 51,
+        "display": "σ̅",
+        "stem": 19,
+        "minimum_n": 6,
+        "latex": "\\bar{\\sigma}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 21,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 56,
+        "display": "κ̅",
+        "stem": 20,
+        "minimum_n": 7,
+        "latex": "\\bar{\\kappa}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 22,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 72,
+        "display": "σ*",
+        "stem": 22,
+        "minimum_n": 16,
+        "latex": "\\sigma^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 24,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 76,
+        "display": "φ",
+        "stem": 23,
+        "minimum_n": 5,
+        "latex": "\\phi",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 25,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 81,
+        "display": "ρ̅",
+        "stem": 23,
+        "minimum_n": 9,
+        "latex": "\\bar{\\rho}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 25,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 82,
+        "display": "ψ",
+        "stem": 23,
+        "minimum_n": 10,
+        "latex": "\\psi",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 25,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 85,
+        "display": "ε̅*",
+        "stem": 23,
+        "minimum_n": 16,
+        "latex": "\\bar{\\varepsilon}^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 25,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 86,
+        "display": "ν̅*",
+        "stem": 23,
+        "minimum_n": 16,
+        "latex": "\\bar{\\nu}^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 25,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 88,
+        "display": "δ",
+        "stem": 24,
+        "minimum_n": 3,
+        "latex": "\\delta",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 26,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 89,
+        "display": "ζ̅'",
+        "stem": 24,
+        "minimum_n": 6,
+        "latex": "\\bar{\\zeta}{'}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 26,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 90,
+        "display": "σ̅'",
+        "stem": 24,
+        "minimum_n": 6,
+        "latex": "\\bar{\\sigma}{'}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 26,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 93,
+        "display": "֮ε",
+        "stem": 24,
+        "minimum_n": 10,
+        "latex": "\\widetilde{\\varepsilon}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 26,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 97,
+        "display": "μ*",
+        "stem": 24,
+        "minimum_n": 16,
+        "latex": "\\mu^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 26,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 103,
+        "display": "μ3,",
+        "stem": 25,
+        "minimum_n": 3,
+        "latex": "\\mu_{3,",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 27,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 132,
+        "display": "ζ3,",
+        "stem": 27,
+        "minimum_n": 5,
+        "latex": "\\zeta_{3,",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 29,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 174,
+        "display": "θ'_",
+        "stem": 30,
+        "minimum_n": 23,
+        "latex": "\\theta'",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 32,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 185,
+        "display": "κ*",
+        "stem": 31,
+        "minimum_n": 10,
+        "latex": "\\kappa^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 33,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 188,
+        "display": "ω*",
+        "stem": 31,
+        "minimum_n": 14,
+        "latex": "\\omega^{*}",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 33,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 189,
+        "display": "ρ3,",
+        "stem": 31,
+        "minimum_n": 14,
+        "latex": "\\rho_{3,",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 33,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 219,
+        "display": "μ4,",
+        "stem": 33,
+        "minimum_n": 3,
+        "latex": "\\mu_{4,",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 35,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      },
+      {
+        "id": 223,
+        "display": "κ'",
+        "stem": 33,
+        "minimum_n": 6,
+        "latex": "\\kappa'",
+        "stable": "",
+        "stable_orders": "",
+        "freudenthal_threshold_n": 35,
+        "initial_n_in_stable_range": false,
+        "citation_status": "NO_REGISTERED_CITED_DEFINITION",
+        "literal_candidates": []
+      }
+    ],
+    "metadata_proves_suspension": false,
+    "literal_match_proves_suspension": false,
+    "production_files_changed": false
+  },
+  "runtime": {
+    "target": "pi_41^30",
+    "status": "partial",
+    "typed_goal_candidates": 1,
+    "goal_candidate_reprs": [
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "open_goal_count": 4,
+    "open_goal_types": [
+      "CyclicStructureStatement",
+      "GeneratorImage",
+      "Relation",
+      "Relation"
+    ],
+    "open_goals": [
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None)), order=8)",
+      "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14)), source_generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None)), target_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)))",
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ],
+    "given_steps": 2,
+    "inference_steps": 1,
+    "trust": "NOT_APPLICABLE_INCOMPLETE"
+  }
+}

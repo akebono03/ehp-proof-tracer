@@ -1,0 +1,561 @@
+{
+  "phase": "169 R10EO-R2",
+  "mode": "AUDIT_ONLY",
+  "definition_index": {
+    "mode": "AUDIT_ONLY",
+    "source_kind": "ADOPTED_TRANSCRIPTION_NOT_INDEPENDENTLY_CHECKED_PRINT",
+    "registered_series": 39,
+    "unique_literal_candidates": 6,
+    "ambiguous_literal_candidates": 0,
+    "no_literal_candidates": 33,
+    "fixed_statements_added": 0,
+    "given_proof_steps_added": 0,
+    "inference_rules_changed": false,
+    "families": [
+      {
+        "family_id": 1,
+        "display": "ι",
+        "stem": 0,
+        "minimum_n": 1,
+        "latex": "\\iota",
+        "pattern": "\\iota_n:=E^{n-1}\\iota_1",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 2,
+        "display": "η",
+        "stem": 1,
+        "minimum_n": 2,
+        "latex": "\\eta",
+        "pattern": "\\eta_n:=E^{n-2}\\eta_2",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 4,
+        "display": "ν",
+        "stem": 3,
+        "minimum_n": 4,
+        "latex": "\\nu",
+        "pattern": "\\nu_n:=E^{n-4}\\nu_4",
+        "status": "UNIQUE_TEXT_CANDIDATE_NOT_AUTHORIZED",
+        "occurrences": [
+          {
+            "family_id": 4,
+            "stem": 3,
+            "minimum_n": 4,
+            "latex": "\\nu",
+            "source_id": "chapter_v",
+            "source_path": "sources/toda/Toda_05_2.tex",
+            "source_sha256": "b5142438579cfeded883ab900dc89878986543ca02d9bcdd74b13d2a5df9f107",
+            "line": 606,
+            "start_offset": 16272,
+            "end_offset": 16292,
+            "normalized_formula": "\\nu_n:=E^{n-4}\\nu_4",
+            "preceding_paragraph": null,
+            "classification": "TEXT_ONLY_NOT_CITED"
+          }
+        ]
+      },
+      {
+        "family_id": 9,
+        "display": "σ",
+        "stem": 7,
+        "minimum_n": 8,
+        "latex": "\\sigma",
+        "pattern": "\\sigma_n:=E^{n-8}\\sigma_8",
+        "status": "UNIQUE_TEXT_CANDIDATE_NOT_AUTHORIZED",
+        "occurrences": [
+          {
+            "family_id": 9,
+            "stem": 7,
+            "minimum_n": 8,
+            "latex": "\\sigma",
+            "source_id": "chapter_v",
+            "source_path": "sources/toda/Toda_05_2.tex",
+            "source_sha256": "b5142438579cfeded883ab900dc89878986543ca02d9bcdd74b13d2a5df9f107",
+            "line": 2111,
+            "start_offset": 59425,
+            "end_offset": 59451,
+            "normalized_formula": "\\sigma_n:=E^{n-8}\\sigma_8",
+            "preceding_paragraph": null,
+            "classification": "TEXT_ONLY_NOT_CITED"
+          }
+        ]
+      },
+      {
+        "family_id": 10,
+        "display": "ε",
+        "stem": 8,
+        "minimum_n": 3,
+        "latex": "\\varepsilon",
+        "pattern": "\\varepsilon_n:=E^{n-3}\\varepsilon_3",
+        "status": "UNIQUE_TEXT_CANDIDATE_NOT_AUTHORIZED",
+        "occurrences": [
+          {
+            "family_id": 10,
+            "stem": 8,
+            "minimum_n": 3,
+            "latex": "\\varepsilon",
+            "source_id": "chapter_vi",
+            "source_path": "sources/toda/Toda_06_2.tex",
+            "source_sha256": "e38a2119381cc9fb65b38ccb078b81933242c345cdec7d5db52af3e76281d0f1",
+            "line": 99,
+            "start_offset": 3020,
+            "end_offset": 3057,
+            "normalized_formula": "\\varepsilon_n:=E^{n-3}\\varepsilon_3",
+            "preceding_paragraph": "\\paragraph{i). The Elements \\(\\varepsilon_n\\).}",
+            "classification": "TEXT_ONLY_NOT_CITED"
+          }
+        ]
+      },
+      {
+        "family_id": 11,
+        "display": "ν̅",
+        "stem": 8,
+        "minimum_n": 6,
+        "latex": "\\bar{\\nu}",
+        "pattern": "\\bar{\\nu}_n:=E^{n-6}\\bar{\\nu}_6",
+        "status": "UNIQUE_TEXT_CANDIDATE_NOT_AUTHORIZED",
+        "occurrences": [
+          {
+            "family_id": 11,
+            "stem": 8,
+            "minimum_n": 6,
+            "latex": "\\bar{\\nu}",
+            "source_id": "chapter_vi",
+            "source_path": "sources/toda/Toda_06_2.tex",
+            "source_sha256": "e38a2119381cc9fb65b38ccb078b81933242c345cdec7d5db52af3e76281d0f1",
+            "line": 501,
+            "start_offset": 14804,
+            "end_offset": 14847,
+            "normalized_formula": "\\bar{\\nu}_n:=E^{n-6}\\bar{\\nu}_6",
+            "preceding_paragraph": "\\paragraph{ii). The elements \\(\\,\\overline{\\nu}_n\\).}",
+            "classification": "TEXT_ONLY_NOT_CITED"
+          }
+        ]
+      },
+      {
+        "family_id": 12,
+        "display": "μ",
+        "stem": 9,
+        "minimum_n": 3,
+        "latex": "\\mu",
+        "pattern": "\\mu_n:=E^{n-3}\\mu_3",
+        "status": "UNIQUE_TEXT_CANDIDATE_NOT_AUTHORIZED",
+        "occurrences": [
+          {
+            "family_id": 12,
+            "stem": 9,
+            "minimum_n": 3,
+            "latex": "\\mu",
+            "source_id": "chapter_vi",
+            "source_path": "sources/toda/Toda_06_2.tex",
+            "source_sha256": "e38a2119381cc9fb65b38ccb078b81933242c345cdec7d5db52af3e76281d0f1",
+            "line": 1309,
+            "start_offset": 37425,
+            "end_offset": 37447,
+            "normalized_formula": "\\mu_n:=E^{n-3}\\mu_3",
+            "preceding_paragraph": "\\paragraph{iii). The elements \\(\\mu_n\\).}",
+            "classification": "TEXT_ONLY_NOT_CITED"
+          }
+        ]
+      },
+      {
+        "family_id": 16,
+        "display": "ζ",
+        "stem": 11,
+        "minimum_n": 5,
+        "latex": "\\zeta",
+        "pattern": "\\zeta_n:=E^{n-5}\\zeta_5",
+        "status": "UNIQUE_TEXT_CANDIDATE_NOT_AUTHORIZED",
+        "occurrences": [
+          {
+            "family_id": 16,
+            "stem": 11,
+            "minimum_n": 5,
+            "latex": "\\zeta",
+            "source_id": "chapter_vi",
+            "source_path": "sources/toda/Toda_06_2.tex",
+            "source_sha256": "e38a2119381cc9fb65b38ccb078b81933242c345cdec7d5db52af3e76281d0f1",
+            "line": 2138,
+            "start_offset": 61227,
+            "end_offset": 61253,
+            "normalized_formula": "\\zeta_n:=E^{n-5}\\zeta_5",
+            "preceding_paragraph": "\\paragraph{v). The elements \\(\\zeta_{n}\\).}",
+            "classification": "TEXT_ONLY_NOT_CITED"
+          }
+        ]
+      },
+      {
+        "family_id": 23,
+        "display": "κ",
+        "stem": 14,
+        "minimum_n": 7,
+        "latex": "\\kappa",
+        "pattern": "\\kappa_n:=E^{n-7}\\kappa_7",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 25,
+        "display": "ε̅",
+        "stem": 15,
+        "minimum_n": 3,
+        "latex": "\\bar{\\varepsilon}",
+        "pattern": "\\bar{\\varepsilon}_n:=E^{n-3}\\bar{\\varepsilon}_3",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 30,
+        "display": "ρ",
+        "stem": 15,
+        "minimum_n": 13,
+        "latex": "\\rho",
+        "pattern": "\\rho_n:=E^{n-13}\\rho_13",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 34,
+        "display": "ω",
+        "stem": 16,
+        "minimum_n": 14,
+        "latex": "\\omega",
+        "pattern": "\\omega_n:=E^{n-14}\\omega_14",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 36,
+        "display": "η*",
+        "stem": 16,
+        "minimum_n": 16,
+        "latex": "\\eta^{*}",
+        "pattern": "\\eta^{*}_n:=E^{n-16}\\eta^{*}_16",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 38,
+        "display": "μ̅",
+        "stem": 17,
+        "minimum_n": 3,
+        "latex": "\\bar{\\mu}",
+        "pattern": "\\bar{\\mu}_n:=E^{n-3}\\bar{\\mu}_3",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 40,
+        "display": "ε*",
+        "stem": 17,
+        "minimum_n": 12,
+        "latex": "\\varepsilon^{*}",
+        "pattern": "\\varepsilon^{*}_n:=E^{n-12}\\varepsilon^{*}_12",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 46,
+        "display": "ξ",
+        "stem": 18,
+        "minimum_n": 12,
+        "latex": "\\xi",
+        "pattern": "\\xi_n:=E^{n-12}\\xi_12",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 48,
+        "display": "ν*",
+        "stem": 18,
+        "minimum_n": 16,
+        "latex": "\\nu^{*}",
+        "pattern": "\\nu^{*}_n:=E^{n-16}\\nu^{*}_16",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 50,
+        "display": "ζ̅",
+        "stem": 19,
+        "minimum_n": 5,
+        "latex": "\\bar{\\zeta}",
+        "pattern": "\\bar{\\zeta}_n:=E^{n-5}\\bar{\\zeta}_5",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 51,
+        "display": "σ̅",
+        "stem": 19,
+        "minimum_n": 6,
+        "latex": "\\bar{\\sigma}",
+        "pattern": "\\bar{\\sigma}_n:=E^{n-6}\\bar{\\sigma}_6",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 56,
+        "display": "κ̅",
+        "stem": 20,
+        "minimum_n": 7,
+        "latex": "\\bar{\\kappa}",
+        "pattern": "\\bar{\\kappa}_n:=E^{n-7}\\bar{\\kappa}_7",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 72,
+        "display": "σ*",
+        "stem": 22,
+        "minimum_n": 16,
+        "latex": "\\sigma^{*}",
+        "pattern": "\\sigma^{*}_n:=E^{n-16}\\sigma^{*}_16",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 76,
+        "display": "φ",
+        "stem": 23,
+        "minimum_n": 5,
+        "latex": "\\phi",
+        "pattern": "\\phi_n:=E^{n-5}\\phi_5",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 81,
+        "display": "ρ̅",
+        "stem": 23,
+        "minimum_n": 9,
+        "latex": "\\bar{\\rho}",
+        "pattern": "\\bar{\\rho}_n:=E^{n-9}\\bar{\\rho}_9",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 82,
+        "display": "ψ",
+        "stem": 23,
+        "minimum_n": 10,
+        "latex": "\\psi",
+        "pattern": "\\psi_n:=E^{n-10}\\psi_10",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 85,
+        "display": "ε̅*",
+        "stem": 23,
+        "minimum_n": 16,
+        "latex": "\\bar{\\varepsilon}^{*}",
+        "pattern": "\\bar{\\varepsilon}^{*}_n:=E^{n-16}\\bar{\\varepsilon}^{*}_16",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 86,
+        "display": "ν̅*",
+        "stem": 23,
+        "minimum_n": 16,
+        "latex": "\\bar{\\nu}^{*}",
+        "pattern": "\\bar{\\nu}^{*}_n:=E^{n-16}\\bar{\\nu}^{*}_16",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 88,
+        "display": "δ",
+        "stem": 24,
+        "minimum_n": 3,
+        "latex": "\\delta",
+        "pattern": "\\delta_n:=E^{n-3}\\delta_3",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 89,
+        "display": "ζ̅'",
+        "stem": 24,
+        "minimum_n": 6,
+        "latex": "\\bar{\\zeta}{'}",
+        "pattern": "\\bar{\\zeta}{'}_n:=E^{n-6}\\bar{\\zeta}{'}_6",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 90,
+        "display": "σ̅'",
+        "stem": 24,
+        "minimum_n": 6,
+        "latex": "\\bar{\\sigma}{'}",
+        "pattern": "\\bar{\\sigma}{'}_n:=E^{n-6}\\bar{\\sigma}{'}_6",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 93,
+        "display": "֮ε",
+        "stem": 24,
+        "minimum_n": 10,
+        "latex": "\\widetilde{\\varepsilon}",
+        "pattern": "\\widetilde{\\varepsilon}_n:=E^{n-10}\\widetilde{\\varepsilon}_10",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 97,
+        "display": "μ*",
+        "stem": 24,
+        "minimum_n": 16,
+        "latex": "\\mu^{*}",
+        "pattern": "\\mu^{*}_n:=E^{n-16}\\mu^{*}_16",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 103,
+        "display": "μ3,",
+        "stem": 25,
+        "minimum_n": 3,
+        "latex": "\\mu_{3,",
+        "pattern": "\\mu_{3,_n:=E^{n-3}\\mu_{3,_3",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 132,
+        "display": "ζ3,",
+        "stem": 27,
+        "minimum_n": 5,
+        "latex": "\\zeta_{3,",
+        "pattern": "\\zeta_{3,_n:=E^{n-5}\\zeta_{3,_5",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 174,
+        "display": "θ'_",
+        "stem": 30,
+        "minimum_n": 23,
+        "latex": "\\theta'",
+        "pattern": "\\theta'_n:=E^{n-23}\\theta'_23",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 185,
+        "display": "κ*",
+        "stem": 31,
+        "minimum_n": 10,
+        "latex": "\\kappa^{*}",
+        "pattern": "\\kappa^{*}_n:=E^{n-10}\\kappa^{*}_10",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 188,
+        "display": "ω*",
+        "stem": 31,
+        "minimum_n": 14,
+        "latex": "\\omega^{*}",
+        "pattern": "\\omega^{*}_n:=E^{n-14}\\omega^{*}_14",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 189,
+        "display": "ρ3,",
+        "stem": 31,
+        "minimum_n": 14,
+        "latex": "\\rho_{3,",
+        "pattern": "\\rho_{3,_n:=E^{n-14}\\rho_{3,_14",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 219,
+        "display": "μ4,",
+        "stem": 33,
+        "minimum_n": 3,
+        "latex": "\\mu_{4,",
+        "pattern": "\\mu_{4,_n:=E^{n-3}\\mu_{4,_3",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      },
+      {
+        "family_id": 223,
+        "display": "κ'",
+        "stem": 33,
+        "minimum_n": 6,
+        "latex": "\\kappa'",
+        "pattern": "\\kappa'_n:=E^{n-6}\\kappa'_6",
+        "status": "NO_EXACT_TEXT_CANDIDATE",
+        "occurrences": []
+      }
+    ]
+  },
+  "existing_reviewed_record_checks": [
+    {
+      "family_id": 4,
+      "source_id": "chapter_v",
+      "existing_reviewed_record_agrees": true
+    },
+    {
+      "family_id": 9,
+      "source_id": "chapter_v",
+      "existing_reviewed_record_agrees": true
+    },
+    {
+      "family_id": 10,
+      "source_id": "chapter_vi",
+      "existing_reviewed_record_agrees": true
+    },
+    {
+      "family_id": 11,
+      "source_id": "chapter_vi",
+      "existing_reviewed_record_agrees": true
+    },
+    {
+      "family_id": 12,
+      "source_id": "chapter_vi",
+      "existing_reviewed_record_agrees": true
+    }
+  ],
+  "pi41_30": {
+    "target": "pi_41^30",
+    "status": "partial",
+    "typed_goal_candidates": 1,
+    "goal_candidate_reprs": [
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "open_goal_count": 4,
+    "open_goal_types": [
+      "CyclicStructureStatement",
+      "GeneratorImage",
+      "Relation",
+      "Relation"
+    ],
+    "open_goals": [
+      "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None)), order=8)",
+      "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14)), source_generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None)), target_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)))",
+      "Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    ],
+    "diagnostics": [
+      "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+    ],
+    "given_steps": 2,
+    "inference_steps": 1,
+    "trust": "NOT_APPLICABLE_INCOMPLETE"
+  },
+  "new_givens": 0,
+  "new_inference_rules": 0,
+  "production_changes": false,
+  "full_pytest_run": false
+}
