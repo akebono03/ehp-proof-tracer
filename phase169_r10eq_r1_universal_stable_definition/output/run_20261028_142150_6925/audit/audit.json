@@ -1,0 +1,29 @@
+{
+  "phase": "169 R10EQ-R1",
+  "cases": [
+    {
+      "group": "pi_41^30",
+      "status": "complete",
+      "open_goals": [],
+      "proof_steps": 40,
+      "definition_images": 0,
+      "trust": "PASS",
+      "inferences": 37,
+      "givens": 3,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10eq_r1_universal_stable_definition\\output\\run_20261028_142150_6925\\audit\\pi_41_30.md"
+    },
+    {
+      "group": "pi_44^30",
+      "status": "complete",
+      "open_goals": [],
+      "proof_steps": 76,
+      "definition_images": 14,
+      "trust": "PASS",
+      "inferences": 73,
+      "givens": 3,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10eq_r1_universal_stable_definition\\output\\run_20261028_142150_6925\\audit\\pi_44_30.md"
+    }
+  ],
+  "mode": "FOCUSED_DEFINITION_INFERENCE",
+  "full_pytest_run": false
+}
