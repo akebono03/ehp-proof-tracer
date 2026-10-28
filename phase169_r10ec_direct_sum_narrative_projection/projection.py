@@ -102,7 +102,6 @@ def project_verified_direct_sum_transport(
 
     # Require every image actually to have a Proof Tree ancestry with an
     # independently registered, cited GIVEN source; image names are not evidence.
-    ancestor_ids: set[int] = set()
     given_citations: set[int] = set()
     for image_step in image_steps:
         pending = [image_step]
@@ -117,7 +116,6 @@ def project_verified_direct_sum_transport(
             index = by_identity.get(identity)
             if index is None or index not in order:
                 return None
-            ancestor_ids.add(index)
             if step.rule is ProofRule.GIVEN and citations[index]:
                 given_citations.update(citations[index])
                 has_cited_given = True
@@ -125,24 +123,16 @@ def project_verified_direct_sum_transport(
         if not has_cited_given:
             return None
 
-    # Suppress ONLY inference equations consumed exclusively by this exact
-    # transport subproof. Other citations, dependencies and statements remain.
-    eligible = {
-        index for index in ancestor_ids
-        if steps[index].rule is ProofRule.INFERENCE
-        and isinstance(steps[index].conclusion, (GeneratorImage, GeneratorSuspension))
-        and not citations[index]
-    }
-    if not eligible or not all(by_identity[id(step)] in eligible for step in image_steps):
+    # R10EL: the shared strict contract preserves all-or-nothing direct-sum
+    # suppression, including external-consumer and individual-citation checks.
+    from phase169_r10el_shared_generator_suppression.core import (
+        exclusive_generator_inference_indices,
+    )
+    hidden = exclusive_generator_inference_indices(
+        model, order, image_steps, root_index, require_all=True,
+    )
+    if hidden is None:
         return None
-    for index in eligible:
-        candidate = steps[index]
-        consumers = {
-            j for j, consumer in enumerate(steps)
-            if any(parent is candidate for parent in consumer.premises)
-        }
-        if not consumers or not consumers.issubset(eligible | {root_index}):
-            return None
 
     formulae: list[str] = []
     for source, target in zip(left, right):
@@ -166,7 +156,7 @@ def project_verified_direct_sum_transport(
     statement = f"{labels}より, " + "、".join(formulae) + "."
     return VerifiedDirectSumTransportDisplay(
         root_index=root_index,
-        hidden_indices=tuple(sorted(eligible)),
+        hidden_indices=tuple(sorted(hidden)),
         statement=statement,
         citation_numbers=numbers,
     )

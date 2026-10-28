@@ -128,46 +128,16 @@ def project_verified_stable_image_chain(
     if not source_tex or not target_tex:
         return None
 
-    hidden = set(image_indices)
-    # The image chain may use intermediate GeneratorImages and
-    # GeneratorSuspensions for its factors (e.g. nu^2 or eta o mu).
-    # Inspect ONLY ancestors of the root's independently proved images.
-    # Hide a typed inference only when it has no own citation and every
-    # consumer is already hidden (or the compressed root).  This fixed point
-    # keeps shared or separately cited evidence visible, and never edits the
-    # model or its actual dependencies.
-    eligible_ancestors = set()
-    pending = [premise for image_step in images for premise in image_step.premises]
-    visited = set()
-    while pending:
-        ancestor = pending.pop()
-        identity = id(ancestor)
-        if identity in visited:
-            continue
-        visited.add(identity)
-        index = by_identity.get(identity)
-        if index is None or index not in order:
-            return None
-        if (index != root_index
-                and ancestor.rule is ProofRule.INFERENCE
-                and isinstance(ancestor.conclusion, (GeneratorImage, GeneratorSuspension))
-                and not model.step_citation_numbers[index]):
-            eligible_ancestors.add(index)
-        pending.extend(ancestor.premises)
-
-    changed = True
-    while changed:
-        changed = False
-        for index in sorted(eligible_ancestors - hidden):
-            ancestor = steps[index]
-            consumers = {
-                consumer_index
-                for consumer_index, consumer in enumerate(steps)
-                if any(parent is ancestor for parent in consumer.premises)
-            }
-            if consumers and consumers.issubset(hidden | {root_index}):
-                hidden.add(index)
-                changed = True
+    # R10EL: use the shared, proof-preserving suppression contract.
+    # The cyclic-specific root and single-generator chain checks above stay.
+    from phase169_r10el_shared_generator_suppression.core import (
+        exclusive_generator_inference_indices,
+    )
+    hidden = exclusive_generator_inference_indices(
+        model, order, images, root_index, require_all=False,
+    )
+    if hidden is None:
+        return None
 
     # Citations are copied from actual linked GIVEN ancestors of the image
     # proofs, not inferred from the symbols eta/nu/sigma or from rule names.
