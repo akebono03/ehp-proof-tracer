@@ -561,6 +561,42 @@ def render_toda_expression_latex(
           + "^{" + str(len(factors)) + "}"
         )
 
+    # A mixed composition can contain a consecutive typed power as one part.
+    # Do not compress an ill-typed composite or infer equality from labels.
+    if (
+      len(factors) >= 3
+      and all(isinstance(factor, HomotopyElement) for factor in factors)
+      and all(
+        type(left.source) is int
+        and type(right.target) is int
+        and left.source == right.target
+        for left, right in zip(factors, factors[1:])
+      )
+    ):
+      parts = []
+      index = 0
+      compressed = False
+      while index < len(factors):
+        end_of_run = index + 1
+        run_latex = None
+        for end in range(index + 2, len(factors) + 1):
+          segment = factors[end - 1]
+          for factor in reversed(factors[index:end - 1]):
+            segment = Composition(factor, segment)
+          candidate = typed_stable_composition_power_latex(segment)
+          if candidate is not None:
+            end_of_run = end
+            run_latex = candidate
+        if run_latex is None:
+          parts.append(render_toda_expression_latex(factors[index]))
+          index += 1
+        else:
+          parts.append(run_latex)
+          index = end_of_run
+          compressed = True
+      if compressed:
+        return "".join(parts)
+
     return (
       render_toda_expression_latex(
         expression.left
@@ -641,7 +677,6 @@ def render_toda_expression_latex(
   raise TypeError(
     "unsupported expression for LaTeX rendering"
   )
-
 
 
 def render_toda_target_latex(

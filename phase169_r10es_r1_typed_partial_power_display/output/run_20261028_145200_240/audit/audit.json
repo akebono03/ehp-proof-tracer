@@ -1,0 +1,52 @@
+{
+  "phase": "169 R10ES-R1",
+  "mode": "FOCUSED_PRESENTATION_ONLY",
+  "cases": [
+    {
+      "group": "pi_56^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 29,
+      "given_steps": 4,
+      "references": 4,
+      "proof_steps_unchanged": true,
+      "source_and_target_compressed": true,
+      "narrative_file": "pi_56_30.md"
+    },
+    {
+      "group": "pi_44^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 73,
+      "given_steps": 3,
+      "references": 3,
+      "proof_steps_unchanged": true,
+      "source_and_target_compressed": false,
+      "narrative_file": "pi_44_30.md"
+    },
+    {
+      "group": "pi_46^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 76,
+      "given_steps": 4,
+      "references": 4,
+      "proof_steps_unchanged": true,
+      "source_and_target_compressed": false,
+      "narrative_file": "pi_46_30.md"
+    },
+    {
+      "group": "pi_39^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 246,
+      "given_steps": 6,
+      "references": 6,
+      "proof_steps_unchanged": true,
+      "source_and_target_compressed": false,
+      "narrative_file": "pi_39_30.md"
+    }
+  ],
+  "proof_rules_modified": false,
+  "full_pytest_run": false
+}
