@@ -1,0 +1,97 @@
+{
+  "root_index": 2,
+  "root_premises": [
+    0,
+    1
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Registered fixed statement: Proposition 5.1",
+      "rule_source_locator": "Proposition 5.1",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        1
+      ]
+    },
+    {
+      "index": 1,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Registered fixed statement: (5.2)",
+      "rule_source_locator": "(5.2)",
+      "conclusion_type": "Toda52UniversalStatement",
+      "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "Toda (5.2) finite-cyclic eta2 composition transport",
+      "rule_source_locator": "(5.2)",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        0,
+        1
+      ],
+      "direct_citation_numbers": [
+        2
+      ]
+    }
+  ],
+  "images": [],
+  "references": [
+    {
+      "number": 1,
+      "locator": "Proposition 5.1",
+      "step_indices": [
+        0
+      ],
+      "assertion_ids": [
+        "shared:2:toda:adopted:prop5.1:pi4_3"
+      ],
+      "reference_ids": [
+        "shared:2:adopted:toda:adopted:prop5.1:finite_dimensional"
+      ],
+      "statement_bodies": [
+        "$\\pi_{4}^{3} = \\mathbb{Z}/2\\{\\eta_{3}\\}$."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 2,
+      "locator": "(5.2)",
+      "step_indices": [
+        1,
+        2
+      ],
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch5:0003"
+      ],
+      "reference_ids": [
+        "shared:4:typed_literature:toda:tex:ch5:0003"
+      ],
+      "statement_bodies": [
+        "$i\\ge 3$ に対し, $\\eta_2\\circ(-):\\pi_i^3\\xrightarrow{\\cong}\\pi_i^2$ は同型."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    }
+  ]
+}

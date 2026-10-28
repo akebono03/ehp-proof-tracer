@@ -31,6 +31,33 @@ class ProofNarrativeModel:
     diagnostics: tuple[str, ...] = ()
 
 
+def root_ancestor_step_indices(
+    steps: tuple[ProofStep, ...], root_index: int,
+) -> frozenset[int]:
+    """Find exact ProofStep ancestors of the completed root, without inferring facts."""
+    if type(root_index) is not int or not 0 <= root_index < len(steps):
+        raise ValueError("complete proof requires a valid root index")
+    identities = {id(step): index for index, step in enumerate(steps)}
+    if len(identities) != len(steps):
+        raise ValueError("duplicate ProofStep identities")
+    visited: set[int] = set()
+    pending = [root_index]
+    while pending:
+        index = pending.pop()
+        if index in visited:
+            continue
+        visited.add(index)
+        for premise in steps[index].premises:
+            source = identities.get(id(premise))
+            if source is None:
+                matches = [i for i, step in enumerate(steps) if step == premise]
+                if len(matches) != 1:
+                    raise ValueError("missing or ambiguous ProofStep premise")
+                source = matches[0]
+            pending.append(source)
+    return frozenset(visited)
+
+
 def build_proof_narrative_model(
     result: PartialProofResult,
     *,
@@ -61,6 +88,13 @@ def build_proof_narrative_model(
          if result.conclusion is not None and steps[i].conclusion == result.conclusion),
         None,
     )
+    # Complete proofs cite only the actual final-root ancestry. Preserve all
+    # steps and the full (including unrelated) verified search record.
+    citation_scope = (
+        root_ancestor_step_indices(steps, root_index)
+        if result.status is ProofSearchStatus.COMPLETE
+        else frozenset(range(len(steps)))
+    )
     # Locator is the printed source position. Labels are presentation metadata,
     # not independent source identities. Exact matching avoids conflating nearby
     # propositions or components with different locators.
@@ -73,6 +107,9 @@ def build_proof_narrative_model(
     per_step: list[tuple[int, ...]] = []
 
     for step_index, step in enumerate(steps):
+        if step_index not in citation_scope:
+            per_step.append(())
+            continue
         linked: list[tuple[LiteratureReference, str | None, str | None]] = []
         if registry is not None:
             for link in proof_links:

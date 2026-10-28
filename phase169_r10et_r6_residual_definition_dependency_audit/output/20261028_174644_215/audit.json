@@ -1,0 +1,706 @@
+{
+  "phase": "169 R10ET-R6",
+  "mode": "AUDIT_ONLY",
+  "head": "232a92883b0cb009762b437cbb3cc550f00ab6bd",
+  "source_verified": true,
+  "source_blobs": {
+    "phase165_r52_r9_shared_math.py": "0ff831522b59f88ff3ed3892f35e5e048be850e1",
+    "phase169_r10a_verified_stable_chain_projection/tests/test_r10a_verified_stable_chain.py": "daad1b7b246c4b005bd529637f82e64ce85a9cfe",
+    "phase169_r10ec_direct_sum_narrative_projection/tests/test_r10ec_projection.py": "f0664c1e28793f5a3ab341b17eb5e7ded0724436",
+    "phase169_r10el_shared_generator_suppression/tests/test_r10el_live.py": "9038d656aac21311a5272e4d62551cce435037c3",
+    "phase169_r10er_r1_mixed_definition_projection/tests/test_r10er_projection.py": "65f65b5bacdbec9cc4257b2c96140720568097a3",
+    "phase168_r3_3_proof_narrative_model.py": "f09be949a7a07fc3f082bcd267f41c9f606590ea",
+    "phase168_r3_5_model_renderer.py": "4b4478ccbc20a4264be86e61b7a2c72f69b1e5b0",
+    "phase169_r10a_verified_stable_chain_projection/projection.py": "a166ffbbb64d3cc60bc964cb4c42f854d1207953"
+  },
+  "baseline": "phase169_r10et_r2_shadow_common_definition_comparison/output/20261028_151843_654/audit.json",
+  "cases": [
+    {
+      "case": "pi_69^43",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 30,
+      "eligible_image_steps": 30,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 34,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=28, k=26)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=15, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=69, sphere_dimension=43)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_56^30",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 4,
+      "eligible_image_steps": 4,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 8,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=28, k=26)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=Composition(left=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None)), right=HomotopyElement(name='κ̅₃₄', dimension=34, source=54, target=34, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=34, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂₈', dimension=28, source=29, target=28, generator=GeneratorSymbol(family='η',  [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=2, source_group=TodaPrimaryGroup(group_dimension=54, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=56, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_41^30",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 17,
+      "eligible_image_steps": 17,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 21,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=13, k=11)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=17, source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_44^30",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 28,
+      "eligible_image_steps": 28,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 32,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=16, k=14)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₆', dimension=16, source=23, target=16, generator=GeneratorSymbol(family='σ', index=16, decoration=None)), right=HomotopyElement(name='σ₂₃', dimension=23, source=30, target=23, generator=GeneratorSymbol(family='σ', index=23, decoration=None)))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='κ₁₆', dimension=16, source=30, target=16, generator=GeneratorSymbol(family='\\\\kappa', index=16, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=44, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_46^30",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 24,
+      "eligible_image_steps": 24,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 28,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=18, k=16)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ω₁₈', dimension=18, source=34, target=18, generator=GeneratorSymbol(family='\\\\omega', index=18, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='σ₁₈', dimension=18, source=25, target=18, generator=GeneratorSymbol(family='σ', index=18, decoration=None)), right=HomotopyElement(name='μ₂₅', dimension=25, source=34, target=25, generator=GeneratorSymbol(family='\\\\mu', index=25, decoration=None)))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=12, source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=46, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_39^30",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 57,
+      "eligible_image_steps": 57,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 61,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=19, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=30)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_3^2",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 0,
+      "eligible_image_steps": 0,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 1,
+      "root_ancestry_steps": 18,
+      "reference_locators": [
+        "(5.1)",
+        "Proposition 4.2 (4.4)",
+        "Foundational: suspension identity",
+        "Proposition 5.1"
+      ],
+      "root_support": [
+        {
+          "index": 14,
+          "type": "MapIsomorphism",
+          "conclusion_repr": "MapIsomorphism(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)))",
+          "citation_numbers": [
+            1,
+            2,
+            3
+          ]
+        },
+        {
+          "index": 15,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_4^3",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 0,
+      "eligible_image_steps": 0,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 25,
+      "reference_locators": [
+        "Chapter V, i)",
+        "(5.1)",
+        "Proposition 5.1",
+        "Proposition 4.2 (4.4)"
+      ],
+      "root_support": [
+        {
+          "index": 23,
+          "type": "CyclicStructureStatement",
+          "conclusion_repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), order=2)",
+          "citation_numbers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_5^4",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 0,
+      "eligible_image_steps": 0,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 9,
+      "reference_locators": [
+        "Chapter V, i)",
+        "Proposition 5.1",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 8,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=1)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            2,
+            3
+          ]
+        },
+        {
+          "index": 3,
+          "type": "GeneratorSuspension",
+          "conclusion_repr": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4)), source_generator=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), target_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))",
+          "citation_numbers": [
+            1
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_4^2",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 0,
+      "eligible_image_steps": 0,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 3,
+      "reference_locators": [
+        "Proposition 5.1",
+        "(5.2)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 1,
+          "type": "Toda52UniversalStatement",
+          "conclusion_repr": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_5^3",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 0,
+      "eligible_image_steps": 0,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 1,
+      "root_ancestry_steps": 27,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=2, k=2) [参考: Proposition 5.3]",
+        "(5.3)",
+        "Proposition 5.1",
+        "Proposition 4.2 (4.4)",
+        "(5.1)",
+        "Chapter V, i)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 18,
+          "type": "TodaSuspensionIsomorphismStatement",
+          "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+          "citation_numbers": [
+            2,
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_6^4",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 0,
+      "eligible_image_steps": 0,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 1,
+      "root_ancestry_steps": 17,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=3, k=2) [参考: Proposition 5.3]",
+        "Proposition 4.4",
+        "Proposition 4.2 (4.4)",
+        "(5.1)",
+        "Chapter V, i)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 8,
+          "type": "TodaSuspensionIsomorphismStatement",
+          "conclusion_repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)))",
+          "citation_numbers": [
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_28^22",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 14,
+      "eligible_image_steps": 14,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 18,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=8, k=6)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₈', dimension=8, source=11, target=8, generator=GeneratorSymbol(family='ν', index=8, decoration=None)), right=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=14, source_group=TodaPrimaryGroup(group_dimension=14, sphere_dimension=8), target_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=22)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_32^22",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 10,
+      "eligible_image_steps": 10,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 14,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=12, k=10)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=22, sphere_dimension=12), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₁₂', dimension=12, source=13, target=12, generator=GeneratorSymbol(family='η', index=12, decoration=None)), right=HomotopyElement(name='μ₁₃', dimension=13, source=22, target=13, generator=GeneratorSymbol(family='\\\\mu', index=13, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=10, source_group=TodaPrimaryGroup(group_dimension=22, sphere_dimension=12), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=22)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_23^15",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 10,
+      "eligible_image_steps": 10,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 14,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=10, k=8)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=18, sphere_dimension=10), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ν̅₁₀', dimension=10, source=18, target=10, generator=GeneratorSymbol(family='\\\\bar{\\\\nu}', index=10, decoration=None))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₁₀', dimension=10, source=18, target=10, generator=GeneratorSymbol(family='\\\\varepsilon', index=10, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=5, source_group=TodaPrimaryGroup(group_dimension=18, sphere_dimension=10), target_group=TodaPrimaryGroup(group_dimension=23, sphere_dimension=15)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_33^24",
+      "required": true,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 39,
+      "eligible_image_steps": 39,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 43,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=13, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=24)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_10^8",
+      "required": false,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 4,
+      "eligible_image_steps": 4,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 8,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=4, k=2) [参考: Proposition 5.3]",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 1,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 3,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=4, source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=8)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_22^13",
+      "required": false,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 6,
+      "eligible_image_steps": 6,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 10,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=2, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=22, sphere_dimension=13)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    },
+    {
+      "case": "pi_24^15",
+      "required": false,
+      "status": "complete",
+      "trust": "PASS",
+      "canonical_image_steps": 12,
+      "eligible_image_steps": 12,
+      "remaining_eligible_cited_steps": 0,
+      "noneligible_image_steps": 0,
+      "root_ancestry_steps": 16,
+      "reference_locators": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "root_support": [
+        {
+          "index": 0,
+          "type": "Relation",
+          "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₄', dimension=14, source=17, target=14, generator=GeneratorSymbol(family='ν', index=14, decoration=None)), right=HomotopyElement(name='ν₁₇', dimension=17, source=20, target=17, generator=GeneratorSymbol(family='ν', index=17, decoration=None))))), FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₁₁', dimension=11, source=20, target=11, generator=GeneratorSymbol(family='\\\\mu', index=11, decoration=None))) [repr truncated]",
+          "citation_numbers": [
+            1
+          ]
+        },
+        {
+          "index": 2,
+          "type": "Toda45IsomorphismStatement",
+          "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=4, source_group=TodaPrimaryGroup(group_dimension=20, sphere_dimension=11), target_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=15)))",
+          "citation_numbers": [
+            2
+          ]
+        }
+      ],
+      "problems": [],
+      "passed": true
+    }
+  ],
+  "full_pytest_run": false,
+  "production_changed": [],
+  "tracked_unchanged": true,
+  "mandatory_count": 16,
+  "probe_count": 3,
+  "required_pass": true,
+  "probes_pass": true
+}

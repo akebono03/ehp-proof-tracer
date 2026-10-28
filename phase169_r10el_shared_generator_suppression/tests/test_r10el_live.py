@@ -29,10 +29,10 @@ from proof import ProofRule, ProofStep, Relation
 
 
 CASES = (
-    (22, 6, "cyclic", 14, 31),
-    (22, 10, "cyclic", 10, 40),
+    (22, 6, "cyclic", 14, 14),
+    (22, 10, "cyclic", 10, 10),
     (15, 8, "direct_sum", 5, 10),
-    (24, 9, "direct_sum", 13, 110),
+    (24, 9, "direct_sum", 13, 39),
 )
 
 

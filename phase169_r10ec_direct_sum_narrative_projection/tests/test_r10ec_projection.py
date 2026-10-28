@@ -51,7 +51,8 @@ def test_r10ec_complete_pi39_compresses_all_verified_image_prose(pi39):
     assert display.root_index == model.root_index
     assert display.hidden_indices
     assert model.root_index not in display.hidden_indices
-    assert len(display.citation_numbers) >= 3
+    assert display.citation_numbers == ()
+    assert display.statement.startswith("Definition より, ")
     assert r"E^{19}(\nu_{11}^{3})=\nu_{30}^{3}" in display.statement
     assert r"E^{19}(\mu_{11})=\mu_{30}" in display.statement
     assert r"E^{19}(\eta_{11}\varepsilon_{12})=\eta_{30}\varepsilon_{31}" in display.statement
