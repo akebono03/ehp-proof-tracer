@@ -66,6 +66,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_stable_family_definitions(),
             build_cited_chapter_vi_family_definitions(),
         )
+        from phase169_r10eo_r3_reviewed_definition_bridge.reviewed_definitions import (
+            build_cited_reviewed_definitions,
+        )
+        sources = sources + (build_cited_reviewed_definitions(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []

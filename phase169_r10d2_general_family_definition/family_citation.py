@@ -186,11 +186,17 @@ def build_cited_stable_family_definitions(
 
 def canonical_member(source: CitedStableFamilyDefinition, index: int
                      ) -> StableFamilyMemberDefinition | None:
-    """Generate an instance from a cited type signature, without a GIVEN."""
+    """Generate an instance only for an explicitly cited Definition type."""
     if not isinstance(source, CitedStableFamilyDefinition) or type(index) is not int:
         return None
-    # Registration is explicit: a DB row alone never authorizes a definition.
-    if source.family_id not in {record.family_id for record in SOURCE_RECORDS + CHAPTER_VI_SOURCE_RECORDS}:
+    from phase169_r10eo_r3_reviewed_definition_bridge.reviewed_definitions import (
+        reviewed_definition_ids,
+    )
+    authorized_ids = (
+        {record.family_id for record in SOURCE_RECORDS + CHAPTER_VI_SOURCE_RECORDS}
+        | reviewed_definition_ids()
+    )
+    if source.family_id not in authorized_ids:
         return None
     family = _registered_family(source.family_id)
     if (family is None or _source_for(family) != source
@@ -300,10 +306,17 @@ def expand_cited_stable_family(goal: object,
 
 
 def cited_family_reference_sentence(statement: object) -> str | None:
-    """General definition only in Reference; concrete instances stay in proof."""
+    """General cited Definition in Reference; concrete result in proof body."""
     if not isinstance(statement, CitedStableFamilyDefinition):
         return None
-    if statement.family_id not in {record.family_id for record in SOURCE_RECORDS + CHAPTER_VI_SOURCE_RECORDS}:
+    from phase169_r10eo_r3_reviewed_definition_bridge.reviewed_definitions import (
+        reviewed_definition_ids,
+    )
+    authorized_ids = (
+        {record.family_id for record in SOURCE_RECORDS + CHAPTER_VI_SOURCE_RECORDS}
+        | reviewed_definition_ids()
+    )
+    if statement.family_id not in authorized_ids:
         return None
     family = _registered_family(statement.family_id)
     if family is None or _source_for(family) != statement:
