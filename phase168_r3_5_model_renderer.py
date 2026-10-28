@@ -285,6 +285,7 @@ def render_model_backed_narrative_markdown(
     # R10A: presentation-only projection of the already-verified E^r image chain.
     # The Proof Tree, its citations, and all original ProofSteps remain intact.
     from phase169_r10a_verified_stable_chain_projection.projection import (
+        VerifiedStableImageChainDisplay,
         project_verified_stable_image_chain,
     )
     from phase169_r10a2_unified_one_stem.one_stem_projection import (
@@ -320,7 +321,13 @@ def render_model_backed_narrative_markdown(
                 rf"({stable_chain_display.source_tex})="
                 rf"{stable_chain_display.target_tex}$"
             )
-            lines.extend((f"{source_tags}より, {compressed_statement}.", ""))
+            if source_tags:
+                prefix = f"{source_tags}より, "
+            elif isinstance(stable_chain_display, VerifiedStableImageChainDisplay):
+                prefix = "Definition より, "
+            else:
+                prefix = ""
+            lines.extend((f"{prefix}{compressed_statement}.", ""))
         if index in suppressed_body_indices:
             continue
         step = model.steps[index]

@@ -140,11 +140,11 @@ def project_verified_stable_image_chain(
         return None
 
     # R10EN: shared GIVEN-ancestor provenance; the cyclic union policy stays.
-    from phase169_r10en_shared_citation_provenance.core import (
-        verified_generator_image_citation_numbers,
+    from phase169_r10et_r4_cyclic_definition_projection.policy import (
+        verified_cyclic_generator_image_citation_numbers,
     )
-    citation_numbers = verified_generator_image_citation_numbers(
-        model, order, images, require_each=False,
+    citation_numbers = verified_cyclic_generator_image_citation_numbers(
+        model, order, images,
     )
     if citation_numbers is None:
         return None

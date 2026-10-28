@@ -1,0 +1,198 @@
+{
+  "phase": "169 R10ET-R4",
+  "mode": "FOCUSED_IMPLEMENTATION_AUDIT",
+  "cases": [
+    {
+      "n": 22,
+      "k": 6,
+      "group": "pi_28^22",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 16,
+      "givens": 2,
+      "cyclic": true,
+      "cyclic_citations": [],
+      "direct_sum": false,
+      "references": [
+        "DB prior: sphere.csv (n=8, k=6)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi28_22.md"
+    },
+    {
+      "n": 22,
+      "k": 10,
+      "group": "pi_32^22",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "cyclic": true,
+      "cyclic_citations": [],
+      "direct_sum": false,
+      "references": [
+        "DB prior: sphere.csv (n=12, k=10)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi32_22.md"
+    },
+    {
+      "n": 15,
+      "k": 8,
+      "group": "pi_23^15",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 12,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=10, k=8)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi23_15.md"
+    },
+    {
+      "n": 24,
+      "k": 9,
+      "group": "pi_33^24",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 41,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi33_24.md"
+    },
+    {
+      "n": 43,
+      "k": 26,
+      "group": "pi_69^43",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 32,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=28, k=26)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi69_43.md"
+    },
+    {
+      "n": 30,
+      "k": 26,
+      "group": "pi_56^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 6,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=28, k=26)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi56_30.md"
+    },
+    {
+      "n": 30,
+      "k": 11,
+      "group": "pi_41^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 19,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": false,
+      "references": [
+        "DB prior: sphere.csv (n=13, k=11)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi41_30.md"
+    },
+    {
+      "n": 30,
+      "k": 14,
+      "group": "pi_44^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 30,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=16, k=14)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi44_30.md"
+    },
+    {
+      "n": 30,
+      "k": 16,
+      "group": "pi_46^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 26,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=18, k=16)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi46_30.md"
+    },
+    {
+      "n": 30,
+      "k": 9,
+      "group": "pi_39^30",
+      "status": "complete",
+      "trust": "PASS",
+      "inferences": 59,
+      "givens": 2,
+      "cyclic": false,
+      "cyclic_citations": null,
+      "direct_sum": true,
+      "references": [
+        "DB prior: sphere.csv (n=11, k=9)",
+        "(4.5)"
+      ],
+      "renderer_model_unchanged": true,
+      "orphan_prefix": false,
+      "narrative": "C:\\Users\\oomae\\Dropbox\\Python\\fitz\\ehp_proof\\phase169_r10et_r4_cyclic_definition_projection\\output\\20261028_155412_343\\audit\\pi39_30.md"
+    }
+  ],
+  "provider_restored": true,
+  "full_suite_ran": false
+}
