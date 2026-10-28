@@ -1,6 +1,7 @@
-"""Restore Proposition 5.1 boundaries while registering only new 5.3/5.6 facts.
+"""Restore Proposition 5.1 boundaries while registering checked typed literature.
 
-This is a source-registration operation, not a proof-certification operation.
+The Proposition 5.8 pi_7^3 component is adopted only after checking its
+printed source and the structural generator. No proof is imported.
 """
 from __future__ import annotations
 
@@ -8,22 +9,20 @@ from phase163_r4_registry_bridge import RegistryBridgeResult
 from phase163_r4_r11_literature_registration import register_prop56_literature_statements
 from phase163_r4_r12_literature_registration import register_prop51_prop53_literature_statements
 from phase165_r6_explicit_literature_inputs import prop51_prop53_inputs, prop56_inputs
+from phase170_r3_r6_prop58_source import register_source_checked_prop58_pi73
 from unified_statement_registry import UnifiedStatementRegistry
 
 
 def connect_explicit_literature_components(base: RegistryBridgeResult) -> RegistryBridgeResult:
-    """Register 5.3/5.6 without changing any Proposition 5.1 assertion."""
+    """Register checked literature while preserving existing Proposition 5.1."""
     if not isinstance(base, RegistryBridgeResult):
         raise TypeError("base must be RegistryBridgeResult")
     first = register_prop51_prop53_literature_statements(base, prop51_prop53_inputs())
     second = register_prop56_literature_statements(first.snapshot, prop56_inputs())
-    registered = second.snapshot
+    registered = register_source_checked_prop58_pi73(second.snapshot)
     if registered.proof_links != base.proof_links:
         raise ValueError("literature registration unexpectedly changed proof links")
 
-    # The legacy combined 5.1/5.3 registrar necessarily promotes four 5.1
-    # metadata records. Preserve the original 5.1 source rather than adding
-    # competing typed copies of already adopted Proposition 5.1 statements.
     original = {
         assertion.assertion_id: assertion
         for assertion in base.registry._assertions.values()
