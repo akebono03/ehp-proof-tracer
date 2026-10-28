@@ -1,0 +1,1272 @@
+{
+  "root_index": 39,
+  "root_premises": [
+    0,
+    2,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    30,
+    32,
+    34,
+    36,
+    38
+  ],
+  "steps": [
+    {
+      "index": 0,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "adopted prior database result (not a literature theorem)",
+      "rule_source_locator": "DB prior: sphere.csv (n=13, k=11)",
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        1
+      ]
+    },
+    {
+      "index": 1,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Screened fixed source: (4.5)",
+      "rule_source_locator": "(4.5)",
+      "conclusion_type": "Toda45IsomorphismStatement",
+      "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarProduct(left=-1, right=ScalarSymbol(name='n'))), source_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='n')), target_group=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='m'), right=ScalarSymbol(name='k')), sphere_dimension=ScalarSymbol(name='m'))))",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        2
+      ]
+    },
+    {
+      "index": 2,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "generic cited typed scalar specialization",
+      "rule_source_locator": null,
+      "conclusion_type": "Toda45IsomorphismStatement",
+      "conclusion_repr": "Toda45IsomorphismStatement(map=TodaIteratedSuspensionMap(exponent=17, source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)))",
+      "premise_indices": [
+        1
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 3,
+      "root_ancestor": true,
+      "proof_rule": "given",
+      "inference_rule": "Cited reviewed Definition",
+      "rule_source_locator": "Chapter VI, v) Definition of indexed elements",
+      "conclusion_type": "CitedStableFamilyDefinition",
+      "conclusion_repr": "CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11)",
+      "premise_indices": [],
+      "direct_citation_numbers": [
+        3
+      ]
+    },
+    {
+      "index": 4,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=13, element=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None)), suspension_exponent=8)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 5,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=14, element=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)), suspension_exponent=9)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 6,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14)), source_generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None)), target_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)))",
+      "premise_indices": [
+        4,
+        5
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 7,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=15, element=HomotopyElement(name='ζ₁₅', dimension=15, source=26, target=15, generator=GeneratorSymbol(family='\\\\zeta', index=15, decoration=None)), suspension_exponent=10)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 8,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14), target_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=15)), source_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)), target_generator=HomotopyElement(name='ζ₁₅', dimension=15, source=26, target=15, generator=GeneratorSymbol(family='\\\\zeta', index=15, decoration=None)))",
+      "premise_indices": [
+        5,
+        7
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 9,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=16, element=HomotopyElement(name='ζ₁₆', dimension=16, source=27, target=16, generator=GeneratorSymbol(family='\\\\zeta', index=16, decoration=None)), suspension_exponent=11)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 10,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=15), target_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=16)), source_generator=HomotopyElement(name='ζ₁₅', dimension=15, source=26, target=15, generator=GeneratorSymbol(family='\\\\zeta', index=15, decoration=None)), target_generator=HomotopyElement(name='ζ₁₆', dimension=16, source=27, target=16, generator=GeneratorSymbol(family='\\\\zeta', index=16, decoration=None)))",
+      "premise_indices": [
+        7,
+        9
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 11,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=17, element=HomotopyElement(name='ζ₁₇', dimension=17, source=28, target=17, generator=GeneratorSymbol(family='\\\\zeta', index=17, decoration=None)), suspension_exponent=12)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 12,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=17)), source_generator=HomotopyElement(name='ζ₁₆', dimension=16, source=27, target=16, generator=GeneratorSymbol(family='\\\\zeta', index=16, decoration=None)), target_generator=HomotopyElement(name='ζ₁₇', dimension=17, source=28, target=17, generator=GeneratorSymbol(family='\\\\zeta', index=17, decoration=None)))",
+      "premise_indices": [
+        9,
+        11
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 13,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=18, element=HomotopyElement(name='ζ₁₈', dimension=18, source=29, target=18, generator=GeneratorSymbol(family='\\\\zeta', index=18, decoration=None)), suspension_exponent=13)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 14,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=18)), source_generator=HomotopyElement(name='ζ₁₇', dimension=17, source=28, target=17, generator=GeneratorSymbol(family='\\\\zeta', index=17, decoration=None)), target_generator=HomotopyElement(name='ζ₁₈', dimension=18, source=29, target=18, generator=GeneratorSymbol(family='\\\\zeta', index=18, decoration=None)))",
+      "premise_indices": [
+        11,
+        13
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 15,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=19, element=HomotopyElement(name='ζ₁₉', dimension=19, source=30, target=19, generator=GeneratorSymbol(family='\\\\zeta', index=19, decoration=None)), suspension_exponent=14)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 16,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=19)), source_generator=HomotopyElement(name='ζ₁₈', dimension=18, source=29, target=18, generator=GeneratorSymbol(family='\\\\zeta', index=18, decoration=None)), target_generator=HomotopyElement(name='ζ₁₉', dimension=19, source=30, target=19, generator=GeneratorSymbol(family='\\\\zeta', index=19, decoration=None)))",
+      "premise_indices": [
+        13,
+        15
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 17,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=20, element=HomotopyElement(name='ζ₂₀', dimension=20, source=31, target=20, generator=GeneratorSymbol(family='\\\\zeta', index=20, decoration=None)), suspension_exponent=15)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 18,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=20)), source_generator=HomotopyElement(name='ζ₁₉', dimension=19, source=30, target=19, generator=GeneratorSymbol(family='\\\\zeta', index=19, decoration=None)), target_generator=HomotopyElement(name='ζ₂₀', dimension=20, source=31, target=20, generator=GeneratorSymbol(family='\\\\zeta', index=20, decoration=None)))",
+      "premise_indices": [
+        15,
+        17
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 19,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=21, element=HomotopyElement(name='ζ₂₁', dimension=21, source=32, target=21, generator=GeneratorSymbol(family='\\\\zeta', index=21, decoration=None)), suspension_exponent=16)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 20,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=21)), source_generator=HomotopyElement(name='ζ₂₀', dimension=20, source=31, target=20, generator=GeneratorSymbol(family='\\\\zeta', index=20, decoration=None)), target_generator=HomotopyElement(name='ζ₂₁', dimension=21, source=32, target=21, generator=GeneratorSymbol(family='\\\\zeta', index=21, decoration=None)))",
+      "premise_indices": [
+        17,
+        19
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 21,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=22, element=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None)), suspension_exponent=17)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 22,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22)), source_generator=HomotopyElement(name='ζ₂₁', dimension=21, source=32, target=21, generator=GeneratorSymbol(family='\\\\zeta', index=21, decoration=None)), target_generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None)))",
+      "premise_indices": [
+        19,
+        21
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 23,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=23, element=HomotopyElement(name='ζ₂₃', dimension=23, source=34, target=23, generator=GeneratorSymbol(family='\\\\zeta', index=23, decoration=None)), suspension_exponent=18)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 24,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=23)), source_generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None)), target_generator=HomotopyElement(name='ζ₂₃', dimension=23, source=34, target=23, generator=GeneratorSymbol(family='\\\\zeta', index=23, decoration=None)))",
+      "premise_indices": [
+        21,
+        23
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 25,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=24, element=HomotopyElement(name='ζ₂₄', dimension=24, source=35, target=24, generator=GeneratorSymbol(family='\\\\zeta', index=24, decoration=None)), suspension_exponent=19)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 26,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=24)), source_generator=HomotopyElement(name='ζ₂₃', dimension=23, source=34, target=23, generator=GeneratorSymbol(family='\\\\zeta', index=23, decoration=None)), target_generator=HomotopyElement(name='ζ₂₄', dimension=24, source=35, target=24, generator=GeneratorSymbol(family='\\\\zeta', index=24, decoration=None)))",
+      "premise_indices": [
+        23,
+        25
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 27,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=25, element=HomotopyElement(name='ζ₂₅', dimension=25, source=36, target=25, generator=GeneratorSymbol(family='\\\\zeta', index=25, decoration=None)), suspension_exponent=20)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 28,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=25)), source_generator=HomotopyElement(name='ζ₂₄', dimension=24, source=35, target=24, generator=GeneratorSymbol(family='\\\\zeta', index=24, decoration=None)), target_generator=HomotopyElement(name='ζ₂₅', dimension=25, source=36, target=25, generator=GeneratorSymbol(family='\\\\zeta', index=25, decoration=None)))",
+      "premise_indices": [
+        25,
+        27
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 29,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=26, element=HomotopyElement(name='ζ₂₆', dimension=26, source=37, target=26, generator=GeneratorSymbol(family='\\\\zeta', index=26, decoration=None)), suspension_exponent=21)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 30,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=26)), source_generator=HomotopyElement(name='ζ₂₅', dimension=25, source=36, target=25, generator=GeneratorSymbol(family='\\\\zeta', index=25, decoration=None)), target_generator=HomotopyElement(name='ζ₂₆', dimension=26, source=37, target=26, generator=GeneratorSymbol(family='\\\\zeta', index=26, decoration=None)))",
+      "premise_indices": [
+        27,
+        29
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 31,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=27, element=HomotopyElement(name='ζ₂₇', dimension=27, source=38, target=27, generator=GeneratorSymbol(family='\\\\zeta', index=27, decoration=None)), suspension_exponent=22)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 32,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=27)), source_generator=HomotopyElement(name='ζ₂₆', dimension=26, source=37, target=26, generator=GeneratorSymbol(family='\\\\zeta', index=26, decoration=None)), target_generator=HomotopyElement(name='ζ₂₇', dimension=27, source=38, target=27, generator=GeneratorSymbol(family='\\\\zeta', index=27, decoration=None)))",
+      "premise_indices": [
+        29,
+        31
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 33,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=28, element=HomotopyElement(name='ζ₂₈', dimension=28, source=39, target=28, generator=GeneratorSymbol(family='\\\\zeta', index=28, decoration=None)), suspension_exponent=23)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 34,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=28)), source_generator=HomotopyElement(name='ζ₂₇', dimension=27, source=38, target=27, generator=GeneratorSymbol(family='\\\\zeta', index=27, decoration=None)), target_generator=HomotopyElement(name='ζ₂₈', dimension=28, source=39, target=28, generator=GeneratorSymbol(family='\\\\zeta', index=28, decoration=None)))",
+      "premise_indices": [
+        31,
+        33
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 35,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=29, element=HomotopyElement(name='ζ₂₉', dimension=29, source=40, target=29, generator=GeneratorSymbol(family='\\\\zeta', index=29, decoration=None)), suspension_exponent=24)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 36,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=29)), source_generator=HomotopyElement(name='ζ₂₈', dimension=28, source=39, target=28, generator=GeneratorSymbol(family='\\\\zeta', index=28, decoration=None)), target_generator=HomotopyElement(name='ζ₂₉', dimension=29, source=40, target=29, generator=GeneratorSymbol(family='\\\\zeta', index=29, decoration=None)))",
+      "premise_indices": [
+        33,
+        35
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 37,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited stable-family definition",
+      "rule_source_locator": null,
+      "conclusion_type": "StableFamilyMemberDefinition",
+      "conclusion_repr": "StableFamilyMemberDefinition(source=CitedStableFamilyDefinition(family_id=16, minimum_n=5, stem=11), index=30, element=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None)), suspension_exponent=25)",
+      "premise_indices": [
+        3
+      ],
+      "direct_citation_numbers": []
+    },
+    {
+      "index": 38,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)), source_generator=HomotopyElement(name='ζ₂₉', dimension=29, source=40, target=29, generator=GeneratorSymbol(family='\\\\zeta', index=29, decoration=None)), target_generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None)))",
+      "premise_indices": [
+        35,
+        37
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 39,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "typed arbitrary-fold stable transport of group structure",
+      "rule_source_locator": null,
+      "conclusion_type": "Relation",
+      "conclusion_repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "premise_indices": [
+        0,
+        2,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20,
+        22,
+        24,
+        26,
+        28,
+        30,
+        32,
+        34,
+        36,
+        38
+      ],
+      "direct_citation_numbers": []
+    }
+  ],
+  "images": [
+    {
+      "index": 6,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=24, sphere_dimension=13), target_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14)), source_generator=HomotopyElement(name='ζ₁₃', dimension=13, source=24, target=13, generator=GeneratorSymbol(family='\\\\zeta', index=13, decoration=None)), target_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)))",
+      "premise_indices": [
+        4,
+        5
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 8,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=25, sphere_dimension=14), target_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=15)), source_generator=HomotopyElement(name='ζ₁₄', dimension=14, source=25, target=14, generator=GeneratorSymbol(family='\\\\zeta', index=14, decoration=None)), target_generator=HomotopyElement(name='ζ₁₅', dimension=15, source=26, target=15, generator=GeneratorSymbol(family='\\\\zeta', index=15, decoration=None)))",
+      "premise_indices": [
+        5,
+        7
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 10,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=26, sphere_dimension=15), target_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=16)), source_generator=HomotopyElement(name='ζ₁₅', dimension=15, source=26, target=15, generator=GeneratorSymbol(family='\\\\zeta', index=15, decoration=None)), target_generator=HomotopyElement(name='ζ₁₆', dimension=16, source=27, target=16, generator=GeneratorSymbol(family='\\\\zeta', index=16, decoration=None)))",
+      "premise_indices": [
+        7,
+        9
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 12,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=27, sphere_dimension=16), target_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=17)), source_generator=HomotopyElement(name='ζ₁₆', dimension=16, source=27, target=16, generator=GeneratorSymbol(family='\\\\zeta', index=16, decoration=None)), target_generator=HomotopyElement(name='ζ₁₇', dimension=17, source=28, target=17, generator=GeneratorSymbol(family='\\\\zeta', index=17, decoration=None)))",
+      "premise_indices": [
+        9,
+        11
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 14,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=28, sphere_dimension=17), target_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=18)), source_generator=HomotopyElement(name='ζ₁₇', dimension=17, source=28, target=17, generator=GeneratorSymbol(family='\\\\zeta', index=17, decoration=None)), target_generator=HomotopyElement(name='ζ₁₈', dimension=18, source=29, target=18, generator=GeneratorSymbol(family='\\\\zeta', index=18, decoration=None)))",
+      "premise_indices": [
+        11,
+        13
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 16,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=29, sphere_dimension=18), target_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=19)), source_generator=HomotopyElement(name='ζ₁₈', dimension=18, source=29, target=18, generator=GeneratorSymbol(family='\\\\zeta', index=18, decoration=None)), target_generator=HomotopyElement(name='ζ₁₉', dimension=19, source=30, target=19, generator=GeneratorSymbol(family='\\\\zeta', index=19, decoration=None)))",
+      "premise_indices": [
+        13,
+        15
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 18,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=30, sphere_dimension=19), target_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=20)), source_generator=HomotopyElement(name='ζ₁₉', dimension=19, source=30, target=19, generator=GeneratorSymbol(family='\\\\zeta', index=19, decoration=None)), target_generator=HomotopyElement(name='ζ₂₀', dimension=20, source=31, target=20, generator=GeneratorSymbol(family='\\\\zeta', index=20, decoration=None)))",
+      "premise_indices": [
+        15,
+        17
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 20,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=31, sphere_dimension=20), target_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=21)), source_generator=HomotopyElement(name='ζ₂₀', dimension=20, source=31, target=20, generator=GeneratorSymbol(family='\\\\zeta', index=20, decoration=None)), target_generator=HomotopyElement(name='ζ₂₁', dimension=21, source=32, target=21, generator=GeneratorSymbol(family='\\\\zeta', index=21, decoration=None)))",
+      "premise_indices": [
+        17,
+        19
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 22,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=32, sphere_dimension=21), target_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22)), source_generator=HomotopyElement(name='ζ₂₁', dimension=21, source=32, target=21, generator=GeneratorSymbol(family='\\\\zeta', index=21, decoration=None)), target_generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None)))",
+      "premise_indices": [
+        19,
+        21
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 24,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=33, sphere_dimension=22), target_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=23)), source_generator=HomotopyElement(name='ζ₂₂', dimension=22, source=33, target=22, generator=GeneratorSymbol(family='\\\\zeta', index=22, decoration=None)), target_generator=HomotopyElement(name='ζ₂₃', dimension=23, source=34, target=23, generator=GeneratorSymbol(family='\\\\zeta', index=23, decoration=None)))",
+      "premise_indices": [
+        21,
+        23
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 26,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=34, sphere_dimension=23), target_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=24)), source_generator=HomotopyElement(name='ζ₂₃', dimension=23, source=34, target=23, generator=GeneratorSymbol(family='\\\\zeta', index=23, decoration=None)), target_generator=HomotopyElement(name='ζ₂₄', dimension=24, source=35, target=24, generator=GeneratorSymbol(family='\\\\zeta', index=24, decoration=None)))",
+      "premise_indices": [
+        23,
+        25
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 28,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=35, sphere_dimension=24), target_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=25)), source_generator=HomotopyElement(name='ζ₂₄', dimension=24, source=35, target=24, generator=GeneratorSymbol(family='\\\\zeta', index=24, decoration=None)), target_generator=HomotopyElement(name='ζ₂₅', dimension=25, source=36, target=25, generator=GeneratorSymbol(family='\\\\zeta', index=25, decoration=None)))",
+      "premise_indices": [
+        25,
+        27
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 30,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=36, sphere_dimension=25), target_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=26)), source_generator=HomotopyElement(name='ζ₂₅', dimension=25, source=36, target=25, generator=GeneratorSymbol(family='\\\\zeta', index=25, decoration=None)), target_generator=HomotopyElement(name='ζ₂₆', dimension=26, source=37, target=26, generator=GeneratorSymbol(family='\\\\zeta', index=26, decoration=None)))",
+      "premise_indices": [
+        27,
+        29
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 32,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=37, sphere_dimension=26), target_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=27)), source_generator=HomotopyElement(name='ζ₂₆', dimension=26, source=37, target=26, generator=GeneratorSymbol(family='\\\\zeta', index=26, decoration=None)), target_generator=HomotopyElement(name='ζ₂₇', dimension=27, source=38, target=27, generator=GeneratorSymbol(family='\\\\zeta', index=27, decoration=None)))",
+      "premise_indices": [
+        29,
+        31
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 34,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=38, sphere_dimension=27), target_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=28)), source_generator=HomotopyElement(name='ζ₂₇', dimension=27, source=38, target=27, generator=GeneratorSymbol(family='\\\\zeta', index=27, decoration=None)), target_generator=HomotopyElement(name='ζ₂₈', dimension=28, source=39, target=28, generator=GeneratorSymbol(family='\\\\zeta', index=28, decoration=None)))",
+      "premise_indices": [
+        31,
+        33
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 36,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=39, sphere_dimension=28), target_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=29)), source_generator=HomotopyElement(name='ζ₂₈', dimension=28, source=39, target=28, generator=GeneratorSymbol(family='\\\\zeta', index=28, decoration=None)), target_generator=HomotopyElement(name='ζ₂₉', dimension=29, source=40, target=29, generator=GeneratorSymbol(family='\\\\zeta', index=29, decoration=None)))",
+      "premise_indices": [
+        33,
+        35
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    },
+    {
+      "index": 38,
+      "root_ancestor": true,
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited stable-family instances imply generator image",
+      "rule_source_locator": null,
+      "conclusion_type": "GeneratorImage",
+      "conclusion_repr": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=40, sphere_dimension=29), target_group=TodaPrimaryGroup(group_dimension=41, sphere_dimension=30)), source_generator=HomotopyElement(name='ζ₂₉', dimension=29, source=40, target=29, generator=GeneratorSymbol(family='\\\\zeta', index=29, decoration=None)), target_generator=HomotopyElement(name='ζ₃₀', dimension=30, source=41, target=30, generator=GeneratorSymbol(family='\\\\zeta', index=30, decoration=None)))",
+      "premise_indices": [
+        35,
+        37
+      ],
+      "direct_citation_numbers": [],
+      "eligible_for_common_definition": true,
+      "actual_canonical_common_definition": false,
+      "given_ancestor_indices": [
+        3
+      ],
+      "given_ancestor_citation_numbers": [
+        3
+      ],
+      "given_ancestor_locators": [
+        "Chapter VI, v) Definition of indexed elements"
+      ]
+    }
+  ],
+  "references": [
+    {
+      "number": 1,
+      "locator": "DB prior: sphere.csv (n=13, k=11)",
+      "step_indices": [
+        0
+      ],
+      "assertion_ids": [],
+      "reference_ids": [],
+      "statement_bodies": [],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 2,
+      "locator": "(4.5)",
+      "step_indices": [
+        1
+      ],
+      "assertion_ids": [
+        "shared:4:typed_literature:assertion:toda:tex:ch4:0006"
+      ],
+      "reference_ids": [
+        "shared:4:typed_literature:toda:tex:ch4:0006"
+      ],
+      "statement_bodies": [
+        "$n\\ge k+2$, $m\\ge n$, $k\\ge0$ に対し, $E^{m-n}:\\pi_{n+k}^{n}\\xrightarrow{\\cong}\\pi_{m+k}^{m}$ が成り立つ."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": true,
+      "referenced_by_image_ancestry": []
+    },
+    {
+      "number": 3,
+      "locator": "Chapter VI, v) Definition of indexed elements",
+      "step_indices": [
+        3
+      ],
+      "assertion_ids": [
+        "shared:11:adopted:assertion:toda6:reviewed_definition:16"
+      ],
+      "reference_ids": [
+        "shared:11:adopted:reference:toda6:reviewed_definition:16"
+      ],
+      "statement_bodies": [
+        "$n\\ge 5$ に対し, $\\zeta_n=E^{n-5}\\zeta_{5}$ と定義する."
+      ],
+      "reachable_from_root": true,
+      "directly_attributed_to_given": true,
+      "reference_heading_displayed": true,
+      "body_marker_displayed": false,
+      "referenced_by_image_ancestry": [
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,
+        20,
+        22,
+        24,
+        26,
+        28,
+        30,
+        32,
+        34,
+        36,
+        38
+      ]
+    }
+  ]
+}
