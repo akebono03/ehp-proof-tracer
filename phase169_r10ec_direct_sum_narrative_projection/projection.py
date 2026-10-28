@@ -100,28 +100,15 @@ def project_verified_direct_sum_transport(
                    for step, image in zip(image_steps, expected))):
         return None
 
-    # Require every image actually to have a Proof Tree ancestry with an
-    # independently registered, cited GIVEN source; image names are not evidence.
-    given_citations: set[int] = set()
-    for image_step in image_steps:
-        pending = [image_step]
-        visited: set[int] = set()
-        has_cited_given = False
-        while pending:
-            step = pending.pop()
-            identity = id(step)
-            if identity in visited:
-                continue
-            visited.add(identity)
-            index = by_identity.get(identity)
-            if index is None or index not in order:
-                return None
-            if step.rule is ProofRule.GIVEN and citations[index]:
-                given_citations.update(citations[index])
-                has_cited_given = True
-            pending.extend(step.premises)
-        if not has_cited_given:
-            return None
+    # R10EN: each direct-sum image needs its own registered GIVEN ancestor.
+    from phase169_r10en_shared_citation_provenance.core import (
+        verified_generator_image_citation_numbers,
+    )
+    numbers = verified_generator_image_citation_numbers(
+        model, order, image_steps, require_each=True,
+    )
+    if numbers is None:
+        return None
 
     # R10EL: the shared strict contract preserves all-or-nothing direct-sum
     # suppression, including external-consumer and individual-citation checks.
@@ -143,14 +130,7 @@ def project_verified_direct_sum_transport(
         if not source_tex or not target_tex:
             return None
         formulae.append(rf"$E^{{{r}}}({source_tex})={target_tex}$")
-    if not formulae or not given_citations:
-        return None
-
-    numbers = tuple(
-        citation.number for citation in model.citations
-        if citation.number in given_citations
-    )
-    if len(numbers) != len(given_citations):
+    if not formulae:
         return None
     labels = ", ".join(f"[R{number}]" for number in numbers)
     statement = f"{labels}より, " + "、".join(formulae) + "."

@@ -1,0 +1,98 @@
+{
+  "phase": "169 R10EN",
+  "mode": "FOCUSED_PRODUCTION_PATCH",
+  "cases": [
+    {
+      "group": "pi_28^22",
+      "shape": "cyclic",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 51,
+      "given_steps": 3,
+      "proof_step_count": 54,
+      "image_count": 14,
+      "images_with_cited_given": 14,
+      "citations_match": true,
+      "citation_numbers": [
+        3
+      ],
+      "suspensions": 14,
+      "hidden_display_only": 31,
+      "duplicate_image_prose": 0,
+      "proof_tree_unchanged": true,
+      "mathematical_inference_added": false,
+      "rendered_file": "pi_28_22.md"
+    },
+    {
+      "group": "pi_32^22",
+      "shape": "cyclic",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 64,
+      "given_steps": 4,
+      "proof_step_count": 68,
+      "image_count": 10,
+      "images_with_cited_given": 10,
+      "citations_match": true,
+      "citation_numbers": [
+        3,
+        4
+      ],
+      "suspensions": 10,
+      "hidden_display_only": 40,
+      "duplicate_image_prose": 0,
+      "proof_tree_unchanged": true,
+      "mathematical_inference_added": false,
+      "rendered_file": "pi_32_22.md"
+    },
+    {
+      "group": "pi_23^15",
+      "shape": "direct_sum",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 24,
+      "given_steps": 4,
+      "proof_step_count": 28,
+      "image_count": 10,
+      "images_with_cited_given": 10,
+      "citations_match": true,
+      "citation_numbers": [
+        3,
+        4
+      ],
+      "suspensions": 5,
+      "hidden_display_only": 10,
+      "duplicate_image_prose": 0,
+      "proof_tree_unchanged": true,
+      "mathematical_inference_added": false,
+      "rendered_file": "pi_23_15.md"
+    },
+    {
+      "group": "pi_33^24",
+      "shape": "direct_sum",
+      "status": "complete",
+      "trust": "PASS",
+      "inference_steps": 174,
+      "given_steps": 6,
+      "proof_step_count": 180,
+      "image_count": 39,
+      "images_with_cited_given": 39,
+      "citations_match": true,
+      "citation_numbers": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "suspensions": 13,
+      "hidden_display_only": 110,
+      "duplicate_image_prose": 0,
+      "proof_tree_unchanged": true,
+      "mathematical_inference_added": false,
+      "rendered_file": "pi_33_24.md"
+    }
+  ],
+  "inference_rules_changed": false,
+  "proof_tree_changed": false,
+  "full_pytest_run": false
+}
