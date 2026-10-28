@@ -3508,3 +3508,17 @@ R6D は R6 の `certify_reviewed_production()` のソース同一性確認を R6
 ### Phase 169 との境界
 
 以上は R10ET の対象範囲に限る検証であり、任意の $(n,k)$ の完成証明・全登録命題の数学的真理・過去の個別 Definition 登録削除を保証しない。Phase 169 全体の Closeout、対象範囲の回帰テスト選定、Git に登録する監査生成物の整理は後続の工程とする。長い自動生成ファイルを一括 `git add -A` で登録しない運用上の注意を維持する。
+
+<!-- PHASE169_FINAL_CLOSEOUT_20261028 -->
+
+## Phase 169 終了時の設計境界（2026-10-28）
+
+Phase 169 の正式な終了対象は、R10ET までにレビューした型付き逆向き探索、生成元像の共通 Definition、安定懸垂輸送、巡回群・直和群・合成生成元の証明表示、および完成証明の root 祖先に限定した本文・Reference の射影である。R10ET 文書区切りに記した「全体 pytest は未実施」はその時点の記録であり、本節の最終テストによって更新された。
+
+共通 Definition は、安定範囲に適合する `GeneratorImage` の正規 `INFERENCE` を本番探索で優先する。既存の群構造 DB prior、Toda (4.5) による同型、生成元関係などの数学的前提を置き換えない。`HyoujiGen.csv` の型付き生成元データとの整合を保ち、特定の family 名に依存する新規規則を追加しない。
+
+完全証明では、検証済み Proof Tree の root から到達できる ProofStep だけを Proof Narrative Model / Reference に射影する。Proof Tree 全体を削除せず、未完成証明の出力を変更しない。標準 Web の検証器を経ず、任意に与えられた Model を正式な証明と認証しない。Origin Observation も認証の代替とはしない。
+
+最終テスト Gate は、関連回帰 **67 PASS**、現行アクティブ `tests/` **3546 PASS**、FAIL 0、ERROR 0、終了コード0、Git index 保全 PASS。Gate 自身の限定テスト **8 PASS**。実行コマンドは `python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests`。`tests/conftest.py` の Phase 155 audit-only nodeid 除外を維持し、退避した歴史的テストを無制限に収集していない。
+
+**認定境界：** この合格は Phase 169 で対象にしたコード・証明表示・有限個の回帰の終了判定であり、任意の stem や全登録群の自動証明、文献上の全命題の独立した形式認証を意味しない。残存する数学的・DB 上の未達事項は次 Phase の監査で確定する。既存 API、Trust Boundary、退避テストの扱いを変更しない。

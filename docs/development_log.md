@@ -7933,3 +7933,26 @@ GitHub `develop` では `fc07630e8c2ca04b16f0e3eb08a06ea4f12e9b79`（コミッ�
 ### 現時点の結論と未実施事項
 
 **R10ET は本番実装と限定監査を完了。Phase 169 全体は未終了。** 19例の成功を全 stem・全登録群への無条件の一般化とみなさない。文献原典の独立した数学的真理判定、旧 Definition 台帳の削除、新しい推論機能の先取りはしない。主要文書の更新を済ませた後に、Phase 169 の残件・全体テスト対象範囲・正式 Closeout を別工程で判断する。今回の文書更新では全体 pytest を実行しない。
+
+<!-- PHASE169_FINAL_CLOSEOUT_20261028 -->
+
+## 2026-10-28 — Phase 169 最終 Closeout（終了時テスト Gate・文書記録）
+
+R10ET R5D〜R6D の実装と限定監査、R10ET Closeout R2A の主要文書5件全文更新、Closeout R3A の整合性検査を前提に、Phase 169 の終了時最終 Gate を Windows PowerShell から実行した。R3A は文書5/5、本体ソース8/8、R6対象19/19、Git index 保全を PASS とした。R10ET を再実装せず、終了判定のみ追加した。
+
+### 終了時テスト（新規実行の記録）
+
+- 実行日：2026-10-28（JST）。
+- Gate 補助限定 pytest：**8 passed in 2.36s**（ユーザー実行ログ）。
+- 関連回帰：**67 passed in 21.86s**、終了コード0。対象は Gate に明記された Phase 169 の10テストファイル（Phase 168 P19 回帰を含む）。
+- 現行アクティブテスト：**3546 passed in 34.95s**、FAIL 0、ERROR 0、終了コード0。
+- 全体テストコマンド：`python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests`。
+- `tests/conftest.py` の Phase 155 audit-only nodeid 選別を維持し、歴史的退避テストは追加収集しない。`PYTHONDONTWRITEBYTECODE=1` と cacheprovider 無効化を使用した。
+- Git index：実行前後の保全確認 `True`。Gate 判定：`PHASE169_CLOSEOUT_R1_TEST_GATE_PASS=True`、`TEST_GATE_PASS_PENDING_PHASE169_CLOSEOUT_DOCUMENTATION`。
+- 最終 Gate 証拠は `%LOCALAPPDATA%\EHPProofTracerRecovery\phase169_closeout_r1_20261028_193510_755227\report.json` に保存された。本文書の文書更新 Gate はその JSON を読み直し、同じ回数と終了コードを検証している。
+
+### 正式終了判断
+
+**Phase 169 は、上記テストと R10ET の既存監査で検証済みの実装範囲について終了と判定する。** 記録更新は証明探索の新機能・命題登録・既存 API 変更を伴わない。対象外 Goal の partial を complete と扱わず、19件の監査から任意の stem の数学的証明完成を主張しない。
+
+次 Phase では、未完成の数学的対象と群構造・関係式・生成元 DB の登録状況を現行コードから監査し、必要最小限の変更だけを新たな Phase の責務として定める。旧方式の無条件再導入・文献命題の真偽の自動認証・未検証の一般化は実施しない。

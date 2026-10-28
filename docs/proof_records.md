@@ -7529,3 +7529,15 @@ R6 の必須16ケースは $\pi_{69}^{43}$、$\pi_{56}^{30}$、$\pi_{41}^{30}$�
 R6D の実行結果は `R10ET_R6_REQUIRED_PASS=True`、`R10ET_R6_PROBES_PASS=True`、`R10ET_R6_AUDIT_ONLY_COMPLETE=PASS`、限定 pytest **24 PASS**、`R10ET_R6D_COMPLETE=PASS`。R6C の実装時には限定 pytest **43 PASS** と19件の追加監査 PASS を確認した。監査出力：`phase169_r10et_r6_residual_definition_dependency_audit/output/20261028_174644_215/audit.md`。Git index は変更されなかった。
 
 **検証境界：** この有限集合の成功から全登録群・全 stem の完成証明や `HyoujiGen.csv` の全データの数学的正しさを演繹しない。新たな数学的命題は登録せず、Phase 169 全体の全体 pytest および正式終了認定は未実施とする。
+
+<!-- PHASE169_FINAL_CLOSEOUT_20261028 -->
+
+## 2026-10-28 — Phase 169 終了時の証明・引用整合性記録
+
+Phase 169 の終了は、既存の文献根拠に基づく型付き Proof Tree、共通 Definition による生成元像の推論、安定輸送・直和群・複合生成元の表示、および Reference が実際に使用した祖先に限られることの検証結果である。新しい数学的定理の証明を追加した記録ではない。
+
+R10ET R6D の必須16群と追加3群は **19/19 PASS**、Trust PASS、共通 Definition の適用可能範囲で旧個別 Definition への残存引用依存0件だった。$\pi_{10}^{8}$ は検索済み9 ProofStep を保持し、結論から到達可能な8ステップを完成証明に表示した。使用 Reference は `sphere.csv (n=4,k=2)` と Toda `(4.5)` であり、未使用の `sphere.csv (n=7,k=2)` を引用しない。部分証明表示は変更していない。
+
+Phase 終了時の関連回帰 **67 PASS**、アクティブな `tests/` **3546 PASS**（いずれも終了コード0、FAIL 0、ERROR 0）、Git index 保全 PASS を記録した。既存の Phase 168 固定基準（$\pi_3^2$、$\pi_4^3$、$\pi_5^4$）と Trust Boundary を維持するテストを含む。ただし現行の全テストの成功が、登録されていない命題や未検証の全ホモトピー群の完成証明を意味するものではない。
+
+**未認定領域：** 任意の $(n,k)$、すべての Toda 記述の数学的真理、任意の利用者定義推論、すべての DB 生成元関係。これらは必要な出典と型付き導出を次 Phase の監査で特定する。

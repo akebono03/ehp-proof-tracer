@@ -2,15 +2,17 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
-## Current status — Phase 169 R10ET complete; Phase 169 remains open (2026-10-28)
+<!-- PHASE169_FINAL_CLOSEOUT_20261028 -->
 
-The R10ET workstream has completed its scoped production changes and Definition-dependency audit. Its current implementation prefers a replayable, typed common Definition for eligible stable `GeneratorImage` goals, while preserving existing expansion providers for ineligible goals. Both cyclic and direct-sum presentation retain independently proven group and transport premises; a Definition alone is not a proof of a group structure or an isomorphism.
+## Current status — Phase 169 closed (2026-10-28)
 
-For a **completed** proof, the Proof Narrative Model and common renderer now restrict displayed steps and references to the ancestry of the selected conclusion. All original `ProofStep` objects remain in the search result; incomplete-proof evidence is unaffected. This fixed an unused DB-prior citation in $\pi_{10}^{8}$ without introducing source-name or generator-family special cases.
+**Phase 169 is closed for its reviewed scope, not for all homotopy groups.** The completed work covers the 2-stem production path, theorem-based stable transport, direct-sum and composite-generator projection, shared generator-image Definition, root-reachable completed-proof references, and the relevant trust boundaries. The existing `HyoujiGen.csv` information continues to be used without adding generator-family-specific Definition implementations.
 
-The final independent R6D rerun (2026-10-28) recorded **19/19** completed, trusted cases with no eligible residual dependency on older individually cited Definitions: 16 required cases and 3 independent probes. Focused pytest reported **24 passed**, and the R6C implementation gate previously reported **43 passed** plus a separate 19/19 audit. The original R6 probe failure, diagnosed as a detached citation in $\pi_{10}^{8}$, was resolved; R6D subsequently verified the updated source contract and re-ran the original R6 audit.
+The independent R10ET R6D audit passed **19/19** scoped cases (16 required and 3 probes), with zero residual dependency on individual Definitions where the shared typed Definition was eligible. For $\pi_{10}^{8}$, the search retains nine `ProofStep` objects; the completed narrative and references include only the eight steps reachable from the selected root, citing the used `sphere.csv (n=4,k=2)` DB premise and Toda (4.5). Partial-proof visibility is unchanged.
 
-These are **scoped checks**, not a repository-wide test result, a formal verification of every source theorem, or a claim about all stems and generators. GitHub `develop` commit `fc07630e8c2ca04b16f0e3eb08a06ea4f12e9b79` contains the inspected R10ET implementation and audit packages. Phase 169 remains in progress; its full regression suite and phase-level closeout have not yet been certified.
+The final end-of-phase test run on **2026-10-28** passed **67 focused Phase 169/168 regression tests** and **3,546 active `tests/` tests**, with zero failed tests, zero errors, exit code 0, and preserved Git index. The closeout helper itself passed eight tests. Full-suite command: `python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests`. The active suite retains the Phase 155 historical audit-only deselection boundary; archived tests are not silently counted as passes.
+
+These results certify the stated implementation and test scope only. They do **not** establish complete proofs for arbitrary $\pi_{n+k}^{n}$, certify the mathematical truth of every registered Toda or database statement, remove legacy individual Definitions, or prove that every stem is supported. The next phase is to audit remaining mathematical proof gaps and data coverage before selecting any new implementation work.
 
 ## Current status — Phase 168 closed (2026-10-25)
 
@@ -54,7 +56,7 @@ These are representative regression fixtures, not an inventory of all certified 
 Run the current active tests from the repository root:
 
 ```powershell
-python -m pytest tests -q --tb=short
+python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests
 ```
 
 Phase 168 closure additionally executed focused regression modules and frozen full-text/publication audits. The closure artifact is `phase168_r3_41p19_phase_closeout/output/review_bundle_20261025_092131_633.zip` in the local run that produced the reported results; its presence in another checkout is not assumed.
