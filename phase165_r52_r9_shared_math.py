@@ -74,6 +74,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_adopted_toda53_double_reference,
         )
         sources = sources + (build_adopted_toda53_double_reference(production),)
+        from phase171_r2h_prop22_cited_hopf.source import (
+            build_cited_prop22_right_reference,
+        )
+        sources = sources + (build_cited_prop22_right_reference(production),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -276,6 +280,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options = []
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
+        from phase171_r2h_prop22_cited_hopf.source import (
+            expand_cited_prop22_right_formula,
+        )
+        options.extend(expand_cited_prop22_right_formula(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,

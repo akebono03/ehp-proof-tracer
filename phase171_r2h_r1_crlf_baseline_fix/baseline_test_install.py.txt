@@ -1,0 +1,54 @@
+"""Pure tests for the guarded R2H installer (without production modules)."""
+from __future__ import annotations
+
+from hashlib import sha1
+
+import pytest
+
+from phase171_r2h_prop22_cited_hopf.install import (
+    ANCHOR_PROVIDER, ANCHOR_SOURCE, INSERT_PROVIDER, INSERT_SOURCE,
+    full_functions, git_blob, patch_source,
+)
+
+
+BASE = ("def build_shared_typed_bridge():\n"
+        "    if True:\n" + ANCHOR_SOURCE + "\n"
+        "def shared_expansion_provider():\n"
+        "    def expand(goal):\n" + ANCHOR_PROVIDER + "\n")
+
+
+def test_r2h_inserts_exactly_two_connections():
+    patched = patch_source(BASE)
+    assert patched.count(INSERT_SOURCE) == 1
+    assert patched.count(INSERT_PROVIDER) == 1
+    assert patched.index(ANCHOR_SOURCE) < patched.index(INSERT_SOURCE)
+
+
+def test_r2h_preserves_crlf():
+    patched = patch_source(BASE.replace("\n", "\r\n"))
+    assert "\r\n" in patched
+    assert patched.replace("\r\n", "\n") == patch_source(BASE)
+
+
+def test_r2h_fails_closed_for_ambiguous_source_anchor():
+    with pytest.raises(ValueError, match="anchors"):
+        patch_source(BASE + ANCHOR_SOURCE)
+
+
+def test_r2h_fails_closed_for_partial_integration():
+    with pytest.raises(ValueError, match="partial"):
+        patch_source(BASE.replace(ANCHOR_SOURCE, ANCHOR_SOURCE + "\n" + INSERT_SOURCE))
+
+
+def test_r2h_extracts_two_whole_functions():
+    functions = full_functions(patch_source(BASE))
+    assert set(functions) == {"build_shared_typed_bridge", "shared_expansion_provider"}
+    assert INSERT_SOURCE in functions["build_shared_typed_bridge"]
+    assert INSERT_PROVIDER in functions["shared_expansion_provider"]
+
+
+def test_git_blob_matches_standard_blob_calculation():
+    data = b"hello\n"
+    expected = sha1(b"blob 6\0hello\n").hexdigest()
+    assert git_blob(data) == expected
+    assert git_blob(b"hello\r\n") == expected
