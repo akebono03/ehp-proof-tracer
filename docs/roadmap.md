@@ -3819,3 +3819,20 @@ Phase 164 が目標としたのは、証明生成・表示経路の統一であ�
 次 Phase は、2-stem の低次群（$\pi_4^2$、$\pi_5^3$、$\pi_6^4$）から、最新の Proof Tree・Reference・完了状態と登録 DB の根拠を再確認する。続いて他の stem の不完全な Goal、未採用の Toda 命題、`HyoujiGen.csv` と群構造・関係式 DB の整合、共通 Definition の非適用条件を監査する。未確認の対象が実際に不足している場合に限り、新 Phase で最小実装を計画する。
 
 **先取りしない事項：** 全 stem の自動完成、旧 Definition 台帳の一括削除、Generator family 別の例外実装、新しい数学的認証機構、退避テストの一括復活。Phase 170 の実装範囲は未確定とする。
+
+<!-- PHASE170_FINAL_DOCUMENT_CLOSEOUT_20261029 -->
+
+## Phase 170 — 正式終了（2026-10-29）
+
+Phase 170 は、Phase 169 の次工程として、登録 DB に明示された $n=2$、$1\le k\le33$ の33群における Backward Search（逆向き証明探索）と Web Trust Boundary（信頼境界）を全件監査した。Toda (5.2) に基づく型付き $\eta_2\circ-$ 輸送を利用し、唯一残った $\pi_{14}^{2}$ の生成元表示差異を Toda (7.12) の出典付き等式で解消した。
+
+**最終結果：** R3-R10R1 の fresh audit **33/33 `COMPLETE_AND_WEB_VERIFIED`**、未完成0件。R3-R11R2 の Phase 末尾の現行アクティブ `tests/` 全体 pytest **3,546 PASS**（34.94秒、終了コード0）、Git 追跡済みファイル不変。これは登録済み $n=2$ の有限範囲だけの認定であり、任意の $(n,k)$ の証明完成とは異なる。
+
+### Phase 171 以降 — 現時点の調査方針（未実装）
+
+1. $n\ge3$ や現在の監査範囲外で、DB に明示された Goal を実際に探索し、未完成の Proof Tree・open goals・出典資格を先に確定する。
+2. `HyoujiGen.csv`、`sphere.csv`、Toda の採用済み転写の関係を、表示文字列ではなく型付き関係と引用可能な命題によって検証する。
+3. 必要な数学的根拠の不足が確認された対象に限り、既存の共通 Backward Search と Trust Boundary を再利用した最小限の修正を計画する。
+4. 全登録群の完成・原著全命題の数学的認証・旧 Definition の一括削除・生成元 family 別の個別実装を先取りしない。全体 pytest は次 Phase の末尾だけに実施する。
+
+以前の節にある「Phase 170 の範囲は未確定」は Phase 169 終了時の計画記録であり、本節を Phase 170 の確定済み結果として参照する。

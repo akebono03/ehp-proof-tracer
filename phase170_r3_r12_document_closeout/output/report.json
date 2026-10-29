@@ -1,0 +1,39 @@
+{
+  "phase": "170 R3-R12",
+  "apply": true,
+  "head": "25fca5d81b9bfb96b9989e4bae87489dc09ea12d",
+  "domain_report": "C:\\Users\\oomae\\AppData\\Local\\EHPProofTracerRecovery\\phase170_r3_r10_n2_33_20261029_045006_272086\\audit.json",
+  "domain_report_sha256": "c68ec16058cae6111281a7d73a69a951391e3cd9b480c66385cebbf1fa7b64c1",
+  "closeout_report": "C:\\Users\\oomae\\AppData\\Local\\EHPProofTracerRecovery\\phase170_r3_r11_active_closeout_20261029_051330_057437\\closeout.json",
+  "closeout_report_sha256": "7cebf9e4fd65a93675a0856cef3b0a5e15e6d59839a85b979a7234c7e541ae7d",
+  "documents": {
+    "README.md": {
+      "before_bytes": 6011,
+      "after_bytes": 8034,
+      "sha256": "c99cd29edf57cb34670fa056a82e75d4bec4f7a2fd3787e0932cb67421e85bf8"
+    },
+    "docs/design.md": {
+      "before_bytes": 101342,
+      "after_bytes": 104658,
+      "sha256": "445936e995a50c97f68e8f65834f5bba32e1a2029af0c960823e2c938929ea57"
+    },
+    "docs/development_log.md": {
+      "before_bytes": 111137,
+      "after_bytes": 114223,
+      "sha256": "9817dd5eb998219331328ebc958d718189261fef6f2ec69b723e8e5186112b0d"
+    },
+    "docs/roadmap.md": {
+      "before_bytes": 57656,
+      "after_bytes": 59526,
+      "sha256": "e39b0450e073b6190efff8504831aded2a62e8f1b33ef3f459058d29f4ce689c"
+    },
+    "docs/proof_records.md": {
+      "before_bytes": 90228,
+      "after_bytes": 93059,
+      "sha256": "ce5427c20e6b814d56c25ad0b111acb00ce7158f3ac1f10dba03bc482816310d"
+    }
+  },
+  "full_pytest_rerun": false,
+  "backup_root": "C:\\Users\\oomae\\AppData\\Local\\EHPProofTracerRecovery\\phase170_r3_r12_docs_20261029_053050_127200",
+  "result": "FIVE_DOCUMENTS_APPLIED"
+}
