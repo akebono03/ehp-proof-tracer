@@ -1,0 +1,11 @@
+{
+  "result": "PASS_CITED_DELTA_ZERO_AND_E_INJECTIVE_ONLY",
+  "delta_zero": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+  "e_injective": "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+  "proposition42_assertion_id": "shared:5:adopted:assertion:prop42:general",
+  "inferences": 18,
+  "given_leaves": 5,
+  "given_added": 0,
+  "pi63_proven": false,
+  "full_pytest": false
+}
