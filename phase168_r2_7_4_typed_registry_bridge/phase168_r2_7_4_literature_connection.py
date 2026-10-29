@@ -10,6 +10,7 @@ from phase163_r4_r11_literature_registration import register_prop56_literature_s
 from phase163_r4_r12_literature_registration import register_prop51_prop53_literature_statements
 from phase165_r6_explicit_literature_inputs import prop51_prop53_inputs, prop56_inputs
 from phase170_r3_r6_prop58_source import register_source_checked_prop58_pi73
+from phase170_r3_r9_toda712_cited_rewrite.source712 import register_cited_toda712_generator_equality
 from unified_statement_registry import UnifiedStatementRegistry
 
 
@@ -19,7 +20,9 @@ def connect_explicit_literature_components(base: RegistryBridgeResult) -> Regist
         raise TypeError("base must be RegistryBridgeResult")
     first = register_prop51_prop53_literature_statements(base, prop51_prop53_inputs())
     second = register_prop56_literature_statements(first.snapshot, prop56_inputs())
-    registered = register_source_checked_prop58_pi73(second.snapshot)
+    registered = register_cited_toda712_generator_equality(
+        register_source_checked_prop58_pi73(second.snapshot)
+    )
     if registered.proof_links != base.proof_links:
         raise ValueError("literature registration unexpectedly changed proof links")
 

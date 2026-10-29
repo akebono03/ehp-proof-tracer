@@ -270,7 +270,29 @@ def _eta2_inverse_image(generator: object, dimension: int) -> object | None:
     return None
 
 
-def _toda52_group_presentation_matches(source: object, target: object) -> bool:
+def _toda52_cited_generator_equality(
+    left: object, right: object, equality: object,
+) -> bool:
+    """One typed equality, cited as an independent proof premise.
+
+    No name matching, CSV equivalence or inferred relation authorizes this.
+    The relation must equate well-typed representatives of the same group.
+    """
+    if (not isinstance(equality, Relation)
+            or equality.relation_type is not RelationType.EQUALITY):
+        return False
+    typed_left = _typed_source_and_target(left)
+    if (typed_left is None or typed_left != _typed_source_and_target(right)
+            or typed_left != _typed_source_and_target(equality.lhs)
+            or typed_left != _typed_source_and_target(equality.rhs)):
+        return False
+    return ((left == equality.lhs and right == equality.rhs)
+            or (left == equality.rhs and right == equality.lhs))
+
+
+def _toda52_group_presentation_matches(
+    source: object, target: object, *, equality: object | None = None,
+) -> bool:
     """Check generator-wise eta_2 image for cyclic, direct-sum or zero groups."""
     from homotopy_groups import (
         DirectSumGroup, FreeCyclicGroup, TodaPrimaryGroupZeroStatement,
@@ -290,6 +312,9 @@ def _toda52_group_presentation_matches(source: object, target: object) -> bool:
         if right is None:
             return False
         if original.generator == right:
+            return True
+        if (equality is not None
+                and _toda52_cited_generator_equality(original.generator, right, equality)):
             return True
         equivalent = (FiniteCyclicGroup(original.order, right)
                       if isinstance(original, FiniteCyclicGroup)
@@ -325,26 +350,38 @@ def _toda52_group_presentation_matches(source: object, target: object) -> bool:
     return False
 
 
-def _toda52_ordered_db_rule(expected: object, source: object) -> InferenceRule:
-    """A verified earlier DB statement and cited (5.2) imply a typed image."""
-    if not _toda52_group_presentation_matches(source, expected):
+def _toda52_ordered_db_rule(
+    expected: object, source: object, *, equality: object | None = None,
+) -> InferenceRule:
+    """A verified earlier DB statement and cited (5.2), plus a cited equality if needed."""
+    if not _toda52_group_presentation_matches(source, expected, equality=equality):
         raise ValueError("unmatched eta_2 image of earlier group generators")
+    if (equality is not None
+            and (not isinstance(equality, Relation)
+                 or equality.relation_type is not RelationType.EQUALITY)):
+        raise ValueError("rewrite premise is not a typed equality")
 
     def guard(premises, bindings):
-        if len(premises) != 2:
+        expected_count = 3 if equality is not None else 2
+        if len(premises) != expected_count:
             return False
-        first, second = (item.conclusion for item in premises)
-        return (first == source
-                and _toda52_theorem_is_exact(second)
-                and _toda52_group_presentation_matches(source, expected))
+        first, second = (item.conclusion for item in premises[:2])
+        if first != source or not _toda52_theorem_is_exact(second):
+            return False
+        if equality is not None and premises[2].conclusion != equality:
+            return False
+        return _toda52_group_presentation_matches(source, expected, equality=equality)
 
+    patterns = (
+        PremisePattern(statement_type=type(source), statement_pattern=source),
+        PremisePattern(statement_type=Toda52UniversalStatement),
+    )
+    if equality is not None:
+        patterns += (PremisePattern(statement_type=Relation, statement_pattern=equality),)
     return InferenceRule(
         name="Toda (5.2) transport from an admitted earlier typed group",
-        description="Specialize (5.2) with a separately admitted group premise.",
-        premise_patterns=(
-            PremisePattern(statement_type=type(source), statement_pattern=source),
-            PremisePattern(statement_type=Toda52UniversalStatement),
-        ),
+        description="Specialize (5.2) with an admitted group and any required cited equality.",
+        premise_patterns=patterns,
         conclusion_pattern=expected,
         match_guard=guard,
         literature_reference=LiteratureReference(label="Toda (5.2)", locator="(5.2)"),
@@ -388,8 +425,23 @@ def expand_toda52_finite_cyclic_goal(goal: object, available: tuple[object, ...]
     if not precedes_db_goal(source_n, source_k, n, k):
         return ()
     source = exact_prior_database_result(source_n, source_k)
-    if source is None or not _toda52_group_presentation_matches(source, goal):
+    if source is None:
         return ()
+    if _toda52_group_presentation_matches(source, goal):
+        return tuple(GoalExpansion(
+            _toda52_ordered_db_rule(goal, source), (source, theorem),
+        ) for theorem in theorem_candidates)
+    # Require a separately screened, individually cited equality. A DB
+    # relation table or an uncited generator-name alias is not an axiom.
+    cited_equalities = tuple(item for item in available
+                             if isinstance(item, Relation)
+                             and item.relation_type is RelationType.EQUALITY
+                             and _toda52_group_presentation_matches(
+                                 source, goal, equality=item))
+    if len(cited_equalities) != 1:
+        return ()
+    equality = cited_equalities[0]
     return tuple(GoalExpansion(
-        _toda52_ordered_db_rule(goal, source), (source, theorem),
+        _toda52_ordered_db_rule(goal, source, equality=equality),
+        (source, theorem, equality),
     ) for theorem in theorem_candidates)
