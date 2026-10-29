@@ -1,0 +1,129 @@
+{
+  "phase": "171-R2J-R1",
+  "mode": "AUDIT_ONLY",
+  "git_head": "176766a70841853039b8efaac0a8661eac22686d",
+  "git_branch": "develop",
+  "pi63_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "proposition53_source": {
+    "adopted_text_contains_statement": true,
+    "locator": "Proposition 5.3",
+    "printed_scope": "n >= 2",
+    "original_printed_edition_independently_verified": false,
+    "audit_does_not_upgrade_registration": true
+  },
+  "proposition53_rows": [
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+      "content_type": "Relation",
+      "origin": "fixed_statement",
+      "publication_position": 8200,
+      "component_position": 100,
+      "precedence": true,
+      "screened_given": true,
+      "record_detail": "Typed source-unverified candidate; no proof ancestry certification",
+      "specializes_to_pi75": false,
+      "specialized_relation": null
+    },
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+      "content_type": "Relation",
+      "origin": "fixed_statement",
+      "publication_position": 8200,
+      "component_position": 200,
+      "precedence": true,
+      "screened_given": true,
+      "record_detail": "Typed source-unverified candidate; no proof ancestry certification",
+      "specializes_to_pi75": false,
+      "specialized_relation": null
+    },
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+      "content_type": "Relation",
+      "origin": "fixed_statement",
+      "publication_position": 8200,
+      "component_position": 300,
+      "precedence": true,
+      "screened_given": true,
+      "record_detail": "Typed source-unverified candidate; no proof ancestry certification",
+      "specializes_to_pi75": false,
+      "specialized_relation": null
+    },
+    {
+      "assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+      "content_type": "Relation",
+      "origin": "fixed_statement",
+      "publication_position": 8200,
+      "component_position": 400,
+      "precedence": true,
+      "screened_given": true,
+      "record_detail": "Typed source-unverified candidate; no proof ancestry certification",
+      "specializes_to_pi75": true,
+      "specialized_relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+    },
+    {
+      "assertion_id": "shared:0:phase163:archive:toda:tex:ch5:0006",
+      "content_type": "dict",
+      "origin": "source_archive",
+      "publication_position": 8200,
+      "component_position": null,
+      "precedence": false,
+      "screened_given": false,
+      "record_detail": "Source order only; mathematics and availability unverified",
+      "specializes_to_pi75": false,
+      "specialized_relation": null
+    }
+  ],
+  "positioned_pi75_schema_count": 1,
+  "r2i": {
+    "typed_root_reconstructed": true,
+    "root": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "inferences": 12,
+    "given_leaves": 3,
+    "pi63_group_proven_by_this_root": false
+  },
+  "pi75": {
+    "db_goal_count": 1,
+    "registered_goal_count": 1,
+    "chosen_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "expected_target": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "generator_exact_identity_with_r2i": false,
+    "target_structure_compatible": true,
+    "search_status": "complete",
+    "trust_boundary_verified": true,
+    "eligible_as_imported_proof_in_this_audit": false,
+    "open_goals": [],
+    "diagnostics": [],
+    "verification_error": null
+  },
+  "h_map": "TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5))",
+  "delta_map": "TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2))",
+  "h_delta_exactness": {
+    "indices": [
+      2,
+      7,
+      "h_delta"
+    ],
+    "source_count": 1,
+    "derived_from_cited_prop42": true,
+    "conclusion": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+  },
+  "existing_h_surjectivity_rule": {
+    "name": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+    "requires_delta_zero": true,
+    "subgoals": [
+      "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+      "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+    ],
+    "unsuitable_to_prove_delta_zero_from_h_surjectivity": true
+  },
+  "next_obligations": [
+    "Proposition 5.3 registration retains SOURCE_UNVERIFIED metadata",
+    "Cyclic-generator-in-image -> Hopf-surjective typed rule not established here",
+    "Do not infer Hopf surjectivity from Delta=0 before proving Delta=0"
+  ],
+  "pi63_group_proven": false,
+  "new_given_count": 0,
+  "production_modified": false,
+  "full_pytest_run": false
+}
