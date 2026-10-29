@@ -1,0 +1,27 @@
+"""Shared Phase 165 typed backward-search path. Never replay saved proofs.
+
+Typed source claims may be reused across goals; a source's role as a leaf
+is not a license to use an untyped archive or an earlier derived proof.
+"""
+from __future__ import annotations
+
+from dataclasses import replace
+from pathlib import Path
+
+from homotopy_groups import FreeCyclicGroup, TodaPrimaryGroup
+from phase163_r4_registry_bridge import RegistryBridgeResult
+from phase165_r14_r6_generic_iso import GeneratorImage, MapIsomorphism, expand_generic_iso_goal
+from phase165_r14_r9_ehp_exactness import expand_generic_ehp_hopf_goal
+from phase165_r14_r11_delta_zero import expand_delta_zero_from_suspension_iso
+from phase165_r14_r14_diagonal_and_prop42 import expand_diagonal_suspension
+from phase165_r14_r33_final_group import reverse_free_cyclic_transport_rule
+from phase165_r3_recursive_search import GoalExpansion
+from phase165_r6_2_unified_registry_r3_r4.context_provider_registry import build_context_expansion_provider_registry
+from phase165_r6_2_unified_registry_r3_r3.provider_registry import build_shared_expansion_provider_registry
+from phase165_r6_2_unified_registry_r1.unified_backward_rule_registry import build_unified_backward_rule_registry
+from phase165_r52_r2_search_adapter import search_registered_partial_proof
+from phase165_r52_partial_proof import GroupStructureStatus, ProofSearchStatus
+from proof import ProofRule, ProofStep, Relation, RelationType
+from unified_statement_registry import (
+    AssertionOrigin, UnifiedStatementRegistry,
+)

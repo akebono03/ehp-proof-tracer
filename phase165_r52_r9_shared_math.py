@@ -70,6 +70,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_reviewed_definitions,
         )
         sources = sources + (build_cited_reviewed_definitions(),)
+        from phase171_r2e_toda53_double_reference import (
+            build_adopted_toda53_double_reference,
+        )
+        sources = sources + (build_adopted_toda53_double_reference(production),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -150,8 +154,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
               if link.assertion_id not in hopf_relation_ids),
     )
     ordered, _order_report = connect_all_reference_orders(joined)
-    from phase166_r3p_position_binding import place_r3p_reference_positions
-    return place_r3p_reference_positions(ordered)
+    if default_sources:
+        from phase166_r3p_position_binding import place_r3p_reference_positions
+        return place_r3p_reference_positions(ordered)
+    return ordered
 
 
 def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tuple = (), *, proof_target=None, prior_conclusions: tuple = ()):

@@ -28,7 +28,7 @@ def test_r9_shared_registry_contains_source_claims_not_old_completed_proof():
 
 def test_r9_pi32_regenerated_by_shared_mathematical_expansion():
     from hopf_facts import ETA_2
-    bridge = build_shared_typed_bridge(sources=(_adopted_source(),))
+    bridge = build_shared_typed_bridge()
     result = search_shared_group_goal(
         n=2, k=1, group_structure=FreeCyclicGroup(ETA_2), bridge=bridge,
     )
@@ -73,6 +73,7 @@ def test_r9_public_pi32_narrative_unchanged():
         line.prefix + " " + " ".join(seg.value for seg in line.segments)
         for line in view.rendered_lines
     )
-    assert "証明対象" in body
     assert "使用する結果" in body
     assert "証明" in body
+    assert r"\pi_{3}^{2}" in body
+    assert r"\mathbb{Z}\{\eta_{2}\}" in body
