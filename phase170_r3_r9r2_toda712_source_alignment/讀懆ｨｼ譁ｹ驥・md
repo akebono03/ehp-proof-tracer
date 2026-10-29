@@ -1,0 +1,38 @@
+# Phase 170 R3-R9R2 検証方針
+
+## 現行コードの確認
+
+GitHub `develop` は 2026-10-29 に `fdf60522b6d477209e9d8d67720a63f9863e419c`
+と一致していることを確認した。`sources/toda/Toda_07_2.tex`、
+`phase168_r2_toda52_transport.py`、
+`phase168_r2_7_4_typed_registry_bridge/phase168_r2_7_4_literature_connection.py`、
+R3-R5 関連テストを確認した。
+
+R3-R9 の `source712.py` は未追跡ディレクトリにあるため、GitHub には存在しない。
+実行時に利用者の既存ファイルを AST で検証する。修正は `CLAUSE` 代入のみ。
+
+## 照合する出典
+
+現行 `Toda_07_2.tex` の、コメント化された `(7.12)` の直後にある `equation`
+環境の二つの等式を、改行・`\ov{\nu}`・`\qquad` を含めて照合する。
+`\bar{\nu}` を黙って同一視しない。
+
+## 限定テスト
+
+1. 追加した修正ツールの単体安全性テスト。
+2. 元の R3-R9 実行器に含まれる限定 pytest。
+3. R3-R9 の引用・推論・Web 検証用テストと、R9R2 の出典厳密性テスト。
+4. 必要なら `-AuditDomain` で R3-R8R2 の監査（全体 pytest ではない）。
+
+## 完了条件
+
+出典照合と限定テストが PASS した段階を第一段階とする。
+`pi_14^2` の `search_status=complete`、`open_goals=0`、Web
+`generic-complete-proof`、`WEB_PARTIAL=False`、引用の一致が第二段階。
+33件の `DOMAIN_COMPLETE=33`、`DOMAIN_GAPS=0` を第三段階とする。
+
+## 次段階との境界
+
+出典照合以外に新たな失敗が現れた場合、検証結果を保存したうえでその問題を
+別途監査する。型付き生成元の同一視、引用順序、登録済み DB の検証を緩めない。
+Phase の終了前に全体 pytest を行わない。
