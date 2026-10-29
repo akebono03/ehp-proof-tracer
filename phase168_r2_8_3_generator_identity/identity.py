@@ -52,8 +52,21 @@ def _factor_identity(expression, records):
             if expression.dimension < base_n:
                 continue
         else:
-            is_symbol = ((family == record["latex"] and index is None and decoration is None)
-                         or (family == "ν" and index == base_n and decoration in ("′", "'")))
+            is_symbol = (
+                (family == record["latex"] and index is None and decoration is None)
+                or (family == "ν" and index == base_n and decoration in ("′", "'"))
+                or (
+                    family == "ν"
+                    and index is None
+                    and decoration in ("′", "'")
+                    and identifier == 3
+                    and base_n == 3
+                    and stem == 3
+                    and record.get("kinds") == "1"
+                    and record["latex"] == r"\nu'"
+                    and record["display"] in ("ν'", "ν′")
+                )
+            )
             if expression.dimension != base_n:
                 continue
         if not is_symbol:
