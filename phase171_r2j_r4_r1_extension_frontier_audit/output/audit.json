@@ -1,0 +1,196 @@
+{
+  "phase": "171-R2J-R4-R1",
+  "mode": "AUDIT_ONLY",
+  "pi63_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "pi63_citing_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "screened_source_inventory": {
+    "Proposition 4.2 (4.4)": [
+      {
+        "assertion_id": "shared:5:adopted:assertion:prop42:general",
+        "locator": "Proposition 4.2 (4.4)",
+        "type": "TodaProp42GeneralExactnessStatement",
+        "statement": "TodaProp42GeneralExactnessStatement(source_assertion_id='phase163:archive:toda:tex:ch4:0005')",
+        "publication_position": 6800
+      }
+    ],
+    "(5.2)": [
+      {
+        "assertion_id": "shared:4:typed_literature:assertion:toda:tex:ch5:0003",
+        "locator": "(5.2)",
+        "type": "Toda52UniversalStatement",
+        "statement": "Toda52UniversalStatement(map_formula='alpha -> eta_2 o alpha', source_group='pi_i^3', target_group='pi_i^2', variable='i', minimum_i=3)",
+        "publication_position": 7900
+      }
+    ],
+    "Proposition 5.3": [
+      {
+        "assertion_id": "shared:0:boundary:Proposition 5.3:pi4_2_group_relation",
+        "locator": "Proposition 5.3",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8200
+      },
+      {
+        "assertion_id": "shared:0:boundary:Proposition 5.3:pi5_3_group_relation",
+        "locator": "Proposition 5.3",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8200
+      },
+      {
+        "assertion_id": "shared:0:boundary:Proposition 5.3:pi6_4_group_relation",
+        "locator": "Proposition 5.3",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8200
+      },
+      {
+        "assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+        "locator": "Proposition 5.3",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=2), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name=\"η_ScalarSymbol(name='n')\", dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None)), right=HomotopyElement(name=\"η_ScalarSum(left=ScalarSymbol(name='n'), right=1)\", dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), source=None, target=None, generator=GeneratorSymbol(family='η', index=ScalarSum(left=ScalarSymbol(name='n'), right=1), decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8200
+      }
+    ],
+    "(5.3)": [
+      {
+        "assertion_id": "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation",
+        "locator": "(5.3)",
+        "type": "Relation",
+        "statement": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8100
+      },
+      {
+        "assertion_id": "shared:12:toda:adopted:eq5.3:nu_prime_double_relation",
+        "locator": "(5.3)",
+        "type": "Relation",
+        "statement": "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8100
+      }
+    ],
+    "Proposition 5.1": [
+      {
+        "assertion_id": "shared:1:adopted:assertion:5",
+        "locator": "Proposition 5.1",
+        "type": "GeneratorImage",
+        "statement": "GeneratorImage(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElement(name='ι₃', dimension=3, source=3, target=3, generator=GeneratorSymbol(family='ι', index=3, decoration=None)))",
+        "publication_position": 7800
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional",
+        "locator": "Proposition 5.1",
+        "type": "TodaProp51FiniteDimensionalStatement",
+        "statement": "TodaProp51FiniteDimensionalStatement(pi3_2_group_relation=Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), eta2_hopf_relation=Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), delta_iota5_relation=TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)))), higher_eta_group_relation=Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(o",
+        "publication_position": 7800
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:pi4_3",
+        "locator": "Proposition 5.1",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 7800
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:eta2_hopf_relation",
+        "locator": "Proposition 5.1",
+        "type": "Relation",
+        "statement": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), rhs=HomotopyElement(name='ι_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='ι', index=3, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 7800
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:pi3_2_group_relation",
+        "locator": "Proposition 5.1",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), rhs=FreeCyclicGroup(generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 7800
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:delta_iota5_relation",
+        "locator": "Proposition 5.1",
+        "type": "TodaDeltaImageUpToSignStatement",
+        "statement": "TodaDeltaImageUpToSignStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2)), element=HomotopyElement(name='ι_5', dimension=5, source=None, target=None, generator=GeneratorSymbol(family='ι', index=5, decoration=None)), positive_value=Multiple(coefficient=2, expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None))))",
+        "publication_position": 7800
+      },
+      {
+        "assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+        "locator": "Proposition 5.1",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 7800
+      }
+    ],
+    "Proposition 5.6": [
+      {
+        "assertion_id": "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+        "locator": "Proposition 5.6",
+        "type": "Relation",
+        "statement": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "publication_position": 8800
+      }
+    ]
+  },
+  "pi63_target_registered_count": 1,
+  "pi52_db_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "pi52_registered_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "pi65_registered_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "nu_prime_double_source_screened": true,
+  "nu_prime_double_statement": "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "nu_prime_hopf_source_screened": true,
+  "nu_prime_hopf_statement": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "ehp_e_h_window_valid": true,
+  "ehp_e_h_window": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+  "suspended_pi52_generator_goal": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), source_generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), target_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))))",
+  "suspended_pi52_generator_frontier": {
+    "count": 1,
+    "names": [
+      "suspension preserves composition of separately proved maps"
+    ],
+    "subgoals": [
+      [
+        "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=3, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=3)), source_generator=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), target_generator=HomotopyElem",
+        "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4)), source_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Homoto"
+      ]
+    ]
+  },
+  "pi63_root_frontier": {
+    "count": 3,
+    "names": [
+      "finite cyclic structure gives group relation",
+      "equality symmetry",
+      "finite cyclic structure gives group relation"
+    ],
+    "subgoals": [
+      [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)"
+      ],
+      [
+        "Relation(lhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)"
+      ]
+    ]
+  },
+  "open_proof_obligations": [
+    "Prove the pi_5^2 group structure from earlier cited sources; never adopt Proposition 5.6 target as a premise",
+    "Prove E(eta_2^3)=eta_3 eta_4 eta_5 as a typed generator image",
+    "Prove H: pi_6^3 -> pi_6^5 surjective from cited H(nu')=eta_5 and the proved pi_6^5 generator",
+    "Derive the short exact extension and order four without importing the target group fact",
+    "Use the cited double relation and nonzero injected generator to prove nu-prime has order four",
+    "Construct the final pi_6^3 cyclic presentation using actual inference ancestry"
+  ],
+  "pi63_proven": false,
+  "given_added": 0,
+  "production_changed": false,
+  "full_pytest": false,
+  "r2j_r3_e_injective_inferred": true,
+  "r2j_r3_delta_zero_inferred": true,
+  "r2j_r3_ancestry_count": 23,
+  "git_head": "14a4617709a39818726a9a1271a443a94ba52dca"
+}
