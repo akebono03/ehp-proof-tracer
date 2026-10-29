@@ -3522,3 +3522,25 @@ Phase 169 の正式な終了対象は、R10ET までにレビューした型付�
 最終テスト Gate は、関連回帰 **67 PASS**、現行アクティブ `tests/` **3546 PASS**、FAIL 0、ERROR 0、終了コード0、Git index 保全 PASS。Gate 自身の限定テスト **8 PASS**。実行コマンドは `python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests`。`tests/conftest.py` の Phase 155 audit-only nodeid 除外を維持し、退避した歴史的テストを無制限に収集していない。
 
 **認定境界：** この合格は Phase 169 で対象にしたコード・証明表示・有限個の回帰の終了判定であり、任意の stem や全登録群の自動証明、文献上の全命題の独立した形式認証を意味しない。残存する数学的・DB 上の未達事項は次 Phase の監査で確定する。既存 API、Trust Boundary、退避テストの扱いを変更しない。
+
+<!-- PHASE170_FINAL_DOCUMENT_CLOSEOUT_20261029 -->
+
+## Phase 170 — $n=2$ の登録済み33件に対する型付き輸送と証明検証（2026-10-29）
+
+### 本番探索の数学的根拠と責務
+
+Phase 170 は、登録済み DB の $n=2$、$1\le k\le33$ を対象とし、$m=k+2$ で先行する $\pi_m^3$ の型付き群構造と Toda (5.2) の $\eta_2\circ-:\pi_m^3\xrightarrow{\cong}\pi_m^2$ を組み合わせる Backward Search（逆向き証明探索）経路を拡張した。巡回群および直和群の構造と生成元の対応は型付き演算により検査し、DB の表示文字列や生成元名の一致のみでは推論を採用しない。DB の群構造が Goal（証明目標）として与えられたことを、その Goal の証明済み GIVEN（既知の前提）とみなさない。
+
+特に $\pi_{14}^{2}$ では先行する $\pi_{14}^{3}$ の直和分解に現れる $\varepsilon_3\circ\nu_{11}$ と目標の $\nu'\circ\bar\nu_6$ が文字列として異なる。Toda (7.12) の型付き等式 $\varepsilon_3\circ\nu_{11}=\nu'\circ\bar\nu_6$ を出典付きの**独立した第3前提**として Proof Tree に加え、同じ生成元であるとの無根拠な仮定を拒否する。Toda (5.2)、先行群構造、Toda (7.12) の各根拠は既存の探索・引用採用・検証境界を通る。
+
+Toda (7.12) の引用は `sources/toda/Toda_07_2.tex` の採用済み TeX 転写を厳密に照合し、`HyoujiGen.csv` の生成元 ID から型付き等式を構築する。文献の掲載位置はこの転写データ内の順序であり、Toda 原著の刊行版の位置や記述が独立に校訂・認証されたことは意味しない。転写が一致しない場合は fail-closed（安全側で拒否）とする。
+
+### 標準 Web 経路と監査範囲
+
+公開経路は従来どおり、登録された型付き Goal → Backward Search → 検証済み Proof Tree → Proof Narrative Model → 共通 Renderer → Web とする。`phase170_r3_r8_n2_exhaustive_audit/audit.py` の独立 Worker によって各 $k=1,\ldots,33$ を再探索し、`generic-complete-proof`、`partial_result=False`、`open_goals=0`、検証済みステップと描画行の存在を確認した。R3-R10R1 の全33件で `COMPLETE_AND_WEB_VERIFIED`、未完了0件、既存追跡ファイルの変更なしだった。
+
+Phase 170 の終了 Gate では、同じ33件の監査レポートを個々の Worker 行まで検査したうえで、現行アクティブ `tests/` の pytest **3,546 PASS**（2026-10-29、34.94秒、終了コード0）、`FULL_SUITE_PASS`、`tracked_unchanged=True` を確認した。監査パッケージの追加による Git HEAD の変更は、数学的な本体ファイルの変更と区別して検証した。ここで「全体テスト」と呼ぶのは現行 `tests/` であり、退避された歴史的テストを含む無制限の全ファイル収集ではない。
+
+### 認定しない範囲
+
+登録済み $n=2$ の33件以外の Goal、全ての $n\ge3$、すべての stem、Toda 原著の全命題の数学的真理、任意の外部 `InferenceRule` は認定対象外である。旧 Renderer や個別生成元名に依存した例外的な証明を復活させず、既存 API と Trust Boundary を維持する。

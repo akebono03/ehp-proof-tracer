@@ -7541,3 +7541,47 @@ R10ET R6D の必須16群と追加3群は **19/19 PASS**、Trust PASS、共通 De
 Phase 終了時の関連回帰 **67 PASS**、アクティブな `tests/` **3546 PASS**（いずれも終了コード0、FAIL 0、ERROR 0）、Git index 保全 PASS を記録した。既存の Phase 168 固定基準（$\pi_3^2$、$\pi_4^3$、$\pi_5^4$）と Trust Boundary を維持するテストを含む。ただし現行の全テストの成功が、登録されていない命題や未検証の全ホモトピー群の完成証明を意味するものではない。
 
 **未認定領域：** 任意の $(n,k)$、すべての Toda 記述の数学的真理、任意の利用者定義推論、すべての DB 生成元関係。これらは必要な出典と型付き導出を次 Phase の監査で特定する。
+
+<!-- PHASE170_FINAL_DOCUMENT_CLOSEOUT_20261029 -->
+
+## 2026-10-29 — Phase 170：$n=2$ 登録済み33群の完成証明・出典記録
+
+### 対象と検証方式
+
+`data/sphere.csv` に登録された $n=2$、$1\le k\le33$ の33件（$\pi_{k+2}^{2}$）について、R3-R10R1 の独立 Worker を使い、型付き Backward Search と公開 Web の検証済み Narrative を毎件再生成した。**33/33 `COMPLETE_AND_WEB_VERIFIED`、`open_goals=0`、Web `generic-complete-proof`、`partial_result=False`、未完成0件**。過去の32件の監査結果を結合して得た数ではない。
+
+### 代表的な新規完成対象：$\pi_{14}^{2}$
+
+先行する登録済み群構造は次のとおり。
+
+$$
+\pi_{14}^{3}\cong
+\mathbb Z/4\{\mu'\}
+\oplus\mathbb Z/2\{\varepsilon_3\circ\nu_{11}\}
+\oplus\mathbb Z/2\{\nu'\circ\varepsilon_6\}.
+$$
+
+目標の DB 表示は次のとおり。
+
+$$
+\pi_{14}^{2}\cong
+\mathbb Z/4\{\eta_2\circ\mu'\}
+\oplus\mathbb Z/2\{\eta_2\circ\nu'\circ\bar\nu_6\}
+\oplus\mathbb Z/2\{\eta_2\circ\nu'\circ\varepsilon_6\}.
+$$
+
+Toda (5.2) の $\eta_2\circ-:\pi_{14}^{3}\xrightarrow{\cong}\pi_{14}^{2}$ は群の輸送を与えるが、それだけでは $\varepsilon_3\circ\nu_{11}$ と $\nu'\circ\bar\nu_6$ の表示の差を正当化できない。Toda (7.12) に記された
+
+$$
+\varepsilon_3\circ\nu_{11}=\nu'\circ\bar\nu_6
+$$
+
+を引用付きの型付き等式前提として別に採用し、先行群構造・Toda (5.2)・Toda (7.12) を用いる Proof Tree を完成した。R3-R9R2 では探索 `complete`、`open_goals=0`、`proven_steps=4`、Web 完成表示を確認し、元の限定テスト46件・追加12件が PASS した。
+
+Toda (7.12) の根拠は `sources/toda/Toda_07_2.tex` の**採用済み転写**と `data/HyoujiGen.csv` の型付き生成元 ID との照合である。TeX 上の表記 `\ov{\nu}_6`、式番号の周辺構文、改行を一致させており、元の刊行版を独立に照合したとの主張はしない。与えられた命題の採録と、その命題から結論への型付き推論を区別する。
+
+### 終了監査記録と認定範囲
+
+33件 fresh audit：`%LOCALAPPDATA%/EHPProofTracerRecovery/phase170_r3_r10_n2_33_20261029_045006_272086/audit.json`。Phase 終了テスト：`%LOCALAPPDATA%/EHPProofTracerRecovery/phase170_r3_r11_active_closeout_20261029_051330_057437/closeout.json`。終了時の現行 `tests/` は **3546 PASS、0 FAIL、0 ERROR、34.94秒、終了コード0**、追跡済みファイル不変。退避済みの歴史的テストは含まない。
+
+**検証境界：** 全33件の search/Web 完成表示とその根拠を確認した記録であり、任意のホモトピー群・全ての書誌原典・生成元名の暗黙の等式・任意の外部推論規則の正しさを包括的に認証するものではない。

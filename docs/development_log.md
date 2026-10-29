@@ -7956,3 +7956,23 @@ R10ET R5D〜R6D の実装と限定監査、R10ET Closeout R2A の主要文書5�
 **Phase 169 は、上記テストと R10ET の既存監査で検証済みの実装範囲について終了と判定する。** 記録更新は証明探索の新機能・命題登録・既存 API 変更を伴わない。対象外 Goal の partial を complete と扱わず、19件の監査から任意の stem の数学的証明完成を主張しない。
 
 次 Phase では、未完成の数学的対象と群構造・関係式・生成元 DB の登録状況を現行コードから監査し、必要最小限の変更だけを新たな Phase の責務として定める。旧方式の無条件再導入・文献命題の真偽の自動認証・未検証の一般化は実施しない。
+
+<!-- PHASE170_FINAL_DOCUMENT_CLOSEOUT_20261029 -->
+
+## 2026-10-29 — Phase 170 終了（登録済み $n=2$ 群の証明完成・全体テスト）
+
+### 実装と失敗原因の監査履歴
+
+R3-R7 では Toda (5.2) の $\eta_2\circ -$ による $\pi_m^3$ から $\pi_m^2$ への型付き輸送を実装し、巡回群と直和群の構造を先行する出典・DB Goal と区別した。R3-R8 の初期全件監査で $n=2$、$k=1,\ldots,33$ の32件が完成したが、$k=12$ は当初 Worker の Windows `cp932` 出力エラーによって失敗と記録された。R3-R8R2 で UTF-8 を固定して再評価した結果、$\pi_{14}^{2}$ の数学的 Goal が未完成であることが明らかになった。
+
+R3-R9 は Toda (7.12) にある $\varepsilon_3\circ\nu_{11}=\nu'\circ\bar\nu_6$ を、型付きで引用された独立した等式前提として導入した。初回の照合は TeX 転写の空白・`\ov{\nu}` 表記に一致せず失敗したため、R3-R9R2 で採用済み `sources/toda/Toda_07_2.tex` の実際の式と一致させた。限定 pytest **46 PASS**、追加テスト **12 PASS**、$\pi_{14}^{2}$ は `complete`、`open_goals=0`、`proven_steps=4`、Web `generic-complete-proof` を確認した。転写の出典資格と、原著刊行版における独立校訂は区別する。
+
+R3-R10R1 の fresh audit（過去の32件を流用しない全件再探索）では、$k=1$ から33まで **33/33 `COMPLETE_AND_WEB_VERIFIED`**、`DOMAIN_GAPS=0`、追跡済み変更なし。限定契約テストは **19 PASS**。監査時 Git HEAD は `08382968b5359d6c956b48acec333f127014d4c8`、その後の HEAD `84db682e179203dcbddc1c2c88bc3ccbb31a830f` までの差分は監査パッケージの追加だけだった。日本語ファイル名が `core.quotePath` により八進数表示された問題は、監査用 Git コマンドの UTF-8 パス取得に限定して修正した。
+
+### 終了 Gate と証拠
+
+R3-R11R2 の終了実行では、33件すべてを含む監査レポートを再照合した後、`python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests` を**Phase 170 の終了時に1回**実行した。結果は **3546 passed in 34.94s**、終了コード0、`PHASE170_R3R11_RESULT=FULL_SUITE_PASS`、`PHASE170_R3R11_TRACKED_UNCHANGED=True`。DryRun も PASS。報告ファイルは Windows の `%LOCALAPPDATA%/EHPProofTracerRecovery/phase170_r3_r11_active_closeout_20261029_051330_057437/closeout.json`、全33件のレポートは同 `phase170_r3_r10_n2_33_20261029_045006_272086/audit.json`。詳細は元の JSON と Worker ログを参照し、文書更新で元の証拠を改変しない。
+
+### Phase 境界
+
+完成認定は登録済み $n=2,1\le k\le33$ の探索と Web 公開経路の監査結果に限る。すべてのホモトピー群、未登録の高次群、すべての Toda 原典の正しさを証明したものではない。Phase 171 以降は未完成の実在する Goal と、型付き命題・出典・生成元情報の不足を個別に調査してから最小限の変更を選ぶ。
