@@ -1,0 +1,11 @@
+# Phase 171 R2I 監査仕様
+
+対象は $H(\nu'\circ\eta_6)=\eta_5^2$ までであり、$\pi_6^3$ の完成証明ではない。
+
+引用前提は Toda Proposition 2.2 の一般右 Hopf 合成公式、Toda (5.3) の $H(\nu')=\eta_5$、Chapter V の一般 $\eta$ 定義のみ。各前提は `screen_shared_proof_context` により文献掲載順で検査する。
+
+$\eta_5$ と $\eta_6$ の Definition 特殊化から既存の `GeneratorSuspension` を導き、その `INFERENCE` を前提として $E\eta_5=\eta_6$ を導く。等式の対称性、左合成による等式保存、EHP H による等式保存、2回の推移律は既存規則をそのまま利用する。
+
+最後の $\eta_5^2$ は型付き `Composition(eta_5, eta_6)` の表記であり、文献掲載の別の等式や新しい `GIVEN` ではない。
+
+証明木の `GIVEN` 祖先は3件とし、DB の群構造と未検証の `GeneratorSuspension` が混入しないことを監査する。全体 pytest は Phase 171 終了時に限る。

@@ -1,0 +1,29 @@
+{
+  "status": "INFERRED",
+  "reason": null,
+  "open_goals": [],
+  "proof_inferences": 10,
+  "proof_given_leaves": 1,
+  "source_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+  "image_goal": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), source_generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), target_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))))",
+  "inference_rule_names": [
+    "suspension preserves composition of separately proved maps",
+    "proved suspension of generator supplies generator image",
+    "consecutive cited eta definitions imply generator suspension",
+    "specialize cited eta-family general definition",
+    "specialize cited eta-family general definition",
+    "suspension preserves composition of proved eta generators",
+    "consecutive cited eta definitions imply generator suspension",
+    "specialize cited eta-family general definition",
+    "consecutive cited eta definitions imply generator suspension",
+    "specialize cited eta-family general definition"
+  ],
+  "group_pi63_proven": false,
+  "new_given_added": 0,
+  "phase": "171-R2J-R4-R2",
+  "mode": "READ_ONLY_INFERENCE_REPLAY",
+  "git_head": "f7c0dc4263cf99bc2e1362494419c199517b5e9c",
+  "tracked_status_unchanged": true,
+  "production_modified": false,
+  "full_pytest": false
+}

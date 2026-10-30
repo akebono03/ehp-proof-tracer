@@ -284,6 +284,20 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_cited_prop22_right_formula,
         )
         options.extend(expand_cited_prop22_right_formula(goal, tuple(available)))
+        from phase171_r2i_eta_hopf_bridge.source import (
+            expand_cited_eta_hopf_power,
+        )
+        options.extend(expand_cited_eta_hopf_power(goal, tuple(available)))
+        from phase171_r2j_r2_cyclic_hopf_surjective.source import (
+            expand_cited_cyclic_hopf_surjectivity,
+        )
+        options.extend(expand_cited_cyclic_hopf_surjectivity(
+            goal, tuple(available), proof_target=proof_target,
+        ))
+        from phase171_r2j_r3_ehp_exactness.source import (
+            expand_cited_ehp_surjectivity_consequences,
+        )
+        options.extend(expand_cited_ehp_surjectivity_consequences(goal))
         options.extend(expand_finite_cyclic_relation(goal))
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,

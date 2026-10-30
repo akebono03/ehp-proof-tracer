@@ -1,0 +1,21 @@
+{
+  "result": "PASS_CITED_H_SURJECTIVE_ONLY",
+  "hopf_map": "TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5))",
+  "group": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "r2i_image": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "prop53_assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+  "inferences": 14,
+  "given_leaves": 4,
+  "given_conclusions": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=2), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name=\"η_ScalarSymbol(name='n')\", dimension=ScalarSymbol(name='n'), source=None, target=None, generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None)), right=HomotopyElement(name=\"η_ScalarSum(left=ScalarSymbol(name='n'), right=1)\", dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), source=None, target=None, generator=GeneratorSymbol(family='η', index=ScalarSum(left=ScalarSymbol(name='n'), right=1), decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+    "TodaProp22RightFormula()",
+    "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "delta_zero_proven": false,
+  "pi63_proven": false,
+  "adopted_prop53_text_matched": true,
+  "original_edition_verified": false,
+  "registration_status_not_upgraded": true,
+  "full_pytest": false
+}
