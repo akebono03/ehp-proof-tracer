@@ -1,0 +1,242 @@
+{
+  "phase": "171-R2J-R4-R9-R19",
+  "mode": "READ_ONLY_RIGHT_END_GROUP_SOURCE_AND_PROVIDER_DIAGNOSTIC",
+  "right_end_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "r18_screened_error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+  "r18_public_error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+  "status": "unresolved",
+  "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+  "provider_route_count": 6,
+  "provider_routes": [
+    {
+      "rule": "finite cyclic structure gives group relation",
+      "subgoals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+      ]
+    },
+    {
+      "rule": "cited stable eta-family notation for iterated transport",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+      ]
+    },
+    {
+      "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule": "generic cited typed scalar specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule": "equality symmetry",
+      "subgoals": [
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "rule": "finite cyclic structure gives group relation",
+      "subgoals": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+      ]
+    }
+  ],
+  "exact_prior_screened_sources": [],
+  "eligible_eta_general_sources": [
+    {
+      "id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+      "locator": "Proposition 5.1",
+      "specialization_matches_right": "True"
+    }
+  ],
+  "eta_general_source_count": 1,
+  "eta_specialization_route_count": 1,
+  "eta_specialization_routes": [
+    {
+      "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "general_scalar_route_count": 1,
+  "general_scalar_routes": [
+    {
+      "rule": "generic cited typed scalar specialization",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "recursive_resolve_calls": 29,
+  "origin_events": [
+    {
+      "kind": "no_derivation",
+      "target": "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))))",
+      "candidate_rule": "",
+      "active_last": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name=",
+        "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(famil",
+        "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol("
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), multiple=2)",
+      "candidate_rule": "certified cyclic suspension kernel entails kernel multiple",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name=",
+        "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(famil"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), target_generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), multiple=2)",
+      "candidate_rule": "first isomorphism theorem for generated kernel",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name="
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+      "candidate_rule": "infinite cyclic quotient structure",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2), order=2)",
+      "candidate_rule": "",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2), order=2)"
+      ]
+    },
+    {
+      "kind": "cycle",
+      "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "candidate_rule": "",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "candidate_rule": "equality symmetry",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2), order=2)",
+      "candidate_rule": "",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2), order=2)"
+      ]
+    },
+    {
+      "kind": "cycle",
+      "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "candidate_rule": "",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "candidate_rule": "equality symmetry",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))))",
+      "candidate_rule": "",
+      "active_last": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name=",
+        "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(famil",
+        "SuspensionKernelFreeCyclicStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), kernel_group=FreeCyclicGroup(generator=Multiple(coefficient=2, expression=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol("
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), multiple=2)",
+      "candidate_rule": "certified cyclic suspension kernel entails kernel multiple",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name=",
+        "KernelMultipleStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(famil"
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name='η_4', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), target_generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), multiple=2)",
+      "candidate_rule": "first isomorphism theorem for generated kernel",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+        "QuotientIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)), domain=TodaPrimaryGroup(group_dimension=5, sphere_dimension=4), codomain=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), source_generator=HomotopyElement(name="
+      ]
+    },
+    {
+      "kind": "no_derivation",
+      "target": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)",
+      "candidate_rule": "infinite cyclic quotient structure",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+      ]
+    },
+    {
+      "kind": "ambiguous_derivations",
+      "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "candidate_rule": "finite cyclic structure gives group relation",
+      "active_last": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ]
+    }
+  ],
+  "origin_counts": {
+    "no_derivation": 12,
+    "cycle": 2,
+    "ambiguous_derivations": 1
+  },
+  "r18_source_id_set_equal": false,
+  "new_given": 0,
+  "source_changes": 0,
+  "completed_proof_imported": false,
+  "trust_boundary_modified": false,
+  "full_pytest": false,
+  "classification": "RIGHT_GROUP_AMBIGUOUS_DERIVATIONS",
+  "git_head": "7d4bcbf2d5e49b82df70973af53d3254cc9c099d",
+  "r18_sha256": "6ff319104be8a2d2d482866b7f23bc847b55d7656b0d8eb72fe06451c63d6f53",
+  "tracked_status_unchanged": true
+}
