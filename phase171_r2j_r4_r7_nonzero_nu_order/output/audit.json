@@ -1,0 +1,32 @@
+{
+  "phase": "171-R2J-R4-R7",
+  "mode": "READ_ONLY_TYPED_NONZERO_AND_ELEMENT_ORDER_REPLAY",
+  "status": "INFERRED",
+  "prior_source": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "e_injective": "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+  "double_relation": "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "cardinality": "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+  "nonzero_image": "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))))",
+  "nonzero_double": "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))))",
+  "element_order": "FiniteElementOrder(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), order=4)",
+  "inferences": 37,
+  "given_leaves": 11,
+  "verified_source_ids": [
+    "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+    "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+    "shared:7:adopted:assertion:toda5:eta_family_definition",
+    "shared:13:toda:adopted:prop2.2:right_hopf_formula",
+    "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation",
+    "shared:5:adopted:assertion:prop42:general",
+    "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+    "shared:12:toda:adopted:eq5.3:nu_prime_double_relation"
+  ],
+  "new_given_added": 0,
+  "nu_prime_double_nonzero_proven": true,
+  "nu_prime_order_four_proven": true,
+  "pi63_cyclic_presentation_proven": false,
+  "production_modified": false,
+  "full_pytest": false,
+  "git_head": "2655b64e37221c30cb75519b26018c974fab1a43",
+  "tracked_status_unchanged": true
+}
