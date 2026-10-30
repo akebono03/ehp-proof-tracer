@@ -313,6 +313,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_full_order_cyclic_structure(goal, tuple(available)))
         from phase171_r2j_r4_r5_short_exact_sequence.source import expand_ehp_short_exact
         options.extend(expand_ehp_short_exact(goal))
+        from phase171_r2j_r4_r9_r11_public_eta_symmetry.source import (
+            expand_reverse_cited_eta_hopf_equalities,
+        )
+        directed = expand_reverse_cited_eta_hopf_equalities(goal, tuple(available))
+        if directed:
+            return directed
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,
         )
