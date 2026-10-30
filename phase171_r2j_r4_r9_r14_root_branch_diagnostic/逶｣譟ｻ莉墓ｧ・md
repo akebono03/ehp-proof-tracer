@@ -1,0 +1,55 @@
+# Phase 171 R2J-R4-R9-R14 監査仕様
+
+## 目的
+
+R13 により、公開探索の一経路で `forward → reverse → forward` の循環が観測された。しかし `reconstruct_registered_goal()` は `RegisteredGoalUnresolved` を捕捉し、次の `GoalExpansion` の検証を続ける。そのため、循環を公開探索未完成の唯一の原因とみなすことはできない。
+
+R14 では、公開探索を変更せず、既存の共通探索器内部で発生する例外を観測し、失敗した候補と不足した前提を分類する。
+
+## 既存ファイルの扱い
+
+- 既存ソース、クラス、関数、テストの変更は **0**。
+- `phase165_r3_recursive_search.py` にパッチを加えない。
+- `phase165_r52_r9_shared_math.py` にパッチを加えない。
+- 証明木の再利用、新規 `GIVEN`、特例の数学的推論、Trust Boundary の変更を行わない。
+
+## 新規ファイル・関数・クラス
+
+| ファイル | 追加要素 | 追加位置 |
+|---|---|---|
+| `audit.py` | `git_read`, `preflight`, `same`, `role`, `short`, `classify_error` | import・定数の直後 |
+| `audit.py` | `CanonicalResolveTrace` | 上記の関数群の直後 |
+| `audit.py` | `ExactProviderObserver` | `CanonicalResolveTrace` の直後 |
+| `audit.py` | `summarize`, `inspect_root`, `main` | クラスの直後 |
+| `tests/test_audit.py` | `_targets`、6件の限定テスト | import の直後 |
+| `run.ps1` | DryRun／限定 pytest／監査実行 | 新規スクリプト全体 |
+
+コード全文は `CODE_FULL_JA.md` と個別ファイルに収録する。既存の import は変更しない。
+
+## 調査方法
+
+1. Git の `develop` と、コミット済み Provider の Blob SHA と、作業ツリーの一致を読み取り検査する。
+2. R11 の引用文献で特定される $\nu'\circ\eta_6=\nu'\circ E\eta_5$ とその逆向き Goal の型付き値を求める。
+3. 元の Provider が返す `GoalExpansion` タプルを変更せず、候補の並びと前提を収集する。
+4. `sys.settrace()` を `with` 節内だけ有効にし、元の `resolve()` が発生・伝播させた `RegisteredGoalUnresolved` を観測する。
+5. `with` 節の終了時に必ず元の trace hook に復旧する。既存のデバッガ trace がある場合は実行を拒否する。
+6. 循環と無証明候補と複数導出を区別して `output/audit.json` に記録する。
+7. 監査の前後で追跡済みソースの Git 状態が変わらないことを確認する。
+
+## 限界と判定
+
+- `origin_counts` は例外の発生点の集計。`exception_counts` は親の探索へ伝播した分を含む。
+- 提示された最初の未解決 Goal は、探索が試したすべての経路が循環したことの証明にはならない。
+- `no_derivation` や `ambiguous_derivations` の観測だけでも根本原因とは断定しない。必ず根の候補と探索時の前提を照合する。
+- 根が `complete` となっても、この監査だけでは Web の完成証明を認定しない。
+
+## 限定テスト
+
+`python -m pytest -q -p no:cacheprovider phase171_r2j_r4_r9_r14_root_branch_diagnostic/tests/test_audit.py`
+
+全体 pytest は Phase 終了時のみ行う。
+
+## 完了条件と次の境界
+
+- R14 完了条件：監査ログ・例外分類・候補一覧が出力され、既存ソースの変更なしで限定テストが通過すること。
+- R15 境界：R14 の結果を読んでから初めて、必要であれば一般的な探索器の変更を提案する。循環拒否・唯一性チェック・Trust Boundary を先に緩和しない。
