@@ -311,6 +311,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_cited_full_order_cyclic_structure,
         )
         options.extend(expand_cited_full_order_cyclic_structure(goal, tuple(available)))
+        from phase171_r2j_r4_r5_short_exact_sequence.source import expand_ehp_short_exact
+        options.extend(expand_ehp_short_exact(goal))
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,
         )
