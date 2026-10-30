@@ -1,0 +1,32 @@
+{
+  "phase": "171-R2J-R4-R9-R6",
+  "mode": "AUDIT_ONLY_SOURCE_BOUND_SECOND_CITED_HOPF",
+  "source_assertion_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+  "source_locator": "Proposition 5.1",
+  "bound_group": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "second_hopf": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+  "bound_group_inferred": true,
+  "second_hopf_surjective_inferred": true,
+  "second_hopf_premise_rules": [
+    "inference",
+    "given"
+  ],
+  "first_hopf_preserved": true,
+  "scoped_search_status": "complete",
+  "scoped_search_complete": true,
+  "scoped_proven_steps": 46,
+  "scoped_open_goals": [],
+  "first_unresolved_goal": null,
+  "scoped_diagnostics": [],
+  "trust_boundary_accepted": true,
+  "trust_boundary_result": [
+    37,
+    9
+  ],
+  "new_given_added": 0,
+  "public_provider_modified": false,
+  "public_web_verified": false,
+  "full_pytest": false,
+  "git_head": "54a372a9370404d65d42a5b8d8693c8f64de2b03",
+  "tracked_status_unchanged": true
+}
