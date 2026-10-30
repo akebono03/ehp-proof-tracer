@@ -105,9 +105,17 @@ def scoped_provider(available: tuple[object, ...]):
         raise ValueError("only the cited general eta definition may enter this scope")
 
     def expand(goal: object):
+        # Match the production provider's precedence: a cited, typed eta
+        # composite inference takes priority over the generic composition
+        # inference.  Offering both can produce two distinct valid proof trees
+        # for one goal, which the shared proof search correctly rejects.
+        eta_options = expand_cited_eta_generator(goal)
+        composite_options = (
+            () if eta_options else expand_composite_generator_image(goal)
+        )
         return (
-            expand_composite_generator_image(goal)
-            + expand_cited_eta_generator(goal)
+            eta_options
+            + composite_options
             + expand_cited_eta_definition(goal, available)
         )
 
@@ -227,6 +235,13 @@ def main() -> None:
     outfile = OUTPUT / "audit.json"
     outfile.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("PHASE171_R2J_R4_R2_IMAGE_REPLAY=" + report["status"], flush=True)
+    if report["status"] == "UNFINISHED":
+        print("PHASE171_R2J_R4_R2_REASON=" + report["reason"], flush=True)
+        for index, item in enumerate(report["open_goals"][:12]):
+            print("PHASE171_R2J_R4_R2_OPEN_GOAL_" + str(index) + "=" + item, flush=True)
+    else:
+        print("PHASE171_R2J_R4_R2_INFERENCES=" + str(report["proof_inferences"]), flush=True)
+        print("PHASE171_R2J_R4_R2_GIVEN_LEAVES=" + str(report["proof_given_leaves"]), flush=True)
     print("PHASE171_R2J_R4_R2_GIVEN_ADDED=0", flush=True)
     print("PHASE171_R2J_R4_R2_PI63_PROVEN=False", flush=True)
     print("PHASE171_R2J_R4_R2_TRACKED_STATUS_UNCHANGED=PASS", flush=True)

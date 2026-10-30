@@ -18,6 +18,7 @@ from phase171_r2j_r4_r2_generator_image_replay.audit import (
     scoped_provider,
 )
 from proof import ProofRule, ProofStep
+from toda_rules import toda_eta_family_definition_statement
 
 
 def _eta(n: int) -> HomotopyElement:
@@ -92,3 +93,42 @@ def test_proof_ancestry_preserves_real_rule_tags():
     assert proof_ancestry(root) == (root, leaf)
     assert all(step.rule in (ProofRule.GIVEN, ProofRule.INFERENCE)
                for step in proof_ancestry(root))
+
+
+def test_scoped_provider_prefers_existing_cited_eta_pair_over_generic_rule():
+    eta3 = toda_eta_family_definition_statement(3).element
+    eta4 = toda_eta_family_definition_statement(4).element
+    eta5 = toda_eta_family_definition_statement(5).element
+    goal = GeneratorImage(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(5, 3), TodaPrimaryGroup(6, 4),
+        ),
+        Composition(eta3, eta4),
+        Composition(eta4, eta5),
+    )
+    assert len(expand_composite_generator_image(goal)) == 1
+    provider = scoped_provider((TodaEtaFamilyGeneralDefinition(),))
+    options = provider(goal)
+    assert len(options) == 1
+    assert options[0].rule.name == "suspension preserves composition of proved eta generators"
+    assert all(not isinstance(item, ProofStep) for item in options[0].subgoals)
+
+
+def test_scoped_provider_uses_generic_rule_for_nested_triple_composition():
+    eta2 = toda_eta_family_definition_statement(2).element
+    eta3 = toda_eta_family_definition_statement(3).element
+    eta4 = toda_eta_family_definition_statement(4).element
+    eta5 = toda_eta_family_definition_statement(5).element
+    goal = GeneratorImage(
+        TodaSuspensionMap(
+            TodaPrimaryGroup(5, 2), TodaPrimaryGroup(6, 3),
+        ),
+        Composition(eta2, Composition(eta3, eta4)),
+        Composition(eta3, Composition(eta4, eta5)),
+    )
+    provider = scoped_provider((TodaEtaFamilyGeneralDefinition(),))
+    options = provider(goal)
+    assert len(options) == 1
+    assert options[0].rule.name == "suspension preserves composition of separately proved maps"
+    assert len(options[0].subgoals) == 2
+    assert all(isinstance(item, GeneratorImage) for item in options[0].subgoals)
