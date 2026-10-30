@@ -1,0 +1,20 @@
+{
+  "phase": "171-R2J-R4-R4",
+  "mode": "READ_ONLY_CITED_HOPF_SURJECTIVITY_REPLAY",
+  "status": "INFERRED",
+  "hopf_assertion_id": "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation",
+  "prior_group_source_id": "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+  "source_group_relation": "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "prior_group_inferred": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "cited_hopf_image": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "conclusion": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+  "root_rule": "proved cyclic codomain and cited Hopf generator image imply surjectivity",
+  "inferences": 2,
+  "given_leaves": 2,
+  "new_given_added": 0,
+  "pi63_group_proven": false,
+  "production_modified": false,
+  "full_pytest": false,
+  "git_head": "e411db61071ba92a6c7754793e8399b9c3a46dc6",
+  "tracked_status_unchanged": true
+}
