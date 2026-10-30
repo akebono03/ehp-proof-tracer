@@ -1,0 +1,19 @@
+{
+  "phase": "171-R2J-R4-R3",
+  "mode": "READ_ONLY_TYPED_INFERENCE_REPLAY",
+  "status": "INFERRED",
+  "double_source_id": "shared:12:toda:adopted:eq5.3:nu_prime_double_relation",
+  "eta_definition_source_id": "shared:7:adopted:assertion:toda5:eta_family_definition",
+  "double_source": "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "generator_image": "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), source_generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), target_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))))",
+  "derived_relation": "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "root_inference_rule": "substitute independently proved typed suspension image into cited equality",
+  "inferences": 11,
+  "given_leaves": 2,
+  "new_given_added": 0,
+  "pi63_group_proven": false,
+  "production_modified": false,
+  "full_pytest": false,
+  "git_head": "e953d3655d567511a3c9dd4650154c499fd5b1f1",
+  "tracked_status_unchanged": true
+}
