@@ -1,0 +1,37 @@
+# Phase 171 R2J-R4-R9-R2 — 共通探索への限定接続監査
+
+## 現状と目標
+
+R4-R8 は `$\pi_6^3\cong\mathbb Z/4\{\nu'\}$` の独立した `INFERENCE` 証明木を構築済み。一方 R4-R9-R1 監査では、公開 Provider からその規則系列へ接続されておらず `search_failed`、Web は未完成である。
+
+本監査は R4-R8 の証明木から **規則と未証明の前提目標だけ** を抽出し、共通 `search_registered_partial_proof()` で初めから再帰的に導出できるか確かめる。さらに完成した場合に限って、既存 `verify_proof_tree_for_narrative()` を通す。
+
+## 変更対象（追加位置、クラス・関数）
+
+- 新規 `phase171_r2j_r4_r9_r2_scoped_search_bridge/source.py`：`walk_proof_ancestry()`、`inference_expansion_catalog()`、`scoped_expansion_provider()`。新規フォルダ直下へ配置。
+- 新規 `phase171_r2j_r4_r9_r2_scoped_search_bridge/audit.py`：`_git()`、`replay_scoped_search()`、`main()`。新規フォルダ直下へ配置。
+- 新規 `tests/test_audit.py`：7テスト関数と `_fixture()`。新規 `tests/` 内。
+- 新規 `tests/test_live_scoped.py`：実リポジトリの再探索テスト1件。新規 `tests/` 内。
+- 新規 `run.ps1`、`__init__.py`、`tests/__init__.py`、`README.md`、`監査仕様.md`、`CODE_FULL_JA.md`。
+- 既存のクラス・関数・import の変更はない。
+
+## 信頼境界
+
+1. 参照用の R4-R8 `ProofStep` 自体は Search Engine に渡さない。
+2. `GoalExpansion` の Rule と subgoals を局所 Provider に登録するだけとし、共通 Search Engine が証明を独立再構成する。
+3. `GIVEN` の検索は実際の `screened` Registry の `ProofStepLink` に限定する。
+4. 生成元・位数に関する DataBase 行から定理を生成しない。
+5. 完成時のみ `verify_proof_tree_for_narrative()` を呼び、未完成の場合は状態をそのまま記録する。
+6. 公開 `shared_expansion_provider()`、Web、Renderer、既存 API は変更しない。
+
+## 限定テスト
+
+`python -B -m pytest -q -p no:cacheprovider phase171_r2j_r4_r9_r2_scoped_search_bridge/tests/test_audit.py phase171_r2j_r4_r9_r2_scoped_search_bridge/tests/test_live_scoped.py`
+
+合計8件。全体 pytest は Phase 171 終了時のみ実施。
+
+## 完了条件と次段階
+
+本監査の完了条件は、限定 pytest が PASS、Audit が正常終了し、探索状態・Trust Boundary の判定を `audit.json` に正確に記録すること。`SCOPED_SEARCH=complete` と `TRUST_VERIFIED=True` は望ましいが、監査自体の PASS と同義ではない。
+
+次段階 R4-R9-R3 では監査結果に基づき、推論規則を共通 Provider に最小限接続して公開 Search と Web で完成証明を検証する。本監査では公開経路を変更せず、先取りしない。
