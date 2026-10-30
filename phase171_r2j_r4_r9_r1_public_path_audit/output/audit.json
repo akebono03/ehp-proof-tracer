@@ -1,0 +1,39 @@
+{
+  "phase": "171-R2J-R4-R9-R1",
+  "mode": "AUDIT_ONLY_PUBLIC_PATH",
+  "requested_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "r8_inferred": true,
+  "r8_inferences": 38,
+  "r8_given_leaves": 11,
+  "r8_new_given": 0,
+  "public_root_expansion_count": 3,
+  "public_root_expansion_rule_names": [
+    "finite cyclic structure gives group relation",
+    "equality symmetry",
+    "finite cyclic structure gives group relation"
+  ],
+  "exact_r8_root_expansion_connected": false,
+  "search_status": "search_failed",
+  "search_complete": false,
+  "search_observed_proven_steps": 0,
+  "search_open_goals": [
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "search_diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "screened_context_observed": true,
+  "web_partial_result": true,
+  "web_rendered_lines": 14,
+  "web_proof_steps": 0,
+  "web_error": null,
+  "public_web_complete_verified": false,
+  "production_modified": false,
+  "existing_tests_modified": false,
+  "full_pytest": false,
+  "git_head": "a19d5e0fac33a55689dcb62228b4fffbfb036b92",
+  "tracked_status_unchanged": true
+}
