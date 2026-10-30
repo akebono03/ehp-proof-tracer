@@ -1,0 +1,27 @@
+{
+  "phase": "171-R2J-R4-R5",
+  "mode": "READ_ONLY_TYPED_SHORT_EXACT_REPLAY",
+  "status": "INFERRED",
+  "short_exact_sequence": "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+  "e_injective": "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+  "e_h_exactness": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), first_map=MapSymbol(name='E'), second_map=MapSymbol(name='H')))",
+  "h_surjective": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+  "prop42_source_id": "shared:5:adopted:assertion:prop42:general",
+  "verified_source_ids": [
+    "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+    "shared:7:adopted:assertion:toda5:eta_family_definition",
+    "shared:13:toda:adopted:prop2.2:right_hopf_formula",
+    "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation",
+    "shared:5:adopted:assertion:prop42:general",
+    "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+  ],
+  "inferences": 22,
+  "given_leaves": 8,
+  "new_given_added": 0,
+  "pi63_group_proven": false,
+  "order_four_proven": false,
+  "production_modified": false,
+  "full_pytest": false,
+  "git_head": "d175ef95167061005f541e90a6cf2baa81e757b0",
+  "tracked_status_unchanged": true
+}
