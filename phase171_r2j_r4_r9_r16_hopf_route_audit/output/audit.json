@@ -1,0 +1,152 @@
+{
+  "phase": "171-R2J-R4-R9-R16",
+  "mode": "READ_ONLY_INDEPENDENT_EHP_MAP_OBLIGATION_PROBES",
+  "root": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "suspension_iso_goal": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+  "suspension_iso_provider_routes": 0,
+  "suspension_iso_is_mathematically_false_at_2_primary": true,
+  "known_2_primary_orders": {
+    "pi5_s2": 2,
+    "pi6_s3": 4
+  },
+  "probes": {
+    "hopf_7": {
+      "status": "proved",
+      "classification": "INDEPENDENTLY_PROVED",
+      "goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+      "provider_routes": [
+        {
+          "rule": "cyclic codomain generator in image implies Hopf surjectivity",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ]
+        },
+        {
+          "rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+          "subgoals": [
+            "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+          ]
+        }
+      ],
+      "provider_route_count": 2,
+      "error": null,
+      "proved_event_count": 20,
+      "unresolved_event_count": 23,
+      "first_unresolved": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)",
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)"
+      ],
+      "screened_given_leaves": 4
+    },
+    "hopf_6": {
+      "status": "proved",
+      "classification": "INDEPENDENTLY_PROVED",
+      "goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+      "provider_routes": [
+        {
+          "rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+          "subgoals": [
+            "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+          ]
+        }
+      ],
+      "provider_route_count": 1,
+      "error": null,
+      "proved_event_count": 9,
+      "unresolved_event_count": 4,
+      "first_unresolved": [
+        "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))",
+        "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+      ],
+      "screened_given_leaves": 4
+    },
+    "delta_zero": {
+      "status": "proved",
+      "classification": "INDEPENDENTLY_PROVED",
+      "goal": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+      "provider_routes": [
+        {
+          "rule": "EHP H surjectivity and H-Delta exactness imply zero Delta",
+          "subgoals": [
+            "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+          ]
+        },
+        {
+          "rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+          "subgoals": [
+            "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+          ]
+        }
+      ],
+      "provider_route_count": 2,
+      "error": null,
+      "proved_event_count": 23,
+      "unresolved_event_count": 22,
+      "first_unresolved": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)",
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)"
+      ],
+      "screened_given_leaves": 5
+    },
+    "suspension_injective": {
+      "status": "proved",
+      "classification": "INDEPENDENTLY_PROVED",
+      "goal": "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+      "provider_routes": [
+        {
+          "rule": "EHP zero Delta and Delta-E exactness imply suspension injectivity",
+          "subgoals": [
+            "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+            "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))"
+          ]
+        }
+      ],
+      "provider_route_count": 1,
+      "error": null,
+      "proved_event_count": 25,
+      "unresolved_event_count": 22,
+      "first_unresolved": [
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)",
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=4), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), order=2)"
+      ],
+      "screened_given_leaves": 5
+    }
+  },
+  "classification": "H7_PROVED_INDEPENDENTLY_ROOT_PATH_DEPENDENCY_REVIEW",
+  "source_changes": 0,
+  "new_given": 0,
+  "proof_tree_imported": false,
+  "trust_boundary_modified": false,
+  "public_complete": false,
+  "full_pytest": false,
+  "prior_reports": {
+    "r14_head": "8b98f0404dd750d202f350e7ac915d0b923cbc3a",
+    "r15_head": "965fbf3523a8933e94459781879348feb826d49f",
+    "r14_sha256": "46e8802b6a8a4413c974f4f9ff3cdd66139aa396bb67039d8802d65a3e2e3f94",
+    "r15_sha256": "0adecec033b3c0945d94cc910eb35773942e09dc5a5fa683161d2a36fe2c07ff",
+    "r14_search": "partial",
+    "r15_no_derivation_goals": 16,
+    "r15_classes": {
+      "PROPOSALS_UNPROVED": 15,
+      "NO_EXPANSION": 1
+    }
+  },
+  "git_head": "a36642c263a4e4ee8030e8e947d92591d1935a93",
+  "tracked_status_unchanged": true
+}
