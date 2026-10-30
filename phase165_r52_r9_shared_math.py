@@ -307,6 +307,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_cited_ehp_middle_cardinality,
         )
         options.extend(expand_cited_ehp_middle_cardinality(goal, tuple(available)))
+        from phase171_r2j_r4_r9_r9_public_cyclic_structure.source import (
+            expand_cited_full_order_cyclic_structure,
+        )
+        options.extend(expand_cited_full_order_cyclic_structure(goal, tuple(available)))
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,
         )
