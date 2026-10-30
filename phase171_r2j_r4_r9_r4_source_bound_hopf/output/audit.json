@@ -1,0 +1,43 @@
+{
+  "phase": "171-R2J-R4-R9-R4",
+  "mode": "AUDIT_ONLY_SOURCE_BOUND_HOPF",
+  "hopf_source_assertion_id": "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+  "previous_hopf_match_evidence": {
+    "available": true,
+    "input_proof_rules": [
+      "given",
+      "inference"
+    ],
+    "expected_proof_rules": [
+      "inference",
+      "inference"
+    ],
+    "database_given_hypothesis_supported": true
+  },
+  "bound_group_inferred": true,
+  "hopf_surjective_inferred": true,
+  "hopf_premise_rules": [
+    "inference",
+    "inference"
+  ],
+  "scoped_search_status": "partial",
+  "scoped_search_complete": false,
+  "scoped_proven_steps": 26,
+  "scoped_open_goals": [
+    "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+    "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+    "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "scoped_diagnostics": [
+    "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "trust_boundary_accepted": false,
+  "trust_boundary_result": null,
+  "public_provider_modified": false,
+  "public_web_verified": false,
+  "new_given_added": 0,
+  "full_pytest": false,
+  "git_head": "58416a7da55a4d97bce161625cef98f673612118",
+  "tracked_status_unchanged": true
+}

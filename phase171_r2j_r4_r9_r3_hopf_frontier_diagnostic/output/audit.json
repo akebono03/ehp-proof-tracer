@@ -1,0 +1,287 @@
+{
+  "phase": "171-R2J-R4-R9-R3",
+  "mode": "AUDIT_ONLY_HOPF_FRONTIER",
+  "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "original_inference_rule_count": 37,
+  "hopf_goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+  "hopf_r8_rule": "cyclic codomain generator in image implies Hopf surjectivity",
+  "hopf_r8_premise_types": [
+    "Relation",
+    "Relation"
+  ],
+  "hopf_r8_premise_proof_rules": [
+    "inference",
+    "inference"
+  ],
+  "hopf_r8_premise_goals": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "hopf_scoped_routes": 1,
+  "hopf_public_routes": [
+    {
+      "rule": "cyclic codomain generator in image implies Hopf surjectivity",
+      "subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(fami",
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Co"
+      ]
+    },
+    {
+      "rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+      "subgoals": [
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+        "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))"
+      ]
+    }
+  ],
+  "canonical_root_inferred": false,
+  "canonical_error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+  "hopf_proved_in_canonical_search": false,
+  "hopf_failure_class": "HOPF_MATCHER_REJECTED_RECONSTRUCTED_PREMISES",
+  "hopf_match_attempts": [
+    {
+      "rule": "cyclic codomain generator in image implies Hopf surjectivity",
+      "matches": 0,
+      "input_proof_rules": [
+        "given",
+        "inference"
+      ],
+      "input_statement_types": [
+        "Relation",
+        "Relation"
+      ],
+      "input_conclusions": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "expected_proof_rules": [
+        "inference",
+        "inference"
+      ]
+    }
+  ],
+  "hopf_search_events": [
+    {
+      "kind": "unresolved",
+      "statement_type": "MapSurjective",
+      "goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+      "proof_rule": null,
+      "inference_rule": null
+    }
+  ],
+  "first_unresolved_goals": [
+    {
+      "kind": "unresolved",
+      "statement_type": "MapSurjective",
+      "goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "TodaDeltaZeroStatement",
+      "goal": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "MapInjective",
+      "goal": "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "EHPShortExactSequence",
+      "goal": "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "FiniteGroupCardinality",
+      "goal": "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_rule": null,
+      "inference_rule": null
+    }
+  ],
+  "observed_proven_steps": 17,
+  "events": [
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'eq",
+      "proof_rule": "given",
+      "inference_rule": "Registered fixed statement: Proposition 5.6"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_rule": "given",
+      "inference_rule": "adopted prior database result (not a literature theorem)"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "TodaEtaFamilyGeneralDefinition",
+      "goal": "TodaEtaFamilyGeneralDefinition(lower_bound=2)",
+      "proof_rule": "given",
+      "inference_rule": "Toda chapter V eta-family notation"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "goal": "TodaEtaFamilyDefinitionStatement(index=5, element=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=3))",
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited eta-family general definition"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "TodaEtaFamilyDefinitionStatement",
+      "goal": "TodaEtaFamilyDefinitionStatement(index=6, element=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)), iterated_suspension=IteratedSuspension(expression=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), exponent=4))",
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited eta-family general definition"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "GeneratorSuspension",
+      "goal": "GeneratorSuspension(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=6)), source_generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), target_generator=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))",
+      "proof_rule": "inference",
+      "inference_rule": "consecutive cited eta definitions imply generator suspension"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_rule": "inference",
+      "inference_rule": "proved consecutive eta suspension yields element equality"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)), rhs=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_rule": "inference",
+      "inference_rule": "equality symmetry"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), rhs=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), rel",
+      "proof_rule": "inference",
+      "inference_rule": "equality preserved under left composition"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=Suspension(expression=HomotopyElement(name='η₅', d",
+      "proof_rule": "inference",
+      "inference_rule": "EHP H preserves equality"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "TodaProp22RightFormula",
+      "goal": "TodaProp22RightFormula()",
+      "proof_rule": "given",
+      "inference_rule": "Toda Proposition 2.2 right-Hopf source"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))))), rhs=Composition(left=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), right=Suspension(expression=Homot",
+      "proof_rule": "inference",
+      "inference_rule": "specialize cited Toda Proposition 2.2 right formula"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_rule": "given",
+      "inference_rule": "Toda (5.3) Hopf identity"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5,",
+      "proof_rule": "inference",
+      "inference_rule": "substitute proved Hopf value into cited right formula"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSy",
+      "proof_rule": "inference",
+      "inference_rule": "equality transitivity"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=Suspension(expression=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))), relatio",
+      "proof_rule": "inference",
+      "inference_rule": "equality preserved under left composition"
+    },
+    {
+      "kind": "proved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=MapApplication(map=MapSymbol(name='H'), expression=Composition(left=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), rhs=Composition(left=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), right=HomotopyElement(name='η_6', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', inde",
+      "proof_rule": "inference",
+      "inference_rule": "equality transitivity"
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "MapSurjective",
+      "goal": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "TodaDeltaZeroStatement",
+      "goal": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "MapInjective",
+      "goal": "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "EHPShortExactSequence",
+      "goal": "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "FiniteGroupCardinality",
+      "goal": "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+      "proof_rule": null,
+      "inference_rule": null
+    },
+    {
+      "kind": "unresolved",
+      "statement_type": "Relation",
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "proof_rule": null,
+      "inference_rule": null
+    }
+  ],
+  "new_given_added": 0,
+  "production_modified": false,
+  "public_web_verified": false,
+  "full_pytest": false,
+  "git_head": "b531cace84529fa9c38584fa8883037f3e808852",
+  "tracked_status_unchanged": true
+}

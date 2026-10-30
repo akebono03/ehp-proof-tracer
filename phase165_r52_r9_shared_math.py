@@ -299,6 +299,26 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         )
         options.extend(expand_cited_ehp_surjectivity_consequences(goal))
         options.extend(expand_finite_cyclic_relation(goal))
+        from phase171_r2j_r4_r9_r7_public_cyclic_root.source import (
+            expand_cited_double_cyclic_root,
+        )
+        options.extend(expand_cited_double_cyclic_root(goal, tuple(available)))
+        from phase171_r2j_r4_r9_r8_public_cardinality.source import (
+            expand_cited_ehp_middle_cardinality,
+        )
+        options.extend(expand_cited_ehp_middle_cardinality(goal, tuple(available)))
+        from phase171_r2j_r4_r9_r9_public_cyclic_structure.source import (
+            expand_cited_full_order_cyclic_structure,
+        )
+        options.extend(expand_cited_full_order_cyclic_structure(goal, tuple(available)))
+        from phase171_r2j_r4_r5_short_exact_sequence.source import expand_ehp_short_exact
+        options.extend(expand_ehp_short_exact(goal))
+        from phase171_r2j_r4_r9_r11_public_eta_symmetry.source import (
+            expand_reverse_cited_eta_hopf_equalities,
+        )
+        directed = expand_reverse_cited_eta_hopf_equalities(goal, tuple(available))
+        if directed:
+            return directed
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,
         )

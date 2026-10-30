@@ -1,0 +1,47 @@
+# Phase 171 R2J-R4-R3 — 監査仕様
+
+## 対象と前提
+
+1. 対象は $2\nu'=E(\eta_2^3)$ の型付き Proof Tree（証明木）の接続のみ。
+2. R4-R2 のローカル `audit.py`、`scoped_provider()` と `prepare_image_obligation()` を実行時に読み込む。既存ファイルは変更しない。
+3. Toda (5.3) の $2\nu'=\eta_3\circ\eta_4\circ\eta_5$ を、既存の出典付き固定命題から取得する。
+4. 一般 $\eta$ Definition を唯一の既知葉として、R4-R2 の懸垂像を改めて推論する。
+5. 現行 GitHub `develop` は引き継ぎ HEAD から2コミット進んでいる。ZIP は新規ディレクトリだけに展開し、ローカル未コミット差分を消さない。
+
+## 型付き推論の契約
+
+入力は以下の2つ。
+
+- `ProofRule.GIVEN` の `Relation(Multiple(m, a), b, EQUALITY)`：出典と掲載順を確認した固定命題。$m$ は正整数。
+- `ProofRule.INFERENCE` の `GeneratorImage(E, x, b)`：別の証明木によって再構成した懸垂像。
+
+構造的に同じ `b` を要し、表示文字列による一致は禁止する。`_endpoints()` で $x$ の始域・終域、$a,b$ の始域・終域と `TodaSuspensionMap` の定義域・値域が厳密に一致する場合だけ、
+
+$$
+m a=E(x)
+$$
+
+という新たな `ProofRule.INFERENCE` を生成する。$a$ と $b$ は同じ $\pi_q(S^n)$ に属し、$x$ は $\pi_{q-1}(S^{n-1})$ に属することが必要。
+
+## Trust Boundary（信頼境界）
+
+- 固定命題は `FIXED_STATEMENT`、`GIVEN`、空の前提、内容一致、文献位置が `(5.3)`、目標より先行することを要求する。
+- 懸垂像の Proof Tree に属する `GIVEN` は、一般 $\eta$ Definition ただ一つ。
+- 新規の結論は既存 `find_inference_matches_for_rule()` と `derive_inference_proof_step()` を通して生成する。
+- 既存の $\pi_6^3$ 完成群構造を前提にした証明は不合格。
+- 新たな `GIVEN`、DB 登録値の証明への昇格、出典未確認の文献命題は禁止。
+
+## 実行・完了条件
+
+- `run.ps1 -DryRun` が、ブランチと前提ディレクトリの確認に成功する。
+- 限定 pytest：R4-R2 7テスト＋R4-R3 9テストが成功する。
+- 本番の Proof Tree 再構成に成功し、`DOUBLE_IMAGE=INFERRED` が表示される。
+- 得られた根の `ProofRule` は `INFERENCE`、前提は出典付き二倍関係と、推論された R4-R2 の懸垂像の2つ。
+- 葉は Toda (5.3) と $\eta$ Definition の2つ、追加 `GIVEN=0`。
+- `pi63_group_proven=False` であり、他の群構造の証明は先取りしない。
+- `git status -sb` を実行し、R4-R2 のローカル変更が維持されていることを確認する。
+- 全体 pytest は Phase 171 終了時だけ行う。
+
+## 次段階との境界
+
+R4-R3 は $2\nu'=E(\eta_2^3)$ の型付き推論だけを証明する。次の段階で $H(\nu')=\eta_5$ と先行する $\pi_6^5$ 群構造による全射性、EHP の短完全列、位数4、$\nu'$ の位数と生成性を、それぞれ別の証明義務として構築する。
