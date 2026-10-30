@@ -299,6 +299,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         )
         options.extend(expand_cited_ehp_surjectivity_consequences(goal))
         options.extend(expand_finite_cyclic_relation(goal))
+        from phase171_r2j_r4_r9_r7_public_cyclic_root.source import (
+            expand_cited_double_cyclic_root,
+        )
+        options.extend(expand_cited_double_cyclic_root(goal, tuple(available)))
         from phase169_r3o_stable_composite_rule import (
             expand_cited_toda45_composite_transport,
         )
