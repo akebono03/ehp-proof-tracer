@@ -1,0 +1,11 @@
+{
+  "phase": "171-R20R13R4",
+  "fix": "LIST_COUNT_TEST_ASSERTION_ONLY",
+  "public_status": "complete",
+  "exact_three_eta_grouped": true,
+  "reference_count": 8,
+  "changed_production_code": false,
+  "changed_proof_tree": false,
+  "changed_reference": false,
+  "full_pytest": false
+}

@@ -82,10 +82,7 @@ $H$ の全射性と完全性より, $\ker\Delta=\operatorname{Im}H=\pi_{6}^{5}$ 
 
 [R5]より, $2\nu' = \eta_{3}^{3}$.
 
-[R3]より, $E(\eta_{2})=\eta_{3}$.
-
-
-[R3]より, $E(\eta_{3}^{2})=\eta_{4}^{2},\quad E(\eta_{2}^{3})=\eta_{3}^{3}$.
+[R3]より, $E(\eta_{2})=\eta_{3},\quad E(\eta_{3}^{2})=\eta_{4}^{2},\quad E(\eta_{2}^{3})=\eta_{3}^{3}$.
 
 $2\nu' = E\left(\eta_{2}^{3}\right)$.
 

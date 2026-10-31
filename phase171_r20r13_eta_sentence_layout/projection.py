@@ -88,9 +88,12 @@ def combine_adjacent_verified_eta_sentences(lines: list[str], model) -> list[str
         terms = [first_math]
         cursor = index + 1
         while cursor < len(lines):
-            # Standard narrative inserts precisely one empty line per sentence.
-            has_separator = lines[cursor] == ""
-            next_index = cursor + 1 if has_separator else cursor
+            # Earlier presentation-only duplicate suppression can leave
+            # several empty Markdown separators between surviving lines.
+            # Ignore only empty lines, never a distinct mathematical step.
+            next_index = cursor
+            while next_index < len(lines) and lines[next_index] == "":
+                next_index += 1
             if next_index >= len(lines):
                 break
             candidate = allowed.get(lines[next_index])
