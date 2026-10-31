@@ -1,0 +1,29 @@
+{
+  "phase": "171-R20R9",
+  "mode": "PUBLIC_TYPED_DOUBLE_IMAGE_ROUTE_AUDIT",
+  "git_head": "b8b2454b0fdaeb76891b4c16de738e91e32f7622",
+  "typed_double_inference_matching_proposals": 1,
+  "typed_double_inference_certified_proposals": 1,
+  "typed_double_equality": "CERTIFIED_PUBLIC_PROPOSAL_PRESENT",
+  "public_status": "partial",
+  "public_complete": false,
+  "public_open_goals": [
+    "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+    "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+    "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+    "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+    "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+    "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+    "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)",
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "Relation(lhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "public_diagnostics": [
+    "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+  ],
+  "new_given_added": 0,
+  "completed_proofs_imported": false,
+  "web_verified": false,
+  "tracked_worktree_unchanged": true,
+  "full_pytest": false
+}

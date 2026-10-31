@@ -1,0 +1,160 @@
+{
+  "phase": "171-R2J-R4-R9-R20R1",
+  "mode": "READ_ONLY_INDIVIDUAL_RIGHT_DERIVATION_AUDIT",
+  "public_root_status": "partial",
+  "contexts": {
+    "screened": {
+      "name": "screened",
+      "right_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "direct_status": "unresolved",
+      "direct_error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+      "provider_route_count": 5,
+      "routes": [
+        {
+          "index": 1,
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+          ],
+          "status": "unresolved",
+          "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "proved_rule": null,
+          "source_ids": null
+        },
+        {
+          "index": 2,
+          "rule": "cited stable eta-family notation for iterated transport",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+          ],
+          "status": "proved",
+          "error": null,
+          "proved_rule": "cited stable eta-family notation for iterated transport",
+          "source_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3",
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ]
+        },
+        {
+          "index": 3,
+          "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ],
+          "status": "proved",
+          "error": null,
+          "proved_rule": "Toda Proposition 5.1 generic higher-eta specialization",
+          "source_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+          ]
+        },
+        {
+          "index": 4,
+          "rule": "equality symmetry",
+          "subgoals": [
+            "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ],
+          "status": "unresolved",
+          "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "proved_rule": null,
+          "source_ids": null
+        },
+        {
+          "index": 5,
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+          ],
+          "status": "unresolved",
+          "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "proved_rule": null,
+          "source_ids": null
+        }
+      ],
+      "classification": "MULTIPLE_INDEPENDENT_PROVED_ROUTES"
+    },
+    "public": {
+      "name": "public",
+      "right_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "direct_status": "unresolved",
+      "direct_error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 2",
+      "provider_route_count": 5,
+      "routes": [
+        {
+          "index": 1,
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+          ],
+          "status": "unresolved",
+          "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "proved_rule": null,
+          "source_ids": null
+        },
+        {
+          "index": 2,
+          "rule": "cited stable eta-family notation for iterated transport",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=IteratedSuspension(expression=HomotopyElement(name='η_3', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), exponent=2)), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+            "TodaEtaFamilyGeneralDefinition(lower_bound=2)"
+          ],
+          "status": "proved",
+          "error": null,
+          "proved_rule": "cited stable eta-family notation for iterated transport",
+          "source_ids": [
+            "shared:2:toda:adopted:prop5.1:pi4_3",
+            "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+            "shared:7:adopted:assertion:toda5:eta_family_definition"
+          ]
+        },
+        {
+          "index": 3,
+          "rule": "Toda Proposition 5.1 generic higher-eta specialization",
+          "subgoals": [
+            "Relation(lhs=TodaPrimaryGroup(group_dimension=ScalarSum(left=ScalarSymbol(name='n'), right=1), sphere_dimension=ScalarSymbol(name='n')), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_n', dimension=ScalarSymbol(name='n'), source=ScalarSum(left=ScalarSymbol(name='n'), right=1), target=ScalarSymbol(name='n'), generator=GeneratorSymbol(family='η', index=ScalarSymbol(name='n'), decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ],
+          "status": "proved",
+          "error": null,
+          "proved_rule": "Toda Proposition 5.1 generic higher-eta specialization",
+          "source_ids": [
+            "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation"
+          ]
+        },
+        {
+          "index": 4,
+          "rule": "equality symmetry",
+          "subgoals": [
+            "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          ],
+          "status": "unresolved",
+          "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "proved_rule": null,
+          "source_ids": null
+        },
+        {
+          "index": 5,
+          "rule": "finite cyclic structure gives group relation",
+          "subgoals": [
+            "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)), order=2)"
+          ],
+          "status": "unresolved",
+          "error": "expected one registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0",
+          "proved_rule": null,
+          "source_ids": null
+        }
+      ],
+      "classification": "MULTIPLE_INDEPENDENT_PROVED_ROUTES"
+    }
+  },
+  "new_given": 0,
+  "existing_source_changes": 0,
+  "r20_patch_modified": false,
+  "proof_tree_imported": false,
+  "trust_boundary_modified": false,
+  "full_pytest": false,
+  "git_head": "9fca3a6e39940215e66dd6ad6a16343118d63339",
+  "r19_sha256": "62ac01a52ff912da0a2345d650cce34ac0ce7dbfb2d2ee5f4544b7319b18a4b0",
+  "tracked_status_unchanged": true
+}

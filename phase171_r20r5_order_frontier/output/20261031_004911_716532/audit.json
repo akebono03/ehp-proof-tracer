@@ -1,0 +1,137 @@
+{
+  "phase": "171-R20R5",
+  "mode": "AUDIT_ONLY_PUBLIC_PROPOSAL_FRONTIER",
+  "git": {
+    "branch": "develop",
+    "head": "3f75d2d8cba831d42400c7a45845c05e2dfe570e",
+    "verified_source_blobs": {
+      "phase165_r3_recursive_search.py": "06009bfcf57f99cac58c229d99c53f16324692d0",
+      "phase165_r52_r9_shared_math.py": "10d3303e6b3a52246f1cfb8a8998f3a67be0b0ac",
+      "phase171_r2j_r4_r7_nonzero_nu_order/source.py": "5b95010681f6257dc46a4236c099445281635e53",
+      "phase171_r2j_r4_r8_cyclic_structure/source.py": "737ffe8af9b7f4180f73d4d5ef6de3d22592f8d4",
+      "phase171_r2j_r4_r9_r9_public_cyclic_structure/source.py": "bd9f28e6ccd93b343bc6124779e1b0fe08f8795b"
+    }
+  },
+  "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "independent_order_four_root": "INFERRED",
+  "independent_inference_count": 37,
+  "independent_given_leaves": 11,
+  "proof_steps_injected_into_public_search": false,
+  "new_given_added": 0,
+  "steps": [
+    {
+      "name": "nu_order_four",
+      "conclusion_type": "FiniteElementOrder",
+      "conclusion": "FiniteElementOrder(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), order=4)",
+      "expected_inference_rule": "finite order-four group and nonzero double imply order-four element",
+      "parent_types": [
+        "FiniteGroupCardinality",
+        "NonZeroGroupElement"
+      ],
+      "expected_subgoals": [
+        "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+        "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))))"
+      ],
+      "proposal_count": 0,
+      "exact_proposal_count": 0,
+      "certified_proposal_count": 0,
+      "proposal_rule_names": [],
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "double_nonzero",
+      "conclusion_type": "NonZeroGroupElement",
+      "conclusion": "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))))",
+      "expected_inference_rule": "typed equality transfers nonzeroness to double",
+      "parent_types": [
+        "Relation",
+        "NonZeroGroupElement"
+      ],
+      "expected_subgoals": [
+        "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))))"
+      ],
+      "proposal_count": 0,
+      "exact_proposal_count": 0,
+      "certified_proposal_count": 0,
+      "proposal_rule_names": [],
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "injected_eta_image_nonzero",
+      "conclusion_type": "NonZeroGroupElement",
+      "conclusion": "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))))",
+      "expected_inference_rule": "injective map preserves nonzero finite-cyclic generator",
+      "parent_types": [
+        "Relation",
+        "MapInjective"
+      ],
+      "expected_subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))"
+      ],
+      "proposal_count": 0,
+      "exact_proposal_count": 0,
+      "certified_proposal_count": 0,
+      "proposal_rule_names": [],
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "typed_double_equality",
+      "conclusion_type": "Relation",
+      "conclusion": "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "expected_inference_rule": "substitute independently proved typed suspension image into cited equality",
+      "parent_types": [
+        "Relation",
+        "GeneratorImage"
+      ],
+      "expected_subgoals": [
+        "Relation(lhs=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))), rhs=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "GeneratorImage(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), source_generator=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)))), target_generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None)), right=HomotopyElement(name='η₅', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None)))))"
+      ],
+      "proposal_count": 2,
+      "exact_proposal_count": 0,
+      "certified_proposal_count": 0,
+      "proposal_rule_names": [
+        "equality symmetry",
+        "equality transitivity"
+      ],
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "middle_cardinality_four",
+      "conclusion_type": "FiniteGroupCardinality",
+      "conclusion": "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+      "expected_inference_rule": "finite middle-group cardinality from short exact sequence",
+      "parent_types": [
+        "Relation",
+        "EHPShortExactSequence",
+        "Relation"
+      ],
+      "expected_subgoals": [
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "proposal_count": 1,
+      "exact_proposal_count": 1,
+      "certified_proposal_count": 1,
+      "proposal_rule_names": [
+        "finite middle-group cardinality from short exact sequence"
+      ],
+      "classification": "CERTIFIED_PUBLIC_PROPOSAL_PRESENT"
+    }
+  ],
+  "missing_or_uncertified_public_routes": [
+    "nu_order_four",
+    "double_nonzero",
+    "injected_eta_image_nonzero",
+    "typed_double_equality"
+  ],
+  "public_order_route_connected": false,
+  "tracked_source_unchanged": true,
+  "public_complete_asserted": false,
+  "web_verified": false,
+  "full_pytest": false
+}

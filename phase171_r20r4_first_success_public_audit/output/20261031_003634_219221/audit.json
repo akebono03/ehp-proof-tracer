@@ -1,0 +1,47 @@
+{
+  "phase": "171-R20R4",
+  "mode": "AUDIT_ONLY_FIRST_SUCCESSFUL_PUBLIC_FRONTIER",
+  "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "screened_reference_count": 28,
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "right_end_candidate_count": 1,
+  "right_end_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "new_given_added": 0,
+  "completed_proof_imported": false,
+  "production_changes": 0,
+  "full_pytest": false,
+  "stages": [
+    {
+      "stage": "pi_6^5_right_end",
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "status": "PROVED",
+      "root_rule": "inference",
+      "root_inference": "cited stable eta-family notation for iterated transport",
+      "ancestry": {
+        "total_nodes": 6,
+        "inferences": 3,
+        "given_leaves": 3,
+        "source_linked_given_assertions": [
+          "shared:2:toda:adopted:prop5.1:pi4_3",
+          "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "shared:7:adopted:assertion:toda5:eta_family_definition"
+        ],
+        "unlinked_existing_given_leaves": 0,
+        "inference_rule_names": {
+          "generic cited typed scalar specialization": 1,
+          "Toda 4.5 generic finite-cyclic transport": 1,
+          "cited stable eta-family notation for iterated transport": 1
+        }
+      },
+      "observed_proved_events": 10,
+      "observed_unresolved_events": 5,
+      "elapsed_seconds": 1.875
+    }
+  ],
+  "public_web_verified": false,
+  "git_head": "788261264e63d202b9e9bfe819212f12e0d0134e",
+  "tracked_state_unchanged": true,
+  "audited_at_utc": "2026-10-31T00:36:34.217220+00:00"
+}

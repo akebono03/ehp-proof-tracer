@@ -1,0 +1,60 @@
+{
+  "phase": "171-R20R6",
+  "mode": "ORDER_FOUR_PUBLIC_CONNECTION_ONLY",
+  "new_given_added": 0,
+  "completed_proofs_imported_into_search": false,
+  "public_complete_asserted": false,
+  "steps": [
+    {
+      "name": "nu_order_four",
+      "conclusion_type": "FiniteElementOrder",
+      "expected_rule": "finite order-four group and nonzero double imply order-four element",
+      "proposals": 1,
+      "exact_proposals": 1,
+      "certified_proposals": 1,
+      "classification": "CERTIFIED_PUBLIC_PROPOSAL_PRESENT"
+    },
+    {
+      "name": "double_nonzero",
+      "conclusion_type": "NonZeroGroupElement",
+      "expected_rule": "typed equality transfers nonzeroness to double",
+      "proposals": 0,
+      "exact_proposals": 0,
+      "certified_proposals": 0,
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "injected_eta_image_nonzero",
+      "conclusion_type": "NonZeroGroupElement",
+      "expected_rule": "injective map preserves nonzero finite-cyclic generator",
+      "proposals": 0,
+      "exact_proposals": 0,
+      "certified_proposals": 0,
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "typed_double_equality",
+      "conclusion_type": "Relation",
+      "expected_rule": "substitute independently proved typed suspension image into cited equality",
+      "proposals": 2,
+      "exact_proposals": 0,
+      "certified_proposals": 0,
+      "classification": "MISSING_MATCHING_PUBLIC_PROPOSAL"
+    },
+    {
+      "name": "middle_cardinality_four",
+      "conclusion_type": "FiniteGroupCardinality",
+      "expected_rule": "finite middle-group cardinality from short exact sequence",
+      "proposals": 1,
+      "exact_proposals": 1,
+      "certified_proposals": 1,
+      "classification": "CERTIFIED_PUBLIC_PROPOSAL_PRESENT"
+    }
+  ],
+  "missing_routes": [
+    "double_nonzero",
+    "injected_eta_image_nonzero",
+    "typed_double_equality"
+  ],
+  "full_pytest": false
+}

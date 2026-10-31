@@ -1,0 +1,16 @@
+{
+  "phase": "171-R20R8",
+  "mode": "PUBLIC_NONZERO_DOUBLE_PROPOSAL_ONLY",
+  "git_head": "9c4e903c512941b9c2003105d1867cf7b694b363",
+  "nonzero_double_goal": "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=Multiple(coefficient=2, expression=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′'))))",
+  "matching_proposals": 1,
+  "certified_proposals": 1,
+  "nonzero_double": "CERTIFIED_PUBLIC_PROPOSAL_PRESENT",
+  "typed_double_equality_connected": false,
+  "new_given_added": 0,
+  "completed_proofs_imported": false,
+  "public_complete_asserted": false,
+  "web_verified": false,
+  "tracked_worktree_unchanged": true,
+  "full_pytest": false
+}
