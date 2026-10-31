@@ -111,7 +111,8 @@ def test_real_complete_narrative_retains_cited_source_and_hopf_conclusion(
     assert r"[R3]より, $E(\eta_{5})=\eta_{6}$." in body
     assert r"$E\eta_{5} = \eta_{6}$." not in body
     assert r"$\eta_{6} = E\eta_{5}$." not in body
-    assert r"$\nu'\eta_{6} = \nu'E\eta_{5}$." in body
+    assert "[R4] Proposition 2.2." in references
+    assert "[R5] (5.3)." in references
     assert r"$H\left(\nu'\eta_{6}\right) = \eta_{5}^{2}$." in body
     assert r"\operatorname{ord}(\nu')=4" in body
     assert len(model.citations) == 8
