@@ -319,6 +319,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_public_injected_generator_nonzero,
         )
         options.extend(expand_public_injected_generator_nonzero(goal, tuple(available)))
+        from phase171_r2j_r4_r7_nonzero_nu_order.source import (
+            expand_public_nonzero_double_from_cited_source,
+        )
+        options.extend(expand_public_nonzero_double_from_cited_source(goal, tuple(available)))
         from phase171_r2j_r4_r5_short_exact_sequence.source import expand_ehp_short_exact
         options.extend(expand_ehp_short_exact(goal))
         from phase171_r2j_r4_r9_r11_public_eta_symmetry.source import (
