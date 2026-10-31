@@ -7640,3 +7640,21 @@ Phase 171 Closeout R1 の限定回帰は 87 PASS・1 FAIL（Phase 169 R3Z の固
 R1R1 の限定回帰88 PASS と文書更新 R2R4 の限定回帰56 PASS の後、Phase 終了 Gate で現行アクティブ `tests/` の pytest **3,546 PASS（3546 passed in 125.50s (0:02:05)、終了コード0）** を確認した。証明木・引用採用規則・本番 Renderer に追加変更はなく、既存結果の利用に際して先行証明を再実行する要件も加えていない。前節の「全体 pytest 未実施」は R2 時点の履歴であり、本節が正式終了時点の記録となる。
 
 証明完成の認定はこの目標群と既存 Trust Boundary に限定する。他の任意の群の証明や原著の全面的な正しさは主張しない。
+
+<!-- PHASE172_FINAL_CLOSEOUT_20261031 -->
+
+## 2026-10-31 — Phase 172 表示改善後の完成証明・保存記録
+
+登録済み $\pi_6^3=\mathbb Z/4\{\nu'\}$ について、Phase 171 で確立した証明の数学的根拠を維持している。EHP の短完全列
+
+$$
+0\longrightarrow\pi_5^2\xrightarrow{E}\pi_6^3\xrightarrow{H}\pi_6^5\longrightarrow0
+$$
+
+と、両端の位数が2であることから $|\pi_6^3|=4$。さらに、単射性により $E(\eta_2^3)\ne0$、証明済みの $2\nu'=E(\eta_2^3)$ から $2\nu'\ne0$ となり、$\nu'$ の位数は4である。この数学的な Proof Tree は Phase 172 で変更していない。
+
+表示整理では、型付きの $E(\eta_5)=\eta_6$ の重複二式を非表示化し、$H(\nu'\eta_6)=\eta_5^2$ の導出を既知の Proposition 2.2・(5.3)・Definition の引用を保って簡素化し、同じ Hopf 全射性の反復を抑制した。Reference 見出しの2件は `sphere.csv` に採録された先行群結果であり、内部 `ADOPTED_DATABASE_PRIOR` と `DB prior: sphere.csv` locator はそのまま維持する。参考の Proposition 番号を独立の出典証明として昇格させていない。
+
+R6 終了監査は検証済み ProofStep **50件**、Reference **8件**、未解決 Goal **0件**、公開 Web `generic-complete-proof` を確認した。$\pi_3^2,\pi_4^3,\pi_5^3,\pi_6^4,\pi_6^3$ の Web 回帰はすべて PASS。限定 pytest 10セットが PASSし、Phase 末尾のアクティブ `tests/` 全体 pytest は `3546 passed in 107.52s (0:01:47)`、終了コード0である。終了証拠は `%LOCALAPPDATA%/EHPProofTracerRecovery/phase172_r6_20261031_144642_024616Z/closeout.json` と関連ログに保存した。Gate の実行 HEAD は `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a`。
+
+Phase 172 は**表示品質の改善の認定**であり、新しい数学的定理の証明、任意のホモトピー群の完成、出典データベース全体の検証を意味しない。過去の Phase 171 数学的証明の記録は履歴として維持する。
