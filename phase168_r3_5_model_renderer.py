@@ -263,6 +263,11 @@ def render_model_backed_narrative_markdown(
     from homotopy_groups import TodaPrimaryGroup
     from web_group_proof_common import _group_proof_statement_latex
     displayed_cyclic_math = set()
+    from phase171_r20r12_verified_cyclic_narrative.projection import (
+        verified_order_four_summary,
+        suppress_exact_duplicate_body_lines,
+    )
+    order_summary = verified_order_four_summary(model) if not incomplete else None
     # A certified composite GeneratorImage incorporates its two verified
     # generator-suspension premises. Suppress their separate prose only when
     # they are uncited, used by that image alone, and its eta-square image
@@ -319,6 +324,8 @@ def render_model_backed_narrative_markdown(
     if direct_sum_display is not None:
         suppressed_body_indices.update(direct_sum_display.hidden_indices)
     for index in order:
+        if order_summary is not None and index == model.root_index:
+            lines.extend((order_summary, ""))
         if direct_sum_display is not None and index == direct_sum_display.root_index:
             lines.extend((direct_sum_display.statement, ""))
         if stable_chain_display is not None and index == stable_chain_display.root_index:
@@ -345,7 +352,9 @@ def render_model_backed_narrative_markdown(
             from phase169_r3k_narrative_projection import duplicate_group_relation_notice
             notice = duplicate_group_relation_notice(model, index, displayed_cyclic_math)
             if notice is not None:
-                if notice:
+                # The duplicate has already been displayed; its provenance
+                # remains in Reference and the verified Proof Tree.
+                if notice and order_summary is None:
                     lines.extend((notice, ""))
                 continue
             from homotopy_groups import FiniteCyclicGroup
@@ -585,4 +594,6 @@ def render_model_backed_narrative_markdown(
         lines.extend(("", "未解決 Goal は証明済みの結論ではありません。"))
     else:
         lines.append("□")
+    if order_summary is not None:
+        lines = suppress_exact_duplicate_body_lines(lines)
     return "\n".join(lines).rstrip() + "\n"
