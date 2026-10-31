@@ -96,3 +96,106 @@ def typed_double_image_rule(
         match_guard=guard,
         conclusion_pattern=target,
     )
+
+def expand_public_cited_double_image_equality(
+    goal: object,
+    available: tuple[object, ...],
+) -> tuple[GoalExpansion, ...]:
+    """Propose a typed E-image substitution from screened source relations.
+
+    The earlier database presentation supplies only a typed generator-image
+    *goal*, never a proof step.  The cited relation and the suspension-image
+    premise must be reconstructed by the ordinary proof search.  Existing
+    inference rules enforce a GIVEN cited relation and an INFERENCE image.
+    """
+    from phase165_r3_recursive_search import GoalExpansion
+    from expression import MapApplication, Multiple
+    from homotopy_groups import FiniteCyclicGroup
+    from map_facts import EHP_E_MAP
+    from phase165_r14_r6_generic_iso import GeneratorImage
+    from phase166_r3aj_structured_generator import (
+        database_structured_group_goal_candidates,
+    )
+    from phase168_r2_8_3_generator_identity.identity import (
+        same_registered_group_presentation,
+    )
+    from phase169_r10e5_composite_generator_image.rule import _endpoints
+
+    if not isinstance(available, tuple):
+        raise TypeError("available must contain screened fixed statements")
+    if (
+        not isinstance(goal, Relation)
+        or goal.relation_type is not RelationType.EQUALITY
+        or not isinstance(goal.lhs, Multiple)
+        or type(goal.lhs.coefficient) is not int
+        or goal.lhs.coefficient <= 0
+        or not isinstance(goal.rhs, MapApplication)
+        or goal.rhs.map != EHP_E_MAP
+    ):
+        return ()
+    qn = _endpoints(goal.lhs.expression)
+    if qn is None or _endpoints(goal.rhs.expression) != (qn[0] - 1, qn[1] - 1):
+        return ()
+    q, n = qn
+    if type(q) is not int or type(n) is not int or n < 3 or q <= n:
+        return ()
+    earlier_group = TodaPrimaryGroup(q - 1, n - 1)
+    middle_group = TodaPrimaryGroup(q, n)
+    prior_sources = tuple(
+        claim for claim in available
+        if isinstance(claim, Relation)
+        and claim.relation_type is RelationType.EQUALITY
+        and claim.lhs == earlier_group
+        and isinstance(claim.rhs, FiniteCyclicGroup)
+        and type(claim.rhs.order) is int
+        and claim.rhs.order > 1
+    )
+    if not prior_sources:
+        return ()
+    typed_candidates = database_structured_group_goal_candidates(
+        n=n - 1, k=q - n,
+    )
+    cited_doubles = tuple(
+        claim for claim in available
+        if isinstance(claim, Relation)
+        and claim.relation_type is RelationType.EQUALITY
+        and claim.lhs == goal.lhs
+        and _endpoints(claim.rhs) == qn
+    )
+    proposals: list[GoalExpansion] = []
+    for typed in typed_candidates:
+        if (
+            not isinstance(typed, Relation)
+            or typed.relation_type is not RelationType.EQUALITY
+            or typed.lhs != earlier_group
+            or not isinstance(typed.rhs, FiniteCyclicGroup)
+            or type(typed.rhs.order) is not int
+        ):
+            continue
+        if not any(
+            typed.rhs.order == prior.rhs.order
+            and same_registered_group_presentation(typed.rhs, prior.rhs)
+            for prior in prior_sources
+        ):
+            continue
+        for cited_double in cited_doubles:
+            image = GeneratorImage(
+                map=TodaSuspensionMap(earlier_group, middle_group),
+                source_generator=typed.rhs.generator,
+                target_generator=cited_double.rhs,
+            )
+            if typed_double_image_conclusion(cited_double, image) != goal:
+                continue
+            option = GoalExpansion(
+                typed_double_image_rule(cited_double, image),
+                (cited_double, image),
+            )
+            if not any(
+                previous.subgoals == option.subgoals
+                and previous.rule.name == option.rule.name
+                for previous in proposals
+            ):
+                proposals.append(option)
+    # Competing sound candidate routes are acceptable; the recursive search
+    # selects its first certified completion.  Direct citation checks remain.
+    return tuple(proposals)

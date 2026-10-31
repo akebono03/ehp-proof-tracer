@@ -323,6 +323,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             expand_public_nonzero_double_from_cited_source,
         )
         options.extend(expand_public_nonzero_double_from_cited_source(goal, tuple(available)))
+        from phase171_r2j_r4_r3_double_image_bridge.source import (
+            expand_public_cited_double_image_equality,
+        )
+        options.extend(expand_public_cited_double_image_equality(goal, tuple(available)))
         from phase171_r2j_r4_r5_short_exact_sequence.source import expand_ehp_short_exact
         options.extend(expand_ehp_short_exact(goal))
         from phase171_r2j_r4_r9_r11_public_eta_symmetry.source import (
