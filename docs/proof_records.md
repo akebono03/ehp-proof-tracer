@@ -7585,3 +7585,58 @@ Toda (7.12) の根拠は `sources/toda/Toda_07_2.tex` の**採用済み転写**�
 33件 fresh audit：`%LOCALAPPDATA%/EHPProofTracerRecovery/phase170_r3_r10_n2_33_20261029_045006_272086/audit.json`。Phase 終了テスト：`%LOCALAPPDATA%/EHPProofTracerRecovery/phase170_r3_r11_active_closeout_20261029_051330_057437/closeout.json`。終了時の現行 `tests/` は **3546 PASS、0 FAIL、0 ERROR、34.94秒、終了コード0**、追跡済みファイル不変。退避済みの歴史的テストは含まない。
 
 **検証境界：** 全33件の search/Web 完成表示とその根拠を確認した記録であり、任意のホモトピー群・全ての書誌原典・生成元名の暗黙の等式・任意の外部推論規則の正しさを包括的に認証するものではない。
+
+## 2026-10-31 — Phase 171：$\pi_6^3=\mathbb Z/4\{\nu'\}$ の公開完成証明
+
+### 対象・検証済み結果
+
+登録済み目標 $\pi_6^3$ に対する Backward Search（逆向き証明探索）の実際の結果は `complete`、`open_goals=0`、Web 表示は `generic-complete-proof`、Reference は8件。結論は
+
+$$
+\pi_6^3=\mathbb Z/4\{\nu'\}.
+$$
+
+これは DB に書かれた結論を無条件の `GIVEN` としたものではなく、Proof Tree（証明木）に根拠を持つ。先行して証明・登録済みの群の結果は、その証明を毎回再実行せず、審査済みの既知結果として利用する。
+
+### EHP による証明の要点
+
+EHP 完全列から、$E:\pi_5^2\to\pi_6^3$ の単射性および $H:\pi_6^3\to\pi_6^5$ の全射性を導く。完全性を用いて
+
+$$
+0\longrightarrow\pi_5^2\xrightarrow{E}\pi_6^3\xrightarrow{H}\pi_6^5\longrightarrow0
+$$
+
+が短完全列となる。両端の既知の群構造がそれぞれ $\mathbb Z/2$ なので、$|\pi_6^3|=2\cdot2=4$ を得る。さらに出典付きの懸垂関係および二倍関係から
+
+$$
+2\nu'=E(\eta_2^3)\ne0
+$$
+
+を証明した。位数4の群において二倍が非零の $\nu'$ は位数4であり、群全体を生成する。これにより上の巡回群構造が従う。
+
+### Proof Tree・引用・表示の関係
+
+検証済みの最終根とその祖先に対応する引用だけを採用し、内部ルール名や未証明の推論を本文へ昇格させない。Reference には一般形、本文には引用に基づく具体化を表示する。R20R13 の表示整理では [R3] に基づく
+
+$$
+E(\eta_2)=\eta_3,\quad E(\eta_3^2)=\eta_4^2,\quad E(\eta_2^3)=\eta_3^3
+$$
+
+を1行へ統合した。これは既存の検証済み式を結合する表示処理に過ぎず、新たな等式を推論するものではない。Reference 8件、非零性、位数表示、完成結論を R20R12/R20R13 系監査で確認した。R20R13R4 はテスト専用の `list.count()` 判定誤りを修正した。
+
+### 記録の限界と Closeout
+
+Phase 171 Closeout R1 の限定回帰は 87 PASS・1 FAIL（Phase 169 R3Z の固定28ステップ期待）。R1R1 はテストを `proof.proven_steps` の保全・根・探索状態の検査へ変更して、追加安全テスト5 PASS、17ファイル限定 pytest 88 PASS を確認した。数学的な本体は未変更。現行アクティブ `tests/` の全体 pytest はこの R2 の時点では未実施であり、Phase 171 正式終了は最終 Gate の結果を待つ。
+
+本記録は $\pi_6^3$ という個別の Goal と採録済み引用・Proof Tree の整合性に関するものであり、他の全ホモトピー群、任意の推論規則、Toda 原典刊行版の全記述を認証するものではない。$E(\eta_5)$、$H$ の説明の重複や `DB prior` の表示改善は、今後の候補として数学的証明の完成とは区別する。
+
+
+<!-- PHASE171_FINAL_CLOSEOUT_20261031 -->
+
+## 2026-10-31 — Phase 171 完成証明の正式終了記録
+
+登録済み $\pi_6^3=\mathbb Z/4\{\nu'\}$ の根拠は、$E$ の単射性・$H$ の全射性による EHP 短完全列、$|\pi_6^3|=4$、$2\nu'=E(\eta_2^3)\ne0$、生成元 $\nu'$ の位数4である。公開 Backward Search は `complete`、`open_goals=0`、Web `generic-complete-proof`、Reference 8件を保持する。
+
+R1R1 の限定回帰88 PASS と文書更新 R2R4 の限定回帰56 PASS の後、Phase 終了 Gate で現行アクティブ `tests/` の pytest **3,546 PASS（3546 passed in 125.50s (0:02:05)、終了コード0）** を確認した。証明木・引用採用規則・本番 Renderer に追加変更はなく、既存結果の利用に際して先行証明を再実行する要件も加えていない。前節の「全体 pytest 未実施」は R2 時点の履歴であり、本節が正式終了時点の記録となる。
+
+証明完成の認定はこの目標群と既存 Trust Boundary に限定する。他の任意の群の証明や原著の全面的な正しさは主張しない。

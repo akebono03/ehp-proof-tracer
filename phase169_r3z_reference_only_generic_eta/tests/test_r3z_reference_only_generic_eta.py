@@ -35,7 +35,12 @@ def rendered_pi53():
 def test_r3z_general_higher_eta_is_reference_only(rendered_pi53):
     proof, model, reference, body = rendered_pi53
     assert proof.status is ProofSearchStatus.COMPLETE
-    assert len(model.steps) == 28
+    assert model.steps is proof.proven_steps
+    assert model.root_index is not None
+    assert model.steps[model.root_index].rule is ProofRule.INFERENCE
+    assert model.steps[model.root_index].conclusion == proof.conclusion
+    assert model.status is ProofSearchStatus.COMPLETE
+    assert model.open_goals == proof.open_goals == ()
     assert r"\pi_{n+1}^{n}" in reference
     assert r"\pi_{n+1}^{n}" not in body
     assert r"\eta_{n}" not in body
