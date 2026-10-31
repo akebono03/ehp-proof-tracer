@@ -323,6 +323,15 @@ def render_model_backed_narrative_markdown(
     )
     if direct_sum_display is not None:
         suppressed_body_indices.update(direct_sum_display.hidden_indices)
+    if not incomplete:
+        from phase172_r2_suspension_relation_display.projection import (
+            redundant_suspension_relation_indices,
+        )
+        suppressed_body_indices.update(
+            redundant_suspension_relation_indices(
+                model, order, suppressed_body_indices,
+            )
+        )
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
