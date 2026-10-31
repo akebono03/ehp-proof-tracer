@@ -118,9 +118,15 @@ def render_model_backed_narrative_markdown(
         )
         lines = ["使用する結果", ""]
 
+    from phase172_r5_prior_reference_display.projection import (
+        display_prior_reference_locator,
+    )
     for citation in model.citations:
         locator = citation.reference.locator or citation.reference.label
-        # Display the cited locator verbatim; no series-specific alias.
+        if not incomplete:
+            displayed = display_prior_reference_locator(citation, model)
+            if displayed is not None:
+                locator = displayed
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
         for sentence in citation.statement_bodies:
@@ -323,6 +329,34 @@ def render_model_backed_narrative_markdown(
     )
     if direct_sum_display is not None:
         suppressed_body_indices.update(direct_sum_display.hidden_indices)
+    if not incomplete:
+        from phase172_r2_suspension_relation_display.projection import (
+            redundant_suspension_relation_indices,
+        )
+        suppressed_body_indices.update(
+            redundant_suspension_relation_indices(
+                model, order, suppressed_body_indices,
+            )
+        )
+    hopf_display = None
+    if not incomplete:
+        from phase172_r3_hopf_chain_display.projection import (
+            project_verified_hopf_chain,
+        )
+        hopf_display = project_verified_hopf_chain(
+            model, order, suppressed_body_indices,
+        )
+        if hopf_display is not None:
+            suppressed_body_indices.update(hopf_display.hidden_indices)
+    if not incomplete:
+        from phase172_r4_hopf_surjectivity_display.projection import (
+            redundant_hopf_surjectivity_indices,
+        )
+        suppressed_body_indices.update(
+            redundant_hopf_surjectivity_indices(
+                model, order, suppressed_body_indices,
+            )
+        )
     for index in order:
         if order_summary is not None and index == model.root_index:
             lines.extend((order_summary, ""))
@@ -345,6 +379,22 @@ def render_model_backed_narrative_markdown(
                 prefix = ""
             lines.extend((f"{prefix}{compressed_statement}.", ""))
         if index in suppressed_body_indices:
+            continue
+        if hopf_display is not None and index in (
+            hopf_display.formula_index, hopf_display.image_index,
+        ):
+            latex, fallback = _group_proof_statement_latex(
+                model.steps[index].conclusion,
+            )
+            if latex is None or fallback is not None:
+                raise ValueError("verified Hopf line cannot be rendered")
+            numbers = (
+                hopf_display.formula_citations
+                if index == hopf_display.formula_index
+                else hopf_display.image_citations
+            )
+            source_tags = ", ".join(f"[R{number}]" for number in numbers)
+            lines.extend((f"{source_tags}より, ${latex}$.", ""))
             continue
         step = model.steps[index]
         statement = step.conclusion

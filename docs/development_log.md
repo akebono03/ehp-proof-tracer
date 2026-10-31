@@ -8007,3 +8007,21 @@ R1 の限定 pytest（87 PASS、1 FAIL）で歴史的な28ステップ固定値�
 最終 Gate は、審査済み5文書と5件のソースの Git blob、R1R1 のコミット済みテスト、予期しない追跡済み差分がないことを事前に確認した。Phase 末尾に `python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests` を1回実行し、**3,546 PASS（3546 passed in 125.50s (0:02:05)、終了コード0）**。終了後も本番コードの内容が不変であることを監査し、5文書の全文・実行ログ・監査 JSON をリポジトリ外に保存した。
 
 Phase 171 の終了を認定する。Phase 172 は重複表示や `DB prior` 文言の監査とし、未証明の `GIVEN` を追加しない。
+
+<!-- PHASE172_FINAL_CLOSEOUT_20261031 -->
+
+## 2026-10-31 — Phase 172 正式終了（R1〜R6）
+
+R1 `AUDIT_ONLY` では、Phase 171 完成済みの $\pi_6^3=\mathbb Z/4\{\nu'\}$ について、ProofStep 50件、Reference 8件、`complete`、`generic-complete-proof`、未解決 Goal 0を確認し、懸垂関係・Hopf 導出・全射性・`DB prior` 見出しの表示上の重複と内部表現を分類した。
+
+R2 は $E(\eta_5)=\eta_6$ の派生等式と対称等式の重複を証明木から取り除かず、表示上だけ抑制した。最初の限定テストは `η_5`／`η₅` の印字名の差によって失敗し、R2R1 で同一の型付き生成元を構造的に比較する方式へ訂正。限定 pytest 5セット PASS。
+
+R3R1 は Hopf 導出の出典と中間段階を監査した。R3R1R1 では、R2 がコミット済みの Renderer を監査 Gate が誤って拒否する問題を訂正した。R3 では $H(\nu'\eta_6)=\eta_5^2$ に至る既証明の途中式を整理した。R2 の歴史的な表示期待と衝突したテスト1件を R3R2 で修正し、R3 限定 pytest 5セット PASS。数学的推論・Proof Tree は変更していない。
+
+R4 は Hopf 写像 $H:\pi_6^3\to\pi_6^5$ の全射性の重複表示を整理し、限定 pytest 6セット PASS。R5 は先行 `sphere.csv` DB 結果の Web Reference 見出しを日本語化し、内部 locator・引用番号・Trust Boundary を維持したまま限定 pytest 6セット PASS。R5 までの数学的な推論規則と既知の群構造は不変である。
+
+R6 の Git HEAD は `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a`（`origin/develop` と一致）。Renderer は R5 コミット済み。内容検査・DryRun PASS、限定 pytest **10セットすべて PASS**、公開 Web の5群 $\pi_3^2,\pi_4^3,\pi_5^3,\pi_6^4,\pi_6^3$ がすべて PASS。Phase 終了 Gate の現行アクティブ `tests/` 全体 pytest を**1回**実行し、`3546 passed in 107.52s (0:01:47)`、終了コード0。追跡済みファイルの状態は実行前後で不変。最終結果は `PASS_PHASE172_R6_FULL_CLOSEOUT_GATE`。
+
+終了証拠は `%LOCALAPPDATA%/EHPProofTracerRecovery/phase172_r6_20261031_144642_024616Z/closeout.json`、同 `full_active_pytest.log` と `pi_6_3_web_narrative.md` に保存されている。直前の DryRun は全体 pytest を実行していない。過去の途中失敗は修正済みであり、この正式終了記録は R6 の成功結果に基づく。
+
+**Phase 172 正式終了。** 次 Phase の機能は先取りせず、別途計画する。本節は開発履歴への追記であり、過去の失敗・修正履歴を削除しない。

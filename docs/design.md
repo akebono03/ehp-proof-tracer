@@ -3569,3 +3569,21 @@ Phase 171 の完全証明には引用8件が対応する。`generic-complete-pro
 Phase 171 終了時に現行アクティブ `tests/` の全体 pytest を1回実行し、**3,546 PASS（3546 passed in 125.50s (0:02:05)、終了コード0）** を確認した。R2 文書5ファイルは元の内容に対して審査済みの追加のみであり、この正式終了節も既存本文のバイト列を保存して追加した。数理的な Proof Tree、Backward Search、Reference、Renderer の本番実装を変更していない。
 
 完成認定対象は登録済み $\pi_6^3=\mathbb Z/4\{\nu'\}$ の Proof Tree と公開 Web 経路に限る。Phase 172 の表示改善候補を Phase 171 の完成条件に混入させない。
+
+<!-- PHASE172_FINAL_CLOSEOUT_20261031 -->
+
+## Phase 172 — 表示専用射影と終了時の不変条件（2026-10-31）
+
+Phase 172 は、Phase 171 で完成した $\pi_6^3=\mathbb Z/4\{\nu'\}$ の証明に対して、**検証済み Proof Tree を入力とする表示専用 Projection（射影処理）**を整備した。Backward Search（後向き証明探索）、Inference Rule（推論規則）、既存の `GIVEN`、群構造、文献出典の採用規則は変更していない。
+
+- R1 は既存 Web Narrative（証明叙述）、Reference（引用）、50件の ProofStep（証明段階）を照合した監査である。
+- R2 は引用済み `GeneratorSuspension`（生成元懸垂）から検証済みの直接等式と対称等式の重複表示を省く。`η_5` と `η₅` は印字名ではなく、`GeneratorSymbol`（型付き生成元識別子）・次元・始域・終域で対応を検証する。証明段階は残す。
+- R3 は $H(\nu'\eta_6)=\eta_5^2$ に至る既証明の Hopf 導出の途中式を短縮し、Definition（定義）、Proposition 2.2、(5.3) の出典に対応する本文と最終等式を維持する。
+- R4 は同じ型付き Hopf 写像の全射性を二度表示しない。後の全射性の推論依存と先行する検証済みの全射性を確認した場合だけ後者の重複行を抑制する。
+- R5 は `ADOPTED_DATABASE_PRIOR` の出典を Web Reference 見出しに限って日本語化する。元の `DB prior: sphere.csv` locator と対応する ProofStep、Reference 番号、Trust Boundary（証明の検証境界）は保持する。`[参考: Proposition ...]` は独立の文献定理として採用したことを意味しない。
+
+これらは型付きの根・祖先・Citation（引用対応）と表示順を検査し、欠損・不整合・未完成の証明では不正な圧縮を行わない **fail-closed（不確実な場合は変換しない）**方式である。特定の生成元名による新しい数学的例外や、新しい公理を追加しない。
+
+R6 Closeout（終了監査）では、`develop` の `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a` に対し、限定 pytest 10セット、公開 Web 検証5群（$\pi_3^2,\pi_4^3,\pi_5^3,\pi_6^4,\pi_6^3$）がすべて PASS。$\pi_6^3$ の ProofStep 50件、Reference 8件、未解決 Goal 0、Web key `generic-complete-proof`、内部 DB 出典の不変を確認した。Phase 末尾の**現行アクティブ `tests/` 全体 pytest は1回のみ**実施し、`3546 passed in 107.52s (0:01:47)`、終了コード0。実行前後の追跡済みファイルの状態は一致した。
+
+過去の「Phase 172 は候補・未実装」という記述は記録時点の履歴であり、本節が最新の正式状態である。次 Phase の内容はこの Phase 172 に含まれず、別途決定する。

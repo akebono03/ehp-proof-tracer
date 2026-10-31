@@ -2,9 +2,35 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+<!-- PHASE172_FINAL_CLOSEOUT_20261031 -->
+
+## Current status — Phase 172 closed (2026-10-31)
+
+Phase 172 is closed after presentation-only improvements to the verified public
+proof of $\pi_6^3=\mathbb Z/4\{\nu'\}$. The common model-backed renderer now
+suppresses redundant, certified suspension equalities, compresses a cited Hopf
+image derivation, avoids a second display of the same Hopf surjectivity, and
+renders admitted prior database results in readable Japanese while retaining
+their internal database provenance and reference identities.
+
+The proof itself is unchanged: the completed backward search still verifies
+50 ProofSteps, 8 references, no open goals, and the `generic-complete-proof`
+Web route. Regression checks passed for $\pi_3^2$, $\pi_4^3$, $\pi_5^3$,
+$\pi_6^4$, and $\pi_6^3$. The Phase 172 R6 closeout gate passed ten focused
+test groups, all five public-Web proof checks, and the active `tests/` full
+suite **once**: `3546 passed in 107.52s (0:01:47)` (exit code 0). Local and
+`origin/develop` heads matched at `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a`,
+and tracked files were unchanged during that gate.
+
+The two adopted `sphere.csv` prior results remain database assumptions, **not**
+independently authenticated literature theorems; proposition numbers shown as
+references are explicitly supplemental. This phase neither changes the
+mathematical proof, introduces new GIVEN facts, nor certifies arbitrary other
+homotopy groups. The next phase scope is not yet determined.
+
 <!-- PHASE171_FINAL_CLOSEOUT_20261031 -->
 
-## Current status — Phase 171 closed (2026-10-31)
+## Historical closeout — Phase 171 (2026-10-31)
 
 Phase 171 is complete for the reviewed public proof of $\pi_6^3=\mathbb Z/4\{\nu'\}$. The verified search has `complete`, `open_goals=0`, eight source-linked references, and a `generic-complete-proof` Web narrative. The mathematical basis is the EHP short exact sequence and the independently certified relation $2\nu'=E(\eta_2^3)\ne0$, establishing that $\nu'$ has order four.
 
