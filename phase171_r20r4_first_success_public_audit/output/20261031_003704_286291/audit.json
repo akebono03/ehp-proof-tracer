@@ -1,0 +1,145 @@
+{
+  "phase": "171-R20R4",
+  "mode": "AUDIT_ONLY_FIRST_SUCCESSFUL_PUBLIC_FRONTIER",
+  "target": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+  "screened_reference_count": 28,
+  "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi6_3_group_relation",
+  "right_end_candidate_count": 1,
+  "right_end_candidates": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+  ],
+  "new_given_added": 0,
+  "completed_proof_imported": false,
+  "production_changes": 0,
+  "full_pytest": false,
+  "stages": [
+    {
+      "stage": "pi_6^5_right_end",
+      "goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_5', dimension=5, source=6, target=5, generator=GeneratorSymbol(family='η', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "status": "PROVED",
+      "root_rule": "inference",
+      "root_inference": "cited stable eta-family notation for iterated transport",
+      "ancestry": {
+        "total_nodes": 6,
+        "inferences": 3,
+        "given_leaves": 3,
+        "source_linked_given_assertions": [
+          "shared:2:toda:adopted:prop5.1:pi4_3",
+          "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "shared:7:adopted:assertion:toda5:eta_family_definition"
+        ],
+        "unlinked_existing_given_leaves": 0,
+        "inference_rule_names": {
+          "generic cited typed scalar specialization": 1,
+          "Toda 4.5 generic finite-cyclic transport": 1,
+          "cited stable eta-family notation for iterated transport": 1
+        }
+      },
+      "observed_proved_events": 10,
+      "observed_unresolved_events": 5,
+      "elapsed_seconds": 0.732
+    },
+    {
+      "stage": "pi_6^3_cardinality_four",
+      "goal": "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+      "status": "PROVED",
+      "root_rule": "inference",
+      "root_inference": "finite middle-group cardinality from short exact sequence",
+      "ancestry": {
+        "total_nodes": 39,
+        "inferences": 29,
+        "given_leaves": 10,
+        "source_linked_given_assertions": [
+          "shared:0:boundary:Proposition 5.3:higher_eta_squared_group_relation",
+          "shared:0:boundary:Proposition 5.6:pi5_2_group_relation",
+          "shared:13:toda:adopted:prop2.2:right_hopf_formula",
+          "shared:2:toda:adopted:prop5.1:finite_dimensional",
+          "shared:2:toda:adopted:prop5.1:finite_dimensional:component:higher_eta_group_relation",
+          "shared:2:toda:adopted:prop5.1:pi4_3",
+          "shared:4:typed_literature:assertion:toda:tex:ch4:0006",
+          "shared:5:adopted:assertion:prop42:general",
+          "shared:7:adopted:assertion:toda5:eta_family_definition",
+          "shared:8:toda:adopted:eq5.3:nu_prime_hopf_relation"
+        ],
+        "unlinked_existing_given_leaves": 0,
+        "inference_rule_names": {
+          "specialize earlier cited cyclic group schema": 1,
+          "specialize cited eta-family general definition": 2,
+          "consecutive cited eta definitions imply generator suspension": 1,
+          "proved consecutive eta suspension yields element equality": 1,
+          "equality symmetry": 1,
+          "equality preserved under left composition": 2,
+          "EHP H preserves equality": 1,
+          "specialize cited Toda Proposition 2.2 right formula": 1,
+          "substitute proved Hopf value into cited right formula": 1,
+          "equality transitivity": 2,
+          "cyclic codomain generator in image implies Hopf surjectivity": 1,
+          "Toda Proposition 4.2: generic consecutive EHP specialization": 4,
+          "EHP H surjectivity and H-Delta exactness imply zero Delta": 1,
+          "EHP zero Delta and Delta-E exactness imply suspension injectivity": 1,
+          "Toda Proposition 5.1 generic higher-eta specialization": 1,
+          "cited prior sources and derived Hopf codomain: Toda Proposition 5.3 n=3 Hopf eta_5 surjectivity": 1,
+          "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero": 1,
+          "EHP: subsequent zero delta and exactness imply Hopf surjectivity": 1,
+          "EHP exactness with injective E and surjective H implies short exact sequence": 1,
+          "generic cited typed scalar specialization": 1,
+          "Toda 4.5 generic finite-cyclic transport": 1,
+          "cited stable eta-family notation for iterated transport": 1,
+          "finite middle-group cardinality from short exact sequence": 1
+        }
+      },
+      "observed_proved_events": 42,
+      "observed_unresolved_events": 9,
+      "elapsed_seconds": 1.728
+    },
+    {
+      "stage": "nu_prime_order_four",
+      "goal": "FiniteElementOrder(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), order=4)",
+      "status": "UNRESOLVED",
+      "diagnostic": "expected a verified registered derivation for FiniteElementOrder(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=HomotopyElement(name='ν′', dimension=3, source=6, target=3, generator=GeneratorSymbol(family='ν', index=None, decoration='′')), order=4), found 0",
+      "observed_proved_events": 0,
+      "observed_unresolved_events": 1,
+      "elapsed_seconds": 0.034
+    },
+    {
+      "stage": "pi_6^3_cyclic_structure",
+      "goal": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)",
+      "status": "UNRESOLVED",
+      "diagnostic": "expected a verified registered derivation for CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4), found 0",
+      "observed_proved_events": 42,
+      "observed_unresolved_events": 11,
+      "elapsed_seconds": 2.591
+    },
+    {
+      "stage": "public_group_search",
+      "status": "partial",
+      "complete": false,
+      "proven_steps": 17,
+      "open_goals": [
+        "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2)))",
+        "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=7, sphere_dimension=5)))",
+        "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+        "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))",
+        "EHPShortExactSequence(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), middle_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), injection=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)), projection=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+        "FiniteGroupCardinality(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), order=4)",
+        "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), order=4)",
+        "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+        "Relation(lhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+      ],
+      "diagnostics": [
+        "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "structure_status": "unknown",
+      "web_verified": false,
+      "narrative_rendered": false,
+      "elapsed_seconds": 3.506
+    }
+  ],
+  "screened_cyclic_root_route_count": 1,
+  "screened_cardinality_route_count": 1,
+  "public_complete": false,
+  "public_web_verified": false,
+  "git_head": "788261264e63d202b9e9bfe819212f12e0d0134e",
+  "tracked_state_unchanged": true,
+  "audited_at_utc": "2026-10-31T00:37:04.286291+00:00"
+}
