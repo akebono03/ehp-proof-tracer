@@ -1,0 +1,167 @@
+{
+  "phase": "171-R20R11",
+  "mode": "CANONICAL_PUBLIC_SEARCH_AFTER_VERIFIED_PRIOR_HOPF_RULE",
+  "public_status": "complete",
+  "public_complete": true,
+  "h7_surjectivity_proved": true,
+  "delta_zero_proved": true,
+  "e_injectivity_proved": true,
+  "public_open_goals": [],
+  "public_diagnostics": [],
+  "unresolved_details": [
+    {
+      "goal": {
+        "type": "MapSurjective",
+        "repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))"
+      },
+      "proved_later": true,
+      "candidate_count_at_last_expansion": 1,
+      "classification": "PREMISE_OR_INFERENCE_NOT_COMPLETED",
+      "candidate_rules": [
+        "EHP: subsequent zero delta and exactness imply Hopf surjectivity"
+      ],
+      "premises": [
+        {
+          "rule": "EHP: subsequent zero delta and exactness imply Hopf surjectivity",
+          "subgoals": [
+            {
+              "type": "TodaDeltaZeroStatement",
+              "repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))",
+              "proved_in_public_search": true
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+              "proved_in_public_search": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "goal": {
+        "type": "TodaDeltaZeroStatement",
+        "repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))"
+      },
+      "proved_later": true,
+      "candidate_count_at_last_expansion": 3,
+      "classification": "PREMISE_OR_INFERENCE_NOT_COMPLETED",
+      "candidate_rules": [
+        "EHP H surjectivity and H-Delta exactness imply zero Delta",
+        "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+        "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero"
+      ],
+      "premises": [
+        {
+          "rule": "EHP H surjectivity and H-Delta exactness imply zero Delta",
+          "subgoals": [
+            {
+              "type": "MapSurjective",
+              "repr": "MapSurjective(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+              "proved_in_public_search": true
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+              "proved_in_public_search": true
+            }
+          ]
+        },
+        {
+          "rule": "EHP: suspension isomorphism plus Delta-E exactness implies Delta zero",
+          "subgoals": [
+            {
+              "type": "TodaSuspensionIsomorphismStatement",
+              "repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+              "proved_in_public_search": false
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+              "proved_in_public_search": false
+            }
+          ]
+        },
+        {
+          "rule": "Toda Proposition 5.3 n=3 Hopf surjective implies Delta zero",
+          "subgoals": [
+            {
+              "type": "TodaHopfInvariantSurjectiveStatement",
+              "repr": "TodaHopfInvariantSurjectiveStatement(map=TodaHopfInvariantMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5)))",
+              "proved_in_public_search": true
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), middle_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), first_map=MapSymbol(name='H'), second_map=MapSymbol(name='Δ')))",
+              "proved_in_public_search": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "goal": {
+        "type": "TodaSuspensionInjectiveStatement",
+        "repr": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+      },
+      "proved_later": false,
+      "candidate_count_at_last_expansion": 1,
+      "classification": "PREMISE_OR_INFERENCE_NOT_COMPLETED",
+      "candidate_rules": [
+        "Toda Proposition 5.3 n=3 Delta zero implies suspension injective"
+      ],
+      "premises": [
+        {
+          "rule": "Toda Proposition 5.3 n=3 Delta zero implies suspension injective",
+          "subgoals": [
+            {
+              "type": "TodaDeltaZeroStatement",
+              "repr": "TodaDeltaZeroStatement(map=TodaDeltaMap(source_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), target_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2)))",
+              "proved_in_public_search": true
+            },
+            {
+              "type": "TodaProp42ExactnessStatement",
+              "repr": "TodaProp42ExactnessStatement(window=TodaEHPExactnessWindow(source_term=TodaPrimaryGroup(group_dimension=6, sphere_dimension=5), middle_term=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_term=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3), first_map=MapSymbol(name='Δ'), second_map=MapSymbol(name='E')))",
+              "proved_in_public_search": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "goal": {
+        "type": "TodaSuspensionIsomorphismStatement",
+        "repr": "TodaSuspensionIsomorphismStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))"
+      },
+      "proved_later": false,
+      "candidate_count_at_last_expansion": 1,
+      "classification": "PREMISE_OR_INFERENCE_NOT_COMPLETED",
+      "candidate_rules": [
+        "Toda Proposition 5.3 n=3 suspension isomorphism"
+      ],
+      "premises": [
+        {
+          "rule": "Toda Proposition 5.3 n=3 suspension isomorphism",
+          "subgoals": [
+            {
+              "type": "TodaSuspensionInjectiveStatement",
+              "repr": "TodaSuspensionInjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+              "proved_in_public_search": false
+            },
+            {
+              "type": "TodaSuspensionSurjectiveStatement",
+              "repr": "TodaSuspensionSurjectiveStatement(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=4, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=3)))",
+              "proved_in_public_search": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "public_accepted_steps": 50,
+  "trace_events": 97,
+  "new_given_added_by_patch": 0,
+  "completed_proofs_imported": false,
+  "full_pytest": false,
+  "web_verified": false
+}

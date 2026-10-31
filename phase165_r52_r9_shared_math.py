@@ -293,6 +293,7 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         )
         options.extend(expand_cited_cyclic_hopf_surjectivity(
             goal, tuple(available), proof_target=proof_target,
+            bridge=bridge,
         ))
         from phase171_r2j_r3_ehp_exactness.source import (
             expand_cited_ehp_surjectivity_consequences,

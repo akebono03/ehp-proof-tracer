@@ -13,6 +13,7 @@ from phase165_r14_r6_generic_iso import MapSurjective
 from phase165_r3_recursive_search import GoalExpansion
 from phase168_r2_8_3_generator_identity.identity import same_registered_group_presentation
 from phase168_r2_8_4_generic_specialization.specialization import specialize_registered_higher_stem
+from phase169_r10e4_ordered_db_prior.db_prior import admitted_db_step, verified_db_step
 from phase171_r2i_eta_hopf_bridge.source import eligible_eta_hopf_chains
 from proof import InferenceRule, PremisePattern, ProofRule, Relation, RelationType
 
@@ -158,8 +159,59 @@ def cyclic_generator_image_surjectivity_rule(
     )
 
 
+def verified_prior_cyclic_generator_image_surjectivity_rule(
+    goal: MapSurjective, group: Relation, image: Relation, *,
+    proof_target: object, bridge: object,
+) -> InferenceRule:
+    """Reuse a *rechecked* earlier DB group, never an arbitrary GIVEN.
+
+    The Hopf image remains a separately reconstructed INFERENCE.  The database
+    admission is revalidated by the existing Phase 169 provenance gate on the
+    *actual* ProofStep selected by canonical public recursion.
+    """
+    if not _valid_surjective_pair(goal, group, image):
+        raise ValueError("typed cyclic Hopf generator image does not match")
+    if admitted_db_step(group, proof_target=proof_target, bridge=bridge) is None:
+        raise ValueError("cyclic group is not an eligible earlier database result")
+
+    def guard(premises, bindings):
+        return (
+            len(premises) == 2
+            and premises[0].rule is ProofRule.GIVEN
+            and premises[1].rule is ProofRule.INFERENCE
+            and bool(premises[1].premises)
+            and premises[0].conclusion == group
+            and premises[1].conclusion == image
+            and verified_db_step(
+                premises[0], proof_target=proof_target, bridge=bridge,
+            )
+            and _valid_surjective_pair(goal, group, image)
+        )
+
+    return InferenceRule(
+        name="verified earlier database cyclic generator in Hopf image implies surjectivity",
+        premise_patterns=(
+            PremisePattern(
+                proof_rule=ProofRule.GIVEN,
+                statement_type=Relation,
+                relation_type=RelationType.EQUALITY,
+                statement_pattern=group,
+            ),
+            PremisePattern(
+                proof_rule=ProofRule.INFERENCE,
+                statement_type=Relation,
+                relation_type=RelationType.EQUALITY,
+                statement_pattern=image,
+            ),
+        ),
+        match_guard=guard,
+        conclusion_pattern=goal,
+    )
+
+
 def expand_cited_cyclic_hopf_surjectivity(
-    goal: object, available: tuple[object, ...], *, proof_target: object = None,
+    goal: object, available: tuple[object, ...], *,
+    proof_target: object = None, bridge: object = None,
 ) -> tuple[GoalExpansion, ...]:
     """Propose only backed-up group specializations and R2I Hopf chains.
 
@@ -201,4 +253,16 @@ def expand_cited_cyclic_hopf_surjectivity(
             )
             if not any(x.subgoals == candidate.subgoals for x in proposals):
                 proposals.append(candidate)
+            if bridge is not None and proof_target is not None:
+                prior = admitted_db_step(
+                    group, proof_target=proof_target, bridge=bridge,
+                )
+                if prior is not None:
+                    proposals.append(GoalExpansion(
+                        verified_prior_cyclic_generator_image_surjectivity_rule(
+                            goal, group, chain.conclusion,
+                            proof_target=proof_target, bridge=bridge,
+                        ),
+                        (group, chain.conclusion),
+                    ))
     return tuple(proposals)
