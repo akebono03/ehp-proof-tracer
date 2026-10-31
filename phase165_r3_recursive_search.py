@@ -17,7 +17,7 @@ from unified_statement_registry import AssertionOrigin
 
 
 class RegisteredGoalUnresolved(ValueError):
-    """The requested proof has no unique derivation."""
+    """The requested proof is not established under the active search gates."""
 
 
 @dataclass(frozen=True)
@@ -27,7 +27,7 @@ class GoalExpansion:
 
 @dataclass(frozen=True)
 class SourceBoundGoal:
-    """Require a uniquely proved conclusion derived from this cited source.
+    """Require an inferred conclusion derived from this specific cited source.
 
     This is a search obligation, not a mathematical assertion or a GIVEN leaf.
     The returned ProofStep has the ordinary conclusion type, not this wrapper.
@@ -71,11 +71,10 @@ def reconstruct_registered_goal(
     progress_observer: Callable[[str, object, ProofStep | None], None] | None = None,
     completed_internal_proofs: tuple = (),
 ) -> ProofStep:
-    """Derive a goal with optional read-only progress reporting.
+    """Return the first completed, checked proof in deterministic proposal order.
 
-    A SourceBoundGoal limits only that particular premise resolution to
-    expansions using its cited source. Other queries retain every route and
-    the original uniqueness requirement.
+    Existing citation gates and scoped obligations are unchanged. Distinct
+    eligible direct reference links remain ambiguous and fail closed.
     """
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
@@ -94,6 +93,11 @@ def reconstruct_registered_goal(
     def report(kind: str, target: object, step: ProofStep | None = None) -> None:
         if progress_observer is not None:
             progress_observer(kind, target, step)
+
+    def accept(target: object, step: ProofStep) -> ProofStep:
+        solved.append((target, step))
+        report("proved", target, step)
+        return step
 
     def resolve(target: object) -> ProofStep:
         for earlier, step in solved:
@@ -140,21 +144,25 @@ def reconstruct_registered_goal(
                     verified_assertion_ids=verified_assertion_ids,
                 )
                 options = [x.proof_step for x in candidates if x.proof_step is not None]
-            # R10E4: DB results earlier in (stem, sphere dimension) are
-            # explicit adopted premises, not fabricated Toda citations.
-            # Prefer existing admitted literature leaves where present.
+            # R10E4: earlier DB results may be adopted premises; do not
+            # manufacture a Toda citation from a database result.
             if (not bound and not options and lookup_mode in
                     ("typed_reference", "typed_reference_ordered", "typed_reference_publication")):
                 from phase169_r10e4_ordered_db_prior.db_prior import admitted_db_step
                 db_step = admitted_db_step(actual, proof_target=goal, bridge=bridge)
                 if db_step is not None:
                     options.append(db_step)
-            if (not bound and lookup_mode in ("typed_reference", "typed_reference_ordered", "typed_reference_publication")
-                    and len(options) == 1):
-                step = options[0]
-                solved.append((target, step))
-                report("proved", target, step)
-                return step
+            # Multiple direct source links are a citation ambiguity, not
+            # multiple inference proofs. Keep that separate gate fail-closed.
+            if len(options) > 1:
+                report("unresolved", target)
+                raise RegisteredGoalUnresolved(
+                    f"ambiguous registered direct references for {target!r}, found {len(options)}"
+                )
+            if (not bound and lookup_mode in
+                    ("typed_reference", "typed_reference_ordered", "typed_reference_publication")
+                    and options):
+                return accept(target, options[0])
             if not bound and lookup_mode == "typed_reference_publication" and not options:
                 from phase169_r3n_prior_result_alias import resolve_prior_result_alias_step
                 alias_step = resolve_prior_result_alias_step(
@@ -163,16 +171,14 @@ def reconstruct_registered_goal(
                 if alias_step is not None:
                     for prior_step in alias_step.premises:
                         report("proved", prior_step.conclusion, prior_step)
-                    solved.append((target, alias_step))
-                    report("proved", target, alias_step)
-                    return alias_step
+                    return accept(target, alias_step)
             if not bound and completed_internal_proofs:
                 from phase165_r52_r17_internal_dependency import find_reusable_internal_proof
                 internal = find_reusable_internal_proof(target, goal, completed_internal_proofs)
                 if internal is not None:
-                    solved.append((target, internal))
-                    report("proved", target, internal)
-                    return internal
+                    return accept(target, internal)
+            if not bound and options:
+                return accept(target, options[0])
             expansions = expansion_provider(actual)
             if not isinstance(expansions, tuple):
                 raise TypeError("expansion provider must return a tuple")
@@ -193,16 +199,14 @@ def reconstruct_registered_goal(
                 for match in matches:
                     step = derive_inference_proof_step(match)
                     if type(step.conclusion) is type(actual) and step.conclusion == actual:
+                        # Keep the existing certified-derivation entry point.
+                        # The list is empty here; the first accepted proof wins.
                         append_unique_verified_derivation(options, step)
-            if len(options) != 1:
-                report("unresolved", target)
-                raise RegisteredGoalUnresolved(
-                    f"expected one registered derivation for {target!r}, found {len(options)}"
-                )
-            step = options[0]
-            solved.append((target, step))
-            report("proved", target, step)
-            return step
+                        return accept(target, options[0])
+            report("unresolved", target)
+            raise RegisteredGoalUnresolved(
+                f"expected a verified registered derivation for {target!r}, found 0"
+            )
         finally:
             active.pop()
 

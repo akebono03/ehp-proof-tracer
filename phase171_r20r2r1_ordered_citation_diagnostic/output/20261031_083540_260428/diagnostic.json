@@ -1,0 +1,81 @@
+{
+  "mode": "AUDIT_ONLY",
+  "branch": "develop",
+  "head": "9fca3a6e39940215e66dd6ad6a16343118d63339",
+  "working_tree_status": "M .pytest_cache/v/cache/lastfailed\n M .pytest_cache/v/cache/nodeids\n M phase165_r3_recursive_search.py",
+  "tracked_files": [
+    {
+      "path": "phase165_r3_recursive_search.py",
+      "exists": true,
+      "working_tree_blob": "06009bfcf57f99cac58c229d99c53f16324692d0",
+      "head_blob": "9c424f61a2b4a2d7789777017ad4f91292b0ad30"
+    },
+    {
+      "path": "phase165_r52_r15_ordered_citation.py",
+      "exists": true,
+      "working_tree_blob": "b6fda6c7198295cde46af2b85f486b981986c1a3",
+      "head_blob": "b6fda6c7198295cde46af2b85f486b981986c1a3"
+    },
+    {
+      "path": "phase163_r3_registry_validation.py",
+      "exists": true,
+      "working_tree_blob": "c3cc2dde6201be9891227e5fb081f045d7bd0e82",
+      "head_blob": "c3cc2dde6201be9891227e5fb081f045d7bd0e82"
+    },
+    {
+      "path": "unified_statement_registry.py",
+      "exists": true,
+      "working_tree_blob": "be220ca9f95f20ef243ec295457912cd5ea99d0b",
+      "head_blob": "be220ca9f95f20ef243ec295457912cd5ea99d0b"
+    },
+    {
+      "path": "phase165_r52_r15_ordered_citation/test_phase165_r52_r15_ordered_citation.py",
+      "exists": true,
+      "working_tree_blob": "88ddb606b93196ee834fc691e7102657120bc668",
+      "head_blob": "88ddb606b93196ee834fc691e7102657120bc668"
+    },
+    {
+      "path": "phase165_r52_r9_shared_math.py",
+      "exists": true,
+      "working_tree_blob": "10d3303e6b3a52246f1cfb8a8998f3a67be0b0ac",
+      "head_blob": "10d3303e6b3a52246f1cfb8a8998f3a67be0b0ac"
+    }
+  ],
+  "module_locations": {
+    "ordered": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r52_r15_ordered_citation.py",
+    "validation": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase163_r3_registry_validation.py",
+    "registry": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\unified_statement_registry.py",
+    "recursive_search": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r3_recursive_search.py",
+    "test_fixture": "C:\\Users\\user\\Dropbox\\Python\\fitz\\ehp_proof\\phase165_r52_r15_ordered_citation\\test_phase165_r52_r15_ordered_citation.py"
+  },
+  "assess_citation_identity": true,
+  "fixture": {
+    "citing_assertion_id": "citing",
+    "citing_source_id": "Toda",
+    "citing_publication_position": 2,
+    "candidates": [
+      {
+        "assertion_id": "cited",
+        "origin": "fixed_statement",
+        "origin_is_fixed_statement": true,
+        "source_id": "Toda",
+        "publication_position": 1,
+        "available_after_position": 1,
+        "dependencies": [],
+        "citation_decision": "allowed",
+        "citation_reason": "available_before_citing_entry",
+        "citation_is_allowed": true,
+        "link_count": 1,
+        "step_is_proof_step": true,
+        "step_rule": "given",
+        "step_is_given": true,
+        "exact_conclusion": true
+      }
+    ]
+  },
+  "ordered_direct_step_count": 1,
+  "ordered_direct_step_is_expected": true,
+  "search_result": "PROVED",
+  "search_step_is_expected": true,
+  "classification": "DIRECT_ORDERED_REFERENCE_OK_IN_FRESH_PROCESS"
+}
