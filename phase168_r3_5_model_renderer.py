@@ -596,4 +596,9 @@ def render_model_backed_narrative_markdown(
         lines.append("□")
     if order_summary is not None:
         lines = suppress_exact_duplicate_body_lines(lines)
+    if not incomplete:
+        from phase171_r20r13_eta_sentence_layout.projection import (
+            format_complete_proof_sentences,
+        )
+        lines = format_complete_proof_sentences(lines, model)
     return "\n".join(lines).rstrip() + "\n"

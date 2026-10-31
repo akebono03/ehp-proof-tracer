@@ -1,0 +1,18 @@
+{
+  "phase": "171-R20R13",
+  "mode": "PRESENTATION_ONLY_SOURCE_BOUND_ETA_LAYOUT",
+  "git_head": "4d2682036dbe78321bb7c22df7498ee43ee4743f",
+  "public_status": "complete",
+  "public_complete": true,
+  "reference_count": 8,
+  "verified_eta_sentences": 6,
+  "grouped_eta_lines": [
+    "[R3]より, $E(\\eta_{3}^{2})=\\eta_{4}^{2},\\quad E(\\eta_{2}^{3})=\\eta_{3}^{3}$."
+  ],
+  "period_sentence_breaks": true,
+  "root_inferred": true,
+  "new_given_added": 0,
+  "math_inference_modified": false,
+  "completed_proofs_imported": false,
+  "full_pytest": false
+}
