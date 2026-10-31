@@ -1,0 +1,25 @@
+{
+  "phase": "171-R20R7",
+  "mode": "READ_ONLY_PUBLIC_INJECTED_NONZERO_CONNECTION",
+  "git_head": "943b7f7af6f92c6987148e5d17c0f06c821434cb",
+  "nonzero_goal": "NonZeroGroupElement(group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), element=MapApplication(map=MapSymbol(name='E'), expression=Composition(left=HomotopyElement(name='η₂', dimension=2, source=3, target=2, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η₄', dimension=4, source=5, target=4, generator=GeneratorSymbol(family='η', index=4, decoration=None))))))",
+  "source_and_injectivity_subgoals": [
+    "Relation(lhs=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η_2', dimension=2, source=None, target=None, generator=GeneratorSymbol(family='η', index=2, decoration=None)), right=Composition(left=HomotopyElement(name='η_3', dimension=3, source=None, target=None, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='η_4', dimension=4, source=None, target=None, generator=GeneratorSymbol(family='η', index=4, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+    "MapInjective(map=TodaSuspensionMap(source_group=TodaPrimaryGroup(group_dimension=5, sphere_dimension=2), target_group=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3)))"
+  ],
+  "provider_options": 1,
+  "matching_options": 1,
+  "certified_options": 1,
+  "injected_eta_image_nonzero": "CERTIFIED_PUBLIC_PROPOSAL_PRESENT",
+  "nu_order_four_rule_connected": true,
+  "not_yet_connected": [
+    "double_nonzero",
+    "typed_double_equality"
+  ],
+  "new_given_added": 0,
+  "completed_proofs_imported": false,
+  "public_complete_asserted": false,
+  "web_verified": false,
+  "tracked_worktree_unchanged": true,
+  "full_pytest": false
+}

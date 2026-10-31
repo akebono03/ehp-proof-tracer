@@ -251,3 +251,57 @@ def expand_public_order_four_from_nonzero_double(
             (cardinality, double_nonzero),
         ),
     )
+
+def expand_public_injected_generator_nonzero(
+    goal: object,
+    available: tuple[object, ...],
+) -> tuple[GoalExpansion, ...]:
+    """Propose E(generator) != 0 from one earlier finite-cyclic source and injective E.
+
+    The source relation is an eligible, cited GIVEN candidate, not a DB group
+    target.  The E-injectivity subgoal must be independently proved as an
+    INFERENCE.  No statement or ProofStep is manufactured by this proposer.
+    """
+    from phase165_r3_recursive_search import GoalExpansion
+
+    if not isinstance(available, tuple):
+        raise TypeError("available must be a tuple of screened source statements")
+    if (
+        not isinstance(goal, NonZeroGroupElement)
+        or not isinstance(goal.group, TodaPrimaryGroup)
+        or not isinstance(goal.element, MapApplication)
+        or goal.element.map != EHP_E_MAP
+    ):
+        return ()
+    q = goal.group.group_dimension
+    n = goal.group.sphere_dimension
+    if (
+        type(q) is not int
+        or type(n) is not int
+        or n < 3
+        or q <= n
+    ):
+        return ()
+    source_group = TodaPrimaryGroup(q - 1, n - 1)
+    injective = MapInjective(TodaSuspensionMap(source_group, goal.group))
+    matched: list[Relation] = []
+    for claim in available:
+        if (
+            not isinstance(claim, Relation)
+            or claim.relation_type is not RelationType.EQUALITY
+            or claim.lhs != source_group
+            or not isinstance(claim.rhs, FiniteCyclicGroup)
+            or nonzero_cyclic_generator_image(claim, injective, goal.element) != goal
+        ):
+            continue
+        if claim not in matched:
+            matched.append(claim)
+    if len(matched) != 1:
+        return ()
+    source = matched[0]
+    return (
+        GoalExpansion(
+            injected_generator_nonzero_rule(goal, source, injective),
+            (source, injective),
+        ),
+    )
