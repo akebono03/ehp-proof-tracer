@@ -118,9 +118,15 @@ def render_model_backed_narrative_markdown(
         )
         lines = ["使用する結果", ""]
 
+    from phase172_r5_prior_reference_display.projection import (
+        display_prior_reference_locator,
+    )
     for citation in model.citations:
         locator = citation.reference.locator or citation.reference.label
-        # Display the cited locator verbatim; no series-specific alias.
+        if not incomplete:
+            displayed = display_prior_reference_locator(citation, model)
+            if displayed is not None:
+                locator = displayed
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
         for sentence in citation.statement_bodies:
