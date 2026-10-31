@@ -1,0 +1,30 @@
+def expand_public_order_four_from_nonzero_double(
+    goal: object,
+) -> tuple[GoalExpansion, ...]:
+    """Propose the existing order-four inference without assuming its premises.
+
+    A finite group of cardinality four and a proved nonzero double imply that
+    the doubled element's underlying generator has order four.  Both typed
+    premises must still be independently reconstructed by backward search.
+    """
+    from phase165_r3_recursive_search import GoalExpansion
+
+    if (
+        not isinstance(goal, FiniteElementOrder)
+        or not isinstance(goal.group, TodaPrimaryGroup)
+        or type(goal.order) is not int
+        or goal.order != 4
+    ):
+        return ()
+    cardinality = FiniteGroupCardinality(goal.group, 4)
+    double_nonzero = NonZeroGroupElement(
+        goal.group, Multiple(2, goal.element),
+    )
+    if order_four_from_nonzero_double(cardinality, double_nonzero) != goal:
+        return ()
+    return (
+        GoalExpansion(
+            inferred_order_four_rule(goal, cardinality, double_nonzero),
+            (cardinality, double_nonzero),
+        ),
+    )
