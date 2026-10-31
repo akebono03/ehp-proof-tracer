@@ -1,0 +1,175 @@
+"""Present certified cardinality and generator order; never create proof facts.
+
+The projection checks the existing canonical ProofStep ancestry and delegates
+mathematical consistency to the inference constructors already in production.
+It does not load a saved proof, source assertion or database result.
+"""
+from __future__ import annotations
+
+from expression import Multiple
+from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
+from phase165_r12_r2_quotient_rules import CyclicStructureStatement
+from phase168_r2_8_3_generator_identity.identity import same_registered_group_presentation
+from phase168_r3_27_typed_statement_projection import element_tex, group_tex
+from phase168_r3_3_proof_narrative_model import root_ancestor_step_indices
+from phase171_r2j_r4_r6_middle_cardinality.source import (
+    FiniteGroupCardinality, cardinality_from_short_exact,
+)
+from phase171_r2j_r4_r7_nonzero_nu_order.source import (
+    FiniteElementOrder, NonZeroGroupElement, nonzero_double_from_equality,
+    nonzero_cyclic_generator_image, order_four_from_nonzero_double,
+)
+from phase171_r2j_r4_r8_cyclic_structure.source import cyclic_group_from_generator_order
+from proof import ProofRule, Relation, RelationType
+from toda_human_readable_renderer import render_toda_expression_latex
+
+
+def verified_order_four_summary(model) -> str | None:
+    """Describe an order-four proof only when its complete certified chain exists.
+
+    Every required fact must already occur as an INFERENCE in the actual root
+    ancestry. In particular, a displayed double relation alone is insufficient.
+    """
+    index = getattr(model, "root_index", None)
+    steps = getattr(model, "steps", None)
+    if (type(index) is not int or not isinstance(steps, tuple)
+            or not 0 <= index < len(steps)):
+        return None
+    root = steps[index]
+    claim = root.conclusion
+    if (root.rule is not ProofRule.INFERENCE
+            or not isinstance(claim, Relation)
+            or claim.relation_type is not RelationType.EQUALITY
+            or not isinstance(claim.lhs, TodaPrimaryGroup)
+            or not isinstance(claim.rhs, FiniteCyclicGroup)
+            or type(claim.rhs.order) is not int or claim.rhs.order != 4):
+        return None
+    structure_step = None
+    if len(root.premises) == 2:
+        cardinality_step, order_step = root.premises
+    elif len(root.premises) == 1:
+        # The canonical First Successful path may prove CyclicStructureStatement
+        # before projecting the final typed Relation. Both routes are checked.
+        structure_step = root.premises[0]
+        structure = structure_step.conclusion
+        if (structure_step.rule is not ProofRule.INFERENCE
+                or not isinstance(structure, CyclicStructureStatement)
+                or structure.group != claim.lhs
+                or structure.order != claim.rhs.order
+                or len(structure_step.premises) != 2):
+            return None
+        cardinality_step, order_step = structure_step.premises
+        if (structure.generator != order_step.conclusion.element
+                and not same_registered_group_presentation(
+                    FiniteCyclicGroup(4, structure.generator),
+                    FiniteCyclicGroup(4, order_step.conclusion.element),
+                )):
+            return None
+    else:
+        return None
+    cardinality, order = cardinality_step.conclusion, order_step.conclusion
+    if (cardinality_step.rule is not ProofRule.INFERENCE
+            or order_step.rule is not ProofRule.INFERENCE
+            or not isinstance(cardinality, FiniteGroupCardinality)
+            or not isinstance(order, FiniteElementOrder)
+            or cyclic_group_from_generator_order(
+                cardinality, order, requested=claim,
+            ) != claim):
+        return None
+    if len(cardinality_step.premises) != 3 or len(order_step.premises) != 2:
+        return None
+    left_step, sequence_step, right_step = cardinality_step.premises
+    left, sequence, right = (
+        left_step.conclusion, sequence_step.conclusion, right_step.conclusion
+    )
+    if (sequence_step.rule is not ProofRule.INFERENCE
+            or cardinality_from_short_exact(left, sequence, right) != cardinality
+            or not isinstance(left, Relation) or not isinstance(right, Relation)
+            or not isinstance(left.rhs, FiniteCyclicGroup)
+            or not isinstance(right.rhs, FiniteCyclicGroup)
+            or len(order_step.premises) != 2
+            or order_step.premises[0] is not cardinality_step):
+        return None
+    double_step = order_step.premises[1]
+    double = double_step.conclusion
+    if (double_step.rule is not ProofRule.INFERENCE
+            or not isinstance(double, NonZeroGroupElement)
+            or order_four_from_nonzero_double(cardinality, double) != order
+            or len(double_step.premises) != 2):
+        return None
+    equation_step, image_step = double_step.premises
+    equation, image_nonzero = equation_step.conclusion, image_step.conclusion
+    if (equation_step.rule is not ProofRule.INFERENCE
+            or image_step.rule is not ProofRule.INFERENCE
+            or not isinstance(image_nonzero, NonZeroGroupElement)
+            or nonzero_double_from_equality(equation, image_nonzero) != double
+            or len(image_step.premises) != 2):
+        return None
+    source_step, injective_step = image_step.premises
+    if (injective_step.rule is not ProofRule.INFERENCE
+            or nonzero_cyclic_generator_image(
+                source_step.conclusion, injective_step.conclusion,
+                image_nonzero.element,
+            ) != image_nonzero
+            or not isinstance(double.element, Multiple)
+            or double.element.coefficient != 2):
+        return None
+    # No extra premise may be manufactured by a renderer.  These steps must
+    # already be in the supplied, root-scoped narrative model.
+    try:
+        scope = root_ancestor_step_indices(steps, index)
+    except ValueError:
+        return None
+    ancestors = tuple(steps[position] for position in scope)
+    required = (root, cardinality_step, order_step,
+                left_step, sequence_step, right_step, double_step,
+                equation_step, image_step, source_step, injective_step)
+    if structure_step is not None:
+        required += (structure_step,)
+    if any(not any(step is node or step == node for node in ancestors)
+           for step in required):
+        return None
+    middle_tex = group_tex(claim.lhs)
+    source_tex = group_tex(sequence.source_group)
+    target_tex = group_tex(sequence.target_group)
+    element = element_tex(order.element)
+    double_lhs = render_toda_expression_latex(equation.lhs)
+    double_rhs = render_toda_expression_latex(equation.rhs)
+    if any(value is None for value in (middle_tex, source_tex, target_tex, element)):
+        return None
+    if not double_lhs or not double_rhs:
+        return None
+    left_size, right_size = left.rhs.order, right.rhs.order
+    return (
+        "証明済みの単射性・全射性と完全性から, "
+        rf"$0\longrightarrow {source_tex}\xrightarrow{{E}}{middle_tex}"
+        rf"\xrightarrow{{H}}{target_tex}\longrightarrow 0$ は短完全列となる. "
+        rf"両端の群の位数はそれぞれ ${left_size}$, ${right_size}$ なので, "
+        rf"$|{middle_tex}|={left_size}\cdot{right_size}=4$. "
+        rf"また, 単射性によって ${double_rhs}\neq0$ であり, "
+        rf"証明済みの ${double_lhs}={double_rhs}$ より "
+        rf"${double_lhs}\neq0$. "
+        rf"よって $\operatorname{{ord}}({element})=4$."
+    )
+
+
+def suppress_exact_duplicate_body_lines(lines: list[str]) -> list[str]:
+    """Drop only byte-identical repeated formula sentences within the proof.
+
+    Reference bodies and distinct citations are untouched. No equality is
+    identified by a display-only alias or guessed from LaTeX formatting.
+    """
+    if not isinstance(lines, list) or not all(isinstance(line, str) for line in lines):
+        raise TypeError("lines must be a list of strings")
+    output: list[str] = []
+    seen: set[str] = set()
+    in_body = False
+    for line in lines:
+        if line in ("証明", "## 証明"):
+            in_body = True
+        if in_body and "$" in line and "=" in line and line in seen:
+            continue
+        output.append(line)
+        if in_body and "$" in line and "=" in line:
+            seen.add(line)
+    return output

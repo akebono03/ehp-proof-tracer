@@ -1,0 +1,11 @@
+{
+  "phase": "171-R20R13R3",
+  "correction": "HEAD CONTENT GUARD REPLACES EXACT COMMIT PIN",
+  "source_guard": "reviewed git HEAD and worktree content",
+  "public_status": "complete",
+  "exact_three_eta_grouped": true,
+  "reference_count": 8,
+  "production_math_modified": false,
+  "renderer_modified": false,
+  "full_pytest": false
+}

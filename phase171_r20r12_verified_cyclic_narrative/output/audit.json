@@ -1,0 +1,20 @@
+{
+  "phase": "171-R20R12",
+  "mode": "PUBLIC_COMPLETE_RENDERER_ONLY_PROJECTION",
+  "git_head": "136b2a99aba9e6dbe9e0523a3bd74d44d7caaf3a",
+  "public_status": "complete",
+  "public_complete": true,
+  "proven_steps": 50,
+  "given_steps": 10,
+  "root_is_inference": true,
+  "root_order_four_ancestry_verified": true,
+  "reference_count": 8,
+  "reference_labels_preserved": true,
+  "explicit_cardinality_and_generator_order": true,
+  "duplicate_group_notice_suppressed": true,
+  "new_given_added": 0,
+  "completed_proofs_imported": false,
+  "production_math_changed": false,
+  "full_pytest": false,
+  "browser_visual_check_performed": false
+}
