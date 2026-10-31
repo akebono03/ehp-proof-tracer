@@ -7996,3 +7996,14 @@ R1R1 は `phase169_r3z_reference_only_generic_eta/tests/test_r3z_reference_only_
 現行 GitHub の `README.md` と `docs/design.md`、`docs/development_log.md`、`docs/roadmap.md`、`docs/proof_records.md` は Phase 170 終了時点を最終正式記録としていた。本 R2 は5文書を元の全文を保持する形で更新し、生成した置換ファイルの全文を監査出力として保存する。`development_log.md`、`proof_records.md` は原則追記、README は英語、他の4文書は日本語。R1R1 のテスト変更は保持し、数学的な本体には手を加えない。
 
 **Phase 171 はこの記録時点で未 Closeout。** 既存の1-stem・2-stem を含む限定回帰は PASS しているが、最終条件である現行アクティブ `tests/` の全体 pytest はまだ実施していない。R2 の文書・追跡差分確認後、Phase の末尾で一度だけ実行し、終了コードと件数・Git 状態を確認して正式終了を記録する。
+
+
+<!-- PHASE171_FINAL_CLOSEOUT_20261031 -->
+
+## 2026-10-31 — Phase 171 正式終了 Gate
+
+R1 の限定 pytest（87 PASS、1 FAIL）で歴史的な28ステップ固定値を検出し、R1R1 では数学的な探索結果を変更せず証明の保全を検査する方式に修正した（88 PASS、追加安全検査5 PASS）。文書更新の R2R4 は5文書を作成し、11 PASS、24 PASS、56 PASS の限定テストを確認した。
+
+最終 Gate は、審査済み5文書と5件のソースの Git blob、R1R1 のコミット済みテスト、予期しない追跡済み差分がないことを事前に確認した。Phase 末尾に `python -B -m pytest -q --tb=short --disable-warnings -p no:cacheprovider tests` を1回実行し、**3,546 PASS（3546 passed in 125.50s (0:02:05)、終了コード0）**。終了後も本番コードの内容が不変であることを監査し、5文書の全文・実行ログ・監査 JSON をリポジトリ外に保存した。
+
+Phase 171 の終了を認定する。Phase 172 は重複表示や `DB prior` 文言の監査とし、未証明の `GIVEN` を追加しない。

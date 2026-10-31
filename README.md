@@ -2,6 +2,16 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+<!-- PHASE171_FINAL_CLOSEOUT_20261031 -->
+
+## Current status — Phase 171 closed (2026-10-31)
+
+Phase 171 is complete for the reviewed public proof of $\pi_6^3=\mathbb Z/4\{\nu'\}$. The verified search has `complete`, `open_goals=0`, eight source-linked references, and a `generic-complete-proof` Web narrative. The mathematical basis is the EHP short exact sequence and the independently certified relation $2\nu'=E(\eta_2^3)\ne0$, establishing that $\nu'$ has order four.
+
+The single phase-end active `tests/` suite reported **3,546 passed** (pytest summary: `3546 passed in 125.50s (0:02:05)`, exit code 0). Phase 171 R1R1 and R2R4 focused gates had already passed, and this closeout kept production code and historical proof sources unchanged. The archived full five-document outputs and gate JSON preserve the reviewed result. Previous R2 text stating that the phase-end test was pending is a historical pre-closure record.
+
+Phase 172 may separately review display duplication and `DB prior` wording; these are not mathematical proof prerequisites. The result does not certify arbitrary $n\ge3$ groups or unchecked literature.
+
 <!-- PHASE171_CLOSEOUT_R2_REVIEWED_20261031 -->
 
 ## Current status — Phase 171 proof complete; phase-end gate pending (2026-10-31)
