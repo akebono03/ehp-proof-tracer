@@ -1,0 +1,404 @@
+"""Phase 173 R4-R1: read-only inspection of the Toda (5.6) proof boundary.
+
+The report records proof *candidates*, not a constructed ProofStep.  It never
+patches the repository, adds GIVENs, or promotes a DB relation into a theorem.
+"""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+from typing import Any
+
+BASELINE = "a7763513ce18c17f95bf919fa232968134df5f66"
+REVIEWED_DEVELOP = "2a3f37cf8e19e06fda5bf19a4abd5a3c2eb81b3f"
+REVIEWED_BLOBS = {
+    "sources/toda/Toda_05_2.tex": "579661138928499ba04a51327f686d9b971b5314",
+    "sources/toda/Toda_04_2.tex": "4d0c32b196f4bd51c04650dd26b0fd7133b6d4f7",
+    "phase165_r52_r9_shared_math.py": "2718c55789af7f442ac2c086d016d3d6f7ca3133",
+    "phase165_r52_r16_web_citation_gate.py": "d1138c0450f234b6da761902ed7358b6038a19c8",
+    "phase165_r55_nk_only_goal.py": "b207b8169590e634229d412324d857ffb3857939",
+    "phase165_r12_r11_prop42_unified.py": "79752ec035244677ff6a54debff312e87a76fbf2",
+    "phase165_r52_r27_r5_literature.py": "c9bfe2788f4cf043db6dada98a437afea6accf75",
+    "phase169_r3m_prior_result_catalog/prior_results.py": "c522cbaf924b3a9aa500d453b8eb6a1a66c42611",
+    "phase169_r4b_prop44_injectivity/rule.py": "aba4c769f2e6bc9a3359c2f8e4b4fa7d869aac4b",
+    "toda_rules.py": "77f4159644f10eff65a79f6e528cf7b471c6ddc9",
+    "homotopy_groups.py": "883faf1b4a067485c9127f14dbb575aaa195960e",
+}
+RULE_NAMES = (
+    "toda_prop44_isomorphism_inference_rule",
+    "toda_prop56_pi7_4_decomposition_inference_rule",
+    "toda_56_nu4_decomposition_integration_inference_rule",
+    "toda_56_nu4_prop44_specialization_inference_rule",
+    "toda_56_nu4_prop44_isomorphism_inference_rule",
+    "toda_56_nu4_decomposition_isomorphism_inference_rule",
+)
+
+
+REVIEWED_HEADS = (
+    "2a3f37cf8e19e06fda5bf19a4abd5a3c2eb81b3f",
+    "f9fdaf350ff4de3f6a6f9b3cd6d6901f5b439941",
+)
+# Exactly the audit artifacts independently identified in the GitHub comparison.
+APPROVED_ADDED_PATHS = frozenset((
+    "phase173_r3_frontier_readout/AUDIT_PLAN_JA.md",
+    "phase173_r3_frontier_readout/CODE_FULL_JA.md",
+    "phase173_r3_frontier_readout/README.md",
+    "phase173_r3_frontier_readout/__init__.py",
+    "phase173_r3_frontier_readout/readout.py",
+    "phase173_r3_frontier_readout/run.ps1",
+    "phase173_r3_frontier_readout/tests/test_readout.py",
+    "phase173_r3_portable/AUDIT_PLAN_JA.md",
+    "phase173_r3_portable/CODE_FULL_JA.md",
+    "phase173_r3_portable/README.md",
+    "phase173_r3_portable/__init__.py",
+    "phase173_r3_portable/audit.py",
+    "phase173_r3_portable/run.ps1",
+    "phase173_r3_portable/tests/test_audit.py",
+    "phase173_r4_r1_audit_only/AUDIT_PLAN_JA.md",
+    "phase173_r4_r1_audit_only/CODE_FULL_JA.md",
+    "phase173_r4_r1_audit_only/README.md",
+    "phase173_r4_r1_audit_only/__init__.py",
+    "phase173_r4_r1_audit_only/audit.py",
+    "phase173_r4_r1_audit_only/run.ps1",
+    "phase173_r4_r1_audit_only/tests/test_audit.py",
+    "phase173_r4_r1_git_status_diagnostic/AUDIT_PLAN_JA.md",
+    "phase173_r4_r1_git_status_diagnostic/README.md",
+    "phase173_r4_r1_git_status_diagnostic/run.ps1",
+))
+COMMITTED_CACHE = ".pytest_cache/v/cache/nodeids"
+# The only previously installed R4-R1 corrections that can coexist with the
+# newly committed audit files. Each content digest is verified, never guessed.
+APPROVED_WORKTREE_AUDIT_SHA256 = {
+    "phase173_r4_r1_audit_only/audit.py": "569d88e9ff97d74431848771036c7941984d2e2209d0b5ff9c390bdd5838a810",
+    "phase173_r4_r1_audit_only/run.ps1": "d88dcaf2e7206da7fb10c21ff32a5cbf6632ad501e0235c70bf5831f39ec4aef",
+    "phase173_r4_r1_audit_only/tests/test_audit.py": "1c277e743d6074143f7725629f2d2e39fcb63115873f8d1f3bab2d52f996afc8",
+}
+
+
+def git(root: Path, *args: str) -> str:
+    result = subprocess.run(
+        ["git", *args], cwd=root, text=True, encoding="utf-8",
+        capture_output=True, check=True,
+    )
+    # Keep porcelain's leading XY status columns (e.g. " M path").
+    return result.stdout.rstrip("\r\n")
+
+
+def verify_audit_only_changes(changes: str) -> dict[str, Any]:
+    """Allow only the reviewed audit additions and the single committed cache edit.
+
+    A changed production source, unexpected audit file, renamed path, or
+    changed status aborts. The cache is neither imported nor proof evidence.
+    """
+    if not isinstance(changes, str):
+        raise TypeError("Git committed diff must be a string")
+    added: list[str] = []
+    committed_cache: list[str] = []
+    observed: set[str] = set()
+    for record in changes.splitlines():
+        parts = record.split("\t")
+        if len(parts) != 2:
+            raise RuntimeError("Unexpected Git diff status: " + repr(record))
+        status, path = parts
+        if path in observed:
+            raise RuntimeError("Duplicate Git path: " + repr(path))
+        observed.add(path)
+        if status == "A" and path in APPROVED_ADDED_PATHS:
+            added.append(path)
+        elif status == "M" and path == COMMITTED_CACHE:
+            committed_cache.append(path)
+        else:
+            raise RuntimeError("Non-audit committed change detected: " + repr(record))
+    if len(committed_cache) > 1:
+        raise RuntimeError("Duplicate committed pytest cache edit")
+    return {"audits_added": added, "committed_cache_exception": committed_cache}
+
+
+def verify_source_text(chapter5: str, chapter4: str) -> dict[str, Any]:
+    """Audit exact cited formulations without asserting they are usable leaves."""
+    eq_start = chapter5.index(r"\begin{equation}\label{eq:5.6}")
+    eq_end = chapter5.index(r"\end{equation}", eq_start)
+    equation = chapter5[eq_start:eq_end]
+    required = (
+        r"\pi^{\,3}_{i-1}",
+        r"\pi^{\,7}_{i}",
+        r"\pi_{\,i}^{4}",
+        r"\nu_{4}\circ\beta",
+        r"\cong",
+    )
+    if any(token not in equation for token in required):
+        raise RuntimeError("Toda (5.6) formula differs from reviewed equation")
+    prelude = chapter5[max(0, eq_start - 120):eq_start]
+    if "Prop 4.4" not in prelude or "Lem 5.4" not in prelude:
+        raise RuntimeError("Toda (5.6) no longer cites Prop 4.4 and Lem 5.4")
+    lemma_start = chapter5.find(r"\begin{lemma}\label{lem:5.4}")
+    lemma_tokens = (r"H(\nu_{4})=\iota_7", r"2E \nu_{4}=E^{2}\nu'")
+    # Toda also repeats Lemma 5.4 in a side-column as a summary; check the chapter.
+    if any(token not in chapter5 for token in lemma_tokens):
+        raise RuntimeError("Reviewed Lemma 5.4 Hopf/generator conditions absent")
+    prop_start = chapter4.index(r"\begin{proposition}\label{prop:4.4}")
+    prop_end = chapter4.index(r"\end{proposition}", prop_start)
+    prop = chapter4[prop_start:prop_end]
+    if not all(token in prop for token in (r"\pit{i-1}{n-1}", r"\pit{i}{2n-1}", "同型")):
+        raise RuntimeError("Toda Proposition 4.4 formula differs")
+    return {
+        "equation": "(5.6)",
+        "map": "(alpha,beta) -> E alpha + nu_4 o beta",
+        "source_groups": ["pi_(i-1)^3", "pi_i^7"],
+        "target_group": "pi_i^4",
+        "specialization_i": 7,
+        "specialized_source_groups": ["pi_6^3", "pi_7^7"],
+        "specialized_target": "pi_7^4",
+        "prop44_and_lemma54_required": True,
+        "pi77_free_cyclic_proved_here": False,
+        "lemma54_statement_found": lemma_start >= 0 or all(t in chapter5 for t in lemma_tokens),
+        "source_excerpt_sha256": hashlib.sha256(equation.encode("utf-8")).hexdigest(),
+    }
+
+
+def inspect_named_function(source: str, name: str) -> dict[str, Any]:
+    """Extract one full top-level function from a large historical rule module."""
+    pattern = re.compile(r"^def " + re.escape(name) + r"\s*\(", flags=re.MULTILINE)
+    matches = list(pattern.finditer(source))
+    if len(matches) != 1:
+        return {"function": name, "defined_exactly_once": False,
+                "count": len(matches)}
+    begin = matches[0].start()
+    following = re.search(r"^(?:def |class |@dataclass\b)", source[matches[0].end():], re.MULTILINE)
+    finish = matches[0].end() + following.start() if following else len(source)
+    block = source[begin:finish]
+    return {
+        "function": name,
+        "defined_exactly_once": True,
+        "line": source.count("\n", 0, begin) + 1,
+        "sha256": hashlib.sha256(block.encode("utf-8")).hexdigest(),
+        "mentions_premise_pattern": "PremisePattern" in block,
+        "mentions_literature_reference": "LiteratureReference" in block,
+        "mentions_direct_sum": "DirectSumGroup" in block,
+        "mentions_pi77": "pi7_7" in block or "TodaPrimaryGroup(7, 7)" in block,
+    }
+
+
+def verify_tracked_worktree(root: Path, status: str) -> tuple[str, ...]:
+    """Review exact unstaged exceptions without changing or restoring any file.
+
+    The only accepted tracked modifications are pytest's nodeids cache and
+    previously installed copies of three audit-only files whose SHA-256
+    matches the exact previously reviewed correction package.
+    """
+    if not isinstance(root, Path):
+        raise TypeError("Git worktree root must be a Path")
+    if not isinstance(status, str):
+        raise TypeError("Git status must be a string")
+    exemptions: list[str] = []
+    seen: set[str] = set()
+    for record in status.splitlines():
+        if not record.startswith(" M "):
+            raise RuntimeError("Unexpected staged/deleted/renamed tracked change: " + repr(record))
+        path = record[3:]
+        if path in seen:
+            raise RuntimeError("Duplicate tracked change: " + repr(record))
+        seen.add(path)
+        if path == COMMITTED_CACHE:
+            exemptions.append(path)
+            continue
+        expected = APPROVED_WORKTREE_AUDIT_SHA256.get(path)
+        if expected is None:
+            raise RuntimeError("Unreviewed tracked source changed: " + repr(record))
+        file = root / path
+        if not file.is_file():
+            raise RuntimeError("Expected audit file is not present: " + path)
+        digest = hashlib.sha256(file.read_bytes()).hexdigest()
+        if digest != expected:
+            raise RuntimeError("Previously reviewed audit content differs: " + path)
+        exemptions.append(path)
+    return tuple(exemptions)
+
+
+def preflight(root: Path) -> dict[str, Any]:
+    """Validate approved commits, trusted source blobs, and local edits."""
+    if git(root, "branch", "--show-current") != "develop":
+        raise RuntimeError("Phase 173 R4-R1 requires develop")
+    head = git(root, "rev-parse", "HEAD")
+    if head not in REVIEWED_HEADS:
+        raise RuntimeError("HEAD is not one of the two reviewed develop commits: " + head)
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", BASELINE, head],
+        cwd=root, capture_output=True, check=False,
+    )
+    if ancestor.returncode != 0:
+        raise RuntimeError("The reviewed Phase 173 R3 baseline is not an ancestor")
+    changes = verify_audit_only_changes(
+        git(root, "diff", "--name-status", "--no-renames", BASELINE, head)
+    )
+    raw_status = git(root, "status", "--porcelain", "--untracked-files=no")
+    worktree_exemptions = verify_tracked_worktree(root, raw_status)
+    for path, expected in REVIEWED_BLOBS.items():
+        actual = git(root, "rev-parse", "HEAD:" + path)
+        if actual != expected:
+            raise RuntimeError("Reviewed source changed: " + path)
+    chapter5 = (root / "sources/toda/Toda_05_2.tex").read_text(encoding="utf-8-sig")
+    chapter4 = (root / "sources/toda/Toda_04_2.tex").read_text(encoding="utf-8-sig")
+    math = verify_source_text(chapter5, chapter4)
+    source = (root / "toda_rules.py").read_text(encoding="utf-8-sig")
+    rules = [inspect_named_function(source, name) for name in RULE_NAMES]
+    return {
+        "head": head,
+        "github_reviewed_heads": list(REVIEWED_HEADS),
+        "baseline": BASELINE,
+        "committed_audit_additions": changes["audits_added"],
+        "committed_cache_exception": changes["committed_cache_exception"],
+        "reviewed_source_blob_count": len(REVIEWED_BLOBS),
+        "toda": math,
+        "existing_rule_inventory": rules,
+        "untracked_directories_preserved": True,
+        "tracked_files_unchanged": not worktree_exemptions,
+        "reviewed_source_files_unchanged": True,
+        "worktree_exceptions": list(worktree_exemptions),
+    }
+
+
+def inspect_public_root() -> dict[str, Any]:
+    """Reproduce R3's public root inspection for (n,k)=(4,3), without proof search."""
+    from phase165_r52_r9_shared_math import (
+        build_shared_typed_bridge, shared_expansion_provider,
+    )
+    from phase165_r55_nk_only_goal import registered_group_goal_candidates
+    from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
+    from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
+    from phase166_r3t_goal_source_binding.goal_source import (
+        resolve_specialized_goal_citing_id,
+    )
+    from phase169_r3m_prior_result_catalog.prior_results import (
+        resolve_prior_group_result,
+    )
+    from phase165_r52_r27_r5_literature import TodaProp44UniversalStatement
+    from proof import ProofRule
+
+    bridge = build_shared_typed_bridge()
+    candidates = registered_group_goal_candidates(bridge, n=4, k=3)
+    if len(candidates) != 1:
+        raise RuntimeError("pi_7^4 must have exactly one typed DB goal")
+    goal = candidates[0]
+    citing = resolve_specialized_goal_citing_id(bridge, goal)
+    if citing is None:
+        raise RuntimeError("pi_7^4 lacks uniquely positioned citation")
+    screened = screen_shared_proof_context(
+        bridge, goal=goal, citing_assertion_id=citing,
+        explicit_publication_target=True,
+    )
+    screened = prefer_universal_prop42_derivation(screened)
+    given_links = [
+        link for link in screened.proof_links
+        if link.step is not None and link.step.rule is ProofRule.GIVEN
+    ]
+    given = tuple(link.step.conclusion for link in given_links)
+    if any(type(item) is type(goal) and item == goal for item in given):
+        raise RuntimeError("Target DB goal was incorrectly promoted to GIVEN")
+    prop44 = [
+        link for link in given_links
+        if type(link.step.conclusion) is TodaProp44UniversalStatement
+        and link.step.conclusion == TodaProp44UniversalStatement()
+    ]
+    provider = shared_expansion_provider(screened, proof_target=goal)
+    roots = []
+    examined_children: list[object] = []
+    for option in provider(goal):
+        children = []
+        for child in option.subgoals:
+            available = any(type(s) is type(child) and s == child for s in given)
+            item: dict[str, Any] = {
+                "type": type(child).__name__,
+                "repr": repr(child)[:900],
+                "exact_screened_given": available,
+            }
+            if any(type(old) is type(child) and old == child for old in examined_children):
+                item["duplicate_subgoal"] = True
+            else:
+                examined_children.append(child)
+                try:
+                    item["immediate_child_rule_names"] = [
+                        proposal.rule.name for proposal in provider(child)
+                    ]
+                except Exception as exc:
+                    item["child_probe_error"] = type(exc).__name__ + ": " + str(exc)
+            children.append(item)
+        roots.append({"rule": option.rule.name, "children": children})
+    prior = resolve_prior_group_result(
+        screened, source_n=3, source_k=3, citing_assertion_id=citing,
+    )
+    pi77 = registered_group_goal_candidates(bridge, n=7, k=0)
+    return {
+        "goal": "pi_7^4 = Z{nu_4} + Z/4{E nu_prime}",
+        "source_citing_assertion_id": citing,
+        "screened_given_count": len(given),
+        "target_is_screened_given": False,
+        "prop44_cited_universal_given_count": len(prop44),
+        "screened_given_statement_types": sorted({type(statement).__name__ for statement in given}),
+        "toda56_decomposition_direct_given_count": sum(
+            type(statement).__name__ == "Toda56Nu4DecompositionIsomorphismStatement"
+            for statement in given
+        ),
+        "prior_pi63": {"eligible": prior.eligible, "reason": prior.reason,
+                       "source_assertion_id": prior.source_assertion_id,
+                       "proven_in_this_audit": False},
+        "pi77_db_goal_count": len(pi77),
+        "pi77_proven_in_this_audit": False,
+        "root_proposals": roots,
+        "root_candidate_count": len(roots),
+        "discovered_complete_proof": False,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Read-only Toda (5.6) pi_7^4 audit")
+    parser.add_argument("--root", type=Path, default=Path.cwd())
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+    root = args.root.resolve()
+    print("PHASE173_R4_R1_MODE=AUDIT_ONLY")
+    report: dict[str, Any] = {
+        "phase": "173-R4-R1", "scope": "AUDIT_ONLY",
+        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "preflight": preflight(root),
+    }
+    print("PHASE173_R4_R1_SOURCE_GUARD=PASS")
+    if not args.dry_run:
+        report["public_root"] = inspect_public_root()
+        print("PHASE173_R4_R1_RUNTIME_ROOTS=" + str(
+            report["public_root"]["root_candidate_count"]
+        ))
+    else:
+        report["public_root"] = "SKIPPED_DRY_RUN"
+    report["status"] = "OBSERVATION_ONLY_NOT_A_PROOF"
+    report["production_changes"] = []
+    destination = Path(os.environ.get("LOCALAPPDATA", str(Path.home()))) / (
+        "EHPProofTracerRecovery/phase173_r4_r1_committed_cache_resume/audit.json"
+    )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print("PHASE173_R4_R1_REPORT=" + str(destination))
+    print("PHASE173_R4_R1_OBSERVATION_IS_NOT_PROOF=True")
+    print("PHASE173_R4_R1_TRACKED_UNCHANGED=" + str(
+        report["preflight"]["tracked_files_unchanged"]
+    ))
+    print("PHASE173_R4_R1_REVIEWED_SOURCE_UNCHANGED=True")
+    print("PHASE173_R4_R1_TRACKED_CACHE_EXCEPTION=" + str(
+        report["preflight"]["worktree_exceptions"]
+    ))
+    print("PHASE173_R4_R1_COMMITTED_CACHE_EXCEPTION=" + str(
+        report["preflight"]["committed_cache_exception"]
+    ))
+    print("PHASE173_R4_R1_RESUME_AUDIT=PASS")
+    print("PHASE173_R4_R1_AUDIT=PASS")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
