@@ -46,6 +46,7 @@ def registered_group_goal_candidates(bridge, *, n: int, k: int) -> tuple[Relatio
 def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_order_catalog=None, goal=None, context_sink=None):
     """Search typed goals. Zero goals use the same evidenced backward engine."""
     from homotopy_groups import TodaPrimaryGroupZeroStatement
+
     from phase166_r3af_goal_adapter import database_zero_group_goal_candidates
 
     target = TodaPrimaryGroup(n + k, n)
@@ -95,7 +96,9 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
             screen_independent_sources_for_derived_goal,
         )
         from phase165_r52_r2_search_adapter import search_registered_partial_proof
+
         from phase165_r52_r9_shared_math import shared_expansion_provider
+
         assertions = tuple(bridge.registry._assertions.values())
         if not assertions:
             return make_partial_proof_result(
@@ -105,14 +108,23 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
         # The DB target has no publication position. Cite only independently
         # positioned fixed source statements; invent no target citation ID.
         context_id = assertions[0].assertion_id
-        screened = screen_independent_sources_for_derived_goal(
-            bridge, goal=candidate,
+        from phase173_r4_r11_zero_public_connection.route import (
+            prepare_zero_toda56_public_connection,
         )
+        zero_connection = prepare_zero_toda56_public_connection(
+            bridge=bridge, goal=candidate,
+        )
+        if zero_connection is None:
+            screened = screen_independent_sources_for_derived_goal(
+                bridge, goal=candidate,
+            )
+            provider = shared_expansion_provider(
+                screened, proof_target=candidate,
+            )
+        else:
+            screened, provider = zero_connection
         if context_sink is not None:
             context_sink(screened)
-        provider = shared_expansion_provider(
-            screened, proof_target=candidate,
-        )
         return search_registered_partial_proof(
             n=n, k=k, goal=candidate, bridge=screened,
             citing_assertion_id=context_id,
@@ -121,6 +133,7 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
 
     if proof_order_catalog is None:
         from phase165_r57_r16_web_proof_order import resolve_reviewed_order_catalog
+
         proof_order_catalog, order_diagnostic = resolve_reviewed_order_catalog(
             bridge, n=n, k=k,
         )
