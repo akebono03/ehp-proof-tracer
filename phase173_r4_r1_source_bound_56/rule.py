@@ -9,9 +9,10 @@ from __future__ import annotations
 
 from expression import GeneratorSymbol, HomotopyElement, IteratedSuspension, MapApplication
 from homotopy_groups import DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
-from phase165_r3_recursive_search import GoalExpansion
+from phase165_r3_recursive_search import GoalExpansion, SourceBoundGoal
 from phase165_r52_r27_r5_literature import TodaProp44UniversalStatement
 from phase165_r55_nk_only_goal import registered_group_goal_candidates
+from phase165_r57_r20_general_specialization import expand_cited_general_specialization
 from phase166_r3t_goal_source_binding.goal_source import resolve_specialized_goal_citing_id
 from phase169_r3m_prior_result_catalog.prior_results import resolve_prior_group_result
 from proof import InferenceRule, LiteratureReference, PremisePattern, ProofRule, Relation, RelationType
@@ -176,6 +177,24 @@ def expand_source_bound_toda56(
     diagonal = _diagonal_goal(bridge)
     if diagonal is None:
         return ()
+    # A direct DB/adopted GIVEN for pi_7^7 does not satisfy this root's
+    # independent INFERENCE premise. Bind the diagonal to the screened
+    # universal Toda (5.1) scalar specialization instead.
+    diagonal_routes = expand_cited_general_specialization(diagonal, available)
+    if len(diagonal_routes) != 1 or len(diagonal_routes[0].subgoals) != 1:
+        return ()
+    diagonal_source = diagonal_routes[0].subgoals[0]
+    source_links = tuple(
+        link for link in bridge.proof_links
+        if link.step is not None
+        and link.step.rule is ProofRule.GIVEN
+        and link.step.conclusion == diagonal_source
+        and bridge.registry.reference(
+            bridge.registry.assertion(link.assertion_id).reference_id
+        ).locator == "(5.1)"
+    )
+    if len(source_links) != 1 or diagonal_source == diagonal:
+        return ()
     nu4, _ = generators
     hopf = Relation(
         MapApplication(map=EHP_H_MAP, expression=nu4),
@@ -187,5 +206,6 @@ def expand_source_bound_toda56(
     except ValueError:
         return ()
     return (GoalExpansion(
-        rule, (TodaProp44UniversalStatement(), prior.relation, diagonal, hopf),
+        rule, (TodaProp44UniversalStatement(), prior.relation,
+               SourceBoundGoal(diagonal, diagonal_source), hopf),
     ),)
