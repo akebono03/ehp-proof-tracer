@@ -1,0 +1,56 @@
+{
+  "phase": "173 R4-R7R2",
+  "mode": "ISOLATED_SEARCH_ONLY",
+  "public_connection_changed": false,
+  "results": [
+    {
+      "group": "pi_8^4",
+      "dimension": 8,
+      "source_first": true,
+      "proposals": 1,
+      "isolated_status": "complete",
+      "root_certified": true,
+      "normal_web_unchanged": true,
+      "mathematical_source_gaps": [],
+      "typed_generator_match": true,
+      "prop44_leaves": 1,
+      "lemma54_leaves": 1,
+      "open_goals": 0,
+      "proven_steps": 6,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_9^4",
+      "dimension": 9,
+      "source_first": true,
+      "proposals": 1,
+      "isolated_status": "complete",
+      "root_certified": true,
+      "normal_web_unchanged": true,
+      "mathematical_source_gaps": [],
+      "typed_generator_match": true,
+      "prop44_leaves": 1,
+      "lemma54_leaves": 1,
+      "open_goals": 0,
+      "proven_steps": 6,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_10^4",
+      "dimension": 10,
+      "source_first": true,
+      "proposals": 1,
+      "isolated_status": "complete",
+      "root_certified": true,
+      "normal_web_unchanged": true,
+      "mathematical_source_gaps": [],
+      "typed_generator_match": true,
+      "prop44_leaves": 1,
+      "lemma54_leaves": 1,
+      "open_goals": 0,
+      "proven_steps": 6,
+      "diagnostics": []
+    }
+  ],
+  "all_three_certified": true
+}
