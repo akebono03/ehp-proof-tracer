@@ -1,0 +1,52 @@
+{
+  "phase": "173 R4-R8",
+  "mode": "PUBLIC_CONNECTOR_VERIFICATION",
+  "results": [
+    {
+      "group": "pi_8^4",
+      "n": 4,
+      "k": 4,
+      "public_status": "complete",
+      "public_complete": true,
+      "root_count": 1,
+      "source_certified": true,
+      "public_open_goals": 0,
+      "public_proven_steps": 6,
+      "web_complete": true,
+      "web_key": "generic-complete-proof",
+      "web_lines": 14,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_9^4",
+      "n": 4,
+      "k": 5,
+      "public_status": "complete",
+      "public_complete": true,
+      "root_count": 1,
+      "source_certified": true,
+      "public_open_goals": 0,
+      "public_proven_steps": 6,
+      "web_complete": true,
+      "web_key": "generic-complete-proof",
+      "web_lines": 14,
+      "diagnostics": []
+    },
+    {
+      "group": "pi_10^4",
+      "n": 4,
+      "k": 6,
+      "public_status": "complete",
+      "public_complete": true,
+      "root_count": 1,
+      "source_certified": true,
+      "public_open_goals": 0,
+      "public_proven_steps": 6,
+      "web_complete": true,
+      "web_key": "generic-complete-proof",
+      "web_lines": 14,
+      "diagnostics": []
+    }
+  ],
+  "all_three_public_certified": true
+}

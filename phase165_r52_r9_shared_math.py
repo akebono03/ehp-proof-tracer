@@ -558,6 +558,17 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         )
     from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
     proof_context = prefer_universal_prop42_derivation(proof_context)
+    # Phase 173 R4-R8: reuse only the three isolated, source-verified Toda (5.6) roots.
+    if n == 4 and k in (4, 5, 6) and expansion_provider is None and citing_assertion_id is None:
+        from phase173_r4_r8_public_connection.route import (
+            prepare_pi4_higher_public_connection,
+        )
+        pi4_higher_connection = prepare_pi4_higher_public_connection(
+            bridge=bridge, goal=goal,
+            prior_conclusions=tuple(item.root.conclusion for item in prior),
+        )
+        if pi4_higher_connection is not None:
+            proof_context, expansion_provider = pi4_higher_connection
     if context_sink is not None:
         context_sink(proof_context)
     if expansion_provider is None:
