@@ -134,11 +134,11 @@ def project_verified_pi74_narrative(
         prop_n: (
             f"**[R{prop_n}] Proposition 4.4.**",
             r"$\alpha\in\pi_{2n-1}^{n}$ と "
-            r"$H(\alpha)=\pm\iota_{2n-1}$ を仮定する. "
+            r"$H(\alpha)=\pm\iota_{2n-1}$ を仮定する.",
             r"任意の $i$ に対して, "
             r"$\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}"
             r"\xrightarrow{\ \cong\ }\pi_i^n$ は "
-            r"$(\beta,\gamma)\mapsto E\beta+\alpha\circ\gamma$ による同型である. "
+            r"$(\beta,\gamma)\mapsto E\beta+\alpha\circ\gamma$ による同型である.",
             r"特に $E$ は単射である.",
         ),
         prior_n: (
@@ -167,14 +167,10 @@ def project_verified_pi74_narrative(
         f"[R{prior_n}]より, " + r"$\pi_6^3\cong\mathbb{Z}/4\{\nu'\}$.", "",
         f"[R{diagonal_n}]より, " + r"$\pi_7^7\cong\mathbb{Z}\{\iota_7\}$.", "",
         f"[R{lemma_n}]より, " + r"$H(\nu_4)=\iota_7$.", "",
-        f"[R{prop_n}]を $n=4$, $i=7$, $\alpha=\nu_4$ に適用する. "
-        "このとき [R" + str(lemma_n) + "] の Hopf 関係により, "
-        "Toda (5.6) の同型", "",
+        rf"[R{prop_n}]を $n=4$, $i=7$, $\alpha=\nu_4$ に適用すると, "
+        "次の同型を得る.", "",
         r"$\Phi:\pi_6^3\oplus\pi_7^7\xrightarrow{\ \cong\ }\pi_7^4,"
         r"\quad(\beta,\gamma)\longmapsto E\beta+\nu_4\circ\gamma$", "",
-        "を得る. この同型は, "
-        r"$\Phi(\nu',0)=E\nu'$ と "
-        r"$\Phi(0,\iota_7)=\nu_4$ を満たす.", "",
         "したがって, "
         r"$\pi_7^4\cong\mathbb{Z}\{\nu_4\}\oplus"
         r"\mathbb{Z}/4\{E\nu'\}$.", "",

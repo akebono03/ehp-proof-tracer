@@ -24,7 +24,16 @@ def main() -> int:
         "lemma54_double": any(r"2E\nu_4=E^2\nu'" in x for x in math),
         "prior_tex": any(r"\pi_{6}^{3}" in x for x in math),
         "toda56_iso": any(r"\Phi:\pi_6^3\oplus\pi_7^7" in x and r"\cong" in x for x in math),
-        "generator_images": any(r"\Phi(\nu',0)=E\nu'" in x for x in math) and any(r"\Phi(0,\iota_7)=\nu_4" in x for x in math),
+        "no_redundant_generator_images": not any(
+            r"\Phi(\nu',0)=" in x or r"\Phi(0,\iota_7)=" in x
+            for x in math
+        ),
+        "no_uncited_toda56_label": "Toda (5.6)" not in text,
+        "sentence_line_breaks": all(
+            ". " not in "".join(segment.value for segment in line.segments
+                                  if segment.kind in ("text", "strong"))
+            for line in view.rendered_lines
+        ),
         "root_conclusion": any(r"\pi_7^4\cong\mathbb{Z}" in x and r"\mathbb{Z}/4" in x for x in math),
         "no_escaped_prior_latex": r"\pi\_" not in text,
     }

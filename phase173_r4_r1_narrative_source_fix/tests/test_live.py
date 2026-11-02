@@ -26,5 +26,12 @@ def test_pi74_reference_and_toda56_are_rendered_as_math() -> None:
     assert any(r"H(\nu_4)=\iota_7" in x for x in rendered_math)
     assert any(r"\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}" in x and r"\cong" in x for x in rendered_math)
     assert any(r"\Phi:\pi_6^3\oplus\pi_7^7" in x and r"\cong" in x for x in rendered_math)
-    assert any(r"\Phi(\nu',0)=E\nu'" in x for x in rendered_math)
-    assert any(r"\Phi(0,\iota_7)=\nu_4" in x for x in rendered_math)
+    assert not any(r"\Phi(\nu',0)=" in x for x in rendered_math)
+    assert not any(r"\Phi(0,\iota_7)=" in x for x in rendered_math)
+    rendered_text = "\n".join(
+        "".join(segment.value for segment in line.segments if segment.kind in ("text", "strong"))
+        for line in view.rendered_lines
+    )
+    assert "Toda (5.6)" not in rendered_text
+    assert "Hopf 関係により" not in rendered_text
+    assert "この同型は" not in rendered_text
