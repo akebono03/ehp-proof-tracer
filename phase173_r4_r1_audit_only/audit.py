@@ -45,7 +45,8 @@ def git(root: Path, *args: str) -> str:
         ["git", *args], cwd=root, text=True, encoding="utf-8",
         capture_output=True, check=True,
     )
-    return result.stdout.strip()
+    # Keep porcelain's leading XY status columns (e.g. " M path").
+    return result.stdout.rstrip("\r\n")
 
 
 def verify_audit_only_changes(changes: str) -> list[str]:
@@ -130,6 +131,28 @@ def inspect_named_function(source: str, name: str) -> dict[str, Any]:
     }
 
 
+def verify_tracked_worktree(status: str) -> tuple[str, ...]:
+    """Reject tracked edits except one explicitly reviewed pytest cache artifact.
+
+    Git porcelain v1 line: two status columns, a space, then the path.
+    Only the *unstaged* modified nodeids file is eligible. Staged, deleted,
+    renamed, copied and other modified files fail closed. The cache is not
+    deleted, restored, or used as a mathematical premise.
+    """
+    if not isinstance(status, str):
+        raise TypeError("Git status must be a string")
+    lines = status.splitlines()
+    if not lines:
+        return ()
+    allowed = " M .pytest_cache/v/cache/nodeids"
+    if lines != [allowed]:
+        raise RuntimeError(
+            "Unexpected tracked changes; cache-only exception rejected: "
+            + repr(lines)
+        )
+    return (".pytest_cache/v/cache/nodeids",)
+
+
 def preflight(root: Path) -> dict[str, Any]:
     if git(root, "branch", "--show-current") != "develop":
         raise RuntimeError("Phase 173 R4-R1 requires develop")
@@ -143,8 +166,8 @@ def preflight(root: Path) -> dict[str, Any]:
     additions = verify_audit_only_changes(
         git(root, "diff", "--name-status", "--no-renames", BASELINE, head)
     )
-    if git(root, "status", "--porcelain", "--untracked-files=no"):
-        raise RuntimeError("Tracked files are modified; no automatic clean/reset")
+    raw_status = git(root, "status", "--porcelain", "--untracked-files=no")
+    cache_exemptions = verify_tracked_worktree(raw_status)
     for path, expected in REVIEWED_BLOBS.items():
         actual = git(root, "rev-parse", "HEAD:" + path)
         if actual != expected:
@@ -164,7 +187,9 @@ def preflight(root: Path) -> dict[str, Any]:
         "toda": math,
         "existing_rule_inventory": rules,
         "untracked_directories_preserved": True,
-        "tracked_files_unchanged": True,
+        "tracked_files_unchanged": not cache_exemptions,
+        "reviewed_source_files_unchanged": True,
+        "cache_only_tracked_exception": list(cache_exemptions),
     }
 
 
@@ -289,7 +314,13 @@ def main() -> int:
     destination.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print("PHASE173_R4_R1_REPORT=" + str(destination))
     print("PHASE173_R4_R1_OBSERVATION_IS_NOT_PROOF=True")
-    print("PHASE173_R4_R1_TRACKED_UNCHANGED=True")
+    print("PHASE173_R4_R1_TRACKED_UNCHANGED=" + str(
+        report["preflight"]["tracked_files_unchanged"]
+    ))
+    print("PHASE173_R4_R1_REVIEWED_SOURCE_UNCHANGED=True")
+    print("PHASE173_R4_R1_TRACKED_CACHE_EXCEPTION=" + str(
+        report["preflight"]["cache_only_tracked_exception"]
+    ))
     print("PHASE173_R4_R1_AUDIT=PASS")
     return 0
 

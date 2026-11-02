@@ -1,0 +1,5 @@
+ORIGINAL_SHA256 = {
+    'audit.py': '84cbb192f3b3608b26cf4e2b9bd01645ba201d2a3405a794377ce2241878a1ec',
+    'run.ps1': 'cd589d5242ddcd46d40309beb5b9457921ccc9dabf697de65189c52d465a5ca7',
+    'tests/test_audit.py': 'df27be72017204750b67e96977227318ed207b410db58bdf572405bf375d72ee',
+ }

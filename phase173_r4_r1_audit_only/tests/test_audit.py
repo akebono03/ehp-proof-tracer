@@ -1,12 +1,17 @@
 """Focused tests for the read-only Phase 173 R4-R1 auditor."""
 from __future__ import annotations
 
+from pathlib import Path
+from types import SimpleNamespace
+
 import pytest
 
 from phase173_r4_r1_audit_only.audit import (
+    git,
     inspect_named_function,
     verify_audit_only_changes,
     verify_source_text,
+    verify_tracked_worktree,
 )
 
 
@@ -86,3 +91,44 @@ def test_rejects_source_without_mandatory_map() -> None:
     )
     with pytest.raises(RuntimeError, match="equation"):
         verify_source_text(chapter5, "")
+
+
+def test_accepts_clean_tracked_worktree() -> None:
+    assert verify_tracked_worktree("") == ()
+
+
+def test_accepts_only_unstaged_nodeids_cache() -> None:
+    assert verify_tracked_worktree(" M .pytest_cache/v/cache/nodeids\n") == (
+        ".pytest_cache/v/cache/nodeids",
+    )
+
+
+@pytest.mark.parametrize("status", [
+    "M  .pytest_cache/v/cache/nodeids",   # staged cache is not exempt
+    "MM .pytest_cache/v/cache/nodeids",  # staged plus unstaged
+    " D .pytest_cache/v/cache/nodeids",  # deletion is not exempt
+    " M phase165_r52_r9_shared_math.py",  # real source edit
+    " M .pytest_cache/v/cache/nodeids\n M README.md",  # two changes
+    " M .pytest_cache/v/cache/lastfailed",  # other cache file
+    "?? .pytest_cache/v/cache/nodeids",  # unexpected tracked status
+])
+def test_rejects_unreviewed_tracked_changes(status: str) -> None:
+    with pytest.raises(RuntimeError, match="cache-only exception rejected"):
+        verify_tracked_worktree(status)
+
+
+def test_rejects_non_string_worktree_status() -> None:
+    with pytest.raises(TypeError):
+        verify_tracked_worktree(None)
+
+
+def test_git_preserves_porcelain_leading_status_column(monkeypatch, tmp_path: Path) -> None:
+    def fake_run(*args, **kwargs):
+        return SimpleNamespace(stdout=" M .pytest_cache/v/cache/nodeids\n")
+
+    monkeypatch.setattr(
+        "phase173_r4_r1_audit_only.audit.subprocess.run", fake_run
+    )
+    assert git(tmp_path, "status", "--porcelain", "--untracked-files=no") == (
+        " M .pytest_cache/v/cache/nodeids"
+    )
