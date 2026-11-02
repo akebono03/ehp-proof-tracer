@@ -529,6 +529,16 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         )
     if bridge is None:
         bridge = build_shared_typed_bridge()
+    if n == 4 and k == 3 and expansion_provider is None:
+        from phase173_r4_r1_public_connection.route import (
+            prepare_pi74_public_connection,
+        )
+        pi74_connection = prepare_pi74_public_connection(
+            bridge=bridge, goal=goal, citing_assertion_id=citing_assertion_id,
+            prior_conclusions=tuple(item.root.conclusion for item in prior),
+        )
+        if pi74_connection is not None:
+            bridge, citing_assertion_id, expansion_provider = pi74_connection
     assertions = tuple(bridge.registry._assertions.values())
     if not assertions:
         raise ValueError("shared typed registry is empty")
