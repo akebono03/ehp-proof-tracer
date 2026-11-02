@@ -1,0 +1,81 @@
+{
+  "phase": "173 R4-R10",
+  "mode": "ISOLATED_GENERIC_INFERENCE_CORE",
+  "source_guard": {
+    "local_head": "924888b257f9fed1e2d34790127b4ff108a7badb",
+    "remote_head": "924888b257f9fed1e2d34790127b4ff108a7badb",
+    "reviewed_blobs": 10,
+    "tracked_changes": false,
+    "source_guard": "PASS"
+  },
+  "targets": [
+    {
+      "i": 7,
+      "target_type": "Relation",
+      "is_zero": false,
+      "general_shape_eligible": false,
+      "legacy_bounded_eligible": false,
+      "prior_count": 0,
+      "independent_sources_screened": false,
+      "public_search_connected": false,
+      "proof_complete_by_this_package": false
+    },
+    {
+      "i": 8,
+      "target_type": "Relation",
+      "is_zero": false,
+      "general_shape_eligible": true,
+      "legacy_bounded_eligible": true,
+      "prior_count": 2,
+      "independent_sources_screened": false,
+      "public_search_connected": false,
+      "proof_complete_by_this_package": false
+    },
+    {
+      "i": 9,
+      "target_type": "Relation",
+      "is_zero": false,
+      "general_shape_eligible": true,
+      "legacy_bounded_eligible": true,
+      "prior_count": 2,
+      "independent_sources_screened": false,
+      "public_search_connected": false,
+      "proof_complete_by_this_package": false
+    },
+    {
+      "i": 10,
+      "target_type": "Relation",
+      "is_zero": false,
+      "general_shape_eligible": true,
+      "legacy_bounded_eligible": true,
+      "prior_count": 2,
+      "independent_sources_screened": false,
+      "public_search_connected": false,
+      "proof_complete_by_this_package": false
+    },
+    {
+      "i": 11,
+      "target_type": "TodaPrimaryGroupZeroStatement",
+      "is_zero": true,
+      "general_shape_eligible": true,
+      "legacy_bounded_eligible": false,
+      "prior_count": 2,
+      "independent_sources_screened": false,
+      "public_search_connected": false,
+      "proof_complete_by_this_package": false
+    },
+    {
+      "i": 12,
+      "target_type": "Relation",
+      "is_zero": false,
+      "general_shape_eligible": false,
+      "legacy_bounded_eligible": false,
+      "prior_count": 0,
+      "independent_sources_screened": false,
+      "public_search_connected": false,
+      "proof_complete_by_this_package": false
+    }
+  ],
+  "public_certification": false,
+  "note": "A proposed inference root is never a completed public proof."
+}
