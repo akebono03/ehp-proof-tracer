@@ -89,4 +89,43 @@ def screened_source_first_context(
     if any(link.step is not None and link.step.conclusion == goal
            for link in screened.proof_links):
         return None
+    if goal.lhs.group_dimension == 8:
+        # Proposition 5.8 prints both pi_7^3 and the current pi_8^4 goal.
+        # Its direct source link shadows the already authorized earlier DB
+        # result and is not a suitable independent premise for this root.
+        # Remove only that screened link, never the reference or assertion.
+        from phase169_r10e4_ordered_db_prior.db_prior import (
+            admitted_db_step,
+            exact_prior_database_result,
+        )
+
+        first = exact_prior_database_result(3, 4)
+        if first is None or admitted_db_step(
+            first, proof_target=goal, bridge=screened,
+        ) is None:
+            return None
+        matching = tuple(
+            link for link in screened.proof_links
+            if link.step is not None and link.step.conclusion == first
+        )
+        if len(matching) != 1:
+            return None
+        selected = matching[0]
+        assertion = screened.registry.assertion(selected.assertion_id)
+        reference = screened.registry.reference(assertion.reference_id)
+        if not (
+            selected.step.rule is ProofRule.GIVEN
+            and not selected.step.premises
+            and assertion.origin is AssertionOrigin.FIXED_STATEMENT
+            and assertion.content == first
+            and reference.locator == "Proposition 5.8"
+            and type(reference.publication_position) is int
+            and reference.publication_position > 0
+        ):
+            return None
+        screened = RegistryBridgeResult(
+            screened.registry, screened.records,
+            tuple(link for link in screened.proof_links
+                  if link.assertion_id != selected.assertion_id),
+        )
     return screened
