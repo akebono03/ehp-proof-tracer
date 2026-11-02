@@ -1,0 +1,31 @@
+{
+  "phase": "173 R4-R12",
+  "rows": [
+    {
+      "dimension": 7,
+      "web_complete": true,
+      "key": "generic-complete-proof"
+    },
+    {
+      "dimension": 8,
+      "web_complete": true,
+      "key": "generic-complete-proof"
+    },
+    {
+      "dimension": 9,
+      "web_complete": true,
+      "key": "generic-complete-proof"
+    },
+    {
+      "dimension": 10,
+      "web_complete": true,
+      "key": "generic-complete-proof"
+    },
+    {
+      "dimension": 11,
+      "web_complete": true,
+      "key": "generic-complete-proof"
+    }
+  ],
+  "all_five": true
+}
