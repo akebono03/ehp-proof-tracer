@@ -75,6 +75,12 @@ def build_partial_web_group_proof_view(
         else:
             from phase168_r3_5_model_renderer import render_model_backed_narrative_markdown
             markdown = render_model_backed_narrative_markdown(result, narrative_model)
+        from phase173_r4_r15r9_shared_abstract_renderer.projection import (
+            render_certified_abstract_section,
+        )
+        abstract_markdown = render_certified_abstract_section(result)
+        if abstract_markdown:
+            markdown = markdown.rstrip() + "\n\n" + abstract_markdown + "\n"
         rendered_lines = _build_group_proof_rendered_lines(markdown)
 
     return WebGroupProofView(

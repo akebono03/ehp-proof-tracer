@@ -1,0 +1,34 @@
+{
+  "phase": "173-R4-R15R9",
+  "mode": "COMMON_WEB_ABSTRACT_EVIDENCE_PROJECTION",
+  "observations": [
+    {
+      "k": 8,
+      "group": "pi_12^4",
+      "abstract_attached": true,
+      "abstract_rendered": true,
+      "named_search_status": "search_failed",
+      "named_open_goals": 3,
+      "web_key": "generic-partial-proof",
+      "web_partial": true,
+      "public_named_complete": false,
+      "passed": true
+    },
+    {
+      "k": 31,
+      "group": "pi_35^4",
+      "abstract_attached": true,
+      "abstract_rendered": true,
+      "named_search_status": "search_failed",
+      "named_open_goals": 2,
+      "web_key": "generic-partial-proof",
+      "web_partial": true,
+      "public_named_complete": false,
+      "passed": true
+    }
+  ],
+  "named_complete_promoted": false,
+  "specialized_narrative_added": false,
+  "full_pytest_performed": false,
+  "passed": true
+}

@@ -1,0 +1,7 @@
+{
+  "phase": "173-R4-R15R9",
+  "original_sha256": "c98c6fda7fdebc6cec027f76f6581d3246339588e76e54191a446b7598067a6e",
+  "patched_sha256": "60183ee7a80ed528e6cb0bd218c8a3ab01f0f507452ca3ed84ca79562d1e74a8",
+  "complete_named_proof_promoted": false,
+  "public_web_partial_status_preserved": true
+}
