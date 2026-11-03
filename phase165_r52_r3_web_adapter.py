@@ -1,8 +1,8 @@
 """Phase 165 R52-R3: common WebGroupProofView for partial proof states.
 
 The adapter does not search for evidence, infer mathematical statements or
-promote unproved goals into proven steps. Existing narrative rendering is
-preserved for legacy complete proofs.
+promote unproved goals into proven steps. Complete proof narratives use the
+verified ProofNarrativeModel renderer without a post-render override.
 """
 from __future__ import annotations
 
@@ -24,7 +24,7 @@ def build_partial_web_group_proof_view(
     mode: str = "narrative",
     narrative_model: ProofNarrativeModel | None = None,
 ) -> WebGroupProofView:
-    """Adapt searched steps; use explicit model when the caller supplies one."""
+    """Adapt searched steps; render a supplied proof model without rewriting it."""
     if not isinstance(result, PartialProofResult):
         raise TypeError("result must be PartialProofResult")
     if isinstance(max_depth, bool) or not isinstance(max_depth, int):
@@ -75,13 +75,6 @@ def build_partial_web_group_proof_view(
         else:
             from phase168_r3_5_model_renderer import render_model_backed_narrative_markdown
             markdown = render_model_backed_narrative_markdown(result, narrative_model)
-            if mode == "narrative" and result.status is ProofSearchStatus.COMPLETE:
-                from phase173_r4_r12_common_narrative.projection import (
-                    project_verified_toda56_narrative,
-                )
-                markdown = project_verified_toda56_narrative(
-                    result, narrative_model, markdown,
-                )
         rendered_lines = _build_group_proof_rendered_lines(markdown)
 
     return WebGroupProofView(

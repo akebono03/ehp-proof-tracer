@@ -1,4 +1,4 @@
-"""Focused assertions about source-owned narratives and blocked sixth goal."""
+"""Focused assertions about certified sources and the common Web narrative."""
 from __future__ import annotations
 
 import pytest
@@ -17,13 +17,15 @@ def test_five_proven_toda_narratives_preserve_sources_and_web(
     assert row["source_verified"] is True
     assert row["web_verified"] is True
     assert row["open_goals"] == 0
-    assert row["source_reference_count"] >= 4
+    assert row["source_reference_count"] == 4
     assert "使用する結果" in row["narrative_markdown"]
+    assert row["narrative_markdown"].endswith("□\n")
 
 
 def test_zero_group_has_no_fake_generator_image() -> None:
     row = inspect_dimension(11, with_web=False)
-    assert "両側の先行群はいずれも零群" in row["narrative_markdown"]
+    assert row["source_verified"] is True
+    assert row["source_reference_count"] == 4
     assert r"\Phi_{11}(" not in row["narrative_markdown"]
 
 
