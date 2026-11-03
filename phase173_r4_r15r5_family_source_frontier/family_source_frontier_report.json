@@ -1,0 +1,231 @@
+{
+  "phase": "173-R4-R15R5",
+  "mode": "READ_ONLY_UNRESOLVED_GENERATOR_SOURCE_FRONTIER",
+  "n": 4,
+  "k": 31,
+  "target": "pi_35^4",
+  "named_image_candidates": 4,
+  "named_images_replayed": 1,
+  "unresolved_pairs": [
+    {
+      "source_index": 0,
+      "target_index": 4,
+      "source_generator": "Composition(left=HomotopyElement(name='δ₃', dimension=3, source=27, target=3, generator=GeneratorSymbol(family='\\\\delta', index=3, decoration=None)), right=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)))",
+      "target_generator": "Composition(left=HomotopyElement(name='δ₄', dimension=4, source=28, target=4, generator=GeneratorSymbol(family='\\\\delta', index=4, decoration=None)), right=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)))",
+      "factor_obligations": [
+        {
+          "source": "HomotopyElement(name='δ₃', dimension=3, source=27, target=3, generator=GeneratorSymbol(family='\\\\delta', index=3, decoration=None))",
+          "target": "HomotopyElement(name='δ₄', dimension=4, source=28, target=4, generator=GeneratorSymbol(family='\\\\delta', index=4, decoration=None))",
+          "well_typed": true,
+          "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+          "family_id": 88
+        },
+        {
+          "source": "HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None))",
+          "target": "HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None))",
+          "well_typed": true,
+          "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+          "family_id": 9
+        }
+      ],
+      "missing_family_ids": [
+        88
+      ],
+      "proof_engine_replayed": false
+    },
+    {
+      "source_index": 1,
+      "target_index": 5,
+      "source_generator": "Composition(left=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))))",
+      "target_generator": "Composition(left=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None)), right=HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))))",
+      "factor_obligations": [
+        {
+          "source": "HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))",
+          "target": "HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))",
+          "well_typed": true,
+          "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+          "family_id": 10
+        },
+        {
+          "source": "HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None))",
+          "target": "HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None))",
+          "well_typed": true,
+          "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+          "family_id": 4
+        },
+        {
+          "source": "HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))",
+          "target": "HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))",
+          "well_typed": true,
+          "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+          "family_id": 56
+        }
+      ],
+      "missing_family_ids": [
+        56
+      ],
+      "proof_engine_replayed": false
+    },
+    {
+      "source_index": 2,
+      "target_index": 6,
+      "source_generator": "Composition(left=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), right=Composition(left=HomotopyElement(name='ε₆', dimension=6, source=14, target=6, generator=GeneratorSymbol(family='\\\\varepsilon', index=6, decoration=None)), right=HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))))",
+      "target_generator": "Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=Composition(left=HomotopyElement(name='ε₇', dimension=7, source=15, target=7, generator=GeneratorSymbol(family='\\\\varepsilon', index=7, decoration=None)), right=HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))))",
+      "factor_obligations": [
+        {
+          "source": "HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))",
+          "target": "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)",
+          "well_typed": true,
+          "status": "CANONICAL_FORMAL_IMAGE",
+          "family_id": null
+        },
+        {
+          "source": "HomotopyElement(name='ε₆', dimension=6, source=14, target=6, generator=GeneratorSymbol(family='\\\\varepsilon', index=6, decoration=None))",
+          "target": "HomotopyElement(name='ε₇', dimension=7, source=15, target=7, generator=GeneratorSymbol(family='\\\\varepsilon', index=7, decoration=None))",
+          "well_typed": true,
+          "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+          "family_id": 10
+        },
+        {
+          "source": "HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))",
+          "target": "HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))",
+          "well_typed": true,
+          "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+          "family_id": 56
+        }
+      ],
+      "missing_family_ids": [
+        56
+      ],
+      "proof_engine_replayed": false
+    }
+  ],
+  "unresolved_family_ids": [
+    56,
+    88
+  ],
+  "family_sources": [
+    {
+      "family_id": 56,
+      "name": "\\bar{\\kappa}",
+      "source_files": [
+        {
+          "path": "sources/toda/Toda_01_2.tex",
+          "sha256": "bbc3eda484dfb97c9e8938142715a95bf6044602be2bfa3eaf626a57dc8c9ff1",
+          "lines": 1791
+        },
+        {
+          "path": "sources/toda/Toda_02_2.tex",
+          "sha256": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+          "lines": 1532
+        },
+        {
+          "path": "sources/toda/Toda_03_2.tex",
+          "sha256": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+          "lines": 1741
+        },
+        {
+          "path": "sources/toda/Toda_04_2.tex",
+          "sha256": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+          "lines": 803
+        },
+        {
+          "path": "sources/toda/Toda_05_2.tex",
+          "sha256": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374",
+          "lines": 2394
+        },
+        {
+          "path": "sources/toda/Toda_06_2.tex",
+          "sha256": "de12521291806f63a81dedb54b6bff96f95d10e7f58b1d35fe0c5bca7903eea8",
+          "lines": 2487
+        },
+        {
+          "path": "sources/toda/Toda_07_2.tex",
+          "sha256": "d3451b5aafe42fafe274016daa14ea57d378679cf0a14add9533000e840b4ca2",
+          "lines": 4532
+        },
+        {
+          "path": "sources/toda/Toda_08_2.tex",
+          "sha256": "9fb572ceed92e675866c7873357cd7f1c82668c8cac92e51b542156f9ecc9f29",
+          "lines": 1240
+        },
+        {
+          "path": "sources/toda/Toda_09_2.tex",
+          "sha256": "559197daa9a23fbe505b9887dbd92b1db46e14dea05f7df51367f955c6043ad5",
+          "lines": 1129
+        }
+      ],
+      "candidate_text_hits": [],
+      "source_definition_certified": false,
+      "new_given_created": false,
+      "interpretation": "TEXT_HITS_REQUIRE_INDEPENDENT_SOURCE_REVIEW",
+      "stem": 20,
+      "minimum_n": 7,
+      "registered_family_name": "κ̅",
+      "cited_family_definition_available": false
+    },
+    {
+      "family_id": 88,
+      "name": "\\delta",
+      "source_files": [
+        {
+          "path": "sources/toda/Toda_01_2.tex",
+          "sha256": "bbc3eda484dfb97c9e8938142715a95bf6044602be2bfa3eaf626a57dc8c9ff1",
+          "lines": 1791
+        },
+        {
+          "path": "sources/toda/Toda_02_2.tex",
+          "sha256": "13d03c1e5767c64fb7da8fc9293bbb47f202884d304bfb06f4c7a6f0f8fdbe72",
+          "lines": 1532
+        },
+        {
+          "path": "sources/toda/Toda_03_2.tex",
+          "sha256": "f40a5fb79742bf5f303de41ad2debea586c8f46fcc07b6238c20c6e7ebcd87d3",
+          "lines": 1741
+        },
+        {
+          "path": "sources/toda/Toda_04_2.tex",
+          "sha256": "4aef8ef8716bebf4f83e7ebafbaffe58a874fc0efb3b18a8acce24dad9c506aa",
+          "lines": 803
+        },
+        {
+          "path": "sources/toda/Toda_05_2.tex",
+          "sha256": "04a2335ef0ad4a1ef61f5512782c1320b1457e29f9231ac545c4d08801ded374",
+          "lines": 2394
+        },
+        {
+          "path": "sources/toda/Toda_06_2.tex",
+          "sha256": "de12521291806f63a81dedb54b6bff96f95d10e7f58b1d35fe0c5bca7903eea8",
+          "lines": 2487
+        },
+        {
+          "path": "sources/toda/Toda_07_2.tex",
+          "sha256": "d3451b5aafe42fafe274016daa14ea57d378679cf0a14add9533000e840b4ca2",
+          "lines": 4532
+        },
+        {
+          "path": "sources/toda/Toda_08_2.tex",
+          "sha256": "9fb572ceed92e675866c7873357cd7f1c82668c8cac92e51b542156f9ecc9f29",
+          "lines": 1240
+        },
+        {
+          "path": "sources/toda/Toda_09_2.tex",
+          "sha256": "559197daa9a23fbe505b9887dbd92b1db46e14dea05f7df51367f955c6043ad5",
+          "lines": 1129
+        }
+      ],
+      "candidate_text_hits": [],
+      "source_definition_certified": false,
+      "new_given_created": false,
+      "interpretation": "TEXT_HITS_REQUIRE_INDEPENDENT_SOURCE_REVIEW",
+      "stem": 24,
+      "minimum_n": 3,
+      "registered_family_name": "δ",
+      "cited_family_definition_available": false
+    }
+  ],
+  "new_proof_steps_created": false,
+  "new_given_created": false,
+  "public_completion": false,
+  "full_pytest_performed": false
+}
