@@ -1,0 +1,101 @@
+{
+  "phase": "173-R4-R15R7",
+  "mode": "SOURCE_FIRST_ABSTRACT_CERTIFICATE_SEPARATE_FROM_NAMED_WEB_GROUP",
+  "rows": [
+    {
+      "k": 4,
+      "abstract_certified": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "premise_count": 4,
+      "hopf_inferred": true,
+      "prior_db_reverified": true,
+      "named_generator_shape_matched": true,
+      "public_group_complete": false,
+      "source_context_links": 43
+    },
+    {
+      "k": 7,
+      "abstract_certified": true,
+      "invariant_summands": [],
+      "premise_count": 4,
+      "hopf_inferred": true,
+      "prior_db_reverified": true,
+      "named_generator_shape_matched": true,
+      "public_group_complete": false,
+      "source_context_links": 44
+    },
+    {
+      "k": 8,
+      "abstract_certified": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "premise_count": 4,
+      "hopf_inferred": true,
+      "prior_db_reverified": true,
+      "named_generator_shape_matched": false,
+      "public_group_complete": false,
+      "source_context_links": 44
+    },
+    {
+      "k": 31,
+      "abstract_certified": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "premise_count": 4,
+      "hopf_inferred": true,
+      "prior_db_reverified": true,
+      "named_generator_shape_matched": false,
+      "public_group_complete": false,
+      "source_context_links": 44
+    }
+  ],
+  "public_route_changed": false,
+  "new_given": 0,
+  "named_generator_equalities_added": 0,
+  "full_pytest_performed": false
+}
