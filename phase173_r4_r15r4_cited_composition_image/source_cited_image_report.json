@@ -1,0 +1,279 @@
+{
+  "phase": "173-R4-R15R4",
+  "mode": "READ_ONLY_SOURCE_CITED_COMPOSITE_GENERATOR_IMAGE",
+  "observations": [
+    {
+      "k": 4,
+      "status": "SOURCE_BACKED_IMAGE_AUDIT",
+      "cited_stable_family_ids": [
+        4,
+        9,
+        10,
+        11,
+        12
+      ],
+      "right_named_image_shape_matches": 1,
+      "left_source_count": 1,
+      "residual_target_count": 1,
+      "candidate_pairs": [
+        {
+          "source_index": 0,
+          "target_index": 1,
+          "source_generator": "Composition(left=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))",
+          "target_generator": "Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))",
+          "factors": [
+            {
+              "source": "HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))",
+              "target": "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)",
+              "well_typed": true,
+              "status": "CANONICAL_FORMAL_IMAGE",
+              "family_id": null
+            },
+            {
+              "source": "HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None))",
+              "target": "HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))",
+              "well_typed": true,
+              "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+              "family_id": 2
+            }
+          ],
+          "proof_engine_replayed": false,
+          "proof_step_count": 0,
+          "cited_references": [],
+          "missing_family_ids": [
+            2
+          ]
+        }
+      ],
+      "proved_named_images": 0,
+      "certified_pairs": [],
+      "new_source_given": false,
+      "public_completion": false
+    },
+    {
+      "k": 7,
+      "status": "SOURCE_BACKED_IMAGE_AUDIT",
+      "cited_stable_family_ids": [
+        4,
+        9,
+        10,
+        11,
+        12
+      ],
+      "right_named_image_shape_matches": 0,
+      "left_source_count": 0,
+      "residual_target_count": 0,
+      "candidate_pairs": [],
+      "proved_named_images": 0,
+      "certified_pairs": [],
+      "new_source_given": false,
+      "public_completion": false
+    },
+    {
+      "k": 8,
+      "status": "SOURCE_BACKED_IMAGE_AUDIT",
+      "cited_stable_family_ids": [
+        4,
+        9,
+        10,
+        11,
+        12
+      ],
+      "right_named_image_shape_matches": 0,
+      "left_source_count": 1,
+      "residual_target_count": 1,
+      "candidate_pairs": [
+        {
+          "source_index": 0,
+          "target_index": 0,
+          "source_generator": "HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))",
+          "target_generator": "HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))",
+          "factors": [
+            {
+              "source": "HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))",
+              "target": "HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 10
+            }
+          ],
+          "proof_engine_replayed": true,
+          "proof_step_count": 4,
+          "cited_references": [
+            "Chapter VI, i) The Elements epsilon_n (definition)"
+          ],
+          "missing_family_ids": []
+        }
+      ],
+      "proved_named_images": 1,
+      "certified_pairs": [
+        [
+          0,
+          0
+        ]
+      ],
+      "new_source_given": false,
+      "public_completion": false
+    },
+    {
+      "k": 31,
+      "status": "SOURCE_BACKED_IMAGE_AUDIT",
+      "cited_stable_family_ids": [
+        4,
+        9,
+        10,
+        11,
+        12
+      ],
+      "right_named_image_shape_matches": 4,
+      "left_source_count": 4,
+      "residual_target_count": 4,
+      "candidate_pairs": [
+        {
+          "source_index": 0,
+          "target_index": 4,
+          "source_generator": "Composition(left=HomotopyElement(name='δ₃', dimension=3, source=27, target=3, generator=GeneratorSymbol(family='\\\\delta', index=3, decoration=None)), right=HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None)))",
+          "target_generator": "Composition(left=HomotopyElement(name='δ₄', dimension=4, source=28, target=4, generator=GeneratorSymbol(family='\\\\delta', index=4, decoration=None)), right=HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None)))",
+          "factors": [
+            {
+              "source": "HomotopyElement(name='δ₃', dimension=3, source=27, target=3, generator=GeneratorSymbol(family='\\\\delta', index=3, decoration=None))",
+              "target": "HomotopyElement(name='δ₄', dimension=4, source=28, target=4, generator=GeneratorSymbol(family='\\\\delta', index=4, decoration=None))",
+              "well_typed": true,
+              "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+              "family_id": 88
+            },
+            {
+              "source": "HomotopyElement(name='σ₂₇', dimension=27, source=34, target=27, generator=GeneratorSymbol(family='σ', index=27, decoration=None))",
+              "target": "HomotopyElement(name='σ₂₈', dimension=28, source=35, target=28, generator=GeneratorSymbol(family='σ', index=28, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 9
+            }
+          ],
+          "proof_engine_replayed": false,
+          "proof_step_count": 0,
+          "cited_references": [],
+          "missing_family_ids": [
+            88
+          ]
+        },
+        {
+          "source_index": 1,
+          "target_index": 5,
+          "source_generator": "Composition(left=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None)), right=HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))))",
+          "target_generator": "Composition(left=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None)), right=HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))))",
+          "factors": [
+            {
+              "source": "HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))",
+              "target": "HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 10
+            },
+            {
+              "source": "HomotopyElement(name='ν₁₁', dimension=11, source=14, target=11, generator=GeneratorSymbol(family='ν', index=11, decoration=None))",
+              "target": "HomotopyElement(name='ν₁₂', dimension=12, source=15, target=12, generator=GeneratorSymbol(family='ν', index=12, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 4
+            },
+            {
+              "source": "HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))",
+              "target": "HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))",
+              "well_typed": true,
+              "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+              "family_id": 56
+            }
+          ],
+          "proof_engine_replayed": false,
+          "proof_step_count": 0,
+          "cited_references": [],
+          "missing_family_ids": [
+            56
+          ]
+        },
+        {
+          "source_index": 2,
+          "target_index": 6,
+          "source_generator": "Composition(left=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), right=Composition(left=HomotopyElement(name='ε₆', dimension=6, source=14, target=6, generator=GeneratorSymbol(family='\\\\varepsilon', index=6, decoration=None)), right=HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))))",
+          "target_generator": "Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=Composition(left=HomotopyElement(name='ε₇', dimension=7, source=15, target=7, generator=GeneratorSymbol(family='\\\\varepsilon', index=7, decoration=None)), right=HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))))",
+          "factors": [
+            {
+              "source": "HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))",
+              "target": "IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)",
+              "well_typed": true,
+              "status": "CANONICAL_FORMAL_IMAGE",
+              "family_id": null
+            },
+            {
+              "source": "HomotopyElement(name='ε₆', dimension=6, source=14, target=6, generator=GeneratorSymbol(family='\\\\varepsilon', index=6, decoration=None))",
+              "target": "HomotopyElement(name='ε₇', dimension=7, source=15, target=7, generator=GeneratorSymbol(family='\\\\varepsilon', index=7, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 10
+            },
+            {
+              "source": "HomotopyElement(name='κ̅₁₄', dimension=14, source=34, target=14, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=14, decoration=None))",
+              "target": "HomotopyElement(name='κ̅₁₅', dimension=15, source=35, target=15, generator=GeneratorSymbol(family='\\\\bar{\\\\kappa}', index=15, decoration=None))",
+              "well_typed": true,
+              "status": "FAMILY_ID_KNOWN_BUT_SOURCE_NOT_CITED",
+              "family_id": 56
+            }
+          ],
+          "proof_engine_replayed": false,
+          "proof_step_count": 0,
+          "cited_references": [],
+          "missing_family_ids": [
+            56
+          ]
+        },
+        {
+          "source_index": 3,
+          "target_index": 7,
+          "source_generator": "Composition(left=HomotopyElement(name=\"φ'\", dimension=3, source=28, target=3, generator=GeneratorSymbol(family=\"\\\\phi'\", index=None, decoration=None)), right=Composition(left=HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None)), right=HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None))))",
+          "target_generator": "Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"φ'\", dimension=3, source=28, target=3, generator=GeneratorSymbol(family=\"\\\\phi'\", index=None, decoration=None)), exponent=1), right=Composition(left=HomotopyElement(name='ν₂₉', dimension=29, source=32, target=29, generator=GeneratorSymbol(family='ν', index=29, decoration=None)), right=HomotopyElement(name='ν₃₂', dimension=32, source=35, target=32, generator=GeneratorSymbol(family='ν', index=32, decoration=None))))",
+          "factors": [
+            {
+              "source": "HomotopyElement(name=\"φ'\", dimension=3, source=28, target=3, generator=GeneratorSymbol(family=\"\\\\phi'\", index=None, decoration=None))",
+              "target": "IteratedSuspension(expression=HomotopyElement(name=\"φ'\", dimension=3, source=28, target=3, generator=GeneratorSymbol(family=\"\\\\phi'\", index=None, decoration=None)), exponent=1)",
+              "well_typed": true,
+              "status": "CANONICAL_FORMAL_IMAGE",
+              "family_id": null
+            },
+            {
+              "source": "HomotopyElement(name='ν₂₈', dimension=28, source=31, target=28, generator=GeneratorSymbol(family='ν', index=28, decoration=None))",
+              "target": "HomotopyElement(name='ν₂₉', dimension=29, source=32, target=29, generator=GeneratorSymbol(family='ν', index=29, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 4
+            },
+            {
+              "source": "HomotopyElement(name='ν₃₁', dimension=31, source=34, target=31, generator=GeneratorSymbol(family='ν', index=31, decoration=None))",
+              "target": "HomotopyElement(name='ν₃₂', dimension=32, source=35, target=32, generator=GeneratorSymbol(family='ν', index=32, decoration=None))",
+              "well_typed": true,
+              "status": "CITED_FAMILY_IMAGE_PROPOSAL",
+              "family_id": 4
+            }
+          ],
+          "proof_engine_replayed": true,
+          "proof_step_count": 10,
+          "cited_references": [
+            "Chapter V, ν-family definition (after Lemma 5.5)"
+          ],
+          "missing_family_ids": []
+        }
+      ],
+      "proved_named_images": 1,
+      "certified_pairs": [
+        [
+          3,
+          7
+        ]
+      ],
+      "new_source_given": false,
+      "public_completion": false
+    }
+  ],
+  "proof_promoted_to_public": false,
+  "full_pytest_performed": false
+}

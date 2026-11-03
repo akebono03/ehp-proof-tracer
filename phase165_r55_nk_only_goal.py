@@ -138,10 +138,18 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
             bridge, n=n, k=k,
         )
         if order_diagnostic is not None:
-            return make_partial_proof_result(
+            pending = make_partial_proof_result(
                 n=n, k=k, status=ProofSearchStatus.SEARCH_FAILED,
                 open_goals=(candidate,), diagnostics=(order_diagnostic,),
             )
+            if n == 4 and k >= 3:
+                from phase173_r4_r15r8_public_abstract_sidecar.attach import (
+                    attach_certified_abstract_structure,
+                )
+                return attach_certified_abstract_structure(
+                    pending, n=n, k=k, goal=candidate, bridge=bridge,
+                )
+            return pending
     citing_id = resolve_specialized_goal_citing_id(bridge, candidate)
     search_kwargs = dict(
         n=n, k=k, group_structure=candidate.rhs, bridge=bridge,
@@ -153,6 +161,13 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
     result = search_shared_group_goal(**search_kwargs)
     if result.status is ProofSearchStatus.COMPLETE and result.conclusion == candidate:
         return replace(result, structure_status=GroupStructureStatus.KNOWN)
+    if n == 4 and k >= 3:
+        from phase173_r4_r15r8_public_abstract_sidecar.attach import (
+            attach_certified_abstract_structure,
+        )
+        return attach_certified_abstract_structure(
+            result, n=n, k=k, goal=candidate, bridge=bridge,
+        )
     return result
 
 

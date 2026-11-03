@@ -1,0 +1,131 @@
+{
+  "phase": "173-R4-R15R6",
+  "mode": "ABSTRACT_TODA44_TYPED_ROOT_NOT_PUBLIC_PROOF",
+  "rows": [
+    {
+      "k": 3,
+      "group": "pi_7^4",
+      "registered_target": true,
+      "abstract_result": true,
+      "invariant_summands": [
+        [
+          "finite",
+          4
+        ],
+        [
+          "free",
+          0
+        ]
+      ],
+      "source_screened_rule_proposals": 1,
+      "strict_named_generator_guard": false,
+      "theorem_citation_screening_performed_here": false,
+      "proof_step_replayed_in_this_audit": false,
+      "new_given_created": false,
+      "public_completion": false
+    },
+    {
+      "k": 4,
+      "group": "pi_8^4",
+      "registered_target": true,
+      "abstract_result": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "source_screened_rule_proposals": 1,
+      "strict_named_generator_guard": true,
+      "theorem_citation_screening_performed_here": false,
+      "proof_step_replayed_in_this_audit": false,
+      "new_given_created": false,
+      "public_completion": false
+    },
+    {
+      "k": 7,
+      "group": "pi_11^4",
+      "registered_target": true,
+      "abstract_result": true,
+      "invariant_summands": [],
+      "source_screened_rule_proposals": 1,
+      "strict_named_generator_guard": true,
+      "theorem_citation_screening_performed_here": false,
+      "proof_step_replayed_in_this_audit": false,
+      "new_given_created": false,
+      "public_completion": false
+    },
+    {
+      "k": 8,
+      "group": "pi_12^4",
+      "registered_target": true,
+      "abstract_result": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "source_screened_rule_proposals": 1,
+      "strict_named_generator_guard": false,
+      "theorem_citation_screening_performed_here": false,
+      "proof_step_replayed_in_this_audit": false,
+      "new_given_created": false,
+      "public_completion": false
+    },
+    {
+      "k": 31,
+      "group": "pi_35^4",
+      "registered_target": true,
+      "abstract_result": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "source_screened_rule_proposals": 1,
+      "strict_named_generator_guard": false,
+      "theorem_citation_screening_performed_here": false,
+      "proof_step_replayed_in_this_audit": false,
+      "new_given_created": false,
+      "public_completion": false
+    }
+  ],
+  "new_named_generator_equalities": 0,
+  "new_given": 0,
+  "public_completion": false,
+  "full_pytest_performed": false
+}

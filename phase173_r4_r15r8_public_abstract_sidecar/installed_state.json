@@ -1,0 +1,12 @@
+{
+  "phase": "173-R4-R15R8",
+  "before": {
+    "phase165_r52_partial_proof.py": "033578db1d2adde64c316b58c375e30b59dc2eb0a15eae7b7ecd5d0df92959a5",
+    "phase165_r55_nk_only_goal.py": "79f2be42f04b0b95338e763dab456c143a5bd124e6956dd896b0daa15521c6a5"
+  },
+  "after": {
+    "phase165_r52_partial_proof.py": "8da5bd6f37a6566765826c25485b206fdd8ce8adf0185ee67a296d293eb0b77d",
+    "phase165_r55_nk_only_goal.py": "67c7e2cf453e352d271c3c755b449a3aae522d46b56c23072f2ad448b4e5f4da"
+  },
+  "completed_named_proof_promoted": false
+}

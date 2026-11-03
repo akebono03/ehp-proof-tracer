@@ -8,7 +8,7 @@ from enum import Enum
 from typing import Any
 
 from homotopy_groups import TodaPrimaryGroup
-from proof import ProofStep
+from proof import ProofRule, ProofStep
 
 
 class ProofSearchStatus(str, Enum):
@@ -24,6 +24,33 @@ class GroupStructureStatus(str, Enum):
 
 
 @dataclass(frozen=True)
+class CertifiedAbstractStructure:
+    """Verified abstract invariants, separate from a named group conclusion."""
+    group: TodaPrimaryGroup
+    invariant_summands: tuple[tuple[str, int], ...]
+    proof_step: ProofStep
+
+    def __post_init__(self) -> None:
+        from phase173_r4_r15r6_abstract_toda44_rule.abstract_rule import (
+            TodaProp44AbstractGroupResult,
+        )
+        if not isinstance(self.group, TodaPrimaryGroup):
+            raise TypeError("abstract certificate must have a typed target group")
+        expected = TodaProp44AbstractGroupResult(
+            self.group, self.invariant_summands,
+        )
+        if (not isinstance(self.proof_step, ProofStep)
+                or self.proof_step.rule is not ProofRule.INFERENCE
+                or self.proof_step.conclusion != expected
+                or self.proof_step.inference_rule is None
+                or not callable(self.proof_step.inference_rule.match_guard)
+                or not self.proof_step.inference_rule.match_guard(
+                    self.proof_step.premises, (),
+                )):
+            raise ValueError("abstract certificate has no verified inference root")
+
+
+@dataclass(frozen=True)
 class PartialProofResult:
     target: TodaPrimaryGroup
     status: ProofSearchStatus
@@ -33,6 +60,7 @@ class PartialProofResult:
     open_goals: tuple[Any, ...] = ()
     diagnostics: tuple[str, ...] = ()
     conclusion: Any | None = None
+    abstract_structure: CertifiedAbstractStructure | None = None
 
     def __post_init__(self) -> None:
         if not isinstance(self.target, TodaPrimaryGroup):
@@ -55,6 +83,17 @@ class PartialProofResult:
                 raise ValueError("completed conclusion requires a matching proven step")
         elif self.conclusion is not None:
             raise ValueError("incomplete result must not claim a final conclusion")
+        if self.abstract_structure is not None:
+            if (not isinstance(self.abstract_structure, CertifiedAbstractStructure)
+                    or self.abstract_structure.group != self.target
+                    or self.status not in (
+                        ProofSearchStatus.PARTIAL, ProofSearchStatus.SEARCH_FAILED,
+                    )
+                    or self.conclusion is not None
+                    or self.structure_status is GroupStructureStatus.KNOWN):
+                raise ValueError(
+                    "abstract-only evidence cannot certify a named group"
+                )
         if self.status is ProofSearchStatus.NOT_SEARCHED and self.proven_steps:
             raise ValueError("not-searched result cannot contain derived steps")
         if self.status is ProofSearchStatus.SEARCH_FAILED and not self.diagnostics:

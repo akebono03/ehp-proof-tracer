@@ -1,0 +1,299 @@
+{
+  "phase": "173-R4-R15R1",
+  "mode": "ABSTRACT_STRUCTURE_ONLY",
+  "rows": [
+    {
+      "k": 3,
+      "group": "pi_7^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [
+        [
+          "finite",
+          4
+        ],
+        [
+          "free",
+          0
+        ]
+      ],
+      "first_signature": [
+        [
+          "finite",
+          4
+        ]
+      ],
+      "second_signature": [
+        [
+          "free",
+          0
+        ]
+      ],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": false,
+      "mapped_generator_components": 2,
+      "left_component_count": 1,
+      "right_component_count": 1,
+      "left_suspension_shape_pending_indices": [],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 2,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "GENERATOR_IMAGE_PROOF_PENDING"
+    },
+    {
+      "k": 4,
+      "group": "pi_8^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "first_signature": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "second_signature": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": true,
+      "mapped_generator_components": 2,
+      "left_component_count": 1,
+      "right_component_count": 1,
+      "left_suspension_shape_pending_indices": [],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 2,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "NAMED_IMAGE_MATCH"
+    },
+    {
+      "k": 5,
+      "group": "pi_9^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "first_signature": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "second_signature": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": true,
+      "mapped_generator_components": 2,
+      "left_component_count": 1,
+      "right_component_count": 1,
+      "left_suspension_shape_pending_indices": [],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 2,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "NAMED_IMAGE_MATCH"
+    },
+    {
+      "k": 6,
+      "group": "pi_10^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [
+        [
+          "finite",
+          8
+        ]
+      ],
+      "first_signature": [],
+      "second_signature": [
+        [
+          "finite",
+          8
+        ]
+      ],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": true,
+      "mapped_generator_components": 1,
+      "left_component_count": 0,
+      "right_component_count": 1,
+      "left_suspension_shape_pending_indices": [],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 1,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "NAMED_IMAGE_MATCH"
+    },
+    {
+      "k": 7,
+      "group": "pi_11^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [],
+      "first_signature": [],
+      "second_signature": [],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": true,
+      "mapped_generator_components": 0,
+      "left_component_count": 0,
+      "right_component_count": 0,
+      "left_suspension_shape_pending_indices": [],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 0,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "NAMED_IMAGE_MATCH"
+    },
+    {
+      "k": 8,
+      "group": "pi_12^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "first_signature": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "second_signature": [],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": false,
+      "mapped_generator_components": null,
+      "left_component_count": 1,
+      "right_component_count": 0,
+      "left_suspension_shape_pending_indices": [
+        0
+      ],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 1,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "GENERATOR_IMAGE_PROOF_PENDING"
+    },
+    {
+      "k": 31,
+      "group": "pi_35^4",
+      "registered": true,
+      "first_prior": true,
+      "second_prior": true,
+      "target_signature": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "first_signature": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "second_signature": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "abstract_inputs_eligible": true,
+      "named_generator_inputs_eligible": false,
+      "mapped_generator_components": null,
+      "left_component_count": 4,
+      "right_component_count": 4,
+      "left_suspension_shape_pending_indices": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "right_nu4_composition_shape_pending_indices": [],
+      "target_generator_components": 8,
+      "public_proof_complete_by_this_change": false,
+      "frontier": "GENERATOR_IMAGE_PROOF_PENDING"
+    }
+  ],
+  "all_named_generator_claims_require_separate_proof": true,
+  "no_proof_steps_created": true
+}

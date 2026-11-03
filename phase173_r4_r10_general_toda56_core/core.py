@@ -7,7 +7,7 @@ fails closed. This module does NOT install a public search route or a renderer.
 """
 from __future__ import annotations
 
-from homotopy_groups import TodaPrimaryGroup
+from homotopy_groups import FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
 from phase165_r3_recursive_search import GoalExpansion
 from phase165_r52_r27_r5_literature import TodaProp44UniversalStatement
 from phase169_r10e4_ordered_db_prior.db_prior import (
@@ -39,16 +39,34 @@ GENERAL_ROOT_NAME = "Toda Proposition 4.4 generic n=4 typed direct-sum transport
 HOPF_ROOT_NAME = "Toda Lemma 5.4 cited Hopf identity consequence"
 
 
-def checked_general_inputs(goal: object) -> tuple[object, object] | None:
-    """Read exactly two earlier registered DB priors and check target shape.
-
-    This is a necessary *shape* check only, not a proof or a new GIVEN.
-    It allows zero, finite cyclic, free cyclic, and direct-sum presentations.
-    A family without a vetted symbolic image (e.g. epsilon) is rejected.
-    """
-    if group_coordinates(goal) is None:
+def _abstract_group_signature(statement: object) -> tuple[tuple[str, int], ...] | None:
+    """Read structural cyclic orders only; no generator equality is inferred."""
+    components = _group_components(statement)
+    if components is None:
         return None
-    n, k = group_coordinates(goal)
+    signature: list[tuple[str, int]] = []
+    for component in components:
+        if isinstance(component, FreeCyclicGroup):
+            signature.append(("free", 0))
+        elif (isinstance(component, FiniteCyclicGroup)
+              and type(component.order) is int and component.order >= 2):
+            signature.append(("finite", component.order))
+        else:
+            return None
+    return tuple(sorted(signature))
+
+
+def checked_abstract_inputs(goal: object) -> tuple[object, object] | None:
+    """Identify general Toda 4.4 prior-group shapes for every registered k.
+
+    This is a necessary abstract compatibility check, NOT a ProofStep,
+    not a source citation and not evidence for named generator identities.
+    The actual n=4 target and both adopted prior CSV rows must be verified.
+    """
+    coordinates = group_coordinates(goal)
+    if coordinates is None:
+        return None
+    n, k = coordinates
     if n != 4 or type(k) is not int:
         return None
     dimension = n + k
@@ -71,12 +89,32 @@ def checked_general_inputs(goal: object) -> tuple[object, object] | None:
     if (admitted_db_step(first, proof_target=goal) is None
             or admitted_db_step(second, proof_target=goal) is None):
         return None
+    target_signature = _abstract_group_signature(goal)
+    first_signature = _abstract_group_signature(first)
+    second_signature = _abstract_group_signature(second)
+    if (target_signature is None or first_signature is None
+            or second_signature is None):
+        return None
+    if tuple(sorted(first_signature + second_signature)) != target_signature:
+        return None
+    return first, second
+
+
+def checked_general_inputs(goal: object) -> tuple[object, object] | None:
+    """Require both abstract compatibility and certified generator presentation.
+
+    The general structural gate is k-unbounded, but an unverified generator
+    mapping never becomes a complete result. Existing public rules stay strict.
+    """
+    pair = checked_abstract_inputs(goal)
+    if pair is None:
+        return None
+    first, second = pair
     mapped = _map_components(first, second)
     actual = _group_components(goal)
     if mapped is None or actual is None or not components_match_alias(mapped, actual):
         return None
     return first, second
-
 
 def general_toda56_rule(
     goal: object, first: object, second: object, *, bridge: object = None,

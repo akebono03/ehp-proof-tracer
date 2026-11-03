@@ -1,0 +1,22 @@
+cd C:\Users\user\Dropbox\Python\fitz\ehp_proof
+
+$ErrorActionPreference = 'Stop'
+
+Expand-Archive `
+  -Path "$HOME\Downloads\EHP_Phase173_R4_R15R1_UNBOUNDED_ABSTRACT_FRONTIER.zip" `
+  -DestinationPath "." `
+  -Force
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File ".\phase173_r4_r15r1_unbounded_abstract_frontier\run.ps1" `
+  -DryRun
+
+if ($LASTEXITCODE -ne 0) { throw 'R4-R15R1 DryRun failed' }
+
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File ".\phase173_r4_r15r1_unbounded_abstract_frontier\run.ps1"
+
+if ($LASTEXITCODE -ne 0) { throw 'R4-R15R1 failed' }
+
+git status -sb
+git diff --stat

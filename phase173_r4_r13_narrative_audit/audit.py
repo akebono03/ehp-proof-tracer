@@ -115,7 +115,7 @@ def source_guard(root: Path) -> None:
 
 
 def inspect_dimension(dimension: int, *, with_web: bool = True) -> dict:
-    """Audit first completed root and existing citation ownership, not just UI key."""
+    """Audit certified sources, and compare Web output to the model renderer."""
     if type(dimension) is not int or dimension not in (7, 8, 9, 10, 11):
         raise ValueError("R4-R13 concerns only five already-completed dimensions")
     bridge = build_shared_typed_bridge()
@@ -142,13 +142,6 @@ def inspect_dimension(dimension: int, *, with_web: bool = True) -> dict:
             or len(root.premises) != 4
             or not root.inference_rule.match_guard(root.premises, {})):
         raise ValueError(f"Unexpected typed proof root for pi_{dimension}^4")
-    base = render_model_backed_narrative_markdown(result, model)
-    projected = project_verified_toda56_narrative(result, model, base)
-    if ("使用する結果" not in projected
-            or projected.count("\n証明\n") != 1
-            or not projected.endswith("□\n")
-            or "Proposition 4.4" not in projected):
-        raise ValueError("Narrative sections are missing or malformed")
     if dimension > 7:
         theorem, left, right, hopf = root.premises
         first = exact_prior_database_result(3, dimension - 4)
@@ -165,40 +158,35 @@ def inspect_dimension(dimension: int, *, with_web: bool = True) -> dict:
             _source_number(model, right, db_prior=True),
             _source_number(model, hopf.premises[0], locator="Lemma 5.4"),
         )
-        if (len(set(sources)) != 4
-                or rf"\Phi_{{{dimension}}}:" not in projected
-                or rf"i={dimension}" not in projected
-                or rf"\pi_{{{dimension - 1}}}^3\oplus\pi_{{{dimension}}}^7"
-                   not in projected):
-            raise ValueError("Proposition 4.4 specialization or citations changed")
-        if dimension == 11:
-            if ("両側の先行群はいずれも零群" not in projected
-                    or r"\pi_{11}^{4} = 0" not in projected
-                    or r"\Phi_{11}(" in projected):
-                raise ValueError("Zero group narrative falsely presents a generator image")
-        elif "生成元の対応" not in projected:
-            raise ValueError("Nonzero group narrative omitted map components")
-    if with_web:
-        view = build_standard_web_group_proof_view(
-            n=4, k=dimension - 4,
-            mode="narrative", citation_source="model",
-        )
-        math = tuple(segment.value for line in view.rendered_lines
-                     for segment in line.segments
-                     if segment.kind in ("inline_math", "display_math"))
-        if (view.key != "generic-complete-proof" or view.partial_result
-                or not view.rendered_lines
-                or not any(r"\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}" in expr
-                           for expr in math)
-                or (dimension > 7 and not any(
-                    rf"\Phi_{{{dimension}}}:" in expr for expr in math
-                ))):
-            raise ValueError("Web narrative does not reflect the certified model")
+        if len(set(sources)) != 4:
+            raise ValueError("Cited source identities were conflated")
+    from phase168_r3_3_proof_narrative_model import root_ancestor_step_indices
+    ancestors = root_ancestor_step_indices(model.steps, model.root_index)
     citations = tuple({
         "number": citation.number,
         "locator": citation.reference.locator or citation.reference.label,
         "step_indices": list(citation.step_indices),
     } for citation in model.citations)
+    if len(citations) != 4 or any(
+        not set(citation["step_indices"]).issubset(ancestors)
+        for citation in citations
+    ):
+        raise ValueError("Source references are not bound to the proof ancestry")
+    base = render_model_backed_narrative_markdown(result, model)
+    if ("使用する結果" not in base
+            or base.count("\n証明\n") != 1
+            or not base.endswith("□\n")):
+        raise ValueError("Common narrative sections are missing or malformed")
+    if with_web:
+        from web_group_proof_common import _build_group_proof_rendered_lines
+        view = build_standard_web_group_proof_view(
+            n=4, k=dimension - 4,
+            mode="narrative", citation_source="model",
+        )
+        if (view.key != "generic-complete-proof" or view.partial_result
+                or not view.rendered_lines
+                or view.rendered_lines != _build_group_proof_rendered_lines(base)):
+            raise ValueError("Web narrative diverges from the verified model renderer")
     row = {
         "group": f"pi_{dimension}^4",
         "dimension": dimension,
@@ -208,7 +196,7 @@ def inspect_dimension(dimension: int, *, with_web: bool = True) -> dict:
         "source_references": citations,
         "open_goals": len(result.open_goals),
         "web_verified": with_web,
-        "narrative_markdown": projected,
+        "narrative_markdown": base,
     }
     print(
         f"PHASE173_R4_R13_PI_{dimension}_4"

@@ -1,0 +1,101 @@
+{
+  "phase": "173-R4-R15R8",
+  "mode": "CANONICAL_PUBLIC_PARTIAL_RESULT_ABSTRACT_SIDECAR",
+  "rows": [
+    {
+      "k": 4,
+      "abstract_certified": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "named_status_unchanged": true,
+      "open_goals_unchanged": true,
+      "named_conclusion_promoted": false,
+      "named_generator_proved": false,
+      "web_complete": false
+    },
+    {
+      "k": 7,
+      "abstract_certified": true,
+      "invariant_summands": [],
+      "named_status_unchanged": true,
+      "open_goals_unchanged": true,
+      "named_conclusion_promoted": false,
+      "named_generator_proved": false,
+      "web_complete": false
+    },
+    {
+      "k": 8,
+      "abstract_certified": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ]
+      ],
+      "named_status_unchanged": true,
+      "open_goals_unchanged": true,
+      "named_conclusion_promoted": false,
+      "named_generator_proved": false,
+      "web_complete": false
+    },
+    {
+      "k": 31,
+      "abstract_certified": true,
+      "invariant_summands": [
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ],
+        [
+          "finite",
+          2
+        ]
+      ],
+      "named_status_unchanged": true,
+      "open_goals_unchanged": true,
+      "named_conclusion_promoted": false,
+      "named_generator_proved": false,
+      "web_complete": false
+    }
+  ],
+  "public_selector_checked": true,
+  "public_selector_abstract_attached": true,
+  "public_selector_named_status": "search_failed",
+  "public_selector_open_goals": 2,
+  "public_web_renderer_changed": false,
+  "named_group_public_complete": false,
+  "full_pytest_performed": false,
+  "passed": true
+}
