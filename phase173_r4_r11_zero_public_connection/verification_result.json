@@ -1,0 +1,16 @@
+{
+  "phase": "173 R4-R11",
+  "mode": "STANDARD_PUBLIC_ZERO_GROUP_SEARCH_AND_WEB",
+  "result": {
+    "group": "pi_11^4",
+    "status": "complete",
+    "steps": 6,
+    "open_goals": 0,
+    "root_certified": true,
+    "web_complete": true,
+    "web_key": "generic-complete-proof",
+    "passed": true
+  },
+  "epsilon_rejected": true,
+  "passed": true
+}

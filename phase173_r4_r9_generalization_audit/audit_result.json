@@ -1,0 +1,174 @@
+{
+  "phase": "173 R4-R9 audit only",
+  "read_only": true,
+  "preflight": {
+    "branch": "develop",
+    "local_head": "7158a7f544cd7c6750ebdf82a3b946caa980ea04",
+    "remote_head": "7158a7f544cd7c6750ebdf82a3b946caa980ea04",
+    "reviewed_blobs": 10,
+    "tracked_worktree_changes": [],
+    "source_guard": "PASS",
+    "worktree_preserved": true
+  },
+  "typed_frontier": [
+    {
+      "dimension": 7,
+      "n": 4,
+      "k": 3,
+      "target_type": "Relation",
+      "first_type": "Relation",
+      "second_type": "Relation",
+      "first_prior_admitted": true,
+      "second_prior_admitted": true,
+      "source_components": [
+        1,
+        1
+      ],
+      "target_components": 2,
+      "mapped_components": 2,
+      "generator_image_shape_matches": false,
+      "bounded_source_first_rule_accepts": false,
+      "first_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=6, sphere_dimension=3), rhs=FiniteCyclicGroup(order=4, generator=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "second_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=7), rhs=FreeCyclicGroup(generator=HomotopyElement(name='ι_7', dimension=7, source=7, target=7, generator=GeneratorSymbol(family='ι', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "target_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=4), rhs=DirectSumGroup(summands=(FreeCyclicGroup(generator=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None))), FiniteCyclicGroup(order=4, generator=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "unresolved_implementation_conditions": [
+        "source_image_and_target_presentation_do_not_match",
+        "existing_seven_step_root_must_be_preserved"
+      ],
+      "proof_certified_by_this_audit": false
+    },
+    {
+      "dimension": 8,
+      "n": 4,
+      "k": 4,
+      "target_type": "Relation",
+      "first_type": "Relation",
+      "second_type": "Relation",
+      "first_prior_admitted": true,
+      "second_prior_admitted": true,
+      "source_components": [
+        1,
+        1
+      ],
+      "target_components": 2,
+      "mapped_components": 2,
+      "generator_image_shape_matches": true,
+      "bounded_source_first_rule_accepts": true,
+      "first_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=7, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), right=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "second_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='η_7', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "target_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))), FiniteCyclicGroup(order=2, generator=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)))))), relation_type=<Relati",
+      "unresolved_implementation_conditions": [
+        "detailed_narrative_projector_is_pi7_4_only"
+      ],
+      "proof_certified_by_this_audit": false
+    },
+    {
+      "dimension": 9,
+      "n": 4,
+      "k": 5,
+      "target_type": "Relation",
+      "first_type": "Relation",
+      "second_type": "Relation",
+      "first_prior_admitted": true,
+      "second_prior_admitted": true,
+      "source_components": [
+        1,
+        1
+      ],
+      "target_components": 2,
+      "mapped_components": 2,
+      "generator_image_shape_matches": true,
+      "bounded_source_first_rule_accepts": true,
+      "first_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), right=Composition(left=HomotopyElement(name='η₆', dimension=6, source=7, target=6, generator=GeneratorSymbol(family='η', index=6, decoration=None)), right=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None))))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "second_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)), right=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "target_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=9, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='η₇', dimension=7, source=8, target=7, generator=GeneratorSymbol(family='η', index=7, decoration=None)), right=HomotopyElement(name='η₈', dimension=8, source=9, target=8, generator=GeneratorSymbol(family='η', index=8, decoration=None))))), FiniteCyclicGroup(order=2, generator=Composition(left=IteratedSuspension(expression=HomotopyElement(name=\"ν'\", dimension=3, source=6, target=3, generator=GeneratorSymbol(family=\"\\\\nu'\", index=None, decoration=None)), exponent=1), right=C",
+      "unresolved_implementation_conditions": [
+        "detailed_narrative_projector_is_pi7_4_only"
+      ],
+      "proof_certified_by_this_audit": false
+    },
+    {
+      "dimension": 10,
+      "n": 4,
+      "k": 6,
+      "target_type": "Relation",
+      "first_type": "TodaPrimaryGroupZeroStatement",
+      "second_type": "Relation",
+      "first_prior_admitted": true,
+      "second_prior_admitted": true,
+      "source_components": [
+        0,
+        1
+      ],
+      "target_components": 1,
+      "mapped_components": 1,
+      "generator_image_shape_matches": true,
+      "bounded_source_first_rule_accepts": true,
+      "first_goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=9, sphere_dimension=3))",
+      "second_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=7), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "target_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=10, sphere_dimension=4), rhs=FiniteCyclicGroup(order=8, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "unresolved_implementation_conditions": [
+        "detailed_narrative_projector_is_pi7_4_only"
+      ],
+      "proof_certified_by_this_audit": false
+    },
+    {
+      "dimension": 11,
+      "n": 4,
+      "k": 7,
+      "target_type": "TodaPrimaryGroupZeroStatement",
+      "first_type": "TodaPrimaryGroupZeroStatement",
+      "second_type": "TodaPrimaryGroupZeroStatement",
+      "first_prior_admitted": true,
+      "second_prior_admitted": true,
+      "source_components": [
+        0,
+        0
+      ],
+      "target_components": 0,
+      "mapped_components": 0,
+      "generator_image_shape_matches": true,
+      "bounded_source_first_rule_accepts": false,
+      "first_goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=10, sphere_dimension=3))",
+      "second_goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=7))",
+      "target_goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=4))",
+      "unresolved_implementation_conditions": [
+        "source_first_rule_currently_excludes_this_target",
+        "source_first_screen_and_public_route_currently_exclude_this_target",
+        "zero_goal_bypasses_shared_group_goal_public_route",
+        "detailed_narrative_projector_is_pi7_4_only"
+      ],
+      "proof_certified_by_this_audit": false
+    },
+    {
+      "dimension": 12,
+      "n": 4,
+      "k": 8,
+      "target_type": "Relation",
+      "first_type": "Relation",
+      "second_type": "TodaPrimaryGroupZeroStatement",
+      "first_prior_admitted": true,
+      "second_prior_admitted": true,
+      "source_components": [
+        1,
+        0
+      ],
+      "target_components": 1,
+      "mapped_components": null,
+      "generator_image_shape_matches": false,
+      "bounded_source_first_rule_accepts": false,
+      "first_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "second_goal": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=7))",
+      "target_goal": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)",
+      "unresolved_implementation_conditions": [
+        "generator_image_shape_not_supported",
+        "source_first_rule_currently_excludes_this_target",
+        "source_first_screen_and_public_route_currently_exclude_this_target",
+        "detailed_narrative_projector_is_pi7_4_only"
+      ],
+      "proof_certified_by_this_audit": false
+    }
+  ],
+  "public_checks": [],
+  "interpretation": "Compatibility of stored generator shapes does not constitute a proof of generator images or an independently verified literature theorem."
+}

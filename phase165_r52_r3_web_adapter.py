@@ -75,12 +75,11 @@ def build_partial_web_group_proof_view(
         else:
             from phase168_r3_5_model_renderer import render_model_backed_narrative_markdown
             markdown = render_model_backed_narrative_markdown(result, narrative_model)
-            if (n == 4 and k == 3 and mode == "narrative"
-                    and result.status is ProofSearchStatus.COMPLETE):
-                from phase173_r4_r1_narrative_source_fix.projection import (
-                    project_verified_pi74_narrative,
+            if mode == "narrative" and result.status is ProofSearchStatus.COMPLETE:
+                from phase173_r4_r12_common_narrative.projection import (
+                    project_verified_toda56_narrative,
                 )
-                markdown = project_verified_pi74_narrative(
+                markdown = project_verified_toda56_narrative(
                     result, narrative_model, markdown,
                 )
         rendered_lines = _build_group_proof_rendered_lines(markdown)

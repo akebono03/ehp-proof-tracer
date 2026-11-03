@@ -1,0 +1,218 @@
+{
+  "phase": "173 R4-R13",
+  "read_only": true,
+  "reviewed_head": "a9b4617fbef603e4ced2252b7812d2dfa19fc606",
+  "groups": [
+    {
+      "group": "pi_7^4",
+      "dimension": 7,
+      "root_rule": "Toda (5.6) pi_7^4 source-bound direct-sum presentation",
+      "source_verified": true,
+      "source_reference_count": 4,
+      "source_references": [
+        {
+          "number": 1,
+          "locator": "Proposition 4.4",
+          "step_indices": [
+            0,
+            6
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "DB prior: sphere.csv (n=3, k=3) [参考: Proposition 5.6]",
+          "step_indices": [
+            1
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "(5.1)",
+          "step_indices": [
+            2
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Lemma 5.4",
+          "step_indices": [
+            4,
+            5
+          ]
+        }
+      ],
+      "open_goals": 0,
+      "web_verified": true,
+      "narrative_markdown": "使用する結果\n\n**[R1] Proposition 4.4.**\n$\\alpha\\in\\pi_{2n-1}^{n}$ と $H(\\alpha)=\\pm\\iota_{2n-1}$ を仮定する.\n任意の $i$ に対して, $\\pi_{i-1}^{n-1}\\oplus\\pi_i^{2n-1}\\xrightarrow{\\ \\cong\\ }\\pi_i^n$ は $(\\beta,\\gamma)\\mapsto E\\beta+\\alpha\\circ\\gamma$ による同型である.\n特に $E$ は単射である.\n\n**[R2] 先行データベース結果** $\\pi_{6}^{3}$（sphere.csv, n=3, k=3）［参考: Proposition 5.6］.\n\n**[R3] (5.1).**\n$\\pi_n^n=\\mathbb{Z}\\{\\iota_n\\}\\quad(n\\ge1)$.\n\n**[R4] Lemma 5.4.**\nある元 $\\nu_4\\in\\pi_7^4$ が存在し, $H(\\nu_4)=\\iota_7$ および $2E\\nu_4=E^2\\nu'$ を満たす.\n\n証明\n\n$\\pi_7^4$ の群構造を決定する.\n\n[R2]より, $\\pi_6^3\\cong\\mathbb{Z}/4\\{\\nu'\\}$.\n\n[R3]より, $\\pi_7^7\\cong\\mathbb{Z}\\{\\iota_7\\}$.\n\n[R4]より, $H(\\nu_4)=\\iota_7$.\n\n[R1]を $n=4$, $i=7$, $\\alpha=\\nu_4$ に適用すると, 次の同型を得る.\n\n$\\Phi:\\pi_6^3\\oplus\\pi_7^7\\xrightarrow{\\ \\cong\\ }\\pi_7^4,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\nu_4\\circ\\gamma$\n\nしたがって, $\\pi_7^4\\cong\\mathbb{Z}\\{\\nu_4\\}\\oplus\\mathbb{Z}/4\\{E\\nu'\\}$.\n\n□\n"
+    },
+    {
+      "group": "pi_8^4",
+      "dimension": 8,
+      "root_rule": "Toda Proposition 4.4 source-first n=4 typed direct-sum transport",
+      "source_verified": true,
+      "source_reference_count": 4,
+      "source_references": [
+        {
+          "number": 1,
+          "locator": "Proposition 4.4",
+          "step_indices": [
+            0,
+            5
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "DB prior: sphere.csv (n=3, k=4) [参考: Proposition 5.8]",
+          "step_indices": [
+            1
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "DB prior: sphere.csv (n=7, k=1) [参考: Proposition 5.1]",
+          "step_indices": [
+            2
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Lemma 5.4",
+          "step_indices": [
+            3,
+            4
+          ]
+        }
+      ],
+      "open_goals": 0,
+      "web_verified": true,
+      "narrative_markdown": "使用する結果\n\n**[R1] Proposition 4.4.**\n\nProposition 4.4 直前の記述（Steenrod1951 を引用）: $n=2,4,8$ では Hopf fibration $h:S^{2n-1}\\to S^n$ が存在する.\n$\\alpha\\in\\pi_{2n-1}^{n}$, $H(\\alpha)=\\pm\\iota_{2n-1}$ とすると, $E:\\pi_{i-1}^{n-1}\\to\\pi_i^{n}$ は単射.\n\n**[R2] 先行データベース結果 $\\pi_{7}^{3}$（sphere.csv, n=3, k=4）［参考: Proposition 5.8］.**\n\n**[R3] 先行データベース結果 $\\pi_{8}^{7}$（sphere.csv, n=7, k=1）［参考: Proposition 5.1］.**\n\n**[R4] Lemma 5.4.**\n\n証明\n\n$\\pi_{8}^4$ の群構造を決定する.\n\n[R1]の一般形は次の同型である.\n\n$\\pi_{i-1}^{n-1}\\oplus\\pi_i^{2n-1}\\xrightarrow{\\ \\cong\\ }\\pi_i^n,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\alpha\\circ\\gamma$\n\n[R4]より $H(\\nu_4)=\\iota_7$ である.\n\n[R1]を $n=4$, $i=8$, $\\alpha=\\nu_4$ に特殊化する.\n\n$\\Phi_{8}:\\pi_{7}^3\\oplus\\pi_{8}^7\\xrightarrow{\\ \\cong\\ }\\pi_{8}^4,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\nu_4\\circ\\gamma$\n\n[R2]より $\\pi_{7}^{3} = \\mathbb{Z}/2\\{\\nu'\\eta_{6}\\}$.\n\n[R3]より $\\pi_{8}^{7} = \\mathbb{Z}/2\\{\\eta_{7}\\}$.\n\n生成元の対応は、この同型写像の成分ごとに次のようになる.\n\n$\\Phi_{8}(\\nu'\\eta_{6},0)=E(\\nu'\\eta_{6})$.\n\n$\\Phi_{8}(0,\\eta_{7})=\\nu_4\\circ(\\eta_{7})$.\n\nしたがって $\\pi_{8}^{4} = \\mathbb{Z}/2\\{\\nu_{4}\\eta_{7}\\} \\oplus \\mathbb{Z}/2\\{E\\nu'\\eta_{7}\\}$.\n\n□\n"
+    },
+    {
+      "group": "pi_9^4",
+      "dimension": 9,
+      "root_rule": "Toda Proposition 4.4 source-first n=4 typed direct-sum transport",
+      "source_verified": true,
+      "source_reference_count": 4,
+      "source_references": [
+        {
+          "number": 1,
+          "locator": "Proposition 4.4",
+          "step_indices": [
+            0,
+            5
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "DB prior: sphere.csv (n=3, k=5)",
+          "step_indices": [
+            1
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "DB prior: sphere.csv (n=7, k=2) [参考: Proposition 5.3]",
+          "step_indices": [
+            2
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Lemma 5.4",
+          "step_indices": [
+            3,
+            4
+          ]
+        }
+      ],
+      "open_goals": 0,
+      "web_verified": true,
+      "narrative_markdown": "使用する結果\n\n**[R1] Proposition 4.4.**\n\nProposition 4.4 直前の記述（Steenrod1951 を引用）: $n=2,4,8$ では Hopf fibration $h:S^{2n-1}\\to S^n$ が存在する.\n$\\alpha\\in\\pi_{2n-1}^{n}$, $H(\\alpha)=\\pm\\iota_{2n-1}$ とすると, $E:\\pi_{i-1}^{n-1}\\to\\pi_i^{n}$ は単射.\n\n**[R2] 先行データベース結果 $\\pi_{8}^{3}$（sphere.csv, n=3, k=5）.**\n\n**[R3] 先行データベース結果 $\\pi_{9}^{7}$（sphere.csv, n=7, k=2）［参考: Proposition 5.3］.**\n\n**[R4] Lemma 5.4.**\n\n証明\n\n$\\pi_{9}^4$ の群構造を決定する.\n\n[R1]の一般形は次の同型である.\n\n$\\pi_{i-1}^{n-1}\\oplus\\pi_i^{2n-1}\\xrightarrow{\\ \\cong\\ }\\pi_i^n,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\alpha\\circ\\gamma$\n\n[R4]より $H(\\nu_4)=\\iota_7$ である.\n\n[R1]を $n=4$, $i=9$, $\\alpha=\\nu_4$ に特殊化する.\n\n$\\Phi_{9}:\\pi_{8}^3\\oplus\\pi_{9}^7\\xrightarrow{\\ \\cong\\ }\\pi_{9}^4,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\nu_4\\circ\\gamma$\n\n[R2]より $\\pi_{8}^{3} = \\mathbb{Z}/2\\{\\nu'\\eta_{6}^{2}\\}$.\n\n[R3]より $\\pi_{9}^{7} = \\mathbb{Z}/2\\{\\eta_{7}^{2}\\}$.\n\n生成元の対応は、この同型写像の成分ごとに次のようになる.\n\n$\\Phi_{9}(\\nu'\\eta_{6}^{2},0)=E(\\nu'\\eta_{6}^{2})$.\n\n$\\Phi_{9}(0,\\eta_{7}^{2})=\\nu_4\\circ(\\eta_{7}^{2})$.\n\nしたがって $\\pi_{9}^{4} = \\mathbb{Z}/2\\{\\nu_{4}\\eta_{7}^{2}\\} \\oplus \\mathbb{Z}/2\\{E\\nu'\\eta_{7}^{2}\\}$.\n\n□\n"
+    },
+    {
+      "group": "pi_10^4",
+      "dimension": 10,
+      "root_rule": "Toda Proposition 4.4 source-first n=4 typed direct-sum transport",
+      "source_verified": true,
+      "source_reference_count": 4,
+      "source_references": [
+        {
+          "number": 1,
+          "locator": "Proposition 4.4",
+          "step_indices": [
+            0,
+            5
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "DB prior: sphere.csv (n=3, k=6)",
+          "step_indices": [
+            1
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "DB prior: sphere.csv (n=7, k=3) [参考: Proposition 5.6]",
+          "step_indices": [
+            2
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Lemma 5.4",
+          "step_indices": [
+            3,
+            4
+          ]
+        }
+      ],
+      "open_goals": 0,
+      "web_verified": true,
+      "narrative_markdown": "使用する結果\n\n**[R1] Proposition 4.4.**\n\nProposition 4.4 直前の記述（Steenrod1951 を引用）: $n=2,4,8$ では Hopf fibration $h:S^{2n-1}\\to S^n$ が存在する.\n$\\alpha\\in\\pi_{2n-1}^{n}$, $H(\\alpha)=\\pm\\iota_{2n-1}$ とすると, $E:\\pi_{i-1}^{n-1}\\to\\pi_i^{n}$ は単射.\n\n**[R2] 先行データベース結果 $\\pi_{9}^{3}$（sphere.csv, n=3, k=6）.**\n\n**[R3] 先行データベース結果 $\\pi_{10}^{7}$（sphere.csv, n=7, k=3）［参考: Proposition 5.6］.**\n\n**[R4] Lemma 5.4.**\n\n証明\n\n$\\pi_{10}^4$ の群構造を決定する.\n\n[R1]の一般形は次の同型である.\n\n$\\pi_{i-1}^{n-1}\\oplus\\pi_i^{2n-1}\\xrightarrow{\\ \\cong\\ }\\pi_i^n,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\alpha\\circ\\gamma$\n\n[R4]より $H(\\nu_4)=\\iota_7$ である.\n\n[R1]を $n=4$, $i=10$, $\\alpha=\\nu_4$ に特殊化する.\n\n$\\Phi_{10}:\\pi_{9}^3\\oplus\\pi_{10}^7\\xrightarrow{\\ \\cong\\ }\\pi_{10}^4,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\nu_4\\circ\\gamma$\n\n[R2]より $\\pi_{9}^{3} = 0$.\n\n[R3]より $\\pi_{10}^{7} = \\mathbb{Z}/8\\{\\nu_{7}\\}$.\n\n生成元の対応は、この同型写像の成分ごとに次のようになる.\n\n$\\Phi_{10}(0,\\nu_{7})=\\nu_4\\circ(\\nu_{7})$.\n\nしたがって $\\pi_{10}^{4} = \\mathbb{Z}/8\\{\\nu_{4}^{2}\\}$.\n\n□\n"
+    },
+    {
+      "group": "pi_11^4",
+      "dimension": 11,
+      "root_rule": "Toda Proposition 4.4 generic n=4 typed direct-sum transport",
+      "source_verified": true,
+      "source_reference_count": 4,
+      "source_references": [
+        {
+          "number": 1,
+          "locator": "Proposition 4.4",
+          "step_indices": [
+            0,
+            5
+          ]
+        },
+        {
+          "number": 2,
+          "locator": "DB prior: sphere.csv (n=3, k=7)",
+          "step_indices": [
+            1
+          ]
+        },
+        {
+          "number": 3,
+          "locator": "DB prior: sphere.csv (n=7, k=4)",
+          "step_indices": [
+            2
+          ]
+        },
+        {
+          "number": 4,
+          "locator": "Lemma 5.4",
+          "step_indices": [
+            3,
+            4
+          ]
+        }
+      ],
+      "open_goals": 0,
+      "web_verified": true,
+      "narrative_markdown": "使用する結果\n\n**[R1] Proposition 4.4.**\n\nProposition 4.4 直前の記述（Steenrod1951 を引用）: $n=2,4,8$ では Hopf fibration $h:S^{2n-1}\\to S^n$ が存在する.\n$\\alpha\\in\\pi_{2n-1}^{n}$, $H(\\alpha)=\\pm\\iota_{2n-1}$ とすると, $E:\\pi_{i-1}^{n-1}\\to\\pi_i^{n}$ は単射.\n\n**[R2] 先行データベース結果 $\\pi_{10}^{3}$（sphere.csv, n=3, k=7）.**\n\n**[R3] 先行データベース結果 $\\pi_{11}^{7}$（sphere.csv, n=7, k=4）.**\n\n**[R4] Lemma 5.4.**\n\n証明\n\n$\\pi_{11}^4$ の群構造を決定する.\n\n[R1]の一般形は次の同型である.\n\n$\\pi_{i-1}^{n-1}\\oplus\\pi_i^{2n-1}\\xrightarrow{\\ \\cong\\ }\\pi_i^n,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\alpha\\circ\\gamma$\n\n[R4]より $H(\\nu_4)=\\iota_7$ である.\n\n[R1]を $n=4$, $i=11$, $\\alpha=\\nu_4$ に特殊化する.\n\n$\\Phi_{11}:\\pi_{10}^3\\oplus\\pi_{11}^7\\xrightarrow{\\ \\cong\\ }\\pi_{11}^4,\\quad(\\beta,\\gamma)\\longmapsto E\\beta+\\nu_4\\circ\\gamma$\n\n[R2]より $\\pi_{10}^{3} = 0$.\n\n[R3]より $\\pi_{11}^{7} = 0$.\n\n生成元の対応は、この同型写像の成分ごとに次のようになる.\n\n両側の先行群はいずれも零群であり、生成元の像を確認する必要はない.\n\nしたがって $\\pi_{11}^{4} = 0$.\n\n□\n"
+    }
+  ],
+  "pi12_unproven_rejected": true
+}
