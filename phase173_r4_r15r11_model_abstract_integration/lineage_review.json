@@ -1,0 +1,27 @@
+{
+  "stage": "Phase 173 R4-R15R11R1 HEAD lineage correction",
+  "previous_head": "8bfa13946251c5618530641c572e8c756bb49af4",
+  "new_head": "7e9e00f42e8b125480cd2928b0ee7ec2c5269d3a",
+  "github_compare": {
+    "status": "ahead",
+    "ahead_by": 1,
+    "changed_files": "only files under phase173_r4_r15r10_common_route_audit/"
+  },
+  "production_source_sha_verified": {
+    "phase165_r52_r3_web_adapter.py": "a5c402c86e624010e5521ceda0cb1734ab32bcae",
+    "phase168_r3_3_proof_narrative_model.py": "f09be949a7a07fc3f082bcd267f41c9f606590ea",
+    "phase168_r3_5_model_renderer.py": "6bfd5e992f6c9ee9441920e10e63e0db4bece289",
+    "phase173_r4_r15r9_shared_abstract_renderer/projection.py": "777db698e8da026571c8046b84fc3b875ee6dfe0"
+  },
+  "production_semantics_changed": false,
+  "full_suite_executed": false,
+  "r15r11r2": {
+    "status": "correction proposed",
+    "failure": "reapplying model renderer patch did not raise",
+    "cause": "output replacement includes original anchor",
+    "corrected": "_replace_once rejects existing after text",
+    "new_test": "test_renderer_reapplication_rejected_when_old_anchor_survives",
+    "production_change": false,
+    "full_suite_executed": false
+  }
+}

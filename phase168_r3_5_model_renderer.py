@@ -86,6 +86,8 @@ def render_model_backed_narrative_markdown(
             for number in model.step_citation_numbers[source_index]
         ))
 
+    if model.abstract_structure is not result.abstract_structure:
+        raise ValueError("Narrative Model abstract certificate must match searched result")
     incomplete = result.status is not ProofSearchStatus.COMPLETE
     if incomplete and (
         model.status is not result.status
@@ -641,6 +643,11 @@ def render_model_backed_narrative_markdown(
             lines.extend(("", "## 探索診断", ""))
             for diagnostic in model.diagnostics:
                 lines.append("- " + diagnostic)
+        if model.abstract_structure is not None:
+            from phase173_r4_r15r9_shared_abstract_renderer.projection import (
+                render_certified_abstract_model_section,
+            )
+            lines.extend(("", render_certified_abstract_model_section(model)))
         lines.extend(("", "未解決 Goal は証明済みの結論ではありません。"))
     else:
         lines.append("□")

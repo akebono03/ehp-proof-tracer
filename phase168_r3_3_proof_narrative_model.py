@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from homotopy_groups import TodaPrimaryGroup
 
-from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
+from phase165_r52_partial_proof import CertifiedAbstractStructure, PartialProofResult, ProofSearchStatus
 from proof import LiteratureReference, ProofRule, ProofStep
 from unified_statement_registry import ProofStepLink, UnifiedStatementRegistry
 
@@ -29,6 +29,7 @@ class ProofNarrativeModel:
     target: TodaPrimaryGroup | None = None
     open_goals: tuple[object, ...] = ()
     diagnostics: tuple[str, ...] = ()
+    abstract_structure: CertifiedAbstractStructure | None = None
 
 
 def root_ancestor_step_indices(
@@ -200,4 +201,5 @@ def build_proof_narrative_model(
         target=result.target,
         open_goals=result.open_goals,
         diagnostics=result.diagnostics,
+        abstract_structure=result.abstract_structure,
     )

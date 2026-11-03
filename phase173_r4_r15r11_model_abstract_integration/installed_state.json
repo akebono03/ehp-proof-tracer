@@ -1,0 +1,18 @@
+{
+  "phase165_r52_r3_web_adapter.py": {
+    "original_sha256": "60183ee7a80ed528e6cb0bd218c8a3ab01f0f507452ca3ed84ca79562d1e74a8",
+    "patched_sha256": "a0805408221b9121f111fb6638fcdb64f0512cfa5890a7a11dd56469cb029f01"
+  },
+  "phase168_r3_3_proof_narrative_model.py": {
+    "original_sha256": "6755450e6e2ce162f8b3766e2930c72e17013e398b6ff016e993bbbe6816c8ec",
+    "patched_sha256": "62b1375cb69e75f8b6e53d03bc1276e853640014c260d462256670da9ef48c13"
+  },
+  "phase168_r3_5_model_renderer.py": {
+    "original_sha256": "f037be4c7796efceb099cec76a4300fce177f4b89bebde5d85aac4ae42466394",
+    "patched_sha256": "19fbc808f4f3d3fe075f0a88073916ac2725b32c7d16858db72ba9bb3b4f83c8"
+  },
+  "phase173_r4_r15r9_shared_abstract_renderer/projection.py": {
+    "original_sha256": "baa201d165ba128dddd3ffb43c9beea8caf8fcd4baf1532f3100e53bbc8527c1",
+    "patched_sha256": "d46a9d51136c6c56c6a8a3e6aecd5797a72f75cad54a3ee153fe8c9bf31beb15"
+  }
+}
