@@ -7,6 +7,31 @@ API remains unchanged. One Web section hierarchy is produced for every status.
 from __future__ import annotations
 
 
+def _public_search_diagnostic_line(line: str) -> str:
+    """Present a recorded diagnostic without exposing a Python object repr.
+
+    This only changes the public display. The original diagnostic remains in
+    ProofNarrativeModel and PartialProofResult for inspection and auditing.
+    """
+    if not line.startswith("- "):
+        return line
+    message = line[2:].strip()
+    prefix = "expected a verified registered derivation for "
+    if message.startswith(prefix):
+        before, separator, count = message.rpartition(", found ")
+        if separator and before.startswith(prefix) and count.isdecimal():
+            return (
+                "- 登録済みの前提から証明目標を導く検証済みの推論が見つかりませんでした"
+                f"（導出候補 {count} 件）。"
+            )
+    if any(token in message for token in (
+        "Relation(", "TodaPrimaryGroup(", "HomotopyElement(",
+        "GeneratorSymbol(",
+    )):
+        return "- 型付き証明目標の内部診断があります。詳細は監査ログを参照してください。"
+    return line
+
+
 def canonicalize_proof_layout(markdown: str) -> str:
     """Use one Reference/Proof section layout, preserving proof body verbatim.
 
@@ -62,5 +87,11 @@ def canonicalize_proof_layout(markdown: str) -> str:
     # Only headings and redundant duplicate-target presentation are modified.
     normalized = [*prelude, "## 使用する結果", "", *reference_body,
                   "", "---", "", *proof_body]
+    in_search_diagnostics = False
+    for index, line in enumerate(normalized):
+        if line.startswith(("## ", "### ")):
+            in_search_diagnostics = line.strip() == "## 探索診断"
+        elif in_search_diagnostics and line.startswith("- "):
+            normalized[index] = _public_search_diagnostic_line(line)
     result = "\n".join(normalized)
     return result.rstrip("\n") + ("\n" if markdown.endswith("\n") else "")

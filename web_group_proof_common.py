@@ -411,6 +411,38 @@ def _group_proof_statement_latex(
   str | None,
   str | None,
 ]:
+  from expression import Expression
+  from homotopy_groups import FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
+  from phase165_r12_r2_quotient_rules import CyclicStructureStatement
+  from proof import Relation, RelationType
+
+  if (
+    isinstance(statement, CyclicStructureStatement)
+    and isinstance(statement.group, TodaPrimaryGroup)
+    and isinstance(statement.generator, Expression)
+    and (
+      statement.order is None
+      or (type(statement.order) is int and statement.order >= 1)
+    )
+  ):
+    structure = (
+      FreeCyclicGroup(statement.generator)
+      if statement.order is None
+      else FiniteCyclicGroup(statement.order, statement.generator)
+    )
+    try:
+      cyclic_latex = render_toda_public_group_relation_latex(
+        Relation(
+          lhs=statement.group,
+          rhs=structure,
+          relation_type=RelationType.EQUALITY,
+        )
+      )
+    except (TypeError, ValueError):
+      cyclic_latex = None
+    if cyclic_latex is not None:
+      return cyclic_latex, None
+
   public_group_latex = (
     render_toda_public_group_relation_latex(
       statement
