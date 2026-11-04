@@ -3601,3 +3601,15 @@ Phase 173 は継続中であり、本節は R15R17 の HTTP 監査までの確�
 R3R4 は旧来の別 Section を要求する**公開 Web テスト契約**を統一後の経路に整えた。独立した legacy（互換経路）や補助 API の契約を一律に廃止していない。R3R5 の Flask HTTP 検査では、$(n,k)=(4,8),(4,9),(5,3),(4,4)$ の4件が 200 を返し、Reference は各1か所、model-backed 経路の旧抽象群 sidecar（追記部）は不在、証明状態は内部の検証済み状態と一致した。
 
 **未確認：** ブラウザでの数式・レイアウトの目視確認、Phase 173 末尾のアクティブ `tests/` 全体 pytest、Phase 173 正式終了。旧 Phase の記録を改変しない。本節は新たな数学定理の証明や任意の群の証明完成を意味しない。
+
+<!-- PHASE173_FINAL_CLOSEOUT_20261105 -->
+
+## Phase 173 正式終了 — 共通 Narrative の最終設計境界（2026-11-05）
+
+**公開経路の責務：** Backward Search（逆向き証明探索）→ Verified Proof Tree（検証済み証明木）→ 単一の `ProofNarrativeModel`（証明文章モデル）→ 共通 Narrative Renderer（文章表示器）→ Flask Web とする。検証済み抽象群構造の祖先 ProofStep は同一 Model に統合し、Reference（根拠一覧）を一度だけ描画する。群の次元や生成元の名称による新しい Narrative 分岐は設けない。
+
+**不変条件：** 証明木中の引用、`ProofSearchStatus`、`open_goals`、`diagnostics` を表示側で生成・変更しない。型付きの等価な未解決 Goal は表示上まとめても、内部ではすべて保持する。$\pi_{12}^{4}\cong\mathbb Z/2$ と $\pi_{12}^{4}=\mathbb Z/2\{\varepsilon_4\}$ は、前者の抽象群構造だけが検証済みである。$\pi_{13}^{4}\cong(\mathbb Z/2)^3$ と記名直和生成元の証明も同様に区別する。$\pi_8^5$ は未完成、$\pi_8^4$ は完成を維持した。
+
+**テスト結果と境界：** R15R17 R3R5 の Flask HTTP 4例、ブラウザからの文字列確認4例、旧 Phase 167 Reference テスト3ファイルの修正後限定 pytest 6 PASS。Phase 173 最終 Gate 初回は **3541 PASS／5 FAIL**（旧 `証明` 見出しを探す5 assertion）。修正後の R2 最終 Gate は Git HEAD `25b1ee1f7c848356604061991db06265cfccb296` で **3546 PASS（80.58秒、終了コード0）**、Source Guard と Git index 保持 PASS。旧失敗の機械生成原本4ファイルは現在の Windows プロファイルから参照できず、**原本保存状態は未検証**。ブラウザの MathJax 画素レベル検証も未確認である。
+
+この終了認定は共通表示の経路・テスト契約と個別の検証済み結果に限定する。任意の群の記名生成元証明、登録された文献命題の全真偽、一般的な数学的探索の完成は主張しない。将来 Phase で必要な数学的 Goal を別途扱う。

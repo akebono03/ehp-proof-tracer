@@ -2,9 +2,51 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+<!-- PHASE173_FINAL_CLOSEOUT_20261105 -->
+
+## Current status — Phase 173 formally closed (2026-11-05)
+
+Phase 173 completed its reviewed proof-search and common-narrative integration
+scope. The public route uses the verified Proof Tree, one ProofNarrativeModel,
+one common Renderer, and a single source-backed Reference section. No
+n/k-, generator-, or group-specific public narrative was introduced to
+substitute for a mathematical proof. Typed equivalent pending group-structure
+goals are grouped for display only; their underlying ProofSearchResult and
+ProofSteps remain unchanged.
+
+The checked public examples distinguish certified abstract structure from
+completed named-generator proofs. For $\pi_{12}^{4}$ the abstract group is
+$\mathbb Z/2$ but the named generator $\varepsilon_4$ is not proved (three
+typed open goals, displayed together). For $\pi_{13}^{4}$ the abstract group
+is $(\mathbb Z/2)^3$ but the named presentation remains incomplete (two typed
+open goals, displayed together). The named proof for $\pi_8^5$ remains
+incomplete without an abstract certificate; $\pi_8^4$ remains complete.
+All four examples passed the Flask HTTP gate and were reviewed in browser-
+copied text. A pixel-level MathJax/layout review was **not** independently
+verified.
+
+The first phase-end active `tests/` suite reported **3541 passed, 5 failed**:
+three Phase 167 test modules still searched for a removed `証明` heading.
+The five failures were test-contract mismatches in the Reference section
+boundary, not demonstrated mathematical proof failures. The three tests
+files were corrected to use the single canonical separator; the focused
+regression passed **6 tests**. The corrective active-suite gate at Git HEAD
+`25b1ee1f7c848356604061991db06265cfccb296` subsequently reported
+**3546 passed in 80.58s (0:01:20)**, exit code 0, with reviewed source
+blobs and preserved Git index.
+
+The original four machine-generated files from the first failed test gate
+were unavailable under the current Windows profile. Their preservation is
+**not verifiable**; the initial failure remains recorded in the user-supplied
+console log. The corrective PASS report is separate at
+`%LOCALAPPDATA%/EHPProofTracerRecovery/phase173_final_gate_r2/phase173_full_test_report_r2.json`.
+The closeout documentation adds no new theorems, new inference rules, or new
+named-generator certificates. Future mathematical proof gaps belong to a later
+phase.
+
 <!-- PHASE173_R15R17_CHECKPOINT_20261104 -->
 
-## Current status — Phase 173 R15R17 checkpoint (2026-11-04)
+## Historical checkpoint — Phase 173 R15R17 (2026-11-04)
 
 Phase 173 is in progress, **not formally closed**. The public incomplete-proof
 path now incorporates the actual certified abstract proof ancestry into one

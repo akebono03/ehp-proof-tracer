@@ -8037,3 +8037,19 @@ R3 は Goal と旧テスト契約を監査し、`CyclicStructureStatement` と�
 R3R5 の実行ログは `R15R17R3R5_SOURCE_GUARD=PASS`、`R15R17R3R5_HTTP_GATE=PASS`、`R15R17R3R5_GIT_INDEX_PRESERVED=PASS`、`R15R17R3R5_AUDIT_COMPLETE=PASS`。引き継ぎ DryRun は `PHASE173_R15R17_HTTP_GATE=PASS_REPORTED_BY_USER_2026-11-04`、Git HEAD `80e51d4c22f80e597e48a2f899eecac8ded8595d`、本体書込みなし。これらの PASS 件数は**異なる限定スイート**であり合計を全体テスト件数として扱わない。
 
 **残作業：** ブラウザ目視、文書の正式 Closeout 更新、Phase 173 末尾の一度だけのアクティブ `tests/` 全体 pytest。現時点で Phase 173 終了は宣言しない。旧ログは削除せず追記する。
+
+<!-- PHASE173_FINAL_CLOSEOUT_20261105 -->
+
+## 2026-11-05 — Phase 173 正式終了：最終 Gate 失敗から修正後成功まで
+
+Phase 173 は $n\ge3$ の探索状況を監査し、共通 Proof Narrative Model（証明文章モデル）・Reference・Renderer の公開経路を統合した。R15R17 では表示専用の型付き未解決 Goal 集約と、過去の旧表示契約に依存したテストの保守を行った。Flask HTTP の4ケース $(n,k)=(4,8),(4,9),(5,3),(4,4)$ は PASS。ユーザーによるブラウザ表示内容の確認も4ケースそろったが、MathJax の画素・レイアウトは独立検証していない。
+
+**初回終了 Gate の失敗（2026-11-04）：** 現行アクティブ `tests/` の全体 pytest は `5 failed, 3541 passed in 34.43s`。失敗は `tests/test_phase167_r2_range_dedup.py` 2件、`tests/test_phase167_r2_shared_reference.py` 1件、`tests/test_phase167_r2_unified_reference.py` 2件の `StopIteration`。共通表示では Reference の末尾が `separator` になった一方、旧テストが `証明` 見出しを探していたためであり、証明アルゴリズムの誤りを示すものではなかった。
+
+**R1修正：** 上記3テストファイルで Reference と証明本文の区切り検出だけを単一の `separator` に更新し、数学的な一般形・引用数の検査を保持。R1 DryRun／適用 PASS、限定 pytest **6 PASS**。既存本体は変更しない。
+
+**R2再試験と失敗記録：** 別 Windows プロファイル `C:\Users\user` からは、初回失敗の `%LOCALAPPDATA%/EHPProofTracerRecovery/phase173_final_gate` に保存した機械生成原本4ファイルを参照できなかった。R2R1 は保存先指定を改善し、R2R2 は原本4件がすべて不在のときのみ明示的許可で再実行する。原本の `PRESERVED` 判定は **NOT_VERIFIABLE** を保持し、過去の失敗ログを成功に書き換えない。R2R2 の修正後 Gate 限定 pytest **27 PASS**。
+
+**訂正後の最終 Gate：** `PHASE173_FINAL_R2_HEAD=25b1ee1f7c848356604061991db06265cfccb296`、`SOURCE_GUARD=PASS`、`PYTEST_EXIT=0`、`FULL_PYTEST=PASS`、`FULL_PYTEST_PASSED=3546`、`GATE=PASS`、`GIT_INDEX_PRESERVED=PASS`。pytest 表示は **3546 passed in 80.58s (0:01:20)**。別証拠として `%LOCALAPPDATA%/EHPProofTracerRecovery/phase173_final_gate_r2/phase173_full_test_report_r2.json` と stdout / stderr が存在する。ユーザー投稿の初回失敗ログと今回の成功ログは区別して保存する。
+
+**Phase 173 正式終了：** 本最終5文書の更新・版照合後に終了とする。未完成の記名生成元 Goal や一般的推論機能を先取りせず、次 Phase へ持ち越す。過去の開発履歴は保持する。
