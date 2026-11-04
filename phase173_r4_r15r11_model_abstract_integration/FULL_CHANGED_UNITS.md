@@ -1,0 +1,1038 @@
+# Phase 173 R4-R15R11 — Full changed units (reviewed proposed code)
+
+Every changed class/function is shown in full. No omitted code.
+
+## phase165_r52_r3_web_adapter.py
+
+### Complete unchanged import block
+
+```python
+
+"""Phase 165 R52-R3: common WebGroupProofView for partial proof states.
+
+The adapter does not search for evidence, infer mathematical statements or
+promote unproved goals into proven steps. Complete proof narratives use the
+verified ProofNarrativeModel renderer without a post-render override.
+"""
+from __future__ import annotations
+
+from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus, render_partial_proof_markdown
+from phase168_r3_3_proof_narrative_model import ProofNarrativeModel
+from web_group_proof_common import (
+    WebGroupProofStepView,
+    WebGroupProofView,
+    _build_group_proof_rendered_lines,
+    _group_proof_rule_name,
+    _group_proof_statement_latex,
+)
+
+```
+
+### Complete build_partial_web_group_proof_view
+
+```python
+
+def build_partial_web_group_proof_view(
+    result: PartialProofResult,
+    *,
+    max_depth: int = 2,
+    mode: str = "narrative",
+    narrative_model: ProofNarrativeModel | None = None,
+) -> WebGroupProofView:
+    """Adapt searched steps; render a supplied proof model without rewriting it."""
+    if not isinstance(result, PartialProofResult):
+        raise TypeError("result must be PartialProofResult")
+    if isinstance(max_depth, bool) or not isinstance(max_depth, int):
+        raise TypeError("max_depth must be an int")
+    if max_depth < 0:
+        raise ValueError("max_depth must be nonnegative")
+    if mode not in ("trace", "outline", "narrative"):
+        raise ValueError("mode must be trace, outline, or narrative")
+    if narrative_model is not None and not isinstance(narrative_model, ProofNarrativeModel):
+        raise TypeError("narrative_model must be ProofNarrativeModel or None")
+
+    n = result.target.sphere_dimension
+    dimension = result.target.group_dimension
+    k = dimension - n
+    target_latex = rf"\pi_{{{dimension}}}^{{{n}}}"
+    if result.status is ProofSearchStatus.COMPLETE:
+        target_statement = result.conclusion
+    else:
+        target_statement = next(
+            (
+                item for item in reversed(result.open_goals)
+                if getattr(item, "lhs", None) == result.target
+                or getattr(item, "group", None) == result.target
+            ),
+            None,
+        )
+    if target_statement is not None:
+        statement_latex, fallback_type = _group_proof_statement_latex(target_statement)
+        if statement_latex is not None and fallback_type is None:
+            target_latex = statement_latex
+
+    steps = []
+    for step in result.proven_steps:
+        statement_latex, fallback_type_name = _group_proof_statement_latex(step.conclusion)
+        steps.append(WebGroupProofStepView(
+            depth=0,
+            statement_latex=statement_latex,
+            fallback_type_name=fallback_type_name,
+            rule_name=_group_proof_rule_name(step),
+            role_name="derived",
+        ))
+
+    if mode == "trace":
+        rendered_lines = ()
+    else:
+        if narrative_model is None:
+            # Preserve the existing legacy/compatibility narrative route.
+            markdown = render_partial_proof_markdown(result)
+            from phase173_r4_r15r9_shared_abstract_renderer.projection import (
+                render_certified_abstract_section,
+            )
+            abstract_markdown = render_certified_abstract_section(result)
+            if abstract_markdown:
+                markdown = markdown.rstrip() + "\n\n" + abstract_markdown + "\n"
+        else:
+            from phase168_r3_5_model_renderer import render_model_backed_narrative_markdown
+            markdown = render_model_backed_narrative_markdown(result, narrative_model)
+        rendered_lines = _build_group_proof_rendered_lines(markdown)
+
+    return WebGroupProofView(
+        n=n,
+        k=k,
+        conclusion_latex=target_latex,
+        theorem=None,
+        phase="165 R52-R3",
+        key=("generic-complete-proof" if result.status is ProofSearchStatus.COMPLETE else "generic-partial-proof"),
+        steps=tuple(steps),
+        max_depth=max_depth,
+        mode=mode,
+        rendered_lines=rendered_lines,
+        partial_result=(result.status is not ProofSearchStatus.COMPLETE),
+    )
+
+```
+
+## phase168_r3_3_proof_narrative_model.py
+
+### Changed complete import block
+
+```python
+
+"""Proof-tree-backed citation projection; no rendering or search decisions."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from homotopy_groups import TodaPrimaryGroup
+
+from phase165_r52_partial_proof import CertifiedAbstractStructure, PartialProofResult, ProofSearchStatus
+from proof import LiteratureReference, ProofRule, ProofStep
+from unified_statement_registry import ProofStepLink, UnifiedStatementRegistry
+
+```
+
+### Complete ProofNarrativeModel
+
+```python
+
+@dataclass(frozen=True)
+class ProofNarrativeModel:
+    steps: tuple[ProofStep, ...]
+    citations: tuple[NarrativeCitation, ...]
+    step_citation_numbers: tuple[tuple[int, ...], ...]
+    root_index: int | None
+    status: ProofSearchStatus | None = None
+    target: TodaPrimaryGroup | None = None
+    open_goals: tuple[object, ...] = ()
+    diagnostics: tuple[str, ...] = ()
+    abstract_structure: CertifiedAbstractStructure | None = None
+
+```
+
+### Complete build_proof_narrative_model
+
+```python
+
+def build_proof_narrative_model(
+    result: PartialProofResult,
+    *,
+    registry: UnifiedStatementRegistry | None = None,
+    proof_links: tuple[ProofStepLink, ...] = (),
+) -> ProofNarrativeModel:
+    """Project only explicit proof-step and registered-link citations.
+
+    Matching a link requires an exact ProofStep value; merely matching a
+    conclusion or a display string is not sufficient. Root inference citations
+    remain eligible. Neither a root conclusion nor an unused registry assertion
+    becomes a premise through this projection.
+    """
+    if not isinstance(result, PartialProofResult):
+        raise TypeError("result must be PartialProofResult")
+    if registry is not None and not isinstance(registry, UnifiedStatementRegistry):
+        raise TypeError("registry must be UnifiedStatementRegistry or None")
+    if not isinstance(proof_links, tuple) or not all(
+        isinstance(link, ProofStepLink) for link in proof_links
+    ):
+        raise TypeError("proof_links must be a tuple of ProofStepLink")
+    if proof_links and registry is None:
+        raise ValueError("registry is required for proof_links")
+
+    steps = result.proven_steps
+    root_index = next(
+        (i for i in range(len(steps) - 1, -1, -1)
+         if result.conclusion is not None and steps[i].conclusion == result.conclusion),
+        None,
+    )
+    # Complete proofs cite only the actual final-root ancestry. Preserve all
+    # steps and the full (including unrelated) verified search record.
+    citation_scope = (
+        root_ancestor_step_indices(steps, root_index)
+        if result.status is ProofSearchStatus.COMPLETE
+        else frozenset(range(len(steps)))
+    )
+    # Locator is the printed source position. Labels are presentation metadata,
+    # not independent source identities. Exact matching avoids conflating nearby
+    # propositions or components with different locators.
+    references: list[LiteratureReference] = []
+    locators: list[str] = []
+    associations: list[list[int]] = []
+    assertion_ids: list[list[str]] = []
+    reference_ids: list[list[str]] = []
+    registry_index: dict[str, int] = {}
+    per_step: list[tuple[int, ...]] = []
+
+    for step_index, step in enumerate(steps):
+        if step_index not in citation_scope:
+            per_step.append(())
+            continue
+        linked: list[tuple[LiteratureReference, str | None, str | None]] = []
+        if registry is not None:
+            for link in proof_links:
+                if link.step is None or link.step != step:
+                    continue
+                assertion = registry.assertion(link.assertion_id)
+                entry = registry.reference(assertion.reference_id)
+                linked.append((LiteratureReference(
+                    label=entry.locator, locator=entry.locator,
+                ), assertion.assertion_id, assertion.reference_id))
+
+        located = list(linked)
+        inference_rule = step.inference_rule
+        if inference_rule is not None and inference_rule.literature_reference is not None:
+            rule_reference = inference_rule.literature_reference
+            rule_locator = rule_reference.locator or rule_reference.label
+            # A registry heading may include a descriptive title following the
+            # short printed heading attached to the very same GIVEN. Only that
+            # heading/title shape is an alias; a numbered subsection or a
+            # genuinely different locator remains a distinct citation.
+            def same_source_heading(registered: LiteratureReference) -> bool:
+                registered_locator = registered.locator or registered.label
+                if registered_locator == rule_locator:
+                    return True
+                if step.rule is not ProofRule.GIVEN:
+                    return False
+                prefix = rule_locator + " "
+                if not registered_locator.startswith(prefix):
+                    return False
+                suffix = registered_locator[len(prefix):]
+                return suffix.startswith("The ") and len(suffix) > 4
+
+            if not any(same_source_heading(reference) for reference, _, _ in linked):
+                located.append((rule_reference, None, None))
+
+        numbers: list[int] = []
+        for reference, assertion_id, reference_id in located:
+            locator = reference.locator or reference.label
+            # The registered identity takes precedence over display labels.
+            # Printed locator remains the compatibility fallback for independent
+            # registry copies and inference rules without a registry entry.
+            if reference_id is not None and reference_id in registry_index:
+                ref_index = registry_index[reference_id]
+            elif locator in locators:
+                ref_index = locators.index(locator)
+            else:
+                ref_index = len(references)
+                locators.append(locator)
+                references.append(reference)
+                associations.append([])
+                assertion_ids.append([])
+                reference_ids.append([])
+            if reference_id is not None:
+                registry_index[reference_id] = ref_index
+                if reference_id not in reference_ids[ref_index]:
+                    reference_ids[ref_index].append(reference_id)
+                # Prefer the richer registered locator over an earlier
+                # inference-only display entry for the same printed source.
+                if references[ref_index].locator != locator:
+                    references[ref_index] = reference
+            number = ref_index + 1
+            if step_index not in associations[ref_index]:
+                associations[ref_index].append(step_index)
+            if assertion_id is not None and assertion_id not in assertion_ids[ref_index]:
+                assertion_ids[ref_index].append(assertion_id)
+            if number not in numbers:
+                numbers.append(number)
+        per_step.append(tuple(numbers))
+
+    from phase168_r3_37c_reference_projection import project_reference_bodies
+    citations = tuple(
+        NarrativeCitation(
+            number=i + 1,
+            reference=reference,
+            step_indices=tuple(associations[i]),
+            assertion_ids=tuple(assertion_ids[i]),
+            reference_ids=tuple(reference_ids[i]),
+            statement_bodies=project_reference_bodies(registry, tuple(assertion_ids[i])),
+        )
+        for i, reference in enumerate(references)
+    )
+    return ProofNarrativeModel(
+        steps=steps,
+        citations=citations,
+        step_citation_numbers=tuple(per_step),
+        root_index=root_index,
+        status=result.status,
+        target=result.target,
+        open_goals=result.open_goals,
+        diagnostics=result.diagnostics,
+        abstract_structure=result.abstract_structure,
+    )
+
+```
+
+## phase168_r3_5_model_renderer.py
+
+### Complete render_model_backed_narrative_markdown
+
+```python
+
+def render_model_backed_narrative_markdown(
+    result: PartialProofResult, model: ProofNarrativeModel,
+) -> str:
+    """Render typed Proof Tree steps; preserve incomplete search state from model."""
+    from proof import ProofRule, Relation, RelationType
+    from map_facts import EHP_DELTA_MAP, EHP_E_MAP, EHP_H_MAP
+    from toda_rules import TodaProp42ExactnessStatement
+    from phase165_r14_r14_diagonal_and_prop42 import GeneratorSuspension
+    from phase165_r14_r6_generic_iso import GeneratorImage
+    from phase165_r12_r20_eta_definition import TodaEtaFamilyGeneralDefinition
+    from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
+    from phase165_r12_r21_eta_generator_chain import _eta_pair
+    from phase168_r3_29_order_projection import project_narrative_order
+    from phase168_r3_3_proof_narrative_model import root_ancestor_step_indices
+    from phase168_r3_26_exactness_projection import project_exactness_chains
+    from phase168_r3_27_typed_statement_projection import (
+        group_tex, element_tex, typed_sentence, toda45_specialization_evidence,
+        project_toda45_specialization_citation_numbers,
+        project_stable_eta_notation_transition,
+    )
+
+    if not isinstance(result, PartialProofResult):
+        raise TypeError("result must be PartialProofResult")
+    if not isinstance(model, ProofNarrativeModel):
+        raise TypeError("model must be ProofNarrativeModel")
+    body_lines = build_narrative_body_lines(result, model)
+    body_by_step = {line.step_index: line for line in body_lines}
+
+    def cited_general_ancestor_numbers(step, given_type):
+        """Return only registered citations of typed GIVEN proof ancestors."""
+        numbers = []
+        visited = set()
+        pending = [step]
+        while pending:
+            ancestor = pending.pop()
+            if id(ancestor) in visited:
+                continue
+            visited.add(id(ancestor))
+            if ancestor.rule is ProofRule.GIVEN and isinstance(ancestor.conclusion, given_type):
+                for source_index, candidate in enumerate(model.steps):
+                    if candidate == ancestor:
+                        for number in model.step_citation_numbers[source_index]:
+                            if number not in numbers:
+                                numbers.append(number)
+                        break
+            pending.extend(ancestor.premises)
+        return tuple(numbers)
+
+
+    def direct_given_premise_citation_numbers(step):
+        """Use citations of an existing direct GIVEN premise, without replaying a rule.
+
+        The Proof Tree is supplied by Backward Search. Citation ownership is
+        already stored in the Narrative Model and is not re-inferred here.
+        """
+        if step.rule is not ProofRule.INFERENCE or len(step.premises) != 1:
+            return ()
+        given_step = step.premises[0]
+        if given_step.rule is not ProofRule.GIVEN:
+            return ()
+        # Keep the old presentationally eligible typed statement families.
+        # Proof validity itself was checked before this model was constructed.
+        from homotopy_groups import TodaPrimaryGroupZeroStatement
+        from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
+        source, target = given_step.conclusion, step.conclusion
+        is_direct_relation = isinstance(source, Relation) and isinstance(target, Relation)
+        is_typed_zero = (
+            isinstance(target, TodaPrimaryGroupZeroStatement)
+            and isinstance(source, (TodaPrimaryGroupZeroStatement,
+                                    Toda51BelowDiagonalZeroStatement))
+        )
+        if not (is_direct_relation or is_typed_zero):
+            return ()
+        return tuple(dict.fromkeys(
+            number
+            for source_index, candidate in enumerate(model.steps)
+            if candidate is given_step or candidate == given_step
+            for number in model.step_citation_numbers[source_index]
+        ))
+
+    if model.abstract_structure is not result.abstract_structure:
+        raise ValueError("Narrative Model abstract certificate must match searched result")
+    incomplete = result.status is not ProofSearchStatus.COMPLETE
+    if incomplete and (
+        model.status is not result.status
+        or model.target != result.target
+        or model.open_goals != result.open_goals
+        or model.diagnostics != result.diagnostics
+    ):
+        raise ValueError("narrative model partial state must match searched result")
+
+    if incomplete:
+        # A partial Proof Tree may contain pending premises. Display each
+        # observed step in its recorded order, without claiming a new proof.
+        chains = ()
+        order = tuple(range(len(model.steps)))
+        target_latex = group_tex(model.target)
+        if target_latex is None:
+            raise ValueError("unsupported partial target group")
+        lines = ["## 証明対象", "", f"${target_latex}$", "", "## 使用する結果", ""]
+    else:
+        root_scope = root_ancestor_step_indices(model.steps, model.root_index)
+        chains = tuple(
+            chain for chain in project_exactness_chains(model)
+            if all(index in root_scope for index in chain.step_indices)
+        )
+        suppressed_exactness = {index for chain in chains for index in chain.step_indices}
+        order = tuple(
+            entry.step_index
+            for entry in project_narrative_order(model, suppressed_exactness)
+            if entry.step_index in root_scope
+        )
+        lines = ["使用する結果", ""]
+
+    from phase172_r5_prior_reference_display.projection import (
+        display_prior_reference_locator,
+    )
+    for citation in model.citations:
+        locator = citation.reference.locator or citation.reference.label
+        if not incomplete:
+            displayed = display_prior_reference_locator(citation, model)
+            if displayed is not None:
+                locator = displayed
+        lines.append(f"**[R{citation.number}] {locator}.**")
+        lines.append("")
+        for sentence in citation.statement_bodies:
+            lines.extend((sentence, ""))
+    if incomplete:
+        if not model.citations:
+            lines.extend(("参照情報を持つ ProofStep はありません。", ""))
+        labels = {
+            ProofSearchStatus.NOT_SEARCHED: "未探索",
+            ProofSearchStatus.PARTIAL: "部分証明・未完成",
+            ProofSearchStatus.SEARCH_FAILED: "証明未完成",
+        }
+        lines.extend(("---", "", "## 証明", "", f"**探索状態：{labels[model.status]}**", ""))
+        if model.steps:
+            lines.extend(("### 確認済み ProofStep（与件を含む）", ""))
+    else:
+        lines.extend(("証明", ""))
+        if not chains:
+            target_name = group_tex(model.target)
+            if target_name is not None:
+                lines.extend((f"${target_name}$の群構造を決定する.", ""))
+    for chain in chains:
+        map_tex = {EHP_E_MAP: "E", EHP_H_MAP: "H", EHP_DELTA_MAP: r"\Delta"}
+        sequence = group_tex(chain.arrows[0][0])
+        for source, symbol, target in chain.arrows:
+            if group_tex(target) is None or symbol not in map_tex:
+                raise ValueError("unsupported certified exactness arrow")
+            sequence += rf" \xrightarrow{{{map_tex[symbol]}}} {group_tex(target)}"
+        # The merged sequence stands for these certified exactness ProofSteps.
+        # Cite their own sources; never search bibliography labels by text.
+        exactness_numbers = tuple(dict.fromkeys(
+            number
+            for step_index in chain.step_indices
+            for number in (
+                model.step_citation_numbers[step_index]
+                + cited_general_ancestor_numbers(
+                    model.steps[step_index], TodaProp42GeneralExactnessStatement
+                )
+            )
+        ))
+        if exactness_numbers:
+            tags = ", ".join(f"[R{number}]" for number in exactness_numbers)
+            lines.append(f"${group_tex(model.target)}$の群構造を決定するために, {tags}を用いて次の完全列を考える.")
+        else:
+            lines.append(f"${group_tex(model.target)}$の群構造を決定するために, 次の完全列を考える.")
+        lines.append("")
+        lines.append(f"${sequence}$.")
+        lines.append("")
+    # A later certified step can subsume a purely intermediate display step.
+    # Keep both ProofSteps in the tree; omit prose only when the consumed
+    # premise has no distinct citation and no other consumers.
+    suppressed_body_indices = set()
+    if not incomplete:
+        from expression import IteratedSuspension
+        from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaSuspensionMap
+        from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
+        from phase165_r12_r13_kernel_image import SuspensionKernelFreeCyclicStatement
+        from toda_rules import TodaDeltaImageFreeCyclicStatement
+
+        def unique_step_index(premise):
+            matches = [i for i, candidate in enumerate(model.steps) if candidate is premise]
+            if len(matches) == 1:
+                return matches[0]
+            if matches:
+                return None
+            matches = [i for i, candidate in enumerate(model.steps) if candidate == premise]
+            return matches[0] if len(matches) == 1 else None
+
+        def only_consumed_by(candidate, consumer):
+            return sum(
+                any(parent is candidate or parent == candidate for parent in step.premises)
+                for step in model.steps
+            ) == 1 and any(
+                parent is candidate or parent == candidate for parent in consumer.premises
+            )
+
+        for later_index in order:
+            consumer = model.steps[later_index]
+            conclusion = consumer.conclusion
+            if (consumer.rule is ProofRule.INFERENCE
+                    and isinstance(conclusion, SuspensionKernelFreeCyclicStatement)
+                    and len(consumer.premises) == 2):
+                image_step, equality_step = consumer.premises
+                image = image_step.conclusion
+                equality = equality_step.conclusion
+                if (isinstance(image, TodaDeltaImageFreeCyclicStatement)
+                        and isinstance(equality, EHPImageEqualsKernelStatement)
+                        and image.image_group == conclusion.kernel_group
+                        and equality.window.first_map == EHP_DELTA_MAP
+                        and equality.window.second_map == EHP_E_MAP
+                        and image.map == TodaDeltaMap(
+                            equality.window.source_term, equality.window.middle_term
+                        )
+                        and conclusion.map == TodaSuspensionMap(
+                            equality.window.middle_term, equality.window.target_term
+                        )):
+                    earlier_index = unique_step_index(equality_step)
+                    if (earlier_index is not None
+                            and earlier_index in order
+                            and earlier_index != model.root_index
+                            and equality_step.rule is ProofRule.INFERENCE
+                            and not model.step_citation_numbers[earlier_index]
+                            and only_consumed_by(equality_step, consumer)):
+                        suppressed_body_indices.add(earlier_index)
+
+            if (consumer.rule is ProofRule.INFERENCE
+                    and isinstance(conclusion, Relation)
+                    and len(consumer.premises) == 2
+                    and isinstance(conclusion.rhs, FiniteCyclicGroup)):
+                transported_step, witness_step = consumer.premises
+                transported = transported_step.conclusion
+                if (transported_step.rule is ProofRule.INFERENCE
+                        and isinstance(transported, Relation)
+                        and isinstance(transported.rhs, FiniteCyclicGroup)
+                        and isinstance(witness_step.conclusion, GeneratorSuspension)
+                        and transported.relation_type is RelationType.EQUALITY
+                        and conclusion.relation_type is RelationType.EQUALITY
+                        and isinstance(witness_step.conclusion.map, TodaSuspensionMap)
+                        and isinstance(transported.rhs.generator, IteratedSuspension)
+                        and type(transported.rhs.generator.exponent) is int
+                        and transported.rhs.generator.exponent == 1
+                        and element_tex(transported.rhs.generator.expression) is not None
+                        and element_tex(transported.rhs.generator.expression)
+                            == element_tex(witness_step.conclusion.source_generator)
+                        and element_tex(conclusion.rhs.generator) is not None
+                        and element_tex(conclusion.rhs.generator)
+                            == element_tex(witness_step.conclusion.target_generator)
+                        and transported.lhs == conclusion.lhs
+                        and transported.rhs.order == conclusion.rhs.order
+                        and transported.lhs == witness_step.conclusion.map.target_group):
+                    earlier_index = unique_step_index(transported_step)
+                    if (earlier_index is not None
+                            and earlier_index in order
+                            and earlier_index != model.root_index
+                            and not model.step_citation_numbers[earlier_index]
+                            and only_consumed_by(transported_step, consumer)):
+                        suppressed_body_indices.add(earlier_index)
+    from homotopy_groups import TodaPrimaryGroupZeroStatement
+    from expression import ScalarSymbol
+    from homotopy_groups import TodaPrimaryGroup
+    from web_group_proof_common import _group_proof_statement_latex
+    displayed_cyclic_math = set()
+    from phase171_r20r12_verified_cyclic_narrative.projection import (
+        verified_order_four_summary,
+        suppress_exact_duplicate_body_lines,
+    )
+    order_summary = verified_order_four_summary(model) if not incomplete else None
+    # A certified composite GeneratorImage incorporates its two verified
+    # generator-suspension premises. Suppress their separate prose only when
+    # they are uncited, used by that image alone, and its eta-square image
+    # can actually be displayed. No ProofSteps or citations are discarded.
+    if not incomplete:
+        for image_index in order:
+            image_step = model.steps[image_index]
+            image = image_step.conclusion
+            if (image_step.rule is not ProofRule.INFERENCE
+                    or not isinstance(image, GeneratorImage)
+                    or not isinstance(image.map, TodaSuspensionMap)
+                    or len(image_step.premises) != 2
+                    or element_tex(image.source_generator) is None
+                    or element_tex(image.target_generator) is None
+                    or not cited_general_ancestor_numbers(
+                        image_step, TodaEtaFamilyGeneralDefinition
+                    )
+                    or not all(isinstance(parent.conclusion, GeneratorSuspension)
+                               for parent in image_step.premises)):
+                continue
+            for parent in image_step.premises:
+                parent_index = unique_step_index(parent)
+                if (parent_index is not None and parent_index in order
+                        and parent_index != model.root_index
+                        and parent.rule is ProofRule.INFERENCE
+                        and not model.step_citation_numbers[parent_index]
+                        and only_consumed_by(parent, image_step)):
+                    suppressed_body_indices.add(parent_index)
+    # R10A: presentation-only projection of the already-verified E^r image chain.
+    # The Proof Tree, its citations, and all original ProofSteps remain intact.
+    from phase169_r10a_verified_stable_chain_projection.projection import (
+        VerifiedStableImageChainDisplay,
+        project_verified_stable_image_chain,
+    )
+    from phase169_r10a2_unified_one_stem.one_stem_projection import (
+        project_verified_one_stem_notation_chain,
+    )
+    stable_chain_display = (
+        (project_verified_stable_image_chain(model, order)
+         or project_verified_one_stem_notation_chain(model, order))
+        if not incomplete else None
+    )
+    if stable_chain_display is not None:
+        suppressed_body_indices.update(stable_chain_display.hidden_indices)
+    # R10EC: a complete, verified direct-sum proof may present the actual
+    # E^r endpoints, while retaining all certified ProofSteps and citations.
+    from phase169_r10ec_direct_sum_narrative_projection.projection import (
+        project_verified_direct_sum_transport,
+    )
+    direct_sum_display = (
+        project_verified_direct_sum_transport(model, order)
+        if not incomplete else None
+    )
+    if direct_sum_display is not None:
+        suppressed_body_indices.update(direct_sum_display.hidden_indices)
+    if not incomplete:
+        from phase172_r2_suspension_relation_display.projection import (
+            redundant_suspension_relation_indices,
+        )
+        suppressed_body_indices.update(
+            redundant_suspension_relation_indices(
+                model, order, suppressed_body_indices,
+            )
+        )
+    hopf_display = None
+    if not incomplete:
+        from phase172_r3_hopf_chain_display.projection import (
+            project_verified_hopf_chain,
+        )
+        hopf_display = project_verified_hopf_chain(
+            model, order, suppressed_body_indices,
+        )
+        if hopf_display is not None:
+            suppressed_body_indices.update(hopf_display.hidden_indices)
+    if not incomplete:
+        from phase172_r4_hopf_surjectivity_display.projection import (
+            redundant_hopf_surjectivity_indices,
+        )
+        suppressed_body_indices.update(
+            redundant_hopf_surjectivity_indices(
+                model, order, suppressed_body_indices,
+            )
+        )
+    for index in order:
+        if order_summary is not None and index == model.root_index:
+            lines.extend((order_summary, ""))
+        if direct_sum_display is not None and index == direct_sum_display.root_index:
+            lines.extend((direct_sum_display.statement, ""))
+        if stable_chain_display is not None and index == stable_chain_display.root_index:
+            source_tags = ", ".join(
+                f"[R{number}]" for number in stable_chain_display.citation_numbers
+            )
+            compressed_statement = (
+                rf"$E^{{{stable_chain_display.exponent}}}"
+                rf"({stable_chain_display.source_tex})="
+                rf"{stable_chain_display.target_tex}$"
+            )
+            if source_tags:
+                prefix = f"{source_tags}より, "
+            elif isinstance(stable_chain_display, VerifiedStableImageChainDisplay):
+                prefix = "Definition より, "
+            else:
+                prefix = ""
+            lines.extend((f"{prefix}{compressed_statement}.", ""))
+        if index in suppressed_body_indices:
+            continue
+        if hopf_display is not None and index in (
+            hopf_display.formula_index, hopf_display.image_index,
+        ):
+            latex, fallback = _group_proof_statement_latex(
+                model.steps[index].conclusion,
+            )
+            if latex is None or fallback is not None:
+                raise ValueError("verified Hopf line cannot be rendered")
+            numbers = (
+                hopf_display.formula_citations
+                if index == hopf_display.formula_index
+                else hopf_display.image_citations
+            )
+            source_tags = ", ".join(f"[R{number}]" for number in numbers)
+            lines.extend((f"{source_tags}より, ${latex}$.", ""))
+            continue
+        step = model.steps[index]
+        statement = step.conclusion
+        if not incomplete:
+            from phase169_r3k_narrative_projection import duplicate_group_relation_notice
+            notice = duplicate_group_relation_notice(model, index, displayed_cyclic_math)
+            if notice is not None:
+                # The duplicate has already been displayed; its provenance
+                # remains in Reference and the verified Proof Tree.
+                if notice and order_summary is None:
+                    lines.extend((notice, ""))
+                continue
+            from homotopy_groups import FiniteCyclicGroup
+            if (isinstance(statement, Relation)
+                    and statement.relation_type is RelationType.EQUALITY
+                    and isinstance(statement.lhs, TodaPrimaryGroup)
+                    and isinstance(statement.rhs, FiniteCyclicGroup)):
+                latex, problem = _group_proof_statement_latex(statement)
+                if latex is not None and problem is None:
+                    displayed_cyclic_math.add(latex)
+        if incomplete:
+            body_line = body_by_step.get(index)
+            if isinstance(statement, str):
+                statement_text = statement
+            elif body_line is not None:
+                statement_text = f"${body_line.statement_latex}$"
+            else:
+                sentence = typed_sentence(statement, step)
+                if sentence is not None:
+                    statement_text = sentence
+                else:
+                    # Preserve a truthful placeholder, not a guessed formula.
+                    latex, fallback = _group_proof_statement_latex(statement)
+                    statement_text = (f"${latex}$" if latex is not None and fallback is None
+                                      else type(statement).__name__ + "（数式表示未対応）")
+            role = "与件" if step.rule is ProofRule.GIVEN else "推論"
+            numbers = model.step_citation_numbers[index]
+            tags = ", ".join(f"[R{number}]" for number in numbers)
+            if tags:
+                source_prefix = f"{tags}より, " if step.rule is ProofRule.GIVEN else f"{tags}を用いて, "
+            else:
+                source_prefix = ""
+            lines.append(f"- {role}: {source_prefix}{statement_text}")
+            continue
+        # The symbolic circle theorem belongs in Reference; the proof uses
+        # its certified integer specialization and must not lose i > 1.
+        if (isinstance(statement, TodaPrimaryGroupZeroStatement)
+                and statement.group.sphere_dimension == 1
+                and isinstance(statement.group.group_dimension, ScalarSymbol)):
+            continue
+        # A cited symbolic diagonal GIVEN is the Reference's general schema.
+        # Only its concrete proof specializations belong in the proof body.
+        if (step.rule is ProofRule.GIVEN
+                and isinstance(statement, Relation)
+                and isinstance(statement.lhs, TodaPrimaryGroup)
+                and isinstance(statement.lhs.group_dimension, ScalarSymbol)
+                and statement.lhs.group_dimension == statement.lhs.sphere_dimension
+                and any(
+                    citation.number in model.step_citation_numbers[index]
+                    and any(r"\pi_{n}^{n}" in body for body in citation.statement_bodies)
+                    for citation in model.citations
+                )):
+            continue
+        # R3Z: general higher-eta clauses belong to Reference, not the proof body.
+        # Hide one only when a directly dependent certified specialization is
+        # retained in this display. The citation and both ProofSteps survive.
+        if (step.rule is ProofRule.GIVEN
+                and isinstance(statement, Relation)
+                and model.step_citation_numbers[index]):
+            from phase165_r57_r8_eta_specialization import _is_generic_eta_group_relation
+            from phase165_r57_r20_general_specialization import specialize_typed_statement
+            if (_is_generic_eta_group_relation(statement)
+                    and any(
+                        derived_index not in suppressed_body_indices
+                        and derived_index != index
+                        and derived.rule is ProofRule.INFERENCE
+                        and isinstance(derived.conclusion, Relation)
+                        and any(parent is step or parent == step
+                                for parent in derived.premises)
+                        and specialize_typed_statement(
+                            statement, derived.conclusion
+                        ) is not None
+                        for derived_index in order
+                        for derived in (model.steps[derived_index],)
+                    )):
+                continue
+        # Only verbalize the certified stable-eta normalization already
+        # represented by this step's source relation and cited definition.
+        transition = (
+        None
+        if stable_chain_display is not None and index == stable_chain_display.root_index
+        else project_stable_eta_notation_transition(model, index)
+    )
+        if transition is not None:
+            lines.extend((transition, ""))
+        body_line = body_by_step.get(index)
+        sentence = typed_sentence(step.conclusion, step)
+        if sentence is not None:
+            # The certified kernel step already consumes the suppressed
+            # exactness equality and a concrete Delta image. Compose only
+            # the displayed equality, without re-running a proof rule.
+            if (isinstance(statement, SuspensionKernelFreeCyclicStatement)
+                    and any(
+                        isinstance(parent.conclusion, EHPImageEqualsKernelStatement)
+                        and unique_step_index(parent) in suppressed_body_indices
+                        for parent in step.premises
+                    )):
+                generator = element_tex(statement.kernel_group.generator)
+                if generator is not None:
+                    sentence = (
+                        rf"完全性より, $\ker E=\operatorname{{Im}}\Delta="
+                        rf"\mathbb{{Z}}\{{{generator}\}}$."
+                    )
+            numbers = model.step_citation_numbers[index]
+            tags = ", ".join(f"[R{number}]" for number in numbers)
+            if tags and step.rule is ProofRule.GIVEN:
+                sentence = f"{tags}より, " + sentence
+            elif step.rule is ProofRule.INFERENCE:
+                sourced_numbers = project_toda45_specialization_citation_numbers(
+                    model, index
+                )
+                if sourced_numbers:
+                    source_tags = ", ".join(
+                        f"[R{number}]" for number in sourced_numbers
+                    )
+                    sentence = f"{source_tags}を " + sentence
+                else:
+                    eta_numbers = (
+                        cited_general_ancestor_numbers(step, TodaEtaFamilyGeneralDefinition)
+                        if ((isinstance(statement, GeneratorSuspension)
+                             and _eta_pair(statement) is not None)
+                            or (isinstance(statement, GeneratorImage)
+                                and isinstance(statement.map, TodaSuspensionMap)
+                                and element_tex(statement.source_generator) is not None
+                                and element_tex(statement.target_generator) is not None))
+                        else ()
+                    )
+                    if eta_numbers:
+                        source_tags = ", ".join(
+                            f"[R{number}]" for number in eta_numbers
+                        )
+                        sentence = f"{source_tags}より, " + sentence
+            from homotopy_groups import TodaSuspensionIsomorphismStatement
+            if (isinstance(statement, TodaSuspensionIsomorphismStatement)
+                    and step.rule is ProofRule.INFERENCE
+                    and any(
+                        isinstance(parent.conclusion, GeneratorSuspension)
+                        and parent.conclusion.map == statement.map
+                        for parent in step.premises
+                    )):
+                sentence = "これより, " + sentence
+            # Cite the actual Proposition 4.4 GIVEN ancestor of a
+            # proved injective map; no rule-name or locator guessing.
+            from phase165_r14_r6_generic_iso import MapInjective
+            from phase165_r52_r27_r5_literature import TodaProp44UniversalStatement
+            if step.rule is ProofRule.INFERENCE and isinstance(statement, MapInjective):
+                prop44_numbers = cited_general_ancestor_numbers(
+                    step, TodaProp44UniversalStatement
+                )
+                if prop44_numbers:
+                    prop44_tags = ", ".join(f"[R{number}]" for number in prop44_numbers)
+                    if prop44_tags not in sentence:
+                        sentence = f"{prop44_tags}より, " + sentence
+                    # R4F: the source paragraph immediately BEFORE Prop. 4.4
+                    # establishes the n=4 Hopf fibration.  Cite only the
+                    # actually proved MapInjective step and its cited GIVEN.
+                    # Do not invoke the later Lemma 5.4 naming nu_4.
+                    from homotopy_groups import TodaSuspensionMap
+                    mapping = statement.map
+                    i = getattr(getattr(mapping, "target_group", None),
+                                "group_dimension", None)
+                    if (isinstance(mapping, TodaSuspensionMap)
+                            and type(i) is int and i >= 4
+                            and mapping.source_group == TodaPrimaryGroup(i - 1, 3)
+                            and mapping.target_group == TodaPrimaryGroup(i, 4)
+                            and len(step.premises) == 1
+                            and step.premises[0].rule is ProofRule.GIVEN
+                            and type(step.premises[0].conclusion)
+                                is TodaProp44UniversalStatement
+                            and step.premises[0].conclusion
+                                == TodaProp44UniversalStatement()):
+                        # Keep the R4E result sentence and its [R] tag intact.
+                        # Add the source-order-safe applicability as separate prose.
+                        application = (
+                            r"$n=4$ の Hopf fibration $h:S^7\to S^4$ により, "
+                            r"$\alpha=h\in\pi_7^4$, "
+                            r"$H(\alpha)=\pm\iota_7$ と取れる. "
+                            + f"{prop44_tags}を "
+                            + rf"$(n,i)=(4,{i})$ に適用できる."
+                        )
+                        lines.extend((application, ""))
+            if sentence.endswith("である."):
+                sentence = sentence[:-4] + "."
+            elif sentence.endswith("が成り立つ."):
+                sentence = sentence[:-6] + "."
+            lines.extend((sentence, ""))
+        elif body_line is not None:
+            tags = ", ".join(f"[R{number}]" for number in body_line.citation_numbers)
+            if body_line.role == "given":
+                prefix = f"{tags}より, " if tags else "前提として, "
+            elif body_line.role == "root":
+                prefix = f"{tags}を用いて, " if tags else "以上より, "
+            else:
+                if tags:
+                    prefix = f"{tags}を用いて, "
+                else:
+                    sources = direct_given_premise_citation_numbers(step)
+                    prefix = (
+                        ", ".join(f"[R{number}]" for number in sources) + "より, "
+                        if sources else ""
+                    )
+            statement_latex = body_line.statement_latex
+            if isinstance(step.conclusion, TodaProp42ExactnessStatement):
+                # An individual certified EHP window is sourced by the
+                # actual universal Proposition 4.2 GIVEN proof ancestor.
+                if not tags:
+                    source_numbers = cited_general_ancestor_numbers(
+                        step, TodaProp42GeneralExactnessStatement
+                    )
+                    if source_numbers:
+                        prefix = ", ".join(
+                            f"[R{number}]" for number in source_numbers
+                        ) + "より, "
+                statement_latex = statement_latex.replace(r" \text{ is exact}", "")
+                lines.append(f"{prefix}${statement_latex}$ は完全.")
+            else:
+                from phase169_r3k_narrative_projection import project_proven_map_property
+                projected = project_proven_map_property(step, statement_latex)
+                lines.append(f"{prefix}{projected}" if projected is not None
+                             else f"{prefix}${statement_latex}$.")
+            lines.append("")
+    if incomplete:
+        if model.open_goals:
+            lines.extend(("", "## 未解決 Goal", ""))
+            for goal in model.open_goals:
+                if isinstance(goal, str):
+                    shown = goal
+                else:
+                    latex, fallback = _group_proof_statement_latex(goal)
+                    shown = (f"${latex}$" if latex is not None and fallback is None
+                             else type(goal).__name__ + "（数式表示未対応）")
+                lines.append("- " + shown)
+        if model.diagnostics:
+            lines.extend(("", "## 探索診断", ""))
+            for diagnostic in model.diagnostics:
+                lines.append("- " + diagnostic)
+        if model.abstract_structure is not None:
+            from phase173_r4_r15r9_shared_abstract_renderer.projection import (
+                render_certified_abstract_model_section,
+            )
+            lines.extend(("", render_certified_abstract_model_section(model)))
+        lines.extend(("", "未解決 Goal は証明済みの結論ではありません。"))
+    else:
+        lines.append("□")
+    if order_summary is not None:
+        lines = suppress_exact_duplicate_body_lines(lines)
+    if not incomplete:
+        from phase171_r20r13_eta_sentence_layout.projection import (
+            format_complete_proof_sentences,
+        )
+        lines = format_complete_proof_sentences(lines, model)
+    return "\n".join(lines).rstrip() + "\n"
+
+```
+
+## phase173_r4_r15r9_shared_abstract_renderer/projection.py
+
+### Complete render_certified_abstract_section
+
+```python
+
+def render_certified_abstract_section(result: PartialProofResult) -> str:
+    """Return one source-derived abstract-only section, or empty Markdown.
+
+    The current named Goal, public COMPLETE flag, references and open goals
+    remain entirely owned by the canonical search and Narrative renderer.
+    """
+    if not isinstance(result, PartialProofResult):
+        raise TypeError("expected canonical PartialProofResult")
+    structure = result.abstract_structure
+    if structure is None:
+        return ""
+    if (
+        not isinstance(structure, CertifiedAbstractStructure)
+        or structure.group != result.target
+        or result.status not in (ProofSearchStatus.PARTIAL, ProofSearchStatus.SEARCH_FAILED)
+        or result.conclusion is not None
+    ):
+        raise ValueError("unverified abstract result cannot be presented as a certificate")
+    return _render_abstract_claim(result.target, structure)
+
+```
+
+### Complete _render_abstract_claim
+
+```python
+
+def _render_abstract_claim(target: object, structure: CertifiedAbstractStructure) -> str:
+    """Format only an already certified abstract structure, never identify generators."""
+    if type(target.group_dimension) is not int or type(target.sphere_dimension) is not int:
+        raise ValueError("abstract result has nonconcrete group dimensions")
+    invariant_latex = abstract_invariants_latex(structure.invariant_summands)
+    target_latex = rf"\pi_{{{target.group_dimension}}}^{{{target.sphere_dimension}}}"
+    return (
+        "## 証明済みの抽象群構造\n\n"
+        + rf"${target_latex} \cong {invariant_latex}$."
+        + "\n\n"
+        + "これは出典検査済みの抽象群 ProofStep による結論であり、"
+        + "登録済みの先行 DB 群を前提とする。"
+        + "記名生成元の対応は未証明であり、上記の未解決 Goal と探索状態は変わらない。"
+    )
+
+```
+
+### Complete render_certified_abstract_model_section
+
+```python
+
+def render_certified_abstract_model_section(model: object) -> str:
+    """Render only certificate evidence explicitly carried by ProofNarrativeModel."""
+    from phase168_r3_3_proof_narrative_model import ProofNarrativeModel
+
+    if not isinstance(model, ProofNarrativeModel):
+        raise TypeError("expected canonical ProofNarrativeModel")
+    structure = model.abstract_structure
+    if structure is None:
+        return ""
+    if (
+        not isinstance(structure, CertifiedAbstractStructure)
+        or structure.group != model.target
+        or model.status not in (ProofSearchStatus.PARTIAL, ProofSearchStatus.SEARCH_FAILED)
+        or model.root_index is not None
+    ):
+        raise ValueError("unverified Model abstract result cannot be presented")
+    return _render_abstract_claim(model.target, structure)
+
+```

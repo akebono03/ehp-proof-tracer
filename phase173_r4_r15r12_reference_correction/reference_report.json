@@ -1,0 +1,58 @@
+{
+  "phase": "173-R4-R15R12",
+  "head_reviewed": "e2996ec2ff496203f94daa9bc22550c5e69a6b11",
+  "completed": [
+    {
+      "n": 4,
+      "k": 3,
+      "source_reference_count": 4,
+      "prop44_body_present": true,
+      "lemma54_body_present": true,
+      "prior_db_tex_rendered": true,
+      "named_complete": true,
+      "open_goals": 0,
+      "passed": true
+    },
+    {
+      "n": 4,
+      "k": 4,
+      "source_reference_count": 4,
+      "prop44_body_present": true,
+      "lemma54_body_present": true,
+      "prior_db_tex_rendered": true,
+      "named_complete": true,
+      "open_goals": 0,
+      "passed": true
+    },
+    {
+      "n": 4,
+      "k": 7,
+      "source_reference_count": 4,
+      "prop44_body_present": true,
+      "lemma54_body_present": true,
+      "prior_db_tex_rendered": true,
+      "named_complete": true,
+      "open_goals": 0,
+      "passed": true
+    }
+  ],
+  "partial": [
+    {
+      "k": 8,
+      "open_goals": 3,
+      "named_pending": true,
+      "abstract_heading_count": 1,
+      "passed": true
+    },
+    {
+      "k": 31,
+      "open_goals": 2,
+      "named_pending": true,
+      "abstract_heading_count": 1,
+      "passed": true
+    }
+  ],
+  "full_pytest_performed": false,
+  "proof_search_changed": false,
+  "passed": true
+}

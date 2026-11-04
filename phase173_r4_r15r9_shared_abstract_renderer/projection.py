@@ -1,7 +1,7 @@
 """Format an existing abstract certificate; do not infer mathematical facts.
 
-The common Web adapter invokes this function after its usual narrative has
-been rendered. No n/k special case and no alternate Narrative pipeline exists.
+The default Model-backed renderer and legacy Web adapter share this
+formatter. No n/k special case or alternate Narrative pipeline exists.
 """
 from __future__ import annotations
 
@@ -56,7 +56,11 @@ def render_certified_abstract_section(result: PartialProofResult) -> str:
         or result.conclusion is not None
     ):
         raise ValueError("unverified abstract result cannot be presented as a certificate")
-    target = result.target
+    return _render_abstract_claim(result.target, structure)
+
+
+def _render_abstract_claim(target: object, structure: CertifiedAbstractStructure) -> str:
+    """Format only an already certified abstract structure, never identify generators."""
     if type(target.group_dimension) is not int or type(target.sphere_dimension) is not int:
         raise ValueError("abstract result has nonconcrete group dimensions")
     invariant_latex = abstract_invariants_latex(structure.invariant_summands)
@@ -69,3 +73,22 @@ def render_certified_abstract_section(result: PartialProofResult) -> str:
         + "登録済みの先行 DB 群を前提とする。"
         + "記名生成元の対応は未証明であり、上記の未解決 Goal と探索状態は変わらない。"
     )
+
+
+def render_certified_abstract_model_section(model: object) -> str:
+    """Render only certificate evidence explicitly carried by ProofNarrativeModel."""
+    from phase168_r3_3_proof_narrative_model import ProofNarrativeModel
+
+    if not isinstance(model, ProofNarrativeModel):
+        raise TypeError("expected canonical ProofNarrativeModel")
+    structure = model.abstract_structure
+    if structure is None:
+        return ""
+    if (
+        not isinstance(structure, CertifiedAbstractStructure)
+        or structure.group != model.target
+        or model.status not in (ProofSearchStatus.PARTIAL, ProofSearchStatus.SEARCH_FAILED)
+        or model.root_index is not None
+    ):
+        raise ValueError("unverified Model abstract result cannot be presented")
+    return _render_abstract_claim(model.target, structure)

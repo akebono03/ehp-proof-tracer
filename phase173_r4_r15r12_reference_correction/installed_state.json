@@ -1,0 +1,11 @@
+{
+  "expected_head": "e2996ec2ff496203f94daa9bc22550c5e69a6b11",
+  "changed_files": [
+    "phase168_r3_37c_reference_projection.py",
+    "phase168_r3_3_proof_narrative_model.py",
+    "web_group_proof_common.py",
+    "phase169_r4g_hopf_reference/tests/test_r4g_hopf_reference.py",
+    "phase169_r4e_citation_binding/tests/test_r4e_citation_binding.py"
+  ],
+  "production_file_count": 5
+}

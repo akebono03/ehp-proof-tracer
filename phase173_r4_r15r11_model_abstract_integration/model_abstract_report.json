@@ -1,0 +1,46 @@
+{
+  "phase": "173-R4-R15R11",
+  "model_abstract_integrated": true,
+  "normal_model_route_owns_abstract_section": true,
+  "legacy_route_preserved": true,
+  "named_proof_promoted": false,
+  "phase_completed": false,
+  "full_pytest_performed": false,
+  "abstract_rows": [
+    {
+      "k": 8,
+      "model_abstract_certified": true,
+      "model_same_certificate": true,
+      "citations": 0,
+      "open_goals": 3,
+      "abstract_section_count": 1,
+      "web_key": "generic-partial-proof",
+      "named_pending": true,
+      "passed": true
+    },
+    {
+      "k": 31,
+      "model_abstract_certified": true,
+      "model_same_certificate": true,
+      "citations": 0,
+      "open_goals": 2,
+      "abstract_section_count": 1,
+      "web_key": "generic-partial-proof",
+      "named_pending": true,
+      "passed": true
+    }
+  ],
+  "complete_rows": [
+    {
+      "n": 3,
+      "k": 3,
+      "passed": true
+    },
+    {
+      "n": 4,
+      "k": 3,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

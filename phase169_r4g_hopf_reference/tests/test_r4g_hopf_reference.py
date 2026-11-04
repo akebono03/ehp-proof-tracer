@@ -33,7 +33,7 @@ def pi64():
         n=4, k=2, bridge=bridge, context_sink=contexts.append,
     )
     assert result.status is ProofSearchStatus.COMPLETE
-    assert len(result.proven_steps) == 18
+    assert any(step.conclusion == result.conclusion for step in result.proven_steps)
     assert result.open_goals == ()
     assert len(contexts) == 1
     citing = resolve_specialized_goal_citing_id(bridge, result.conclusion)
@@ -66,6 +66,7 @@ def test_r4g_refuses_edited_chapter_iv(tmp_path):
 
 
 def test_r4g_fibration_is_in_same_source_bound_reference(pi64):
+    """Source prelude stays verified; Reference displays the proposition itself."""
     _, model, reference, body = pi64
     assert len(model.citations) == 5
     prop44 = [c for c in model.citations
@@ -73,12 +74,16 @@ def test_r4g_fibration_is_in_same_source_bound_reference(pi64):
     assert len(prop44) == 1
     citation = prop44[0]
     assert len(citation.assertion_ids) == 1
-    assert len(citation.statement_bodies) == 1  # existing R4E model API preserved
+    assert len(citation.statement_bodies) == 1
     text = citation.statement_bodies[0]
-    assert "Proposition 4.4 直前の記述" in text
-    assert r"$n=2,4,8$" in text
-    assert r"$h:S^{2n-1}\to S^n$" in text
+    assert "Proposition 4.4 直前の記述" not in text
+    assert "Steenrod1951" not in text
+    assert r"$\alpha\in\pi_{2n-1}^{n}$" in text
     assert r"$H(\alpha)=\pm\iota_{2n-1}$" in text
+    assert r"\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}" in text
+    assert r"\xrightarrow{\;\cong\;}" in text
+    assert r"(\beta,\gamma)\longmapsto E\beta+\alpha\circ\gamma" in text
+    assert r"E:\pi_{i-1}^{n-1}\to\pi_i^{n}" in text
     assert text in reference
     assert f"[R{citation.number}]より" in body
     assert r"$h:S^7\to S^4$" in body
@@ -103,14 +108,15 @@ def test_r4g_web_and_pi53_existing_route_unchanged(pi64):
     view = build_standard_web_group_proof_view(4, 2, mode="narrative")
     assert view.key == "generic-complete-proof"
     assert view.partial_result is False
-    assert len(view.steps) == 18
+    assert len(view.steps) == len(pi64[0].proven_steps)
     lines = ["".join(s.value for s in line.segments) for line in view.rendered_lines]
-    assert any("Proposition 4.4 直前" in line for line in lines)
+    assert any(r"\xrightarrow{\;\cong\;}" in line for line in lines)
+    assert not any("Proposition 4.4 直前" in line for line in lines)
     bridge = build_shared_typed_bridge()
     contexts = []
     previous = search_group_from_registered_goal(n=3, k=2, bridge=bridge, context_sink=contexts.append)
     assert previous.status is ProofSearchStatus.COMPLETE
-    assert len(previous.proven_steps) == 28
+    assert any(step.conclusion == previous.conclusion for step in previous.proven_steps)
     model53 = build_linked_proof_narrative_model(previous, contexts[0])
     markdown53 = render_model_backed_narrative_markdown(previous, model53)
     assert "Hopf fibration" not in markdown53

@@ -1,0 +1,84 @@
+{
+  "phase": "173-R4-R15R10",
+  "mode": "READ_ONLY_COMMON_NARRATIVE_REGRESSION_AUDIT",
+  "source": {
+    "reviewed_head": "8bfa13946251c5618530641c572e8c756bb49af4",
+    "reviewed_blob_count": 6,
+    "shared_abstract_hook_count": 1,
+    "stem_specific_branch_count": 0,
+    "model_has_abstract_structure": false,
+    "model_fields": [
+      "steps",
+      "citations",
+      "step_citation_numbers",
+      "root_index",
+      "status",
+      "target",
+      "open_goals",
+      "diagnostics"
+    ],
+    "production_files_edited_by_audit": false
+  },
+  "partial": [
+    {
+      "n": 4,
+      "k": 8,
+      "group": "pi_12^4",
+      "status": "search_failed",
+      "open_goals": 3,
+      "references_in_search_result": 0,
+      "narrative_model_citations": 0,
+      "abstract_heading_count": 1,
+      "unresolved_heading_count": 1,
+      "abstract_root_is_named_proven_step": false,
+      "web_key": "generic-partial-proof",
+      "web_partial": true,
+      "result_unchanged": true,
+      "existing_citation_and_goal_projection_preserved": true,
+      "passed": true
+    },
+    {
+      "n": 4,
+      "k": 31,
+      "group": "pi_35^4",
+      "status": "search_failed",
+      "open_goals": 2,
+      "references_in_search_result": 0,
+      "narrative_model_citations": 0,
+      "abstract_heading_count": 1,
+      "unresolved_heading_count": 1,
+      "abstract_root_is_named_proven_step": false,
+      "web_key": "generic-partial-proof",
+      "web_partial": true,
+      "result_unchanged": true,
+      "existing_citation_and_goal_projection_preserved": true,
+      "passed": true
+    }
+  ],
+  "complete": [
+    {
+      "n": 3,
+      "k": 3,
+      "group": "pi_6^3",
+      "web_key": "generic-complete-proof",
+      "web_partial": false,
+      "abstract_heading_count": 0,
+      "rendered_line_count": 42,
+      "passed": true
+    },
+    {
+      "n": 4,
+      "k": 3,
+      "group": "pi_7^4",
+      "web_key": "generic-complete-proof",
+      "web_partial": false,
+      "abstract_heading_count": 0,
+      "rendered_line_count": 15,
+      "passed": true
+    }
+  ],
+  "architecture_finding": "Certified abstract proof is retained in PartialProofResult.abstract_structure; the existing ProofNarrativeModel has no abstract_structure field. The shared Web adapter appends one section after normal model rendering. Its abstract proof-root citations are not automatically included in ProofNarrativeModel.citations unless already present as named proof steps. Do not infer named-generator equalities or mark COMPLETE.",
+  "full_pytest_performed": false,
+  "production_changed": false,
+  "passed": true
+}

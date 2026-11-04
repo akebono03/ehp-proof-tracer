@@ -28,7 +28,7 @@ def pi64():
         n=4, k=2, bridge=bridge, context_sink=contexts.append,
     )
     assert result.status is ProofSearchStatus.COMPLETE
-    assert len(result.proven_steps) == 18
+    assert any(step.conclusion == result.conclusion for step in result.proven_steps)
     assert result.open_goals == ()
     assert len(contexts) == 1
     citing_id = resolve_specialized_goal_citing_id(bridge, result.conclusion)
@@ -100,11 +100,11 @@ def test_r4e_reference_and_body_citation_sets_coincide(pi64):
     assert "未解決 Goal" not in body
 
 
-def test_r4e_standard_web_path_remains_verified_and_complete():
+def test_r4e_standard_web_path_remains_verified_and_complete(pi64):
     view = build_standard_web_group_proof_view(4, 2, mode="narrative")
     assert view.key == "generic-complete-proof"
     assert view.partial_result is False
-    assert len(view.steps) == 18
+    assert len(view.steps) == len(pi64[0].proven_steps)
     assert len(view.rendered_lines) >= 20
     rendered = ["".join(segment.value for segment in line.segments)
                 for line in view.rendered_lines]

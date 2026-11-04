@@ -3,6 +3,45 @@ from phase168_r3_27_typed_statement_projection import typed_sentence
 from web_group_proof_common import _group_proof_statement_latex
 
 
+def _verified_source_sentence(statement: object) -> str | None:
+    """Render a fully source-screened typed statement without deducing a fact."""
+    from phase173_r4_r1_lemma54_source_bridge.source import TodaLemma54TypedSource
+
+    if type(statement) is TodaLemma54TypedSource and statement == TodaLemma54TypedSource():
+        return (
+            r"$\nu_4\in\pi_7^4$, "
+            r"$H(\nu_4)=\iota_7$ および "
+            r"$2E\nu_4=E^2\nu'$."
+        )
+    return None
+
+
+def project_cited_proof_step_reference_bodies(
+    reference: object, cited_steps: tuple[object, ...],
+) -> tuple[str, ...]:
+    """Use an already cited GIVEN statement if registry links do not expose its body.
+
+    The citation must already own the exact source step; simply finding a
+    literature locator or a mathematically similar statement is insufficient.
+    """
+    from proof import LiteratureReference, ProofRule, ProofStep
+
+    if not isinstance(reference, LiteratureReference) or not isinstance(cited_steps, tuple):
+        return ()
+    locator = reference.locator or reference.label
+    candidates = tuple(
+        (step, _verified_source_sentence(step.conclusion))
+        for step in cited_steps
+        if isinstance(step, ProofStep) and step.rule is ProofRule.GIVEN
+        and not step.premises
+    )
+    verified = tuple(
+        sentence for step, sentence in candidates
+        if sentence is not None and locator == "Lemma 5.4"
+    )
+    return verified if len(verified) == 1 else ()
+
+
 def project_reference_bodies(registry, assertion_ids):
     """Project only cited, typed source statements, including registered composite fields.
 
@@ -66,7 +105,7 @@ def project_reference_bodies(registry, assertion_ids):
                     raise ValueError("registered composite field scope is inconsistent")
 
         for statement in statements:
-            sentence = None
+            sentence = _verified_source_sentence(statement)
             if isinstance(statement, TodaEtaFamilyGeneralDefinition):
                 if statement.lower_bound == 2:
                     sentence = r"$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する."
@@ -82,13 +121,16 @@ def project_reference_bodies(registry, assertion_ids):
                   and statement == TodaProp44UniversalStatement()
                   and statement.preceding_hopf_fibration_dimensions == (2, 4, 8)):
                 sentence = (
-                    r"Proposition 4.4 直前の記述（Steenrod1951 を引用）: "
-                    r"$n=2,4,8$ では Hopf fibration "
-                    r"$h:S^{2n-1}\to S^n$ が存在する."
-                    + "\n"
-                    r"$\alpha\in\pi_{2n-1}^{n}$, "
-                    r"$H(\alpha)=\pm\iota_{2n-1}$ とすると, "
-                    r"$E:\pi_{i-1}^{n-1}\to\pi_i^{n}$ は単射."
+                    r"$\alpha\in\pi_{2n-1}^{n}$ で "
+                    r"$H(\alpha)=\pm\iota_{2n-1}$ とする."
+                    "\n"
+                    r"このとき, 任意の $i$ に対して次の写像は同型である."
+                    "\n"
+                    r"$\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}"
+                    r"\xrightarrow{\;\cong\;}\pi_i^n,\quad"
+                    r"(\beta,\gamma)\longmapsto E\beta+\alpha\circ\gamma$."
+                    "\n"
+                    r"特に $E:\pi_{i-1}^{n-1}\to\pi_i^{n}$ は単射である."
                 )
             elif isinstance(statement, TodaProp42GeneralExactnessStatement):
                 sentence = (

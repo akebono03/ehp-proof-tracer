@@ -4,7 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from homotopy_groups import TodaPrimaryGroup
 
-from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
+from phase165_r52_partial_proof import CertifiedAbstractStructure, PartialProofResult, ProofSearchStatus
 from proof import LiteratureReference, ProofRule, ProofStep
 from unified_statement_registry import ProofStepLink, UnifiedStatementRegistry
 
@@ -29,6 +29,7 @@ class ProofNarrativeModel:
     target: TodaPrimaryGroup | None = None
     open_goals: tuple[object, ...] = ()
     diagnostics: tuple[str, ...] = ()
+    abstract_structure: CertifiedAbstractStructure | None = None
 
 
 def root_ancestor_step_indices(
@@ -179,7 +180,9 @@ def build_proof_narrative_model(
                 numbers.append(number)
         per_step.append(tuple(numbers))
 
-    from phase168_r3_37c_reference_projection import project_reference_bodies
+    from phase168_r3_37c_reference_projection import (
+        project_reference_bodies, project_cited_proof_step_reference_bodies,
+    )
     citations = tuple(
         NarrativeCitation(
             number=i + 1,
@@ -187,7 +190,12 @@ def build_proof_narrative_model(
             step_indices=tuple(associations[i]),
             assertion_ids=tuple(assertion_ids[i]),
             reference_ids=tuple(reference_ids[i]),
-            statement_bodies=project_reference_bodies(registry, tuple(assertion_ids[i])),
+            statement_bodies=(
+                project_reference_bodies(registry, tuple(assertion_ids[i]))
+                or project_cited_proof_step_reference_bodies(
+                    reference, tuple(steps[j] for j in associations[i]),
+                )
+            ),
         )
         for i, reference in enumerate(references)
     )
@@ -200,4 +208,5 @@ def build_proof_narrative_model(
         target=result.target,
         open_goals=result.open_goals,
         diagnostics=result.diagnostics,
+        abstract_structure=result.abstract_structure,
     )
