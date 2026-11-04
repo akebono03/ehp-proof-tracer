@@ -3587,3 +3587,17 @@ Phase 172 は、Phase 171 で完成した $\pi_6^3=\mathbb Z/4\{\nu'\}$ の証�
 R6 Closeout（終了監査）では、`develop` の `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a` に対し、限定 pytest 10セット、公開 Web 検証5群（$\pi_3^2,\pi_4^3,\pi_5^3,\pi_6^4,\pi_6^3$）がすべて PASS。$\pi_6^3$ の ProofStep 50件、Reference 8件、未解決 Goal 0、Web key `generic-complete-proof`、内部 DB 出典の不変を確認した。Phase 末尾の**現行アクティブ `tests/` 全体 pytest は1回のみ**実施し、`3546 passed in 107.52s (0:01:47)`、終了コード0。実行前後の追跡済みファイルの状態は一致した。
 
 過去の「Phase 172 は候補・未実装」という記述は記録時点の履歴であり、本節が最新の正式状態である。次 Phase の内容はこの Phase 172 に含まれず、別途決定する。
+
+<!-- PHASE173_R15R17_CHECKPOINT_20261104 -->
+
+## Phase 173 R15R17 — 証明表示の単一 Model 統合と未完成状態の境界（2026-11-04、終了前）
+
+Phase 173 は継続中であり、本節は R15R17 の HTTP 監査までの確認結果である。公開経路では、型付き Backward Search（逆向き探索）結果と別に Certified Abstract Structure（検証済み抽象群構造）が存在する場合、実際の検証済み ProofStep の祖先を **同一の `ProofNarrativeModel`** に取り込む。Reference（引用文献）を一か所に投影し、共通 Narrative Renderer（文章表示器）で一度だけ描画する。個別 $(n,k)$、生成元名または群名に対応した Narrative 分岐は追加しない。
+
+検証済みの抽象群結論と記名生成元による群構造の完成証明は異なる。例えば $\pi_{12}^{4}\cong\mathbb Z/2$ の抽象群構造が導けても、$\varepsilon_4$ を生成元とする構造表示まで完成したとはみなさない。`PartialProofResult` の `status`、`conclusion`、`open_goals`、`diagnostics` は変更しない。`model.steps` には検証済みの抽象群祖先を表示用に追加するが、探索の `proven_steps` は不変とする。
+
+内部の `CyclicStructureStatement`、順向きの `Relation`、逆向きの `Relation` は異なる Goal（未解決目標）として保持する。型付き群構造の一致を確認できる場合だけ公開表示を集約する。文字列の等値だけを証明上の等値とみなさない。参照先を持つ GIVEN（与件）で数式表示不能な内部型は本文へ生の Python 型名として出さず、その ProofStep と Citation の対応を維持する。
+
+R3R4 は旧来の別 Section を要求する**公開 Web テスト契約**を統一後の経路に整えた。独立した legacy（互換経路）や補助 API の契約を一律に廃止していない。R3R5 の Flask HTTP 検査では、$(n,k)=(4,8),(4,9),(5,3),(4,4)$ の4件が 200 を返し、Reference は各1か所、model-backed 経路の旧抽象群 sidecar（追記部）は不在、証明状態は内部の検証済み状態と一致した。
+
+**未確認：** ブラウザでの数式・レイアウトの目視確認、Phase 173 末尾のアクティブ `tests/` 全体 pytest、Phase 173 正式終了。旧 Phase の記録を改変しない。本節は新たな数学定理の証明や任意の群の証明完成を意味しない。

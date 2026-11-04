@@ -2,9 +2,40 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+<!-- PHASE173_R15R17_CHECKPOINT_20261104 -->
+
+## Current status — Phase 173 R15R17 checkpoint (2026-11-04)
+
+Phase 173 is in progress, **not formally closed**. The public incomplete-proof
+path now incorporates the actual certified abstract proof ancestry into one
+`ProofNarrativeModel` and one common Narrative renderer. A single Reference
+section retains the source-backed evidence; a separately rendered abstract-tree
+appendix is not emitted on the model-backed Web path. This is presentation
+integration, not a new mathematical inference.
+
+For the reviewed targets, the verified abstract structure is not promoted to a
+completed named-generator proof. In particular, the source-backed abstract
+structure $\pi_{12}^{4}\cong\mathbb Z/2$ does not establish the named
+presentation $\pi_{12}^{4}=\mathbb Z/2\{\varepsilon_4\}$. Typed pending
+goals remain in the search result even when equivalent group presentations are
+combined into a single display entry. The partial status of $\pi_{13}^{4}$
+and $\pi_8^5$ is retained; $\pi_8^4$ remains a completed proof.
+
+On 2026-11-04, the R15R17 R3R4 focused historical-test contract run reported
+**92 passed**. R3R5 exercised actual Flask-generated HTTP output for four cases
+($n,k$ = (4,8), (4,9), (5,3), (4,4)); **4 HTTP tests passed**, with one Reference
+section per case, no redundant abstract sidecar, and the correct named-proof
+status. The HTML parser contract reported **4 passed**. These are separate,
+limited test runs; they do **not** constitute the phase-end full suite.
+
+**Still pending:** manual visual review of MathJax/layout in a browser,
+Phase 173 documentation closeout, and the phase-end active `tests/` full pytest
+(which is run once, at the end of the phase). No Phase 173 full-suite result
+has been claimed here.
+
 <!-- PHASE172_FINAL_CLOSEOUT_20261031 -->
 
-## Current status — Phase 172 closed (2026-10-31)
+## Historical closeout — Phase 172 (2026-10-31)
 
 Phase 172 is closed after presentation-only improvements to the verified public
 proof of $\pi_6^3=\mathbb Z/4\{\nu'\}$. The common model-backed renderer now

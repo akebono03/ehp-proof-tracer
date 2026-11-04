@@ -8025,3 +8025,15 @@ R6 の Git HEAD は `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a`（`origin/develop
 終了証拠は `%LOCALAPPDATA%/EHPProofTracerRecovery/phase172_r6_20261031_144642_024616Z/closeout.json`、同 `full_active_pytest.log` と `pi_6_3_web_narrative.md` に保存されている。直前の DryRun は全体 pytest を実行していない。過去の途中失敗は修正済みであり、この正式終了記録は R6 の成功結果に基づく。
 
 **Phase 172 正式終了。** 次 Phase の機能は先取りせず、別途計画する。本節は開発履歴への追記であり、過去の失敗・修正履歴を削除しない。
+
+<!-- PHASE173_R15R17_CHECKPOINT_20261104 -->
+
+## 2026-11-04 — Phase 173 R15R17：共通 Narrative 統合・表示・HTTP 監査（終了前）
+
+R1 は `ProofNarrativeModel` に検索済み ProofStep と別途検証済みの抽象群証明木を統合した。元の探索結果や未解決 Goal は変更せず、単一の Reference と Renderer を公開 Web に接続した。Windows 実行で DryRun PASS、限定 pytest **19 PASS**。R2 は公開本文に残る表示不能な内部型名だけを抑制し、引用と証明木を保持した（限定 pytest **17 PASS**）。
+
+R3 は Goal と旧テスト契約を監査し、`CyclicStructureStatement` と方向の違う `Relation` を別々の型付き未解決 Goal と確認した。監査用限定 pytest は **14 PASS**、実測4ケース、歴史的契約候補31か所。R3R3 は型付き意味が一致した Goal を**表示上だけ集約**した（限定 pytest **24 PASS**）。R3R4 は独立 API テストを維持しつつ公開 Web に関する旧 Section の期待値を修正し、テスト10ファイルの限定 pytest **92 PASS**。R3R5 は Flask `test_client` による HTTP 出力の4ケースで **4 PASS**、HTML parser の契約テスト **4 PASS**、Reference 各1か所、旧 sidecar なし、抽象群証明・記名証明の未完成区別維持を確認した。
+
+R3R5 の実行ログは `R15R17R3R5_SOURCE_GUARD=PASS`、`R15R17R3R5_HTTP_GATE=PASS`、`R15R17R3R5_GIT_INDEX_PRESERVED=PASS`、`R15R17R3R5_AUDIT_COMPLETE=PASS`。引き継ぎ DryRun は `PHASE173_R15R17_HTTP_GATE=PASS_REPORTED_BY_USER_2026-11-04`、Git HEAD `80e51d4c22f80e597e48a2f899eecac8ded8595d`、本体書込みなし。これらの PASS 件数は**異なる限定スイート**であり合計を全体テスト件数として扱わない。
+
+**残作業：** ブラウザ目視、文書の正式 Closeout 更新、Phase 173 末尾の一度だけのアクティブ `tests/` 全体 pytest。現時点で Phase 173 終了は宣言しない。旧ログは削除せず追記する。

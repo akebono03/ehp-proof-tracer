@@ -7658,3 +7658,19 @@ $$
 R6 終了監査は検証済み ProofStep **50件**、Reference **8件**、未解決 Goal **0件**、公開 Web `generic-complete-proof` を確認した。$\pi_3^2,\pi_4^3,\pi_5^3,\pi_6^4,\pi_6^3$ の Web 回帰はすべて PASS。限定 pytest 10セットが PASSし、Phase 末尾のアクティブ `tests/` 全体 pytest は `3546 passed in 107.52s (0:01:47)`、終了コード0である。終了証拠は `%LOCALAPPDATA%/EHPProofTracerRecovery/phase172_r6_20261031_144642_024616Z/closeout.json` と関連ログに保存した。Gate の実行 HEAD は `6ac7fd8a4ccdf628a0767a0d865dddcf88bbd92a`。
 
 Phase 172 は**表示品質の改善の認定**であり、新しい数学的定理の証明、任意のホモトピー群の完成、出典データベース全体の検証を意味しない。過去の Phase 171 数学的証明の記録は履歴として維持する。
+
+<!-- PHASE173_R15R17_CHECKPOINT_20261104 -->
+
+## 2026-11-04 — Phase 173 R15R17：抽象群の検証済み結論と記名 Goal の区別
+
+型付き Backward Search（逆向き探索）による命題 $\pi_{12}^{4}=\mathbb Z/2\{\varepsilon_4\}$ は未完成である。他方、出典付きの実際の検証済み ProofStep により抽象群構造
+
+$$
+\pi_{12}^{4}\cong\mathbb Z/2
+$$
+
+は証拠を持つ。これらを同一の完成証明と取り違えない。R15R17 の Narrative Model（文章モデル）は抽象群の ProofStep の祖先を一つの証明表示に含めるが、記名 Goal の `search_failed`、`conclusion=None`、`open_goals` を維持する。
+
+$\pi_{13}^{4}$ でも検証済みの抽象群構造と記名生成元の未完成を区別する。$\pi_8^5$ は抽象群証明書を持たない未完成例、$\pi_8^4$ は完成例として表示状態が保持された。今回追加したのは表示統合・引用の一元化・型付き Goal の表示集約とテスト契約であり、独立の数学的推論や文献上の新しい定理ではない。
+
+R3R5 の Flask HTTP 監査は 4ケースで各 Reference 1か所、追加 sidecar なし、抽象群証明書の有無と記名群の完成・未完成の区別を確認した（4 HTTP PASS）。原典の数学的真理の全面確認、ブラウザ上の数式描画の目視検査、Phase 173 の全体 pytest は含まない。全体テストと正式 Closeout は Phase 末尾に実施する。

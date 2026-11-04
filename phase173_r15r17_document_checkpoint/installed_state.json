@@ -1,0 +1,25 @@
+{
+  "reviewed_base": "80e51d4c22f80e597e48a2f899eecac8ded8595d",
+  "paths": {
+    "README.md": {
+      "before": "b5a0d2b5be56eb79dac53678fd638f650d9816680bc9e023a9eeeb910eeb4570",
+      "after": "95079d3a4f24842dc0b5f3e73a0d07f5b724fb5aea9784d427d342140e00e5ce"
+    },
+    "docs/design.md": {
+      "before": "8af5ab488cd5edb51ad0465b76f634d40f70d417a52e5289725449c17e52c706",
+      "after": "1c8cd3e2afcbae1741cfff4aba7122f77c42280df88344c916afe143aa9e7c4c"
+    },
+    "docs/development_log.md": {
+      "before": "826e5921771b302d76b37741384d09eb6d03dbd3a46cbc9bc2705c005091eee6",
+      "after": "0ff1f6e60a49e685c53b7f3f3e5bbf26d2a7b59a02e208deea95c81eb15ba4d2"
+    },
+    "docs/roadmap.md": {
+      "before": "0a4f6b5a7a6b04d923a0f1d669f41596e8d7b6219d00afc9e90563fa89f3ad13",
+      "after": "5384dacdc8a8bf702029653c4370ac06af9cd91009bace81176aa5a24e6eb07e"
+    },
+    "docs/proof_records.md": {
+      "before": "e337bec3178c3a3b1490caa7b25ee98bdc020efcbfc5328fd957fba565c272a7",
+      "after": "d07ba06316809ad2efe565030516e2f1d82d3ceb4881b420e657076dde2fa0c6"
+    }
+  }
+}
