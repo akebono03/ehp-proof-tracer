@@ -574,10 +574,19 @@ def _build_group_proof_inline_segments(
       ))
       break
     strong_value = line[position + 2:closing]
-    segments.append(WebGroupProofInlineSegmentView(
-      kind="strong" if strong_value else "text",
-      value=strong_value if strong_value else "****",
-    ))
+    chunks = strong_value.split("$")
+    if (len(chunks) > 1 and len(chunks) % 2 == 1
+        and all(chunks[i] for i in range(1, len(chunks), 2))):
+      for i, chunk in enumerate(chunks):
+        if chunk:
+          segments.append(WebGroupProofInlineSegmentView(
+            kind="inline_math" if i % 2 else "strong", value=chunk,
+          ))
+    else:
+      segments.append(WebGroupProofInlineSegmentView(
+        kind="strong" if strong_value else "text",
+        value=strong_value if strong_value else "****",
+      ))
     cursor = closing + 2
 
   return tuple(segments)
