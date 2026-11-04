@@ -238,6 +238,7 @@ class WebGroupProofView:
     ...,
   ] = ()
   partial_result: bool = False
+  abstract_structure_certified: bool = False
 
   def __post_init__(
     self,
@@ -318,6 +319,12 @@ class WebGroupProofView:
 
     if not isinstance(self.partial_result, bool):
       raise TypeError("partial_result must be a bool")
+
+    if not isinstance(self.abstract_structure_certified, bool):
+      raise TypeError("abstract_structure_certified must be a bool")
+
+    if self.abstract_structure_certified and not self.partial_result:
+      raise ValueError("abstract certificate cannot mark a complete named proof")
 
     if not self.steps and not self.partial_result:
       raise ValueError(

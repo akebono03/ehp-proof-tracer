@@ -565,10 +565,13 @@
       {% elif view.status.value == "not_found" %}
         {% if group_proof_view and not group_proof_view.partial_result %}
           <p>Typed proof search completed. See Group proof below.</p>
+        {% elif group_proof_view and group_proof_view.abstract_structure_certified %}
+          <p>
+            A verified abstract group structure is available, but the
+            named-generator proof is incomplete. See Group proof below.
+          </p>
         {% else %}
-        <p>
-          No proof-backed result found for this query.
-        </p>
+          <p>No proof-backed result found for this query.</p>
         {% endif %}
       {% elif view.status.value == "multiple_results" %}
         <p>
