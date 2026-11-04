@@ -1,0 +1,147 @@
+"""Index preservation and overlap validation in an isolated repository."""
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import subprocess
+
+import pytest
+
+from phase173_r4_r15r16r3_staged_guard_fix import install as installer
+
+
+def _git(root: Path, *args: str) -> str:
+    proc = subprocess.run(
+        ["git", *args], cwd=root, check=True,
+        capture_output=True, text=True, encoding="utf-8",
+    )
+    return proc.stdout.strip()
+
+
+def _setup_repo(tmp_path: Path, monkeypatch):
+    root = tmp_path / "repo"
+    root.mkdir()
+    _git(root, "init", "-q", "-b", "develop")
+    _git(root, "config", "user.email", "tester@example.org")
+    _git(root, "config", "user.name", "Guard Test")
+    for name in (installer.PROJECTION, installer.LAYOUT, installer.PREVIOUS_PATCH,
+                 installer.PREVIOUS_TEST):
+        p = root / name
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text("fixed prior reviewed content\n", encoding="utf-8")
+    (root / "other.txt").write_text("original\n", encoding="utf-8")
+    _git(root, "add", ".")
+    _git(root, "commit", "-qm", "baseline")
+    head = _git(root, "rev-parse", "HEAD")
+    (root / ".git" / "refs" / "remotes" / "origin").mkdir(parents=True)
+    _git(root, "update-ref", "refs/remotes/origin/develop", head)
+    monkeypatch.setattr(installer, "ROOT", root)
+    monkeypatch.setattr(installer, "REVIEWED_HEAD", head)
+    monkeypatch.setattr(installer, "REVIEWED_BLOBS", {
+        name: _git(root, "rev-parse", "HEAD:" + name)
+        for name in (installer.PROJECTION, installer.LAYOUT)
+    })
+    monkeypatch.setattr(installer, "PREVIOUS_PATCH_SHA256", installer.sha256(
+        (root / installer.PREVIOUS_PATCH).read_bytes()).hexdigest()
+    )
+    monkeypatch.setattr(installer, "PREVIOUS_TEST_SHA256", installer.sha256(
+        (root / installer.PREVIOUS_TEST).read_bytes()).hexdigest()
+    )
+    monkeypatch.setattr(installer, "STATE", root / "state.json")
+    monkeypatch.setattr(installer, "BACKUP", root / "backups")
+    monkeypatch.setattr(
+        installer, "expected_prior_local", lambda name, current: current,
+    )
+    return root
+
+
+def test_unrelated_staged_edits_are_preserved(tmp_path, monkeypatch):
+    root = _setup_repo(tmp_path, monkeypatch)
+    (root / "other.txt").write_text("user staged edit\n", encoding="utf-8")
+    _git(root, "add", "other.txt")
+    before = _git(root, "write-tree")
+    assert installer.source_guard() == _git(root, "rev-parse", "HEAD")
+    assert _git(root, "write-tree") == before
+    assert (root / "other.txt").read_text() == "user staged edit\n"
+
+
+def test_reviewed_staged_file_equal_worktree_is_allowed(tmp_path, monkeypatch):
+    root = _setup_repo(tmp_path, monkeypatch)
+    # A real staged change is allowed only if the staged bytes and the
+    # reviewed pre-install working tree bytes are exactly equal.
+    target = root / installer.PROJECTION
+    target.write_text("staged and reviewed prior state\n", encoding="utf-8")
+    _git(root, "add", installer.PROJECTION)
+    before = _git(root, "write-tree")
+    assert installer.source_guard() == _git(root, "rev-parse", "HEAD")
+    assert _git(root, "write-tree") == before
+
+
+def test_reviewed_staged_file_divergence_is_rejected(tmp_path, monkeypatch):
+    root = _setup_repo(tmp_path, monkeypatch)
+    target = root / installer.PROJECTION
+    target.write_text("staged prior candidate\n", encoding="utf-8")
+    _git(root, "add", installer.PROJECTION)
+    target.write_text("fixed prior reviewed content\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="staged reviewed file differs"):
+        installer.source_guard()
+
+
+def test_stage_safe_restore_reads_original_backup(tmp_path, monkeypatch):
+    root = _setup_repo(tmp_path, monkeypatch)
+    target = root / installer.PROJECTION
+    target.write_text("newly staged reviewed change\n", encoding="utf-8")
+    _git(root, "add", installer.PROJECTION)
+    target.write_text("installed patch output\n", encoding="utf-8")
+    backup = root / "backups"
+    backup.mkdir()
+    (backup / "source_0.backup").write_bytes(b"newly staged reviewed change\n")
+    state = {"files": {installer.PROJECTION: {
+        "backup": "source_0.backup", "original_sha256": installer.sha256(
+            b"newly staged reviewed change\n").hexdigest(),
+    }}}
+    installer.STATE.write_text(json.dumps(state), encoding="utf-8")
+    # Here source_guard must skip the worktree equality test for staged
+    # patched files, while proving the staged index is still the backup.
+    monkeypatch.setattr(installer, "expected_prior_local", lambda name, current: current)
+    assert installer.source_guard() == _git(root, "rev-parse", "HEAD")
+
+
+def test_install_and_restore_preserve_staged_index(tmp_path, monkeypatch):
+    root = _setup_repo(tmp_path, monkeypatch)
+    target = root / installer.PROJECTION
+    target.write_text("VALUE = 1\n", encoding="utf-8")
+    _git(root, "add", installer.PROJECTION)
+    (root / "other.txt").write_text("user work kept in index\n", encoding="utf-8")
+    _git(root, "add", "other.txt")
+    index_before = _git(root, "write-tree")
+    original = target.read_bytes()
+    monkeypatch.setattr(installer, "TRANSFORMERS", {
+        installer.PROJECTION: lambda source: source + "# tested patch\n",
+    })
+
+    installer.install()
+    assert target.read_bytes() == original + b"# tested patch\n"
+    assert _git(root, "write-tree") == index_before
+    assert _git(root, "show", ":" + installer.PROJECTION) == "VALUE = 1"
+    assert (root / "other.txt").read_text() == "user work kept in index\n"
+
+    # Re-running preflight is allowed even though the staged index keeps the
+    # reviewed R15R16 bytes and the worktree contains the installed patch.
+    installer.preflight()
+    assert _git(root, "write-tree") == index_before
+
+    installer.restore()
+    assert target.read_bytes() == original
+    assert _git(root, "write-tree") == index_before
+    assert not installer.STATE.exists()
+
+
+def test_windows_crlf_staged_blob_is_semantically_identical(tmp_path, monkeypatch):
+    root = _setup_repo(tmp_path, monkeypatch)
+    _git(root, "config", "core.autocrlf", "true")
+    target = root / installer.PROJECTION
+    target.write_bytes(b"VALUE = 2\r\n")
+    _git(root, "add", installer.PROJECTION)
+    assert installer.source_guard() == _git(root, "rev-parse", "HEAD")
+    assert target.read_bytes() == b"VALUE = 2\r\n"

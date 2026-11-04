@@ -24,18 +24,20 @@ def test_abstract_certificate_displays_actual_verified_milestones(k: int) -> Non
     assert result.conclusion is None and result.open_goals
     assert result.abstract_structure is not None
     assert result.abstract_structure.proof_step not in result.proven_steps
-    assert len(result.abstract_structure.proof_step.premises) == 4
 
     model = build_proof_narrative_model(result)
     progress = render_certified_abstract_model_section(model)
     assert progress == render_certified_abstract_section(result)
     assert "## 検証済みの途中経過" in progress
+    assert "### 検証済み証明木の Reference" in progress
+    assert "### 検証済み ProofStep" in progress
     assert "Proposition 4.4" in progress
     assert "Lemma 5.4" in progress
-    assert progress.count("先行データベースの ") == 2
-    assert "sphere.csv" in progress
+    assert progress.count("DB prior: sphere.csv") >= 2
     assert "## 証明済みの抽象群構造" in progress
     assert "記名生成元の対応は未証明" in progress
+    assert "先行データベースの " not in progress
+    assert "Proposition 4.4 の適用前提となる定理を検証した" not in progress
     assert progress in render_model_backed_narrative_markdown(result, model)
 
     view = build_standard_web_group_proof_view(
@@ -54,7 +56,6 @@ def test_abstract_certificate_displays_actual_verified_milestones(k: int) -> Non
     assert "Relation(lhs=" not in shown
     assert "、" not in shown and "。" not in shown
     assert result.conclusion is None and result.open_goals
-
 
 def test_completed_view_has_no_abstract_progress_sidecar() -> None:
     view = build_standard_web_group_proof_view(

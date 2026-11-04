@@ -62,66 +62,17 @@ def render_certified_abstract_section(result: PartialProofResult) -> str:
 def _verified_abstract_progress_lines(
     structure: CertifiedAbstractStructure,
 ) -> tuple[str, ...]:
-    """Present actual certified premises, without adopting named-generator goals.
+    """Render the existing certificate via the same common Narrative renderer.
 
-    The certificate's original typed inference guard has already checked its
-    four premises. Their registered source metadata is used only for display.
-    No new proof step, citation identity, or mathematical conclusion is made.
+    No proof-specific prose, four-premise assumption, or new inference.
     """
-    from web_group_proof_common import _group_proof_statement_latex
-
-    root = structure.proof_step
-    if len(root.premises) != 4:
-        raise ValueError("verified abstract inference requires four premises")
-    theorem_step, first_prior, second_prior, hopf_step = root.premises
-
-    def source_label(step: object) -> str | None:
-        rule = getattr(step, "inference_rule", None)
-        reference = getattr(rule, "literature_reference", None)
-        if reference is None:
-            return None
-        label = reference.locator or reference.label
-        return label if isinstance(label, str) and label.strip() else None
-
-    def verified_math(step: object) -> str | None:
-        try:
-            latex, fallback = _group_proof_statement_latex(step.conclusion)
-        except (TypeError, ValueError):
-            return None
-        return f"${latex}$" if latex is not None and fallback is None else None
-
-    theorem_label = source_label(root)
-    theorem_description = (
-        f"{theorem_label} の適用前提となる定理を検証した."
-        if theorem_label is not None else "一般定理の前提を検証した."
+    from phase173_r4_r15r16r3_staged_guard_fix.tree_adapter import (
+        render_verified_tree_progress,
     )
-    lines = [theorem_description]
-    for prior in (first_prior, second_prior):
-        formula = verified_math(prior)
-        locator = source_label(prior)
-        if formula is not None and locator is not None:
-            lines.append(f"先行データベースの {formula} を {locator} により確認した.")
-        elif formula is not None:
-            lines.append(f"先行データベースの検証済み結果 {formula} を確認した.")
-        else:
-            lines.append("先行データベースの型付き結果を検証した.")
 
-    hopf_formula = verified_math(hopf_step)
-    hopf_locator = source_label(hopf_step)
-    if hopf_formula is not None and hopf_locator is not None:
-        lines.append(f"{hopf_locator} から {hopf_formula} を導いた.")
-    elif hopf_formula is not None:
-        lines.append(f"検証済みの Hopf 関係 {hopf_formula} を導いた.")
-    else:
-        lines.append("検証済みの Hopf 関係を前提として確認した.")
-
-    theorem_reference = theorem_label or "検証済みの一般定理"
-    lines.append(
-        f"これらの検証済み前提を使い, {theorem_reference} により"
-        "抽象群構造を導いた."
+    return render_verified_tree_progress(
+        structure.group, structure.proof_step,
     )
-    return tuple(lines)
-
 
 def _render_abstract_claim(target: object, structure: CertifiedAbstractStructure) -> str:
     """Show certified progress and the abstract claim, never named generators."""
