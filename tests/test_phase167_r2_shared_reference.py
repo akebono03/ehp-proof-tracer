@@ -21,10 +21,14 @@ def test_phase167_r2_pi43_reference_has_two_general_results():
         i for i, line in enumerate(lines)
         if is_section(line, "使用する結果")
     )
-    proof_index = next(
+    # The common Web layout turns the former Proof heading into exactly one
+    # separator. Keep the boundary semantic instead of relying on the old title.
+    separators = [
         i for i, line in enumerate(lines)
-        if i > reference_index and is_section(line, "証明")
-    )
+        if i > reference_index and line.kind == "separator"
+    ]
+    assert len(separators) == 1
+    proof_index = separators[0]
     reference_lines = lines[reference_index + 1:proof_index]
     reference_text = "\n".join(
         " ".join((line.prefix, line.statement_latex or "", line.suffix))
