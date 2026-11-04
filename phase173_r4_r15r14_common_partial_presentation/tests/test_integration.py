@@ -57,8 +57,11 @@ def test_real_partial_web_does_not_leak_internal_diagnostics(k: int) -> None:
     assert view.key == "generic-partial-proof" and view.partial_result
     assert sum(line.kind == "heading" and line.prefix == "未解決 Goal"
                for line in view.rendered_lines) == 1
-    assert sum(line.kind == "heading" and line.prefix == "証明済みの抽象群構造"
-               for line in view.rendered_lines) == 1
+    headings = [line.prefix for line in view.rendered_lines if line.kind == "heading"]
+    assert headings.count("使用する結果") == 1
+    assert headings.count("証明済みの抽象群構造") == 0
+    assert headings.count("確認済み ProofStep（与件を含む）") == 1
+    assert view.abstract_structure_certified
     rendered = "\n".join(
         segment.value for line in view.rendered_lines for segment in line.segments
     )

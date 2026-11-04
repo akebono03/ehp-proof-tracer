@@ -27,18 +27,24 @@ def test_abstract_certificate_displays_actual_verified_milestones(k: int) -> Non
 
     model = build_proof_narrative_model(result)
     progress = render_certified_abstract_model_section(model)
-    assert progress == render_certified_abstract_section(result)
-    assert "## 検証済みの途中経過" in progress
-    assert "### 検証済み証明木の Reference" in progress
-    assert "### 検証済み ProofStep" in progress
-    assert "Proposition 4.4" in progress
-    assert "Lemma 5.4" in progress
-    assert progress.count("DB prior: sphere.csv") >= 2
-    assert "## 証明済みの抽象群構造" in progress
-    assert "記名生成元の対応は未証明" in progress
-    assert "先行データベースの " not in progress
-    assert "Proposition 4.4 の適用前提となる定理を検証した" not in progress
-    assert progress in render_model_backed_narrative_markdown(result, model)
+    assert progress == ""
+    # The explicit legacy helper remains available without a public sidecar.
+    legacy_section = render_certified_abstract_section(result)
+    assert "## 検証済みの途中経過" in legacy_section
+    assert "### 検証済み証明木の Reference" in legacy_section
+    assert "## 証明済みの抽象群構造" in legacy_section
+    assert any(step is result.abstract_structure.proof_step for step in model.steps)
+    assert len(model.citations) >= 4
+    markdown = render_model_backed_narrative_markdown(result, model)
+    assert markdown.count("## 使用する結果") == 1
+    assert "### 検証済み証明木の Reference" not in markdown
+    assert "## 検証済みの途中経過" not in markdown
+    assert "## 証明済みの抽象群構造" not in markdown
+    assert "Proposition 4.4" in markdown
+    assert "Lemma 5.4" in markdown
+    assert markdown.count("DB prior: sphere.csv") >= 2
+    assert r"\cong" in markdown
+    assert "先行データベースの " not in markdown
 
     view = build_standard_web_group_proof_view(
         n=4, k=k, goal=goal, mode="narrative", citation_source="model",
@@ -46,8 +52,10 @@ def test_abstract_certificate_displays_actual_verified_milestones(k: int) -> Non
     assert view.partial_result and view.abstract_structure_certified
     assert view.key == "generic-partial-proof"
     headings = [line.prefix for line in view.rendered_lines if line.kind == "heading"]
-    assert headings.count("検証済みの途中経過") == 1
-    assert headings.count("証明済みの抽象群構造") == 1
+    assert headings.count("使用する結果") == 1
+    assert headings.count("検証済みの途中経過") == 0
+    assert headings.count("証明済みの抽象群構造") == 0
+    assert headings.count("確認済み ProofStep（与件を含む）") == 1
     assert headings.count("未解決 Goal") == 1
     shown = "\n".join(
         seg.value for line in view.rendered_lines for seg in line.segments
@@ -83,9 +91,13 @@ def test_legacy_and_model_paths_share_abstract_progress() -> None:
         )
         for source in ("model", "legacy")
     )
-    for view in views:
+    for source, view in zip(("model", "legacy"), views):
         assert view.key == "generic-partial-proof"
-        assert any(
-            line.kind == "heading" and line.prefix == "検証済みの途中経過"
-            for line in view.rendered_lines
-        )
+        headings = [line.prefix for line in view.rendered_lines if line.kind == "heading"]
+        if source == "model":
+            assert headings.count("使用する結果") == 1
+            assert headings.count("検証済みの途中経過") == 0
+            assert headings.count("証明済みの抽象群構造") == 0
+        else:
+            assert headings.count("検証済みの途中経過") == 1
+            assert headings.count("証明済みの抽象群構造") == 1

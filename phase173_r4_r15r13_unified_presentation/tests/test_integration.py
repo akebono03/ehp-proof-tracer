@@ -32,8 +32,12 @@ def test_one_presentation_contract_for_both_proof_states(
                    for segment in line.segments)
     else:
         assert headings.count("未解決 Goal") == 1
-        assert headings.count("証明済みの抽象群構造") == 1
+        assert headings.count("証明済みの抽象群構造") == 0
+        assert headings.count("検証済みの途中経過") == 0
+        assert headings.count("確認済み ProofStep（与件を含む）") == 1
         assert any("探索状態" in segment.value for line in view.rendered_lines
+                   for segment in line.segments)
+        assert any(r"\cong" in segment.value for line in view.rendered_lines
                    for segment in line.segments)
 
 

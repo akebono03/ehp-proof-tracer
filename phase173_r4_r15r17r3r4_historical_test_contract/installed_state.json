@@ -1,0 +1,55 @@
+{
+  "index_tree": "71b46e5bbff0b5d6bfe4124e6fb8d0355f617ec3",
+  "files": {
+    "phase173_r4_r15r9_shared_abstract_renderer/tests/test_projection.py": {
+      "backup": "source_0.backup",
+      "original_sha256": "2c822850a6aa1839aedaf4926ff77d0cabb469ac8f1f108128411ed8baeb4458",
+      "installed_sha256": "25a6521ecc509531a9bc9547b1af19202f239175d22ae12be7b51ba400f7fb3e"
+    },
+    "phase173_r4_r15r11_model_abstract_integration/tests/test_integration.py": {
+      "backup": "source_1.backup",
+      "original_sha256": "8d44ac720f4bd42d660db9db674cfb567f89eec0bc77c81db68615e9f12c84f4",
+      "installed_sha256": "3bd7276eda3e370a1473a591d27f8a1e102bc577914470012ed2e6196ede64c8"
+    },
+    "phase173_r4_r15r12_reference_correction/tests/test_integration.py": {
+      "backup": "source_2.backup",
+      "original_sha256": "41a6448c265c85fd774d21adaeac68f010163510c1c1542fa9f0448ba43d9ca6",
+      "installed_sha256": "3f44718341b468fb8a7fb95c429264f2f20f69e30f51a5ec7659a0799f03288e"
+    },
+    "phase173_r4_r15r13_unified_presentation/tests/test_integration.py": {
+      "backup": "source_3.backup",
+      "original_sha256": "485084ea589900c7b9885168c11a70e861a4557425ed783f14bdc670fc04a00c",
+      "installed_sha256": "fea270a14d0759438e8469c765c9600b932d61c1637dd6dc3ae4f73005fab77b"
+    },
+    "phase173_r4_r15r14_common_partial_presentation/tests/test_integration.py": {
+      "backup": "source_4.backup",
+      "original_sha256": "56a1be50874b98b260e96a4059aa75b613468f0e6fd95b4a085db9061c7cf3c3",
+      "installed_sha256": "2069b84d18665c4294b1a5e94116508b40bedfa69bf070a002e280f0696a86b7"
+    },
+    "phase173_r4_r15r15_abstract_result_banner/tests/test_integration.py": {
+      "backup": "source_5.backup",
+      "original_sha256": "85fae79e990cc50a8444c1ae1e8e0d73271c934656ca455c0ae7f76ec00504c5",
+      "installed_sha256": "978ba99e9ac59d0fe8cb0e88be19c03a35ab470f9069b068c8bb24c6f518ae40"
+    },
+    "phase173_r4_r15r15r2_head_guard_fix/tests/test_integration.py": {
+      "backup": "source_6.backup",
+      "original_sha256": "85fae79e990cc50a8444c1ae1e8e0d73271c934656ca455c0ae7f76ec00504c5",
+      "installed_sha256": "978ba99e9ac59d0fe8cb0e88be19c03a35ab470f9069b068c8bb24c6f518ae40"
+    },
+    "phase173_r4_r15r16_verified_progress_punctuation/tests/test_integration.py": {
+      "backup": "source_7.backup",
+      "original_sha256": "43586be7cbceb946352d836d03657aeed53514ec59caaef5e8bceea4eaf6872c",
+      "installed_sha256": "d49577b643b2cb549d1786cf35de8635116ab1acd5b2f7ac53e8a231ef829101"
+    },
+    "phase173_r4_r15r16r2_shared_tree_narrative/tests/test_integration.py": {
+      "backup": "source_8.backup",
+      "original_sha256": "07e74bbefa4c1b299e022e9e3a3e8aab154df8ee224df70651be0228f4277f43",
+      "installed_sha256": "e4e84dbae09a7d1e1efca9e85b5f59ecbec018af965ee8a5eb2e8c290a1e344e"
+    },
+    "phase173_r4_r15r16r3_staged_guard_fix/tests/test_integration.py": {
+      "backup": "source_9.backup",
+      "original_sha256": "fca0aa43d701bd29106b506e4652c014ad395d86da30a53b86f3804ec6a0cd34",
+      "installed_sha256": "7991a4daa2befe68d45d7130039758c43ae0cf746ad516a7f4bd4d118b622726"
+    }
+  }
+}

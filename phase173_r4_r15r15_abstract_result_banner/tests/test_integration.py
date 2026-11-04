@@ -27,10 +27,12 @@ def test_certificate_flag_comes_from_actual_verified_partial_result(
     if certified:
         assert view.partial_result
         assert view.key == "generic-partial-proof"
-        assert any(
-            line.kind == "heading" and line.prefix == "証明済みの抽象群構造"
-            for line in view.rendered_lines
-        )
+        headings = [line.prefix for line in view.rendered_lines if line.kind == "heading"]
+        assert headings.count("使用する結果") == 1
+        assert headings.count("証明済みの抽象群構造") == 0
+        assert headings.count("未解決 Goal") == 1
+        assert any(r"\cong" in segment.value for line in view.rendered_lines
+                   for segment in line.segments)
     else:
         assert not view.partial_result
         assert view.key == "generic-complete-proof"
@@ -68,7 +70,8 @@ def test_real_flask_result_explains_abstract_only_status(monkeypatch) -> None:
     assert "named-generator proof is incomplete" in text
     assert "No proof-backed result found for this query" not in text
     assert "generic-partial-proof" in text
-    assert "証明済みの抽象群構造" in text
+    assert "使用する結果" in text
+    assert r"\cong" in text
 
 
 def test_no_certificate_preserves_not_found_banner(monkeypatch) -> None:
