@@ -428,10 +428,14 @@ def render_model_backed_narrative_markdown(
                 if sentence is not None:
                     statement_text = sentence
                 else:
-                    # Preserve a truthful placeholder, not a guessed formula.
+                    # Keep every verified ProofStep and its provenance in the
+                    # unified Model, but never expose internal Python type names
+                    # as a mathematical proof sentence. Unsupported statements
+                    # remain part of the proof tree and of cited References.
                     latex, fallback = _group_proof_statement_latex(statement)
-                    statement_text = (f"${latex}$" if latex is not None and fallback is None
-                                      else type(statement).__name__ + "（数式表示未対応）")
+                    if latex is None or fallback is not None:
+                        continue
+                    statement_text = f"${latex}$"
             role = "与件" if step.rule is ProofRule.GIVEN else "推論"
             numbers = model.step_citation_numbers[index]
             tags = ", ".join(f"[R{number}]" for number in numbers)
