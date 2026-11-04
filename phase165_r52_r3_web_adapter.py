@@ -96,4 +96,5 @@ def build_partial_web_group_proof_view(
         mode=mode,
         rendered_lines=rendered_lines,
         partial_result=(result.status is not ProofSearchStatus.COMPLETE),
+        abstract_structure_certified=(result.abstract_structure is not None),
     )

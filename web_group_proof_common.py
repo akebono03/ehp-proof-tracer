@@ -238,6 +238,7 @@ class WebGroupProofView:
     ...,
   ] = ()
   partial_result: bool = False
+  abstract_structure_certified: bool = False
 
   def __post_init__(
     self,
@@ -318,6 +319,12 @@ class WebGroupProofView:
 
     if not isinstance(self.partial_result, bool):
       raise TypeError("partial_result must be a bool")
+
+    if not isinstance(self.abstract_structure_certified, bool):
+      raise TypeError("abstract_structure_certified must be a bool")
+
+    if self.abstract_structure_certified and not self.partial_result:
+      raise ValueError("abstract certificate cannot mark a complete named proof")
 
     if not self.steps and not self.partial_result:
       raise ValueError(
@@ -411,6 +418,38 @@ def _group_proof_statement_latex(
   str | None,
   str | None,
 ]:
+  from expression import Expression
+  from homotopy_groups import FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
+  from phase165_r12_r2_quotient_rules import CyclicStructureStatement
+  from proof import Relation, RelationType
+
+  if (
+    isinstance(statement, CyclicStructureStatement)
+    and isinstance(statement.group, TodaPrimaryGroup)
+    and isinstance(statement.generator, Expression)
+    and (
+      statement.order is None
+      or (type(statement.order) is int and statement.order >= 1)
+    )
+  ):
+    structure = (
+      FreeCyclicGroup(statement.generator)
+      if statement.order is None
+      else FiniteCyclicGroup(statement.order, statement.generator)
+    )
+    try:
+      cyclic_latex = render_toda_public_group_relation_latex(
+        Relation(
+          lhs=statement.group,
+          rhs=structure,
+          relation_type=RelationType.EQUALITY,
+        )
+      )
+    except (TypeError, ValueError):
+      cyclic_latex = None
+    if cyclic_latex is not None:
+      return cyclic_latex, None
+
   public_group_latex = (
     render_toda_public_group_relation_latex(
       statement
@@ -603,7 +642,10 @@ def _build_group_proof_rendered_lines(
   lines = []
   display_math_lines = None
   display_math_indent_level = 0
-  for raw_line in markdown.splitlines():
+  from phase173_r4_r15r13_unified_presentation.layout import (
+    canonicalize_proof_layout,
+  )
+  for raw_line in canonicalize_proof_layout(markdown).splitlines():
     stripped = raw_line.lstrip(" ")
     indent_level = (len(raw_line) - len(stripped)) // 2
 

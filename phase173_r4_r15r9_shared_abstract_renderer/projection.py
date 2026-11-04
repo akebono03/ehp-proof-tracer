@@ -59,14 +59,33 @@ def render_certified_abstract_section(result: PartialProofResult) -> str:
     return _render_abstract_claim(result.target, structure)
 
 
+def _verified_abstract_progress_lines(
+    structure: CertifiedAbstractStructure,
+) -> tuple[str, ...]:
+    """Render the existing certificate via the same common Narrative renderer.
+
+    No proof-specific prose, four-premise assumption, or new inference.
+    """
+    from phase173_r4_r15r16r3_staged_guard_fix.tree_adapter import (
+        render_verified_tree_progress,
+    )
+
+    return render_verified_tree_progress(
+        structure.group, structure.proof_step,
+    )
+
 def _render_abstract_claim(target: object, structure: CertifiedAbstractStructure) -> str:
-    """Format only an already certified abstract structure, never identify generators."""
+    """Show certified progress and the abstract claim, never named generators."""
     if type(target.group_dimension) is not int or type(target.sphere_dimension) is not int:
         raise ValueError("abstract result has nonconcrete group dimensions")
     invariant_latex = abstract_invariants_latex(structure.invariant_summands)
     target_latex = rf"\pi_{{{target.group_dimension}}}^{{{target.sphere_dimension}}}"
+    progress = "\n\n".join(_verified_abstract_progress_lines(structure))
     return (
-        "## 証明済みの抽象群構造\n\n"
+        "## 検証済みの途中経過\n\n"
+        + progress
+        + "\n\n"
+        + "## 証明済みの抽象群構造\n\n"
         + rf"${target_latex} \cong {invariant_latex}$."
         + "\n\n"
         + "これは出典検査済みの抽象群 ProofStep による結論であり、"

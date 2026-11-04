@@ -1,0 +1,20 @@
+{
+  "head": "5563a67008d097d08745481ee299dbb94e12c2b9",
+  "files": {
+    "web_group_proof_common.py": {
+      "backup": "source_0.backup",
+      "original_sha256": "ff86f3674d0d7c6eec5ef210f94c7d3597c24cadec367ef169e5b82a1c9020a6",
+      "target_sha256": "d03b007b055d5c97dad4c8b7b74bd168c951737278d5c17139ed0b00024752ad"
+    },
+    "phase165_r52_r3_web_adapter.py": {
+      "backup": "source_1.backup",
+      "original_sha256": "a0805408221b9121f111fb6638fcdb64f0512cfa5890a7a11dd56469cb029f01",
+      "target_sha256": "1495279dd475fa0f7b99e27b2046dbf1e255986b1839d7128c43447b09ab3879"
+    },
+    "templates/index.html": {
+      "backup": "source_2.backup",
+      "original_sha256": "cf161708f6546fc1ba9bc8b4e16db693af10fa2759b3174508d41c983fa5b4cb",
+      "target_sha256": "8f5e89e69f0ba1f13c0aebadbe70674b2e28efc4189d64d2cc334d9edcee6d63"
+    }
+  }
+}
