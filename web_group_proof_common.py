@@ -603,7 +603,10 @@ def _build_group_proof_rendered_lines(
   lines = []
   display_math_lines = None
   display_math_indent_level = 0
-  for raw_line in markdown.splitlines():
+  from phase173_r4_r15r13_unified_presentation.layout import (
+    canonicalize_proof_layout,
+  )
+  for raw_line in canonicalize_proof_layout(markdown).splitlines():
     stripped = raw_line.lstrip(" ")
     indent_level = (len(raw_line) - len(stripped)) // 2
 
