@@ -1,0 +1,15 @@
+{
+  "head": "92f967c079f4a66e19a598e0acc54b742f11df9c",
+  "files": {
+    "phase173_r4_r15r9_shared_abstract_renderer/projection.py": {
+      "backup": "source_0.backup",
+      "original_sha256": "d46a9d51136c6c56c6a8a3e6aecd5797a72f75cad54a3ee153fe8c9bf31beb15",
+      "target_sha256": "ddd9d43771687798e6c08c74d3dc9f48398002c07cf65b8d9e796c70dbe45f98"
+    },
+    "phase173_r4_r15r13_unified_presentation/layout.py": {
+      "backup": "source_1.backup",
+      "original_sha256": "4153605abb5b6fc6601bb9589e2439df8fe30d5937abf3165d462f66cbcfca40",
+      "target_sha256": "09fdcb3771b54581746f672dd93c93351c7a7f479c144ad2ef391063ceee7045"
+    }
+  }
+}

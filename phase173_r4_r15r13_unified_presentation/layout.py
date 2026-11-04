@@ -93,5 +93,85 @@ def canonicalize_proof_layout(markdown: str) -> str:
             in_search_diagnostics = line.strip() == "## 探索診断"
         elif in_search_diagnostics and line.startswith("- "):
             normalized[index] = _public_search_diagnostic_line(line)
+    normalized = _normalize_narrative_punctuation(normalized)
     result = "\n".join(normalized)
     return result.rstrip("\n") + ("\n" if markdown.endswith("\n") else "")
+
+def _normalize_narrative_punctuation(lines: list[str]) -> list[str]:
+    """Apply uniform prose punctuation to the common Web narrative layout.
+
+    Math and inline-code spans remain untouched. Numbered source locators,
+    decimal points, headings, and display math remain intact. Sentence-final
+    periods create physical line breaks, not new proof steps.
+    """
+    result: list[str] = []
+    in_display_math = False
+    in_code_fence = False
+    for line in lines:
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            in_code_fence = not in_code_fence
+            result.append(line)
+            continue
+        if stripped == r"\[":
+            in_display_math = True
+            result.append(line)
+            continue
+        if stripped == r"\]":
+            in_display_math = False
+            result.append(line)
+            continue
+        if (in_code_fence or in_display_math
+                or stripped.startswith(("# ", "## ", "### "))):
+            result.append(line)
+            continue
+
+        chunks: list[str] = []
+        current: list[str] = []
+        in_inline_math = False
+        in_inline_code = False
+        for index, raw in enumerate(line):
+            if raw == "$" and not in_inline_code and (index == 0 or line[index - 1] != "\\"):
+                in_inline_math = not in_inline_math
+            elif raw == "`" and not in_inline_math and (index == 0 or line[index - 1] != "\\"):
+                in_inline_code = not in_inline_code
+
+            protected = in_inline_math or in_inline_code or raw in ("$", "`")
+            character = raw
+            if not protected and raw in ("、", "，"):
+                character = "," if (index + 1 < len(line) and line[index + 1].isspace()) else ", "
+            elif not protected and raw == "。":
+                character = "."
+            current.append(character)
+
+            if protected or character != ".":
+                continue
+            remaining = line[index + 1:]
+            next_word = remaining.lstrip()
+            if not next_word:
+                continue
+            # The dot in 4.4, 0.5, or an enumerated item is not a full stop.
+            if raw == "." and remaining[0].isdigit():
+                continue
+            if raw == "." and "".join(current[:-1]).strip().isdigit():
+                continue
+            next_char = next_word[0]
+            is_japanese = (
+                "\u3040" <= next_char <= "\u30ff"
+                or "\u3400" <= next_char <= "\u9fff"
+            )
+            sentence_boundary = raw == "。" or is_japanese or (
+                remaining[0].isspace()
+                and (next_char.isupper() or next_char in "（[「")
+            )
+            if sentence_boundary:
+                chunks.append("".join(current).rstrip())
+                current = []
+        final = "".join(current).strip()
+        if final:
+            chunks.append(final)
+        if chunks:
+            result.extend(chunks)
+        else:
+            result.append("")
+    return result

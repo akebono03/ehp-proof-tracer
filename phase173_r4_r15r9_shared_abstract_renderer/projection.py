@@ -59,14 +59,82 @@ def render_certified_abstract_section(result: PartialProofResult) -> str:
     return _render_abstract_claim(result.target, structure)
 
 
+def _verified_abstract_progress_lines(
+    structure: CertifiedAbstractStructure,
+) -> tuple[str, ...]:
+    """Present actual certified premises, without adopting named-generator goals.
+
+    The certificate's original typed inference guard has already checked its
+    four premises. Their registered source metadata is used only for display.
+    No new proof step, citation identity, or mathematical conclusion is made.
+    """
+    from web_group_proof_common import _group_proof_statement_latex
+
+    root = structure.proof_step
+    if len(root.premises) != 4:
+        raise ValueError("verified abstract inference requires four premises")
+    theorem_step, first_prior, second_prior, hopf_step = root.premises
+
+    def source_label(step: object) -> str | None:
+        rule = getattr(step, "inference_rule", None)
+        reference = getattr(rule, "literature_reference", None)
+        if reference is None:
+            return None
+        label = reference.locator or reference.label
+        return label if isinstance(label, str) and label.strip() else None
+
+    def verified_math(step: object) -> str | None:
+        try:
+            latex, fallback = _group_proof_statement_latex(step.conclusion)
+        except (TypeError, ValueError):
+            return None
+        return f"${latex}$" if latex is not None and fallback is None else None
+
+    theorem_label = source_label(root)
+    theorem_description = (
+        f"{theorem_label} の適用前提となる定理を検証した."
+        if theorem_label is not None else "一般定理の前提を検証した."
+    )
+    lines = [theorem_description]
+    for prior in (first_prior, second_prior):
+        formula = verified_math(prior)
+        locator = source_label(prior)
+        if formula is not None and locator is not None:
+            lines.append(f"先行データベースの {formula} を {locator} により確認した.")
+        elif formula is not None:
+            lines.append(f"先行データベースの検証済み結果 {formula} を確認した.")
+        else:
+            lines.append("先行データベースの型付き結果を検証した.")
+
+    hopf_formula = verified_math(hopf_step)
+    hopf_locator = source_label(hopf_step)
+    if hopf_formula is not None and hopf_locator is not None:
+        lines.append(f"{hopf_locator} から {hopf_formula} を導いた.")
+    elif hopf_formula is not None:
+        lines.append(f"検証済みの Hopf 関係 {hopf_formula} を導いた.")
+    else:
+        lines.append("検証済みの Hopf 関係を前提として確認した.")
+
+    theorem_reference = theorem_label or "検証済みの一般定理"
+    lines.append(
+        f"これらの検証済み前提を使い, {theorem_reference} により"
+        "抽象群構造を導いた."
+    )
+    return tuple(lines)
+
+
 def _render_abstract_claim(target: object, structure: CertifiedAbstractStructure) -> str:
-    """Format only an already certified abstract structure, never identify generators."""
+    """Show certified progress and the abstract claim, never named generators."""
     if type(target.group_dimension) is not int or type(target.sphere_dimension) is not int:
         raise ValueError("abstract result has nonconcrete group dimensions")
     invariant_latex = abstract_invariants_latex(structure.invariant_summands)
     target_latex = rf"\pi_{{{target.group_dimension}}}^{{{target.sphere_dimension}}}"
+    progress = "\n\n".join(_verified_abstract_progress_lines(structure))
     return (
-        "## 証明済みの抽象群構造\n\n"
+        "## 検証済みの途中経過\n\n"
+        + progress
+        + "\n\n"
+        + "## 証明済みの抽象群構造\n\n"
         + rf"${target_latex} \cong {invariant_latex}$."
         + "\n\n"
         + "これは出典検査済みの抽象群 ProofStep による結論であり、"
