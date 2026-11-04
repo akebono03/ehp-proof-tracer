@@ -57,7 +57,12 @@ def build_partial_web_group_proof_view(
             target_latex = statement_latex
 
     steps = []
-    for step in result.proven_steps:
+    display_steps = (
+        narrative_model.steps
+        if narrative_model is not None and mode != "trace"
+        else result.proven_steps
+    )
+    for step in display_steps:
         statement_latex, fallback_type_name = _group_proof_statement_latex(step.conclusion)
         steps.append(WebGroupProofStepView(
             depth=0,

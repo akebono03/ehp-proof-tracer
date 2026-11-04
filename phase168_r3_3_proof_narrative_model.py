@@ -59,6 +59,31 @@ def root_ancestor_step_indices(
     return frozenset(visited)
 
 
+def verified_narrative_steps(result: PartialProofResult) -> tuple[ProofStep, ...]:
+    """Join actual searched steps and a separately certified tree without inference.
+
+    Search results remain immutable. A certified inference root contributes its
+    actual guarded ancestry once, with original ProofStep identities retained.
+    The returned sequence is presentation data, never a named proof result.
+    """
+    if not isinstance(result, PartialProofResult):
+        raise TypeError("result must be PartialProofResult")
+    existing = list(result.proven_steps)
+    structure = result.abstract_structure
+    if structure is None:
+        return tuple(existing)
+    if structure.group != result.target or result.status is ProofSearchStatus.COMPLETE:
+        raise ValueError("incompatible abstract certificate for narrative")
+
+    from phase173_r4_r15r16r3_staged_guard_fix.tree_adapter import (
+        verified_tree_postorder,
+    )
+    for step in verified_tree_postorder(structure.proof_step):
+        if not any(previous is step for previous in existing):
+            existing.append(step)
+    return tuple(existing)
+
+
 def build_proof_narrative_model(
     result: PartialProofResult,
     *,
@@ -83,7 +108,7 @@ def build_proof_narrative_model(
     if proof_links and registry is None:
         raise ValueError("registry is required for proof_links")
 
-    steps = result.proven_steps
+    steps = verified_narrative_steps(result)
     root_index = next(
         (i for i in range(len(steps) - 1, -1, -1)
          if result.conclusion is not None and steps[i].conclusion == result.conclusion),

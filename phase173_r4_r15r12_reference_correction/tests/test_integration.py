@@ -90,5 +90,11 @@ def test_abstract_only_groups_remain_partial(k: int) -> None:
     assert result.conclusion is None and result.open_goals
     assert result.abstract_structure is not None
     assert view.key == 'generic-partial-proof' and view.partial_result
-    assert sum(line.kind == 'heading' and line.prefix == '証明済みの抽象群構造'
-               for line in view.rendered_lines) == 1
+    headings = [line.prefix for line in view.rendered_lines if line.kind == 'heading']
+    assert headings.count("使用する結果") == 1
+    assert headings.count("証明済みの抽象群構造") == 0
+    assert headings.count("検証済みの途中経過") == 0
+    assert headings.count("未解決 Goal") == 1
+    assert view.abstract_structure_certified
+    assert any(r"\cong" in segment.value
+               for line in view.rendered_lines for segment in line.segments)

@@ -7,7 +7,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from phase165_r52_partial_proof import PartialProofResult, ProofSearchStatus
-from phase168_r3_3_proof_narrative_model import ProofNarrativeModel
+from phase168_r3_3_proof_narrative_model import ProofNarrativeModel, verified_narrative_steps
 from proof import ProofRule
 from web_group_proof_common import _group_proof_statement_latex
 
@@ -33,8 +33,8 @@ def build_narrative_body_lines(
         raise TypeError("result must be PartialProofResult")
     if not isinstance(model, ProofNarrativeModel):
         raise TypeError("model must be ProofNarrativeModel")
-    if model.steps != result.proven_steps:
-        raise ValueError("model steps must match the searched result")
+    if model.steps != verified_narrative_steps(result):
+        raise ValueError("model steps must match the verified searched and certified trees")
     if len(model.step_citation_numbers) != len(model.steps):
         raise ValueError("step citation mapping has the wrong length")
     if result.status is ProofSearchStatus.COMPLETE and model.root_index is None:

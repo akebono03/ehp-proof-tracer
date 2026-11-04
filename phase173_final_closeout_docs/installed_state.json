@@ -1,0 +1,36 @@
+{
+  "phase": 173,
+  "closeout": "DOCUMENTED_AFTER_R2_GATE",
+  "reviewed_head": "9003ada8d9d723fbcbec67db55f4d4382ad45ea2",
+  "evidence": {
+    "report_sha256": "880e72947f17e05d26a5b02684dbd93ff0d944e9660d59cdad0b2b776b6c7ce0",
+    "stdout_sha256": "d8a9bdc8dda4fae3fb1c74113845379fa123c5f1d276c42b62f7609edccde807",
+    "head": "25b1ee1f7c848356604061991db06265cfccb296",
+    "status": "PASS",
+    "summary": "3546 passed in 80.58s (0:01:20)",
+    "prior_evidence_status": "UNAVAILABLE_ORIGINAL_FILES",
+    "report_path": "C:\\Users\\user\\AppData\\Local\\EHPProofTracerRecovery\\phase173_final_gate_r2\\phase173_full_test_report_r2.json"
+  },
+  "files": {
+    "README.md": {
+      "original_sha256": "95079d3a4f24842dc0b5f3e73a0d07f5b724fb5aea9784d427d342140e00e5ce",
+      "final_sha256": "7352dabd1889edfa0f49ae83581a86406273e710b7be5ea60f40bd9f4e5effd3"
+    },
+    "docs/design.md": {
+      "original_sha256": "1c8cd3e2afcbae1741cfff4aba7122f77c42280df88344c916afe143aa9e7c4c",
+      "final_sha256": "862c3627cbb654610b1bfb528bfed9d750f7e2d3a61369d336e42611bf422ba7"
+    },
+    "docs/development_log.md": {
+      "original_sha256": "0ff1f6e60a49e685c53b7f3f3e5bbf26d2a7b59a02e208deea95c81eb15ba4d2",
+      "final_sha256": "9bb5375eeab61d2456a7cd1fee59a205b56b03d220933b7f5d34c1e0f615dca9"
+    },
+    "docs/roadmap.md": {
+      "original_sha256": "5384dacdc8a8bf702029653c4370ac06af9cd91009bace81176aa5a24e6eb07e",
+      "final_sha256": "97132c50ea162f89a87c7e48e3f6fdf564182f2bb3c4352071a1b8d92ef54063"
+    },
+    "docs/proof_records.md": {
+      "original_sha256": "d07ba06316809ad2efe565030516e2f1d82d3ceb4881b420e657076dde2fa0c6",
+      "final_sha256": "0a4e3370d850e256e91e045091c7d7a4e3840bd9d0e9fe8299dd2abf2d6fcd66"
+    }
+  }
+}

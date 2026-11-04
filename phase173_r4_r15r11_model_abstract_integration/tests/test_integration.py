@@ -31,10 +31,16 @@ def test_source_first_certificate_is_owned_by_model_and_rendered_once(k: int) ->
     assert result.status in (ProofSearchStatus.PARTIAL, ProofSearchStatus.SEARCH_FAILED)
     assert result.conclusion is None and result.open_goals
     abstract = render_certified_abstract_model_section(model)
-    assert abstract == render_certified_abstract_section(result)
+    assert abstract == ""
+    assert "## 証明済みの抽象群構造" in render_certified_abstract_section(result)
+    assert any(step is result.abstract_structure.proof_step for step in model.steps)
     after = render_model_backed_narrative_markdown(result, model)
-    assert after.count("## 証明済みの抽象群構造") == 1
-    assert abstract in after
+    assert after.count("## 使用する結果") == 1
+    assert "## 証明済みの抽象群構造" not in after
+    assert "### 検証済み証明木の Reference" not in after
+    assert "Proposition 4.4" in after
+    assert "Lemma 5.4" in after
+    assert r"\cong" in after
     assert "## 未解決 Goal" in after
     direct_view = build_partial_web_group_proof_view(
         result, mode="narrative", narrative_model=model,
@@ -54,9 +60,19 @@ def test_public_default_path_and_legacy_path_keep_one_abstract_section(k: int) -
             n=4, k=k, goal=goal, mode="narrative", citation_source=citation_source,
         )
         headings = [line.prefix for line in view.rendered_lines if line.kind == "heading"]
-        assert headings.count("証明済みの抽象群構造") == 1
         if citation_source == "model":
+            assert headings.count("使用する結果") == 1
+            assert headings.count("証明済みの抽象群構造") == 0
+            assert headings.count("検証済みの途中経過") == 0
             assert headings.count("未解決 Goal") == 1
+            shown = "\n".join(
+                segment.value for line in view.rendered_lines
+                for segment in line.segments
+            )
+            assert r"\cong" in shown
+        else:
+            # The separately requested legacy API retains its old projection.
+            assert headings.count("証明済みの抽象群構造") == 1
         assert view.key == "generic-partial-proof"
         assert view.partial_result
 

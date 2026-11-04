@@ -6,6 +6,60 @@ from phase168_r3_3_proof_narrative_model import ProofNarrativeModel
 from phase168_r3_12_body_binding import build_narrative_body_lines
 
 
+def project_typed_open_goal_displays(
+    goals: tuple[object, ...],
+) -> tuple[tuple[object, int], ...]:
+    """Group only typed representations of the same pending group equality.
+
+    This does not change ProofSearchResult, discharge any goal, or identify
+    propositions from matching LaTeX. Keep the first actual goal as the
+    representative and retain the exact multiplicity for the public reader.
+    """
+    from homotopy_groups import (
+        DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup,
+    )
+    from phase165_r12_r2_quotient_rules import CyclicStructureStatement
+    from proof import Relation, RelationType
+
+    structures = (DirectSumGroup, FiniteCyclicGroup, FreeCyclicGroup)
+
+    def typed_group_structure(goal: object) -> tuple[object, object] | None:
+        if isinstance(goal, CyclicStructureStatement):
+            if not isinstance(goal.group, TodaPrimaryGroup):
+                return None
+            if goal.order is None:
+                structure = FreeCyclicGroup(goal.generator)
+            elif type(goal.order) is int and goal.order >= 2:
+                structure = FiniteCyclicGroup(goal.order, goal.generator)
+            else:
+                return None
+            return (goal.group, structure)
+        if isinstance(goal, Relation) and goal.relation_type is RelationType.EQUALITY:
+            if isinstance(goal.lhs, TodaPrimaryGroup) and isinstance(goal.rhs, structures):
+                return (goal.lhs, goal.rhs)
+            if isinstance(goal.rhs, TodaPrimaryGroup) and isinstance(goal.lhs, structures):
+                return (goal.rhs, goal.lhs)
+        return None
+
+    displays: list[tuple[object, int]] = []
+    keys: list[tuple[object, object] | None] = []
+    for goal in goals:
+        key = typed_group_structure(goal)
+        match = None
+        if key is not None:
+            for index, old_key in enumerate(keys):
+                if old_key is not None and old_key == key:
+                    match = index
+                    break
+        if match is None:
+            displays.append((goal, 1))
+            keys.append(key)
+        else:
+            representative, count = displays[match]
+            displays[match] = (representative, count + 1)
+    return tuple(displays)
+
+
 def render_model_backed_narrative_markdown(
     result: PartialProofResult, model: ProofNarrativeModel,
 ) -> str:
@@ -428,10 +482,14 @@ def render_model_backed_narrative_markdown(
                 if sentence is not None:
                     statement_text = sentence
                 else:
-                    # Preserve a truthful placeholder, not a guessed formula.
+                    # Keep every verified ProofStep and its provenance in the
+                    # unified Model, but never expose internal Python type names
+                    # as a mathematical proof sentence. Unsupported statements
+                    # remain part of the proof tree and of cited References.
                     latex, fallback = _group_proof_statement_latex(statement)
-                    statement_text = (f"${latex}$" if latex is not None and fallback is None
-                                      else type(statement).__name__ + "（数式表示未対応）")
+                    if latex is None or fallback is not None:
+                        continue
+                    statement_text = f"${latex}$"
             role = "与件" if step.rule is ProofRule.GIVEN else "推論"
             numbers = model.step_citation_numbers[index]
             tags = ", ".join(f"[R{number}]" for number in numbers)
@@ -631,13 +689,17 @@ def render_model_backed_narrative_markdown(
     if incomplete:
         if model.open_goals:
             lines.extend(("", "## 未解決 Goal", ""))
-            for goal in model.open_goals:
+            for goal, count in project_typed_open_goal_displays(model.open_goals):
                 if isinstance(goal, str):
                     shown = goal
                 else:
                     latex, fallback = _group_proof_statement_latex(goal)
                     shown = (f"${latex}$" if latex is not None and fallback is None
                              else type(goal).__name__ + "（数式表示未対応）")
+                # This is display grouping only. Every original typed pending
+                # goal still exists in model.open_goals and in the search state.
+                if count > 1:
+                    shown += f"（同じ群構造の未解決 Goal {count} 件を表示上集約）"
                 lines.append("- " + shown)
         if model.diagnostics:
             lines.extend(("", "## 探索診断", ""))

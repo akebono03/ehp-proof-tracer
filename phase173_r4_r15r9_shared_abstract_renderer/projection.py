@@ -110,4 +110,8 @@ def render_certified_abstract_model_section(model: object) -> str:
         or model.root_index is not None
     ):
         raise ValueError("unverified Model abstract result cannot be presented")
+    # The certified root is already a normal ProofStep in the unified Model.
+    # Do not render the same tree a second time as a separate appendix.
+    if any(step is structure.proof_step for step in model.steps):
+        return ""
     return _render_abstract_claim(model.target, structure)

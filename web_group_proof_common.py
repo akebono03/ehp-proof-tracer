@@ -450,6 +450,24 @@ def _group_proof_statement_latex(
     if cyclic_latex is not None:
       return cyclic_latex, None
 
+  abstract_group = getattr(statement, "group", None)
+  abstract_invariants = getattr(statement, "invariant_summands", None)
+  if (isinstance(abstract_group, TodaPrimaryGroup)
+      and type(abstract_group.group_dimension) is int
+      and type(abstract_group.sphere_dimension) is int
+      and isinstance(abstract_invariants, tuple)):
+    # A typed, already verified abstract invariant has no named generator.
+    # This is a generic statement formatter, not an inference or Narrative.
+    from phase173_r4_r15r9_shared_abstract_renderer.projection import (
+      abstract_invariants_latex,
+    )
+    invariant_latex = abstract_invariants_latex(abstract_invariants)
+    return (
+      rf"\pi_{{{abstract_group.group_dimension}}}^{{{abstract_group.sphere_dimension}}}"
+      rf" \cong {invariant_latex}",
+      None,
+    )
+
   public_group_latex = (
     render_toda_public_group_relation_latex(
       statement

@@ -14,8 +14,14 @@ def _reference_text(n: int, k: int) -> str:
 
     first = next(i for i, line in enumerate(lines)
                  if is_section(line, "使用する結果"))
-    last = next(i for i, line in enumerate(lines)
-                if i > first and is_section(line, "証明"))
+    # The canonical Web layout replaces the old Proof heading with a
+    # single separator; Reference assertions must exclude the proof body.
+    separators = [
+        i for i, line in enumerate(lines)
+        if i > first and line.kind == "separator"
+    ]
+    assert len(separators) == 1
+    last = separators[0]
     assert first < last
     return "\n".join(
         " ".join((line.prefix, line.statement_latex or "", line.suffix))

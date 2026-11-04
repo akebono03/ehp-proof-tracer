@@ -83,8 +83,13 @@ def test_shared_model_backed_web_displays_abstract_and_keeps_named_pending(prove
     )
     assert view.key == "generic-partial-proof"
     assert view.partial_result
-    assert any(line.kind == "heading" and line.prefix == "証明済みの抽象群構造"
-               for line in view.rendered_lines)
+    headings = [line.prefix for line in view.rendered_lines if line.kind == "heading"]
+    assert headings.count("使用する結果") == 1
+    assert headings.count("証明済みの抽象群構造") == 0
+    assert headings.count("検証済みの途中経過") == 0
+    assert view.abstract_structure_certified
+    assert any(step is proved_abstract_result.abstract_structure.proof_step
+               for step in model.steps)
     assert any(r"\pi_{35}^{4}" in (line.statement_latex or "")
                and r"\cong" in (line.statement_latex or "")
                for line in view.rendered_lines)
