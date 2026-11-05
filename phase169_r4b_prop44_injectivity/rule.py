@@ -34,54 +34,77 @@ def _is_hopf_four_suspension(goal: object) -> bool:
 
 
 def prop44_hopf_four_injectivity_rule(goal: MapInjective) -> InferenceRule:
-    """Require the cited full Prop. 4.4, not an assumed concrete map fact."""
+    """Apply conditional Proposition 4.4 to a proved Lemma 5.4 Hopf witness."""
+    from phase173_r4_r1_lemma54_source_bridge.source import (
+        TodaLemma54TypedSource,
+        canonical_hopf_relation,
+    )
+    from proof import Relation, RelationType
+
     if not _is_hopf_four_suspension(goal):
-        raise ValueError("goal must be an n=4 Hopf-dimension suspension injectivity")
+        raise ValueError("goal must be an n=4 suspension injectivity")
+    hopf = canonical_hopf_relation()
+    proposition = TodaProp44UniversalStatement()
 
     def guard(premises, bindings):
         return (
-            len(premises) == 1
+            len(premises) == 2
             and premises[0].rule is ProofRule.GIVEN
-            and type(premises[0].conclusion) is TodaProp44UniversalStatement
-            and premises[0].conclusion == TodaProp44UniversalStatement()
+            and premises[0].conclusion == proposition
+            and premises[1].rule is ProofRule.INFERENCE
+            and premises[1].conclusion == hopf
+            and len(premises[1].premises) == 1
+            and premises[1].premises[0].rule is ProofRule.GIVEN
+            and type(premises[1].premises[0].conclusion) is TodaLemma54TypedSource
+            and premises[1].premises[0].conclusion == TodaLemma54TypedSource()
             and _is_hopf_four_suspension(goal)
         )
 
     return InferenceRule(
-        name="Toda Proposition 4.4 Hopf dimension-four suspension injectivity",
+        name="Toda Proposition 4.4 using separately proved Hopf invariant",
         description=(
-            "For n=4 a Hopf invariant one map exists by the preceding "
-            "Hopf-fibration statement; Proposition 4.4 implies E is injective."
+            "Proposition 4.4 is conditional; independently prove H(nu_4)=iota_7 "
+            "from the earlier, screened Lemma 5.4 before specializing it."
         ),
         premise_patterns=(
             PremisePattern(
                 proof_rule=ProofRule.GIVEN,
                 statement_type=TodaProp44UniversalStatement,
+                statement_pattern=proposition,
+            ),
+            PremisePattern(
+                proof_rule=ProofRule.INFERENCE,
+                statement_type=Relation,
+                relation_type=RelationType.EQUALITY,
+                statement_pattern=hopf,
             ),
         ),
         conclusion_pattern=goal,
         match_guard=guard,
         literature_reference=LiteratureReference(
-            label="Toda Proposition 4.4",
-            locator="Proposition 4.4",
+            label="Toda Proposition 4.4", locator="Proposition 4.4",
         ),
     )
 
 
 def expand_cited_prop44_injectivity(
-    goal: object, available: tuple[object, ...]
+    goal: object, available: tuple[object, ...],
 ) -> tuple[GoalExpansion, ...]:
-    """Expand only from the unique citation-screened Prop. 4.4 claim."""
+    """Propose the conditional theorem only when Lemma 5.4 is source-screened."""
+    from phase173_r4_r1_lemma54_source_bridge.source import (
+        TodaLemma54TypedSource,
+        canonical_hopf_relation,
+    )
+
     if not isinstance(available, tuple):
         raise TypeError("available must be a tuple")
     if not _is_hopf_four_suspension(goal):
         return ()
-    cited = tuple(
-        claim
-        for claim in available
-        if type(claim) is TodaProp44UniversalStatement
-        and claim == TodaProp44UniversalStatement()
-    )
-    if len(cited) != 1:
+    proposition = TodaProp44UniversalStatement()
+    lemma = TodaLemma54TypedSource()
+    if available.count(proposition) != 1 or available.count(lemma) != 1:
         return ()
-    return (GoalExpansion(prop44_hopf_four_injectivity_rule(goal), cited),)
+    return (GoalExpansion(
+        prop44_hopf_four_injectivity_rule(goal),
+        (proposition, canonical_hopf_relation()),
+    ),)

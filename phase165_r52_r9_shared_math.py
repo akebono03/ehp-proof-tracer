@@ -78,6 +78,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_prop22_right_reference,
         )
         sources = sources + (build_cited_prop22_right_reference(production),)
+        from phase174_r3_r6_source_extension.source import build_cited_extension_sources
+        sources = sources + (build_cited_extension_sources(),)
+        from phase174_r3_r6_r2_prop44_lemma54.source import (
+            build_cited_preprop44_splitting,
+        )
+        sources = sources + (build_cited_preprop44_splitting(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -301,6 +307,13 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_ehp_surjectivity_consequences(goal))
         from phase174_r3_r3_injective_delta_zero.rule import expand_delta_zero_from_injection
         options.extend(expand_delta_zero_from_injection(goal))
+        from phase174_r3_r5_finite_cyclic_extension.rule import (
+            expand_finite_index_two_cyclic_structure, expand_toda48_index_two,
+        )
+        options.extend(expand_toda48_index_two(goal))
+        options.extend(expand_finite_index_two_cyclic_structure(goal))
+        from phase174_r3_r6_source_extension.source import expand_cited_toda55_double
+        options.extend(expand_cited_toda55_double(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
         from phase171_r2j_r4_r9_r7_public_cyclic_root.source import (
             expand_cited_double_cyclic_root,
@@ -395,8 +408,18 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             )
             composite_image_options = expand_composite_generator_image(goal)
             options.extend(composite_image_options)
+        from phase174_r3_r6_r2_prop44_lemma54.source import (
+            expand_cited_preprop44_splitting,
+        )
+        options.extend(expand_cited_preprop44_splitting(goal, tuple(available)))
+        from phase173_r4_r1_lemma54_source_bridge.source import (
+            expand_cited_lemma54_hopf,
+        )
+        options.extend(expand_cited_lemma54_hopf(goal, tuple(available)))
         from phase169_r4b_prop44_injectivity.rule import expand_cited_prop44_injectivity
-        options.extend(expand_cited_prop44_injectivity(goal, tuple(available)))
+        conditional_prop44 = expand_cited_prop44_injectivity(goal, tuple(available))
+        if conditional_prop44:
+            return conditional_prop44
         from phase169_r4c_pi64_suspension_iso.rule import expand_pi64_suspension_isomorphism
         options.extend(expand_pi64_suspension_isomorphism(goal))
         from phase166_r3ac_stable_notation import expand_stable_eta_notation
@@ -541,6 +564,11 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         )
         if pi74_connection is not None:
             bridge, citing_assertion_id, expansion_provider = pi74_connection
+    if citing_assertion_id is not None and expansion_provider is None:
+        from phase174_r3_r6_r2_prop44_lemma54.source import (
+            attach_earlier_verified_lemma54,
+        )
+        bridge = attach_earlier_verified_lemma54(bridge, citing_assertion_id)
     assertions = tuple(bridge.registry._assertions.values())
     if not assertions:
         raise ValueError("shared typed registry is empty")
