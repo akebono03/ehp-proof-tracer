@@ -58,6 +58,9 @@ def project_reference_bodies(registry, assertion_ids):
     from phase165_r12_r11_prop42_unified import TodaProp42GeneralExactnessStatement
     from phase165_r12_r15_toda51 import Toda51BelowDiagonalZeroStatement
     from phase165_r52_r27_r5_literature import Toda52UniversalStatement, TodaProp44UniversalStatement
+    from phase174_r3_r6_r2_prop44_lemma54.source import (
+        TodaPreProp44SplittingStatement,
+    )
     from phase165_r57_r8_eta_specialization import _is_generic_eta_group_relation
     from toda_rules import Toda45IsomorphismStatement
     from expression import ScalarSymbol, ScalarSum, ScalarProduct
@@ -118,8 +121,7 @@ def project_reference_bodies(registry, assertion_ids):
             elif isinstance(statement, Toda51BelowDiagonalZeroStatement):
                 sentence = r"$\pi_i^n=0\quad(i<n)$."
             elif (type(statement) is TodaProp44UniversalStatement
-                  and statement == TodaProp44UniversalStatement()
-                  and statement.preceding_hopf_fibration_dimensions == (2, 4, 8)):
+                  and statement == TodaProp44UniversalStatement()):
                 sentence = (
                     r"$\alpha\in\pi_{2n-1}^{n}$ で "
                     r"$H(\alpha)=\pm\iota_{2n-1}$ とする."
@@ -131,6 +133,15 @@ def project_reference_bodies(registry, assertion_ids):
                     r"(\beta,\gamma)\longmapsto E\beta+\alpha\circ\gamma$."
                     "\n"
                     r"特に $E:\pi_{i-1}^{n-1}\to\pi_i^{n}$ は単射である."
+                )
+            elif (type(statement) is TodaPreProp44SplittingStatement
+                  and statement == TodaPreProp44SplittingStatement()):
+                sentence = (
+                    r"$n=2,4,8$ では Hopf fibration $h:S^{2n-1}\to S^n$ "
+                    r"が存在し, 任意の $i$ で "
+                    r"$E+h_*:\pi_{i-1}^{n-1}\oplus\pi_i^{2n-1}"
+                    r"\xrightarrow{\cong}\pi_i^n$ が成り立つ "
+                    r"(Steenrod 1951 を引用)."
                 )
             elif isinstance(statement, TodaProp42GeneralExactnessStatement):
                 sentence = (

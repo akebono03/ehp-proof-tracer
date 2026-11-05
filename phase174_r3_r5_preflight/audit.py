@@ -57,7 +57,7 @@ def check_transcription(root: Path) -> dict[str, Any]:
 
 
 def inspect_source_provider(root: Path) -> dict[str, Any]:
-    """Check the exact reviewed R3-R5 or R3-R6 provider, not a loose substring."""
+    """Compare against the pinned current HEAD or the exact reviewed new provider."""
     file = root / SOURCE_FILE
     source = file.read_bytes()
     parsed = ast.parse(source.decode("utf-8-sig"))
@@ -70,12 +70,21 @@ def inspect_source_provider(root: Path) -> dict[str, Any]:
         raise ValueError("shared_expansion_provider must have one definition")
     if source.count(DELTA_HOOK.encode("utf-8")) != 1:
         raise ValueError("R3-R4 general Delta-zero hook is absent or duplicated")
-    from phase174_r3_r6_source_extension.patch import reviewed_shared_bytes, connect_shared
-    reviewed = reviewed_shared_bytes()
-    if source not in (reviewed, connect_shared(reviewed)):
+    import subprocess
+    from phase174_r3_r6_r2_prop44_lemma54.patch import git_blob, normalize, patch_shared
+
+    original = subprocess.run(
+        ("git", "show", "HEAD:" + SOURCE_FILE),
+        cwd=root, check=True, capture_output=True,
+    ).stdout
+    if git_blob(original) != "bf5bc76c842a6fcac65fc88846f96a95917d0624":
+        raise ValueError("Unexpected committed R3-R6 source")
+    original_text = normalize(original.decode("utf-8-sig"))
+    expected = patch_shared(original_text)
+    normalized_current = normalize(source.decode("utf-8-sig"))
+    if normalized_current not in (original_text, expected):
         raise ValueError("Unreviewed production source modifications")
-    head = run_git("rev-parse", "HEAD")
-    state = "COMMITTED" if head == "7bd64d36e17246195525ecb0ec27a170abb73206" and source == reviewed else "WORKTREE_PATCHED"
+    state = "COMMITTED" if normalized_current == original_text else "WORKTREE_PATCHED"
     return {
         "state": state,
         "delta_provider_hook_present": True,

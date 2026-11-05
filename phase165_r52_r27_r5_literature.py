@@ -22,10 +22,10 @@ from unified_statement_registry import (
 
 @dataclass(frozen=True)
 class TodaProp44UniversalStatement:
-    """Conditional proposition plus its explicitly checked preceding Hopf-fibration premise.
+    """Toda Proposition 4.4: a conditional isomorphism, not existence of alpha.
 
-    The fibration statement is printed before Proposition 4.4 in the adopted
-    Toda source, not in the proposition environment itself.
+    The hypothesis H(alpha)=+/-iota is proved independently before use.
+    The preceding Hopf-fibration paragraph is NOT part of the proposition.
     """
     source_condition: str = "alpha in pi_(2n-1)^n; H(alpha)=+/-iota_(2n-1)"
     isomorphism_map: str = "(beta,gamma)->E(beta)+alpha o gamma"
@@ -33,7 +33,6 @@ class TodaProp44UniversalStatement:
     target_group: str = "pi_i^n"
     quantifiers: tuple[str, ...] = ("n", "i", "alpha")
     includes_suspension_injectivity: bool = True
-    preceding_hopf_fibration_dimensions: tuple[int, ...] = (2, 4, 8)
 
 
 @dataclass(frozen=True)
@@ -151,7 +150,6 @@ _SOURCES = (
 
 def build_typed_literature_bridge(source_bridge: RegistryBridgeResult) -> RegistryBridgeResult:
     """Produce two fixed, source-bound general claims; never promote other archive rows."""
-    verify_prop44_hopf_fibration_source()
     registry = UnifiedStatementRegistry()
     links = []
     records = []

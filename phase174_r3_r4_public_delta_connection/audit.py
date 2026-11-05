@@ -72,6 +72,10 @@ def inspect_public_provider() -> dict[str, object]:
     from phase165_r55_nk_only_goal import registered_group_goal_candidates
     from phase165_r3_recursive_search import reconstruct_registered_goal
     from phase165_r52_r27_r5_literature import TodaProp44UniversalStatement
+    from phase173_r4_r1_lemma54_source_bridge.source import TodaLemma54TypedSource
+    from phase174_r3_r6_r2_prop44_lemma54.source import (
+        attach_earlier_verified_lemma54,
+    )
     from phase166_r3t_goal_source_binding.goal_source import resolve_specialized_goal_citing_id
     from phase174_r3_r3_injective_delta_zero.audit import proof_has_cited_leaf
     from phase174_r3_r3_injective_delta_zero.rule import delta_e_injectivity_inputs
@@ -86,6 +90,10 @@ def inspect_public_provider() -> dict[str, object]:
     citation = resolve_specialized_goal_citing_id(bridge, target)
     if citation is None:
         raise ValueError("No actual pi_8^5 publication position")
+    amended = attach_earlier_verified_lemma54(bridge, citation)
+    if amended is bridge:
+        raise ValueError("Verified Lemma 5.4 must precede this proof target")
+    bridge = amended
     screened = screen_shared_proof_context(
         bridge, goal=target, citing_assertion_id=citation,
         explicit_publication_target=True,
@@ -129,6 +137,7 @@ def inspect_public_provider() -> dict[str, object]:
         or len(step.premises) != 2
         or any(prior.rule is not ProofRule.INFERENCE for prior in step.premises)
         or not proof_has_cited_leaf(step.premises[0], TodaProp44UniversalStatement())
+        or not proof_has_cited_leaf(step.premises[0], TodaLemma54TypedSource())
         or not proof_has_cited_leaf(step.premises[1], TodaProp42GeneralExactnessStatement())
     ):
         raise ValueError("Connected rule lacks real public source ancestry")
