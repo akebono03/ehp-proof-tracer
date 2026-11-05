@@ -78,6 +78,8 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_prop22_right_reference,
         )
         sources = sources + (build_cited_prop22_right_reference(production),)
+        from phase174_r3_r6_source_extension.source import build_cited_extension_sources
+        sources = sources + (build_cited_extension_sources(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -306,6 +308,8 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         )
         options.extend(expand_toda48_index_two(goal))
         options.extend(expand_finite_index_two_cyclic_structure(goal))
+        from phase174_r3_r6_source_extension.source import expand_cited_toda55_double
+        options.extend(expand_cited_toda55_double(goal, tuple(available)))
         options.extend(expand_finite_cyclic_relation(goal))
         from phase171_r2j_r4_r9_r7_public_cyclic_root.source import (
             expand_cited_double_cyclic_root,

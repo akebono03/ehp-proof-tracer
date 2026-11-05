@@ -57,10 +57,10 @@ def check_transcription(root: Path) -> dict[str, Any]:
 
 
 def inspect_source_provider(root: Path) -> dict[str, Any]:
-    """Require the R3-R4 hook already present and preserve the entire function."""
+    """Check the exact reviewed R3-R5 or R3-R6 provider, not a loose substring."""
     file = root / SOURCE_FILE
-    source = file.read_text(encoding="utf-8-sig")
-    parsed = ast.parse(source)
+    source = file.read_bytes()
+    parsed = ast.parse(source.decode("utf-8-sig"))
     functions = [
         node for node in parsed.body
         if isinstance(node, ast.FunctionDef)
@@ -68,19 +68,14 @@ def inspect_source_provider(root: Path) -> dict[str, Any]:
     ]
     if len(functions) != 1:
         raise ValueError("shared_expansion_provider must have one definition")
-    if source.count(DELTA_HOOK) != 1:
+    if source.count(DELTA_HOOK.encode("utf-8")) != 1:
         raise ValueError("R3-R4 general Delta-zero hook is absent or duplicated")
-    committed = subprocess.run(
-        ("git", "show", "HEAD:" + SOURCE_FILE),
-        check=True, capture_output=True, text=True, encoding="utf-8",
-    ).stdout
-    state = "COMMITTED" if source == committed else "WORKTREE_PATCHED"
-    if state == "WORKTREE_PATCHED":
-        from phase174_r3_r4_public_delta_connection.patch import replace_provider_call
-        from phase174_r3_r5_finite_cyclic_extension.patch import insert_shared
-        reviewed_r3r4 = replace_provider_call(committed.encode("utf-8"))
-        if source.encode("utf-8") not in (reviewed_r3r4, insert_shared(reviewed_r3r4)):
-            raise ValueError("Unreviewed production source modifications")
+    from phase174_r3_r6_source_extension.patch import reviewed_shared_bytes, connect_shared
+    reviewed = reviewed_shared_bytes()
+    if source not in (reviewed, connect_shared(reviewed)):
+        raise ValueError("Unreviewed production source modifications")
+    head = run_git("rev-parse", "HEAD")
+    state = "COMMITTED" if head == "7bd64d36e17246195525ecb0ec27a170abb73206" and source == reviewed else "WORKTREE_PATCHED"
     return {
         "state": state,
         "delta_provider_hook_present": True,

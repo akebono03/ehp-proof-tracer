@@ -167,6 +167,15 @@ def test_public_pi85_cyclic_root_and_delta_proposals_reached() -> None:
     ))
     assert any(x.rule.name == "EHP injective suspension and Delta-E exactness imply zero Delta"
                for x in provider(delta))
-    # The source theorem is deliberately NOT created as a verified GIVEN.
-    assert not any(link.step is not None and link.step.conclusion == index_options[0].subgoals[1]
+    # In R3-R6 only the general source formulae are GIVEN; concrete
+    # index-two and doubled relations still require independent inference.
+    from phase174_r3_r6_source_extension.source import Toda55UniversalDoubleStatement
+    assert any(link.step is not None and link.step.rule is ProofRule.GIVEN
+               and link.step.conclusion == index_options[0].subgoals[1]
+               for link in screened.proof_links)
+    assert any(link.step is not None and link.step.rule is ProofRule.GIVEN
+               and link.step.conclusion == Toda55UniversalDoubleStatement()
+               for link in screened.proof_links)
+    assert not any(link.step is not None and link.step.rule is ProofRule.GIVEN
+                   and link.step.conclusion in (goal, cyclic, index, double)
                    for link in screened.proof_links)
