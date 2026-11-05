@@ -19,10 +19,12 @@ def _verified_source_sentence(statement: object) -> str | None:
 def project_cited_proof_step_reference_bodies(
     reference: object, cited_steps: tuple[object, ...],
 ) -> tuple[str, ...]:
-    """Use an already cited GIVEN statement if registry links do not expose its body.
+    """Render an actual cited GIVEN when an assertion-ID body was not attached.
 
-    The citation must already own the exact source step; simply finding a
-    literature locator or a mathematically similar statement is insufficient.
+    Preserve the established Lemma 5.4 fallback. For Toda (4.8) and (5.5),
+    require a unique canonical cited GIVEN with explicit source provenance,
+    plus reverified adopted source text and chronological position. This is
+    display-only: neither source links nor ProofSteps are created here.
     """
     from proof import LiteratureReference, ProofRule, ProofStep
 
@@ -39,8 +41,13 @@ def project_cited_proof_step_reference_bodies(
         sentence for step, sentence in candidates
         if sentence is not None and locator == "Lemma 5.4"
     )
-    return verified if len(verified) == 1 else ()
+    if verified:
+        return verified if len(verified) == 1 else ()
 
+    from phase174_r3_r6_r4_common_reference.projection import (
+        project_verified_cited_toda_given_reference_body,
+    )
+    return project_verified_cited_toda_given_reference_body(reference, cited_steps)
 
 def project_reference_bodies(registry, assertion_ids):
     """Project only cited, typed source statements, including registered composite fields.
@@ -66,6 +73,9 @@ def project_reference_bodies(registry, assertion_ids):
     from expression import ScalarSymbol, ScalarSum, ScalarProduct
     from homotopy_groups import TodaIteratedSuspensionMap, TodaPrimaryGroupZeroStatement
     from proof import Relation
+    from phase174_r3_r6_r4_common_reference.projection import (
+        project_cited_universal_toda_reference_body,
+    )
 
     result = []
     for assertion_id in assertion_ids:
@@ -183,6 +193,10 @@ def project_reference_bodies(registry, assertion_ids):
                     r"$\pi_{" + variable + r"+1}^{" + variable + r"}="
                     r"\mathbb{Z}/2\{\eta_{" + variable + r"}\}"
                     r"\quad(" + variable + r"\ge4)$."
+                )
+            if sentence is None:
+                sentence = project_cited_universal_toda_reference_body(
+                    assertion, registry, statement,
                 )
             if sentence is None:
                 sentence = typed_sentence(statement, None)

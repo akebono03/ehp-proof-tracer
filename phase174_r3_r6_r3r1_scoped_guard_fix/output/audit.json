@@ -1,0 +1,21 @@
+{
+  "reviewed_head": "ecbb2fea225c5b88000629d9c025934fcc2d7075",
+  "guard": "complete target-function and import AST match HEAD; unrelated bytes preserved",
+  "changes": [
+    {
+      "path": "phase168_r3_27_typed_statement_projection.py",
+      "local_differs_from_HEAD": false,
+      "before_sha256": "154e79d1a57a9395538da8e083171c704cf93d52b9481be8d1e4fee3cd1e3d83",
+      "after_sha256": "794e001978a1a645c4923b374c0e213005fcbf6dfb141e09f7645674b8ed46a9",
+      "only_inserted_lines": true
+    },
+    {
+      "path": "phase168_r3_5_model_renderer.py",
+      "local_differs_from_HEAD": false,
+      "before_sha256": "21f0a3102b28a32f27c714108e3790a064169c217cca2db590621ee067c57805",
+      "after_sha256": "a403989f27066539053f625a04d8b5a9ac68b8a9f600daac5d59ccb60f3a8b59",
+      "only_inserted_lines": true
+    }
+  ],
+  "full_pytest_performed": false
+}

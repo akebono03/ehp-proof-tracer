@@ -183,6 +183,12 @@ def render_model_backed_narrative_markdown(
             displayed = display_prior_reference_locator(citation, model)
             if displayed is not None:
                 locator = displayed
+            from phase174_r3_r6_r3_common_narrative.projection import (
+                display_cited_nu_family_locator,
+            )
+            family_locator = display_cited_nu_family_locator(citation, model)
+            if family_locator is not None:
+                locator = family_locator
         lines.append(f"**[R{citation.number}] {locator}.**")
         lines.append("")
         for sentence in citation.statement_bodies:
@@ -552,6 +558,15 @@ def render_model_backed_narrative_markdown(
             lines.extend((transition, ""))
         body_line = body_by_step.get(index)
         sentence = typed_sentence(step.conclusion, step)
+        if index != model.root_index:
+            from phase174_r3_r6_r3_common_narrative.projection import (
+                project_verified_cyclic_extension_reason,
+            )
+            extension_reason = project_verified_cyclic_extension_reason(
+                step.conclusion, step,
+            )
+            if extension_reason is not None:
+                sentence = extension_reason
         if sentence is not None:
             # The certified kernel step already consumes the suppressed
             # exactness equality and a concrete Delta image. Compose only

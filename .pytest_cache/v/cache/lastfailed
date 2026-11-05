@@ -2553,5 +2553,6 @@
   "phase165_r52_r15_ordered_citation/test_phase165_r52_r15_ordered_citation.py::test_ordered_reference_requires_only_prior_order": true,
   "phase165_r52_r15_ordered_citation/test_phase165_r52_r15_ordered_citation.py::test_ordered_reference_integrates_with_backward_search": true,
   "phase174_r3_r4_public_delta_connection/tests/test_connection.py::test_r3r4_real_production_file_has_only_reviewed_wiring": true,
-  "phase174_r3_r4_public_delta_connection/tests/test_connection.py::test_r3r4_public_citation_screened_delta_is_inference": true
+  "phase174_r3_r4_public_delta_connection/tests/test_connection.py::test_r3r4_public_citation_screened_delta_is_inference": true,
+  "phase174_r3_r6_r4_common_reference/tests/test_r3r4_reference_bodies.py::test_public_pi85_uses_registered_reference_without_duplicate_conclusion": true
 }

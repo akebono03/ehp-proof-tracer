@@ -338,6 +338,12 @@ def map_property_sentence(statement, step):
     return result
 
 def typed_sentence(statement, step):
+    from phase174_r3_r6_r3_common_narrative.projection import (
+        project_verified_index_two_statement,
+    )
+    index_two = project_verified_index_two_statement(statement, step)
+    if index_two is not None:
+        return index_two
     map_sentence = map_property_sentence(statement, step)
     if map_sentence is not None:
         return map_sentence
