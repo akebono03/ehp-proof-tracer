@@ -77,7 +77,9 @@ def inspect_source_provider(root: Path) -> dict[str, Any]:
     state = "COMMITTED" if source == committed else "WORKTREE_PATCHED"
     if state == "WORKTREE_PATCHED":
         from phase174_r3_r4_public_delta_connection.patch import replace_provider_call
-        if source.encode("utf-8") != replace_provider_call(committed.encode("utf-8")):
+        from phase174_r3_r5_finite_cyclic_extension.patch import insert_shared
+        reviewed_r3r4 = replace_provider_call(committed.encode("utf-8"))
+        if source.encode("utf-8") not in (reviewed_r3r4, insert_shared(reviewed_r3r4)):
             raise ValueError("Unreviewed production source modifications")
     return {
         "state": state,

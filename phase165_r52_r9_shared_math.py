@@ -301,6 +301,11 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         options.extend(expand_cited_ehp_surjectivity_consequences(goal))
         from phase174_r3_r3_injective_delta_zero.rule import expand_delta_zero_from_injection
         options.extend(expand_delta_zero_from_injection(goal))
+        from phase174_r3_r5_finite_cyclic_extension.rule import (
+            expand_finite_index_two_cyclic_structure, expand_toda48_index_two,
+        )
+        options.extend(expand_toda48_index_two(goal))
+        options.extend(expand_finite_index_two_cyclic_structure(goal))
         options.extend(expand_finite_cyclic_relation(goal))
         from phase171_r2j_r4_r9_r7_public_cyclic_root.source import (
             expand_cited_double_cyclic_root,
