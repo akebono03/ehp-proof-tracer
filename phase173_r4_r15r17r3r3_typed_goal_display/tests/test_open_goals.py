@@ -16,7 +16,7 @@ from proof import Relation, RelationType
 from web_group_proof import build_standard_web_group_proof_view
 
 
-@pytest.mark.parametrize('n,k,expected', ((4, 8, 3), (4, 9, 2), (5, 3, 3)))
+@pytest.mark.parametrize('n,k,expected', ((4, 8, 3), (4, 9, 2)))
 def test_real_typed_pending_goals_are_grouped_only_in_public_display(
     n: int, k: int, expected: int,
 ) -> None:
@@ -48,6 +48,30 @@ def test_real_typed_pending_goals_are_grouped_only_in_public_display(
     assert view.key == 'generic-partial-proof'
     assert any(line.kind == 'heading' and line.prefix == '未解決 Goal'
                for line in view.rendered_lines)
+
+
+def test_pi8_5_completed_case_is_not_reported_as_an_open_goal() -> None:
+    """The formerly partial (n=5,k=3) case must retain its completed proof."""
+    typed = exact_prior_database_result(5, 3)
+    assert typed is not None
+    result = search_group_from_registered_goal(n=5, k=3, goal=typed)
+    assert result.status is ProofSearchStatus.COMPLETE
+    assert result.conclusion == typed
+    assert result.open_goals == ()
+    assert any(step.conclusion == typed for step in result.proven_steps)
+    model = build_proof_narrative_model(result)
+    assert model.steps == result.proven_steps
+    assert model.root_index is not None
+    assert project_typed_open_goal_displays(result.open_goals) == ()
+    markdown = render_model_backed_narrative_markdown(result, model)
+    assert "## 未解決 Goal" not in markdown
+    view = build_standard_web_group_proof_view(
+        n=5, k=3, goal=typed, mode="narrative", citation_source="model",
+    )
+    assert view.key == "generic-complete-proof"
+    assert view.partial_result is False
+    assert not any(line.kind == "heading" and line.prefix == "未解決 Goal"
+                   for line in view.rendered_lines)
 
 
 def test_same_latex_is_not_sufficient_to_merge_distinct_typed_structures() -> None:

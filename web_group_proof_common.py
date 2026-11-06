@@ -422,6 +422,24 @@ def _group_proof_statement_latex(
   from homotopy_groups import FiniteCyclicGroup, FreeCyclicGroup, TodaPrimaryGroup
   from phase165_r12_r2_quotient_rules import CyclicStructureStatement
   from proof import Relation, RelationType
+  from homotopy_groups import TodaDeltaMap, TodaHopfInvariantMap, TodaSuspensionMap
+  from phase165_r14_r6_generic_iso import MapInjective, MapIsomorphism, MapSurjective
+  from phase168_r3_27_typed_statement_projection import group_tex, map_symbol_tex
+
+  # A display projection of the typed map property, never a proof claim.
+  if isinstance(statement, (MapInjective, MapSurjective, MapIsomorphism)):
+    mapping = statement.map
+    if isinstance(mapping, (TodaDeltaMap, TodaSuspensionMap, TodaHopfInvariantMap)):
+      source = group_tex(mapping.source_group)
+      target = group_tex(mapping.target_group)
+      symbol = map_symbol_tex(mapping)
+      if source is not None and target is not None and symbol is not None:
+        arrow = (
+          r'\hookrightarrow' if isinstance(statement, MapInjective)
+          else r'\twoheadrightarrow' if isinstance(statement, MapSurjective)
+          else r'\xrightarrow{\cong}'
+        )
+        return (f'{symbol}: {source} {arrow} {target}', None)
 
   if (
     isinstance(statement, CyclicStructureStatement)
