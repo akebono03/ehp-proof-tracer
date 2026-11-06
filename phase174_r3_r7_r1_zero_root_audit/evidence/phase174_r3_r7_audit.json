@@ -1,0 +1,1009 @@
+{
+  "phase": "174-R3-R7",
+  "mode": "READ_ONLY_SOURCE_FIRST_LIVE",
+  "git_state": {
+    "branch": "develop",
+    "local_head": "1a6a5a57992963c7a21aa22079a145a310b4e0ed",
+    "reviewed_remote_head": "1a6a5a57992963c7a21aa22079a145a310b4e0ed",
+    "local_equals_remote": true,
+    "requires_local_reconciliation_before_implementation": false,
+    "tracked_and_untracked_status": [
+      "?? phase174_r3_r7_source_first_audit/"
+    ],
+    "staged_file_paths": [],
+    "does_not_clean_or_apply_changes": true
+  },
+  "source_review": {
+    "source_blobs": {
+      "sources/toda/Toda_05_2.tex": "579661138928499ba04a51327f686d9b971b5314",
+      "sources/toda/Toda_06_2.tex": "76934583cff01c8ea83f768e26947eb9b556653b",
+      "sources/toda/Toda_07_2.tex": "b5b366f2d2b72d7b419192fa74ab848eff098686",
+      "phase165_r52_r9_shared_math.py": "0a06dcb0a721e5a79e866cd96909eeeec69303d6",
+      "phase165_r55_nk_only_goal.py": "9aa232c8f98a7a75f27266044224eddfa98c5e04",
+      "phase174_r3_r6_source_extension/source.py": "9cd5cd0dd3f8e7a798a8e0006480785b0c67a1bb"
+    },
+    "source_clauses": {
+      "toda56_general_isomorphism": true,
+      "toda56_generator_image": true,
+      "lemma61_hopf_invariant": true,
+      "lemma61_two_torsion": true,
+      "theorem71_n3_n4_n5": true,
+      "theorem71_pi124_proof_route": true,
+      "chapter7_pi124_premise_decomposition": true
+    },
+    "original_print_edition_independently_verified": false,
+    "source_transcriptions_not_direct_target_given": true,
+    "hypotheses_and_generator_images_still_require_typed_proofs": true
+  },
+  "phase173_historical_frontier": {
+    "source_file": "phase173_r4_r15r12r3_all_n4_status_audit/all_n4_status_report.json",
+    "recorded_head": "715dff58df263c419cdcb45c51a1fa169a87de45",
+    "historical_only_not_new_live_evidence": true,
+    "registered_n4": 33,
+    "historical_category_counts": {
+      "ABSTRACT_ONLY_NAMED_PENDING": 26,
+      "NAMED_COMPLETE": 7
+    },
+    "named_pending_k_ge_8": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33
+    ],
+    "selected_frontiers": {
+      "8": {
+        "search_status": "search_failed",
+        "category": "ABSTRACT_ONLY_NAMED_PENDING",
+        "open_goal_types": [
+          "CyclicStructureStatement",
+          "Relation",
+          "Relation"
+        ],
+        "proven_steps": 0
+      },
+      "9": {
+        "search_status": "search_failed",
+        "category": "ABSTRACT_ONLY_NAMED_PENDING",
+        "open_goal_types": [
+          "Relation",
+          "Relation"
+        ],
+        "proven_steps": 0
+      }
+    }
+  },
+  "selected_target_count": 7,
+  "selected_targets": [
+    {
+      "n": 5,
+      "k": 3,
+      "group": "pi_8^5",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 1,
+      "typed_registered_relation_samples": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "status": "complete",
+      "conclusion_present": true,
+      "proven_step_count": 16,
+      "open_goal_count": 0,
+      "open_goals": [],
+      "abstract_structure_present": false,
+      "diagnostics": [],
+      "source_screened_frontier": {
+        "screening_mode": "publication_screened",
+        "citing_assertion_id": "shared:0:boundary:Proposition 5.6:pi8_5_group_relation",
+        "admitted_given_count": 30,
+        "target_direct_given_count": 0,
+        "root": {
+          "goal": {
+            "type": "Relation",
+            "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), rhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          },
+          "proposal_count": 3,
+          "shown_proposal_count": 3,
+          "proposals": [
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), order=8)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "equality symmetry",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "Relation",
+                    "repr": "Relation(lhs=FiniteCyclicGroup(order=8, generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=8, sphere_dimension=5), generator=HomotopyElement(name='ν₅', dimension=5, source=8, target=5, generator=GeneratorSymbol(family='ν', index=5, decoration=None)), order=8)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            }
+          ],
+          "verified_proof_steps_created_by_probe": 0
+        },
+        "open_goal_frontier": []
+      }
+    },
+    {
+      "n": 4,
+      "k": 8,
+      "group": "pi_12^4",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 1,
+      "typed_registered_relation_samples": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "status": "search_failed",
+      "conclusion_present": false,
+      "proven_step_count": 0,
+      "open_goal_count": 3,
+      "open_goals": [
+        {
+          "type": "CyclicStructureStatement",
+          "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), order=2)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "abstract_structure_present": true,
+      "diagnostics": [
+        "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "source_screened_frontier": {
+        "screening_mode": "source_first_independent",
+        "citing_assertion_id": null,
+        "admitted_given_count": 43,
+        "target_direct_given_count": 0,
+        "root": {
+          "goal": {
+            "type": "Relation",
+            "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          },
+          "proposal_count": 3,
+          "shown_proposal_count": 3,
+          "proposals": [
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), order=2)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "equality symmetry",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "Relation",
+                    "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), order=2)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            }
+          ],
+          "verified_proof_steps_created_by_probe": 0
+        },
+        "open_goal_frontier": [
+          {
+            "goal": {
+              "type": "CyclicStructureStatement",
+              "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), order=2)"
+            },
+            "proposal_count": 0,
+            "shown_proposal_count": 0,
+            "proposals": [],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            "proposal_count": 3,
+            "shown_proposal_count": 3,
+            "proposals": [
+              {
+                "rule": "finite cyclic structure gives group relation",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "CyclicStructureStatement",
+                      "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), order=2)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              },
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              },
+              {
+                "rule": "finite cyclic structure gives group relation",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "CyclicStructureStatement",
+                      "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None)), order=2)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=4), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(family='\\\\varepsilon', index=4, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          }
+        ]
+      }
+    },
+    {
+      "n": 4,
+      "k": 9,
+      "group": "pi_13^4",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 1,
+      "typed_registered_relation_samples": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, so [truncated for diagnostics]"
+        }
+      ],
+      "status": "search_failed",
+      "conclusion_present": false,
+      "proven_step_count": 0,
+      "open_goal_count": 2,
+      "open_goals": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, so [truncated for diagnostics]"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', inde [truncated for diagnostics]"
+        }
+      ],
+      "abstract_structure_present": true,
+      "diagnostics": [
+        "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(na"
+      ],
+      "source_screened_frontier": {
+        "screening_mode": "source_first_independent",
+        "citing_assertion_id": null,
+        "admitted_given_count": 43,
+        "target_direct_given_count": 0,
+        "root": {
+          "goal": {
+            "type": "Relation",
+            "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, so [truncated for diagnostics]"
+          },
+          "proposal_count": 1,
+          "shown_proposal_count": 1,
+          "proposals": [
+            {
+              "rule": "equality symmetry",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "Relation",
+                    "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', inde [truncated for diagnostics]"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            }
+          ],
+          "verified_proof_steps_created_by_probe": 0
+        },
+        "open_goal_frontier": [
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, so [truncated for diagnostics]"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', inde [truncated for diagnostics]"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', inde [truncated for diagnostics]"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=4), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₄', dimension=4, source=7, target=4, generator=GeneratorSymbol(family='ν', index=4, decoration=None)), right=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, so [truncated for diagnostics]"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          }
+        ]
+      }
+    },
+    {
+      "n": 3,
+      "k": 8,
+      "group": "pi_11^3",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 1,
+      "typed_registered_relation_samples": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "status": "search_failed",
+      "conclusion_present": false,
+      "proven_step_count": 0,
+      "open_goal_count": 3,
+      "open_goals": [
+        {
+          "type": "CyclicStructureStatement",
+          "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), order=2)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "abstract_structure_present": false,
+      "diagnostics": [
+        "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None), found 0"
+      ],
+      "source_screened_frontier": {
+        "screening_mode": "source_first_independent",
+        "citing_assertion_id": null,
+        "admitted_given_count": 43,
+        "target_direct_given_count": 0,
+        "root": {
+          "goal": {
+            "type": "Relation",
+            "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          },
+          "proposal_count": 3,
+          "shown_proposal_count": 3,
+          "proposals": [
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), order=2)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "equality symmetry",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "Relation",
+                    "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), order=2)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            }
+          ],
+          "verified_proof_steps_created_by_probe": 0
+        },
+        "open_goal_frontier": [
+          {
+            "goal": {
+              "type": "CyclicStructureStatement",
+              "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), order=2)"
+            },
+            "proposal_count": 0,
+            "shown_proposal_count": 0,
+            "proposals": [],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            "proposal_count": 3,
+            "shown_proposal_count": 3,
+            "proposals": [
+              {
+                "rule": "finite cyclic structure gives group relation",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "CyclicStructureStatement",
+                      "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), order=2)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              },
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              },
+              {
+                "rule": "finite cyclic structure gives group relation",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "CyclicStructureStatement",
+                      "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None)), order=2)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), rhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=11, sphere_dimension=3), rhs=FiniteCyclicGroup(order=2, generator=HomotopyElement(name='ε₃', dimension=3, source=11, target=3, generator=GeneratorSymbol(family='\\\\varepsilon', index=3, decoration=None))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          }
+        ]
+      }
+    },
+    {
+      "n": 7,
+      "k": 5,
+      "group": "pi_12^7",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 0,
+      "typed_registered_relation_samples": [],
+      "status": "search_failed",
+      "conclusion_present": false,
+      "proven_step_count": 0,
+      "open_goal_count": 1,
+      "open_goals": [
+        {
+          "type": "TodaPrimaryGroupZeroStatement",
+          "repr": "TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=7))"
+        }
+      ],
+      "abstract_structure_present": false,
+      "diagnostics": [
+        "expected a verified registered derivation for TodaPrimaryGroupZeroStatement(group=TodaPrimaryGroup(group_dimension=12, sphere_dimension=7)), found 0"
+      ],
+      "source_screened_frontier": {
+        "reason": "Zero or multiple typed Relation roots; no unchecked root selected",
+        "direct_given_registered": false
+      }
+    },
+    {
+      "n": 3,
+      "k": 9,
+      "group": "pi_12^3",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 1,
+      "typed_registered_relation_samples": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=3), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', [truncated for diagnostics]"
+        }
+      ],
+      "status": "search_failed",
+      "conclusion_present": false,
+      "proven_step_count": 0,
+      "open_goal_count": 2,
+      "open_goals": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=3), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', [truncated for diagnostics]"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(f [truncated for diagnostics]"
+        }
+      ],
+      "abstract_structure_present": false,
+      "diagnostics": [
+        "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=3), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right="
+      ],
+      "source_screened_frontier": {
+        "screening_mode": "source_first_independent",
+        "citing_assertion_id": null,
+        "admitted_given_count": 43,
+        "target_direct_given_count": 0,
+        "root": {
+          "goal": {
+            "type": "Relation",
+            "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=3), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', [truncated for diagnostics]"
+          },
+          "proposal_count": 1,
+          "shown_proposal_count": 1,
+          "proposals": [
+            {
+              "rule": "equality symmetry",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "Relation",
+                    "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(f [truncated for diagnostics]"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            }
+          ],
+          "verified_proof_steps_created_by_probe": 0
+        },
+        "open_goal_frontier": [
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=3), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', [truncated for diagnostics]"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(f [truncated for diagnostics]"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', dimension=4, source=12, target=4, generator=GeneratorSymbol(f [truncated for diagnostics]"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=12, sphere_dimension=3), rhs=DirectSumGroup(summands=(FiniteCyclicGroup(order=2, generator=HomotopyElement(name='μ₃', dimension=3, source=12, target=3, generator=GeneratorSymbol(family='\\\\mu', index=3, decoration=None))), FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='η₃', dimension=3, source=4, target=3, generator=GeneratorSymbol(family='η', index=3, decoration=None)), right=HomotopyElement(name='ε₄', [truncated for diagnostics]"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          }
+        ]
+      }
+    },
+    {
+      "n": 7,
+      "k": 6,
+      "group": "pi_13^7",
+      "historical_or_db_statement_is_not_a_proof": true,
+      "search_error": null,
+      "frontier_error": null,
+      "typed_registered_relation_count": 1,
+      "typed_registered_relation_samples": [
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "status": "search_failed",
+      "conclusion_present": false,
+      "proven_step_count": 0,
+      "open_goal_count": 3,
+      "open_goals": [
+        {
+          "type": "CyclicStructureStatement",
+          "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None))), order=2)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        },
+        {
+          "type": "Relation",
+          "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+        }
+      ],
+      "abstract_structure_present": false,
+      "diagnostics": [
+        "expected a verified registered derivation for Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=N"
+      ],
+      "source_screened_frontier": {
+        "screening_mode": "source_first_independent",
+        "citing_assertion_id": null,
+        "admitted_given_count": 43,
+        "target_direct_given_count": 0,
+        "root": {
+          "goal": {
+            "type": "Relation",
+            "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+          },
+          "proposal_count": 3,
+          "shown_proposal_count": 3,
+          "proposals": [
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None))), order=2)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "equality symmetry",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "Relation",
+                    "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            },
+            {
+              "rule": "finite cyclic structure gives group relation",
+              "child_count": 1,
+              "children": [
+                {
+                  "statement": {
+                    "type": "CyclicStructureStatement",
+                    "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None))), order=2)"
+                  },
+                  "is_exact_screened_given": false,
+                  "is_source_bound_wrapper": false
+                }
+              ]
+            }
+          ],
+          "verified_proof_steps_created_by_probe": 0
+        },
+        "open_goal_frontier": [
+          {
+            "goal": {
+              "type": "CyclicStructureStatement",
+              "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None))), order=2)"
+            },
+            "proposal_count": 0,
+            "shown_proposal_count": 0,
+            "proposals": [],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            "proposal_count": 3,
+            "shown_proposal_count": 3,
+            "proposals": [
+              {
+                "rule": "finite cyclic structure gives group relation",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "CyclicStructureStatement",
+                      "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None))), order=2)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              },
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              },
+              {
+                "rule": "finite cyclic structure gives group relation",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "CyclicStructureStatement",
+                      "repr": "CyclicStructureStatement(group=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None))), order=2)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          },
+          {
+            "goal": {
+              "type": "Relation",
+              "repr": "Relation(lhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), rhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+            },
+            "proposal_count": 1,
+            "shown_proposal_count": 1,
+            "proposals": [
+              {
+                "rule": "equality symmetry",
+                "child_count": 1,
+                "children": [
+                  {
+                    "statement": {
+                      "type": "Relation",
+                      "repr": "Relation(lhs=TodaPrimaryGroup(group_dimension=13, sphere_dimension=7), rhs=FiniteCyclicGroup(order=2, generator=Composition(left=HomotopyElement(name='ν₇', dimension=7, source=10, target=7, generator=GeneratorSymbol(family='ν', index=7, decoration=None)), right=HomotopyElement(name='ν₁₀', dimension=10, source=13, target=10, generator=GeneratorSymbol(family='ν', index=10, decoration=None)))), relation_type=<RelationType.EQUALITY: 'equality'>, source=None, note=None)"
+                    },
+                    "is_exact_screened_given": false,
+                    "is_source_bound_wrapper": false
+                  }
+                ]
+              }
+            ],
+            "verified_proof_steps_created_by_probe": 0
+          }
+        ]
+      }
+    }
+  ],
+  "pi85_previous_completed_proof_preserved": true,
+  "runtime_errors": [],
+  "new_group_given": 0,
+  "new_inference_rules": 0,
+  "new_proof_steps_by_audit": 0,
+  "production_files_edited_by_audit": false,
+  "full_pytest_run": false,
+  "implementation_candidate_approved": false,
+  "audit_gate": "PASS_READ_ONLY"
+}

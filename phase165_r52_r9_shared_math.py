@@ -84,6 +84,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_cited_preprop44_splitting,
         )
         sources = sources + (build_cited_preprop44_splitting(),)
+        from phase174_r3_r7_r13_cited_annihilator_bridge.registry import (
+            build_isolated_toda59_annihilator_bridge,
+        )
+        sources = sources + (build_isolated_toda59_annihilator_bridge(),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -401,6 +405,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             goal, tuple(available),
         )
         options.extend(cited_stable_options)
+        from phase174_r3_r7_r12_toda59_annihilator_source.rule import (
+            expand_cited_annihilator_specialization,
+        )
+        options.extend(expand_cited_annihilator_specialization(goal, tuple(available)))
         composite_image_options = ()
         if not eta_generator_options:
             from phase169_r10e5_composite_generator_image.rule import (
