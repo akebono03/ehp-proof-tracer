@@ -288,6 +288,10 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         if defined_options:
             return defined_options
         options = []
+        from phase174_r3_r7_r3_ehp_zero_rule.rule import (
+            expand_ehp_zero_from_delta_surjectivity,
+        )
+        options.extend(expand_ehp_zero_from_delta_surjectivity(goal))
         from phase166_r3q_hopf_image_relation import expand_hopf_image_relation
         options.extend(expand_hopf_image_relation(goal, tuple(available)))
         from phase171_r2h_prop22_cited_hopf.source import (
