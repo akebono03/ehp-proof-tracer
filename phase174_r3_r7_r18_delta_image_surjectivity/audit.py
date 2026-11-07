@@ -18,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PHASE = "174-R3-R7-R18"
 PRE_R17_HEAD = "388f63797a6aba61418bb93e734b8ce5999dc7f6"
 REVIEWED_HEAD = "4d59298949c14dc02d8bfb6ec28da4624ed980da"
+R18_MERGED_HEAD = "7ecd12f28b5943b105ac6a953be69b44eae4a26e"
+R18_AUDIT_PATH = "phase174_r3_r7_r18_delta_image_surjectivity/audit.py"
 HANDOFF_TRACKED = (
     "phase173_r4_r15r17r3r3_typed_goal_display/tests/test_open_goals.py",
     "web_group_proof_common.py",
@@ -78,11 +80,25 @@ def matches_git_blob(data: bytes, expected: str) -> bool:
     ))
 
 
+def matches_reviewed_checkout(data: bytes, expected: str, git_stored: bytes) -> bool:
+    """Accept only the pinned Git blob or exact uniform EOL checkout variants.
+
+    Git may store mixed LF/CRLF in a reviewed file. A clean checkout can
+    preserve those exact bytes or convert all line endings consistently.
+    No character other than CR or LF may differ from the pinned Git object.
+    """
+    if git_blob_sha(git_stored) != expected:
+        return False
+    normalized = git_stored.replace(b"\r\n", b"\n")
+    return data in (
+        git_stored,
+        normalized,
+        normalized.replace(b"\n", b"\r\n"),
+    )
+
 def checked_lineage(local: str, remote: str, changes: tuple[str, ...],
                     committed: tuple[str, ...]) -> str:
-    """Permit exactly the two reviewed R17-to-R18 handoff states."""
-    if remote != REVIEWED_HEAD or local not in (PRE_R17_HEAD, REVIEWED_HEAD):
-        raise RuntimeError("Unreviewed GitHub/local develop HEAD; no checkout/reset")
+    """Require an exactly reviewed R17 history and R18 handoff, if merged."""
     allowed_committed = set(HANDOFF_TRACKED)
     if (not set(HANDOFF_TRACKED).issubset(set(committed))
             or any(path not in allowed_committed and not path.startswith(
@@ -91,11 +107,22 @@ def checked_lineage(local: str, remote: str, changes: tuple[str, ...],
                  "phase174_r3_r7_r17r2_windows_git_path_guard_fix/"),
             ) for path in committed)):
         raise RuntimeError("Remote R17 merge lineage has unexpected files")
+    if remote == REVIEWED_HEAD:
+        if local == REVIEWED_HEAD and changes == ():
+            return "R17_MERGED_CLEAN"
+        if local == PRE_R17_HEAD and tuple(sorted(changes)) == HANDOFF_TRACKED:
+            return "R17_PATCHES_UNCOMMITTED_MATCH_MERGED_REMOTE"
+        raise RuntimeError("Unreviewed R17 worktree state: " + repr(changes))
+    if remote != R18_MERGED_HEAD:
+        raise RuntimeError("Unreviewed remote develop HEAD; no checkout/reset")
     if local == REVIEWED_HEAD and changes == ():
-        return "R17_MERGED_CLEAN"
-    if local == PRE_R17_HEAD and tuple(sorted(changes)) == HANDOFF_TRACKED:
-        return "R17_PATCHES_UNCOMMITTED_MATCH_MERGED_REMOTE"
-    raise RuntimeError("Unreviewed tracked worktree changes: " + repr(changes))
+        return "R18_MERGED_REMOTE_R17_LOCAL_CLEAN"
+    if local == R18_MERGED_HEAD and changes == ():
+        return "R18_MERGED_CLEAN"
+    if local == R18_MERGED_HEAD and changes == (R18_AUDIT_PATH,):
+        return "R18_MERGED_REVIEWED_GUARD_FIX"
+    raise RuntimeError("Unreviewed R18 worktree changes: " + repr(changes))
+
 
 
 def verify_git_and_sources(root: Path = ROOT) -> dict[str, Any]:
@@ -118,13 +145,23 @@ def verify_git_and_sources(root: Path = ROOT) -> dict[str, Any]:
         "diff", "--name-only", PRE_R17_HEAD, REVIEWED_HEAD, root=root,
     ).splitlines())
     lineage = checked_lineage(local, remote, changes, changed_in_review)
+    if remote == R18_MERGED_HEAD:
+        git_bytes("merge-base", "--is-ancestor", REVIEWED_HEAD, R18_MERGED_HEAD, root=root)
+        r18_commits = git("rev-list", REVIEWED_HEAD + ".." + R18_MERGED_HEAD, root=root).splitlines()
+        r18_paths = git("diff", "--name-only", REVIEWED_HEAD, R18_MERGED_HEAD, root=root).splitlines()
+        if (len(r18_commits) != 1 or not r18_paths
+                or any(not p.startswith("phase174_r3_r7_r18_delta_image_surjectivity/")
+                       for p in r18_paths)):
+            raise RuntimeError("Unreviewed R18 merge lineage")
     for relative, blob in PINS.items():
         file = root / relative
-        if not file.is_file() or not matches_git_blob(file.read_bytes(), blob):
+        git_stored = git_bytes("show", "HEAD:" + relative, root=root)
+        if (not file.is_file()
+                or not matches_reviewed_checkout(file.read_bytes(), blob, git_stored)):
             raise RuntimeError("R18 Source Guard mismatch: " + relative)
     for relative in HANDOFF_TRACKED:
-        if not matches_git_blob(git_bytes(
-                "show", "origin/develop:" + relative, root=root), PINS[relative]):
+        reviewed = git_bytes("show", REVIEWED_HEAD + ":" + relative, root=root)
+        if git_blob_sha(reviewed) != PINS[relative]:
             raise RuntimeError("Reviewed GitHub R17 target mismatch: " + relative)
     return {
         "local_head": local, "remote_head": remote,
@@ -133,7 +170,17 @@ def verify_git_and_sources(root: Path = ROOT) -> dict[str, Any]:
     }
 
 
+
 def validate_prior_r17() -> dict[str, Any]:
+    """Validate prior evidence or recheck the live public proof boundary.
+
+    Local audit JSON is per-Windows-profile state, not a mathematical axiom.
+    Absence triggers fresh R17 public-search verification, never fabricated
+    evidence or a silent transfer of another account's audit report.
+    Present but invalid evidence is rejected instead of being bypassed.
+    Git source pins and the corrected historical-test source are checked
+    separately by verify_git_and_sources() before this function is called.
+    """
     base = Path(os.environ.get("LOCALAPPDATA", tempfile.gettempdir())) / "EHPProofTracerAudit"
     required = (
         ("phase174_r3_r7_r17/typed_map_public_audit.json",
@@ -141,17 +188,48 @@ def validate_prior_r17() -> dict[str, Any]:
         ("phase174_r3_r7_r17r1/historical_contract_audit.json",
          "174-R3-R7-R17R1", "PASS_HISTORICAL_TEST_CONTRACT_CORRECTED_R17_PUBLIC_UNCHANGED"),
     )
-    results = {}
+    results: dict[str, Any] = {}
+    missing: list[tuple[str, str]] = []
     for relative, phase, gate in required:
         path = base / relative
         if not path.is_file():
-            raise RuntimeError("Prior R17 evidence missing: " + str(path))
+            missing.append((relative, phase))
+            continue
         obj = json.loads(path.read_text(encoding="utf-8-sig"))
         if (obj.get("phase") != phase or obj.get("gate") != gate
                 or obj.get("new_group_given") != 0
                 or obj.get("full_pytest_run") is not False):
             raise RuntimeError("Prior R17 evidence inconsistent: " + relative)
         results[phase] = gate
+
+    if missing:
+        from phase174_r3_r7_r17_typed_map_open_goal.audit import (
+            inspect_public_map_display,
+        )
+        live = inspect_public_map_display()
+        expected_delta = r"\Delta: \pi_{13}^{13} \twoheadrightarrow \pi_{11}^{6}"
+        if (live.get("public_root_candidates") != 1
+                or live.get("public_delta_surjectivity_candidates") != 0
+                or live.get("generic_isomorphism_depends_on_surjectivity") is not True
+                or live.get("direct_given_for_goal_or_delta") is not False
+                or live.get("delta_latex") != expected_delta
+                or live.get("search_status") != "search_failed"
+                or live.get("proven_steps") != 0
+                or live.get("completion_claimed") is not False):
+            raise RuntimeError("Live R17 proof boundary cannot replace missing local evidence")
+        for relative, phase in missing:
+            if phase == "174-R3-R7-R17":
+                results[phase] = "LIVE_PUBLIC_BOUNDARY_REVALIDATED_NO_LOCAL_REPORT"
+            else:
+                results[phase] = "CORRECTED_TEST_SOURCE_PINNED_NO_LOCAL_REPORT"
+        results["recovery"] = {
+            "mode": "LIVE_REVALIDATED_NO_SYNTHETIC_REPORT",
+            "missing_local_reports": [relative for relative, _ in missing],
+            "public_root_candidates": live["public_root_candidates"],
+            "delta_surjectivity_candidates": live["public_delta_surjectivity_candidates"],
+            "verified_steps": live["proven_steps"],
+            "corrected_historical_test_pinned_by_source_guard": True,
+        }
     return results
 
 
