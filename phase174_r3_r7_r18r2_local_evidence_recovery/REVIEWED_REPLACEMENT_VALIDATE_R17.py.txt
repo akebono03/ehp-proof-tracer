@@ -1,0 +1,60 @@
+def validate_prior_r17() -> dict[str, Any]:
+    """Validate prior evidence or recheck the live public proof boundary.
+
+    Local audit JSON is per-Windows-profile state, not a mathematical axiom.
+    Absence triggers fresh R17 public-search verification, never fabricated
+    evidence or a silent transfer of another account's audit report.
+    Present but invalid evidence is rejected instead of being bypassed.
+    Git source pins and the corrected historical-test source are checked
+    separately by verify_git_and_sources() before this function is called.
+    """
+    base = Path(os.environ.get("LOCALAPPDATA", tempfile.gettempdir())) / "EHPProofTracerAudit"
+    required = (
+        ("phase174_r3_r7_r17/typed_map_public_audit.json",
+         "174-R3-R7-R17", "PASS_TYPED_DELTA_OPEN_GOAL_SURJECTIVITY_STILL_PENDING"),
+        ("phase174_r3_r7_r17r1/historical_contract_audit.json",
+         "174-R3-R7-R17R1", "PASS_HISTORICAL_TEST_CONTRACT_CORRECTED_R17_PUBLIC_UNCHANGED"),
+    )
+    results: dict[str, Any] = {}
+    missing: list[tuple[str, str]] = []
+    for relative, phase, gate in required:
+        path = base / relative
+        if not path.is_file():
+            missing.append((relative, phase))
+            continue
+        obj = json.loads(path.read_text(encoding="utf-8-sig"))
+        if (obj.get("phase") != phase or obj.get("gate") != gate
+                or obj.get("new_group_given") != 0
+                or obj.get("full_pytest_run") is not False):
+            raise RuntimeError("Prior R17 evidence inconsistent: " + relative)
+        results[phase] = gate
+
+    if missing:
+        from phase174_r3_r7_r17_typed_map_open_goal.audit import (
+            inspect_public_map_display,
+        )
+        live = inspect_public_map_display()
+        expected_delta = r"\Delta: \pi_{13}^{13} \twoheadrightarrow \pi_{11}^{6}"
+        if (live.get("public_root_candidates") != 1
+                or live.get("public_delta_surjectivity_candidates") != 0
+                or live.get("generic_isomorphism_depends_on_surjectivity") is not True
+                or live.get("direct_given_for_goal_or_delta") is not False
+                or live.get("delta_latex") != expected_delta
+                or live.get("search_status") != "search_failed"
+                or live.get("proven_steps") != 0
+                or live.get("completion_claimed") is not False):
+            raise RuntimeError("Live R17 proof boundary cannot replace missing local evidence")
+        for relative, phase in missing:
+            if phase == "174-R3-R7-R17":
+                results[phase] = "LIVE_PUBLIC_BOUNDARY_REVALIDATED_NO_LOCAL_REPORT"
+            else:
+                results[phase] = "CORRECTED_TEST_SOURCE_PINNED_NO_LOCAL_REPORT"
+        results["recovery"] = {
+            "mode": "LIVE_REVALIDATED_NO_SYNTHETIC_REPORT",
+            "missing_local_reports": [relative for relative, _ in missing],
+            "public_root_candidates": live["public_root_candidates"],
+            "delta_surjectivity_candidates": live["public_delta_surjectivity_candidates"],
+            "verified_steps": live["proven_steps"],
+            "corrected_historical_test_pinned_by_source_guard": True,
+        }
+    return results
