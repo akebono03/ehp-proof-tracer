@@ -198,6 +198,18 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
             bridge=bridge, proof_target=proof_target,
         ),
     ) + tuple(extra_providers)
+    # R43: add only two source-dependent, conditional EHP map-property goals.
+    # No citation, verified proof, or GIVEN is registered by these providers.
+    from phase174_r3_r7_r5_zero_image_hopf_injective.rule import (
+        expand_hopf_injective_from_zero_image,
+    )
+    from phase174_r3_r7_r37_upper_delta_surjectivity_isolated.rule import (
+        expand_upper_delta_surjectivity,
+    )
+    extra_providers = (
+        expand_hopf_injective_from_zero_image,
+        expand_upper_delta_surjectivity,
+    ) + tuple(extra_providers)
     # R4-4 stage4: exactness-map binding from cited fixed statements only.
     from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
     from phase165_r12_r11_prop42_unified import build_prop42_specialization_provider
