@@ -92,6 +92,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             register_positioned_prop27,
         )
         sources = sources + (register_positioned_prop27(Path(__file__).resolve().parent),)
+        from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+            build_cited_lower_delta_sources,
+        )
+        sources = sources + (
+            build_cited_lower_delta_sources(Path(__file__).resolve().parent),
+        )
     registry = UnifiedStatementRegistry()
     links = []
     records = []

@@ -1,0 +1,101 @@
+# 完全な import 部分
+
+本番モジュールのトップレベル import は変更しない。`build_shared_typed_bridge()` 内に新規 import 1箇所（関数全文は CODE_FULL_JA.md）。
+
+## source.py
+from __future__ import annotations
+from hashlib import sha1
+from pathlib import Path
+from expression import Composition, GeneratorSymbol, HomotopyElement
+from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaPrimaryGroup
+from phase163_r4_registry_bridge import (
+    MigrationRecord,
+    MigrationStatus,
+    RegistryBridgeResult,
+)
+from phase165_r5_manifest_bridge import DEFAULT_MANIFEST
+from phase166_r3aj_structured_generator import structured_generator_from_ids
+from phase166_r3b_publication_order_binding.phase166_r3b_publication_order_binding import (
+    _load_manifest_reference_order,
+)
+from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
+from proof import (
+    InferenceRule,
+    LiteratureReference,
+    ProofRule,
+    ProofStep,
+    Relation,
+    RelationType,
+)
+from toda_rules import TodaDeltaImageUpToSignStatement
+from unified_statement_registry import (
+    AssertionEntry,
+    AssertionKind,
+    AssertionOrigin,
+    LiteratureEntry,
+    ProofStepLink,
+    ReferenceKind,
+    UnifiedStatementRegistry,
+)
+
+## install.py
+from __future__ import annotations
+import argparse
+import hashlib
+from pathlib import Path
+import subprocess
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+    ROOT,
+    checked_prior_statements,
+    git_blob_sha,
+    reviewed_source_positions,
+)
+
+## audit.py
+from __future__ import annotations
+import argparse
+import json
+import os
+from pathlib import Path
+import tempfile
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring.install import preflight
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+    ROOT,
+    build_cited_lower_delta_sources,
+)
+
+## tests/test_source.py
+from __future__ import annotations
+import pytest
+from expression import Composition
+from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaPrimaryGroup
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring import source
+from proof import ProofRule, Relation
+from toda_rules import TodaDeltaImageUpToSignStatement
+from unified_statement_registry import AssertionOrigin
+
+## tests/test_install.py
+from __future__ import annotations
+import subprocess
+import pytest
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring import install
+
+## tests/test_public.py
+from __future__ import annotations
+from homotopy_groups import TodaPrimaryGroup, TodaPrimaryGroupZeroStatement
+from phase165_r52_r9_shared_math import build_shared_typed_bridge, shared_expansion_provider
+from phase169_r10e2_unpositioned_citation.source_first import (
+    screen_independent_sources_for_derived_goal,
+)
+from phase174_r3_r7_r25_prop27_isolated_inference.rule import (
+    Prop27GeneralTheoremPremise,
+    typed_specialization,
+)
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring.audit import screen_report
+from proof import ProofRule
+from toda_rules import TodaDeltaImageUpToSignStatement
+
+## tests/test_static_helpers.py
+from __future__ import annotations
+import ast
+from pathlib import Path
