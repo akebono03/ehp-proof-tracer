@@ -1,0 +1,56 @@
+## __init__.py
+
+
+## rule.py
+from __future__ import annotations
+from expression import Composition, HomotopyElement, IteratedSuspension, Suspension
+from homotopy_groups import FiniteCyclicGroup, FreeCyclicGroup, TodaDeltaMap
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+from phase165_r3_recursive_search import GoalExpansion
+from phase174_r3_r7_r32_lower_delta_kernel_audit.kernel_contract import valid_ehp_lower_delta
+from proof import InferenceRule, PremisePattern, ProofRule, Relation, RelationType
+from toda_rules import TodaDeltaImageUpToSignStatement
+
+## audit.py
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+
+## tests/test_rule.py
+from __future__ import annotations
+import pytest
+from expression import Composition, GeneratorSymbol, HomotopyElement
+from homotopy_groups import FiniteCyclicGroup, FreeCyclicGroup, TodaDeltaMap, TodaPrimaryGroup
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+from phase174_r3_r7_r35_isolated_cyclic_delta_kernel.rule import (
+    RULE_NAME, conditional_inputs, cyclic_delta_kernel_rule,
+    expand_cyclic_delta_kernel, expression_coordinates,
+)
+from proof import (
+    InferenceRule, ProofRule, ProofStep, Relation, RelationType,
+    find_inference_matches_for_rule, apply_inference_match,
+)
+from toda_rules import TodaDeltaImageUpToSignStatement
+
+## tests/test_audit.py
+from __future__ import annotations
+from phase174_r3_r7_r35_isolated_cyclic_delta_kernel.audit import (
+    inspect_isolated_frontier, verify_checkout,
+)
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+    checked_prior_statements,
+)
+from phase174_r3_r7_r35_isolated_cyclic_delta_kernel.rule import (
+    expand_cyclic_delta_kernel,
+)
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+
+## tests/test_static_contract.py
+from __future__ import annotations
+import ast
+from pathlib import Path
