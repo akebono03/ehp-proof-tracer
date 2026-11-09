@@ -88,6 +88,10 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             build_isolated_toda59_annihilator_bridge,
         )
         sources = sources + (build_isolated_toda59_annihilator_bridge(),)
+        from phase174_r3_r7_r30_prop27_public_provider_wiring.provider import (
+            register_positioned_prop27,
+        )
+        sources = sources + (register_positioned_prop27(Path(__file__).resolve().parent),)
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -288,6 +292,12 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         if defined_options:
             return defined_options
         options = []
+        from phase174_r3_r7_r30_prop27_public_provider_wiring.provider import (
+            expand_public_cited_prop27_goal,
+        )
+        cited_prop27_options = expand_public_cited_prop27_goal(goal, bridge)
+        if cited_prop27_options:
+            return cited_prop27_options
         from phase174_r3_r7_r3_ehp_zero_rule.rule import (
             expand_ehp_zero_from_delta_surjectivity,
         )
