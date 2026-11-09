@@ -1,0 +1,55 @@
+# kernel_contract.py: complete import declarations
+from __future__ import annotations
+from expression import HomotopyElement
+from homotopy_groups import (
+    FiniteCyclicGroup,
+    FreeCyclicGroup,
+    TodaDeltaMap,
+    TodaEHPExactnessWindow,
+    TodaPrimaryGroup,
+)
+from map_facts import EHP_DELTA_MAP, EHP_H_MAP
+from phase165_r12_r11_prop42_unified import prop42_exactness_indices
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+from proof import Relation, RelationType
+from toda_rules import (
+    TodaDeltaImageUpToSignStatement,
+    TodaProp42ExactnessStatement,
+)
+
+# audit.py: complete import declarations
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+
+# tests/test_kernel_contract.py: complete import declarations
+from __future__ import annotations
+from dataclasses import replace
+import pytest
+from expression import GeneratorSymbol, HomotopyElement, Zero
+from homotopy_groups import (
+    FiniteCyclicGroup, FreeCyclicGroup, TodaDeltaMap, TodaPrimaryGroup,
+)
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+from phase174_r3_r7_r32_lower_delta_kernel_audit.kernel_contract import (
+    conditional_kernel_premises, generator_has_group_coordinates,
+    signed_cyclic_kernel_membership, valid_ehp_lower_delta,
+)
+from proof import Relation, RelationType
+from toda_rules import TodaDeltaImageUpToSignStatement
+
+# tests/test_audit.py: complete import declarations
+from __future__ import annotations
+import pytest
+from phase174_r3_r7_r32_lower_delta_kernel_audit.audit import (
+    EQ510, EQ510_IMAGE, PINS, PROP58, PROP58_CODOMAIN, PROP59,
+    R31_AUDIT, R31_SHA256, ROOT, SOURCE, git_blob_sha,
+    inspect_toda_citations, inspect_typed_contract, matches_pin, report,
+    verify_checkout,
+)
+
