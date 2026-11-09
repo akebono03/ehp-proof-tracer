@@ -188,6 +188,16 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # R41: retain DB-prior provenance and the actual cited source boundary.
+    # This only proposes an inference; it never registers a proof or GIVEN.
+    from phase174_r3_r7_r41_adopted_db_zero_image_public_wiring.provider import (
+        build_public_adopted_zero_image_provider,
+    )
+    extra_providers = (
+        build_public_adopted_zero_image_provider(
+            bridge=bridge, proof_target=proof_target,
+        ),
+    ) + tuple(extra_providers)
     # R4-4 stage4: exactness-map binding from cited fixed statements only.
     from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
     from phase165_r12_r11_prop42_unified import build_prop42_specialization_provider
