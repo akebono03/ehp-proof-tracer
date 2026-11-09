@@ -1,0 +1,32 @@
+# audit.py -- full import section
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+
+# tests/test_audit.py -- full import section
+from __future__ import annotations
+
+from pathlib import Path
+
+import pytest
+
+from phase174_r3_r7_r31_delta_surjectivity_general_audit.audit import (
+    DEPENDENCIES, PINS, ROOT, SOURCE, git_blob_sha, inspect_toda_source,
+    inspect_typed_obligations, matches_pinned_blob, report, verify_checkout,
+)
+
+# tests/test_static_helpers.py -- full import section
+from __future__ import annotations
+
+import pytest
+
+from phase174_r3_r7_r31_delta_surjectivity_general_audit.audit import (
+    DEPENDENCIES, END, START, SUPPORTING,
+    git_blob_sha, inspect_toda_source, matches_pinned_blob,
+)

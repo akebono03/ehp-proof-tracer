@@ -1,0 +1,43 @@
+R33 new Python files: complete top-level imports (no existing imports changed).
+
+## __init__.py
+(no imports)
+
+## source_contract.py
+from __future__ import annotations
+from dataclasses import dataclass
+
+## audit.py
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+from phase174_r3_r7_r33_three_premise_source_frontier.source_contract import (
+    classify_three_premises, inspect_prior_three_clauses,
+)
+
+## tests/test_source_contract.py
+from __future__ import annotations
+import pytest
+from phase174_r3_r7_r33_three_premise_source_frontier.source_contract import (
+    CODOMAIN_CLAUSE, DERIVED_KERNEL, DIAGONAL_CLAUSE, END_EQUATION,
+    END_PROPOSITION, EQ510, IMAGE_CLAUSE, PROP58, PROP59,
+    classify_three_premises, inspect_prior_three_clauses,
+)
+
+## tests/test_audit.py
+from __future__ import annotations
+from pathlib import Path
+import pytest
+from phase174_r3_r7_r33_three_premise_source_frontier.audit import (
+    GIT_BLOB_PINS, LOCAL_SHA256_PINS, ROOT, SOURCE,
+    canonical_sha256, inspect_registered_frontier, matches_blob_pin,
+    report, verify_checkout,
+)
+from phase174_r3_r7_r33_three_premise_source_frontier.source_contract import (
+    inspect_prior_three_clauses,
+)

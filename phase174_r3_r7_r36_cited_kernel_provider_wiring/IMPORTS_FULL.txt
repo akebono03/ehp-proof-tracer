@@ -1,0 +1,52 @@
+# replacement/context_provider_registry.py : top-level imports
+from __future__ import annotations
+from typing import Callable
+from phase165_r6_2_unified_registry_r3_r3.provider_registry import UnifiedExpansionProviderRegistry
+
+# install.py : top-level imports
+from __future__ import annotations
+import argparse
+import hashlib
+from pathlib import Path
+import subprocess
+
+# audit.py : top-level imports
+from __future__ import annotations
+import argparse
+import json
+import os
+from pathlib import Path
+import tempfile
+from phase174_r3_r7_r36_cited_kernel_provider_wiring.install import verify_checkout
+
+# tests/test_static.py : top-level imports
+from __future__ import annotations
+import ast
+import pytest
+from phase174_r3_r7_r36_cited_kernel_provider_wiring.install import (
+    GIT_PINS, TARGET, baseline_source, git_blob_sha,
+    patch_source, replacement_source,
+)
+
+# tests/test_context.py : top-level imports
+from __future__ import annotations
+from expression import Composition, GeneratorSymbol, HomotopyElement
+from homotopy_groups import FiniteCyclicGroup, TodaDeltaMap, TodaPrimaryGroup
+from phase165_r6_2_unified_registry_r3_r4.context_provider_registry import (
+    build_context_expansion_provider_registry,
+)
+from proof import Relation, RelationType
+from toda_rules import TodaDeltaImageUpToSignStatement
+
+# tests/test_public.py : top-level imports
+from __future__ import annotations
+from homotopy_groups import TodaPrimaryGroup, TodaPrimaryGroupZeroStatement
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+from phase165_r52_r9_shared_math import build_shared_typed_bridge, shared_expansion_provider
+from phase169_r10e2_unpositioned_citation.source_first import (
+    screen_independent_sources_for_derived_goal,
+)
+from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import checked_prior_statements
+from phase174_r3_r7_r35_isolated_cyclic_delta_kernel.rule import RULE_NAME
+from phase174_r3_r7_r36_cited_kernel_provider_wiring.audit import audit_public_connection
+from proof import ProofRule

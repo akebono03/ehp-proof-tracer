@@ -1,0 +1,88 @@
+# Phase 174 R3-R7-R37 — import 全文
+
+## `rule.py`
+
+```python
+from __future__ import annotations
+from expression import GeneratorSymbol, HomotopyElement
+from homotopy_groups import (
+    TodaDeltaMap,
+    TodaEHPExactnessWindow,
+    TodaHopfInvariantMap,
+    TodaPrimaryGroup,
+)
+from map_facts import EHP_DELTA_MAP, EHP_H_MAP
+from phase165_r12_r11_prop42_unified import prop42_exactness_indices
+from phase165_r12_r12_ehp_consequences import EHPImageEqualsKernelStatement
+from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+from phase165_r14_r6_generic_iso import MapInjective, MapSurjective
+from phase165_r3_recursive_search import GoalExpansion
+from phase174_r3_r7_r25_prop27_isolated_inference.rule import (
+    Prop27TypedHopfDeltaStatement,
+    typed_specialization,
+)
+from proof import InferenceRule, PremisePattern, ProofRule
+from toda_rules import TodaProp42ExactnessStatement
+```
+
+## `audit.py`
+
+```python
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+```
+
+## `tests/test_rule.py`
+
+```python
+from __future__ import annotations
+from dataclasses import replace
+import pytest
+from expression import GeneratorSymbol, HomotopyElement
+from homotopy_groups import TodaDeltaMap, TodaPrimaryGroup
+from phase165_r14_r6_generic_iso import MapInjective, MapSurjective
+from phase174_r3_r7_r25_prop27_isolated_inference.rule import typed_specialization
+from phase174_r3_r7_r37_upper_delta_surjectivity_isolated.rule import (
+    RULE_NAME,
+    expand_upper_delta_surjectivity,
+    upper_delta_surjectivity_inputs,
+    upper_delta_surjectivity_rule,
+)
+from proof import (
+    InferenceRule,
+    ProofRule,
+    ProofStep,
+    apply_inference_match,
+    find_inference_matches_for_rule,
+)
+```
+
+## `tests/test_audit.py`
+
+```python
+from __future__ import annotations
+from homotopy_groups import TodaPrimaryGroup, TodaPrimaryGroupZeroStatement
+from phase174_r3_r7_r3_ehp_zero_rule.rule import ehp_zero_inputs
+from phase174_r3_r7_r37_upper_delta_surjectivity_isolated.audit import (
+    inspect_isolated_upper_delta,
+    report,
+)
+from phase174_r3_r7_r37_upper_delta_surjectivity_isolated.rule import (
+    upper_delta_surjectivity_inputs,
+)
+```
+
+## `tests/test_static.py`
+
+```python
+from __future__ import annotations
+import ast
+from pathlib import Path
+```
+

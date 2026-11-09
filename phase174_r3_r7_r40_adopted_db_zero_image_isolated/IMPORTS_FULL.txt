@@ -1,0 +1,97 @@
+# R40 新規ファイルの import 全文
+
+## __init__.py
+
+```python
+
+```
+
+## rule.py
+
+```python
+from __future__ import annotations
+from phase163_r4_registry_bridge import RegistryBridgeResult
+from phase165_r3_recursive_search import GoalExpansion
+from phase169_r10e4_ordered_db_prior.db_prior import (
+    admitted_db_step,
+    group_coordinates,
+    verified_db_step,
+)
+from phase174_r3_r7_r6_cyclic_generator_zero_image.rule import (
+    cyclic_generator_zero_image_inputs,
+)
+from proof import InferenceRule, PremisePattern, ProofRule, Relation
+from phase165_r14_r6_generic_iso import GeneratorImage
+from map_property_rules import ImageZeroStatement
+```
+
+## source_guard.py
+
+```python
+from __future__ import annotations
+import hashlib
+from pathlib import Path
+import subprocess
+```
+
+## audit.py
+
+```python
+from __future__ import annotations
+import argparse
+import json
+import os
+from pathlib import Path
+import tempfile
+from phase174_r3_r7_r40_adopted_db_zero_image_isolated.source_guard import verify_checkout
+```
+
+## tests/test_rule.py
+
+```python
+from __future__ import annotations
+from dataclasses import replace
+import pytest
+from expression import Zero
+from homotopy_groups import TodaPrimaryGroup, TodaPrimaryGroupZeroStatement, TodaSuspensionMap
+from map_property_rules import ImageZeroStatement
+from phase165_r14_r6_generic_iso import GeneratorImage
+from phase165_r52_r9_shared_math import build_shared_typed_bridge
+from phase169_r10e2_unpositioned_citation.source_first import screen_independent_sources_for_derived_goal
+from phase169_r10e4_ordered_db_prior.db_prior import admitted_db_step, exact_prior_database_result
+from phase174_r3_r7_r6_cyclic_generator_zero_image.rule import (
+    expand_zero_image_from_cyclic_generator,
+)
+from phase174_r3_r7_r40_adopted_db_zero_image_isolated.rule import (
+    RULE_NAME, adopted_prior_zero_image_rule, expand_adopted_prior_zero_image,
+    verified_prior_zero_image_inputs,
+)
+from proof import (
+    InferenceRule, ProofRule, ProofStep, Relation, RelationType,
+    apply_inference_match, find_inference_matches_for_rule,
+)
+from homotopy_groups import FiniteCyclicGroup
+```
+
+## tests/test_audit.py
+
+```python
+from __future__ import annotations
+from phase174_r3_r7_r40_adopted_db_zero_image_isolated.audit import inspect_isolated_zero_image
+```
+
+## tests/test_guard.py
+
+```python
+from __future__ import annotations
+import pytest
+from phase174_r3_r7_r40_adopted_db_zero_image_isolated import source_guard
+```
+
+## tests/test_static.py
+
+```python
+from __future__ import annotations
+import ast
+from pathlib import Path
+```

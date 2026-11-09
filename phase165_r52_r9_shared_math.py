@@ -92,6 +92,12 @@ def build_shared_typed_bridge(*, sources: tuple[RegistryBridgeResult, ...] | Non
             register_positioned_prop27,
         )
         sources = sources + (register_positioned_prop27(Path(__file__).resolve().parent),)
+        from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+            build_cited_lower_delta_sources,
+        )
+        sources = sources + (
+            build_cited_lower_delta_sources(Path(__file__).resolve().parent),
+        )
     registry = UnifiedStatementRegistry()
     links = []
     records = []
@@ -182,6 +188,28 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     """Build backward proposals from typed source witnesses and common rules."""
     if not isinstance(bridge, RegistryBridgeResult):
         raise TypeError("bridge must be RegistryBridgeResult")
+    # R41: retain DB-prior provenance and the actual cited source boundary.
+    # This only proposes an inference; it never registers a proof or GIVEN.
+    from phase174_r3_r7_r41_adopted_db_zero_image_public_wiring.provider import (
+        build_public_adopted_zero_image_provider,
+    )
+    extra_providers = (
+        build_public_adopted_zero_image_provider(
+            bridge=bridge, proof_target=proof_target,
+        ),
+    ) + tuple(extra_providers)
+    # R43: add only two source-dependent, conditional EHP map-property goals.
+    # No citation, verified proof, or GIVEN is registered by these providers.
+    from phase174_r3_r7_r5_zero_image_hopf_injective.rule import (
+        expand_hopf_injective_from_zero_image,
+    )
+    from phase174_r3_r7_r37_upper_delta_surjectivity_isolated.rule import (
+        expand_upper_delta_surjectivity,
+    )
+    extra_providers = (
+        expand_hopf_injective_from_zero_image,
+        expand_upper_delta_surjectivity,
+    ) + tuple(extra_providers)
     # R4-4 stage4: exactness-map binding from cited fixed statements only.
     from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
     from phase165_r12_r11_prop42_unified import build_prop42_specialization_provider
