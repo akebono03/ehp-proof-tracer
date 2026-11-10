@@ -49,6 +49,72 @@ def project_cited_proof_step_reference_bodies(
     )
     return project_verified_cited_toda_given_reference_body(reference, cited_steps)
 
+
+def _project_certified_general_reference_body(assertion: object, registry: object,
+                                         statement: object) -> str | None:
+    """Show already-cited general laws when source identity and typed data agree."""
+    from unified_statement_registry import (
+        AssertionEntry, AssertionKind, AssertionOrigin, ReferenceKind,
+        UnifiedStatementRegistry,
+    )
+    from phase174_r3_r7_r12_toda59_annihilator_source.source import (
+        CitedFamilyAnnihilator, SOURCE_ANNIHILATOR_LOCATOR,
+    )
+    from phase174_r3_r7_r28_prop27_typed_literature_registration.registration import (
+        Prop27UniversalLiteratureStatement,
+    )
+
+    if not isinstance(registry, UnifiedStatementRegistry) or not isinstance(assertion, AssertionEntry):
+        return None
+    try:
+        if registry.assertion(assertion.assertion_id) is not assertion:
+            return None
+        reference = registry.reference(assertion.reference_id)
+    except KeyError:
+        return None
+    if (assertion.kind is not AssertionKind.STATEMENT
+            or assertion.origin is not AssertionOrigin.FIXED_STATEMENT
+            or assertion.dependencies
+            or assertion.content is not statement
+            or not isinstance(reference.publication_position, int)
+            or reference.publication_position <= 0):
+        return None
+
+    if type(statement) is CitedFamilyAnnihilator:
+        if (statement != CitedFamilyAnnihilator(
+                left_family_id=4, right_family_id=2,
+                minimum_left_index=6, right_index_offset=3,
+                citation_locator=SOURCE_ANNIHILATOR_LOCATOR,
+            )
+                or not assertion.assertion_id.endswith(
+                    ':isolated:toda:(5.9):nu_eta_general:statement')
+                or not assertion.reference_id.endswith(
+                    ':isolated:toda:(5.9):nu_eta_general')
+                or assertion.scope != 'nu_n composed eta_(n+3) = 0, n>=6'
+                or reference.kind is not ReferenceKind.EQUATION
+                or reference.locator != '(5.9)'
+                or reference.source_id != (
+                    'sources/toda/Toda_05_2.tex '
+                    '(adopted; printed edition unchecked)'
+                )):
+            return None
+        return r'$n\ge6$ に対して, $\nu_n\circ\eta_{n+3}=0$.'
+
+    if type(statement) is Prop27UniversalLiteratureStatement:
+        if (statement != Prop27UniversalLiteratureStatement()
+                or not assertion.assertion_id.endswith(
+                    ':typed_literature:assertion:toda:prop2.7')
+                or not assertion.reference_id.endswith(
+                    ':typed_literature:toda:prop2.7')
+                or assertion.scope != ('n >= 2', 'n even', 'sign undetermined')
+                or reference.kind is not ReferenceKind.PROPOSITION
+                or reference.locator != 'Proposition 2.7'
+                or reference.source_id != 'toda:tex:ch2:0018'):
+            return None
+        return (r'$n\ge2$ を偶数とすると, '
+                r'$H(\Delta(\iota_{2n+1}))=\pm2\iota_{2n-1}$.')
+    return None
+
 def project_reference_bodies(registry, assertion_ids):
     """Project only cited, typed source statements, including registered composite fields.
 
@@ -119,6 +185,24 @@ def project_reference_bodies(registry, assertion_ids):
 
         for statement in statements:
             sentence = _verified_source_sentence(statement)
+            # Correct the source display when a previously checked adopted
+            # printed equation is strictly stronger than its conservative
+            # internal up-to-sign claim. This is a reference transcription,
+            # never a new theorem or Narrative rule.
+            from toda_rules import TodaDeltaImageUpToSignStatement
+            if type(statement) is TodaDeltaImageUpToSignStatement:
+                from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+                    checked_prior_statements,
+                )
+                from unified_statement_registry import AssertionOrigin
+                cited = registry.reference(assertion.reference_id)
+                if (assertion.origin is AssertionOrigin.FIXED_STATEMENT
+                        and cited.locator == "(5.10)"
+                        and statement == checked_prior_statements()[1]):
+                    from toda_proof_narrative_renderer import render_toda_expression_latex
+                    lhs = render_toda_expression_latex(statement.element)
+                    rhs = render_toda_expression_latex(statement.positive_value)
+                    sentence = rf"$\Delta({lhs})={rhs}$."
             if isinstance(statement, TodaEtaFamilyGeneralDefinition):
                 if statement.lower_bound == 2:
                     sentence = r"$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する."
@@ -193,6 +277,10 @@ def project_reference_bodies(registry, assertion_ids):
                     r"$\pi_{" + variable + r"+1}^{" + variable + r"}="
                     r"\mathbb{Z}/2\{\eta_{" + variable + r"}\}"
                     r"\quad(" + variable + r"\ge4)$."
+                )
+            if sentence is None:
+                sentence = _project_certified_general_reference_body(
+                    assertion, registry, statement,
                 )
             if sentence is None:
                 sentence = project_cited_universal_toda_reference_body(

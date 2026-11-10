@@ -1,0 +1,81 @@
+{
+  "packages": {
+    "phase174_r3_r7_r55r3_common_proof_display": {
+      "CODE_FULL_JA.md": [
+        "ebbe6d2401feb568a9140bb676d6cfb43fe48d94a75c306da0d9975588c8d86d"
+      ],
+      "__init__.py": [
+        "0e1413f0d233bbdfb6edd18b4e8123ef879fc93e3c5e613e2cfaac9d0120efcc"
+      ],
+      "run.ps1": [
+        "6cc4507c358fcca5f3a046359829916c3f046a861f9ee1c9538c51618f88a558"
+      ],
+      "AUDIT_PLAN_JA.md": [
+        "56a3c4e0d436550909907026c6e8ae8a16fd5dc89b173df9ccdbab2df37d91a9"
+      ],
+      "tests/test_install.py": [
+        "ace552f618fc6bde566f7dacdc14206d7a44672d2f843f79db1087a07c8f76a5"
+      ],
+      "tests/test_public.py": [
+        "d1c295cddaed1244083ef6dacf4c00230b4b9ef51b14a1bd8c955eca3fa2ce6d"
+      ],
+      "install.py": [
+        "335e1999b76b99b23eca4f8c2d264d50a16b81babfc918b56245e203ffe85a15"
+      ],
+      "TEST_RESULTS_JA.md": [
+        "c4465cb966168eaccecdbb55e7548cd2b3ad048e4e3040fcd94bcfb56953b538"
+      ],
+      "projection.py": [
+        "a54bd812b1de424b6ac7488f3eeff0e792926ecea4f55d3c91b59a727b1726fb"
+      ],
+      "audit.py": [
+        "123b7dbb7fe98b4468c5c53047c0fbc6f9f9b6f18b4da5e30a5b9be0c39c56d5"
+      ],
+      "README.md": [
+        "fa6aae91650a6890a2fd6f921a8fb340363f1aea30ed4f5251bbb5dc6cb6e700"
+      ]
+    },
+    "phase174_r3_r7_r55r3r1_public_sentence_correction": {
+      "AUDIT_PLAN_JA.md": [
+        "383efec46718592f81bbe9967154dd6bacc8eeac8e9f609653ae5157cd761956"
+      ],
+      "CHANGED_FUNCTIONS_FULL_JA.md": [
+        "1703504e8433431993dba2966d200f2bb17e9697550b1037a07b49da53319752"
+      ],
+      "CODE_FULL_JA.md": [
+        "e027d307eae4b310f0b65ed6e3f9bcb31a3a16539b57e82c33001005a1229d68"
+      ],
+      "README.md": [
+        "3b829c1d992192af578e371c3d3511a673b4ba7db10402a2a0e2e58246919940"
+      ],
+      "TEST_RESULTS_JA.md": [
+        "4e10378a7ccbdac5e737344fefa5de4a7aaed072adc1eb538b49708f8cad6881"
+      ],
+      "__init__.py": [
+        "fff3859cfb768ce1414e68fc04d2415277b3ef63ad296190a755aed5a54cfd34"
+      ],
+      "audit.py": [
+        "15c1476f4e7373abe908c85097d409e31817ac2dfb7e43d11a1b906d5322a328"
+      ],
+      "install.py": [
+        "051ef422ede43aea60138840edab0602c27ccfeba31c246d494e2c0021167b77"
+      ],
+      "projection.FULL.py": [
+        "c16c16bdacf424be4c1ae6a0d5416a9316870a2f5f6c4bf34220fe4541665396"
+      ],
+      "run.ps1": [
+        "ac87c7ae7765726f6518334f3fa067d82a195c400a1c3f25c90de9c2cd8d03d4"
+      ],
+      "tests/test_guard.py": [
+        "d42697f7957264dce8f87f44e1c325c044d8b5959416f7144d7bdfbc926e5cd2"
+      ],
+      "tests/test_projection.py": [
+        "8e5c2e44a5754b54acfdfa6f401fadc9a486c355fb5cf45ebad17259dcef90de"
+      ],
+      "tests/test_public.py": [
+        "6a70f13033e21a35510ec979ee1ec994f73e0e311c4693a9a43a16cfaa93a674"
+      ]
+    }
+  },
+  "corrected_projection_sha256": "c16c16bdacf424be4c1ae6a0d5416a9316870a2f5f6c4bf34220fe4541665396"
+}

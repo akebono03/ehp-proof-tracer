@@ -140,6 +140,24 @@ def render_model_backed_narrative_markdown(
             for number in model.step_citation_numbers[source_index]
         ))
 
+    def single_source_ancestor_numbers(step):
+        """Cite only a unique verified GIVEN ancestor, not every tree source."""
+        sources = set()
+        pending = [step]
+        seen = set()
+        while pending:
+            ancestor = pending.pop()
+            if id(ancestor) in seen:
+                continue
+            seen.add(id(ancestor))
+            if ancestor.rule is ProofRule.GIVEN:
+                for idx, candidate in enumerate(model.steps):
+                    if candidate is ancestor or candidate == ancestor:
+                        sources.update(model.step_citation_numbers[idx])
+                        break
+            pending.extend(ancestor.premises)
+        return tuple(sorted(sources)) if len(sources) == 1 else ()
+
     if model.abstract_structure is not result.abstract_structure:
         raise ValueError("Narrative Model abstract certificate must match searched result")
     incomplete = result.status is not ProofSearchStatus.COMPLETE
@@ -562,6 +580,25 @@ def render_model_backed_narrative_markdown(
             lines.extend((transition, ""))
         body_line = body_by_step.get(index)
         sentence = typed_sentence(step.conclusion, step)
+        # -g=g in a verified order-two cyclic target; remove the redundant
+        # sign only when its exact typed group structure is already proved.
+        from toda_rules import TodaDeltaImageUpToSignStatement
+        if isinstance(statement, TodaDeltaImageUpToSignStatement):
+            from homotopy_groups import FiniteCyclicGroup
+            target_order_two = any(
+                isinstance(candidate.conclusion, Relation)
+                and candidate.conclusion.relation_type is RelationType.EQUALITY
+                and candidate.conclusion.lhs == statement.map.target_group
+                and isinstance(candidate.conclusion.rhs, FiniteCyclicGroup)
+                and candidate.conclusion.rhs.order == 2
+                and candidate.conclusion.rhs.generator == statement.positive_value
+                for candidate in model.steps
+            )
+            if target_order_two:
+                from toda_proof_narrative_renderer import render_toda_expression_latex
+                lhs = render_toda_expression_latex(statement.element)
+                rhs = render_toda_expression_latex(statement.positive_value)
+                sentence = rf"$\Delta({lhs})={rhs}$."
         if index != model.root_index:
             from phase174_r3_r6_r3_common_narrative.projection import (
                 project_verified_cyclic_extension_reason,
@@ -616,6 +653,13 @@ def render_model_backed_narrative_markdown(
                             f"[R{number}]" for number in eta_numbers
                         )
                         sentence = f"{source_tags}より, " + sentence
+                    elif not sourced_numbers:
+                        unique_source = single_source_ancestor_numbers(step)
+                        if unique_source:
+                            source_tags = ", ".join(
+                                f"[R{number}]" for number in unique_source
+                            )
+                            sentence = f"{source_tags}より, " + sentence
             from homotopy_groups import TodaSuspensionIsomorphismStatement
             if (isinstance(statement, TodaSuspensionIsomorphismStatement)
                     and step.rule is ProofRule.INFERENCE

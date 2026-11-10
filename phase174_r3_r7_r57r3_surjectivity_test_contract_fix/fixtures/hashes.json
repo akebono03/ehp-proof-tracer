@@ -1,0 +1,8 @@
+{
+  "BEFORE_TEST_SHA": "8dbc5a52f3c4c57ca2b3f5cc8750112fb86cc4ca4fa9a521fbbb74aa29e48fab",
+  "AFTER_TEST_SHA": "b13d03c5877d9b24d40a6c2e11d65120465f699b89f9719cde68586522c7b719",
+  "BEFORE_INSTALL_SHA": "5cea9f784ba727d177fcbfdf07c5a10329825d2a33cbac8eb37a7d1c726af11b",
+  "AFTER_INSTALL_SHA": "637e073aea7afb2232c219e200df83561651ae59720139c6ebb8d5833d2de00b",
+  "REVIEWED_BASE": "0a5be29a4458cdffaa8a7ad4ad31c2e91f6941f9",
+  "NAME": "test_missing_or_wrong_group_generator_blocks_surjectivity"
+}

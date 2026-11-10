@@ -210,6 +210,16 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
         expand_hopf_injective_from_zero_image,
         expand_upper_delta_surjectivity,
     ) + tuple(extra_providers)
+    # R56: two ordinary typed EHP consequences, shared by every root query.
+    # Prefer the two-step generator route while preserving the old R37 rule.
+    from phase174_r3_r7_r56_cyclic_generator_bridge.rule import (
+        expand_cyclic_generator_from_hopf,
+        expand_delta_surjectivity_from_generator,
+    )
+    extra_providers = (
+        expand_delta_surjectivity_from_generator,
+        expand_cyclic_generator_from_hopf,
+    ) + tuple(extra_providers)
     # R4-4 stage4: exactness-map binding from cited fixed statements only.
     from phase165_r6_2_r4_r4_stage4_binding import build_exactness_binding_provider
     from phase165_r12_r11_prop42_unified import build_prop42_specialization_provider
@@ -655,6 +665,15 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         expansion_provider = shared_expansion_provider(
             proof_context, proof_target=goal,
             prior_conclusions=tuple(item.root.conclusion for item in prior),
+        )
+        # Every ordinary (nonzero) group search needs the same cited R53
+        # source-bound kernel candidate already used by the zero-group route.
+        # This is a candidate ordering wrapper, not a new premise or GIVEN.
+        from phase174_r3_r7_r53_public_source_bound_kernel.provider import (
+            build_public_source_bound_kernel_provider,
+        )
+        expansion_provider = build_public_source_bound_kernel_provider(
+            expansion_provider, proof_context,
         )
     return search_registered_partial_proof(
         n=n, k=k, goal=goal, bridge=proof_context,

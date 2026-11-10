@@ -1,0 +1,64 @@
+def _project_certified_general_reference_body(assertion: object, registry: object,
+                                         statement: object) -> str | None:
+    """Show already-cited general laws when source identity and typed data agree."""
+    from unified_statement_registry import (
+        AssertionEntry, AssertionKind, AssertionOrigin, ReferenceKind,
+        UnifiedStatementRegistry,
+    )
+    from phase174_r3_r7_r12_toda59_annihilator_source.source import (
+        CitedFamilyAnnihilator, SOURCE_ANNIHILATOR_LOCATOR,
+    )
+    from phase174_r3_r7_r28_prop27_typed_literature_registration.registration import (
+        Prop27UniversalLiteratureStatement,
+    )
+
+    if not isinstance(registry, UnifiedStatementRegistry) or not isinstance(assertion, AssertionEntry):
+        return None
+    try:
+        if registry.assertion(assertion.assertion_id) is not assertion:
+            return None
+        reference = registry.reference(assertion.reference_id)
+    except KeyError:
+        return None
+    if (assertion.kind is not AssertionKind.STATEMENT
+            or assertion.origin is not AssertionOrigin.FIXED_STATEMENT
+            or assertion.dependencies
+            or assertion.content is not statement
+            or not isinstance(reference.publication_position, int)
+            or reference.publication_position <= 0):
+        return None
+
+    if type(statement) is CitedFamilyAnnihilator:
+        if (statement != CitedFamilyAnnihilator(
+                left_family_id=4, right_family_id=2,
+                minimum_left_index=6, right_index_offset=3,
+                citation_locator=SOURCE_ANNIHILATOR_LOCATOR,
+            )
+                or not assertion.assertion_id.endswith(
+                    ':isolated:toda:(5.9):nu_eta_general:statement')
+                or not assertion.reference_id.endswith(
+                    ':isolated:toda:(5.9):nu_eta_general')
+                or assertion.scope != 'nu_n composed eta_(n+3) = 0, n>=6'
+                or reference.kind is not ReferenceKind.EQUATION
+                or reference.locator != '(5.9)'
+                or reference.source_id != (
+                    'sources/toda/Toda_05_2.tex '
+                    '(adopted; printed edition unchecked)'
+                )):
+            return None
+        return r'$n\ge6$ に対して, $\nu_n\circ\eta_{n+3}=0$.'
+
+    if type(statement) is Prop27UniversalLiteratureStatement:
+        if (statement != Prop27UniversalLiteratureStatement()
+                or not assertion.assertion_id.endswith(
+                    ':typed_literature:assertion:toda:prop2.7')
+                or not assertion.reference_id.endswith(
+                    ':typed_literature:toda:prop2.7')
+                or assertion.scope != ('n >= 2', 'n even', 'sign undetermined')
+                or reference.kind is not ReferenceKind.PROPOSITION
+                or reference.locator != 'Proposition 2.7'
+                or reference.source_id != 'toda:tex:ch2:0018'):
+            return None
+        return (r'$n\ge2$ を偶数とすると, '
+                r'$H(\Delta(\iota_{2n+1}))=\pm2\iota_{2n-1}$.')
+    return None
