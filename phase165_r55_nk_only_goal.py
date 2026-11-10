@@ -125,6 +125,10 @@ def search_group_from_registered_goal(*, n: int, k: int, bridge=None, proof_orde
             screened, provider = zero_connection
         if context_sink is not None:
             context_sink(screened)
+        from phase174_r3_r7_r53_public_source_bound_kernel.provider import (
+            build_public_source_bound_kernel_provider,
+        )
+        provider = build_public_source_bound_kernel_provider(provider, screened)
         return search_registered_partial_proof(
             n=n, k=k, goal=candidate, bridge=screened,
             citing_assertion_id=context_id,

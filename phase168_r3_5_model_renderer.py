@@ -210,7 +210,7 @@ def render_model_backed_narrative_markdown(
             target_name = group_tex(model.target)
             if target_name is not None:
                 lines.extend((f"${target_name}$の群構造を決定する.", ""))
-    for chain in chains:
+    for chain_index, chain in enumerate(chains):
         map_tex = {EHP_E_MAP: "E", EHP_H_MAP: "H", EHP_DELTA_MAP: r"\Delta"}
         sequence = group_tex(chain.arrows[0][0])
         for source, symbol, target in chain.arrows:
@@ -229,11 +229,15 @@ def render_model_backed_narrative_markdown(
                 )
             )
         ))
+        prefix = (
+            f"${group_tex(model.target)}$の群構造を決定するために, "
+            if chain_index == 0 else "さらに, "
+        )
         if exactness_numbers:
             tags = ", ".join(f"[R{number}]" for number in exactness_numbers)
-            lines.append(f"${group_tex(model.target)}$の群構造を決定するために, {tags}を用いて次の完全列を考える.")
+            lines.append(f"{prefix}{tags}を用いて次の完全列を考える.")
         else:
-            lines.append(f"${group_tex(model.target)}$の群構造を決定するために, 次の完全列を考える.")
+            lines.append(f"{prefix}次の完全列を考える.")
         lines.append("")
         lines.append(f"${sequence}$.")
         lines.append("")
