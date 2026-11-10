@@ -116,50 +116,54 @@ def test_mismatched_generator_or_dimension_is_rejected() -> None:
 
 
 @pytest.mark.parametrize("n", (4, 6, 8, 10))
-def test_generator_and_typed_delta_prove_surjectivity(n: int) -> None:
+def test_generator_relation_alone_proves_delta_surjectivity(n: int) -> None:
     theorem = typed_specialization(n)
     goal = MapSurjective(theorem.delta)
     required = delta_surjectivity_generator_inputs(goal)
-    assert required == (_goal(n), theorem)
-    candidates = expand_delta_surjectivity_from_generator(goal)
-    assert len(candidates) == 1
-    assert candidates[0].rule.name == SURJECTIVE_RULE_NAME
-    facts = (_test_step(required[0]), _test_step(required[1]))
-    matches = find_inference_matches_for_rule(
-        delta_surjectivity_from_generator_rule(goal), facts
-    )
-    assert len(matches) == 1
-    assert apply_inference_match(matches[0]).conclusion == goal
-
-
-def test_admitted_prior_relation_is_permitted_but_theorem_must_be_inferred() -> None:
-    theorem = typed_specialization(6)
-    goal = MapSurjective(theorem.delta)
-    relation, witness = delta_surjectivity_generator_inputs(goal)
-    valid = (_test_step(relation, ProofRule.GIVEN), _test_step(witness))
-    assert len(find_inference_matches_for_rule(
-        delta_surjectivity_from_generator_rule(goal), valid
-    )) == 1
-    invalid = (_test_step(relation, ProofRule.GIVEN),
-               _test_step(witness, ProofRule.GIVEN))
-    assert not find_inference_matches_for_rule(
-        delta_surjectivity_from_generator_rule(goal), invalid
-    )
-
-
-def test_unproved_or_mismatched_delta_witness_blocks_surjectivity() -> None:
-    theorem = typed_specialization(6)
-    goal = MapSurjective(theorem.delta)
-    relation, witness = delta_surjectivity_generator_inputs(goal)
-    for facts in (
-        (_test_step(relation),),
-        (_test_step(relation), _test_step(typed_specialization(8))),
-        (_test_step(relation), _test_step(replace(witness, absolute_coefficient=4))),
-    ):
-        assert not find_inference_matches_for_rule(
+    assert required == (_goal(n),)
+    proposals = expand_delta_surjectivity_from_generator(goal)
+    assert len(proposals) == 1
+    assert proposals[0].rule.name == SURJECTIVE_RULE_NAME
+    assert proposals[0].subgoals == required
+    for proof_kind in (ProofRule.GIVEN, ProofRule.INFERENCE):
+        facts = (_test_step(required[0], proof_kind),)
+        matches = find_inference_matches_for_rule(
             delta_surjectivity_from_generator_rule(goal), facts
         )
+        assert len(matches) == 1
+        assert apply_inference_match(matches[0]).conclusion == goal
 
+def test_prior_relation_needs_no_prop27_reproof() -> None:
+    goal = MapSurjective(typed_specialization(6).delta)
+    relation, = delta_surjectivity_generator_inputs(goal)
+    facts = (_test_step(relation, ProofRule.GIVEN),)
+    assert len(find_inference_matches_for_rule(
+        delta_surjectivity_from_generator_rule(goal), facts
+    )) == 1
+    assert all(type(x) is Relation for x in delta_surjectivity_generator_inputs(goal))
+
+def test_missing_or_wrong_group_generator_blocks_surjectivity() -> None:
+    theorem = typed_specialization(6)
+    goal = MapSurjective(theorem.delta)
+    relation, = delta_surjectivity_generator_inputs(goal)
+    wrong = Relation(relation.lhs, FreeCyclicGroup(
+        replace(relation.rhs.generator, name="Delta of wrong identity")
+    ))
+    rule = delta_surjectivity_from_generator_rule(goal)
+    assert find_inference_matches_for_rule(rule, ()) == ()
+    assert find_inference_matches_for_rule(rule, (_test_step(wrong),)) == ()
+    assert find_inference_matches_for_rule(rule, (_test_step(theorem),)) == ()
+    valid_relation = _test_step(relation)
+    unrelated_theorem = _test_step(theorem)
+    matches = find_inference_matches_for_rule(
+        rule, (valid_relation, unrelated_theorem)
+    )
+    assert len(matches) == 1
+    assert matches[0].premises == (valid_relation,)
+    derived = apply_inference_match(matches[0])
+    assert derived.rule is ProofRule.INFERENCE
+    assert derived.conclusion == goal
+    assert derived.premises == (valid_relation,)
 
 def test_unrelated_goals_and_odd_instances_have_no_proposals() -> None:
     assert expand_cyclic_generator_from_hopf(object()) == ()

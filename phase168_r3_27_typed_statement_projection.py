@@ -366,6 +366,15 @@ def typed_sentence(statement, step):
                 rf"\iota_{{{statement.target_iota_dimension}}}$."
             )
         return None
+    from map_property_rules import ImageZeroStatement
+    if type(statement) is ImageZeroStatement:
+        mapping = statement.map
+        source = group_tex(getattr(mapping, "source_group", None))
+        target = group_tex(getattr(mapping, "target_group", None))
+        symbol = map_symbol_tex(mapping)
+        if source is not None and target is not None and symbol is not None:
+            return rf"${symbol}:{source}\\to {target}$ は零写像."
+        return None
     if type(statement) is KernelMultipleStatement:
         mapping = statement.map
         source = group_tex(getattr(mapping, "source_group", None))
@@ -379,7 +388,7 @@ def typed_sentence(statement, step):
                 and statement.domain == mapping.source_group):
             return (
                 rf"$\ker({symbol}:{source}\to {target})="
-                rf"{statement.multiple}\mathbb{{Z}}\{{{generator}\}}$."
+                rf"\mathbb{{Z}}\{{{statement.multiple}{generator}\}}$."
             )
         return None
     if (type(statement) is Relation

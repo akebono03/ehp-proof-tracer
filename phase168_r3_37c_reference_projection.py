@@ -185,6 +185,24 @@ def project_reference_bodies(registry, assertion_ids):
 
         for statement in statements:
             sentence = _verified_source_sentence(statement)
+            # Correct the source display when a previously checked adopted
+            # printed equation is strictly stronger than its conservative
+            # internal up-to-sign claim. This is a reference transcription,
+            # never a new theorem or Narrative rule.
+            from toda_rules import TodaDeltaImageUpToSignStatement
+            if type(statement) is TodaDeltaImageUpToSignStatement:
+                from phase174_r3_r7_r34_prior_lower_delta_source_wiring.source import (
+                    checked_prior_statements,
+                )
+                from unified_statement_registry import AssertionOrigin
+                cited = registry.reference(assertion.reference_id)
+                if (assertion.origin is AssertionOrigin.FIXED_STATEMENT
+                        and cited.locator == "(5.10)"
+                        and statement == checked_prior_statements()[1]):
+                    from toda_proof_narrative_renderer import render_toda_expression_latex
+                    lhs = render_toda_expression_latex(statement.element)
+                    rhs = render_toda_expression_latex(statement.positive_value)
+                    sentence = rf"$\Delta({lhs})={rhs}$."
             if isinstance(statement, TodaEtaFamilyGeneralDefinition):
                 if statement.lower_bound == 2:
                     sentence = r"$n\ge 2$ に対し, $\eta_n=E^{n-2}\eta_2$ と定義する."
