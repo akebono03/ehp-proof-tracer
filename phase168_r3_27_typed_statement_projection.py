@@ -347,6 +347,52 @@ def typed_sentence(statement, step):
     map_sentence = map_property_sentence(statement, step)
     if map_sentence is not None:
         return map_sentence
+    # Only project the mathematical content already present in a typed claim.
+    # These are shared statement formatters, not a proof-tree-specific narrative.
+    from expression import Zero
+    from proof import Relation, RelationType
+    from phase165_r12_r2_quotient_rules import KernelMultipleStatement
+    from phase174_r3_r7_r25_prop27_isolated_inference.rule import (
+        Prop27TypedHopfDeltaStatement, typed_specialization,
+    )
+    if type(statement) is Prop27TypedHopfDeltaStatement:
+        if (type(statement.n) is int and statement.n >= 2
+                and statement.n % 2 == 0
+                and statement == typed_specialization(statement.n)):
+            sign = r"\pm" if statement.sign_undetermined else ""
+            return (
+                rf"$H(\Delta(\iota_{{{statement.source_iota_dimension}}}))="
+                rf"{sign}{statement.absolute_coefficient}"
+                rf"\iota_{{{statement.target_iota_dimension}}}$."
+            )
+        return None
+    if type(statement) is KernelMultipleStatement:
+        mapping = statement.map
+        source = group_tex(getattr(mapping, "source_group", None))
+        target = group_tex(getattr(mapping, "target_group", None))
+        symbol = map_symbol_tex(mapping)
+        generator = element_tex(statement.source_generator)
+        if (source is not None and target is not None
+                and symbol is not None and generator is not None
+                and type(statement.multiple) is int
+                and statement.multiple >= 1
+                and statement.domain == mapping.source_group):
+            return (
+                rf"$\ker({symbol}:{source}\to {target})="
+                rf"{statement.multiple}\mathbb{{Z}}\{{{generator}\}}$."
+            )
+        return None
+    if (type(statement) is Relation
+            and statement.relation_type is RelationType.EQUALITY
+            and isinstance(statement.rhs, Zero)):
+        from toda_conclusion_latex_renderer import (
+            render_repository_conclusion_latex,
+        )
+        try:
+            latex = render_repository_conclusion_latex(statement)
+        except (TypeError, ValueError):
+            return None
+        return "$" + latex + "$."
     from toda_rules import Toda45IsomorphismStatement
     from homotopy_groups import TodaIteratedSuspensionMap
     if isinstance(statement, Toda45IsomorphismStatement):
