@@ -2,6 +2,20 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+<!-- PHASE174_FINAL_CLOSEOUT_20261111 -->
+
+## Current status — Phase 174 formally closed (2026-11-11)
+
+Phase 174 is formally closed **only for its reviewed source-first typed proof-search, shared narrative, and active test-suite scope**. The final R74 gate ran the active `tests/` pytest suite once: **3546 passed**, summary `3546 passed in 40.86s`. The recorded local `develop` HEAD at the gate was `38788cec179c16fba7bba606ed35aa1e890ee79f`; the preserved stdout SHA-256 is `6681f47c76e282204ea4a590349a74041f568d1cce46ece9f5260619ec3aa5f8`. A gate report, stdout/stderr, and five complete final Markdown files are preserved by the R74 package.
+
+The public typed proof for $\pi_{11}^{6}=\mathbb Z\{\Delta(\iota_{13})\}$ completes using general inference rules with 7 references. The public typed proof for $\pi_{12}^{7}=0$ completes using one previously adopted database group result with 3 references, without replaying its earlier proof. Both return `generic-complete-proof`.
+
+R70/R70R1 improved the generic, verified ProofStep-backed explanation without new mathematical inference rules or GIVEN assertions. R71 checked eight complete public proof narratives (81 focused tests passed); R72 preserved the `SEARCH_FAILED` named-generator status for $\pi_{12}^{4}$ and $\pi_{35}^{4}$ (38 focused tests passed); R73 prepared and installed the five documentation updates (33 focused tests passed). These earlier scoped checks are not reported as new full-suite executions. The first successful proof search remains the stopping condition; proof uniqueness is not checked.
+
+This closeout does **not** certify all source literature, every proof sentence, arbitrary homotopy groups, the unfinished named-generator goals, or a browser-pixel/MathJax rendering audit. The R73 closeout-preparation section below is historical and does not override this final status.
+
+---
+
 <!-- PHASE174_R73_CLOSEOUT_PREPARATION_20261111 -->
 
 ## Current status — Phase 174 closeout preparation (2026-11-11)

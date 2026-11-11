@@ -3899,3 +3899,13 @@ Phase 172 の R1〜R5 は、Phase 171 で完成した $\pi_6^3=\mathbb Z/4\{\nu'
 **R73 の後の最終 Gate（次工程）：** (1) 本番・文書差分の確認、(2) R71/R72 の監査証拠と未完成範囲の再確認、(3) **Phase 末尾の現行アクティブ `tests/` 全体 pytest を1回のみ**実行、(4) 結果と HEAD を記録して正式 Closeout 可否を決定する。失敗時は失敗記録を保全し、原因を監査する。未実行の全体テストを PASS と記載しない。
 
 **次 Phase との境界：** 任意の群への拡大、未完成記名生成元の新規数学証明、文献全件の独立検証、個別 Narrative 追加は本 Phase の Closeout に含めない。次 Phase の機能と Goal は終了 Gate の後に選定する。
+
+<!-- PHASE174_FINAL_CLOSEOUT_20261111 -->
+
+## Phase 174 正式終了と次 Phase の境界（2026-11-11）
+
+R74 で Phase 末尾のアクティブ `tests/` 全体 pytest **3546 PASS**（`3546 passed in 40.86s`）を確認し、HEAD `38788cec179c16fba7bba606ed35aa1e890ee79f` に結び付けた証拠（stdout SHA-256: `6681f47c76e282204ea4a590349a74041f568d1cce46ece9f5260619ec3aa5f8`）を保存した。R71 完成8群の表示回帰、R72 未完成2群の境界、R73 主要5文書の全文整備と合わせて、**Phase 174 は正式終了**とする。
+
+**次 Phase の作業候補（未実装）**：未完成の $\pi_{12}^{4}$ と $\pi_{35}^{4}$ の記名生成元 Goal や、出典付き数学的推論の不足を個別に監査する。さらに広い範囲の登録群については、群構造の既知性と証明の完成を区別して Scope（範囲）を先に確定する。今回の Closeout に未来 Phase の規則を先取りしない。
+
+将来の Phase でも Source-first、First Successful Proof Search、唯一性検査なし、共通 Verified Proof Tree → `ProofNarrativeModel` → Renderer → Web を維持する。個別群専用 Narrative・結論直接 GIVEN の追加を避け、数学的に妥当な一般規則だけを検討する。全体 pytest はそれぞれの Phase 末尾に実施する。
