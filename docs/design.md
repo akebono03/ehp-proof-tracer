@@ -3613,3 +3613,46 @@ R3R4 は旧来の別 Section を要求する**公開 Web テスト契約**を統
 **テスト結果と境界：** R15R17 R3R5 の Flask HTTP 4例、ブラウザからの文字列確認4例、旧 Phase 167 Reference テスト3ファイルの修正後限定 pytest 6 PASS。Phase 173 最終 Gate 初回は **3541 PASS／5 FAIL**（旧 `証明` 見出しを探す5 assertion）。修正後の R2 最終 Gate は Git HEAD `25b1ee1f7c848356604061991db06265cfccb296` で **3546 PASS（80.58秒、終了コード0）**、Source Guard と Git index 保持 PASS。旧失敗の機械生成原本4ファイルは現在の Windows プロファイルから参照できず、**原本保存状態は未検証**。ブラウザの MathJax 画素レベル検証も未確認である。
 
 この終了認定は共通表示の経路・テスト契約と個別の検証済み結果に限定する。任意の群の記名生成元証明、登録された文献命題の全真偽、一般的な数学的探索の完成は主張しない。将来 Phase で必要な数学的 Goal を別途扱う。
+
+<!-- PHASE174_R73_CLOSEOUT_PREPARATION_20261111 -->
+
+## Phase 174 R73 — 共通証明経路と Closeout 前の設計境界（2026-11-11）
+
+Phase 174 は **R73 時点では正式終了していない**。R71・R72 の限定 Gate は通過したが、Phase 末尾の現行アクティブ `tests/` 全体 pytest と最終 Git・文書整合確認は未実施である。R73 は全文文書を整備する工程であり、新しい数学的証明を追加する工程ではない。
+
+### 現在有効な公開経路
+
+```text
+出典付きの型付き Goal
+→ Source-first Backward Search（出典優先の逆向き探索）
+→ Verified Proof Tree（検証済み証明木）
+→ 単一 ProofNarrativeModel（証明文章モデル）
+→ 共通 Narrative Renderer（文章表示器）
+→ Web Group proof
+```
+
+探索は First Successful Proof Search（最初に成功した証明で終了）であり、唯一性検査を実施しない。`GIVEN`（文献・先行結果の採用）と `INFERENCE`（一般規則による導出）の責務を分ける。特定の群・生成元・次元専用の Narrative（文章分岐）や、結論を直接 GIVEN とする登録は導入しない。
+
+### R70／R70R1 の表示限定性
+
+`phase174_r3_r7_r70_verified_narrative_projection/projection.py` は、完成した証明木の根の祖先内にある型付き ProofStep と Citation の対応を要求し、合成像・結合法則・零像、Δ 全射性、EHP 完全性による説明を共通の表示へ投影する。R70R1 は associativity（結合法則）による一段の型付き証明連鎖をたどる条件を補正した。不一致・欠落・曖昧な場合には表示変換を実行しない fail-closed（検証不能なら変換しない）方式を維持する。
+
+`E=0` と `H の単射性` の説明は、既に検証された四前提の零群一般推論規則の論理的帰結を文章にしたものであり、新たな独立 ProofStep として数えてはならない。`ProofSearchStatus`、`conclusion`、`open_goals`、`diagnostics`、証明木と引用数は Renderer が変更しない。
+
+### 公開回帰の境界
+
+R71 は完成8群の実探索と共通表示・引用数を監査し、限定 pytest 81 PASS。R72 はその保存レポートを確認し、未完成の $\pi_{12}^{4}$ と $\pi_{35}^{4}$ が `SEARCH_FAILED` のまま共通 Renderer／Web で表示されることを確認し、限定 pytest 38 PASS。R72 までの本番コード変更、新規 GIVEN、新規数学推論規則はいずれも 0 件。
+
+これは登録されたすべての数学的文章の意味を個別に証明したという認定ではない。文献転記全件の正しさ、任意の $(n,k)$ の証明完成、ブラウザにおける全数式の画素単位の表示確認も未認定である。正式 Closeout は次の最終 Gate で判定する。
+
+<!-- PHASE174_FINAL_CLOSEOUT_20261111 -->
+
+## Phase 174 正式終了 — 現行設計の検証境界（2026-11-11）
+
+Phase 174 の終了監査 R74 において、現行アクティブ `tests/` に対する全体 pytest を Phase 末尾に1回実行し、**3546 PASS**（`3546 passed in 40.86s`）を確認した。検証時の `develop` HEAD は `38788cec179c16fba7bba606ed35aa1e890ee79f`。標準出力の SHA-256 は `6681f47c76e282204ea4a590349a74041f568d1cce46ece9f5260619ec3aa5f8`。これは保存された R74 の実行証拠に基づく記録であり、未実施の全テストや出典の全面的な真偽を保証しない。
+
+現行の公開証明経路は、Source-first（出典優先）の型付き Backward Search（後向き探索）→ Verified Proof Tree（検証済み証明木）→ 単一 `ProofNarrativeModel`（証明文章モデル）→ 共通 Renderer（表示器）→ Web である。First Successful Proof Search（最初の成功で終了）を維持し、唯一性検査は行わない。個々の $(n,k)$ や生成元に専用の数学的証明・Narrative（叙述）を加えない。
+
+R70/R70R1 の一般的な表示変換は、合成・結合法則・零像について実際の型付き ProofStep（証明段階）の根祖先と引用を確認した場合にのみ文章を集約する。不確実な証拠では変換をしない。零群に至る $E=0$ と $H$ の単射性についての文章は、既存の4前提一般規則の説明であり、新たな独立 ProofStep ではない。
+
+R71 は完成8群の公開状態と Reference（出典）を回帰検査した。R72 は $\pi_{12}^{4}$、$\pi_{35}^{4}$ の記名生成元 Goal（証明目標）が未完成のままであることを確認した。表示で未完成を完成扱いに変えない。今回の終了は、これらの特定の証明・実装・アクティブテストに限る。出典文献の全命題、任意の群、全文章の独立数学検証、ブラウザ画素品質は対象外とする。

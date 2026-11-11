@@ -2,6 +2,36 @@
 
 EHP Proof Tracer builds proof-backed narratives for homotopy groups using typed mathematical statements, a shared backward-search engine, and a common narrative renderer. The project distinguishes a mathematical proof from a displayed goal, an incomplete search, or an unverified assertion.
 
+<!-- PHASE174_FINAL_CLOSEOUT_20261111 -->
+
+## Current status — Phase 174 formally closed (2026-11-11)
+
+Phase 174 is formally closed **only for its reviewed source-first typed proof-search, shared narrative, and active test-suite scope**. The final R74 gate ran the active `tests/` pytest suite once: **3546 passed**, summary `3546 passed in 40.86s`. The recorded local `develop` HEAD at the gate was `38788cec179c16fba7bba606ed35aa1e890ee79f`; the preserved stdout SHA-256 is `6681f47c76e282204ea4a590349a74041f568d1cce46ece9f5260619ec3aa5f8`. A gate report, stdout/stderr, and five complete final Markdown files are preserved by the R74 package.
+
+The public typed proof for $\pi_{11}^{6}=\mathbb Z\{\Delta(\iota_{13})\}$ completes using general inference rules with 7 references. The public typed proof for $\pi_{12}^{7}=0$ completes using one previously adopted database group result with 3 references, without replaying its earlier proof. Both return `generic-complete-proof`.
+
+R70/R70R1 improved the generic, verified ProofStep-backed explanation without new mathematical inference rules or GIVEN assertions. R71 checked eight complete public proof narratives (81 focused tests passed); R72 preserved the `SEARCH_FAILED` named-generator status for $\pi_{12}^{4}$ and $\pi_{35}^{4}$ (38 focused tests passed); R73 prepared and installed the five documentation updates (33 focused tests passed). These earlier scoped checks are not reported as new full-suite executions. The first successful proof search remains the stopping condition; proof uniqueness is not checked.
+
+This closeout does **not** certify all source literature, every proof sentence, arbitrary homotopy groups, the unfinished named-generator goals, or a browser-pixel/MathJax rendering audit. The R73 closeout-preparation section below is historical and does not override this final status.
+
+---
+
+<!-- PHASE174_R73_CLOSEOUT_PREPARATION_20261111 -->
+
+## Current status — Phase 174 closeout preparation (2026-11-11)
+
+**Phase 174 is not formally closed.** R71 and R72 passed their focused and public regression gates. The single phase-end active `pytest tests/` suite and final Git/documentation review remain pending. No full-suite pass or final Phase 174 closeout is claimed here.
+
+The verified public examples include $\pi_{11}^{6}=\mathbb Z\{\Delta(\iota_{13})\}$ and $\pi_{12}^{7}=0$, both with `generic-complete-proof` provenance and, respectively, 7 and 3 cited references. The latter reuses an earlier admitted database result for $\pi_{11}^{6}$ instead of reproving it. R70/R70R1 improved the common narrative through source-backed, typed ProofStep relationships; these display improvements introduced no new GIVEN or mathematical inference rule.
+
+R71 reported **81 focused tests passed** and checked eight completed public queries and reference counts: $\pi_6^3$ (8), $\pi_7^4$ (4), $\pi_8^4$ (4), $\pi_9^4$ (4), $\pi_{11}^4$ (4), $\pi_8^5$ (7), $\pi_{11}^6$ (7), and $\pi_{12}^7$ (3). R72 reported **38 focused tests passed**, validated the retained R71 evidence, and checked that the named-generator goals for $\pi_{12}^4$ and $\pi_{35}^4$ remain incomplete (`SEARCH_FAILED`). These are focused results, **not** a substitute for the phase-end active full suite.
+
+The canonical public route remains source-first typed Backward Search, verified Proof Tree, one `ProofNarrativeModel`, one common Renderer, and Web. Search stops at its first successful proof and does not perform a proof-uniqueness search. Display-only EHP implications are not independent ProofSteps. No dedicated narrative for an individual $(n,k)$ or generator has been added.
+
+R73 prepares complete versions of this README and the four canonical Japanese documents, preserving previous phase records. It changes no production code, adds no new mathematics, and does not close Phase 174. The final phase-end gate belongs to the following step.
+
+---
+
 <!-- PHASE173_FINAL_CLOSEOUT_20261105 -->
 
 ## Current status — Phase 173 formally closed (2026-11-05)
