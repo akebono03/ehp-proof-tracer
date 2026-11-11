@@ -373,7 +373,7 @@ def typed_sentence(statement, step):
         target = group_tex(getattr(mapping, "target_group", None))
         symbol = map_symbol_tex(mapping)
         if source is not None and target is not None and symbol is not None:
-            return rf"${symbol}:{source}\\to {target}$ は零写像."
+            return rf"${symbol}:{source}\to {target}$ は零写像."
         return None
     if type(statement) is KernelMultipleStatement:
         mapping = statement.map
