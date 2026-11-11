@@ -8053,3 +8053,21 @@ Phase 173 は $n\ge3$ の探索状況を監査し、共通 Proof Narrative Model
 **訂正後の最終 Gate：** `PHASE173_FINAL_R2_HEAD=25b1ee1f7c848356604061991db06265cfccb296`、`SOURCE_GUARD=PASS`、`PYTEST_EXIT=0`、`FULL_PYTEST=PASS`、`FULL_PYTEST_PASSED=3546`、`GATE=PASS`、`GIT_INDEX_PRESERVED=PASS`。pytest 表示は **3546 passed in 80.58s (0:01:20)**。別証拠として `%LOCALAPPDATA%/EHPProofTracerRecovery/phase173_final_gate_r2/phase173_full_test_report_r2.json` と stdout / stderr が存在する。ユーザー投稿の初回失敗ログと今回の成功ログは区別して保存する。
 
 **Phase 173 正式終了：** 本最終5文書の更新・版照合後に終了とする。未完成の記名生成元 Goal や一般的推論機能を先取りせず、次 Phase へ持ち越す。過去の開発履歴は保持する。
+
+<!-- PHASE174_R73_CLOSEOUT_PREPARATION_20261111 -->
+
+## 2026-11-11 — Phase 174 R56〜R73：一般推論、共通表示、限定回帰、文書準備（正式終了前）
+
+本節は Phase 174 終了前の追記記録であり、Phase 173 の正式終了記録を上書きしない。Phase 末尾の全体 pytest は未実施であり、**Phase 174 はまだ正式終了していない**。
+
+- **R56〜R57：** 検証済みの Hopf 単射性・像・生成元の情報から自由巡回構造を決定する一般規則、および生成元の $\Delta$ 像が群を生成するときの全射性一般規則を分離。共通 Renderer と既存 ProofStep の責務を整理した。後続の零群証明では先行データベース結果を再実行せずに採用する。
+- **R63〜R66：** 主要証明文章の出典・ProofStep 対応を段階的に監査。文章全件の数学的意味の完全な認証とは区別する。
+- **R67〜R69：** 零写像の TeX 矢印を修正。Hopf 単射性の直接2前提と零群結論の直接4前提を照合。既存 ProofStep による Narrative 統合可能範囲を監査。
+- **R70〜R70R1：** 型付き合成像・結合法則・零像の連鎖をまとめ、$\Delta$ 全射性から $E=0$ と $H$ 単射性への説明を共通表示へ統合。R70R1 は結合法則連鎖の表示条件を修正。限定 pytest **59 PASS**、2群の実際の Web 表示を確認。Reference は $\pi_{11}^{6}$ が7件、$\pi_{12}^{7}$ が3件。新規 GIVEN・新規数学推論規則はともに0件。
+- **R71：** 完成8群（$\pi_6^3$, $\pi_7^4$, $\pi_8^4$, $\pi_9^4$, $\pi_{11}^4$, $\pi_8^5$, $\pi_{11}^6$, $\pi_{12}^7$）を対象に共通 Narrative の限定回帰監査。引用件数は順に 8, 4, 4, 4, 4, 7, 7, 3 件。限定 pytest **81 PASS**、`PASS_R71_FOCUSED_AND_CROSS_GROUP`、本番コード変更0件。
+- **R72：** R71 保存証拠8群を確認。記名生成元 Goal の未完成例 $\pi_{12}^{4}$ および $\pi_{35}^{4}$ がともに `SEARCH_FAILED` のまま維持されることを実探索・Web 表示で確認。限定 pytest **38 PASS**、Source Guard 10件、`PASS_R72_FOCUSED_AND_PREFLIGHT`、本番コード変更0件。主要5文書に Phase 174 の最終記録が未掲載であることを識別。
+- **R73：** 主要5文書の全文出力を行う準備工程。既存本文を保存し、現在状態・設計・履歴・計画・証明記録を追記する。正式終了認定は Phase 末尾の全体 pytest と最終監査を通過した後に行う。
+
+R71・R72 の pytest はそれぞれ限定テストであり、合算しても全体テストではない。Git HEAD は R71 実行時 `01c5246a011b43e10ed85699a6048f117562a748`、R72 実行時 `b66099598177d74e979492f1d04a916e6f0821a8`。実行結果と Git 履歴の時点差を保持する。Git の更新に伴う検査を行わずに新しい HEAD のテスト成功を遡及的に主張しない。
+
+**次の Gate：** Phase 174 最後の現行アクティブ `tests/` 全体 pytest を1回実行し、既存の完成・未完成境界、出典、文書全文、Git 差分を再監査する。その結果が PASS するまでは Phase 174 正式終了を宣言しない。
