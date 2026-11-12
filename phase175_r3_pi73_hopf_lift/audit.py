@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+from hashlib import sha256
 import json
 import os
 from pathlib import Path
@@ -31,6 +32,7 @@ EXTRA_PINS = {
     "phase165_r52_r2_search_adapter.py": "c1d08b803a4d9f9e4e1ad5180a1487422f1cd191",
     "phase165_r52_r16_web_citation_gate.py": "d1138c0450f234b6da761902ed7358b6038a19c8",
     "phase165_r12_r24_web_search_connection.py": "71d0c6c365a46e833a2bfe304c771d2e010178ca",
+    "phase165_r3_recursive_search.py": "06009bfcf57f99cac58c229d99c53f16324692d0",
 }
 
 
@@ -45,9 +47,124 @@ def git(root: Path, *arguments: str) -> str:
     return process.stdout.strip()
 
 
+# Only these R3 audit-package files were modified by the R3R2 replacement.
+# Production files, other Phase packages, the index, and unknown R3 files
+# continue to fail closed.  Untracked files retain R1's original treatment.
+R3_ALLOWED_TRACKED_EDITS = frozenset({
+    PACKAGE + "/AUDIT_PLAN_JA.md",
+    PACKAGE + "/CODE_FULL_JA.md",
+    PACKAGE + "/README.md",
+    PACKAGE + "/audit.py",
+    PACKAGE + "/run.ps1",
+    PACKAGE + "/tests/test_audit.py",
+})
+
+
+def audit_only_tracked_snapshot(root: Path) -> dict[str, str]:
+    """Permit exact unstaged R3R2 replacements, never stage or production drift.
+
+    Git porcelain -z keeps initial spaces and does not depend on locale or
+    quotePath formatting.  Hashing admitted working files also lets postflight
+    detect writes inside the otherwise allowed R3-only surface.
+    """
+    result = subprocess.run(
+        ["git", "status", "--porcelain=v1", "--untracked-files=no", "-z"],
+        cwd=root, capture_output=True, check=False,
+    )
+    if result.returncode:
+        raise RuntimeError("R3_STATUS_READ_FAILED")
+    snapshot: dict[str, str] = {}
+    for entry in result.stdout.split(b"\0"):
+        if not entry:
+            continue
+        try:
+            record = entry.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise RuntimeError("R3_INVALID_TRACKED_STATUS_ENCODING") from exc
+        if len(record) < 4 or record[:2] != " M":
+            raise RuntimeError("R3_STAGED_OR_OTHER_TRACKED_CHANGE: " + repr(record))
+        relative = record[3:]
+        if relative not in R3_ALLOWED_TRACKED_EDITS or relative in snapshot:
+            raise RuntimeError("R3_PROTECTED_TRACKED_CHANGE: " + relative)
+        candidate = root / relative
+        if not candidate.is_file():
+            raise RuntimeError("R3_ALLOWED_AUDIT_FILE_MISSING: " + relative)
+        snapshot[relative] = sha256(candidate.read_bytes()).hexdigest()
+    return dict(sorted(snapshot.items()))
+
+
+def scoped_r2_preflight(root: Path, snapshot: dict[str, str]) -> dict[str, object]:
+    """Recheck every original R1/R2 invariant with a narrow R3-only exception.
+
+    R1 and R2 remain unmodified and are used directly for clean worktrees.
+    When only reviewed R3R2 audit files are dirty, reproduce their explicit
+    ancestor, branch, source blob and registered-k=4 checks without suppressing
+    Git status globally or replacing the Git executable.
+    """
+    from phase175_r1_k4_audit import audit as r1
+    from phase175_r2_k4_frontier_audit import audit as r2
+
+    if not snapshot:
+        raise ValueError("scoped preflight requires R3-only tracked modifications")
+    _, repo_root = r1.git(root, "rev-parse", "--show-toplevel")
+    if Path(repo_root).resolve() != root.resolve():
+        raise RuntimeError("R3_NOT_GIT_REPOSITORY_ROOT")
+    _, branch = r1.git(root, "branch", "--show-current")
+    _, head = r1.git(root, "rev-parse", "HEAD")
+    if branch != "develop":
+        raise RuntimeError("R3_WRONG_BRANCH: " + branch)
+    ancestor_code, _ = r1.git(
+        root, "merge-base", "--is-ancestor", r1.REVIEWED_MAIN_MERGE,
+        "HEAD", allow_failure=True,
+    )
+    if ancestor_code:
+        raise RuntimeError("R3_REVIEWED_PHASE174_BASE_NOT_ANCESTOR")
+    for relative, expected in r1.SOURCE_BLOBS.items():
+        _, actual = r1.git(root, "rev-parse", "HEAD:" + relative)
+        if actual != expected or not (root / relative).is_file():
+            raise RuntimeError("R3_R1_SOURCE_PIN_MISMATCH: " + relative)
+    registrations = r1.registered_k4_rows(root / "data/sphere.csv")
+    _, remote = r1.git(
+        root, "rev-parse", "--verify", "origin/develop", allow_failure=True,
+    )
+    for relative, expected in r2.EXTRA_PINS.items():
+        if not (root / relative).is_file():
+            raise RuntimeError("R3_R2_SOURCE_MISSING: " + relative)
+        if git(root, "rev-parse", "HEAD:" + relative) != expected:
+            raise RuntimeError("R3_R2_SOURCE_PIN_MISMATCH: " + relative)
+    return {
+        "head": head,
+        "branch": branch,
+        "r1_pins": dict(r1.SOURCE_BLOBS),
+        "r2_extra_pins": dict(r2.EXTRA_PINS),
+        "tracked_clean": False,
+        "origin_develop_matches_head": bool(remote and remote == head),
+        "r3_scoped_audit_modified": snapshot,
+        "r3_scoped_source_guard": "R3_ONLY_UNSTAGED_AUDIT_EDITS",
+        "r3_reviewed_main_merge": r1.REVIEWED_MAIN_MERGE,
+        "r3_registered_groups": len(registrations),
+        "r3_registered_summand_rows": sum(map(len, registrations.values())),
+    }
+
+
 def preflight(root: Path) -> dict[str, object]:
-    """Reuse R2's tested guard and pin the R3 proof-search dependencies."""
-    checked = r2_preflight(root)
+    """Preserve R1/R2 Source Guard while accepting reviewed R3R2 audit edits.
+
+    R3 package files may have become tracked after the initial R3 run.  An
+    in-place R3R2 unzip then modifies those files, which the R1 global guard
+    correctly rejects.  R3R3 admits only the six known unstaged audit files,
+    checks their hashes, and independently revalidates all R1/R2 pins.
+    """
+    snapshot = audit_only_tracked_snapshot(root)
+    if snapshot:
+        checked = scoped_r2_preflight(root, snapshot)
+    else:
+        checked = r2_preflight(root)
+        checked = {
+            **checked,
+            "r3_scoped_audit_modified": {},
+            "r3_scoped_source_guard": "CLEAN_WORKTREE",
+        }
     for relative, expected in EXTRA_PINS.items():
         if not (root / relative).is_file():
             raise RuntimeError("R3_SOURCE_MISSING: " + relative)
@@ -107,8 +224,33 @@ def select_r2_report(explicit: Path | None) -> Path:
     raise RuntimeError("R3_NO_VALID_R2_EVIDENCE")
 
 
+# Only these files may have been added by the original R3, R3R1 and R3R2
+# isolated audit ZIPs.  In particular, no production code or arbitrary file
+# under the R3 directory may enter the R2-to-R3 Git history unnoticed.
+R3_LINEAGE_ALLOWED_ADDITIONS = frozenset({
+    PACKAGE + "/__init__.py",
+    PACKAGE + "/rule.py",
+    PACKAGE + "/audit.py",
+    PACKAGE + "/run.ps1",
+    PACKAGE + "/frontier.py",
+    PACKAGE + "/tests/__init__.py",
+    PACKAGE + "/tests/test_rule.py",
+    PACKAGE + "/tests/test_audit.py",
+    PACKAGE + "/tests/test_frontier.py",
+    PACKAGE + "/README.md",
+    PACKAGE + "/AUDIT_PLAN_JA.md",
+    PACKAGE + "/CODE_FULL_JA.md",
+})
+
+
 def verify_lineage(root: Path, report: dict[str, object], checked: dict[str, object]) -> dict[str, object]:
-    """Allow only new R2 audit files between the R2 result and this HEAD."""
+    """Accept only R2 audit additions and *named* R3 isolated-audit additions.
+
+    R2's original evidence predates the first R3 ZIP. After the R3 package
+    has been committed, the R2-to-HEAD Git diff contains added R3 audit files
+    as well as added R2 files.  Existing tracked file modifications, removals,
+    renames, and unknown R3 paths remain forbidden.
+    """
     old = report["preflight"].get("head")
     new = checked.get("head")
     if (type(old) is not str or type(new) is not str
@@ -116,7 +258,7 @@ def verify_lineage(root: Path, report: dict[str, object], checked: dict[str, obj
             or re.fullmatch(r"[0-9a-f]{40}", new) is None):
         raise RuntimeError("R3_UNVERIFIED_GIT_HEAD")
     if old == new:
-        return {"mode": "SAME_HEAD", "audit_only_paths": []}
+        return {"mode": "SAME_HEAD", "audit_only_paths": [], "r3_added_paths": []}
     ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", old, new],
         cwd=root, capture_output=True, check=False,
@@ -125,16 +267,35 @@ def verify_lineage(root: Path, report: dict[str, object], checked: dict[str, obj
         raise RuntimeError("R3_R2_HEAD_NOT_ANCESTOR")
     changes = git(root, "diff", "--name-status", "--no-renames", old, new)
     rows = [line.split("\t", 1) for line in changes.splitlines()]
-    if (not rows or any(
-            len(row) != 2 or row[0] != "A"
-            or not row[1].startswith(R2_PACKAGE + "/")
-            for row in rows)):
+    if not rows:
         raise RuntimeError("R3_R2_LINEAGE_NOT_AUDIT_ONLY")
-    return {"mode": "AUDIT_ONLY_DESCENDANT", "audit_only_paths": [row[1] for row in rows]}
+    added_paths: list[str] = []
+    r3_added: list[str] = []
+    for row in rows:
+        if len(row) != 2 or row[0] != "A":
+            raise RuntimeError("R3_R2_LINEAGE_NOT_AUDIT_ONLY")
+        relative = row[1]
+        if relative.startswith(R2_PACKAGE + "/"):
+            added_paths.append(relative)
+        elif relative in R3_LINEAGE_ALLOWED_ADDITIONS:
+            added_paths.append(relative)
+            r3_added.append(relative)
+        else:
+            raise RuntimeError("R3_R2_LINEAGE_NOT_AUDIT_ONLY")
+    return {
+        "mode": "AUDIT_ONLY_DESCENDANT",
+        "audit_only_paths": added_paths,
+        "r3_added_paths": r3_added,
+    }
 
 
 def inspect_pi73() -> dict[str, object]:
-    """Attempt isolated canonical proof reconstruction using no synthetic facts."""
+    """Check both ordinary and source-bound routes; diagnose every premise.
+
+    The three mathematical obligations remain independently INFERRED.  A
+    source-bound codomain is only an extra search request to avoid a direct
+    DB GIVEN taking precedence; no proved Step or new assertion is installed.
+    """
     from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
     from phase165_r12_r2_quotient_rules import CyclicStructureStatement
     from phase165_r14_r6_generic_iso import MapInjective
@@ -146,6 +307,9 @@ def inspect_pi73() -> dict[str, object]:
     from phase168_r3_41p13_trust_boundary import verify_proof_tree_for_narrative
     from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
     from phase175_r3_pi73_hopf_lift.rule import RULE_NAME, expand_cited_hopf_lift, hopf_lift_inputs
+    from phase175_r3_pi73_hopf_lift.frontier import (
+        inspect_independent_obligation, source_bound_hopf_codomain,
+    )
     from phase171_r2i_eta_hopf_bridge.source import eligible_eta_hopf_chains
     from phase171_r2j_r2_cyclic_hopf_surjective.source import _same_generator
     from phase168_r2_8_4_generic_specialization.specialization import (
@@ -189,7 +353,6 @@ def inspect_pi73() -> dict[str, object]:
             cyclic.generator, chain.conclusion.lhs.expression, cyclic.order,
         )
     )
-    # The EHP Hopf codomain is S^(2*n-1); inspect only preceding schemas.
     codomain_schemata = tuple(
         specialized for statement in available if isinstance(statement, Relation)
         for specialized in (specialize_registered_higher_stem(
@@ -211,11 +374,15 @@ def inspect_pi73() -> dict[str, object]:
         raise RuntimeError("R3_AMBIGUOUS_CITED_HOPF_CHAINS")
     ordinary = shared_expansion_provider(screened, proof_target=target)
     baseline_root_routes = ordinary(cyclic)
+    bounded = source_bound_hopf_codomain(isolated[0], available) if isolated else None
 
     def provider(goal: object):
         if goal == cyclic and isolated:
-            return isolated + tuple(option for option in ordinary(goal)
-                                    if option.rule.name != RULE_NAME)
+            scoped = (bounded,) if bounded is not None else ()
+            return scoped + isolated + tuple(
+                option for option in ordinary(goal)
+                if option.rule.name != RULE_NAME
+            )
         return ordinary(goal)
 
     result = search_registered_partial_proof(
@@ -235,6 +402,7 @@ def inspect_pi73() -> dict[str, object]:
             trust_verified = True
         except Exception as exc:
             trust_error = type(exc).__name__ + ": " + str(exc)
+
     actual_steps = list(result.proven_steps)
     matches = [
         step for step in actual_steps
@@ -250,8 +418,10 @@ def inspect_pi73() -> dict[str, object]:
     ]
     if forbidden:
         raise RuntimeError("R3_TARGET_CONCLUSION_HAS_GIVEN_LEAF")
+
     candidate_inputs = [repr(item) for item in isolated[0].subgoals] if isolated else []
     zero_image_route_counts = []
+    subgoal_observations: list[dict[str, object]] = []
     if isolated:
         injectivity_goal = isolated[0].subgoals[0]
         if not isinstance(injectivity_goal, MapInjective):
@@ -260,6 +430,19 @@ def inspect_pi73() -> dict[str, object]:
             {"rule": option.rule.name, "subgoals": [repr(x) for x in option.subgoals]}
             for option in ordinary(injectivity_goal)[:15]
         ]
+        for name, subgoal in zip(
+            ("hopf_injectivity", "cyclic_codomain", "hopf_generator_image"),
+            isolated[0].subgoals,
+        ):
+            subgoal_observations.append(inspect_independent_obligation(
+                name, subgoal, screened, citing, ordinary,
+            ))
+        if bounded is not None:
+            subgoal_observations.append(inspect_independent_obligation(
+                "source_bound_cyclic_codomain", bounded.subgoals[1],
+                screened, citing, ordinary,
+            ))
+
     return {
         "registered_goal": repr(target),
         "screened_fixed_leaves_count": len(available),
@@ -270,6 +453,11 @@ def inspect_pi73() -> dict[str, object]:
         "registered_generator_identity_matches": len(id_checked_chains),
         "earlier_codomain_schema_count": len(codomain_schemata),
         "source_pair_matches": source_pair_matches,
+        "source_bound_codomain_candidate": bounded is not None,
+        "source_bound_is_goal_only": bounded is None or all(
+            not hasattr(item, "rule") for item in bounded.subgoals
+        ),
+        "subgoal_observations": subgoal_observations,
         "hopf_lift_premises": candidate_inputs,
         "injectivity_routes": zero_image_route_counts,
         "prior_cyclic_routes": len(baseline_root_routes),
@@ -363,6 +551,20 @@ def write_report(folder: Path, report: dict[str, object]) -> None:
     lines += ["- `" + item.replace("`", "'") + "`" for item in observed["isolated_open_goals"]]
     if not observed["isolated_open_goals"]:
         lines.append("- なし")
+    lines.extend(["", "## R3R2: 3前提の独立探索", ""])
+    for record in observed.get("subgoal_observations", []):
+        lines.append(
+            "- " + str(record["name"]) + ": **" + str(record["status"]) + "** "
+            + "(routes=" + str(record["offered_routes"]) + ", "
+            + "proof=" + str(record["actual_proof_rule"]) + ")"
+        )
+        if record["diagnostic"] is not None:
+            lines.append("  - diagnostic: `" + str(record["diagnostic"]).replace("`", "'") + "`")
+    lines.extend([
+        "", "Source-bound cyclic codomain offered: "
+        + str(observed.get("source_bound_codomain_candidate", False)),
+        "", "この独立監査は新しい GIVEN / 本番 Provider を追加しない。",
+    ])
     (folder / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -392,6 +594,10 @@ def run(root: Path, dry_run: bool, r2_path: Path | None, timeout_seconds: int) -
         report["r2_report"] = str(r2_report_path)
         report["lineage"] = lineage
         print("PHASE175_R3_SOURCE_GUARD=PASS", flush=True)
+        print("PHASE175_R3R3_WORKTREE_SCOPE="
+              + checked["r3_scoped_source_guard"], flush=True)
+        print("PHASE175_R3R3_ALLOWED_TRACKED_AUDIT_EDITS="
+              + str(len(checked["r3_scoped_audit_modified"])), flush=True)
         print("PHASE175_R3_R2_EVIDENCE=PASS", flush=True)
         print("PHASE175_R3_R2_LINEAGE=" + lineage["mode"], flush=True)
         if dry_run:
@@ -411,6 +617,13 @@ def run(root: Path, dry_run: bool, r2_path: Path | None, timeout_seconds: int) -
             print("PHASE175_R3R1_REGISTERED_ID_MATCHES=" + str(data["registered_generator_identity_matches"]), flush=True)
             print("PHASE175_R3R1_CODOMAIN_SCHEMAS=" + str(data["earlier_codomain_schema_count"]), flush=True)
             print("PHASE175_R3R1_SOURCE_PAIR_MATCHES=" + str(data["source_pair_matches"]), flush=True)
+            print("PHASE175_R3R2_SOURCE_BOUND_CODOMAIN="
+                  + str(data["source_bound_codomain_candidate"]), flush=True)
+            for premise in data["subgoal_observations"]:
+                label = premise["name"].upper()
+                print("PHASE175_R3R2_" + label + "=" + premise["status"], flush=True)
+                print("PHASE175_R3R2_" + label + "_ROUTES="
+                      + str(premise["offered_routes"]), flush=True)
             print("PHASE175_R3_SEARCH_STATUS=" + data["isolated_search_status"], flush=True)
             print("PHASE175_R3_ISOLATED_COMPLETE=" + str(data["isolated_root_complete"]), flush=True)
             print("PHASE175_R3_ISOLATED_TRUST=" + str(data["isolated_trust_verified"]), flush=True)

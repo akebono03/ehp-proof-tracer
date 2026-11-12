@@ -1,19 +1,23 @@
-# Phase 175 R3R1 — コードとテストの全文
+# Phase 175 R3R4 — 追加・変更コード全文（省略なし）
 
-既存 production ファイル、クラス、数学的 GIVEN は変更しない。R3 監査用コードだけを置換する。
+## 変更対象一覧
 
-## 変更対象
+1. `phase175_r3_pi73_hopf_lift/audit.py`：定数 `R3_LINEAGE_ALLOWED_ADDITIONS` を `select_r2_report()` の直後に追加し、関数 `verify_lineage()` を全文置換する。import 変更なし。
+2. `phase175_r3_pi73_hopf_lift/tests/test_audit.py`：ファイル末尾に4テスト関数を追加。import 変更なし。
+3. `phase175_r3_pi73_hopf_lift/README.md`：英語全文置換。
+4. `phase175_r3_pi73_hopf_lift/AUDIT_PLAN_JA.md`：日本語全文置換。
+5. `phase175_r3_pi73_hopf_lift/CODE_FULL_JA.md`：日本語全文置換（本ファイル）。
 
-- `rule.py`: `hopf_lift_inputs()` と `expand_cited_hopf_lift()` の全文を置換。import 変更なし。
-- `audit.py`: `inspect_pi73()`、`write_report()`、`run()` を全文置換。関数内 import を追記。top-level import 変更なし。
-- `tests/test_rule.py`: import を含め全体を置換。4件のテストと1件の fixture を末尾へ追加。
-- `tests/test_audit.py`: import を含め全体を置換。2件のテストを末尾へ追加。
-- `README.md` と `AUDIT_PLAN_JA.md`: 全文更新。
-- `run.ps1`、`__init__.py`、`tests/__init__.py`: 従来と同一。
+`rule.py`、`frontier.py`、`run.ps1`、本番コードおよび R1/R2 のファイルは変更しない。
+Python / PowerShell の実行に必要なファイルはすべて ZIP に含め、内容を以下に全文掲載する。
 
-## 置換単位（ファイル全体）
+## `__init__.py` 全文
 
-### `rule.py`
+```python
+"""Phase 175 R3: source-first pi_7^3 Hopf-lift proof frontier."""
+```
+
+## `rule.py` 全文
 
 ```python
 """General finite-cyclic Hopf lift from independent, certified premises.
@@ -179,7 +183,138 @@ def expand_cited_hopf_lift(
     return tuple(candidates)
 ```
 
-### `audit.py`
+## `frontier.py` 全文
+
+```python
+"""R3R2: source-bound Hopf codomain and independent premise diagnostics.
+
+The source boundary changes an obligation, never a fact or proof rule.
+Every diagnostic reconstructs its own ProofStep with the ordinary canonical
+backward resolver and the same screened earlier references as the main root.
+"""
+from __future__ import annotations
+
+from phase165_r3_recursive_search import (
+    GoalExpansion,
+    RegisteredGoalUnresolved,
+    SourceBoundGoal,
+    reconstruct_registered_goal,
+)
+from phase171_r2j_r2_cyclic_hopf_surjective.source import _eligible_group_instance
+from phase175_r3_pi73_hopf_lift.rule import RULE_NAME
+from proof import ProofRule, ProofStep, Relation, RelationType
+
+
+def source_bound_hopf_codomain(
+    proposal: GoalExpansion, available: tuple[object, ...],
+) -> GoalExpansion | None:
+    """Replace only a sourced cyclic codomain obligation with a bound goal.
+
+    The identified source must be present in the already screened GIVEN
+    conclusions.  SourceBoundGoal forces a proof by INFERENCE, thereby
+    preventing an earlier database relation from short-circuiting the proof.
+    An ambiguous or missing cited source yields no candidate.
+    """
+    if not isinstance(proposal, GoalExpansion) or not isinstance(available, tuple):
+        return None
+    if proposal.rule.name != RULE_NAME or len(proposal.subgoals) != 3:
+        return None
+    injective, codomain, image = proposal.subgoals
+    if (not isinstance(codomain, Relation)
+            or codomain.relation_type is not RelationType.EQUALITY):
+        return None
+    sources = tuple(
+        source for source in available
+        if isinstance(source, Relation)
+        and _eligible_group_instance(source, codomain)
+    )
+    if len(sources) != 1:
+        return None
+    return GoalExpansion(
+        rule=proposal.rule,
+        subgoals=(injective, SourceBoundGoal(codomain, sources[0]), image),
+    )
+
+
+def inspect_independent_obligation(
+    name: str,
+    goal: object,
+    screened: object,
+    citing_assertion_id: str,
+    provider: object,
+) -> dict[str, object]:
+    """Observe one independent real proof search; never claim a proof by route count.
+
+    A DIRECT_GIVEN result may be evidence for a later theorem but cannot
+    discharge the R3 Hopf-lift rule, which requires three INFERENCE parents.
+    The source-bound case retains the actual conclusion from its inferred
+    ProofStep and reports it separately from the bound wrapper.
+    """
+    if not isinstance(name, str) or not name:
+        raise ValueError("R3R2 nonempty obligation name required")
+    if not callable(provider):
+        raise TypeError("R3R2 provider must be callable")
+    actual = goal.conclusion if isinstance(goal, SourceBoundGoal) else goal
+    offered = provider(actual)
+    if not isinstance(offered, tuple) or not all(
+        isinstance(option, GoalExpansion) for option in offered
+    ):
+        raise TypeError("R3R2 provider contract changed")
+    observed: list[str] = []
+    proved: list[str] = []
+
+    def progress(kind: str, target: object, step: ProofStep | None) -> None:
+        if kind == "unresolved":
+            if len(observed) < 20:
+                observed.append(repr(target)[:700])
+        elif kind == "proved":
+            if not isinstance(step, ProofStep):
+                raise TypeError("R3R2 proved event requires a real ProofStep")
+            if len(proved) < 20:
+                proved.append(repr(step.conclusion)[:700])
+        else:
+            raise ValueError("R3R2 unexpected progress kind")
+
+    try:
+        step = reconstruct_registered_goal(
+            goal, screened, citing_assertion_id, provider,
+            lookup_mode="typed_reference_publication", progress_observer=progress,
+        )
+    except RegisteredGoalUnresolved as exc:
+        status = "UNRESOLVED"
+        proof_rule = None
+        premise_count = None
+        diagnostic = str(exc)[:900]
+    else:
+        if not isinstance(step, ProofStep) or step.conclusion != actual:
+            raise RuntimeError("R3R2 inferred conclusion does not match obligation")
+        proof_rule = step.rule.value
+        premise_count = len(step.premises)
+        status = (
+            "INFERRED" if step.rule is ProofRule.INFERENCE and step.premises
+            else "UNBACKED_INFERENCE_REJECTED" if step.rule is ProofRule.INFERENCE
+            else "DIRECT_GIVEN_NOT_ACCEPTABLE" if step.rule is ProofRule.GIVEN
+            else "OTHER_PROOF_RULE_NOT_ACCEPTABLE"
+        )
+        diagnostic = None
+
+    return {
+        "name": name,
+        "goal": repr(goal)[:2400],
+        "source_bound": isinstance(goal, SourceBoundGoal),
+        "offered_routes": len(offered),
+        "offered_rules": [option.rule.name for option in offered[:20]],
+        "status": status,
+        "actual_proof_rule": proof_rule,
+        "actual_premise_count": premise_count,
+        "diagnostic": diagnostic,
+        "observed_unresolved_count": len(observed),
+        "observed_unresolved": observed,
+        "observed_proved": proved,
+    }
+```
+
+## `audit.py` 全文
 
 ```python
 """Phase 175 R3: source-first, isolated pi_7^3 Hopf cyclic-lift search.
@@ -192,6 +327,7 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timezone
+from hashlib import sha256
 import json
 import os
 from pathlib import Path
@@ -215,6 +351,7 @@ EXTRA_PINS = {
     "phase165_r52_r2_search_adapter.py": "c1d08b803a4d9f9e4e1ad5180a1487422f1cd191",
     "phase165_r52_r16_web_citation_gate.py": "d1138c0450f234b6da761902ed7358b6038a19c8",
     "phase165_r12_r24_web_search_connection.py": "71d0c6c365a46e833a2bfe304c771d2e010178ca",
+    "phase165_r3_recursive_search.py": "06009bfcf57f99cac58c229d99c53f16324692d0",
 }
 
 
@@ -229,9 +366,124 @@ def git(root: Path, *arguments: str) -> str:
     return process.stdout.strip()
 
 
+# Only these R3 audit-package files were modified by the R3R2 replacement.
+# Production files, other Phase packages, the index, and unknown R3 files
+# continue to fail closed.  Untracked files retain R1's original treatment.
+R3_ALLOWED_TRACKED_EDITS = frozenset({
+    PACKAGE + "/AUDIT_PLAN_JA.md",
+    PACKAGE + "/CODE_FULL_JA.md",
+    PACKAGE + "/README.md",
+    PACKAGE + "/audit.py",
+    PACKAGE + "/run.ps1",
+    PACKAGE + "/tests/test_audit.py",
+})
+
+
+def audit_only_tracked_snapshot(root: Path) -> dict[str, str]:
+    """Permit exact unstaged R3R2 replacements, never stage or production drift.
+
+    Git porcelain -z keeps initial spaces and does not depend on locale or
+    quotePath formatting.  Hashing admitted working files also lets postflight
+    detect writes inside the otherwise allowed R3-only surface.
+    """
+    result = subprocess.run(
+        ["git", "status", "--porcelain=v1", "--untracked-files=no", "-z"],
+        cwd=root, capture_output=True, check=False,
+    )
+    if result.returncode:
+        raise RuntimeError("R3_STATUS_READ_FAILED")
+    snapshot: dict[str, str] = {}
+    for entry in result.stdout.split(b"\0"):
+        if not entry:
+            continue
+        try:
+            record = entry.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise RuntimeError("R3_INVALID_TRACKED_STATUS_ENCODING") from exc
+        if len(record) < 4 or record[:2] != " M":
+            raise RuntimeError("R3_STAGED_OR_OTHER_TRACKED_CHANGE: " + repr(record))
+        relative = record[3:]
+        if relative not in R3_ALLOWED_TRACKED_EDITS or relative in snapshot:
+            raise RuntimeError("R3_PROTECTED_TRACKED_CHANGE: " + relative)
+        candidate = root / relative
+        if not candidate.is_file():
+            raise RuntimeError("R3_ALLOWED_AUDIT_FILE_MISSING: " + relative)
+        snapshot[relative] = sha256(candidate.read_bytes()).hexdigest()
+    return dict(sorted(snapshot.items()))
+
+
+def scoped_r2_preflight(root: Path, snapshot: dict[str, str]) -> dict[str, object]:
+    """Recheck every original R1/R2 invariant with a narrow R3-only exception.
+
+    R1 and R2 remain unmodified and are used directly for clean worktrees.
+    When only reviewed R3R2 audit files are dirty, reproduce their explicit
+    ancestor, branch, source blob and registered-k=4 checks without suppressing
+    Git status globally or replacing the Git executable.
+    """
+    from phase175_r1_k4_audit import audit as r1
+    from phase175_r2_k4_frontier_audit import audit as r2
+
+    if not snapshot:
+        raise ValueError("scoped preflight requires R3-only tracked modifications")
+    _, repo_root = r1.git(root, "rev-parse", "--show-toplevel")
+    if Path(repo_root).resolve() != root.resolve():
+        raise RuntimeError("R3_NOT_GIT_REPOSITORY_ROOT")
+    _, branch = r1.git(root, "branch", "--show-current")
+    _, head = r1.git(root, "rev-parse", "HEAD")
+    if branch != "develop":
+        raise RuntimeError("R3_WRONG_BRANCH: " + branch)
+    ancestor_code, _ = r1.git(
+        root, "merge-base", "--is-ancestor", r1.REVIEWED_MAIN_MERGE,
+        "HEAD", allow_failure=True,
+    )
+    if ancestor_code:
+        raise RuntimeError("R3_REVIEWED_PHASE174_BASE_NOT_ANCESTOR")
+    for relative, expected in r1.SOURCE_BLOBS.items():
+        _, actual = r1.git(root, "rev-parse", "HEAD:" + relative)
+        if actual != expected or not (root / relative).is_file():
+            raise RuntimeError("R3_R1_SOURCE_PIN_MISMATCH: " + relative)
+    registrations = r1.registered_k4_rows(root / "data/sphere.csv")
+    _, remote = r1.git(
+        root, "rev-parse", "--verify", "origin/develop", allow_failure=True,
+    )
+    for relative, expected in r2.EXTRA_PINS.items():
+        if not (root / relative).is_file():
+            raise RuntimeError("R3_R2_SOURCE_MISSING: " + relative)
+        if git(root, "rev-parse", "HEAD:" + relative) != expected:
+            raise RuntimeError("R3_R2_SOURCE_PIN_MISMATCH: " + relative)
+    return {
+        "head": head,
+        "branch": branch,
+        "r1_pins": dict(r1.SOURCE_BLOBS),
+        "r2_extra_pins": dict(r2.EXTRA_PINS),
+        "tracked_clean": False,
+        "origin_develop_matches_head": bool(remote and remote == head),
+        "r3_scoped_audit_modified": snapshot,
+        "r3_scoped_source_guard": "R3_ONLY_UNSTAGED_AUDIT_EDITS",
+        "r3_reviewed_main_merge": r1.REVIEWED_MAIN_MERGE,
+        "r3_registered_groups": len(registrations),
+        "r3_registered_summand_rows": sum(map(len, registrations.values())),
+    }
+
+
 def preflight(root: Path) -> dict[str, object]:
-    """Reuse R2's tested guard and pin the R3 proof-search dependencies."""
-    checked = r2_preflight(root)
+    """Preserve R1/R2 Source Guard while accepting reviewed R3R2 audit edits.
+
+    R3 package files may have become tracked after the initial R3 run.  An
+    in-place R3R2 unzip then modifies those files, which the R1 global guard
+    correctly rejects.  R3R3 admits only the six known unstaged audit files,
+    checks their hashes, and independently revalidates all R1/R2 pins.
+    """
+    snapshot = audit_only_tracked_snapshot(root)
+    if snapshot:
+        checked = scoped_r2_preflight(root, snapshot)
+    else:
+        checked = r2_preflight(root)
+        checked = {
+            **checked,
+            "r3_scoped_audit_modified": {},
+            "r3_scoped_source_guard": "CLEAN_WORKTREE",
+        }
     for relative, expected in EXTRA_PINS.items():
         if not (root / relative).is_file():
             raise RuntimeError("R3_SOURCE_MISSING: " + relative)
@@ -291,8 +543,33 @@ def select_r2_report(explicit: Path | None) -> Path:
     raise RuntimeError("R3_NO_VALID_R2_EVIDENCE")
 
 
+# Only these files may have been added by the original R3, R3R1 and R3R2
+# isolated audit ZIPs.  In particular, no production code or arbitrary file
+# under the R3 directory may enter the R2-to-R3 Git history unnoticed.
+R3_LINEAGE_ALLOWED_ADDITIONS = frozenset({
+    PACKAGE + "/__init__.py",
+    PACKAGE + "/rule.py",
+    PACKAGE + "/audit.py",
+    PACKAGE + "/run.ps1",
+    PACKAGE + "/frontier.py",
+    PACKAGE + "/tests/__init__.py",
+    PACKAGE + "/tests/test_rule.py",
+    PACKAGE + "/tests/test_audit.py",
+    PACKAGE + "/tests/test_frontier.py",
+    PACKAGE + "/README.md",
+    PACKAGE + "/AUDIT_PLAN_JA.md",
+    PACKAGE + "/CODE_FULL_JA.md",
+})
+
+
 def verify_lineage(root: Path, report: dict[str, object], checked: dict[str, object]) -> dict[str, object]:
-    """Allow only new R2 audit files between the R2 result and this HEAD."""
+    """Accept only R2 audit additions and *named* R3 isolated-audit additions.
+
+    R2's original evidence predates the first R3 ZIP. After the R3 package
+    has been committed, the R2-to-HEAD Git diff contains added R3 audit files
+    as well as added R2 files.  Existing tracked file modifications, removals,
+    renames, and unknown R3 paths remain forbidden.
+    """
     old = report["preflight"].get("head")
     new = checked.get("head")
     if (type(old) is not str or type(new) is not str
@@ -300,7 +577,7 @@ def verify_lineage(root: Path, report: dict[str, object], checked: dict[str, obj
             or re.fullmatch(r"[0-9a-f]{40}", new) is None):
         raise RuntimeError("R3_UNVERIFIED_GIT_HEAD")
     if old == new:
-        return {"mode": "SAME_HEAD", "audit_only_paths": []}
+        return {"mode": "SAME_HEAD", "audit_only_paths": [], "r3_added_paths": []}
     ancestor = subprocess.run(
         ["git", "merge-base", "--is-ancestor", old, new],
         cwd=root, capture_output=True, check=False,
@@ -309,16 +586,35 @@ def verify_lineage(root: Path, report: dict[str, object], checked: dict[str, obj
         raise RuntimeError("R3_R2_HEAD_NOT_ANCESTOR")
     changes = git(root, "diff", "--name-status", "--no-renames", old, new)
     rows = [line.split("\t", 1) for line in changes.splitlines()]
-    if (not rows or any(
-            len(row) != 2 or row[0] != "A"
-            or not row[1].startswith(R2_PACKAGE + "/")
-            for row in rows)):
+    if not rows:
         raise RuntimeError("R3_R2_LINEAGE_NOT_AUDIT_ONLY")
-    return {"mode": "AUDIT_ONLY_DESCENDANT", "audit_only_paths": [row[1] for row in rows]}
+    added_paths: list[str] = []
+    r3_added: list[str] = []
+    for row in rows:
+        if len(row) != 2 or row[0] != "A":
+            raise RuntimeError("R3_R2_LINEAGE_NOT_AUDIT_ONLY")
+        relative = row[1]
+        if relative.startswith(R2_PACKAGE + "/"):
+            added_paths.append(relative)
+        elif relative in R3_LINEAGE_ALLOWED_ADDITIONS:
+            added_paths.append(relative)
+            r3_added.append(relative)
+        else:
+            raise RuntimeError("R3_R2_LINEAGE_NOT_AUDIT_ONLY")
+    return {
+        "mode": "AUDIT_ONLY_DESCENDANT",
+        "audit_only_paths": added_paths,
+        "r3_added_paths": r3_added,
+    }
 
 
 def inspect_pi73() -> dict[str, object]:
-    """Attempt isolated canonical proof reconstruction using no synthetic facts."""
+    """Check both ordinary and source-bound routes; diagnose every premise.
+
+    The three mathematical obligations remain independently INFERRED.  A
+    source-bound codomain is only an extra search request to avoid a direct
+    DB GIVEN taking precedence; no proved Step or new assertion is installed.
+    """
     from homotopy_groups import FiniteCyclicGroup, TodaPrimaryGroup
     from phase165_r12_r2_quotient_rules import CyclicStructureStatement
     from phase165_r14_r6_generic_iso import MapInjective
@@ -330,6 +626,9 @@ def inspect_pi73() -> dict[str, object]:
     from phase168_r3_41p13_trust_boundary import verify_proof_tree_for_narrative
     from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
     from phase175_r3_pi73_hopf_lift.rule import RULE_NAME, expand_cited_hopf_lift, hopf_lift_inputs
+    from phase175_r3_pi73_hopf_lift.frontier import (
+        inspect_independent_obligation, source_bound_hopf_codomain,
+    )
     from phase171_r2i_eta_hopf_bridge.source import eligible_eta_hopf_chains
     from phase171_r2j_r2_cyclic_hopf_surjective.source import _same_generator
     from phase168_r2_8_4_generic_specialization.specialization import (
@@ -373,7 +672,6 @@ def inspect_pi73() -> dict[str, object]:
             cyclic.generator, chain.conclusion.lhs.expression, cyclic.order,
         )
     )
-    # The EHP Hopf codomain is S^(2*n-1); inspect only preceding schemas.
     codomain_schemata = tuple(
         specialized for statement in available if isinstance(statement, Relation)
         for specialized in (specialize_registered_higher_stem(
@@ -395,11 +693,15 @@ def inspect_pi73() -> dict[str, object]:
         raise RuntimeError("R3_AMBIGUOUS_CITED_HOPF_CHAINS")
     ordinary = shared_expansion_provider(screened, proof_target=target)
     baseline_root_routes = ordinary(cyclic)
+    bounded = source_bound_hopf_codomain(isolated[0], available) if isolated else None
 
     def provider(goal: object):
         if goal == cyclic and isolated:
-            return isolated + tuple(option for option in ordinary(goal)
-                                    if option.rule.name != RULE_NAME)
+            scoped = (bounded,) if bounded is not None else ()
+            return scoped + isolated + tuple(
+                option for option in ordinary(goal)
+                if option.rule.name != RULE_NAME
+            )
         return ordinary(goal)
 
     result = search_registered_partial_proof(
@@ -419,6 +721,7 @@ def inspect_pi73() -> dict[str, object]:
             trust_verified = True
         except Exception as exc:
             trust_error = type(exc).__name__ + ": " + str(exc)
+
     actual_steps = list(result.proven_steps)
     matches = [
         step for step in actual_steps
@@ -434,8 +737,10 @@ def inspect_pi73() -> dict[str, object]:
     ]
     if forbidden:
         raise RuntimeError("R3_TARGET_CONCLUSION_HAS_GIVEN_LEAF")
+
     candidate_inputs = [repr(item) for item in isolated[0].subgoals] if isolated else []
     zero_image_route_counts = []
+    subgoal_observations: list[dict[str, object]] = []
     if isolated:
         injectivity_goal = isolated[0].subgoals[0]
         if not isinstance(injectivity_goal, MapInjective):
@@ -444,6 +749,19 @@ def inspect_pi73() -> dict[str, object]:
             {"rule": option.rule.name, "subgoals": [repr(x) for x in option.subgoals]}
             for option in ordinary(injectivity_goal)[:15]
         ]
+        for name, subgoal in zip(
+            ("hopf_injectivity", "cyclic_codomain", "hopf_generator_image"),
+            isolated[0].subgoals,
+        ):
+            subgoal_observations.append(inspect_independent_obligation(
+                name, subgoal, screened, citing, ordinary,
+            ))
+        if bounded is not None:
+            subgoal_observations.append(inspect_independent_obligation(
+                "source_bound_cyclic_codomain", bounded.subgoals[1],
+                screened, citing, ordinary,
+            ))
+
     return {
         "registered_goal": repr(target),
         "screened_fixed_leaves_count": len(available),
@@ -454,6 +772,11 @@ def inspect_pi73() -> dict[str, object]:
         "registered_generator_identity_matches": len(id_checked_chains),
         "earlier_codomain_schema_count": len(codomain_schemata),
         "source_pair_matches": source_pair_matches,
+        "source_bound_codomain_candidate": bounded is not None,
+        "source_bound_is_goal_only": bounded is None or all(
+            not hasattr(item, "rule") for item in bounded.subgoals
+        ),
+        "subgoal_observations": subgoal_observations,
         "hopf_lift_premises": candidate_inputs,
         "injectivity_routes": zero_image_route_counts,
         "prior_cyclic_routes": len(baseline_root_routes),
@@ -547,6 +870,20 @@ def write_report(folder: Path, report: dict[str, object]) -> None:
     lines += ["- `" + item.replace("`", "'") + "`" for item in observed["isolated_open_goals"]]
     if not observed["isolated_open_goals"]:
         lines.append("- なし")
+    lines.extend(["", "## R3R2: 3前提の独立探索", ""])
+    for record in observed.get("subgoal_observations", []):
+        lines.append(
+            "- " + str(record["name"]) + ": **" + str(record["status"]) + "** "
+            + "(routes=" + str(record["offered_routes"]) + ", "
+            + "proof=" + str(record["actual_proof_rule"]) + ")"
+        )
+        if record["diagnostic"] is not None:
+            lines.append("  - diagnostic: `" + str(record["diagnostic"]).replace("`", "'") + "`")
+    lines.extend([
+        "", "Source-bound cyclic codomain offered: "
+        + str(observed.get("source_bound_codomain_candidate", False)),
+        "", "この独立監査は新しい GIVEN / 本番 Provider を追加しない。",
+    ])
     (folder / "report.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
@@ -576,6 +913,10 @@ def run(root: Path, dry_run: bool, r2_path: Path | None, timeout_seconds: int) -
         report["r2_report"] = str(r2_report_path)
         report["lineage"] = lineage
         print("PHASE175_R3_SOURCE_GUARD=PASS", flush=True)
+        print("PHASE175_R3R3_WORKTREE_SCOPE="
+              + checked["r3_scoped_source_guard"], flush=True)
+        print("PHASE175_R3R3_ALLOWED_TRACKED_AUDIT_EDITS="
+              + str(len(checked["r3_scoped_audit_modified"])), flush=True)
         print("PHASE175_R3_R2_EVIDENCE=PASS", flush=True)
         print("PHASE175_R3_R2_LINEAGE=" + lineage["mode"], flush=True)
         if dry_run:
@@ -595,6 +936,13 @@ def run(root: Path, dry_run: bool, r2_path: Path | None, timeout_seconds: int) -
             print("PHASE175_R3R1_REGISTERED_ID_MATCHES=" + str(data["registered_generator_identity_matches"]), flush=True)
             print("PHASE175_R3R1_CODOMAIN_SCHEMAS=" + str(data["earlier_codomain_schema_count"]), flush=True)
             print("PHASE175_R3R1_SOURCE_PAIR_MATCHES=" + str(data["source_pair_matches"]), flush=True)
+            print("PHASE175_R3R2_SOURCE_BOUND_CODOMAIN="
+                  + str(data["source_bound_codomain_candidate"]), flush=True)
+            for premise in data["subgoal_observations"]:
+                label = premise["name"].upper()
+                print("PHASE175_R3R2_" + label + "=" + premise["status"], flush=True)
+                print("PHASE175_R3R2_" + label + "_ROUTES="
+                      + str(premise["offered_routes"]), flush=True)
             print("PHASE175_R3_SEARCH_STATUS=" + data["isolated_search_status"], flush=True)
             print("PHASE175_R3_ISOLATED_COMPLETE=" + str(data["isolated_root_complete"]), flush=True)
             print("PHASE175_R3_ISOLATED_TRUST=" + str(data["isolated_trust_verified"]), flush=True)
@@ -652,7 +1000,13 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-### `tests/test_rule.py`
+## `tests/__init__.py` 全文
+
+```python
+"""Focused tests for the Phase 175 R3 isolated Hopf lift."""
+```
+
+## `tests/test_rule.py` 全文
 
 ```python
 """Actual typed inference tests; run against the current GitHub checkout."""
@@ -824,7 +1178,169 @@ def test_alias_is_not_inferred_from_a_printable_name_only() -> None:
     assert hopf_lift_inputs(goal, group, false) is None
 ```
 
-### `tests/test_audit.py`
+## `tests/test_frontier.py` 全文
+
+```python
+"""R3R2 focused, typed contracts for source-bound subgoal separation."""
+from __future__ import annotations
+
+import pytest
+
+pytest.importorskip("phase165_r3_recursive_search")
+
+from phase165_r3_recursive_search import (
+    GoalExpansion,
+    RegisteredGoalUnresolved,
+    SourceBoundGoal,
+)
+from phase175_r3_pi73_hopf_lift import frontier
+from phase175_r3_pi73_hopf_lift.rule import RULE_NAME
+from proof import InferenceRule, ProofRule, ProofStep, Relation, RelationType
+
+
+def sample():
+    first, last = "hopf-injective", "hopf-image-equality"
+    codomain = Relation("pi_codomain", "Z2-generator", RelationType.EQUALITY)
+    source = Relation("earlier-universal-group", "group-schema", RelationType.EQUALITY)
+    rule = InferenceRule(name=RULE_NAME)
+    proposal = GoalExpansion(rule, (first, codomain, last))
+    return proposal, source
+
+
+def test_source_bound_replaces_only_codomain_subgoal(monkeypatch) -> None:
+    proposal, source = sample()
+    monkeypatch.setattr(
+        frontier, "_eligible_group_instance",
+        lambda possible, actual: possible == source and actual == proposal.subgoals[1],
+    )
+    candidate = frontier.source_bound_hopf_codomain(proposal, (source,))
+    assert isinstance(candidate, GoalExpansion)
+    assert candidate.rule is proposal.rule
+    assert candidate.subgoals[0] == proposal.subgoals[0]
+    assert candidate.subgoals[2] == proposal.subgoals[2]
+    bound = candidate.subgoals[1]
+    assert bound == SourceBoundGoal(proposal.subgoals[1], source)
+    assert all(not isinstance(value, ProofStep) for value in candidate.subgoals)
+
+
+def test_missing_cited_source_does_not_produce_bound_candidate(monkeypatch) -> None:
+    proposal, source = sample()
+    monkeypatch.setattr(frontier, "_eligible_group_instance", lambda a, b: False)
+    assert frontier.source_bound_hopf_codomain(proposal, (source,)) is None
+    assert frontier.source_bound_hopf_codomain(proposal, ()) is None
+
+
+def test_ambiguous_cited_sources_are_rejected(monkeypatch) -> None:
+    proposal, source = sample()
+    second = Relation("another-earlier", "schema", RelationType.EQUALITY)
+    monkeypatch.setattr(frontier, "_eligible_group_instance", lambda a, b: True)
+    assert frontier.source_bound_hopf_codomain(proposal, (source, second)) is None
+
+
+def test_unrelated_rule_cannot_be_source_bound(monkeypatch) -> None:
+    proposal, source = sample()
+    monkeypatch.setattr(frontier, "_eligible_group_instance", lambda a, b: True)
+    unrelated = GoalExpansion(InferenceRule("unrelated rule"), proposal.subgoals)
+    assert frontier.source_bound_hopf_codomain(unrelated, (source,)) is None
+
+
+def test_malformed_or_non_cyclic_candidate_rejected() -> None:
+    proposal, _ = sample()
+    assert frontier.source_bound_hopf_codomain(proposal, "not a tuple") is None
+    malformed = GoalExpansion(proposal.rule, ("one", "two"))
+    assert frontier.source_bound_hopf_codomain(malformed, ()) is None
+
+
+def test_independent_obligation_inferred_without_synthetic_given(monkeypatch) -> None:
+    goal = "actual-mathematical-goal"
+    parent = ProofStep("earlier mathematical premise", (), ProofRule.GIVEN)
+    first = ProofStep(goal, (parent,), ProofRule.INFERENCE, inference_rule=InferenceRule("inferred"))
+
+    def search(target, screened, citing_id, provider, **kwargs):
+        assert target == goal
+        assert citing_id == "earlier-citing-id"
+        assert kwargs["lookup_mode"] == "typed_reference_publication"
+        kwargs["progress_observer"]("proved", target, first)
+        return first
+
+    monkeypatch.setattr(frontier, "reconstruct_registered_goal", search)
+    route = GoalExpansion(InferenceRule("test source-only route"), ("earlier-source",))
+    result = frontier.inspect_independent_obligation(
+        "hopf_injectivity", goal, object(), "earlier-citing-id",
+        lambda value: (route,),
+    )
+    assert result["status"] == "INFERRED"
+    assert result["actual_proof_rule"] == "inference"
+    assert result["offered_routes"] == 1
+    assert result["observed_proved"] == [repr(goal)]
+
+
+def test_empty_inference_cannot_be_counted_as_independently_proved(monkeypatch) -> None:
+    goal = "an unsupported mathematical result"
+    monkeypatch.setattr(
+        frontier, "reconstruct_registered_goal",
+        lambda *args, **kwargs: ProofStep(goal, (), ProofRule.INFERENCE),
+    )
+    result = frontier.inspect_independent_obligation(
+        "hopf", goal, object(), "citing", lambda value: (),
+    )
+    assert result["status"] == "UNBACKED_INFERENCE_REJECTED"
+    assert result["actual_premise_count"] == 0
+
+def test_direct_given_is_not_accepted_as_inferred_premise(monkeypatch) -> None:
+    goal = "earlier database result"
+    monkeypatch.setattr(
+        frontier, "reconstruct_registered_goal",
+        lambda *args, **kwargs: ProofStep(goal, (), ProofRule.GIVEN),
+    )
+    result = frontier.inspect_independent_obligation(
+        "cyclic_codomain", goal, object(), "citing", lambda value: (),
+    )
+    assert result["status"] == "DIRECT_GIVEN_NOT_ACCEPTABLE"
+    assert result["actual_premise_count"] == 0
+
+
+def test_source_bound_obligation_is_passed_as_source_bound_goal(monkeypatch) -> None:
+    proposal, source = sample()
+    bound = SourceBoundGoal(proposal.subgoals[1], source)
+
+    def search(target, screened, citing_id, provider, **kwargs):
+        assert target is bound
+        return ProofStep(target.conclusion, (ProofStep(source, (), ProofRule.GIVEN),),
+                         ProofRule.INFERENCE, inference_rule=InferenceRule("specialization"))
+
+    monkeypatch.setattr(frontier, "reconstruct_registered_goal", search)
+    row = frontier.inspect_independent_obligation(
+        "source_bound_cyclic_codomain", bound, object(), "citing", lambda value: (),
+    )
+    assert row["status"] == "INFERRED"
+    assert row["source_bound"] is True
+
+
+def test_unresolved_obligation_stays_unresolved(monkeypatch) -> None:
+    goal = "missing mathematical fact"
+
+    def search(target, screened, citing_id, provider, **kwargs):
+        kwargs["progress_observer"]("unresolved", target, None)
+        raise RegisteredGoalUnresolved("no verified derivation")
+
+    monkeypatch.setattr(frontier, "reconstruct_registered_goal", search)
+    row = frontier.inspect_independent_obligation(
+        "hopf_image", goal, object(), "citing", lambda value: (),
+    )
+    assert row["status"] == "UNRESOLVED"
+    assert row["observed_unresolved_count"] == 1
+    assert "no verified derivation" in row["diagnostic"]
+
+
+def test_invalid_provider_is_rejected_without_asserting_a_proof() -> None:
+    with pytest.raises(TypeError, match="provider contract"):
+        frontier.inspect_independent_obligation(
+            "x", "goal", object(), "citing", lambda actual: ["invalid"],
+        )
+```
+
+## `tests/test_audit.py` 全文
 
 ```python
 """Focused R3 provenance, source guard and no-premature-completion tests."""
@@ -1033,9 +1549,286 @@ def test_no_silent_trust_or_new_given_added_for_identity_fix() -> None:
     assert "all(step.rule is ProofRule.INFERENCE" in source
     assert "proof_rule=ProofRule.INFERENCE" in source
     assert "ProofRule.GIVEN" not in source
+
+
+def test_r3r2_report_shows_independent_premises_without_claiming_completion(tmp_path: Path) -> None:
+    worker = {
+        "status": "INSPECTED",
+        "data": {
+            "screened_fixed_leaves_count": 9,
+            "hopf_lift_candidate_count": 1,
+            "cited_hopf_chain_count": 1,
+            "exact_generator_spelling_matches": 0,
+            "registered_generator_identity_matches": 1,
+            "earlier_codomain_schema_count": 1,
+            "source_pair_matches": 1,
+            "isolated_search_status": "search_failed",
+            "certified_hopf_lift_steps": 0,
+            "isolated_trust_verified": False,
+            "isolated_open_goals": ["CyclicStructureStatement"],
+            "source_bound_codomain_candidate": True,
+            "subgoal_observations": [
+                {"name": "hopf_injectivity", "status": "UNRESOLVED",
+                 "offered_routes": 1, "actual_proof_rule": None,
+                 "diagnostic": "missing certified zero image"},
+                {"name": "cyclic_codomain", "status": "DIRECT_GIVEN_NOT_ACCEPTABLE",
+                 "offered_routes": 1, "actual_proof_rule": "given", "diagnostic": None},
+                {"name": "source_bound_cyclic_codomain", "status": "INFERRED",
+                 "offered_routes": 1, "actual_proof_rule": "inference", "diagnostic": None},
+            ],
+        },
+    }
+    audit.write_report(tmp_path, {"worker": worker})
+    content = (tmp_path / "report.md").read_text(encoding="utf-8")
+    assert "hopf_injectivity: **UNRESOLVED**" in content
+    assert "cyclic_codomain: **DIRECT_GIVEN_NOT_ACCEPTABLE**" in content
+    assert "source_bound_cyclic_codomain: **INFERRED**" in content
+    assert "Source-bound cyclic codomain offered: True" in content
+
+
+def test_r3r2_pins_original_recursive_resolver() -> None:
+    assert audit.EXTRA_PINS["phase165_r3_recursive_search.py"] == (
+        "06009bfcf57f99cac58c229d99c53f16324692d0"
+    )
+
+
+def test_r3r2_code_does_not_change_public_provider_or_register_givens() -> None:
+    pkg = Path(__file__).resolve().parents[1]
+    code = (pkg / "frontier.py").read_text(encoding="utf-8")
+    audit_code = (pkg / "audit.py").read_text(encoding="utf-8")
+    assert "SourceBoundGoal(codomain, sources[0])" in code
+    assert "reconstruct_registered_goal(" in code
+    assert 'lookup_mode="typed_reference_publication"' in code
+    assert '"new_given": 0' in audit_code
+    assert '"public_search_modified": False' in audit_code
+    assert '"public_web_complete_claimed": False' in audit_code
+
+
+def r3r3_git_fixture(tmp_path: Path) -> tuple[Path, str]:
+    """A real local Git index, with an independently committed R3 audit."""
+    root = tmp_path
+
+    def command(*arguments: str) -> str:
+        return subprocess.run(
+            ["git", *arguments], cwd=root, check=True,
+            capture_output=True, text=True, encoding="utf-8",
+        ).stdout.strip()
+
+    command("init", "-q", "-b", "develop")
+    command("config", "user.email", "r3r3@example.invalid")
+    command("config", "user.name", "R3R3 Audit")
+    tracked = (
+        "data/sphere.csv",
+        "protected/r1.txt",
+        "protected/r2.txt",
+        "protected/r3.txt",
+        "phase175_r3_pi73_hopf_lift/audit.py",
+        "phase175_r3_pi73_hopf_lift/README.md",
+        "phase175_r3_pi73_hopf_lift/rule.py",
+    )
+    for relative in tracked:
+        file = root / relative
+        file.parent.mkdir(parents=True, exist_ok=True)
+        if relative == "data/sphere.csv":
+            file.write_text(
+                "n,k,id,generator,orders\n"
+                + "".join(f"{n},4,{n},x,2\n" for n in range(2, 8)),
+                encoding="utf-8",
+            )
+        else:
+            file.write_text("original " + relative + "\n", encoding="utf-8")
+    command("add", ".")
+    command("commit", "-qm", "phase175 R3 audit baseline")
+    return root, command("rev-parse", "HEAD")
+
+
+def test_r3r3_scoped_guard_accepts_unstaged_audit_edits_and_hashes(tmp_path: Path) -> None:
+    from hashlib import sha256
+
+    root, _ = r3r3_git_fixture(tmp_path)
+    assert audit.audit_only_tracked_snapshot(root) == {}
+    file = root / "phase175_r3_pi73_hopf_lift/audit.py"
+    file.write_text("R3R2 audit replacement\n", encoding="utf-8")
+    snapshot = audit.audit_only_tracked_snapshot(root)
+    assert snapshot == {
+        "phase175_r3_pi73_hopf_lift/audit.py": sha256(file.read_bytes()).hexdigest(),
+    }
+    file.write_text("R3R2 audit replacement modified during run\n", encoding="utf-8")
+    assert audit.audit_only_tracked_snapshot(root) != snapshot
+
+
+def test_r3r3_guard_rejects_production_or_unlisted_r3_changes(tmp_path: Path) -> None:
+    root, _ = r3r3_git_fixture(tmp_path)
+    file = root / "phase175_r3_pi73_hopf_lift/audit.py"
+    file.write_text("R3R2 audit replacement\n", encoding="utf-8")
+    (root / "protected/r1.txt").write_text("unreviewed protected change", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="R3_PROTECTED_TRACKED_CHANGE"):
+        audit.audit_only_tracked_snapshot(root)
+    subprocess.run(
+        ["git", "checkout", "--", "protected/r1.txt"],
+        cwd=root, check=True, capture_output=True,
+    )
+    (root / "phase175_r3_pi73_hopf_lift/rule.py").write_text(
+        "unreviewed rule replacement", encoding="utf-8",
+    )
+    with pytest.raises(RuntimeError, match="R3_PROTECTED_TRACKED_CHANGE"):
+        audit.audit_only_tracked_snapshot(root)
+
+
+def test_r3r3_guard_rejects_index_staging_even_inside_r3(tmp_path: Path) -> None:
+    root, _ = r3r3_git_fixture(tmp_path)
+    file = root / "phase175_r3_pi73_hopf_lift/audit.py"
+    file.write_text("audited replacement\n", encoding="utf-8")
+    subprocess.run(
+        ["git", "add", "phase175_r3_pi73_hopf_lift/audit.py"],
+        cwd=root, check=True, capture_output=True,
+    )
+    with pytest.raises(RuntimeError, match="R3_STAGED_OR_OTHER_TRACKED_CHANGE"):
+        audit.audit_only_tracked_snapshot(root)
+
+
+def test_r3r3_guard_rejects_deletion_and_unknown_rename(tmp_path: Path) -> None:
+    root, _ = r3r3_git_fixture(tmp_path)
+    (root / "phase175_r3_pi73_hopf_lift/README.md").unlink()
+    with pytest.raises(RuntimeError, match="R3_STAGED_OR_OTHER_TRACKED_CHANGE"):
+        audit.audit_only_tracked_snapshot(root)
+
+
+def test_r3r3_scoped_preflight_rechecks_r1_r2_r3_pins(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    from phase175_r1_k4_audit import audit as r1
+    from phase175_r2_k4_frontier_audit import audit as r2
+
+    root, baseline = r3r3_git_fixture(tmp_path)
+
+    def blob(relative: str) -> str:
+        return audit.git(root, "rev-parse", "HEAD:" + relative)
+
+    monkeypatch.setattr(r1, "REVIEWED_MAIN_MERGE", baseline)
+    monkeypatch.setattr(r1, "SOURCE_BLOBS", {
+        "data/sphere.csv": blob("data/sphere.csv"),
+        "protected/r1.txt": blob("protected/r1.txt"),
+    })
+    monkeypatch.setattr(r2, "EXTRA_PINS", {
+        "protected/r2.txt": blob("protected/r2.txt"),
+    })
+    monkeypatch.setattr(audit, "EXTRA_PINS", {
+        "protected/r3.txt": blob("protected/r3.txt"),
+    })
+
+    audit_file = root / "phase175_r3_pi73_hopf_lift/audit.py"
+    audit_file.write_text("R3R2 audit replacement\n", encoding="utf-8")
+    checked = audit.preflight(root)
+    assert checked["branch"] == "develop"
+    assert checked["head"] == baseline
+    assert checked["tracked_clean"] is False
+    assert checked["r3_scoped_source_guard"] == "R3_ONLY_UNSTAGED_AUDIT_EDITS"
+    assert checked["r3_registered_groups"] == 6
+    assert set(checked["r3_scoped_audit_modified"]) == {
+        "phase175_r3_pi73_hopf_lift/audit.py",
+    }
+    assert audit.preflight(root) == checked
+
+    (root / "protected/r2.txt").unlink()
+    with pytest.raises(RuntimeError, match="R3_STAGED_OR_OTHER_TRACKED_CHANGE"):
+        audit.preflight(root)
+
+
+def test_r3r3_clean_path_retains_unmodified_r2_preflight(
+    tmp_path: Path, monkeypatch,
+) -> None:
+    root, baseline = r3r3_git_fixture(tmp_path)
+    calls = []
+
+    def original_guard(candidate: Path):
+        calls.append(candidate)
+        return {"head": baseline, "branch": "develop", "tracked_clean": True}
+
+    monkeypatch.setattr(audit, "r2_preflight", original_guard)
+    monkeypatch.setattr(audit, "EXTRA_PINS", {
+        "protected/r3.txt": audit.git(root, "rev-parse", "HEAD:protected/r3.txt"),
+    })
+    checked = audit.preflight(root)
+    assert calls == [root]
+    assert checked["tracked_clean"] is True
+    assert checked["r3_scoped_source_guard"] == "CLEAN_WORKTREE"
+    assert checked["r3_scoped_audit_modified"] == {}
+
+
+def test_r3r4_lineage_accepts_r2_and_named_r3_additions(tmp_path: Path) -> None:
+    """A real Git DAG reproduces R2 commit followed by R3 package commit."""
+    root, before = prepare_git_repository(tmp_path)
+    for relative in (
+        audit.R2_PACKAGE + "/audit.py",
+        audit.PACKAGE + "/__init__.py",
+        audit.PACKAGE + "/audit.py",
+        audit.PACKAGE + "/rule.py",
+        audit.PACKAGE + "/README.md",
+    ):
+        file = root / relative
+        file.parent.mkdir(parents=True, exist_ok=True)
+        file.write_text("audited package file\n", encoding="utf-8")
+    subprocess.run(["git", "add", audit.R2_PACKAGE], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "R2 audit package"], cwd=root, check=True)
+    subprocess.run(["git", "add", audit.PACKAGE], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "R3 isolated audit package"], cwd=root, check=True)
+    after = audit.git(root, "rev-parse", "HEAD")
+    result = audit.verify_lineage(root, {"preflight": {"head": before}}, {"head": after})
+    assert result["mode"] == "AUDIT_ONLY_DESCENDANT"
+    assert result["r3_added_paths"] == [
+        audit.PACKAGE + "/README.md",
+        audit.PACKAGE + "/__init__.py",
+        audit.PACKAGE + "/audit.py",
+        audit.PACKAGE + "/rule.py",
+    ]
+    assert audit.R2_PACKAGE + "/audit.py" in result["audit_only_paths"]
+
+
+def test_r3r4_lineage_rejects_unlisted_r3_added_file(tmp_path: Path) -> None:
+    root, before = prepare_git_repository(tmp_path)
+    unlisted = root / audit.PACKAGE / "unexpected_source.py"
+    unlisted.parent.mkdir(parents=True, exist_ok=True)
+    unlisted.write_text("# not part of the audited R3 ZIP\n", encoding="utf-8")
+    subprocess.run(["git", "add", audit.PACKAGE], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "unexpected R3 addition"], cwd=root, check=True)
+    after = audit.git(root, "rev-parse", "HEAD")
+    with pytest.raises(RuntimeError, match="R3_R2_LINEAGE_NOT_AUDIT_ONLY"):
+        audit.verify_lineage(root, {"preflight": {"head": before}}, {"head": after})
+
+
+def test_r3r4_lineage_rejects_prior_committed_r3_modification(tmp_path: Path) -> None:
+    root, _ = prepare_git_repository(tmp_path)
+    tracked = root / audit.PACKAGE / "audit.py"
+    tracked.parent.mkdir(parents=True, exist_ok=True)
+    tracked.write_text("initial R3 audit", encoding="utf-8")
+    subprocess.run(["git", "add", audit.PACKAGE], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "first R3 audit"], cwd=root, check=True)
+    before = audit.git(root, "rev-parse", "HEAD")
+    tracked.write_text("unreviewed committed change", encoding="utf-8")
+    subprocess.run(["git", "add", audit.PACKAGE], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "unreviewed R3 edit"], cwd=root, check=True)
+    after = audit.git(root, "rev-parse", "HEAD")
+    with pytest.raises(RuntimeError, match="R3_R2_LINEAGE_NOT_AUDIT_ONLY"):
+        audit.verify_lineage(root, {"preflight": {"head": before}}, {"head": after})
+
+
+def test_r3r4_lineage_rejects_production_change_even_with_valid_audit_additions(
+    tmp_path: Path,
+) -> None:
+    root, before = prepare_git_repository(tmp_path)
+    file = root / audit.PACKAGE / "rule.py"
+    file.parent.mkdir(parents=True, exist_ok=True)
+    file.write_text("isolated R3 rule", encoding="utf-8")
+    (root / "production.txt").write_text("modified", encoding="utf-8")
+    subprocess.run(["git", "add", "production.txt", audit.PACKAGE], cwd=root, check=True)
+    subprocess.run(["git", "commit", "-qm", "audit plus unreviewed production"], cwd=root, check=True)
+    after = audit.git(root, "rev-parse", "HEAD")
+    with pytest.raises(RuntimeError, match="R3_R2_LINEAGE_NOT_AUDIT_ONLY"):
+        audit.verify_lineage(root, {"preflight": {"head": before}}, {"head": after})
 ```
 
-### `run.ps1`
+## `run.ps1` 全文
 
 ```powershell
 param(
@@ -1073,6 +1866,7 @@ try {
             --import-mode=importlib `
             '.\phase175_r3_pi73_hopf_lift\tests\test_audit.py' `
             '.\phase175_r3_pi73_hopf_lift\tests\test_rule.py' `
+            '.\phase175_r3_pi73_hopf_lift\tests\test_frontier.py' `
             '.\phase175_r2_k4_frontier_audit\tests\test_audit.py' `
             '.\phase174_r3_r7_r5_zero_image_hopf_injective\tests\test_rule.py' `
             '.\phase174_r3_r7_r34_prior_lower_delta_source_wiring\tests\test_source.py'
@@ -1106,150 +1900,4 @@ finally {
     $env:PYTHONDONTWRITEBYTECODE = $PreviousNoBytecode
 }
 ```
-
-### `__init__.py`
-
-```python
-"""Phase 175 R3: source-first pi_7^3 Hopf-lift proof frontier."""
-```
-
-### `tests/__init__.py`
-
-```python
-"""Focused tests for the Phase 175 R3 isolated Hopf lift."""
-```
-
-## README.md の全文
-
-````markdown
-# Phase 175 R3R1 — registered generator identity fix for `pi_7^3`
-
-This corrects the isolated R3 Hopf-lift candidate filter for the actual
-Toda (5.3) nu-prime notation versus the typed HyoujiGen database notation.
-It does not alter any existing tracked production source, introduce a GIVEN
-fact, or publish a group proof.
-
-## What was observed
-
-The original Phase 175 R3 audit passed its provenance checks and its focused
-pytest suite, but returned `PHASE175_R3_HOPF_LIFT_CANDIDATES=0` and
-`search_failed`. Consequently, the public Group query still reports
-`generic-partial-proof`. This is not evidence that the group is unknown.
-
-The original isolated rule required exact Python dataclass equality between
-the database generator `nu' o eta_6` and the source-backed Hopf chain's
-`nu-prime o eta_6`. The adopted (5.3) registers nu-prime using a decorated
-Unicode generator, while the database registers the corresponding TeX code.
-The existing `same_registered_group_presentation` identity check already
-recognizes the two presentations through unique HyoujiGen factor IDs.
-
-## Scope of this repair
-
-- `rule.py`: complete replacement of `hopf_lift_inputs` and
-  `expand_cited_hopf_lift`; they use the existing strict ID-checked
-  `_same_generator` helper instead of object identity to match the input
-  generator. Map dimensions, source and codomain, cyclic order and all three
-  independently INFERRED premises remain mandatory.
-- `audit.py`: complete replacement of `inspect_pi73` and reporting functions
-  to show cited Hopf chain count, exact spelling matches, registered ID
-  matches, preceding cyclic codomain schemas, and matched candidate pairs.
-- `tests/test_rule.py`, `tests/test_audit.py`: regression tests and negative
-  tests for unregistered, wrong or look-alike generators.
-- `AUDIT_PLAN_JA.md` and `CODE_FULL_JA.md`: complete revised documents.
-
-No other tracked source, historical main documentation, or Phase 175 R2
-record is modified. Existing API signatures and the ordinary shared
-provider are preserved.
-
-## Run in Windows PowerShell
-
-Extract `EHP_Phase175_R3R1_PI73_GENERATOR_ID_FIX.zip` into the repository
-root, overwriting the earlier `phase175_r3_pi73_hopf_lift/` directory.
-Then run the same `run.ps1` as before.
-
-```powershell
-cd C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
-$ErrorActionPreference = 'Stop'
-Expand-Archive -Path "$HOME\Downloads\EHP_Phase175_R3R1_PI73_GENERATOR_ID_FIX.zip" -DestinationPath "." -Force
-$script = ".\phase175_r3_pi73_hopf_lift\run.ps1"
-powershell -NoProfile -ExecutionPolicy Bypass -File $script -DryRun
-if ($LASTEXITCODE -ne 0) { throw "R3R1 DryRun failed" }
-powershell -NoProfile -ExecutionPolicy Bypass -File $script
-if ($LASTEXITCODE -ne 0) { throw "R3R1 audit failed" }
-git status -sb
-```
-
-## Success boundary
-
-The isolated worker now reports five separate source-discovery counters.
-`HOPF_LIFT_CANDIDATES>0` only means that a backward inference path has been
-proposed, not that its premises were proved. `PASS_R3_PI73_ISOLATED_VERIFIED`
-requires an actual complete proof and an independently accepted Trust Boundary;
-`PASS_R3_PI73_HOPF_FRONTIER_RECORDED` records a legitimate incomplete search.
-The public Web result will remain unchanged until a separately reviewed
-provider integration. Whole-suite pytest is postponed until Phase 175 closeout.
-
-The downloaded local verification of this package is only for the audit
-contracts: real source-screened search must be run on the user's checkout.
-````
-
-## AUDIT_PLAN_JA.md の全文
-
-````markdown
-# Phase 175 R3R1 — $\pi_7^3$ の生成元ID照合補正
-
-## R3 の実測と原因
-
-R3 本実行では Source Guard、R2 証拠、Git 系譜を PASS としたが、`HOPF_LIFT_CANDIDATES=0`、`search_failed`、`ISOLATED_COMPLETE=False` であった。公開 Group query も `generic-partial-proof` を維持している。
-
-Toda (5.3) の出典付き $H(\nu')=\eta_5$ は、$\nu'$ を `GeneratorSymbol(family="ν", decoration="′")` として表している。他方、`HyoujiGen.csv` の ID 3 によるデータベース Goal は `GeneratorSymbol(family="\\nu'")` を用いる。両者は同じ元を指す記法であるが、Python の `Composition` をそのまま比較すると一致しない。もとの `rule.py` の二箇所の厳密な等値条件が原因候補である。実際の文献 Context で他にも不足がある可能性を残すため、新たにフィルター段階ごとの件数を記録する。
-
-## 証明目標と数学的前提
-
-$$
-\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
-$$
-
-導出に必要な親は、すべて別途証明される次の3件である。
-
-$$
-H:\pi_7^3\to\pi_7^5\ \text{は単射},\qquad
-\pi_7^5=\mathbb Z/2\{\eta_5^2\},\qquad
-H(\nu'\eta_6)=\eta_5^2.
-$$
-
-今回の補正は、同じ元を表す記号が `HyoujiGen.csv` の同じ ID と次元で厳密に一致するかを既存の `same_registered_group_presentation` で判定するのみ。**名前の類似、次元の一致、生成元らしい表示だけでは認めない。** 3親のすべてが `ProofRule.INFERENCE` であることも維持する。
-
-## 変更対象・クラス・関数
-
-既存の production ファイルおよび既存クラスは変更しない。既存の R3 監査ディレクトリだけを置換する。
-
-- `phase175_r3_pi73_hopf_lift/rule.py` の `hopf_lift_inputs()` 全体と `expand_cited_hopf_lift()` 全体を置換。import は変更しない。`hopf_lift_rule()` は変更しない。
-- 同ディレクトリ `audit.py` の `inspect_pi73()` 全体と `write_report()`、`run()` 全体を置換。`inspect_pi73()` の関数内 import に既存ユーティリティを追加するが、top-level import は変えない。
-- `tests/test_rule.py` の import は追加後の全文を収録。`cited_nu_prime_image()` をファイル末尾に追加し、ID 照合・candidate 候補・誤った記号・見た目だけの偽物を拒否するテストを4件追加。
-- `tests/test_audit.py` で既存の報告テストを必要な計測フィールドに対応させ、新規2テストをファイル末尾に追加。
-- `README.md`（英語）、`AUDIT_PLAN_JA.md`（日本語）、`CODE_FULL_JA.md`（日本語）を全文置換。
-- `run.ps1`、両 `__init__.py` は変更しない。README、design、development log、roadmap、proof records の主要文書は更新しない。
-
-全文置換可能な全コードと全 import は `CODE_FULL_JA.md` に収録する。既存の関連テストは Phase 171 R2I、Phase 174 R5、Phase 175 R1/R2/R3 とした。
-
-## Source-first と完了判定
-
-R2 完了報告の再照合、develop の監査専用系譜、既存 Source PIN を従来どおり要求する。既存出典を変更しない。監査 Worker が以下を記録する。
-
-- `R3R1_CITED_HOPF_CHAINS`：先行出典から構成できた Hopf 連鎖。
-- `R3R1_EXACT_GENERATOR_MATCHES`：Python オブジェクトの完全一致。
-- `R3R1_REGISTERED_ID_MATCHES`：HyoujiGen ID を用いた一致。
-- `R3R1_CODOMAIN_SCHEMAS`：先行 Proposition 5.3 から特殊化できた $\pi_7^5$ の巡回群候補。
-- `R3R1_SOURCE_PAIR_MATCHES`：上記と次元・像・位数を照合した親 Goal 一式。
-- `R3_HOPF_LIFT_CANDIDATES`：最終的な逆向き推論候補。
-
-`CANDIDATES>0` のみで証明完成とはしない。`ISOLATED_COMPLETE=True` かつ `ISOLATED_TRUST=True` で、実際の推論親がすべて検証された場合に限り独立証明完成とする。新 GIVEN、既存 production への Provider 接続、Proof Tree 再利用は一切しない。
-
-## 検証・次の段階
-
-この ZIP では限定 pytest、DryRun、Source Guard、元 R2 レポートと Git 系譜、実 Worker、追跡済みファイル不変を検証する。全体 pytest は Phase 175 の最終 Gate まで実施しない。
-
-R3R1 で候補が増え未完成の場合は、実際の新しい Open Goal のみを追加監査する。独立証明完成ならば次 Phase で最小限の公開 Provider 接続を検討する。$n=5,6$ の探索機能は先取りしない。
-````
 

@@ -1,55 +1,63 @@
-# Phase 175 R3R1 — $\pi_7^3$ の生成元ID照合補正
+# Phase 175 R3R4 — R2→R3 Git 監査履歴の限定修正
 
-## R3 の実測と原因
+## 1. 実測と問題の範囲
 
-R3 本実行では Source Guard、R2 証拠、Git 系譜を PASS としたが、`HOPF_LIFT_CANDIDATES=0`、`search_failed`、`ISOLATED_COMPLETE=False` であった。公開 Group query も `generic-partial-proof` を維持している。
+Windows R3R3 DryRun は限定 pytest **112 PASS**、作業ツリーの監査変更監視は PASS。
+一方 `verify_lineage()` が `R3_R2_LINEAGE_NOT_AUDIT_ONLY` を返して中断した。
+したがって R3R2 の独立証明探索 Worker は未実行であり、群の証明は未判定。
 
-Toda (5.3) の出典付き $H(\nu')=\eta_5$ は、$\nu'$ を `GeneratorSymbol(family="ν", decoration="′")` として表している。他方、`HyoujiGen.csv` の ID 3 によるデータベース Goal は `GeneratorSymbol(family="\\nu'")` を用いる。両者は同じ元を指す記法であるが、Python の `Composition` をそのまま比較すると一致しない。もとの `rule.py` の二箇所の厳密な等値条件が原因候補である。実際の文献 Context で他にも不足がある可能性を残すため、新たにフィルター段階ごとの件数を記録する。
+R2 の正常監査 report は R3 ディレクトリの Git 登録より前の HEAD を記録している。
+従来の R3 `verify_lineage()` は「R2 ディレクトリ内の追加ファイル `A` のみ許容」としていたため、
+R3 の監査パッケージの正常な追加まで拒否していた。
 
-## 証明目標と数学的前提
+## 2. 変更対象（ファイル・関数・追加位置）
 
-$$
-\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}.
-$$
+- `phase175_r3_pi73_hopf_lift/audit.py`
+  - 新規定数 `R3_LINEAGE_ALLOWED_ADDITIONS`：`select_r2_report()` の後、`verify_lineage()` の直前に追加。
+  - 既存関数 `verify_lineage()`：関数全文を置換。
+  - import 変更なし（現行 import 全文を `CODE_FULL_JA.md` に収録）。
+  - `preflight()`、`run()`、数学規則・GIVEN・Web 接続は変更しない。
+- `phase175_r3_pi73_hopf_lift/tests/test_audit.py`
+  - ファイル末尾に独立した実 Git DAG の4テスト関数を追加。
+  - import 変更なし（全文を `CODE_FULL_JA.md` に収録）。
+- `phase175_r3_pi73_hopf_lift/README.md`：英語で全文更新。
+- `phase175_r3_pi73_hopf_lift/AUDIT_PLAN_JA.md`：本仕様の全文。
+- `phase175_r3_pi73_hopf_lift/CODE_FULL_JA.md`：新旧コード・テストの全文。
 
-導出に必要な親は、すべて別途証明される次の3件である。
+## 3. 修正した Git 監査仕様
 
-$$
-H:\pi_7^3\to\pi_7^5\ \text{は単射},\qquad
-\pi_7^5=\mathbb Z/2\{\eta_5^2\},\qquad
-H(\nu'\eta_6)=\eta_5^2.
-$$
+1. 正常な R2 本実行 report の `preflight.head` を検証する。
+2. `merge-base --is-ancestor` で過去 HEAD と現 HEAD の祖先関係を確認する。
+3. `git diff --name-status --no-renames` の全エントリが **追加 `A`** であることを要求する。
+4. 追加場所を既存ルールどおりの `phase175_r2_k4_frontier_audit/`、または12件の名前を列挙した R3 パッケージ内のファイルに限定する。
+5. R3 内の未知の追加ファイル、R3 既存ファイルのコミット変更 `M`、削除 `D`、Rename、数学コード等は従来どおり拒否する。
+6. 許可したパス一覧と R3 パス一覧を `lineage` に記録する。モードは既存の `AUDIT_ONLY_DESCENDANT` を維持する。
+7. 作業ツリー変更の例外は R3R3 の6監査ファイルの ` M` に限定し、ステージ済み変更・本番ファイル変更を許可しない。SHA-256 による前後検査も変更しない。
+8. R1/R2/R3 の Git Blob pin と引用根拠、原則 `First Successful Proof Search` は変更しない。
 
-今回の補正は、同じ元を表す記号が `HyoujiGen.csv` の同じ ID と次元で厳密に一致するかを既存の `same_registered_group_presentation` で判定するのみ。**名前の類似、次元の一致、生成元らしい表示だけでは認めない。** 3親のすべてが `ProofRule.INFERENCE` であることも維持する。
+Git 履歴の新規 R3 ファイルは監査・独立推論パッケージの範囲だけ。ルールが一般であることと
+その ProofStep が導出されたことは別々に扱い、Proof Tree が完成したとは報告しない。
 
-## 変更対象・クラス・関数
+## 4. 限定テストと完了条件
 
-既存の production ファイルおよび既存クラスは変更しない。既存の R3 監査ディレクトリだけを置換する。
+ローカルの隔離された R1/R2/R3 パッケージでは `test_audit.py`、`test_rule.py`、
+`test_frontier.py`、R1/R2 の監査テストについて **90 PASS、2 SKIP**。
+SKIP は独立環境に本体の型付き数学モジュールがないためで、Windows では `run.ps1` が
+既存の全限定テストを実行する。Python の import および構文検査は別途実施。
 
-- `phase175_r3_pi73_hopf_lift/rule.py` の `hopf_lift_inputs()` 全体と `expand_cited_hopf_lift()` 全体を置換。import は変更しない。`hopf_lift_rule()` は変更しない。
-- 同ディレクトリ `audit.py` の `inspect_pi73()` 全体と `write_report()`、`run()` 全体を置換。`inspect_pi73()` の関数内 import に既存ユーティリティを追加するが、top-level import は変えない。
-- `tests/test_rule.py` の import は追加後の全文を収録。`cited_nu_prime_image()` をファイル末尾に追加し、ID 照合・candidate 候補・誤った記号・見た目だけの偽物を拒否するテストを4件追加。
-- `tests/test_audit.py` で既存の報告テストを必要な計測フィールドに対応させ、新規2テストをファイル末尾に追加。
-- `README.md`（英語）、`AUDIT_PLAN_JA.md`（日本語）、`CODE_FULL_JA.md`（日本語）を全文置換。
-- `run.ps1`、両 `__init__.py` は変更しない。README、design、development log、roadmap、proof records の主要文書は更新しない。
+DryRun 完了条件：`PHASE175_R3_SOURCE_GUARD=PASS`、
+`PHASE175_R3_R2_EVIDENCE=PASS`、`PHASE175_R3_R2_LINEAGE=AUDIT_ONLY_DESCENDANT`、
+`PHASE175_R3_GATE=PASS_R3_READ_ONLY_DRYRUN`、実行前後の監査対象一致。
 
-全文置換可能な全コードと全 import は `CODE_FULL_JA.md` に収録する。既存の関連テストは Phase 171 R2I、Phase 174 R5、Phase 175 R1/R2/R3 とした。
+本実行では `H` の単射性、`π_7^5` の群構造、`H(ν′η_6)=η_5^2` の3前提の
+独立探索を継続し、前提が欠ければ `PASS_R3_PI73_HOPF_FRONTIER_RECORDED` にとどめる。
 
-## Source-first と完了判定
+## 5. 次工程との境界
 
-R2 完了報告の再照合、develop の監査専用系譜、既存 Source PIN を従来どおり要求する。既存出典を変更しない。監査 Worker が以下を記録する。
+R3R4 は Git 監査履歴の修正のみ。`rule.py`、`frontier.py`、`run.ps1`、
+共有 Provider、Web Renderer、R1/R2、ルートの README・4文書は無変更。
 
-- `R3R1_CITED_HOPF_CHAINS`：先行出典から構成できた Hopf 連鎖。
-- `R3R1_EXACT_GENERATOR_MATCHES`：Python オブジェクトの完全一致。
-- `R3R1_REGISTERED_ID_MATCHES`：HyoujiGen ID を用いた一致。
-- `R3R1_CODOMAIN_SCHEMAS`：先行 Proposition 5.3 から特殊化できた $\pi_7^5$ の巡回群候補。
-- `R3R1_SOURCE_PAIR_MATCHES`：上記と次元・像・位数を照合した親 Goal 一式。
-- `R3_HOPF_LIFT_CANDIDATES`：最終的な逆向き推論候補。
-
-`CANDIDATES>0` のみで証明完成とはしない。`ISOLATED_COMPLETE=True` かつ `ISOLATED_TRUST=True` で、実際の推論親がすべて検証された場合に限り独立証明完成とする。新 GIVEN、既存 production への Provider 接続、Proof Tree 再利用は一切しない。
-
-## 検証・次の段階
-
-この ZIP では限定 pytest、DryRun、Source Guard、元 R2 レポートと Git 系譜、実 Worker、追跡済みファイル不変を検証する。全体 pytest は Phase 175 の最終 Gate まで実施しない。
-
-R3R1 で候補が増え未完成の場合は、実際の新しい Open Goal のみを追加監査する。独立証明完成ならば次 Phase で最小限の公開 Provider 接続を検討する。$n=5,6$ の探索機能は先取りしない。
+$\pi_7^3=\mathbb Z/2\{\nu'\eta_6\}$ の証明を優先し、
+未完成なら各前提の未解決原因だけを次に扱う。
+$\pi_9^5$ と $\pi_{10}^6$ はこの工程では扱わない。
+全体 pytest は Phase 175 の終了時のみ実行する。

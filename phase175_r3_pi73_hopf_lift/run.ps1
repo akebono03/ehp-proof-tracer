@@ -33,6 +33,7 @@ try {
             --import-mode=importlib `
             '.\phase175_r3_pi73_hopf_lift\tests\test_audit.py' `
             '.\phase175_r3_pi73_hopf_lift\tests\test_rule.py' `
+            '.\phase175_r3_pi73_hopf_lift\tests\test_frontier.py' `
             '.\phase175_r2_k4_frontier_audit\tests\test_audit.py' `
             '.\phase174_r3_r7_r5_zero_image_hopf_injective\tests\test_rule.py' `
             '.\phase174_r3_r7_r34_prior_lower_delta_source_wiring\tests\test_source.py'
