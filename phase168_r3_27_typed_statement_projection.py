@@ -423,6 +423,21 @@ def typed_sentence(statement, step):
     if isinstance(statement, GeneratorImage):
         x, y = element_tex(statement.source_generator), element_tex(statement.target_generator)
         symbol = map_symbol_tex(statement.map)
+        if isinstance(statement.target_generator, Zero):
+            y = "0"
+            if x is None:
+                from expression import Composition, HomotopyElement
+                from toda_human_readable_renderer import render_toda_expression_latex
+                if isinstance(statement.source_generator, (Composition, HomotopyElement)):
+                    try:
+                        if isinstance(statement.source_generator, Composition):
+                            left = render_toda_expression_latex(statement.source_generator.left)
+                            right = render_toda_expression_latex(statement.source_generator.right)
+                            x = left + r"\circ " + right
+                        else:
+                            x = render_toda_expression_latex(statement.source_generator)
+                    except (TypeError, ValueError):
+                        x = None
         if x is not None and y is not None and symbol is not None:
             return rf"${symbol}({x})={y}$."
     if isinstance(statement, EHPImageEqualsKernelStatement):
