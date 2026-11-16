@@ -624,6 +624,17 @@ def search_shared_group_goal(*, n: int, k: int, group_structure: object,
         )
         if pi74_connection is not None:
             bridge, citing_assertion_id, expansion_provider = pi74_connection
+    # R3R9: cite the explicit nu-prime consequence of Lemma 5.7.
+    if n == 3 and k == 4 and expansion_provider is None:
+        from phase175_r3r9_lemma57_explicit_public.route import (
+            prepare_pi73_public_connection,
+        )
+        pi73_connection = prepare_pi73_public_connection(
+            bridge=bridge, goal=goal, citing_assertion_id=citing_assertion_id,
+            prior_conclusions=tuple(item.root.conclusion for item in prior),
+        )
+        if pi73_connection is not None:
+            bridge, citing_assertion_id, expansion_provider = pi73_connection
     if citing_assertion_id is not None and expansion_provider is None:
         from phase174_r3_r6_r2_prop44_lemma54.source import (
             attach_earlier_verified_lemma54,
