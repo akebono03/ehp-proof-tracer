@@ -1,9 +1,9 @@
-# Phase 175 R3R8R1 — テスト記録
+# Phase 175 R3R8R1R2 — テスト記録
 
-- 既存 GitHub `develop` の source と対応テストを実装前に確認。
-- 当環境で Python AST/コンパイル検査を実施。
-- 当環境でインストーラー対象の限定 pytest：**5 passed**。
-- 先行 DB の数学的ルール・通常 Group query・Web trust 境界は、この環境にプロジェクト本体がないため実行できていない。ユーザーの Windows ローカル実行待ち。
-- 全体 pytest：実施していない（Phase 175 終了時にのみ実行）。
-- R3R8 で出現した未解決7件をもって R3R8R1 完了とは扱わない。成功表示は通常 Group query と共通 Web 経路を実際に通過した場合だけ。
-- R3R8R1 には新規の汎用推論規則2件を含む。新規 `GIVEN` は0件。
+- 2026-11-16: 一時 Git リポジトリで実行する `tests/test_worktree_guard.py` の12テストが **12 PASS**（依存する R3 Source Guard の許可ファイル集合のみ stub）。
+- ステージ済み変更、未知のファイル、事前の公開コード変更は拒否できた。
+- 後続監査文書の追跡済み変更を保持した状態で `install.preflight()`、`install.apply()`、`install.verify_postflight()`、`install.rollback()` を実行し PASS。
+- Python 構文検査、ZIP 整合性検査を別途実施。
+- GitHub `develop` にある R3 Source Guard と R3R7 系譜・既存関連テストは変更していない。
+- Windows 実リポジトリでの限定 pytest、Source Guard、証明探索、Web 表示は未実施（利用者側の実行結果待ち）。
+- 全体 pytest は Phase 175 終了時のみ実施。

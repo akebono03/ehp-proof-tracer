@@ -1,730 +1,102 @@
-# Phase 175 R3R8R1 — 変更コード全文
+# Phase 175 R3R8R1R2 — 変更コード全文
 
 ## 変更対象（最初に列挙）
 
-- 既存ファイル `phase165_r52_r9_shared_math.py`：`search_shared_group_goal()` 全体だけを変更（トップレベル import は変更しない）。
-- 新規 `rule.py`：`verified_prior_zero_image_rule()`、`expand_verified_prior_zero_image()`、`verified_prior_hopf_lift_rule()`、`expand_verified_prior_hopf_lift()`。
-- 新規 `route.py`：`public_cited_ehp_extensions()`、`prepare_pi73_public_connection()`。
-- 新規 `install.py`、`audit.py`、`run.ps1`、`tests/test_install.py`、`tests/test_route.py`、`tests/test_verified_prior.py`、`tests/test_public_search.py`、`__init__.py`、`tests/__init__.py`。
-- 既存の他の関数、クラス、テスト、README.md・design.md・development_log.md・roadmap.md・proof_records.md の変更はない。
+- 新規 `phase175_r3r8r1_verified_prior_public/worktree_guard.py`：モジュール定数と `reviewed_tracked_snapshot()` をモジュール先頭に追加。
+- 既存 `phase175_r3r8r1_verified_prior_public/audit.py`：import 全体、`R3R8R1_REVIEWED_FILES`、`extended_scoped_preflight()` を変更。他の関数は維持。以下に置換後の**ファイル全文**を記載。
+- 既存 `phase175_r3r8r1_verified_prior_public/install.py`：import 全体、`preflight()`、`verify_postflight()` を変更。以下に置換後の**ファイル全文**を記載。
+- 新規 `phase175_r3r8r1_verified_prior_public/tests/test_worktree_guard.py`：テストファイル全体を追加。
+- 既存 `phase175_r3r8r1_verified_prior_public/tests/test_lineage.py`：既存のパラメータ化テストへ1件追加。テストファイル全文を記載。
 
-## import 節と追加位置
-
-新規ファイルは以下に全文掲載しており、import 節を省略しない。新規関数は各ファイルの import 節の直後に追加。既存 `phase165_r52_r9_shared_math.py` のトップレベル import は変更せず、その既存 `search_shared_group_goal()` の全文置換を使用する。
+今回の ZIP では `phase165_r52_r9_shared_math.py` の直接変更は行わない。R3R8R1 の `run.ps1` と `route.py`、`rule.py`、`search_shared_group_goal_FULL.py.txt` は変更しない。
 
 
-## 既存ファイル `phase165_r52_r9_shared_math.py` の `search_shared_group_goal()` — 変更後全文
+## worktree_guard.py（全文）
 
 ```python
-def search_shared_group_goal(*, n: int, k: int, group_structure: object,
-                              bridge: RegistryBridgeResult | None = None,
-                              expansion_provider=None,
-                              citing_assertion_id: str | None = None,
-                              verified_assertion_ids: tuple[str, ...] = (), completed_internal_proofs: tuple = (), proof_use_order=None,
-                              ordered_completed_proofs: tuple = (), target_order: int | None = None,
-                              proof_order_catalog=None, recursive_proof_order_catalog=None, context_sink=None):
-    """Run canonical search under a screened Reference context.
+"""Successor-only worktree guard for the Phase 175 R3R8R1 public installer.
 
-    Older calls retain their signature. R15 ordering is applied to sources
-    outside the explicitly adopted-Tex policy; no IDs are auto-verified.
-    """
-    from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
-    from phase165_r57_r12_ordered_proofs import validate_prior_internal_proofs
-
-    goal = Relation(TodaPrimaryGroup(n + k, n), group_structure)
-    if proof_order_catalog is not None and recursive_proof_order_catalog is None:
-        from phase165_r57_r13_proof_order_catalog import ProofOrderCatalog
-        if not isinstance(proof_order_catalog, ProofOrderCatalog):
-            raise TypeError("proof_order_catalog must be ProofOrderCatalog")
-        if ordered_completed_proofs or completed_internal_proofs or target_order is not None:
-            raise ValueError("catalog proof order cannot mix with caller-supplied proofs")
-        if any(record.completed is not None for record in proof_order_catalog._records):
-            raise ValueError("on-demand mode forbids registered completed proofs")
-        recursive_proof_order_catalog = proof_order_catalog
-        proof_order_catalog = None
-    if recursive_proof_order_catalog is not None:
-        from phase165_r57_r14_recursive_search import search_recursively_in_proof_order
-        if (proof_order_catalog is not None or ordered_completed_proofs
-                or completed_internal_proofs or target_order is not None):
-            raise ValueError("recursive proof order cannot mix with saved or caller-supplied proofs")
-
-        def search_one(statement, earlier, order):
-            if (not isinstance(statement, Relation)
-                    or not isinstance(statement.lhs, TodaPrimaryGroup)
-                    or statement.relation_type is not RelationType.EQUALITY):
-                raise TypeError("recursive catalog targets must be typed group relations")
-            target = statement.lhs
-            if (not isinstance(target.group_dimension, int)
-                    or not isinstance(target.sphere_dimension, int)
-                    or target.sphere_dimension < 2
-                    or target.group_dimension < target.sphere_dimension):
-                raise ValueError("recursive target must have concrete dimensions")
-            return search_shared_group_goal(
-                n=target.sphere_dimension,
-                k=target.group_dimension - target.sphere_dimension,
-                group_structure=statement.rhs,
-                bridge=bridge,
-                expansion_provider=expansion_provider,
-                citing_assertion_id=citing_assertion_id,
-                verified_assertion_ids=verified_assertion_ids,
-                completed_internal_proofs=(),
-                proof_use_order=proof_use_order,
-                ordered_completed_proofs=earlier,
-                target_order=order,
-                context_sink=context_sink if statement == goal else None,
-            )
-
-        return search_recursively_in_proof_order(
-            recursive_proof_order_catalog, goal, search_one,
-        )
-    if proof_order_catalog is not None:
-        from phase165_r57_r13_proof_order_catalog import ProofOrderCatalog
-        if not isinstance(proof_order_catalog, ProofOrderCatalog):
-            raise TypeError("proof_order_catalog must be ProofOrderCatalog")
-        if ordered_completed_proofs or completed_internal_proofs or target_order is not None:
-            raise ValueError("catalog proof order cannot be mixed with caller order")
-        prior, target_order = proof_order_catalog.select_prior(goal)
-    else:
-        prior = validate_prior_internal_proofs(
-            ordered_completed_proofs, target_order, completed_internal_proofs
-        )
-    if bridge is None:
-        bridge = build_shared_typed_bridge()
-    if n == 4 and k == 3 and expansion_provider is None:
-        from phase173_r4_r1_public_connection.route import (
-            prepare_pi74_public_connection,
-        )
-        pi74_connection = prepare_pi74_public_connection(
-            bridge=bridge, goal=goal, citing_assertion_id=citing_assertion_id,
-            prior_conclusions=tuple(item.root.conclusion for item in prior),
-        )
-        if pi74_connection is not None:
-            bridge, citing_assertion_id, expansion_provider = pi74_connection
-    # R3R8R1: connect the R3R7 cited general EHP proof chain, not a saved result.
-    if n == 3 and k == 4 and expansion_provider is None:
-        from phase175_r3r8r1_verified_prior_public.route import (
-            prepare_pi73_public_connection,
-        )
-        pi73_connection = prepare_pi73_public_connection(
-            bridge=bridge, goal=goal, citing_assertion_id=citing_assertion_id,
-            prior_conclusions=tuple(item.root.conclusion for item in prior),
-        )
-        if pi73_connection is not None:
-            bridge, citing_assertion_id, expansion_provider = pi73_connection
-    if citing_assertion_id is not None and expansion_provider is None:
-        from phase174_r3_r6_r2_prop44_lemma54.source import (
-            attach_earlier_verified_lemma54,
-        )
-        bridge = attach_earlier_verified_lemma54(bridge, citing_assertion_id)
-    assertions = tuple(bridge.registry._assertions.values())
-    if not assertions:
-        raise ValueError("shared typed registry is empty")
-    context_id = citing_assertion_id or assertions[0].assertion_id
-    if citing_assertion_id is None:
-        from phase169_r10e2_unpositioned_citation.source_first import (
-            screen_independent_sources_for_derived_goal,
-        )
-        proof_context = screen_independent_sources_for_derived_goal(
-            bridge, goal=goal,
-        )
-    else:
-        proof_context = screen_shared_proof_context(
-            bridge, goal=goal, citing_assertion_id=context_id,
-            verified_assertion_ids=verified_assertion_ids,
-            explicit_publication_target=True,
-        )
-    from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
-    proof_context = prefer_universal_prop42_derivation(proof_context)
-    # Phase 173 R4-R8: reuse only the three isolated, source-verified Toda (5.6) roots.
-    if n == 4 and k in (4, 5, 6) and expansion_provider is None and citing_assertion_id is None:
-        from phase173_r4_r8_public_connection.route import (
-            prepare_pi4_higher_public_connection,
-        )
-        pi4_higher_connection = prepare_pi4_higher_public_connection(
-            bridge=bridge, goal=goal,
-            prior_conclusions=tuple(item.root.conclusion for item in prior),
-        )
-        if pi4_higher_connection is not None:
-            proof_context, expansion_provider = pi4_higher_connection
-    if context_sink is not None:
-        context_sink(proof_context)
-    if expansion_provider is None:
-        expansion_provider = shared_expansion_provider(
-            proof_context, proof_target=goal,
-            prior_conclusions=tuple(item.root.conclusion for item in prior),
-        )
-        # Every ordinary (nonzero) group search needs the same cited R53
-        # source-bound kernel candidate already used by the zero-group route.
-        # This is a candidate ordering wrapper, not a new premise or GIVEN.
-        from phase174_r3_r7_r53_public_source_bound_kernel.provider import (
-            build_public_source_bound_kernel_provider,
-        )
-        expansion_provider = build_public_source_bound_kernel_provider(
-            expansion_provider, proof_context,
-        )
-    return search_registered_partial_proof(
-        n=n, k=k, goal=goal, bridge=proof_context,
-        citing_assertion_id=context_id,
-        expansion_provider=expansion_provider,
-        lookup_mode="typed_reference_publication" if citing_assertion_id is not None else "typed_reference",
-        structure_status=GroupStructureStatus.UNKNOWN,
-        completed_internal_proofs=prior,
-    )
-```
-
-## 新規 `rule.py` — 全文
-
-```python
-"""Generic provenance-checked prior-DB variants of existing EHP group rules.
-
-These are not new mathematical conclusions: they permit an independently
-admitted, strictly earlier DB group presentation in a proof premise where
-the original inference-only rule cannot apply. A zero generator image, a
-Hopf injectivity, and a Hopf generator image must still be independently
-proved by the canonical recursive proof search.
+The earlier Phase 175 R3 guard remains unchanged.  Its R1/R2 source pins
+are rechecked by the caller after this narrowly scoped status validation.
 """
 from __future__ import annotations
 
-from phase165_r12_r2_quotient_rules import CyclicStructureStatement
-from phase165_r14_r6_generic_iso import GeneratorImage, MapInjective
-from phase165_r3_recursive_search import GoalExpansion
-from phase169_r10e4_ordered_db_prior.db_prior import admitted_db_step, verified_db_step
-from phase174_r3_r7_r6_cyclic_generator_zero_image.rule import (
-    cyclic_generator_zero_image_inputs,
-)
-from phase175_r3_pi73_hopf_lift.rule import hopf_lift_inputs
-from proof import InferenceRule, PremisePattern, ProofRule, Relation, RelationType
-from map_property_rules import ImageZeroStatement
-
-
-def verified_prior_zero_image_rule(
-    goal: ImageZeroStatement,
-    presentation: Relation,
-    *,
-    proof_target: object,
-    bridge: object,
-) -> InferenceRule:
-    """Use a strictly earlier, freshly verified DB group with inferred E(g)=0."""
-    required = cyclic_generator_zero_image_inputs(goal, presentation)
-    if required is None:
-        raise ValueError("invalid cyclic zero-image obligation")
-    if admitted_db_step(presentation, proof_target=proof_target, bridge=bridge) is None:
-        raise ValueError("cyclic source is not an earlier admitted DB group")
-
-    def guard(premises, bindings):
-        return (
-            len(premises) == 2
-            and premises[0].rule is ProofRule.GIVEN
-            and premises[1].rule is ProofRule.INFERENCE
-            and bool(premises[1].premises)
-            and tuple(p.conclusion for p in premises) == required
-            and verified_db_step(
-                premises[0], proof_target=proof_target, bridge=bridge,
-            )
-            and cyclic_generator_zero_image_inputs(goal, presentation) == required
-        )
-
-    return InferenceRule(
-        name="verified prior DB finite-cyclic generator zero implies zero image",
-        description=(
-            "For a group already admitted under strict prior-DB ordering, "
-            "the separately inferred zero image of its cyclic generator "
-            "forces the suspension homomorphism to have zero image. "
-            "The actual adopted group premise is reverified on application."
-        ),
-        premise_patterns=(
-            PremisePattern(
-                proof_rule=ProofRule.GIVEN,
-                statement_type=Relation,
-                relation_type=RelationType.EQUALITY,
-                statement_pattern=presentation,
-            ),
-            PremisePattern(
-                proof_rule=ProofRule.INFERENCE,
-                statement_type=GeneratorImage,
-                statement_pattern=required[1],
-            ),
-        ),
-        match_guard=guard,
-        conclusion_pattern=goal,
-    )
-
-
-def expand_verified_prior_zero_image(
-    goal: object,
-    presentation: object,
-    *,
-    proof_target: object,
-    bridge: object,
-) -> tuple[GoalExpansion, ...]:
-    """Build a candidate only when the real earlier group is admissible."""
-    required = cyclic_generator_zero_image_inputs(goal, presentation)
-    if required is None:
-        return ()
-    if admitted_db_step(presentation, proof_target=proof_target, bridge=bridge) is None:
-        return ()
-    return (GoalExpansion(
-        verified_prior_zero_image_rule(
-            goal, presentation, proof_target=proof_target, bridge=bridge,
-        ),
-        required,
-    ),)
-
-
-def verified_prior_hopf_lift_rule(
-    goal: CyclicStructureStatement,
-    codomain: Relation,
-    image: Relation,
-    *,
-    proof_target: object,
-    bridge: object,
-) -> InferenceRule:
-    """Hopf cyclic generator lift with a proven H and earlier adopted codomain."""
-    required = hopf_lift_inputs(goal, codomain, image)
-    if required is None:
-        raise ValueError("invalid Hopf lift obligations")
-    if admitted_db_step(codomain, proof_target=proof_target, bridge=bridge) is None:
-        raise ValueError("Hopf codomain is not an earlier admitted DB group")
-
-    def guard(premises, bindings):
-        return (
-            len(premises) == 3
-            and premises[0].rule is ProofRule.INFERENCE
-            and bool(premises[0].premises)
-            and premises[1].rule is ProofRule.GIVEN
-            and premises[2].rule is ProofRule.INFERENCE
-            and bool(premises[2].premises)
-            and tuple(p.conclusion for p in premises) == required
-            and verified_db_step(
-                premises[1], proof_target=proof_target, bridge=bridge,
-            )
-            and hopf_lift_inputs(goal, codomain, image) == required
-        )
-
-    return InferenceRule(
-        name="verified prior DB Hopf cyclic generator preimage lift",
-        description=(
-            "An independently proved injective Hopf map whose separately "
-            "inferred generator image generates its strictly earlier, "
-            "reverified finite-cyclic DB codomain gives the cyclic domain "
-            "with the same generator and order."
-        ),
-        premise_patterns=(
-            PremisePattern(
-                proof_rule=ProofRule.INFERENCE,
-                statement_type=MapInjective,
-                statement_pattern=required[0],
-            ),
-            PremisePattern(
-                proof_rule=ProofRule.GIVEN,
-                statement_type=Relation,
-                relation_type=RelationType.EQUALITY,
-                statement_pattern=codomain,
-            ),
-            PremisePattern(
-                proof_rule=ProofRule.INFERENCE,
-                statement_type=Relation,
-                relation_type=RelationType.EQUALITY,
-                statement_pattern=image,
-            ),
-        ),
-        match_guard=guard,
-        conclusion_pattern=goal,
-    )
-
-
-def expand_verified_prior_hopf_lift(
-    goal: object,
-    codomain: object,
-    image: object,
-    *,
-    proof_target: object,
-    bridge: object,
-) -> tuple[GoalExpansion, ...]:
-    """Use registered Hopf image and an admissible older DB group as goals."""
-    required = hopf_lift_inputs(goal, codomain, image)
-    if required is None:
-        return ()
-    if admitted_db_step(codomain, proof_target=proof_target, bridge=bridge) is None:
-        return ()
-    return (GoalExpansion(
-        verified_prior_hopf_lift_rule(
-            goal, codomain, image,
-            proof_target=proof_target, bridge=bridge,
-        ),
-        required,
-    ),)
-```
-
-## 新規 `route.py` — 全文
-
-```python
-"""Attach the R3R7 source-backed general rules to ordinary Group query search.
-
-Only the already registered (3,4) group selects this route. The inference
-rules themselves are reusable, and all six premises remain independent
-backward goals. No target conclusion or saved ProofStep is imported.
-"""
-from __future__ import annotations
-
-from pathlib import Path
-
-from expression import Zero
-from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
-from map_property_rules import ImageZeroStatement
-from phase165_r12_r11_prop42_unified import prefer_universal_prop42_derivation
-from phase165_r12_r2_quotient_rules import CyclicStructureStatement
-from phase165_r14_r6_generic_iso import GeneratorImage
-from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
-from phase165_r55_nk_only_goal import registered_group_goal_candidates
-from phase166_r3c_publication_order import precedes_citing_assertion
-from phase166_r3t_goal_source_binding.goal_source import resolve_specialized_goal_citing_id
-from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
-from phase173_r4_r1_lemma54_source_bridge.source import (
-    ADOPTED_ASSERTION_ID,
-    TodaLemma54TypedSource,
-)
-from phase174_r3_r6_r2_prop44_lemma54.source import attach_earlier_verified_lemma54
-from phase174_r3_r7_r5_zero_image_hopf_injective.rule import (
-    expand_hopf_injective_from_zero_image,
-    hopf_injectivity_from_zero_image_inputs,
-)
-from phase174_r3_r7_r6_cyclic_generator_zero_image.rule import (
-    expand_zero_image_from_cyclic_generator,
-)
-from phase175_r3_pi73_hopf_lift.rule import expand_cited_hopf_lift
-from phase175_r3r6_lemma57_general.rule import (
-    expand_cited_lemma57_zero_generator,
-    lemma57_criterion_inputs,
-)
-from phase175_r3r6_lemma57_general.source import (
-    GENERAL_ASSERTION_ID,
-    TodaLemma57GeneralCriterion,
-    build_isolated_lemma57_source,
-    merge_isolated_cited_source,
-)
-from phase175_r3r7_lemma54_membership.rule import (
-    cited_lemma54_double_relation,
-    expand_cited_lemma54_double,
-    expand_even_factor_membership,
-)
-from phase175_r3r7_lemma54_membership.source import verify_lemma54_before_lemma57
-from phase175_r3r8r1_verified_prior_public.rule import (
-    expand_verified_prior_hopf_lift,
-    expand_verified_prior_zero_image,
-)
-from proof import ProofRule, Relation, RelationType
-from unified_statement_registry import AssertionOrigin
-
-
-def public_cited_ehp_extensions(
-    available: tuple[object, ...], *, proof_target: object = None, bridge: object = None,
-):
-    """Return reusable proposals using only the screened source conclusions.
-
-    This closure does not carry a completed proof. Existing R3R7 algebraic
-    inference rules are called unmodified. A lower group is only a candidate
-    goal; the canonical resolver independently establishes its provenance.
-    """
-    if (available.count(TodaLemma54TypedSource()) != 1
-            or available.count(TodaLemma57GeneralCriterion()) != 1):
-        raise ValueError("R3R8R1 requires exactly one screened Lemma 5.4 and 5.7")
-    equation = cited_lemma54_double_relation()
-
-    def expand(statement: object):
-        options = []
-        options.extend(expand_cited_lemma54_double(statement, available))
-        options.extend(expand_even_factor_membership(statement, (equation,)))
-        options.extend(expand_cited_lemma57_zero_generator(statement, available))
-        if isinstance(statement, ImageZeroStatement):
-            suspension = statement.map
-            if isinstance(suspension, TodaSuspensionMap):
-                domain, codomain = suspension.source_group, suspension.target_group
-                if (isinstance(domain, TodaPrimaryGroup)
-                        and isinstance(codomain, TodaPrimaryGroup)
-                        and type(domain.group_dimension) is int
-                        and type(domain.sphere_dimension) is int
-                        and codomain == TodaPrimaryGroup(
-                            domain.group_dimension + 1,
-                            domain.sphere_dimension + 1,
-                        )):
-                    n = domain.sphere_dimension
-                    k = domain.group_dimension - n
-                    prior = exact_prior_database_result(n, k)
-                    if isinstance(prior, Relation) and prior.relation_type is RelationType.EQUALITY:
-                        if proof_target is not None and bridge is not None:
-                            options.extend(expand_verified_prior_zero_image(
-                                statement, prior,
-                                proof_target=proof_target, bridge=bridge,
-                            ))
-                        options.extend(expand_zero_image_from_cyclic_generator(
-                            statement, prior,
-                        ))
-        options.extend(expand_hopf_injective_from_zero_image(statement))
-        lifts = expand_cited_hopf_lift(statement, available)
-        if proof_target is not None and bridge is not None:
-            for lift in lifts:
-                if len(lift.subgoals) != 3:
-                    continue
-                options.extend(expand_verified_prior_hopf_lift(
-                    statement, lift.subgoals[1], lift.subgoals[2],
-                    proof_target=proof_target, bridge=bridge,
-                ))
-        options.extend(lifts)
-        return tuple(options)
-
-    return expand
-
-
-def prepare_pi73_public_connection(*, bridge, goal, citing_assertion_id,
-                                   prior_conclusions: tuple):
-    """Return (augmented bridge, real target citation ID, public provider).
-
-    This mirrors the existing pi_7^4 public connection: the target alone
-    chooses the *routing*, never the mathematical facts. Returning None is a
-    safe refusal; the existing ordinary search is left untouched.
-    """
-    if not isinstance(prior_conclusions, tuple):
-        raise TypeError("prior_conclusions must be tuple")
-    if (not isinstance(goal, Relation)
-            or goal.relation_type is not RelationType.EQUALITY
-            or goal.lhs != TodaPrimaryGroup(7, 3)):
-        return None
-    candidates = registered_group_goal_candidates(bridge, n=3, k=4)
-    if len(candidates) != 1 or candidates[0] != goal:
-        return None
-    exact_id = resolve_specialized_goal_citing_id(bridge, goal)
-    if not isinstance(exact_id, str) or not exact_id:
-        return None
-    if citing_assertion_id is not None and citing_assertion_id != exact_id:
-        return None
-    if (ADOPTED_ASSERTION_ID in bridge.registry._assertions
-            or GENERAL_ASSERTION_ID in bridge.registry._assertions):
-        return None
-    root = Path(__file__).resolve().parents[1]
-    verify_lemma54_before_lemma57(root)
-    earlier = attach_earlier_verified_lemma54(bridge, exact_id)
-    extra = build_isolated_lemma57_source(root)
-    augmented = merge_isolated_cited_source(earlier, extra)
-    for assertion_id in (ADOPTED_ASSERTION_ID, GENERAL_ASSERTION_ID):
-        if assertion_id not in augmented.registry._assertions:
-            return None
-        if not precedes_citing_assertion(augmented, assertion_id, exact_id):
-            return None
-    screened = prefer_universal_prop42_derivation(
-        screen_shared_proof_context(
-            augmented, goal=goal, citing_assertion_id=exact_id,
-            explicit_publication_target=True,
-        )
-    )
-    available = tuple(
-        link.step.conclusion for link in screened.proof_links
-        if link.step is not None
-        and link.step.rule is ProofRule.GIVEN
-        and screened.registry.assertion(link.assertion_id).origin
-        is AssertionOrigin.FIXED_STATEMENT
-    )
-    if (available.count(TodaLemma54TypedSource()) != 1
-            or available.count(TodaLemma57GeneralCriterion()) != 1
-            or goal in available):
-        return None
-
-    # Check the same independent, typed chain as R3R7 before making it public.
-    prior = exact_prior_database_result(2, 4)
-    if (not isinstance(prior, Relation)
-            or prior.lhs != TodaPrimaryGroup(6, 2)):
-        return None
-    e = TodaSuspensionMap(TodaPrimaryGroup(6, 2), TodaPrimaryGroup(7, 3))
-    generator_image = GeneratorImage(e, prior.rhs.generator, Zero())
-    inputs = lemma57_criterion_inputs(generator_image)
-    if inputs is None:
-        return None
-    structure = CyclicStructureStatement(goal.lhs, goal.rhs.generator, goal.rhs.order)
-    lifts = expand_cited_hopf_lift(structure, available)
-    if len(lifts) != 1 or lifts[0].subgoals[0] is None:
-        return None
-    hopf_inputs = hopf_injectivity_from_zero_image_inputs(lifts[0].subgoals[0])
-    if hopf_inputs is None or hopf_inputs[0] != ImageZeroStatement(e):
-        return None
-    if len(expand_zero_image_from_cyclic_generator(hopf_inputs[0], prior)) != 1:
-        return None
-
-    from phase165_r52_r9_shared_math import shared_expansion_provider
-
-    ordinary = shared_expansion_provider(
-        screened, proof_target=goal, prior_conclusions=prior_conclusions,
-    )
-    extensions = public_cited_ehp_extensions(
-        available, proof_target=goal, bridge=screened,
-    )
-
-    def provider(statement: object):
-        # Keep R3R7's first-successful proposal ordering. No step is injected.
-        return extensions(statement) + ordinary(statement)
-
-    return augmented, exact_id, provider
-```
-
-## 新規 `install.py` — 全文
-
-```python
-"""Guarded single-function installer for the R3R8 public proof-search route.
-
-Only a fixed insertion into search_shared_group_goal is permitted. DryRun
-never writes to the worktree, and a failed normal audit can restore its exact
-original bytes; no Git staging, reset or commit is performed.
-"""
-from __future__ import annotations
-
-import ast
 from hashlib import sha256
 from pathlib import Path
 import subprocess
 
-ROOT = Path(__file__).resolve().parents[1]
-PACKAGE = Path(__file__).resolve().parent
-TARGET = Path("phase165_r52_r9_shared_math.py")
-PINNED_GIT_BLOB = "9fa11b383812570fae1a26868c98992a5934a327"
-ANCHOR = "    if citing_assertion_id is not None and expansion_provider is None:\n"
-PUBLIC_INSERTION = (
-    "    # R3R8R1: connect the R3R7 cited general EHP proof chain, not a saved result.\n"
-    "    if n == 3 and k == 4 and expansion_provider is None:\n"
-    "        from phase175_r3r8r1_verified_prior_public.route import (\n"
-    "            prepare_pi73_public_connection,\n"
-    "        )\n"
-    "        pi73_connection = prepare_pi73_public_connection(\n"
-    "            bridge=bridge, goal=goal, citing_assertion_id=citing_assertion_id,\n"
-    "            prior_conclusions=tuple(item.root.conclusion for item in prior),\n"
-    "        )\n"
-    "        if pi73_connection is not None:\n"
-    "            bridge, citing_assertion_id, expansion_provider = pi73_connection\n"
-)
+from phase175_r3_pi73_hopf_lift import audit as r3
 
 
-def git(root: Path, *args: str) -> str:
-    """Only execute nonmutating Git commands."""
-    if not args or args[0] not in {"rev-parse", "branch", "diff", "status"}:
-        raise ValueError("R3R8 read-only Git operation required")
+PACKAGE_NAME = "phase175_r3r8r1_verified_prior_public"
+PUBLIC_TARGET = "phase165_r52_r9_shared_math.py"
+
+# No prefix or wildcard acceptance. These are precisely the inspected files
+# shipped in the R3R8R1/R3R8R1R1 package lineage, plus the present guard/tests.
+REVIEWED_SUCCESSOR_WORKTREE_FILES = frozenset({
+    PACKAGE_NAME + "/AUDIT_PLAN_JA.md",
+    PACKAGE_NAME + "/CODE_FULL_JA.md",
+    PACKAGE_NAME + "/README.md",
+    PACKAGE_NAME + "/TEST_RESULTS_JA.md",
+    PACKAGE_NAME + "/__init__.py",
+    PACKAGE_NAME + "/audit.py",
+    PACKAGE_NAME + "/install.py",
+    PACKAGE_NAME + "/route.py",
+    PACKAGE_NAME + "/rule.py",
+    PACKAGE_NAME + "/run.ps1",
+    PACKAGE_NAME + "/search_shared_group_goal_FULL.py.txt",
+    PACKAGE_NAME + "/worktree_guard.py",
+    PACKAGE_NAME + "/tests/__init__.py",
+    PACKAGE_NAME + "/tests/test_install.py",
+    PACKAGE_NAME + "/tests/test_lineage.py",
+    PACKAGE_NAME + "/tests/test_public_search.py",
+    PACKAGE_NAME + "/tests/test_route.py",
+    PACKAGE_NAME + "/tests/test_verified_prior.py",
+    PACKAGE_NAME + "/tests/test_worktree_guard.py",
+})
+
+
+def reviewed_tracked_snapshot(
+    root: Path, *, allow_public_target: bool = False,
+) -> dict[str, str]:
+    """Hash only explicitly reviewed, unstaged tracked edits.
+
+    Reject staged changes, renamed/deleted files, production modifications,
+    unexpected files and duplicate status records. Untracked audit files are
+    left under the original R1 policy. No Git mutation or status spoofing.
+    """
+    root = Path(root).resolve()
     process = subprocess.run(
-        ["git", *args], cwd=root, capture_output=True, text=True,
-        encoding="utf-8", errors="replace", check=False,
+        ["git", "status", "--porcelain=v1", "--untracked-files=no", "-z"],
+        cwd=root, capture_output=True, check=False,
     )
     if process.returncode:
-        raise RuntimeError("R3R8R1_GIT_QUERY_FAILED: " + " ".join(args))
-    return process.stdout.rstrip("\r\n")
-
-
-def find_function(text: str) -> tuple[int, int]:
-    """Find exactly one complete top-level function using Python's AST."""
-    parsed = ast.parse(text)
-    matches = [node for node in parsed.body
-               if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
-               and node.name == "search_shared_group_goal"]
-    if len(matches) != 1 or not isinstance(matches[0], ast.FunctionDef):
-        raise RuntimeError("R3R8R1_SEARCH_FUNCTION_NOT_UNIQUE")
-    node = matches[0]
-    lines = text.splitlines(keepends=True)
-    return (sum(len(line) for line in lines[:node.lineno - 1]),
-            sum(len(line) for line in lines[:node.end_lineno]))
-
-
-def preflight(root: Path = ROOT) -> dict[str, object]:
-    """Verify exact tracked original, reviewed function contract and clean index."""
-    root = Path(root).resolve()
-    if Path(git(root, "rev-parse", "--show-toplevel")).resolve() != root:
-        raise RuntimeError("R3R8R1_NOT_REPOSITORY_ROOT")
-    if git(root, "branch", "--show-current") != "develop":
-        raise RuntimeError("R3R8R1_WRONG_BRANCH")
-    if git(root, "rev-parse", "HEAD:" + TARGET.as_posix()) != PINNED_GIT_BLOB:
-        raise RuntimeError("R3R8R1_UNREVIEWED_PRODUCTION_BLOB")
-    # The prior R3R7 handoff explicitly recorded a clean tracked worktree.
-    tracked = git(root, "status", "--porcelain=v1", "--untracked-files=no")
-    if tracked:
-        raise RuntimeError("R3R8R1_UNREVIEWED_TRACKED_CHANGES: " + tracked[:300])
-    content = (root / TARGET).read_bytes()
-    if content.startswith(b"\xef\xbb\xbf"):
-        raise RuntimeError("R3R8R1_UNEXPECTED_BOM")
-    original = content.decode("utf-8").replace("\r\n", "\n")
-    start, end = find_function(original)
-    original_function = original[start:end]
-    if original_function.count(ANCHOR) != 1 or PUBLIC_INSERTION in original:
-        raise RuntimeError("R3R8R1_UNREVIEWED_ROUTING_ANCHOR")
-    template = (PACKAGE / "search_shared_group_goal_FULL.py.txt").read_text(encoding="utf-8")
-    if template.count(PUBLIC_INSERTION) != 1:
-        raise RuntimeError("R3R8R1_FULL_FUNCTION_TEMPLATE_INVALID")
-    old_ast = ast.dump(ast.parse(original_function), include_attributes=False)
-    source_ast = ast.dump(ast.parse(template.replace(PUBLIC_INSERTION, "")), include_attributes=False)
-    if old_ast != source_ast:
-        raise RuntimeError("R3R8R1_EXISTING_FUNCTION_CHANGED_SINCE_REVIEW")
-    compiled = original[:start] + original_function.replace(
-        ANCHOR, PUBLIC_INSERTION + ANCHOR, 1,
-    ) + original[end:]
-    compile(compiled, str(root / TARGET), "exec")
-    worktree_text = content.decode("utf-8")
-    newline = "\r\n" if "\r\n" in worktree_text else "\n"
-    actual_anchor = ANCHOR.replace("\n", newline)
-    actual_insertion = PUBLIC_INSERTION.replace("\n", newline)
-    if worktree_text.count(actual_anchor) != 1:
-        raise RuntimeError("R3R8R1_WORKTREE_EOL_ANCHOR_CHANGED")
-    candidate_bytes = worktree_text.replace(
-        actual_anchor, actual_insertion + actual_anchor, 1,
-    ).encode("utf-8")
-    return {
-        "head": git(root, "rev-parse", "HEAD"),
-        "original_git_blob": PINNED_GIT_BLOB,
-        "original_sha256": sha256(content).hexdigest(),
-        "candidate_sha256": sha256(candidate_bytes).hexdigest(),
-        "function_name": "search_shared_group_goal",
-        "modified_tracked_files": [TARGET.as_posix()],
-        "new_specific_given": 0,
-        "new_proof_replay": 0,
-        "whole_pytest_executed": False,
-    }
-
-
-def apply(root: Path, backup_folder: Path) -> dict[str, object]:
-    """Replace one function only; preserve the input bytes for rollback."""
-    evidence = preflight(root)
-    root = Path(root).resolve()
-    path = root / TARGET
-    before = path.read_bytes()
-    original = before.decode("utf-8")
-    newline = "\r\n" if "\r\n" in original else "\n"
-    anchor = ANCHOR.replace("\n", newline)
-    insertion = PUBLIC_INSERTION.replace("\n", newline)
-    if original.count(anchor) != 1:
-        raise RuntimeError("R3R8R1_SOURCE_ANCHOR_DRIFT")
-    final = original.replace(anchor, insertion + anchor, 1).encode("utf-8")
-    if sha256(final).hexdigest() != evidence["candidate_sha256"]:
-        raise RuntimeError("R3R8R1_CANDIDATE_HASH_CHANGED")
-    backup_folder.mkdir(parents=True, exist_ok=True)
-    (backup_folder / "phase165_r52_r9_shared_math.py.before").write_bytes(before)
-    path.write_bytes(final)
-    actual = path.read_bytes()
-    if actual != final:
-        raise RuntimeError("R3R8R1_WRITE_VERIFICATION_FAILED")
-    return {**evidence, "installed_sha256": sha256(actual).hexdigest()}
-
-
-def verify_postflight(root: Path, evidence: dict[str, object]) -> None:
-    """After success, only the one reviewed public function may be dirty."""
-    actual = (Path(root) / TARGET).read_bytes()
-    if sha256(actual).hexdigest() != evidence["installed_sha256"]:
-        raise RuntimeError("R3R8R1_PATCH_MUTATED_AFTER_INSTALL")
-    records = git(root, "status", "--porcelain=v1", "--untracked-files=no")
-    if records != " M " + TARGET.as_posix():
-        raise RuntimeError("R3R8R1_UNEXPECTED_TRACKED_POSTFLIGHT: " + records)
-
-
-def rollback(root: Path, backup_folder: Path) -> None:
-    """Restore byte-identical clean original on failed installation or audit."""
-    original = (backup_folder / "phase165_r52_r9_shared_math.py.before").read_bytes()
-    (Path(root) / TARGET).write_bytes(original)
-    if (Path(root) / TARGET).read_bytes() != original:
-        raise RuntimeError("R3R8R1_ROLLBACK_VERIFICATION_FAILED")
+        raise RuntimeError("R3R8R1R2_GIT_STATUS_READ_FAILED")
+    snapshot: dict[str, str] = {}
+    for raw in process.stdout.split(b"\0"):
+        if not raw:
+            continue
+        try:
+            record = raw.decode("utf-8")
+        except UnicodeDecodeError as exc:
+            raise RuntimeError("R3R8R1R2_INVALID_GIT_STATUS_ENCODING") from exc
+        if len(record) < 4 or record[:2] != " M" or record[2] != " ":
+            raise RuntimeError("R3R8R1R2_STAGED_OR_OTHER_TRACKED_CHANGE: " + repr(record))
+        relative = record[3:]
+        allowed = (r3.R3_ALLOWED_TRACKED_EDITS | REVIEWED_SUCCESSOR_WORKTREE_FILES)
+        if allow_public_target:
+            allowed = allowed | {PUBLIC_TARGET}
+        if relative not in allowed or relative in snapshot:
+            raise RuntimeError("R3R8R1R2_PROTECTED_TRACKED_CHANGE: " + relative)
+        candidate = root / relative
+        if not candidate.is_file() or candidate.is_symlink():
+            raise RuntimeError("R3R8R1R2_AUDIT_FILE_MISSING_OR_SYMLINK: " + relative)
+        snapshot[relative] = sha256(candidate.read_bytes()).hexdigest()
+    return dict(sorted(snapshot.items()))
 ```
 
-## 新規 `audit.py` — 全文
+
+## audit.py（全文）
 
 ```python
 """Phase 175 R3R8R1: guarded public wiring and real Group query verification."""
@@ -734,14 +106,19 @@ import argparse
 from datetime import datetime, timezone
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import traceback
 
+from phase175_r3r6_lemma57_general import audit as r3r6
 from phase175_r3r7_lemma54_membership import audit as previous
 from phase175_r3r8r1_verified_prior_public import install
+from phase175_r3r8r1_verified_prior_public.worktree_guard import (
+    reviewed_tracked_snapshot,
+)
 
 PACKAGE = "phase175_r3r8r1_verified_prior_public"
 MARKER = "__PHASE175_R3R8R1_WORKER__="
@@ -761,6 +138,145 @@ EXPECTED_R3R7 = frozenset({
     "hopf_injectivity",
     "pi73_cyclic_lift",
 })
+
+
+# Explicit additions already reviewed in the R3R8 public-route stage.
+# The preceding R3R7 guard correctly excludes files added after R3R7; this
+# stage checks those successors without altering the historic R3R7 policy.
+R3R8_REVIEWED_FILES = frozenset({
+    "phase175_r3r8_pi73_public_connection/README.md",
+    "phase175_r3r8_pi73_public_connection/AUDIT_PLAN_JA.md",
+    "phase175_r3r8_pi73_public_connection/CODE_FULL_JA.md",
+    "phase175_r3r8_pi73_public_connection/TEST_RESULTS_JA.md",
+    "phase175_r3r8_pi73_public_connection/__init__.py",
+    "phase175_r3r8_pi73_public_connection/audit.py",
+    "phase175_r3r8_pi73_public_connection/install.py",
+    "phase175_r3r8_pi73_public_connection/route.py",
+    "phase175_r3r8_pi73_public_connection/run.ps1",
+    "phase175_r3r8_pi73_public_connection/search_shared_group_goal_FULL.py.txt",
+    "phase175_r3r8_pi73_public_connection/tests/__init__.py",
+    "phase175_r3r8_pi73_public_connection/tests/test_install.py",
+    "phase175_r3r8_pi73_public_connection/tests/test_route.py",
+})
+
+R3R8R1_REVIEWED_FILES = frozenset({
+    "phase175_r3r8r1_verified_prior_public/README.md",
+    "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md",
+    "phase175_r3r8r1_verified_prior_public/CODE_FULL_JA.md",
+    "phase175_r3r8r1_verified_prior_public/TEST_RESULTS_JA.md",
+    "phase175_r3r8r1_verified_prior_public/__init__.py",
+    "phase175_r3r8r1_verified_prior_public/audit.py",
+    "phase175_r3r8r1_verified_prior_public/install.py",
+    "phase175_r3r8r1_verified_prior_public/route.py",
+    "phase175_r3r8r1_verified_prior_public/rule.py",
+    "phase175_r3r8r1_verified_prior_public/run.ps1",
+    "phase175_r3r8r1_verified_prior_public/search_shared_group_goal_FULL.py.txt",
+    "phase175_r3r8r1_verified_prior_public/tests/__init__.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_install.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_public_search.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_route.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_verified_prior.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_lineage.py",
+    "phase175_r3r8r1_verified_prior_public/worktree_guard.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_worktree_guard.py",
+})
+
+
+def verify_extended_lineage(
+    root: Path, r2_report: dict, checked: dict,
+) -> dict[str, object]:
+    """Allow exact reviewed audit-package additions, never production edits.
+
+    Preserve the R3R7 ancestor, additive-only, and known-name checks. A
+    committed R3R8 package is not an unknown production change: its contents
+    are allowed by an explicit filename allowlist, not by a prefix wildcard.
+    """
+    old = r2_report.get("preflight", {}).get("head")
+    new = checked.get("head")
+    if (not isinstance(old, str) or not isinstance(new, str)
+            or re.fullmatch(r"[a-f0-9]{40}", old) is None
+            or re.fullmatch(r"[a-f0-9]{40}", new) is None
+            or r3r6._lineage_git(root, "rev-parse", "HEAD") != new):
+        raise RuntimeError("R3R8R1R1_INVALID_VERIFIED_HEAD")
+    if old == new:
+        return {"mode": "SAME_HEAD", "audit_only_paths": [], "reviewed_successors": []}
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", old, new],
+        cwd=root, capture_output=True, check=False,
+    )
+    if ancestor.returncode:
+        raise RuntimeError("R3R8R1R1_R2_HEAD_NOT_ANCESTOR")
+    changes = r3r6._lineage_git(
+        root, "diff", "--name-status", "--no-renames", old, new,
+    )
+    allowed_prior = (
+        r3r6.R3_LINEAGE_ALLOWED_ADDITIONS
+        | r3r6.R3R5_ALLOWED_ADDITIONS
+        | r3r6.R3R6_ALLOWED_ADDITIONS
+        | previous.ALLOWED_NEW_FILES
+    )
+    paths: list[str] = []
+    successors: list[str] = []
+    for line in changes.splitlines():
+        status, tab, path = line.partition("\t")
+        if tab != "\t" or status != "A":
+            raise RuntimeError("R3R8R1R1_NON_AUDIT_CHANGE_IN_LINEAGE")
+        if path.startswith(r3r6.R2_PACKAGE + "/") or path in allowed_prior:
+            paths.append(path)
+        elif path in R3R8_REVIEWED_FILES or path in R3R8R1_REVIEWED_FILES:
+            paths.append(path)
+            successors.append(path)
+        else:
+            raise RuntimeError("R3R8R1R1_UNKNOWN_LINEAGE_ADDITION: " + path)
+    if not paths:
+        raise RuntimeError("R3R8R1R1_EMPTY_DESCENDANT_DIFF")
+    return {
+        "mode": "AUDIT_ONLY_DESCENDANT",
+        "audit_only_paths": paths,
+        "reviewed_successors": successors,
+    }
+
+
+def extended_scoped_preflight(root: Path) -> dict[str, object]:
+    """Re-run the original R3 and R2 guards plus a successor-aware lineage.
+
+    This never bypasses the source-text pinning and never rewrites R3R7's
+    historical allowlist. Unknown changes remain fail-closed.
+    """
+    from phase175_r3_pi73_hopf_lift import audit as r3
+
+    if r3.R3_LINEAGE_ALLOWED_ADDITIONS != r3r6.R3_LINEAGE_ALLOWED_ADDITIONS:
+        raise RuntimeError("R3R8R1R1_R3_SOURCE_GUARD_POLICY_CHANGED")
+    snapshot = reviewed_tracked_snapshot(root)
+    if not snapshot or set(snapshot).issubset(r3.R3_ALLOWED_TRACKED_EDITS):
+        checked = r3.preflight(root)
+    else:
+        # R3's historic filter admits only its own old filenames.  The
+        # successor filter has already rejected unknown or staged changes.
+        # Reuse R3's complete R1/R2 pin checks without calling that older
+        # worktree-specific allowlist again.
+        checked = r3.scoped_r2_preflight(root, snapshot)
+        for relative, expected in r3.EXTRA_PINS.items():
+            if (not (root / relative).is_file()
+                    or r3.git(root, "rev-parse", "HEAD:" + relative) != expected):
+                raise RuntimeError("R3R8R1R2_R3_SOURCE_PIN_MISMATCH: " + relative)
+        checked = {
+            **checked,
+            "r3_extra_pins": dict(r3.EXTRA_PINS),
+            "r3r8r1_reviewed_tracked_edits": snapshot,
+            "r3r8r1_scoped_source_guard": "REVIEWED_SUCCESSOR_UNSTAGED_ONLY",
+        }
+    report_file = r3.select_r2_report(None)
+    r2_report = json.loads(report_file.read_text(encoding="utf-8"))
+    r3.validate_r2(r2_report)
+    lineage = verify_extended_lineage(root, r2_report, checked)
+    source = previous.verify_lemma54_before_lemma57(root)
+    return {
+        "r3_source_guard": checked,
+        "r2_lineage": lineage,
+        "r2_report_path": str(report_file),
+        "lemma54_lemma57_source": source,
+    }
 
 
 def latest_successful_r3r7() -> Path:
@@ -908,7 +424,7 @@ def run(root: Path, dry_run: bool, seconds: int) -> int:
     result_code = 2
     print("PHASE175_R3R8R1_OUTPUT=" + str(folder), flush=True)
     try:
-        report["preflight_source_guard"] = previous.scoped_preflight(root)
+        report["preflight_source_guard"] = extended_scoped_preflight(root)
         report["r3r7_report"] = str(latest_successful_r3r7())
         report["patch_preflight"] = install.preflight(root)
         print("PHASE175_R3R8R1_SOURCE_GUARD=PASS", flush=True)
@@ -994,381 +510,438 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-## 新規 `run.ps1` — 全文
 
-```powershell
-param(
-    [switch]$DryRun,
-    [int]$TimeoutSeconds = 300
-)
-
-$ErrorActionPreference = 'Stop'
-$env:PYTHONUTF8 = '1'
-$env:PYTHONIOENCODING = 'utf-8'
-$env:PYTHONDONTWRITEBYTECODE = '1'
-$root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-Set-Location $root
-
-if ($DryRun) {
-    Write-Output 'PHASE175_R3R8R1_DRYRUN_START'
-    & python -B -m phase175_r3r8r1_verified_prior_public.audit `
-        --root $root --dry-run --timeout-seconds $TimeoutSeconds
-    $code = $LASTEXITCODE
-    Write-Output "PHASE175_R3R8R1_EXIT_CODE=$code"
-    exit $code
-}
-
-Write-Output 'PHASE175_R3R8R1_PUBLIC_INTEGRATION_START'
-& python -B -m phase175_r3r8r1_verified_prior_public.audit `
-    --root $root --timeout-seconds $TimeoutSeconds
-$code = $LASTEXITCODE
-Write-Output "PHASE175_R3R8R1_EXIT_CODE=$code"
-exit $code
-```
-
-## 新規 `__init__.py` — 全文
+## install.py（全文）
 
 ```python
-"""Phase 175 R3R8: publish source-first EHP inference without a special proof."""
-```
+"""Guarded single-function installer for the R3R8 public proof-search route.
 
-## 新規 `tests/test_install.py` — import・テスト関数全文
-
-```python
-"""Installer must not alter other functions, APIs or unexpected Git states."""
+Only a fixed insertion into search_shared_group_goal is permitted. DryRun
+never writes to the worktree, and a failed normal audit can restore its exact
+original bytes; no Git staging, reset or commit is performed.
+"""
 from __future__ import annotations
 
 import ast
+from hashlib import sha256
 from pathlib import Path
+import subprocess
+
+from phase175_r3r8r1_verified_prior_public.worktree_guard import (
+    reviewed_tracked_snapshot,
+)
+
+ROOT = Path(__file__).resolve().parents[1]
+PACKAGE = Path(__file__).resolve().parent
+TARGET = Path("phase165_r52_r9_shared_math.py")
+PINNED_GIT_BLOB = "9fa11b383812570fae1a26868c98992a5934a327"
+ANCHOR = "    if citing_assertion_id is not None and expansion_provider is None:\n"
+PUBLIC_INSERTION = (
+    "    # R3R8R1: connect the R3R7 cited general EHP proof chain, not a saved result.\n"
+    "    if n == 3 and k == 4 and expansion_provider is None:\n"
+    "        from phase175_r3r8r1_verified_prior_public.route import (\n"
+    "            prepare_pi73_public_connection,\n"
+    "        )\n"
+    "        pi73_connection = prepare_pi73_public_connection(\n"
+    "            bridge=bridge, goal=goal, citing_assertion_id=citing_assertion_id,\n"
+    "            prior_conclusions=tuple(item.root.conclusion for item in prior),\n"
+    "        )\n"
+    "        if pi73_connection is not None:\n"
+    "            bridge, citing_assertion_id, expansion_provider = pi73_connection\n"
+)
+
+
+def git(root: Path, *args: str) -> str:
+    """Only execute nonmutating Git commands."""
+    if not args or args[0] not in {"rev-parse", "branch", "diff", "status"}:
+        raise ValueError("R3R8 read-only Git operation required")
+    process = subprocess.run(
+        ["git", *args], cwd=root, capture_output=True, text=True,
+        encoding="utf-8", errors="replace", check=False,
+    )
+    if process.returncode:
+        raise RuntimeError("R3R8R1_GIT_QUERY_FAILED: " + " ".join(args))
+    return process.stdout.rstrip("\r\n")
+
+
+def find_function(text: str) -> tuple[int, int]:
+    """Find exactly one complete top-level function using Python's AST."""
+    parsed = ast.parse(text)
+    matches = [node for node in parsed.body
+               if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
+               and node.name == "search_shared_group_goal"]
+    if len(matches) != 1 or not isinstance(matches[0], ast.FunctionDef):
+        raise RuntimeError("R3R8R1_SEARCH_FUNCTION_NOT_UNIQUE")
+    node = matches[0]
+    lines = text.splitlines(keepends=True)
+    return (sum(len(line) for line in lines[:node.lineno - 1]),
+            sum(len(line) for line in lines[:node.end_lineno]))
+
+
+def preflight(root: Path = ROOT) -> dict[str, object]:
+    """Verify exact tracked original, reviewed function contract and clean index."""
+    root = Path(root).resolve()
+    if Path(git(root, "rev-parse", "--show-toplevel")).resolve() != root:
+        raise RuntimeError("R3R8R1_NOT_REPOSITORY_ROOT")
+    if git(root, "branch", "--show-current") != "develop":
+        raise RuntimeError("R3R8R1_WRONG_BRANCH")
+    if git(root, "rev-parse", "HEAD:" + TARGET.as_posix()) != PINNED_GIT_BLOB:
+        raise RuntimeError("R3R8R1_UNREVIEWED_PRODUCTION_BLOB")
+    # The prior R3R7 handoff explicitly recorded a clean tracked worktree.
+    # A later audited ZIP may replace files already committed at this HEAD.
+    # Those changes are allowed only under the exact successor-file policy;
+    # the production target itself must still be clean before installation.
+    tracked_before = reviewed_tracked_snapshot(root)
+    content = (root / TARGET).read_bytes()
+    if content.startswith(b"\xef\xbb\xbf"):
+        raise RuntimeError("R3R8R1_UNEXPECTED_BOM")
+    original = content.decode("utf-8").replace("\r\n", "\n")
+    start, end = find_function(original)
+    original_function = original[start:end]
+    if original_function.count(ANCHOR) != 1 or PUBLIC_INSERTION in original:
+        raise RuntimeError("R3R8R1_UNREVIEWED_ROUTING_ANCHOR")
+    template = (PACKAGE / "search_shared_group_goal_FULL.py.txt").read_text(encoding="utf-8")
+    if template.count(PUBLIC_INSERTION) != 1:
+        raise RuntimeError("R3R8R1_FULL_FUNCTION_TEMPLATE_INVALID")
+    old_ast = ast.dump(ast.parse(original_function), include_attributes=False)
+    source_ast = ast.dump(ast.parse(template.replace(PUBLIC_INSERTION, "")), include_attributes=False)
+    if old_ast != source_ast:
+        raise RuntimeError("R3R8R1_EXISTING_FUNCTION_CHANGED_SINCE_REVIEW")
+    compiled = original[:start] + original_function.replace(
+        ANCHOR, PUBLIC_INSERTION + ANCHOR, 1,
+    ) + original[end:]
+    compile(compiled, str(root / TARGET), "exec")
+    worktree_text = content.decode("utf-8")
+    newline = "\r\n" if "\r\n" in worktree_text else "\n"
+    actual_anchor = ANCHOR.replace("\n", newline)
+    actual_insertion = PUBLIC_INSERTION.replace("\n", newline)
+    if worktree_text.count(actual_anchor) != 1:
+        raise RuntimeError("R3R8R1_WORKTREE_EOL_ANCHOR_CHANGED")
+    candidate_bytes = worktree_text.replace(
+        actual_anchor, actual_insertion + actual_anchor, 1,
+    ).encode("utf-8")
+    return {
+        "head": git(root, "rev-parse", "HEAD"),
+        "original_git_blob": PINNED_GIT_BLOB,
+        "original_sha256": sha256(content).hexdigest(),
+        "candidate_sha256": sha256(candidate_bytes).hexdigest(),
+        "function_name": "search_shared_group_goal",
+        "modified_tracked_files": [TARGET.as_posix()],
+        "reviewed_tracked_before": tracked_before,
+        "new_specific_given": 0,
+        "new_proof_replay": 0,
+        "whole_pytest_executed": False,
+    }
+
+
+def apply(root: Path, backup_folder: Path) -> dict[str, object]:
+    """Replace one function only; preserve the input bytes for rollback."""
+    evidence = preflight(root)
+    root = Path(root).resolve()
+    path = root / TARGET
+    before = path.read_bytes()
+    original = before.decode("utf-8")
+    newline = "\r\n" if "\r\n" in original else "\n"
+    anchor = ANCHOR.replace("\n", newline)
+    insertion = PUBLIC_INSERTION.replace("\n", newline)
+    if original.count(anchor) != 1:
+        raise RuntimeError("R3R8R1_SOURCE_ANCHOR_DRIFT")
+    final = original.replace(anchor, insertion + anchor, 1).encode("utf-8")
+    if sha256(final).hexdigest() != evidence["candidate_sha256"]:
+        raise RuntimeError("R3R8R1_CANDIDATE_HASH_CHANGED")
+    backup_folder.mkdir(parents=True, exist_ok=True)
+    (backup_folder / "phase165_r52_r9_shared_math.py.before").write_bytes(before)
+    path.write_bytes(final)
+    actual = path.read_bytes()
+    if actual != final:
+        raise RuntimeError("R3R8R1_WRITE_VERIFICATION_FAILED")
+    return {**evidence, "installed_sha256": sha256(actual).hexdigest()}
+
+
+def verify_postflight(root: Path, evidence: dict[str, object]) -> None:
+    """After success, only the one reviewed public function may be dirty."""
+    actual = (Path(root) / TARGET).read_bytes()
+    if sha256(actual).hexdigest() != evidence["installed_sha256"]:
+        raise RuntimeError("R3R8R1_PATCH_MUTATED_AFTER_INSTALL")
+    snapshot = reviewed_tracked_snapshot(root, allow_public_target=True)
+    public_sha = snapshot.pop(TARGET.as_posix(), None)
+    if public_sha != evidence["installed_sha256"]:
+        raise RuntimeError("R3R8R1R2_PUBLIC_PATCH_NOT_ONLY_REVIEWED_TARGET")
+    if snapshot != evidence["reviewed_tracked_before"]:
+        raise RuntimeError("R3R8R1R2_REVIEWED_WORKTREE_CHANGED_DURING_RUN")
+
+
+def rollback(root: Path, backup_folder: Path) -> None:
+    """Restore byte-identical clean original on failed installation or audit."""
+    original = (backup_folder / "phase165_r52_r9_shared_math.py.before").read_bytes()
+    (Path(root) / TARGET).write_bytes(original)
+    if (Path(root) / TARGET).read_bytes() != original:
+        raise RuntimeError("R3R8R1_ROLLBACK_VERIFICATION_FAILED")
+```
+
+
+## tests/test_worktree_guard.py（全文）
+
+```python
+"""Real-Git tests for the successor-only tracked-file exception."""
+from __future__ import annotations
+
+from hashlib import sha256
+from pathlib import Path
+import subprocess
 
 import pytest
 
-from phase175_r3r8r1_verified_prior_public import install
+from phase175_r3_pi73_hopf_lift import audit as r3
+from phase175_r3r8r1_verified_prior_public.worktree_guard import (
+    PUBLIC_TARGET,
+    REVIEWED_SUCCESSOR_WORKTREE_FILES,
+    reviewed_tracked_snapshot,
+)
 
 
-def test_complete_function_template_compiles_without_elision() -> None:
-    full = (install.PACKAGE / "search_shared_group_goal_FULL.py.txt").read_text(
-        encoding="utf-8",
+def git(root: Path, *args: str) -> str:
+    completed = subprocess.run(
+        ["git", *args], cwd=root, capture_output=True,
+        text=True, encoding="utf-8", errors="replace", check=False,
     )
-    assert full.count(install.PUBLIC_INSERTION) == 1
-    compile(full, "search_shared_group_goal_FULL.py.txt", "exec")
-    original = full.replace(install.PUBLIC_INSERTION, "")
-    assert install.ANCHOR in original
-    assert original.replace(
-        install.ANCHOR, install.PUBLIC_INSERTION + install.ANCHOR, 1,
-    ) == full
-    parsed = ast.parse(full)
-    assert len(parsed.body) == 1
-    assert isinstance(parsed.body[0], ast.FunctionDef)
-    assert parsed.body[0].name == "search_shared_group_goal"
+    assert completed.returncode == 0, completed.stderr
+    return completed.stdout.strip()
 
 
-def test_full_function_preserves_existing_public_api() -> None:
-    full = (install.PACKAGE / "search_shared_group_goal_FULL.py.txt").read_text(
-        encoding="utf-8",
-    )
-    node = ast.parse(full).body[0]
-    expected = {
-        "n", "k", "group_structure", "bridge", "expansion_provider",
-        "citing_assertion_id", "verified_assertion_ids",
-        "completed_internal_proofs", "proof_use_order",
-        "ordered_completed_proofs", "target_order", "proof_order_catalog",
-        "recursive_proof_order_catalog", "context_sink",
+@pytest.fixture
+def repo(tmp_path: Path) -> Path:
+    root = tmp_path / "repo"
+    root.mkdir()
+    git(root, "init", "-q")
+    for name in (
+        PUBLIC_TARGET,
+        "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md",
+        "phase175_r3r8r1_verified_prior_public/audit.py",
+        "phase175_r3_pi73_hopf_lift/README.md",
+        "production_other.py",
+    ):
+        file = root / name
+        file.parent.mkdir(parents=True, exist_ok=True)
+        file.write_text("reviewed baseline\n", encoding="utf-8")
+    git(root, "add", "-A")
+    git(root, "-c", "user.name=EHP Audit Test",
+        "-c", "user.email=test@example.invalid", "commit", "-q", "-m", "baseline")
+    return root
+
+
+@pytest.mark.parametrize("name", (
+    "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md",
+    "phase175_r3r8r1_verified_prior_public/audit.py",
+    "phase175_r3_pi73_hopf_lift/README.md",
+))
+def test_named_unstaged_audit_change_is_hashed(repo: Path, name: str) -> None:
+    (repo / name).write_text("reviewed replacement\n", encoding="utf-8")
+    snapshot = reviewed_tracked_snapshot(repo)
+    assert snapshot == {
+        name: sha256((repo / name).read_bytes()).hexdigest(),
     }
-    assert set(arg.arg for arg in node.args.kwonlyargs) == expected
-    assert len(node.args.posonlyargs) == 0
 
 
-def test_find_function_requires_exactly_one_top_level_definition() -> None:
-    source = "def search_shared_group_goal():\n    return 1\n"
-    assert install.find_function(source) == (0, len(source))
-    with pytest.raises(RuntimeError, match="FUNCTION_NOT_UNIQUE"):
-        install.find_function(source + "\n" + source)
-    with pytest.raises(RuntimeError, match="FUNCTION_NOT_UNIQUE"):
-        install.find_function("def other():\n    pass\n")
+def test_reviewed_successor_filename_whitelist_is_explicit() -> None:
+    assert "phase175_r3r8r1_verified_prior_public/audit.py" in REVIEWED_SUCCESSOR_WORKTREE_FILES
+    assert PUBLIC_TARGET not in REVIEWED_SUCCESSOR_WORKTREE_FILES
+    assert "production_other.py" not in REVIEWED_SUCCESSOR_WORKTREE_FILES
+    assert not any(name.endswith("/*") for name in REVIEWED_SUCCESSOR_WORKTREE_FILES)
+    assert "phase175_r3_pi73_hopf_lift/README.md" in r3.R3_ALLOWED_TRACKED_EDITS
 
 
-def test_git_command_whitelist_is_read_only(tmp_path: Path) -> None:
-    for denied in ("add", "reset", "checkout", "commit", "clean", "push"):
-        with pytest.raises(ValueError, match="read-only"):
-            install.git(tmp_path, denied, "something")
+@pytest.mark.parametrize("name", (PUBLIC_TARGET, "production_other.py"))
+def test_production_modifications_are_rejected_before_install(repo: Path, name: str) -> None:
+    (repo / name).write_text("unauthorized modification\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="R3R8R1R2_PROTECTED_TRACKED_CHANGE"):
+        reviewed_tracked_snapshot(repo)
 
 
-def test_patch_has_no_import_change_or_other_api_change() -> None:
+def test_public_target_only_allowed_after_patch(repo: Path) -> None:
+    name = "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md"
+    (repo / name).write_text("reviewed replacement\n", encoding="utf-8")
+    prior = reviewed_tracked_snapshot(repo)
+    (repo / PUBLIC_TARGET).write_text("exact public patch fixture\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="R3R8R1R2_PROTECTED_TRACKED_CHANGE"):
+        reviewed_tracked_snapshot(repo)
+    actual = reviewed_tracked_snapshot(repo, allow_public_target=True)
+    assert actual.pop(PUBLIC_TARGET) == sha256((repo / PUBLIC_TARGET).read_bytes()).hexdigest()
+    assert actual == prior
+
+
+def test_untracked_successor_files_do_not_override_old_policy(repo: Path) -> None:
+    new = repo / "phase175_r3r8r1_verified_prior_public/worktree_guard.py"
+    new.write_text("new audited file\n", encoding="utf-8")
+    assert reviewed_tracked_snapshot(repo) == {}
+
+
+def test_unlisted_successor_tracking_is_rejected(repo: Path) -> None:
+    new = repo / "phase175_r3r8r1_verified_prior_public/unknown.py"
+    new.write_text("unreviewed\n", encoding="utf-8")
+    git(repo, "add", "-N", str(new.relative_to(repo)))
+    with pytest.raises(RuntimeError, match="R3R8R1R2_STAGED_OR_OTHER_TRACKED_CHANGE"):
+        reviewed_tracked_snapshot(repo)
+
+
+def test_staged_reviewed_edit_rejected(repo: Path) -> None:
+    name = "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md"
+    (repo / name).write_text("staged replacement\n", encoding="utf-8")
+    git(repo, "add", name)
+    with pytest.raises(RuntimeError, match="R3R8R1R2_STAGED_OR_OTHER_TRACKED_CHANGE"):
+        reviewed_tracked_snapshot(repo)
+
+
+def test_dirty_production_cannot_be_hidden_by_a_reviewed_change(repo: Path) -> None:
+    doc = repo / "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md"
+    doc.write_text("reviewed replacement\n", encoding="utf-8")
+    (repo / "production_other.py").write_text("unreviewed\n", encoding="utf-8")
+    with pytest.raises(RuntimeError, match="R3R8R1R2_PROTECTED_TRACKED_CHANGE"):
+        reviewed_tracked_snapshot(repo)
+
+
+def test_installer_accepts_reviewed_dirty_docs_and_preserves_them(
+    repo: Path, monkeypatch: pytest.MonkeyPatch, tmp_path: Path,
+) -> None:
+    from phase175_r3r8r1_verified_prior_public import install
+
+    git(repo, "branch", "-m", "develop")
     template = (install.PACKAGE / "search_shared_group_goal_FULL.py.txt").read_text(
         encoding="utf-8",
     )
-    before = ast.parse(template.replace(install.PUBLIC_INSERTION, "")).body[0]
-    after = ast.parse(template).body[0]
-    assert ast.dump(before.args) == ast.dump(after.args)
-    assert len(after.body) == len(before.body) + 1
-    assert not any(isinstance(node, (ast.Global, ast.Nonlocal)) for node in after.body)
+    original = template.replace(install.PUBLIC_INSERTION, "")
+    (repo / PUBLIC_TARGET).write_text(original, encoding="utf-8")
+    git(repo, "add", PUBLIC_TARGET)
+    git(repo, "-c", "user.name=EHP Audit Test",
+        "-c", "user.email=test@example.invalid", "commit", "-q", "-m", "source fixture")
+    committed_blob = git(repo, "rev-parse", "HEAD:" + PUBLIC_TARGET)
+    monkeypatch.setattr(install, "PINNED_GIT_BLOB", committed_blob)
+
+    doc = repo / "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md"
+    doc.write_text("reviewed replacement\n", encoding="utf-8")
+    before_doc = reviewed_tracked_snapshot(repo)
+    assert set(before_doc) == {str(doc.relative_to(repo)).replace("\\", "/")}
+
+    evidence = install.preflight(repo)
+    assert evidence["reviewed_tracked_before"] == before_doc
+    backup_dir = tmp_path / "backup"
+    installed = install.apply(repo, backup_dir)
+    install.verify_postflight(repo, installed)
+    assert (repo / PUBLIC_TARGET).read_text(encoding="utf-8") != original
+    install.rollback(repo, backup_dir)
+    assert (repo / PUBLIC_TARGET).read_text(encoding="utf-8") == original
+    assert reviewed_tracked_snapshot(repo) == before_doc
 ```
 
-## 新規 `tests/test_route.py` — import・テスト関数全文
+
+## tests/test_lineage.py（全文）
 
 ```python
-"""Actual typed proof-connection tests; no synthetic completed ProofSteps."""
+"""Regression tests for Phase 175 successor lineage without weakening R3R7."""
 from __future__ import annotations
 
-from dataclasses import replace
+from pathlib import Path
+import subprocess
 
-from expression import Zero
-from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
-from map_property_rules import ImageZeroStatement
-from phase165_r12_r2_quotient_rules import CyclicStructureStatement
-from phase165_r14_r6_generic_iso import GeneratorImage
-from phase165_r52_r9_shared_math import build_shared_typed_bridge
-from phase165_r55_nk_only_goal import registered_group_goal_candidates
-from phase166_r3t_goal_source_binding.goal_source import resolve_specialized_goal_citing_id
-from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
-from phase173_r4_r1_lemma54_source_bridge.source import TodaLemma54TypedSource
-from phase175_r3r6_lemma57_general.rule import lemma57_criterion_inputs
-from phase175_r3r6_lemma57_general.source import TodaLemma57GeneralCriterion
-from phase175_r3r7_lemma54_membership.rule import cited_lemma54_double_relation
-from phase175_r3r8r1_verified_prior_public.route import (
-    prepare_pi73_public_connection,
-    public_cited_ehp_extensions,
-)
-from proof import ProofRule
+import pytest
+
+from phase175_r3r8r1_verified_prior_public import audit
 
 
-def test_pi73_prepared_provider_exposes_six_independent_goals() -> None:
-    bridge = build_shared_typed_bridge()
-    candidates = registered_group_goal_candidates(bridge, n=3, k=4)
-    assert len(candidates) == 1
-    goal = candidates[0]
-    prepared = prepare_pi73_public_connection(
-        bridge=bridge, goal=goal, citing_assertion_id=None,
-        prior_conclusions=(),
+def git(root: Path, *arguments: str) -> str:
+    result = subprocess.run(
+        ["git", *arguments], cwd=root, capture_output=True, text=True,
+        encoding="utf-8", errors="replace", check=False,
     )
-    assert prepared is not None
-    augmented, citing_id, provider = prepared
-    assert citing_id == resolve_specialized_goal_citing_id(bridge, goal)
-    assert len(provider(cited_lemma54_double_relation())) >= 1
-    prior = exact_prior_database_result(2, 4)
-    assert prior is not None
-    e = TodaSuspensionMap(TodaPrimaryGroup(6, 2), TodaPrimaryGroup(7, 3))
-    zero = GeneratorImage(e, prior.rhs.generator, Zero())
-    general, membership = lemma57_criterion_inputs(zero)
-    for target in (
-        membership, zero, ImageZeroStatement(e),
-        CyclicStructureStatement(goal.lhs, goal.rhs.generator, goal.rhs.order),
-    ):
-        assert len(provider(target)) >= 1
-    assert general == TodaLemma57GeneralCriterion()
-    assert not any(link.step is not None and link.step.conclusion == goal
-                   for link in augmented.proof_links)
-    assert ADOPTED_ID not in bridge.registry._assertions
+    assert result.returncode == 0, result.stderr
+    return result.stdout.strip()
 
 
-ADOPTED_ID = "phase173:r4r1:lemma54:typed_hopf_source"
+def commit(root: Path, message: str) -> str:
+    git(root, "add", "-A")
+    git(root, "-c", "user.name=EHP Audit Test",
+        "-c", "user.email=test@example.invalid", "commit", "-q", "-m", message)
+    return git(root, "rev-parse", "HEAD")
 
 
-def test_wrong_or_unregistered_goal_cannot_enable_connection() -> None:
-    bridge = build_shared_typed_bridge()
-    goal, = registered_group_goal_candidates(bridge, n=3, k=4)
-    assert prepare_pi73_public_connection(
-        bridge=bridge, goal=replace(goal, lhs=TodaPrimaryGroup(9, 3)),
-        citing_assertion_id=None, prior_conclusions=(),
-    ) is None
-    assert prepare_pi73_public_connection(
-        bridge=bridge, goal=goal, citing_assertion_id="invented-id",
-        prior_conclusions=(),
-    ) is None
+@pytest.fixture
+def repo(tmp_path: Path):
+    root = tmp_path / "repo"
+    root.mkdir()
+    git(root, "init", "-q")
+    (root / "baseline.py").write_text("production = 1\n", encoding="utf-8")
+    start = commit(root, "source baseline")
+    return root, start
 
 
-def test_public_proposals_never_directly_prove_a_goal() -> None:
-    from phase165_r52_r16_web_citation_gate import screen_shared_proof_context
-    bridge = build_shared_typed_bridge()
-    goal, = registered_group_goal_candidates(bridge, n=3, k=4)
-    result = prepare_pi73_public_connection(
-        bridge=bridge, goal=goal, citing_assertion_id=None, prior_conclusions=(),
+@pytest.mark.parametrize("path", [
+    "phase175_r3r8_pi73_public_connection/AUDIT_PLAN_JA.md",
+    "phase175_r3r8_pi73_public_connection/route.py",
+    "phase175_r3r8r1_verified_prior_public/rule.py",
+    "phase175_r3r8r1_verified_prior_public/worktree_guard.py",
+    "phase175_r3r7_lemma54_membership/audit.py",
+])
+def test_reviewed_additive_successor_accepted(repo, path: str) -> None:
+    root, start = repo
+    file_path = root / path
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    file_path.write_text("reviewed package file\n", encoding="utf-8")
+    end = commit(root, "reviewed package addition")
+    result = audit.verify_extended_lineage(
+        root, {"preflight": {"head": start}}, {"head": end},
     )
-    assert result is not None
-    augmented, citing, provider = result
-    screened = screen_shared_proof_context(
-        augmented, goal=goal, citing_assertion_id=citing,
-        explicit_publication_target=True,
+    assert result["audit_only_paths"] == [path]
+    assert result["reviewed_successors"] == (
+        [path] if path in audit.R3R8_REVIEWED_FILES
+        or path in audit.R3R8R1_REVIEWED_FILES else []
     )
-    available = tuple(link.step.conclusion for link in screened.proof_links
-                      if link.step is not None and link.step.rule is ProofRule.GIVEN)
-    assert available.count(TodaLemma54TypedSource()) == 1
-    assert available.count(TodaLemma57GeneralCriterion()) == 1
-    assert goal not in available
-    extension = public_cited_ehp_extensions(available)
-    for offered in extension(cited_lemma54_double_relation()):
-        assert hasattr(offered, "subgoals")
-        assert not hasattr(offered, "conclusion")
-    assert provider(goal) is not None
+
+
+@pytest.mark.parametrize("path", [
+    "phase175_r3r8_pi73_public_connection/unreviewed.py",
+    "phase175_r3r8r1_verified_prior_public/unreviewed.py",
+    "phase175_r3r7_lemma54_membership/unreviewed.py",
+    "src/new_production_rule.py",
+])
+def test_unknown_addition_still_rejected(repo, path: str) -> None:
+    root, start = repo
+    file_path = root / path
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    file_path.write_text("unreviewed\n", encoding="utf-8")
+    end = commit(root, "unknown file")
+    with pytest.raises(RuntimeError, match="R3R8R1R1_UNKNOWN_LINEAGE_ADDITION"):
+        audit.verify_extended_lineage(
+            root, {"preflight": {"head": start}}, {"head": end},
+        )
+
+
+def test_tracked_production_modification_rejected(repo) -> None:
+    root, start = repo
+    (root / "baseline.py").write_text("production = 2\n", encoding="utf-8")
+    end = commit(root, "modify production")
+    with pytest.raises(RuntimeError, match="R3R8R1R1_NON_AUDIT_CHANGE_IN_LINEAGE"):
+        audit.verify_extended_lineage(
+            root, {"preflight": {"head": start}}, {"head": end},
+        )
+
+
+def test_unrelated_head_rejected(repo, tmp_path: Path) -> None:
+    root, start = repo
+    second = tmp_path / "unrelated"
+    second.mkdir()
+    git(second, "init", "-q")
+    (second / "file.py").write_text("x = 1\n", encoding="utf-8")
+    unrelated = commit(second, "different root")
+    with pytest.raises(RuntimeError, match="R3R8R1R1_R2_HEAD_NOT_ANCESTOR"):
+        audit.verify_extended_lineage(
+            root, {"preflight": {"head": unrelated}}, {"head": start},
+        )
+
+
+def test_dirty_or_forged_current_head_rejected(repo) -> None:
+    root, start = repo
+    with pytest.raises(RuntimeError, match="R3R8R1R1_INVALID_VERIFIED_HEAD"):
+        audit.verify_extended_lineage(
+            root, {"preflight": {"head": start}}, {"head": "0" * 40},
+        )
 ```
-
-## 新規 `tests/test_verified_prior.py` — import・テスト関数全文
-
-```python
-"""Earlier database premises must be verified by the actual prior-admission gate."""
-from __future__ import annotations
-
-from expression import Zero
-from homotopy_groups import TodaPrimaryGroup, TodaSuspensionMap
-from map_property_rules import ImageZeroStatement
-from phase165_r12_r2_quotient_rules import CyclicStructureStatement
-from phase165_r14_r6_generic_iso import GeneratorImage
-from phase165_r52_r9_shared_math import build_shared_typed_bridge
-from phase165_r55_nk_only_goal import registered_group_goal_candidates
-from phase169_r10e4_ordered_db_prior.db_prior import (
-    admitted_db_step,
-    exact_prior_database_result,
-)
-from phase175_r3r8r1_verified_prior_public.route import prepare_pi73_public_connection
-from phase175_r3r8r1_verified_prior_public.rule import (
-    expand_verified_prior_hopf_lift,
-    expand_verified_prior_zero_image,
-)
-from proof import (
-    InferenceRule, ProofRule, ProofStep, Relation,
-    find_inference_matches_for_rule,
-)
-
-
-def _inferred(statement: object) -> ProofStep:
-    """Construct a test-only inferred premise with a nonempty ancestry."""
-    return ProofStep(
-        conclusion=statement,
-        premises=(ProofStep(
-            conclusion="test-ancestor", premises=(), rule=ProofRule.GIVEN,
-        ),),
-        rule=ProofRule.INFERENCE,
-        inference_rule=InferenceRule(name="test-only inferred premise"),
-    )
-
-
-def test_verified_prior_zero_image_accepts_only_rechecked_db_step() -> None:
-    bridge = build_shared_typed_bridge()
-    target = exact_prior_database_result(3, 4)
-    prior = exact_prior_database_result(2, 4)
-    assert isinstance(target, Relation) and isinstance(prior, Relation)
-    e = TodaSuspensionMap(TodaPrimaryGroup(6, 2), TodaPrimaryGroup(7, 3))
-    goal = ImageZeroStatement(e)
-    offers = expand_verified_prior_zero_image(
-        goal, prior, proof_target=target, bridge=bridge,
-    )
-    assert len(offers) == 1
-    option = offers[0]
-    actual_db = admitted_db_step(prior, proof_target=target, bridge=bridge)
-    assert actual_db is not None
-    actual_image = _inferred(GeneratorImage(e, prior.rhs.generator, Zero()))
-    assert len(find_inference_matches_for_rule(
-        option.rule, (actual_db, actual_image),
-    )) == 1
-    forged_group = ProofStep(prior, (), ProofRule.GIVEN)
-    assert find_inference_matches_for_rule(
-        option.rule, (forged_group, actual_image),
-    ) == ()
-    forged_image = ProofStep(actual_image.conclusion, (), ProofRule.GIVEN)
-    assert find_inference_matches_for_rule(
-        option.rule, (actual_db, forged_image),
-    ) == ()
-
-
-def test_wrong_order_or_group_cannot_supply_prior() -> None:
-    bridge = build_shared_typed_bridge()
-    prior = exact_prior_database_result(2, 4)
-    assert isinstance(prior, Relation)
-    goal = ImageZeroStatement(TodaSuspensionMap(
-        TodaPrimaryGroup(6, 2), TodaPrimaryGroup(7, 3),
-    ))
-    # A result cannot be its own earlier prior or be used backward in order.
-    assert expand_verified_prior_zero_image(
-        goal, prior, proof_target=prior, bridge=bridge,
-    ) == ()
-    assert expand_verified_prior_zero_image(
-        goal, prior, proof_target=exact_prior_database_result(2, 1), bridge=bridge,
-    ) == ()
-    assert expand_verified_prior_zero_image(
-        goal, object(), proof_target=exact_prior_database_result(3, 4), bridge=bridge,
-    ) == ()
-
-
-def test_verified_prior_hopf_lift_uses_exact_earlier_group_and_inferred_image() -> None:
-    bridge = build_shared_typed_bridge()
-    target, = registered_group_goal_candidates(bridge, n=3, k=4)
-    prepared = prepare_pi73_public_connection(
-        bridge=bridge, goal=target, citing_assertion_id=None,
-        prior_conclusions=(),
-    )
-    assert prepared is not None
-    augmented, citing, provider = prepared
-    cyclic = CyclicStructureStatement(target.lhs, target.rhs.generator, target.rhs.order)
-    candidates = tuple(
-        option for option in provider(cyclic)
-        if option.rule.name == "verified prior DB Hopf cyclic generator preimage lift"
-    )
-    assert len(candidates) == 1
-    option = candidates[0]
-    injective, group, image = option.subgoals
-    assert group == exact_prior_database_result(5, 2)
-    actual_db = admitted_db_step(group, proof_target=target, bridge=augmented)
-    assert actual_db is not None
-    parents = (_inferred(injective), actual_db, _inferred(image))
-    assert len(find_inference_matches_for_rule(option.rule, parents)) == 1
-    forged = ProofStep(group, (), ProofRule.GIVEN)
-    assert find_inference_matches_for_rule(
-        option.rule, (_inferred(injective), forged, _inferred(image)),
-    ) == ()
-    assert find_inference_matches_for_rule(
-        option.rule, (parents[0], parents[1], ProofStep(image, (), ProofRule.GIVEN)),
-    ) == ()
-    assert expand_verified_prior_hopf_lift(
-        cyclic, group, image, proof_target=group, bridge=augmented,
-    ) == ()
-
-
-def test_no_new_target_given_is_injected() -> None:
-    bridge = build_shared_typed_bridge()
-    target, = registered_group_goal_candidates(bridge, n=3, k=4)
-    prepared = prepare_pi73_public_connection(
-        bridge=bridge, goal=target, citing_assertion_id=None,
-        prior_conclusions=(),
-    )
-    assert prepared is not None
-    augmented, _, provider = prepared
-    assert not any(
-        link.step is not None and link.step.conclusion == target
-        for link in augmented.proof_links
-    )
-    assert all(not isinstance(option, ProofStep) for option in provider(target))
-```
-
-## 新規 `tests/test_public_search.py` — import・テスト関数全文
-
-```python
-"""Run the real ordinary group query after the one-function install."""
-from __future__ import annotations
-
-from phase165_r52_partial_proof import ProofSearchStatus
-from phase165_r52_r9_shared_math import build_shared_typed_bridge
-from phase165_r55_nk_only_goal import search_group_from_registered_goal
-from phase169_r10e4_ordered_db_prior.db_prior import exact_prior_database_result
-
-
-def test_pi73_ordinary_search_proves_exact_registered_goal() -> None:
-    target = exact_prior_database_result(3, 4)
-    contexts = []
-    result = search_group_from_registered_goal(
-        n=3, k=4, bridge=build_shared_typed_bridge(),
-        context_sink=contexts.append,
-    )
-    assert result.status is ProofSearchStatus.COMPLETE
-    assert result.conclusion == target
-    assert len(result.open_goals) == 0
-    assert len(result.proven_steps) > 0
-    assert len(contexts) == 1
-```
-
-## 新規 `tests/__init__.py` — import・テスト関数全文
-
-```python
-
-```
-

@@ -1,39 +1,20 @@
-# Phase 175 R3R8R1 — 公開探索の先行 DB 証明前提監査
+# Phase 175 R3R8R1R2 — 後続 Phase 作業ツリー検査の修正
 
-## 実測された失敗
+## 実際に発生した停止
 
-R3R8 の DryRun は PASS、限定 pytest は 44 PASS だったが、公開検索は `partial`、証明済み6ステップ、未解決7件、Web は `generic-partial-proof` となり、既存ファイルはロールバックされた。診断では以下の区別を確認した。
+R3R8R1R1 の DryRun は、`R3_PROTECTED_TRACKED_CHANGE: phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md` で停止した。R3 の `audit_only_tracked_snapshot()` は R3 自身の6ファイルだけの変更を許可していた。R3R8R1 が Git に追跡された後の ZIP 再展開により、許可済みの後続文書が変更された状態を誤って拒否した。
 
-- `Relation(π_6^2, Z/4{η_2ν′})` は、既存 `admitted_db_step()` から返された先行 DB の `ProofRule.GIVEN` として証明探索に採用された。
-- Toda Lemma 5.7 の一般出典は引用済み `GIVEN` である。
-- Toda Lemma 5.4 の二重懸垂等式、そこからの所属、$E(\eta_2\nu')=0$ はそれぞれ出典と前提のある `INFERENCE` として成立した。
-- `ImageZeroStatement(E:π_6^2→π_7^3)` では、既存 `zero_image_from_cyclic_generator_rule()` が群構造の `INFERENCE` を要求するため、先行 DB の `GIVEN` と一致しなかった。
-- これを解消しても、Hopf リフトにおける先行群 $π_7^5$ が DB `GIVEN` として取得されると、旧リフト規則の群構造 `INFERENCE` 要求と一致しない可能性がある。
+これは数学的証明の失敗ではなく、本実行の公開接続判定は未実施である。
 
-## 変更対象（開始前の監査）
+## 変更単位
 
-- 既存 `phase165_r52_r9_shared_math.py`：変更対象は `search_shared_group_goal()` 全体のみ。トップレベル import の変更なし。
-- 新規 `phase175_r3r8r1_verified_prior_public/rule.py`：`verified_prior_zero_image_rule()`、`expand_verified_prior_zero_image()`、`verified_prior_hopf_lift_rule()`、`expand_verified_prior_hopf_lift()`。
-- 新規 `route.py`：`public_cited_ehp_extensions()`、`prepare_pi73_public_connection()` を全文収録。
-- 新規 `install.py`、`audit.py`、`run.ps1`、`tests/test_install.py`、`tests/test_route.py`、`tests/test_verified_prior.py`、`tests/test_public_search.py`、`__init__.py`、`tests/__init__.py`、`README.md`、本書、`CODE_FULL_JA.md`、`TEST_RESULTS_JA.md`、`search_shared_group_goal_FULL.py.txt`。
-- 追加位置：新規 `rule.py` の import 節の直後に4関数。`route.py` の2関数は import 節の直後。既存関数の追加位置は、`search_shared_group_goal()` の既存 `(n,k)=(4,3)` 分岐の直後で、既存 `citing_assertion_id` 審査の直前。
+1. 新規 `phase175_r3r8r1_verified_prior_public/worktree_guard.py` の `reviewed_tracked_snapshot()`：Git の `--porcelain=v1 -z` を使用し、` M` 状態の既知の監査ファイルだけを SHA256 付きで記録する。未知の追跡済みファイル、ステージ済み、削除、リネーム、事前の公開コード変更は不許可。
+2. 既存 `phase175_r3r8r1_verified_prior_public/audit.py`：import 全文を更新し、`R3R8R1_REVIEWED_FILES` に2ファイルを追加し、`extended_scoped_preflight()` 全体を変更。R3R8R1 の監査ファイル変更がない場合は従来の R3.preflight を使用。ある場合は Source Guard の実体（R1/R2の確認と R3 の全 pin）を呼び直す。過去の R3/R3R7 の検査は変更しない。
+3. 既存 `phase175_r3r8r1_verified_prior_public/install.py`：import 全文、`preflight()` 全体、`verify_postflight()` 全体を変更。改変許可の範囲が実行中に増加しないよう変更前・変更後 SHA256 を比較する。
+4. 新規 `tests/test_worktree_guard.py`：一時 Git リポジトリで status、インストール、復元を検証する。既存 `tests/test_lineage.py` の追加ファイル試験を1件拡張。
 
-## 数学的な許可条件
+## 数学・公開証明の境界
 
-**有限巡回群の零像**：$G=\mathbb Z/m\{g\}$ が厳密な先行群として再確認でき、$E(g)=0$ を独立した推論で証明した場合に限り、$\operatorname{im}E=0$ を導く。群構造は `GIVEN` でも、`verified_db_step` で出典・順序・実際の ProofStep を再検証する。
+Source-first（出典優先）、First Successful Proof Search（最初の成功で終了）を維持する。今回の修正だけでは `π_7^3` を完成扱いとしない。R3R7 による6つの `INFERRED` と R3R8R1 の検証済み先行DB一般規則は変更しない。通常検索が `complete`、未解決 Goal 0、Trust True、Web `generic-complete-proof` であることを本実行で確認する。
 
-**Hopf リフト**：$H:A\to B$ が単射で、$B=\mathbb Z/m\{h\}$ が再検証済み先行 DB の群であり、$H(x)=h$ を独立した推論で示した場合、$A=\mathbb Z/m\{x\}$ を得る。$B$ が単なる未証明 Goal なら適用しない。
-
-元の `INFERENCE` のみを要求する2つの一般規則は一切変更しない。今回の追加規則は2つとも入力型と先行 DB の実証明を検査する一般規則であり、$(3,4)$ 専用の数学的な推論ではない。公開経路の選択のみ $(3,4)$ に制限する。
-
-## 検証
-
-1. 最新 `develop` の関連ソース・テストを確認し、既存 `phase165_r52_r9_shared_math.py` の Git blob `9fa11b383812570fae1a26868c98992a5934a327` に固定する。
-2. R3R7 の成功監査レポートと Toda Lemma 5.4/5.7 の原典を再確認する。
-3. 偽造 `GIVEN`、同一／後続 DB 結果、零像・Hopf 像の `GIVEN` 化を拒否する限定テストを実行する。
-4. 通常 Group query の本物の再帰探索で `complete`、出典検証済みの証明木、`generic-complete-proof`、未解決0を確認する。
-5. 失敗時は既存ファイルを byte-for-byte で元に戻す。全体 pytest は Phase 175 終了時だけ実行する。
-
-## 次の Phase との境界
-
-今回の対象は $\pi_7^3$ の公開検索接続のみ。$\pi_9^5$ と $\pi_{10}^6$ の未完成証明、共通 Renderer の文言、他の $k$ の一般化などは先取りしない。
+`phase165_r52_r9_shared_math.py`、R3、R3R7、文献登録、既存 Renderer は直接変更しない。5文書（`README.md`、`design.md`、`development_log.md`、`roadmap.md`、`proof_records.md`）は今回変更しない。全体 pytest は Phase 175 終了時のみ実施する。

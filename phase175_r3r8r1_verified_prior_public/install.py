@@ -11,6 +11,10 @@ from hashlib import sha256
 from pathlib import Path
 import subprocess
 
+from phase175_r3r8r1_verified_prior_public.worktree_guard import (
+    reviewed_tracked_snapshot,
+)
+
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = Path(__file__).resolve().parent
 TARGET = Path("phase165_r52_r9_shared_math.py")
@@ -68,9 +72,10 @@ def preflight(root: Path = ROOT) -> dict[str, object]:
     if git(root, "rev-parse", "HEAD:" + TARGET.as_posix()) != PINNED_GIT_BLOB:
         raise RuntimeError("R3R8R1_UNREVIEWED_PRODUCTION_BLOB")
     # The prior R3R7 handoff explicitly recorded a clean tracked worktree.
-    tracked = git(root, "status", "--porcelain=v1", "--untracked-files=no")
-    if tracked:
-        raise RuntimeError("R3R8R1_UNREVIEWED_TRACKED_CHANGES: " + tracked[:300])
+    # A later audited ZIP may replace files already committed at this HEAD.
+    # Those changes are allowed only under the exact successor-file policy;
+    # the production target itself must still be clean before installation.
+    tracked_before = reviewed_tracked_snapshot(root)
     content = (root / TARGET).read_bytes()
     if content.startswith(b"\xef\xbb\xbf"):
         raise RuntimeError("R3R8R1_UNEXPECTED_BOM")
@@ -106,6 +111,7 @@ def preflight(root: Path = ROOT) -> dict[str, object]:
         "candidate_sha256": sha256(candidate_bytes).hexdigest(),
         "function_name": "search_shared_group_goal",
         "modified_tracked_files": [TARGET.as_posix()],
+        "reviewed_tracked_before": tracked_before,
         "new_specific_given": 0,
         "new_proof_replay": 0,
         "whole_pytest_executed": False,
@@ -141,9 +147,12 @@ def verify_postflight(root: Path, evidence: dict[str, object]) -> None:
     actual = (Path(root) / TARGET).read_bytes()
     if sha256(actual).hexdigest() != evidence["installed_sha256"]:
         raise RuntimeError("R3R8R1_PATCH_MUTATED_AFTER_INSTALL")
-    records = git(root, "status", "--porcelain=v1", "--untracked-files=no")
-    if records != " M " + TARGET.as_posix():
-        raise RuntimeError("R3R8R1_UNEXPECTED_TRACKED_POSTFLIGHT: " + records)
+    snapshot = reviewed_tracked_snapshot(root, allow_public_target=True)
+    public_sha = snapshot.pop(TARGET.as_posix(), None)
+    if public_sha != evidence["installed_sha256"]:
+        raise RuntimeError("R3R8R1R2_PUBLIC_PATCH_NOT_ONLY_REVIEWED_TARGET")
+    if snapshot != evidence["reviewed_tracked_before"]:
+        raise RuntimeError("R3R8R1R2_REVIEWED_WORKTREE_CHANGED_DURING_RUN")
 
 
 def rollback(root: Path, backup_folder: Path) -> None:

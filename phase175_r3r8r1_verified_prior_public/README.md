@@ -1,52 +1,43 @@
-# EHP Proof Tracer — Phase 175 R3R8R1: Verified Prior DB Public Connection
+# EHP Proof Tracer — Phase 175 R3R8R1R2 tracked-worktree guard fix
 
-## Scope
+This package fixes the specific preflight failure reported for R3R8R1R1:
+`R3_PROTECTED_TRACKED_CHANGE: phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md`.
 
-This package corrects the mismatch identified by the actual R3R8 public search. The canonical solver accepts the earlier group $\pi_6^2$ as an adopted database prior (`GIVEN`), whereas the previously developed zero-image and Hopf generator-lift rules require all group premises to be inferred (`INFERENCE`). The R3R8 experiment stopped after six accepted steps, with seven open goals; its tracked edit was rolled back successfully.
+The earlier R3 Source Guard permitted changes only to its own historical files. After a newer audit package is committed, extracting a revised ZIP can modify tracked files belonging to that newer package. This must not be mistaken for a production modification, but it must also not authorize unknown files or changed source code.
 
-The correction adds **two general provenance-checked alternatives**, without changing the older inference-only rules:
+## Exact scope
 
-1. If a finite-cyclic group presentation is a *strictly earlier, freshly verified adopted DB prior*, and the zero image of its generator is separately inferred, the suspension map has zero image.
-2. If a Hopf map is separately proved injective, its finite-cyclic codomain is a *strictly earlier, freshly verified adopted DB prior*, and the Hopf image of a domain element is separately inferred to be the codomain generator, the domain is the corresponding finite cyclic group.
+- `phase175_r3r8r1_verified_prior_public/worktree_guard.py` (new): checks Git porcelain `-z` and SHA256 of each explicitly reviewed, **unstaged** changed file. Only the existing R3 whitelist and exact named R3R8R1 files are accepted. Production source `phase165_r52_r9_shared_math.py` remains prohibited at preflight.
+- `phase175_r3r8r1_verified_prior_public/audit.py`: `extended_scoped_preflight()` uses the new guard and R3's existing pinned-source validation for reviewed successor edits. The R3R7 history allowlist and its independent source check remain intact.
+- `phase175_r3r8r1_verified_prior_public/install.py`: `preflight()` preserves the reviewed tracked-file hashes, while `verify_postflight()` requires the exact public patch and unchanged reviewed files. Rollback remains unchanged.
+- `tests/test_worktree_guard.py` (new): exercises a real local Git repository, including production-change rejection, staged-change rejection, a successful guarded patch and rollback.
+- `tests/test_lineage.py`: includes the new guard file in the existing additive-lineage acceptance tests.
 
-The existing `admitted_db_step` and `verified_db_step` gates are used both when offering a candidate and when checking the actual parent `ProofStep`. A forged `GIVEN` step, a target reused as its own prior, an unknown database result, or a non-inferred generator image does not satisfy the rules. This is not a new mathematical source or an automatic promotion of group goals to proofs.
+No mathematical statements, proof rules, renderer, source database, or existing production files are modified **by this repair**. The previous R3R8R1 installer still performs its single-function production patch only after all preflight checks pass and restores the original bytes on a failed public verification.
 
-## Changes
+## Execution — Windows PowerShell
 
-- Existing file: `phase165_r52_r9_shared_math.py`, full function `search_shared_group_goal()` only. No top-level imports or other existing functions are changed. The single route insertion is guarded by `(n,k)=(3,4)`.
-- New `rule.py`: four reusable functions implementing two general verified-prior inference alternatives.
-- New `route.py`: connects the two alternatives to the earlier R3R7 source-backed expansions; the original inference-only options remain available.
-- New package-specific `install.py`, `audit.py`, `run.ps1`, tests, and full-code documentation. The installer retains the pinned original Git blob, checks that the complete prior function is unchanged, and backs up before writing.
-
-No direct $\pi_7^3$ result is registered as `GIVEN`. No saved completed proof is imported. No changes to the Web renderer, documentation under `docs/`, or unrelated group routes are made. The canonical First Successful Proof Search policy is preserved.
-
-## Installation and verification
-
-Extract `R3R8R1.zip` into the repository root. In PowerShell:
+Extract at the repository root. This overwrites the previous R3R8R1 package, **not** the production source file.
 
 ```powershell
 cd C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
 $ErrorActionPreference = 'Stop'
-Expand-Archive -Path "$HOME\Downloads\R3R8R1.zip" -DestinationPath "." -Force
+Expand-Archive -Path "$HOME\Downloads\R3R8R1R2.zip" -DestinationPath "." -Force
 $script = ".\phase175_r3r8r1_verified_prior_public\run.ps1"
 powershell -NoProfile -ExecutionPolicy Bypass -File $script -DryRun
 Write-Output "DRYRUN_EXIT_CODE=$LASTEXITCODE"
 ```
 
-Only when `DRYRUN_EXIT_CODE=0`, run:
+Only if `DRYRUN_EXIT_CODE=0`:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File $script
-Write-Output "R3R8R1_EXIT_CODE=$LASTEXITCODE"
+Write-Output "R3R8R1R2_EXIT_CODE=$LASTEXITCODE"
 git status -sb
 ```
 
-Normal execution runs focused pytest and then the real ordinary `(n,k)=(3,4)` search, proof trust verification, linked narrative model, and standard Web Group proof view. The tracked edit is automatically rolled back if any success condition fails. Reports and backups are written outside the repository under `%LOCALAPPDATA%\EHPProofTracerAudit\phase175_r3r8r1_verified_prior_public\`.
+The normal run performs **focused pytest only** before the ordinary `(n,k)=(3,4)` proof search, trust-boundary verification, and shared Web renderer. Completion requires actual `complete`, zero open goals, verified proof tree and `generic-complete-proof`. The full pytest suite is reserved for the end of Phase 175.
 
-## Acceptance criteria
+## Validation status
 
-- Source Guard and independently observed R3R7 six inference obligations still pass.
-- Focused tests pass, including tests for forged or non-earlier DB premises and the actual ordinary group proof search.
-- Actual search is `complete`, has no open goals, and its conclusion equals the typed database target.
-- The proof tree passes the existing trust boundary; the Web view is `generic-complete-proof` with references and no partial flag.
-- On failure, the exact original tracked function is restored and the reason recorded. No full-suite pytest is executed before the end of Phase 175.
+The new successor worktree guard and existing R3R8R1 installer were run in temporary Git repositories under lightweight dependency stubs: **12 tests passed**. All shipped Python files compile and ZIP integrity is checked. The full project checkout, Windows powershell execution and real Web proof search are not available in the packaging environment. A DryRun or `pytest` PASS is not evidence of complete mathematical proof.

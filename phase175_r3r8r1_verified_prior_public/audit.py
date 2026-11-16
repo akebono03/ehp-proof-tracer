@@ -5,14 +5,19 @@ import argparse
 from datetime import datetime, timezone
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
 import tempfile
 import traceback
 
+from phase175_r3r6_lemma57_general import audit as r3r6
 from phase175_r3r7_lemma54_membership import audit as previous
 from phase175_r3r8r1_verified_prior_public import install
+from phase175_r3r8r1_verified_prior_public.worktree_guard import (
+    reviewed_tracked_snapshot,
+)
 
 PACKAGE = "phase175_r3r8r1_verified_prior_public"
 MARKER = "__PHASE175_R3R8R1_WORKER__="
@@ -32,6 +37,145 @@ EXPECTED_R3R7 = frozenset({
     "hopf_injectivity",
     "pi73_cyclic_lift",
 })
+
+
+# Explicit additions already reviewed in the R3R8 public-route stage.
+# The preceding R3R7 guard correctly excludes files added after R3R7; this
+# stage checks those successors without altering the historic R3R7 policy.
+R3R8_REVIEWED_FILES = frozenset({
+    "phase175_r3r8_pi73_public_connection/README.md",
+    "phase175_r3r8_pi73_public_connection/AUDIT_PLAN_JA.md",
+    "phase175_r3r8_pi73_public_connection/CODE_FULL_JA.md",
+    "phase175_r3r8_pi73_public_connection/TEST_RESULTS_JA.md",
+    "phase175_r3r8_pi73_public_connection/__init__.py",
+    "phase175_r3r8_pi73_public_connection/audit.py",
+    "phase175_r3r8_pi73_public_connection/install.py",
+    "phase175_r3r8_pi73_public_connection/route.py",
+    "phase175_r3r8_pi73_public_connection/run.ps1",
+    "phase175_r3r8_pi73_public_connection/search_shared_group_goal_FULL.py.txt",
+    "phase175_r3r8_pi73_public_connection/tests/__init__.py",
+    "phase175_r3r8_pi73_public_connection/tests/test_install.py",
+    "phase175_r3r8_pi73_public_connection/tests/test_route.py",
+})
+
+R3R8R1_REVIEWED_FILES = frozenset({
+    "phase175_r3r8r1_verified_prior_public/README.md",
+    "phase175_r3r8r1_verified_prior_public/AUDIT_PLAN_JA.md",
+    "phase175_r3r8r1_verified_prior_public/CODE_FULL_JA.md",
+    "phase175_r3r8r1_verified_prior_public/TEST_RESULTS_JA.md",
+    "phase175_r3r8r1_verified_prior_public/__init__.py",
+    "phase175_r3r8r1_verified_prior_public/audit.py",
+    "phase175_r3r8r1_verified_prior_public/install.py",
+    "phase175_r3r8r1_verified_prior_public/route.py",
+    "phase175_r3r8r1_verified_prior_public/rule.py",
+    "phase175_r3r8r1_verified_prior_public/run.ps1",
+    "phase175_r3r8r1_verified_prior_public/search_shared_group_goal_FULL.py.txt",
+    "phase175_r3r8r1_verified_prior_public/tests/__init__.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_install.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_public_search.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_route.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_verified_prior.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_lineage.py",
+    "phase175_r3r8r1_verified_prior_public/worktree_guard.py",
+    "phase175_r3r8r1_verified_prior_public/tests/test_worktree_guard.py",
+})
+
+
+def verify_extended_lineage(
+    root: Path, r2_report: dict, checked: dict,
+) -> dict[str, object]:
+    """Allow exact reviewed audit-package additions, never production edits.
+
+    Preserve the R3R7 ancestor, additive-only, and known-name checks. A
+    committed R3R8 package is not an unknown production change: its contents
+    are allowed by an explicit filename allowlist, not by a prefix wildcard.
+    """
+    old = r2_report.get("preflight", {}).get("head")
+    new = checked.get("head")
+    if (not isinstance(old, str) or not isinstance(new, str)
+            or re.fullmatch(r"[a-f0-9]{40}", old) is None
+            or re.fullmatch(r"[a-f0-9]{40}", new) is None
+            or r3r6._lineage_git(root, "rev-parse", "HEAD") != new):
+        raise RuntimeError("R3R8R1R1_INVALID_VERIFIED_HEAD")
+    if old == new:
+        return {"mode": "SAME_HEAD", "audit_only_paths": [], "reviewed_successors": []}
+    ancestor = subprocess.run(
+        ["git", "merge-base", "--is-ancestor", old, new],
+        cwd=root, capture_output=True, check=False,
+    )
+    if ancestor.returncode:
+        raise RuntimeError("R3R8R1R1_R2_HEAD_NOT_ANCESTOR")
+    changes = r3r6._lineage_git(
+        root, "diff", "--name-status", "--no-renames", old, new,
+    )
+    allowed_prior = (
+        r3r6.R3_LINEAGE_ALLOWED_ADDITIONS
+        | r3r6.R3R5_ALLOWED_ADDITIONS
+        | r3r6.R3R6_ALLOWED_ADDITIONS
+        | previous.ALLOWED_NEW_FILES
+    )
+    paths: list[str] = []
+    successors: list[str] = []
+    for line in changes.splitlines():
+        status, tab, path = line.partition("\t")
+        if tab != "\t" or status != "A":
+            raise RuntimeError("R3R8R1R1_NON_AUDIT_CHANGE_IN_LINEAGE")
+        if path.startswith(r3r6.R2_PACKAGE + "/") or path in allowed_prior:
+            paths.append(path)
+        elif path in R3R8_REVIEWED_FILES or path in R3R8R1_REVIEWED_FILES:
+            paths.append(path)
+            successors.append(path)
+        else:
+            raise RuntimeError("R3R8R1R1_UNKNOWN_LINEAGE_ADDITION: " + path)
+    if not paths:
+        raise RuntimeError("R3R8R1R1_EMPTY_DESCENDANT_DIFF")
+    return {
+        "mode": "AUDIT_ONLY_DESCENDANT",
+        "audit_only_paths": paths,
+        "reviewed_successors": successors,
+    }
+
+
+def extended_scoped_preflight(root: Path) -> dict[str, object]:
+    """Re-run the original R3 and R2 guards plus a successor-aware lineage.
+
+    This never bypasses the source-text pinning and never rewrites R3R7's
+    historical allowlist. Unknown changes remain fail-closed.
+    """
+    from phase175_r3_pi73_hopf_lift import audit as r3
+
+    if r3.R3_LINEAGE_ALLOWED_ADDITIONS != r3r6.R3_LINEAGE_ALLOWED_ADDITIONS:
+        raise RuntimeError("R3R8R1R1_R3_SOURCE_GUARD_POLICY_CHANGED")
+    snapshot = reviewed_tracked_snapshot(root)
+    if not snapshot or set(snapshot).issubset(r3.R3_ALLOWED_TRACKED_EDITS):
+        checked = r3.preflight(root)
+    else:
+        # R3's historic filter admits only its own old filenames.  The
+        # successor filter has already rejected unknown or staged changes.
+        # Reuse R3's complete R1/R2 pin checks without calling that older
+        # worktree-specific allowlist again.
+        checked = r3.scoped_r2_preflight(root, snapshot)
+        for relative, expected in r3.EXTRA_PINS.items():
+            if (not (root / relative).is_file()
+                    or r3.git(root, "rev-parse", "HEAD:" + relative) != expected):
+                raise RuntimeError("R3R8R1R2_R3_SOURCE_PIN_MISMATCH: " + relative)
+        checked = {
+            **checked,
+            "r3_extra_pins": dict(r3.EXTRA_PINS),
+            "r3r8r1_reviewed_tracked_edits": snapshot,
+            "r3r8r1_scoped_source_guard": "REVIEWED_SUCCESSOR_UNSTAGED_ONLY",
+        }
+    report_file = r3.select_r2_report(None)
+    r2_report = json.loads(report_file.read_text(encoding="utf-8"))
+    r3.validate_r2(r2_report)
+    lineage = verify_extended_lineage(root, r2_report, checked)
+    source = previous.verify_lemma54_before_lemma57(root)
+    return {
+        "r3_source_guard": checked,
+        "r2_lineage": lineage,
+        "r2_report_path": str(report_file),
+        "lemma54_lemma57_source": source,
+    }
 
 
 def latest_successful_r3r7() -> Path:
@@ -179,7 +323,7 @@ def run(root: Path, dry_run: bool, seconds: int) -> int:
     result_code = 2
     print("PHASE175_R3R8R1_OUTPUT=" + str(folder), flush=True)
     try:
-        report["preflight_source_guard"] = previous.scoped_preflight(root)
+        report["preflight_source_guard"] = extended_scoped_preflight(root)
         report["r3r7_report"] = str(latest_successful_r3r7())
         report["patch_preflight"] = install.preflight(root)
         print("PHASE175_R3R8R1_SOURCE_GUARD=PASS", flush=True)
