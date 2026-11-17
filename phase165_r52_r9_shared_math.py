@@ -262,6 +262,18 @@ def shared_expansion_provider(bridge: RegistryBridgeResult, extra_providers: tup
     if not isinstance(prior_conclusions, tuple):
         raise TypeError("prior_conclusions must be a tuple")
 
+    # Phase 175 R4R5R3: reusable finite-cyclic summand order-to-zero rule.
+    # All proof steps are resolved by the ordinary citation/DB-prior gate.
+    from phase175_r4r5r3_public_order_zero.provider import (
+        build_public_order_zero_provider,
+    )
+    extra_providers = (
+        build_public_order_zero_provider(
+            bridge=bridge, proof_target=proof_target,
+            prior_conclusions=prior_conclusions,
+        ),
+    ) + tuple(extra_providers)
+
     from phase165_r57_r7_stable_expansion import (
         expand_registered_toda45_finite_cyclic_goal,
     )
