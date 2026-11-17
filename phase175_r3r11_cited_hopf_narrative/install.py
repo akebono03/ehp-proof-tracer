@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 TARGET = Path("phase171_r20r13_eta_sentence_layout/projection.py")
-REVIEWED_HEAD_BLOB = "77c7345f8d4c0c0c40c1059fad13de0e85e9910e"
+REVIEWED_HEAD_BLOB = "5deaa8886f36ec967d52b9fcd603d135ae290b39"
 PACKAGE = Path(__file__).resolve().parent
 BASE = (PACKAGE / "full_functions" /
         "format_complete_proof_sentences_BASE.py").read_text(encoding="utf-8")

@@ -15,7 +15,7 @@ import traceback
 
 from phase175_r3r11_cited_hopf_narrative import install
 
-GATE = "PASS_R3R11R1_CITED_REFERENCES_AND_HOPF_CHAIN_COMPACT"
+GATE = "PASS_R3R11R4_SINGLE_EQUATION_AND_PRIOR_NARRATIVE"
 TEST_PATHS = (
     "phase175_r3r11_cited_hopf_narrative/tests",
     "phase175_r3r10_generator_zero_narrative/tests/test_public.py",
@@ -72,6 +72,7 @@ def preflight(root: Path):
 
 
 def _public_gate() -> dict[str, object]:
+    """Require a cited single equation with the same verified proof and Web gate."""
     from phase175_r1_k4_audit.audit import inspect_one_group
     from phase175_r3r9_lemma57_explicit_public.audit import verify_public_result
 
@@ -79,33 +80,43 @@ def _public_gate() -> dict[str, object]:
     proof = verify_public_result(recorded)
     markdown = recorded.get("markdown")
     if not isinstance(markdown, str) or markdown.count("\n証明\n") != 1:
-        raise RuntimeError("R3R11_MODEL_NARRATIVE_NOT_AVAILABLE")
+        raise RuntimeError("R3R11R4_MODEL_NARRATIVE_NOT_AVAILABLE")
     reference, body = markdown.split("\n証明\n", 1)
     refs = recorded.get("references")
     if not isinstance(refs, list):
-        raise RuntimeError("R3R11_MODEL_CITATIONS_MISSING")
+        raise RuntimeError("R3R11R4_MODEL_CITATIONS_MISSING")
     by_locator = {c["locator"]: c["number"] for c in refs}
     if not all(name in by_locator for name in
                ("Lemma 5.7", "Proposition 2.2", "Chapter V, i)", "(5.3)")):
-        raise RuntimeError("R3R11_REQUIRED_TYPED_SOURCES_NOT_CITED")
+        raise RuntimeError("R3R11R4_REQUIRED_TYPED_SOURCES_NOT_CITED")
     l57 = f"[R{by_locator['Lemma 5.7']}]"
     prop22 = f"[R{by_locator['Proposition 2.2']}]"
     eta = f"[R{by_locator['Chapter V, i)']}]"
     hopf = f"[R{by_locator['(5.3)']}]"
     if (r"$E(\eta_2\nu')=0$." not in reference
-            or r"$H(\alpha E\beta)=H(\alpha) E\beta$." not in reference):
-        raise RuntimeError("R3R11_REFERENCE_CONTENT_NOT_VISIBLE")
-    if (not re.search(re.escape(l57) + r"より, \$E\(\\eta_\{2\}\\nu'\)=0\$\.", body)
+            or r"$H(\alpha E\beta)=H(\alpha) E\beta$." not in reference
+            or "特に, " in reference or "右合成公式: " in reference):
+        raise RuntimeError("R3R11R4_REFERENCE_BODY_CONTRACT_FAILED")
+    if (f"{l57}より, " + r"$E(\eta_{2}\nu')=0$." not in body
             or r"$E(\eta_{2}\circ" in body):
-        raise RuntimeError("R3R11_COMPOSITION_NOT_UNIFIED")
-    if (prop22 + "より, " not in body
-            or f"{eta}, {prop22}, {hopf}より, " not in body):
-        raise RuntimeError("R3R11_HOPF_CITATION_CHAIN_NOT_CONDENSED")
-    if (body.count(r"H(\nu'\eta_{6})") > 2
-            or body.count(r"H\left(\nu'\eta_{6}\right)") > 2):
-        raise RuntimeError("R3R11_HOPF_CHAIN_STILL_REDUNDANT")
-    if recorded.get("web_key") != "generic-complete-proof":
-        raise RuntimeError("R3R11_WEB_PROOF_NOT_COMPLETE")
+        raise RuntimeError("R3R11R4_COMPOSITION_NOT_UNIFIED")
+    summary = (
+        f"{eta}, {prop22}, {hopf}より, "
+        r"$H(\nu'\eta_{6})=H(\nu'E\eta_{5})"
+        r"=H(\nu')E\eta_{5}=\eta_{5}E\eta_{5}=\eta_{5}^{2}$."
+    )
+    if body.count(summary) != 1:
+        raise RuntimeError("R3R11R4_SINGLE_EQUATION_NOT_VERIFIED")
+    if any(old in body for old in (
+        r"[R5]より, $E(\eta_{5})=\eta_{6}$.",
+        r"[R6]より, $H(\nu'E\eta_{5})",
+        r"[R7]より, $H(\nu')=\eta_{5}$.",
+    )):
+        raise RuntimeError("R3R11R4_OLD_HOPF_LINES_STILL_VISIBLE")
+    if (recorded.get("web_key") != "generic-complete-proof"
+            or recorded.get("trust_verified") is not True
+            or recorded.get("reference_count") != 7):
+        raise RuntimeError("R3R11R4_PROOF_TRUST_OR_WEB_CHANGED")
     return {
         "search": proof["search_status"],
         "web": proof["web"],
@@ -114,7 +125,8 @@ def _public_gate() -> dict[str, object]:
         "reference_count": recorded.get("reference_count"),
         "lemma57_reference": l57,
         "prop22_reference": prop22,
-        "hopf_summary_references": f"{eta}, {prop22}, {hopf}",
+        "single_equation_references": f"{eta}, {prop22}, {hopf}",
+        "single_equation": summary,
         "markdown_sha256": sha256(markdown.encode("utf-8")).hexdigest(),
     }
 
@@ -123,14 +135,14 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
     root = root.resolve()
     checked = preflight(root)
     plan = checked["plan"]
-    print("PHASE175_R3R11R1_BRANCH=develop")
-    print("PHASE175_R3R11R1_HEAD=" + checked["head"])
-    print("PHASE175_R3R11R1_REVIEWED_BLOB=" + checked["blob"])
-    print("PHASE175_R3R11R1_PATCH_STATUS=" + plan.status)
-    print("PHASE175_R3R11R1_NEW_GIVEN=0")
-    print("PHASE175_R3R11R1_NEW_MATHEMATICAL_RULES=0")
+    print("PHASE175_R3R11R4_BRANCH=develop")
+    print("PHASE175_R3R11R4_HEAD=" + checked["head"])
+    print("PHASE175_R3R11R4_REVIEWED_BLOB=" + checked["blob"])
+    print("PHASE175_R3R11R4_PATCH_STATUS=" + plan.status)
+    print("PHASE175_R3R11R4_NEW_GIVEN=0")
+    print("PHASE175_R3R11R4_NEW_MATHEMATICAL_RULES=0")
     if dry_run:
-        print("PHASE175_R3R11R1_GATE=PASS_R3R11_READ_ONLY_DRYRUN")
+        print("PHASE175_R3R11R4_GATE=PASS_R3R11R4_READ_ONLY_DRYRUN")
         return 0
 
     folder = (Path(os.environ.get("LOCALAPPDATA") or tempfile.gettempdir())
@@ -156,7 +168,7 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
         print(result.stdout[-4000:])
         if result.returncode:
             raise RuntimeError("R3R11_FOCUSED_PYTEST_FAILED")
-        print("PHASE175_R3R11R1_FOCUSED_PYTEST=PASS")
+        print("PHASE175_R3R11R4_FOCUSED_PYTEST=PASS")
         certified = _public_gate()
         (folder / "report.json").write_text(json.dumps({
             "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -167,16 +179,16 @@ def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
             "public": certified,
         }, indent=2, ensure_ascii=False), encoding="utf-8")
         for key, value in certified.items():
-            print("PHASE175_R3R11R1_" + key.upper() + "=" + str(value))
-        print("PHASE175_R3R11R1_GATE=" + GATE)
+            print("PHASE175_R3R11R4_" + key.upper() + "=" + str(value))
+        print("PHASE175_R3R11R4_GATE=" + GATE)
         return 0
     except Exception:
         if plan.status == "PATCH_REQUIRED":
             if target.read_bytes() == plan.new_bytes:
                 target.write_bytes(plan.old_bytes)
-                print("PHASE175_R3R11R1_ROLLBACK=RESTORED")
+                print("PHASE175_R3R11R4_ROLLBACK=RESTORED")
             else:
-                print("PHASE175_R3R11R1_ROLLBACK=MANUAL_INSPECTION_REQUIRED")
+                print("PHASE175_R3R11R4_ROLLBACK=MANUAL_INSPECTION_REQUIRED")
         raise
 
 
@@ -190,7 +202,7 @@ def main() -> int:
         return run(args.root, args.dry_run, args.timeout_seconds)
     except Exception:
         traceback.print_exc()
-        print("PHASE175_R3R11R1_GATE=FAIL")
+        print("PHASE175_R3R11R4_GATE=FAIL")
         return 1
 
 

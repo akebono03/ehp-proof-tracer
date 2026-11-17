@@ -1,53 +1,19 @@
-# Phase 175 R3R11R1 — 変更コード・テストの全文
+# Phase 175 R3R11R4 — 変更コード・関連テスト全文
 
-本書は今回変更または再配布するコードをそのまま置換可能な単位で掲載する。既存の `phase171_r20r13_eta_sentence_layout/projection.py` は **関数のみ**の変更であり、ファイル先頭 import、他関数・クラスは変更しない。新規追加パッケージのソースは各ファイルを全文提示する。`...` によるコード省略はない。
+## 変更対象の一覧
 
-## 変更対象一覧
+- 既存コード変更：`phase175_r3r11_cited_hopf_narrative/projection.py::_verified_hopf_chain_lines()` のみ。
+- 追加テスト：`tests/test_projection.py` の2関数（末尾に追加）。
+- 識別子変更：`audit.py` の `GATE`、`_public_gate()`、`run()`、`main()`、`run.ps1`。
+- 既存 `phase171_r20r13_eta_sentence_layout/projection.py` はコミット済みで変更不要。
+- module-level の import は変更なし。変更した関数内の import は下記全文に含む。
+- 数学的 GIVEN・推論規則・Proof Tree の変更なし。
 
-1. 既存の `phase171_r20r13_eta_sentence_layout/projection.py`：`format_complete_proof_sentences()` 関数全文を置換（ファイル末尾）。
-2. `phase175_r3r11_cited_hopf_narrative/projection.py`：パッケージ先頭に共通投影関数・必要 import を全文掲載。
-3. 同 `audit.py`：Gate/TEST_PATHS/本実行の全文。
-4. 同 `run.ps1`：全文。
-5. 同 `tests/test_projection.py`：必要 import と全テスト関数の全文。
-6. 同 `install.py`、`tests/test_install.py`：変更はないが再配布するため全文。
-7. 同 `__init__.py`：全文。
+実装前監査と数学的根拠は `AUDIT_PLAN_JA.md` を参照。次に掲げる Python / PowerShell コードはすべて実ファイル全文であり、省略部分はない。
 
-全体 pytest や数学的推論規則の追加はしない。
+## `projection.py`
 
-## 既存関数（置換対象） — `full_functions/format_complete_proof_sentences_FULL.py`
-
-```python
-def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
-    """Keep the original tree/citations; alter only completed narrative prose."""
-    from phase174_r3_r7_r70_verified_narrative_projection.projection import (
-        project_verified_general_narrative,
-    )
-    from phase175_r3r11_cited_hopf_narrative.projection import (
-        project_verified_source_and_hopf_summary,
-    )
-    combined = project_verified_general_narrative(
-        combine_adjacent_verified_eta_sentences(lines, model), model,
-    )
-    cited = project_verified_source_and_hopf_summary(combined, model)
-    return split_completed_proof_sentences(cited)
-```
-
-## 変更前の既存関数（比較用） — `full_functions/format_complete_proof_sentences_BASE.py`
-
-```python
-def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
-    """Keep the original tree/citations; alter only completed narrative prose."""
-    from phase174_r3_r7_r70_verified_narrative_projection.projection import (
-        project_verified_general_narrative,
-    )
-    return split_completed_proof_sentences(
-        project_verified_general_narrative(
-            combine_adjacent_verified_eta_sentences(lines, model), model,
-        )
-    )
-```
-
-## 新規共通表示モジュール — `projection.py`
+変更モジュール全文。追加した関数内 import と変更関数 `_verified_hopf_chain_lines()` を省略せず収録。
 
 ```python
 """Source-bound reference and Hopf-chain display for a completed Proof Tree.
@@ -142,9 +108,9 @@ def _reference_body_lines(lines: list[str], model, scope: frozenset[int]):
 
     wanted = (
         (TodaLemma57ExplicitNuPrimeZero, LEMMA_ASSERTION, LEMMA_REFERENCE,
-         "Lemma 5.7", "特に, $" + PARTICULAR_CLAUSE.replace(r"\circ", "") + "$."),
+         "Lemma 5.7", "$" + PARTICULAR_CLAUSE.replace(r"\circ", "") + "$."),
         (TodaProp22RightFormula, PROP_ASSERTION, PROP_REFERENCE,
-         "Proposition 2.2", "右合成公式: $" + re.sub(
+         "Proposition 2.2", "$" + re.sub(
              r" +", " ", RIGHT_FORMULA.replace(r"\circ", " ")
              .replace(r"\ =\ ", "=")) + "$."),
     )
@@ -280,9 +246,38 @@ def _verified_hopf_chain_lines(lines: list[str], model, scope: frozenset[int]):
         ASSERTION_ID, REFERENCE_ID, TodaProp22RightFormula,
     )
     from phase171_r2i_eta_hopf_bridge.source import _make_chain
+    from phase175_r3r9_lemma57_explicit_public.source import (
+        ASSERTION_ID as LEMMA_ASSERTION_ID,
+        REFERENCE_ID as LEMMA_REFERENCE_ID,
+        TodaLemma57ExplicitNuPrimeZero,
+    )
 
     result = list(lines)
     if result.count("証明") != 1:
+        return result
+    # Phase 172 already provides a compact Hopf chain for other complete
+    # roots.  Do not collapse that previously approved presentation a second
+    # time.  This additional single equation is only for a completed root
+    # with the separately cited *and derived* Lemma 5.7 zero-image bridge.
+    # No group dimensions, reference numbers or text-only labels are matched.
+    lemma_source = _source_citation(
+        model, scope, statement_type=TodaLemma57ExplicitNuPrimeZero,
+        assertion_id=LEMMA_ASSERTION_ID, reference_id=LEMMA_REFERENCE_ID,
+        locator="Lemma 5.7",
+    )
+    if lemma_source is None:
+        return result
+    _, lemma_index = lemma_source
+    zero_bridges = tuple(
+        step for i, step in enumerate(model.steps)
+        if i in scope and step.rule is ProofRule.INFERENCE
+        and isinstance(step.conclusion, GeneratorImage)
+        and isinstance(step.conclusion.target_generator, Zero)
+        and isinstance(step.conclusion.source_generator, Composition)
+        and len(step.premises) == 1
+        and step.premises[0] is model.steps[lemma_index]
+    )
+    if len(zero_bridges) != 1:
         return result
     boundary = result.index("証明") + 1
     prop_source = _source_citation(
@@ -374,6 +369,26 @@ def _verified_hopf_chain_lines(lines: list[str], model, scope: frozenset[int]):
                 < anchors["conclusion"]):
             continue
 
+        # An inline equality chain is legitimate only if every intermediate
+        # equality actually occurs as an uncited derived step in this root.
+        # It is not enough to reconstruct a plausible equation from labels.
+        required_equalities = (
+            chain.eta_forward, chain.eta_backward,
+            chain.alpha_composition, chain.hopf_composition,
+            chain.cited_hopf, chain.intermediate, chain.beta_composition,
+        )
+        required_indices = []
+        for equality in required_equalities:
+            found = _unique_conclusion(
+                model, scope, equality, ProofRule.INFERENCE,
+            )
+            if (found is None or found[0] not in final_ancestry
+                    or model.step_citation_numbers[found[0]]):
+                break
+            required_indices.append(found[0])
+        if len(required_indices) != len(required_equalities):
+            continue
+
         hidden_indices = []
         for name, claim in (
             ("forward", chain.eta_forward),
@@ -402,21 +417,43 @@ def _verified_hopf_chain_lines(lines: list[str], model, scope: frozenset[int]):
             hidden_indices.append(display_index)
         if len(hidden_indices) != len(set(hidden_indices)):
             continue
-        formula_text = _rendered_sentence(steps["formula"])
-        final_text = _rendered_sentence(steps["conclusion"])
-        if formula_text is None or final_text is None:
+        # Construct one displayed equality chain from the typed generator,
+        # suspension and final proven image. The relation steps above certify
+        # every link; the formatter only renders their already-proved values.
+        from toda_human_readable_renderer import render_toda_expression_latex
+
+        try:
+            alpha = render_toda_expression_latex(chain.alpha)
+            beta = render_toda_expression_latex(chain.beta)
+            eta_next = render_toda_expression_latex(chain.eta_next)
+            square = render_toda_expression_latex(chain.conclusion.rhs)
+        except (TypeError, ValueError):
             continue
+        if not all((alpha, beta, eta_next, square)):
+            continue
+        chain_math = (
+            f"H({alpha}{eta_next})"
+            f"=H({alpha}E{beta})"
+            f"=H({alpha})E{beta}"
+            f"={beta}E{beta}"
+            f"={square}"
+        )
         tags = ", ".join(f"[R{n}]" for n in (
             eta_number, prop_citation.number, hopf_number,
         ))
+        summary = f"{tags}より, ${chain_math}$."
+        omitted = set(hidden_indices)
+        omitted.update((
+            anchors["witness"], anchors["formula"], hopf_anchor,
+        ))
+        if anchors["conclusion"] in omitted:
+            continue
         changed: list[str] = []
         for i, line in enumerate(result):
-            if i in hidden_indices:
+            if i in omitted:
                 continue
-            if i == anchors["formula"]:
-                changed.append(f"[R{prop_citation.number}]より, " + formula_text)
-            elif i == anchors["conclusion"]:
-                changed.append(tags + "より, " + final_text)
+            if i == anchors["conclusion"]:
+                changed.append(summary)
             else:
                 changed.append(line)
         # Suppressed equations can leave adjacent empty paragraphs. This is
@@ -436,283 +473,9 @@ def project_verified_source_and_hopf_summary(lines: list[str], model) -> list[st
     return _verified_hopf_chain_lines(normalized, model, scope)
 ```
 
-## 監査と限定 pytest 指定 — `audit.py`
+## `tests/test_projection.py`
 
-```python
-"""R3R11 guarded read-only DryRun and completed cited-narrative Web gate."""
-from __future__ import annotations
-
-import argparse
-from datetime import datetime, timezone
-from hashlib import sha256
-import json
-import os
-from pathlib import Path
-import re
-import subprocess
-import sys
-import tempfile
-import traceback
-
-from phase175_r3r11_cited_hopf_narrative import install
-
-GATE = "PASS_R3R11R1_CITED_REFERENCES_AND_HOPF_CHAIN_COMPACT"
-TEST_PATHS = (
-    "phase175_r3r11_cited_hopf_narrative/tests",
-    "phase175_r3r10_generator_zero_narrative/tests/test_public.py",
-    "phase175_r3r10_generator_zero_narrative/tests/test_projection.py",
-    "phase175_r3r9_lemma57_explicit_public/tests/test_public_search.py",
-    "phase171_r20r13_eta_sentence_layout/tests/test_projection.py",
-    "phase172_r3_hopf_chain_display/tests/test_projection.py",
-    # R70's historical installer-source-pin test expects the pre-R3R10
-    # phase168 file. R3R10 legitimately changed that file. Retain the
-    # independent R70 functional tests, without weakening its source guard.
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_line_endings_source_guard_and_patch_idempotence",
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_source_guard_rejects_unreviewed_change",
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_rejects_mixed_eol_and_cr_only",
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_body_line_search_does_not_match_reference_text",
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_step_index_rejects_ambiguous_value_fallback",
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_incomplete_model_has_no_composed_rewrite",
-    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_git_sha_fixture",
-)
-
-
-def _read_git(root: Path, *args: str) -> str:
-    result = subprocess.run(
-        ["git", *args], cwd=root, capture_output=True, text=True,
-        encoding="utf-8", errors="replace", check=False,
-    )
-    if result.returncode:
-        raise RuntimeError("R3R11_GIT_READ_FAILED: " + " ".join(args))
-    return result.stdout.strip()
-
-
-def preflight(root: Path):
-    if not (root / ".git").exists():
-        raise RuntimeError("R3R11_GIT_REPOSITORY_REQUIRED")
-    if _read_git(root, "branch", "--show-current") != "develop":
-        raise RuntimeError("R3R11_DEVELOP_REQUIRED")
-    blob = _read_git(root, "rev-parse", "HEAD:" + install.TARGET.as_posix())
-    if blob != install.REVIEWED_HEAD_BLOB:
-        raise RuntimeError("R3R11_REVIEWED_BLOB_CHANGED")
-    if not (root / "phase175_r3r10_generator_zero_narrative" / "run.ps1").is_file():
-        raise RuntimeError("R3R11_R3R10_REQUIRED")
-    if not (root / "phase175_r3r9_lemma57_explicit_public" / "route.py").is_file():
-        raise RuntimeError("R3R11_R3R9_REQUIRED")
-    r3r10 = (root / "phase168_r3_27_typed_statement_projection.py").read_text(
-        encoding="utf-8",
-    )
-    if "if isinstance(statement.target_generator, Zero):" not in r3r10:
-        raise RuntimeError("R3R11_R3R10_NOT_INSTALLED")
-    plan = install.plan_patch(root)
-    status = _read_git(root, "status", "--porcelain", "--", install.TARGET.as_posix())
-    if plan.status == "PATCH_REQUIRED" and status:
-        raise RuntimeError("R3R11_PREEXISTING_RENDERER_EDIT_REFUSED")
-    return {"head": _read_git(root, "rev-parse", "HEAD"),
-            "blob": blob, "plan": plan}
-
-
-def _public_gate() -> dict[str, object]:
-    from phase175_r1_k4_audit.audit import inspect_one_group
-    from phase175_r3r9_lemma57_explicit_public.audit import verify_public_result
-
-    recorded = inspect_one_group(3, 4)
-    proof = verify_public_result(recorded)
-    markdown = recorded.get("markdown")
-    if not isinstance(markdown, str) or markdown.count("\n証明\n") != 1:
-        raise RuntimeError("R3R11_MODEL_NARRATIVE_NOT_AVAILABLE")
-    reference, body = markdown.split("\n証明\n", 1)
-    refs = recorded.get("references")
-    if not isinstance(refs, list):
-        raise RuntimeError("R3R11_MODEL_CITATIONS_MISSING")
-    by_locator = {c["locator"]: c["number"] for c in refs}
-    if not all(name in by_locator for name in
-               ("Lemma 5.7", "Proposition 2.2", "Chapter V, i)", "(5.3)")):
-        raise RuntimeError("R3R11_REQUIRED_TYPED_SOURCES_NOT_CITED")
-    l57 = f"[R{by_locator['Lemma 5.7']}]"
-    prop22 = f"[R{by_locator['Proposition 2.2']}]"
-    eta = f"[R{by_locator['Chapter V, i)']}]"
-    hopf = f"[R{by_locator['(5.3)']}]"
-    if (r"$E(\eta_2\nu')=0$." not in reference
-            or r"$H(\alpha E\beta)=H(\alpha) E\beta$." not in reference):
-        raise RuntimeError("R3R11_REFERENCE_CONTENT_NOT_VISIBLE")
-    if (not re.search(re.escape(l57) + r"より, \$E\(\\eta_\{2\}\\nu'\)=0\$\.", body)
-            or r"$E(\eta_{2}\circ" in body):
-        raise RuntimeError("R3R11_COMPOSITION_NOT_UNIFIED")
-    if (prop22 + "より, " not in body
-            or f"{eta}, {prop22}, {hopf}より, " not in body):
-        raise RuntimeError("R3R11_HOPF_CITATION_CHAIN_NOT_CONDENSED")
-    if (body.count(r"H(\nu'\eta_{6})") > 2
-            or body.count(r"H\left(\nu'\eta_{6}\right)") > 2):
-        raise RuntimeError("R3R11_HOPF_CHAIN_STILL_REDUNDANT")
-    if recorded.get("web_key") != "generic-complete-proof":
-        raise RuntimeError("R3R11_WEB_PROOF_NOT_COMPLETE")
-    return {
-        "search": proof["search_status"],
-        "web": proof["web"],
-        "trust": recorded.get("trust_verified"),
-        "lemma54_used": proof["lemma54_used"],
-        "reference_count": recorded.get("reference_count"),
-        "lemma57_reference": l57,
-        "prop22_reference": prop22,
-        "hopf_summary_references": f"{eta}, {prop22}, {hopf}",
-        "markdown_sha256": sha256(markdown.encode("utf-8")).hexdigest(),
-    }
-
-
-def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
-    root = root.resolve()
-    checked = preflight(root)
-    plan = checked["plan"]
-    print("PHASE175_R3R11R1_BRANCH=develop")
-    print("PHASE175_R3R11R1_HEAD=" + checked["head"])
-    print("PHASE175_R3R11R1_REVIEWED_BLOB=" + checked["blob"])
-    print("PHASE175_R3R11R1_PATCH_STATUS=" + plan.status)
-    print("PHASE175_R3R11R1_NEW_GIVEN=0")
-    print("PHASE175_R3R11R1_NEW_MATHEMATICAL_RULES=0")
-    if dry_run:
-        print("PHASE175_R3R11R1_GATE=PASS_R3R11_READ_ONLY_DRYRUN")
-        return 0
-
-    folder = (Path(os.environ.get("LOCALAPPDATA") or tempfile.gettempdir())
-              / "EHPProofTracerAudit" / "phase175_r3r11_cited_hopf_narrative")
-    folder.mkdir(parents=True, exist_ok=True)
-    target = root / install.TARGET
-    if plan.status == "PATCH_REQUIRED":
-        (folder / "renderer_backup.py").write_bytes(plan.old_bytes)
-    try:
-        install.apply_patch(root, plan)
-        env = dict(os.environ)
-        env.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1")
-        cmd = [sys.executable, "-B", "-m", "pytest", "-q", "--disable-warnings",
-               "-p", "no:cacheprovider", "-o", "addopts=", "--import-mode=importlib",
-               *TEST_PATHS]
-        result = subprocess.run(
-            cmd, cwd=root, env=env, capture_output=True, text=True,
-            encoding="utf-8", errors="replace", timeout=timeout_seconds, check=False,
-        )
-        (folder / "focused_pytest.txt").write_text(
-            result.stdout + "\n" + result.stderr, encoding="utf-8",
-        )
-        print(result.stdout[-4000:])
-        if result.returncode:
-            raise RuntimeError("R3R11_FOCUSED_PYTEST_FAILED")
-        print("PHASE175_R3R11R1_FOCUSED_PYTEST=PASS")
-        certified = _public_gate()
-        (folder / "report.json").write_text(json.dumps({
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "gate": GATE,
-            "head": checked["head"],
-            "pre_sha256": sha256(plan.old_bytes).hexdigest(),
-            "post_sha256": sha256(target.read_bytes()).hexdigest(),
-            "public": certified,
-        }, indent=2, ensure_ascii=False), encoding="utf-8")
-        for key, value in certified.items():
-            print("PHASE175_R3R11R1_" + key.upper() + "=" + str(value))
-        print("PHASE175_R3R11R1_GATE=" + GATE)
-        return 0
-    except Exception:
-        if plan.status == "PATCH_REQUIRED":
-            if target.read_bytes() == plan.new_bytes:
-                target.write_bytes(plan.old_bytes)
-                print("PHASE175_R3R11R1_ROLLBACK=RESTORED")
-            else:
-                print("PHASE175_R3R11R1_ROLLBACK=MANUAL_INSPECTION_REQUIRED")
-        raise
-
-
-def main() -> int:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=Path, required=True)
-    parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--timeout-seconds", type=int, default=300)
-    args = parser.parse_args()
-    try:
-        return run(args.root, args.dry_run, args.timeout_seconds)
-    except Exception:
-        traceback.print_exc()
-        print("PHASE175_R3R11R1_GATE=FAIL")
-        return 1
-
-
-if __name__ == "__main__":
-    raise SystemExit(main())
-```
-
-## インストーラー（変更なし） — `install.py`
-
-```python
-"""Replace one pinned, complete renderer function with EOL-aware rollback support."""
-from __future__ import annotations
-
-from dataclasses import dataclass
-from pathlib import Path
-
-TARGET = Path("phase171_r20r13_eta_sentence_layout/projection.py")
-REVIEWED_HEAD_BLOB = "77c7345f8d4c0c0c40c1059fad13de0e85e9910e"
-PACKAGE = Path(__file__).resolve().parent
-BASE = (PACKAGE / "full_functions" /
-        "format_complete_proof_sentences_BASE.py").read_text(encoding="utf-8")
-FULL = (PACKAGE / "full_functions" /
-        "format_complete_proof_sentences_FULL.py").read_text(encoding="utf-8")
-
-
-@dataclass(frozen=True)
-class PatchPlan:
-    status: str
-    old_bytes: bytes
-    new_bytes: bytes
-
-
-def _canonical(data: bytes) -> tuple[bytes, bytes]:
-    if data.startswith(b"\xef\xbb\xbf"):
-        raise RuntimeError("R3R11_UNEXPECTED_BOM")
-    if b"\r\r\n" in data:
-        raise RuntimeError("R3R11_DOUBLE_CRLF")
-    rest = data.replace(b"\r\n", b"")
-    if b"\r" in rest:
-        raise RuntimeError("R3R11_UNEXPECTED_CR")
-    if b"\r\n" in data and b"\n" in rest:
-        raise RuntimeError("R3R11_MIXED_EOL")
-    eol = b"\r\n" if b"\r\n" in data else b"\n"
-    normalized = data.replace(b"\r\n", b"\n")
-    return normalized, eol
-
-
-def plan_patch(root: Path) -> PatchPlan:
-    target = Path(root) / TARGET
-    if not target.is_file():
-        raise RuntimeError("R3R11_RENDERER_NOT_FOUND")
-    original = target.read_bytes()
-    normalized, eol = _canonical(original)
-    before = BASE.encode("utf-8")
-    after = FULL.encode("utf-8")
-    if (normalized.count(b"def format_complete_proof_sentences(") != 1
-            or not normalized.endswith(b"\n")
-            or BASE == FULL):
-        raise RuntimeError("R3R11_FUNCTION_BOUNDARY_NOT_UNIQUE")
-    if normalized.endswith(after) and normalized.count(after) == 1:
-        return PatchPlan("ALREADY_APPLIED", original, original)
-    if not normalized.endswith(before) or normalized.count(before) != 1:
-        raise RuntimeError("R3R11_REVIEWED_FORMATTER_MISMATCH")
-    patched = normalized[:-len(before)] + after
-    result = patched.replace(b"\n", eol)
-    if eol == b"\r\n" and result.count(b"\n") != result.count(b"\r\n"):
-        raise RuntimeError("R3R11_EOL_PRESERVATION_FAILED")
-    return PatchPlan("PATCH_REQUIRED", original, result)
-
-
-def apply_patch(root: Path, plan: PatchPlan) -> None:
-    target = Path(root) / TARGET
-    if plan.status not in ("PATCH_REQUIRED", "ALREADY_APPLIED"):
-        raise RuntimeError("R3R11_UNKNOWN_PATCH_STATUS")
-    if target.read_bytes() != plan.old_bytes:
-        raise RuntimeError("R3R11_TARGET_CHANGED_SINCE_PREFLIGHT")
-    if plan.status == "PATCH_REQUIRED":
-        target.write_bytes(plan.new_bytes)
-```
-
-## 表示の関連テスト — `tests/test_projection.py`
+変更済みテストファイル全文。2件の新規テストはファイル末尾に追加。
 
 ```python
 """End-to-end cited Proof Tree narration; no database-given group conclusions."""
@@ -756,8 +519,10 @@ def test_references_and_zero_composition_are_explicit(pi73_verified) -> None:
     reference, body = content.split("\n証明\n", 1)
     assert "**[R2] Lemma 5.7.**" in reference
     assert r"$E(\eta_2\nu')=0$." in reference
+    assert "特に, " not in reference
     assert "**[R6] Proposition 2.2.**" in reference
     assert r"$H(\alpha E\beta)=H(\alpha) E\beta$." in reference
+    assert "右合成公式: " not in reference
     assert r"[R2]より, $E(\eta_{2}\nu')=0$." in body
     assert r"$E(\eta_{2}\circ " not in body
     assert len(model.citations) == 7
@@ -768,10 +533,15 @@ def test_hopf_chain_is_source_bound_and_compact(pi73_verified) -> None:
     before = tuple(id(step) for step in model.steps)
     content = render_model_backed_narrative_markdown(result, model)
     _, body = content.split("\n証明\n", 1)
-    assert r"[R5]より, $E(\eta_{5})=\eta_{6}$." in body
-    assert "[R6]より, " in body, body
-    assert "[R7]より, " in body
-    assert "[R5], [R6], [R7]より, " in body, body
+    chain = (
+        r"[R5], [R6], [R7]より, "
+        r"$H(\nu'\eta_{6})=H(\nu'E\eta_{5})"
+        r"=H(\nu')E\eta_{5}=\eta_{5}E\eta_{5}=\eta_{5}^{2}$."
+    )
+    assert body.count(chain) == 1, body
+    assert r"[R5]より, $E(\eta_{5})=\eta_{6}$." not in body
+    assert r"[R6]より, $H(\nu'E\eta_{5})" not in body
+    assert r"[R7]より, $H(\nu')=\eta_{5}$." not in body
     assert "□" in body
     assert before == tuple(id(step) for step in model.steps)
 
@@ -838,9 +608,397 @@ def test_proposition_22_citation_fallback_uses_actual_given(pi73_verified) -> No
         assertion_id=ASSERTION_ID, reference_id=REFERENCE_ID,
         locator="Proposition 2.2", allow_provenance_fallback=True,
     ) is None
+
+
+def test_unverified_intermediate_cannot_be_collapsed(pi73_verified) -> None:
+    from phase175_r3r11_cited_hopf_narrative.projection import (
+        _completed_scope, _verified_hopf_chain_lines,
+    )
+    _, model = pi73_verified
+    scope = _completed_scope(model)
+    assert scope is not None
+    # The absence of the actual proof-body formulas must never create them.
+    lines = ["使用する結果", "", "証明", "", "元の数学的表示", "", "□"]
+    assert _verified_hopf_chain_lines(lines, model, scope) == lines
+
+
+def test_pi63_phase172_hopf_display_survives_second_projector() -> None:
+    """The newer one-line Hopf summary must not erase Phase 172's cited prose."""
+    bridge = build_shared_typed_bridge()
+    contexts = []
+    result = search_group_from_registered_goal(
+        n=3, k=3, bridge=bridge, context_sink=contexts.append,
+    )
+    assert result.status is ProofSearchStatus.COMPLETE
+    assert not result.open_goals
+    assert len(contexts) == 1
+    citing = resolve_specialized_goal_citing_id(bridge, result.conclusion)
+    assert citing is not None
+    verify_proof_tree_for_narrative(
+        result, contexts[0], citing_assertion_id=citing,
+    )
+    model = build_linked_proof_narrative_model(result, contexts[0])
+    markdown = render_model_backed_narrative_markdown(result, model)
+    reference, body = markdown.split("\n証明\n", 1)
+    assert "[R4] Proposition 2.2." in reference
+    assert r"[R3]より, $E(\eta_{5})=\eta_{6}$." in body
+    assert "[R4]より, " in body
+    assert "[R3], [R4], [R5]より, " in body
+    assert "□" in body
+
+
+def test_hopf_summary_requires_actual_lemma57_zero_image(pi73_verified) -> None:
+    """A mere Hopf formula cannot authorize R3R11's second compression."""
+    from phase175_r3r11_cited_hopf_narrative.projection import (
+        _completed_scope, _verified_hopf_chain_lines,
+    )
+    _, model = pi73_verified
+    scope = _completed_scope(model)
+    assert scope is not None
+    lemma_citations = tuple(
+        replace(citation, assertion_ids=(), reference_ids=())
+        if citation.reference.locator == "Lemma 5.7" else citation
+        for citation in model.citations
+    )
+    no_lemma = replace(model, citations=lemma_citations)
+    lines = [
+        "使用する結果", "", "証明", "",
+        r"[R5]より, $E(\eta_{5})=\eta_{6}$.", "",
+        r"[R6]より, $H(\nu'E\eta_{5})=H(\nu')E\eta_{5}$.", "",
+        r"[R7]より, $H(\nu')=\eta_{5}$.", "",
+        r"[R5], [R6], [R7]より, $H(\nu'\eta_{6})=\eta_{5}^{2}$.",
+        "", "□",
+    ]
+    assert _verified_hopf_chain_lines(lines, no_lemma, scope) == lines
 ```
 
-## インストーラーの関連テスト — `tests/test_install.py`
+## `audit.py`
+
+監査スクリプト全文。変更された `_public_gate()`・`run()`・`main()` および import を含む。
+
+```python
+"""R3R11 guarded read-only DryRun and completed cited-narrative Web gate."""
+from __future__ import annotations
+
+import argparse
+from datetime import datetime, timezone
+from hashlib import sha256
+import json
+import os
+from pathlib import Path
+import re
+import subprocess
+import sys
+import tempfile
+import traceback
+
+from phase175_r3r11_cited_hopf_narrative import install
+
+GATE = "PASS_R3R11R4_SINGLE_EQUATION_AND_PRIOR_NARRATIVE"
+TEST_PATHS = (
+    "phase175_r3r11_cited_hopf_narrative/tests",
+    "phase175_r3r10_generator_zero_narrative/tests/test_public.py",
+    "phase175_r3r10_generator_zero_narrative/tests/test_projection.py",
+    "phase175_r3r9_lemma57_explicit_public/tests/test_public_search.py",
+    "phase171_r20r13_eta_sentence_layout/tests/test_projection.py",
+    "phase172_r3_hopf_chain_display/tests/test_projection.py",
+    # R70's historical installer-source-pin test expects the pre-R3R10
+    # phase168 file. R3R10 legitimately changed that file. Retain the
+    # independent R70 functional tests, without weakening its source guard.
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_line_endings_source_guard_and_patch_idempotence",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_source_guard_rejects_unreviewed_change",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_rejects_mixed_eol_and_cr_only",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_body_line_search_does_not_match_reference_text",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_step_index_rejects_ambiguous_value_fallback",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_incomplete_model_has_no_composed_rewrite",
+    "phase174_r3_r7_r70_verified_narrative_projection/tests/test_projection.py::test_git_sha_fixture",
+)
+
+
+def _read_git(root: Path, *args: str) -> str:
+    result = subprocess.run(
+        ["git", *args], cwd=root, capture_output=True, text=True,
+        encoding="utf-8", errors="replace", check=False,
+    )
+    if result.returncode:
+        raise RuntimeError("R3R11_GIT_READ_FAILED: " + " ".join(args))
+    return result.stdout.strip()
+
+
+def preflight(root: Path):
+    if not (root / ".git").exists():
+        raise RuntimeError("R3R11_GIT_REPOSITORY_REQUIRED")
+    if _read_git(root, "branch", "--show-current") != "develop":
+        raise RuntimeError("R3R11_DEVELOP_REQUIRED")
+    blob = _read_git(root, "rev-parse", "HEAD:" + install.TARGET.as_posix())
+    if blob != install.REVIEWED_HEAD_BLOB:
+        raise RuntimeError("R3R11_REVIEWED_BLOB_CHANGED")
+    if not (root / "phase175_r3r10_generator_zero_narrative" / "run.ps1").is_file():
+        raise RuntimeError("R3R11_R3R10_REQUIRED")
+    if not (root / "phase175_r3r9_lemma57_explicit_public" / "route.py").is_file():
+        raise RuntimeError("R3R11_R3R9_REQUIRED")
+    r3r10 = (root / "phase168_r3_27_typed_statement_projection.py").read_text(
+        encoding="utf-8",
+    )
+    if "if isinstance(statement.target_generator, Zero):" not in r3r10:
+        raise RuntimeError("R3R11_R3R10_NOT_INSTALLED")
+    plan = install.plan_patch(root)
+    status = _read_git(root, "status", "--porcelain", "--", install.TARGET.as_posix())
+    if plan.status == "PATCH_REQUIRED" and status:
+        raise RuntimeError("R3R11_PREEXISTING_RENDERER_EDIT_REFUSED")
+    return {"head": _read_git(root, "rev-parse", "HEAD"),
+            "blob": blob, "plan": plan}
+
+
+def _public_gate() -> dict[str, object]:
+    """Require a cited single equation with the same verified proof and Web gate."""
+    from phase175_r1_k4_audit.audit import inspect_one_group
+    from phase175_r3r9_lemma57_explicit_public.audit import verify_public_result
+
+    recorded = inspect_one_group(3, 4)
+    proof = verify_public_result(recorded)
+    markdown = recorded.get("markdown")
+    if not isinstance(markdown, str) or markdown.count("\n証明\n") != 1:
+        raise RuntimeError("R3R11R4_MODEL_NARRATIVE_NOT_AVAILABLE")
+    reference, body = markdown.split("\n証明\n", 1)
+    refs = recorded.get("references")
+    if not isinstance(refs, list):
+        raise RuntimeError("R3R11R4_MODEL_CITATIONS_MISSING")
+    by_locator = {c["locator"]: c["number"] for c in refs}
+    if not all(name in by_locator for name in
+               ("Lemma 5.7", "Proposition 2.2", "Chapter V, i)", "(5.3)")):
+        raise RuntimeError("R3R11R4_REQUIRED_TYPED_SOURCES_NOT_CITED")
+    l57 = f"[R{by_locator['Lemma 5.7']}]"
+    prop22 = f"[R{by_locator['Proposition 2.2']}]"
+    eta = f"[R{by_locator['Chapter V, i)']}]"
+    hopf = f"[R{by_locator['(5.3)']}]"
+    if (r"$E(\eta_2\nu')=0$." not in reference
+            or r"$H(\alpha E\beta)=H(\alpha) E\beta$." not in reference
+            or "特に, " in reference or "右合成公式: " in reference):
+        raise RuntimeError("R3R11R4_REFERENCE_BODY_CONTRACT_FAILED")
+    if (f"{l57}より, " + r"$E(\eta_{2}\nu')=0$." not in body
+            or r"$E(\eta_{2}\circ" in body):
+        raise RuntimeError("R3R11R4_COMPOSITION_NOT_UNIFIED")
+    summary = (
+        f"{eta}, {prop22}, {hopf}より, "
+        r"$H(\nu'\eta_{6})=H(\nu'E\eta_{5})"
+        r"=H(\nu')E\eta_{5}=\eta_{5}E\eta_{5}=\eta_{5}^{2}$."
+    )
+    if body.count(summary) != 1:
+        raise RuntimeError("R3R11R4_SINGLE_EQUATION_NOT_VERIFIED")
+    if any(old in body for old in (
+        r"[R5]より, $E(\eta_{5})=\eta_{6}$.",
+        r"[R6]より, $H(\nu'E\eta_{5})",
+        r"[R7]より, $H(\nu')=\eta_{5}$.",
+    )):
+        raise RuntimeError("R3R11R4_OLD_HOPF_LINES_STILL_VISIBLE")
+    if (recorded.get("web_key") != "generic-complete-proof"
+            or recorded.get("trust_verified") is not True
+            or recorded.get("reference_count") != 7):
+        raise RuntimeError("R3R11R4_PROOF_TRUST_OR_WEB_CHANGED")
+    return {
+        "search": proof["search_status"],
+        "web": proof["web"],
+        "trust": recorded.get("trust_verified"),
+        "lemma54_used": proof["lemma54_used"],
+        "reference_count": recorded.get("reference_count"),
+        "lemma57_reference": l57,
+        "prop22_reference": prop22,
+        "single_equation_references": f"{eta}, {prop22}, {hopf}",
+        "single_equation": summary,
+        "markdown_sha256": sha256(markdown.encode("utf-8")).hexdigest(),
+    }
+
+
+def run(root: Path, dry_run: bool, timeout_seconds: int) -> int:
+    root = root.resolve()
+    checked = preflight(root)
+    plan = checked["plan"]
+    print("PHASE175_R3R11R4_BRANCH=develop")
+    print("PHASE175_R3R11R4_HEAD=" + checked["head"])
+    print("PHASE175_R3R11R4_REVIEWED_BLOB=" + checked["blob"])
+    print("PHASE175_R3R11R4_PATCH_STATUS=" + plan.status)
+    print("PHASE175_R3R11R4_NEW_GIVEN=0")
+    print("PHASE175_R3R11R4_NEW_MATHEMATICAL_RULES=0")
+    if dry_run:
+        print("PHASE175_R3R11R4_GATE=PASS_R3R11R4_READ_ONLY_DRYRUN")
+        return 0
+
+    folder = (Path(os.environ.get("LOCALAPPDATA") or tempfile.gettempdir())
+              / "EHPProofTracerAudit" / "phase175_r3r11_cited_hopf_narrative")
+    folder.mkdir(parents=True, exist_ok=True)
+    target = root / install.TARGET
+    if plan.status == "PATCH_REQUIRED":
+        (folder / "renderer_backup.py").write_bytes(plan.old_bytes)
+    try:
+        install.apply_patch(root, plan)
+        env = dict(os.environ)
+        env.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1")
+        cmd = [sys.executable, "-B", "-m", "pytest", "-q", "--disable-warnings",
+               "-p", "no:cacheprovider", "-o", "addopts=", "--import-mode=importlib",
+               *TEST_PATHS]
+        result = subprocess.run(
+            cmd, cwd=root, env=env, capture_output=True, text=True,
+            encoding="utf-8", errors="replace", timeout=timeout_seconds, check=False,
+        )
+        (folder / "focused_pytest.txt").write_text(
+            result.stdout + "\n" + result.stderr, encoding="utf-8",
+        )
+        print(result.stdout[-4000:])
+        if result.returncode:
+            raise RuntimeError("R3R11_FOCUSED_PYTEST_FAILED")
+        print("PHASE175_R3R11R4_FOCUSED_PYTEST=PASS")
+        certified = _public_gate()
+        (folder / "report.json").write_text(json.dumps({
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "gate": GATE,
+            "head": checked["head"],
+            "pre_sha256": sha256(plan.old_bytes).hexdigest(),
+            "post_sha256": sha256(target.read_bytes()).hexdigest(),
+            "public": certified,
+        }, indent=2, ensure_ascii=False), encoding="utf-8")
+        for key, value in certified.items():
+            print("PHASE175_R3R11R4_" + key.upper() + "=" + str(value))
+        print("PHASE175_R3R11R4_GATE=" + GATE)
+        return 0
+    except Exception:
+        if plan.status == "PATCH_REQUIRED":
+            if target.read_bytes() == plan.new_bytes:
+                target.write_bytes(plan.old_bytes)
+                print("PHASE175_R3R11R4_ROLLBACK=RESTORED")
+            else:
+                print("PHASE175_R3R11R4_ROLLBACK=MANUAL_INSPECTION_REQUIRED")
+        raise
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=Path, required=True)
+    parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--timeout-seconds", type=int, default=300)
+    args = parser.parse_args()
+    try:
+        return run(args.root, args.dry_run, args.timeout_seconds)
+    except Exception:
+        traceback.print_exc()
+        print("PHASE175_R3R11R4_GATE=FAIL")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+```
+
+## `run.ps1`
+
+PowerShell 実行コード全文。
+
+```powershell
+param(
+    [switch]$DryRun,
+    [int]$TimeoutSeconds = 300
+)
+
+$ErrorActionPreference = 'Stop'
+$env:PYTHONUTF8 = '1'
+$env:PYTHONIOENCODING = 'utf-8'
+$env:PYTHONDONTWRITEBYTECODE = '1'
+$root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
+Set-Location $root
+
+if ($DryRun) {
+    & python -B -m phase175_r3r11_cited_hopf_narrative.audit `
+        --root $root --dry-run --timeout-seconds $TimeoutSeconds
+    $code = $LASTEXITCODE
+    Write-Output "PHASE175_R3R11R4_EXIT_CODE=$code"
+    exit $code
+}
+
+& python -B -m phase175_r3r11_cited_hopf_narrative.audit `
+    --root $root --timeout-seconds $TimeoutSeconds
+$code = $LASTEXITCODE
+Write-Output "PHASE175_R3R11R4_EXIT_CODE=$code"
+exit $code
+```
+
+## `install.py`
+
+固定済みインストーラー全文（R3R11R3 から変更なし）。
+
+```python
+"""Replace one pinned, complete renderer function with EOL-aware rollback support."""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from pathlib import Path
+
+TARGET = Path("phase171_r20r13_eta_sentence_layout/projection.py")
+REVIEWED_HEAD_BLOB = "5deaa8886f36ec967d52b9fcd603d135ae290b39"
+PACKAGE = Path(__file__).resolve().parent
+BASE = (PACKAGE / "full_functions" /
+        "format_complete_proof_sentences_BASE.py").read_text(encoding="utf-8")
+FULL = (PACKAGE / "full_functions" /
+        "format_complete_proof_sentences_FULL.py").read_text(encoding="utf-8")
+
+
+@dataclass(frozen=True)
+class PatchPlan:
+    status: str
+    old_bytes: bytes
+    new_bytes: bytes
+
+
+def _canonical(data: bytes) -> tuple[bytes, bytes]:
+    if data.startswith(b"\xef\xbb\xbf"):
+        raise RuntimeError("R3R11_UNEXPECTED_BOM")
+    if b"\r\r\n" in data:
+        raise RuntimeError("R3R11_DOUBLE_CRLF")
+    rest = data.replace(b"\r\n", b"")
+    if b"\r" in rest:
+        raise RuntimeError("R3R11_UNEXPECTED_CR")
+    if b"\r\n" in data and b"\n" in rest:
+        raise RuntimeError("R3R11_MIXED_EOL")
+    eol = b"\r\n" if b"\r\n" in data else b"\n"
+    normalized = data.replace(b"\r\n", b"\n")
+    return normalized, eol
+
+
+def plan_patch(root: Path) -> PatchPlan:
+    target = Path(root) / TARGET
+    if not target.is_file():
+        raise RuntimeError("R3R11_RENDERER_NOT_FOUND")
+    original = target.read_bytes()
+    normalized, eol = _canonical(original)
+    before = BASE.encode("utf-8")
+    after = FULL.encode("utf-8")
+    if (normalized.count(b"def format_complete_proof_sentences(") != 1
+            or not normalized.endswith(b"\n")
+            or BASE == FULL):
+        raise RuntimeError("R3R11_FUNCTION_BOUNDARY_NOT_UNIQUE")
+    if normalized.endswith(after) and normalized.count(after) == 1:
+        return PatchPlan("ALREADY_APPLIED", original, original)
+    if not normalized.endswith(before) or normalized.count(before) != 1:
+        raise RuntimeError("R3R11_REVIEWED_FORMATTER_MISMATCH")
+    patched = normalized[:-len(before)] + after
+    result = patched.replace(b"\n", eol)
+    if eol == b"\r\n" and result.count(b"\n") != result.count(b"\r\n"):
+        raise RuntimeError("R3R11_EOL_PRESERVATION_FAILED")
+    return PatchPlan("PATCH_REQUIRED", original, result)
+
+
+def apply_patch(root: Path, plan: PatchPlan) -> None:
+    target = Path(root) / TARGET
+    if plan.status not in ("PATCH_REQUIRED", "ALREADY_APPLIED"):
+        raise RuntimeError("R3R11_UNKNOWN_PATCH_STATUS")
+    if target.read_bytes() != plan.old_bytes:
+        raise RuntimeError("R3R11_TARGET_CHANGED_SINCE_PREFLIGHT")
+    if plan.status == "PATCH_REQUIRED":
+        target.write_bytes(plan.new_bytes)
+```
+
+## `tests/test_install.py`
+
+インストーラー関連テスト全文（変更なし）。
 
 ```python
 """Atomic function replacement and Windows CRLF boundary checks."""
@@ -904,40 +1062,57 @@ def test_patch_is_stale_write_protected(tmp_path: Path) -> None:
     target.write_bytes(target.read_bytes() + b"# concurrent change\n")
     with pytest.raises(RuntimeError, match="TARGET_CHANGED_SINCE_PREFLIGHT"):
         install.apply_patch(root, plan)
+
+
+def test_committed_r3r11r1_formatter_is_already_applied(tmp_path: Path) -> None:
+    """The reviewed Git HEAD has the R3R11R1 formatter hook already."""
+    root = _fixture(tmp_path)
+    target = root / install.TARGET
+    current = target.read_bytes().replace(install.BASE.encode("utf-8"),
+                                          install.FULL.encode("utf-8"))
+    target.write_bytes(current)
+    plan = install.plan_patch(root)
+    assert plan.status == "ALREADY_APPLIED"
+    assert plan.old_bytes == plan.new_bytes == current
+
+
+def test_reviewed_r3r11r1_git_blob_pin() -> None:
+    assert install.REVIEWED_HEAD_BLOB == "5deaa8886f36ec967d52b9fcd603d135ae290b39"
 ```
 
-## PowerShell 実行 — `run.ps1`
+## `full_functions/format_complete_proof_sentences_BASE.py`
 
-```powershell
-param(
-    [switch]$DryRun,
-    [int]$TimeoutSeconds = 300
-)
-
-$ErrorActionPreference = 'Stop'
-$env:PYTHONUTF8 = '1'
-$env:PYTHONIOENCODING = 'utf-8'
-$env:PYTHONDONTWRITEBYTECODE = '1'
-$root = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
-Set-Location $root
-
-if ($DryRun) {
-    & python -B -m phase175_r3r11_cited_hopf_narrative.audit `
-        --root $root --dry-run --timeout-seconds $TimeoutSeconds
-    $code = $LASTEXITCODE
-    Write-Output "PHASE175_R3R11R1_EXIT_CODE=$code"
-    exit $code
-}
-
-& python -B -m phase175_r3r11_cited_hopf_narrative.audit `
-    --root $root --timeout-seconds $TimeoutSeconds
-$code = $LASTEXITCODE
-Write-Output "PHASE175_R3R11R1_EXIT_CODE=$code"
-exit $code
-```
-
-## パッケージの宣言 — `__init__.py`
+既存 Renderer 関数の前版全文。
 
 ```python
-"""Phase 175 R3R11 verified common narrative projection."""
+def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
+    """Keep the original tree/citations; alter only completed narrative prose."""
+    from phase174_r3_r7_r70_verified_narrative_projection.projection import (
+        project_verified_general_narrative,
+    )
+    return split_completed_proof_sentences(
+        project_verified_general_narrative(
+            combine_adjacent_verified_eta_sentences(lines, model), model,
+        )
+    )
+```
+
+## `full_functions/format_complete_proof_sentences_FULL.py`
+
+既存 Renderer 関数の現行全文。
+
+```python
+def format_complete_proof_sentences(lines: list[str], model) -> list[str]:
+    """Keep the original tree/citations; alter only completed narrative prose."""
+    from phase174_r3_r7_r70_verified_narrative_projection.projection import (
+        project_verified_general_narrative,
+    )
+    from phase175_r3r11_cited_hopf_narrative.projection import (
+        project_verified_source_and_hopf_summary,
+    )
+    combined = project_verified_general_narrative(
+        combine_adjacent_verified_eta_sentences(lines, model), model,
+    )
+    cited = project_verified_source_and_hopf_summary(combined, model)
+    return split_completed_proof_sentences(cited)
 ```

@@ -90,9 +90,9 @@ def _reference_body_lines(lines: list[str], model, scope: frozenset[int]):
 
     wanted = (
         (TodaLemma57ExplicitNuPrimeZero, LEMMA_ASSERTION, LEMMA_REFERENCE,
-         "Lemma 5.7", "特に, $" + PARTICULAR_CLAUSE.replace(r"\circ", "") + "$."),
+         "Lemma 5.7", "$" + PARTICULAR_CLAUSE.replace(r"\circ", "") + "$."),
         (TodaProp22RightFormula, PROP_ASSERTION, PROP_REFERENCE,
-         "Proposition 2.2", "右合成公式: $" + re.sub(
+         "Proposition 2.2", "$" + re.sub(
              r" +", " ", RIGHT_FORMULA.replace(r"\circ", " ")
              .replace(r"\ =\ ", "=")) + "$."),
     )
@@ -228,9 +228,38 @@ def _verified_hopf_chain_lines(lines: list[str], model, scope: frozenset[int]):
         ASSERTION_ID, REFERENCE_ID, TodaProp22RightFormula,
     )
     from phase171_r2i_eta_hopf_bridge.source import _make_chain
+    from phase175_r3r9_lemma57_explicit_public.source import (
+        ASSERTION_ID as LEMMA_ASSERTION_ID,
+        REFERENCE_ID as LEMMA_REFERENCE_ID,
+        TodaLemma57ExplicitNuPrimeZero,
+    )
 
     result = list(lines)
     if result.count("証明") != 1:
+        return result
+    # Phase 172 already provides a compact Hopf chain for other complete
+    # roots.  Do not collapse that previously approved presentation a second
+    # time.  This additional single equation is only for a completed root
+    # with the separately cited *and derived* Lemma 5.7 zero-image bridge.
+    # No group dimensions, reference numbers or text-only labels are matched.
+    lemma_source = _source_citation(
+        model, scope, statement_type=TodaLemma57ExplicitNuPrimeZero,
+        assertion_id=LEMMA_ASSERTION_ID, reference_id=LEMMA_REFERENCE_ID,
+        locator="Lemma 5.7",
+    )
+    if lemma_source is None:
+        return result
+    _, lemma_index = lemma_source
+    zero_bridges = tuple(
+        step for i, step in enumerate(model.steps)
+        if i in scope and step.rule is ProofRule.INFERENCE
+        and isinstance(step.conclusion, GeneratorImage)
+        and isinstance(step.conclusion.target_generator, Zero)
+        and isinstance(step.conclusion.source_generator, Composition)
+        and len(step.premises) == 1
+        and step.premises[0] is model.steps[lemma_index]
+    )
+    if len(zero_bridges) != 1:
         return result
     boundary = result.index("証明") + 1
     prop_source = _source_citation(
@@ -322,6 +351,26 @@ def _verified_hopf_chain_lines(lines: list[str], model, scope: frozenset[int]):
                 < anchors["conclusion"]):
             continue
 
+        # An inline equality chain is legitimate only if every intermediate
+        # equality actually occurs as an uncited derived step in this root.
+        # It is not enough to reconstruct a plausible equation from labels.
+        required_equalities = (
+            chain.eta_forward, chain.eta_backward,
+            chain.alpha_composition, chain.hopf_composition,
+            chain.cited_hopf, chain.intermediate, chain.beta_composition,
+        )
+        required_indices = []
+        for equality in required_equalities:
+            found = _unique_conclusion(
+                model, scope, equality, ProofRule.INFERENCE,
+            )
+            if (found is None or found[0] not in final_ancestry
+                    or model.step_citation_numbers[found[0]]):
+                break
+            required_indices.append(found[0])
+        if len(required_indices) != len(required_equalities):
+            continue
+
         hidden_indices = []
         for name, claim in (
             ("forward", chain.eta_forward),
@@ -350,21 +399,43 @@ def _verified_hopf_chain_lines(lines: list[str], model, scope: frozenset[int]):
             hidden_indices.append(display_index)
         if len(hidden_indices) != len(set(hidden_indices)):
             continue
-        formula_text = _rendered_sentence(steps["formula"])
-        final_text = _rendered_sentence(steps["conclusion"])
-        if formula_text is None or final_text is None:
+        # Construct one displayed equality chain from the typed generator,
+        # suspension and final proven image. The relation steps above certify
+        # every link; the formatter only renders their already-proved values.
+        from toda_human_readable_renderer import render_toda_expression_latex
+
+        try:
+            alpha = render_toda_expression_latex(chain.alpha)
+            beta = render_toda_expression_latex(chain.beta)
+            eta_next = render_toda_expression_latex(chain.eta_next)
+            square = render_toda_expression_latex(chain.conclusion.rhs)
+        except (TypeError, ValueError):
             continue
+        if not all((alpha, beta, eta_next, square)):
+            continue
+        chain_math = (
+            f"H({alpha}{eta_next})"
+            f"=H({alpha}E{beta})"
+            f"=H({alpha})E{beta}"
+            f"={beta}E{beta}"
+            f"={square}"
+        )
         tags = ", ".join(f"[R{n}]" for n in (
             eta_number, prop_citation.number, hopf_number,
         ))
+        summary = f"{tags}より, ${chain_math}$."
+        omitted = set(hidden_indices)
+        omitted.update((
+            anchors["witness"], anchors["formula"], hopf_anchor,
+        ))
+        if anchors["conclusion"] in omitted:
+            continue
         changed: list[str] = []
         for i, line in enumerate(result):
-            if i in hidden_indices:
+            if i in omitted:
                 continue
-            if i == anchors["formula"]:
-                changed.append(f"[R{prop_citation.number}]より, " + formula_text)
-            elif i == anchors["conclusion"]:
-                changed.append(tags + "より, " + final_text)
+            if i == anchors["conclusion"]:
+                changed.append(summary)
             else:
                 changed.append(line)
         # Suppressed equations can leave adjacent empty paragraphs. This is

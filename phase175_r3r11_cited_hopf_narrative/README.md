@@ -1,65 +1,33 @@
-# EHP Proof Tracer — Phase 175 R3R11R1
+# EHP Proof Tracer — Phase 175 R3R11R4 (Preserve Prior Hopf Narratives)
 
-This is the corrected package for Phase 175 R3R11. It fixes three focused
-regressions observed on Windows after a successful read-only DryRun: the
-Proposition 2.2 source body was absent, the certified Hopf composition chain
-was not compressed, and one old Phase 174 R70 **installer pin** test rejected
-the already committed and legitimate R3R10 renderer change.
+R3R11R3 passed read-only DryRun, but its focused tests reported **34 passed, 1 failed**. The failure was in the existing Phase 172 regression test for the complete $\pi_6^3$ proof. Its previously verified suspension equation disappeared because the R3R11 single-equation presentation was applied to a Hopf chain already condensed by the Phase 172 projector.
 
-The production change remains **only one complete function replacement**:
-`phase171_r20r13_eta_sentence_layout/projection.py::format_complete_proof_sentences`.
-The shared presentation helpers live in
-`phase175_r3r11_cited_hopf_narrative/projection.py`. No mathematical GIVEN,
-inference rule, ProofStep, proof-search path, registry entry, or existing
-external API is changed.
+## Reviewed baseline and scope
 
-## What changed in R3R11R1
+Before preparing this package, the current `akebono03/ehp-proof-tracer` `develop` files and relevant tests were inspected. The shared formatter `phase171_r20r13_eta_sentence_layout/projection.py` has the R3R11R1 hook committed at Git blob `5deaa8886f36ec967d52b9fcd603d135ae290b39`; no modification to that tracked file is needed. This ZIP replaces the R3R11 package directory from R3R11R3 and retains the single-equation feature.
 
-* Proposition 2.2 can be recognized by its exactly typed cited GIVEN and
-  attached, source-specific LiteratureReference when its citation metadata
-  omits the registered assertion IDs. A matching locator without the actual
-  cited source ProofStep is insufficient.
-* The right-composition formula's display normalizes whitespace while keeping
-  its verified mathematical meaning.
-* The Hopf chain projector tests the final typed conclusion and its actual
-  proof ancestors rather than requiring one specific intermediate expansion
-  layout. It hides only its own uncited, explicitly witnessed intermediate
-  equalities. The source steps, final equality, and citation numbers remain.
-* The focused pytest selection retains the functional R70 regression tests,
-  but does not re-run R70's historical installer-baseline pin test, whose
-  baseline predates R3R10. R70's production guard and tests are **unchanged**.
+The only behavior change is within `phase175_r3r11_cited_hopf_narrative/projection.py::_verified_hopf_chain_lines()`. It now requires an actual source-cited `TodaLemma57ExplicitNuPrimeZero` GIVEN and its directly derived, uniquely verified zero `GeneratorImage` within the completed root before applying this **second-stage** Hopf compression. This is a typed source/proof guard, not a target-coordinate or textual equation match. All previously approved Phase 172 Hopf narratives remain handled by their own projector.
 
-## Windows PowerShell
+Other package changes are two focused regression tests in `tests/test_projection.py`, revision labels in `audit.py` and `run.ps1`, and complete updated documentation. No math inference rules, database GIVENs, references, search policy, or core renderer are modified. The old `phase174_r3_r7_r70_verified_narrative_projection` source-pin test is still excluded because it expects the intentionally pre-R3R10 version of another file; its functional tests continue to run.
 
-Run from the repository root on `develop`, after the successful R3R10 commit.
-Extract this archive with overwrite to replace the failed R3R11 package:
+## PowerShell execution
 
 ```powershell
 cd C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
-Expand-Archive -Path "$HOME\Downloads\R3R11R1.zip" -DestinationPath "." -Force
+$ErrorActionPreference = 'Stop'
+Expand-Archive -Path "$HOME\Downloads\R3R11R4.zip" -DestinationPath "." -Force
 $script = ".\phase175_r3r11_cited_hopf_narrative\run.ps1"
 powershell -NoProfile -ExecutionPolicy Bypass -File $script -DryRun
-Write-Output "DRYRUN_EXIT_CODE=$LASTEXITCODE"
-```
-
-If that exits with 0, run the focused application and actual public-search
-checks:
-
-```powershell
+if ($LASTEXITCODE -ne 0) { throw "R3R11R4 DryRun failed" }
 powershell -NoProfile -ExecutionPolicy Bypass -File $script
-Write-Output "R3R11R1_EXIT_CODE=$LASTEXITCODE"
+if ($LASTEXITCODE -ne 0) { throw "R3R11R4 audit failed" }
 git diff --check
 git diff --stat
 git status -sb
 ```
 
-The DryRun is read-only. The full run backs up the original function file,
-applies an EOL-preserving exact replacement, executes only listed focused
-tests and checks the actual completed public proof and Web outcome. On failure,
-the original bytes are restored unless another process modified the file.
-Recovery logs are written outside the repository under
-`%LOCALAPPDATA%\EHPProofTracerAudit\phase175_r3r11_cited_hopf_narrative`.
+## Acceptance
 
-Expected success gate:
-`PASS_R3R11R1_CITED_REFERENCES_AND_HOPF_CHAIN_COMPACT`.
-The full pytest suite remains reserved for the end of Phase 175.
+DryRun must report `PATCH_STATUS=ALREADY_APPLIED` and gate `PASS_R3R11R4_READ_ONLY_DRYRUN`. The real run requires all focused tests, including the unchanged Phase 172 regression and the new pi63 non-interference test, to pass. The pi73 public narrative must remain complete, trusted, source-cited with seven references, free of Lemma 5.4 reliance, and display the single four-equality Hopf calculation. Final gate: `PASS_R3R11R4_SINGLE_EQUATION_AND_PRIOR_NARRATIVE`.
+
+The full pytest suite is intentionally deferred until the end of Phase 175.

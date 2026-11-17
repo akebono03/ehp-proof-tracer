@@ -1,27 +1,25 @@
-# Phase 175 R3R11R1 — テストおよび実行結果
+# Phase 175 R3R11R4 — テスト記録
 
-## 修正前のユーザー実行（確認済み）
+## R3R11R3 実行失敗の記録
 
-- R3R11 DryRun: `PASS_R3R11_READ_ONLY_DRYRUN`、終了コード0。
-- R3R11 本実行: `29 passed, 3 failed`、`R3R11_FOCUSED_PYTEST_FAILED`、`PHASE175_R3R11_ROLLBACK=RESTORED`、終了コード1。
-- 失敗3件: [R6] 引用本文の未表示、Hopf 連鎖未圧縮、Phase 174 R70 の履歴上の source pin が R3R10 の変更を拒否。
+ユーザー Windows 実行：DryRun `PASS_R3R11R3_READ_ONLY_DRYRUN`、`PATCH_STATUS=ALREADY_APPLIED`。本実行の限定 pytest は `34 passed, 1 failed`。失敗は Phase 172 の `$\pi_6^3$` Hopf narrative regression、`test_real_public_narrative_shortens_hopf_chain_only`。
 
-## 修正版の作成環境で確認
+## R3R11R4 作成環境で実施
 
-- `python -m compileall`: 修正パッケージの構文チェック PASS。
-- パッケージ内 `tests/test_install.py`: `4 passed`（Linux 上のローカル確認。Windows での本実行とは異なる）。
-- 実際のユーザー Windows リポジトリに対する公開 Proof Search / Web と全限定 pytest は **未実施**。成功を先取りして記載しない。
+- `python -m compileall`：構文確認 PASS。
+- `python -m pytest -q -p no:cacheprovider -o addopts= phase175_r3r11_cited_hopf_narrative/tests/test_install.py`：**6 passed**。
+- ZIP 構成およびソースハッシュ：生成後の ZIP 整合性チェックを行う。
+- 新しい `test_projection.py` の実行：本作成環境には完全なアプリケーションリポジトリがないため **未実施**。Windows 本実行に委ねる。
 
-## Windows で実行する限定 pytest
+## Windows に委ねる限定テスト
 
-`audit.py` の `TEST_PATHS` のみを実行する。旧 R70 installer baseline テストだけは現在の R3R10 後のファイルに対して意味を持たず除外し、対応する新しい R3R10/R3R11 インストーラーテストを実施する。旧 Source Guard の実装は変更しない。
+`audit.py` の `TEST_PATHS`。従来の Phase 172 テストと新規 $\pi_6^3$ 回帰テストを両方含む。全体 pytest は行わない。
 
-### 最終合格基準
+## 完了条件
 
-- `PHASE175_R3R11R1_FOCUSED_PYTEST=PASS`
-- `PHASE175_R3R11R1_SEARCH=complete`、`PHASE175_R3R11R1_TRUST=True`
-- `PHASE175_R3R11R1_WEB=generic-complete-proof`
-- [R2] と [R6] の引用内容および Hopf 等式連鎖の圧縮を確認
-- `PHASE175_R3R11R1_GATE=PASS_R3R11R1_CITED_REFERENCES_AND_HOPF_CHAIN_COMPACT`
-
-失敗時は `ROLLBACK=RESTORED` を確認し、`%LOCALAPPDATA%\EHPProofTracerAudit\phase175_r3r11_cited_hopf_narrative\focused_pytest.txt` を調査する。
+- DryRun `PASS_R3R11R4_READ_ONLY_DRYRUN`、終了コード0。
+- 本実行の限定 pytest 全件 PASS。
+- $\pi_6^3$ の Phase 172 表示維持。
+- $\pi_7^3$ の1本の Hopf 連鎖を維持。
+- 公開証明：complete、Web generic-complete-proof、Trust True、Reference 7件、Lemma 5.4 非依存。
+- 最終 `PASS_R3R11R4_SINGLE_EQUATION_AND_PRIOR_NARRATIVE`。

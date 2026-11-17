@@ -39,8 +39,10 @@ def test_references_and_zero_composition_are_explicit(pi73_verified) -> None:
     reference, body = content.split("\n証明\n", 1)
     assert "**[R2] Lemma 5.7.**" in reference
     assert r"$E(\eta_2\nu')=0$." in reference
+    assert "特に, " not in reference
     assert "**[R6] Proposition 2.2.**" in reference
     assert r"$H(\alpha E\beta)=H(\alpha) E\beta$." in reference
+    assert "右合成公式: " not in reference
     assert r"[R2]より, $E(\eta_{2}\nu')=0$." in body
     assert r"$E(\eta_{2}\circ " not in body
     assert len(model.citations) == 7
@@ -51,10 +53,15 @@ def test_hopf_chain_is_source_bound_and_compact(pi73_verified) -> None:
     before = tuple(id(step) for step in model.steps)
     content = render_model_backed_narrative_markdown(result, model)
     _, body = content.split("\n証明\n", 1)
-    assert r"[R5]より, $E(\eta_{5})=\eta_{6}$." in body
-    assert "[R6]より, " in body, body
-    assert "[R7]より, " in body
-    assert "[R5], [R6], [R7]より, " in body, body
+    chain = (
+        r"[R5], [R6], [R7]より, "
+        r"$H(\nu'\eta_{6})=H(\nu'E\eta_{5})"
+        r"=H(\nu')E\eta_{5}=\eta_{5}E\eta_{5}=\eta_{5}^{2}$."
+    )
+    assert body.count(chain) == 1, body
+    assert r"[R5]より, $E(\eta_{5})=\eta_{6}$." not in body
+    assert r"[R6]より, $H(\nu'E\eta_{5})" not in body
+    assert r"[R7]より, $H(\nu')=\eta_{5}$." not in body
     assert "□" in body
     assert before == tuple(id(step) for step in model.steps)
 
@@ -121,3 +128,65 @@ def test_proposition_22_citation_fallback_uses_actual_given(pi73_verified) -> No
         assertion_id=ASSERTION_ID, reference_id=REFERENCE_ID,
         locator="Proposition 2.2", allow_provenance_fallback=True,
     ) is None
+
+
+def test_unverified_intermediate_cannot_be_collapsed(pi73_verified) -> None:
+    from phase175_r3r11_cited_hopf_narrative.projection import (
+        _completed_scope, _verified_hopf_chain_lines,
+    )
+    _, model = pi73_verified
+    scope = _completed_scope(model)
+    assert scope is not None
+    # The absence of the actual proof-body formulas must never create them.
+    lines = ["使用する結果", "", "証明", "", "元の数学的表示", "", "□"]
+    assert _verified_hopf_chain_lines(lines, model, scope) == lines
+
+
+def test_pi63_phase172_hopf_display_survives_second_projector() -> None:
+    """The newer one-line Hopf summary must not erase Phase 172's cited prose."""
+    bridge = build_shared_typed_bridge()
+    contexts = []
+    result = search_group_from_registered_goal(
+        n=3, k=3, bridge=bridge, context_sink=contexts.append,
+    )
+    assert result.status is ProofSearchStatus.COMPLETE
+    assert not result.open_goals
+    assert len(contexts) == 1
+    citing = resolve_specialized_goal_citing_id(bridge, result.conclusion)
+    assert citing is not None
+    verify_proof_tree_for_narrative(
+        result, contexts[0], citing_assertion_id=citing,
+    )
+    model = build_linked_proof_narrative_model(result, contexts[0])
+    markdown = render_model_backed_narrative_markdown(result, model)
+    reference, body = markdown.split("\n証明\n", 1)
+    assert "[R4] Proposition 2.2." in reference
+    assert r"[R3]より, $E(\eta_{5})=\eta_{6}$." in body
+    assert "[R4]より, " in body
+    assert "[R3], [R4], [R5]より, " in body
+    assert "□" in body
+
+
+def test_hopf_summary_requires_actual_lemma57_zero_image(pi73_verified) -> None:
+    """A mere Hopf formula cannot authorize R3R11's second compression."""
+    from phase175_r3r11_cited_hopf_narrative.projection import (
+        _completed_scope, _verified_hopf_chain_lines,
+    )
+    _, model = pi73_verified
+    scope = _completed_scope(model)
+    assert scope is not None
+    lemma_citations = tuple(
+        replace(citation, assertion_ids=(), reference_ids=())
+        if citation.reference.locator == "Lemma 5.7" else citation
+        for citation in model.citations
+    )
+    no_lemma = replace(model, citations=lemma_citations)
+    lines = [
+        "使用する結果", "", "証明", "",
+        r"[R5]より, $E(\eta_{5})=\eta_{6}$.", "",
+        r"[R6]より, $H(\nu'E\eta_{5})=H(\nu')E\eta_{5}$.", "",
+        r"[R7]より, $H(\nu')=\eta_{5}$.", "",
+        r"[R5], [R6], [R7]より, $H(\nu'\eta_{6})=\eta_{5}^{2}$.",
+        "", "□",
+    ]
+    assert _verified_hopf_chain_lines(lines, no_lemma, scope) == lines
