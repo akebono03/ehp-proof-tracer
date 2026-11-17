@@ -55,10 +55,13 @@ def test_pi73_single_final_conclusion_and_hopf_isomorphism(pi73_verified) -> Non
     )
     assert "以上より, " + conclusion in body
     assert "\n" + conclusion + "\n" not in body
-    assert r"[R4]より, $\eta_{5}^{2}$ は $\pi_{7}^{5}$ の生成元" in body
-    assert "$H$ は全射." in body
-    assert "すでに $H$ は単射なので, $H$ は同型." in body
-    assert body.index(summary) < body.index("$H$ は全射.") < body.index("以上より, " + conclusion)
+    assert body.count("よって, $H$ は全射.") == 1
+    assert body.count("よって, $H$ は同型.") == 1
+    assert "の生成元であり" not in body
+    assert "すでに $H$ は単射なので" not in body
+    assert (body.index(summary) < body.index("よって, $H$ は全射.")
+            < body.index("よって, $H$ は同型.")
+            < body.index("以上より, " + conclusion))
     assert "**[R2] Lemma 5.7.**" in references
     assert "**[R6] Proposition 2.2.**" in references
     assert len(model.citations) == 7
@@ -109,7 +112,25 @@ def test_internal_cyclic_latex_is_not_a_second_proof_requirement(
     _, body = content.split("\n証明\n", 1)
     conclusion = r"$\pi_{7}^{3} = \mathbb{Z}/2\{\nu'\eta_{6}\}$."
     assert body.count(conclusion) == 1, body
-    assert "すでに $H$ は単射なので, $H$ は同型." in body
+    assert "よって, $H$ は同型." in body
+
+
+def test_concise_consequences_follow_typed_hopf_map(pi73_verified) -> None:
+    """The same certified map symbol owns both short consequences."""
+    from phase168_r3_27_typed_statement_projection import map_symbol_tex
+
+    result, model = pi73_verified
+    certificate = _certified_hopf_lift(model)
+    assert certificate is not None
+    _, _, cyclic_step, _ = certificate
+    map_symbol = map_symbol_tex(cyclic_step.premises[0].conclusion.map)
+    assert map_symbol == "H"
+    markdown = render_model_backed_narrative_markdown(result, model)
+    _, body = markdown.split("\n証明\n", 1)
+    sentences = body.splitlines()
+    assert sentences.count(f"よって, ${map_symbol}$ は全射.") == 1
+    assert sentences.count(f"よって, ${map_symbol}$ は同型.") == 1
+    assert all("生成元であり" not in sentence for sentence in sentences)
 
 
 def test_partial_or_missing_source_citations_are_unchanged(pi73_verified) -> None:
@@ -142,7 +163,7 @@ def test_injectivity_line_matches_the_real_typed_renderer(pi73_verified) -> None
     markdown = render_model_backed_narrative_markdown(result, model)
     _, body = markdown.split("\n証明\n", 1)
     assert sentence in body.splitlines()
-    assert "すでに $H$ は単射なので, $H$ は同型." in body
+    assert "よって, $H$ は同型." in body
 
 
 def test_missing_injectivity_line_preserves_original(pi73_verified) -> None:
@@ -194,4 +215,4 @@ def test_pi63_old_narrative_remains_unchanged() -> None:
     assert r"[R3]より, $E(\eta_{5})=\eta_{6}$." in body
     assert "[R4]より, " in body
     assert "[R3], [R4], [R5]より, " in body
-    assert "すでに $H$ は単射なので, $H$ は同型." not in body
+    assert "よって, $H$ は同型." not in body

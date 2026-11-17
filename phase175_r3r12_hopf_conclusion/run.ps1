@@ -14,12 +14,12 @@ if ($DryRun) {
     & python -B -m phase175_r3r12_hopf_conclusion.audit `
         --root $root --dry-run --timeout-seconds $TimeoutSeconds
     $code = $LASTEXITCODE
-    Write-Output "PHASE175_R3R12R3_EXIT_CODE=$code"
+    Write-Output "PHASE175_R3R12R4_EXIT_CODE=$code"
     exit $code
 }
 
 & python -B -m phase175_r3r12_hopf_conclusion.audit `
     --root $root --timeout-seconds $TimeoutSeconds
 $code = $LASTEXITCODE
-Write-Output "PHASE175_R3R12R3_EXIT_CODE=$code"
+Write-Output "PHASE175_R3R12R4_EXIT_CODE=$code"
 exit $code

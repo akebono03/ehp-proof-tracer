@@ -12,7 +12,7 @@ from phase165_r12_r2_quotient_rules import CyclicStructureStatement
 from phase165_r14_r6_generic_iso import MapInjective
 from phase165_r52_partial_proof import ProofSearchStatus
 from phase168_r3_3_proof_narrative_model import root_ancestor_step_indices
-from phase168_r3_27_typed_statement_projection import group_tex, typed_sentence
+from phase168_r3_27_typed_statement_projection import group_tex, map_symbol_tex, typed_sentence
 from phase175_r3_pi73_hopf_lift.rule import RULE_NAME, hopf_lift_inputs
 from proof import ProofRule, Relation, RelationType
 from toda_human_readable_renderer import render_toda_public_group_generator_latex
@@ -211,12 +211,14 @@ def project_verified_hopf_lift_conclusion(lines: list[str], model) -> list[str]:
     expected = f"[R{source_numbers[0]}]より, ${codomain_latex}$."
     if original.count(expected) != 1:
         return original
-    source_prefix = f"[R{source_numbers[0]}]より, "
-    surjective = (
-        f"{source_prefix}${generator_tex}$ は ${target_group}$ の生成元であり, "
-        "$H$ の像に含まれるので, $H$ は全射."
-    )
-    isomorphism = "すでに $H$ は単射なので, $H$ は同型."
+    # Existing typed premises certify surjectivity and, together with
+    # injectivity, an isomorphism.  Render only their short common
+    # consequences; do not manufacture MapSurjective/MapIsomorphism steps.
+    symbol = map_symbol_tex(injective_step.conclusion.map)
+    if not symbol:
+        return original
+    surjective = f"よって, ${symbol}$ は全射."
+    isomorphism = f"よって, ${symbol}$ は同型."
     changed = []
     for index, line in enumerate(original):
         if index == duplicate_at:

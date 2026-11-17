@@ -1,67 +1,37 @@
-# EHP Proof Tracer — Phase 175 R3R12R3
+# EHP Proof Tracer — Phase 175 R3R12R4
 
-R3R12R2 completed its read-only DryRun, then failed two focused public
-narrative assertions (47 passed, 2 failed) and restored the patched file.
-This release corrects the actual fail-closed presentation mismatch: the
-old projector searched for `H:` immediately adjacent to the TeX domain,
-while the shared typed renderer prints `H: ` with a space and may prefix
-its sentence with the verified exactness explanation.
+This is a presentation-only simplification of the certified finite-cyclic Hopf lift. The two prior paragraphs were customized for the displayed example, even though the underlying mathematical rule is general. They are now replaced with two concise, map-symbol-derived sentences:
 
-The replacement now checks the full sentence emitted by
-`typed_sentence(injective_step.conclusion, injective_step)`, requiring it to
-occur exactly once in the displayed proof. It never constructs an
-injectivity claim from a string and never changes an underlying ProofStep.
-Every original source, generator-image, group-relation and order check
-remains. If the typed sentence cannot be found, the entire proof display is
-left unchanged.
+- `よって, $H$ は全射.`
+- `よって, $H$ は同型.`
 
-## Changed files and API
+The projector reads the map symbol from the existing, proved `MapInjective` premise, not from fixed sphere dimensions or citation labels. It continues to require the same typed Hopf-lift certificate, the actual cited codomain generator, the proved image, the already-rendered Hopf chain, and the original injectivity sentence before it changes any display. It does not add a surjectivity or isomorphism `ProofStep` or a new mathematical rule. Missing or ambiguous premises leave the original display unchanged.
 
-- Existing `phase175_r3r11_cited_hopf_narrative/projection.py`:
-  only the complete `project_verified_source_and_hopf_summary()` hook is
-  replaced with the already reviewed R3R12 connection. No imports change.
-- New Phase 175 package `projection.py`: add the existing `typed_sentence`
-  import and replace the complete `project_verified_hopf_lift_conclusion()`.
-  All helper functions, classes, and other imports remain unchanged.
-- `tests/test_projection.py`: add two tests checking the actual typed
-  injectivity sentence and fail-closed behavior when it is missing.
-- `audit.py`, `run.ps1` and four package documents: update the R3R12R3
-  labels and source-bound acceptance contract.
-- The EHP mathematical code, published source references, group database,
-  and inference rules are unchanged.
+## Changes
 
-The installer only accepts the Git blob
-`258d22589f92fbebdb9c4516dbe72c1f94a98afd` for the previous R3R11R4
-projector (LF/CRLF normalized). Its DryRun is read-only and its live run
-restores the original projector if any focused test or public audit fails.
+- `phase175_r3r12_hopf_conclusion/projection.py`: modify only `project_verified_hopf_lift_conclusion()` and add the `map_symbol_tex` import.
+- `tests/test_projection.py`: update the concise-output assertions and add one source-bound map-symbol test.
+- `audit.py`, `run.ps1`, and the package documents: update the focused public gate to R3R12R4.
+- The already installed R3R12R3 hook in `phase175_r3r11_cited_hopf_narrative/projection.py` is unchanged. All mathematical source facts, proofs, tests outside this package, and database entries are unchanged.
 
-## Windows execution
+## Run on Windows PowerShell
 
 ```powershell
 cd C:\Users\oomae\Dropbox\Python\fitz\ehp_proof
 $ErrorActionPreference = 'Stop'
-Expand-Archive -Path "$HOME\Downloads\R3R12R3.zip" -DestinationPath "." -Force
+Expand-Archive -Path "$HOME\Downloads\R3R12R4.zip" -DestinationPath "." -Force
 $script = ".\phase175_r3r12_hopf_conclusion\run.ps1"
 powershell -NoProfile -ExecutionPolicy Bypass -File $script -DryRun
-if ($LASTEXITCODE -ne 0) { throw "R3R12R3 DryRun failed" }
+if ($LASTEXITCODE -ne 0) { throw "R3R12R4 DryRun failed" }
 powershell -NoProfile -ExecutionPolicy Bypass -File $script
-if ($LASTEXITCODE -ne 0) { throw "R3R12R3 audit failed" }
+if ($LASTEXITCODE -ne 0) { throw "R3R12R4 audit failed" }
 git diff --check
 git diff --stat
 git status -sb
 ```
 
-## Acceptance gate
+## Verification boundary
 
-DryRun: `PASS_R3R12R3_READ_ONLY_DRYRUN`.
+The patch installer accepts only the previously reviewed R3R11R4 production file and the exact R3R12 hook; its expected state on a successful R3R12R3 installation is `ALREADY_APPLIED`. Source-first, first successful proof search, and the seven references are unchanged. The focused tests cover the current pi_7^3 proof and the older pi_6^3 narrative. The full suite remains reserved for the end of Phase 175. The next proof-search phase is not implemented by this package.
 
-Real run: `PASS_R3R12R3_VERIFIED_HOPF_ISOMORPHISM_SINGLE_CONCLUSION`.
-
-The source-verified proof of pi_7^3 remains complete with seven references;
-the display contains one concluding group relation, and the derivation explains
-Hopf surjectivity and isomorphism without introducing new mathematical claims.
-The existing pi_6^3 Phase 172 rendering must remain unchanged.
-
-Only the focused pytest paths in `audit.py` are executed. The full
-repository suite remains reserved for the end of Phase 175; the next
-mathematical search (R4) is outside this package.
+Expected gate: `PASS_R3R12R4_CONCISE_VERIFIED_HOPF_CONSEQUENCES`.
